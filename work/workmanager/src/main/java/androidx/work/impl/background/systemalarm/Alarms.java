@@ -28,7 +28,7 @@ import android.support.annotation.RestrictTo;
 
 import androidx.work.Logger;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.SystemIdInfo;
 import androidx.work.impl.model.SystemIdInfoDao;
 import androidx.work.impl.utils.IdGenerator;
@@ -47,13 +47,13 @@ class Alarms {
      * Sets an exact alarm after cancelling any existing alarms for the given id.
      *
      * @param context         The application {@link Context}.
-     * @param workManager     The instance of {@link WorkManagerImpl}.
+     * @param workManager     The instance of {@link WorkManagerEngine}.
      * @param workSpecId      The {@link androidx.work.impl.model.WorkSpec} identifier.
      * @param triggerAtMillis Determines when to trigger the Alarm.
      */
     public static void setAlarm(
             @NonNull Context context,
-            @NonNull WorkManagerImpl workManager,
+            @NonNull WorkManagerEngine workManager,
             @NonNull String workSpecId,
             long triggerAtMillis) {
 
@@ -76,12 +76,12 @@ class Alarms {
      * Cancels an existing alarm and removes the {@link SystemIdInfo}.
      *
      * @param context     The application {@link Context}.
-     * @param workManager The instance of {@link WorkManagerImpl}.
+     * @param workManager The instance of {@link WorkManagerEngine}.
      * @param workSpecId  The {@link androidx.work.impl.model.WorkSpec} identifier.
      */
     public static void cancelAlarm(
             @NonNull Context context,
-            @NonNull WorkManagerImpl workManager,
+            @NonNull WorkManagerEngine workManager,
             @NonNull String workSpecId) {
 
         WorkDatabase workDatabase = workManager.getWorkDatabase();

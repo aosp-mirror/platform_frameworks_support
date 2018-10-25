@@ -29,7 +29,7 @@ import android.text.TextUtils;
 import androidx.work.Logger;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.ExecutionListener;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,17 +41,17 @@ import java.util.Map;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-@RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@RequiresApi(WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobService extends JobService implements ExecutionListener {
     private static final String TAG = "SystemJobService";
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private final Map<String, JobParameters> mJobParameters = new HashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
-        if (mWorkManagerImpl == null) {
+        mEngine = WorkManagerEngine.getInstance();
+        if (mEngine == null) {
             // This can occur if...
             // 1. The app is performing an auto-backup.  Prior to O, JobScheduler could erroneously
             //    try to send commands to JobService in this state (b/32180780).  Since neither
@@ -73,21 +73,21 @@ public class SystemJobService extends JobService implements ExecutionListener {
                     + "make sure that you are initializing WorkManager if you have manually "
                     + "disabled WorkManagerInitializer.");
         } else {
-            mWorkManagerImpl.getProcessor().addExecutionListener(this);
+            mEngine.getProcessor().addExecutionListener(this);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mWorkManagerImpl != null) {
-            mWorkManagerImpl.getProcessor().removeExecutionListener(this);
+        if (mEngine != null) {
+            mEngine.getProcessor().removeExecutionListener(this);
         }
     }
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        if (mWorkManagerImpl == null) {
+        if (mEngine == null) {
             Logger.debug(TAG, "WorkManager is not initialized; requesting retry.");
             jobFinished(params, true);
             return false;
@@ -133,13 +133,13 @@ public class SystemJobService extends JobService implements ExecutionListener {
             }
         }
 
-        mWorkManagerImpl.startWork(workSpecId, runtimeExtras);
+        mEngine.startWork(workSpecId, runtimeExtras);
         return true;
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        if (mWorkManagerImpl == null) {
+        if (mEngine == null) {
             Logger.debug(TAG, "WorkManager is not initialized; requesting retry.");
             return true;
         }
@@ -155,8 +155,8 @@ public class SystemJobService extends JobService implements ExecutionListener {
         synchronized (mJobParameters) {
             mJobParameters.remove(workSpecId);
         }
-        mWorkManagerImpl.stopWork(workSpecId);
-        return !mWorkManagerImpl.getProcessor().isCancelled(workSpecId);
+        mEngine.stopWork(workSpecId);
+        return !mEngine.getProcessor().isCancelled(workSpecId);
     }
 
     @Override

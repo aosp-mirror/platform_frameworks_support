@@ -44,16 +44,16 @@ import org.junit.runner.RunWith;
 public class SchedulersTest {
 
     private Context mAppContext;
-    private WorkManagerImpl mWorkManager;
+    private WorkManagerEngine mWorkManager;
 
     @Before
     public void setUp() {
-        mWorkManager = mock(WorkManagerImpl.class);
+        mWorkManager = mock(WorkManagerEngine.class);
         mAppContext = InstrumentationRegistry.getTargetContext();
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+    @SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
     public void testGetBackgroundScheduler_withJobSchedulerApiLevel() {
         Scheduler scheduler =
                 Schedulers.createBestAvailableBackgroundScheduler(mAppContext, mWorkManager);
@@ -62,7 +62,7 @@ public class SchedulersTest {
     }
 
     @Test
-    @SdkSuppress(maxSdkVersion = WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL)
+    @SdkSuppress(maxSdkVersion = WorkManagerEngine.MAX_PRE_JOB_SCHEDULER_API_LEVEL)
     public void testGetBackgroundScheduler_beforeJobSchedulerApiLevel() {
         Scheduler scheduler =
                 Schedulers.createBestAvailableBackgroundScheduler(mAppContext, mWorkManager);
@@ -73,7 +73,7 @@ public class SchedulersTest {
     // Only one service should really be enabled at one time.
     private void assertServicesEnabled(
             boolean systemJobEnabled, boolean firebaseJobEnabled, boolean systemAlarmEnabled) {
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             assertThat(isComponentExplicitlyEnabled(mAppContext, SystemJobService.class),
                     is(systemJobEnabled));
         }

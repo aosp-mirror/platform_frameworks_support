@@ -104,13 +104,13 @@ public class Schedulers {
     @SuppressLint("NewApi") // TODO https://issuetracker.google.com/issues/110576968
     static @NonNull Scheduler createBestAvailableBackgroundScheduler(
             @NonNull Context context,
-            @NonNull WorkManagerImpl workManager) {
+            @NonNull WorkManagerEngine workManager) {
 
         Scheduler scheduler;
         boolean enableFirebaseJobService = false;
         boolean enableSystemAlarmService = false;
 
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             scheduler = new SystemJobScheduler(context, workManager);
             setComponentEnabled(context, SystemJobService.class, true);
             Logger.debug(TAG, "Created SystemJobScheduler and enabled SystemJobService");

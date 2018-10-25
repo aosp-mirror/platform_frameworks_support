@@ -117,16 +117,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-public class WorkManagerImplTest {
-
-    private static final String TAG = "WorkManagerImplTest";
+public class WorkManagerEngineTest {
 
     private static final long SLEEP_DURATION_SMALL_MILLIS = 500L;
 
     private Context mContext;
     private Configuration mConfiguration;
     private WorkDatabase mDatabase;
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
 
     @Rule
     public RepeatRule mRepeatRule = new RepeatRule();
@@ -153,16 +151,16 @@ public class WorkManagerImplTest {
         mConfiguration = new Configuration.Builder()
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .build();
-        mWorkManagerImpl =
-                new WorkManagerImpl(mContext, mConfiguration, new InstantWorkTaskExecutor());
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
-        mDatabase = mWorkManagerImpl.getWorkDatabase();
+        mEngine =
+                new WorkManagerEngine(mContext, mConfiguration, new InstantWorkTaskExecutor());
+        WorkManagerEngine.setDelegate(mEngine);
+        mDatabase = mEngine.getWorkDatabase();
         Logger.setMinimumLoggingLevel(Log.DEBUG);
     }
 
     @After
     public void tearDown() {
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -175,7 +173,8 @@ public class WorkManagerImplTest {
             workArray[i] = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         }
 
-        mWorkManagerImpl.beginWith(workArray[0]).then(workArray[1])
+        mEngine.beginWith(Collections.singletonList(workArray[0]))
+                .then(workArray[1])
                 .then(workArray[2])
                 .enqueue().get();
 
@@ -193,7 +192,7 @@ public class WorkManagerImplTest {
     @SmallTest
     public void testEnqueue_AddsImplicitTags() throws ExecutionException, InterruptedException {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.enqueueInternal(Collections.singletonList(work)).get();
+        mEngine.enqueue(Collections.singletonList(work)).get();
 
         WorkTagDao workTagDao = mDatabase.workTagDao();
         List<String> tags = workTagDao.getTagsForWorkSpecId(work.getStringId());
@@ -208,7 +207,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest work3 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
 
-        mWorkManagerImpl.enqueueInternal(Arrays.asList(work1, work2, work3)).get();
+        mEngine.enqueue(Arrays.asList(work1, work2, work3)).get();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getWorkSpec(work1.getStringId()), is(notNullValue()));
@@ -225,7 +224,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest work3 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
 
-        mWorkManagerImpl.beginWith(work1, work2, work3)
+        mEngine.beginWith(Arrays.asList(work1, work2, work3))
                 .enqueue()
                 .get();
 
@@ -246,7 +245,8 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work3a = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest work3b = new OneTimeWorkRequest.Builder(TestWorker.class).build();
 
-        mWorkManagerImpl.beginWith(work1a, work1b).then(work2)
+        mEngine.beginWith(Arrays.asList(work1a, work1b))
+                .then(work2)
                 .then(work3a, work3b)
                 .enqueue()
                 .get();
@@ -283,7 +283,8 @@ public class WorkManagerImplTest {
                 .setInitialState(SUCCEEDED)
                 .build();
 
-        WorkContinuation workContinuation = mWorkManagerImpl.beginWith(work1);
+        WorkContinuation workContinuation =
+                mEngine.beginWith(Collections.singletonList(work1));
         workContinuation.enqueue().get();
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work1.getStringId()), is(SUCCEEDED));
@@ -302,7 +303,8 @@ public class WorkManagerImplTest {
                 .setInitialState(FAILED)
                 .build();
 
-        WorkContinuation workContinuation = mWorkManagerImpl.beginWith(work1);
+        WorkContinuation workContinuation =
+                mEngine.beginWith(Collections.singletonList(work1));
         workContinuation.enqueue().get();
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work1.getStringId()), is(FAILED));
@@ -321,7 +323,8 @@ public class WorkManagerImplTest {
                 .setInitialState(CANCELLED)
                 .build();
 
-        WorkContinuation workContinuation = mWorkManagerImpl.beginWith(work1);
+        WorkContinuation workContinuation =
+                mEngine.beginWith(Collections.singletonList(work1));
         workContinuation.enqueue().get();
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work1.getStringId()), is(CANCELLED));
@@ -353,7 +356,7 @@ public class WorkManagerImplTest {
                                 .build())
                 .build();
         OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.beginWith(work0).then(work1).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work0)).then(work1).enqueue().get();
 
         WorkSpec workSpec0 = mDatabase.workSpecDao().getWorkSpec(work0.getStringId());
         WorkSpec workSpec1 = mDatabase.workSpecDao().getWorkSpec(work1.getStringId());
@@ -395,7 +398,7 @@ public class WorkManagerImplTest {
                 .setInitialDelay(expectedInitialDelay, TimeUnit.MILLISECONDS)
                 .build();
         OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.beginWith(work0).then(work1).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work0)).then(work1).enqueue().get();
 
         WorkSpec workSpec0 = mDatabase.workSpecDao().getWorkSpec(work0.getStringId());
         WorkSpec workSpec1 = mDatabase.workSpecDao().getWorkSpec(work1.getStringId());
@@ -413,7 +416,7 @@ public class WorkManagerImplTest {
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 50000, TimeUnit.MILLISECONDS)
                 .build();
         OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.beginWith(work0).then(work1).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work0)).then(work1).enqueue().get();
 
         WorkSpec workSpec0 = mDatabase.workSpecDao().getWorkSpec(work0.getStringId());
         WorkSpec workSpec1 = mDatabase.workSpecDao().getWorkSpec(work1.getStringId());
@@ -441,7 +444,12 @@ public class WorkManagerImplTest {
                 .addTag(firstTag)
                 .build();
         OneTimeWorkRequest work2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.beginWith(work0).then(work1).then(work2).enqueue().get();
+        mEngine
+                .beginWith(Collections.singletonList(work0))
+                .then(work1)
+                .then(work2)
+                .enqueue()
+                .get();
 
         WorkTagDao workTagDao = mDatabase.workTagDao();
         assertThat(workTagDao.getWorkSpecIdsWithTag(firstTag),
@@ -460,7 +468,7 @@ public class WorkManagerImplTest {
                 TimeUnit.MILLISECONDS)
                 .build();
 
-        mWorkManagerImpl.enqueueInternal(Collections.singletonList(periodicWork)).get();
+        mEngine.enqueue(Collections.singletonList(periodicWork)).get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(periodicWork.getStringId());
         assertThat(workSpec.isPeriodic(), is(true));
@@ -478,7 +486,7 @@ public class WorkManagerImplTest {
 
         long beforeEnqueueTime = System.currentTimeMillis();
 
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.periodStartTime, is(greaterThanOrEqualTo(beforeEnqueueTime)));
     }
@@ -497,7 +505,7 @@ public class WorkManagerImplTest {
 
         long beforeEnqueueTime = System.currentTimeMillis();
 
-        mWorkManagerImpl.enqueueInternal(Collections.singletonList(periodicWork)).get();
+        mEngine.enqueue(Collections.singletonList(periodicWork)).get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(periodicWork.getStringId());
         assertThat(workSpec.periodStartTime, is(greaterThanOrEqualTo(beforeEnqueueTime)));
@@ -513,7 +521,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest next = new OneTimeWorkRequest.Builder(TestWorker.class).build();
 
-        mWorkManagerImpl.beginUniqueWork(uniqueName, REPLACE, work)
+        mEngine.beginUniqueWork(uniqueName, REPLACE, Collections.singletonList(work))
                 .then(next)
                 .enqueue().get();
 
@@ -533,7 +541,7 @@ public class WorkManagerImplTest {
                 15L,
                 TimeUnit.MINUTES)
                 .build();
-        mWorkManagerImpl.enqueueUniquePeriodicWorkInternal(
+        mEngine.enqueueUniquePeriodicWork(
                 uniqueName,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 periodicWork).get();
@@ -560,8 +568,8 @@ public class WorkManagerImplTest {
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest replacementWork2 =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, REPLACE, replacementWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, REPLACE, Collections.singletonList(replacementWork1))
                 .then(replacementWork2)
                 .enqueue().get();
 
@@ -598,7 +606,7 @@ public class WorkManagerImplTest {
                 30L,
                 TimeUnit.MINUTES)
                 .build();
-        mWorkManagerImpl.enqueueUniquePeriodicWorkInternal(
+        mEngine.enqueueUniquePeriodicWork(
                 uniqueName,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 replacementWork).get();
@@ -629,8 +637,8 @@ public class WorkManagerImplTest {
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest replacementWork2 =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, KEEP, replacementWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, KEEP, Collections.singletonList(replacementWork1))
                 .then(replacementWork2)
                 .enqueue()
                 .get();
@@ -666,7 +674,7 @@ public class WorkManagerImplTest {
                 30L,
                 TimeUnit.MINUTES)
                 .build();
-        mWorkManagerImpl.enqueueUniquePeriodicWorkInternal(
+        mEngine.enqueueUniquePeriodicWork(
                 uniqueName,
                 ExistingPeriodicWorkPolicy.KEEP,
                 replacementWork).get();
@@ -698,8 +706,8 @@ public class WorkManagerImplTest {
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest replacementWork2 =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, KEEP, replacementWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, KEEP, Collections.singletonList(replacementWork1))
                 .then(replacementWork2)
                 .enqueue().get();
 
@@ -736,7 +744,7 @@ public class WorkManagerImplTest {
                 30L,
                 TimeUnit.MINUTES)
                 .build();
-        mWorkManagerImpl.enqueueUniquePeriodicWorkInternal(
+        mEngine.enqueueUniquePeriodicWork(
                 uniqueName,
                 ExistingPeriodicWorkPolicy.KEEP,
                 replacementWork).get();
@@ -765,8 +773,8 @@ public class WorkManagerImplTest {
 
         OneTimeWorkRequest appendWork1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest appendWork2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, APPEND, appendWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, APPEND, Collections.singletonList(appendWork1))
                 .then(appendWork2)
                 .enqueue().get();
 
@@ -806,7 +814,7 @@ public class WorkManagerImplTest {
 
         OneTimeWorkRequest appendWork1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest appendWork2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl.enqueueUniqueWorkInternal(
+        mEngine.enqueueUniqueWork(
                 uniqueName,
                 APPEND,
                 Arrays.asList(appendWork1, appendWork2)).get();
@@ -857,8 +865,8 @@ public class WorkManagerImplTest {
 
         OneTimeWorkRequest appendWork1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest appendWork2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, APPEND, appendWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, APPEND, Collections.singletonList(appendWork1))
                 .then(appendWork2)
                 .enqueue().get();
 
@@ -896,8 +904,8 @@ public class WorkManagerImplTest {
 
         OneTimeWorkRequest appendWork1 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         OneTimeWorkRequest appendWork2 = new OneTimeWorkRequest.Builder(TestWorker.class).build();
-        mWorkManagerImpl
-                .beginUniqueWork(uniqueName, APPEND, appendWork1)
+        mEngine
+                .beginUniqueWork(uniqueName, APPEND, Collections.singletonList(appendWork1))
                 .then(appendWork2)
                 .enqueue().get();
 
@@ -914,7 +922,7 @@ public class WorkManagerImplTest {
                 .build();
         insertWorkSpecAndTags(work);
 
-        WorkStatus workStatus = mWorkManagerImpl.getStatusById(work.getId()).get();
+        WorkStatus workStatus = mEngine.getStatusById(work.getId()).get();
         assertThat(workStatus.getId().toString(), is(work.getStringId()));
         assertThat(workStatus.getState(), is(SUCCEEDED));
     }
@@ -924,7 +932,7 @@ public class WorkManagerImplTest {
     public void testGetStatusByIdSync_returnsNullIfNotInDatabase()
             throws ExecutionException, InterruptedException {
 
-        WorkStatus workStatus = mWorkManagerImpl.getStatusById(UUID.randomUUID()).get();
+        WorkStatus workStatus = mEngine.getStatusById(UUID.randomUUID()).get();
         assertThat(workStatus, is(nullValue()));
     }
 
@@ -940,7 +948,7 @@ public class WorkManagerImplTest {
         Observer<List<WorkStatus>> mockObserver = mock(Observer.class);
 
         TestLifecycleOwner testLifecycleOwner = new TestLifecycleOwner();
-        LiveData<List<WorkStatus>> liveData = mWorkManagerImpl.getStatusesById(
+        LiveData<List<WorkStatus>> liveData = mEngine.getStatusesById(
                 Arrays.asList(work0.getStringId(), work1.getStringId()));
         liveData.observe(testLifecycleOwner, mockObserver);
 
@@ -1031,13 +1039,13 @@ public class WorkManagerImplTest {
                 Data.EMPTY,
                 Arrays.asList(TestWorker.class.getName(), secondTag));
 
-        List<WorkStatus> workStatuses = mWorkManagerImpl.getStatusesByTag(firstTag).get();
+        List<WorkStatus> workStatuses = mEngine.getStatusesByTag(firstTag).get();
         assertThat(workStatuses, containsInAnyOrder(workStatus0, workStatus1));
 
-        workStatuses = mWorkManagerImpl.getStatusesByTag(secondTag).get();
+        workStatuses = mEngine.getStatusesByTag(secondTag).get();
         assertThat(workStatuses, containsInAnyOrder(workStatus0, workStatus2));
 
-        workStatuses = mWorkManagerImpl.getStatusesByTag("dummy").get();
+        workStatuses = mEngine.getStatusesByTag("dummy").get();
         assertThat(workStatuses.size(), is(0));
     }
 
@@ -1075,10 +1083,10 @@ public class WorkManagerImplTest {
                 Data.EMPTY,
                 Collections.singletonList(InfiniteTestWorker.class.getName()));
 
-        List<WorkStatus> workStatuses = mWorkManagerImpl.getStatusesForUniqueWork(uniqueName).get();
+        List<WorkStatus> workStatuses = mEngine.getStatusesForUniqueWork(uniqueName).get();
         assertThat(workStatuses, containsInAnyOrder(workStatus0, workStatus1, workStatus2));
 
-        workStatuses = mWorkManagerImpl.getStatusesForUniqueWork("dummy").get();
+        workStatuses = mEngine.getStatusesForUniqueWork("dummy").get();
         assertThat(workStatuses.size(), is(0));
     }
 
@@ -1106,7 +1114,7 @@ public class WorkManagerImplTest {
 
         TestLifecycleOwner testLifecycleOwner = new TestLifecycleOwner();
         LiveData<List<WorkStatus>> liveData =
-                mWorkManagerImpl.getStatusesForUniqueWorkLiveData(uniqueName);
+                mEngine.getStatusesForUniqueWorkLiveData(uniqueName);
         liveData.observe(testLifecycleOwner, mockObserver);
 
         ArgumentCaptor<List<WorkStatus>> captor = ArgumentCaptor.forClass(List.class);
@@ -1157,7 +1165,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work0);
         insertWorkSpecAndTags(work1);
 
-        mWorkManagerImpl.cancelWorkByIdInternal(work0.getId()).get();
+        mEngine.cancelWorkById(work0.getId()).get();
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
         assertThat(workSpecDao.getState(work1.getStringId()), is(not(CANCELLED)));
     }
@@ -1177,7 +1185,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work1);
         insertDependency(work1, work0);
 
-        mWorkManagerImpl.cancelWorkByIdInternal(work0.getId()).get();
+        mEngine.cancelWorkById(work0.getId()).get();
 
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
         assertThat(workSpecDao.getState(work1.getStringId()), is(CANCELLED));
@@ -1200,7 +1208,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work1);
         insertDependency(work1, work0);
 
-        mWorkManagerImpl.cancelWorkByIdInternal(work0.getId()).get();
+        mEngine.cancelWorkById(work0.getId()).get();
 
         assertThat(workSpecDao.getState(work0.getStringId()), is(SUCCEEDED));
         assertThat(workSpecDao.getState(work1.getStringId()), is(CANCELLED));
@@ -1231,7 +1239,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work2);
         insertWorkSpecAndTags(work3);
 
-        mWorkManagerImpl.cancelAllWorkByTagInternal(tagToClear).get();
+        mEngine.cancelAllWorkByTag(tagToClear).get();
 
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
         assertThat(workSpecDao.getState(work1.getStringId()), is(CANCELLED));
@@ -1276,7 +1284,7 @@ public class WorkManagerImplTest {
         insertDependency(work1, work0);
         insertDependency(work4, work0);
 
-        mWorkManagerImpl.cancelAllWorkByTagInternal(tag).get();
+        mEngine.cancelAllWorkByTag(tag).get();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
@@ -1295,7 +1303,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(InfiniteTestWorker.class).build();
         insertNamedWorks(uniqueName, work0, work1);
 
-        mWorkManagerImpl.cancelUniqueWorkInternal(uniqueName).get();
+        mEngine.cancelUniqueWork(uniqueName).get();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
@@ -1315,7 +1323,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(InfiniteTestWorker.class).build();
         insertNamedWorks(uniqueName, work0, work1);
 
-        mWorkManagerImpl.cancelUniqueWorkInternal(uniqueName).get();
+        mEngine.cancelUniqueWork(uniqueName).get();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work0.getStringId()), is(SUCCEEDED));
@@ -1339,7 +1347,7 @@ public class WorkManagerImplTest {
         assertThat(workSpecDao.getState(work1.getStringId()), is(ENQUEUED));
         assertThat(workSpecDao.getState(work2.getStringId()), is(SUCCEEDED));
 
-        mWorkManagerImpl.cancelAllWorkInternal().get();
+        mEngine.cancelAllWork().get();
         assertThat(workSpecDao.getState(work0.getStringId()), is(CANCELLED));
         assertThat(workSpecDao.getState(work1.getStringId()), is(CANCELLED));
         assertThat(workSpecDao.getState(work2.getStringId()), is(SUCCEEDED));
@@ -1354,7 +1362,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWorkSpecAndTags(work);
 
-        CancelWorkRunnable.forAll(mWorkManagerImpl).run();
+        CancelWorkRunnable.forAll(mEngine).run();
         assertThat(preferences.getLastCancelAllTimeMillis(), is(greaterThan(0L)));
     }
 
@@ -1367,7 +1375,7 @@ public class WorkManagerImplTest {
 
         TestLifecycleOwner testLifecycleOwner = new TestLifecycleOwner();
         LiveData<Long> cancelAllTimeLiveData =
-                mWorkManagerImpl.getLastCancelAllTimeMillisLiveData();
+                mEngine.getLastCancelAllTimeMillisLiveData();
         Observer<Long> mockObserver = mock(Observer.class);
         cancelAllTimeLiveData.observe(testLifecycleOwner, mockObserver);
 
@@ -1379,7 +1387,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work);
 
         clearInvocations(mockObserver);
-        CancelWorkRunnable.forAll(mWorkManagerImpl).run();
+        CancelWorkRunnable.forAll(mEngine).run();
 
         Thread.sleep(1000L);
         verify(mockObserver).onChanged(captor.capture());
@@ -1409,7 +1417,7 @@ public class WorkManagerImplTest {
 
         insertDependency(enqueuedWork, finishedWorkWithUnfinishedDependent);
 
-        mWorkManagerImpl.pruneWorkInternal().get();
+        mEngine.pruneWork().get();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getWorkSpec(enqueuedWork.getStringId()), is(notNullValue()));
@@ -1431,8 +1439,8 @@ public class WorkManagerImplTest {
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
         assertThat(workSpecDao.getState(work.getStringId()), is(ENQUEUED));
 
-        mWorkManagerImpl.cancelWorkByIdInternal(work.getId()).get();
-        assertThat(mWorkManagerImpl.getStatusById(work.getId()).get().getState(), is(CANCELLED));
+        mEngine.cancelWorkById(work.getId()).get();
+        assertThat(mEngine.getStatusById(work.getId()).get().getState(), is(CANCELLED));
     }
 
     @Test
@@ -1529,20 +1537,20 @@ public class WorkManagerImplTest {
                 return packageManager;
             }
         };
-        mWorkManagerImpl =
-                new WorkManagerImpl(mContext, mConfiguration, new InstantWorkTaskExecutor());
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
+        mEngine =
+                new WorkManagerEngine(mContext, mConfiguration, new InstantWorkTaskExecutor());
+        WorkManagerEngine.setDelegate(mEngine);
         // Call getSchedulers() so WM calls createBestAvailableBackgroundScheduler()
         // which in turn initializes the right System(*)Service.
-        mWorkManagerImpl.getSchedulers();
-        mDatabase = mWorkManagerImpl.getWorkDatabase();
+        mEngine.getSchedulers();
+        mDatabase = mEngine.getWorkDatabase();
         // Initialization of WM enables SystemJobService which needs to be discounted.
         reset(packageManager);
         OneTimeWorkRequest stopAwareWorkRequest =
                 new OneTimeWorkRequest.Builder(StopAwareWorker.class)
                         .build();
 
-        mWorkManagerImpl.enqueueInternal(Collections.singletonList(stopAwareWorkRequest)).get();
+        mEngine.enqueue(Collections.singletonList(stopAwareWorkRequest)).get();
         ComponentName componentName = new ComponentName(mContext, RescheduleReceiver.class);
         verify(packageManager, times(1))
                 .setComponentEnabledSetting(eq(componentName),
@@ -1550,7 +1558,7 @@ public class WorkManagerImplTest {
                         eq(PackageManager.DONT_KILL_APP));
 
         reset(packageManager);
-        mWorkManagerImpl.cancelWorkByIdInternal(stopAwareWorkRequest.getId()).get();
+        mEngine.cancelWorkById(stopAwareWorkRequest.getId()).get();
         // Sleeping for a little bit, to give the listeners a chance to catch up.
         Thread.sleep(SLEEP_DURATION_SMALL_MILLIS);
         // There is a small chance that we will call this method twice. Once when the Worker was
@@ -1574,7 +1582,7 @@ public class WorkManagerImplTest {
                         .setRequiresBatteryNotLow(true)
                         .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(TestWorker.class.getName()));
@@ -1591,7 +1599,7 @@ public class WorkManagerImplTest {
                         .setRequiresStorageNotLow(true)
                         .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(TestWorker.class.getName()));
@@ -1608,7 +1616,7 @@ public class WorkManagerImplTest {
                 .setRequiresBatteryNotLow(true)
                 .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(ConstraintTrackingWorker.class.getName()));
@@ -1628,7 +1636,7 @@ public class WorkManagerImplTest {
                         .setRequiresStorageNotLow(true)
                         .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(ConstraintTrackingWorker.class.getName()));
@@ -1648,7 +1656,7 @@ public class WorkManagerImplTest {
                         .setRequiresBatteryNotLow(true)
                         .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(TestWorker.class.getName()));
@@ -1665,7 +1673,7 @@ public class WorkManagerImplTest {
                         .setRequiresStorageNotLow(true)
                         .build())
                 .build();
-        mWorkManagerImpl.beginWith(work).enqueue().get();
+        mEngine.beginWith(Collections.singletonList(work)).enqueue().get();
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(work.getStringId());
         assertThat(workSpec.workerClassName, is(TestWorker.class.getName()));
@@ -1693,7 +1701,7 @@ public class WorkManagerImplTest {
         final CountDownLatch latch = new CountDownLatch(3);
         TestLifecycleOwner testLifecycleOwner = new TestLifecycleOwner();
 
-        LiveData<WorkStatus> status = mWorkManagerImpl.getStatusByIdLiveData(work.getId());
+        LiveData<WorkStatus> status = mEngine.getStatusByIdLiveData(work.getId());
         status.observe(testLifecycleOwner, new Observer<WorkStatus>() {
             @Override
             public void onChanged(@Nullable WorkStatus workStatus) {
@@ -1705,12 +1713,12 @@ public class WorkManagerImplTest {
             }
         });
 
-        mWorkManagerImpl.enqueueSync(work);
+        mEngine.enqueueSync(work);
         // latch.await();
         latch.await(20, TimeUnit.SECONDS);
         assertThat(latch.getCount(), is(0L));
         status.removeObservers(testLifecycleOwner);
-        mWorkManagerImpl.cancelWorkById(work.getId());
+        mEngine.cancelWorkById(work.getId());
     }
     */
 

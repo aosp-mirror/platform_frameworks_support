@@ -40,7 +40,7 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManagerTest;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.worker.TestWorker;
 
@@ -49,7 +49,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-@SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobInfoConverterTest extends WorkManagerTest {
 
     private static final long TEST_INTERVAL_DURATION =
@@ -263,7 +263,7 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
 
     @Test
     @SmallTest
-    @SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL, maxSdkVersion = 25)
+    @SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL, maxSdkVersion = 25)
     public void testConvertNetworkType_metered_returnsAnyBeforeApi26() {
         assertThat(SystemJobInfoConverter.convertNetworkType(METERED),
                 is(JobInfo.NETWORK_TYPE_ANY));

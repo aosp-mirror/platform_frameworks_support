@@ -42,7 +42,7 @@ import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkDatabaseMigrations;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkTypeConverters;
 import androidx.work.impl.utils.Preferences;
@@ -224,7 +224,7 @@ public class WorkDatabaseMigrationTest {
         cursor.moveToNext();
         assertThat(cursor.getString(cursor.getColumnIndex("id")),
                 is(periodicWorkSpecId));
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             assertThat(cursor.getLong(cursor.getColumnIndex("schedule_requested_at")),
                     is(0L));
         } else {

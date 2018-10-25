@@ -21,7 +21,7 @@ import android.content.Context;
 import android.os.Build;
 
 import androidx.test.InstrumentationRegistry;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 
 import org.junit.After;
@@ -33,7 +33,7 @@ public abstract class WorkManagerTest {
     @After
     public void clearJobs() {
         // Note: @SdkSuppress doesn't seem to work here.
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             JobScheduler jobScheduler = (JobScheduler) InstrumentationRegistry.getTargetContext()
                     .getSystemService(Context.JOB_SCHEDULER_SERVICE);
             jobScheduler.cancelAll();

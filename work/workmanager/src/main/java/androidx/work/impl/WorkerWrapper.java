@@ -458,7 +458,7 @@ public class WorkerWrapper implements Runnable {
         try {
             mWorkSpecDao.setState(ENQUEUED, mWorkSpecId);
             mWorkSpecDao.setPeriodStartTime(mWorkSpecId, System.currentTimeMillis());
-            if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
                 // We only need to reset the schedule_requested_at bit for the AlarmManager
                 // implementation because AlarmManager does not know about periodic WorkRequests.
                 // Otherwise we end up double scheduling the Worker with an identical jobId, and
@@ -489,7 +489,7 @@ public class WorkerWrapper implements Runnable {
             mWorkSpecDao.setPeriodStartTime(mWorkSpecId, nextPeriodStartTime);
             mWorkSpecDao.setState(ENQUEUED, mWorkSpecId);
             mWorkSpecDao.resetWorkSpecRunAttemptCount(mWorkSpecId);
-            if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
                 // We only need to reset the schedule_requested_at bit for the AlarmManager
                 // implementation because AlarmManager does not know about periodic WorkRequests.
                 // Otherwise we end up double scheduling the Worker with an identical jobId, and

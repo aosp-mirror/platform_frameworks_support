@@ -21,7 +21,7 @@ import android.support.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 
 /**
@@ -34,24 +34,24 @@ public class StopWorkRunnable implements Runnable {
 
     private static final String TAG = "StopWorkRunnable";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private String mWorkSpecId;
 
-    public StopWorkRunnable(WorkManagerImpl workManagerImpl, String workSpecId) {
-        mWorkManagerImpl = workManagerImpl;
+    public StopWorkRunnable(WorkManagerEngine engine, String workSpecId) {
+        mEngine = engine;
         mWorkSpecId = workSpecId;
     }
 
     @Override
     public void run() {
-        WorkDatabase workDatabase = mWorkManagerImpl.getWorkDatabase();
+        WorkDatabase workDatabase = mEngine.getWorkDatabase();
         WorkSpecDao workSpecDao = workDatabase.workSpecDao();
         workDatabase.beginTransaction();
         try {
             if (workSpecDao.getState(mWorkSpecId) == State.RUNNING) {
                 workSpecDao.setState(State.ENQUEUED, mWorkSpecId);
             }
-            boolean isStopped = mWorkManagerImpl.getProcessor().stopWork(mWorkSpecId);
+            boolean isStopped = mEngine.getProcessor().stopWork(mWorkSpecId);
             Logger.debug(
                     TAG,
                     String.format(

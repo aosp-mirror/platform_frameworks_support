@@ -22,7 +22,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.work.Logger;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 /**
  * Reschedules alarms on BOOT_COMPLETED and other similar scenarios.
@@ -33,8 +33,8 @@ public class RescheduleReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
-            WorkManagerImpl workManager = WorkManagerImpl.getInstance();
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
+            WorkManagerEngine workManager = WorkManagerEngine.getInstance();
             if (workManager == null) {
                 // WorkManager has not already been initialized.
                 Logger.error(TAG,

@@ -30,7 +30,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManagerTest;
 import androidx.work.impl.Processor;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.worker.TestWorker;
@@ -49,18 +49,18 @@ public class GreedySchedulerTest extends WorkManagerTest {
 
     private static final String TEST_ID = "test";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private Processor mMockProcessor;
     private WorkConstraintsTracker mMockWorkConstraintsTracker;
     private GreedyScheduler mGreedyScheduler;
 
     @Before
     public void setUp() {
-        mWorkManagerImpl = mock(WorkManagerImpl.class);
+        mEngine = mock(WorkManagerEngine.class);
         mMockProcessor = mock(Processor.class);
         mMockWorkConstraintsTracker = mock(WorkConstraintsTracker.class);
-        when(mWorkManagerImpl.getProcessor()).thenReturn(mMockProcessor);
-        mGreedyScheduler = new GreedyScheduler(mWorkManagerImpl, mMockWorkConstraintsTracker);
+        when(mEngine.getProcessor()).thenReturn(mMockProcessor);
+        mGreedyScheduler = new GreedyScheduler(mEngine, mMockWorkConstraintsTracker);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class GreedySchedulerTest extends WorkManagerTest {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         WorkSpec workSpec = getWorkSpec(work);
         mGreedyScheduler.schedule(workSpec);
-        verify(mWorkManagerImpl).startWork(workSpec.id);
+        verify(mEngine).startWork(workSpec.id);
     }
 
     @Test
@@ -106,14 +106,14 @@ public class GreedySchedulerTest extends WorkManagerTest {
     @SmallTest
     public void testGreedyScheduler_startsWorkWhenConstraintsMet() {
         mGreedyScheduler.onAllConstraintsMet(Collections.singletonList(TEST_ID));
-        verify(mWorkManagerImpl).startWork(TEST_ID);
+        verify(mEngine).startWork(TEST_ID);
     }
 
     @Test
     @SmallTest
     public void testGreedyScheduler_stopsWorkWhenConstraintsNotMet() {
         mGreedyScheduler.onAllConstraintsNotMet(Collections.singletonList(TEST_ID));
-        verify(mWorkManagerImpl).stopWork(TEST_ID);
+        verify(mEngine).stopWork(TEST_ID);
     }
 
     @Test

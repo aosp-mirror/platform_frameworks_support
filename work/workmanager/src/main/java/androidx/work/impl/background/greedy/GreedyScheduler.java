@@ -27,7 +27,7 @@ import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
@@ -47,22 +47,22 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
 
     private static final String TAG = "GreedyScheduler";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mEngine;
     private WorkConstraintsTracker mWorkConstraintsTracker;
     private List<WorkSpec> mConstrainedWorkSpecs = new ArrayList<>();
     private boolean mRegisteredExecutionListener;
     private final Object mLock;
 
-    public GreedyScheduler(Context context, WorkManagerImpl workManagerImpl) {
-        mWorkManagerImpl = workManagerImpl;
+    public GreedyScheduler(Context context, WorkManagerEngine engine) {
+        mEngine = engine;
         mWorkConstraintsTracker = new WorkConstraintsTracker(context, this);
         mLock = new Object();
     }
 
     @VisibleForTesting
-    public GreedyScheduler(WorkManagerImpl workManagerImpl,
+    public GreedyScheduler(WorkManagerEngine engine,
             WorkConstraintsTracker workConstraintsTracker) {
-        mWorkManagerImpl = workManagerImpl;
+        mEngine = engine;
         mWorkConstraintsTracker = workConstraintsTracker;
         mLock = new Object();
     }
@@ -91,7 +91,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
                         constrainedWorkSpecIds.add(workSpec.id);
                     }
                 } else {
-                    mWorkManagerImpl.startWork(workSpec.id);
+                    mEngine.startWork(workSpec.id);
                 }
             }
         }
@@ -113,14 +113,14 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
         registerExecutionListenerIfNeeded();
         Logger.debug(TAG, String.format("Cancelling work ID %s", workSpecId));
         // onExecutionCompleted does the cleanup.
-        mWorkManagerImpl.stopWork(workSpecId);
+        mEngine.stopWork(workSpecId);
     }
 
     @Override
     public void onAllConstraintsMet(@NonNull List<String> workSpecIds) {
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG, String.format("Constraints met: Scheduling work ID %s", workSpecId));
-            mWorkManagerImpl.startWork(workSpecId);
+            mEngine.startWork(workSpecId);
         }
     }
 
@@ -129,7 +129,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
         for (String workSpecId : workSpecIds) {
             Logger.debug(TAG,
                     String.format("Constraints not met: Cancelling work ID %s", workSpecId));
-            mWorkManagerImpl.stopWork(workSpecId);
+            mEngine.stopWork(workSpecId);
         }
     }
 
@@ -158,7 +158,7 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
         // This method needs to be called *after* Processor is created, since Processor needs
         // Schedulers and is created after this class.
         if (!mRegisteredExecutionListener) {
-            mWorkManagerImpl.getProcessor().addExecutionListener(this);
+            mEngine.getProcessor().addExecutionListener(this);
             mRegisteredExecutionListener = true;
         }
     }

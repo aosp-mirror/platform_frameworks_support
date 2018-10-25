@@ -47,7 +47,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.State;
 import androidx.work.WorkManagerTest;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.SystemIdInfoDao;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
@@ -61,12 +61,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-@SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobSchedulerTest extends WorkManagerTest {
 
     private static final String TEST_ID = "test";
 
-    private WorkManagerImpl mWorkManager;
+    private WorkManagerEngine mWorkManager;
     private JobScheduler mJobScheduler;
     private SystemJobScheduler mSystemJobScheduler;
     private WorkSpecDao mMockWorkSpecDao;
@@ -79,7 +79,7 @@ public class SystemJobSchedulerTest extends WorkManagerTest {
         SystemIdInfoDao systemIdInfoDao = mock(SystemIdInfoDao.class);
         mMockWorkSpecDao = mock(WorkSpecDao.class);
 
-        mWorkManager = mock(WorkManagerImpl.class);
+        mWorkManager = mock(WorkManagerEngine.class);
         mJobScheduler = mock(JobScheduler.class);
 
         when(mWorkManager.getConfiguration()).thenReturn(configuration);

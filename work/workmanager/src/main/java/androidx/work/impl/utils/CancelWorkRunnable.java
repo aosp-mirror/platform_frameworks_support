@@ -29,7 +29,7 @@ import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.futures.SettableFuture;
@@ -68,22 +68,22 @@ public abstract class CancelWorkRunnable implements Runnable {
 
     abstract void runInternal();
 
-    void cancel(WorkManagerImpl workManagerImpl, String workSpecId) {
-        recursivelyCancelWorkAndDependents(workManagerImpl.getWorkDatabase(), workSpecId);
+    void cancel(WorkManagerEngine engine, String workSpecId) {
+        recursivelyCancelWorkAndDependents(engine.getWorkDatabase(), workSpecId);
 
-        Processor processor = workManagerImpl.getProcessor();
+        Processor processor = engine.getProcessor();
         processor.stopAndCancelWork(workSpecId);
 
-        for (Scheduler scheduler : workManagerImpl.getSchedulers()) {
+        for (Scheduler scheduler : engine.getSchedulers()) {
             scheduler.cancel(workSpecId);
         }
     }
 
-    void reschedulePendingWorkers(WorkManagerImpl workManagerImpl) {
+    void reschedulePendingWorkers(WorkManagerEngine engine) {
         Schedulers.schedule(
-                workManagerImpl.getConfiguration(),
-                workManagerImpl.getWorkDatabase(),
-                workManagerImpl.getSchedulers());
+                engine.getConfiguration(),
+                engine.getWorkDatabase(),
+                engine.getSchedulers());
     }
 
     private void recursivelyCancelWorkAndDependents(WorkDatabase workDatabase, String workSpecId) {
@@ -105,18 +105,18 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work for a specific id.
      *
      * @param id The id to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param engine The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels work for a specific id
      */
     public static CancelWorkRunnable forId(
             @NonNull final UUID id,
-            @NonNull final WorkManagerImpl workManagerImpl) {
+            @NonNull final WorkManagerEngine engine) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
             void runInternal() {
-                cancel(workManagerImpl, id.toString());
-                reschedulePendingWorkers(workManagerImpl);
+                cancel(engine, id.toString());
+                reschedulePendingWorkers(engine);
             }
         };
     }
@@ -125,29 +125,29 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work for a specific tag.
      *
      * @param tag The tag to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param engine The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels work for a specific tag
      */
     public static CancelWorkRunnable forTag(
             @NonNull final String tag,
-            @NonNull final WorkManagerImpl workManagerImpl) {
+            @NonNull final WorkManagerEngine engine) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
             void runInternal() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                WorkDatabase workDatabase = engine.getWorkDatabase();
                 workDatabase.beginTransaction();
                 try {
                     WorkSpecDao workSpecDao = workDatabase.workSpecDao();
                     List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithTag(tag);
                     for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                        cancel(engine, workSpecId);
                     }
                     workDatabase.setTransactionSuccessful();
                 } finally {
                     workDatabase.endTransaction();
                 }
-                reschedulePendingWorkers(workManagerImpl);
+                reschedulePendingWorkers(engine);
             }
         };
     }
@@ -156,25 +156,25 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work labelled with a specific name.
      *
      * @param name The name to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param engine The {@link WorkManagerEngine} to use
      * @param allowReschedule If {@code true}, reschedule pending workers at the end
      * @return A {@link CancelWorkRunnable} that cancels work labelled with a specific name
      */
     public static CancelWorkRunnable forName(
             @NonNull final String name,
-            @NonNull final WorkManagerImpl workManagerImpl,
+            @NonNull final WorkManagerEngine engine,
             final boolean allowReschedule) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
             void runInternal() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                WorkDatabase workDatabase = engine.getWorkDatabase();
                 workDatabase.beginTransaction();
                 try {
                     WorkSpecDao workSpecDao = workDatabase.workSpecDao();
                     List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithName(name);
                     for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                        cancel(engine, workSpecId);
                     }
                     workDatabase.setTransactionSuccessful();
                 } finally {
@@ -182,7 +182,7 @@ public abstract class CancelWorkRunnable implements Runnable {
                 }
 
                 if (allowReschedule) {
-                    reschedulePendingWorkers(workManagerImpl);
+                    reschedulePendingWorkers(engine);
                 }
             }
         };
@@ -191,25 +191,25 @@ public abstract class CancelWorkRunnable implements Runnable {
     /**
      * Creates a {@link CancelWorkRunnable} that cancels all work.
      *
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param engine The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels all work
      */
-    public static CancelWorkRunnable forAll(@NonNull final WorkManagerImpl workManagerImpl) {
+    public static CancelWorkRunnable forAll(@NonNull final WorkManagerEngine engine) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
             void runInternal() {
-                WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+                WorkDatabase workDatabase = engine.getWorkDatabase();
                 workDatabase.beginTransaction();
                 try {
                     WorkSpecDao workSpecDao = workDatabase.workSpecDao();
                     List<String> workSpecIds = workSpecDao.getAllUnfinishedWork();
                     for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
+                        cancel(engine, workSpecId);
                     }
                     workDatabase.setTransactionSuccessful();
                     // Update the last cancelled time in Preferences.
-                    new Preferences(workManagerImpl.getApplicationContext())
+                    new Preferences(engine.getApplicationContext())
                             .setLastCancelAllTimeMillis(System.currentTimeMillis());
                 } finally {
                     workDatabase.endTransaction();

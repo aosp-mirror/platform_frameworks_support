@@ -21,7 +21,7 @@ import android.support.annotation.NonNull;
 
 import androidx.work.Configuration;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +56,7 @@ public final class WorkManagerTestInitHelper {
             @NonNull Configuration configuration) {
 
         final TestScheduler scheduler = new TestScheduler();
-        WorkManagerImpl workManager = new TestWorkManagerImpl(context, configuration) {
+        WorkManagerEngine workManager = new TestWorkManagerEngine(context, configuration) {
             @NonNull
             @Override
             public List<Scheduler> getSchedulers() {
@@ -79,7 +79,7 @@ public final class WorkManagerTestInitHelper {
             }
         };
         workManager.getProcessor().addExecutionListener(scheduler);
-        WorkManagerImpl.setDelegate(workManager);
+        WorkManagerEngine.setDelegate(workManager);
     }
 
     /**
@@ -87,11 +87,11 @@ public final class WorkManagerTestInitHelper {
      * useful in the context of testing when using WorkManager.
      */
     public static TestDriver getTestDriver() {
-        WorkManagerImpl workManager = WorkManagerImpl.getInstance();
+        WorkManagerEngine workManager = WorkManagerEngine.getInstance();
         if (workManager == null) {
             return null;
         } else {
-            return ((TestWorkManagerImpl) WorkManagerImpl.getInstance());
+            return ((TestWorkManagerEngine) WorkManagerEngine.getInstance());
         }
     }
 

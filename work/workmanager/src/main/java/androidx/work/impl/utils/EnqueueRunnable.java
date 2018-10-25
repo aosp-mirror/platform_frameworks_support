@@ -42,7 +42,7 @@ import androidx.work.WorkRequest;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkContinuationImpl;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.Dependency;
 import androidx.work.impl.model.DependencyDao;
@@ -88,7 +88,7 @@ public class EnqueueRunnable implements Runnable {
             if (needsScheduling) {
                 // Enable RescheduleReceiver, only when there are Worker's that need scheduling.
                 final Context context =
-                        mWorkContinuation.getWorkManagerImpl().getApplicationContext();
+                        mWorkContinuation.getEngine().getApplicationContext();
                 PackageManagerHelper.setComponentEnabled(context, RescheduleReceiver.class, true);
                 scheduleWorkInBackground();
             }
@@ -108,8 +108,8 @@ public class EnqueueRunnable implements Runnable {
      */
     @VisibleForTesting
     public boolean addToDatabase() {
-        WorkManagerImpl workManagerImpl = mWorkContinuation.getWorkManagerImpl();
-        WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+        WorkManagerEngine engine = mWorkContinuation.getEngine();
+        WorkDatabase workDatabase = engine.getWorkDatabase();
         workDatabase.beginTransaction();
         try {
             boolean needsScheduling = processContinuation(mWorkContinuation);
@@ -125,7 +125,7 @@ public class EnqueueRunnable implements Runnable {
      */
     @VisibleForTesting
     public void scheduleWorkInBackground() {
-        WorkManagerImpl workManager = mWorkContinuation.getWorkManagerImpl();
+        WorkManagerEngine workManager = mWorkContinuation.getEngine();
         Schedulers.schedule(
                 workManager.getConfiguration(),
                 workManager.getWorkDatabase(),
@@ -155,7 +155,7 @@ public class EnqueueRunnable implements Runnable {
         Set<String> prerequisiteIds = WorkContinuationImpl.prerequisitesFor(workContinuation);
 
         boolean needsScheduling = enqueueWorkWithPrerequisites(
-                workContinuation.getWorkManagerImpl(),
+                workContinuation.getEngine(),
                 workContinuation.getWork(),
                 prerequisiteIds.toArray(new String[0]),
                 workContinuation.getName(),
@@ -171,7 +171,7 @@ public class EnqueueRunnable implements Runnable {
      * @return {@code true} If there is any scheduling to be done.
      */
     private static boolean enqueueWorkWithPrerequisites(
-            WorkManagerImpl workManagerImpl,
+            WorkManagerEngine engine,
             @NonNull List<? extends WorkRequest> workList,
             String[] prerequisiteIds,
             String name,
@@ -180,7 +180,7 @@ public class EnqueueRunnable implements Runnable {
         boolean needsScheduling = false;
 
         long currentTimeMillis = System.currentTimeMillis();
-        WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
+        WorkDatabase workDatabase = engine.getWorkDatabase();
 
         boolean hasPrerequisite = (prerequisiteIds != null && prerequisiteIds.length > 0);
         boolean hasCompletedAllPrerequisites = true;
@@ -253,7 +253,7 @@ public class EnqueueRunnable implements Runnable {
                     // the current transaction.  We want it to happen separately to avoid race
                     // conditions (see ag/4502245, which tries to avoid work trying to run before
                     // it's actually been committed to the database).
-                    CancelWorkRunnable.forName(name, workManagerImpl, false).run();
+                    CancelWorkRunnable.forName(name, engine, false).run();
                     // Because we cancelled some work but didn't allow rescheduling inside
                     // CancelWorkRunnable, we need to make sure we do schedule work at the end of
                     // this runnable.

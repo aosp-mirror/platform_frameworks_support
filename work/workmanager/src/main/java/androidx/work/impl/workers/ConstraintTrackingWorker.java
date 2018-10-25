@@ -32,7 +32,7 @@ import androidx.work.Logger;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
@@ -192,7 +192,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @VisibleForTesting
     public WorkDatabase getWorkDatabase() {
-        return WorkManagerImpl.getInstance().getWorkDatabase();
+        return WorkManagerEngine.getInstance().getWorkDatabase();
     }
 
     /**

@@ -207,29 +207,29 @@ package androidx.work {
     method public abstract androidx.work.WorkContinuation then(java.util.List<androidx.work.OneTimeWorkRequest>);
   }
 
-  public abstract class WorkManager {
-    method public final androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
-    method public abstract androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
-    method public final androidx.work.WorkContinuation beginWith(androidx.work.OneTimeWorkRequest...);
-    method public abstract androidx.work.WorkContinuation beginWith(java.util.List<androidx.work.OneTimeWorkRequest>);
+  public final class WorkManager {
+    method public androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
+    method public androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
+    method public androidx.work.WorkContinuation beginWith(androidx.work.OneTimeWorkRequest...);
+    method public androidx.work.WorkContinuation beginWith(java.util.List<androidx.work.OneTimeWorkRequest>);
     method public void cancelAllWork();
     method public void cancelAllWorkByTag(String);
     method public void cancelUniqueWork(String);
     method public void cancelWorkById(java.util.UUID);
-    method public final void enqueue(androidx.work.WorkRequest...);
+    method public void enqueue(androidx.work.WorkRequest...);
     method public void enqueue(java.util.List<? extends androidx.work.WorkRequest>);
     method public void enqueueUniquePeriodicWork(String, androidx.work.ExistingPeriodicWorkPolicy, androidx.work.PeriodicWorkRequest);
     method public void enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
     method public void enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
     method public static androidx.work.WorkManager getInstance();
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.lang.Long> getLastCancelAllTimeMillis();
-    method public abstract android.arch.lifecycle.LiveData<java.lang.Long> getLastCancelAllTimeMillisLiveData();
-    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.work.WorkStatus> getStatusById(java.util.UUID);
-    method public abstract android.arch.lifecycle.LiveData<androidx.work.WorkStatus> getStatusByIdLiveData(java.util.UUID);
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesByTag(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesByTagLiveData(String);
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWork(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWorkLiveData(String);
+    method public com.google.common.util.concurrent.ListenableFuture<java.lang.Long> getLastCancelAllTimeMillis();
+    method public android.arch.lifecycle.LiveData<java.lang.Long> getLastCancelAllTimeMillisLiveData();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.work.WorkStatus> getStatusById(java.util.UUID);
+    method public android.arch.lifecycle.LiveData<androidx.work.WorkStatus> getStatusByIdLiveData(java.util.UUID);
+    method public com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesByTag(String);
+    method public android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesByTagLiveData(String);
+    method public com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWork(String);
+    method public android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWorkLiveData(String);
     method public static void initialize(android.content.Context, androidx.work.Configuration);
     method public void pruneWork();
   }
