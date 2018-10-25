@@ -22,6 +22,30 @@
       "revId": "b6f0bf4dd6d7940e2507e28aace336697fafa7e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74bdd386_7f7cc2ac",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-25T00:28:40Z",
+      "side": 1,
+      "message": "It\u0027s question, so you may simply answer.",
+      "parentUuid": "7a1ea062_86240464",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 32
+      },
+      "revId": "b6f0bf4dd6d7940e2507e28aace336697fafa7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
