@@ -166,6 +166,11 @@ class TiledPagedList<T> extends PagedList<T>
     }
 
     @Override
+    void dispatchCurrentLoadState(LoadStateListener listener) {
+        // TODO: load state
+    }
+
+    @Override
     protected void loadAroundInternal(int index) {
         mStorage.allocatePlaceholders(index, mConfig.prefetchDistance, mConfig.pageSize, this);
     }

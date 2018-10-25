@@ -247,21 +247,6 @@ public abstract class PagedList<T> extends AbstractList<T> {
             return mEnd;
         }
 
-        @Nullable
-        public Throwable getRefreshError() {
-            return mRefreshError;
-        }
-
-        @Nullable
-        public Throwable getStartError() {
-            return mStartError;
-        }
-
-        @Nullable
-        public Throwable getEndError() {
-            return mEndError;
-        }
-
         void setState(@NonNull LoadType type, @NonNull LoadState state, @Nullable Throwable error) {
             boolean expectError = state == LoadState.RETRYABLE_ERROR || state == LoadState.ERROR;
             boolean hasError = error != null;
@@ -293,6 +278,12 @@ public abstract class PagedList<T> extends AbstractList<T> {
 
         protected abstract void onStateChanged(@NonNull LoadType type,
                 @NonNull LoadState state, @Nullable Throwable error);
+
+        void dispatchCurrentLoadState(LoadStateListener listener) {
+            listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mRefresh, mRefreshError);
+            listener.onLoadStateChanged(PagedList.LoadType.START, mStart, mStartError);
+            listener.onLoadStateChanged(PagedList.LoadType.END, mEnd, mEndError);
+        }
     }
 
     /**
@@ -365,27 +356,18 @@ public abstract class PagedList<T> extends AbstractList<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final ArrayList<WeakReference<LoadStateListener>> mListeners = new ArrayList<>();
 
-    final LoadStateManager mLoadStateManager = new LoadStateManager() {
-        @Override
-        protected void onStateChanged(@NonNull final LoadType type, @NonNull final LoadState state,
-                @Nullable final Throwable error) {
-            // new state, dispatch to listeners
-            // Post, since UI will want to react immediately
-            mMainThreadExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = mListeners.size() - 1; i >= 0; i--) {
-                        final LoadStateListener currentListener = mListeners.get(i).get();
-                        if (currentListener == null) {
-                            mListeners.remove(i);
-                        } else {
-                            currentListener.onLoadStateChanged(type, state, error);
-                        }
-                    }
-                }
-            });
+    void dispatchStateChange(@NonNull LoadType type, @NonNull LoadState state,
+            @Nullable Throwable error) {
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadStateListener currentListener = mListeners.get(i).get();
+            if (currentListener == null) {
+                mListeners.remove(i);
+            } else {
+                currentListener.onLoadStateChanged(type, state, error);
+            }
         }
-    };
+    }
+
 
     PagedList(@NonNull PagedStorage<T> storage,
             @NonNull Executor mainThreadExecutor,
@@ -922,12 +904,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
 
         // then add the new one
         mListeners.add(new WeakReference<>(listener));
-        listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mLoadStateManager.getRefresh(),
-                mLoadStateManager.getRefreshError());
-        listener.onLoadStateChanged(PagedList.LoadType.START, mLoadStateManager.getStart(),
-                mLoadStateManager.getStartError());
-        listener.onLoadStateChanged(PagedList.LoadType.END, mLoadStateManager.getEnd(),
-                mLoadStateManager.getEndError());
+        dispatchCurrentLoadState(listener);
     }
 
     /**
@@ -945,6 +922,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
             }
         }
     }
+
+    abstract void dispatchCurrentLoadState(LoadStateListener listener);
 
     /**
      * Adds a callback, and issues updates since the previousSnapshot was created.
