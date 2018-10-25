@@ -75,6 +75,7 @@ import androidx.media2.SessionPlayer2.ShuffleMode;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -1080,10 +1081,12 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             synchronized (mLock) {
                 prevState = mPlaybackStateCompat;
                 mPlaybackStateCompat = state;
-                mPlayerState = MediaUtils2.convertToPlayerState(state.getState());
-                mBufferedPosition = state.getBufferedPosition();
+                mPlayerState = state == null ? SessionPlayer2.PLAYER_STATE_IDLE :
+                        MediaUtils2.convertToPlayerState(state.getState());
+                mBufferedPosition = state == null ? UNKNOWN_TIME :
+                        state.getBufferedPosition();
 
-                if (mQueue != null) {
+                if (mQueue != null && state != null) {
                     for (int i = 0; i < mQueue.size(); ++i) {
                         if (mQueue.get(i).getQueueId() == state.getActiveQueueItemId()) {
                             mCurrentMediaItemIndex = i;
@@ -1098,8 +1101,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                     mCallbackExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            mCallback.onPlayerStateChanged(mInstance,
-                                    PLAYER_STATE_IDLE);
+                            mCallback.onPlayerStateChanged(mInstance, PLAYER_STATE_IDLE);
                         }
                     });
                 }
@@ -1137,6 +1139,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 }
             }
 
+            if (currentItem == null) {
+                return;
+            }
             // Update buffering state if needed
             final int bufferingState = MediaUtils2.toBufferingState(state.getState());
             final int prevBufferingState = prevState == null
@@ -1166,6 +1171,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             synchronized (mLock) {
                 mQueue = queue;
                 mPlaylist = MediaUtils2.convertQueueItemListToMediaItem2List(queue);
+                if (mPlaylist == null) {
+                    // MediaSessionCompat can set queue as null. However, SessionPlayer2 should not
+                    // set playlist as null. Therefore, we treat a null queue as an empty playlist.
+                    mPlaylist = new ArrayList<>();
+                }
                 playlist = mPlaylist;
                 playlistMetadata = mPlaylistMetadata;
             }
