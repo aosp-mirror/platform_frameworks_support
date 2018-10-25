@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "238a2c65_0de49a4c",
+        "filename": "work/workmanager/src/main/java/androidx/work/WorkManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-25T20:03:33Z",
+      "side": 1,
+      "message": "I think perhaps we need to change WorkManager to a concrete class and not have WorkManagerImpl extend it.  We are having to add methods that we don\u0027t need.",
+      "range": {
+        "startLine": 190,
+        "startChar": 43,
+        "endLine": 190,
+        "endChar": 58
+      },
+      "revId": "d053774e848855a012f2d2ba2cc0bf5c1b3df9e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
