@@ -29,7 +29,7 @@ import java.util.List;
  * It has two modes of operation: contiguous and non-contiguous (tiled). This class only holds
  * data, and does not have any notion of the ideas of async loads, or prefetching.
  */
-final class PagedStorage<T> extends AbstractList<T> {
+final class PagedStorage<T> extends AbstractList<T> implements ContiguousPager.AdjacentProvider<T> {
     /**
      * Lists instances are compared (with instance equality) to PLACEHOLDER_LIST to check if an item
      * in that position is already loading. We use a singleton placeholder list that is distinct
@@ -344,19 +344,6 @@ final class PagedStorage<T> extends AbstractList<T> {
 
     // ---------------- Contiguous API -------------------
 
-    T getFirstLoadedItem() {
-        // safe to access first page's first item here:
-        // If contiguous, mPages can't be empty, can't hold null Pages, and items can't be empty
-        return mPages.get(0).get(0);
-    }
-
-    T getLastLoadedItem() {
-        // safe to access last page's last item here:
-        // If contiguous, mPages can't be empty, can't hold null Pages, and items can't be empty
-        List<T> page = mPages.get(mPages.size() - 1);
-        return page.get(page.size() - 1);
-    }
-
     void prependPage(@NonNull List<T> page, @NonNull Callback callback) {
         final int count = page.size();
         if (count == 0) {
@@ -420,6 +407,37 @@ final class PagedStorage<T> extends AbstractList<T> {
         mNumberAppended += count;
         callback.onPageAppended(mLeadingNullCount + mStorageCount - count,
                 changedCount, addedCount);
+    }
+
+    // ------------- Adjacent Provider interface (contiguous-only) ------------------
+
+    public T getFirstLoadedItem() {
+        // safe to access first page's first item here:
+        // If contiguous, mPages can't be empty, can't hold null Pages, and items can't be empty
+        return mPages.get(0).get(0);
+    }
+
+    public T getLastLoadedItem() {
+        // safe to access last page's last item here:
+        // If contiguous, mPages can't be empty, can't hold null Pages, and items can't be empty
+        List<T> page = mPages.get(mPages.size() - 1);
+        return page.get(page.size() - 1);
+    }
+
+    @Override
+    public int getFirstLoadedItemIndex() {
+        return getLeadingNullCount() + getPositionOffset();
+    }
+
+    @Override
+    public int getLastLoadedItemIndex() {
+        return getLeadingNullCount() + getStorageCount() - 1 + getPositionOffset();
+    }
+
+    @Override
+    public void onPageResultResolution(int resolution, int resultType,
+            @NonNull PageResult<T> pageResult) {
+        // ignore this signal
     }
 
     // ------------------ Non-Contiguous API (tiling required) ----------------------

@@ -423,4 +423,17 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
             @NonNull Function<Value, ToValue> function) {
         return mapByPage(createListFunction(function));
     }
+
+
+    /**
+     *
+     */
+    public static abstract class StorageManager<Key, Value> {
+        public abstract void replaceData(@NonNull List<Value> data);
+
+        public abstract void storeData(@NonNull Key nextKey, @NonNull List<Value> data);
+
+        @Nullable
+        public abstract Key restoreKey();
+    }
 }

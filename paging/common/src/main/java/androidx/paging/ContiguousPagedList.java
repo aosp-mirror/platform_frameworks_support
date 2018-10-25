@@ -16,7 +16,6 @@
 
 package androidx.paging;
 
-import androidx.annotation.AnyThread;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,23 +38,21 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final boolean mShouldTrim;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    PageResult.Receiver<V> mReceiver = new PageResult.Receiver<V>() {
-        // Creation thread for initial synchronous load, otherwise main thread
-        // Safe to access main thread only state - no other thread has reference during construction
-        @AnyThread
-        @Override
-        public void onPageResult(@PageResult.ResultType int resultType,
-                @NonNull PageResult<V> pageResult) {
-            if (pageResult.isInvalid()) {
-                detach();
-                return;
-            }
+    class ContiguousListPager extends ContiguousPager<K, V> {
+        ContiguousListPager(@NonNull ContiguousDataSource<K, V> dataSource,
+                @NonNull Executor mainThreadExecutor,
+                int pageSize) {
+            super(dataSource,
+                    mainThreadExecutor,
+                    mBackgroundThreadExecutor,
+                    mStorage,
+                    pageSize);
+        }
 
-            if (isDetached()) {
-                // No op, have detached
-                return;
-            }
+        @Override
+        @PageResultResolution
+        int onPageResult(int resultType, @NonNull PageResult<V> pageResult) {
+            @PageResultResolution int ret = 0;
 
             List<V> page = pageResult.page;
             if (resultType == PageResult.INIT) {
@@ -76,23 +73,30 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 // is the new page big enough to warrant pre-trimming (i.e. dropping) it?
                 boolean skipNewPage = mShouldTrim
                         && mStorage.shouldPreTrimNewPage(
-                                mConfig.maxSize, mRequiredRemainder, page.size());
+                        mConfig.maxSize, mRequiredRemainder, page.size());
 
                 if (resultType == PageResult.APPEND) {
                     if (skipNewPage && !trimFromFront) {
                         // don't append this data, drop it
                         mAppendItemsRequested = 0;
-                        mLoadStateManager.setState(LoadType.END, LoadState.IDLE, null);
                     } else {
                         mStorage.appendPage(page, ContiguousPagedList.this);
+                        mAppendItemsRequested -= page.size();
+                        if (mAppendItemsRequested > 0 && page.size() != 0) {
+                            // for these, can we just not dispatch this to PL?
+                            ret |= ContiguousPager.FETCH_MORE;
+                        }
                     }
                 } else if (resultType == PageResult.PREPEND) {
                     if (skipNewPage && trimFromFront) {
                         // don't append this data, drop it
                         mPrependItemsRequested = 0;
-                        mLoadStateManager.setState(LoadType.START, LoadState.IDLE, null);
                     } else {
                         mStorage.prependPage(page, ContiguousPagedList.this);
+                        mPrependItemsRequested -= page.size();
+                        if (mPrependItemsRequested > 0 && page.size() != 0) {
+                            ret |= ContiguousPager.FETCH_MORE;
+                        }
                     }
                 } else {
                     throw new IllegalArgumentException("unexpected resultType " + resultType);
@@ -137,33 +141,32 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                         && pageResult.page.size() == 0;
                 deferBoundaryCallbacks(deferEmpty, deferBegin, deferEnd);
             }
+            return ret;
+        }
+
+        boolean isDetached() {
+            return ContiguousPagedList.this.isDetached();
         }
 
         @Override
-        public void onPageError(@PageResult.ResultType int resultType,
-                @NonNull Throwable error, boolean retryable) {
-            LoadState errorState = retryable ? LoadState.RETRYABLE_ERROR : LoadState.ERROR;
-
-            if (resultType == PageResult.PREPEND) {
-                mLoadStateManager.setState(LoadType.START, errorState, error);
-            } else if (resultType == PageResult.APPEND) {
-                mLoadStateManager.setState(LoadType.END, errorState, error);
-            } else {
-                // TODO: pass init signal through to *previous* list
-                throw new IllegalStateException("TODO");
-            }
+        void detach() {
+            ContiguousPagedList.this.detach();
         }
-    };
+
+        @Override
+        void dispatchStateChange(@NonNull LoadType type, @NonNull LoadState state,
+                @Nullable Throwable error) {
+            ContiguousPagedList.this.dispatchStateChange(type, state, error);
+        }
+    }
+
+    @NonNull
+    private final ContiguousListPager mPager;
 
     @Override
     public void retry() {
         super.retry();
-        if (mLoadStateManager.getStart() == LoadState.RETRYABLE_ERROR) {
-            schedulePrepend();
-        }
-        if (mLoadStateManager.getEnd() == LoadState.RETRYABLE_ERROR) {
-            scheduleAppend();
-        }
+        mPager.retry();
     }
 
     static final int LAST_LOAD_UNSPECIFIED = -1;
@@ -180,19 +183,28 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 boundaryCallback, config);
         mDataSource = dataSource;
         mLastLoad = lastLoad;
+        mPager = new ContiguousListPager(dataSource, mainThreadExecutor, config.pageSize);
 
         if (mDataSource.isInvalid()) {
             detach();
         } else {
+            // TODO: move this to ContiguousPager
             mDataSource.dispatchLoadInitial(key,
                     mConfig.initialLoadSizeHint,
                     mConfig.pageSize,
                     mConfig.enablePlaceholders,
                     mMainThreadExecutor,
-                    mReceiver);
+                    mPager.mReceiver);
         }
         mShouldTrim = mDataSource.supportsPageDropping()
                 && mConfig.maxSize != Config.MAX_SIZE_UNBOUNDED;
+
+    }
+
+
+    @Override
+    void dispatchCurrentLoadState(LoadStateListener listener) {
+        mPager.mLoadStateManager.dispatchCurrentLoadState(listener);
     }
 
     @MainThread
@@ -263,63 +275,14 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
                 mStorage.getLeadingNullCount() + mStorage.getStorageCount());
 
         mPrependItemsRequested = Math.max(prependItems, mPrependItemsRequested);
-        if (mPrependItemsRequested > 0 && mLoadStateManager.getStart() == LoadState.IDLE) {
-            schedulePrepend();
+        if (mPrependItemsRequested > 0) {
+            mPager.trySchedulePrepend();
         }
 
         mAppendItemsRequested = Math.max(appendItems, mAppendItemsRequested);
-        if (mAppendItemsRequested > 0 && mLoadStateManager.getEnd() == LoadState.IDLE) {
-            scheduleAppend();
+        if (mAppendItemsRequested > 0) {
+            mPager.tryScheduleAppend();
         }
-    }
-
-    @MainThread
-    private void schedulePrepend() {
-        mLoadStateManager.setState(LoadType.START, LoadState.LOADING, null);
-
-        final int position = mStorage.getLeadingNullCount() + mStorage.getPositionOffset();
-
-        // safe to access first item here - mStorage can't be empty if we're prepending
-        final V item = mStorage.getFirstLoadedItem();
-        mBackgroundThreadExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (isDetached()) {
-                    return;
-                }
-                if (mDataSource.isInvalid()) {
-                    detach();
-                } else {
-                    mDataSource.dispatchLoadBefore(position, item, mConfig.pageSize,
-                            mMainThreadExecutor, mReceiver);
-                }
-            }
-        });
-    }
-
-    @MainThread
-    private void scheduleAppend() {
-        mLoadStateManager.setState(LoadType.END, LoadState.LOADING, null);
-
-        final int position = mStorage.getLeadingNullCount()
-                + mStorage.getStorageCount() - 1 + mStorage.getPositionOffset();
-
-        // safe to access first item here - mStorage can't be empty if we're appending
-        final V item = mStorage.getLastLoadedItem();
-        mBackgroundThreadExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (isDetached()) {
-                    return;
-                }
-                if (mDataSource.isInvalid()) {
-                    detach();
-                } else {
-                    mDataSource.dispatchLoadAfter(position, item, mConfig.pageSize,
-                            mMainThreadExecutor, mReceiver);
-                }
-            }
-        });
     }
 
     @Override
@@ -351,14 +314,6 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @MainThread
     @Override
     public void onPagePrepended(int leadingNulls, int changedCount, int addedCount) {
-        // consider whether to post more work, now that a page is fully prepended
-        mPrependItemsRequested = mPrependItemsRequested - changedCount - addedCount;
-        if (mPrependItemsRequested > 0) {
-            // not done prepending, keep going
-            schedulePrepend();
-        } else {
-            mLoadStateManager.setState(LoadType.START, LoadState.IDLE, null);
-        }
 
         // finally dispatch callbacks, after prepend may have already been scheduled
         notifyChanged(leadingNulls, changedCount);
@@ -370,21 +325,12 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @MainThread
     @Override
     public void onEmptyPrepend() {
-        mLoadStateManager.setState(LoadType.START, LoadState.DONE, null);
+        //mLoadStateManager.setState(LoadType.START, LoadState.DONE, null);
     }
 
     @MainThread
     @Override
     public void onPageAppended(int endPosition, int changedCount, int addedCount) {
-        // consider whether to post more work, now that a page is fully appended
-        mAppendItemsRequested = mAppendItemsRequested - changedCount - addedCount;
-        if (mAppendItemsRequested > 0) {
-            // not done appending, keep going
-            scheduleAppend();
-        } else {
-            mLoadStateManager.setState(LoadType.END, LoadState.IDLE, null);
-        }
-
         // finally dispatch callbacks, after append may have already been scheduled
         notifyChanged(endPosition, changedCount);
         notifyInserted(endPosition + changedCount, addedCount);
@@ -393,7 +339,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     @MainThread
     @Override
     public void onEmptyAppend() {
-        mLoadStateManager.setState(LoadType.END, LoadState.DONE, null);
+        //mLoadStateManager.setState(LoadType.END, LoadState.DONE, null);
     }
 
     @MainThread

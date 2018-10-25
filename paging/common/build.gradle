@@ -29,8 +29,13 @@ lintOptions {
 }
 
 dependencies {
-    compile(SUPPORT_ANNOTATIONS)
     compile("androidx.arch.core:core-common:2.0.0")
+
+    // TODO: make this explicit after concurrent-futures final release
+    compile(project(":concurrent:concurrent-futures"))
+
+    compile(SUPPORT_ANNOTATIONS)
+    compile(GUAVA_LISTENABLE_FUTURE)
 
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
