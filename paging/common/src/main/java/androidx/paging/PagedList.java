@@ -23,6 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
+import androidx.arch.core.util.Function;
+import androidx.paging.futures.DirectExecutor;
+import androidx.paging.futures.Futures;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.lang.ref.WeakReference;
 import java.util.AbstractList;
@@ -177,9 +182,6 @@ public abstract class PagedList<T> extends AbstractList<T> {
         RETRYABLE_ERROR,
     }
 
-
-
-
     /**
      * Listener for changes to loading state - whether the refresh, prepend, or append is idle,
      * loading, or has an error.
@@ -247,21 +249,6 @@ public abstract class PagedList<T> extends AbstractList<T> {
             return mEnd;
         }
 
-        @Nullable
-        public Throwable getRefreshError() {
-            return mRefreshError;
-        }
-
-        @Nullable
-        public Throwable getStartError() {
-            return mStartError;
-        }
-
-        @Nullable
-        public Throwable getEndError() {
-            return mEndError;
-        }
-
         void setState(@NonNull LoadType type, @NonNull LoadState state, @Nullable Throwable error) {
             boolean expectError = state == LoadState.RETRYABLE_ERROR || state == LoadState.ERROR;
             boolean hasError = error != null;
@@ -293,6 +280,12 @@ public abstract class PagedList<T> extends AbstractList<T> {
 
         protected abstract void onStateChanged(@NonNull LoadType type,
                 @NonNull LoadState state, @Nullable Throwable error);
+
+        void dispatchCurrentLoadState(LoadStateListener listener) {
+            listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mRefresh, mRefreshError);
+            listener.onLoadStateChanged(PagedList.LoadType.START, mStart, mStartError);
+            listener.onLoadStateChanged(PagedList.LoadType.END, mEnd, mEndError);
+        }
     }
 
     /**
@@ -365,27 +358,18 @@ public abstract class PagedList<T> extends AbstractList<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final ArrayList<WeakReference<LoadStateListener>> mListeners = new ArrayList<>();
 
-    final LoadStateManager mLoadStateManager = new LoadStateManager() {
-        @Override
-        protected void onStateChanged(@NonNull final LoadType type, @NonNull final LoadState state,
-                @Nullable final Throwable error) {
-            // new state, dispatch to listeners
-            // Post, since UI will want to react immediately
-            mMainThreadExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = mListeners.size() - 1; i >= 0; i--) {
-                        final LoadStateListener currentListener = mListeners.get(i).get();
-                        if (currentListener == null) {
-                            mListeners.remove(i);
-                        } else {
-                            currentListener.onLoadStateChanged(type, state, error);
-                        }
-                    }
-                }
-            });
+    void dispatchStateChange(@NonNull LoadType type, @NonNull LoadState state,
+            @Nullable Throwable error) {
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadStateListener currentListener = mListeners.get(i).get();
+            if (currentListener == null) {
+                mListeners.remove(i);
+            } else {
+                currentListener.onLoadStateChanged(type, state, error);
+            }
         }
-    };
+    }
+
 
     PagedList(@NonNull PagedStorage<T> storage,
             @NonNull Executor mainThreadExecutor,
@@ -436,6 +420,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
                 }
             }
             ContiguousDataSource<K, T> contigDataSource = (ContiguousDataSource<K, T>) dataSource;
+            throw new IllegalArgumentException("");
+            /*
             return new ContiguousPagedList<>(contigDataSource,
                     notifyExecutor,
                     fetchExecutor,
@@ -443,6 +429,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
                     config,
                     key,
                     lastLoad);
+                    */
         } else {
             return new TiledPagedList<>((PositionalDataSource<T>) dataSource,
                     notifyExecutor,
@@ -451,6 +438,62 @@ public abstract class PagedList<T> extends AbstractList<T> {
                     config,
                     (key != null) ? (Integer) key : 0);
         }
+    }
+
+    @NonNull
+    static <K, T> ListenableFuture<PagedList<T>> createPagedList(
+            @NonNull final ListenableSource<K, T> dataSource,
+            @NonNull final Executor notifyExecutor,
+            @NonNull final Executor fetchExecutor,
+            @Nullable final BoundaryCallback<T> boundaryCallback,
+            @NonNull final Config config,
+            @Nullable final K key,
+            int lastLoad) {
+        dataSource.initExecutor(fetchExecutor);
+
+        //int lastLoad = ContiguousPagedList.LAST_LOAD_UNSPECIFIED;
+        if (dataSource.isContiguous() || !config.enablePlaceholders) {
+            if (!dataSource.isContiguous()) {
+                //noinspection unchecked
+                throw new IllegalStateException("TODO");
+                /*
+                dataSource = (DataSource<K, T>) ((PositionalDataSource<T>) dataSource)
+                        .wrapAsContiguousWithoutPlaceholders();
+                if (key != null) {
+                    lastLoad = (Integer) key;
+                }
+                */
+            }
+        } else {
+            lastLoad = (key != null) ? (Integer) key : 0;
+        }
+        final int lastLoadFinal = lastLoad;
+
+        return Futures.transform(
+            dataSource.load(
+                new ListenableSource.Params<>(
+                        ListenableSource.LoadType.INITIAL,
+                        key,
+                        config.initialLoadSizeHint,
+                        config.enablePlaceholders,
+                        config.pageSize)),
+                new Function<ListenableSource.BaseResult<T>, PagedList<T>>() {
+                    @Override
+                    public PagedList<T> apply(ListenableSource.BaseResult<T> initialResult) {
+                        if (dataSource.isContiguous()) {
+                            return new ContiguousPagedList<>(dataSource,
+                                    notifyExecutor,
+                                    fetchExecutor,
+                                    boundaryCallback,
+                                    config,
+                                    initialResult,
+                                    lastLoadFinal);
+                        } else {
+                            throw new IllegalStateException();
+                        }
+                    }
+                },
+                DirectExecutor.INSTANCE);
     }
 
     /**
@@ -922,12 +965,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
 
         // then add the new one
         mListeners.add(new WeakReference<>(listener));
-        listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mLoadStateManager.getRefresh(),
-                mLoadStateManager.getRefreshError());
-        listener.onLoadStateChanged(PagedList.LoadType.START, mLoadStateManager.getStart(),
-                mLoadStateManager.getStartError());
-        listener.onLoadStateChanged(PagedList.LoadType.END, mLoadStateManager.getEnd(),
-                mLoadStateManager.getEndError());
+        dispatchCurrentLoadState(listener);
     }
 
     /**
@@ -945,6 +983,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
             }
         }
     }
+
+    abstract void dispatchCurrentLoadState(LoadStateListener listener);
 
     /**
      * Adds a callback, and issues updates since the previousSnapshot was created.

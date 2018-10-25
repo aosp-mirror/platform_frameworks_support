@@ -23,8 +23,18 @@ import java.util.concurrent.Executor
 class TestExecutor : Executor {
     private val mTasks = LinkedList<Runnable>()
 
+    private var immediate = false
+
+    public fun setImmediate(immediate: Boolean) {
+        this.immediate = immediate
+    }
+
     override fun execute(runnable: Runnable) {
-        mTasks.add(runnable)
+        if (immediate) {
+            runnable.run()
+        } else {
+            mTasks.add(runnable)
+        }
     }
 
     internal fun executeAll(): Boolean {
