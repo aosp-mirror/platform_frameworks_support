@@ -109,8 +109,11 @@ class TiledPagedList<T> extends PagedList<T>
             final int idealStart = position - firstLoadSize / 2;
             final int roundedPageStart = Math.max(0, idealStart / pageSize * pageSize);
 
+            throw new IllegalStateException("TOREMOVE");
+            /*
             mDataSource.dispatchLoadInitial(true, roundedPageStart, firstLoadSize,
                     pageSize, mMainThreadExecutor, mReceiver);
+                    */
         }
     }
 
@@ -166,6 +169,11 @@ class TiledPagedList<T> extends PagedList<T>
     }
 
     @Override
+    void dispatchCurrentLoadState(LoadStateListener listener) {
+        // TODO: load state
+    }
+
+    @Override
     protected void loadAroundInternal(int index) {
         mStorage.allocatePlaceholders(index, mConfig.prefetchDistance, mConfig.pageSize, this);
     }
@@ -211,8 +219,12 @@ class TiledPagedList<T> extends PagedList<T>
                 } else {
                     int startPosition = pageIndex * pageSize;
                     int count = Math.min(pageSize, mStorage.size() - startPosition);
+
+                    throw new IllegalStateException("TOREMOVE");
+                    /*
                     mDataSource.dispatchLoadRange(
                             PageResult.TILE, startPosition, count, mMainThreadExecutor, mReceiver);
+                            */
                 }
             }
         });

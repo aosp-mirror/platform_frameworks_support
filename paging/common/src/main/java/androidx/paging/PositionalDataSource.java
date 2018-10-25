@@ -17,11 +17,12 @@
 package androidx.paging;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.util.Function;
+import androidx.concurrent.futures.ResolvableFuture;
 
-import java.util.Collections;
+import com.google.common.util.concurrent.ListenableFuture;
+
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -50,7 +51,7 @@ import java.util.concurrent.Executor;
  *
  * @param <T> Type of items being loaded by the PositionalDataSource.
  */
-public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
+public abstract class PositionalDataSource<T> extends ListenablePositionalDataSource<T> {
 
     /**
      * Holder object for inputs to {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
@@ -175,9 +176,9 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         public abstract void onResult(@NonNull List<T> data, int position);
 
         /**
-         * Called to report a non-retryable error from a DataSource.
+         * Called to report an error from a DataSource.
          * <p>
-         * Call this method to report a non-retryable error from
+         * Call this method to report an error from
          * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
          *
          * @param error The error that occurred during loading.
@@ -186,20 +187,6 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
             // TODO: remove default implementation in 3.0
             throw new IllegalStateException(
                     "You must implement onError if implementing your own load callback");
-        }
-
-        /**
-         * Called to report a retryable error from a DataSource.
-         * <p>
-         * Call this method to report a retryable error from
-         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
-         *
-         * @param error The error that occurred during loading.
-         */
-        public void onRetryableError(@NonNull Throwable error) {
-            // TODO: remove default implementation in 3.0
-            throw new IllegalStateException(
-                    "You must implement onRetryableError if implementing your own load callback");
         }
     }
 
@@ -225,9 +212,9 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         public abstract void onResult(@NonNull List<T> data);
 
         /**
-         * Called to report a non-retryable error from a DataSource.
+         * Called to report an error from a DataSource.
          * <p>
-         * Call this method to report a non-retryable error from
+         * Call this method to report an error from
          * {@link #loadRange(LoadRangeParams, LoadRangeCallback)}.
          *
          * @param error The error that occurred during loading.
@@ -236,20 +223,6 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
             // TODO: remove default implementation in 3.0
             throw new IllegalStateException(
                     "You must implement onError if implementing your own load callback");
-        }
-
-        /**
-         * Called to report a retryable error from a DataSource.
-         * <p>
-         * Call this method to report a retryable error from
-         * {@link #loadRange(LoadRangeParams, LoadRangeCallback)}.
-         *
-         * @param error The error that occurred during loading.
-         */
-        public void onRetryableError(@NonNull Throwable error) {
-            // TODO: remove default implementation in 3.0
-            throw new IllegalStateException(
-                    "You must implement onRetryableError if implementing your own load callback");
         }
     }
 
@@ -314,11 +287,6 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         public void onError(@NonNull Throwable error) {
             mCallbackHelper.dispatchErrorToReceiver(error, false);
         }
-
-        @Override
-        public void onRetryableError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, true);
-        }
     }
 
     static class LoadRangeCallbackImpl<T> extends LoadRangeCallback<T> {
@@ -344,39 +312,58 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         public void onError(@NonNull Throwable error) {
             mCallbackHelper.dispatchErrorToReceiver(error, false);
         }
-
-        @Override
-        public void onRetryableError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, true);
-        }
     }
 
-    final void dispatchLoadInitial(boolean acceptCount,
-            int requestedStartPosition, int requestedLoadSize, int pageSize,
-            @NonNull Executor mainThreadExecutor, @NonNull PageResult.Receiver<T> receiver) {
-        LoadInitialCallbackImpl<T> callback =
-                new LoadInitialCallbackImpl<>(this, acceptCount, pageSize, receiver);
+    @Override
+    final ListenableFuture<InitialResult<T>> loadInitial(final @NonNull LoadInitialParams params) {
+        final ResolvableFuture<InitialResult<T>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadInitialCallback<T> callback = new LoadInitialCallback<T>() {
+                    @Override
+                    public void onResult(@NonNull List<T> data, int position, int totalCount) {
+                        future.set(new InitialResult<T>(data, position, totalCount));
+                    }
 
-        LoadInitialParams params = new LoadInitialParams(
-                requestedStartPosition, requestedLoadSize, pageSize, acceptCount);
-        loadInitial(params, callback);
+                    @Override
+                    public void onResult(@NonNull List<T> data, int position) {
+                        future.set(new InitialResult<T>(data, position));
 
-        // If initialLoad's callback is not called within the body, we force any following calls
-        // to post to the UI thread. This constructor may be run on a background thread, but
-        // after constructor, mutation must happen on UI thread.
-        callback.mCallbackHelper.setPostExecutor(mainThreadExecutor);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadInitial(params, callback);
+            }
+        });
+        return future;
     }
 
-    final void dispatchLoadRange(@PageResult.ResultType int resultType, int startPosition,
-            int count, @NonNull Executor mainThreadExecutor,
-            @NonNull PageResult.Receiver<T> receiver) {
-        LoadRangeCallback<T> callback = new LoadRangeCallbackImpl<>(
-                this, resultType, startPosition, mainThreadExecutor, receiver);
-        if (count == 0) {
-            callback.onResult(Collections.<T>emptyList());
-        } else {
-            loadRange(new LoadRangeParams(startPosition, count), callback);
-        }
+    @Override
+    final ListenableFuture<RangeResult<T>> loadRange(final @NonNull LoadRangeParams params) {
+        final ResolvableFuture<RangeResult<T>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadRangeCallback<T> callback = new LoadRangeCallback<T>() {
+                    @Override
+                    public void onResult(@NonNull List<T> data) {
+                        future.set(new RangeResult<>(data));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadRange(params, callback);
+            }
+        });
+        return future;
     }
 
     /**
@@ -417,10 +404,13 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         return false;
     }
 
+    /*
     @NonNull
     ContiguousDataSource<Integer, T> wrapAsContiguousWithoutPlaceholders() {
-        return new ContiguousWithoutPlaceholdersWrapper<>(this);
+        throw new IllegalStateException("TODO");
+        //return new ContiguousWithoutPlaceholdersWrapper<>(this);
     }
+    */
 
     /**
      * Helper for computing an initial position in
@@ -532,6 +522,8 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         return Math.min(totalCount - initialLoadPosition, params.requestedLoadSize);
     }
 
+    /*
+
     @SuppressWarnings("deprecation")
     static class ContiguousWithoutPlaceholdersWrapper<Value>
             extends ContiguousDataSource<Integer, Value> {
@@ -627,6 +619,7 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
 
     }
 
+    */
     @NonNull
     @Override
     public final <V> PositionalDataSource<V> mapByPage(

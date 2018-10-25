@@ -23,6 +23,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.util.Function;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -206,10 +209,6 @@ public abstract class DataSource<Key, Value> {
         return dest;
     }
 
-    // Since we currently rely on implementation details of two implementations,
-    // prevent external subclassing, except through exposed subclasses
-    DataSource() {
-    }
 
     /**
      * Applies the given function to each value emitted by the DataSource.
@@ -227,8 +226,10 @@ public abstract class DataSource<Key, Value> {
      * @see DataSource.Factory#mapByPage(Function)
      */
     @NonNull
-    public abstract <ToValue> DataSource<Key, ToValue> mapByPage(
-            @NonNull Function<List<Value>, List<ToValue>> function);
+    public <ToValue> DataSource<Key, ToValue> mapByPage(
+            @NonNull Function<List<Value>, List<ToValue>> function) {
+        return new WrapperDataSource<Key, Value, ToValue>(this, function);
+    }
 
     /**
      * Applies the given function to each value emitted by the DataSource.
@@ -246,14 +247,22 @@ public abstract class DataSource<Key, Value> {
      * @see DataSource.Factory#mapByPage(Function)
      */
     @NonNull
-    public abstract <ToValue> DataSource<Key, ToValue> map(
-            @NonNull Function<Value, ToValue> function);
+    public <ToValue> DataSource<Key, ToValue> map(
+            @NonNull Function<Value, ToValue> function) {
+        return mapByPage(createListFunction(function));
+    }
 
     /**
      * Returns true if the data source guaranteed to produce a contiguous set of items,
      * never producing gaps.
      */
-    abstract boolean isContiguous();
+    boolean isContiguous() {
+        return true;
+    }
+
+    boolean supportsPageDropping() {
+        return true;
+    }
 
     static class LoadCallbackHelper<T> {
         static void validateInitialLoadParams(@NonNull List<?> data, int position, int totalCount) {
@@ -389,8 +398,10 @@ public abstract class DataSource<Key, Value> {
      *                              {@link #invalidate()} is called on.
      */
     @AnyThread
-    @SuppressWarnings("WeakerAccess")
     public void addInvalidatedCallback(@NonNull InvalidatedCallback onInvalidatedCallback) {
+        if (onInvalidatedCallback == null) {
+            throw new NullPointerException();
+        }
         mOnInvalidatedCallbacks.add(onInvalidatedCallback);
     }
 
@@ -400,7 +411,6 @@ public abstract class DataSource<Key, Value> {
      * @param onInvalidatedCallback The previously added callback.
      */
     @AnyThread
-    @SuppressWarnings("WeakerAccess")
     public void removeInvalidatedCallback(@NonNull InvalidatedCallback onInvalidatedCallback) {
         mOnInvalidatedCallbacks.remove(onInvalidatedCallback);
     }
@@ -427,5 +437,116 @@ public abstract class DataSource<Key, Value> {
     @WorkerThread
     public boolean isInvalid() {
         return mInvalid.get();
+    }
+
+    enum LoadType {
+        INITIAL,
+        START,
+        END
+    }
+
+    static class Params<K> {
+        @NonNull
+        final LoadType type;
+        /* can be NULL for init, otherwise non-null */
+        @Nullable
+        final K key;
+        final int initialLoadSize;
+        final boolean placeholdersEnabled;
+        final int pageSize;
+
+        Params(@NonNull LoadType type, @Nullable K key, int initialLoadSize,
+                boolean placeholdersEnabled, int pageSize) {
+            this.type = type;
+            this.key = key;
+            this.initialLoadSize = initialLoadSize;
+            this.placeholdersEnabled = placeholdersEnabled;
+            this.pageSize = pageSize;
+        }
+    }
+
+    // NOTE: keeping all data in base class for now, to enable public members
+    // TODO: reconsider, only providing accessors to minimize subclass complexity
+    static class BaseResult<Value> {
+        final List<Value> mData;
+        final Object mNextKey;
+        final Object mPrevKey;
+        final int mLeadingNulls;
+        final int mTrailingNulls;
+        final int mOffset;
+
+        protected BaseResult(List<Value> data, Object nextKey, Object prevKey, int leadingNulls,
+                int trailingNulls, int offset) {
+            mData = data;
+            mNextKey = nextKey;
+            mPrevKey = prevKey;
+            mLeadingNulls = leadingNulls;
+            mTrailingNulls = trailingNulls;
+            mOffset = offset;
+        }
+
+        public <ToValue> BaseResult(@NonNull BaseResult<ToValue> result,
+                @NonNull Function<List<ToValue>, List<Value>> function) {
+            mData = convert(function, result.mData);
+            mNextKey = result.mNextKey;
+            mPrevKey = result.mPrevKey;
+            mLeadingNulls = result.mLeadingNulls;
+            mTrailingNulls = result.mTrailingNulls;
+            mOffset = result.mOffset;
+        }
+    }
+
+    enum KeyType {
+        POSITIONAL,
+        PAGE_KEYED,
+        ITEM_KEYED,
+    }
+
+    @NonNull
+    final KeyType mType;
+
+    // Since we currently rely on implementation details of two implementations,
+    // prevent external subclassing, except through exposed subclasses
+    DataSource(@NonNull KeyType type) {
+        mType = type;
+    }
+
+    abstract ListenableFuture<? extends BaseResult<Value>> load(@NonNull Params<Key> params);
+
+    @Nullable
+    abstract Key getKey(@NonNull Value item);
+
+    @Nullable
+    final Key getKey(int lastLoad, @Nullable Value item) {
+        if (item == null) {
+            return null;
+        }
+        if (mType == KeyType.POSITIONAL) {
+            //noinspection unchecked
+            return (Key)((Integer) lastLoad);
+        }
+        return getKey(item);
+    }
+
+    public boolean isRetryableError(@NonNull Throwable error) {
+        return false;
+    }
+
+    void initExecutor(@NonNull Executor executor) {
+        mExecutor = executor;
+    }
+
+    /**
+     * In reality, this is null until loadInitial is called
+     */
+    @Nullable
+    private Executor mExecutor;
+
+    @NonNull
+    public Executor getExecutor() {
+        if (mExecutor == null) {
+            throw new IllegalStateException("too soon, executor!");
+        }
+        return mExecutor;
     }
 }

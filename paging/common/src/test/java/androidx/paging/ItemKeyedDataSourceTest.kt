@@ -46,8 +46,10 @@ class ItemKeyedDataSourceTest {
         val captor = ArgumentCaptor.forClass(PageResult::class.java)
                 as ArgumentCaptor<PageResult<Item>>
 
+        /*
         dataSource.dispatchLoadInitial(key, initialLoadSize,
                 /* ignored pageSize */ 10, enablePlaceholders, FailExecutor(), receiver)
+                 */
 
         verify(receiver).onPageResult(anyInt(), captor.capture())
         verifyNoMoreInteractions(receiver)
@@ -318,6 +320,8 @@ class ItemKeyedDataSourceTest {
             }
         }
 
+        TODO()
+        /*
         ContiguousPagedList<String, String>(
                 dataSource, FailExecutor(), FailExecutor(), null,
                 PagedList.Config.Builder()
@@ -325,6 +329,7 @@ class ItemKeyedDataSourceTest {
                         .build(),
                 "",
                 ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+                */
     }
 
     @Test
@@ -401,10 +406,6 @@ class ItemKeyedDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -417,10 +418,6 @@ class ItemKeyedDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -432,10 +429,6 @@ class ItemKeyedDataSourceTest {
 
                 override fun onError(error: Throwable) {
                     callback.onError(error)
-                }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
                 }
             })
         }

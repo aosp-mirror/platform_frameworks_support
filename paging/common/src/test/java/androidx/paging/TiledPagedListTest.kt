@@ -147,6 +147,8 @@ class TiledPagedListTest {
     @Test
     fun initialLoadAsync() {
         val dataSource = AsyncListDataSource(ITEMS)
+        TODO()
+        /*
         val pagedList = TiledPagedList(
                 dataSource, mMainThread, mBackgroundThread, null,
                 PagedList.Config.Builder().setPageSize(10).build(), 0)
@@ -162,11 +164,14 @@ class TiledPagedListTest {
         // Data source defers callbacks until flush, which posts result to main thread
         mMainThread.executeAll()
         assertFalse(pagedList.isEmpty())
+        */
     }
 
     @Test
     fun addWeakCallbackEmpty() {
         val dataSource = AsyncListDataSource(ITEMS)
+        TODO()
+        /*
         val pagedList = TiledPagedList(
                 dataSource, mMainThread, mBackgroundThread, null,
                 PagedList.Config.Builder().setPageSize(10).build(), 0)
@@ -186,6 +191,7 @@ class TiledPagedListTest {
         pagedList.addWeakCallback(emptySnapshot, callback)
         verify(callback).onInserted(0, pagedList.size)
         verifyNoMoreInteractions(callback)
+        */
     }
 
     @Test
@@ -461,9 +467,9 @@ class TiledPagedListTest {
                 .setNotifyExecutor(mMainThread)
                 .setFetchExecutor(mBackgroundThread)
                 .setInitialKey(20)
-                .build()
+                .buildAsync()
 
-        assertTrue(pagedList.isContiguous)
+        //assertTrue(pagedList.get().isContiguous)
 
         @Suppress("UNCHECKED_CAST")
         val contiguousPagedList = pagedList as ContiguousPagedList<Int, Item>

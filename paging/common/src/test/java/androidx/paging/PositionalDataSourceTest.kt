@@ -95,6 +95,8 @@ class PositionalDataSourceTest {
                 .build()
         val dataSource: PositionalDataSource<Int> = ListDataSource((0..99).toList())
         val testExecutor = TestExecutor()
+        TODO()
+        /*
         val pagedList = ContiguousPagedList(dataSource.wrapAsContiguousWithoutPlaceholders(),
                 testExecutor, testExecutor, null, config, 15,
                 ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
@@ -112,6 +114,7 @@ class PositionalDataSourceTest {
             testExecutor.executeAll()
             assertEquals((0..i * 10 + 9).toList(), pagedList)
         }
+        */
     }
 
     private fun performLoadInitial(
@@ -143,9 +146,12 @@ class PositionalDataSourceTest {
         if (enablePlaceholders) {
             TiledPagedList(dataSource, FailExecutor(), FailExecutor(), null, config, 0)
         } else {
+            TODO()
+            /*
             ContiguousPagedList(dataSource.wrapAsContiguousWithoutPlaceholders(),
                     FailExecutor(), FailExecutor(), null, config, null,
                     ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+                    */
         }
     }
 
@@ -253,10 +259,6 @@ class PositionalDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -268,10 +270,6 @@ class PositionalDataSourceTest {
 
                 override fun onError(error: Throwable) {
                     callback.onError(error)
-                }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
                 }
             })
         }
@@ -407,6 +405,7 @@ class PositionalDataSourceTest {
         assertTrue(orig.isInvalid)
     }
 
+    /*
     @Test
     fun testInvalidateToWrapper_contiguous() {
         val orig = ListDataSource(listOf(0, 1, 2))
@@ -424,6 +423,7 @@ class PositionalDataSourceTest {
         wrapper.invalidate()
         assertTrue(orig.isInvalid)
     }
+    */
 
     companion object {
         private val ERROR = Exception()

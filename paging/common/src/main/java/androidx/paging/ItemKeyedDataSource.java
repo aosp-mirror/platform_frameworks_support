@@ -19,6 +19,9 @@ package androidx.paging;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.util.Function;
+import androidx.concurrent.futures.ResolvableFuture;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -40,7 +43,8 @@ import java.util.concurrent.Executor;
  * @param <Key> Type of data used to query Value types out of the DataSource.
  * @param <Value> Type of items being loaded by the DataSource.
  */
-public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSource<Key, Value> {
+public abstract class ItemKeyedDataSource<Key, Value> extends
+        ListenableItemKeyedDataSource<Key, Value> {
 
     /**
      * Holder object for inputs to {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
@@ -184,9 +188,9 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
         public abstract void onResult(@NonNull List<Value> data);
 
         /**
-         * Called to report a non-retryable error from a DataSource.
+         * Called to report an error from a DataSource.
          * <p>
-         * Call this method to report a non-retryable error from
+         * Call this method to report an error from
          * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)},
          * {@link #loadBefore(LoadParams, LoadCallback)}, or
          * {@link #loadAfter(LoadParams, LoadCallback)} methods.
@@ -198,132 +202,74 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
             throw new IllegalStateException(
                     "You must implement onError if implementing your own load callback");
         }
-
-        /**
-         * Called to report a retryable error from a DataSource.
-         * <p>
-         * Call this method to report a retryable error from
-         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)},
-         * {@link #loadBefore(LoadParams, LoadCallback)}, or
-         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
-         *
-         * @param error The error that occurred during loading.
-         */
-        public void onRetryableError(@NonNull Throwable error) {
-            // TODO: remove default implementation in 3.0
-            throw new IllegalStateException(
-                    "You must implement onRetryableError if implementing your own load callback");
-        }
     }
 
-    static class LoadInitialCallbackImpl<Value> extends LoadInitialCallback<Value> {
-        final LoadCallbackHelper<Value> mCallbackHelper;
-        private final boolean mCountingEnabled;
-        LoadInitialCallbackImpl(@NonNull ItemKeyedDataSource dataSource, boolean countingEnabled,
-                @NonNull PageResult.Receiver<Value> receiver) {
-            mCallbackHelper = new LoadCallbackHelper<>(dataSource, PageResult.INIT, null, receiver);
-            mCountingEnabled = countingEnabled;
-        }
+    @Override
+    ListenableFuture<InitialResult<Value>> loadInitial(final @NonNull LoadInitialParams<Key> params) {
+        final ResolvableFuture<InitialResult<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                LoadInitialCallback<Value> callback = new LoadInitialCallback<Value>() {
+                    @Override
+                    public void onResult(@NonNull List<Value> data, int position, int totalCount) {
+                        future.set(new InitialResult<>(data, position, totalCount));
+                    }
 
-        @Override
-        public void onResult(@NonNull List<Value> data, int position, int totalCount) {
-            if (!mCallbackHelper.dispatchInvalidResultIfInvalid()) {
-                LoadCallbackHelper.validateInitialLoadParams(data, position, totalCount);
+                    @Override
+                    public void onResult(@NonNull List<Value> data) {
+                        future.set(new InitialResult<>(data));
+                    }
 
-                int trailingUnloadedCount = totalCount - position - data.size();
-                if (mCountingEnabled) {
-                    mCallbackHelper.dispatchResultToReceiver(new PageResult<>(
-                            data, position, trailingUnloadedCount, 0));
-                } else {
-                    mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, position));
-                }
+                    @Override
+                    public void onError(@NonNull Throwable error) {
+                        future.setException(error);
+                    }
+                };
+                loadInitial(params, callback);
             }
-        }
+        });
+        return future;
+    }
 
-        @Override
-        public void onResult(@NonNull List<Value> data) {
-            if (!mCallbackHelper.dispatchInvalidResultIfInvalid()) {
-                mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
+    @SuppressWarnings("WeakerAccess")
+    LoadCallback<Value> getFutureAsCallback(
+            final @NonNull ResolvableFuture<Result<Value>> future) {
+        return new LoadCallback<Value>() {
+            @Override
+            public void onResult(@NonNull List<Value> data) {
+                future.set(new Result<>(data));
             }
-        }
 
-        @Override
-        public void onError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, false);
-        }
-
-        @Override
-        public void onRetryableError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, true);
-        }
-    }
-
-    static class LoadCallbackImpl<Value> extends LoadCallback<Value> {
-        final LoadCallbackHelper<Value> mCallbackHelper;
-
-        LoadCallbackImpl(@NonNull ItemKeyedDataSource dataSource, @PageResult.ResultType int type,
-                @Nullable Executor mainThreadExecutor,
-                @NonNull PageResult.Receiver<Value> receiver) {
-            mCallbackHelper = new LoadCallbackHelper<>(
-                    dataSource, type, mainThreadExecutor, receiver);
-        }
-
-        @Override
-        public void onResult(@NonNull List<Value> data) {
-            if (!mCallbackHelper.dispatchInvalidResultIfInvalid()) {
-                mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
+            @Override
+            public void onError(@NonNull Throwable error) {
+                future.setException(error);
             }
-        }
-
-        @Override
-        public void onError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, false);
-        }
-
-        @Override
-        public void onRetryableError(@NonNull Throwable error) {
-            mCallbackHelper.dispatchErrorToReceiver(error, true);
-        }
-    }
-
-    @Nullable
-    @Override
-    final Key getKey(int position, Value item) {
-        if (item == null) {
-            return null;
-        }
-
-        return getKey(item);
+        };
     }
 
     @Override
-    final void dispatchLoadInitial(@Nullable Key key, int initialLoadSize, int pageSize,
-            boolean enablePlaceholders, @NonNull Executor mainThreadExecutor,
-            @NonNull PageResult.Receiver<Value> receiver) {
-        LoadInitialCallbackImpl<Value> callback =
-                new LoadInitialCallbackImpl<>(this, enablePlaceholders, receiver);
-        loadInitial(new LoadInitialParams<>(key, initialLoadSize, enablePlaceholders), callback);
-
-        // If initialLoad's callback is not called within the body, we force any following calls
-        // to post to the UI thread. This constructor may be run on a background thread, but
-        // after constructor, mutation must happen on UI thread.
-        callback.mCallbackHelper.setPostExecutor(mainThreadExecutor);
+    ListenableFuture<Result<Value>> loadBefore(final @NonNull LoadParams<Key> params) {
+        final ResolvableFuture<Result<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                loadBefore(params, getFutureAsCallback(future));
+            }
+        });
+        return future;
     }
 
     @Override
-    final void dispatchLoadAfter(int currentEndIndex, @NonNull Value currentEndItem,
-            int pageSize, @NonNull Executor mainThreadExecutor,
-            @NonNull PageResult.Receiver<Value> receiver) {
-        loadAfter(new LoadParams<>(getKey(currentEndItem), pageSize),
-                new LoadCallbackImpl<>(this, PageResult.APPEND, mainThreadExecutor, receiver));
-    }
-
-    @Override
-    final void dispatchLoadBefore(int currentBeginIndex, @NonNull Value currentBeginItem,
-            int pageSize, @NonNull Executor mainThreadExecutor,
-            @NonNull PageResult.Receiver<Value> receiver) {
-        loadBefore(new LoadParams<>(getKey(currentBeginItem), pageSize),
-                new LoadCallbackImpl<>(this, PageResult.PREPEND, mainThreadExecutor, receiver));
+    ListenableFuture<Result<Value>> loadAfter(final @NonNull LoadParams<Key> params) {
+        final ResolvableFuture<Result<Value>> future = ResolvableFuture.create();
+        getExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                loadAfter(params, getFutureAsCallback(future));
+            }
+        });
+        return future;
     }
 
     /**
@@ -422,5 +368,17 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
     public final <ToValue> ItemKeyedDataSource<Key, ToValue> map(
             @NonNull Function<Value, ToValue> function) {
         return mapByPage(createListFunction(function));
+    }
+
+    /**
+     *
+     */
+    public static abstract class StorageManager<Key, Value> {
+        public abstract void replaceData(@NonNull List<Value> data);
+
+        public abstract void storeData(@NonNull Key nextKey, @NonNull List<Value> data);
+
+        @Nullable
+        public abstract Key restoreKey();
     }
 }

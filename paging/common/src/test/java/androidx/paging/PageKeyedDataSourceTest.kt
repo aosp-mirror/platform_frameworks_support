@@ -48,7 +48,7 @@ class PageKeyedDataSourceTest {
             callback: LoadInitialCallback<String, Item>
         ) {
             if (error) {
-                callback.onRetryableError(EXCEPTION)
+                callback.onError(EXCEPTION)
                 error = false
                 return
             }
@@ -59,7 +59,7 @@ class PageKeyedDataSourceTest {
 
         override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, Item>) {
             if (error) {
-                callback.onRetryableError(EXCEPTION)
+                callback.onError(EXCEPTION)
                 error = false
                 return
             }
@@ -70,7 +70,7 @@ class PageKeyedDataSourceTest {
 
         override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, Item>) {
             if (error) {
-                callback.onRetryableError(EXCEPTION)
+                callback.onError(EXCEPTION)
                 error = false
                 return
             }
@@ -86,12 +86,13 @@ class PageKeyedDataSourceTest {
 
     @Test
     fun loadFullVerify() {
+        TODO()
+        /*
         // validate paging entire ItemDataSource results in full, correctly ordered data
         val pagedList = ContiguousPagedList<String, Item>(ItemDataSource(),
                 mMainThread, mBackgroundThread,
                 null, PagedList.Config.Builder().setPageSize(100).build(), null,
                 ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
-
         // validate initial load
         assertEquals(PAGE_MAP[INIT_KEY]!!.data, pagedList)
 
@@ -104,6 +105,7 @@ class PageKeyedDataSourceTest {
 
         // validate full load
         assertEquals(ITEM_LIST, pagedList)
+        */
     }
 
     private fun performLoadInitial(
@@ -138,6 +140,8 @@ class PageKeyedDataSourceTest {
             }
         }
 
+        TODO()
+        /*
         ContiguousPagedList<String, String>(
                 dataSource, FailExecutor(), FailExecutor(), null,
                 PagedList.Config.Builder()
@@ -145,6 +149,7 @@ class PageKeyedDataSourceTest {
                         .build(),
                 "",
                 ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+                */
     }
 
     @Test
@@ -226,6 +231,8 @@ class PageKeyedDataSourceTest {
         val boundaryCallback =
                 mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<String>
         val executor = TestExecutor()
+        TODO()
+        /*
         val pagedList = ContiguousPagedList<String, String>(
                 dataSource,
                 executor,
@@ -246,6 +253,7 @@ class PageKeyedDataSourceTest {
         verify(boundaryCallback).onItemAtFrontLoaded("A")
         verify(boundaryCallback).onItemAtEndLoaded("C")
         verifyNoMoreInteractions(boundaryCallback)
+        */
     }
 
     @Test
@@ -278,6 +286,8 @@ class PageKeyedDataSourceTest {
         val boundaryCallback =
                 mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<String>
         val executor = TestExecutor()
+        TODO()
+        /*
         val pagedList = ContiguousPagedList<String, String>(
                 dataSource,
                 executor,
@@ -298,6 +308,7 @@ class PageKeyedDataSourceTest {
         verify(boundaryCallback).onItemAtFrontLoaded("B")
         verify(boundaryCallback).onItemAtEndLoaded("B")
         verifyNoMoreInteractions(boundaryCallback)
+                */
     }
 
     private abstract class WrapperDataSource<K, A, B>(private val source: PageKeyedDataSource<K, A>)
@@ -341,10 +352,6 @@ class PageKeyedDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -357,10 +364,6 @@ class PageKeyedDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -372,10 +375,6 @@ class PageKeyedDataSourceTest {
 
                 override fun onError(error: Throwable) {
                     callback.onError(error)
-                }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
                 }
             })
         }
@@ -419,7 +418,7 @@ class PageKeyedDataSourceTest {
         // load after - error
         orig.enqueueError()
         wrapper.loadAfter(PageKeyedDataSource.LoadParams(expectedInitial.next, 4), loadCallback)
-        verify(loadCallback).onRetryableError(EXCEPTION)
+        verify(loadCallback).onError(EXCEPTION)
         verifyNoMoreInteractions(loadCallback)
 
         // load before
@@ -433,7 +432,7 @@ class PageKeyedDataSourceTest {
         // load before - error
         orig.enqueueError()
         wrapper.loadBefore(PageKeyedDataSource.LoadParams(expectedAfter.prev, 4), loadCallback)
-        verify(loadCallback).onRetryableError(EXCEPTION)
+        verify(loadCallback).onError(EXCEPTION)
         verifyNoMoreInteractions(loadCallback)
 
         // verify invalidation

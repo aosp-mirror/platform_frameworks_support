@@ -17,12 +17,13 @@
 package androidx.paging
 
 import androidx.arch.core.util.Function
-import androidx.paging.PagedList.LoadState.LOADING
+import androidx.concurrent.futures.ResolvableFuture
 import androidx.paging.PagedList.LoadState.IDLE
+import androidx.paging.PagedList.LoadState.LOADING
 import androidx.paging.PagedList.LoadState.RETRYABLE_ERROR
+import com.google.common.util.concurrent.ListenableFuture
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -33,7 +34,6 @@ import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.Mockito.verifyZeroInteractions
-import java.util.concurrent.Executor
 
 @RunWith(Parameterized::class)
 class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
@@ -47,84 +47,37 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
             return name
         }
     }
-
     private inner class TestSource(val listData: List<Item> = ITEMS)
-            : ContiguousDataSource<Int, Item>() {
-        override fun dispatchLoadInitial(
-            key: Int?,
-            initialLoadSize: Int,
-            pageSize: Int,
-            enablePlaceholders: Boolean,
-            mainThreadExecutor: Executor,
-            receiver: PageResult.Receiver<Item>
-        ) {
-            val convertPosition = key ?: 0
-            val position = Math.max(0, (convertPosition - initialLoadSize / 2))
-            val data = getClampedRange(position, position + initialLoadSize)
-            if (data != null) {
-                val trailingUnloadedCount = listData.size - position - data.size
+        : PositionalDataSource<Item>() {
+        override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Item>) {
+            val pos = PositionalDataSource.computeInitialLoadPosition(params, listData.size)
+            val count = PositionalDataSource.computeInitialLoadSize(params, pos, listData.size)
 
-                if (enablePlaceholders && placeholdersEnabled) {
-                    receiver.onPageResult(
-                        PageResult.INIT,
-                        PageResult(data, position, trailingUnloadedCount, 0)
-                    )
-                } else {
-                    // still must pass offset, even if not counted
-                    receiver.onPageResult(
-                        PageResult.INIT,
-                        PageResult(data, position)
-                    )
-                }
+            val result = getClampedRange(pos, pos + count)
+
+            println("pos " + params.requestedStartPosition + " clamped to $pos");
+            if (result == null) {
+                callback.onError(Exception())
             } else {
-                receiver.onPageError(PageResult.INIT, Exception(), true)
-            }
-        }
-
-        override fun dispatchLoadAfter(
-            currentEndIndex: Int,
-            currentEndItem: Item,
-            pageSize: Int,
-            mainThreadExecutor: Executor,
-            receiver: PageResult.Receiver<Item>
-        ) {
-            val startIndex = currentEndIndex + 1
-            val data = getClampedRange(startIndex, startIndex + pageSize)
-
-            mainThreadExecutor.execute {
-                if (data != null) {
-                    receiver.onPageResult(PageResult.APPEND, PageResult(data, 0, 0, 0))
+                // note, passing size even if not used
+                if (placeholdersEnabled) {
+                    callback.onResult(result, pos, listData.size)
                 } else {
-                    receiver.onPageError(PageResult.APPEND, Exception(), true)
+                    callback.onResult(result, pos)
                 }
             }
         }
 
-        override fun dispatchLoadBefore(
-            currentBeginIndex: Int,
-            currentBeginItem: Item,
-            pageSize: Int,
-            mainThreadExecutor: Executor,
-            receiver: PageResult.Receiver<Item>
-        ) {
-
-            val startIndex = currentBeginIndex - 1
-            val data = getClampedRange(startIndex - pageSize + 1, startIndex + 1)
-
-            mainThreadExecutor.execute {
-                if (data != null) {
-                    receiver.onPageResult(PageResult.PREPEND, PageResult(data, 0, 0, 0))
-                } else {
-                    receiver.onPageError(PageResult.PREPEND, Exception(), true)
-                }
+        override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Item>) {
+            val result = getClampedRange(params.startPosition, params.startPosition + params.loadSize)
+            if (result == null) {
+                callback.onError(Exception())
+            } else {
+                callback.onResult(result)
             }
         }
-
-        override fun getKey(position: Int, item: Item?): Int {
-            return 0
-        }
-
         private fun getClampedRange(startInc: Int, endExc: Int): List<Item>? {
+            println("get clamped $startInc, $endExc")
             val matching = errorIndices.filter { it in startInc..(endExc - 1) }
             if (matching.isNotEmpty()) {
                 // found indices with errors enqueued - fail to load them
@@ -134,21 +87,15 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
             return listData.subList(Math.max(0, startInc), Math.min(listData.size, endExc))
         }
 
-        override fun <ToValue : Any?> mapByPage(function: Function<List<Item>, List<ToValue>>):
-                DataSource<Int, ToValue> {
-            throw UnsupportedOperationException()
-        }
-
-        override fun <ToValue : Any?> map(function: Function<Item, ToValue>):
-                DataSource<Int, ToValue> {
-            throw UnsupportedOperationException()
-        }
-
         fun enqueueErrorForIndex(index: Int) {
             errorIndices.add(index)
         }
 
         val errorIndices = mutableListOf<Int>()
+
+        override fun isRetryableError(error: Throwable): Boolean {
+            return true
+        }
     }
 
     private fun DataSource<*, Item>.enqueueErrorForIndex(index: Int) {
@@ -202,16 +149,16 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     }
 
     private fun createCountedPagedList(
-        initialPosition: Int,
+        initialPosition: Int?,
         pageSize: Int = 20,
         initLoadSize: Int = 40,
         prefetchDistance: Int = 20,
         listData: List<Item> = ITEMS,
         boundaryCallback: PagedList.BoundaryCallback<Item>? = null,
-        lastLoad: Int = ContiguousPagedList.LAST_LOAD_UNSPECIFIED,
         maxSize: Int = PagedList.Config.MAX_SIZE_UNBOUNDED
     ): ContiguousPagedList<Int, Item> {
-        return ContiguousPagedList(
+        mBackgroundThread.setImmediate(true)
+        val ret = PagedList.createAsync(
             TestSource(listData),
             mMainThread,
             mBackgroundThread,
@@ -222,8 +169,10 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
                 .setPrefetchDistance(prefetchDistance)
                 .setMaxSize(maxSize)
                 .build(),
-            initialPosition,
-            lastLoad)
+            initialPosition
+        ).get()
+        mBackgroundThread.setImmediate(false)
+        return ret as ContiguousPagedList<Int, Item>
     }
 
     @Test
@@ -323,21 +272,21 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         val pagedList = createCountedPagedList(50)
         val callback = mock(PagedList.Callback::class.java)
         pagedList.addWeakCallback(null, callback)
-        verifyRange(30, 40, pagedList)
+        verifyRange(20, 40, pagedList)
         verifyZeroInteractions(callback)
 
-        pagedList.loadAround(if (placeholdersEnabled) 65 else 35)
+        pagedList.loadAround(if (placeholdersEnabled) 55 else 35)
         drain()
 
-        verifyRange(30, 60, pagedList)
-        verifyCallback(callback, 70, 40)
+        verifyRange(20, 60, pagedList)
+        verifyCallback(callback, 60, 40)
         verifyNoMoreInteractions(callback)
 
-        pagedList.loadAround(if (placeholdersEnabled) 35 else 5)
+        pagedList.loadAround(if (placeholdersEnabled) 25 else 5)
         drain()
 
-        verifyRange(10, 80, pagedList)
-        verifyCallback(callback, 10, 0)
+        verifyRange(0, 80, pagedList)
+        verifyCallback(callback, 0, 0)
         verifyNoMoreInteractions(callback)
     }
 
@@ -752,9 +701,8 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun initialLoad_lastLoad() {
         val pagedList = createCountedPagedList(
-                initialPosition = 0,
-                initLoadSize = 20,
-                lastLoad = 4)
+                initialPosition = 4,
+                initLoadSize = 20)
         // last load is param passed
         assertEquals(4, pagedList.mLastLoad)
         verifyRange(0, 20, pagedList)
@@ -763,14 +711,14 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun initialLoad_lastLoadComputed() {
         val pagedList = createCountedPagedList(
-                initialPosition = 0,
-                initLoadSize = 20,
-                lastLoad = ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+                initialPosition = null,
+                initLoadSize = 20)
         // last load is middle of initial load
         assertEquals(10, pagedList.mLastLoad)
         verifyRange(0, 20, pagedList)
     }
 
+    /*
     @Test
     fun initialLoadAsync() {
         // Note: ignores Parameterized param
@@ -830,7 +778,7 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         pagedList.addWeakCallback(emptySnapshot, callback)
         verify(callback).onInserted(0, pagedList.size)
         verifyNoMoreInteractions(callback)
-    }
+    }*/
 
     @Test
     fun boundaryCallback_empty() {
