@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "18d2d43e_dda12734",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1248808
+      },
+      "writtenOn": "2018-10-25T18:18:23Z",
+      "side": 1,
+      "message": "I only meant to suggest the class to be static as it doesn\u0027t use anything from the containing class. Instance variable can still be non static like before.",
+      "parentUuid": "b09eba44_ea3c68a4",
+      "range": {
+        "startLine": 682,
+        "startChar": 4,
+        "endLine": 682,
+        "endChar": 72
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed4e3778_ad295b85",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 2
