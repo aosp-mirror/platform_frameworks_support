@@ -42,7 +42,7 @@ import androidx.work.WorkRequest;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkContinuationImpl;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.Dependency;
 import androidx.work.impl.model.DependencyDao;
@@ -108,7 +108,7 @@ public class EnqueueRunnable implements Runnable {
      */
     @VisibleForTesting
     public boolean addToDatabase() {
-        WorkManagerImpl workManagerImpl = mWorkContinuation.getWorkManagerImpl();
+        WorkManagerEngine workManagerImpl = mWorkContinuation.getWorkManagerImpl();
         WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
         workDatabase.beginTransaction();
         try {
@@ -125,7 +125,7 @@ public class EnqueueRunnable implements Runnable {
      */
     @VisibleForTesting
     public void scheduleWorkInBackground() {
-        WorkManagerImpl workManager = mWorkContinuation.getWorkManagerImpl();
+        WorkManagerEngine workManager = mWorkContinuation.getWorkManagerImpl();
         Schedulers.schedule(
                 workManager.getConfiguration(),
                 workManager.getWorkDatabase(),
@@ -171,7 +171,7 @@ public class EnqueueRunnable implements Runnable {
      * @return {@code true} If there is any scheduling to be done.
      */
     private static boolean enqueueWorkWithPrerequisites(
-            WorkManagerImpl workManagerImpl,
+            WorkManagerEngine workManagerImpl,
             @NonNull List<? extends WorkRequest> workList,
             String[] prerequisiteIds,
             String name,

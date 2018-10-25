@@ -23,7 +23,7 @@ import android.support.annotation.RestrictTo;
 import androidx.work.Worker;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
     @Override
     public void cancel(@NonNull String workSpecId) {
         synchronized (sLock) {
-            WorkManagerImpl.getInstance().stopWork(workSpecId);
+            WorkManagerEngine.getInstance().stopWork(workSpecId);
             mInternalWorkStates.remove(workSpecId);
         }
     }
@@ -152,7 +152,7 @@ class TestScheduler implements Scheduler, ExecutionListener {
         for (String workSpecId : workSpecIds) {
             InternalWorkState internalWorkState = mInternalWorkStates.get(workSpecId);
             if (internalWorkState.isRunnable()) {
-                WorkManagerImpl.getInstance().startWork(workSpecId);
+                WorkManagerEngine.getInstance().startWork(workSpecId);
             }
         }
     }

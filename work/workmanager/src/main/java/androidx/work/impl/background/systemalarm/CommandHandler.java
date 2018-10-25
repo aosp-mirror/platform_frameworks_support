@@ -28,7 +28,7 @@ import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 
@@ -191,7 +191,7 @@ public class CommandHandler implements ExecutionListener {
         String workSpecId = extras.getString(KEY_WORKSPEC_ID);
         Logger.debug(TAG, String.format("Handling schedule work for %s", workSpecId));
 
-        WorkManagerImpl workManager = dispatcher.getWorkManager();
+        WorkManagerEngine workManager = dispatcher.getWorkManager();
         WorkDatabase workDatabase = workManager.getWorkDatabase();
         workDatabase.beginTransaction();
 

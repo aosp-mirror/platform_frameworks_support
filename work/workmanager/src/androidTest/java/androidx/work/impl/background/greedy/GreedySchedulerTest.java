@@ -30,7 +30,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManagerTest;
 import androidx.work.impl.Processor;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.worker.TestWorker;
@@ -49,14 +49,14 @@ public class GreedySchedulerTest extends WorkManagerTest {
 
     private static final String TEST_ID = "test";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private Processor mMockProcessor;
     private WorkConstraintsTracker mMockWorkConstraintsTracker;
     private GreedyScheduler mGreedyScheduler;
 
     @Before
     public void setUp() {
-        mWorkManagerImpl = mock(WorkManagerImpl.class);
+        mWorkManagerImpl = mock(WorkManagerEngine.class);
         mMockProcessor = mock(Processor.class);
         mMockWorkConstraintsTracker = mock(WorkConstraintsTracker.class);
         when(mWorkManagerImpl.getProcessor()).thenReturn(mMockProcessor);

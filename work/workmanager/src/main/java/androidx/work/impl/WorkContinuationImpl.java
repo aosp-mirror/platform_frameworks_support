@@ -51,7 +51,7 @@ public class WorkContinuationImpl extends WorkContinuation {
 
     private static final String TAG = "WorkContinuationImpl";
 
-    private final WorkManagerImpl mWorkManagerImpl;
+    private final WorkManagerEngine mWorkManagerImpl;
     private final String mName;
     private final ExistingWorkPolicy mExistingWorkPolicy;
     private final List<? extends WorkRequest> mWork;
@@ -63,7 +63,7 @@ public class WorkContinuationImpl extends WorkContinuation {
     private ListenableFuture<Void> mFuture;
 
     @NonNull
-    public WorkManagerImpl getWorkManagerImpl() {
+    public WorkManagerEngine getWorkManagerImpl() {
         return mWorkManagerImpl;
     }
 
@@ -106,7 +106,7 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     WorkContinuationImpl(
-            @NonNull WorkManagerImpl workManagerImpl,
+            @NonNull WorkManagerEngine workManagerImpl,
             @NonNull List<? extends WorkRequest> work) {
         this(
                 workManagerImpl,
@@ -117,14 +117,14 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     WorkContinuationImpl(
-            @NonNull WorkManagerImpl workManagerImpl,
+            @NonNull WorkManagerEngine workManagerImpl,
             String name,
             ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<? extends WorkRequest> work) {
         this(workManagerImpl, name, existingWorkPolicy, work, null);
     }
 
-    WorkContinuationImpl(@NonNull WorkManagerImpl workManagerImpl,
+    WorkContinuationImpl(@NonNull WorkManagerEngine workManagerImpl,
             String name,
             ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<? extends WorkRequest> work,

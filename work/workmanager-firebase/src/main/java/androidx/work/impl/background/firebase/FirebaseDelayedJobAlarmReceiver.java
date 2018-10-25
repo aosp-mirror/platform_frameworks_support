@@ -25,7 +25,7 @@ import android.support.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class FirebaseDelayedJobAlarmReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         final PendingResult pendingResult = goAsync();
         final String workSpecId = intent.getStringExtra(WORKSPEC_ID_KEY);
-        final WorkManagerImpl workManagerImpl = WorkManagerImpl.getInstance();
+        final WorkManagerEngine workManagerImpl = WorkManagerEngine.getInstance();
         if (workManagerImpl == null) {
             Logger.error(TAG, "WorkManager is not initialized properly.  The most "
                     + "likely cause is that you disabled WorkManagerInitializer in your manifest "
@@ -82,7 +82,7 @@ public class FirebaseDelayedJobAlarmReceiver extends BroadcastReceiver {
 
     @Nullable
     static FirebaseJobScheduler getFirebaseJobScheduler(
-            @NonNull WorkManagerImpl workManager) {
+            @NonNull WorkManagerEngine workManager) {
 
         List<Scheduler> schedulers = workManager.getSchedulers();
         if (schedulers == null || schedulers.isEmpty()) {

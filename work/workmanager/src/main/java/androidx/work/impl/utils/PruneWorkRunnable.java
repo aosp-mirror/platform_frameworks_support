@@ -19,7 +19,7 @@ package androidx.work.impl.utils;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -35,10 +35,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class PruneWorkRunnable implements Runnable {
 
-    private final WorkManagerImpl mWorkManagerImpl;
+    private final WorkManagerEngine mWorkManagerImpl;
     private final SettableFuture<Void> mFuture;
 
-    public PruneWorkRunnable(WorkManagerImpl workManagerImpl) {
+    public PruneWorkRunnable(WorkManagerEngine workManagerImpl) {
         mWorkManagerImpl = workManagerImpl;
         mFuture = SettableFuture.create();
     }

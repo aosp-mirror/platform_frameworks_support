@@ -31,7 +31,7 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 
 import androidx.work.Logger;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,9 +55,9 @@ public class ForceStopRunnable implements Runnable {
     private static final long TEN_YEARS = TimeUnit.DAYS.toMillis(10 * 365);
 
     private final Context mContext;
-    private final WorkManagerImpl mWorkManager;
+    private final WorkManagerEngine mWorkManager;
 
-    public ForceStopRunnable(@NonNull Context context, @NonNull WorkManagerImpl workManager) {
+    public ForceStopRunnable(@NonNull Context context, @NonNull WorkManagerEngine workManager) {
         mContext = context.getApplicationContext();
         mWorkManager = workManager;
     }

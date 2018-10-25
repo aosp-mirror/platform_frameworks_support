@@ -37,7 +37,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.State;
 import androidx.work.WorkRequest;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.worker.FirebaseInfiniteTestWorker;
@@ -53,10 +53,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
-@SdkSuppress(maxSdkVersion = WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL)
+@SdkSuppress(maxSdkVersion = WorkManagerEngine.MAX_PRE_JOB_SCHEDULER_API_LEVEL)
 public class FirebaseJobServiceTest {
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private WorkDatabase mDatabase;
     private FirebaseJobService mFirebaseJobService;
 
@@ -67,8 +67,8 @@ public class FirebaseJobServiceTest {
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .build();
         mWorkManagerImpl =
-                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor());
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
+                new WorkManagerEngine(context, configuration, new InstantWorkTaskExecutor());
+        WorkManagerEngine.setDelegate(mWorkManagerImpl);
         mDatabase = mWorkManagerImpl.getWorkDatabase();
         mFirebaseJobService = new FirebaseJobService();
         mFirebaseJobService.onCreate();
@@ -94,7 +94,7 @@ public class FirebaseJobServiceTest {
     @After
     public void tearDown() {
         mFirebaseJobService.onDestroy();
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -141,7 +141,7 @@ public class FirebaseJobServiceTest {
 
         JobParameters mockParams = createMockJobParameters(work.getStringId());
         assertThat(mFirebaseJobService.onStartJob(mockParams), is(true));
-        WorkManagerImpl.getInstance().cancelWorkByIdInternal(work.getId()).get();
+        WorkManagerEngine.getInstance().cancelWorkById(work.getId()).get();
         assertThat(mFirebaseJobService.onStopJob(mockParams), is(false));
     }
 

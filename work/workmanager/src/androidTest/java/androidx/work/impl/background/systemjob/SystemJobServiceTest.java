@@ -52,7 +52,7 @@ import androidx.work.WorkerParameters;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.worker.InfiniteTestWorker;
@@ -67,10 +67,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
-@SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobServiceTest extends WorkManagerTest {
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private Processor mProcessor;
     private WorkDatabase mDatabase;
     private SystemJobService mSystemJobServiceSpy;
@@ -79,7 +79,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @Before
     public void setUp() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
@@ -115,9 +115,9 @@ public class SystemJobServiceTest extends WorkManagerTest {
                 mDatabase,
                 schedulers);
 
-        mWorkManagerImpl = new WorkManagerImpl(
+        mWorkManagerImpl = new WorkManagerEngine(
                 context, configuration, taskExecutor, mDatabase, schedulers, mProcessor);
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
+        WorkManagerEngine.setDelegate(mWorkManagerImpl);
         mSystemJobServiceSpy = spy(new SystemJobService());
         doNothing().when(mSystemJobServiceSpy).onExecuted(anyString(), anyBoolean());
         mSystemJobServiceSpy.onCreate();
@@ -126,12 +126,12 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @After
     public void tearDown() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
         mSystemJobServiceSpy.onDestroy();
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -139,7 +139,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @LargeTest
     public void testOnStopJob_ResetsWorkStatus() throws InterruptedException {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
@@ -165,7 +165,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @SmallTest
     public void testOnStopJob_ReschedulesWhenNotCancelled() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
@@ -181,7 +181,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @LargeTest
     public void testOnStopJob_DoesNotRescheduleWhenCancelled() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
@@ -190,7 +190,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
 
         JobParameters mockParams = createMockJobParameters(work.getStringId());
         assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(true));
-        WorkManagerImpl.getInstance().cancelWorkById(work.getId());
+        WorkManagerEngine.getInstance().cancelWorkById(work.getId());
         assertThat(mSystemJobServiceSpy.onStopJob(mockParams), is(false));
     }
 
@@ -198,7 +198,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @SmallTest
     public void testStartJob_ReturnsFalseWithDuplicateJob() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 
@@ -215,7 +215,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     @SdkSuppress(minSdkVersion = 24)
     public void testStartJob_PassesContentUriTriggers() throws InterruptedException {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
-        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT < WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             return;
         }
 

@@ -29,7 +29,7 @@ import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.futures.SettableFuture;
@@ -68,7 +68,7 @@ public abstract class CancelWorkRunnable implements Runnable {
 
     abstract void runInternal();
 
-    void cancel(WorkManagerImpl workManagerImpl, String workSpecId) {
+    void cancel(WorkManagerEngine workManagerImpl, String workSpecId) {
         recursivelyCancelWorkAndDependents(workManagerImpl.getWorkDatabase(), workSpecId);
 
         Processor processor = workManagerImpl.getProcessor();
@@ -79,7 +79,7 @@ public abstract class CancelWorkRunnable implements Runnable {
         }
     }
 
-    void reschedulePendingWorkers(WorkManagerImpl workManagerImpl) {
+    void reschedulePendingWorkers(WorkManagerEngine workManagerImpl) {
         Schedulers.schedule(
                 workManagerImpl.getConfiguration(),
                 workManagerImpl.getWorkDatabase(),
@@ -105,12 +105,12 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work for a specific id.
      *
      * @param id The id to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param workManagerImpl The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels work for a specific id
      */
     public static CancelWorkRunnable forId(
             @NonNull final UUID id,
-            @NonNull final WorkManagerImpl workManagerImpl) {
+            @NonNull final WorkManagerEngine workManagerImpl) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
@@ -125,12 +125,12 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work for a specific tag.
      *
      * @param tag The tag to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param workManagerImpl The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels work for a specific tag
      */
     public static CancelWorkRunnable forTag(
             @NonNull final String tag,
-            @NonNull final WorkManagerImpl workManagerImpl) {
+            @NonNull final WorkManagerEngine workManagerImpl) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override
@@ -156,13 +156,13 @@ public abstract class CancelWorkRunnable implements Runnable {
      * Creates a {@link CancelWorkRunnable} that cancels work labelled with a specific name.
      *
      * @param name The name to cancel
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param workManagerImpl The {@link WorkManagerEngine} to use
      * @param allowReschedule If {@code true}, reschedule pending workers at the end
      * @return A {@link CancelWorkRunnable} that cancels work labelled with a specific name
      */
     public static CancelWorkRunnable forName(
             @NonNull final String name,
-            @NonNull final WorkManagerImpl workManagerImpl,
+            @NonNull final WorkManagerEngine workManagerImpl,
             final boolean allowReschedule) {
         return new CancelWorkRunnable() {
             @WorkerThread
@@ -191,10 +191,10 @@ public abstract class CancelWorkRunnable implements Runnable {
     /**
      * Creates a {@link CancelWorkRunnable} that cancels all work.
      *
-     * @param workManagerImpl The {@link WorkManagerImpl} to use
+     * @param workManagerImpl The {@link WorkManagerEngine} to use
      * @return A {@link CancelWorkRunnable} that cancels all work
      */
-    public static CancelWorkRunnable forAll(@NonNull final WorkManagerImpl workManagerImpl) {
+    public static CancelWorkRunnable forAll(@NonNull final WorkManagerEngine workManagerImpl) {
         return new CancelWorkRunnable() {
             @WorkerThread
             @Override

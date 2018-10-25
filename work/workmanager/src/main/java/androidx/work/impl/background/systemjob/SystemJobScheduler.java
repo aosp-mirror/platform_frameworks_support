@@ -29,7 +29,7 @@ import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.SystemIdInfo;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.IdGenerator;
@@ -42,17 +42,17 @@ import java.util.List;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-@RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@RequiresApi(WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobScheduler implements Scheduler {
 
     private static final String TAG = "SystemJobScheduler";
 
     private final JobScheduler mJobScheduler;
-    private final WorkManagerImpl mWorkManager;
+    private final WorkManagerEngine mWorkManager;
     private final IdGenerator mIdGenerator;
     private final SystemJobInfoConverter mSystemJobInfoConverter;
 
-    public SystemJobScheduler(@NonNull Context context, @NonNull WorkManagerImpl workManager) {
+    public SystemJobScheduler(@NonNull Context context, @NonNull WorkManagerEngine workManager) {
         this(context,
                 workManager,
                 (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE),
@@ -62,7 +62,7 @@ public class SystemJobScheduler implements Scheduler {
     @VisibleForTesting
     public SystemJobScheduler(
             Context context,
-            WorkManagerImpl workManager,
+            WorkManagerEngine workManager,
             JobScheduler jobScheduler,
             SystemJobInfoConverter systemJobInfoConverter) {
         mWorkManager = workManager;

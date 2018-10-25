@@ -28,7 +28,7 @@ import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
 /**
- * The {@link ContentProvider} responsible for initializing {@link WorkManagerImpl}.
+ * The {@link ContentProvider} responsible for initializing {@link WorkManagerEngine}.
  *
  * @hide
  */

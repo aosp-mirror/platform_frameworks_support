@@ -22,7 +22,7 @@ import android.text.TextUtils;
 
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -38,13 +38,13 @@ import java.util.Map;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class FirebaseJobService extends JobService implements ExecutionListener {
     private static final String TAG = "FirebaseJobService";
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private final Map<String, JobParameters> mJobParameters = new HashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
+        mWorkManagerImpl = WorkManagerEngine.getInstance();
         mWorkManagerImpl.getProcessor().addExecutionListener(this);
     }
 

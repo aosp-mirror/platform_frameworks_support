@@ -29,7 +29,7 @@ import android.content.Context;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.WorkContinuationImpl;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,13 +42,13 @@ import org.mockito.stubbing.Answer;
 public class EnqueueRunnableTest {
 
     private Context mContext;
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private WorkContinuationImpl mWorkContinuation;
 
     @Before
     public void setup() {
         mContext = mock(Context.class);
-        mWorkManagerImpl = mock(WorkManagerImpl.class);
+        mWorkManagerImpl = mock(WorkManagerEngine.class);
         mWorkContinuation = mock(WorkContinuationImpl.class);
         when(mWorkManagerImpl.getApplicationContext()).thenReturn(mContext);
         when(mWorkContinuation.getWorkManagerImpl()).thenReturn(mWorkManagerImpl);

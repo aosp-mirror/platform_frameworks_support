@@ -33,7 +33,7 @@ import android.content.SharedPreferences;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ import org.mockito.stubbing.Answer;
 
 @SmallTest
 @RunWith(AndroidJUnit4.class)
-@SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@SdkSuppress(minSdkVersion = WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class IdGeneratorTest {
     private Integer mMockSharedPrefsNextId;
     private IdGenerator mIdGenerator;

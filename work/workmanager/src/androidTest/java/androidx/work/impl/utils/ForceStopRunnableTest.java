@@ -32,7 +32,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 
 import org.junit.Before;
@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
 public class ForceStopRunnableTest {
 
     private Context mContext;
-    private WorkManagerImpl mWorkManager;
+    private WorkManagerEngine mWorkManager;
     private WorkDatabase mWorkDatabase;
     private WorkSpecDao mWorkSpecDao;
     private Preferences mPreferences;
@@ -53,7 +53,7 @@ public class ForceStopRunnableTest {
     @Before
     public void setUp() {
         mContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
-        mWorkManager = mock(WorkManagerImpl.class);
+        mWorkManager = mock(WorkManagerEngine.class);
         mWorkDatabase = mock(WorkDatabase.class);
         mWorkSpecDao = mock(WorkSpecDao.class);
         mPreferences = mock(Preferences.class);

@@ -22,7 +22,7 @@ import android.support.annotation.WorkerThread;
 
 import androidx.work.WorkStatus;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -62,12 +62,12 @@ public abstract class StatusRunnable<T> implements Runnable {
      * Creates a {@link StatusRunnable} which can get statuses for a given {@link List} of
      * {@link String} workSpec ids.
      *
-     * @param workManager The {@link WorkManagerImpl} to use
+     * @param workManager The {@link WorkManagerEngine} to use
      * @param ids         The {@link List} of {@link String} ids
      * @return an instance of {@link StatusRunnable}
      */
     public static StatusRunnable<List<WorkStatus>> forStringIds(
-            @NonNull final WorkManagerImpl workManager,
+            @NonNull final WorkManagerEngine workManager,
             @NonNull final List<String> ids) {
 
         return new StatusRunnable<List<WorkStatus>>() {
@@ -86,12 +86,12 @@ public abstract class StatusRunnable<T> implements Runnable {
      * Creates a {@link StatusRunnable} which can get statuses for a specific {@link UUID}
      * workSpec id.
      *
-     * @param workManager The {@link WorkManagerImpl} to use
+     * @param workManager The {@link WorkManagerEngine} to use
      * @param id          The workSpec {@link UUID}
      * @return an instance of {@link StatusRunnable}
      */
     public static StatusRunnable<WorkStatus> forUUID(
-            @NonNull final WorkManagerImpl workManager,
+            @NonNull final WorkManagerEngine workManager,
             @NonNull final UUID id) {
 
         return new StatusRunnable<WorkStatus>() {
@@ -110,12 +110,12 @@ public abstract class StatusRunnable<T> implements Runnable {
      * Creates a {@link StatusRunnable} which can get statuses for {@link WorkSpec}s annotated with
      * the given {@link String} tag.
      *
-     * @param workManager The {@link WorkManagerImpl} to use
+     * @param workManager The {@link WorkManagerEngine} to use
      * @param tag The {@link String} tag
      * @return an instance of {@link StatusRunnable}
      */
     public static StatusRunnable<List<WorkStatus>> forTag(
-            @NonNull final WorkManagerImpl workManager,
+            @NonNull final WorkManagerEngine workManager,
             @NonNull final String tag) {
 
         return new StatusRunnable<List<WorkStatus>>() {
@@ -134,12 +134,12 @@ public abstract class StatusRunnable<T> implements Runnable {
      * Creates a {@link StatusRunnable} which can get statuses for {@link WorkSpec}s annotated with
      * the given {@link String} unique name.
      *
-     * @param workManager The {@link WorkManagerImpl} to use
+     * @param workManager The {@link WorkManagerEngine} to use
      * @param name The {@link String} unique name
      * @return an instance of {@link StatusRunnable}
      */
     public static StatusRunnable<List<WorkStatus>> forUniqueWork(
-            @NonNull final WorkManagerImpl workManager,
+            @NonNull final WorkManagerEngine workManager,
             @NonNull final String name) {
 
         return new StatusRunnable<List<WorkStatus>>() {

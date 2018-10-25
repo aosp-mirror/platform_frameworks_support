@@ -30,7 +30,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.DatabaseTest;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.SystemIdInfo;
 import androidx.work.worker.TestWorker;
 
@@ -45,13 +45,13 @@ import java.util.concurrent.TimeUnit;
 public class AlarmsTest extends DatabaseTest {
 
     private Context mContext;
-    private WorkManagerImpl mWorkManager;
+    private WorkManagerEngine mWorkManager;
     private long mTriggerAt;
 
     @Before
     public void setUp() {
         mContext = InstrumentationRegistry.getTargetContext();
-        mWorkManager = mock(WorkManagerImpl.class);
+        mWorkManager = mock(WorkManagerEngine.class);
         // Set it to sometime in the future so as to avoid triggering real alarms.
         mTriggerAt = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1);
         when(mWorkManager.getWorkDatabase()).thenReturn(mDatabase);

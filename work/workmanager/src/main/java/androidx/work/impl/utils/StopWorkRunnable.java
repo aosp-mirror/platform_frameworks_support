@@ -21,7 +21,7 @@ import android.support.annotation.RestrictTo;
 import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.WorkDatabase;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.model.WorkSpecDao;
 
 /**
@@ -34,10 +34,10 @@ public class StopWorkRunnable implements Runnable {
 
     private static final String TAG = "StopWorkRunnable";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private String mWorkSpecId;
 
-    public StopWorkRunnable(WorkManagerImpl workManagerImpl, String workSpecId) {
+    public StopWorkRunnable(WorkManagerEngine workManagerImpl, String workSpecId) {
         mWorkManagerImpl = workManagerImpl;
         mWorkSpecId = workSpecId;
     }

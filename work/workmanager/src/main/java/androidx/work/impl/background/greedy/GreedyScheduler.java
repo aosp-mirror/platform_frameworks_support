@@ -27,7 +27,7 @@ import androidx.work.Logger;
 import androidx.work.State;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
@@ -47,20 +47,20 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
 
     private static final String TAG = "GreedyScheduler";
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private WorkConstraintsTracker mWorkConstraintsTracker;
     private List<WorkSpec> mConstrainedWorkSpecs = new ArrayList<>();
     private boolean mRegisteredExecutionListener;
     private final Object mLock;
 
-    public GreedyScheduler(Context context, WorkManagerImpl workManagerImpl) {
+    public GreedyScheduler(Context context, WorkManagerEngine workManagerImpl) {
         mWorkManagerImpl = workManagerImpl;
         mWorkConstraintsTracker = new WorkConstraintsTracker(context, this);
         mLock = new Object();
     }
 
     @VisibleForTesting
-    public GreedyScheduler(WorkManagerImpl workManagerImpl,
+    public GreedyScheduler(WorkManagerEngine workManagerImpl,
             WorkConstraintsTracker workConstraintsTracker) {
         mWorkManagerImpl = workManagerImpl;
         mWorkConstraintsTracker = workConstraintsTracker;

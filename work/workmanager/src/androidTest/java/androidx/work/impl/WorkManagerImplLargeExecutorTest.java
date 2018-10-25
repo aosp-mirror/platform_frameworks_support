@@ -79,7 +79,7 @@ public class WorkManagerImplLargeExecutorTest {
     private static final int TEST_SCHEDULER_LIMIT = 50;
 
 
-    private WorkManagerImpl mWorkManagerImplSpy;
+    private WorkManagerEngine mWorkManagerImplSpy;
     private TestLifecycleOwner mLifecycleOwner;
 
     @Before
@@ -110,7 +110,7 @@ public class WorkManagerImplLargeExecutorTest {
                 .setMaxSchedulerLimit(TEST_SCHEDULER_LIMIT)
                 .build();
         mWorkManagerImplSpy = spy(
-                new WorkManagerImpl(context, configuration, new InstantWorkTaskExecutor(), true));
+                new WorkManagerEngine(context, configuration, new InstantWorkTaskExecutor(), true));
 
         TrackingScheduler trackingScheduler = new TrackingScheduler(context, mWorkManagerImplSpy);
         Processor processor = new Processor(context,
@@ -124,12 +124,12 @@ public class WorkManagerImplLargeExecutorTest {
         when(mWorkManagerImplSpy.getProcessor()).thenReturn(processor);
 
         mLifecycleOwner = new TestLifecycleOwner();
-        WorkManagerImpl.setDelegate(mWorkManagerImplSpy);
+        WorkManagerEngine.setDelegate(mWorkManagerImplSpy);
     }
 
     @After
     public void tearDown() {
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -183,7 +183,7 @@ public class WorkManagerImplLargeExecutorTest {
 
         private Set<String> mScheduledWorkSpecIds;
 
-        TrackingScheduler(Context context, WorkManagerImpl workManagerImpl) {
+        TrackingScheduler(Context context, WorkManagerEngine workManagerImpl) {
             super(context, workManagerImpl);
             mScheduledWorkSpecIds = new HashSet<>();
         }

@@ -33,6 +33,7 @@ import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.R;
+import androidx.work.State;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
@@ -60,6 +61,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A concrete implementation of {@link WorkManager}.
@@ -67,7 +69,7 @@ import java.util.UUID;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class WorkManagerImpl extends WorkManager {
+public class WorkManagerEngine {
 
     public static final int MAX_PRE_JOB_SCHEDULER_API_LEVEL = 22;
     public static final int MIN_JOB_SCHEDULER_API_LEVEL = 23;
@@ -82,31 +84,31 @@ public class WorkManagerImpl extends WorkManager {
     private boolean mForceStopRunnableCompleted;
     private BroadcastReceiver.PendingResult mRescheduleReceiverResult;
 
-    private static WorkManagerImpl sDelegatedInstance = null;
-    private static WorkManagerImpl sDefaultInstance = null;
+    private static WorkManagerEngine sDelegatedInstance = null;
+    private static WorkManagerEngine sDefaultInstance = null;
     private static final Object sLock = new Object();
 
 
     /**
-     * @param delegate The delegate for {@link WorkManagerImpl} for testing; {@code null} to use the
-     *                 default instance
+     * @param delegate The delegate for {@link WorkManagerEngine} for testing; {@code null} to use
+     *                 the default instance
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public static void setDelegate(WorkManagerImpl delegate) {
+    public static void setDelegate(WorkManagerEngine delegate) {
         synchronized (sLock) {
             sDelegatedInstance = delegate;
         }
     }
 
     /**
-     * Retrieves the singleton instance of {@link WorkManagerImpl}.
+     * Retrieves the singleton instance of {@link WorkManagerEngine}.
      *
-     * @return The singleton instance of {@link WorkManagerImpl}
+     * @return The singleton instance of {@link WorkManagerEngine}
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public static @Nullable WorkManagerImpl getInstance() {
+    public static @Nullable WorkManagerEngine getInstance() {
         synchronized (sLock) {
             if (sDelegatedInstance != null) {
                 return sDelegatedInstance;
@@ -117,7 +119,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Initializes the singleton instance of {@link WorkManagerImpl}.
+     * Initializes the singleton instance of {@link WorkManagerEngine}.
      *
      * @param context A {@link Context} object for configuration purposes. Internally, this class
      *                will call {@link Context#getApplicationContext()}, so you may safely pass in
@@ -132,7 +134,7 @@ public class WorkManagerImpl extends WorkManager {
             if (sDelegatedInstance == null) {
                 context = context.getApplicationContext();
                 if (sDefaultInstance == null) {
-                    sDefaultInstance = new WorkManagerImpl(
+                    sDefaultInstance = new WorkManagerEngine(
                             context,
                             configuration,
                             new WorkManagerTaskExecutor());
@@ -143,7 +145,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Create an instance of {@link WorkManagerImpl}.
+     * Create an instance of {@link WorkManagerEngine}.
      *
      * @param context The application {@link Context}
      * @param configuration The {@link Configuration} configuration
@@ -152,7 +154,7 @@ public class WorkManagerImpl extends WorkManager {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public WorkManagerImpl(
+    public WorkManagerEngine(
             @NonNull Context context,
             @NonNull Configuration configuration,
             @NonNull TaskExecutor workTaskExecutor) {
@@ -163,7 +165,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Create an instance of {@link WorkManagerImpl}.
+     * Create an instance of {@link WorkManagerEngine}.
      *
      * @param context The application {@link Context}
      * @param configuration The {@link Configuration} configuration
@@ -173,7 +175,7 @@ public class WorkManagerImpl extends WorkManager {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public WorkManagerImpl(
+    public WorkManagerEngine(
             @NonNull Context context,
             @NonNull Configuration configuration,
             @NonNull TaskExecutor workTaskExecutor,
@@ -192,7 +194,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Create an instance of {@link WorkManagerImpl}.
+     * Create an instance of {@link WorkManagerEngine}.
      *
      * @param context The application {@link Context}
      * @param configuration The {@link Configuration} configuration
@@ -203,7 +205,7 @@ public class WorkManagerImpl extends WorkManager {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public WorkManagerImpl(
+    public WorkManagerEngine(
             @NonNull Context context,
             @NonNull Configuration configuration,
             @NonNull TaskExecutor workTaskExecutor,
@@ -278,9 +280,12 @@ public class WorkManagerImpl extends WorkManager {
         return mPreferences;
     }
 
-    @Override
-    @NonNull
-    public ListenableFuture<Void> enqueueInternal(
+    /**
+     * Enqueues one or more items for background processing.
+     *
+     * @param workRequests One or more {@link WorkRequest} to enqueue
+     */
+    public @NonNull ListenableFuture<Void> enqueue(
             @NonNull List<? extends WorkRequest> workRequests) {
 
         // This error is not being propagated as part of the ListenableFuture, as we want the
@@ -292,7 +297,14 @@ public class WorkManagerImpl extends WorkManager {
         return new WorkContinuationImpl(this, workRequests).enqueue();
     }
 
-    @Override
+    /**
+     * Begins a chain with one or more {@link OneTimeWorkRequest}s, which can be enqueued together
+     * in the future using {@link WorkContinuation#enqueue()}.
+     *
+     * @param work One or more {@link OneTimeWorkRequest} to start a chain of work
+     * @return A {@link WorkContinuation} that allows for further chaining of dependent
+     *         {@link OneTimeWorkRequest}
+     */
     public @NonNull WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work) {
         if (work.isEmpty()) {
             throw new IllegalArgumentException(
@@ -301,7 +313,29 @@ public class WorkManagerImpl extends WorkManager {
         return new WorkContinuationImpl(this, work);
     }
 
-    @Override
+    /**
+     * This method allows you to begin unique chains of work for situations where you only want one
+     * chain with a given name to be active at a time.  For example, you may only want one sync
+     * operation to be active.  If there is one pending, you can choose to let it run or replace it
+     * with your new work.
+     *
+     * The {@code uniqueWorkName} uniquely identifies this set of work.
+     *
+     * If this method determines that new work should be enqueued and run, all records of previous
+     * work with {@code uniqueWorkName} will be pruned.  If this method determines that new work
+     * should NOT be run, then the entire chain will be considered a no-op.
+     *
+     * @param uniqueWorkName A unique name which for this chain of work
+     * @param existingWorkPolicy An {@link ExistingWorkPolicy}; see below for more information
+     * @param work One or more {@link OneTimeWorkRequest} to enqueue. {@code REPLACE} ensures that
+     *             if there is pending work labelled with {@code uniqueWorkName}, it will be
+     *             cancelled and the new work will run. {@code KEEP} will run the new sequence of
+     *             work only if there is no pending work labelled with {@code uniqueWorkName}.
+     *             {@code APPEND} will create a new sequence of work if there is no
+     *             existing work with {@code uniqueWorkName}; otherwise, {@code work} will be added
+     *             as a child of all leaf nodes labelled with {@code uniqueWorkName}.
+     * @return A {@link WorkContinuation} that allows further chaining
+     */
     public @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
@@ -313,21 +347,54 @@ public class WorkManagerImpl extends WorkManager {
         return new WorkContinuationImpl(this, uniqueWorkName, existingWorkPolicy, work);
     }
 
-    @NonNull
-    @Override
-    public ListenableFuture<Void> enqueueUniqueWorkInternal(@NonNull String uniqueWorkName,
+
+    /**
+     * This method allows you to enqueue {@code work} requests to a uniquely-named
+     * {@link WorkContinuation}, where only one continuation of a particular name can be active at
+     * a time. For example, you may only want one sync operation to be active. If there is one
+     * pending, you can choose to let it run or replace it with your new work.
+     *
+     * <p>
+     * The {@code uniqueWorkName} uniquely identifies this {@link WorkContinuation}.
+     * </p>
+     *
+     * @param uniqueWorkName A unique name which for this operation
+     * @param existingWorkPolicy An {@link ExistingWorkPolicy}
+     * @param work {@link OneTimeWorkRequest}s to enqueue. {@code REPLACE} ensures
+     *                     that if there is pending work labelled with {@code uniqueWorkName}, it
+     *                     will be cancelled and the new work will run. {@code KEEP} will run the
+     *                     new OneTimeWorkRequests only if there is no pending work labelled with
+     *                     {@code uniqueWorkName}. {@code APPEND} will append the
+     *                     OneTimeWorkRequests as leaf nodes labelled with {@code uniqueWorkName}.
+     */
+    public @NonNull ListenableFuture<Void> enqueueUniqueWork(@NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work) {
         return new WorkContinuationImpl(this, uniqueWorkName, existingWorkPolicy, work).enqueue();
     }
 
-    @Override
-    @NonNull
-    public ListenableFuture<Void> enqueueUniquePeriodicWorkInternal(
+    /**
+     * This method allows you to enqueue a uniquely-named {@link PeriodicWorkRequest}, where only
+     * one PeriodicWorkRequest of a particular name can be active at a time.  For example, you may
+     * only want one sync operation to be active.  If there is one pending, you can choose to let it
+     * run or replace it with your new work.
+     *
+     * <p>
+     * The {@code uniqueWorkName} uniquely identifies this PeriodicWorkRequest.
+     * </p>
+     *
+     * @param uniqueWorkName A unique name which for this operation
+     * @param existingPeriodicWorkPolicy An {@link ExistingPeriodicWorkPolicy}
+     * @param periodicWork A {@link PeriodicWorkRequest} to enqueue. {@code REPLACE} ensures that if
+     *                     there is pending work labelled with {@code uniqueWorkName}, it will be
+     *                     cancelled and the new work will run. {@code KEEP} will run the new
+     *                     PeriodicWorkRequest only if there is no pending work labelled with
+     *                     {@code uniqueWorkName}.
+     */
+    public @NonNull ListenableFuture<Void> enqueueUniquePeriodicWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingPeriodicWorkPolicy existingPeriodicWorkPolicy,
             @NonNull PeriodicWorkRequest periodicWork) {
-
         return createWorkContinuationForUniquePeriodicWork(
                 uniqueWorkName,
                 existingPeriodicWorkPolicy,
@@ -352,41 +419,75 @@ public class WorkManagerImpl extends WorkManager {
                 Collections.singletonList(periodicWork));
     }
 
-    @Override
-    public @NonNull ListenableFuture<Void> cancelWorkByIdInternal(@NonNull UUID id) {
+    /**
+     * Cancels work with the given id if it isn't finished.  Note that cancellation is a best-effort
+     * policy and work that is already executing may continue to run.
+     *
+     * @param id The id of the work
+     */
+    public @NonNull ListenableFuture<Void> cancelWorkById(@NonNull UUID id) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forId(id, this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
-    @Override
-    public @NonNull ListenableFuture<Void> cancelAllWorkByTagInternal(@NonNull final String tag) {
+    /**
+     * Cancels all unfinished work with the given tag.  Note that cancellation is a best-effort
+     * policy and work that is already executing may continue to run.
+     *
+     * @param tag The tag used to identify the work
+     */
+    public @NonNull ListenableFuture<Void> cancelAllWorkByTag(@NonNull final String tag) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forTag(tag, this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
-    @Override
+    /**
+     * Cancels all unfinished work in the work chain with the given name.  Note that cancellation is
+     * a best-effort policy and work that is already executing may continue to run.
+     *
+     * @param uniqueWorkName The unique name used to identify the chain of wor
+     */
     @NonNull
-    public ListenableFuture<Void> cancelUniqueWorkInternal(@NonNull String uniqueWorkName) {
+    public ListenableFuture<Void> cancelUniqueWork(@NonNull String uniqueWorkName) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forName(uniqueWorkName, this, true);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
-    @Override
-    public @NonNull ListenableFuture<Void> cancelAllWorkInternal() {
+    /**
+     * Cancels all unfinished work.  <b>Use this method with extreme caution!</b>  By invoking it,
+     * you will potentially affect other modules or libraries in your codebase.  It is strongly
+     * recommended that you use one of the other cancellation methods at your disposal.
+     */
+    public @NonNull ListenableFuture<Void> cancelAllWork() {
         CancelWorkRunnable runnable = CancelWorkRunnable.forAll(this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
-    @Override
+    /**
+     * Gets a {@link LiveData} of the last time all work was cancelled.  This method is intended for
+     * use by library and module developers who have dependent data in their own repository that
+     * must be updated or deleted in case someone cancels their work without their prior knowledge.
+     *
+     * @return A {@link LiveData} of the timestamp in milliseconds when method that cancelled all
+     *         work was last invoked; this timestamp may be {@code 0L} if this never occurred.
+     */
     public @NonNull LiveData<Long> getLastCancelAllTimeMillisLiveData() {
         return mPreferences.getLastCancelAllTimeMillisLiveData();
     }
 
-    @Override
+    /**
+     * Gets a {@link ListenableFuture} of the last time all work was cancelled.  This method is
+     * intended for use by library and module developers who have dependent data in their own
+     * repository that must be updated or deleted in case someone cancels their work without
+     * their prior knowledge.
+     *
+     * @return A {@link ListenableFuture} of the timestamp in milliseconds when method that
+     * cancelled all work was last invoked; this timestamp may be {@code 0L} if this never occurred
+     */
     public @NonNull ListenableFuture<Long> getLastCancelAllTimeMillis() {
         final SettableFuture<Long> future = SettableFuture.create();
         // Avoiding synthetic accessors.
@@ -404,14 +505,31 @@ public class WorkManagerImpl extends WorkManager {
         return future;
     }
 
-    @Override
-    public @NonNull ListenableFuture<Void> pruneWorkInternal() {
+    /**
+     * Prunes all eligible finished work from the internal database.  Eligible work must be finished
+     * ({@link State#SUCCEEDED}, {@link State#FAILED}, or {@link State#CANCELLED}), with zero
+     * unfinished dependents.
+     * <p>
+     * <b>Use this method with caution</b>; by invoking it, you (and any modules and libraries in
+     * your codebase) will no longer be able to observe the {@link WorkStatus} of the pruned work.
+     * You do not normally need to call this method - WorkManager takes care to auto-prune its work
+     * after a sane period of time.  This method also ignores the
+     * {@link OneTimeWorkRequest.Builder#keepResultsForAtLeast(long, TimeUnit)} policy.
+     */
+    public @NonNull ListenableFuture<Void> pruneWork() {
         PruneWorkRunnable runnable = new PruneWorkRunnable(this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
         return runnable.getFuture();
     }
 
-    @Override
+    /**
+     * Gets a {@link LiveData} of the {@link WorkStatus} for a given work id.
+     *
+     * @param id The id of the work
+     * @return A {@link LiveData} of the {@link WorkStatus} associated with {@code id}; note that
+     *         this {@link WorkStatus} may be {@code null} if {@code id} is not known to
+     *         WorkManager.
+     */
     public @NonNull LiveData<WorkStatus> getStatusByIdLiveData(@NonNull UUID id) {
         WorkSpecDao dao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
@@ -430,14 +548,26 @@ public class WorkManagerImpl extends WorkManager {
                 mWorkTaskExecutor);
     }
 
-    @Override
+    /**
+     * Gets a {@link ListenableFuture} of the {@link WorkStatus} for a given work id.
+     *
+     * @param id The id of the work
+     * @return A {@link ListenableFuture} of the {@link WorkStatus} associated with {@code id};
+     * note that this {@link WorkStatus} may be {@code null} if {@code id} is not known to
+     * WorkManager
+     */
     public @NonNull ListenableFuture<WorkStatus> getStatusById(@NonNull UUID id) {
         StatusRunnable<WorkStatus> runnable = StatusRunnable.forUUID(this, id);
         mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
-    @Override
+    /**
+     * Gets a {@link LiveData} of the {@link WorkStatus} for all work for a given tag.
+     *
+     * @param tag The tag of the work
+     * @return A {@link LiveData} list of {@link WorkStatus} for work tagged with {@code tag}
+     */
     public @NonNull LiveData<List<WorkStatus>> getStatusesByTagLiveData(@NonNull String tag) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
@@ -448,14 +578,27 @@ public class WorkManagerImpl extends WorkManager {
                 mWorkTaskExecutor);
     }
 
-    @Override
+    /**
+     * Gets a {@link ListenableFuture} of the {@link WorkStatus} for all work for a given tag.
+     *
+     * @param tag The tag of the work
+     * @return A {@link ListenableFuture} list of {@link WorkStatus} for work tagged with
+     * {@code tag}
+     */
     public @NonNull ListenableFuture<List<WorkStatus>> getStatusesByTag(@NonNull String tag) {
         StatusRunnable<List<WorkStatus>> runnable = StatusRunnable.forTag(this, tag);
         mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
-    @Override
+    /**
+     * Gets a {@link LiveData} of the {@link WorkStatus} for all work in a work chain with a given
+     * unique name.
+     *
+     * @param name The unique name used to identify the chain of work
+     * @return A {@link LiveData} of the {@link WorkStatus} for work in the chain named
+     *         {@code uniqueWorkName}
+     */
     public @NonNull LiveData<List<WorkStatus>> getStatusesForUniqueWorkLiveData(
             @NonNull String name) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
@@ -467,7 +610,14 @@ public class WorkManagerImpl extends WorkManager {
                 mWorkTaskExecutor);
     }
 
-    @Override
+    /**
+     * Gets a {@link ListenableFuture} of the {@link WorkStatus} for all work in a work chain
+     * with a given unique name.
+     *
+     * @param name The unique name used to identify the chain of work
+     * @return A {@link ListenableFuture} of the {@link WorkStatus} for work in the chain named
+     *         {@code uniqueWorkName}
+     */
     public @NonNull ListenableFuture<List<WorkStatus>> getStatusesForUniqueWork(
             @NonNull String name) {
         StatusRunnable<List<WorkStatus>> runnable =
@@ -526,7 +676,7 @@ public class WorkManagerImpl extends WorkManager {
     @TargetApi(23) // https://issuetracker.google.com/issues/110576968
     public void rescheduleEligibleWork() {
         // TODO (rahulrav@) Make every scheduler do its own cancelAll().
-        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+        if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
             SystemJobScheduler.jobSchedulerCancelAll(getApplicationContext());
         }
 
@@ -540,7 +690,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * A way for {@link ForceStopRunnable} to tell {@link WorkManagerImpl} that it has completed.
+     * A way for {@link ForceStopRunnable} to tell {@link WorkManagerEngine} that it has completed.
      *
      * @hide
      */
@@ -576,7 +726,7 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Initializes an instance of {@link WorkManagerImpl}.
+     * Initializes an instance of {@link WorkManagerEngine}.
      *
      * @param context The application {@link Context}
      * @param configuration The {@link Configuration} configuration.
@@ -607,7 +757,8 @@ public class WorkManagerImpl extends WorkManager {
         mWorkTaskExecutor.executeOnBackgroundThread(new ForceStopRunnable(context, this));
     }
 
-    private static List<Scheduler> createSchedulers(Context context, WorkManagerImpl workManager) {
+    private static List<Scheduler> createSchedulers(
+            Context context, WorkManagerEngine workManager) {
         return Arrays.asList(
                 Schedulers.createBestAvailableBackgroundScheduler(context, workManager),
                 new GreedyScheduler(context, workManager));

@@ -74,7 +74,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     private Configuration mConfiguration;
     private WorkDatabase mDatabase;
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private Scheduler mScheduler;
 
     @Before
@@ -106,9 +106,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
                 .build();
 
         mWorkManagerImpl =
-                spy(new WorkManagerImpl(context, mConfiguration, new InstantWorkTaskExecutor()));
+                spy(new WorkManagerEngine(context, mConfiguration, new InstantWorkTaskExecutor()));
         when(mWorkManagerImpl.getSchedulers()).thenReturn(Collections.singletonList(mScheduler));
-        WorkManagerImpl.setDelegate(mWorkManagerImpl);
+        WorkManagerEngine.setDelegate(mWorkManagerImpl);
         mDatabase = mWorkManagerImpl.getWorkDatabase();
     }
 
@@ -116,9 +116,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void tearDown() throws ExecutionException, InterruptedException {
         List<String> ids = mDatabase.workSpecDao().getAllWorkSpecIds();
         for (String id : ids) {
-            mWorkManagerImpl.cancelWorkByIdInternal(UUID.fromString(id)).get();
+            mWorkManagerImpl.cancelWorkById(UUID.fromString(id)).get();
         }
-        WorkManagerImpl.setDelegate(null);
+        WorkManagerEngine.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 
@@ -499,8 +499,10 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         OneTimeWorkRequest cWork = createTestWorker(); // C
         OneTimeWorkRequest dWork = createTestWorker(); // D
 
-        WorkContinuation firstChain = mWorkManagerImpl.beginWith(aWork).then(bWork);
-        WorkContinuation secondChain = mWorkManagerImpl.beginWith(cWork);
+        WorkContinuation firstChain = mWorkManagerImpl
+                .beginWith(Collections.singletonList(aWork))
+                .then(bWork);
+        WorkContinuation secondChain = mWorkManagerImpl.beginWith(Collections.singletonList(cWork));
         WorkContinuation combined = WorkContinuation.combine(dWork, firstChain, secondChain);
 
         combined.enqueue().get();

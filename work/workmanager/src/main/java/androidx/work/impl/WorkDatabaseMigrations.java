@@ -103,7 +103,7 @@ public class WorkDatabaseMigrations {
     public static Migration MIGRATION_3_4 = new Migration(VERSION_3, VERSION_4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            if (Build.VERSION.SDK_INT >= WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL) {
                 database.execSQL(PERIODIC_WORK_SET_SCHEDULE_REQUESTED_AT);
             }
         }

@@ -29,7 +29,7 @@ import android.text.TextUtils;
 import androidx.work.Logger;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.ExecutionListener;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,16 +41,16 @@ import java.util.Map;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-@RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
+@RequiresApi(WorkManagerEngine.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobService extends JobService implements ExecutionListener {
     private static final String TAG = "SystemJobService";
-    private WorkManagerImpl mWorkManagerImpl;
+    private WorkManagerEngine mWorkManagerImpl;
     private final Map<String, JobParameters> mJobParameters = new HashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mWorkManagerImpl = WorkManagerImpl.getInstance();
+        mWorkManagerImpl = WorkManagerEngine.getInstance();
         if (mWorkManagerImpl == null) {
             // This can occur if...
             // 1. The app is performing an auto-backup.  Prior to O, JobScheduler could erroneously

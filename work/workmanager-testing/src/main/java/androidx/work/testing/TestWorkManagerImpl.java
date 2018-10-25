@@ -23,7 +23,7 @@ import android.support.annotation.RestrictTo;
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
 import androidx.work.impl.Scheduler;
-import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.WorkManagerEngine;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.concurrent.Executor;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-abstract class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
+abstract class TestWorkManagerImpl extends WorkManagerEngine implements TestDriver {
     TestWorkManagerImpl(
             @NonNull Context context,
             @NonNull Configuration configuration) {
