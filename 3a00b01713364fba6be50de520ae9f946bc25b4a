@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "c1f1d33c_1de26de6",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "added. done.",
+      "parentUuid": "502f2c59_14be0b8b",
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee55d729_9b3de221",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
         "patchSetId": 14
@@ -62,6 +80,30 @@
       "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d95c208d_a8e92f26",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "PendingIntent.send throws CanceledException \"if the PendingIntent is no longer allowing more intents to be sent through it\"\n\nWhen this happens, assertIntentReceived in below will fail, and we will know it when checking the log. I agree with you that it is better to pass the error into the assert statement directly, but it seems a bit overkilled for now.",
+      "parentUuid": "ee55d729_9b3de221",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 81
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "4f06df47_5e1c6a9a",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "assertIntentReceived implemented the wait part.",
+      "parentUuid": "c0083fc5_3a3957f5",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "047b4698_ec6e010b",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 14
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "2b92418f_98da1174",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "047b4698_ec6e010b",
+      "range": {
+        "startLine": 571,
+        "startChar": 24,
+        "endLine": 571,
+        "endChar": 36
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef9208f4_c616cd0d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 14
@@ -131,6 +221,30 @@
       "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d7caaa_f2505879",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "Because we expect developer to extend onTextClassificationResult (the method below) instead.\n\nIf they wanna overrides onClick, they can extend AbstractTextLinkSpan.",
+      "parentUuid": "ef9208f4_c616cd0d",
+      "range": {
+        "startLine": 578,
+        "startChar": 15,
+        "endLine": 578,
+        "endChar": 20
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +294,54 @@
     },
     {
       "key": {
+        "uuid": "896af157_6988e2d4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "ACK, as you said, will fix it in another change.",
+      "parentUuid": "837ca097_48c616dd",
+      "range": {
+        "startLine": 612,
+        "startChar": 32,
+        "endLine": 612,
+        "endChar": 40
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69a74db8_0324d8f4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "We do not want to show the floating toolbar when the text is changed during the classification.\nAnd same check should be sufficient in our case, and it is fast.\n\nWill put some javadocs.",
+      "parentUuid": "9901bafc_a831460e",
+      "range": {
+        "startLine": 612,
+        "startChar": 45,
+        "endLine": 612,
+        "endChar": 61
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11d560a0_f4db7f3d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 14
@@ -200,6 +362,30 @@
       "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0255c6da_1d234264",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-25T20:17:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d560a0_f4db7f3d",
+      "range": {
+        "startLine": 657,
+        "startChar": 12,
+        "endLine": 657,
+        "endChar": 69
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
