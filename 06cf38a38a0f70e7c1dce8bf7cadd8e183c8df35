@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2498cde_7c67e6b9",
+        "filename": "core/ktx/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-25T22:57:51Z",
+      "side": 1,
+      "message": "I suspect that you\u0027re going to have to update the API again. It looks like the format changed.",
+      "revId": "06cf38a38a0f70e7c1dce8bf7cadd8e183c8df35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
