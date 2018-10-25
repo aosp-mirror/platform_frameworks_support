@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "cb97d737_159bd760",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-25T16:48:04Z",
+      "side": 1,
+      "message": "Yeah, I can do that.\n\nWhile I\u0027m looking at this:\n1. Do you think HINT_SELECTION and HINT_SELECTION_OPTION are redundant?\n2. Do you think I should try to cram in an action in the options for backwards compatibility? That might also entail pretending it\u0027s a list.",
+      "parentUuid": "bef74d79_69fc32c8",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f3656d7_7dcf53fe",
         "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
         "patchSetId": 5
