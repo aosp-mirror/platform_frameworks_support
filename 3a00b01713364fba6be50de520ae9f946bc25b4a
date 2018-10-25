@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "75a8e0e9_e0c554da",
+        "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T21:04:52Z",
+      "side": 1,
+      "message": "I still suggest to add the error into the assert. because it is not fun to look at the logs when something fails. it is easier to see the error in the fail message that you can immediately see. i dont think it is an overkill at all.",
+      "parentUuid": "d95c208d_a8e92f26",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 81
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0083fc5_3a3957f5",
         "filename": "textclassifier/src/androidTest/java/androidx/textclassifier/TextLinkSpanTest.java",
         "patchSetId": 14
@@ -248,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "9c29985b_ec0ffbe5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T21:04:52Z",
+      "side": 1,
+      "message": "think like this. I want to send a log to my server when onclick happens. it is a single line change i need (serverProxy.log(\"onClick happened\")). \n\nif you make the onclick final you are forcing me (as developer) to open the source code, copy all the code in onclick (if I can and they are not private), paste into my own onclick function just to add that single line. \n\n@CallSuper is a better solution imho.",
+      "parentUuid": "e0d7caaa_f2505879",
+      "range": {
+        "startLine": 578,
+        "startChar": 15,
+        "endLine": 578,
+        "endChar": 20
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "837ca097_48c616dd",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 14
@@ -339,6 +387,54 @@
       "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5a18b84_d9e5248f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T21:04:52Z",
+      "side": 1,
+      "message": "if my understanding is correct and we are leaking a view, please create a high priority ticket for this.",
+      "parentUuid": "896af157_6988e2d4",
+      "range": {
+        "startLine": 612,
+        "startChar": 32,
+        "endLine": 612,
+        "endChar": 40
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40c7bc86_6a8322dd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-10-25T21:04:52Z",
+      "side": 1,
+      "message": "Ack.\n\nhowever if this is an editable text, and I just put a span into it, (even with equals case) even if the chars that used for classification is the same, or the widget, you will still be canceling the classification result.",
+      "parentUuid": "69a74db8_0324d8f4",
+      "range": {
+        "startLine": 612,
+        "startChar": 45,
+        "endLine": 612,
+        "endChar": 61
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
