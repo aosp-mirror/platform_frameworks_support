@@ -52,6 +52,8 @@ class StringPagedList constructor(
     ) {
     }
 
+    override fun dispatchCurrentLoadState(listener: LoadStateListener?) {}
+
     override fun loadAroundInternal(index: Int) {}
 
     override fun onInitialized(count: Int) {}
@@ -59,10 +61,6 @@ class StringPagedList constructor(
     override fun onPagePrepended(leadingNulls: Int, changed: Int, added: Int) {}
 
     override fun onPageAppended(endPosition: Int, changed: Int, added: Int) {}
-
-    override fun onEmptyPrepend() {}
-
-    override fun onEmptyAppend() {}
 
     override fun onPagePlaceholderInserted(pageIndex: Int) {}
 
