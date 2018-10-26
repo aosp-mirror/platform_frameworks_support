@@ -186,7 +186,7 @@ public class MediaController2ProviderService extends Service {
                 throws RemoteException {
             MediaController2 controller2 = mMediaController2Map.get(controllerId);
             List<MediaItem2> list = new ArrayList<>();
-            MediaItem2.Builder builder = new MediaItem2.Builder(0 /* flags */);
+            MediaItem2.Builder builder = new MediaItem2.Builder();
             for (int i = 0; i < size; i++) {
                 // Make media ID of each item same with its index.
                 list.add(builder.setMediaId(TestUtils.getMediaIdInDummyList(i)).build());

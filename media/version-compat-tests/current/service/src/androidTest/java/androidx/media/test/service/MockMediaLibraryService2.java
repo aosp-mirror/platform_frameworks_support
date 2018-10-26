@@ -174,7 +174,7 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
                 return getPaginatedResult(GET_CHILDREN_RESULT, page, pageSize);
             } else if (PARENT_ID_LONG_LIST.equals(parentId)) {
                 List<MediaItem2> list = new ArrayList<>(LONG_LIST_COUNT);
-                MediaItem2.Builder builder = new MediaItem2.Builder(0);
+                MediaItem2.Builder builder = new MediaItem2.Builder();
                 for (int i = 0; i < LONG_LIST_COUNT; i++) {
                     list.add(builder
                             .setMediaId(TestUtils.getMediaIdInDummyList(i))
@@ -219,7 +219,7 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
                 return getPaginatedResult(SEARCH_RESULT, page, pageSize);
             } else if (SEARCH_QUERY_LONG_LIST.equals(query)) {
                 List<MediaItem2> list = new ArrayList<>(LONG_LIST_COUNT);
-                MediaItem2.Builder builder = new MediaItem2.Builder(0);
+                MediaItem2.Builder builder = new MediaItem2.Builder();
                 for (int i = 0; i < LONG_LIST_COUNT; i++) {
                     list.add(builder
                             .setMediaId(TestUtils.getMediaIdInDummyList(i))
@@ -309,8 +309,9 @@ public class MockMediaLibraryService2 extends MediaLibraryService2 {
     private MediaItem2 createMediaItem(String mediaId) {
         MediaMetadata2 metadata =  new MediaMetadata2.Builder()
                 .putString(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId)
+                .putLong(MediaMetadata2.METADATA_KEY_PLAYABLE, 1)
                 .build();
-        return new MediaItem2.Builder(MediaItem2.FLAG_PLAYABLE)
+        return new MediaItem2.Builder()
                 .setMediaId(mediaId)
                 .setMetadata(metadata)
                 .build();

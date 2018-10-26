@@ -393,7 +393,7 @@ public class MediaSession2ProviderService extends Service {
 
             List<MediaItem2> list = new ArrayList<>();
             for (int i = 0; i < size; i++) {
-                list.add(new MediaItem2.Builder(0)
+                list.add(new MediaItem2.Builder()
                         .setMediaId(TestUtils.getMediaIdInDummyList(i))
                         .build());
             }

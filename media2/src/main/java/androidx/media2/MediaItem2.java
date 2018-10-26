@@ -16,6 +16,7 @@
 
 package androidx.media2;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Bundle;
@@ -69,12 +70,18 @@ public class MediaItem2 implements VersionedParcelable {
 
     /**
      * Flag: Indicates that the item has children of its own.
+     * @hide
      */
+    // TODO: Remove
+    @RestrictTo(LIBRARY)
     public static final int FLAG_BROWSABLE = 1 << 0;
 
     /**
      * Flag: Indicates that the item is playable.
+     * @hide
      */
+    // TODO: Remove
+    @RestrictTo(LIBRARY)
     public static final int FLAG_PLAYABLE = 1 << 1;
 
     /**
@@ -92,16 +99,14 @@ public class MediaItem2 implements VersionedParcelable {
     @ParcelField(1)
     String mMediaId;
     @ParcelField(2)
-    int mFlags;
-    @ParcelField(3)
     ParcelUuid mParcelUuid;
-    @ParcelField(4)
+    @ParcelField(3)
     MediaMetadata2 mMetadata;
-    @ParcelField(5)
+    @ParcelField(4)
     long mStartPositionMs = 0;
-    @ParcelField(6)
+    @ParcelField(5)
     long mEndPositionMs = POSITION_UNKNOWN;
-    @ParcelField(7)
+    @ParcelField(6)
     long mDurationMs = SessionPlayer2.UNKNOWN_TIME;
 
     /**
@@ -117,14 +122,13 @@ public class MediaItem2 implements VersionedParcelable {
     //       MediaItem2.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaItem2(BuilderBase builder) {
-        this(builder.mUuid, builder.mMediaId, builder.mFlags, builder.mMetadata,
-                builder.mStartPositionMs, builder.mEndPositionMs, builder.mDurationMs);
+        this(builder.mUuid, builder.mMediaId, builder.mMetadata, builder.mStartPositionMs,
+                builder.mEndPositionMs, builder.mDurationMs);
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    MediaItem2(@Nullable UUID uuid, @Nullable String mediaId, Integer flags,
-            @Nullable MediaMetadata2 metadata, long startPositionMs, long endPositionMs,
-            long durationMs) {
+    MediaItem2(@Nullable UUID uuid, @Nullable String mediaId, @Nullable MediaMetadata2 metadata,
+            long startPositionMs, long endPositionMs, long durationMs) {
         if (startPositionMs > endPositionMs) {
             throw new IllegalStateException("Illegal start/end position: "
                     + startPositionMs + " : " + endPositionMs);
@@ -136,7 +140,7 @@ public class MediaItem2 implements VersionedParcelable {
         }
 
         mParcelUuid = new ParcelUuid((uuid != null) ? uuid : UUID.randomUUID());
-        if (mediaId != null || durationMs > 0 || flags != null) {
+        if (mediaId != null || durationMs > 0) {
             MediaMetadata2.Builder builder = metadata != null
                     ? new MediaMetadata2.Builder(metadata) : new MediaMetadata2.Builder();
             if (mediaId != null) {
@@ -145,18 +149,13 @@ public class MediaItem2 implements VersionedParcelable {
             if (durationMs > 0) {
                 builder.putLong(MediaMetadata2.METADATA_KEY_DURATION, durationMs);
             }
-            if (flags != null) {
-                builder.putLong(MediaMetadata2.METADATA_KEY_FLAGS, flags);
-            }
             metadata = builder.build();
         }
         if (metadata != null) {
             mediaId = metadata.getString(MediaMetadata2.METADATA_KEY_MEDIA_ID);
             durationMs = metadata.getLong(MediaMetadata2.METADATA_KEY_DURATION);
-            flags = (int) metadata.getLong(MediaMetadata2.METADATA_KEY_FLAGS);
         }
         mMediaId = mediaId;
-        mFlags = flags != null ? flags : 0;
         mMetadata = metadata;
         mStartPositionMs = startPositionMs;
         mEndPositionMs = endPositionMs;
@@ -173,7 +172,6 @@ public class MediaItem2 implements VersionedParcelable {
     public @NonNull Bundle toBundle() {
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ID, mMediaId);
-        bundle.putInt(KEY_FLAGS, mFlags);
         if (mMetadata != null) {
             bundle.putBundle(KEY_METADATA, mMetadata.toBundle());
         }
@@ -215,43 +213,18 @@ public class MediaItem2 implements VersionedParcelable {
         final Bundle metadataBundle = bundle.getBundle(KEY_METADATA);
         final MediaMetadata2 metadata = metadataBundle != null
                 ? MediaMetadata2.fromBundle(metadataBundle) : null;
-        final int flags = bundle.getInt(KEY_FLAGS);
-        return new MediaItem2(uuid, id, flags, metadata, 0, 0, 0);
+        return new MediaItem2(uuid, id, metadata, 0, 0, 0);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("MediaItem2{");
         sb.append("mMediaId=").append(mMediaId);
-        sb.append(", mFlags=").append(mFlags);
         sb.append(", mMetadata=").append(mMetadata);
         sb.append(", mStartPositionMs=").append(mStartPositionMs);
         sb.append(", mEndPositionMs=").append(mEndPositionMs);
         sb.append('}');
         return sb.toString();
-    }
-
-    /**
-     * Gets the flags of the item.
-     */
-    public @Flags int getFlags() {
-        return mFlags;
-    }
-
-    /**
-     * Checks whether this item is browsable.
-     * @see #FLAG_BROWSABLE
-     */
-    public boolean isBrowsable() {
-        return (mFlags & FLAG_BROWSABLE) != 0;
-    }
-
-    /**
-     * Checks whether this item is playable.
-     * @see #FLAG_PLAYABLE
-     */
-    public boolean isPlayable() {
-        return (mFlags & FLAG_PLAYABLE) != 0;
     }
 
     /**
@@ -301,7 +274,10 @@ public class MediaItem2 implements VersionedParcelable {
      * for the underlying media content.
      *
      * @return media Id from the session
+     * @hide
      */
+    // TODO: Remove
+    @RestrictTo(LIBRARY)
     public @Nullable String getMediaId() {
         return mMediaId;
     }
@@ -333,8 +309,6 @@ public class MediaItem2 implements VersionedParcelable {
     @RestrictTo(LIBRARY_GROUP)
     public static class BuilderBase<T extends BuilderBase> {
         @SuppressWarnings("WeakerAccess") /* synthetic access */
-        @Flags int mFlags;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
         String mMediaId;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         MediaMetadata2 mMetadata;
@@ -348,17 +322,6 @@ public class MediaItem2 implements VersionedParcelable {
         long mDurationMs = SessionPlayer2.UNKNOWN_TIME;
 
         /**
-         * Constructs a new {@link T}.
-         *
-         * @param flags flags whether it's playable and/or browsable.
-         * @see #FLAG_BROWSABLE
-         * @see #FLAG_PLAYABLE
-         */
-        public BuilderBase(@Flags int flags) {
-            mFlags = flags;
-        }
-
-        /**
          * Set the media id of this instance. {@code null} for unset.
          * <p>
          * If used, this should be a persistent unique key for the underlying content so session
@@ -370,7 +333,10 @@ public class MediaItem2 implements VersionedParcelable {
          *
          * @param mediaId media id
          * @return this instance for chaining
+         * @hide
          */
+        // TODO: Remove
+        @RestrictTo(LIBRARY)
         public @NonNull T setMediaId(@Nullable String mediaId) {
             mMediaId = mediaId;
             return (T) this;
@@ -440,8 +406,11 @@ public class MediaItem2 implements VersionedParcelable {
      * Builder for {@link MediaItem2}.
      */
     public static class Builder extends BuilderBase<BuilderBase> {
-        public Builder(@Flags int flags) {
-            super(flags);
+        /**
+         * Default constructor
+         */
+        public Builder() {
+            super();
         }
     }
 }
