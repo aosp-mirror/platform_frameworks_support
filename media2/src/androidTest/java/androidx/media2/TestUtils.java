@@ -185,7 +185,6 @@ public final class TestUtils {
             }
 
             assertEquals(aItem.getMediaId(), bItem.getMediaId());
-            assertEquals(aItem.getFlags(), bItem.getFlags());
             TestUtils.assertMetadataEquals(aItem.getMetadata(), bItem.getMetadata());
 
             // Note: Here it does not check whether MediaItem2 are equal,
