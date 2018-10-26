@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5669b9d_74decc2f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T10:02:01Z",
+      "side": 1,
+      "message": "This is now tricky. Let say following scenario.\n\nstep 1) onPlaylistChanged({A, B}) is called. Callbacks will be registered for both A and B\nstep 2) onCurrentMediaItemChanged(A) is called. Callback will be registered for A, but it would be ignored\nstep 3) onCurrentMediaItemChanged(B) is called. Callback will be *completely* unregistered from A, and B would remain the same.\nstep 4) metadata is updated for A --\u003e nothing happens.\n\nMy gut feeling here is that having two different callbacks would be the simplest solution for this. But you may find better solution.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 16,
+        "endLine": 1265,
+        "endChar": 17
+      },
+      "revId": "a1380ecdec87a4224fefd229d7304d2ffaaa9fc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
