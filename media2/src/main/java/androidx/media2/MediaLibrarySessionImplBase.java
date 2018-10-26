@@ -21,7 +21,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.media.session.MediaSessionCompat.Token;
-import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
@@ -95,13 +94,6 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
     @Override
     public void notifyChildrenChanged(final String parentId, final int itemCount,
             final Bundle extras) {
-        if (TextUtils.isEmpty(parentId)) {
-            throw new IllegalArgumentException("query shouldn't be empty");
-        }
-        if (itemCount < 0) {
-            throw new IllegalArgumentException("itemCount shouldn't be negative");
-        }
-
         dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
@@ -115,15 +107,6 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
     @Override
     public void notifyChildrenChanged(final ControllerInfo controller, final String parentId,
             final int itemCount, final Bundle extras) {
-        if (controller == null) {
-            throw new IllegalArgumentException("controller shouldn't be null");
-        }
-        if (TextUtils.isEmpty(parentId)) {
-            throw new IllegalArgumentException("query shouldn't be empty");
-        }
-        if (itemCount < 0) {
-            throw new IllegalArgumentException("itemCount shouldn't be negative");
-        }
         dispatchRemoteControllerCallbackTask(controller, new RemoteControllerCallbackTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {
@@ -143,12 +126,6 @@ class MediaLibrarySessionImplBase extends MediaSession2ImplBase implements Media
     @Override
     public void notifySearchResultChanged(ControllerInfo controller, final String query,
             final int itemCount, final Bundle extras) {
-        if (controller == null) {
-            throw new IllegalArgumentException("controller shouldn't be null");
-        }
-        if (TextUtils.isEmpty(query)) {
-            throw new IllegalArgumentException("query shouldn't be empty");
-        }
         dispatchRemoteControllerCallbackTask(controller, new RemoteControllerCallbackTask() {
             @Override
             public void run(ControllerCb callback) throws RemoteException {

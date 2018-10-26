@@ -99,9 +99,6 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
 
     @Override
     public void subscribe(@NonNull String parentId, @Nullable Bundle extras) {
-        if (parentId == null) {
-            throw new IllegalArgumentException("parentId shouldn't be null");
-        }
         MediaBrowserCompat browser = getBrowserCompat();
         if (browser == null) {
             return;
@@ -121,9 +118,6 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
 
     @Override
     public void unsubscribe(@NonNull String parentId) {
-        if (parentId == null) {
-            throw new IllegalArgumentException("parentId shouldn't be null");
-        }
         MediaBrowserCompat browser = getBrowserCompat();
         if (browser == null) {
             return;
@@ -144,20 +138,10 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
     @Override
     public void getChildren(@NonNull String parentId, int page, int pageSize,
             @Nullable Bundle extras) {
-        if (parentId == null) {
-            throw new IllegalArgumentException("parentId shouldn't be null");
-        }
-        if (page < 0) {
-            throw new IllegalArgumentException("page shouldn't be negative");
-        }
-        if (pageSize < 1) {
-            throw new IllegalArgumentException("pageSize shouldn't be less than 1");
-        }
         MediaBrowserCompat browser = getBrowserCompat();
         if (browser == null) {
             return;
         }
-
         Bundle options = createBundle(extras);
         options.putInt(MediaBrowserCompat.EXTRA_PAGE, page);
         options.putInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, pageSize);

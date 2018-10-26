@@ -161,10 +161,6 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     @SuppressLint("WrongConstant")
     public void updatePlayer(@NonNull SessionPlayer2 player) {
-        if (player == null) {
-            throw new IllegalArgumentException("player shouldn't be null");
-        }
-
         final boolean isPlaybackInfoChanged;
 
         final SessionPlayer2 oldPlayer;
@@ -346,12 +342,6 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public ListenableFuture<SessionResult> setCustomLayout(@NonNull ControllerInfo controller,
             @NonNull final List<MediaSession2.CommandButton> layout) {
-        if (controller == null) {
-            throw new IllegalArgumentException("controller shouldn't be null");
-        }
-        if (layout == null) {
-            throw new IllegalArgumentException("layout shouldn't be null");
-        }
         return dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
             public void run(ControllerCb controller, int seq) throws RemoteException {
@@ -363,13 +353,6 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public void setAllowedCommands(@NonNull ControllerInfo controller,
             @NonNull final SessionCommandGroup2 commands) {
-        if (controller == null) {
-            throw new IllegalArgumentException("controller shouldn't be null");
-        }
-        if (commands == null) {
-            throw new IllegalArgumentException("commands shouldn't be null");
-        }
-
         if (mSession2Stub.getConnectedControllersManager().isConnected(controller)) {
             mSession2Stub.getConnectedControllersManager()
                     .updateAllowedCommands(controller, commands);
@@ -388,9 +371,6 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     @Override
     public void broadcastCustomCommand(@NonNull final SessionCommand2 command,
             @Nullable final Bundle args) {
-        if (command == null) {
-            throw new IllegalArgumentException("command shouldn't be null");
-        }
         dispatchRemoteControllerTask(new RemoteControllerTask() {
             @Override
             public void run(ControllerCb controller, int seq) throws RemoteException {
@@ -403,12 +383,6 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     public ListenableFuture<SessionResult> sendCustomCommand(
             @NonNull ControllerInfo controller, @NonNull final SessionCommand2 command,
             @Nullable final Bundle args) {
-        if (controller == null) {
-            throw new IllegalArgumentException("controller shouldn't be null");
-        }
-        if (command == null) {
-            throw new IllegalArgumentException("command shouldn't be null");
-        }
         return dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
             public void run(ControllerCb controller, int seq) throws RemoteException {
