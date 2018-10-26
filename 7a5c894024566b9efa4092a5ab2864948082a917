@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0750411d_b6e51100",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T09:56:43Z",
+      "side": 1,
+      "message": "What about changing this to take PlaybackStateCompat, and return IDLE for null? Looks like working solution for all cases.",
+      "range": {
+        "startLine": 1085,
+        "startChar": 26,
+        "endLine": 1085,
+        "endChar": 58
+      },
+      "revId": "7a5c894024566b9efa4092a5ab2864948082a917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56d0b8d_f383840c",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T09:56:43Z",
+      "side": 1,
+      "message": "What if none match? Should we keep previous media item (as in the code) or reset to null?",
+      "range": {
+        "startLine": 1092,
+        "startChar": 0,
+        "endLine": 1094,
+        "endChar": 0
+      },
+      "revId": "7a5c894024566b9efa4092a5ab2864948082a917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
