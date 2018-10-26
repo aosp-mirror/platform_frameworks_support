@@ -16,6 +16,24 @@
       "revId": "0cd18caeb1f27fa5421bd582682636113630be4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afdce39c_be3cc081",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T04:46:27Z",
+      "side": 1,
+      "message": "That sounds like maxDepVersions is must.\nThis script is for running the test locally, and we (as library developers) would like to verify codes that we\u0027ve locally changed. What do you think?\n\nJust FYI, connectedCheck runs both minDepVersions and maxDepVersions. I assume that we\u0027d better to follow it.",
+      "parentUuid": "d5c6dcae_dd58a13e",
+      "revId": "0cd18caeb1f27fa5421bd582682636113630be4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
