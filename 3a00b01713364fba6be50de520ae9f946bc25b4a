@@ -296,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "4e671293_a7dab3d7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-26T11:13:05Z",
+      "side": 1,
+      "message": "I am convinced, done, thanks.",
+      "parentUuid": "9c29985b_ec0ffbe5",
+      "range": {
+        "startLine": 578,
+        "startChar": 15,
+        "endLine": 578,
+        "endChar": 20
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "837ca097_48c616dd",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 14
@@ -435,6 +459,54 @@
       "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a549fe1_d5e12fea",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-26T11:13:05Z",
+      "side": 1,
+      "message": "Sure, but please note that our  library is not in production yet :)\n\nThanks!",
+      "parentUuid": "c5a18b84_d9e5248f",
+      "range": {
+        "startLine": 612,
+        "startChar": 32,
+        "endLine": 612,
+        "endChar": 40
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ccfa798_c54adda1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-26T11:13:05Z",
+      "side": 1,
+      "message": "ya, I am aware of this.\n\nAnd it is tricky. For example, some spans may affect the classification result, for example, I can imagine a strikethough span could affect the classification result.\n\nSo I am incline to keep it simple for now, and just do the same check here.\nBut do let me know if you have better idea. Thanks!",
+      "parentUuid": "40c7bc86_6a8322dd",
+      "range": {
+        "startLine": 612,
+        "startChar": 45,
+        "endLine": 612,
+        "endChar": 61
+      },
+      "revId": "3a00b01713364fba6be50de520ae9f946bc25b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
