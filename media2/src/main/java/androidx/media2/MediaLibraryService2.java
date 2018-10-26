@@ -22,7 +22,9 @@ import android.content.Intent;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.TextUtils;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -289,7 +291,17 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
          * @param extras extra information from session to controller
          */
         public void notifyChildrenChanged(@NonNull ControllerInfo controller,
-                @NonNull String parentId, int itemCount, @Nullable Bundle extras) {
+                @NonNull String parentId, @IntRange(from = 0) int itemCount,
+                @Nullable Bundle extras) {
+            if (controller == null) {
+                throw new IllegalArgumentException("controller shouldn't be null");
+            }
+            if (TextUtils.isEmpty(parentId)) {
+                throw new IllegalArgumentException("parentId shouldn't be empty");
+            }
+            if (itemCount < 0) {
+                throw new IllegalArgumentException("itemCount shouldn't be negative");
+            }
             getImpl().notifyChildrenChanged(controller, parentId, itemCount, extras);
         }
 
@@ -303,8 +315,14 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
          * @param extras extra information from session to controller
          */
         // This is for the backward compatibility.
-        public void notifyChildrenChanged(@NonNull String parentId, int itemCount,
-                @Nullable Bundle extras) {
+        public void notifyChildrenChanged(@NonNull String parentId,
+                @IntRange(from = 0) int itemCount, @Nullable Bundle extras) {
+            if (TextUtils.isEmpty(parentId)) {
+                throw new IllegalArgumentException("parentId shouldn't be empty");
+            }
+            if (itemCount < 0) {
+                throw new IllegalArgumentException("itemCount shouldn't be negative");
+            }
             getImpl().notifyChildrenChanged(parentId, itemCount, extras);
         }
 
@@ -318,6 +336,12 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
          */
         public void notifySearchResultChanged(@NonNull ControllerInfo controller,
                 @NonNull String query, int itemCount, @Nullable Bundle extras) {
+            if (controller == null) {
+                throw new IllegalArgumentException("controller shouldn't be null");
+            }
+            if (TextUtils.isEmpty(query)) {
+                throw new IllegalArgumentException("query shouldn't be empty");
+            }
             getImpl().notifySearchResultChanged(controller, query, itemCount, extras);
         }
 

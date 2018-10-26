@@ -18,8 +18,10 @@ package androidx.media2;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession;
@@ -182,6 +184,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param extras extra bundle
      */
     public void subscribe(@NonNull String parentId, @Nullable Bundle extras) {
+        if (TextUtils.isEmpty(parentId)) {
+            throw new IllegalArgumentException("parentId shouldn't be empty");
+        }
         if (isConnected()) {
             getImpl().subscribe(parentId, extras);
         }
@@ -197,6 +202,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param parentId parent id
      */
     public void unsubscribe(@NonNull String parentId) {
+        if (TextUtils.isEmpty(parentId)) {
+            throw new IllegalArgumentException("parentId shouldn't be empty");
+        }
         if (isConnected()) {
             getImpl().unsubscribe(parentId);
         }
@@ -211,8 +219,17 @@ public class MediaBrowser2 extends MediaController2 {
      * @param pageSize page size. Should be greater or equal to {@code 1}
      * @param extras extra bundle
      */
-    public void getChildren(@NonNull String parentId, int page, int pageSize,
-            @Nullable Bundle extras) {
+    public void getChildren(@NonNull String parentId, @IntRange(from = 0) int page,
+            @IntRange(from = 1) int pageSize, @Nullable Bundle extras) {
+        if (TextUtils.isEmpty(parentId)) {
+            throw new IllegalArgumentException("parentId shouldn't be empty");
+        }
+        if (page < 0) {
+            throw new IllegalArgumentException("page shouldn't be negative");
+        }
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("pageSize shouldn't be less than 1");
+        }
         if (isConnected()) {
             getImpl().getChildren(parentId, page, pageSize, extras);
         }
@@ -225,6 +242,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param mediaId media id for specifying the item
      */
     public void getItem(@NonNull final String mediaId) {
+        if (TextUtils.isEmpty(mediaId)) {
+            throw new IllegalArgumentException("mediaId shouldn't be empty");
+        }
         if (isConnected()) {
             getImpl().getItem(mediaId);
         }
@@ -240,6 +260,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param extras extra bundle
      */
     public void search(@NonNull String query, @Nullable Bundle extras) {
+        if (TextUtils.isEmpty(query)) {
+            throw new IllegalArgumentException("query shouldn't be empty");
+        }
         if (isConnected()) {
             getImpl().search(query, extras);
         }
@@ -255,8 +278,17 @@ public class MediaBrowser2 extends MediaController2 {
      * @param pageSize page size. Should be greater or equal to {@code 1}
      * @param extras extra bundle
      */
-    public void getSearchResult(final @NonNull String query, final int page, final int pageSize,
-            final @Nullable Bundle extras) {
+    public void getSearchResult(final @NonNull String query, final @IntRange(from = 0) int page,
+            final @IntRange(from = 1) int pageSize, final @Nullable Bundle extras) {
+        if (TextUtils.isEmpty(query)) {
+            throw new IllegalArgumentException("query shouldn't be empty");
+        }
+        if (page < 0) {
+            throw new IllegalArgumentException("page shouldn't be negative");
+        }
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("pageSize shouldn't be less than 1");
+        }
         if (isConnected()) {
             getImpl().getSearchResult(query, page, pageSize, extras);
         }
