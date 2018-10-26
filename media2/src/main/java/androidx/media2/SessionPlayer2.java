@@ -99,7 +99,10 @@ import java.util.concurrent.Executor;
  * Here are best practices when implementing/using SessionPlayer2:
  *
  * <ul>
- * <li>Use <a href="#callback">callbacks</a> to respond to state changes and errors.
+ * <li> When updating UI for state changes and errors, make sure to respond to
+ * {@link PlayerCallback} invocations. Do not update UI based on {@link PlayerResult} objects since
+ * they may not return the accurate state changes. For example, they do not handle unsolicited
+ * remote events from different processes and also may be modified by the player.
  * <li>When a SessionPlayer2 object is no longer being used, call {@link #close()} as soon as
  * possible to release the resources used by the internal player engine associated with the
  * SessionPlayer2. Failure to call {@link #close()} may cause subsequent instances of SessionPlayer2
