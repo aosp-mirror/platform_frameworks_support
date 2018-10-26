@@ -16,6 +16,24 @@
       "revId": "4dc6251936d4b7ce34193ffc07bb78af3375365e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6170a39_a945afce",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:20:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "297ecd05_d2a8ac08",
+      "revId": "4dc6251936d4b7ce34193ffc07bb78af3375365e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
