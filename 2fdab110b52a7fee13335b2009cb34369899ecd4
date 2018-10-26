@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d92385ce_ad08c14b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-26T04:30:16Z",
+      "side": 1,
+      "message": "Locate static variable before the other variables.",
+      "revId": "2fdab110b52a7fee13335b2009cb34369899ecd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f614804d_b3334e0c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-26T04:30:16Z",
+      "side": 1,
+      "message": "Followings might be more readable.\n\n(mVisibility \u003d\u003d VISIBLE \u0026\u0026 !sAvailabilityReceiver.isConnected()) ? INVISIBLE : mVisibility",
+      "range": {
+        "startLine": 544,
+        "startChar": 28,
+        "endLine": 545,
+        "endChar": 41
+      },
+      "revId": "2fdab110b52a7fee13335b2009cb34369899ecd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
