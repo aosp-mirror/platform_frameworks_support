@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a88953a_48bd6ac7",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibraryService2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-26T11:48:50Z",
+      "side": 1,
+      "message": "Q for reviewers) \n\nWe currently don\u0027t block empty string as parentId in Browser2#subscribe()/getChildren().\nHowever, we don\u0027t allow notifyChildrenChanged(\u003cEmptyString\u003e).\nIs this intended? If not, I think we\u0027d better disallow using empty string in subscribe().\n\nSame applies to search()/getSearchResult().",
+      "range": {
+        "startLine": 297,
+        "startChar": 16,
+        "endLine": 297,
+        "endChar": 42
+      },
+      "revId": "b9b7d5679a8aedd722a686627fca318fe9104bf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
