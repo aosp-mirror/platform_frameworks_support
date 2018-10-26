@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "0a53f766_61d9c127",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f687ead_d6ff05cc",
+      "range": {
+        "startLine": 397,
+        "startChar": 22,
+        "endLine": 397,
+        "endChar": 38
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b3405e7_4c42a5c9",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
         "patchSetId": 2
@@ -238,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "f01840e8_6d58c569",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efac1860_997d831d",
+      "range": {
+        "startLine": 401,
+        "startChar": 12,
+        "endLine": 402,
+        "endChar": 13
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dfb0eaf_1ea8ec5b",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
         "patchSetId": 2
@@ -258,6 +306,30 @@
       "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d81ab2_b8ad91ae",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "We are using v1.7 that doesn\u0027t accept lambdas",
+      "parentUuid": "3dfb0eaf_1ea8ec5b",
+      "range": {
+        "startLine": 414,
+        "startChar": 41,
+        "endLine": 414,
+        "endChar": 57
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -560,6 +632,30 @@
     },
     {
       "key": {
+        "uuid": "5dc8e483_202ec424",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f79f2905_c105315b",
+      "range": {
+        "startLine": 564,
+        "startChar": 8,
+        "endLine": 564,
+        "endChar": 30
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "021c9388_cd2e4677",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 2
@@ -618,6 +714,30 @@
       "writtenOn": "2018-10-19T19:36:36Z",
       "side": 1,
       "message": "Should probably be a list of android.net.Uri? But is a list of URLs really the right API? For example, why would an application want to load https://www.facebook.com/ via the Proxy but not load https://www.facebook.com/search/top/?q\u003dsomesearch ?\n\nTake a look at setSafeBrowsingWhitelist(): here we allow a list of domains.",
+      "range": {
+        "startLine": 579,
+        "startChar": 28,
+        "endLine": 579,
+        "endChar": 63
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2fb1ea2_b496943d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "How about changing the documentation to:\n\"Sets a new proxy associated with all WebViews. This proxy will not be used to load URLs with domains in the exclusionList.\"\n\nAnd:\n\"@param exclusionList domains that should not use this proxy\"",
+      "parentUuid": "5e3754c9_98eb01f3",
       "range": {
         "startLine": 579,
         "startChar": 28,
@@ -697,6 +817,30 @@
       "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c83f5b_7c693432",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-10-26T13:21:52Z",
+      "side": 1,
+      "message": "We will keep the Runnable but throw an exception for invalid input.",
+      "parentUuid": "b250624c_c0c764e6",
+      "range": {
+        "startLine": 586,
+        "startChar": 55,
+        "endLine": 586,
+        "endChar": 63
+      },
+      "revId": "1969ff644fa27e6a824c3665c1414120b2e0ccd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
