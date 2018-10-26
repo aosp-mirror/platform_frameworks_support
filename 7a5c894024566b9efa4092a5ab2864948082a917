@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4530346f_fabdd370",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-26T10:32:02Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "0750411d_b6e51100",
+      "range": {
+        "startLine": 1085,
+        "startChar": 26,
+        "endLine": 1085,
+        "endChar": 58
+      },
+      "revId": "7a5c894024566b9efa4092a5ab2864948082a917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a56d0b8d_f383840c",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7a5c894024566b9efa4092a5ab2864948082a917",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c4f927_a35d394d",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-26T10:32:02Z",
+      "side": 1,
+      "message": "I think we\u0027d better to keep it, in order to cover the case that the session forgot to include the ActiveQueueItemId.",
+      "parentUuid": "a56d0b8d_f383840c",
+      "range": {
+        "startLine": 1092,
+        "startChar": 0,
+        "endLine": 1094,
+        "endChar": 0
+      },
+      "revId": "7a5c894024566b9efa4092a5ab2864948082a917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
