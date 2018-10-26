@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ef6af8a_9da7faf6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-26T04:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8215cd1_35d4be60",
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c35626f3_18a648f0",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144cd9a9_265fefbd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3260,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-26T04:32:35Z",
+      "side": 1,
+      "message": "Two variables are necessary to ensure when the app goes to background or to foreground.\n\nmIsPaused is toggled whenever a new activity is started or an activity is finished.\nmIsForeground is toggled when the app actually goes to background or to foreground.",
+      "parentUuid": "c35626f3_18a648f0",
+      "range": {
+        "startLine": 3259,
+        "startChar": 0,
+        "endLine": 3260,
+        "endChar": 45
+      },
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "0e42d836_8f9ed946",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3282,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-26T04:32:35Z",
+      "side": 1,
+      "message": "When a new activity is started or an activity is finished, wasBackground is false.\n(onActivityPaused and onActivityResumed are called respectively)\n\ncallbacks are called for each activity, not for the application.",
+      "parentUuid": "9e1cdd61_b4834040",
+      "range": {
+        "startLine": 3282,
+        "startChar": 16,
+        "endLine": 3282,
+        "endChar": 35
+      },
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53f5ea54_d5d98ec6",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2018-10-26T02:54:13Z",
       "side": 1,
       "message": "Question) According to the developer site, even when activity is in Paused state it could be visible, for instance in multi-window mode. https://developer.android.com/guide/components/activities/activity-lifecycle#onresume\nSo, I wonder if we really want to stop discovery in paused state.",
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a319d70c_744328b5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3288,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-26T04:32:35Z",
+      "side": 1,
+      "message": "I\u0027ll check the requirement.",
+      "parentUuid": "53f5ea54_d5d98ec6",
       "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
