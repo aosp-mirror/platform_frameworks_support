@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "b9bd2e06_1651a382",
+        "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-10-26T15:05:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2e6fb3_93629420",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "baf097f6b7309f457c8ebde9938c2590ba68db60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f3656d7_7dcf53fe",
         "filename": "slices/core/src/main/java/androidx/slice/core/SliceHints.java",
         "patchSetId": 5
