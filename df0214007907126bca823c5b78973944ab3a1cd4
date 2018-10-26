@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "546a9147_a3c7784d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-10-26T04:26:42Z",
+      "side": 1,
+      "message": "Actually it should call MediaRouteButton.refreshVisibility() so it must reference outer class.\n\nBTW, registering multiple receivers seems not a good idea so I think the new implementation is okay.",
+      "parentUuid": "18d2d43e_dda12734",
+      "range": {
+        "startLine": 682,
+        "startChar": 4,
+        "endLine": 682,
+        "endChar": 72
+      },
+      "revId": "df0214007907126bca823c5b78973944ab3a1cd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed4e3778_ad295b85",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
         "patchSetId": 2
