@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1e4cd4f_5d236caa",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-26T22:15:55Z",
+      "side": 0,
+      "message": "For some reason, Studio complained about this when actually implementing it in an Activity. It isn\u0027t technically needed, so I removed it for now.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 15
+      },
+      "revId": "f271412de48317806e16d6f12a1c254d59c3e012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
