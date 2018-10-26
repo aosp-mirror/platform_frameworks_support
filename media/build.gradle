@@ -24,7 +24,6 @@ android {
                 'api22',
                 'api23',
                 'api24',
-                'api26',
         ]
         main.res.srcDirs += 'src/main/res-public'
     }
