@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8215cd1_35d4be60",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-26T02:54:13Z",
+      "side": 1,
+      "message": "Could you add an empty line between 2137 (member variable declarations) and 2138(method)?",
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35626f3_18a648f0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3260,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-26T02:54:13Z",
+      "side": 1,
+      "message": "Q) Can\u0027t we use only one of those? It seems like these two variables are doing the same thing.",
+      "range": {
+        "startLine": 3259,
+        "startChar": 0,
+        "endLine": 3260,
+        "endChar": 45
+      },
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1cdd61_b4834040",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3282,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-26T02:54:13Z",
+      "side": 1,
+      "message": "why do we need to check previous state here? is there any counter part case, which is wasBackground is false?",
+      "range": {
+        "startLine": 3282,
+        "startChar": 16,
+        "endLine": 3282,
+        "endChar": 35
+      },
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f5ea54_d5d98ec6",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3288,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-26T02:54:13Z",
+      "side": 1,
+      "message": "Question) According to the developer site, even when activity is in Paused state it could be visible, for instance in multi-window mode. https://developer.android.com/guide/components/activities/activity-lifecycle#onresume\nSo, I wonder if we really want to stop discovery in paused state.",
+      "revId": "455614ec8f6a7b84a5dfa84627e00cd7383da952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
