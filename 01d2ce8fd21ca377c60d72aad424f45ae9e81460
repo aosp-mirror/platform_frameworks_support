@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f65c9df3_4c31a7b6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-26T23:09:01Z",
+      "side": 1,
+      "message": "Can you @link to one of the loadUrl() methods? When you do, you should probably say something like \"calls to #loadUrl() (and overloads of that method)\"",
+      "range": {
+        "startLine": 554,
+        "startChar": 50,
+        "endLine": 554,
+        "endChar": 59
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cdf3529_225910c5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-26T23:09:01Z",
+      "side": 1,
+      "message": "Can you describe more about what \"domain\" means? It would be good to write \"(i.e., \"www.google.com\")\" in there, but would also be good to link to an RFC defining this.\n\nOr, you could write something like a \u003ctable\u003e and describe each \"domain\" format and what its behavior would mean. I think we decided that the chrome proxy settings accept a lot of formats, so this might be a good option in that case.",
+      "range": {
+        "startLine": 571,
+        "startChar": 25,
+        "endLine": 571,
+        "endChar": 32
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf88285_55199287",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-26T23:09:01Z",
+      "side": 1,
+      "message": "If this is meant as a second paragraph, it needs \"\u003cp\u003e\". Otherwise, please merge onto the same line as above (don\u0027t line-break early)",
+      "range": {
+        "startLine": 572,
+        "startChar": 7,
+        "endLine": 572,
+        "endChar": 23
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf3fe80_9d0f5678",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-26T23:09:01Z",
+      "side": 1,
+      "message": "Can you link to RFC 3986 [1] (if that seems right, that is)? Should put this in a \"\u003cp\u003e\" above.\n\n[1] https://tools.ietf.org/html/rfc3986#section-3.2.2",
+      "range": {
+        "startLine": 575,
+        "startChar": 19,
+        "endLine": 575,
+        "endChar": 28
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c6c4d29_18061b1d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-26T23:09:01Z",
+      "side": 1,
+      "message": "Does order matter? Does it make sense to allow duplicates? I would suggest considering `Set\u003cString\u003e` instead. That should be @NonNull for the public-facing method and @Nullable here. Then this can convert the Set to an array.",
+      "range": {
+        "startLine": 589,
+        "startChar": 12,
+        "endLine": 589,
+        "endChar": 34
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
