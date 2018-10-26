@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a749f26c_2c1e4191",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T05:23:01Z",
+      "side": 1,
+      "message": "synchronization is now needed. Otherwise, iterating while removing may cause OOB exception",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 64
+      },
+      "revId": "afbc605ae551b7e0552aa532313449246895c3b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "580c22a4_716b83e4",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T05:23:01Z",
+      "side": 1,
+      "message": "nit) Set may be convenient here, but you may keep as is.",
+      "range": {
+        "startLine": 339,
+        "startChar": 12,
+        "endLine": 339,
+        "endChar": 35
+      },
+      "revId": "afbc605ae551b7e0552aa532313449246895c3b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a951ef7_4a86e9db",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T05:23:01Z",
+      "side": 1,
+      "message": "Make this line multithread aware. Possible options that I can think of instantly could be\n\nOption 1. Ensure this to be running on the single thread -- currently it\u0027s running on the executor from the developer, so we cannot know whether it\u0027s single/multi thread. (Maybe most straightfoward and error-prone, although thread is expensive)\n\nOption 2. Add synchronization with Lock\n\nand possible more.",
+      "range": {
+        "startLine": 1175,
+        "startChar": 12,
+        "endLine": 1181,
+        "endChar": 30
+      },
+      "revId": "afbc605ae551b7e0552aa532313449246895c3b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
