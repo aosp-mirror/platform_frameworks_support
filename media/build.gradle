@@ -21,7 +21,6 @@ android {
     sourceSets {
         main.java.srcDirs += [
                 'api21',
-                'api22',
                 'api23',
                 'api24',
         ]
