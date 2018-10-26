@@ -115,6 +115,10 @@ import java.util.concurrent.Executor;
  * <li> You can call {@link #seekTo(long)} from the {@link #PLAYER_STATE_PAUSED}. In these cases, if
  * you are playing a video stream and the requested position is valid, one video frame may be
  * displayed.
+ * <li> When updating UI for state changes, make sure to respond to {@link PlayerCallback}
+ * invocations. Do not update UI based on {@link PlayerResult} objects since they may not return the
+ * accurate state changes. For example, they do not handle unsolicited remote events from different
+ * processes and also may be modified by the player.
  * </ul>
  *
  * <h3 id="Invalid_States">Invalid method calls</h3>
