@@ -9,7 +9,9 @@ dependencies {
     api(project(":annotation"))
     api(project(":core"))
     api(project(":documentfile"))
-    api(project(":loader"))
+    api(project(":loader")) {
+      exclude(group:"androidx.core")
+    }
     api(project(":localbroadcastmanager"))
     api(project(":print"))
 }

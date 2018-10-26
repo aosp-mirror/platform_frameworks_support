@@ -10,7 +10,9 @@ dependencies {
     api(project(":core"))
     api(project(":legacy-support-core-ui"))
     api(project(":media"))
-    api(project(":fragment"))
+    api(project(":fragment")) {
+      exclude(group:"androidx.core")
+    }
     api(project(":recyclerview"))
 
     androidTestImplementation(TEST_RUNNER)

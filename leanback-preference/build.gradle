@@ -6,12 +6,34 @@ plugins {
 }
 
 dependencies {
-    api(project(":collection"))
-    api(project(":appcompat"))
-    api(project(":recyclerview"))
-    api(project(":preference"))
-    api(project(":leanback"))
+    api(project(":collection")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    api(project(":appcompat")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    api(project(":recyclerview")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    api(project(":preference")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    api(project(":leanback")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    api(project(":customview"))
+    api(project(":core"))
 }
+
+/*configurations.all { conf ->
+  conf.exclude(group: "androidx.customview")
+  conf.exclude(group: "androidx.core")
+}*/
 
 android {
     defaultConfig {

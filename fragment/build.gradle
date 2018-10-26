@@ -15,10 +15,18 @@ android {
 
 dependencies {
     api(project(":core"))
-    api(project(":viewpager"))
-    api(project(":annotation"))
-    api(project(":loader"))
-    api(project(":activity"))
+    api("androidx.viewpager:viewpager:1.0.0") {
+      exclude(group: "androidx.core")
+      exclude(group: "androidx.customview")
+    }
+    api("androidx.annotation:annotation:1.0.0")
+    //api(project(":loader"))
+    api("androidx.loader:loader:1.0.0") {
+      exclude(group: "androidx.core")
+    }
+    api(project(":activity")) {
+      exclude(group: "androidx.core")
+    }
     api(ARCH_LIFECYCLE_VIEWMODEL, libs.exclude_annotations_transitive)
 
     androidTestImplementation(KOTLIN_STDLIB)
@@ -42,4 +50,8 @@ supportLibrary {
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+}
+
+configurations.all { conf ->
+  conf.exclude(group: "androidx.customview")
 }

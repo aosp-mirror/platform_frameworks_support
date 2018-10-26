@@ -25,7 +25,9 @@ plugins {
 dependencies {
     api(project(":core"))
     api(project(":collection"))
-    api(project(":fragment"))
+    api(project(":fragment")) {
+      exclude(group: "androidx.customview")
+    }
     api(project(":appcompat"))
     api(project(":recyclerview"))
 

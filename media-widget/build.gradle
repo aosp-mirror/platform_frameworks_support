@@ -47,3 +47,7 @@ supportLibrary {
     failOnDeprecationWarnings = false
     failOnDeprecationWarnings = false
 }
+
+configurations.all { conf ->
+  conf.exclude(group: "androidx.customview")
+}

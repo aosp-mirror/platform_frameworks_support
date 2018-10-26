@@ -22,8 +22,13 @@ plugins {
 }
 
 dependencies {
-    api(project(":fragment"))
-    api(project(":appcompat"))
+    api(project(":fragment")) {
+      exclude(group:"androidx.core")
+    }
+    api(project(":appcompat")) {
+      exclude(group:"androidx.core")
+    }
+    api(project(":core"))
 
     implementation(TEST_RUNNER)
     implementation(TEST_RULES)
@@ -44,3 +49,4 @@ supportLibrary {
     failOnUncheckedWarnings = false
     toolingProject = true
 }
+

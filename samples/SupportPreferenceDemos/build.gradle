@@ -4,10 +4,30 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":appcompat"))
-    implementation(project(":recyclerview"))
-    implementation(project(":preference"))
-    implementation(project(":leanback"))
-    implementation(project(":leanback-preference"))
-    implementation(project(":car"))
+    implementation(project(":appcompat")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":recyclerview")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":preference")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":leanback")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":leanback-preference")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":car")) {
+      exclude(group:"androidx.core")
+      exclude(group:"androidx.customview")
+    }
+    implementation(project(":core"))
+    implementation(project(":customview"))
 }
