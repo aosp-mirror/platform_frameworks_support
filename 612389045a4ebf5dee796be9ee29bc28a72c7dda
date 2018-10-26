@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d39f5c10_f0003555",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-26T09:58:20Z",
+      "side": 1,
+      "message": "duplication check isn\u0027t needed with set.",
+      "range": {
+        "startLine": 341,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 37
+      },
+      "revId": "612389045a4ebf5dee796be9ee29bc28a72c7dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
