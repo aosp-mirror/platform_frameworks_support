@@ -182,6 +182,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param extras extra bundle
      */
     public void subscribe(@NonNull String parentId, @Nullable Bundle extras) {
+        if (parentId == null) {
+            throw new IllegalArgumentException("parentId shouldn't be null");
+        }
         if (isConnected()) {
             getImpl().subscribe(parentId, extras);
         }
@@ -197,6 +200,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param parentId parent id
      */
     public void unsubscribe(@NonNull String parentId) {
+        if (parentId == null) {
+            throw new IllegalArgumentException("parentId shouldn't be null");
+        }
         if (isConnected()) {
             getImpl().unsubscribe(parentId);
         }
@@ -213,6 +219,15 @@ public class MediaBrowser2 extends MediaController2 {
      */
     public void getChildren(@NonNull String parentId, int page, int pageSize,
             @Nullable Bundle extras) {
+        if (parentId == null) {
+            throw new IllegalArgumentException("parentId shouldn't be null");
+        }
+        if (page < 0) {
+            throw new IllegalArgumentException("page shouldn't be negative");
+        }
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("pageSize shouldn't be less than 1");
+        }
         if (isConnected()) {
             getImpl().getChildren(parentId, page, pageSize, extras);
         }
@@ -225,6 +240,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param mediaId media id for specifying the item
      */
     public void getItem(@NonNull final String mediaId) {
+        if (mediaId == null) {
+            throw new IllegalArgumentException("mediaId shouldn't be null");
+        }
         if (isConnected()) {
             getImpl().getItem(mediaId);
         }
@@ -240,6 +258,9 @@ public class MediaBrowser2 extends MediaController2 {
      * @param extras extra bundle
      */
     public void search(@NonNull String query, @Nullable Bundle extras) {
+        if (query == null) {
+            throw new IllegalArgumentException("query shouldn't be null");
+        }
         if (isConnected()) {
             getImpl().search(query, extras);
         }
@@ -257,6 +278,15 @@ public class MediaBrowser2 extends MediaController2 {
      */
     public void getSearchResult(final @NonNull String query, final int page, final int pageSize,
             final @Nullable Bundle extras) {
+        if (query == null) {
+            throw new IllegalArgumentException("query shouldn't be null");
+        }
+        if (page < 0) {
+            throw new IllegalArgumentException("page shouldn't be negative");
+        }
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("pageSize shouldn't be less than 1");
+        }
         if (isConnected()) {
             getImpl().getSearchResult(query, page, pageSize, extras);
         }
