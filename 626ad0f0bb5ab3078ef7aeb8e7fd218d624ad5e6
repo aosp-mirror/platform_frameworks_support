@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "19f1b791_05c0ce18",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/TracingControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-10-27T03:14:56Z",
+      "side": 1,
+      "message": "\u003e Is the main thread the same as UI thread?\n\nYes.\n\n\u003e It seems the tests are already running on the Main thread\n\nThis is not the case. You can verify this by adding Log.w() statements. These will print the pid and tid to the left of the message. The \"main\" thread\u0027s tid is equal to the process pid. You\u0027ll see Log.w() shows a background tid when called from a test (expected) and shows a main thread tid when called within runOnMainSync().\n\n\u003e This method can not be called from the main application thread\n\nThis is because runTracingTestWithCallbacks calls mWebViewOnUiThread.loadUrlAndWaitForCompletion. In AndroidX, this calls runOnMainSync [1] (and it\u0027s invalid to call runOnMainSync when already on the main thread). On the other hand, this method is implemented differently in CTS [2].\n\nSo, you ran runTracingTestWithCallbacks on UI thread (correct) but that attempted to run loadUrl() on UI thread (hence the error message).\n\nI think we can change the AndroidX WebViewOnUiThread to follow the CTS version. Can you update callAndWait() to check if `Looper.myLooper() \u003d\u003d Looper.getMainLooper()`? If so, just immediately run the runnable.\n\n[1] http://cs/android/frameworks/support/webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java?l\u003d403\u0026rcl\u003d03a5ab2e9bf6349afb794902483a716874dde40b\n[2] http://cs/android/cts/libs/deviceutillegacy/src/android/webkit/cts/WebViewOnUiThread.java?l\u003d881\u0026rcl\u003d559a87e474f96d8827eea7a1a2610a756964ad33",
+      "parentUuid": "c86f34f6_49a29837",
+      "revId": "626ad0f0bb5ab3078ef7aeb8e7fd218d624ad5e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d31e518_02430f1a",
         "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
         "patchSetId": 11
