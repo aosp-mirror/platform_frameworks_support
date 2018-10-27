@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c6c46ff_36993353",
+        "filename": "fragment/ktx/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-27T00:42:02Z",
+      "side": 0,
+      "message": "Should we ship a few versions of deprecated(replaceWith\u003d  and remove them when we go to beta? It would be a nice thing to do",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 112
+      },
+      "revId": "f271412de48317806e16d6f12a1c254d59c3e012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
