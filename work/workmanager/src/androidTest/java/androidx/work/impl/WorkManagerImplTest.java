@@ -247,7 +247,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work3b = new OneTimeWorkRequest.Builder(TestWorker.class).build();
 
         mWorkManagerImpl.beginWith(work1a, work1b).then(work2)
-                .then(work3a, work3b)
+                .then(Arrays.asList(work3a, work3b))
                 .enqueue()
                 .get();
 
