@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c8af9d3_7135ebbd",
+        "filename": "fragment/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2018-10-27T18:33:22Z",
+      "side": 1,
+      "message": "Probably should remove",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 29
+      },
+      "revId": "e76de0e47223c99438f64d1ba5c3da6b3e5b7a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
