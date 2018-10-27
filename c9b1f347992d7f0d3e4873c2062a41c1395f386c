@@ -46,6 +46,30 @@
       "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f152f50c_84e3cb40",
+        "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/SavedStateRegistryOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-27T02:35:24Z",
+      "side": 1,
+      "message": "I think I still prefer the symmetric API I suggest (the subsequent CL I would think would just generify the interface so it would be SavedStateRegistryOwner\u003cB\u003e)",
+      "parentUuid": "bedf6a23_9df6696b",
+      "range": {
+        "startLine": 32,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
