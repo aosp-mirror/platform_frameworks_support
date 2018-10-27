@@ -26,6 +26,7 @@ import androidx.work.impl.WorkManagerImpl;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -161,11 +162,11 @@ public abstract class WorkManager {
     /**
      * Enqueues one or more items for background processing.
      *
-     * @param workRequests One or more {@link WorkRequest} to enqueue
+     * @param workRequest One or more {@link WorkRequest} to enqueue
      */
     @SuppressWarnings("FutureReturnValueIgnored")
-    public final void enqueue(@NonNull WorkRequest... workRequests) {
-        enqueueInternal(Arrays.asList(workRequests));
+    public final void enqueue(@NonNull WorkRequest workRequest) {
+        enqueueInternal(Collections.singletonList(workRequest));
     }
 
     /**
