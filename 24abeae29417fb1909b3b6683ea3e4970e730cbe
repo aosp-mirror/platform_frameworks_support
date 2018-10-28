@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e749988_f91ca97f",
+        "filename": "paging/common/src/main/java/androidx/paging/PagedList.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-28T11:29:44Z",
+      "side": 1,
+      "message": "lets comment which thread this is called, if there are any restrictions on it (e.g. notify thread?)",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "24abeae29417fb1909b3b6683ea3e4970e730cbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37e40b8e_eb6fa3f9",
+        "filename": "paging/common/src/main/java/androidx/paging/TiledPagedList.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-10-28T11:29:44Z",
+      "side": 1,
+      "message": "some other places this is called `retryable`. Choose one ?",
+      "revId": "24abeae29417fb1909b3b6683ea3e4970e730cbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
