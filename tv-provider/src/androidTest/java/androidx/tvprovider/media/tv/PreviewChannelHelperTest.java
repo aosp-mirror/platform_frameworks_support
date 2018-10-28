@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,7 @@ import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -258,7 +260,7 @@ public class PreviewChannelHelperTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mContext = InstrumentationRegistry.getContext();
 
     }
@@ -571,6 +573,223 @@ public class PreviewChannelHelperTest {
         builder.setReleaseDate("2000");
         helper.updateWatchNextProgram(builder.build(), programId);
         assertEquals(1, programUpdateCount[0]);
+    }
+
+    /**
+     * Tests that programs are added when no programs exists in the channel beforehand.
+     */
+    @Test
+    public void testSynchronizePrograms_noExistingPrograms() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram.Builder programBuilder = createFullyPopulatedPreviewProgram(channelId);
+        programBuilder.setInternalProviderId("a");
+        PreviewProgram programA = programBuilder.build();
+        programBuilder.setInternalProviderId("b");
+        PreviewProgram programB = programBuilder.build();
+        programBuilder.setInternalProviderId("c");
+        PreviewProgram programC = programBuilder.build();
+        List<PreviewProgram> programs = Arrays.asList(programA, programB, programC);
+
+        int rows = helper.synchronizePrograms(channelId, programs);
+        assertEquals("3 rows should have been affected.", 3, rows);
+
+        List<PreviewProgram> actualPrograms = helper.getProgramsForChannel(channelId);
+        assertEquals("Did not add programs when no programs existed.",
+                programs.size(), actualPrograms.size());
+    }
+
+    /**
+     * Tests that new programs are added to the channel.
+     */
+    @Test
+    public void testSynchronizePrograms_addsNewPrograms() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram programA = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("a")
+                .build();
+        helper.publishPreviewProgram(programA);
+
+        PreviewProgram programB = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("b")
+                .build();
+
+        List<PreviewProgram> programs = Arrays.asList(programA, programB);
+
+        int rows = helper.synchronizePrograms(channelId, programs);
+        assertEquals("1 rows should have been affected.", 1, rows);
+
+        List<PreviewProgram> actualPrograms = helper.getProgramsForChannel(channelId);
+        assertEquals("New program was not added.",
+                2, actualPrograms.size());
+    }
+
+    /**
+     * Tests that old programs are removed from the channel.
+     */
+    @Test
+    public void testSynchronizePrograms_removesOldPrograms() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram programA = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("a")
+                .build();
+        helper.publishPreviewProgram(programA);
+        PreviewProgram programB = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("b")
+                .build();
+        helper.publishPreviewProgram(programB);
+
+        List<PreviewProgram> programs = Collections.singletonList(programB);
+
+        int rows = helper.synchronizePrograms(channelId, programs);
+        assertEquals("1 rows should have been affected.", 1, rows);
+
+        List<PreviewProgram> actualPrograms = helper.getProgramsForChannel(channelId);
+        assertEquals("Program b should have been removed.",
+                1, actualPrograms.size());
+    }
+
+    /**
+     * Tests that programs are updated in the channel.
+     */
+    @Test
+    public void testSynchronizePrograms_updatesPrograms() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram originalProgram = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("a")
+                .build();
+        helper.publishPreviewProgram(originalProgram);
+
+        PreviewProgram updatedProgram = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("a")
+                .setTitle("Title Update")
+                .build();
+
+        List<PreviewProgram> programs = Collections.singletonList(updatedProgram);
+
+        int rows = helper.synchronizePrograms(channelId, programs);
+        assertEquals("1 rows should have been affected.", 1, rows);
+
+        List<PreviewProgram> actualPrograms = helper.getProgramsForChannel(channelId);
+        assertEquals("Program should have only been updated.",
+                1, actualPrograms.size());
+        assertEquals("Program's title should hve been updated.", "Title Update",
+                actualPrograms.get(0).getTitle());
+    }
+
+    /**
+     * Tests that programs are synchronized in the channel.
+     */
+    @Test
+    public void testSynchronizePrograms_aggregatingOperations() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram programToRemain = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("remain")
+                .build();
+        PreviewProgram programToRemove = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("remove")
+                .build();
+        PreviewProgram programToUpdate = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("update")
+                .build();
+        PreviewProgram updatedProgram = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("update")
+                .setTitle("Title Update")
+                .build();
+        PreviewProgram programToAdd = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("add")
+                .build();
+
+        helper.publishPreviewProgram(programToRemain);
+        helper.publishPreviewProgram(programToRemove);
+        helper.publishPreviewProgram(programToUpdate);
+
+        List<PreviewProgram> programs =
+                Arrays.asList(programToAdd, programToRemain, updatedProgram);
+
+        int rows = helper.synchronizePrograms(channelId, programs);
+        assertEquals("3 rows should have been affected.", 3, rows);
+
+        List<PreviewProgram> actualPrograms = helper.getProgramsForChannel(channelId);
+        assertEquals("There should be the same number of programs after the sync.",
+                3, actualPrograms.size());
+        int programsToRemainOrBeAdded = 0;
+        for (PreviewProgram program : actualPrograms) {
+            String internalProviderId = program.getInternalProviderId();
+            if ("remove".equals(internalProviderId)) {
+                fail("Program should have been removed during the sync.");
+            } else if ("update".equals(internalProviderId)) {
+                assertEquals("Program's title should hve been updated.", "Title Update",
+                        program.getTitle());
+            } else if ("remain".equals(internalProviderId) || "add".equals(internalProviderId)) {
+                programsToRemainOrBeAdded++;
+            }
+        }
+        assertEquals("1 program should have remained and another should have been added.",
+                2, programsToRemainOrBeAdded);
+    }
+
+    /**
+     * Tests that when an empty list is provided, nothing happens since an empty channel is
+     * discouraged.
+     */
+    @Test
+    public void testSynchronizePrograms_emptyPrograms() throws IOException {
+        if (!Utils.hasTvInputFramework(InstrumentationRegistry.getContext())) {
+            return;
+        }
+        PreviewChannelHelper helper = new PreviewChannelHelper(mContext);
+        // Add a channel with no programs
+        PreviewChannel.Builder builder = createFullyPopulatedPreviewChannel();
+        builder.setInternalProviderId("1");
+        long channelId = helper.publishChannel(builder.build());
+
+        PreviewProgram originalProgram = createFullyPopulatedPreviewProgram(channelId)
+                .setInternalProviderId("a")
+                .build();
+        helper.publishPreviewProgram(originalProgram);
+
+        int rows = helper.synchronizePrograms(channelId, Collections.<PreviewProgram>emptyList());
+        assertEquals("0 rows should have been affected.", 0, rows);
     }
 
     private boolean channelsEqual(PreviewChannel channelA, PreviewChannel channelB) {
