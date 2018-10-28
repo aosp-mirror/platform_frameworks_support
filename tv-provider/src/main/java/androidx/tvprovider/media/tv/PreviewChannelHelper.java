@@ -18,20 +18,26 @@ package androidx.tvprovider.media.tv;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.SuppressLint;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.RemoteException;
 import android.text.format.DateUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
+import androidx.tvprovider.media.tv.TvContractCompat.PreviewPrograms;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,27 +46,31 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * From a user's perspective, the TV home screen has two types of channels: the single Live
- * Channels row versus the App preview Channels. This class is concerned with App Channels; or more
+ * From a user's perspective, the TV home screen has two types of channels: the single Live Channels
+ * row versus the App preview Channels. This class is concerned with App Channels; or more
  * precisely: <i>your</i> app's preview Channels. In API 26+, all TV apps are allowed to create
  * multiple channels and publish those Channels to the home screen.
- * <p>
- * This class provides convenience methods to help you publish, update and delete channels; add,
- * update or remove programs in a channel. You do not need to know anything about Content
- * Providers, Content Resolvers, Cursors or such to publish your channels. This class abstracts
- * away all database interactions for you.
- * <p>
- * To make it easy for you to distinguish classes that help you build App Channels, the support
- * library uses the prefix Preview- to denote the classes that pertain to app Channels. Hence,
- * the classes {@link PreviewChannel} and {@link PreviewProgram} help your app add channels to the
- * TV home page.
  *
- * All calls to methods in the class should be made on worker threads.
+ * <p>This class provides convenience methods to help you publish, update and delete channels; add,
+ * update or remove programs in a channel. You do not need to know anything about Content Providers,
+ * Content Resolvers, Cursors or such to publish your channels. This class abstracts away all
+ * database interactions for you.
+ *
+ * <p>To make it easy for you to distinguish classes that help you build App Channels, the support
+ * library uses the prefix Preview- to denote the classes that pertain to app Channels. Hence, the
+ * classes {@link PreviewChannel} and {@link PreviewProgram} help your app add channels to the TV
+ * home page.
+ *
+ * <p>All calls to methods in the class should be made on worker threads.
  */
-
 @WorkerThread
 public class PreviewChannelHelper {
 
@@ -79,53 +89,50 @@ public class PreviewChannelHelper {
 
     /**
      * @param urlConnectionTimeoutMillis see {@link URLConnection#setConnectTimeout(int)}
-     * @param urlReadTimeoutMillis       see {@link URLConnection#setReadTimeout(int)}
+     * @param urlReadTimeoutMillis see {@link URLConnection#setReadTimeout(int)}
      */
-    public PreviewChannelHelper(Context context, int urlConnectionTimeoutMillis,
-            int urlReadTimeoutMillis) {
+    public PreviewChannelHelper(
+            Context context, int urlConnectionTimeoutMillis, int urlReadTimeoutMillis) {
         mContext = context;
         mUrlConnectionTimeoutMillis = urlConnectionTimeoutMillis;
         mUrlReadTimeoutMillis = urlReadTimeoutMillis;
     }
 
     /**
-     * Publishing a channel to the TV home screen is a two step process: first, you add the
-     * channel to the TV content provider; second, you make the channel browsable (i.e. visible).
-     * {@link #publishChannel(PreviewChannel) This method} adds the channel to the
-     * TV content provider for you and returns a channelId. Next you must use the channelId
-     * to make the channel browsable.
-     * </br>
-     * There are two ways you can make a channel browsable:
-     * </br>
-     * a) For your first channel, simply ask the system to make the channel browsable:
-     * TvContractCompat.requestChannelBrowsable(context,channelId)
-     * </br>
-     * b) For any additional channel beyond the first channel, you must get permission
-     * from the user. So if this channel is not your first channel, you must request user
-     * permission through the following intent. So take the channelId returned by
-     * {@link #publishChannel(PreviewChannel) this method} and do the following
-     * inside an Activity or Fragment:
-     * </br>
+     * Publishing a channel to the TV home screen is a two step process: first, you add the channel
+     * to the TV content provider; second, you make the channel browsable (i.e. visible). {@link
+     * #publishChannel(PreviewChannel) This method} adds the channel to the TV content provider for
+     * you and returns a channelId. Next you must use the channelId to make the channel browsable.
+     * </br> There are two ways you can make a channel browsable: </br> a) For your first channel,
+     * simply ask the system to make the channel browsable:
+     * TvContractCompat.requestChannelBrowsable(context,channelId) </br> b) For any additional
+     * channel beyond the first channel, you must get permission from the user. So if this channel
+     * is not your first channel, you must request user permission through the following intent. So
+     * take the channelId returned by {@link #publishChannel(PreviewChannel) this method} and do the
+     * following inside an Activity or Fragment: </br>
+     *
      * <pre>
      * intent = new Intent(TvContractCompat.ACTION_REQUEST_CHANNEL_BROWSABLE);
      * intent.putExtra(TvContractCompat.EXTRA_CHANNEL_ID, channelId);
      * startActivityForResult(intent, REQUEST_CHANNEL_BROWSABLE);
      * </pre>
      *
-     * <p>
-     * Creating a PreviewChannel, you may pass to the builder a
-     * {@link PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case,
-     * {@link #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To
-     * use your own networking code, override {@link #downloadBitmap(Uri)}.
+     * <p>Creating a PreviewChannel, you may pass to the builder a {@link
+     * PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case, {@link
+     * #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To use your
+     * own networking code, override {@link #downloadBitmap(Uri)}.
      *
      * @return channelId or -1 if insertion fails. This is the id the system assigns to your
-     * published channel. You can use it later to get a reference to this published PreviewChannel.
+     *     published channel. You can use it later to get a reference to this published
+     *     PreviewChannel.
      */
     public long publishChannel(@NonNull PreviewChannel channel) throws IOException {
         try {
-            Uri channelUri = mContext.getContentResolver().insert(
-                    TvContractCompat.Channels.CONTENT_URI,
-                    channel.toContentValues());
+            Uri channelUri =
+                    mContext.getContentResolver()
+                            .insert(
+                                    TvContractCompat.Channels.CONTENT_URI,
+                                    channel.toContentValues());
             if (null == channelUri || channelUri.equals(Uri.EMPTY)) {
                 throw new NullPointerException("Channel insertion failed");
             }
@@ -134,56 +141,57 @@ public class PreviewChannelHelper {
             // Rollback channel insertion if logo could not be added.
             if (!logoAdded) {
                 deletePreviewChannel(channelId);
-                throw new IOException("Failed to add logo, so channel (ID="
-                        + channelId + ") was not created");
+                throw new IOException(
+                        "Failed to add logo, so channel (ID=" + channelId + ") was not created");
             }
             return channelId;
         } catch (SecurityException e) {
-            Log.e(TAG, "Your app's ability to insert data into the TvProvider"
-                    + " may have been revoked.", e);
+            Log.e(
+                    TAG,
+                    "Your app's ability to insert data into the TvProvider"
+                            + " may have been revoked.",
+                    e);
         }
         return INVALID_CONTENT_ID;
     }
 
     /**
      * This is a convenience method that simply publishes your first channel for you. After calling
-     * {@link #publishChannel(PreviewChannel)} to add the channel to the TvProvider, it
-     * calls {@link TvContractCompat#requestChannelBrowsable(Context, long)} to make the channel
-     * visible.
-     * <p>
-     * Only use this method to publish your first channel as you do not need user permission to
-     * make your first channel browsable (i.e. visible on home screen). For additional channels,
-     * see the documentations for {@link #publishChannel(PreviewChannel)}.
+     * {@link #publishChannel(PreviewChannel)} to add the channel to the TvProvider, it calls {@link
+     * TvContractCompat#requestChannelBrowsable(Context, long)} to make the channel visible.
      *
-     * <p>
-     * Creating a PreviewChannel, you may pass to the builder a
-     * {@link PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case,
-     * {@link #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To
-     * use your own networking code, override {@link #downloadBitmap(Uri)}.
+     * <p>Only use this method to publish your first channel as you do not need user permission to
+     * make your first channel browsable (i.e. visible on home screen). For additional channels, see
+     * the documentations for {@link #publishChannel(PreviewChannel)}.
      *
-     * @return channelId: This is the id the system assigns to your published channel. You can
-     * use it later to get a reference to this published PreviewChannel.
+     * <p>Creating a PreviewChannel, you may pass to the builder a {@link
+     * PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case, {@link
+     * #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To use your
+     * own networking code, override {@link #downloadBitmap(Uri)}.
+     *
+     * @return channelId: This is the id the system assigns to your published channel. You can use
+     *     it later to get a reference to this published PreviewChannel.
      */
-    public long publishDefaultChannel(@NonNull PreviewChannel channel)
-            throws IOException {
+    public long publishDefaultChannel(@NonNull PreviewChannel channel) throws IOException {
         long channelId = publishChannel(channel);
         TvContractCompat.requestChannelBrowsable(mContext, channelId);
         return channelId;
     }
 
     /**
-     * The TvProvider does not allow select queries. Hence, unless you are querying for a
-     * {@link #getPreviewChannel(long) single PreviewChannel by id}, you must get all of
-     * your channels at once and then use the returned list as necessary.
+     * The TvProvider does not allow select queries. Hence, unless you are querying for a {@link
+     * #getPreviewChannel(long) single PreviewChannel by id}, you must get all of your channels at
+     * once and then use the returned list as necessary.
      */
     public List<PreviewChannel> getAllChannels() {
-        Cursor cursor = mContext.getContentResolver()
-                .query(
-                        TvContractCompat.Channels.CONTENT_URI,
-                        PreviewChannel.Columns.PROJECTION,
-                        null,
-                        null,
-                        null);
+        Cursor cursor =
+                mContext.getContentResolver()
+                        .query(
+                                TvContractCompat.Channels.CONTENT_URI,
+                                PreviewChannel.Columns.PROJECTION,
+                                null,
+                                null,
+                                null);
 
         List<PreviewChannel> channels = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
@@ -204,8 +212,9 @@ public class PreviewChannelHelper {
     public PreviewChannel getPreviewChannel(long channelId) {
         PreviewChannel channel = null;
         Uri channelUri = TvContractCompat.buildChannelUri(channelId);
-        Cursor cursor = mContext.getContentResolver()
-                .query(channelUri, PreviewChannel.Columns.PROJECTION, null, null, null);
+        Cursor cursor =
+                mContext.getContentResolver()
+                        .query(channelUri, PreviewChannel.Columns.PROJECTION, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             channel = PreviewChannel.fromCursor(cursor);
         }
@@ -215,16 +224,16 @@ public class PreviewChannelHelper {
     /**
      * To update a preview channel, you need to use the {@link PreviewChannel.Builder} to set the
      * attributes you wish to change. Then simply pass in the built channel and the channelId of the
-     * preview channel. (The channelId is the ID you received when you originally
-     * {@link #publishChannel(PreviewChannel) published} the preview channel.)
-     * <p>
-     * Creating a PreviewChannel, you may pass to the builder a
-     * {@link PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case,
-     * {@link #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To
-     * use your own networking code, override {@link #downloadBitmap(Uri)}.
+     * preview channel. (The channelId is the ID you received when you originally {@link
+     * #publishChannel(PreviewChannel) published} the preview channel.)
+     *
+     * <p>Creating a PreviewChannel, you may pass to the builder a {@link
+     * PreviewChannel.Builder#setLogo(Uri) url as your logo}. In such case, {@link
+     * #updatePreviewChannel(long, PreviewChannel)} will load the logo over the network. To use your
+     * own networking code, override {@link #downloadBitmap(Uri)}.
      */
-    public void updatePreviewChannel(long channelId,
-            @NonNull PreviewChannel update) throws IOException {
+    public void updatePreviewChannel(long channelId, @NonNull PreviewChannel update)
+            throws IOException {
         // To avoid possibly expensive no-op updates, first check that the current content that's
         // in the database is different from the new content to be added.
         PreviewChannel curr = getPreviewChannel(channelId);
@@ -247,11 +256,12 @@ public class PreviewChannelHelper {
      */
     @RestrictTo(LIBRARY_GROUP)
     protected void updatePreviewChannelInternal(long channelId, @NonNull PreviewChannel upgrade) {
-        mContext.getContentResolver().update(
-                TvContractCompat.buildChannelUri(channelId),
-                upgrade.toContentValues(),
-                null,
-                null);
+        mContext.getContentResolver()
+                .update(
+                        TvContractCompat.buildChannelUri(channelId),
+                        upgrade.toContentValues(),
+                        null,
+                        null);
     }
 
     /**
@@ -273,8 +283,7 @@ public class PreviewChannelHelper {
             logo = getLogoFromUri(channel.getLogoUri());
         }
         Uri logoUri = TvContractCompat.buildChannelLogoUri(channelId);
-        try (OutputStream outputStream = mContext.getContentResolver().openOutputStream(
-                logoUri)) {
+        try (OutputStream outputStream = mContext.getContentResolver().openOutputStream(logoUri)) {
             result = logo.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.flush();
         } catch (SQLiteException | IOException | NullPointerException e) {
@@ -284,10 +293,10 @@ public class PreviewChannelHelper {
     }
 
     /**
-     * Handles the case where the Bitmap must be fetched from a known uri. First the
-     * method checks if the Uri is local. If not, the method makes a connection to fetch the Bitmap
-     * data from its remote location. To use your own networking implementation, simply override
-     * {@link #downloadBitmap(Uri)}
+     * Handles the case where the Bitmap must be fetched from a known uri. First the method checks
+     * if the Uri is local. If not, the method makes a connection to fetch the Bitmap data from its
+     * remote location. To use your own networking implementation, simply override {@link
+     * #downloadBitmap(Uri)}
      */
     private Bitmap getLogoFromUri(@NonNull Uri logoUri) {
         String scheme = logoUri.normalizeScheme().getScheme();
@@ -320,8 +329,8 @@ public class PreviewChannelHelper {
     }
 
     /**
-     * Downloads a Bitmap from a remote server. It is declared protected to allow you
-     * to override it to use your own networking implementation if you so wish.
+     * Downloads a Bitmap from a remote server. It is declared protected to allow you to override it
+     * to use your own networking implementation if you so wish.
      */
     protected Bitmap downloadBitmap(@NonNull Uri logoUri) throws IOException {
         URLConnection urlConnection = null;
@@ -349,36 +358,33 @@ public class PreviewChannelHelper {
         return logoImage;
     }
 
-    /**
-     * Removes a preview channel from the system's content provider (aka TvProvider).
-     */
+    /** Removes a preview channel from the system's content provider (aka TvProvider). */
     public void deletePreviewChannel(long channelId) {
-        mContext.getContentResolver().delete(
-                TvContractCompat.buildChannelUri(channelId),
-                null,
-                null);
+        mContext.getContentResolver()
+                .delete(TvContractCompat.buildChannelUri(channelId), null, null);
     }
 
-    /**
-     * Adds programs to a preview channel.
-     */
+    /** Adds programs to a preview channel. */
     public long publishPreviewProgram(@NonNull PreviewProgram program) {
         try {
-            Uri programUri = mContext.getContentResolver().insert(
-                    TvContractCompat.PreviewPrograms.CONTENT_URI,
-                    program.toContentValues());
+            Uri programUri =
+                    mContext.getContentResolver()
+                            .insert(
+                                    TvContractCompat.PreviewPrograms.CONTENT_URI,
+                                    program.toContentValues());
             long programId = ContentUris.parseId(programUri);
             return programId;
         } catch (SecurityException e) {
-            Log.e(TAG, "Your app's ability to insert data into the TvProvider"
-                    + " may have been revoked.", e);
+            Log.e(
+                    TAG,
+                    "Your app's ability to insert data into the TvProvider"
+                            + " may have been revoked.",
+                    e);
         }
         return INVALID_CONTENT_ID;
     }
 
-    /**
-     * Retrieves a single preview program from the system content provider (aka TvProvider).
-     */
+    /** Retrieves a single preview program from the system content provider (aka TvProvider). */
     public PreviewProgram getPreviewProgram(long programId) {
         PreviewProgram program = null;
         Uri programUri = TvContractCompat.buildPreviewProgramUri(programId);
@@ -389,9 +395,7 @@ public class PreviewChannelHelper {
         return program;
     }
 
-    /**
-     * Updates programs in a preview channel.
-     */
+    /** Updates programs in a preview channel. */
     public void updatePreviewProgram(long programId, @NonNull PreviewProgram update) {
         // To avoid possibly expensive no-op updates, first check that the current content that's
         // in the database is different from the new content to be added.
@@ -409,37 +413,40 @@ public class PreviewChannelHelper {
      */
     @RestrictTo(LIBRARY_GROUP)
     void updatePreviewProgramInternal(long programId, @NonNull PreviewProgram upgrade) {
-        mContext.getContentResolver().update(
-                TvContractCompat.buildPreviewProgramUri(programId),
-                upgrade.toContentValues(), null, null);
+        mContext.getContentResolver()
+                .update(
+                        TvContractCompat.buildPreviewProgramUri(programId),
+                        upgrade.toContentValues(),
+                        null,
+                        null);
     }
 
-    /**
-     * Removes programs from a preview channel.
-     */
+    /** Removes programs from a preview channel. */
     public void deletePreviewProgram(long programId) {
-        mContext.getContentResolver().delete(
-                TvContractCompat.buildPreviewProgramUri(programId), null, null);
+        mContext.getContentResolver()
+                .delete(TvContractCompat.buildPreviewProgramUri(programId), null, null);
     }
 
-    /**
-     * Adds a program to the Watch Next channel
-     */
+    /** Adds a program to the Watch Next channel */
     public long publishWatchNextProgram(@NonNull WatchNextProgram program) {
         try {
-            Uri programUri = mContext.getContentResolver().insert(
-                    TvContractCompat.WatchNextPrograms.CONTENT_URI, program.toContentValues());
+            Uri programUri =
+                    mContext.getContentResolver()
+                            .insert(
+                                    TvContractCompat.WatchNextPrograms.CONTENT_URI,
+                                    program.toContentValues());
             return ContentUris.parseId(programUri);
         } catch (SecurityException e) {
-            Log.e(TAG, "Your app's ability to insert data into the TvProvider"
-                    + " may have been revoked.", e);
+            Log.e(
+                    TAG,
+                    "Your app's ability to insert data into the TvProvider"
+                            + " may have been revoked.",
+                    e);
         }
         return INVALID_CONTENT_ID;
     }
 
-    /**
-     * Retrieves a single WatchNext program from the system content provider (aka TvProvider).
-     */
+    /** Retrieves a single WatchNext program from the system content provider (aka TvProvider). */
     public WatchNextProgram getWatchNextProgram(long programId) {
         WatchNextProgram program = null;
         Uri programUri = TvContractCompat.buildWatchNextProgramUri(programId);
@@ -450,9 +457,7 @@ public class PreviewChannelHelper {
         return program;
     }
 
-    /**
-     * Updates a WatchNext program.
-     */
+    /** Updates a WatchNext program. */
     public void updateWatchNextProgram(@NonNull WatchNextProgram upgrade, long programId) {
         // To avoid possibly expensive no-op updates, first check that the current content that's in
         // the database is different from the new content to be added.
@@ -470,8 +475,163 @@ public class PreviewChannelHelper {
      */
     @RestrictTo(LIBRARY_GROUP)
     void updateWatchNextProgram(long programId, @NonNull WatchNextProgram upgrade) {
-        mContext.getContentResolver().update(
-                TvContractCompat.buildWatchNextProgramUri(programId),
-                upgrade.toContentValues(), null, null);
+        mContext.getContentResolver()
+                .update(
+                        TvContractCompat.buildWatchNextProgramUri(programId),
+                        upgrade.toContentValues(),
+                        null,
+                        null);
+    }
+
+    /**
+     * Synchronizes all programs in a channel. This perform a batch of operations with the content
+     * provider for best performance. It might be more performant to update the programs
+     * individually for one-off cases.
+     *
+     * <p>Having an empty channel does not lead to a good user experience. Thus, if the new list of
+     * programs are empty, then 0 is returned and the channel does not get updated.
+     *
+     * <p>If there are no programs in the channel (for example, it could be the first time
+     * synchronizing/adding to the channel) then the new set of programs are bulk inserted.
+     *
+     * <p>This algorithm assumes that {@link PreviewProgram#getWeight()} is used for ordering and
+     * does not rely on insertion order to determine the program's order.
+     *
+     * @param channelId The id of the channel whose programs are to be synchronized.
+     * @param programs The new programs to be synchronized in the channel.
+     * @return The total number of rows affected.
+     */
+    public int synchronizePrograms(long channelId, @NonNull List<PreviewProgram> programs) {
+
+        if (programs.isEmpty()) {
+            return 0;
+        }
+
+        List<PreviewProgram> publishedPrograms = getProgramsForChannel(channelId);
+        // If there are no published programs, then insert all of the new programs.
+        if (publishedPrograms.isEmpty()) {
+            return mContext.getContentResolver()
+                    .bulkInsert(PreviewPrograms.CONTENT_URI, convertToContentValues(programs));
+        }
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+
+        Map<String, PreviewProgram> publishedProgramIds = new HashMap<>();
+        for (PreviewProgram program : publishedPrograms) {
+            publishedProgramIds.put(program.getInternalProviderId(), program);
+        }
+
+        Map<String, PreviewProgram> newProgramIds = new HashMap<>();
+        for (PreviewProgram program : programs) {
+            newProgramIds.put(program.getInternalProviderId(), program);
+        }
+
+        // Gather all programs that are not currently published and create the insert operation.
+        Set<String> programsToAddIds = new HashSet<>(newProgramIds.keySet());
+        programsToAddIds.removeAll(publishedProgramIds.keySet());
+        for (String id : programsToAddIds) {
+            ContentProviderOperation operation =
+                    ContentProviderOperation.newInsert(PreviewPrograms.CONTENT_URI)
+                            .withValues(newProgramIds.get(id).toContentValues())
+                            .build();
+            operations.add(operation);
+        }
+
+        // Gather all programs that are currently published but should be removed.
+        Set<String> programsToRemoveIds = new HashSet<>(publishedProgramIds.keySet());
+        programsToRemoveIds.removeAll(newProgramIds.keySet());
+        for (String id : programsToRemoveIds) {
+            PreviewProgram program = publishedProgramIds.get(id);
+            Uri uri = TvContractCompat.buildPreviewProgramUri(program.getId());
+            operations.add(ContentProviderOperation.newDelete(uri).build());
+        }
+
+        // Gather the remaining programs and update them if needed. Remove the programs that were
+        // added and removed already from the published and new programs. The HashSet prevents any
+        // duplicate ids.
+        Set<String> remainingProgramIds = new HashSet<>(newProgramIds.keySet());
+        remainingProgramIds.addAll(publishedProgramIds.keySet());
+        remainingProgramIds.removeAll(programsToAddIds);
+        remainingProgramIds.removeAll(programsToRemoveIds);
+        for (String id : remainingProgramIds) {
+            PreviewProgram publishedProgram = publishedProgramIds.get(id);
+            PreviewProgram updatedProgram = newProgramIds.get(id);
+            if (publishedProgram.hasAnyUpdatedValues(updatedProgram)) {
+                Uri uri = TvContractCompat.buildPreviewProgramUri(publishedProgram.getId());
+                ContentProviderOperation operation =
+                        ContentProviderOperation.newUpdate(uri)
+                                .withValues(updatedProgram.toContentValues())
+                                .build();
+                operations.add(operation);
+            }
+        }
+
+        try {
+            ContentProviderResult[] results =
+                    mContext.getContentResolver().applyBatch(TvContractCompat.AUTHORITY,
+                            operations);
+            int totalRowsAffected = 0;
+            for (ContentProviderResult result : results) {
+                if (result.uri != null) {
+                    // Results containing an Uri indicates a success.
+                    totalRowsAffected += 1;
+                } else {
+                    totalRowsAffected += result.count;
+                }
+            }
+            return totalRowsAffected;
+        } catch (OperationApplicationException e) {
+            Log.e(TAG, "Failed to delete programs.", e);
+            return e.getNumSuccessfulYieldPoints();
+        } catch (RemoteException e) {
+            Log.e(TAG, "Failed to communicate with the content provider.", e);
+            return INVALID_CONTENT_ID;
+        }
+    }
+
+    /**
+     * Queries for all the programs for a given channel. If no programs exist, an empty list is
+     * returned.
+     *
+     * <p>The method is extracted to make {@link #synchronizePrograms(long, List)} testable.
+     *
+     * @hide
+     * @param channelId The id of the channel to query for programs.
+     * @return A list of programs for a channel.
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    protected List<PreviewProgram> getProgramsForChannel(long channelId) {
+        List<PreviewProgram> programs = new ArrayList<>();
+        try (Cursor cursor =
+                mContext.getContentResolver()
+                        .query(
+                                TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
+                                null,
+                                null,
+                                null,
+                                null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    programs.add(PreviewProgram.fromCursor(cursor));
+                } while (cursor.moveToNext());
+            }
+        }
+        return programs;
+    }
+
+    /**
+     * Converts a list of programs to an array of {@link ContentValues}.
+     *
+     * @param programs Programs to be converted.
+     * @return An array of {@link ContentValues}.
+     */
+    private ContentValues[] convertToContentValues(@NonNull Collection<PreviewProgram> programs) {
+        ContentValues[] contentValues = new ContentValues[programs.size()];
+        int index = 0;
+        for (PreviewProgram program : programs) {
+            contentValues[index] = program.toContentValues();
+            index++;
+        }
+        return contentValues;
     }
 }
