@@ -22,6 +22,30 @@
       "revId": "ac3f75776fc03b02f82a8ebd5e4d86d5be143a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e21d610_d139a43c",
+        "filename": "fragment/ktx/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-29T17:06:02Z",
+      "side": 1,
+      "message": "It is used for dependency insight: https://docs.gradle.org/current/userguide/inspecting_dependencies.html#sec:dependency_declaration_reasons",
+      "parentUuid": "f05d77e1_e9889a4f",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "ac3f75776fc03b02f82a8ebd5e4d86d5be143a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
