@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab33f2f_4320c71c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-29T00:29:29Z",
+      "side": 1,
+      "message": "!sConnectivityReceiver.isConnected()",
+      "range": {
+        "startLine": 545,
+        "startChar": 54,
+        "endLine": 545,
+        "endChar": 92
+      },
+      "revId": "92bc074495968e05a988b8a81cf36a9de84968b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
