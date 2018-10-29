@@ -22,6 +22,30 @@
       "revId": "75e74de72bf55bb973af2ef1d23e03b2e0d37a44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b15df2e_5c29e575",
+        "filename": "lifecycle/viewmodel/ktx/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-10-29T21:59:58Z",
+      "side": 0,
+      "message": "Good catch ! Thanks !",
+      "parentUuid": "8994ec40_96fd7076",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "75e74de72bf55bb973af2ef1d23e03b2e0d37a44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
