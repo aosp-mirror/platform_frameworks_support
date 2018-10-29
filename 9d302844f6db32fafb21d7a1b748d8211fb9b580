@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "267dd400_fe92a5c3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-29T05:52:35Z",
+      "side": 1,
+      "message": "Assume following scenario\nStep 1) A playlist {A, B} is set (register callback to the A and B)\nStep 2) Current media item is now set to B (register callback to the B. B now has two callbacks)\nStep 3) B has changed metadata\n\nGiven your code, current media item changed callbacks and playlist changed callback will be called twice. Is it intended? If it\u0027s not, I would rather introduce two different callback for current media item and playlist.",
+      "range": {
+        "startLine": 1424,
+        "startChar": 0,
+        "endLine": 1451,
+        "endChar": 0
+      },
+      "revId": "9d302844f6db32fafb21d7a1b748d8211fb9b580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
