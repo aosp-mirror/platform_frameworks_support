@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "8b4b6dd8_badd18a8",
+        "filename": "activity/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-29T17:54:53Z",
+      "side": 1,
+      "message": "These were already done in aosp/803953, consider rebasing",
+      "revId": "e76de0e47223c99438f64d1ba5c3da6b3e5b7a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c8af9d3_7135ebbd",
         "filename": "fragment/build.gradle",
         "patchSetId": 1
