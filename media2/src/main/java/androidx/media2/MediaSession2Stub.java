@@ -931,8 +931,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 new SessionCallbackTask<Boolean>() {
                     @Override
                     public Boolean run(ControllerInfo controller) {
-                        if (mediaId == null) {
-                            Log.w(TAG, "getItem(): Ignoring null mediaId from " + controller);
+                        if (TextUtils.isEmpty(mediaId)) {
+                            Log.w(TAG, "getItem(): Ignoring empty mediaId from " + controller);
                             return false;
                         }
                         getLibrarySession().onGetItemOnExecutor(controller, mediaId);
@@ -948,8 +948,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 new SessionCallbackTask<Boolean>() {
                     @Override
                     public Boolean run(ControllerInfo controller) {
-                        if (parentId == null) {
-                            Log.w(TAG, "getChildren(): Ignoring null parentId from " + controller);
+                        if (TextUtils.isEmpty(parentId)) {
+                            Log.w(TAG, "getChildren(): Ignoring empty parentId from " + controller);
                             return false;
                         }
                         if (page < 0) {
@@ -1020,8 +1020,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 new SessionCallbackTask<Boolean>() {
                     @Override
                     public Boolean run(ControllerInfo controller) {
-                        if (parentId == null) {
-                            Log.w(TAG, "subscribe(): Ignoring null parentId from " + controller);
+                        if (TextUtils.isEmpty(parentId)) {
+                            Log.w(TAG, "subscribe(): Ignoring empty parentId from " + controller);
                             return false;
                         }
                         getLibrarySession().onSubscribeOnExecutor(controller, parentId, option);
@@ -1036,8 +1036,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 new SessionCallbackTask<Boolean>() {
                     @Override
                     public Boolean run(ControllerInfo controller) {
-                        if (parentId == null) {
-                            Log.w(TAG, "unsubscribe(): Ignoring null parentId from " + controller);
+                        if (TextUtils.isEmpty(parentId)) {
+                            Log.w(TAG, "unsubscribe(): Ignoring empty parentId from " + controller);
                             return false;
                         }
                         getLibrarySession().onUnsubscribeOnExecutor(controller, parentId);

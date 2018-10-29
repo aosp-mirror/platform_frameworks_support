@@ -22,6 +22,8 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserCompat.ItemCallback;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
 import android.support.v4.media.MediaBrowserCompat.SubscriptionCallback;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
@@ -38,6 +40,8 @@ import java.util.concurrent.Executor;
  * Implementation of MediaBrowser2 with the {@link MediaBrowserCompat} for legacy support.
  */
 class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements MediaBrowser2Impl {
+    private static final String TAG = "MB2ImplLegacy";
+
     @GuardedBy("mLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final HashMap<Bundle, MediaBrowserCompat> mBrowserCompats = new HashMap<>();
@@ -340,6 +344,10 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
         @Override
         public void onChildrenLoaded(final String parentId, List<MediaItem> children,
                 final Bundle options) {
+            if (TextUtils.isEmpty(parentId)) {
+                Log.w(TAG, "SubscribeCallback.onChildrenLoaded(): Ignoring empty parentId");
+                return;
+            }
             final MediaBrowserCompat browser = getBrowserCompat();
             if (browser == null) {
                 // Browser is closed.
@@ -395,6 +403,10 @@ class MediaBrowser2ImplLegacy extends MediaController2ImplLegacy implements Medi
         @Override
         public void onChildrenLoaded(final String parentId, List<MediaItem> children,
                 Bundle options) {
+            if (TextUtils.isEmpty(parentId)) {
+                Log.w(TAG, "GetChildrenCallback.onChildrenLoaded(): Ignoring empty parentId");
+                return;
+            }
             final List<MediaItem2> items;
             if (children == null) {
                 items = null;
