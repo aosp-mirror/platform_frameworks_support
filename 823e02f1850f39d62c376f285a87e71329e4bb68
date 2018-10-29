@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b8e4c23_b4697439",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b96c2f2_538173fa",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 20
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37d68ff_76118ac4",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "Let\u0027s remove this",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 9
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c19698d_796176dc",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "What does \u0027it\u0027 mean here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 49,
+        "endLine": 80,
+        "endChar": 52
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da5639e8_da41431e",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 87,
+        "startChar": 45,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d97f0d_f9f14de8",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "minor) in order to?",
+      "range": {
+        "startLine": 87,
+        "startChar": 49,
+        "endLine": 87,
+        "endChar": 51
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fbad13_0e7c6da9",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "ed",
+      "range": {
+        "startLine": 87,
+        "startChar": 72,
+        "endLine": 87,
+        "endChar": 74
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d05f996e_e213786c",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "Q) Why this is repeated?",
+      "range": {
+        "startLine": 89,
+        "startChar": 3,
+        "endLine": 89,
+        "endChar": 88
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04031392_c347c6a8",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "minor) can get the duration only through the metadata?",
+      "range": {
+        "startLine": 94,
+        "startChar": 76,
+        "endLine": 95,
+        "endChar": 33
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9cdb521_f072b2d8",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 323,
+        "startChar": 12,
+        "endLine": 323,
+        "endChar": 13
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7183615d_63b40029",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "Q) Does this work?",
+      "range": {
+        "startLine": 415,
+        "startChar": 12,
+        "endLine": 415,
+        "endChar": 43
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82730dad_c72128a7",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "the media item has children?",
+      "range": {
+        "startLine": 471,
+        "startChar": 69,
+        "endLine": 471,
+        "endChar": 99
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3faf64f_40fb77fd",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 471,
+        "startChar": 62,
+        "endLine": 471,
+        "endChar": 63
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f293266_44047295",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "BROWSABLE_TYPE?",
+      "range": {
+        "startLine": 481,
+        "startChar": 31,
+        "endLine": 481,
+        "endChar": 53
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f89bc1_e4a89af1",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "*/",
+      "range": {
+        "startLine": 553,
+        "startChar": 5,
+        "endLine": 553,
+        "endChar": 9
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e8b3f4_3eaadd78",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T10:02:22Z",
+      "side": 1,
+      "message": "Need to add PLAYABLE too",
+      "range": {
+        "startLine": 1086,
+        "startChar": 10,
+        "endLine": 1086,
+        "endChar": 11
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
