@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d622fce_c1be34d7",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompat.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-10-29T19:38:34Z",
+      "side": 1,
+      "message": "hide this API. The platform version of this API does not allow this, so it would be difficult to wrap it for higher SDKss",
+      "range": {
+        "startLine": 275,
+        "startChar": 7,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "acfaa4db0a50e3b729fd25ae597358082c47b0d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
