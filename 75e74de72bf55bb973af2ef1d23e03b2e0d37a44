@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8994ec40_96fd7076",
+        "filename": "lifecycle/viewmodel/ktx/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-10-29T21:59:28Z",
+      "side": 0,
+      "message": "I removed this as it is no longer experimental.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "75e74de72bf55bb973af2ef1d23e03b2e0d37a44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
