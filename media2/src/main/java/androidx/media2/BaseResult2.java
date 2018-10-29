@@ -78,6 +78,11 @@ interface BaseResult2 {
     int getResultCode();
 
     // Subclasses should write its own documentation.
+    // Must be SystemClock#elapsedRealtime() instead of System#currentTimeMillis() because
+    //    1. System#currentTimeMillis() can be unexpectidly set by System#setCurrentTimeMillis() or
+    //       changes in the timezone. So receiver cannot know when does the command is finished.
+    //    2. For matching the timestamp with the PlaybackState(Compat) which uses
+    //       SystemClock#elapsedRealtime().
     long getCompletionTime();
 
     // Subclasses should write its own documentation.

@@ -1576,6 +1576,8 @@ public class MediaController2 implements AutoCloseable {
          *
          * @return completion time of the command
          */
+        // Picked SystemClock#elapsedRealtime() instead of the System#currentTimeMillis().
+        // see BaseResult2#getCompletionTime() for detail.
         @Override
         public long getCompletionTime() {
             return mCompletionTime;
