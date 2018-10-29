@@ -20,9 +20,6 @@ dependencies {
 android {
     sourceSets {
         main.java.srcDirs += [
-                'api21',
-                'api23',
-                'api24',
         ]
         main.res.srcDirs += 'src/main/res-public'
     }
