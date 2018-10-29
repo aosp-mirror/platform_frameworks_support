@@ -352,8 +352,8 @@ class MediaController2Stub extends IMediaController2.Stub {
     @Override
     public void onGetItemDone(final String mediaId, final ParcelImpl item)
             throws RuntimeException {
-        if (mediaId == null) {
-            Log.w(TAG, "onGetItemDone(): Ignoring null mediaId");
+        if (TextUtils.isEmpty(mediaId)) {
+            Log.w(TAG, "onGetItemDone(): Ignoring empty mediaId");
             return;
         }
         final MediaBrowser2 browser;
@@ -378,8 +378,16 @@ class MediaController2Stub extends IMediaController2.Stub {
     @Override
     public void onGetChildrenDone(final String parentId, final int page, final int pageSize,
             final ParcelImplListSlice listSlice, final Bundle extras) throws RuntimeException {
-        if (parentId == null) {
-            Log.w(TAG, "onGetChildrenDone(): Ignoring null parentId");
+        if (TextUtils.isEmpty(parentId)) {
+            Log.w(TAG, "onGetChildrenDone(): Ignoring empty parentId");
+            return;
+        }
+        if (page < 0) {
+            Log.w(TAG, "onGetChildrenDone(): Ignoring negative page: " + page);
+            return;
+        }
+        if (pageSize <= 0) {
+            Log.w(TAG, "onGetChildrenDone(): Ignoring non-positive pageSize: " + pageSize);
             return;
         }
         final MediaBrowser2 browser;
@@ -409,6 +417,10 @@ class MediaController2Stub extends IMediaController2.Stub {
             Log.w(TAG, "onSearchResultChanged(): Ignoring empty query");
             return;
         }
+        if (itemCount < 0) {
+            Log.w(TAG, "onSearchResultChanged(): Ignoring negative itemCount: " + itemCount);
+            return;
+        }
         final MediaBrowser2 browser;
         try {
             browser = getBrowser();
@@ -432,6 +444,14 @@ class MediaController2Stub extends IMediaController2.Stub {
             final ParcelImplListSlice listSlice, final Bundle extras) throws RuntimeException {
         if (TextUtils.isEmpty(query)) {
             Log.w(TAG, "onGetSearchResultDone(): Ignoring empty query");
+            return;
+        }
+        if (page < 0) {
+            Log.w(TAG, "onGetSearchResultDone(): Ignoring negative page: " + page);
+            return;
+        }
+        if (pageSize <= 0) {
+            Log.w(TAG, "onGetSearchResultDone(): Ignoring non-positive pageSize: " + pageSize);
             return;
         }
         final MediaBrowser2 browser;
@@ -459,6 +479,10 @@ class MediaController2Stub extends IMediaController2.Stub {
     public void onChildrenChanged(final String parentId, final int itemCount, final Bundle extras) {
         if (parentId == null) {
             Log.w(TAG, "onChildrenChanged(): Ignoring null parentId");
+            return;
+        }
+        if (itemCount < 0) {
+            Log.w(TAG, "onChildrenChanged(): Ignoring negative itemCount: " + itemCount);
             return;
         }
         final MediaBrowser2 browser;

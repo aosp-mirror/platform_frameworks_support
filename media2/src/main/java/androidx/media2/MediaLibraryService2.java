@@ -474,16 +474,14 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
         private final String mRootId;
         private final Bundle mExtras;
 
-        //private final LibraryRootProvider mProvider;
-
         /**
          * Constructs a library root.
          * @param rootId The root id for browsing.
          * @param extras Any extras about the library service.
          */
         public LibraryRoot(@NonNull String rootId, @Nullable Bundle extras) {
-            if (rootId == null) {
-                throw new IllegalArgumentException("rootId shouldn't be null");
+            if (TextUtils.isEmpty(rootId)) {
+                throw new IllegalArgumentException("rootId shouldn't be empty");
             }
             mRootId = rootId;
             mExtras = extras;
