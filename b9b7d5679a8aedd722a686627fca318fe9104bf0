@@ -22,6 +22,30 @@
       "revId": "b9b7d5679a8aedd722a686627fca318fe9104bf0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "505abbb0_46de0b7d",
+        "filename": "media2/src/main/java/androidx/media2/MediaLibraryService2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-29T02:54:46Z",
+      "side": 1,
+      "message": "Changed MediaBrowser2\u0027s methods to disallow empty string, \nsince MediaBrowserCompat\u0027s methods are already doing that:\n\nhttps://cs.corp.google.com/android/frameworks/support/media/src/main/java/android/support/v4/media/MediaBrowserCompat.java?rcl\u003dc1a3641f1cc39094bb95e711e93f3f3627e698e5\u0026l\u003d327",
+      "parentUuid": "8a88953a_48bd6ac7",
+      "range": {
+        "startLine": 297,
+        "startChar": 16,
+        "endLine": 297,
+        "endChar": 42
+      },
+      "revId": "b9b7d5679a8aedd722a686627fca318fe9104bf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
