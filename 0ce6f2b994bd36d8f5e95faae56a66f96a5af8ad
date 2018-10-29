@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b7b7522f_9fa16d93",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-29T19:12:15Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ad5af8f9_59a24fea",
+      "range": {
+        "startLine": 574,
+        "startChar": 15,
+        "endLine": 574,
+        "endChar": 34
+      },
+      "revId": "0ce6f2b994bd36d8f5e95faae56a66f96a5af8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d36bd492_f5b28f2c",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2ea3fec2_eea0bc8c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-29T19:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d36bd492_f5b28f2c",
+      "range": {
+        "startLine": 585,
+        "startChar": 28,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "0ce6f2b994bd36d8f5e95faae56a66f96a5af8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceb520d8_73a237e9",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
         "patchSetId": 17
@@ -68,6 +116,30 @@
       "revId": "0ce6f2b994bd36d8f5e95faae56a66f96a5af8ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4b6a93_bd486296",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinksParams.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-29T19:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceb520d8_73a237e9",
+      "range": {
+        "startLine": 197,
+        "startChar": 15,
+        "endLine": 197,
+        "endChar": 22
+      },
+      "revId": "0ce6f2b994bd36d8f5e95faae56a66f96a5af8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
