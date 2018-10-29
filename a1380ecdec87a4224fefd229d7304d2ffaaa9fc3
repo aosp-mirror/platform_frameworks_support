@@ -22,6 +22,30 @@
       "revId": "a1380ecdec87a4224fefd229d7304d2ffaaa9fc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ef28ce2_51136f5c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-29T02:20:10Z",
+      "side": 1,
+      "message": "Thank you for pointing this out. Created two different callbacks.",
+      "parentUuid": "f5669b9d_74decc2f",
+      "range": {
+        "startLine": 1256,
+        "startChar": 16,
+        "endLine": 1265,
+        "endChar": 17
+      },
+      "revId": "a1380ecdec87a4224fefd229d7304d2ffaaa9fc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
