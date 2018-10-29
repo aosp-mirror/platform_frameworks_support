@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3df4c8e_8364c348",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-10-29T23:01:01Z",
+      "side": 0,
+      "message": "is this intended to be removed?",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 87
+      },
+      "revId": "2ea74c7a90f0982a0369c9da577561c34cd2e798",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
