@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06624d68_4f089525",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-29T05:47:48Z",
+      "side": 1,
+      "message": "synchronization: list item may be removed by unregisterCallback, and iterator will throw exception \u0027java.util.ConcurrentModificationException\u0027. You can either\n\n1. copy the callback code with the lock hold (common pattern. most safe)\n2. call callbacks with lock hold --\u003e Most efficient, but need to care about the potential deadlock. Deadlock may happen if the callback has lock inside, and callback may call this API back.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 0
+      },
+      "revId": "2feb6b0b92a570599f642f6f418f62e0e85027ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
