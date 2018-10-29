@@ -66,6 +66,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Tests invalidation tracking.
@@ -370,6 +371,29 @@ public class LiveDataQueryTest extends TestDatabaseTest {
         assertThat(weakLiveData.get(), nullValue());
     }
 
+    @MediumTest
+    @Test
+    public void handleObserveForever() throws TimeoutException, InterruptedException {
+        final AtomicReference<TestObserver<User>> testObserver = new AtomicReference<>();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                testObserver.set(new TestObserver<>());
+                mUserDao.liveUserById(3).observeForever(testObserver.get());
+            }
+        });
+        assertThat(testObserver.get(), notNullValue());
+        WeakReference<TestObserver<User>> weakObserver = new WeakReference<>(testObserver.get());
+        testObserver.set(null);
+        forceGc();
+        User user = TestUtil.createUser(3);
+        mUserDao.insert(user);
+        drain();
+        TestObserver<User> observer = weakObserver.get();
+        assertThat(observer, notNullValue());
+        assertThat(observer.get(), is(user));
+    }
+
     @Test
     public void booleanLiveData() throws ExecutionException, InterruptedException,
             TimeoutException {
@@ -406,11 +430,30 @@ public class LiveDataQueryTest extends TestDatabaseTest {
         mExecutorRule.drainTasks(1, TimeUnit.MINUTES);
     }
 
-    private static void forceGc() {
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().runFinalization();
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().runFinalization();
+    /**
+     * Allocates until a garbage collection occurs.
+     */
+    static ArrayList<WeakReference<byte[]>> leak = new ArrayList<>();
+    public static void forceGc() {
+        try {
+            for (int i = 0; i < 2; i++) {
+                for (int x = 0; x < 100 + Math.random() * 100; x ++) {
+                    leak.add(new WeakReference<byte[]>(new byte[1]));
+                }
+                // Use a random index in the list to detect the garbage collection each time because
+                // .get() may accidentally trigger a strong reference during collection.
+                do {
+                    WeakReference<byte[]> arr = new WeakReference<byte[]>(new byte[1]);
+                    leak.add(arr);
+                    Runtime.getRuntime().gc();
+                    Runtime.getRuntime().runFinalization();
+                } while (leak.get((int) (Math.random() * leak.size())).get() != null);
+                Runtime.getRuntime().gc();
+                Runtime.getRuntime().runFinalization();
+            }
+        } finally {
+            leak.clear();
+        }
     }
 
     static class TestLifecycleOwner implements LifecycleOwner {

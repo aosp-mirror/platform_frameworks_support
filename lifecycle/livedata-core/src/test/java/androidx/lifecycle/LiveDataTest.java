@@ -25,6 +25,7 @@ import static androidx.lifecycle.Lifecycle.Event.ON_STOP;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
@@ -50,6 +51,8 @@ import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+
+import java.lang.ref.WeakReference;
 
 @SuppressWarnings({"unchecked"})
 @RunWith(JUnit4.class)
@@ -800,6 +803,21 @@ public class LiveDataTest {
         mLiveData.observeForever(observer);
         mLiveData.removeObserver(observer);
         assertThat(mLiveData.hasObservers(), is(false));
+    }
+
+    @Test
+    public void gcObserveForever() {
+        PublicLiveData<String> liveData = new PublicLiveData<>();
+        liveData.observeForever(new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+
+            }
+        });
+        WeakReference<PublicLiveData<String>> weakRef = new WeakReference<>(liveData);
+        liveData = null;
+        Runtime.getRuntime().gc();
+        assertThat(weakRef.get(), notNullValue());
     }
 
     @Test
