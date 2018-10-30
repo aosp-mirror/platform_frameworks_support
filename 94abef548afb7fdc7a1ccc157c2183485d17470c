@@ -45,6 +45,52 @@
       "revId": "94abef548afb7fdc7a1ccc157c2183485d17470c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d2f1b9_e801e88b",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-30T04:12:28Z",
+      "side": 1,
+      "message": "what is this for?\nIf you want to check nullable for executor, do so for the incoming arguments (both listener and executor) before the synchronization block",
+      "range": {
+        "startLine": 355,
+        "startChar": 46,
+        "endLine": 355,
+        "endChar": 65
+      },
+      "revId": "94abef548afb7fdc7a1ccc157c2183485d17470c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5ab6ec_e6d105d1",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-30T04:12:28Z",
+      "side": 1,
+      "message": "break, if you wouldn\u0027t take duplicated listeners",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 41
+      },
+      "revId": "94abef548afb7fdc7a1ccc157c2183485d17470c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
