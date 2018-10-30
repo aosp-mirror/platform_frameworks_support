@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8673e4bc_f357e322",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:18:31Z",
+      "side": 1,
+      "message": "what does this mean?",
+      "range": {
+        "startLine": 66,
+        "startChar": 14,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25dbae0_4871bae3",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:18:31Z",
+      "side": 1,
+      "message": "No state is mentioned before this sentence. Is there CLOSED state in SessionPlayer2?\n\nHow about just removing this and write as \"There is no way to bring it back.\"?",
+      "range": {
+        "startLine": 67,
+        "startChar": 68,
+        "endLine": 67,
+        "endChar": 87
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00616b4e_38e56e35",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:18:31Z",
+      "side": 1,
+      "message": "Q) This means that in order to update SeekBar (or any other UI related with current play time),  SessionPlayer2 user should constantly poll the current position. Am I understanding correctly?",
+      "range": {
+        "startLine": 68,
+        "startChar": 59,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a940cb_b9e827bb",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:18:31Z",
+      "side": 1,
+      "message": "m",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 48
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd05213_69338517",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:18:31Z",
+      "side": 1,
+      "message": "Q) Shouldn\u0027t we use onSeekCompleted() only? Since as mentioned at the top, others can also control the seek position.\n\nAlso, the return value is a ListenableFuture which is returned directly, I feel below sentence may be better:\n\u0027Wait for its completion using {@link ListenableFuture#get()}, or be notified through {@link PlayerCallback#onSeekCompleted(SessionPlayer2, long)}\u0027.",
+      "range": {
+        "startLine": 73,
+        "startChar": 63,
+        "endLine": 73,
+        "endChar": 88
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
