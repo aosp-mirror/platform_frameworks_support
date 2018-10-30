@@ -31,6 +31,7 @@
         </activity>
 
         <activity android:name=".PagedListViewActivity"
+                  android:windowSoftInputMode="adjustResize"
                   android:label="@string/paged_list_view_title"
                   android:parentActivityName=".SupportCarDemoActivity">
             <intent-filter>
