@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfeadf8d_d6e667ed",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T12:42:49Z",
+      "side": 1,
+      "message": "Q) Can it be on one-line?",
+      "range": {
+        "startLine": 305,
+        "startChar": 56,
+        "endLine": 306,
+        "endChar": 0
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22227e38_fa29592b",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T12:42:49Z",
+      "side": 1,
+      "message": "Q) It seems ResultWrapper is defined both in ~Api21.java and ~26.java.\nCan we use this class?",
+      "range": {
+        "startLine": 1144,
+        "startChar": 17,
+        "endLine": 1144,
+        "endChar": 30
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c09f79f_27b47b42",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T12:42:49Z",
+      "side": 1,
+      "message": "Let\u0027s remove this",
+      "range": {
+        "startLine": 1196,
+        "startChar": 12,
+        "endLine": 1196,
+        "endChar": 38
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
