@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8122f06_7d5b7197",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T07:17:49Z",
+      "side": 1,
+      "message": "nice catches!",
+      "range": {
+        "startLine": 880,
+        "startChar": 15,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "be89c283fe822f398761a994876405b266f110b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f122c2be_9fb337d2",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T07:17:49Z",
+      "side": 1,
+      "message": "You can merge these two lines into one.",
+      "range": {
+        "startLine": 942,
+        "startChar": 20,
+        "endLine": 943,
+        "endChar": 45
+      },
+      "revId": "be89c283fe822f398761a994876405b266f110b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
