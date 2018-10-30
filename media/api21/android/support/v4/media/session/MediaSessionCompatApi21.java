@@ -30,11 +30,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,20 +135,6 @@ class MediaSessionCompatApi21 {
 
     public static void setExtras(Object sessionObj, Bundle extras) {
         ((MediaSession) sessionObj).setExtras(extras);
-    }
-
-    public static boolean hasCallback(Object sessionObj) {
-        Field callbackField = null;
-        try {
-            callbackField = sessionObj.getClass().getDeclaredField("mCallback");
-            if (callbackField != null) {
-                callbackField.setAccessible(true);
-                return callbackField.get(sessionObj) != null;
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            Log.w(TAG, "Failed to get mCallback object.");
-        }
-        return false;
     }
 
     interface Callback {

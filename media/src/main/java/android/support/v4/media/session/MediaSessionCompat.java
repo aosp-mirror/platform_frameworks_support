@@ -529,11 +529,6 @@ public class MediaSessionCompat {
 
     private MediaSessionCompat(Context context, MediaSessionImpl impl) {
         mImpl = impl;
-        if (android.os.Build.VERSION.SDK_INT >= 21
-                && !MediaSessionCompatApi21.hasCallback(impl.getMediaSession())) {
-            // Set default callback to respond to controllers' extra binder requests.
-            setCallback(new Callback() {});
-        }
         mController = new MediaControllerCompat(context, this);
     }
 
@@ -929,7 +924,13 @@ public class MediaSessionCompat {
      * Creates an instance from a framework {@link android.media.session.MediaSession} object.
      * <p>
      * This method is only supported on API 21+. On API 20 and below, it returns null.
-     * </p>
+     * <p>
+     * Note: A {@link MediaSessionCompat} object returned from this method may not provide the full
+     * functionality of {@link MediaSessionCompat} until setting a new
+     * {@link MediaSessionCompat.Callback callback}. To avoid this, when both a
+     * {@link MediaSessionCompat} and a framework {@link android.media.session.MediaSession}
+     * are needed, then it is recommended to create a {@link MediaSessionCompat} first and get the
+     * framework session through {@link #getMediaSession()}.
      *
      * @param context The context to use to create the session.
      * @param mediaSession A {@link android.media.session.MediaSession} object.
