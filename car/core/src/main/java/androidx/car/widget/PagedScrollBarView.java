@@ -346,6 +346,10 @@ public class PagedScrollBarView extends ViewGroup {
         mUpButton.measure(wrapMeasureSpec, wrapMeasureSpec);
         mDownButton.measure(wrapMeasureSpec, wrapMeasureSpec);
 
+        if (mUpButton.getMeasuredHeight() + mDownButton.getMeasuredHeight() > requestedHeight) {
+            setMeasuredDimension(0, 0);
+            return;
+        }
         measureScrollThumb();
 
         if (mAlphaJumpButton.getVisibility() != GONE) {
