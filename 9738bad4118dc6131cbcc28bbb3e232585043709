@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "89640e4e_49260e77",
+        "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-30T14:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc22690_164350f2",
+      "revId": "9738bad4118dc6131cbcc28bbb3e232585043709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c8cb351_1e5e621b",
         "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "9738bad4118dc6131cbcc28bbb3e232585043709",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdbb4d8a_f964396b",
+        "filename": "room/runtime/src/main/java/androidx/room/util/CursorUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-10-30T14:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c8cb351_1e5e621b",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "9738bad4118dc6131cbcc28bbb3e232585043709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
