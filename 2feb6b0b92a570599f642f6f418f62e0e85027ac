@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "89fef0e8_def6aa5f",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-30T02:29:27Z",
+      "side": 1,
+      "message": "Implemented first option.",
+      "parentUuid": "06624d68_4f089525",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 0
+      },
+      "revId": "2feb6b0b92a570599f642f6f418f62e0e85027ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3226e324_e7ec03e8",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a9248168_a47ac91e",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-30T02:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3226e324_e7ec03e8",
+      "range": {
+        "startLine": 339,
+        "startChar": 26,
+        "endLine": 339,
+        "endChar": 43
+      },
+      "revId": "2feb6b0b92a570599f642f6f418f62e0e85027ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e94e308_07096977",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "2feb6b0b92a570599f642f6f418f62e0e85027ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d1e0416_376a9683",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-30T02:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e94e308_07096977",
+      "range": {
+        "startLine": 472,
+        "startChar": 20,
+        "endLine": 472,
+        "endChar": 34
+      },
+      "revId": "2feb6b0b92a570599f642f6f418f62e0e85027ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
