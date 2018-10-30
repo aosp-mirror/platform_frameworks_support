@@ -71,6 +71,7 @@ public class PagedScrollBarView extends ViewGroup {
     private final int mScrollBarThumbWidth;
 
     private boolean mShowScrollBarThumb;
+    private boolean mShowAlphaJumpButton;
     /** The amount of space that the scroll thumb is allowed to roam over. */
     private int mScrollThumbTrackHeight;
 
@@ -234,9 +235,8 @@ public class PagedScrollBarView extends ViewGroup {
 
         if (lp.height != thumbLength) {
             lp.height = thumbLength;
-            mScrollThumb.requestLayout();
+            measureScrollThumb();
         }
-
         int thumbOffset = calculateScrollThumbOffset(range, offset, thumbLength);
         moveTranslationY(mScrollThumb, thumbOffset, animate);
     }
@@ -346,10 +346,28 @@ public class PagedScrollBarView extends ViewGroup {
         mUpButton.measure(wrapMeasureSpec, wrapMeasureSpec);
         mDownButton.measure(wrapMeasureSpec, wrapMeasureSpec);
 
+        int buttonHeight = mUpButton.getMeasuredHeight() + mDownButton.getMeasuredHeight();
+        if (buttonHeight > requestedHeight) {
+            mUpButton.setVisibility(GONE);
+            mDownButton.setVisibility(GONE);
+        } else {
+            mUpButton.setVisibility(VISIBLE);
+            mDownButton.setVisibility(VISIBLE);
+        }
         measureScrollThumb();
-
+        if (mScrollThumb.getMeasuredHeight() + buttonHeight > requestedHeight) {
+            setScrollbarThumbEnabled(false);
+        } else {
+            setScrollbarThumbEnabled(true);
+        }
         if (mAlphaJumpButton.getVisibility() != GONE) {
             mAlphaJumpButton.measure(wrapMeasureSpec, wrapMeasureSpec);
+            if (mAlphaJumpButton.getMeasuredHeight() + buttonHeight
+                    + mScrollThumb.getMeasuredHeight() > requestedHeight) {
+                mShowAlphaJumpButton = false;
+            } else {
+                mShowAlphaJumpButton = true;
+            }
         }
 
         setMeasuredDimension(requestedWidth, requestedHeight);
@@ -363,28 +381,32 @@ public class PagedScrollBarView extends ViewGroup {
         // This value will keep track of the top of the current view being laid out.
         int layoutTop = getPaddingTop();
 
-        // Lay out the up button at the top of the view.
-        layoutViewCenteredFromTop(mUpButton, layoutTop, width);
-        layoutTop = mUpButton.getBottom();
+        if (mUpButton.getVisibility() != GONE) {
+            // Lay out the up button at the top of the view.
+            layoutViewCenteredFromTop(mUpButton, layoutTop, width);
+            layoutTop = mUpButton.getBottom();
 
-        // Lay out the alpha jump button if it exists. This button goes below the up button.
-        if (mAlphaJumpButton.getVisibility() != GONE) {
-            layoutTop += mSeparatingMargin;
+            // Lay out the alpha jump button if it exists. This button goes below the up button.
+            if (mAlphaJumpButton.getVisibility() != GONE && mShowAlphaJumpButton) {
+                layoutTop += mSeparatingMargin;
 
-            layoutViewCenteredFromTop(mAlphaJumpButton, layoutTop, width);
+                layoutViewCenteredFromTop(mAlphaJumpButton, layoutTop, width);
 
-            layoutTop = mAlphaJumpButton.getBottom();
+                layoutTop = mAlphaJumpButton.getBottom();
+            }
+
+            // Lay out the scroll thumb
+
+            if (mShowScrollBarThumb) {
+                layoutTop += mSeparatingMargin;
+                layoutViewCenteredFromTop(mScrollThumb, layoutTop, width);
+            }
+
+            // Lay out the bottom button at the bottom of the view.
+            int downBottom = height - getPaddingBottom();
+            layoutViewCenteredFromBottom(mDownButton, downBottom, width);
+            calculateScrollThumbTrackHeight();
         }
-
-        // Lay out the scroll thumb
-        layoutTop += mSeparatingMargin;
-        layoutViewCenteredFromTop(mScrollThumb, layoutTop, width);
-
-        // Lay out the bottom button at the bottom of the view.
-        int downBottom = height - getPaddingBottom();
-        layoutViewCenteredFromBottom(mDownButton, downBottom, width);
-
-        calculateScrollThumbTrackHeight();
     }
 
     /**
@@ -406,6 +428,8 @@ public class PagedScrollBarView extends ViewGroup {
     }
 
     private void measureScrollThumb() {
+        //mScrollThumb.invalidate();
+        //mScrollThumb.requestLayout();
         int scrollWidth = MeasureSpec.makeMeasureSpec(mScrollBarThumbWidth, MeasureSpec.EXACTLY);
         int scrollHeight = MeasureSpec.makeMeasureSpec(
                 mScrollThumb.getLayoutParams().height,
