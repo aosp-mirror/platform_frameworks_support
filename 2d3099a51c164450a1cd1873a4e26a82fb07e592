@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "70cc8da5_754b64e0",
+        "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-30T02:52:37Z",
+      "side": 1,
+      "message": "For reviewers information, it is safe to set the field type as a Framework class. The class will not be loaded unless 1) invoking new, 2) accessing static member of the class.",
+      "range": {
+        "startLine": 371,
+        "startChar": 12,
+        "endLine": 371,
+        "endChar": 25
+      },
+      "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38f47517_da8e7b6d",
         "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
         "patchSetId": 1
@@ -16,6 +39,24 @@
       "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f888f57a_82bf97a2",
+        "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-30T02:52:37Z",
+      "side": 1,
+      "message": "Yes. In this case, however, the library users could call the method, so it should be able to be built without giving them any errors.",
+      "parentUuid": "38f47517_da8e7b6d",
+      "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -39,6 +80,30 @@
       "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816f02f1_44faed32",
+        "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-30T02:52:37Z",
+      "side": 1,
+      "message": "The public interface should not be changed.",
+      "parentUuid": "5778b492_4eecb3dc",
+      "range": {
+        "startLine": 612,
+        "startChar": 56,
+        "endLine": 612,
+        "endChar": 62
+      },
+      "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
