@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38f47517_da8e7b6d",
+        "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T01:00:41Z",
+      "side": 1,
+      "message": "Q) If we have @RequiresApi, can we remove SDK_INT check?",
+      "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5778b492_4eecb3dc",
+        "filename": "media/src/main/java/android/support/v4/media/MediaMetadataCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T01:00:41Z",
+      "side": 1,
+      "message": "MediaMetadata",
+      "range": {
+        "startLine": 612,
+        "startChar": 56,
+        "endLine": 612,
+        "endChar": 62
+      },
+      "revId": "2d3099a51c164450a1cd1873a4e26a82fb07e592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
