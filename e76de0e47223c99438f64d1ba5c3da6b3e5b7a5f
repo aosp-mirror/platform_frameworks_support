@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "978f092a_31357825",
+        "filename": "activity/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-10-30T08:21:46Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "8b4b6dd8_badd18a8",
+      "revId": "e76de0e47223c99438f64d1ba5c3da6b3e5b7a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c8af9d3_7135ebbd",
         "filename": "fragment/build.gradle",
         "patchSetId": 1
