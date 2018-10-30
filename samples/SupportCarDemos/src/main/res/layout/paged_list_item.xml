@@ -20,7 +20,7 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/car_card_dark">
-    <TextView
+    <EditText
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
