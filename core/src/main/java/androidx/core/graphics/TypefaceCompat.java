@@ -36,6 +36,7 @@ import androidx.core.content.res.FontResourcesParserCompat.ProviderResourceEntry
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.provider.FontsContractCompat;
 import androidx.core.provider.FontsContractCompat.FontInfo;
+
 /**
  * Helper for accessing features in {@link Typeface}.
  * @hide
@@ -151,5 +152,20 @@ public class TypefaceCompat {
     public static Typeface createFromFontInfo(@NonNull Context context,
             @Nullable CancellationSignal cancellationSignal, @NonNull FontInfo[] fonts, int style) {
         return sTypefaceCompatImpl.createFromFontInfo(context, cancellationSignal, fonts, style);
+    }
+
+    /**
+     * Retrieves the best matching font from the family specified by the {@link Typeface} object
+     */
+    @Nullable
+    public static Typeface getBestFontFromFamily(final Context context, final Resources resources,
+            final Typeface typeface, final int style) {
+        final FontFamilyFilesResourceEntry families = sTypefaceCompatImpl.getFontFamily(typeface);
+        if (families == null) {
+            return null;
+        }
+
+        return sTypefaceCompatImpl.createFromFontFamilyFilesResourceEntry(context, families,
+                resources, style);
     }
 }
