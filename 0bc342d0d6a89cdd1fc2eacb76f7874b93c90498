@@ -22,6 +22,30 @@
       "revId": "0bc342d0d6a89cdd1fc2eacb76f7874b93c90498",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec981a31_4af9ac89",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/DefaultActionBarDemoActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-10-30T20:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd232bc7_cbe665aa",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "0bc342d0d6a89cdd1fc2eacb76f7874b93c90498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
