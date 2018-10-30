@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2a50faa7_9a3ba90a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T07:25:31Z",
+      "side": 1,
+      "message": "Since assembleDebug is a \u0027build\u0027 task, this will not run the code which can throw Class/MethodNotFoundException.\nLet\u0027s change to the path of runtest.sh.",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "7ddaba6aeebde3c1eb79d6187978754ddb72a7bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4d80a76_99271416",
         "filename": "media/src/main/java/android/support/v4/media/session/PlaybackStateCompat.java",
         "patchSetId": 3
