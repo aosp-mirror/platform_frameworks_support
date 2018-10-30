@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d3f5f07_0b8f5e9a",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T04:12:17Z",
+      "side": 1,
+      "message": "Take executor first, than listener.",
+      "range": {
+        "startLine": 352,
+        "startChar": 26,
+        "endLine": 352,
+        "endChar": 79
+      },
+      "revId": "94abef548afb7fdc7a1ccc157c2183485d17470c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f30bf6_9d25fc90",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T04:12:17Z",
+      "side": 1,
+      "message": "According to the API guideline,\nadd/remove for listener, and register/unregister for callback.\nand listeners should be full named.\n\nSo, it should be addOnMetadataChangedListener.\n(I know that we don\u0027t need for follow api guideline for private method, but it would be better to follow.)",
+      "range": {
+        "startLine": 352,
+        "startChar": 9,
+        "endLine": 352,
+        "endChar": 25
+      },
+      "revId": "94abef548afb7fdc7a1ccc157c2183485d17470c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
