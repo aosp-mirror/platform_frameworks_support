@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <androidx.car.widget.CarToolbar
+        android:background="@android:color/black"
+        android:id="@+id/car_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:navigationIcon="@drawable/ic_arrow_back_grey_50"
+        app:titleTextAppearance="@style/TextAppearance.Car.Body1.Light" />
+    <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Car.Body1.Light"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/car_keyline_1"
+            android:paddingEnd="@dimen/car_keyline_1"
+            android:height="@dimen/car_single_line_list_item_height"
+    android:text="Please choose the height of PagedListView below"/>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp">
+        <RadioButton
+                android:id="@+id/radio1"
+                android:checked="false"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="50dp: Show Nothing"
+                android:textSize="@dimen/car_body3_size"
+                android:textColor="@color/car_body1_light"
+                android:onClick="onRadioButtonClicked"
+                android:buttonTint="@color/car_body1_light"
+                android:paddingRight="30dp"
+        />
+        <RadioButton
+                android:id="@+id/radio2"
+                android:checked="false"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="150dp: Only show buttons"
+                android:textSize="@dimen/car_body3_size"
+                android:textColor="@color/car_body1_light"
+                android:onClick="onRadioButtonClicked"
+                android:buttonTint="@color/car_body1_light"
+                android:paddingRight="30dp"
+        />
+        <RadioButton
+                android:id="@+id/radio3"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="250dp: Show every thing"
+                android:textSize="@dimen/car_body3_size"
+                android:textColor="@color/car_body1_light"
+                android:onClick="onRadioButtonClicked"
+                android:buttonTint="@color/car_body1_light"
+                android:paddingRight="30dp"
+        />
+    </RadioGroup>
+    <androidx.car.widget.PagedListView
+        android:id="@+id/paged_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:showPagedListViewDivider="true"
+        app:dividerStartMargin="@dimen/car_keyline_1"
+        app:dividerEndMargin="@dimen/car_keyline_1"
+        app:gutter="both"/>
+</LinearLayout>
+
