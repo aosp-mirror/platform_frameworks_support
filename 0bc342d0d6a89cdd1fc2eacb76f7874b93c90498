@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd232bc7_cbe665aa",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/DefaultActionBarDemoActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-10-30T18:38:23Z",
+      "side": 1,
+      "message": "nit: State",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "0bc342d0d6a89cdd1fc2eacb76f7874b93c90498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
