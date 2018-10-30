@@ -222,13 +222,12 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testSkipToPlaylistItem() throws InterruptedException {
         prepareLooper();
-        final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
         testOnCommandRequest(
                 COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
                 new PermissionTestTask() {
                     @Override
                     public void run(RemoteMediaController2 controller) {
-                        controller.skipToPlaylistItem(testItem);
+                        controller.skipToPlaylistItem(0);
                     }
                 });
     }
@@ -236,7 +235,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testSetPlaylist() throws InterruptedException {
         prepareLooper();
-        final List<MediaItem2> list = MediaTestUtils.createPlaylist(2);
+        final List<String> list = MediaTestUtils.createMediaIds(2);
         testOnCommandRequest(COMMAND_CODE_PLAYER_SET_PLAYLIST, new PermissionTestTask() {
             @Override
             public void run(RemoteMediaController2 controller) {
@@ -248,11 +247,11 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testSetMediaItem() throws InterruptedException {
         prepareLooper();
-        final MediaItem2 item = MediaTestUtils.createMediaItemWithMetadata();
+        final String testMediaId = "testSetMediaItem";
         testOnCommandRequest(COMMAND_CODE_PLAYER_SET_MEDIA_ITEM, new PermissionTestTask() {
             @Override
             public void run(RemoteMediaController2 controller) {
-                controller.setMediaItem(item);
+                controller.setMediaItem(testMediaId);
             }
         });
     }
@@ -272,11 +271,11 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testAddPlaylistItem() throws InterruptedException {
         prepareLooper();
-        final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
+        final String testMediaId = "testAddPlaylistItem";
         testOnCommandRequest(COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM, new PermissionTestTask() {
             @Override
             public void run(RemoteMediaController2 controller) {
-                controller.addPlaylistItem(0, testItem);
+                controller.addPlaylistItem(0, testMediaId);
             }
         });
     }
@@ -289,7 +288,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
                 new PermissionTestTask() {
                     @Override
                     public void run(RemoteMediaController2 controller) {
-                        controller.removePlaylistItem(testItem);
+                        controller.removePlaylistItem(0);
                     }
                 });
     }
@@ -297,12 +296,12 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testReplacePlaylistItem() throws InterruptedException {
         prepareLooper();
-        final MediaItem2 testItem = MediaTestUtils.createMediaItemWithMetadata();
+        final String testMediaId = "testReplacePlaylistItem";
         testOnCommandRequest(COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM,
                 new PermissionTestTask() {
                     @Override
                     public void run(RemoteMediaController2 controller) {
-                        controller.replacePlaylistItem(0, testItem);
+                        controller.replacePlaylistItem(0, testMediaId);
                     }
                 });
     }
