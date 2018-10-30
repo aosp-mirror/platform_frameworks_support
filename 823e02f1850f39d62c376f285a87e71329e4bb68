@@ -660,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "e2693519_dab77e13",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T04:41:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "980982ed_0e504993",
+      "range": {
+        "startLine": 481,
+        "startChar": 31,
+        "endLine": 481,
+        "endChar": 53
+      },
+      "revId": "823e02f1850f39d62c376f285a87e71329e4bb68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4f89bc1_e4a89af1",
         "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
         "patchSetId": 3

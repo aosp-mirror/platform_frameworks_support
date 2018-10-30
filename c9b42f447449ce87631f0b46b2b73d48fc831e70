@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d26d7cf_f681a7c0",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T04:41:24Z",
+      "side": 1,
+      "message": "We may be able to remove this?",
+      "range": {
+        "startLine": 474,
+        "startChar": 7,
+        "endLine": 474,
+        "endChar": 28
+      },
+      "revId": "c9b42f447449ce87631f0b46b2b73d48fc831e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

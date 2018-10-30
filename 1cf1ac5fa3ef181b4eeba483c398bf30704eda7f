@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c0d0951_17cafa65",
+        "filename": "media2/src/main/java/androidx/media2/UriMediaItem2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T04:41:24Z",
+      "side": 0,
+      "message": "Q) So does this mean that UriMediaItem2 is no longer playable without specific setting?",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 33
+      },
+      "revId": "1cf1ac5fa3ef181b4eeba483c398bf30704eda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
