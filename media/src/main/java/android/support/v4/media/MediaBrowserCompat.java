@@ -53,6 +53,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.browse.MediaBrowser;
 import android.os.BadParcelableException;
 import android.os.Binder;
 import android.os.Build;
@@ -488,10 +489,10 @@ public final class MediaBrowserCompat {
             if (itemObj == null || Build.VERSION.SDK_INT < 21) {
                 return null;
             }
-            int flags = MediaBrowserCompatApi21.MediaItem.getFlags(itemObj);
+            MediaBrowser.MediaItem item = (MediaBrowser.MediaItem) itemObj;
+            int flags = item.getFlags();
             MediaDescriptionCompat description =
-                    MediaDescriptionCompat.fromMediaDescription(
-                            MediaBrowserCompatApi21.MediaItem.getDescription(itemObj));
+                    MediaDescriptionCompat.fromMediaDescription(item.getDescription());
             return new MediaItem(description, flags);
         }
 
@@ -617,13 +618,12 @@ public final class MediaBrowserCompat {
      * Callbacks for connection related events.
      */
     public static class ConnectionCallback {
-        final Object mConnectionCallbackObj;
+        final MediaBrowser.ConnectionCallback mConnectionCallbackObj;
         ConnectionCallbackInternal mConnectionCallbackInternal;
 
         public ConnectionCallback() {
             if (Build.VERSION.SDK_INT >= 21) {
-                mConnectionCallbackObj =
-                        MediaBrowserCompatApi21.createConnectionCallback(new StubApi21());
+                mConnectionCallbackObj = new ConnectionCallbackApi21();
             } else {
                 mConnectionCallbackObj = null;
             }
@@ -669,8 +669,9 @@ public final class MediaBrowserCompat {
             void onConnectionFailed();
         }
 
-        private class StubApi21 implements MediaBrowserCompatApi21.ConnectionCallback {
-            StubApi21() {
+        @RequiresApi(21)
+        private class ConnectionCallbackApi21 extends MediaBrowser.ConnectionCallback {
+            ConnectionCallbackApi21() {
             }
 
             @Override
@@ -703,18 +704,16 @@ public final class MediaBrowserCompat {
      * Callbacks for subscription related events.
      */
     public static abstract class SubscriptionCallback {
-        final Object mSubscriptionCallbackObj;
+        final MediaBrowser.SubscriptionCallback mSubscriptionCallbackObj;
         final IBinder mToken;
         WeakReference<Subscription> mSubscriptionRef;
 
         public SubscriptionCallback() {
             mToken = new Binder();
             if (Build.VERSION.SDK_INT >= 26) {
-                mSubscriptionCallbackObj =
-                        MediaBrowserCompatApi26.createSubscriptionCallback(new StubApi26());
+                mSubscriptionCallbackObj = new SubscriptionCallbackApi26();
             } else if (Build.VERSION.SDK_INT >= 21) {
-                mSubscriptionCallbackObj =
-                        MediaBrowserCompatApi21.createSubscriptionCallback(new StubApi21());
+                mSubscriptionCallbackObj = new SubscriptionCallbackApi21();
             } else {
                 mSubscriptionCallbackObj = null;
             }
@@ -773,12 +772,14 @@ public final class MediaBrowserCompat {
             mSubscriptionRef = new WeakReference<>(subscription);
         }
 
-        private class StubApi21 implements MediaBrowserCompatApi21.SubscriptionCallback {
-            StubApi21() {
+        @RequiresApi(21)
+        private class SubscriptionCallbackApi21 extends MediaBrowser.SubscriptionCallback {
+            SubscriptionCallbackApi21() {
             }
 
             @Override
-            public void onChildrenLoaded(@NonNull String parentId, List<?> children) {
+            public void onChildrenLoaded(@NonNull String parentId,
+                    List<MediaBrowser.MediaItem> children) {
                 Subscription sub = mSubscriptionRef == null ? null : mSubscriptionRef.get();
                 if (sub == null) {
                     SubscriptionCallback.this.onChildrenLoaded(
@@ -828,13 +829,14 @@ public final class MediaBrowserCompat {
 
         }
 
-        private class StubApi26 extends StubApi21
-                implements MediaBrowserCompatApi26.SubscriptionCallback {
-            StubApi26() {
+        @RequiresApi(26)
+        private class SubscriptionCallbackApi26 extends SubscriptionCallbackApi21 {
+            SubscriptionCallbackApi26() {
             }
 
             @Override
-            public void onChildrenLoaded(@NonNull String parentId, List<?> children,
+            public void onChildrenLoaded(@NonNull String parentId,
+                    List<MediaBrowser.MediaItem> children,
                     @NonNull Bundle options) {
                 SubscriptionCallback.this.onChildrenLoaded(
                         parentId, MediaItem.fromMediaItemList(children), options);
@@ -851,11 +853,11 @@ public final class MediaBrowserCompat {
      * Callback for receiving the result of {@link #getItem}.
      */
     public static abstract class ItemCallback {
-        final Object mItemCallbackObj;
+        final MediaBrowser.ItemCallback mItemCallbackObj;
 
         public ItemCallback() {
             if (Build.VERSION.SDK_INT >= 23) {
-                mItemCallbackObj = MediaBrowserCompatApi23.createItemCallback(new StubApi23());
+                mItemCallbackObj = new ItemCallbackApi23();
             } else {
                 mItemCallbackObj = null;
             }
@@ -877,21 +879,14 @@ public final class MediaBrowserCompat {
         public void onError(@NonNull String itemId) {
         }
 
-        private class StubApi23 implements MediaBrowserCompatApi23.ItemCallback {
-            StubApi23() {
+        @RequiresApi(23)
+        private class ItemCallbackApi23 extends MediaBrowser.ItemCallback {
+            ItemCallbackApi23() {
             }
 
             @Override
-            public void onItemLoaded(Parcel itemParcel) {
-                if (itemParcel == null) {
-                    ItemCallback.this.onItemLoaded(null);
-                } else {
-                    itemParcel.setDataPosition(0);
-                    MediaItem item =
-                            MediaBrowserCompat.MediaItem.CREATOR.createFromParcel(itemParcel);
-                    itemParcel.recycle();
-                    ItemCallback.this.onItemLoaded(item);
-                }
+            public void onItemLoaded(MediaBrowser.MediaItem item) {
+                ItemCallback.this.onItemLoaded(MediaItem.fromMediaItem(item));
             }
 
             @Override
@@ -1620,7 +1615,7 @@ public final class MediaBrowserCompat {
     static class MediaBrowserImplApi21 implements MediaBrowserImpl, MediaBrowserServiceCallbackImpl,
             ConnectionCallback.ConnectionCallbackInternal {
         final Context mContext;
-        protected final Object mBrowserObj;
+        protected final MediaBrowser mBrowserObj;
         protected final Bundle mRootHints;
         protected final CallbackHandler mHandler = new CallbackHandler(this);
         private final ArrayMap<String, Subscription> mSubscriptions = new ArrayMap<>();
@@ -1637,13 +1632,13 @@ public final class MediaBrowserCompat {
             mRootHints = (rootHints != null ? new Bundle(rootHints) : new Bundle());
             mRootHints.putInt(EXTRA_CLIENT_VERSION, CLIENT_VERSION_CURRENT);
             callback.setInternalConnectionCallback(this);
-            mBrowserObj = MediaBrowserCompatApi21.createBrowser(context, serviceComponent,
+            mBrowserObj = new MediaBrowser(context, serviceComponent,
                     callback.mConnectionCallbackObj, mRootHints);
         }
 
         @Override
         public void connect() {
-            MediaBrowserCompatApi21.connect(mBrowserObj);
+            mBrowserObj.connect();
         }
 
         @Override
@@ -1655,29 +1650,29 @@ public final class MediaBrowserCompat {
                     Log.i(TAG, "Remote error unregistering client messenger." );
                 }
             }
-            MediaBrowserCompatApi21.disconnect(mBrowserObj);
+            mBrowserObj.disconnect();
         }
 
         @Override
         public boolean isConnected() {
-            return MediaBrowserCompatApi21.isConnected(mBrowserObj);
+            return mBrowserObj.isConnected();
         }
 
         @Override
         public ComponentName getServiceComponent() {
-            return MediaBrowserCompatApi21.getServiceComponent(mBrowserObj);
+            return mBrowserObj.getServiceComponent();
         }
 
         @NonNull
         @Override
         public String getRoot() {
-            return MediaBrowserCompatApi21.getRoot(mBrowserObj);
+            return mBrowserObj.getRoot();
         }
 
         @Nullable
         @Override
         public Bundle getExtras() {
-            return MediaBrowserCompatApi21.getExtras(mBrowserObj);
+            return mBrowserObj.getExtras();
         }
 
         @NonNull
@@ -1685,7 +1680,7 @@ public final class MediaBrowserCompat {
         public MediaSessionCompat.Token getSessionToken() {
             if (mMediaSessionToken == null) {
                 mMediaSessionToken = MediaSessionCompat.Token.fromToken(
-                        MediaBrowserCompatApi21.getSessionToken(mBrowserObj));
+                        mBrowserObj.getSessionToken());
             }
             return mMediaSessionToken;
         }
@@ -1706,8 +1701,7 @@ public final class MediaBrowserCompat {
             if (mServiceBinderWrapper == null) {
                 // TODO: When MediaBrowser is connected to framework's MediaBrowserService,
                 // subscribe with options won't work properly.
-                MediaBrowserCompatApi21.subscribe(
-                        mBrowserObj, parentId, callback.mSubscriptionCallbackObj);
+                mBrowserObj.subscribe(parentId, callback.mSubscriptionCallbackObj);
             } else {
                 try {
                     mServiceBinderWrapper.addSubscription(
@@ -1729,7 +1723,7 @@ public final class MediaBrowserCompat {
 
             if (mServiceBinderWrapper == null) {
                 if (callback == null) {
-                    MediaBrowserCompatApi21.unsubscribe(mBrowserObj, parentId);
+                    mBrowserObj.unsubscribe(parentId);
                 } else {
                     final List<SubscriptionCallback> callbacks = sub.getCallbacks();
                     final List<Bundle> optionsList = sub.getOptionsList();
@@ -1740,7 +1734,7 @@ public final class MediaBrowserCompat {
                         }
                     }
                     if (callbacks.size() == 0) {
-                        MediaBrowserCompatApi21.unsubscribe(mBrowserObj, parentId);
+                        mBrowserObj.unsubscribe(parentId);
                     }
                 }
             } else {
@@ -1782,7 +1776,7 @@ public final class MediaBrowserCompat {
             if (cb == null) {
                 throw new IllegalArgumentException("cb is null");
             }
-            if (!MediaBrowserCompatApi21.isConnected(mBrowserObj)) {
+            if (!mBrowserObj.isConnected()) {
                 Log.i(TAG, "Not connected, unable to retrieve the MediaItem.");
                 mHandler.post(new Runnable() {
                     @Override
@@ -1889,7 +1883,7 @@ public final class MediaBrowserCompat {
 
         @Override
         public void onConnected() {
-            Bundle extras = MediaBrowserCompatApi21.getExtras(mBrowserObj);
+            Bundle extras = mBrowserObj.getExtras();
             if (extras == null) {
                 return;
             }
@@ -1909,7 +1903,7 @@ public final class MediaBrowserCompat {
                     BundleCompat.getBinder(extras, EXTRA_SESSION_BINDER));
             if (sessionToken != null) {
                 mMediaSessionToken = MediaSessionCompat.Token.fromToken(
-                        MediaBrowserCompatApi21.getSessionToken(mBrowserObj), sessionToken);
+                        mBrowserObj.getSessionToken(), sessionToken);
             }
         }
 
@@ -1993,7 +1987,7 @@ public final class MediaBrowserCompat {
         @Override
         public void getItem(@NonNull final String mediaId, @NonNull final ItemCallback cb) {
             if (mServiceBinderWrapper == null) {
-                MediaBrowserCompatApi23.getItem(mBrowserObj, mediaId, cb.mItemCallbackObj);
+                mBrowserObj.getItem(mediaId, cb.mItemCallbackObj);
             } else {
                 super.getItem(mediaId, cb);
             }
@@ -2014,11 +2008,9 @@ public final class MediaBrowserCompat {
             // This is to prevent ClassNotFoundException when options has Parcelable in it.
             if (mServiceBinderWrapper == null || mServiceVersion < SERVICE_VERSION_2) {
                 if (options == null) {
-                    MediaBrowserCompatApi21.subscribe(
-                            mBrowserObj, parentId, callback.mSubscriptionCallbackObj);
+                    mBrowserObj.subscribe(parentId, callback.mSubscriptionCallbackObj);
                 } else {
-                    MediaBrowserCompatApi26.subscribe(
-                            mBrowserObj, parentId, options, callback.mSubscriptionCallbackObj);
+                    mBrowserObj.subscribe(parentId, options, callback.mSubscriptionCallbackObj);
                 }
             } else {
                 super.subscribe(parentId, options, callback);
@@ -2031,10 +2023,9 @@ public final class MediaBrowserCompat {
             // This is to prevent ClassNotFoundException when options has Parcelable in it.
             if (mServiceBinderWrapper == null || mServiceVersion < SERVICE_VERSION_2) {
                 if (callback == null) {
-                    MediaBrowserCompatApi21.unsubscribe(mBrowserObj, parentId);
+                    mBrowserObj.unsubscribe(parentId);
                 } else {
-                    MediaBrowserCompatApi26.unsubscribe(mBrowserObj, parentId,
-                            callback.mSubscriptionCallbackObj);
+                    mBrowserObj.unsubscribe(parentId, callback.mSubscriptionCallbackObj);
                 }
             } else {
                 super.unsubscribe(parentId, callback);
