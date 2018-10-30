@@ -22,6 +22,30 @@
       "revId": "0f74acbf4e8ea11f7ecd6c15dd064068f0c10cde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be942f9_695d47fd",
+        "filename": "transition/src/main/java/androidx/transition/ViewUtilsBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-10-30T23:34:42Z",
+      "side": 1,
+      "message": "Yes, exactly. We will make setLeftTopRightBottom public and it will help us to not use reflection for all the APIs starting with 22 when it was added. But before 22 there is no method setLeftTopRightBottom and only protected setFrame, which we are not going to make public I believe. \nSo this change is affecting only pre 22.",
+      "parentUuid": "ed01c6d6_9f00af1f",
+      "range": {
+        "startLine": 135,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "0f74acbf4e8ea11f7ecd6c15dd064068f0c10cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
