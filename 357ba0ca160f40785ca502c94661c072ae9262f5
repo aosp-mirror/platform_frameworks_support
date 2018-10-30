@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca80a3f7_991919cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:28:04Z",
+      "side": 1,
+      "message": "ListenableFuture",
+      "revId": "357ba0ca160f40785ca502c94661c072ae9262f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

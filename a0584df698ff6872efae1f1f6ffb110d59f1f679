@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d21073a9_c23af62a",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-30T13:28:04Z",
+      "side": 0,
+      "message": "Q) Why it was void?",
+      "range": {
+        "startLine": 118,
+        "startChar": 18,
+        "endLine": 118,
+        "endChar": 22
+      },
+      "revId": "a0584df698ff6872efae1f1f6ffb110d59f1f679",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
