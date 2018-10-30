@@ -70,6 +70,30 @@
       "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b0e147_cfc4f8d0",
+        "filename": "lifecycle/savedstate-core/src/main/java/androidx/lifecycle/SavedStateRegistryOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-10-30T11:18:16Z",
+      "side": 1,
+      "message": "It becomes there: \npublic interface BundleSavedStateRegistryOwner {\n    SavedStateRegistry\u003cBundle\u003e getBundleSavedStateRegistry();\n}\n\n\nReason for being this way instead of SavedStateRegistryOwner\u003cT\u003e is that you can\u0027t implement the same interface twice with different generics. So if we make Activity implements SavedStateRegistryOwner\u003cBundle\u003e, we can\u0027t add SavedStateRegistryOwner\u003cPersistableBundle\u003e. \n\nI mark this as Resolved and land this CL, but I happy to follow-up on if you have any suggestions",
+      "parentUuid": "f152f50c_84e3cb40",
+      "range": {
+        "startLine": 32,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "c9b1f347992d7f0d3e4873c2062a41c1395f386c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
