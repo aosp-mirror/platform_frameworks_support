@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed01c6d6_9f00af1f",
+        "filename": "transition/src/main/java/androidx/transition/ViewUtilsBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-30T23:20:34Z",
+      "side": 1,
+      "message": "This is one of things we need to fix -- we must have a public API that allows setting all of these simultaneously in order to use a private API.",
+      "range": {
+        "startLine": 135,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "0f74acbf4e8ea11f7ecd6c15dd064068f0c10cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
