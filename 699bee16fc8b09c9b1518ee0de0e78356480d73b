@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87f2d0e9_2d806ea6",
+        "filename": "transition/src/main/java/androidx/transition/Scene.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-10-30T23:26:45Z",
+      "side": 1,
+      "message": "The doc sounds wrong. It sounds like the  doc for the setCurrentScene() parameter",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 72
+      },
+      "revId": "699bee16fc8b09c9b1518ee0de0e78356480d73b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
