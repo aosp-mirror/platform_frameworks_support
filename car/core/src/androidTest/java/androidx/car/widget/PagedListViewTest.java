@@ -162,6 +162,7 @@ public final class PagedListViewTest {
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(0));
     }
 
+
     @Test
     public void testScrollBarIsInvisibleIfItemsDoNotFillOnePage() {
         setUpPagedListView(1 /* itemCount */);

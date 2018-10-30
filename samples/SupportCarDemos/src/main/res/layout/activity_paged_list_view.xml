@@ -24,7 +24,7 @@
     <androidx.car.widget.CarToolbar
         android:background="@android:color/black"
         android:id="@+id/car_toolbar"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_width="match_parent"
         app:navigationIcon="@drawable/ic_arrow_back_grey_50"
         app:titleTextAppearance="@style/TextAppearance.Car.Body1.Light" />
