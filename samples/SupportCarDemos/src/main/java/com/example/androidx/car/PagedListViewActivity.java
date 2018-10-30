@@ -18,6 +18,7 @@ package com.example.androidx.car;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class PagedListViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("yaoyx", "activity created");
         setContentView(R.layout.activity_paged_list_view);
 
         CarToolbar toolbar = findViewById(R.id.car_toolbar);
@@ -97,6 +99,7 @@ public class PagedListViewActivity extends Activity {
             public ViewHolder(View itemView) {
                 super(itemView);
                 mTextView = itemView.findViewById(R.id.text);
+                //mTextView = itemView.findViewById(R.id.text);
             }
         }
     }
