@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62e1e2f4_2518673b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1579,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-30T02:28:12Z",
+      "side": 1,
+      "message": "I think this comment is redundant with the Javadoc.",
+      "revId": "ffee260459c5d0b43c43e5c955cf72fff2457b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
