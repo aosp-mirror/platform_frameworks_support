@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1fe714a1_bad6b1c6",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T05:30:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a0d780_3fcbed3b",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1475,
+        "endChar": 72
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "584b1bbc_3b5e64ef",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 4
@@ -69,6 +93,30 @@
       "revId": "55b66474e364152e332c95c3279706b776410afa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99aab7f5_e992453b",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T05:30:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "584b1bbc_3b5e64ef",
+      "range": {
+        "startLine": 1567,
+        "startChar": 49,
+        "endLine": 1567,
+        "endChar": 52
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "ab02b5a3_d68c727e",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T05:30:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "000702ca_4f0be0a7",
+      "range": {
+        "startLine": 1621,
+        "startChar": 22,
+        "endLine": 1621,
+        "endChar": 57
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9b85300_56e981ff",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 4
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "176a8808_c237c897",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T05:30:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a9b85300_56e981ff",
+      "range": {
+        "startLine": 1624,
+        "startChar": 57,
+        "endLine": 1624,
+        "endChar": 74
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a9a9b6e_8e4c7482",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 4
@@ -129,6 +225,30 @@
       "writtenOn": "2018-10-31T04:27:46Z",
       "side": 1,
       "message": "Remove.",
+      "range": {
+        "startLine": 1631,
+        "startChar": 0,
+        "endLine": 1637,
+        "endChar": 96
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e694213_d00fb864",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1637,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T05:30:36Z",
+      "side": 1,
+      "message": "I didn\u0027t notice that the code between StubApi24 and StubApi21 are similar.",
+      "parentUuid": "9a9a9b6e_8e4c7482",
       "range": {
         "startLine": 1631,
         "startChar": 0,
