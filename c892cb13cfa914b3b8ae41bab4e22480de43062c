@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54d8c11a_32c0ac1d",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-31T18:00:31Z",
+      "side": 1,
+      "message": "You\u0027ll need a \u003cp\u003e if you actually want a line break here. Otherwise they\u0027ll just get put into the same paragraph.",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 6
+      },
+      "revId": "c892cb13cfa914b3b8ae41bab4e22480de43062c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
