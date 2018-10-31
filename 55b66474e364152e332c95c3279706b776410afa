@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6a3a116_7e3c8a4c",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T04:27:46Z",
+      "side": 1,
+      "message": "return result ? true : super.onMediaButtonEvent(mediaButtonIntent);",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1475,
+        "endChar": 72
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "584b1bbc_3b5e64ef",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T04:27:46Z",
+      "side": 1,
+      "message": "Fwk, and for others.",
+      "range": {
+        "startLine": 1567,
+        "startChar": 49,
+        "endLine": 1567,
+        "endChar": 52
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000702ca_4f0be0a7",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T04:27:46Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 1621,
+        "startChar": 22,
+        "endLine": 1621,
+        "endChar": 57
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b85300_56e981ff",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T04:27:46Z",
+      "side": 1,
+      "message": "getCallingPackage() in API 21-23 will return null.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 57,
+        "endLine": 1624,
+        "endChar": 74
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a9a9b6e_8e4c7482",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1637,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T04:27:46Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 1631,
+        "startChar": 0,
+        "endLine": 1637,
+        "endChar": 96
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
