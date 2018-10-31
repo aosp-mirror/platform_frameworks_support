@@ -19,6 +19,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.URLSpan;
@@ -78,6 +79,7 @@ public class SimpleTextClassifier extends TextClassifier {
                         spannable.getSpanStart(urlSpan),
                         spannable.getSpanEnd(urlSpan),
                         Collections.singletonMap(TextClassifier.TYPE_URL, 1.0f),
+                        Bundle.EMPTY,
                         urlSpan);
             }
         }
