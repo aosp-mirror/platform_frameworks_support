@@ -36,8 +36,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.JunitTaskExecutorRule;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleRegistry;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
@@ -64,8 +70,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -302,6 +313,51 @@ public class InvalidationTrackerTest {
         assertThat(observer.getInvalidatedTables(), hasItem("a"));
     }
 
+    @Test
+    public void createLiveData() throws ExecutionException, InterruptedException, TimeoutException {
+        final AtomicInteger nextValue = new AtomicInteger(0);
+        final LiveData<Integer> liveData = mTracker.createLiveData(new String[]{"a"},
+                new Callable<Integer>() {
+                    @Override
+                    public Integer call() throws Exception {
+                        return nextValue.getAndIncrement();
+                    }
+                });
+        final TestLifecycleOwner lifecycleOwner = new TestLifecycleOwner();
+        TestObserver<Integer> observer = new TestObserver<>();
+        observe(liveData, lifecycleOwner, observer);
+        assertThat(observer.hasValue(), is(false));
+        runOnUI(new Runnable() {
+            @Override
+            public void run() {
+                lifecycleOwner.handleEvent(Lifecycle.Event.ON_START);
+            }
+        });
+        drainTasks();
+        assertThat(observer.get(), is(0));
+    }
+
+    private void runOnUI(Runnable runnable) throws ExecutionException, InterruptedException {
+        FutureTask<Void> futureTask = new FutureTask<>(runnable, null);
+        ArchTaskExecutor.getInstance().executeOnMainThread(futureTask);
+        futureTask.get();
+    }
+
+    private void observe(final LiveData liveData, final LifecycleOwner provider,
+            final Observer observer) throws ExecutionException, InterruptedException {
+        FutureTask<Void> futureTask = new FutureTask<>(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                //noinspection unchecked
+                liveData.observe(provider, observer);
+                return null;
+            }
+        });
+        ArchTaskExecutor.getInstance().executeOnMainThread(futureTask);
+        futureTask.get();
+    }
+
+
     // @Test - disabled due to flakiness b/65257997
     public void closedDbAfterOpen() throws InterruptedException {
         setInvalidatedTables(3, 1);
@@ -391,5 +447,50 @@ public class InvalidationTrackerTest {
             WeakReference<byte[]> arr = new WeakReference<>(new byte[100]);
             leak.add(arr);
         } while (leak.get((int) (Math.random() * leak.size())).get() != null);
+    }
+
+    static class TestLifecycleOwner implements LifecycleOwner {
+
+        private LifecycleRegistry mLifecycle;
+
+        TestLifecycleOwner() {
+            mLifecycle = new LifecycleRegistry(this);
+        }
+
+        @Override
+        public Lifecycle getLifecycle() {
+            return mLifecycle;
+        }
+
+        void handleEvent(Lifecycle.Event event) {
+            mLifecycle.handleLifecycleEvent(event);
+        }
+    }
+
+    private class TestObserver<T> implements Observer<T> {
+        private T mLastData;
+        private boolean mHasValue = false;
+
+        void reset() {
+            mHasValue = false;
+            mLastData = null;
+        }
+
+        @Override
+        public void onChanged(@Nullable T o) {
+            mLastData = o;
+            mHasValue = true;
+        }
+
+        boolean hasValue() throws TimeoutException, InterruptedException {
+            drainTasks();
+            return mHasValue;
+        }
+
+        T get() throws InterruptedException, TimeoutException {
+            drainTasks();
+            assertThat(hasValue(), is(true));
+            return mLastData;
+        }
     }
 }
