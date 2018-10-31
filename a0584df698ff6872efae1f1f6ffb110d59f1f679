@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d990744_ed7f9db2",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T06:40:31Z",
+      "side": 0,
+      "message": "I want to keep this classes in order to easily catch what is changed between different SDK versions.",
+      "range": {
+        "startLine": 479,
+        "startChar": 10,
+        "endLine": 479,
+        "endChar": 38
+      },
+      "revId": "a0584df698ff6872efae1f1f6ffb110d59f1f679",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
