@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a5ce8de_9ff62443",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T03:19:00Z",
+      "side": 1,
+      "message": "FYI, this API was released in API 24, but not used due to some bug. \nThe bug is released in API 26, so the BrowserCompat used this API only above API 26.\n\nTherefore this code can make some behavior different from before.",
+      "revId": "dd7153f206d6c086a4f42d7264ac148894aa543a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b7140f_fa6c8347",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T03:19:00Z",
+      "side": 1,
+      "message": "It was also released in API 24.",
+      "revId": "dd7153f206d6c086a4f42d7264ac148894aa543a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
