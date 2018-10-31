@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ebd030c2_7b23af92",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-31T15:34:55Z",
+      "side": 1,
+      "message": "Yes, of course :)\n\nAnyway, don\u0027t have strong opinon on this.",
+      "parentUuid": "30320c5f_c221a33f",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4d2d1a9_fff0a0bf",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
