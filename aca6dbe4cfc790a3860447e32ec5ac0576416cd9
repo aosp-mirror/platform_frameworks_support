@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12cf2b96_6fcd72d5",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T07:16:20Z",
+      "side": 1,
+      "message": "Q to reviewers)\n\nDo we have any suggestion (i.e. expected behavior, standard) for what happens when we call this method? \nOr, will this just be enough to mention \"Skip forward\"?",
+      "range": {
+        "startLine": 334,
+        "startChar": 7,
+        "endLine": 334,
+        "endChar": 99
+      },
+      "revId": "aca6dbe4cfc790a3860447e32ec5ac0576416cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
