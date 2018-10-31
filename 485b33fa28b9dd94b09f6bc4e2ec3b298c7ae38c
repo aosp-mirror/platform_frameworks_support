@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "e9c11a1c_c5041055",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-31T17:13:24Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40143e30_12eb2e4f",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-31T17:13:24Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e037dcb_8dc1f2c7",
         "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
         "patchSetId": 5
@@ -42,6 +88,23 @@
         "endLine": 74,
         "endChar": 44
       },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "209858e9_54e5d752",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkContinuationImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-31T17:13:24Z",
+      "side": 1,
+      "message": "@NonNull",
       "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
