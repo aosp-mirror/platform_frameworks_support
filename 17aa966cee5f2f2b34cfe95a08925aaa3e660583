@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce79aac8_2f3c17ca",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-10-31T20:59:10Z",
+      "side": 1,
+      "message": "Yea, I totally forgot that\u0027s what we settled on.... let me add it in..",
+      "parentUuid": "57cce8f1_8867f9b7",
+      "range": {
+        "startLine": 1166,
+        "startChar": 20,
+        "endLine": 1166,
+        "endChar": 62
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1db9666_2814e598",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 15
