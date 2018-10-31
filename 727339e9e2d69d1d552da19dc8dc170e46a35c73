@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "cf1c040d_a9374cf7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/BundleUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-31T13:58:02Z",
+      "side": 1,
+      "message": "clone() is actually not a deep copy.\n\nI plan to add javadoc comments to our public APIs to warn not to modify the returned extras (at least in pre-O).\n\nAdd a TODO here to consider improving this method in the future. I\u0027m not sure it\u0027s worth doing now.",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 43
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b6a0f65_b87bd4e2",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-31T13:58:02Z",
+      "side": 1,
+      "message": "nit: Perhaps consider not adding this to TextLink until actually needed. We can use the TextLinks extras to host extras for it\u0027s containing TextLink object.",
+      "range": {
+        "startLine": 76,
+        "startChar": 25,
+        "endLine": 76,
+        "endChar": 32
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee1d7a36_50d5ffb0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-31T13:58:02Z",
+      "side": 1,
+      "message": "Add:\nAvoid updating the content of this bundle. (This is relevant for pre-O devices as we don\u0027t do a deep copy).",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b91f6ae2_22541de6",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
@@ -13,6 +76,24 @@
       "writtenOn": "2018-10-31T12:18:14Z",
       "side": 1,
       "message": "Toki, do you think we should consider to make the TextLink class public, to save us from adding more addLink methods? :)",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30320c5f_c221a33f",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-31T13:58:02Z",
+      "side": 1,
+      "message": "Does this mean we introduce a TextLink.Builder?\nIf not, it means multiple TextLink constructors, which suffers the same issue.",
+      "parentUuid": "b91f6ae2_22541de6",
       "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -51,6 +132,29 @@
       "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acc67565_50f287cc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-10-31T13:58:02Z",
+      "side": 1,
+      "message": "Are we still using this?\nIf not, can we remove this method?",
+      "range": {
+        "startLine": 824,
+        "startChar": 40,
+        "endLine": 824,
+        "endChar": 65
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
