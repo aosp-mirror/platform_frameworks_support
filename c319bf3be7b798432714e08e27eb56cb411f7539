@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f0c2002_78e9cb14",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T07:09:42Z",
+      "side": 1,
+      "message": "Remove, because the listener isn\u0027t shown for the developers but this doc is visible.",
+      "range": {
+        "startLine": 193,
+        "startChar": 21,
+        "endLine": 195,
+        "endChar": 26
+      },
+      "revId": "c319bf3be7b798432714e08e27eb56cb411f7539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed7e2f47_c1ebd162",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T07:09:42Z",
+      "side": 1,
+      "message": "minor) item.equals(list.get(i))\n\nIt\u0027s perfectly OK as-is because playlist can only contain nonnull item,\nbut my proposal is bit more readable because reader doesn\u0027t need to know about the fact above.",
+      "range": {
+        "startLine": 1430,
+        "startChar": 20,
+        "endLine": 1430,
+        "endChar": 45
+      },
+      "revId": "c319bf3be7b798432714e08e27eb56cb411f7539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
