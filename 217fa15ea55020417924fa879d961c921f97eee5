@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "27e90d49_243389bd",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T06:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8673e4bc_f357e322",
+      "range": {
+        "startLine": 66,
+        "startChar": 14,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c25dbae0_4871bae3",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "217fa15ea55020417924fa879d961c921f97eee5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3857dd1_f43f1546",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T06:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c25dbae0_4871bae3",
+      "range": {
+        "startLine": 67,
+        "startChar": 68,
+        "endLine": 67,
+        "endChar": 87
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e58788bf_fc3fe1f9",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T06:09:35Z",
+      "side": 1,
+      "message": "Yes, because Android seek bar only provide setProgress() and it needs to be called continuously.",
+      "parentUuid": "00616b4e_38e56e35",
+      "range": {
+        "startLine": 68,
+        "startChar": 59,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a940cb_b9e827bb",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c0f2a674_26117423",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T06:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99a940cb_b9e827bb",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 48
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edd05213_69338517",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "217fa15ea55020417924fa879d961c921f97eee5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec58c97_23c45eeb",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T06:09:35Z",
+      "side": 1,
+      "message": "Done as we talked offline.\n\nJust for the record, Chris raised concern that \u0027Wait ~\u0027 sentence may be read that \u0027You should wait ListenableFuture#get() or it wouldn\u0027t finish\u0027, so better not have it at all.",
+      "parentUuid": "edd05213_69338517",
+      "range": {
+        "startLine": 73,
+        "startChar": 63,
+        "endLine": 73,
+        "endChar": 88
+      },
+      "revId": "217fa15ea55020417924fa879d961c921f97eee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
