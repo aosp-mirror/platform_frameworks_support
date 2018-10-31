@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc1ab0e2_53f80b52",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T13:03:39Z",
+      "side": 1,
+      "message": "skip? otherwise we\u0027d better to name seekForward. Talk with sungsoo for the confirm.",
+      "range": {
+        "startLine": 324,
+        "startChar": 27,
+        "endLine": 324,
+        "endChar": 31
+      },
+      "revId": "3b3647e0766db68965339c30d980a5220917d2bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
