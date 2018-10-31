@@ -18,6 +18,8 @@ package androidx.room.integration.testapp.test;
 
 import static junit.framework.TestCase.assertFalse;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 
@@ -25,6 +27,9 @@ import android.app.Instrumentation;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.arch.core.executor.testing.CountingTaskExecutorRule;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Database;
 import androidx.room.Entity;
@@ -38,15 +43,17 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -55,70 +62,78 @@ import io.reactivex.disposables.CompositeDisposable;
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public class InvalidationTrackerTest {
-
+    @Rule
+    public CountingTaskExecutorRule mExecutorRule = new CountingTaskExecutorRule();
     private Instrumentation mInstrumentation;
+    private InvalidationTestDatabase mDb;
 
     @Before
     public void setup() {
         mInstrumentation = InstrumentationRegistry.getInstrumentation();
-    }
-
-    @Test
-    public void testSubscribe_mainThread() throws InterruptedException {
-        InvalidationTestDatabase db = Room.databaseBuilder(
+        mDb = Room.databaseBuilder(
                 InstrumentationRegistry.getTargetContext(),
                 InvalidationTestDatabase.class,
                 "test_subscribe_database")
                 .build();
-        db.getOpenHelper().getWritableDatabase(); // Open DB to init InvalidationTracker
+    }
+
+    @Test
+    public void testSubscribe_mainThread() throws InterruptedException {
+        mDb.getOpenHelper().getWritableDatabase(); // Open DB to init InvalidationTracker
 
         CompositeDisposable disposables = new CompositeDisposable();
         AtomicBoolean mainThreadViolation = new AtomicBoolean();
 
         // Expect 2 calls to addObserver
         CountDownLatch addLatch = new CountDownLatch(2);
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                if (Looper.myLooper() == Looper.getMainLooper()) {
-                    mainThreadViolation.set(true);
-                }
-                addLatch.countDown();
-                return null;
+        doAnswer(invocation -> {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                mainThreadViolation.set(true);
             }
-        }).when(db.getInvalidationTracker())
+            addLatch.countDown();
+            return null;
+        }).when(mDb.getInvalidationTracker())
                 .addObserver(any(InvalidationTracker.Observer.class));
-        mInstrumentation.runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                disposables.add(db.getItemDao().flowableItemById(1).subscribe());
-                disposables.add(db.getItemDao().observableItemById(1).subscribe());
-            }
+        mInstrumentation.runOnMainSync(() -> {
+            disposables.add(mDb.getItemDao().flowableItemById(1).subscribe());
+            disposables.add(mDb.getItemDao().observableItemById(1).subscribe());
         });
         addLatch.await(10, TimeUnit.SECONDS);
 
         // Expect 2 calls to removeObserver
         CountDownLatch removeLatch = new CountDownLatch(2);
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                if (Looper.myLooper() == Looper.getMainLooper()) {
-                    mainThreadViolation.set(true);
-                }
-                removeLatch.countDown();
-                return null;
+        doAnswer(invocation -> {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                mainThreadViolation.set(true);
             }
-        }).when(db.getInvalidationTracker())
+            removeLatch.countDown();
+            return null;
+        }).when(mDb.getInvalidationTracker())
                 .removeObserver(any(InvalidationTracker.Observer.class));
-        mInstrumentation.runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                disposables.dispose();
-            }
-        });
+        mInstrumentation.runOnMainSync(disposables::dispose);
         removeLatch.await(10, TimeUnit.SECONDS);
 
         assertFalse("Expected no main thread disk IO violation.", mainThreadViolation.get());
+    }
+
+    @Test
+    public void createLiveData() throws ExecutionException, InterruptedException, TimeoutException {
+        final AtomicInteger nextValue = new AtomicInteger(0);
+        final LiveData<Integer> liveData = mDb
+                .getInvalidationTracker()
+                .createLiveData(new String[]{"Item"},
+                        nextValue::getAndIncrement);
+        final TestLifecycleOwner lifecycleOwner = new TestLifecycleOwner();
+        TestObserver<Integer> observer = new MyObserver<>();
+        TestUtil.observeOnMainThread(liveData, lifecycleOwner, observer);
+        assertThat(observer.hasValue(), is(false));
+        lifecycleOwner.handleEvent(Lifecycle.Event.ON_START);
+        drain();
+        assertThat(observer.get(), is(0));
+    }
+
+    private void drain() throws TimeoutException, InterruptedException {
+        mExecutorRule.drainTasks(1, TimeUnit.MINUTES);
     }
 
     @Database(entities = Item.class, version = 1, exportSchema = false)
@@ -151,5 +166,13 @@ public class InvalidationTrackerTest {
 
         @Query("select * from item where id = :id")
         Observable<Item> observableItemById(int id);
+    }
+
+    private class MyObserver<T> extends TestObserver<T> {
+
+        @Override
+        protected void drain() throws TimeoutException, InterruptedException {
+            InvalidationTrackerTest.this.drain();
+        }
     }
 }
