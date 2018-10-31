@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c7b1e37_0c5290d0",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-31T17:40:02Z",
+      "side": 1,
+      "message": "Use nouns (SUCCESS) rather than adjectives (SUCCESSFUL)\n\nIf you decide to use all caps for the classes, prefer \u0027ERROR\u0027 over \u0027FAILURE\u0027, but if you don\u0027t Failure is fine. Can\u0027t use \u0027Error\u0027 since it collides with java.lang.Error",
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6212235a_8351d218",
         "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
         "patchSetId": 5
@@ -36,6 +53,30 @@
       "writtenOn": "2018-10-31T17:13:24Z",
       "side": 1,
       "message": "@NonNull",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "751a136e_d029ce3f",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-10-31T17:40:02Z",
+      "side": 1,
+      "message": "to prevent this in the future (for a follow up)\n\nlintOptions {\n    fatal(\"UnknownNullness\")\n}",
+      "parentUuid": "e9c11a1c_c5041055",
       "range": {
         "startLine": 47,
         "startChar": 4,
