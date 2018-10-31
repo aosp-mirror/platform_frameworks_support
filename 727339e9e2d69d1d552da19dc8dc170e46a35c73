@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b91f6ae2_22541de6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-31T12:18:14Z",
+      "side": 1,
+      "message": "Toki, do you think we should consider to make the TextLink class public, to save us from adding more addLink methods? :)",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d2d1a9_fff0a0bf",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-31T12:18:14Z",
+      "side": 1,
+      "message": "I think extras should be @Nullable here, and we should use Bundle.EMPTY if it is not empty.",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1789e8e_2feb90e6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-10-31T12:18:14Z",
+      "side": 1,
+      "message": "Weird, this is not marked as @hide, but it does not show up in the api.\nI guess it is because TextLink is @hide.",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
