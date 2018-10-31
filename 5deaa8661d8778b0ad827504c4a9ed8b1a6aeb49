@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "94a3a898_95817057",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3fd5661_6d30d392",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed43bf91_b6098962",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f4975c_39e7f26b",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed43bf91_b6098962",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "59341e4c_e1948e42",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12571c48_cf793a74",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 44
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0471b1e_0053b27b",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b549f3_d9af606a",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0471b1e_0053b27b",
+      "range": {
+        "startLine": 101,
+        "startChar": 40,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4cdff498_5185e94b",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7f6bc8b_36f4f56f",
+      "range": {
+        "startLine": 105,
+        "startChar": 46,
+        "endLine": 105,
+        "endChar": 60
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e63866c2_98110d52",
         "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "3d70aaee_b55a570c",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e63866c2_98110d52",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 106,
+        "endChar": 69
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3dffff4_c8823880",
         "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46703b4b_0d425205",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:02:16Z",
+      "side": 1,
+      "message": "Talked offline. Following METADATA_KEY_ADVERTISEMENT.",
+      "parentUuid": "d3dffff4_c8823880",
+      "range": {
+        "startLine": 548,
+        "startChar": 31,
+        "endLine": 549,
+        "endChar": 56
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
