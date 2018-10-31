@@ -31,6 +31,7 @@ import static com.google.common.truth.Truth.assertThat;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
@@ -102,7 +103,7 @@ public final class TextLinkSpanTest {
 
         final Map<String, Float> scores = new ArrayMap<>();
         scores.put(TextClassifier.TYPE_EMAIL, 1f);
-        mTextLink = new TextLink(0, ENTITY.length(), scores, null);
+        mTextLink = new TextLink(0, ENTITY.length(), scores, Bundle.EMPTY, null);
     }
 
     @Test
