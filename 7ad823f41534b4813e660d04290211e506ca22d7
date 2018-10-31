@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb6dbddc_662b8e65",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T03:03:40Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "528ba405_4514730c",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 6
+      },
+      "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "272ef5cd_52c21f8c",
         "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74658a4_db243f94",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T03:03:40Z",
+      "side": 1,
+      "message": "Changed to should.\n\nJust FYI, in definition of CTS, \u0027must\u0027 means no exception allowed and \u0027should\u0027 means exception may request exception with the valid reason, but needs approval.",
+      "parentUuid": "272ef5cd_52c21f8c",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 11
+      },
+      "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a37ccf2d_df78ff29",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T03:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3dbcb57_d3c31892",
+      "range": {
+        "startLine": 82,
+        "startChar": 47,
+        "endLine": 82,
+        "endChar": 59
+      },
+      "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "793d6ede_43e79dfc",
         "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b0252b_cee144c5",
+        "filename": "media2/src/main/java/androidx/media2/BaseResult2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T03:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "793d6ede_43e79dfc",
+      "range": {
+        "startLine": 83,
+        "startChar": 67,
+        "endLine": 83,
+        "endChar": 72
+      },
+      "revId": "7ad823f41534b4813e660d04290211e506ca22d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
