@@ -22,15 +22,10 @@ import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
 import androidx.room.ext.T
 import androidx.room.ext.arrayTypeName
-import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -49,25 +44,14 @@ class RxQueryResultBinder(
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
-        val callableImpl = TypeSpec.anonymousClassBuilder("").apply {
-            val typeName = typeArg.typeName()
-            superclass(ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
-                    typeName))
-            addMethod(MethodSpec.methodBuilder("call").apply {
-                returns(typeName)
-                addException(Exception::class.typeName())
-                addModifiers(Modifier.PUBLIC)
-                addAnnotation(Override::class.java)
-                createRunQueryAndReturnStatements(builder = this,
-                        roomSQLiteQueryVar = roomSQLiteQueryVar,
-                        inTransaction = inTransaction,
-                        dbField = dbField,
-                        scope = scope)
-            }.build())
-            if (canReleaseQuery) {
-                addMethod(createFinalizeMethod(roomSQLiteQueryVar))
-            }
-        }.build()
+        val callableImpl = createAnonymousCallable(
+            typeArg = typeArg,
+            roomSQLiteQueryVar = roomSQLiteQueryVar,
+            canReleaseQuery = canReleaseQuery,
+            dbField = dbField,
+            inTransaction = inTransaction,
+            scope = scope
+        )
         scope.builder().apply {
             val tableNamesList = queryTableNames.joinToString(",") { "\"$it\"" }
             addStatement("return $T.$N($N, new $T{$L}, $L)",
