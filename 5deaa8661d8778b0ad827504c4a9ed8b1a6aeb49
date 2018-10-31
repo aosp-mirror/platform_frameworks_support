@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3fd5661_6d30d392",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "Should we hold this?",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed43bf91_b6098962",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12571c48_cf793a74",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "Dup argument.",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 44
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0471b1e_0053b27b",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "dup argument.",
+      "range": {
+        "startLine": 101,
+        "startChar": 40,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f6bc8b_36f4f56f",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 105,
+        "startChar": 46,
+        "endLine": 105,
+        "endChar": 60
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e63866c2_98110d52",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 106,
+        "startChar": 54,
+        "endLine": 106,
+        "endChar": 69
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3dffff4_c8823880",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T03:16:30Z",
+      "side": 1,
+      "message": "What do you think about providing constant values for playable and non-playable?",
+      "range": {
+        "startLine": 548,
+        "startChar": 31,
+        "endLine": 549,
+        "endChar": 56
+      },
+      "revId": "5deaa8661d8778b0ad827504c4a9ed8b1a6aeb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
