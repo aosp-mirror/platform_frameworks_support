@@ -145,6 +145,7 @@ final class LegacyTextClassifier extends TextClassifier {
                         spannable.getSpanStart(urlSpan),
                         spannable.getSpanEnd(urlSpan),
                         Collections.singletonMap(entityType, 1.0f),
+                        Bundle.EMPTY,
                         urlSpan);
             }
         }
