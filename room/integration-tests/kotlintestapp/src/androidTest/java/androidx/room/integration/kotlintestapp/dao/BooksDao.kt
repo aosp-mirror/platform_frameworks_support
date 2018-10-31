@@ -50,6 +50,9 @@ interface BooksDao {
     fun addPublishersSingle(vararg publishers: Publisher): Single<List<Long>>
 
     @Insert
+    fun addPublishersListenableFutureVoid(vararg publishers: Publisher): ListenableFuture<Void>
+
+    @Insert
     fun addPublishersCompletable(vararg publishers: Publisher): Completable
 
     @Insert

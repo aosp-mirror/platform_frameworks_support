@@ -20,14 +20,8 @@ import COMMON
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
 import androidx.room.Entity
-import androidx.room.ext.L
-import androidx.room.ext.LifecyclesTypeNames
-import androidx.room.ext.PagingTypeNames
-import androidx.room.ext.ReactiveStreamsTypeNames
+import androidx.room.ext.*
 import androidx.room.ext.RoomTypeNames.STRING_UTIL
-import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
-import androidx.room.ext.typeName
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.processor.Context
 import androidx.room.processor.ProcessorErrors
@@ -36,12 +30,7 @@ import androidx.room.solver.binderprovider.DataSourceQueryResultBinderProvider
 import androidx.room.solver.binderprovider.LiveDataQueryResultBinderProvider
 import androidx.room.solver.binderprovider.RxFlowableQueryResultBinderProvider
 import androidx.room.solver.binderprovider.RxObservableQueryResultBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxCompletableDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxCompletableInsertMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxMaybeDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxMaybeInsertMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxSingleDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxSingleInsertMethodBinderProvider
+import androidx.room.solver.shortcut.binderprovider.*
 import androidx.room.solver.types.CompositeAdapter
 import androidx.room.solver.types.TypeConverter
 import androidx.room.testing.TestInvocation
@@ -312,6 +301,18 @@ class TypeAdapterStoreTest {
             assertThat(completable, notNullValue())
             assertThat(RxCompletableInsertMethodBinderProvider(invocation.context).matches(
                     MoreTypes.asDeclared(completable.asType())), `is`(true))
+        }.compilesWithoutError()
+    }
+
+    @Test
+    fun testFindInsertListenableFuture() {
+        simpleRun(jfos = *arrayOf(COMMON.LISTENABLE_FUTURE)) {
+            invocation ->
+            val listenableFuture = invocation.processingEnv.elementUtils
+                .getTypeElement(GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
+            assertThat(listenableFuture, notNullValue())
+            assertThat(GuavaListenableFutureInsertMethodBinderProvider(invocation.context).matches(
+                MoreTypes.asDeclared(listenableFuture.asType())), `is`(true))
         }.compilesWithoutError()
     }
 

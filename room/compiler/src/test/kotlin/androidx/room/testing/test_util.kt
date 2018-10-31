@@ -16,11 +16,7 @@
 
 import androidx.room.DatabaseView
 import androidx.room.Entity
-import androidx.room.ext.LifecyclesTypeNames
-import androidx.room.ext.PagingTypeNames
-import androidx.room.ext.ReactiveStreamsTypeNames
-import androidx.room.ext.RoomRxJava2TypeNames
-import androidx.room.ext.RxJava2TypeNames
+import androidx.room.ext.*
 import androidx.room.processor.TableEntityProcessor
 import androidx.room.processor.DatabaseViewProcessor
 import androidx.room.solver.CodeGenScope
@@ -62,6 +58,10 @@ object COMMON {
     }
     val BOOK by lazy {
         loadJavaCode("common/input/Book.java", "foo.bar.Book")
+    }
+    val LISTENABLE_FUTURE by lazy {
+        loadJavaCode("common/input/guava/ListenableFuture.java",
+                GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
     }
     val NOT_AN_ENTITY by lazy {
         loadJavaCode("common/input/NotAnEntity.java", "foo.bar.NotAnEntity")

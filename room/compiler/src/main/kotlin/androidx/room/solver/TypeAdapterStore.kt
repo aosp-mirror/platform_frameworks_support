@@ -73,14 +73,7 @@ import androidx.room.solver.shortcut.binder.DeleteOrUpdateMethodBinder
 import androidx.room.solver.shortcut.binder.InsertMethodBinder
 import androidx.room.solver.shortcut.binder.InstantDeleteOrUpdateMethodBinder
 import androidx.room.solver.shortcut.binder.InstantInsertMethodBinder
-import androidx.room.solver.shortcut.binderprovider.InstantDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.InstantInsertMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxCompletableDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxCompletableInsertMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxMaybeDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxMaybeInsertMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxSingleDeleteOrUpdateMethodBinderProvider
-import androidx.room.solver.shortcut.binderprovider.RxSingleInsertMethodBinderProvider
+import androidx.room.solver.shortcut.binderprovider.*
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.annotations.VisibleForTesting
@@ -165,6 +158,7 @@ class TypeAdapterStore private constructor(
     )
 
     val insertBinderProviders = listOf(
+            GuavaListenableFutureInsertMethodBinderProvider(context),
             RxSingleInsertMethodBinderProvider(context),
             RxMaybeInsertMethodBinderProvider(context),
             RxCompletableInsertMethodBinderProvider(context),

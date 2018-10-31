@@ -192,6 +192,14 @@ class BooksDaoTest : TestDatabaseTest() {
     }
 
     @Test
+    fun publisherListenableFutureVoid() {
+        booksDao.addPublishersListenableFuture(TestUtil.PUBLISHER).get()
+
+        assertThat(booksDao.getPublishers().size, `is`(1))
+        assertThat(booksDao.getPublishers()[1], `is`(TestUtil.PUBLISHER))
+    }
+
+    @Test
     fun publisherWithBooks() {
         booksDao.addAuthors(TestUtil.AUTHOR_1)
         booksDao.addPublishers(TestUtil.PUBLISHER)
