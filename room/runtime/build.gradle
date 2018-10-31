@@ -21,6 +21,7 @@ import androidx.build.SupportLibraryExtension
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 android {
@@ -34,6 +35,7 @@ dependencies {
     api(project(":sqlite:sqlite-framework"))
     api(project(":sqlite:sqlite"))
     api(project(":arch:core-runtime"))
+    api(project(":lifecycle:livedata-core"))
     compileOnly project(":paging:paging-common")
     compileOnly project(":lifecycle:lifecycle-runtime")
     compileOnly project(":lifecycle:lifecycle-extensions")
@@ -42,6 +44,8 @@ dependencies {
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
+    testImplementation(project(":lifecycle:lifecycle-extensions"))
+    testImplementation(KOTLIN_STDLIB)
 
     androidTestImplementation(JUNIT)
     androidTestImplementation(TEST_RUNNER)
