@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f50bc92_a1d317e9",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T06:23:25Z",
+      "side": 1,
+      "message": "You can call this in API 21-23, but it will return null.",
+      "range": {
+        "startLine": 1628,
+        "startChar": 46,
+        "endLine": 1628,
+        "endChar": 63
+      },
+      "revId": "a9d1b313e5773697ca231120aeef8fda1abfd88a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
