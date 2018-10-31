@@ -69,9 +69,11 @@ public final class TextLinks {
     private static final String LOG_TAG = "TextLinks";
     private static final String EXTRA_FULL_TEXT = "text";
     private static final String EXTRA_LINKS = "links";
+    private static final String EXTRA_EXTRAS = "extras";
 
     private final CharSequence mFullText;
     private final List<TextLink> mLinks;
+    private final Bundle mExtras;
 
     static final Executor sWorkerExecutor = Executors.newFixedThreadPool(1);
     static final MainThreadExecutor sMainThreadExecutor = new MainThreadExecutor();
@@ -112,9 +114,10 @@ public final class TextLinks {
     @IntDef({APPLY_STRATEGY_IGNORE, APPLY_STRATEGY_REPLACE})
     public @interface ApplyStrategy {}
 
-    TextLinks(CharSequence fullText, List<TextLink> links) {
+    TextLinks(CharSequence fullText, List<TextLink> links, Bundle extras) {
         mFullText = fullText;
         mLinks = Collections.unmodifiableList(links);
+        mExtras = extras;
     }
 
     /**
@@ -135,6 +138,18 @@ public final class TextLinks {
         return mLinks;
     }
 
+    /**
+     * Returns the extended data.
+     *
+     * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
+     * prefer to hold a reference to the returned bundle rather than frequently calling this
+     * method.
+     */
+    @NonNull
+    public Bundle getExtras() {
+        return BundleUtils.deepCopy(mExtras);
+    }
+
     @Override
     @NonNull
     public String toString() {
@@ -150,6 +165,7 @@ public final class TextLinks {
         final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_FULL_TEXT, mFullText.toString());
         BundleUtils.putTextLinkList(bundle, EXTRA_LINKS, mLinks);
+        bundle.putBundle(EXTRA_EXTRAS, mExtras);
         return bundle;
     }
 
@@ -158,9 +174,11 @@ public final class TextLinks {
      */
     @NonNull
     public static TextLinks createFromBundle(@NonNull Bundle bundle) {
+        Bundle extras = bundle.getBundle(EXTRA_EXTRAS);
         return new TextLinks(
                 bundle.getString(EXTRA_FULL_TEXT),
-                BundleUtils.getTextLinkListOrThrow(bundle, EXTRA_LINKS));
+                BundleUtils.getTextLinkListOrThrow(bundle, EXTRA_LINKS),
+                extras == null ? Bundle.EMPTY : extras);
     }
 
     /**
@@ -202,6 +220,7 @@ public final class TextLinks {
         private final int mEnd;
         // Allows us to fallback to legacy Linkify if necessary. Not parcelled.
         @Nullable private final URLSpan mUrlSpan;
+        private final Bundle mExtras;
 
         /**
          * Create a new TextLink.
@@ -213,13 +232,15 @@ public final class TextLinks {
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         TextLink(
                 int start, int end,
-                @NonNull Map<String, Float> entityScores, @Nullable URLSpan urlSpan) {
+                @NonNull Map<String, Float> entityScores, @NonNull Bundle extras,
+                @Nullable URLSpan urlSpan) {
             Preconditions.checkNotNull(entityScores);
             Preconditions.checkArgument(!entityScores.isEmpty());
             Preconditions.checkArgument(start <= end);
             mStart = start;
             mEnd = end;
             mEntityScores = new EntityConfidence(entityScores);
+            mExtras = extras;
             mUrlSpan = urlSpan;
         }
 
@@ -270,6 +291,18 @@ public final class TextLinks {
         }
 
         /**
+         * Returns the extended data.
+         *
+         * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
+         * prefer to hold a reference to the returned bundle rather than frequently calling this
+         * method.
+         */
+        @NonNull
+        public Bundle getExtras() {
+            return BundleUtils.deepCopy(mExtras);
+        }
+
+        /**
          * @hide
          */
         @Nullable
@@ -282,8 +315,8 @@ public final class TextLinks {
         @NonNull
         public String toString() {
             return String.format(Locale.US,
-                    "TextLink{start=%s, end=%s, entityScores=%s, urlSpan=%s}",
-                    mStart, mEnd, mEntityScores, mUrlSpan);
+                    "TextLink{start=%s, end=%s, entityScores=%s, urlSpan=%s, extras=%s}",
+                    mStart, mEnd, mEntityScores, mUrlSpan, mExtras);
         }
 
         /**
@@ -296,6 +329,7 @@ public final class TextLinks {
             BundleUtils.putMap(bundle, EXTRA_ENTITY_SCORES, mEntityScores.getConfidenceMap());
             bundle.putInt(EXTRA_START, mStart);
             bundle.putInt(EXTRA_END, mEnd);
+            bundle.putBundle(EXTRA_EXTRAS, mExtras);
             return bundle;
         }
 
@@ -304,10 +338,12 @@ public final class TextLinks {
          */
         @NonNull
         public static TextLink createFromBundle(@NonNull Bundle bundle) {
+            Bundle extras = bundle.getBundle(EXTRA_EXTRAS);
             return new TextLink(
                     bundle.getInt(EXTRA_START),
                     bundle.getInt(EXTRA_END),
                     BundleUtils.getFloatStringMapOrThrow(bundle, EXTRA_ENTITY_SCORES),
+                    extras == null ? Bundle.EMPTY : extras,
                     null /* urlSpan */);
         }
     }
@@ -326,18 +362,21 @@ public final class TextLinks {
         @Nullable private final LocaleListCompat mDefaultLocales;
         @NonNull private final EntityConfig mEntityConfig;
         @Nullable private Long mReferenceTime = null;
+        @NonNull private final Bundle mExtras;
 
         Request(
                 @NonNull CharSequence text,
                 @Nullable LocaleListCompat defaultLocales,
                 @Nullable EntityConfig entityConfig,
-                @Nullable Long referenceTime) {
+                @Nullable Long referenceTime,
+                @NonNull Bundle extras) {
             mText = text;
             mDefaultLocales = defaultLocales;
             mEntityConfig = entityConfig == null
                     ? new TextClassifier.EntityConfig.Builder().build()
                     : entityConfig;
             mReferenceTime = referenceTime;
+            mExtras = extras;
         }
 
         /**
@@ -377,6 +416,18 @@ public final class TextLinks {
         }
 
         /**
+         * Returns the extended data.
+         *
+         * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
+         * prefer to hold a reference to the returned bundle rather than frequently calling this
+         * method.
+         */
+        @NonNull
+        public Bundle getExtras() {
+            return BundleUtils.deepCopy(mExtras);
+        }
+
+        /**
          * A builder for building TextLinks requests.
          */
         public static final class Builder {
@@ -386,6 +437,7 @@ public final class TextLinks {
             @Nullable private LocaleListCompat mDefaultLocales;
             @Nullable private EntityConfig mEntityConfig;
             @Nullable private Long mReferenceTime = null;
+            @Nullable private Bundle mExtras;
 
             public Builder(@NonNull CharSequence text) {
                 mText = Preconditions.checkNotNull(text);
@@ -434,12 +486,23 @@ public final class TextLinks {
                 mReferenceTime = referenceTime;
                 return this;
             }
+
+            /**
+             * Sets the extended data.
+             */
+            @NonNull
+            public Builder setExtras(@Nullable Bundle extras) {
+                mExtras = extras;
+                return this;
+            }
+
             /**
              * Builds and returns the request object.
              */
             @NonNull
             public Request build() {
-                return new Request(mText, mDefaultLocales, mEntityConfig, mReferenceTime);
+                return new Request(mText, mDefaultLocales, mEntityConfig, mReferenceTime,
+                        mExtras == null ? Bundle.EMPTY : mExtras);
             }
 
         }
@@ -455,6 +518,7 @@ public final class TextLinks {
             bundle.putBundle(EXTRA_ENTITY_CONFIG, mEntityConfig.toBundle());
             BundleUtils.putLocaleList(bundle, EXTRA_DEFAULT_LOCALES, mDefaultLocales);
             BundleUtils.putLong(bundle, EXTRA_REFERENCE_TIME, mReferenceTime);
+            bundle.putBundle(EXTRA_EXTRAS, mExtras);
             return bundle;
         }
 
@@ -468,6 +532,7 @@ public final class TextLinks {
                     .setEntityConfig(
                             EntityConfig.createFromBundle(bundle.getBundle(EXTRA_ENTITY_CONFIG)))
                     .setReferenceTime(BundleUtils.getLong(bundle, EXTRA_REFERENCE_TIME))
+                    .setExtras(bundle.getBundle(EXTRA_EXTRAS))
                     .build();
         }
 
@@ -708,6 +773,7 @@ public final class TextLinks {
     public static final class Builder {
         private final CharSequence mFullText;
         private final ArrayList<TextLink> mLinks;
+        @Nullable private Bundle mExtras;
 
         /**
          * Create a new TextLinks.Builder.
@@ -728,7 +794,23 @@ public final class TextLinks {
          */
         @NonNull
         public Builder addLink(int start, int end, @NonNull Map<String, Float> entityScores) {
-            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores), null));
+            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores),
+                    Bundle.EMPTY, null));
+            return this;
+        }
+
+        /**
+         * Adds a TextLink with extras.
+         *
+         * @return this instance.
+         *
+         * @throws IllegalArgumentException if entityScores is null or empty.
+         */
+        @NonNull
+        public Builder addLink(int start, int end, @NonNull Map<String, Float> entityScores,
+                @Nullable Bundle extras) {
+            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores),
+                    extras == null ? Bundle.EMPTY : extras, null));
             return this;
         }
 
@@ -739,14 +821,27 @@ public final class TextLinks {
         @RestrictTo(RestrictTo.Scope.LIBRARY)
         public Builder addLink(
                 int start, int end, @NonNull Map<String, Float> entityScores,
-                @Nullable URLSpan urlSpan) {
-            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores), urlSpan));
+                @Nullable Bundle extras, @Nullable URLSpan urlSpan) {
+            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores),
+                    extras == null ? Bundle.EMPTY : extras, urlSpan));
             return this;
         }
 
+        /**
+         * @hide
+         */
         @NonNull
         Builder addLink(TextLink link) {
             mLinks.add(Preconditions.checkNotNull(link));
+            return this;
+        }
+
+        /**
+         * Sets the extended data.
+         */
+        @NonNull
+        public Builder setExtras(@Nullable Bundle extras) {
+            mExtras = extras;
             return this;
         }
 
@@ -767,7 +862,8 @@ public final class TextLinks {
          */
         @NonNull
         public TextLinks build() {
-            return new TextLinks(mFullText, mLinks);
+            return new TextLinks(mFullText, mLinks,
+                    mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
         }
     }
 

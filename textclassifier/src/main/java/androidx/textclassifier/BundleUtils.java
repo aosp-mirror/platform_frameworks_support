@@ -16,6 +16,7 @@
 
 package androidx.textclassifier;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,15 @@ import java.util.Map;
 /* package */ final class BundleUtils {
 
     private BundleUtils() {}
+
+    /** Compat wrapper for deepCopy. */
+    static Bundle deepCopy(Bundle bundle) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return bundle.deepCopy();
+        } else {
+            return (Bundle) bundle.clone();
+        }
+    }
 
     /** Serializes a string keyed map to a bundle, or clears it if null is passed. */
     static void putMap(
