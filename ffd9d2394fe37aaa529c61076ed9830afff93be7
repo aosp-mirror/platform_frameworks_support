@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e9b32b2_3e3ce5a6",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:33:51Z",
+      "side": 1,
+      "message": "CurrentMediaItemListener",
+      "range": {
+        "startLine": 1171,
+        "startChar": 49,
+        "endLine": 1171,
+        "endChar": 66
+      },
+      "revId": "ffd9d2394fe37aaa529c61076ed9830afff93be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb05339c_b6307f19",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:33:51Z",
+      "side": 1,
+      "message": "PlaylistItemListener",
+      "revId": "ffd9d2394fe37aaa529c61076ed9830afff93be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "719df47c_e8a785c8",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1472,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T05:33:51Z",
+      "side": 1,
+      "message": "static class CurrentMediaItemListener implements MediaItem2.OnMetadataChangedListener {\n        @Override\n        public void onMetadataChanged(final MediaItem2 item) {\n            final MediaSession2ImplBase session \u003d getSession();\n            if (session \u003d\u003d null || item \u003d\u003d null) {\n                return;\n            }\n\n            final MediaItem2 currentItem \u003d session.getCurrentMediaItem();\n            if (currentItem !\u003d null \u0026\u0026 item.equals(currentItem)) {\n                session.dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {\n                    @Override\n                    public void run(ControllerCb callback) throws RemoteException {\n                        callback.onCurrentMediaItemChanged(item);\n                    }\n                });\n            }\n        }\n    }\n\n    static class PlaylistItemListener implements MediaItem2.OnMetadataChangedListener {\n        @Override\n        public void onMetadataChanged(final MediaItem2 item) {\n            final MediaSession2ImplBase session \u003d getSession();\n            if (session \u003d\u003d null || item \u003d\u003d null) {\n                return;\n            }\n\n            final List\u003cMediaItem2\u003e list \u003d session.getPlaylist();\n            if (list \u003d\u003d null) {\n                return;\n            }\n            for (int i \u003d 0; i \u003c list.size(); i++) {\n                if (list.get(i).equals(item)) {\n                    session.dispatchRemoteControllerCallbackTask(\n                            new RemoteControllerCallbackTask() {\n                                @Override\n                                public void run(ControllerCb callback) throws RemoteException {\n                                    callback.onPlaylistChanged(list, session.getPlaylistMetadata());\n                                }\n                            });\n                    return;\n                }\n            }\n        }\n    }",
+      "range": {
+        "startLine": 1414,
+        "startChar": 0,
+        "endLine": 1472,
+        "endChar": 0
+      },
+      "revId": "ffd9d2394fe37aaa529c61076ed9830afff93be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
