@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6212235a_8351d218",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T17:09:52Z",
+      "side": 1,
+      "message": "final?  Or is this implied in interfaces?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e037dcb_8dc1f2c7",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T17:09:52Z",
+      "side": 1,
+      "message": "I want you to change the name of the class to be all-caps since it\u0027s closer to a constant or an enum.",
+      "range": {
+        "startLine": 74,
+        "startChar": 34,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
