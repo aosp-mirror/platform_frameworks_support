@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f5e0cc1_d2d3f483",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T06:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c24bad1_bb38d72c",
+      "range": {
+        "startLine": 206,
+        "startChar": 38,
+        "endLine": 206,
+        "endChar": 41
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88ac3302_3881faf2",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-31T04:58:41Z",
       "side": 1,
       "message": "Good to see that mCallbackFwk is no longer same with mIControllerCallback.",
+      "range": {
+        "startLine": 707,
+        "startChar": 16,
+        "endLine": 709,
+        "endChar": 0
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50804d2f_e5865a3e",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T06:33:52Z",
+      "side": 1,
+      "message": "mCallbackObj was oddly used for API \u003c 21. I replaced all the usages treating mCallbackObj as IMediaControllerCallback with mIControllerCallback, and there is no reason to keep mCallbackFwk to be same as mIControllerCallback anymore.",
+      "parentUuid": "88ac3302_3881faf2",
       "range": {
         "startLine": 707,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7bf9d826_1e23dfcc",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T06:33:52Z",
+      "side": 1,
+      "message": "It has just copy-and-pasted from MediaControllerCompatApi21. AudioAttributesCompat is not in the same package and AudioAttributesCompatFLAG_SCO is not public.\n\nI moved them inside the method below. Maybe later, let\u0027s consider to use AudioAttributesCompat instance instead of having this static method here.",
+      "parentUuid": "764f722d_7c52ff33",
+      "range": {
+        "startLine": 1449,
+        "startChar": 8,
+        "endLine": 1451,
+        "endChar": 59
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f20538_c8e9f347",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d858bec_077ff664",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T06:33:52Z",
+      "side": 1,
+      "message": "Unfortunately, it will be over 100 columns.",
+      "parentUuid": "18f20538_c8e9f347",
+      "range": {
+        "startLine": 2026,
+        "startChar": 20,
+        "endLine": 2026,
+        "endChar": 67
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
