@@ -3869,9 +3869,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     final void fillRemainingScrollValues(State state) {
         if (getScrollState() == SCROLL_STATE_SETTLING) {
-            final OverScroller scroller = mViewFlinger.mOverScroller;
-            state.mRemainingScrollHorizontal = scroller.getFinalX() - scroller.getCurrX();
-            state.mRemainingScrollVertical = scroller.getFinalY() - scroller.getCurrY();
+            state.mRemainingScrollHorizontal = mViewFlinger.getRemainingScrollHorizontal();
+            state.mRemainingScrollVertical = mViewFlinger.getRemainingScrollVertical();
         } else {
             state.mRemainingScrollHorizontal = 0;
             state.mRemainingScrollVertical = 0;
@@ -5087,14 +5086,14 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     class ViewFlinger implements Runnable {
         private int mLastFlingX;
         private int mLastFlingY;
-        OverScroller mOverScroller;
+        private OverScroller mOverScroller;
         Interpolator mInterpolator = sQuinticInterpolator;
 
         // When set to true, postOnAnimation callbacks are delayed until the run method completes
-        private boolean mEatRunOnAnimationRequest = false;
+        private boolean mPostponePostOnAnimationRequests = false;
 
         // Tracks if postAnimationCallback should be re-attached when it is done
-        private boolean mReSchedulePostAnimationCallback = false;
+        private boolean mPostOnAnimationRequested = false;
 
         ViewFlinger() {
             mOverScroller = new OverScroller(getContext(), sQuinticInterpolator);
@@ -5106,7 +5105,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 stop();
                 return; // no layout, cannot scroll.
             }
-            disableRunOnAnimationRequests();
+
+            mPostOnAnimationRequested = false;
+            mPostponePostOnAnimationRequests = true;
+
             consumePendingUpdateOperations();
 
             // TODO(72745539): After reviewing the code, it seems to me we may actually want to
@@ -5127,8 +5129,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 int unconsumedY = y - mLastFlingY;
                 mLastFlingX = x;
                 mLastFlingY = y;
-                int consumedX = 0;
-                int consumedY = 0;
+                int consumedByMeX = 0;
+                int consumedByMeY = 0;
 
                 // Nested Pre Scroll
                 mReusableIntPair[0] = 0;
@@ -5150,24 +5152,24 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     mReusableIntPair[0] = 0;
                     mReusableIntPair[1] = 0;
                     scrollStep(unconsumedX, unconsumedY, mReusableIntPair);
-                    consumedX = mReusableIntPair[0];
-                    consumedY = mReusableIntPair[1];
-                    unconsumedX -= consumedX;
-                    unconsumedY -= consumedY;
+                    consumedByMeX = mReusableIntPair[0];
+                    consumedByMeY = mReusableIntPair[1];
+                    unconsumedX -= consumedByMeX;
+                    unconsumedY -= consumedByMeY;
 
-                    // If SmoothScroller exists, this ViewFlinger was started by it, so we must
-                    // report back to SmoothScroller.
+                    // If SmoothScroller exists and is running, this ViewFlinger was started by it,
+                    // so we must report back to SmoothScroller.
                     SmoothScroller smoothScroller = mLayout.mSmoothScroller;
                     if (smoothScroller != null && !smoothScroller.isPendingInitialRun()
                             && smoothScroller.isRunning()) {
                         final int adapterSize = mState.getItemCount();
                         if (adapterSize == 0) {
                             smoothScroller.stop();
-                        } else if (smoothScroller.getTargetPosition() >= adapterSize) {
-                            smoothScroller.setTargetPosition(adapterSize - 1);
-                            smoothScroller.onAnimation(consumedX, consumedY);
                         } else {
-                            smoothScroller.onAnimation(consumedX, consumedY);
+                            if (smoothScroller.getTargetPosition() >= adapterSize) {
+                                smoothScroller.setTargetPosition(adapterSize - 1);
+                            }
+                            smoothScroller.onAnimation(consumedByMeX, consumedByMeY);
                         }
                     }
                 }
@@ -5179,13 +5181,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 // Nested Post Scroll
                 mReusableIntPair[0] = 0;
                 mReusableIntPair[1] = 0;
-                dispatchNestedScroll(consumedX, consumedY, unconsumedX, unconsumedY, null,
+                dispatchNestedScroll(consumedByMeX, consumedByMeY, unconsumedX, unconsumedY, null,
                         TYPE_NON_TOUCH, mReusableIntPair);
                 unconsumedX -= mReusableIntPair[0];
                 unconsumedY -= mReusableIntPair[1];
 
-                if (consumedX != 0 || consumedY != 0) {
-                    dispatchOnScrolled(consumedX, consumedY);
+                if (consumedByMeX != 0 || consumedByMeY != 0) {
+                    dispatchOnScrolled(consumedByMeX, consumedByMeY);
                 }
 
                 if (!awakenScrollBars()) {
@@ -5212,7 +5214,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
                 if (!smoothScrollerPending && doneScrolling) {
                     // If we are done scrolling and the layout's SmoothScroller is not pending,
-                    // stop the scroll.
+                    // do the things we do at the end of a scroll and don't postOnAnimation.
 
                     if (getOverScrollMode() != View.OVER_SCROLL_NEVER) {
                         final int vel = (int) scroller.getCurrVelocity();
@@ -5221,12 +5223,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         absorbGlows(velX, velY);
                     }
 
-                    // setting state to idle will stop this.
-                    setScrollState(SCROLL_STATE_IDLE);
                     if (ALLOW_THREAD_GAP_WORK) {
                         mPrefetchRegistry.clearPrefetchPositions();
                     }
-                    stopNestedScroll(TYPE_NON_TOUCH);
                 } else {
                     // Otherwise continue the scroll.
 
@@ -5239,40 +5238,38 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
             SmoothScroller smoothScroller = mLayout.mSmoothScroller;
             // call this after the onAnimation is complete not to have inconsistent callbacks etc.
-            if (smoothScroller != null) {
-                if (smoothScroller.isPendingInitialRun()) {
-                    smoothScroller.onAnimation(0, 0);
-                }
-                // if mReSchedulePostAnimationCallback is false, disableRunOnAnimationRequests() was
-                // called at the start of this method and postOnAnimation() was not called before
-                // this point, which means that we aren't going to scroll anymore so we need to
-                // call stop on smoothScroller.
-                if (!mReSchedulePostAnimationCallback) {
-                    smoothScroller.stop(); //stop if it does not trigger any scroll
-                }
+            if (smoothScroller != null && smoothScroller.isPendingInitialRun()) {
+                smoothScroller.onAnimation(0, 0);
             }
-            enableRunOnAnimationRequests();
-        }
 
-        private void disableRunOnAnimationRequests() {
-            mReSchedulePostAnimationCallback = false;
-            mEatRunOnAnimationRequest = true;
-        }
-
-        private void enableRunOnAnimationRequests() {
-            mEatRunOnAnimationRequest = false;
-            if (mReSchedulePostAnimationCallback) {
-                postOnAnimation();
+            mPostponePostOnAnimationRequests = false;
+            if (mPostOnAnimationRequested) {
+                internalPostOnAnimation();
+            } else {
+                setScrollState(SCROLL_STATE_IDLE);
+                stopNestedScroll(TYPE_NON_TOUCH);
             }
         }
 
         void postOnAnimation() {
-            if (mEatRunOnAnimationRequest) {
-                mReSchedulePostAnimationCallback = true;
+            if (mPostponePostOnAnimationRequests) {
+                mPostOnAnimationRequested = true;
             } else {
-                removeCallbacks(this);
-                ViewCompat.postOnAnimation(RecyclerView.this, this);
+                internalPostOnAnimation();
             }
+        }
+
+        private void internalPostOnAnimation() {
+            removeCallbacks(this);
+            ViewCompat.postOnAnimation(RecyclerView.this, this);
+        }
+
+        int getRemainingScrollHorizontal() {
+            return mOverScroller.getFinalX() - mOverScroller.getCurrX();
+        }
+
+        int getRemainingScrollVertical() {
+            return mOverScroller.getFinalY() - mOverScroller.getCurrY();
         }
 
         public void fling(int velocityX, int velocityY) {
@@ -11743,6 +11740,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             final RecyclerView recyclerView = mRecyclerView;
             if (mTargetPosition == RecyclerView.NO_POSITION || recyclerView == null) {
                 stop();
+                return;
             }
 
             // The following if block exists to have the LayoutManager scroll 1 pixel in the correct
@@ -11775,14 +11773,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             }
             if (mRunning) {
                 onSeekTargetStep(dx, dy, recyclerView.mState, mRecyclingAction);
-                boolean hadJumpTarget = mRecyclingAction.hasJumpTarget();
-                mRecyclingAction.runIfNecessary(recyclerView);
-                if (hadJumpTarget) {
-                    // It is not stopped so needs to be restarted
-                    if (mRunning) {
-                        mPendingInitialRun = true;
-                        recyclerView.mViewFlinger.postOnAnimation();
-                    }
+                boolean jumped = mRecyclingAction.runIfNecessary(recyclerView);
+                if (jumped && mRunning) {
+                    // We jumped during this frame, and we are still running, so we need to set up
+                    // for a new run.
+                    mPendingInitialRun = true;
+                    recyclerView.mViewFlinger.postOnAnimation();
                 }
             }
         }
@@ -11949,17 +11945,24 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 mJumpToPosition = targetPosition;
             }
 
-            boolean hasJumpTarget() {
-                return mJumpToPosition >= 0;
-            }
-
-            void runIfNecessary(RecyclerView recyclerView) {
+            /**
+             * Executes either a jump to position or a smooth scroll operation depending on the
+             * current state of {@link Action}.
+             *
+             * If 'mJumpToPosition' is greater than or equal to 0, will jump and return true.
+             * Otherwise, if 'mChanged' is true, will execute a call to one of the overloads of
+             * {@link ViewFlinger#smoothScrollBy(int, int)}, depending on other state.
+             *
+             * @param recyclerView The RecyclerView
+             * @return true if a jump was performed
+             */
+            boolean runIfNecessary(RecyclerView recyclerView) {
                 if (mJumpToPosition >= 0) {
                     final int position = mJumpToPosition;
                     mJumpToPosition = NO_POSITION;
                     recyclerView.jumpToPositionForSmoothScroller(position);
                     mChanged = false;
-                    return;
+                    return true;
                 }
                 if (mChanged) {
                     validate();
@@ -11984,6 +11987,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 } else {
                     mConsecutiveUpdates = 0;
                 }
+                return false;
             }
 
             private void validate() {
