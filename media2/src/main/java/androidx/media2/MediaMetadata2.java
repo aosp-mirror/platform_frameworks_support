@@ -1200,7 +1200,7 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param extras The extras to include with this description or null.
          * @return The Builder to allow chaining
          */
-        public Builder setExtras(@Nullable Bundle extras) {
+        public @NonNull Builder setExtras(@Nullable Bundle extras) {
             mBundle.putBundle(METADATA_KEY_EXTRAS, extras);
             return this;
         }

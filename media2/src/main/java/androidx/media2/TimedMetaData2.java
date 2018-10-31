@@ -22,6 +22,7 @@ import android.annotation.TargetApi;
 import android.media.TimedMetaData;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 
 /**
@@ -71,6 +72,7 @@ public class TimedMetaData2 {
      * @return raw, uninterpreted content of this metadata access unit; for ID3 tags this includes
      * everything starting from the 3 byte signature "ID3".
      */
+    @NonNull
     public byte[] getMetaData() {
         return mMetaData;
     }
