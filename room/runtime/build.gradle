@@ -21,6 +21,7 @@ import androidx.build.SupportLibraryExtension
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 android {
@@ -42,6 +43,8 @@ dependencies {
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
+    testImplementation(project(":lifecycle:lifecycle-extensions"))
+    testImplementation(KOTLIN_STDLIB)
 
     androidTestImplementation(JUNIT)
     androidTestImplementation(TEST_RUNNER)
