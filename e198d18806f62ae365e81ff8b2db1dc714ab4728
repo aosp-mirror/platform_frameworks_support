@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f66a38c_a6312cb3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T07:58:40Z",
+      "side": 1,
+      "message": "Can\u0027t we check reference equality?\n\nOr item.continas()?",
+      "range": {
+        "startLine": 1430,
+        "startChar": 25,
+        "endLine": 1430,
+        "endChar": 31
+      },
+      "revId": "e198d18806f62ae365e81ff8b2db1dc714ab4728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
