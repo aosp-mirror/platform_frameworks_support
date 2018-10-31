@@ -23,7 +23,6 @@ import androidx.room.ext.RxJava2TypeNames
 import androidx.room.ext.T
 import androidx.room.ext.CallableTypeSpecBuilder
 import androidx.room.ext.arrayTypeName
-import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
 import com.squareup.javapoet.ClassName
