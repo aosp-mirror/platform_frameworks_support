@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c24bad1_bb38d72c",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T04:58:41Z",
+      "side": 1,
+      "message": "Fwk, here and others",
+      "range": {
+        "startLine": 206,
+        "startChar": 38,
+        "endLine": 206,
+        "endChar": 41
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ac3302_3881faf2",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T04:58:41Z",
+      "side": 1,
+      "message": "Good to see that mCallbackFwk is no longer same with mIControllerCallback.",
+      "range": {
+        "startLine": 707,
+        "startChar": 16,
+        "endLine": 709,
+        "endChar": 0
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "764f722d_7c52ff33",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T04:58:41Z",
+      "side": 1,
+      "message": "It seems AudioAttributesCompat has these values with the same values.\nHow about using them instead of defining new variables?\n\nFYI, this is not a recommended place to define a static variable.\nHere are some style guides for android:\n\nhttps://source.android.com/setup/contribute/code-style#define-fields-in-standard-places\nhttps://docs.google.com/document/d/1GAzXERdykuhyubY-KEXNcaNB1KW-Vw4Qen8_4DulrT0/edit#",
+      "range": {
+        "startLine": 1449,
+        "startChar": 8,
+        "endLine": 1451,
+        "endChar": 59
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f20538_c8e9f347",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T04:58:41Z",
+      "side": 1,
+      "message": "Can we move this to above line?",
+      "range": {
+        "startLine": 2026,
+        "startChar": 20,
+        "endLine": 2026,
+        "endChar": 67
+      },
+      "revId": "1c6419d2b888ac95a428ee980c9463ef7e3f1da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
