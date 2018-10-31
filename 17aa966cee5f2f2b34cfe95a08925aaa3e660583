@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57cce8f1_8867f9b7",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-31T20:47:54Z",
+      "side": 1,
+      "message": "I feel like this is the assumption that will keep my up at night. Is there a hard document saying that this ID space will indeed never be used by real IDs?\n\nThe ugly alternative is to allocate N real IDs, where N is large enough that no one in their right mind would ever attach more than N actions to a View, like 32 or 128. But that ugliness would never be exposed to the API.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 20,
+        "endLine": 1166,
+        "endChar": 62
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1db9666_2814e598",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-31T20:47:54Z",
+      "side": 1,
+      "message": "I feel like we talked about this. Is there any point to having the ID separate from the wrapped action? I don\u0027t think any accessibility service will use these actions before API 21.",
+      "range": {
+        "startLine": 574,
+        "startChar": 23,
+        "endLine": 574,
+        "endChar": 26
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b19053_876fd788",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-31T20:47:54Z",
+      "side": 1,
+      "message": "For a truly custom action like swipe-to-dismiss, will a developer need to define a type for arguments, even though they aren\u0027t allowed to require arguments?",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9950870b_321549c6",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-10-31T20:47:54Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
