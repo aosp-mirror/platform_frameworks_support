@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9a0d780_3fcbed3b",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T04:40:43Z",
+      "side": 1,
+      "message": "FYI, we usually don\u0027t use if statement without curly braces {}.",
+      "parentUuid": "d6a3a116_7e3c8a4c",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1475,
+        "endChar": 72
+      },
+      "revId": "55b66474e364152e332c95c3279706b776410afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "584b1bbc_3b5e64ef",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
         "patchSetId": 4
