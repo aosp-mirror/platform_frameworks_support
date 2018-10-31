@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7890f4d6_35591aeb",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T12:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e0e3f6_542a90ad",
+      "range": {
+        "startLine": 884,
+        "startChar": 35,
+        "endLine": 884,
+        "endChar": 39
+      },
+      "revId": "7b628a222d418f036357b6269447d3955126a233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea594959_146facfe",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7b628a222d418f036357b6269447d3955126a233",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ef4419_15dae130",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-10-31T12:03:02Z",
+      "side": 1,
+      "message": "Doesn\u0027t work. removeAll takes Collection (e.g. List) and shouldn\u0027t be null.",
+      "parentUuid": "ea594959_146facfe",
+      "range": {
+        "startLine": 1177,
+        "startChar": 16,
+        "endLine": 1177,
+        "endChar": 53
+      },
+      "revId": "7b628a222d418f036357b6269447d3955126a233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
