@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49a43727_a161f471",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "defines",
+      "range": {
+        "startLine": 38,
+        "startChar": 68,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e5dfeb4_070f4bcc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "This comment needs an update.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 72
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b5a740_bba50690",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "losing",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 18
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad3cde7e_1cc92573",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "A non \"tintable\" image",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 67
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25526613_0db8026f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "nit: how about asserting these separately, so we can get more detail from the stack trace if something goes wrong?",
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f168de3e_3049ad7e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "Should we specify that images are considered non-tintable by default?",
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7364bb2f_230e1a3b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-10-31T21:11:35Z",
+      "side": 1,
+      "message": "I\u0027m not convinced we should specify these requirements as part of the API. Seems potentially overly restrictive to me.",
+      "range": {
+        "startLine": 354,
+        "startChar": 51,
+        "endLine": 356,
+        "endChar": 56
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
