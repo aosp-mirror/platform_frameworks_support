@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7860219_eaaf80cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e41c15e_993cc12d",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f665404_d7381f0e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8977a7_3b0db7ee",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f665404_d7381f0e",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "512a019b_0c07d46e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d564a459_a0746b17",
+      "range": {
+        "startLine": 41,
+        "startChar": 35,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d634a3a1_f1bd8476",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a44c7fde_c87b5d60",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3feef51c_27dda981",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e19b2e_9fcfd302",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3feef51c_27dda981",
+      "range": {
+        "startLine": 42,
+        "startChar": 74,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,54 @@
     },
     {
       "key": {
+        "uuid": "f376ba00_67fc834f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16fee633_2b1817ee",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5a21f0_d1e4427a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82ccd73_a1da3f46",
+      "range": {
+        "startLine": 44,
+        "startChar": 61,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "021a8fc1_b2ba6354",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2018-10-24T03:41:42Z",
       "side": 1,
       "message": "I\u0027m not sure, but putting it out there: Would it be worth being more prescriptive here to make our consumers lives easier?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce98f78e_f661c55c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "I believe we need to leave some room for flexibility. Otherwise we might be forcing apps to re-encode their images just because their assets are not in the correct format for this API.\nIn any case, we will process any image with either BitmapFactory or Glide. \nSupported formats are listed here: https://developer.android.com/guide/topics/media/media-formats#image-formats\nShould we just reference this link? (I\u0027m also worry about leaving it too open ended).",
+      "parentUuid": "021a8fc1_b2ba6354",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "fec75b15_e9e6991e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe336fc6_e8f7012f",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff7dd2d_55f258b4",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "6b1b4463_da98fb5e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ff7dd2d_55f258b4",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f22f44_42640dc1",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -243,6 +483,30 @@
       "writtenOn": "2018-10-24T03:41:42Z",
       "side": 1,
       "message": "Needs units (px? dp? probably px?) throughout and in comments",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b67aaa02_2b969628",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Given that this size is irrelevant to the consumer other for aspect ratio sizing, I\u0027m not sure we should give it any particular physical meaning.",
+      "parentUuid": "e6f22f44_42640dc1",
       "range": {
         "startLine": 64,
         "startChar": 8,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "bfe1c6a1_23c8ec1c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Changed to \"original\".",
+      "parentUuid": "7e558609_6bc78c48",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45897c92_47c909f0",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "263bdca4_52f4fe3b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45897c92_47c909f0",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba915a29_743af500",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 2
@@ -321,6 +633,30 @@
       "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e791375_3f232232",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-10-31T16:53:18Z",
+      "side": 1,
+      "message": "Adding javadoc.",
+      "parentUuid": "ba915a29_743af500",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 23
+      },
+      "revId": "7f4f831749755c96c0d68ec2a37caf0d47f8a015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
