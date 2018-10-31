@@ -877,8 +877,14 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             mRepeatMode = mControllerCompat.getRepeatMode();
             mShuffleMode = mControllerCompat.getShuffleMode();
 
-            mPlaylist = MediaUtils2.convertQueueItemListToMediaItem2List(
-                    mControllerCompat.getQueue());
+            mQueue = MediaUtils2.trimList(mControllerCompat.getQueue());
+            mPlaylist = MediaUtils2.convertQueueItemListToMediaItem2List(mQueue);
+            if (mPlaylist == null) {
+                // MediaSessionCompat can set queue as null. However, SessionPlayer2 should not
+                // set playlist as null. Therefore, we treat a null queue as an empty playlist.
+                mQueue = new ArrayList<>();
+                mPlaylist = new ArrayList<>();
+            }
             mPlaylistMetadata = MediaUtils2.convertToMediaMetadata2(
                     mControllerCompat.getQueueTitle());
 
@@ -1168,11 +1174,12 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             final List<MediaItem2> playlist;
             final MediaMetadata2 playlistMetadata;
             synchronized (mLock) {
-                mQueue = queue;
+                mQueue = MediaUtils2.trimList(queue);
                 mPlaylist = MediaUtils2.convertQueueItemListToMediaItem2List(queue);
                 if (mPlaylist == null) {
                     // MediaSessionCompat can set queue as null. However, SessionPlayer2 should not
                     // set playlist as null. Therefore, we treat a null queue as an empty playlist.
+                    mQueue = new ArrayList<>();
                     mPlaylist = new ArrayList<>();
                 }
                 playlist = mPlaylist;
