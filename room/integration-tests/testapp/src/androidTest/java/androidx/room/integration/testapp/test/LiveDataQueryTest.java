@@ -66,6 +66,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Tests invalidation tracking.
@@ -371,6 +373,41 @@ public class LiveDataQueryTest extends TestDatabaseTest {
     }
 
     @Test
+    public void handleGcWithObserveForever() throws TimeoutException, InterruptedException {
+        final AtomicReference<User> referenced = new AtomicReference<>();
+        Observer<User> observer = referenced::set;
+        AtomicReference<WeakReference<LiveData<User>>> liveDataReference = new AtomicReference<>();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(
+                () -> {
+                    LiveData<User> userLiveData = mUserDao.liveUserById(3);
+                    userLiveData.observeForever(observer);
+                    liveDataReference.set(new WeakReference<>(userLiveData));
+                });
+        User v1 = TestUtil.createUser(3);
+        mUserDao.insert(v1);
+        drain();
+        assertThat(referenced.get(), is(v1));
+        forceGc();
+        User v2 = TestUtil.createUser(3);
+        v2.setName("handle gc");
+        mUserDao.insertOrReplace(v2);
+        drain();
+        assertThat(referenced.get(), is(v2));
+        assertThat(liveDataReference.get().get(), notNullValue());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(
+                () -> liveDataReference.get().get().removeObserver(observer));
+        drain();
+        forceGc();
+        drain();
+        User v3 = TestUtil.createUser(3);
+        v3.setName("handle gc, get rid of LiveData");
+        mUserDao.insertOrReplace(v3);
+        drain();
+        assertThat(referenced.get(), is(v2));
+        assertThat(liveDataReference.get().get(), is(nullValue()));
+    }
+
+    @Test
     public void booleanLiveData() throws ExecutionException, InterruptedException,
             TimeoutException {
         User user = TestUtil.createUser(3);
@@ -386,6 +423,22 @@ public class LiveDataQueryTest extends TestDatabaseTest {
         user.setAdmin(true);
         mUserDao.insertOrReplace(user);
         assertThat(observer.get(), is(true));
+    }
+
+    @Test
+    public void createLiveData() throws ExecutionException, InterruptedException, TimeoutException {
+        final AtomicInteger nextValue = new AtomicInteger(0);
+        final LiveData<Integer> liveData = mDatabase
+                .getInvalidationTracker()
+                .createLiveData(new String[]{"User"},
+                        nextValue::getAndIncrement);
+        final TestLifecycleOwner lifecycleOwner = new TestLifecycleOwner();
+        TestObserver<Integer> observer = new TestObserver<>();
+        observe(liveData, lifecycleOwner, observer);
+        assertThat(observer.hasValue(), is(false));
+        lifecycleOwner.handleEvent(Lifecycle.Event.ON_START);
+        drain();
+        assertThat(observer.get(), is(0));
     }
 
     private void observe(final LiveData liveData, final LifecycleOwner provider,

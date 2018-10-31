@@ -22,8 +22,11 @@ import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.RoomTypeNames.INVALIDATION_OBSERVER
+import androidx.room.ext.T
+import androidx.room.ext.arrayTypeName
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
+import androidx.room.writer.DaoWriter
 import com.squareup.javapoet.CodeBlock
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.MethodSpec
@@ -48,34 +51,18 @@ class LiveDataQueryResultBinder(val typeArg: TypeMirror, val tableNames: Set<Str
             inTransaction: Boolean,
             scope: CodeGenScope
     ) {
-        val typeName = typeArg.typeName()
-
-        val liveDataImpl =
-                TypeSpec.anonymousClassBuilder(
-                        // This passes the Executor as a parameter to the superclass' constructor
-                        // while declaring an anonymous class.
-                        CodeBlock.builder().apply {
-                            add("$N.getQueryExecutor()", dbField)
-                        }.build().toString()).apply {
-            superclass(ParameterizedTypeName.get(LifecyclesTypeNames.COMPUTABLE_LIVE_DATA,
-                    typeName))
-            val observerField = FieldSpec.builder(RoomTypeNames.INVALIDATION_OBSERVER,
-                    scope.getTmpVar("_observer"), Modifier.PRIVATE).build()
-            addField(observerField)
-            addMethod(createComputeMethod(
-                    observerField = observerField,
-                    typeName = typeName,
-                    roomSQLiteQueryVar = roomSQLiteQueryVar,
-                    dbField = dbField,
-                    inTransaction = inTransaction,
-                    scope = scope
-            ))
-            if (canReleaseQuery) {
-                addMethod(createFinalizeMethod(roomSQLiteQueryVar))
-            }
-        }.build()
+        val callableImpl = createAnonymousCallable(
+            typeArg = typeArg,
+            roomSQLiteQueryVar = roomSQLiteQueryVar,
+            canReleaseQuery = canReleaseQuery,
+            dbField = dbField,
+            inTransaction = inTransaction,
+            scope = scope
+        )
         scope.builder().apply {
-            addStatement("return $L.getLiveData()", liveDataImpl)
+            val tableNamesList = tableNames.joinToString(",") { "\"$it\"" }
+            addStatement("return $N.getInvalidationTracker().createLiveData(new $T{$L}, $L)",
+                dbField, String::class.arrayTypeName(), tableNamesList, callableImpl)
         }
     }
 
