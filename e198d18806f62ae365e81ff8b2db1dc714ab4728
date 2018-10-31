@@ -22,6 +22,30 @@
       "revId": "e198d18806f62ae365e81ff8b2db1dc714ab4728",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ff0fab6_bb2daeee",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-10-31T08:52:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f66a38c_a6312cb3",
+      "range": {
+        "startLine": 1430,
+        "startChar": 25,
+        "endLine": 1430,
+        "endChar": 31
+      },
+      "revId": "e198d18806f62ae365e81ff8b2db1dc714ab4728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
