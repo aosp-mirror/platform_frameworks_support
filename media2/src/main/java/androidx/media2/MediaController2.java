@@ -331,9 +331,8 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * @hide
+     * Skip forward. The result of calling this method will depend on the session's implementation.
      */
-    @RestrictTo(LIBRARY_GROUP)
     public ListenableFuture<ControllerResult> skipForward() {
         // To match with KEYCODE_MEDIA_SKIP_FORWARD
         if (isConnected()) {
@@ -343,9 +342,8 @@ public class MediaController2 implements AutoCloseable {
     }
 
     /**
-     * @hide
+     * Skip backward. The result of calling this method will depend on the session's implementation.
      */
-    @RestrictTo(LIBRARY_GROUP)
     public ListenableFuture<ControllerResult> skipBackward() {
         // To match with KEYCODE_MEDIA_SKIP_BACKWARD
         if (isConnected()) {

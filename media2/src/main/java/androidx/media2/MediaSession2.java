@@ -335,22 +335,6 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP)
-    public void skipForward() {
-        mImpl.skipForward();
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP)
-    public void skipBackward() {
-        mImpl.skipBackward();
-    }
-
-    /**
      * Notify routes information to a connected controller
      *
      * @param controller controller information
@@ -726,6 +710,30 @@ public class MediaSession2 implements AutoCloseable {
          * @see SessionCommand2#COMMAND_CODE_SESSION_REWIND
          */
         public @ResultCode int onRewind(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_NOT_SUPPORTED;
+        }
+
+        /**
+         * Called when a controller called {@link MediaController2#skipForward()}
+         *
+         * @param session the session for this event
+         * @param controller controller information
+         * @see SessionCommand2#COMMAND_CODE_SESSION_SKIP_FORWARD
+         */
+        public @ResultCode int onSkipForward(@NonNull MediaSession2 session,
+                @NonNull ControllerInfo controller) {
+            return RESULT_CODE_NOT_SUPPORTED;
+        }
+
+        /**
+         * Called when a controller called {@link MediaController2#skipBackward()}
+         *
+         * @param session the session for this event
+         * @param controller controller information
+         * @see SessionCommand2#COMMAND_CODE_SESSION_SKIP_BACKWARD
+         */
+        public @ResultCode int onSkipBackward(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller) {
             return RESULT_CODE_NOT_SUPPORTED;
         }
