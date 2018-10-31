@@ -88,7 +88,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                            variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
                     }
                 }
                 is AppPlugin -> {
@@ -112,10 +112,10 @@ class AndroidXPlugin : Plugin<Project> {
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
-                    Dokka.ARCHIVE_TASK_NAME == task.name ||
-                    "dejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
+                "distDocs" == task.name ||
+                Dokka.ARCHIVE_TASK_NAME == task.name ||
+                "dejetifyArchive" == task.name ||
+                CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
             }
         }
@@ -127,13 +127,13 @@ class AndroidXPlugin : Plugin<Project> {
                 // TODO remove androidTest from buildOnServer once test runners do not
                 // expect them anymore. (wait for master)
                 if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name ||
-                        ERROR_PRONE_TASK == task.name ||
-                        "lintDebug" == task.name) {
+                    "assembleDebug" == task.name ||
+                    ERROR_PRONE_TASK == task.name ||
+                    "lintDebug" == task.name) {
                     buildOnServerTask.dependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
+                    "assembleDebug" == task.name) {
                     buildTestApksTask.dependsOn(task)
                 }
             }
@@ -146,8 +146,8 @@ class AndroidXPlugin : Plugin<Project> {
         Release.createGlobalArchiveTask(this)
 
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
-                DacOptions("androidx", "ANDROIDX_DATA"),
-                listOf(RELEASE_RULE))
+            DacOptions("androidx", "ANDROIDX_DATA"),
+            listOf(RELEASE_RULE))
         buildOnServerTask.dependsOn(allDocsTask)
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
@@ -164,7 +164,7 @@ class AndroidXPlugin : Plugin<Project> {
         extension.buildToolsVersion = BUILD_TOOLS_VERSION
         // Expose the compilation SDK for use as the target SDK in test manifests.
         extension.defaultConfig.addManifestPlaceholders(
-                mapOf("target-sdk-version" to CURRENT_SDK_VERSION))
+            mapOf("target-sdk-version" to CURRENT_SDK_VERSION))
 
         extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
         extension.testOptions.unitTests.isReturnDefaultValues = true
@@ -179,7 +179,7 @@ class AndroidXPlugin : Plugin<Project> {
             // rules to run as error-prone checks.
             if (project.name != "docs-fake" && !project.name.contains("demos")) {
                 project.dependencies.add("annotationProcessor",
-                        project.project(":customerrorprone"))
+                    project.project(":customerrorprone"))
             }
             project.configurations.all { configuration ->
                 configuration.resolutionStrategy.eachDependency { dep ->
@@ -187,30 +187,30 @@ class AndroidXPlugin : Plugin<Project> {
                     // Enforce the ban on declaring dependencies with version ranges.
                     if (isDependencyRange(target.version)) {
                         throw IllegalArgumentException(
-                                "Dependency ${dep.target} declares its version as " +
-                                        "version range ${dep.target.version} however the use of " +
-                                        "version ranges is not allowed, please update the " +
-                                        "dependency to list a fixed version.")
+                            "Dependency ${dep.target} declares its version as " +
+                                    "version range ${dep.target.version} however the use of " +
+                                    "version ranges is not allowed, please update the " +
+                                    "dependency to list a fixed version.")
                     }
                 }
             }
         }
-        if (project.name != "docs-fake") {
-            // Add another "version" flavor dimension which would have two flavors minDepVersions
-            // and maxDepVersions. Flavor minDepVersions builds the libraries against the specified
-            // versions of their dependencies while maxDepVersions builds the libraries against
-            // the local versions of their dependencies (so for example if library A specifies
-            // androidx.collection:collection:1.2.0 as its dependency then minDepVersions would
-            // build using exactly that version while maxDepVersions would build against
-            // project(":collection") instead.)
-            extension.flavorDimensions("version")
-            extension.productFlavors {
-                it.create("minDepVersions")
-                it.get("minDepVersions").dimension = "version"
-                it.create("maxDepVersions")
-                it.get("maxDepVersions").dimension = "version"
-            }
-        }
+//        if (project.name != "docs-fake") {
+//            // Add another "version" flavor dimension which would have two flavors minDepVersions
+//            // and maxDepVersions. Flavor minDepVersions builds the libraries against the specified
+//            // versions of their dependencies while maxDepVersions builds the libraries against
+//            // the local versions of their dependencies (so for example if library A specifies
+//            // androidx.collection:collection:1.2.0 as its dependency then minDepVersions would
+//            // build using exactly that version while maxDepVersions would build against
+//            // project(":collection") instead.)
+//            extension.flavorDimensions("version")
+//            extension.productFlavors {
+//                it.create("minDepVersions")
+//                it.get("minDepVersions").dimension = "version"
+//                it.create("maxDepVersions")
+//                it.get("maxDepVersions").dimension = "version"
+//            }
+//        }
 
         // Use a local debug keystore to avoid build server issues.
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
@@ -228,12 +228,12 @@ class AndroidXPlugin : Plugin<Project> {
                 !hasProperty("android.injected.invoked.from.ide") &&
                 !isBenchmark()
 
-        extension.variants.all { variant ->
-            if (variant.flavorName.toLowerCase().contains(
-                            "maxdepversions")) {
-                useMaxiumumDependencyVersions(project.configurations)
-            }
-        }
+//        extension.variants.all { variant ->
+//            if (variant.flavorName.toLowerCase().contains(
+//                            "maxdepversions")) {
+//                useMaxiumumDependencyVersions(project.configurations)
+//            }
+//        }
         // Set the officially published version to be the release version with minimum dependency
         // versions.
         extension.defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
@@ -253,7 +253,7 @@ class AndroidXPlugin : Plugin<Project> {
             val minSdkLessThan24 = extension.defaultConfig.minSdkVersion.apiLevel < 24
             if (compilesAgainstJava8 && minSdkLessThan24) {
                 throw IllegalArgumentException(
-                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
+                    "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
             }
         }
     }
@@ -283,7 +283,7 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun Project.createVerifyDependencyVersionsTask(): DefaultTask {
         return project.tasks.create("verifyDependencyVersions",
-                VerifyDependencyVersionsTask::class.java)
+            VerifyDependencyVersionsTask::class.java)
     }
 
     companion object {
@@ -311,12 +311,12 @@ private fun Project.useMaxiumumDependencyVersions(configurations: ConfigurationC
                 // TODO: support projects having two ':' chars in the name
                 val localDependencyProject = findProject(":${dep.target.name}")
                 if (localDependencyProject != null &&
-                        localDependencyProject.version.toString() != "unspecified") {
+                    localDependencyProject.version.toString() != "unspecified") {
                     if (localDependencyProject.version().major ==
-                            Version(dep.target.version!!).major) {
+                        Version(dep.target.version!!).major) {
                         configuration.resolutionStrategy.dependencySubstitution.apply {
                             substitute(module("${dep.target}"))
-                                    .with(project(":${localDependencyProject.name}"))
+                                .with(project(":${localDependencyProject.name}"))
                         }
                     } else {
                         throw IllegalArgumentException("The local version for dependency" +
