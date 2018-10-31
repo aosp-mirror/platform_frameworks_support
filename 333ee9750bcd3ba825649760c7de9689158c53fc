@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7e610cff_7c2303f9",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T19:42:00Z",
+      "side": 1,
+      "message": "Remove extra apostrophe here and after Throwable.",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "333ee9750bcd3ba825649760c7de9689158c53fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "989425e9_2860c00f",
         "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
         "patchSetId": 7
@@ -25,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7faa8163_8b4f6391",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T19:42:00Z",
+      "side": 1,
+      "message": "We can certainly add it, but since that\u0027s how all ListenableFutures work, it seems like a redundant thing that we\u0027d have to add everywhere.",
+      "parentUuid": "989425e9_2860c00f",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 32
+      },
+      "revId": "333ee9750bcd3ba825649760c7de9689158c53fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b2f527_26273406",
         "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
         "patchSetId": 7
@@ -36,6 +83,30 @@
       "writtenOn": "2018-10-31T19:34:29Z",
       "side": 1,
       "message": "What will the result be if the operation was canceled?",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "333ee9750bcd3ba825649760c7de9689158c53fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0242f996_78bb51c4",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T19:42:00Z",
+      "side": 1,
+      "message": "You can\u0027t cancel our operations.  If you call #cancel on this ListenableFuture, it should return false.  If you get a cancelled ListenableFuture, it will yield a CancelledException.",
+      "parentUuid": "d1b2f527_26273406",
       "range": {
         "startLine": 64,
         "startChar": 36,
