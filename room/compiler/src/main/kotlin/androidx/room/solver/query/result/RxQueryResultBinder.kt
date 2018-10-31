@@ -49,25 +49,14 @@ class RxQueryResultBinder(
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
-        val callableImpl = TypeSpec.anonymousClassBuilder("").apply {
-            val typeName = typeArg.typeName()
-            superclass(ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
-                    typeName))
-            addMethod(MethodSpec.methodBuilder("call").apply {
-                returns(typeName)
-                addException(Exception::class.typeName())
-                addModifiers(Modifier.PUBLIC)
-                addAnnotation(Override::class.java)
-                createRunQueryAndReturnStatements(builder = this,
-                        roomSQLiteQueryVar = roomSQLiteQueryVar,
-                        inTransaction = inTransaction,
-                        dbField = dbField,
-                        scope = scope)
-            }.build())
-            if (canReleaseQuery) {
-                addMethod(createFinalizeMethod(roomSQLiteQueryVar))
-            }
-        }.build()
+        val callableImpl = createAnonymousCallable(
+            typeArg = typeArg,
+            roomSQLiteQueryVar = roomSQLiteQueryVar,
+            canReleaseQuery = canReleaseQuery,
+            dbField = dbField,
+            inTransaction = inTransaction,
+            scope = scope
+        )
         scope.builder().apply {
             val tableNamesList = queryTableNames.joinToString(",") { "\"$it\"" }
             addStatement("return $T.$N($N, new $T{$L}, $L)",

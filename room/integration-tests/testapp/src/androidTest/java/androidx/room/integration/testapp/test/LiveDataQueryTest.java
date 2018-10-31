@@ -66,6 +66,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Tests invalidation tracking.
@@ -368,6 +369,41 @@ public class LiveDataQueryTest extends TestDatabaseTest {
         assertThat(InvalidationTrackerTrojan.countObservers(mDatabase.getInvalidationTracker()),
                 is(0));
         assertThat(weakLiveData.get(), nullValue());
+    }
+
+    @Test
+    public void handleGcWithObserveForever() throws TimeoutException, InterruptedException {
+        final AtomicReference<User> referenced = new AtomicReference<>();
+        Observer<User> observer = referenced::set;
+        AtomicReference<WeakReference<LiveData<User>>> liveDataReference = new AtomicReference<>();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(
+                () -> {
+                    LiveData<User> userLiveData = mUserDao.liveUserById(3);
+                    userLiveData.observeForever(observer);
+                    liveDataReference.set(new WeakReference<>(userLiveData));
+                });
+        User v1 = TestUtil.createUser(3);
+        mUserDao.insert(v1);
+        drain();
+        assertThat(referenced.get(), is(v1));
+        forceGc();
+        User v2 = TestUtil.createUser(3);
+        v2.setName("handle gc");
+        mUserDao.insertOrReplace(v2);
+        drain();
+        assertThat(referenced.get(), is(v2));
+        assertThat(liveDataReference.get().get(), notNullValue());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(
+                () -> liveDataReference.get().get().removeObserver(observer));
+        drain();
+        forceGc();
+        drain();
+        User v3 = TestUtil.createUser(3);
+        v3.setName("handle gc, get rid of LiveData");
+        mUserDao.insertOrReplace(v3);
+        drain();
+        assertThat(referenced.get(), is(v2));
+        assertThat(liveDataReference.get().get(), is(nullValue()));
     }
 
     @Test
