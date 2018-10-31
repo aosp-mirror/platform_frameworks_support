@@ -29,6 +29,7 @@ dependencies {
     api(project(":arch:core-runtime"))
     api(SUPPORT_CORE_UTILS, libs.support_exclude_config)
     api(RX_JAVA)
+    testImplementation(ARCH_LIFECYCLE_LIVEDATA_CORE) // needed for invalidation tracker mocking
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
     testImplementation(project(":arch:core-testing"))
