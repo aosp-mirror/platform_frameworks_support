@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff188168_19d4cff9",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "New lines.",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc21493_10b61287",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Same; and below.",
+      "range": {
+        "startLine": 524,
+        "startChar": 27,
+        "endLine": 524,
+        "endChar": 44
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b93765b_1966fc1f",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Information about an operation",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e583c885_7d7693c0",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Remove this last part.",
+      "range": {
+        "startLine": 26,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 87
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c499f404_b04b751e",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "getState",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0033444c_ce50d9fe",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Gets a {@link ListenableFuture} representing the terminal {@link State} of the {@link Operation}.  Call {@link ListenableFuture#get()} to get the State synchronously.",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42508fa7_9a0c9c71",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "\u0027s terminal",
+      "range": {
+        "startLine": 41,
+        "startChar": 66,
+        "endLine": 41,
+        "endChar": 67
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98dc2cde_02616b95",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "For all of these, if you put these in Operation, you won\u0027t have to do Operation.State.SUCCESSFUL instead of Operation.SUCCESSFUL.  Does that look better?",
+      "range": {
+        "startLine": 62,
+        "startChar": 34,
+        "endLine": 62,
+        "endChar": 44
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0229a7bf_1d8d9430",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "SUCCESSFUL",
+      "range": {
+        "startLine": 62,
+        "startChar": 34,
+        "endLine": 62,
+        "endChar": 44
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef90d326_cd498458",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Remove this Javadoc; make this package private or hidden.  Same below.",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce1b1a15_3934aaa7",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "SUCCESSFUL",
+      "range": {
+        "startLine": 76,
+        "startChar": 34,
+        "endLine": 76,
+        "endChar": 44
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3689686f_3eda016a",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "IN_PROGRESS",
+      "range": {
+        "startLine": 83,
+        "startChar": 34,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d899e13_e6085f22",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/OperationImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-10-31T04:21:41Z",
+      "side": 1,
+      "message": "Does this need to be in the impl package because of SettableFuture?  Can we combine it with Operation and just pass in the future wherever we create it?",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "4bc5740ed07afca04883ba69d28b3c976f549a5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
