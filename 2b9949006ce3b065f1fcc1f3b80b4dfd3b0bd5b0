@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f0a0bc4_11ddd67a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3253,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-31T06:32:00Z",
+      "side": 1,
+      "message": "minor: \"_MS\" looks more common than \"_MILLIS\" for milliseconds in android java code.",
+      "range": {
+        "startLine": 3253,
+        "startChar": 37,
+        "endLine": 3253,
+        "endChar": 49
+      },
+      "revId": "2b9949006ce3b065f1fcc1f3b80b4dfd3b0bd5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69062c69_0ec3a23c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3299,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-10-31T06:32:00Z",
+      "side": 1,
+      "message": "Some questions:\n1) Why do we need to use handler/runnable here and not use runnable in onActivityResumed? \n2) Why should it be created every time when onActivityPaused()? Why not created it once at line 3258?",
+      "range": {
+        "startLine": 3291,
+        "startChar": 0,
+        "endLine": 3299,
+        "endChar": 18
+      },
+      "revId": "2b9949006ce3b065f1fcc1f3b80b4dfd3b0bd5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
