@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "87db82ef_18b0c2f3",
+        "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-10-31T17:27:36Z",
+      "side": 1,
+      "message": "Since this only ever can return Successful, this should be a ListenableFuture\u003cSuccessful\u003e and the Javadoc should note that Failed operations will come through as exceptions on the ListenableFuture",
+      "range": {
+        "startLine": 55,
+        "startChar": 21,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "485b33fa28b9dd94b09f6bc4e2ec3b298c7ae38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e037dcb_8dc1f2c7",
         "filename": "work/workmanager/src/main/java/androidx/work/Operation.java",
         "patchSetId": 5
