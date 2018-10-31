@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5af3009e_9f24dc23",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T02:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfeadf8d_d6e667ed",
+      "range": {
+        "startLine": 305,
+        "startChar": 56,
+        "endLine": 306,
+        "endChar": 0
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22227e38_fa29592b",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-30T12:42:49Z",
       "side": 1,
       "message": "Q) It seems ResultWrapper is defined both in ~Api21.java and ~26.java.\nCan we use this class?",
+      "range": {
+        "startLine": 1144,
+        "startChar": 17,
+        "endLine": 1144,
+        "endChar": 30
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17743192_8b0f337f",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T02:41:14Z",
+      "side": 1,
+      "message": "This CL merges those two ResultWrapper classes into one.",
+      "parentUuid": "22227e38_fa29592b",
       "range": {
         "startLine": 1144,
         "startChar": 17,
@@ -68,6 +116,30 @@
       "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854351f3_d00860bf",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-10-31T02:41:14Z",
+      "side": 1,
+      "message": "I can not be removed because its base class is MediaBrowserService. A plain BrowserRoot is considered as MediaBrowserService.BrowserRoot.",
+      "parentUuid": "6c09f79f_27b47b42",
+      "range": {
+        "startLine": 1196,
+        "startChar": 12,
+        "endLine": 1196,
+        "endChar": 38
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
