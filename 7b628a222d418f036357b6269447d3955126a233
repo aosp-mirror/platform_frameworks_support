@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77e0e3f6_542a90ad",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T07:21:06Z",
+      "side": 1,
+      "message": "If SessionPlayer2 takes empty list but not taking null, I think we should change SessionPlayer2 since I think null and empty list are the same.",
+      "range": {
+        "startLine": 884,
+        "startChar": 35,
+        "endLine": 884,
+        "endChar": 39
+      },
+      "revId": "7b628a222d418f036357b6269447d3955126a233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea594959_146facfe",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-10-31T07:21:06Z",
+      "side": 1,
+      "message": "Doesn\u0027t ArrayList.removeAll(null) work?",
+      "range": {
+        "startLine": 1177,
+        "startChar": 16,
+        "endLine": 1177,
+        "endChar": 53
+      },
+      "revId": "7b628a222d418f036357b6269447d3955126a233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
