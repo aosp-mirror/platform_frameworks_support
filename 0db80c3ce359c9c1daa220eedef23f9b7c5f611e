@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ca768fd_fcd65495",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T05:36:20Z",
+      "side": 1,
+      "message": "Q) Do this need to be changed?",
+      "range": {
+        "startLine": 388,
+        "startChar": 16,
+        "endLine": 388,
+        "endChar": 24
+      },
+      "revId": "0db80c3ce359c9c1daa220eedef23f9b7c5f611e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5caad7ab_49a97100",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-10-31T05:36:20Z",
+      "side": 1,
+      "message": "This is released in API 24. I think we should call super(...) below API 26.",
+      "range": {
+        "startLine": 1208,
+        "startChar": 20,
+        "endLine": 1208,
+        "endChar": 34
+      },
+      "revId": "0db80c3ce359c9c1daa220eedef23f9b7c5f611e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
