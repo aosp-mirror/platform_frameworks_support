@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "510cd2bb_c98088a5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-10-31T12:41:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4d2d1a9_fff0a0bf",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1789e8e_2feb90e6",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2018-10-31T12:18:14Z",
       "side": 1,
       "message": "Weird, this is not marked as @hide, but it does not show up in the api.\nI guess it is because TextLink is @hide.",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "636676a4_10933dbe",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-10-31T12:41:05Z",
+      "side": 1,
+      "message": "Added the explicit hide.",
+      "parentUuid": "d1789e8e_2feb90e6",
       "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
