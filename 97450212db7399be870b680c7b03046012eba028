@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2040bd97_d505b4cc",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-01T07:14:52Z",
+      "side": 1,
+      "message": "Since we decided to rename this, let\u0027s remove all \u0027trim\u0027 usages here",
+      "range": {
+        "startLine": 699,
+        "startChar": 7,
+        "endLine": 699,
+        "endChar": 12
+      },
+      "revId": "97450212db7399be870b680c7b03046012eba028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
