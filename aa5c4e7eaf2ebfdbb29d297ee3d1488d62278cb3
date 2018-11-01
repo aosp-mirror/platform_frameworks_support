@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1ce53f7b_6f36de14",
+        "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-01T02:21:51Z",
+      "side": 1,
+      "message": "I personally prefer renaming this to childrenFwk here, even though the name came from base class.",
+      "parentUuid": "86d705b2_e2b9a6d3",
+      "range": {
+        "startLine": 782,
+        "startChar": 49,
+        "endLine": 782,
+        "endChar": 57
+      },
+      "revId": "aa5c4e7eaf2ebfdbb29d297ee3d1488d62278cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fe2afc9_e0da8c8a",
         "filename": "media/src/main/java/android/support/v4/media/MediaBrowserCompat.java",
         "patchSetId": 5
