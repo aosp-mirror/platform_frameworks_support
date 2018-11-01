@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "d7afc046_1ade6a71",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-01T21:47:43Z",
+      "side": 1,
+      "message": "I\u0027ve changed the description a bit more.\nLet me know if this is clearer, or if I should add a couple more paragraphs.\n\nAnother thing I was considering is whether we want to have an additional \"fixedAspectRatio\" flag (or similar name). If this flag is true it would mean that the producer will always return images with the same aspect ratio as defined by the \"original\" size (regardless of the aspect ratio requested). If false, it means that the producer can provide an image that matches the requested aspect ratio. Or another option would be to make \"original size\" nullable.\n\nHere are the two use-cases I\u0027m thinking:\n- Maneuver icons are \"fixedAspectRatio \u003d true\", as the only thing GMM can do with them is to scale them.\n- Lanes configuration image is \"fixedAspectRatio \u003d false\" because GMM can drop lanes or draw them in a narrower space. In this case, \"original size\" has no meaning.\n\nOptions:\n1) Leave this as is (maybe document it outside of the API).\n2) Add a \"fixedAspectRatio\" flag.\n3) Make \"original size\" nullable.\n4) Document this at the place where the image reference is located (e.g.: Maneuver, Step).\n\nThoughts?",
+      "parentUuid": "234f61cb_2234116f",
+      "range": {
+        "startLine": 188,
+        "startChar": 58,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1fc9294a_c6259763",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 8
