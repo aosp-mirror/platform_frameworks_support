@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5c92af2_21b0a802",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-01T05:08:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbc52b3a_bddfb0e9",
+      "range": {
+        "startLine": 597,
+        "startChar": 19,
+        "endLine": 597,
+        "endChar": 61
+      },
+      "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a8be07_3e77b1ee",
         "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c73634_7f4fdd34",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-01T05:08:55Z",
+      "side": 1,
+      "message": "Good catch.\n\nIt\u0027s annotation error in the callback. Let me change (note: getPlaylist() can return null, so it should match with it)",
+      "parentUuid": "d6a8be07_3e77b1ee",
+      "range": {
+        "startLine": 1193,
+        "startChar": 30,
+        "endLine": 1193,
+        "endChar": 47
+      },
+      "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
