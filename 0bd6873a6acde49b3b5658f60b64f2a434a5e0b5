@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df665fd0_d6f607c7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2378,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T07:20:54Z",
+      "side": 1,
+      "message": "Use { } even for 1 line.",
+      "range": {
+        "startLine": 2378,
+        "startChar": 67,
+        "endLine": 2378,
+        "endChar": 84
+      },
+      "revId": "0bd6873a6acde49b3b5658f60b64f2a434a5e0b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4167fd_e247f375",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3259,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T07:20:54Z",
+      "side": 1,
+      "message": "Use 4-space indentation.",
+      "range": {
+        "startLine": 3259,
+        "startChar": 12,
+        "endLine": 3259,
+        "endChar": 20
+      },
+      "revId": "0bd6873a6acde49b3b5658f60b64f2a434a5e0b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c604e8_b440a200",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3267,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T07:20:54Z",
+      "side": 1,
+      "message": "add an empty line before the method.",
+      "revId": "0bd6873a6acde49b3b5658f60b64f2a434a5e0b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
