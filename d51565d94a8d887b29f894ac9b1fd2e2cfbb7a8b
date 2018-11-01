@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d14ef2e_30c2c2b6",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-01T18:28:36Z",
+      "side": 1,
+      "message": "It\u0027d be cool to move everything after the \"return\" into a separate function to make it extra obvious which functions do what (and perhaps someday not need these checks in as many places).\nPerhaps `def setupSubprojectArchiving`?",
+      "revId": "d51565d94a8d887b29f894ac9b1fd2e2cfbb7a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
