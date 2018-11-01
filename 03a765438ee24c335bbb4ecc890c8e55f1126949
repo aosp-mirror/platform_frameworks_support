@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25d83656_37f7e917",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-11-01T23:34:23Z",
+      "side": 1,
+      "message": "Just verifying that I have this correct: the only way to get here is if we have a retained fragment and the fragment manager is being destroyed (e.g. on configuration change). Otherwise it would either not get to destruction or it would get into the makeInactive() above. Right?",
+      "range": {
+        "startLine": 1044,
+        "startChar": 58,
+        "endLine": 1044,
+        "endChar": 88
+      },
+      "revId": "03a765438ee24c335bbb4ecc890c8e55f1126949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
