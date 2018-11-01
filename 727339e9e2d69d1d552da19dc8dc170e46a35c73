@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "79697478_901f9a09",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-11-01T17:39:53Z",
+      "side": 1,
+      "message": "My suggestion was TextLinks.mExtras can stay and do the work for TextLink.mExtras. So yes, I\u0027m suggesting this one stays but we can remove the other one. :)\nSorry if I wasn\u0027t clear.",
+      "parentUuid": "cb1552eb_10dca195",
+      "range": {
+        "startLine": 76,
+        "startChar": 25,
+        "endLine": 76,
+        "endChar": 32
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee1d7a36_50d5ffb0",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
