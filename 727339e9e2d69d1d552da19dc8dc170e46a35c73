@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "98b633ef_4273f924",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/BundleUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-01T09:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf1c040d_a9374cf7",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 43
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b6a0f65_b87bd4e2",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "cb1552eb_10dca195",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-01T09:58:01Z",
+      "side": 1,
+      "message": "Right, I think right now it\u0027s really mostly TextClassification that we\u0027re interested in, so happy to just remove it from TextLink until we need it.",
+      "parentUuid": "82b07040_471ac8b9",
+      "range": {
+        "startLine": 76,
+        "startChar": 25,
+        "endLine": 76,
+        "endChar": 32
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee1d7a36_50d5ffb0",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 1
@@ -86,6 +134,24 @@
       "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0b0356_ee4b8431",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-01T09:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee1d7a36_50d5ffb0",
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +263,30 @@
       "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dcaf27c_52e3d10a",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-01T09:58:01Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "acc67565_50f287cc",
+      "range": {
+        "startLine": 824,
+        "startChar": 40,
+        "endLine": 824,
+        "endChar": 65
+      },
+      "revId": "727339e9e2d69d1d552da19dc8dc170e46a35c73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
