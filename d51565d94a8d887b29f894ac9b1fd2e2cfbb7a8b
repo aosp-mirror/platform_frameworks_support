@@ -16,6 +16,24 @@
       "revId": "d51565d94a8d887b29f894ac9b1fd2e2cfbb7a8b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c304961b_b2567a9a",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-01T22:18:12Z",
+      "side": 1,
+      "message": "nice suggestion.\ncalled it for build server but open to changing.",
+      "parentUuid": "1d14ef2e_30c2c2b6",
+      "revId": "d51565d94a8d887b29f894ac9b1fd2e2cfbb7a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
