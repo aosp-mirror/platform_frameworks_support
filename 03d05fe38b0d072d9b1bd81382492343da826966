@@ -22,6 +22,29 @@
       "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a8be07_3e77b1ee",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-01T01:55:57Z",
+      "side": 1,
+      "message": "This will make null playlist will be passed to this callback, which is marked as @NonNull.",
+      "range": {
+        "startLine": 1193,
+        "startChar": 30,
+        "endLine": 1193,
+        "endChar": 47
+      },
+      "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
