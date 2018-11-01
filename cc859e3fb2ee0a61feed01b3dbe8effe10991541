@@ -22,6 +22,30 @@
       "revId": "cc859e3fb2ee0a61feed01b3dbe8effe10991541",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de074af1_29ce7ab6",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2018-11-01T03:58:16Z",
+      "side": 1,
+      "message": "Yes, it works but that requires a new dependency to TEST_CORE. benchmark/build.gradle currently only depends on TEST_RUNNER. This shouldn\u0027t be any concern but I want to minimize the change in this patch. Let me create another patch to replace this usage to ApplicationProvider as well as other usages in androidx. I touched this file in this patch because the gradle file specifies  \"failOnDeprecationWarnings \u003d true\" that makes the build to fail.\nhttps://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/benchmark/build.gradle",
+      "parentUuid": "086fea0f_5182ebcb",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 97
+      },
+      "revId": "cc859e3fb2ee0a61feed01b3dbe8effe10991541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
