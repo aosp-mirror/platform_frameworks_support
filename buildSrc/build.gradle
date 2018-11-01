@@ -41,6 +41,9 @@ dependencies {
     compile build_libs.gradle
     compile build_libs.error_prone_gradle
     compile build_libs.dokka_gradle
+    //compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.3.0'
+    //compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.3.0'
+    //compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.3.0'
     compile gradleApi()
     testCompile "junit:junit:4.12"
 }
