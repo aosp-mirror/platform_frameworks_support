@@ -22,6 +22,30 @@
       "revId": "bb54ca514191637a13daa9792ca7142aadecd4e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "252d0f7a_d908286a",
+        "filename": "loader/src/main/java/androidx/loader/content/AsyncTaskLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1122613
+      },
+      "writtenOn": "2018-11-01T18:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c98f892f_815ed0d4",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 7
+      },
+      "revId": "bb54ca514191637a13daa9792ca7142aadecd4e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
