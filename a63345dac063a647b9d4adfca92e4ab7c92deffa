@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "4c820f3a_6b089390",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Common.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-11-01T21:39:57Z",
+      "side": 1,
+      "message": "ImmutableOrEmpty doesn\u0027t really convey the semantics of this well - it sounds like you\u0027ll get back something immutable or something empty. But you\u0027ll always get back something immutable, and sometimes something empty. Strawmen: \u0027nonNullImmutable\u0027 (true, wordy, precise), \u0027wrapList\u0027 (true, vague, short)?",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15d50cb_86315841",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Common.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-11-01T21:39:57Z",
+      "side": 1,
+      "message": "optional/can do as a followup if needed: should these be package-private (i.e. not part of the public API), so you are empowered to make changes like this one (changing the return type and API signature)",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "234f61cb_2234116f",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 8
@@ -18,6 +64,29 @@
         "startChar": 58,
         "endLine": 189,
         "endChar": 0
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fc9294a_c6259763",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2018-11-01T21:39:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should mandate images whenever lanes are provided. Pretty much all the other images are optional, should this one be too? I don\u0027t feel strongly (Maps will provide both), but I can see an argument for consistency perhaps.",
+      "range": {
+        "startLine": 113,
+        "startChar": 14,
+        "endLine": 115,
+        "endChar": 20
       },
       "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
