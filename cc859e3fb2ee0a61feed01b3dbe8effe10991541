@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "086fea0f_5182ebcb",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2018-11-01T03:41:02Z",
+      "side": 1,
+      "message": "would ApplicationProvider.getApplicationContext() work here instead?",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 97
+      },
+      "revId": "cc859e3fb2ee0a61feed01b3dbe8effe10991541",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
