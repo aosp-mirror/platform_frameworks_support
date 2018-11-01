@@ -22,6 +22,29 @@
       "revId": "e3e4260f6eb073944ab7b5ec51f4398cefd6b8ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0920a3b_3ea16cb7",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T07:13:36Z",
+      "side": 1,
+      "message": "Please double check the annotation location.",
+      "range": {
+        "startLine": 147,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 24
+      },
+      "revId": "e3e4260f6eb073944ab7b5ec51f4398cefd6b8ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
