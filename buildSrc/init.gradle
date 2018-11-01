@@ -29,7 +29,7 @@ if (supportRoot == null) {
 def init = new Properties()
 ext.init = init
 rootProject.ext.versionChecker = new GMavenVersionChecker(rootProject.logger)
-
+rootProject.ext.invokedFromIde = rootProject.hasProperty("android.injected.invoked.from.ide")
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
 
 def setupRepoOutAndBuildNumber() {
@@ -56,108 +56,109 @@ def setupRepoOutAndBuildNumber() {
 def configureSubProjects() {
     subprojects {
         repos.addMavenRepositories(repositories)
+        if (!rootProject.ext.invokedFromIde) {
+            project.plugins.whenPluginAdded { plugin ->
+                def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
+                        .equals(plugin.class.name)
+                def isAndroidApp = "com.android.build.gradle.AppPlugin".equals(plugin.class.name)
 
-        project.plugins.whenPluginAdded { plugin ->
-            def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
-                    .equals(plugin.class.name)
-            def isAndroidApp = "com.android.build.gradle.AppPlugin".equals(plugin.class.name)
+                if (isAndroidLibrary || isAndroidApp) {
+                    // Copy the class files in a jar to be later used to generate code coverage report
+                    project.android.testVariants.all { v ->
+                        // check if the variant has any source files
+                        // and test coverage is enabled
+                        if (v.buildType.testCoverageEnabled
+                                && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
+                            def jarifyTask = project.tasks.create(
+                                    name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                                    type: Jar) {
+                                from v.testedVariant.javaCompile.destinationDir
+                                exclude "**/R.class"
+                                exclude "**/R\$*.class"
+                                exclude "**/BuildConfig.class"
+                                destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
+                                archiveName "${project.name}-${v.baseName}-allclasses.jar"
+                            }
 
-            if (isAndroidLibrary || isAndroidApp) {
-                // Copy the class files in a jar to be later used to generate code coverage report
-                project.android.testVariants.all { v ->
-                    // check if the variant has any source files
-                    // and test coverage is enabled
-                    if (v.buildType.testCoverageEnabled
-                            && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
-                        def jarifyTask = project.tasks.create(
-                                name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
-                                type: Jar) {
-                            from v.testedVariant.javaCompile.destinationDir
-                            exclude "**/R.class"
-                            exclude "**/R\$*.class"
-                            exclude "**/BuildConfig.class"
-                            destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
-                            archiveName "${project.name}-${v.baseName}-allclasses.jar"
+                            jarifyTask.dependsOn v.getJavaCompiler()
+                            v.assemble.dependsOn jarifyTask
                         }
-
-                        jarifyTask.dependsOn v.getJavaCompiler()
-                        v.assemble.dependsOn jarifyTask
                     }
                 }
             }
-        }
 
-        // Copy instrumentation test APKs and app APKs into the dist dir
-        // For test apks, they are uploaded only if we have java test sources.
-        // For regular app apks, they are uploaded only if they have java sources.
-        // Copy only the minDepVersions debug version since that is the publish
-        // flavor.
-        project.tasks.whenTaskAdded { task ->
-            if (task.name.startsWith("packageMinDepVersionsDebug")) {
-                // run this task only if we should run it
-                def testApk = task.name.contains("AndroidTest")
-                if (testApk) {
-                    AffectedModuleDetector.configureTaskGuard(task)
-                }
-                task.doLast {
-                    def source = testApk ? project.android.sourceSets.androidTest
-                            : project.android.sourceSets.main
-                    def hasKotlinSources = false
-                    if (source.hasProperty('kotlin')) {
-                        if (!source.kotlin.files.isEmpty()) {
-                            hasKotlinSources = true
-                        } else {
-                            // kotlin files does not show in java sources due to the *.java filter
-                            // so we need to check them manually
-                            hasKotlinSources = source.java.sourceDirectoryTrees.any {
-                                !fileTree(dir: it.dir, include:'**/*.kt').files.isEmpty()
+            // Copy instrumentation test APKs and app APKs into the dist dir
+            // For test apks, they are uploaded only if we have java test sources.
+            // For regular app apks, they are uploaded only if they have java sources.
+            // Copy only the minDepVersions debug version since that is the publish
+            // flavor.
+            project.tasks.whenTaskAdded { task ->
+                if (task.name.startsWith("packageMinDepVersionsDebug")) {
+                    // run this task only if we should run it
+                    def testApk = task.name.contains("AndroidTest")
+                    if (testApk) {
+                        AffectedModuleDetector.configureTaskGuard(task)
+                    }
+                    task.doLast {
+                        def source = testApk ? project.android.sourceSets.androidTest
+                                : project.android.sourceSets.main
+                        def hasKotlinSources = false
+                        if (source.hasProperty('kotlin')) {
+                            if (!source.kotlin.files.isEmpty()) {
+                                hasKotlinSources = true
+                            } else {
+                                // kotlin files does not show in java sources due to the *.java filter
+                                // so we need to check them manually
+                                hasKotlinSources = source.java.sourceDirectoryTrees.any {
+                                    !fileTree(dir: it.dir, include:'**/*.kt').files.isEmpty()
+                                }
                             }
                         }
-                    }
-                    def hasSourceCode = !source.java.sourceFiles.isEmpty() || hasKotlinSources
-                    if (task.hasProperty("outputDirectory") && (hasSourceCode || !testApk)) {
-                        copy {
-                            from(task.outputDirectory)
-                            include '*.apk'
-                            into(BuildServerConfigurationKt.getDistributionDirectory(rootProject))
-                            rename { String fileName ->
-                                // Exclude media-compat-test-* modules from existing support library
-                                // presubmit tests.
-                                if (fileName.contains("media-compat-test")) {
-                                    fileName
-                                            .replace(fileName,
-                                            "minDepVersions-${fileName}")
-                                            .replace("-minDepVersions-debug-androidTest", "")
-                                } else {
-                                    // multiple modules may have the same name so prefix the name with
-                                    // the module's path to ensure it is unique.
-                                    // e.g. palette-v7-debug-androidTest.apk becomes
-                                    // support-palette-v7_palette-v7-debug-androidTest.apk
-                                    "${project.getPath().replace(':', '-').substring(1)}_${fileName}"
+                        def hasSourceCode = !source.java.sourceFiles.isEmpty() || hasKotlinSources
+                        if (task.hasProperty("outputDirectory") && (hasSourceCode || !testApk)) {
+                            copy {
+                                from(task.outputDirectory)
+                                include '*.apk'
+                                into(BuildServerConfigurationKt.getDistributionDirectory(rootProject))
+                                rename { String fileName ->
+                                    // Exclude media-compat-test-* modules from existing support library
+                                    // presubmit tests.
+                                    if (fileName.contains("media-compat-test")) {
+                                        fileName
+                                                .replace(fileName,
+                                                "minDepVersions-${fileName}")
+                                                .replace("-minDepVersions-debug-androidTest", "")
+                                    } else {
+                                        // multiple modules may have the same name so prefix the name with
+                                        // the module's path to ensure it is unique.
+                                        // e.g. palette-v7-debug-androidTest.apk becomes
+                                        // support-palette-v7_palette-v7-debug-androidTest.apk
+                                        "${project.getPath().replace(':', '-').substring(1)}_${fileName}"
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        // copy host side test results to DIST
-        project.tasks.whenTaskAdded { task ->
-            if (task instanceof org.gradle.api.tasks.testing.Test) {
-                def junitReport = task.reports.junitXml
-                if (junitReport.enabled) {
-                    def zipTask = project.tasks.create(name : "zipResultsOf${task.name.capitalize()}", type : Zip) {
-                        destinationDir(BuildServerConfigurationKt.getHostTestResultDirectory(project))
-                        // first one is always :, drop it.
-                        archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
-                    }
-                    if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
-                        task.ignoreFailures = true
-                    }
-                    task.finalizedBy zipTask
-                    task.doFirst {
-                        zipTask.from(junitReport.destination)
+            // copy host side test results to DIST
+            project.tasks.whenTaskAdded { task ->
+                if (task instanceof org.gradle.api.tasks.testing.Test) {
+                    def junitReport = task.reports.junitXml
+                    if (junitReport.enabled) {
+                        def zipTask = project.tasks.create(name : "zipResultsOf${task.name.capitalize()}", type : Zip) {
+                            destinationDir(BuildServerConfigurationKt.getHostTestResultDirectory(project))
+                            // first one is always :, drop it.
+                            archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
+                        }
+                        if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
+                            task.ignoreFailures = true
+                        }
+                        task.finalizedBy zipTask
+                        task.doFirst {
+                            zipTask.from(junitReport.destination)
+                        }
                     }
                 }
             }
