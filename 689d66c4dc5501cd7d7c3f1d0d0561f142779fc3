@@ -104,6 +104,30 @@
     },
     {
       "key": {
+        "uuid": "6013c85c_3d4e1940",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-11-01T14:00:27Z",
+      "side": 1,
+      "message": "Formatted next line correctly",
+      "parentUuid": "629fb609_a7bd3e8f",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 82
+      },
+      "revId": "689d66c4dc5501cd7d7c3f1d0d0561f142779fc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91df6884_df4e8893",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/PagerSnapHelperTest.java",
         "patchSetId": 2
