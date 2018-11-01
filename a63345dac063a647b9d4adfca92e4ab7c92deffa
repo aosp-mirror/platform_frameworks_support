@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "234f61cb_2234116f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-01T21:31:55Z",
+      "side": 1,
+      "message": "Should this be the desired maximum width, rather than the desired width? I thought we decided the hint would be a bounding box, and the producer would then scale the image to fit in that box (that is, we want the consumer to know that they can just pass the dimensions of their bounding box here, rather than doing the math involving the original image size).",
+      "range": {
+        "startLine": 188,
+        "startChar": 58,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
