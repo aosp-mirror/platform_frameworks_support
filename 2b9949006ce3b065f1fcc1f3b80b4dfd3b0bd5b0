@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83b4d7cf_6b5a702d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3253,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-01T06:42:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f0a0bc4_11ddd67a",
+      "range": {
+        "startLine": 3253,
+        "startChar": 37,
+        "endLine": 3253,
+        "endChar": 49
+      },
+      "revId": "2b9949006ce3b065f1fcc1f3b80b4dfd3b0bd5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69062c69_0ec3a23c",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "2b9949006ce3b065f1fcc1f3b80b4dfd3b0bd5b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7cb4396_8db92a00",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3299,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-01T06:42:57Z",
+      "side": 1,
+      "message": "1) Because we want to know when the app goes to background\n\napp goes to background ---\u003e onPaused is called\nonPaused is called -X-\u003e app goes to background\n\n2) Done",
+      "parentUuid": "69062c69_0ec3a23c",
+      "range": {
+        "startLine": 3291,
+        "startChar": 0,
+        "endLine": 3299,
+        "endChar": 18
+      },
+      "revId": "2b9949006ce3b065f1fcc1f3b80b4dfd3b0bd5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
