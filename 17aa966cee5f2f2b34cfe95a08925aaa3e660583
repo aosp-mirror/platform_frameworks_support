@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "64e4b0cb_03261e7f",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-01T05:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce79aac8_2f3c17ca",
+      "range": {
+        "startLine": 1166,
+        "startChar": 20,
+        "endLine": 1166,
+        "endChar": 62
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1db9666_2814e598",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 15
@@ -69,6 +93,30 @@
       "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a5ade42_e4af1c8f",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-01T05:23:00Z",
+      "side": 1,
+      "message": "Yea, you are right, I forgot to remove this line of code.",
+      "parentUuid": "c1db9666_2814e598",
+      "range": {
+        "startLine": 574,
+        "startChar": 23,
+        "endLine": 574,
+        "endChar": 26
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6b75e5e1_f26b9100",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-01T05:23:00Z",
+      "side": 1,
+      "message": "Nope the developer can make the action using this constructor.\npublic AccessibilityActionCompat(int actionId, CharSequence label)\n\nand the command is only used in perform:\nreturn mCommand !\u003d null \u0026\u0026 mCommand.perform(view, null);\nwhich for a custom action the developer will override regardless.",
+      "parentUuid": "f3b19053_876fd788",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9950870b_321549c6",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
         "patchSetId": 15
@@ -115,6 +187,30 @@
       "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a39495a0_6a8fe09e",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityViewCommand.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-01T05:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9950870b_321549c6",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "17aa966cee5f2f2b34cfe95a08925aaa3e660583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
