@@ -18,13 +18,17 @@ package androidx.media.test.service.tests;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.TestCase.fail;
 
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.media.test.lib.TestUtils;
 import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaMetadata2.Builder;
+import androidx.media2.MediaUtils2;
 import androidx.media2.Rating2;
 import androidx.media2.ThumbRating2;
 import androidx.test.filters.SdkSuppress;
@@ -38,6 +42,8 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MediaMetadata2Test {
+    private static final String TAG = "MediaMetadata2Test";
+
     @Test
     public void testBuilder() {
         final Bundle extras = new Bundle();
@@ -57,5 +63,36 @@ public class MediaMetadata2Test {
         assertEquals(title, metadata.getString(MediaMetadata2.METADATA_KEY_DISPLAY_TITLE));
         assertEquals(discNumber, metadata.getLong(MediaMetadata2.METADATA_KEY_DISC_NUMBER));
         assertEquals(rating, metadata.getRating(MediaMetadata2.METADATA_KEY_USER_RATING));
+    }
+
+    @Test
+    public void testPuttingSmallBitmap() {
+        // 128 x 128 with ARGB_8888 is the maximum bitmap that can be set.
+        Bitmap smallBitmap = Bitmap.createBitmap(128, 128, Bitmap.Config.ARGB_8888);
+        int size = MediaUtils2.getBitmapSizeInBytes(smallBitmap);
+        Log.d(TAG, "Small Bitmap size=" + size);
+        assertTrue("Bitmap used in this test should be equal or less than " + size + " bytes",
+                size <= Builder.MAX_BITMAP_SIZE_IN_BYTES);
+
+        Builder builder = new Builder();
+        // This should not fail.
+        builder.putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, smallBitmap);
+    }
+
+    @Test
+    public void testPuttingLargeBitmapThrowsException() {
+        Bitmap largeBitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
+        int size = MediaUtils2.getBitmapSizeInBytes(largeBitmap);
+        Log.d(TAG, "Large Bitmap size=" + size);
+        assertTrue("Bitmap used in this test should be greater than " + size + " bytes",
+                size > Builder.MAX_BITMAP_SIZE_IN_BYTES);
+
+        Builder builder = new Builder();
+        try {
+            builder.putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, largeBitmap);
+            fail();
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 }

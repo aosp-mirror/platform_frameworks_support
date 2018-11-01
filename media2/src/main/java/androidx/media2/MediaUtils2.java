@@ -35,6 +35,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -720,5 +721,37 @@ public class MediaUtils2 {
             }
         }
         return trimedList;
+    }
+
+    /**
+     * Returns the size of the allocated memory used to store this bitmap's pixels.
+     * If {@code null} is given, then it returns {@link Integer#MAX_VALUE}.
+     */
+    public static int getBitmapSizeInBytes(@Nullable Bitmap bitmap) {
+        if (bitmap == null) {
+            return Integer.MAX_VALUE;
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            return bitmap.getAllocationByteCount();
+        } else {
+            return bitmap.getByteCount();
+        }
+    }
+
+    /**
+     * Scales down the given bitmap if its width or height is larger than {@param maxSize}.
+     */
+    public static Bitmap scaleDownBitmap(Bitmap bmp, int maxSize) {
+        if (bmp.getHeight() <= maxSize && bmp.getWidth() <= maxSize) {
+            // No need to scale down.
+            return bmp;
+        }
+        float maxSizeF = maxSize;
+        float widthScale = maxSizeF / bmp.getWidth();
+        float heightScale = maxSizeF / bmp.getHeight();
+        float scale = Math.min(widthScale, heightScale);
+        int height = (int) (bmp.getHeight() * scale);
+        int width = (int) (bmp.getWidth() * scale);
+        return Bitmap.createScaledBitmap(bmp, width, height, true);
     }
 }

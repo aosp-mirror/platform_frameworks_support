@@ -20,6 +20,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -927,10 +928,15 @@ public final class MediaMetadata2 implements VersionedParcelable {
     }
 
     /**
-     * Use to build MediaMetadata2x objects. The system defined metadata keys must
+     * Use to build MediaMetadata2 objects. The system defined metadata keys must
      * use the appropriate data type.
      */
     public static final class Builder {
+        /**
+         * Maximum size of bitmap that can be stored by using {@link #putBitmap(String, Bitmap)}.
+         */
+        public static final int MAX_BITMAP_SIZE_IN_BYTES = 64 * 1024; // 64KB
+
         final Bundle mBundle;
 
         /**
@@ -950,30 +956,6 @@ public final class MediaMetadata2 implements VersionedParcelable {
          */
         public Builder(@NonNull MediaMetadata2 source) {
             mBundle = new Bundle(source.toBundle());
-        }
-
-        /**
-         * Create a Builder using a {@link MediaMetadata2} instance to set
-         * initial values, but replace bitmaps with a scaled down copy if they
-         * are larger than maxBitmapSize.
-         *
-         * @param source The original metadata to copy.
-         * @param maxBitmapSize The maximum height/width for bitmaps contained
-         *            in the metadata.
-         * @hide
-         */
-        @RestrictTo(LIBRARY_GROUP)
-        public Builder(MediaMetadata2 source, int maxBitmapSize) {
-            this(source);
-            for (String key : mBundle.keySet()) {
-                Object value = mBundle.get(key);
-                if (value instanceof Bitmap) {
-                    Bitmap bmp = (Bitmap) value;
-                    if (bmp.getHeight() > maxBitmapSize || bmp.getWidth() > maxBitmapSize) {
-                        putBitmap(key, scaleBitmap(bmp, maxBitmapSize));
-                    }
-                }
-            }
         }
 
         /**
@@ -1144,10 +1126,10 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * <li>{@link #METADATA_KEY_ALBUM_ART}</li>
          * <li>{@link #METADATA_KEY_DISPLAY_ICON}</li>
          * </ul>
-         * Large bitmaps may be scaled down by the system when
-         * {@link android.media.session.MediaSession#setMetadata} is called.
-         * To pass full resolution images {@link Uri Uris} should be used with
-         * {@link #putString}.
+         * Note: This is <em>not</em> a recommended way to store any large bitmaps.
+         * If the given bitmap is larger than {@link #MAX_BITMAP_SIZE_IN_BYTES} bytes, an
+         * {@link IllegalArgumentException} will be thrown. To pass full resolution images,
+         * {@link Uri Uris} should be used with {@link #putString}.
          *
          * @param key The key for referencing this value
          * @param value The Bitmap to store
@@ -1157,6 +1139,12 @@ public final class MediaMetadata2 implements VersionedParcelable {
                 @Nullable Bitmap value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
+            }
+            if (value != null) {
+                if (MediaUtils2.getBitmapSizeInBytes(value) > MAX_BITMAP_SIZE_IN_BYTES) {
+                    throw new IllegalArgumentException("Bitmap is too large. Use URI with "
+                            + "putString() instead");
+                }
             }
             if (METADATA_KEYS_TYPE.containsKey(key)) {
                 if (METADATA_KEYS_TYPE.get(key) != METADATA_TYPE_BITMAP) {
@@ -1207,16 +1195,6 @@ public final class MediaMetadata2 implements VersionedParcelable {
          */
         public @NonNull MediaMetadata2 build() {
             return new MediaMetadata2(mBundle);
-        }
-
-        private Bitmap scaleBitmap(Bitmap bmp, int maxSize) {
-            float maxSizeF = maxSize;
-            float widthScale = maxSizeF / bmp.getWidth();
-            float heightScale = maxSizeF / bmp.getHeight();
-            float scale = Math.min(widthScale, heightScale);
-            int height = (int) (bmp.getHeight() * scale);
-            int width = (int) (bmp.getWidth() * scale);
-            return Bitmap.createScaledBitmap(bmp, width, height, true);
         }
     }
 }

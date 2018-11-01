@@ -20,9 +20,13 @@ import static android.support.mediacompat.testlib.util.IntentUtil.CLIENT_PACKAGE
 
 import static androidx.media.test.lib.CommonConstants.MOCK_MEDIA_SESSION_SERVICE;
 
+import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
+import android.support.mediacompat.service.R;
 
 import androidx.annotation.NonNull;
 import androidx.media.test.service.MockPlayer;
@@ -33,6 +37,7 @@ import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySess
 import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaSession2;
 import androidx.media2.MediaSession2.ControllerInfo;
+import androidx.media2.MediaUtils2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionPlayer2;
 import androidx.media2.SessionToken2;
@@ -55,7 +60,7 @@ import java.util.concurrent.CountDownLatch;
  */
 @LargeTest
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
-@Ignore("Comment out this line and manually run the test.")
+//@Ignore("Comment out this line and manually run the test.")
 public class MediaSessionService2NotificationTest extends MediaSession2TestBase {
     private static final long NOTIFICATION_SHOW_TIME_MS = 15000;
 
@@ -99,13 +104,19 @@ public class MediaSessionService2NotificationTest extends MediaSession2TestBase 
 
         // Set current media item.
         final String mediaId = "testMediaId";
-        Bitmap albumArt = BitmapFactory.decodeResource(mContext.getResources(),
-                android.support.mediacompat.service.R.drawable.big_buck_bunny);
+        int albumArtResId = R.drawable.big_buck_bunny;
+        Resources res = mContext.getResources();
+        Uri uri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(res.getResourcePackageName(albumArtResId))
+                .appendPath(res.getResourceTypeName(albumArtResId))
+                .appendPath(res.getResourceEntryName(albumArtResId))
+                .build();
         MediaMetadata2 metadata = new MediaMetadata2.Builder()
                 .putText(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId)
                 .putText(MediaMetadata2.METADATA_KEY_DISPLAY_TITLE, "Test Song Name")
                 .putText(MediaMetadata2.METADATA_KEY_ARTIST, "Test Artist Name")
-                .putBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART, albumArt)
+                .putString(MediaMetadata2.METADATA_KEY_ALBUM_ART_URI, uri.toString())
                 .putLong(MediaMetadata2.METADATA_KEY_PLAYABLE, 1)
                 .build();
         mPlayer.mCurrentMediaItem = new MediaItem2.Builder()

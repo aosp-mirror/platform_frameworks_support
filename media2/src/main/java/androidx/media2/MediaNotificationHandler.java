@@ -31,8 +31,12 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.RestrictTo;
@@ -41,6 +45,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.media.app.NotificationCompat.MediaStyle;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -53,6 +58,8 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 public class MediaNotificationHandler extends
         MediaSession2.SessionCallback.ForegroundServiceEventCallback {
+    private static final String TAG = "NotificationHandler";
+
     private static final int NOTIFICATION_ID = 1001;
     private static final String NOTIFICATION_CHANNEL_ID = "default_channel_id";
 
@@ -163,8 +170,25 @@ public class MediaNotificationHandler extends
                     title = metadata.getText(MediaMetadata2.METADATA_KEY_TITLE);
                 }
                 builder.setContentTitle(title)
-                        .setContentText(metadata.getText(MediaMetadata2.METADATA_KEY_ARTIST))
-                        .setLargeIcon(metadata.getBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART));
+                        .setContentText(metadata.getText(MediaMetadata2.METADATA_KEY_ARTIST));
+
+                Bitmap icon = null;
+                if (metadata.containsKey(MediaMetadata2.METADATA_KEY_ALBUM_ART_URI)) {
+                    Uri uri = Uri.parse(metadata.getString(
+                            MediaMetadata2.METADATA_KEY_ALBUM_ART_URI));
+                    try {
+                        icon = MediaStore.Images.Media.getBitmap(
+                                mServiceInstance.getContentResolver(), uri);
+                    } catch (IOException e) {
+                        Log.w(TAG, "IOException while getting bitmap from Uri: " + uri, e);
+                    }
+                }
+                if (icon == null && metadata.containsKey(MediaMetadata2.METADATA_KEY_ALBUM_ART)) {
+                    icon = metadata.getBitmap(MediaMetadata2.METADATA_KEY_ALBUM_ART);
+                }
+                if (icon != null) {
+                    builder.setLargeIcon(icon);
+                }
             }
         }
 
