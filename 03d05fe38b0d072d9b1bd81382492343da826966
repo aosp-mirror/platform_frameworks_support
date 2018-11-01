@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbc52b3a_bddfb0e9",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T01:11:23Z",
+      "side": 1,
+      "message": "\"(mPlaylist \u003d\u003d null || mPlaylist.size() \u003d\u003d 0)\" for better readability.",
+      "range": {
+        "startLine": 597,
+        "startChar": 19,
+        "endLine": 597,
+        "endChar": 61
+      },
+      "revId": "03d05fe38b0d072d9b1bd81382492343da826966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

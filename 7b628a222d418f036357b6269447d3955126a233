@@ -93,6 +93,30 @@
       "revId": "7b628a222d418f036357b6269447d3955126a233",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a04befcb_c37df3ad",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-01T01:11:23Z",
+      "side": 1,
+      "message": "For me, \"trim\" is a term that is used for removing the white spaces from the beginning and/or at the end. What about just removeNullElements?",
+      "parentUuid": "e7ef4419_15dae130",
+      "range": {
+        "startLine": 1177,
+        "startChar": 16,
+        "endLine": 1177,
+        "endChar": 53
+      },
+      "revId": "7b628a222d418f036357b6269447d3955126a233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
