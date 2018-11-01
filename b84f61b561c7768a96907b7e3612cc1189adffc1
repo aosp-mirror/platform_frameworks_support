@@ -16,6 +16,24 @@
       "revId": "b84f61b561c7768a96907b7e3612cc1189adffc1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ff22a6d_c5bfc45e",
+        "filename": "studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-01T01:23:07Z",
+      "side": 1,
+      "message": "It\u0027s ok, Treehugger, you can autosubmit",
+      "parentUuid": "047e49f4_0b7354d4",
+      "revId": "b84f61b561c7768a96907b7e3612cc1189adffc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
