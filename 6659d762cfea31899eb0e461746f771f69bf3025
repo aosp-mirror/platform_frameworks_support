@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0c8d6d31_6818dbc5",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-01T02:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17743192_8b0f337f",
+      "range": {
+        "startLine": 1144,
+        "startChar": 17,
+        "endLine": 1144,
+        "endChar": 30
+      },
+      "revId": "6659d762cfea31899eb0e461746f771f69bf3025",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c09f79f_27b47b42",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 3

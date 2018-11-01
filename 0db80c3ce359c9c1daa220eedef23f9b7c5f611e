@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8db8b36f_90accf93",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-01T02:12:22Z",
+      "side": 1,
+      "message": "I don\u0027t want to change but repo(?) hook complains that the indent is not allowed.",
+      "parentUuid": "5ca768fd_fcd65495",
+      "range": {
+        "startLine": 388,
+        "startChar": 16,
+        "endLine": 388,
+        "endChar": 24
+      },
+      "revId": "0db80c3ce359c9c1daa220eedef23f9b7c5f611e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5caad7ab_49a97100",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "0db80c3ce359c9c1daa220eedef23f9b7c5f611e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd6b27f_ed3e813b",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-01T02:12:22Z",
+      "side": 1,
+      "message": "Okay, please review the next patchset.",
+      "parentUuid": "5caad7ab_49a97100",
+      "range": {
+        "startLine": 1208,
+        "startChar": 20,
+        "endLine": 1208,
+        "endChar": 34
+      },
+      "revId": "0db80c3ce359c9c1daa220eedef23f9b7c5f611e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
