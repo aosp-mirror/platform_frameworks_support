@@ -266,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "06b5a06c_62d2b7b5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-01T03:14:48Z",
+      "side": 1,
+      "message": "As discussed, let\u0027s leave the aspect ratio locked down at 1:1 for now, but consider dropping the tintable requirement.",
+      "parentUuid": "7364bb2f_230e1a3b",
+      "range": {
+        "startLine": 354,
+        "startChar": 51,
+        "endLine": 356,
+        "endChar": 56
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3757efce_20cf2440",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
         "patchSetId": 5
@@ -305,6 +329,52 @@
         "startChar": 0,
         "endLine": 108,
         "endChar": 51
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f152fa4d_d953d19e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Segment.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-01T03:14:48Z",
+      "side": 1,
+      "message": "FWIW GMM won\u0027t be populating this any time soon (I don\u0027t think we have the data readily available). I\u0027d be fine with leaving it out for now.",
+      "range": {
+        "startLine": 38,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b2d8428_e8585b3d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-01T03:14:48Z",
+      "side": 1,
+      "message": "How about adding another example, for example \"Wallaby Way\", to make clear that the text could contain more than just connecting terms?",
+      "range": {
+        "startLine": 117,
+        "startChar": 59,
+        "endLine": 117,
+        "endChar": 66
       },
       "revId": "d5b0fcfe506e8b021cfd8ed28f449d032c991617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
