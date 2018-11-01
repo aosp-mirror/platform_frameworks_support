@@ -29,7 +29,7 @@ if (supportRoot == null) {
 def init = new Properties()
 ext.init = init
 rootProject.ext.versionChecker = new GMavenVersionChecker(rootProject.logger)
-
+rootProject.ext.invokedFromIde = rootProject.hasProperty("android.injected.invoked.from.ide")
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
 
 def setupRepoOutAndBuildNumber() {
@@ -56,7 +56,12 @@ def setupRepoOutAndBuildNumber() {
 def configureSubProjects() {
     subprojects {
         repos.addMavenRepositories(repositories)
-
+    }
+    if (!rootProject.ext.invokedFromIde) {
+        // skip build server related configuration as it breaks configure-on-demand
+        return
+    }
+    subprojects {
         project.plugins.whenPluginAdded { plugin ->
             def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
                     .equals(plugin.class.name)
