@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "254d3396_76491c6c",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-01T05:07:49Z",
+      "side": 1,
+      "message": "Dear dongwon/wei. Could you check NonNull/Nullable here?",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 40
+      },
+      "revId": "e3e4260f6eb073944ab7b5ec51f4398cefd6b8ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
