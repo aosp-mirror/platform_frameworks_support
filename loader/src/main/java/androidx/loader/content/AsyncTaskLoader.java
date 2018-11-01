@@ -117,7 +117,7 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
         }
     }
 
-    private final Executor mExecutor;
+    private Executor mExecutor;
 
     volatile LoadTask mTask;
     volatile LoadTask mCancellingTask;
@@ -127,12 +127,7 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
     Handler mHandler;
 
     public AsyncTaskLoader(@NonNull Context context) {
-        this(context, AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    private AsyncTaskLoader(@NonNull Context context, @NonNull Executor executor) {
         super(context);
-        mExecutor = executor;
     }
 
     /**
@@ -227,6 +222,9 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
                 }
             }
             if (DEBUG) Log.v(TAG, "Executing: " + mTask);
+            if (mExecutor == null) {
+                mExecutor = getExecutor();
+            }
             mTask.executeOnExecutor(mExecutor);
         }
     }
@@ -332,6 +330,19 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
      */
     public boolean isLoadInBackgroundCanceled() {
         return mCancellingTask != null;
+    }
+
+    /**
+     * Returns the {@link Executor} to use for this {@link Loader}'s {@link AsyncTask}s.
+     * By default {@link AsyncTask#THREAD_POOL_EXECUTOR} will be used.
+     *
+     * Override this method to return a custom executor. Note that this method only be called
+     * once before this {@link Loader} first {@link AsyncTask} is run.
+     *
+     * @return the {@link Executor} to use for this {@link Loader}'s {@link AsyncTask}s.
+     */
+    protected Executor getExecutor() {
+        return AsyncTask.THREAD_POOL_EXECUTOR;
     }
 
     /**
