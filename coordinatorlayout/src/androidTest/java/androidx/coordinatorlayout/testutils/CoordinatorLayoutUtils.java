@@ -16,9 +16,14 @@
 
 package androidx.coordinatorlayout.testutils;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.view.View;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.test.espresso.IdlingResource;
 
 public class CoordinatorLayoutUtils {
 
@@ -32,6 +37,72 @@ public class CoordinatorLayoutUtils {
         @Override
         public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
             return mDependency != null && dependency == mDependency;
+        }
+    }
+
+    public static class TranslateBehavior extends CoordinatorLayout.Behavior<View> {
+        public static final int TRANSLATION_MULTIPLIER = 7;
+
+        private final int mDependencyId;
+
+        public TranslateBehavior(@IdRes final int dependencyId) {
+            super();
+
+            mDependencyId = dependencyId;
+        }
+
+        @Override
+        public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull View child,
+                                       @NonNull View dependency) {
+            return dependency.getId() == mDependencyId
+                    || super.layoutDependsOn(parent, child, dependency);
+        }
+
+        @Override
+        public boolean onDependentViewChanged(@NonNull CoordinatorLayout parent,
+                                              @NonNull View child, @NonNull View dependency) {
+            child.setTranslationY(-dependency.getTranslationY() * TRANSLATION_MULTIPLIER);
+            return true;
+        }
+    }
+
+    public static class AnimationIdlingResource extends AnimatorListenerAdapter
+            implements IdlingResource {
+
+        private boolean mIsIdle = true;
+        private ResourceCallback mCallback;
+
+        @Override
+        public String getName() {
+            return "AnimationIdlingResource";
+        }
+
+        @Override
+        public boolean isIdleNow() {
+            return mIsIdle;
+        }
+
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback callback) {
+            mCallback = callback;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            setIdle(false);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            setIdle(true);
+        }
+
+        private void setIdle(boolean idle) {
+            boolean wasIdle = mIsIdle;
+            mIsIdle = idle;
+            if (mIsIdle && !wasIdle && mCallback != null) {
+                mCallback.onTransitionToIdle();
+            }
         }
     }
 

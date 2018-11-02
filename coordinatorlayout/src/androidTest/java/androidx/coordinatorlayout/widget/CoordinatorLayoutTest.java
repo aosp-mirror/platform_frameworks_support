@@ -19,10 +19,13 @@ package androidx.coordinatorlayout.widget;
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -47,6 +50,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.widget.ImageView;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.test.R;
 import androidx.coordinatorlayout.testutils.CoordinatorLayoutUtils;
@@ -55,6 +59,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.rule.ActivityTestRule;
@@ -734,6 +739,76 @@ public class CoordinatorLayoutTest {
         // getInsetDodgeRect() called
         verify(spyBehavior, never())
                 .getInsetDodgeRect(same(col), same(view), any(Rect.class));
+    }
+
+
+    @Test
+    public void testDependentViewChangedForSmallChanges() throws Throwable {
+        final CoordinatorLayout col = mActivityTestRule.getActivity().mCoordinatorLayout;
+
+        final View view = new View(col.getContext());
+
+        @IdRes final int id = View.generateViewId();
+        final View dependency = new View(col.getContext());
+        dependency.setId(id);
+
+        final CoordinatorLayout.Behavior<View> behavior =
+                spy(new CoordinatorLayoutUtils.TranslateBehavior(id));
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final CoordinatorLayout.LayoutParams lp = col.generateDefaultLayoutParams();
+                lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                lp.height = 60;
+                lp.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
+                col.addView(dependency, lp);
+            }
+        });
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final CoordinatorLayout.LayoutParams lp = col.generateDefaultLayoutParams();
+                lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+                lp.height = 60;
+                lp.width = CoordinatorLayout.LayoutParams.MATCH_PARENT;
+                lp.setBehavior(behavior);
+
+                col.addView(view, lp);
+            }
+        });
+
+        final CoordinatorLayoutUtils.AnimationIdlingResource idlingResource =
+                new CoordinatorLayoutUtils.AnimationIdlingResource();
+        IdlingRegistry.getInstance().register(idlingResource);
+
+        // Wait for a layout
+        mInstrumentation.waitForIdleSync();
+
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dependency.animate().translationYBy(20f).setListener(idlingResource).start();
+            }
+        });
+
+        // Wait for a layout
+        mInstrumentation.waitForIdleSync();
+
+        onView(withId(id)).check(matches(isDisplayed()));
+
+        verify(behavior, atLeastOnce())
+                .onDependentViewChanged(same(col), same(view), same(dependency));
+        assertEquals("Unexpected translation value: " + dependency.getTranslationY(),
+                20f, dependency.getTranslationY(), 0.0);
+        assertEquals("Dependent view not in final position. Actual position is "
+                        + view.getTranslationY(),
+                dependency.getTranslationY()
+                        * CoordinatorLayoutUtils.TranslateBehavior.TRANSLATION_MULTIPLIER * -1,
+                view.getTranslationY(), 0.0);
+
+        IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
     public static class NestedScrollingBehavior extends CoordinatorLayout.Behavior<View> {
