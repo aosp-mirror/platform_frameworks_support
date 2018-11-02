@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c3f658ce_06506f60",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T22:53:45Z",
+      "side": 1,
+      "message": "requestLayout should trigger a measure pass:\nhttps://plus.google.com/+ArpitMathur/posts/cT1EuBbxEgN\n\nWhen it was requestLayout(), did you verify that onMeasure() is not called? We should debug this further. We shouldn\u0027t call any measure methods outside of the measuring passes",
+      "parentUuid": "0d25299d_3dc4c39c",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6538b63_3973a542",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 3
