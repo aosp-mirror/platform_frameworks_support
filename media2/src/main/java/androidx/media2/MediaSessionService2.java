@@ -21,6 +21,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -111,6 +112,8 @@ public abstract class MediaSessionService2 extends Service {
      * The {@link Intent} that must be declared as handled by the service.
      */
     public static final String SERVICE_INTERFACE = "android.media.MediaSessionService2";
+
+    private static final String TAG = "MediaSessionService2";
 
     private final MediaSessionService2Impl mImpl;
 
@@ -203,7 +206,8 @@ public abstract class MediaSessionService2 extends Service {
      */
     public @Nullable MediaNotification onUpdateNotification(@NonNull MediaSession2 session) {
         if (session == null) {
-            throw new IllegalArgumentException("session shouldn't be null");
+            Log.w(TAG, "session shouldn't be null");
+            return null;
         }
         return mImpl.onUpdateNotification(session);
     }
