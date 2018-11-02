@@ -581,7 +581,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     @Override
     public ListenableFuture<PlayerResult> play() {
         // TODO: Make commands be executed sequentially
-        if (mAudioFocusHandler.onPlayRequested()) {
+        if (mAudioFocusHandler.onPlay()) {
             final ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
             synchronized (mPendingCommands) {
                 Object token = mPlayer.play();
@@ -597,7 +597,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     public ListenableFuture<PlayerResult> pause() {
         ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
         // TODO: Make commands be executed sequentially
-        mAudioFocusHandler.onPauseRequested();
+        mAudioFocusHandler.onPause();
         synchronized (mPendingCommands) {
             Object token = mPlayer.pause();
             addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_PAUSE, future, token);
@@ -1099,6 +1099,8 @@ public class XMediaPlayer extends SessionPlayer2 {
      * media item and calling {@link #prepare()}.
      */
     public void reset() {
+        // TODO: Make commands be executed sequentially
+        mAudioFocusHandler.onReset();
         mPlayer.reset();
         synchronized (mPendingCommands) {
             // Cancel the pending futures.
