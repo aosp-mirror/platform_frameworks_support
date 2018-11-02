@@ -35,9 +35,9 @@ import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_REWIND;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SET_RATING;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SKIP_BACKWARD;
@@ -464,8 +464,8 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         prepareLooper();
         final String mediaId = "testPrepareFromMediaId";
         createSessionWithAllowedActions(
-                createCommandGroupWith(COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID));
-        createRemoteController2(mSession.getToken()).prefetchFromMediaId(mediaId, null);
+                createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID));
+        createRemoteController2(mSession.getToken()).prepareFromMediaId(mediaId, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromMediaIdCalled);
@@ -473,8 +473,8 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         assertNull(mCallback.mExtras);
 
         createSessionWithAllowedActions(
-                createCommandGroupWithout(COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID));
-        createRemoteController2(mSession.getToken()).prefetchFromMediaId(mediaId, null);
+                createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID));
+        createRemoteController2(mSession.getToken()).prepareFromMediaId(mediaId, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromMediaIdCalled);
     }
@@ -482,10 +482,10 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
     @Test
     public void testPrepareFromUri() throws InterruptedException {
         prepareLooper();
-        final Uri uri = Uri.parse("prefetch://from.uri");
+        final Uri uri = Uri.parse("prepare://from.uri");
         createSessionWithAllowedActions(
-                createCommandGroupWith(COMMAND_CODE_SESSION_PREFETCH_FROM_URI));
-        createRemoteController2(mSession.getToken()).prefetchFromUri(uri, null);
+                createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_URI));
+        createRemoteController2(mSession.getToken()).prepareFromUri(uri, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromUriCalled);
@@ -493,8 +493,8 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         assertNull(mCallback.mExtras);
 
         createSessionWithAllowedActions(
-                createCommandGroupWithout(COMMAND_CODE_SESSION_PREFETCH_FROM_URI));
-        createRemoteController2(mSession.getToken()).prefetchFromUri(uri, null);
+                createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_URI));
+        createRemoteController2(mSession.getToken()).prepareFromUri(uri, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromUriCalled);
     }
@@ -504,8 +504,8 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         prepareLooper();
         final String query = "testPrepareFromSearch";
         createSessionWithAllowedActions(
-                createCommandGroupWith(COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH));
-        createRemoteController2(mSession.getToken()).prefetchFromSearch(query, null);
+                createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
+        createRemoteController2(mSession.getToken()).prepareFromSearch(query, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromSearchCalled);
@@ -513,8 +513,8 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         assertNull(mCallback.mExtras);
 
         createSessionWithAllowedActions(
-                createCommandGroupWithout(COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH));
-        createRemoteController2(mSession.getToken()).prefetchFromSearch(query, null);
+                createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
+        createRemoteController2(mSession.getToken()).prepareFromSearch(query, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromSearchCalled);
     }
@@ -545,10 +545,10 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         prepareLooper();
         final String query = "testChangingPermissionWithSetAllowedCommands";
         createSessionWithAllowedActions(
-                createCommandGroupWith(COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH));
+                createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
         RemoteMediaController2 controller = createRemoteController2(mSession.getToken());
 
-        controller.prefetchFromSearch(query, null);
+        controller.prepareFromSearch(query, null);
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromSearchCalled);
         assertEquals(query, mCallback.mQuery);
@@ -557,10 +557,10 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
 
         // Change allowed commands.
         mSession.setAllowedCommands(getTestControllerInfo(),
-                createCommandGroupWithout(COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH));
+                createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
         Thread.sleep(TIMEOUT_MS);
 
-        controller.prefetchFromSearch(query, null);
+        controller.prepareFromSearch(query, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -706,7 +706,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         }
 
         @Override
-        public int onPrefetchFromMediaId(MediaSession2 session, ControllerInfo controller,
+        public int onPrepareFromMediaId(MediaSession2 session, ControllerInfo controller,
                 String mediaId, Bundle extras) {
             assertTrue(TextUtils.equals(CLIENT_PACKAGE_NAME, controller.getPackageName()));
             mOnPrepareFromMediaIdCalled = true;
@@ -717,7 +717,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         }
 
         @Override
-        public int onPrefetchFromSearch(MediaSession2 session, ControllerInfo controller,
+        public int onPrepareFromSearch(MediaSession2 session, ControllerInfo controller,
                 String query, Bundle extras) {
             assertTrue(TextUtils.equals(CLIENT_PACKAGE_NAME, controller.getPackageName()));
             mOnPrepareFromSearchCalled = true;
@@ -728,7 +728,7 @@ public class MediaSession2_PermissionTest extends MediaSession2TestBase {
         }
 
         @Override
-        public int onPrefetchFromUri(MediaSession2 session, ControllerInfo controller,
+        public int onPrepareFromUri(MediaSession2 session, ControllerInfo controller,
                 Uri uri, Bundle extras) {
             assertTrue(TextUtils.equals(CLIENT_PACKAGE_NAME, controller.getPackageName()));
             mOnPrepareFromUriCalled = true;

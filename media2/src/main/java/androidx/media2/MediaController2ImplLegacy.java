@@ -286,7 +286,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prefetch() {
+    public ListenableFuture<ControllerResult> prepare() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -385,7 +385,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prefetchFromMediaId(@NonNull String mediaId,
+    public ListenableFuture<ControllerResult> prepareFromMediaId(@NonNull String mediaId,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -398,7 +398,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prefetchFromSearch(@NonNull String query,
+    public ListenableFuture<ControllerResult> prepareFromSearch(@NonNull String query,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -411,7 +411,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prefetchFromUri(@NonNull Uri uri,
+    public ListenableFuture<ControllerResult> prepareFromUri(@NonNull Uri uri,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
