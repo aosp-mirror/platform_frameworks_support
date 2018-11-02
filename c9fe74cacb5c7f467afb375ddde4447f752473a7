@@ -22,6 +22,30 @@
       "revId": "c9fe74cacb5c7f467afb375ddde4447f752473a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd1be0e_84b35641",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-02T08:14:34Z",
+      "side": 1,
+      "message": "Created a new issue",
+      "parentUuid": "12e0064f_ccac5d89",
+      "range": {
+        "startLine": 11,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "c9fe74cacb5c7f467afb375ddde4447f752473a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
