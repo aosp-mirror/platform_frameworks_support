@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89c6b4fe_edd5aba5",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/utils/Assert.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Why an interface and not a class? You\u0027re not using it like an interface",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "988ada61_ff096e3a",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/utils/Assert.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Add javadoc.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2b9295_654a114a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "nit: can you add a new line before this?",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "584b43ef_95630b50",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Add @IntRange to the width and height parameters. Like this:\n\nhttp://cs/android/frameworks/support/car/core/src/main/java/androidx/car/widget/ListItemAdapter.java?l\u003d206\u0026rcl\u003d3fb875b4c45b05f95d80fc621ce438d536747616",
+      "range": {
+        "startLine": 85,
+        "startChar": 42,
+        "endLine": 85,
+        "endChar": 55
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34536c95_4aaf2915",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Can these be private? I don\u0027t see you accessing them anywhere",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53de5f7d_e6d58168",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "@IntRange to both of these",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 60
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7886926b_a77e1155",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Is this considered an error? Should you throw if someone tries to set a content URI that doesn\u0027t start with content://?",
+      "range": {
+        "startLine": 165,
+        "startChar": 93,
+        "endLine": 166,
+        "endChar": 93
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07e6fb0c_09426a64",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "@IntRange here as well",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b449dde_12d0df18",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "private?",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2a8322_c2d3d656",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Private?",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d658d5_a883280b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:28:22Z",
+      "side": 1,
+      "message": "Check unecesssary",
+      "range": {
+        "startLine": 117,
+        "startChar": 15,
+        "endLine": 117,
+        "endChar": 37
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
