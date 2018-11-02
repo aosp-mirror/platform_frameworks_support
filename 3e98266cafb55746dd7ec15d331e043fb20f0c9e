@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d25299d_3dc4c39c",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-02T22:42:23Z",
+      "side": 1,
+      "message": "No, requestLayout will only call onLayout method, while the thumb is not measured properly. \n\nOn method setParameterInlayout, it also called measureAndLayoutScrollThumb, so I am wondering if this is fine. This is the only solution I have found, or the scroll thumb will be very short when the screen come back to normal size, which is not correct.",
+      "parentUuid": "fdab745d_3537d745",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6538b63_3973a542",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 3
