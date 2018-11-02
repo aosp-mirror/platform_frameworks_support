@@ -560,7 +560,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
             }
             mHandlerThread = null;
         }
-        runPlayerCallableBlocking(new Callable<Void>() {
+        runPlayerCallableBlockingWithActiveHandlerThread(new Callable<Void>() {
             @Override
             public Void call() {
                 mPlayer.close();
@@ -772,14 +772,25 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
         });
     }
 
+
     /**
      * Runs the specified callable on the player thread, blocking the calling thread until a result
      * is returned.
      *
      * <p>Note: ExoPlayer methods apart from {@link Player#release} are asynchronous, so calling
      * player methods will not block the caller thread for a substantial amount of time.
+     *
+     * @throws IllegalStateException If the player has been closed.
      */
     private <T> T runPlayerCallableBlocking(final Callable<T> callable) {
+        synchronized (mLock) {
+            Preconditions.checkState(mHandlerThread != null);
+        }
+        return runPlayerCallableBlockingWithActiveHandlerThread(callable);
+    }
+
+    /** Runs the specified callable on the player thread, with an active handler thread. */
+    private <T> T runPlayerCallableBlockingWithActiveHandlerThread(final Callable<T> callable) {
         final ResolvableFuture<T> future = ResolvableFuture.create();
         mTaskHandler.post(new Runnable() {
             @Override
