@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "0b3a73a1_619aa744",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/utils/Assert.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Assert should never be instantiated as it is just a container of helper methods. \nBut now checking on the Junit \"Assertions\" class I noticed they still use a class with a protected constructor.\nI switched to follow their style.",
+      "parentUuid": "89c6b4fe_edd5aba5",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe2b9295_654a114a",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 9
@@ -62,6 +86,24 @@
       "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4195389b_bfe5fb4e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe2b9295_654a114a",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "80246860_0ec461ff",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done, and all other Builders as well.",
+      "parentUuid": "34536c95_4aaf2915",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53de5f7d_e6d58168",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 9
@@ -125,6 +185,30 @@
       "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "692676b1_2c462749",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53de5f7d_e6d58168",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 60
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "26f7ddb9_23da6155",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Yes, we are throwing an error if someone wants to build an invalid contentUri (see Builder#setContentUri() preconditions), but we don\u0027t want to surprise the consumer with an exception if a wrong string is received for some unexpected reason.\nThe overall design of this API is that either the consumer receives what is expected, or it doesn\u0027t receive anything, but we remove them from having to recover from a deserialization problem.",
+      "parentUuid": "7886926b_a77e1155",
+      "range": {
+        "startLine": 165,
+        "startChar": 93,
+        "endLine": 166,
+        "endChar": 93
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07e6fb0c_09426a64",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 9
@@ -165,6 +273,24 @@
       "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9453ae93_e98a490b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07e6fb0c_09426a64",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "a7d09d32_b862cb61",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b449dde_12d0df18",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f2a8322_c2d3d656",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 9
@@ -199,6 +343,24 @@
       "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3146a1e_d875f730",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f2a8322_c2d3d656",
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -222,6 +384,30 @@
       "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f260f73_a851a76c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-02T01:19:14Z",
+      "side": 1,
+      "message": "We could receive a Parcelable that has a null value for this field (see the empty constructor that is used by VersionedParcelable). \nSee an example at NavigationStateTest#nullStringFieldDeserialization()",
+      "parentUuid": "f2d658d5_a883280b",
+      "range": {
+        "startLine": 117,
+        "startChar": 15,
+        "endLine": 117,
+        "endChar": 37
+      },
+      "revId": "992f061005c51b3f1c234fd05d1aac4f36c71915",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
