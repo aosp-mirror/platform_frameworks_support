@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3e89517_74ce56eb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3255,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-02T02:21:12Z",
+      "side": 1,
+      "message": "Please add a comment why this is needed.",
+      "range": {
+        "startLine": 3255,
+        "startChar": 12,
+        "endLine": 3255,
+        "endChar": 52
+      },
+      "revId": "119895f399149a798cfe96f713e43d9fbb666ac4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
