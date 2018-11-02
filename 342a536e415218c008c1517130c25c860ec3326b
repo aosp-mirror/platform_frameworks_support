@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83824524_a0bc6e05",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioKotlinTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2018-11-02T23:25:19Z",
+      "side": 1,
+      "message": "Wow, this looks so nice.",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "342a536e415218c008c1517130c25c860ec3326b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5370065_92b470cf",
+        "filename": "fragment/testing/src/main/java/androidx/fragment/app/testing/FragmentScenario.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2018-11-02T23:25:19Z",
+      "side": 1,
+      "message": "[nit] remove blank line.",
+      "revId": "342a536e415218c008c1517130c25c860ec3326b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
