@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdab745d_3537d745",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:34:20Z",
+      "side": 1,
+      "message": "Does calling requestLayout not work here? \n\nIn general, we want to avoid calling measure methods directly unless we know we\u0027re in the onMeasure/onLayout steps. \n\nsetParametersInLayout() is intended to be called during these stages, which is why it calls measure directly.",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6538b63_3973a542",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:34:20Z",
+      "side": 1,
+      "message": "You can remove this comment. I don\u0027t think it really applies to this line.",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df53a15_1b87bc1b",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:34:20Z",
+      "side": 1,
+      "message": "Reword to:\n\nCheck if there is enough room to draw the buttons.\n\nYou can reword the other comments to be of similar style: \"Check if ...\"",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db55eeaa_d52c829c",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:34:20Z",
+      "side": 1,
+      "message": "You should add white space after the \"//\":\nhttp://go/java-style#s4.6.2-horizontal-whitespace",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ecb15c_b5838ee5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-02T00:34:20Z",
+      "side": 1,
+      "message": "Was there a reason why setting visibility wasn\u0027t enough to determine if we should lay out these views?\n\nI prefer setting the visibility because it\u0027s one less state variable you have to keep track of.",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
