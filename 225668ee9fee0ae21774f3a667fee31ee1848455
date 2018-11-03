@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ce2cd51_6b09c94b",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-03T00:54:15Z",
+      "side": 1,
+      "message": "Would that be through a developer error? If yes, please document this behavior, because it would be hard for the dev to figure this out without an AudioFlinger bugreport decoding license ;-)",
+      "range": {
+        "startLine": 162,
+        "startChar": 30,
+        "endLine": 162,
+        "endChar": 81
+      },
+      "revId": "225668ee9fee0ae21774f3a667fee31ee1848455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb1aa11_6cc910b9",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-03T00:54:15Z",
+      "side": 1,
+      "message": "repetition of comment.\nBut really?",
+      "range": {
+        "startLine": 425,
+        "startChar": 81,
+        "endLine": 426,
+        "endChar": 32
+      },
+      "revId": "225668ee9fee0ae21774f3a667fee31ee1848455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
