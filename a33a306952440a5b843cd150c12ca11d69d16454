@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf3fe89d_edfb138b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-05T04:26:13Z",
+      "side": 1,
+      "message": "did you also tried \u0027./gradlew media2:connectedCheck\u0027?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "a33a306952440a5b843cd150c12ca11d69d16454",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
