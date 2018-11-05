@@ -77,7 +77,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <a name="AudioFocusAndNoisyIntent"></a>
  * <h3>Audio focus and noisy intent</h3>
  * <p>
- * By default, {@link XMediaPlayer} handles audio focus and noisy intent with
+ * By default, {@link MediaPlayer} handles audio focus and noisy intent with
  * {@link AudioAttributesCompat} set to this player. You need to call
  * {@link #setAudioAttributes(AudioAttributesCompat)} set the audio attribute while in the
  * {@link #PLAYER_STATE_IDLE}.
@@ -129,8 +129,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>
  */
 @TargetApi(Build.VERSION_CODES.P)
-public class XMediaPlayer extends SessionPlayer2 {
-    private static final String TAG = "XMediaPlayer";
+public class MediaPlayer extends SessionPlayer2 {
+    private static final String TAG = "MediaPlayer";
 
     /**
      * Unspecified player error.
@@ -548,7 +548,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     @GuardedBy("mPlaylistLock")
     private boolean mSetMediaItemCalled;
 
-    public XMediaPlayer(Context context) {
+    public MediaPlayer(Context context) {
         mState = PLAYER_STATE_IDLE;
         mPlayer = MediaPlayer2.create(context);
         mExecutor = Executors.newFixedThreadPool(1);
@@ -771,7 +771,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             @Override
             public void callCallback(
                     SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
             }
         });
         if (curItem != null) {
@@ -816,7 +816,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             @Override
             public void callCallback(
                     SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
             }
         });
 
@@ -855,7 +855,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                 @Override
                 public void callCallback(
                         SessionPlayer2.PlayerCallback callback) {
-                    callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                    callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
                 }
             });
         }
@@ -905,7 +905,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             @Override
             public void callCallback(
                     SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistChanged(XMediaPlayer.this, playlist, metadata);
+                callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
             }
         });
 
@@ -989,7 +989,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             @Override
             public void callCallback(
                     SessionPlayer2.PlayerCallback callback) {
-                callback.onPlaylistMetadataChanged(XMediaPlayer.this, metadata);
+                callback.onPlaylistMetadataChanged(MediaPlayer.this, metadata);
             }
         });
 
@@ -1013,7 +1013,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                 @Override
                 public void callCallback(
                         SessionPlayer2.PlayerCallback callback) {
-                    callback.onRepeatModeChanged(XMediaPlayer.this, repeatMode);
+                    callback.onRepeatModeChanged(MediaPlayer.this, repeatMode);
                 }
             });
         }
@@ -1037,7 +1037,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                 @Override
                 public void callCallback(
                         SessionPlayer2.PlayerCallback callback) {
-                    callback.onShuffleModeChanged(XMediaPlayer.this, shuffleMode);
+                    callback.onShuffleModeChanged(MediaPlayer.this, shuffleMode);
                 }
             });
         }
@@ -1094,7 +1094,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     /**
-     * Resets {@link XMediaPlayer} to its uninitialized state. After calling
+     * Resets {@link MediaPlayer} to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
      * media item and calling {@link #prepare()}.
      */
@@ -1708,7 +1708,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                 new MediaPlayer2.OnDrmConfigHelper() {
                     @Override
                     public void onDrmConfig(MediaPlayer2 mp, MediaItem2 item) {
-                        listener.onDrmConfig(XMediaPlayer.this, item);
+                        listener.onDrmConfig(MediaPlayer.this, item);
                     }
                 });
     }
@@ -1726,7 +1726,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(SessionPlayer2.PlayerCallback callback) {
-                    callback.onPlayerStateChanged(XMediaPlayer.this, state);
+                    callback.onPlayerStateChanged(MediaPlayer.this, state);
                 }
             });
         }
@@ -1742,7 +1742,7 @@ public class XMediaPlayer extends SessionPlayer2 {
             notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(SessionPlayer2.PlayerCallback callback) {
-                    callback.onBufferingStateChanged(XMediaPlayer.this, item, state);
+                    callback.onBufferingStateChanged(MediaPlayer.this, item, state);
                 }
             });
         }
@@ -1763,7 +1763,7 @@ public class XMediaPlayer extends SessionPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void notifyXMediaPlayerCallback(final XMediaPlayerCallbackNotifier notifier) {
+    void notifyMediaPlayerCallback(final MediaPlayerCallbackNotifier notifier) {
         List<Pair<SessionPlayer2.PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<SessionPlayer2.PlayerCallback, Executor> pair : callbacks) {
             if (pair.first instanceof PlayerCallback) {
@@ -1782,7 +1782,7 @@ public class XMediaPlayer extends SessionPlayer2 {
         void callCallback(SessionPlayer2.PlayerCallback callback);
     }
 
-    private interface XMediaPlayerCallbackNotifier {
+    private interface MediaPlayerCallbackNotifier {
         void callCallback(PlayerCallback callback);
     }
 
@@ -1937,7 +1937,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onSeekCompleted(XMediaPlayer.this, pos);
+                            callback.onSeekCompleted(MediaPlayer.this, pos);
                         }
                     });
                     break;
@@ -1946,7 +1946,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onCurrentMediaItemChanged(XMediaPlayer.this, item);
+                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item);
                         }
                     });
                     break;
@@ -1957,7 +1957,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onPlaybackSpeedChanged(XMediaPlayer.this, speed);
+                            callback.onPlaybackSpeedChanged(MediaPlayer.this, speed);
                         }
                     });
                     break;
@@ -1966,7 +1966,7 @@ public class XMediaPlayer extends SessionPlayer2 {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(SessionPlayer2.PlayerCallback callback) {
-                            callback.onAudioAttributesChanged(XMediaPlayer.this, attr);
+                            callback.onAudioAttributesChanged(MediaPlayer.this, attr);
                         }
                     });
                     break;
@@ -2002,10 +2002,10 @@ public class XMediaPlayer extends SessionPlayer2 {
         @Override
         public void onDrmInfo(
                 MediaPlayer2 mp, final MediaItem2 item, final MediaPlayer2.DrmInfo drmInfo) {
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onDrmInfo(XMediaPlayer.this, item,
+                    callback.onDrmInfo(MediaPlayer.this, item,
                             drmInfo == null ? null : new DrmInfo(drmInfo));
                 }
             });
@@ -2022,10 +2022,10 @@ public class XMediaPlayer extends SessionPlayer2 {
         @Override
         public void onVideoSizeChanged(
                 MediaPlayer2 mp, final MediaItem2 item, final int width, final int height) {
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onVideoSizeChanged(XMediaPlayer.this, item, width, height);
+                    callback.onVideoSizeChanged(MediaPlayer.this, item, width, height);
                 }
             });
         }
@@ -2033,10 +2033,10 @@ public class XMediaPlayer extends SessionPlayer2 {
         @Override
         public void onTimedMetaDataAvailable(
                 MediaPlayer2 mp, final MediaItem2 item, final TimedMetaData2 data) {
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onTimedMetaDataAvailable(XMediaPlayer.this, item, data);
+                    callback.onTimedMetaDataAvailable(MediaPlayer.this, item, data);
                 }
             });
         }
@@ -2046,10 +2046,10 @@ public class XMediaPlayer extends SessionPlayer2 {
                 MediaPlayer2 mp, final MediaItem2 item, final int what, final int extra) {
             setState(PLAYER_STATE_ERROR);
             setBufferingState(item, BUFFERING_STATE_UNKNOWN);
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onError(XMediaPlayer.this, item, what, extra);
+                    callback.onError(MediaPlayer.this, item, what, extra);
                 }
             });
         }
@@ -2075,16 +2075,16 @@ public class XMediaPlayer extends SessionPlayer2 {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(SessionPlayer2.PlayerCallback callback) {
-                            callback.onPlaybackCompleted(XMediaPlayer.this);
+                            callback.onPlaybackCompleted(MediaPlayer.this);
                         }
                     });
                     break;
             }
             final int what = sInfoCodeMap.getOrDefault(mp2What, MEDIA_INFO_UNKNOWN);
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onInfo(XMediaPlayer.this, item, what, extra);
+                    callback.onInfo(MediaPlayer.this, item, what, extra);
                 }
             });
         }
@@ -2098,26 +2098,26 @@ public class XMediaPlayer extends SessionPlayer2 {
         @Override
         public void onMediaTimeDiscontinuity(
                 MediaPlayer2 mp, final MediaItem2 item, final MediaTimestamp2 timestamp) {
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onMediaTimeDiscontinuity(XMediaPlayer.this, item, timestamp);
+                    callback.onMediaTimeDiscontinuity(MediaPlayer.this, item, timestamp);
                 }
             });
         }
 
         @Override
         public void onCommandLabelReached(MediaPlayer2 mp, Object label) {
-            // Ignore. XMediaPlayer does not use MediaPlayer2.notifyWhenCommandLabelReached().
+            // Ignore. MediaPlayer does not use MediaPlayer2.notifyWhenCommandLabelReached().
         }
 
         @Override
         public void onSubtitleData(
                 MediaPlayer2 mp, final MediaItem2 item, final SubtitleData2 data) {
-            notifyXMediaPlayerCallback(new XMediaPlayerCallbackNotifier() {
+            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onSubtitleData(XMediaPlayer.this, item, data);
+                    callback.onSubtitleData(MediaPlayer.this, item, data);
                 }
             });
         }
@@ -2140,7 +2140,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * @param height the height of the video
          */
         public void onVideoSizeChanged(
-                XMediaPlayer mp, MediaItem2 item, int width, int height) { }
+                MediaPlayer mp, MediaItem2 item, int width, int height) { }
 
         /**
          * Called to indicate available timed metadata
@@ -2159,7 +2159,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * @param data the timed metadata sample associated with this event
          */
         public void onTimedMetaDataAvailable(
-                XMediaPlayer mp, MediaItem2 item, TimedMetaData2 data) { }
+                MediaPlayer mp, MediaItem2 item, TimedMetaData2 data) { }
 
         /**
          * Called to indicate an error.
@@ -2171,7 +2171,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * implementation dependent.
          */
         public void onError(
-                XMediaPlayer mp, MediaItem2 item, @MediaError int what, int extra) { }
+                MediaPlayer mp, MediaItem2 item, @MediaError int what, int extra) { }
 
         /**
          * Called to indicate an info or a warning.
@@ -2182,7 +2182,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * @param extra an extra code, specific to the info. Typically
          * implementation dependent.
          */
-        public void onInfo(XMediaPlayer mp, MediaItem2 item, @MediaInfo int what, int extra) { }
+        public void onInfo(MediaPlayer mp, MediaItem2 item, @MediaInfo int what, int extra) { }
 
         /**
          * Called when a discontinuity in the normal progression of the media time is detected.
@@ -2205,7 +2205,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          *     or {@link MediaTimestamp2#TIMESTAMP_UNKNOWN} in an error case.
          */
         public void onMediaTimeDiscontinuity(
-                XMediaPlayer mp, MediaItem2 item, MediaTimestamp2 timestamp) { }
+                MediaPlayer mp, MediaItem2 item, MediaTimestamp2 timestamp) { }
 
         /**
          * Called when when a player subtitle track has new subtitle data available.
@@ -2214,7 +2214,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * @param data the subtitle data
          */
         public void onSubtitleData(
-                XMediaPlayer mp, MediaItem2 item, @NonNull SubtitleData2 data) { }
+                MediaPlayer mp, MediaItem2 item, @NonNull SubtitleData2 data) { }
 
         /**
          * Called to indicate DRM info is available
@@ -2226,7 +2226,7 @@ public class XMediaPlayer extends SessionPlayer2 {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onDrmInfo(XMediaPlayer mp, MediaItem2 item, DrmInfo drmInfo) { }
+        public void onDrmInfo(MediaPlayer mp, MediaItem2 item, DrmInfo drmInfo) { }
     }
 
     /**
@@ -2356,10 +2356,10 @@ public class XMediaPlayer extends SessionPlayer2 {
         /**
          * Called to give the app the opportunity to configure DRM before the session is created
          *
-         * @param mp the {@code XMediaPlayer} associated with this callback
+         * @param mp the {@code MediaPlayer} associated with this callback
          * @param item the MediaItem2 of this media item
          */
-        void onDrmConfig(XMediaPlayer mp, MediaItem2 item);
+        void onDrmConfig(MediaPlayer mp, MediaItem2 item);
     }
 
     /**
