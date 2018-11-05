@@ -49,7 +49,6 @@ import androidx.test.filters.SmallTest;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -194,7 +193,6 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     }
 
     @Test
-    @Ignore("b/110738672")
     public void testControllerCallback_onSeekCompleted() throws Exception {
         prepareLooper();
         final long testSeekPosition = 400;
@@ -222,7 +220,6 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     }
 
     @Test
-    @Ignore("b/110738672")
     public void testControllerCallbackBufferingCompleted() throws Exception {
         prepareLooper();
         final List<MediaItem2> testPlaylist = MediaTestUtils.createFileMediaItems(1);
@@ -300,7 +297,6 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     }
 
     @Test
-    @Ignore("b/110738672")
     public void testControllerCallback_onPlayerStateChanged() throws Exception {
         prepareLooper();
         final int testPlayerState = SessionPlayer2.PLAYER_STATE_PLAYING;
