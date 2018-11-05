@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ff9b788f_75e2949c",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-05T20:23:54Z",
+      "side": 1,
+      "message": "If a method is defined on multiple lines and has an annotation for return type,\nlint reports error.\n\nFor example, the below code has lint error.\n\n@Override\npublic @NonNull ListenableFuture\u003cPlayerResult\u003e setAudioAttributes(\n        @NonNull AudioAttributesCompat attr) {\n\n----\n\n\u0027public\u0027 has incorrect indentation level 4, expected level should be 12.\n\n----\n\nTo resolve that, we need to specify @NonNull on different line.\n\nAlso, Android API Guidelines (go/android-api-guidelines) shows examples\nspecifying @NonNull on different lines.\n\n\nFor consistency, I\u0027ll move annotations in other files in another CL as well.",
+      "parentUuid": "a7f8562c_0e264528",
+      "range": {
+        "startLine": 659,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b961257_299e2187",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
