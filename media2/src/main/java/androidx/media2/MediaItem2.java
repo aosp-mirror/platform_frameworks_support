@@ -101,6 +101,10 @@ public class MediaItem2 implements VersionedParcelable {
         this(builder.mMetadata, builder.mStartPositionMs, builder.mEndPositionMs);
     }
 
+    MediaItem2(MediaItem2 item) {
+        this(item.mMetadata, item.mStartPositionMs, item.mEndPositionMs);
+    }
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaItem2(@Nullable MediaMetadata2 metadata, long startPositionMs, long endPositionMs) {
         if (startPositionMs > endPositionMs) {

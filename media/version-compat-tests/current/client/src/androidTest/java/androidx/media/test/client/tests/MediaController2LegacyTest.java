@@ -145,7 +145,7 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     @Test
     public void testGetPlaylist() throws Exception {
         prepareLooper();
-        final List<MediaItem2> testList = MediaTestUtils.createPlaylist(2);
+        final List<MediaItem2> testList = MediaTestUtils.createFileMediaItems(2);
         final List<QueueItem> testQueue = MediaUtils2.convertToQueueItemList(testList);
         final AtomicReference<List<MediaItem2>> listFromCallback = new AtomicReference<>();
         final CountDownLatch latch = new CountDownLatch(1);
@@ -225,7 +225,7 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     @Ignore("b/110738672")
     public void testControllerCallbackBufferingCompleted() throws Exception {
         prepareLooper();
-        final List<MediaItem2> testPlaylist = MediaTestUtils.createPlaylist(1);
+        final List<MediaItem2> testPlaylist = MediaTestUtils.createFileMediaItems(1);
         final MediaMetadataCompat metadata = MediaUtils2.convertToMediaMetadataCompat(
                 testPlaylist.get(0).getMetadata());
 
@@ -264,7 +264,7 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
     @Test
     public void testControllerCallbackBufferingStarved() throws Exception {
         prepareLooper();
-        final List<MediaItem2> testPlaylist = MediaTestUtils.createPlaylist(1);
+        final List<MediaItem2> testPlaylist = MediaTestUtils.createFileMediaItems(1);
         final MediaMetadataCompat metadata = MediaUtils2.convertToMediaMetadataCompat(
                 testPlaylist.get(0).getMetadata());
 
