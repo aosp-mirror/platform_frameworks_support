@@ -22,6 +22,30 @@
       "revId": "7d3c2f01c4700789b3ae4a1b25ffbcd8aa8927c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc251c5_80aa5154",
+        "filename": "work/workmanager-coroutines/src/main/java/androidx/work/coroutines/CoroutineWorker.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-05T17:22:55Z",
+      "side": 1,
+      "message": "We don\u0027t need to expose it directly. They can use coroutineScope { } in their doWork() if they want access to the CoroutineScope. Making it available outside of doWork() may mean they start doing something in the constructor, etc.",
+      "parentUuid": "f421140b_fcd3e680",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "7d3c2f01c4700789b3ae4a1b25ffbcd8aa8927c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
