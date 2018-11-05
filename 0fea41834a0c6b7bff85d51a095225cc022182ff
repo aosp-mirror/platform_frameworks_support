@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebf10c3c_eea10647",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-05T17:48:05Z",
+      "side": 1,
+      "message": "What should developers be putting inside extras? Are there known keys they should be using?",
+      "range": {
+        "startLine": 409,
+        "startChar": 11,
+        "endLine": 409,
+        "endChar": 34
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
