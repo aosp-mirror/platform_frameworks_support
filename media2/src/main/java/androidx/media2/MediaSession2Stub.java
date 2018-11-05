@@ -175,7 +175,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
             final @CommandCode int commandCode,
             final @NonNull SessionTask task) {
         final ControllerInfo controller = mConnectedControllersManager.getController(
-                caller == null ? null : caller.asBinder());
+                caller.asBinder());
         if (mSessionImpl.isClosed() || controller == null) {
             return;
         }
@@ -448,17 +448,26 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void connect(final IMediaController2 caller, int seq, final String callingPackage)
             throws RuntimeException {
+        if (caller == null || TextUtils.isEmpty(callingPackage)) {
+            return;
+        }
         connect(caller, callingPackage, Binder.getCallingPid(), Binder.getCallingUid());
     }
 
     @Override
     public void release(final IMediaController2 caller, int seq) throws RemoteException {
-        mConnectedControllersManager.removeController(caller == null ? null : caller.asBinder());
+        if (caller == null) {
+            return;
+        }
+        mConnectedControllersManager.removeController(caller.asBinder());
     }
 
     @Override
     public void onControllerResult(final IMediaController2 caller, int seq,
             final ParcelImpl controllerResult) {
+        if (caller == null || controllerResult == null) {
+            return;
+        }
         SequencedFutureManager manager = mConnectedControllersManager.getSequencedFutureManager(
                 caller.asBinder());
         if (manager == null) {
@@ -471,6 +480,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void setVolumeTo(final IMediaController2 caller, int seq, final int value,
             final int flags) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_SET_VOLUME,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -488,6 +500,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void adjustVolume(IMediaController2 caller, int seq, final int direction,
             final int flags) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_VOLUME_ADJUST_VOLUME,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -504,6 +519,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void play(IMediaController2 caller, int seq) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PLAY,
                 new SessionPlayerTask() {
                     @Override
@@ -515,6 +533,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void pause(IMediaController2 caller, int seq) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PAUSE,
                 new SessionPlayerTask() {
                     @Override
@@ -526,6 +547,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void prefetch(IMediaController2 caller, int seq) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_PREFETCH,
                 new SessionPlayerTask() {
                     @Override
@@ -537,6 +561,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void fastForward(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -549,6 +576,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void rewind(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_REWIND,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -561,6 +591,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipForward(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SKIP_FORWARD,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -573,6 +606,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipBackward(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SKIP_BACKWARD,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -585,6 +621,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void seekTo(IMediaController2 caller, int seq, final long pos) throws RuntimeException {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO,
                 new SessionPlayerTask() {
                     @Override
@@ -597,6 +636,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void onCustomCommand(final IMediaController2 caller, final int seq,
             final ParcelImpl command, final Bundle args) {
+        if (caller == null || command == null) {
+            return;
+        }
         final SessionCommand2 sessionCommand = ParcelUtils.fromParcelable(command);
         dispatchSessionTask(caller, seq, sessionCommand, new SessionCallbackTask<SessionResult>() {
             @Override
@@ -619,6 +661,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromUri(final IMediaController2 caller, int seq, final Uri uri,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_URI,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -636,6 +681,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromSearch(final IMediaController2 caller, int seq, final String query,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_SEARCH,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -654,6 +702,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void prefetchFromMediaId(final IMediaController2 caller, int seq, final String mediaId,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_SESSION_PREFETCH_FROM_MEDIA_ID,
                 new SessionCallbackTask<Integer>() {
@@ -673,6 +724,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromUri(final IMediaController2 caller, int seq, final Uri uri,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -690,6 +744,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromSearch(final IMediaController2 caller, int seq, final String query,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -707,6 +764,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void playFromMediaId(final IMediaController2 caller, int seq, final String mediaId,
             final Bundle extras) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -725,6 +785,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void setRating(final IMediaController2 caller, int seq, final String mediaId,
             final ParcelImpl rating) {
+        if (caller == null || rating == null) {
+            return;
+        }
         final Rating2 rating2 = ParcelUtils.fromParcelable(rating);
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SET_RATING,
                 new SessionCallbackTask<Integer>() {
@@ -747,6 +810,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setPlaybackSpeed(final IMediaController2 caller, int seq, final float speed) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED,
                 new SessionPlayerTask() {
                     @Override
@@ -759,6 +825,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void setPlaylist(final IMediaController2 caller, int seq, final List<String> playlist,
             final Bundle metadata) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_PLAYLIST,
                 new SessionPlayerTask() {
                     @Override
@@ -782,6 +851,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setMediaItem(final IMediaController2 caller, int seq, final String mediaId) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
                 new SessionPlayerTask() {
                     @Override
@@ -802,6 +874,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void updatePlaylistMetadata(final IMediaController2 caller, int seq,
             final Bundle metadata) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
                 new SessionPlayerTask() {
                     @Override
@@ -815,6 +890,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void addPlaylistItem(IMediaController2 caller, int seq, final int index,
             final String mediaId) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
                     @Override
@@ -835,6 +913,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void removePlaylistItem(IMediaController2 caller, int seq, final int index) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
                     @Override
@@ -847,6 +928,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void replacePlaylistItem(IMediaController2 caller, int seq, final int index,
             final String mediaId) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
                     @Override
@@ -867,6 +951,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToPlaylistItem(IMediaController2 caller, int seq, final int index) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
                     @Override
@@ -883,6 +970,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToPreviousItem(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
@@ -895,6 +985,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void skipToNextItem(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM,
                 new SessionPlayerTask() {
@@ -907,6 +1000,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setRepeatMode(IMediaController2 caller, int seq, final int repeatMode) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_REPEAT_MODE,
                 new SessionPlayerTask() {
                     @Override
@@ -918,6 +1014,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void setShuffleMode(IMediaController2 caller, int seq, final int shuffleMode) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
                 new SessionPlayerTask() {
                     @Override
@@ -929,6 +1028,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void subscribeRoutesInfo(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -941,6 +1043,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void unsubscribeRoutesInfo(IMediaController2 caller, int seq) {
+        if (caller == null) {
+            return;
+        }
         dispatchSessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO,
                 new SessionCallbackTask<Integer>() {
@@ -954,6 +1059,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void selectRoute(IMediaController2 caller, int seq, final Bundle route) {
+        if (caller == null) {
+            return;
+        }
         if (MediaUtils2.isUnparcelableBundle(route)) {
             throw new RuntimeException("Unexpected route bundle: " + route);
         }
@@ -983,6 +1091,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getLibraryRoot(final IMediaController2 caller, int seq,
             final ParcelImpl libraryParams) throws RuntimeException {
+        if (caller == null || libraryParams == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_LIBRARY_GET_LIBRARY_ROOT,
                 new LibrarySessionCallbackTask<LibraryResult>() {
@@ -1014,6 +1125,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     public void getChildren(final IMediaController2 caller, int seq, final String parentId,
             final int page, final int pageSize, final ParcelImpl libraryParams)
             throws RuntimeException {
+        if (caller == null || libraryParams == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq, SessionCommand2.COMMAND_CODE_LIBRARY_GET_CHILDREN,
                 new LibrarySessionCallbackTask<LibraryResult>() {
                     @Override
@@ -1041,6 +1155,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void search(IMediaController2 caller, int seq, final String query,
             final ParcelImpl libraryParams) {
+        if (caller == null || libraryParams == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq, SessionCommand2.COMMAND_CODE_LIBRARY_SEARCH,
                 new LibrarySessionCallbackTask<Integer>() {
                     @Override
@@ -1058,6 +1175,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void getSearchResult(final IMediaController2 caller, int seq, final String query,
             final int page, final int pageSize, final ParcelImpl libraryParams) {
+        if (caller == null || libraryParams == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq,
                 SessionCommand2.COMMAND_CODE_LIBRARY_GET_SEARCH_RESULT,
                 new LibrarySessionCallbackTask<LibraryResult>() {
@@ -1088,6 +1208,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     @Override
     public void subscribe(final IMediaController2 caller, int seq, final String parentId,
             final ParcelImpl libraryParams) {
+        if (caller == null || libraryParams == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq, SessionCommand2.COMMAND_CODE_LIBRARY_SUBSCRIBE,
                 new LibrarySessionCallbackTask<Integer>() {
                     @Override
@@ -1105,6 +1228,9 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
     @Override
     public void unsubscribe(final IMediaController2 caller, int seq, final String parentId) {
+        if (caller == null) {
+            return;
+        }
         dispatchLibrarySessionTask(caller, seq, SessionCommand2.COMMAND_CODE_LIBRARY_UNSUBSCRIBE,
                 new LibrarySessionCallbackTask<Integer>() {
                     @Override

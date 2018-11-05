@@ -50,6 +50,9 @@ class MediaController2Stub extends IMediaController2.Stub {
 
     @Override
     public void onSessionResult(int seq, ParcelImpl sessionResult) {
+        if (sessionResult == null) {
+            return;
+        }
         final MediaController2ImplBase controller;
         try {
             controller = getController();
@@ -58,11 +61,17 @@ class MediaController2Stub extends IMediaController2.Stub {
             return;
         }
         SessionResult result = ParcelUtils.fromParcelable(sessionResult);
+        if (result == null) {
+            return;
+        }
         mSequencedFutureManager.setFutureResult(seq, ControllerResult.from(result));
     }
 
     @Override
     public void onLibraryResult(int seq, ParcelImpl libraryResult) {
+        if (libraryResult == null) {
+            return;
+        }
         try {
             final MediaBrowser2 browser = getBrowser();
         } catch (IllegalStateException e) {
@@ -70,11 +79,17 @@ class MediaController2Stub extends IMediaController2.Stub {
             return;
         }
         LibraryResult result = ParcelUtils.fromParcelable(libraryResult);
+        if (result == null) {
+            return;
+        }
         mSequencedFutureManager.setFutureResult(seq, BrowserResult.from(result));
     }
 
     @Override
     public void onCurrentMediaItemChanged(ParcelImpl item) {
+        if (item == null) {
+            return;
+        }
         final MediaController2ImplBase controller;
         try {
             controller = getController();
@@ -112,6 +127,9 @@ class MediaController2Stub extends IMediaController2.Stub {
     @Override
     public void onBufferingStateChanged(ParcelImpl item, @BuffState int state,
             long bufferedPositionMs) {
+        if (item == null) {
+            return;
+        }
         final MediaController2ImplBase controller;
         try {
             controller = getController();
@@ -119,7 +137,7 @@ class MediaController2Stub extends IMediaController2.Stub {
             Log.w(TAG, "Don't fail silently here. Highly likely a bug");
             return;
         }
-        MediaItem2 item2 = (item == null) ? null : (MediaItem2) ParcelUtils.fromParcelable(item);
+        MediaItem2 item2 = ParcelUtils.fromParcelable(item);
         if (item2 == null) {
             Log.w(TAG, "onBufferingStateChanged(): Ignoring null item");
             return;
@@ -138,10 +156,6 @@ class MediaController2Stub extends IMediaController2.Stub {
         }
         List<MediaItem2> playlist =
                 MediaUtils2.convertParcelImplListSliceToMediaItem2List(listSlice);
-        if (playlist == null) {
-            Log.w(TAG, "onPlaylistChanged(): Ignoring null playlist");
-            return;
-        }
         MediaMetadata2 metadata = MediaMetadata2.fromBundle(metadataBundle);
         controller.notifyPlaylistChanges(playlist, metadata);
     }
@@ -197,6 +211,9 @@ class MediaController2Stub extends IMediaController2.Stub {
 
     @Override
     public void onPlaybackInfoChanged(ParcelImpl playbackInfo) throws RuntimeException {
+        if (playbackInfo == null) {
+            return;
+        }
         if (DEBUG) {
             Log.d(TAG, "onPlaybackInfoChanged");
         }
@@ -245,6 +262,10 @@ class MediaController2Stub extends IMediaController2.Stub {
             ParcelImpl currentItem, long positionEventTimeMs, long positionMs, float playbackSpeed,
             long bufferedPositionMs, ParcelImpl playbackInfo, int shuffleMode, int repeatMode,
             ParcelImplListSlice listSlice, PendingIntent sessionActivity) {
+        if (sessionBinder == null || commandGroup == null || currentItem == null
+                || playbackInfo == null) {
+            return;
+        }
         final MediaController2ImplBase controller = mController.get();
         if (controller == null) {
             if (DEBUG) {
@@ -303,6 +324,9 @@ class MediaController2Stub extends IMediaController2.Stub {
 
     @Override
     public void onAllowedCommandsChanged(ParcelImpl commands) {
+        if (commands == null) {
+            return;
+        }
         final MediaController2ImplBase controller;
         try {
             controller = getController();
@@ -324,6 +348,9 @@ class MediaController2Stub extends IMediaController2.Stub {
 
     @Override
     public void onCustomCommand(int seq, ParcelImpl commandParcel, Bundle args) {
+        if (commandParcel == null) {
+            return;
+        }
         final MediaController2ImplBase controller;
         try {
             controller = getController();
@@ -345,6 +372,9 @@ class MediaController2Stub extends IMediaController2.Stub {
     @Override
     public void onSearchResultChanged(final String query, final int itemCount,
             final ParcelImpl libraryParams) throws RuntimeException {
+        if (libraryParams == null) {
+            return;
+        }
         if (TextUtils.isEmpty(query)) {
             Log.w(TAG, "onSearchResultChanged(): Ignoring empty query");
             return;
@@ -375,6 +405,9 @@ class MediaController2Stub extends IMediaController2.Stub {
     @Override
     public void onChildrenChanged(final String parentId, final int itemCount,
             final ParcelImpl libraryParams) {
+        if (libraryParams == null) {
+            return;
+        }
         if (parentId == null) {
             Log.w(TAG, "onChildrenChanged(): Ignoring null parentId");
             return;
