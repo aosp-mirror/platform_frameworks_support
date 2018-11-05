@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0012dfd1_05134865",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "I don\u0027t think we need an expiration time. If the data provider wants to \"expire\" an image, they would need to change its URI. Making a requirement that same image URI should provide the same image content, there is no point on adding an additional \"expiration time\" field. \nConsumers could implement whatever caching strategy they need. If a new version of the same navigation app produces all new images, then the old ones would eventually be forgotten, as new URIs would start arriving from such app.\n\nI\u0027ve added some more comments about this on the Javadoc.",
+      "parentUuid": "8a6ebc6d_9b695ced",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "232b5084_2fbb15a0",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f0abb2a_e0c6b4fa",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Image.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "232b5084_2fbb15a0",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "66d020e8_86375e7b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "Not right now. We expect RichText to maybe contain more metadata in the future.\nIf required, we could add a \"addElements()\" method to add elements in bulk.\nBut we prefer to keep the API as simple as possible first, and add more methods later.",
+      "parentUuid": "f3a9e861_cf0b7437",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dfae32f_3632f864",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29de658c_df9c4309",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "9dfae32f_3632f864",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 12
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "52a864de_c727ff35",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae087678_ff6e535d",
+      "range": {
+        "startLine": 107,
+        "startChar": 36,
+        "endLine": 107,
+        "endChar": 37
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c062e4c_34bbf07f",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 11
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "a1f04e3e_49061b9c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "This describes the expected image, indicating what the providers should use this method for.",
+      "parentUuid": "6c062e4c_34bbf07f",
+      "range": {
+        "startLine": 126,
+        "startChar": 74,
+        "endLine": 129,
+        "endChar": 98
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17347042_edbec9fd",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 11
@@ -160,6 +304,30 @@
       "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0198e1_18bd94a0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-05T18:00:38Z",
+      "side": 1,
+      "message": "RichText is a sequence of text fragments and images. This indicates that producers should put the most relevant part of the instructions earlier in the sequence. \nI\u0027ve rephrased. Let me know if it is clearer now.",
+      "parentUuid": "17347042_edbec9fd",
+      "range": {
+        "startLine": 143,
+        "startChar": 9,
+        "endLine": 148,
+        "endChar": 10
+      },
+      "revId": "602b6ed00415c661b0efc639cbc492c9b846cea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
