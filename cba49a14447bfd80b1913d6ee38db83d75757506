@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8990f855_3fa20239",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 0,
+      "message": "I think that the \"@aar\" suffix might be needed for pom2bp to import the .pom files into prebuilts/sdk/current without error.\nAssuming that Aurimas doesn\u0027t have any other reasons against removing the text \"@aar\", we (probably me) should double-check that (doesn\u0027t have to be before submitting)",
+      "range": {
+        "startLine": 26,
+        "startChar": 79,
+        "endLine": 26,
+        "endChar": 83
+      },
+      "revId": "cba49a14447bfd80b1913d6ee38db83d75757506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

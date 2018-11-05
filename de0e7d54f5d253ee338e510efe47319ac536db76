@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3122f0b0_f3715d83",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 1,
+      "message": "Could we include a word like \"future\" or \"subsequent\" to make it extra obvious that `project.configurations` won\u0027t necessarily have been fully configured by now?",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa34f303_f4e119e8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 1,
+      "message": "I think that when we iterate over projectModules here we also want something that also iterates over future entries in projectModules (like the \".all\" on line 166) or otherwise gets all of the dependencies even if the projects are evaluated in an inconvenient order.\n\nIt might be trigger and/or test for that kind problem of thing by removing the lines \"org.gradle.parallel\u003dtrue\" and maybe \"org.gradle.configureondemand\u003dtrue\" in gradle.properties",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13019d2_b8f30025",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 1,
+      "message": "Suggest \"We don\u0027t want maxDepVersions to fail when it finds a warning\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 23,
+        "endLine": 74,
+        "endChar": 87
+      },
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa591218_c7da6946",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 1,
+      "message": "Suggest \"we\u0027d like to only display a warning and fix later.\")",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ca5c31_93197e6b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-05T20:13:49Z",
+      "side": 1,
+      "message": "Alan to confirm (that we want to ignore warnings for maxDepVersions).\n\n(Alternatively if the comment said that this was temporary until we cleaned up the existing warnings, then I\u0027d approve that myself)",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
