@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ee15ef2_0abe856b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3122f0b0_f3715d83",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa34f303_f4e119e8",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-05T20:13:49Z",
       "side": 1,
       "message": "I think that when we iterate over projectModules here we also want something that also iterates over future entries in projectModules (like the \".all\" on line 166) or otherwise gets all of the dependencies even if the projects are evaluated in an inconvenient order.\n\nIt might be trigger and/or test for that kind problem of thing by removing the lines \"org.gradle.parallel\u003dtrue\" and maybe \"org.gradle.configureondemand\u003dtrue\" in gradle.properties",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d40409b6_0c2a1070",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 1,
+      "message": "We only reach this part once current (non future) code in plugins has been ran. I\u0027m not sure we if I mentioned this offline, but I know this will work just fine. Also removing org.gradle.configureondemand\u003dtrue will only cancel lazy evaluation and won\u0027t affect the order of things. Removing parallel here will force projects to configure in order (alphabetical for now according to settings.gradle) and once they are done we will get back to finishing root.",
+      "parentUuid": "aa34f303_f4e119e8",
       "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "0a315e52_854bf05e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13019d2_b8f30025",
+      "range": {
+        "startLine": 74,
+        "startChar": 23,
+        "endLine": 74,
+        "endChar": 87
+      },
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa591218_c7da6946",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 2
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "efa6b46c_001afb76",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa591218_c7da6946",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5ca5c31_93197e6b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
         "patchSetId": 2
@@ -93,6 +177,24 @@
       "writtenOn": "2018-11-05T20:13:49Z",
       "side": 1,
       "message": "Alan to confirm (that we want to ignore warnings for maxDepVersions).\n\n(Alternatively if the comment said that this was temporary until we cleaned up the existing warnings, then I\u0027d approve that myself)",
+      "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0017634_d02671c6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 1,
+      "message": "This has been discussed in chat AndroidX chat.",
+      "parentUuid": "e5ca5c31_93197e6b",
       "revId": "de0e7d54f5d253ee338e510efe47319ac536db76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

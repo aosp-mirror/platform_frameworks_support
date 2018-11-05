@@ -22,6 +22,30 @@
       "revId": "cba49a14447bfd80b1913d6ee38db83d75757506",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bfc87c_4f3b67a2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-05T20:32:18Z",
+      "side": 0,
+      "message": "My understanding is that @aar forces only aar choice. Usually it gets the actual type or jar by default, this says only aar. I don\u0027t think this will affect us a lot especially since we are aware of it, and we can always re-evaluate its need in the future.",
+      "parentUuid": "8990f855_3fa20239",
+      "range": {
+        "startLine": 26,
+        "startChar": 79,
+        "endLine": 26,
+        "endChar": 83
+      },
+      "revId": "cba49a14447bfd80b1913d6ee38db83d75757506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
