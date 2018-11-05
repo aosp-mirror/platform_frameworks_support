@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a7f8562c_0e264528",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T19:18:03Z",
+      "side": 1,
+      "message": "What I meant was to do the following for consistency with other changes:\n\n@Override\npublic @NonNull ListenableFuture\u003cPlayerResult\u003e setAudioAttributes....",
+      "parentUuid": "246e8b2c_4ac6e8e8",
+      "range": {
+        "startLine": 659,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b961257_299e2187",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 3
