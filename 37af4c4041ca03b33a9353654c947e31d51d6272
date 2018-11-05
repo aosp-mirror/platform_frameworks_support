@@ -22,6 +22,30 @@
       "revId": "37af4c4041ca03b33a9353654c947e31d51d6272",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1f83acd_0c33e209",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-05T02:36:27Z",
+      "side": 1,
+      "message": "Talked offline. We should check an argument can be null or not, but sometimes it can be hard to track all the usages.\n\nLet\u0027s abandon this CL, and mark internal methods with @NonNull/@Nullable.",
+      "parentUuid": "a89fe020_398d5731",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 30
+      },
+      "revId": "37af4c4041ca03b33a9353654c947e31d51d6272",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
