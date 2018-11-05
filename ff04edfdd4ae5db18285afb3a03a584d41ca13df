@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4256a576_ed09ec14",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-05T17:26:54Z",
+      "side": 1,
+      "message": "Nit: remove extra new line",
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24acd2c2_117681b5",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-05T17:26:54Z",
+      "side": 1,
+      "message": "Nit: remove extra new line",
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814a231d_3bc164ce",
+        "filename": "work/integration-tests/testapp/src/main/java/androidx/work/integration/testapp/CoroutineSleepWorker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-05T17:26:54Z",
+      "side": 1,
+      "message": "Use delay(sleepTime)",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 31
+      },
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f9b5cb2_b055f73c",
+        "filename": "work/workmanager-coroutines/src/main/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-05T17:26:54Z",
+      "side": 1,
+      "message": "Nit: remove extra new line",
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
