@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69143d07_5b54787a",
+        "filename": "webkit/src/main/java/androidx/webkit/TracingConfig.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-05T20:43:14Z",
+      "side": 1,
+      "message": "Add @NonNull for this argument as you want predefinedCategories to be a non-null array.",
+      "range": {
+        "startLine": 238,
+        "startChar": 37,
+        "endLine": 238,
+        "endChar": 86
+      },
+      "revId": "1bf10923d6dacc159cd3e2f52707c496270d2286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
