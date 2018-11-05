@@ -17,6 +17,7 @@
 package androidx.media.test.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -25,10 +26,12 @@ import android.os.Parcelable;
 
 import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
 import androidx.media.test.lib.TestUtils;
+import androidx.media2.CallbackMediaItem2;
 import androidx.media2.FileMediaItem2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaLibraryService2.LibraryParams;
 import androidx.media2.MediaMetadata2;
+import androidx.media2.UriMediaItem2;
 
 import java.io.FileDescriptor;
 import java.util.ArrayList;
@@ -61,14 +64,14 @@ public final class MediaTestUtils {
 //    }
 
     /**
-     * Create a playlist for testing purpose
+     * Create a list of {@link FileMediaItem2} for testing purpose.
      * <p>
      * Caller's method name will be used for prefix of each media item's media id.
      *
      * @param size list size
      * @return the newly created playlist
      */
-    public static List<MediaItem2> createPlaylist(int size) {
+    public static List<MediaItem2> createFileMediaItems(int size) {
         final List<MediaItem2> list = new ArrayList<>();
         String caller = Thread.currentThread().getStackTrace()[1].getMethodName();
         for (int i = 0; i < size; i++) {
@@ -87,7 +90,7 @@ public final class MediaTestUtils {
      * @return the newly created media item
      * @see #createMetadata()
      */
-    public static MediaItem2 createMediaItemWithMetadata() {
+    public static MediaItem2 createFileMediaItemWithMetadata() {
         return new FileMediaItem2.Builder(new FileDescriptor())
                 .setMetadata(createMetadata())
                 .build();
@@ -183,6 +186,14 @@ public final class MediaTestUtils {
         assertEquals(a.size(), b.size());
         for (int i = 0; i < a.size(); i++) {
             assertMediaItemsWithId(a.get(i), b.get(i));
+        }
+    }
+
+    public static void assertMediaItems(List<MediaItem2> list) {
+        for (MediaItem2 item : list) {
+            assertFalse(item instanceof UriMediaItem2);
+            assertFalse(item instanceof FileMediaItem2);
+            assertFalse(item instanceof CallbackMediaItem2);
         }
     }
 }

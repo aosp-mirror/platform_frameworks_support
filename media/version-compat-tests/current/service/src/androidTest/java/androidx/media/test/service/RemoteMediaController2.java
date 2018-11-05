@@ -38,11 +38,10 @@ import androidx.annotation.Nullable;
 import androidx.media.test.lib.TestUtils;
 import androidx.media2.MediaController2;
 import androidx.media2.MediaMetadata2;
+import androidx.media2.MediaUtils2;
 import androidx.media2.Rating2;
 import androidx.media2.SessionCommand2;
 import androidx.media2.SessionToken2;
-import androidx.versionedparcelable.ParcelImpl;
-import androidx.versionedparcelable.ParcelUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -92,7 +91,7 @@ public class RemoteMediaController2 {
 
     public SessionToken2 getConnectedSessionToken() {
         try {
-            return ParcelUtils.fromParcelable(mBinder.getConnectedSessionToken(mControllerId));
+            return MediaUtils2.fromParcelable(mBinder.getConnectedSessionToken(mControllerId));
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call getConnectedSessionToken()");
             return null;
@@ -142,7 +141,7 @@ public class RemoteMediaController2 {
     public void setPlaylist(@NonNull List<String> list, @Nullable MediaMetadata2 metadata) {
         try {
             mBinder.setPlaylist(mControllerId, list,
-                    (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                    MediaUtils2.toParcelable(metadata));
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call setPlaylist()");
         }
@@ -157,7 +156,7 @@ public class RemoteMediaController2 {
     public void createAndSetDummyPlaylist(int size, @Nullable MediaMetadata2 metadata) {
         try {
             mBinder.createAndSetDummyPlaylist(mControllerId, size,
-                    (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                    MediaUtils2.toParcelable(metadata));
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call createAndSetDummyPlaylist()");
         }
@@ -174,7 +173,7 @@ public class RemoteMediaController2 {
     public void updatePlaylistMetadata(@Nullable MediaMetadata2 metadata) {
         try {
             mBinder.updatePlaylistMetadata(mControllerId,
-                    (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                    MediaUtils2.toParcelable(metadata));
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call updatePlaylistMetadata()");
         }
@@ -351,7 +350,7 @@ public class RemoteMediaController2 {
     public void setRating(@NonNull String mediaId, @NonNull Rating2 rating) {
         try {
             mBinder.setRating(mControllerId, mediaId,
-                    (ParcelImpl) ParcelUtils.toParcelable(rating));
+                    MediaUtils2.toParcelable(rating));
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call setRating()");
         }
@@ -440,7 +439,7 @@ public class RemoteMediaController2 {
     void create(SessionToken2 token, boolean waitForConnection) {
         try {
             mBinder.create(false /* isBrowser */, mControllerId,
-                    (ParcelImpl) ParcelUtils.toParcelable(token), waitForConnection);
+                    MediaUtils2.toParcelable(token), waitForConnection);
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to create default controller with given token.");
         }

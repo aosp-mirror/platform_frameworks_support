@@ -55,7 +55,6 @@ import androidx.media2.MediaSession2ImplBase.PlayerTask;
 import androidx.media2.SessionCommand2.CommandCode;
 import androidx.media2.SessionPlayer2.PlayerResult;
 import androidx.versionedparcelable.ParcelImpl;
-import androidx.versionedparcelable.ParcelUtils;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -370,14 +369,14 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                     //       because IMediaController2 is oneway (i.e. async call) and Stub will
                     //       use thread poll for incoming calls.
                     final int playerState = mSessionImpl.getPlayerState();
-                    final ParcelImpl currentItem = (ParcelImpl) ParcelUtils.toParcelable(
+                    final ParcelImpl currentItem = MediaUtils2.toParcelable(
                             mSessionImpl.getCurrentMediaItem());
                     final long positionEventTimeMs = SystemClock.elapsedRealtime();
                     final long positionMs = mSessionImpl.getCurrentPosition();
                     final float playbackSpeed = mSessionImpl.getPlaybackSpeed();
                     final long bufferedPositionMs = mSessionImpl.getBufferedPosition();
                     final ParcelImpl playbackInfo =
-                            (ParcelImpl) ParcelUtils.toParcelable(mSessionImpl.getPlaybackInfo());
+                            MediaUtils2.toParcelable(mSessionImpl.getPlaybackInfo());
                     final int repeatMode = mSessionImpl.getRepeatMode();
                     final int shuffleMode = mSessionImpl.getShuffleMode();
                     final PendingIntent sessionActivity = mSessionImpl.getSessionActivity();
@@ -395,7 +394,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                     }
                     try {
                         caller.onConnected(MediaSession2Stub.this,
-                                (ParcelImpl) ParcelUtils.toParcelable(allowedCommands),
+                                MediaUtils2.toParcelable(allowedCommands),
                                 playerState, currentItem, positionEventTimeMs, positionMs,
                                 playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
                                 shuffleMode, playlistSlice, sessionActivity);
@@ -473,7 +472,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (manager == null) {
             return;
         }
-        MediaController2.ControllerResult result = ParcelUtils.fromParcelable(controllerResult);
+        MediaController2.ControllerResult result = MediaUtils2.fromParcelable(controllerResult);
         manager.setFutureResult(seq, SessionResult.from(result));
     }
 
@@ -639,7 +638,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null || command == null) {
             return;
         }
-        final SessionCommand2 sessionCommand = ParcelUtils.fromParcelable(command);
+        final SessionCommand2 sessionCommand = MediaUtils2.fromParcelable(command);
         dispatchSessionTask(caller, seq, sessionCommand, new SessionCallbackTask<SessionResult>() {
             @Override
             public SessionResult run(final ControllerInfo controller) {
@@ -788,7 +787,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null || rating == null) {
             return;
         }
-        final Rating2 rating2 = ParcelUtils.fromParcelable(rating);
+        final Rating2 rating2 = MediaUtils2.fromParcelable(rating);
         dispatchSessionTask(caller, seq, SessionCommand2.COMMAND_CODE_SESSION_SET_RATING,
                 new SessionCallbackTask<Integer>() {
                     @Override
@@ -845,7 +844,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                             }
                         }
                         return mSessionImpl.setPlaylist(list,
-                                (MediaMetadata2) ParcelUtils.fromParcelable(metadata));
+                                (MediaMetadata2) MediaUtils2.fromParcelable(metadata));
                     }
                 });
     }
@@ -883,7 +882,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                     @Override
                     public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
                         return mSessionImpl.updatePlaylistMetadata(
-                                (MediaMetadata2) ParcelUtils.fromParcelable(metadata));
+                                (MediaMetadata2) MediaUtils2.fromParcelable(metadata));
                     }
                 });
     }
@@ -1102,7 +1101,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                     @Override
                     public LibraryResult run(ControllerInfo controller) {
                         return getLibrarySession().onGetLibraryRootOnExecutor(controller,
-                                (LibraryParams) ParcelUtils.fromParcelable(libraryParams));
+                                (LibraryParams) MediaUtils2.fromParcelable(libraryParams));
                     }
                 });
     }
@@ -1149,7 +1148,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                         }
                         return getLibrarySession().onGetChildrenOnExecutor(controller, parentId,
                                 page, pageSize,
-                                (LibraryParams) ParcelUtils.fromParcelable(libraryParams));
+                                (LibraryParams) MediaUtils2.fromParcelable(libraryParams));
                     }
                 });
     }
@@ -1169,7 +1168,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                             return LibraryResult.RESULT_CODE_BAD_VALUE;
                         }
                         return getLibrarySession().onSearchOnExecutor(controller, query,
-                                (LibraryParams) ParcelUtils.fromParcelable(libraryParams));
+                                (LibraryParams) MediaUtils2.fromParcelable(libraryParams));
                     }
                 });
     }
@@ -1202,7 +1201,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                         }
                         return getLibrarySession().onGetSearchResultOnExecutor(controller,
                                 query, page, pageSize,
-                                (LibraryParams) ParcelUtils.fromParcelable(libraryParams));
+                                (LibraryParams) MediaUtils2.fromParcelable(libraryParams));
                     }
                 });
     }
@@ -1223,7 +1222,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                         }
                         return getLibrarySession().onSubscribeOnExecutor(
                                 controller, parentId,
-                                (LibraryParams) ParcelUtils.fromParcelable(libraryParams));
+                                (LibraryParams) MediaUtils2.fromParcelable(libraryParams));
                     }
                 });
     }
@@ -1291,7 +1290,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 result = new SessionResult(RESULT_CODE_UNKNOWN_ERROR, null);
             }
             mIControllerCallback.onSessionResult(seq,
-                    (ParcelImpl) ParcelUtils.toParcelable(result));
+                    MediaUtils2.toParcelable(result));
         }
 
         @Override
@@ -1300,7 +1299,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                 result = new LibraryResult(LibraryResult.RESULT_CODE_UNKNOWN_ERROR);
             }
             mIControllerCallback.onLibraryResult(seq,
-                    (ParcelImpl) ParcelUtils.toParcelable(result));
+                    MediaUtils2.toParcelable(result));
         }
 
         @Override
@@ -1311,20 +1310,20 @@ class MediaSession2Stub extends IMediaSession2.Stub {
 
         @Override
         void onPlaybackInfoChanged(PlaybackInfo info) throws RemoteException {
-            mIControllerCallback.onPlaybackInfoChanged((ParcelImpl) ParcelUtils.toParcelable(info));
+            mIControllerCallback.onPlaybackInfoChanged(MediaUtils2.toParcelable(info));
         }
 
         @Override
         void onAllowedCommandsChanged(SessionCommandGroup2 commands) throws RemoteException {
             mIControllerCallback.onAllowedCommandsChanged(
-                    (ParcelImpl) ParcelUtils.toParcelable(commands));
+                    MediaUtils2.toParcelable(commands));
         }
 
         @Override
         void sendCustomCommand(int seq, SessionCommand2 command, Bundle args)
                 throws RemoteException {
             mIControllerCallback.onCustomCommand(seq,
-                    (ParcelImpl) ParcelUtils.toParcelable(command), args);
+                    MediaUtils2.toParcelable(command), args);
         }
 
         @Override
@@ -1343,7 +1342,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
                 throws RemoteException {
             mIControllerCallback.onBufferingStateChanged(
-                    (ParcelImpl) ParcelUtils.toParcelable(item),
+                    MediaUtils2.toParcelable(item),
                     bufferingState, bufferedPositionMs);
         }
 
@@ -1356,7 +1355,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         @Override
         void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
             mIControllerCallback.onCurrentMediaItemChanged(
-                    (ParcelImpl) ParcelUtils.toParcelable(item));
+                    MediaUtils2.toParcelable(item));
         }
 
         @Override
@@ -1368,11 +1367,11 @@ class MediaSession2Stub extends IMediaSession2.Stub {
                     SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
                 mIControllerCallback.onPlaylistChanged(
                         MediaUtils2.convertMediaItem2ListToParcelImplListSlice(playlist),
-                        (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                        MediaUtils2.toParcelable(metadata));
             } else if (mConnectedControllersManager.isAllowedCommand(controller,
                     SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST_METADATA)) {
                 mIControllerCallback.onPlaylistMetadataChanged(
-                        (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                        MediaUtils2.toParcelable(metadata));
             }
         }
 
@@ -1383,7 +1382,7 @@ class MediaSession2Stub extends IMediaSession2.Stub {
             if (mConnectedControllersManager.isAllowedCommand(controller,
                     SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST_METADATA)) {
                 mIControllerCallback.onPlaylistMetadataChanged(
-                        (ParcelImpl) ParcelUtils.toParcelable(metadata));
+                        MediaUtils2.toParcelable(metadata));
             }
         }
 
@@ -1411,14 +1410,14 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         void onChildrenChanged(String parentId, int itemCount, LibraryParams params)
                 throws RemoteException {
             mIControllerCallback.onChildrenChanged(parentId, itemCount,
-                    (ParcelImpl) ParcelUtils.toParcelable(params));
+                    MediaUtils2.toParcelable(params));
         }
 
         @Override
         void onSearchResultChanged(String query, int itemCount, LibraryParams params)
                 throws RemoteException {
             mIControllerCallback.onSearchResultChanged(query, itemCount,
-                    (ParcelImpl) ParcelUtils.toParcelable(params));
+                    MediaUtils2.toParcelable(params));
         }
 
         @Override
