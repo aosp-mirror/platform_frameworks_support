@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76218ab3_cc3f4627",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "Move to L661 for consistency?",
+      "range": {
+        "startLine": 659,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b961257_299e2187",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 747,
+        "startChar": 4,
+        "endLine": 747,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d49b0e56_72a960f1",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 785,
+        "startChar": 4,
+        "endLine": 786,
+        "endChar": 0
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8429b14_96fe7dda",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 989,
+        "startChar": 4,
+        "endLine": 989,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccac4398_a99fe1f6",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 1245,
+        "startChar": 4,
+        "endLine": 1245,
+        "endChar": 12
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876e3dc5_845dec3a",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2134,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "@NonNull for MediaItem2 in PlayerCallback.",
+      "range": {
+        "startLine": 2134,
+        "startChar": 43,
+        "endLine": 2134,
+        "endChar": 51
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61df8277_9ee022c1",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-05T15:28:19Z",
+      "side": 1,
+      "message": "ditto for @NonNull.",
+      "range": {
+        "startLine": 2349,
+        "startChar": 52,
+        "endLine": 2349,
+        "endChar": 60
+      },
+      "revId": "0b6e7ce38031cf199d65cebf5c4b16dbda09258d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
