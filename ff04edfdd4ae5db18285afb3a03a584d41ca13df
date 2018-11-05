@@ -136,6 +136,63 @@
       "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a155a62c_8ffdf0a4",
+        "filename": "work/workmanager-coroutines/src/main/java/androidx/work/coroutines/CoroutineWorker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-05T21:15:04Z",
+      "side": 1,
+      "message": "You don\u0027t need this as it\u0027s already expressed by `coroutineScope` and this would allow the developer to replace `job` via `getCoroutineContext()`",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 46
+      },
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4265a89_3ff8db01",
+        "filename": "work/workmanager-coroutines/src/main/java/androidx/work/coroutines/CoroutineWorker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-05T21:15:04Z",
+      "side": 1,
+      "message": "why not `open val coroutineContext: CoroutineContext get() \u003d Dispatchers.Default`?",
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d54059_3840a2c7",
+        "filename": "work/workmanager-coroutines/src/main/java/androidx/work/coroutines/CoroutineWorker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-05T21:15:04Z",
+      "side": 1,
+      "message": "You probably want to set up cancellation so that cancelling the future cancels the job.",
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
