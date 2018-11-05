@@ -37,15 +37,16 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -110,6 +111,8 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        var projectModules = ConcurrentHashMap<String, String>()
+        project.extra.set("projects", projectModules)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -157,6 +160,19 @@ class AndroidXPlugin : Plugin<Project> {
 
         AffectedModuleDetector.configure(gradle, this)
 
+        // Iterate through all the project and substitute any artifact dependency of a
+        // maxdepversions configuration with the corresponding tip of tree project.
+        subprojects { project ->
+            project.configurations.all { configuration ->
+                if (configuration.name.toLowerCase().contains("maxdepversions")) {
+                    configuration.resolutionStrategy.dependencySubstitution.apply {
+                        for (e in projectModules) {
+                            substitute(module(e.key)).with(project(e.value))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
@@ -228,12 +244,6 @@ class AndroidXPlugin : Plugin<Project> {
                 !hasProperty("android.injected.invoked.from.ide") &&
                 !isBenchmark()
 
-        extension.variants.all { variant ->
-            if (variant.flavorName.toLowerCase().contains(
-                            "maxdepversions")) {
-                useMaxiumumDependencyVersions(project.configurations)
-            }
-        }
         // Set the officially published version to be the release version with minimum dependency
         // versions.
         extension.defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
@@ -297,40 +307,13 @@ fun Project.isBenchmark(): Boolean {
     return name.endsWith("-benchmark")
 }
 
-/**
- * Goes through all the dependencies in the passed in configurations and finds each dependency
- * depending on an androidx library, then each of these dependencies is substituted with its
- * equivalent in the current development project (e.g module("androidx.collection:collection:x.y.z")
- * becomes project(":collection".) Throws an error if there is a major release conflict between
- * the two dependency versions.
- */
-private fun Project.useMaxiumumDependencyVersions(configurations: ConfigurationContainer) {
-    configurations.all { configuration ->
-        configuration.resolutionStrategy.eachDependency { dep ->
-            if (artifactSupportsSemVer(dep.target.group)) {
-                // TODO: support projects having two ':' chars in the name
-                val localDependencyProject = findProject(":${dep.target.name}")
-                if (localDependencyProject != null &&
-                        localDependencyProject.version.toString() != "unspecified") {
-                    if (localDependencyProject.version().major ==
-                            Version(dep.target.version!!).major) {
-                        configuration.resolutionStrategy.dependencySubstitution.apply {
-                            substitute(module("${dep.target}"))
-                                    .with(project(":${localDependencyProject.name}"))
-                        }
-                    } else {
-                        throw IllegalArgumentException("The local version for dependency" +
-                                " ${localDependencyProject.name} is in major release" +
-                                " ${localDependencyProject.version().major}, but the " +
-                                "specified dependency's major release is " +
-                                "${Version(dep.target.version!!).major}" +
-                                ", please update the dependency's version to match " +
-                                "that major release as it is required that all libraries at HEAD " +
-                                "are compatible with each other at all times")
-                    }
-                }
-            }
-        }
+fun Project.addToProjectMap(group: String?) {
+    if (group != null) {
+        val module = "$group:${project.name.replace(":", "-")}"
+        val projectName = "${project.path}"
+        var projectModules = project.rootProject.extra.get("projects")
+                as ConcurrentHashMap<String, String>
+        projectModules.put(module, projectName)
     }
 }
 
@@ -338,8 +321,4 @@ private fun isDependencyRange(version: String?): Boolean {
     return ((version!!.startsWith("[") || version.startsWith("(")) &&
             (version.endsWith("]") || version.endsWith(")")) ||
             version.endsWith("+"))
-}
-
-private fun artifactSupportsSemVer(artifactGroup: String): Boolean {
-    return artifactGroup.startsWith("androidx.")
 }
