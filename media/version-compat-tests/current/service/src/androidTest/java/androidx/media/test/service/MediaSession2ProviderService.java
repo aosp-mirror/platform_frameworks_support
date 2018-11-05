@@ -176,7 +176,7 @@ public class MediaSession2ProviderService extends Service {
         public ParcelImpl getToken(String sessionId) throws RemoteException {
             MediaSession2 session2 = mSession2Map.get(sessionId);
             return session2 != null
-                    ? (ParcelImpl) ParcelUtils.toParcelable(session2.getToken()) : null;
+                    ? MediaUtils2.toParcelable(session2.getToken()) : null;
         }
 
         @Override
