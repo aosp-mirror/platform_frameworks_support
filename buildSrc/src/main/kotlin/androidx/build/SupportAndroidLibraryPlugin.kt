@@ -41,6 +41,9 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
         project.configureMavenArtifactUpload(supportLibraryExtension)
 
         project.afterEvaluate {
+            if (supportLibraryExtension.publish) {
+                project.addToProjectMap(supportLibraryExtension.mavenGroup)
+            }
             val library = project.extensions.findByType(LibraryExtension::class.java)
                     ?: return@afterEvaluate
 
@@ -68,7 +71,12 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                     if (supportLibraryExtension.failOnDeprecationWarnings) {
                         javaCompile.options.compilerArgs.add("-Xlint:deprecation")
                     }
-                    javaCompile.options.compilerArgs.add("-Werror")
+                    // We don't want maxDepVersions to fail when it finds a warning because
+                    // if we introduce warnings to new libraries that were okay to use before,
+                    // we'd like to only display a warning and fix later.
+                    if (libraryVariant.flavorName != "maxDepVersions") {
+                        javaCompile.options.compilerArgs.add("-Werror")
+                    }
                 }
             }
         }

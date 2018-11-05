@@ -38,6 +38,9 @@ class SupportJavaLibraryPlugin : Plugin<Project> {
 
         project.apply(mapOf("plugin" to "java"))
         project.afterEvaluate {
+            if (supportLibraryExtension.publish) {
+                project.addToProjectMap(supportLibraryExtension.mavenGroup)
+            }
             Dokka.registerJavaProject(project, supportLibraryExtension)
             if (supportLibraryExtension.useMetalava) {
                 Metalava.registerJavaProject(project, supportLibraryExtension)
