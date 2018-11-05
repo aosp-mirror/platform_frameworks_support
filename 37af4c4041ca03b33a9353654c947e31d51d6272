@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a89fe020_398d5731",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-05T01:03:21Z",
+      "side": 1,
+      "message": "Q-1) Can this be null when it\u0027s called by the our code?\nQ-2) What should happen if a developer call this API directly with null session for getting the default notification by our code? Do you prefer silently fail or throw exception?",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 30
+      },
+      "revId": "37af4c4041ca03b33a9353654c947e31d51d6272",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
