@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e145e209_aac55b70",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T08:15:05Z",
+      "side": 1,
+      "message": "Uploaded aosp/814953.",
+      "parentUuid": "c372187e_854551d0",
+      "range": {
+        "startLine": 572,
+        "startChar": 30,
+        "endLine": 572,
+        "endChar": 36
+      },
+      "revId": "5c27416e8e3f5adfb7c4ff3e18a15ee851ad5aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be55ec99_19d8fe05",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 3
