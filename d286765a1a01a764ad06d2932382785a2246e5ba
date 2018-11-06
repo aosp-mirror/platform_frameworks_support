@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19e5882a_28268ede",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-06T01:08:29Z",
+      "side": 1,
+      "message": "Is there a reason we need this requirement at all? Elsewhere we just allow them to be independent, I believe.\n\nThe following scenario seems possible to me: a nav app with a relatively thin client, which just renders images it receives from the server. In that case such a nav app would not be able to send any lane information at all, since it wouldn\u0027t have the metadata.",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
