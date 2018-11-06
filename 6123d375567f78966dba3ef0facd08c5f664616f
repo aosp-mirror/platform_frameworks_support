@@ -34,6 +34,24 @@
       "revId": "6123d375567f78966dba3ef0facd08c5f664616f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e8801f6_4fb00d29",
+        "filename": "core/src/androidTest/java/androidx/core/text/PrecomputedTextCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-11-06T21:32:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f63e6afd_5fe3b430",
+      "revId": "6123d375567f78966dba3ef0facd08c5f664616f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
