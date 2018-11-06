@@ -34,6 +34,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eca4374_05c518a3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-06T01:37:47Z",
+      "side": 1,
+      "message": "But OEMs can\u0027t reliably trust that they\u0027ll receive anything. They already have to support no lane guidance at all, so it\u0027s trivial to also support image-with-no-metadata.\n\nTo me we\u0027re basically providing two APIs here: an image API (for consumers that want to use images consistent with the producer, or who don\u0027t want to make their own) and a metadata API (for consumers that want to use their own images, or can\u0027t use images for technical reasons). I don\u0027t see any reason to couple those APIs.",
+      "parentUuid": "aa16598d_07b425f0",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
