@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f63e6afd_5fe3b430",
+        "filename": "core/src/androidTest/java/androidx/core/text/PrecomputedTextCompatTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2018-11-06T21:26:55Z",
+      "side": 1,
+      "message": "add a test for equalsWithoutTextDirection being different from equals",
+      "revId": "6123d375567f78966dba3ef0facd08c5f664616f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
