@@ -22,6 +22,30 @@
       "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b993b6e2_e0cce119",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-06T08:30:51Z",
+      "side": 1,
+      "message": "Right now, this is for implementation specific information in the case where the app uses a custom TextClassifier, or the OEM wants to provide extra information to its 1P users.\n\nIn a follow up patch, we\u0027ll also add some canonical keys for things like the parsed time for \"datetime\" entities though. It\u0027s not part of this change yet because we\u0027d ideally like the key value to match framework, and we don\u0027t have that part of the API there yet.",
+      "parentUuid": "ebf10c3c_eea10647",
+      "range": {
+        "startLine": 409,
+        "startChar": 11,
+        "endLine": 409,
+        "endChar": 34
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
