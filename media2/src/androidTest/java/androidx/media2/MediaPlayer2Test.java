@@ -752,7 +752,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
             mEventCallbacks.add(ecb);
         }
 
-        if (!checkLoadResource(R.raw.testvideo)) {
+        if (!checkLoadResource(R.raw.testvideoh264)) {
             return; // skip;
         }
         playLoadedVideo(352, 288, -1);
