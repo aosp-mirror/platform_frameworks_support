@@ -70,6 +70,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84e51f51_f2608c41",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-06T02:26:04Z",
+      "side": 1,
+      "message": "But both APIs are optional anyway -- some producers might not know about lane guidance at all.",
+      "parentUuid": "186eb3b8_bfa17907",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
