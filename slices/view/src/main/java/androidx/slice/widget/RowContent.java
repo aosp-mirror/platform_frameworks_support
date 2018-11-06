@@ -49,6 +49,8 @@ import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_KEY;
 
 /**
  * Extracts information required to present content in a row format from a slice.
@@ -67,6 +69,8 @@ public class RowContent extends SliceContent {
     private ArrayList<SliceItem> mEndItems = new ArrayList<>();
     private ArrayList<SliceAction> mToggleItems = new ArrayList<>();
     private SliceItem mRange;
+    private SliceItem mSelection;
+    private ArrayList<SliceItem> mSelectionOptions = new ArrayList<>();
     private boolean mIsHeader;
     private int mLineCount = 0;
 
@@ -99,6 +103,9 @@ public class RowContent extends SliceContent {
         }
         if (SUBTYPE_RANGE.equals(rowSlice.getSubType())) {
             mRange = rowSlice;
+        }
+        if (SUBTYPE_SELECTION.equals(rowSlice.getSubType())) {
+            mSelection = rowSlice;
         }
         if (rowItems.size() > 0) {
             // Remove the things we already know about
@@ -225,6 +232,14 @@ public class RowContent extends SliceContent {
     @Nullable
     public SliceItem getRange() {
         return mRange;
+    }
+
+    /**
+     * @return the {@link SliceItem} representing the selection in the row; can be null.
+     */
+    @Nullable
+    public SliceItem getSelection() {
+        return mSelection;
     }
 
     /**
@@ -367,11 +382,17 @@ public class RowContent extends SliceContent {
      * @return whether this item is valid content to visibly appear in a row.
      */
     private static boolean isValidRowContent(SliceItem slice, SliceItem item) {
+        // XXX: This is fragile -- new subtypes may be erroneously displayed by old clients, since
+        // this is effectively a blocklist, not an allowlist. I'm not sure if SELECTION_OPTION_KEY
+        // needs to be here, but better safe than sorry.
         if (item.hasAnyHints(HINT_KEYWORDS, HINT_TTL, HINT_LAST_UPDATED, HINT_HORIZONTAL)
-                || SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
+                || SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())
+                || SUBTYPE_SELECTION_OPTION_KEY.equals(item.getSubType())) {
             return false;
         }
         final String itemFormat = item.getFormat();
+        // XXX: This is confusing -- the FORMAT_INTs in a SUBTYPE_RANGE Slice aren't visible
+        // themselves, they're just used to inform rendering.
         return FORMAT_IMAGE.equals(itemFormat)
                 || FORMAT_TEXT.equals(itemFormat)
                 || FORMAT_LONG.equals(itemFormat)
