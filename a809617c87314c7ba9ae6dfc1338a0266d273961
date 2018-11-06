@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e153272d_4f500563",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-06T18:22:50Z",
+      "side": 1,
+      "message": "The existing test video files under res/raw came from CTS. How about to use existing one? e.g. video_480x360_mp4_h264_1000kbps_25fps_aac_stereo_128kbps_44100hz.mp4",
+      "range": {
+        "startLine": 755,
+        "startChar": 37,
+        "endLine": 755,
+        "endChar": 50
+      },
+      "revId": "a809617c87314c7ba9ae6dfc1338a0266d273961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
