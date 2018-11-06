@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "c0c7b401_3c4ae1f0",
+        "filename": "work/integration-tests/testapp/src/main/java/androidx/work/integration/testapp/CoroutineSleepWorker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-06T20:48:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "503955a8_9df941a5",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "814a231d_3bc164ce",
         "filename": "work/integration-tests/testapp/src/main/java/androidx/work/integration/testapp/CoroutineSleepWorker.kt",
         "patchSetId": 2
@@ -165,6 +189,30 @@
       "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73dde9a_6218b283",
+        "filename": "work/workmanager-coroutines/src/androidTest/java/androidx/work/couroutines/CoroutineWorkerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-06T20:48:00Z",
+      "side": 1,
+      "message": "There used to be some naming conflict since we had one of those.  I\u0027ll clean this up later; this isn\u0027t blocking the actual functionality or testing here for now.",
+      "parentUuid": "2e191d21_a298c7d4",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "ff04edfdd4ae5db18285afb3a03a584d41ca13df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
