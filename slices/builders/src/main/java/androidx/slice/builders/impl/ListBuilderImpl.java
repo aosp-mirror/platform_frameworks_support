@@ -45,6 +45,7 @@ import static androidx.slice.builders.ListBuilder.INFINITY;
 import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_MILLIS;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION;
 
 import android.app.PendingIntent;
 import android.net.Uri;
@@ -226,7 +227,7 @@ public class ListBuilderImpl extends TemplateBuilderImpl implements ListBuilder 
     @Override
     public void addSelection(SelectionBuilder builder) {
         SelectionBuilderImpl impl = new SelectionBuilderListImpl(createChildBuilder(), builder);
-        getBuilder().addSubSlice(impl.build());
+        getBuilder().addSubSlice(impl.build(), SUBTYPE_SELECTION);
     }
 
     /**
