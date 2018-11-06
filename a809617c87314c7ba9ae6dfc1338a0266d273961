@@ -22,6 +22,30 @@
       "revId": "a809617c87314c7ba9ae6dfc1338a0266d273961",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9448f2a6_f36e8c5b",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-11-06T18:35:04Z",
+      "side": 1,
+      "message": "Done. I\u0027ve updated the expected resolution and key-frame position accordingly.",
+      "parentUuid": "e153272d_4f500563",
+      "range": {
+        "startLine": 755,
+        "startChar": 37,
+        "endLine": 755,
+        "endChar": 50
+      },
+      "revId": "a809617c87314c7ba9ae6dfc1338a0266d273961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
