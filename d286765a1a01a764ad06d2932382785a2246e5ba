@@ -124,6 +124,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdb4e28b_603012ae",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-06T19:09:10Z",
+      "side": 1,
+      "message": "After some talk with the GEO team we agreed that there would be cases where either metadata or images might not be present, but that acceptable. We will put the responsibility on the producer (the navigation apps) to provide as much data as possible (as this is for their own best interest), but we don\u0027t think we can restrict the API to the point where lane guidance can only be provided only if both elements are provided. Otherwise we fear apps might add arbitrary data just to comply, or they might just not provide lane guidance at all.",
+      "parentUuid": "d6200a77_0cfda3a1",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
