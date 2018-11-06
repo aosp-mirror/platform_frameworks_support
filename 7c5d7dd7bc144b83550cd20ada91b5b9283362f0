@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a45bed83_357df8c2",
+        "filename": "media2/src/main/java/androidx/media2/MediaBrowser2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T06:20:47Z",
+      "side": 1,
+      "message": "\u0027Shouldn\u0027t be empty\u0027 to match with the exception message?",
+      "range": {
+        "startLine": 159,
+        "startChar": 34,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "7c5d7dd7bc144b83550cd20ada91b5b9283362f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
