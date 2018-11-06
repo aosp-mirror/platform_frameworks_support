@@ -52,6 +52,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "186eb3b8_bfa17907",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-06T02:17:01Z",
+      "side": 1,
+      "message": "I agree: we are providing two APIs for two types of OEMs.\n\nBut navigation apps should provide data for both types of OEMs. If we let both producers and consumers choose, we are opening too many combinations, making this unpredictable for both OEMs and app developers. \n\nProducers should provide both, and consumers (OEMs) should have the option to use whichever they want.",
+      "parentUuid": "7eca4374_05c518a3",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
