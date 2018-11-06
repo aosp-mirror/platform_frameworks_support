@@ -22,6 +22,30 @@
       "revId": "f46305bc9564367094f7134816b1df019b8cb3c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc052e3_0c66cfd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-06T01:31:16Z",
+      "side": 1,
+      "message": "Could you by any chance provide more details for the failure? (Logs, device build, etc?)",
+      "parentUuid": "f75897c2_67ea240e",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "f46305bc9564367094f7134816b1df019b8cb3c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
