@@ -20,7 +20,6 @@ import static androidx.appcompat.testutils.TestUtilsActions.setTextAppearance;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -40,6 +39,7 @@ import android.os.LocaleList;
 import android.text.Layout;
 import android.text.PrecomputedText;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.textclassifier.TextClassificationManager;
 import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
@@ -641,6 +641,38 @@ public class AppCompatTextViewTest
                 if (BuildCompat.isAtLeastQ()) {
                     assertTrue(tv.getText() instanceof PrecomputedText);
                 }
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_directionDifference() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+                final AppCompatTextView tv = mActivity.findViewById(R.id.text_view_rtl);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_createAndAttach() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+
+                final AppCompatTextView tv = new AppCompatTextView(mActivity);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.addView(tv);
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
             }
         });
     }
