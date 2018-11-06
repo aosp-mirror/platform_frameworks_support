@@ -97,14 +97,20 @@ public class StepTest {
     }
 
     /**
-     * Lane configuration metadata and image must be both provided, or not provided at all.
+     * Lane configuration metadata is required if lane configuration image is provided.
      */
     @Test
-    public void builder_lanesMetadataAndImageMustBeBothProvided() {
-        assertThrows(IllegalArgumentException.class, () ->
-                new Step.Builder().addLane(LaneTest.createSampleLane()).build());
+    public void builder_lanesMetadataIsRequiredIfImageProvided() {
         assertThrows(IllegalArgumentException.class, () ->
                 new Step.Builder().setLanesImage(ImageReferenceTest.createSampleImage()).build());
+    }
+
+    /**
+     * Lane configuration image is optional
+     */
+    @Test
+    public void builder_lanesImageIsOptional() {
+        new Step.Builder().addLane(LaneTest.createSampleLane()).build();
     }
 
     /**

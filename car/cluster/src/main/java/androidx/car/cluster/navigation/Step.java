@@ -63,10 +63,9 @@ public final class Step implements VersionedParcelable {
     @RestrictTo(LIBRARY_GROUP)
     Step(@Nullable Distance distance, @Nullable Maneuver maneuver, @NonNull List<Lane> lanes,
             @Nullable ImageReference lanesImage, @Nullable RichText cue) {
-        Preconditions.checkArgument((lanes != null && !lanes.isEmpty() && lanesImage != null)
-                || ((lanes == null || lanes.isEmpty()) && lanesImage == null), "Lanes "
-                + "configuration metadata and image must be both provided, or not provided at "
-                + "all.");
+        Preconditions.checkArgument(lanesImage == null || (lanes != null && !lanes.isEmpty()),
+                "If lane configuration image is provided, then lanes configuration metadata must "
+                        + "be provided");
         mDistance = distance;
         mManeuver = maneuver;
         mLanes = new ArrayList<>(lanes);
@@ -110,9 +109,6 @@ public final class Step implements VersionedParcelable {
 
         /**
          * Adds a road lane configuration to this step. Lanes should be added from left to right.
-         * <p>
-         * If {@link Lane} metadata is provided, then a lane configuration image must also be
-         * provided.
          *
          * @return this object for chaining
          */
