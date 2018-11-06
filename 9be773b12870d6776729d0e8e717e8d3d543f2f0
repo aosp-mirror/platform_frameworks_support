@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5e62026_acee0568",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "audioFocusGranted",
+      "range": {
+        "startLine": 155,
+        "startChar": 20,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fd780b2_ba2728cf",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "What about unregisterBecomingNoisyReceiverLocked?",
+      "range": {
+        "startLine": 266,
+        "startChar": 21,
+        "endLine": 266,
+        "endChar": 45
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dcb4ae5_8be82f82",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "What about mBecomingNoisyReceiverRegistered?",
+      "range": {
+        "startLine": 267,
+        "startChar": 17,
+        "endLine": 267,
+        "endChar": 39
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bad8208_5789dbe9",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "What about BecomingNoisyReceiver?\nhttps://developer.android.com/guide/topics/media-apps/volume-and-earphones#java",
+      "range": {
+        "startLine": 347,
+        "startChar": 22,
+        "endLine": 347,
+        "endChar": 41
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa9670e_4ab48db6",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "Could you move this before the method? L350 or L351?",
+      "range": {
+        "startLine": 353,
+        "startChar": 16,
+        "endLine": 353,
+        "endChar": 77
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b40bf1_96acedac",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-06T00:50:51Z",
+      "side": 1,
+      "message": "onPlay for consistency?",
+      "range": {
+        "startLine": 584,
+        "startChar": 31,
+        "endLine": 584,
+        "endChar": 46
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
