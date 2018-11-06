@@ -28,9 +28,12 @@ import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 
+import static android.app.slice.SliceItem.FORMAT_TEXT;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION_VALUE;
 import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_KEY;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_BUTTON;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_TOGGLE;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_LIST;
@@ -54,11 +57,15 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -73,6 +80,7 @@ import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,7 +93,8 @@ import java.util.Set;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(19)
-public class RowView extends SliceChildView implements View.OnClickListener {
+public class RowView extends SliceChildView implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "RowView";
 
@@ -116,6 +125,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     protected Set<SliceItem> mLoadingActions = new HashSet<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mShowActionSpinner;
+    private Spinner mSelectionSpinner;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRowIndex;
@@ -146,6 +156,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeMinValue;
     private SliceItem mRangeItem;
+    private ArrayList<String> mSelectionOptionKeys;
+    private ArrayList<CharSequence> mSelectionOptionValues;
 
     private int mImageSize;
     private int mIconSize;
@@ -259,10 +271,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             // Remember the measured height later for onLayout, since super.onMeasure will overwrite
             // it.
             mMeasuredRangeHeight = mRangeBar.getMeasuredHeight();
+        } else if (mSelectionSpinner != null) {
+            int selectionMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+            measureChild(mSelectionSpinner, widthMeasureSpec, selectionMeasureSpec);
         }
 
         int totalHeightSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, totalHeightSpec);
+
+        // XXX: measure mSelectionSpinner.
     }
 
     @Override
@@ -278,6 +295,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             int bottom = top + mMeasuredRangeHeight;
             mRangeBar.layout(0, top, mRangeBar.getMeasuredWidth(), bottom);
         }
+
+        // XXX: layout mSelectionSpinner.
     }
 
     /**
@@ -370,6 +389,17 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             }
             return;
         }
+
+        final SliceItem selection = mRowContent.getSelection();
+        if (selection != null) {
+            Log.e(TAG, "Got selection!");
+            addSelection(selection);
+            // XXX: Should we return here?
+            //return;
+        } else {
+            Log.e(TAG, "No selection.");
+        }
+
         updateEndItems();
         updateActionSpinner();
     }
@@ -625,6 +655,39 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
+    private void addSelection(final SliceItem selection) {
+        if (mHandler == null) {
+            mHandler = new Handler();
+        }
+
+        mSelectionOptionKeys = new ArrayList<String>();
+        mSelectionOptionValues = new ArrayList<CharSequence>();
+
+        final List<SliceItem> optionItems = selection.getSlice().getItems();
+
+        for (int i = 0; i < optionItems.size(); i++) {
+            final SliceItem optionItem = optionItems.get(i);
+            final SliceItem optionKeyItem =
+                    SliceQuery.findSubtype(optionItem, FORMAT_TEXT, SUBTYPE_SELECTION_OPTION_KEY);
+            final SliceItem optionValueItem =
+                    SliceQuery.find(optionItem, FORMAT_TEXT, HINT_SELECTION_OPTION_VALUE, null);
+            if (optionKeyItem == null || optionValueItem == null) {
+                // XXX: Log something?
+                continue;
+            }
+
+            mSelectionOptionKeys.add(optionKeyItem.getText().toString());
+            mSelectionOptionValues.add(optionValueItem.getSanitizedText());
+        }
+
+        mSelectionSpinner = new Spinner(getContext(), Spinner.MODE_DIALOG);
+        mSelectionSpinner.setAdapter(new ArrayAdapter<CharSequence>(
+                getContext(), android.R.layout.simple_spinner_item, mSelectionOptionValues));
+
+        Log.e(TAG, "Adding view " + mSelectionSpinner + ".");
+        addView(mSelectionSpinner);
+    }
+
     /**
      * Add an action view to the container.
      */
@@ -801,6 +864,24 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent == mSelectionSpinner) {
+            if (position < 0 || position >= mSelectionOptionKeys.size()) {
+                // XXX: Log error.
+                return;
+            }
+            final String optionKey = mSelectionOptionKeys.get(position);
+            // XXX: Do something with optionKey.
+            Log.e(TAG, "Selection option key " + optionKey + " selected.");
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     private void setViewClickable(View layout, boolean isClickable) {
         layout.setOnClickListener(isClickable ? this : null);
         layout.setBackground(isClickable
@@ -849,6 +930,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             mRangeBar = null;
         }
         mActionSpinner.setVisibility(GONE);
+        // XXX: Reset selection stuff.
     }
 
     Runnable mRangeUpdater = new Runnable() {

@@ -29,8 +29,9 @@ import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.Slice.SUBTYPE_CONTENT_DESCRIPTION;
 import static android.app.slice.Slice.SUBTYPE_LAYOUT_DIRECTION;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.slice.core.SliceHints.HINT_SELECTION;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION_VALUE;
 import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_KEY;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION_VALUE;
 
 /**
  * @hide
@@ -48,8 +49,6 @@ public class SelectionBuilderV1Impl extends SelectionBuilderImpl {
         final SelectionBuilder selectionBuilder = getSelectionBuilder();
 
         selectionBuilder.check();
-
-        sliceBuilder.addHints(HINT_SELECTION);
 
         selectionBuilder.getPrimaryAction().setPrimaryAction(sliceBuilder);
 
@@ -76,8 +75,8 @@ public class SelectionBuilderV1Impl extends SelectionBuilderImpl {
             if (option.first.equals(selectionBuilder.getSelectedOption())) {
                 optionSubSliceBuilder.addHints(HINT_SELECTED);
             }
-            optionSubSliceBuilder.addText(option.second, null);
             optionSubSliceBuilder.addText(option.first, SUBTYPE_SELECTION_OPTION_KEY);
+            optionSubSliceBuilder.addText(option.second, null, HINT_SELECTION_OPTION_VALUE);
             sliceBuilder.addSubSlice(optionSubSliceBuilder.build());
         }
     }
