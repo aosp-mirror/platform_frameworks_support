@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d685ccf9_65cf4afc",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-06T16:58:34Z",
+      "side": 1,
+      "message": "let\u0027s move all this logic into TypefaceCompat, so it is reusable by other code points as well.\n\nMake TypefaceCompat.create(typeface, style) do all of this sdk checking internally and do the correct thing per api level, then here just call that",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 58
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4e95eee_1d6b89ef",
+        "filename": "core/src/androidTest/java/androidx/core/graphics/TypefaceCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-06T16:58:34Z",
+      "side": 1,
+      "message": "I\u0027d add another part to this test which takes large_c as you have it and then calls setTypeface(large_c, NORMAL) and checks that the roundtrip also works (so can you retrieve the original Typeface from the Bold one?)",
+      "range": {
+        "startLine": 459,
+        "startChar": 16,
+        "endLine": 459,
+        "endChar": 49
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fac4f0a_094f4335",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-06T16:58:34Z",
+      "side": 1,
+      "message": "once you move the code in here as I mentioned in my previous comment, I think TypefaceCompat.create will be useful for other people, so I would make this class public (remove the @hide, make all the existing methods @hide and @RestrictTo library (find examples of this in the codebase) and then leave the new create method public\n\nwhen you run the api command, you should end up with TypefaceCompat class and the one new method on the api file",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f1e6184_90e54d0a",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-06T16:58:34Z",
+      "side": 1,
+      "message": "is 0 a valid native key?",
+      "range": {
+        "startLine": 85,
+        "startChar": 19,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
