@@ -215,6 +215,7 @@ public class RowContent extends SliceContent {
                 || mSubtitleItem != null
                 || mEndItems.size() > 0
                 || mRange != null
+                || mSelection != null
                 || isDefaultSeeMore());
     }
 
