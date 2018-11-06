@@ -22,6 +22,7 @@
         <activity android:name="androidx.activity.LifecycleComponentActivity"/>
         <activity android:name="androidx.activity.ViewModelActivity"/>
         <activity android:name="androidx.activity.OnBackPressedComponentActivity"/>
+        <activity android:name="androidx.activity.SavedStateActivity"/>
     </application>
 
 </manifest>
