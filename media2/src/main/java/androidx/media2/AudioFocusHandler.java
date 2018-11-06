@@ -158,11 +158,6 @@ public class AudioFocusHandler {
                     }
                 }
             }
-            // Audio attributes shouldn't be {@code null} if it has audio track.
-            // To enforce it, sets the volume to the {@code 0} when the attribute is {@code null}.
-            if (attrs == null) {
-                mPlayer.setPlayerVolume(0);
-            }
             return result;
         }
 
