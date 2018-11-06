@@ -78,7 +78,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
     }
 
-    final ConnectedControllersManager<RemoteUserInfo> mConnectedControllersManager;
+    final ConnectedLegacyControllersManager mConnectedControllersManager;
 
     final Object mLock = new Object();
 
@@ -96,7 +96,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
                         RemoteUserInfo.LEGACY_CONTROLLER, Process.myPid(), Process.myUid()),
                 false /* trusted */,
                 new ControllerLegacyCbForAll());
-        mConnectedControllersManager = new ConnectedControllersManager<>(session);
+        mConnectedControllersManager = new ConnectedLegacyControllersManager(session);
     }
 
     @Override
