@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c372187e_854551d0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T07:42:00Z",
+      "side": 1,
+      "message": "I\u0027ll upload a separate CL for this.",
+      "parentUuid": "89d48f4b_579c536f",
+      "range": {
+        "startLine": 572,
+        "startChar": 30,
+        "endLine": 572,
+        "endChar": 36
+      },
+      "revId": "5c27416e8e3f5adfb7c4ff3e18a15ee851ad5aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be55ec99_19d8fe05",
         "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
         "patchSetId": 3
