@@ -16,6 +16,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa16598d_07b425f0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2018-11-06T01:32:23Z",
+      "side": 1,
+      "message": "To me that would be a dangerous path: if we allow images without metadata, then we should just remove metadata altogether, as OEMs wouldn\u0027t be able to reliably trust they will receive it.\nIn order words: if an OEM assumes they will receive lane configuration metadata (because the API describes it), and they develop a cluster implementation that relies on it, it would be very bad if a particular app doesn\u0027t provide it. \n\nIn my opinion, it is already cuestionable that we are providing lanes configuration image at all (I don\u0027t think images will be flexible enough to accommodate all possible OEM implementations). I believe we should consider them as only an auxiliary option (to fulfill the short term requirements), but not the main way to communicate data between apps and clusters.",
+      "parentUuid": "19e5882a_28268ede",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
