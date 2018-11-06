@@ -106,6 +106,24 @@
       "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6200a77_0cfda3a1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-11-06T19:01:40Z",
+      "side": 1,
+      "message": "sorry, I missed something in the discussion I think. If we agree that producers should provide both for correct operation, then why are we changing that? in other words, why not enforce the \"correct\" operation",
+      "parentUuid": "8f9c0fec_92223b83",
+      "revId": "d286765a1a01a764ad06d2932382785a2246e5ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
