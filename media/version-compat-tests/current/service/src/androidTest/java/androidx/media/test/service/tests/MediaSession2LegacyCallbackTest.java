@@ -24,6 +24,7 @@ import static androidx.media2.MediaSession2.SessionResult.RESULT_CODE_SUCCESS;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -83,9 +84,11 @@ import java.util.concurrent.TimeUnit;
 public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
     private static final String TAG = "MediaSession2LegacyCallbackTest";
 
-    private static final String EXPECTED_CONTROLLER_PACKAGE_NAME =
-            (Build.VERSION.SDK_INT < 21 || Build.VERSION.SDK_INT >= 24)
-                    ? CLIENT_PACKAGE_NAME : LEGACY_CONTROLLER;
+    private static final boolean SUPPORT_CONTROLLER_PACKAGE_NAME =
+            (Build.VERSION.SDK_INT < 21 || Build.VERSION.SDK_INT >= 24);
+
+    private static final String EXPECTED_CONTROLLER_PACKAGE_NAME = SUPPORT_CONTROLLER_PACKAGE_NAME
+            ? CLIENT_PACKAGE_NAME : LEGACY_CONTROLLER;
 
     PendingIntent mIntent;
     MediaSession2 mSession;
@@ -913,6 +916,61 @@ public class MediaSession2LegacyCallbackTest extends MediaSession2TestBase {
                 .setId(TAG)
                 .build();
         testSessionCallbackIsNotCalled();
+    }
+
+    @Test
+    @LargeTest
+    public void testControllerConnectedAndDisconnected() throws InterruptedException {
+        if (!SUPPORT_CONTROLLER_PACKAGE_NAME) {
+            // Skipping test when the RemoteUserInfo isn't available.
+        }
+        prepareLooper();
+
+        final CountDownLatch connectedLatch  = new CountDownLatch(1);
+        final CountDownLatch disconnectedLatch = new CountDownLatch(1);
+        RemoteMediaControllerCompat controller = null;
+        try (MediaSession2 session = new MediaSession2.Builder(mContext, mPlayer)
+                .setSessionCallback(sHandlerExecutor, new SessionCallback() {
+                    @Override
+                    public SessionCommandGroup2 onConnect(MediaSession2 session,
+                            ControllerInfo controller) {
+                        if (controller.getPackageName().equals(EXPECTED_CONTROLLER_PACKAGE_NAME)) {
+                            connectedLatch.countDown();
+                        }
+                        return super.onConnect(session, controller);
+                    }
+
+                    @Override
+                    public void onDisconnected(MediaSession2 session, ControllerInfo controller) {
+                        if (controller.getPackageName().equals(EXPECTED_CONTROLLER_PACKAGE_NAME)) {
+                            disconnectedLatch.countDown();
+                        }
+                    }
+                })
+                .setId("testControllerRemoved")
+                .build()) {
+            session.setConnectedLegacyControllerCheckDelay(TIMEOUT_MS);
+            controller = new RemoteMediaControllerCompat(
+                    mContext, session.getSessionCompat().getSessionToken(), true);
+
+            // This will trigger onConnect()
+            controller.getTransportControls().play();
+
+            assertTrue(connectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+            // Wait TIMEOUT_MS * 2. A TIMEOUT_MS is for waiting for the cleaning logic,
+            // another TIMEOUT_MS for the event is propagated to the handler.
+            assertTrue(disconnectedLatch.await(TIMEOUT_MS * 2, TimeUnit.MILLISECONDS));
+
+            // Ensure that it's gone.
+            for (ControllerInfo controllerInfo : mSession.getConnectedControllers()) {
+                assertNotEquals(EXPECTED_CONTROLLER_PACKAGE_NAME, controllerInfo.getPackageName());
+            }
+        } finally {
+            if (controller != null) {
+                controller.cleanUp();
+            }
+        }
     }
 
     void testSessionCallbackIsNotCalled() throws InterruptedException {

@@ -35,7 +35,7 @@ import java.util.List;
  */
 class MediaSessionService2LegacyStub extends MediaBrowserServiceCompat {
     private final MediaSession2Impl mSessionImpl;
-    private final ConnectedControllersManager<RemoteUserInfo> mConnectedControllersManager;
+    private final ConnectedLegacyControllersManager<RemoteUserInfo> mConnectedControllersManager;
 
     final MediaSessionManager mManager;
 
@@ -47,7 +47,7 @@ class MediaSessionService2LegacyStub extends MediaBrowserServiceCompat {
         setSessionToken(token);
         mManager = MediaSessionManager.getSessionManager(context);
         mSessionImpl = sessionImpl;
-        mConnectedControllersManager = new ConnectedControllersManager<>(sessionImpl);
+        mConnectedControllersManager = new ConnectedLegacyControllersManager<>(sessionImpl);
     }
 
     @Override

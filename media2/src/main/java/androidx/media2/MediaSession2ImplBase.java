@@ -826,6 +826,13 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         mSession2Stub.connect(caller, packageName, pid, uid);
     }
 
+    @Override
+    public void setConnectedLegacyControllerCheckDelay(long delayMs) {
+        ConnectedLegacyControllersManager manager = (ConnectedLegacyControllersManager)
+                mSessionLegacyStub.getConnectedControllersManager();
+        manager.setConnectedLegacyControllerCheckDelay(delayMs);
+    }
+
     /**
      * Gets the service binder from the MediaBrowserServiceCompat. Should be only called by the
      * thread with a Looper.

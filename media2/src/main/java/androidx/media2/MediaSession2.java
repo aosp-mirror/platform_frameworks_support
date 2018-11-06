@@ -39,6 +39,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.ObjectsCompat;
@@ -362,6 +363,17 @@ public class MediaSession2 implements AutoCloseable {
     }
 
     /**
+     * Only for testing. Do not use otherwise.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @VisibleForTesting
+    public void setConnectedLegacyControllerCheckDelay(long delayMs) {
+        mImpl.setConnectedLegacyControllerCheckDelay(delayMs);
+    }
+
+    /**
      * Handles the controller's connection request from {@link MediaSessionService2}.
      *
      * @param controller controller aidl
@@ -408,7 +420,12 @@ public class MediaSession2 implements AutoCloseable {
         }
 
         /**
-         * Called when a controller is disconnected
+         * Called when a controller is disconnected.
+         * <p>
+         * Interoperability: This wouldn't be called for the
+         * {@link android.support.v4.media.session.MediaControllerCompat} nor
+         * {@link android.support.v4.media.MediaBrowserCompat} on SDK level between 21 and 27 where
+         * we cannot know when they're removed.
          *
          * @param session the session for this event
          * @param controller controller information
@@ -1231,6 +1248,9 @@ public class MediaSession2 implements AutoCloseable {
         PendingIntent getSessionActivity();
         IBinder getLegacyBrowserServiceBinder();
         void connectFromService(IMediaController2 caller, String packageName, int pid, int uid);
+
+        // Only for testing
+        void setConnectedLegacyControllerCheckDelay(long delayMs);
     }
 
     /**
