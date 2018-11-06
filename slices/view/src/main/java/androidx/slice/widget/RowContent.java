@@ -71,7 +71,6 @@ public class RowContent extends SliceContent {
     private ArrayList<SliceAction> mToggleItems = new ArrayList<>();
     private SliceItem mRange;
     private SliceItem mSelection;
-    private ArrayList<SliceItem> mSelectionOptions = new ArrayList<>();
     private boolean mIsHeader;
     private int mLineCount = 0;
     private boolean mShowTitleItems;
@@ -215,6 +214,7 @@ public class RowContent extends SliceContent {
                 || mSubtitleItem != null
                 || mEndItems.size() > 0
                 || mRange != null
+                || mSelection != null
                 || isDefaultSeeMore());
     }
 
