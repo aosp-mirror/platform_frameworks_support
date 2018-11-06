@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a94c56f_f1494910",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "result looks more correct here. at L150-153, we abandons audio focus but it returns true.",
+      "parentUuid": "f5e62026_acee0568",
+      "range": {
+        "startLine": 155,
+        "startChar": 20,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fd780b2_ba2728cf",
         "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d3031bf_08dc3710",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fd780b2_ba2728cf",
+      "range": {
+        "startLine": 266,
+        "startChar": 21,
+        "endLine": 266,
+        "endChar": 45
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eeddd342_6dc6642a",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dcb4ae5_8be82f82",
+      "range": {
+        "startLine": 267,
+        "startChar": 17,
+        "endLine": 267,
+        "endChar": 39
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bad8208_5789dbe9",
         "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ffa69b1_9e8f94f1",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bad8208_5789dbe9",
+      "range": {
+        "startLine": 347,
+        "startChar": 22,
+        "endLine": 347,
+        "endChar": 41
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1e4eaad6_56de11dc",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa9670e_4ab48db6",
+      "range": {
+        "startLine": 353,
+        "startChar": 16,
+        "endLine": 353,
+        "endChar": 77
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04b40bf1_96acedac",
         "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e80dc58_f30360d1",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-06T01:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b40bf1_96acedac",
+      "range": {
+        "startLine": 584,
+        "startChar": 31,
+        "endLine": 584,
+        "endChar": 46
+      },
+      "revId": "9be773b12870d6776729d0e8e717e8d3d543f2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
