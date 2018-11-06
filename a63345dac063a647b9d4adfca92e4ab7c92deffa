@@ -115,6 +115,30 @@
       "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9400f56_ccb63e60",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2018-11-06T00:06:17Z",
+      "side": 1,
+      "message": "This is a backwards incompatible change (which I somehow missed at the time, sorry) that breaks Maps. IMO we should remove this requirement.",
+      "parentUuid": "1fc9294a_c6259763",
+      "range": {
+        "startLine": 113,
+        "startChar": 14,
+        "endLine": 115,
+        "endChar": 20
+      },
+      "revId": "a63345dac063a647b9d4adfca92e4ab7c92deffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
