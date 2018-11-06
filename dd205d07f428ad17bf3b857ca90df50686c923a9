@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bb990b3_91643c4a",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSession2LegacyCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "remove this or add return;",
+      "range": {
+        "startLine": 924,
+        "startChar": 8,
+        "endLine": 926,
+        "endChar": 9
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c5ac1d_c1f5feca",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSession2LegacyCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "Q) I could not understand why the disconnect() is triggered. Why cleaning logic starts working even though the test is not end?",
+      "range": {
+        "startLine": 961,
+        "startChar": 12,
+        "endLine": 963,
+        "endChar": 87
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740d8f87_c0848db1",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSession2LegacyCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "session?",
+      "range": {
+        "startLine": 966,
+        "startChar": 49,
+        "endLine": 966,
+        "endChar": 57
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337d4c27_a1bc5265",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "mConnectedLegacyControllerCheckDelayInMs",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 44
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec2de938_656ef97a",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "controller? (for consistency with L62) / Here and below, let\u0027s rename all local \u0027controllerInfo\u0027 to \u0027controller\u0027 (L95, L127, L129...)",
+      "range": {
+        "startLine": 68,
+        "startChar": 23,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9cdea3_89250356",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "How about postControllerCheck()?",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 95,
+        "endChar": 42
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f9eda4_4e7035f5",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "Let\u0027s remove these",
+      "range": {
+        "startLine": 107,
+        "startChar": 29,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3057553_1bdbe7c9",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "mController",
+      "range": {
+        "startLine": 127,
+        "startChar": 36,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8d045c_9abdc729",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "Let\u0027s make pid and package name as a final local variable. (e.g. controllerPid)",
+      "range": {
+        "startLine": 142,
+        "startChar": 20,
+        "endLine": 142,
+        "endChar": 63
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdfa17d_56627867",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "The logic looks complex since we handle both two cases in one block:\n1) When the controller.pid is unknown\n2) When the controller.pid is known and it is same with one of the running process.\n\nCan we make these cases separate?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 88
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6819152d_f16e2125",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedLegacyControllersManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 158,
+        "startChar": 87,
+        "endLine": 158,
+        "endChar": 88
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da2b6cc_acd967d2",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-06T06:50:59Z",
+      "side": 1,
+      "message": "Needs more info what this method actually does.",
+      "range": {
+        "startLine": 366,
+        "startChar": 7,
+        "endLine": 366,
+        "endChar": 46
+      },
+      "revId": "dd205d07f428ad17bf3b857ca90df50686c923a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
