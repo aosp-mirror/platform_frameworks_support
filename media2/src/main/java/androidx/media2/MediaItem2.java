@@ -197,7 +197,8 @@ public class MediaItem2 implements VersionedParcelable {
      *
      * @return metadata from the session
      */
-    public @Nullable MediaMetadata2 getMetadata() {
+    @Nullable
+    public MediaMetadata2 getMetadata() {
         return mMetadata;
     }
 
@@ -227,7 +228,8 @@ public class MediaItem2 implements VersionedParcelable {
      */
     // TODO: Remove
     @RestrictTo(LIBRARY)
-    public @Nullable String getMediaId() {
+    @Nullable
+    public String getMediaId() {
         return mMetadata != null ? mMetadata.getString(MediaMetadata2.METADATA_KEY_MEDIA_ID) : null;
     }
 

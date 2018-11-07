@@ -113,7 +113,8 @@ public final class PlaybackParams2 {
     /**
      * Returns the pitch factor. {@code null} if a value is not set.
      */
-    public @Nullable Float getPitch() {
+    @Nullable
+    public Float getPitch() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 return mPlaybackParams.getPitch();
@@ -128,7 +129,8 @@ public final class PlaybackParams2 {
     /**
      * Returns the speed factor. {@code null} if a value is not set.
      */
-    public @Nullable Float getSpeed() {
+    @Nullable
+    public Float getSpeed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 return mPlaybackParams.getSpeed();

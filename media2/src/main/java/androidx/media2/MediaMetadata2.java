@@ -770,7 +770,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return a CharSequence value, or null
      */
-    public @Nullable CharSequence getText(@NonNull @TextKey String key) {
+    @Nullable
+    public CharSequence getText(@NonNull @TextKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -786,7 +787,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @see #METADATA_KEY_MEDIA_ID
      */
     // TODO(jaewan): Hide -- no setMediaId()
-    public @Nullable String getMediaId() {
+    @Nullable
+    public String getMediaId() {
         return getString(METADATA_KEY_MEDIA_ID);
     }
 
@@ -798,7 +800,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return a String value, or null
      */
-    public @Nullable String getString(@NonNull @TextKey String key) {
+    @Nullable
+    public String getString(@NonNull @TextKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -833,7 +836,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return A {@link Rating2} or {@code null}
      */
-    public @Nullable Rating2 getRating(@NonNull @RatingKey String key) {
+    @Nullable
+    public Rating2 getRating(@NonNull @RatingKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -868,7 +872,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return A {@link Bitmap} or null
      */
-    public @Nullable Bitmap getBitmap(@NonNull @BitmapKey String key) {
+    @Nullable
+    public Bitmap getBitmap(@NonNull @BitmapKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -887,7 +892,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      *
      * @return A {@link Bundle} or {@code null}
      */
-    public @Nullable Bundle getExtras() {
+    @Nullable
+    public Bundle getExtras() {
         try {
             return mBundle.getBundle(METADATA_KEY_EXTRAS);
         } catch (Exception e) {

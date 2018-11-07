@@ -93,7 +93,8 @@ public class UriMediaItem2 extends MediaItem2 {
      * Return the Uri cookies of this media item.
      * @return the Uri cookies of this media item
      */
-    public @Nullable List<HttpCookie> getUriCookies() {
+    @Nullable
+    public List<HttpCookie> getUriCookies() {
         if (mUriCookies == null) {
             return null;
         }

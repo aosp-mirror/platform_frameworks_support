@@ -896,7 +896,8 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          *         the current media item was {@code null}.
          */
         @Override
-        public @Nullable MediaItem2 getMediaItem() {
+        @Nullable
+        public MediaItem2 getMediaItem() {
             return mItem;
         }
     }

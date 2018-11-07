@@ -127,7 +127,8 @@ final class SessionToken2ImplBase implements SessionToken2Impl {
     }
 
     @Override
-    public @Nullable String getServiceName() {
+    @Nullable
+    public String getServiceName() {
         return mServiceName;
     }
 

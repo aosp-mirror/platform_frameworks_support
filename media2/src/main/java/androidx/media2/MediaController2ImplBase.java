@@ -791,7 +791,8 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable MediaBrowserCompat getBrowserCompat() {
+    @Nullable
+    public MediaBrowserCompat getBrowserCompat() {
         return null;
     }
 

@@ -239,7 +239,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable SessionToken2 getConnectedSessionToken() {
+    @Nullable
+    public SessionToken2 getConnectedSessionToken() {
         synchronized (mLock) {
             return mConnected ? mToken : null;
         }
@@ -450,7 +451,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable PendingIntent getSessionActivity() {
+    @Nullable
+    public PendingIntent getSessionActivity() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -542,7 +544,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable PlaybackInfo getPlaybackInfo() {
+    @Nullable
+    public PlaybackInfo getPlaybackInfo() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -589,7 +592,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable List<MediaItem2> getPlaylist() {
+    @Nullable
+    public List<MediaItem2> getPlaylist() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -617,7 +621,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable MediaMetadata2 getPlaylistMetadata() {
+    @Nullable
+    public MediaMetadata2 getPlaylistMetadata() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -825,7 +830,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable MediaBrowserCompat getBrowserCompat() {
+    @Nullable
+    public MediaBrowserCompat getBrowserCompat() {
         synchronized (mLock) {
             return mBrowserCompat;
         }

@@ -136,7 +136,8 @@ final class SessionToken2ImplLegacy extends CustomVersionedParcelable implements
     }
 
     @Override
-    public @Nullable String getServiceName() {
+    @Nullable
+    public String getServiceName() {
         return mComponentName == null ? null : mComponentName.getClassName();
     }
 

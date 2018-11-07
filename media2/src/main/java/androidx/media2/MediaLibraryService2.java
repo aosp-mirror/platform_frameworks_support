@@ -552,7 +552,8 @@ public abstract class MediaLibraryService2 extends MediaSessionService2 {
          * <p>
          * Extras are the private contract between browser and library session.
          */
-        public @Nullable Bundle getExtras() {
+        @Nullable
+        public Bundle getExtras() {
             return mBundle;
         }
 

@@ -162,7 +162,8 @@ class ConnectedControllersManager<T> {
      * @return sequenced future manager. Can be {@code null} if the controller was null or
      *         disconencted.
      */
-    public @Nullable SequencedFutureManager getSequencedFutureManager(
+    @Nullable
+    public SequencedFutureManager getSequencedFutureManager(
             @Nullable ControllerInfo controller) {
         if (controller == null) {
             return null;
@@ -180,7 +181,8 @@ class ConnectedControllersManager<T> {
      * @return sequenced future manager. Can be {@code null} if the controller was null or
      *         disconencted.
      */
-    public @Nullable SequencedFutureManager getSequencedFutureManager(@Nullable T key) {
+    @Nullable
+    public SequencedFutureManager getSequencedFutureManager(@Nullable T key) {
         synchronized (mLock) {
             return getSequencedFutureManager(getController(key));
         }

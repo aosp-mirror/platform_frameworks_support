@@ -417,7 +417,8 @@ public class MediaBrowser2 extends MediaController2 {
          * @see MediaBrowser2#getItem(String)
          */
         @Override
-        public @Nullable MediaItem2 getMediaItem() {
+        @Nullable
+        public MediaItem2 getMediaItem() {
             return mItem;
         }
 
@@ -431,7 +432,8 @@ public class MediaBrowser2 extends MediaController2 {
          * @see MediaBrowser2#getSearchResult(String, int, int, LibraryParams)
          * @see MediaBrowser2#getChildren(String, int, int, LibraryParams)
          **/
-        public @Nullable List<MediaItem2> getMediaItems() {
+        @Nullable
+        public List<MediaItem2> getMediaItems() {
             return mItemList;
         }
 
@@ -440,7 +442,8 @@ public class MediaBrowser2 extends MediaController2 {
          *
          * @return library params.
          */
-        public @Nullable LibraryParams getLibraryParams() {
+        @Nullable
+        public LibraryParams getLibraryParams() {
             return mParams;
         }
 

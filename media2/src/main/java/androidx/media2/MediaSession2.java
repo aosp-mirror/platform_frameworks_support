@@ -399,7 +399,8 @@ public class MediaSession2 implements AutoCloseable {
          * @param controller controller information.
          * @return allowed commands. Can be {@code null} to reject connection.
          */
-        public @Nullable SessionCommandGroup2 onConnect(@NonNull MediaSession2 session,
+        @Nullable
+        public SessionCommandGroup2 onConnect(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller) {
             SessionCommandGroup2 commands = new SessionCommandGroup2.Builder()
                     .addAllPredefinedCommands(SessionCommand2.COMMAND_VERSION_1)
@@ -496,7 +497,8 @@ public class MediaSession2 implements AutoCloseable {
          * @return translated media item for player with the mediaId. Can be {@code null} to ignore.
          * @see MediaMetadata2#METADATA_KEY_MEDIA_ID
          */
-        public @Nullable MediaItem2 onCreateMediaItem(@NonNull MediaSession2 session,
+        @Nullable
+        public MediaItem2 onCreateMediaItem(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId) {
             return null;
         }
@@ -993,7 +995,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return command or {@code null}
          */
-        public @Nullable SessionCommand2 getCommand() {
+        @Nullable
+        public SessionCommand2 getCommand() {
             return mCommand;
         }
 
@@ -1013,7 +1016,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return custom display name. Can be {@code null} or empty.
          */
-        public @Nullable String getDisplayName() {
+        @Nullable
+        public String getDisplayName() {
             return mDisplayName;
         }
 
@@ -1022,7 +1026,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return
          */
-        public @Nullable Bundle getExtras() {
+        @Nullable
+        public Bundle getExtras() {
             return mExtras;
         }
 
@@ -1451,7 +1456,8 @@ public class MediaSession2 implements AutoCloseable {
          * @see #sendCustomCommand(ControllerInfo, SessionCommand2, Bundle)
          * @return result of send custom command
          */
-        public @Nullable Bundle getCustomCommandResult() {
+        @Nullable
+        public Bundle getCustomCommandResult() {
             return mCustomCommandResult;
         }
 

@@ -632,7 +632,8 @@ public final class SessionCommand2 implements VersionedParcelable {
      * Gets the action of a custom command.
      * This will return {@code null} for a predefined command.
      */
-    public @Nullable String getCustomCommand() {
+    @Nullable
+    public String getCustomCommand() {
         return mCustomCommand;
     }
 
@@ -640,7 +641,8 @@ public final class SessionCommand2 implements VersionedParcelable {
      * Gets the extra bundle of a custom command.
      * This will return {@code null} for a predefined command.
      */
-    public @Nullable Bundle getExtras() {
+    @Nullable
+    public Bundle getExtras() {
         return mExtras;
     }
 
