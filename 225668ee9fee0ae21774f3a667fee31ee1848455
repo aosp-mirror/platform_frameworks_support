@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a34a2ade_2ad04557",
+        "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-07T18:30:09Z",
+      "side": 1,
+      "message": "thanks",
+      "parentUuid": "1a873459_6e3fd624",
+      "range": {
+        "startLine": 162,
+        "startChar": 30,
+        "endLine": 162,
+        "endChar": 81
+      },
+      "revId": "225668ee9fee0ae21774f3a667fee31ee1848455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bb1aa11_6cc910b9",
         "filename": "media2/src/main/java/androidx/media2/AudioFocusHandler.java",
         "patchSetId": 4
