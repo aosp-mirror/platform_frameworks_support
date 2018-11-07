@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "529143bd_2542a2ac",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T07:43:14Z",
+      "side": 1,
+      "message": "assertPaginatedListHasIds",
+      "parentUuid": "8b8033b0_cd998096",
+      "range": {
+        "startLine": 168,
+        "startChar": 23,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "205de817_e27b997a",
         "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
         "patchSetId": 5
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "951dbbeb_4b38a41e",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T07:43:14Z",
+      "side": 1,
+      "message": "assertEqualMediaIds",
+      "parentUuid": "205de817_e27b997a",
+      "range": {
+        "startLine": 180,
+        "startChar": 23,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17f8af36_e5e734c3",
         "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
         "patchSetId": 5
@@ -82,6 +130,30 @@
       "writtenOn": "2018-11-07T06:45:32Z",
       "side": 1,
       "message": "assertMediaItemListsHaveEqualIds?",
+      "range": {
+        "startLine": 185,
+        "startChar": 23,
+        "endLine": 185,
+        "endChar": 49
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385dc28a_652f4174",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T07:43:14Z",
+      "side": 1,
+      "message": "assertEqualMediaIds",
+      "parentUuid": "17f8af36_e5e734c3",
       "range": {
         "startLine": 185,
         "startChar": 23,
