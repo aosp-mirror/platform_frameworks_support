@@ -239,7 +239,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable SessionToken2 getConnectedSessionToken() {
+    @Nullable
+    public SessionToken2 getConnectedSessionToken() {
         synchronized (mLock) {
             return mConnected ? mToken : null;
         }
@@ -450,7 +451,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable PendingIntent getSessionActivity() {
+    @Nullable
+    public PendingIntent getSessionActivity() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -542,7 +544,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable PlaybackInfo getPlaybackInfo() {
+    @Nullable
+    public PlaybackInfo getPlaybackInfo() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -589,7 +592,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable List<MediaItem2> getPlaylist() {
+    @Nullable
+    public List<MediaItem2> getPlaylist() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -617,7 +621,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @Nullable MediaMetadata2 getPlaylistMetadata() {
+    @Nullable
+    public MediaMetadata2 getPlaylistMetadata() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -810,29 +815,34 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     }
 
     @Override
-    public @NonNull Context getContext() {
+    @NonNull
+    public Context getContext() {
         return mContext;
     }
 
     @Override
-    public @NonNull ControllerCallback getCallback() {
+    @NonNull
+    public ControllerCallback getCallback() {
         return mCallback;
     }
 
     @Override
-    public @NonNull Executor getCallbackExecutor() {
+    @NonNull
+    public Executor getCallbackExecutor() {
         return mCallbackExecutor;
     }
 
     @Override
-    public @Nullable MediaBrowserCompat getBrowserCompat() {
+    @Nullable
+    public MediaBrowserCompat getBrowserCompat() {
         synchronized (mLock) {
             return mBrowserCompat;
         }
     }
 
     @Override
-    public @NonNull MediaController2 getInstance() {
+    @NonNull
+    public MediaController2 getInstance() {
         return mInstance;
     }
 

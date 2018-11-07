@@ -113,7 +113,8 @@ public class ParcelImplListSlice implements Parcelable {
         }
     }
 
-    public @NonNull List<ParcelImpl> getList() {
+    @NonNull
+    public List<ParcelImpl> getList() {
         return mList;
     }
 

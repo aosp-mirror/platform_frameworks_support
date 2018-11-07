@@ -140,7 +140,8 @@ class SequencedFutureManager implements AutoCloseable {
             return mSequenceNumber;
         }
 
-        public @NonNull T getResultWhenClosed() {
+        @NonNull
+        public T getResultWhenClosed() {
             return mResultWhenClosed;
         }
 

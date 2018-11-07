@@ -201,7 +201,8 @@ public abstract class MediaSessionService2 extends Service {
      * @param session a session that needs notification update.
      * @return a {@link MediaNotification}. Can be {@code null}.
      */
-    public @Nullable MediaNotification onUpdateNotification(@NonNull MediaSession2 session) {
+    @Nullable
+    public MediaNotification onUpdateNotification(@NonNull MediaSession2 session) {
         if (session == null) {
             throw new IllegalArgumentException("session shouldn't be null");
         }
@@ -213,7 +214,8 @@ public abstract class MediaSessionService2 extends Service {
      *
      * @return sessions
      */
-    public final @NonNull List<MediaSession2> getSessions() {
+    @NonNull
+    public final List<MediaSession2> getSessions() {
         return mImpl.getSessions();
     }
 
@@ -295,7 +297,8 @@ public abstract class MediaSessionService2 extends Service {
          *
          * @return the notification
          */
-        public @NonNull Notification getNotification() {
+        @NonNull
+        public Notification getNotification() {
             return mNotification;
         }
     }

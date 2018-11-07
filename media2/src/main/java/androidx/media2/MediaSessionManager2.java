@@ -64,7 +64,8 @@ public final class MediaSessionManager2 {
      *
      * @return the MediaSessionManager2 instance for this context.
      */
-    public static @NonNull MediaSessionManager2 getInstance(@NonNull Context context) {
+    @NonNull
+    public static MediaSessionManager2 getInstance(@NonNull Context context) {
         if (context == null) {
             throw new IllegalArgumentException("context cannot be null");
         }
@@ -86,7 +87,8 @@ public final class MediaSessionManager2 {
      *
      * @return set of tokens
      */
-    public @NonNull Set<SessionToken2> getSessionServiceTokens() {
+    @NonNull
+    public Set<SessionToken2> getSessionServiceTokens() {
         ArraySet<SessionToken2> sessionServiceTokens = new ArraySet<>();
         PackageManager pm = mContext.getPackageManager();
         List<ResolveInfo> services = new ArrayList<>();

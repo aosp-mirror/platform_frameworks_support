@@ -770,7 +770,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return a CharSequence value, or null
      */
-    public @Nullable CharSequence getText(@NonNull @TextKey String key) {
+    @Nullable
+    public CharSequence getText(@NonNull @TextKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -786,7 +787,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @see #METADATA_KEY_MEDIA_ID
      */
     // TODO(jaewan): Hide -- no setMediaId()
-    public @Nullable String getMediaId() {
+    @Nullable
+    public String getMediaId() {
         return getString(METADATA_KEY_MEDIA_ID);
     }
 
@@ -798,7 +800,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return a String value, or null
      */
-    public @Nullable String getString(@NonNull @TextKey String key) {
+    @Nullable
+    public String getString(@NonNull @TextKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -833,7 +836,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return A {@link Rating2} or {@code null}
      */
-    public @Nullable Rating2 getRating(@NonNull @RatingKey String key) {
+    @Nullable
+    public Rating2 getRating(@NonNull @RatingKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -868,7 +872,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param key The key the value is stored under
      * @return A {@link Bitmap} or null
      */
-    public @Nullable Bitmap getBitmap(@NonNull @BitmapKey String key) {
+    @Nullable
+    public Bitmap getBitmap(@NonNull @BitmapKey String key) {
         if (key == null) {
             throw new IllegalArgumentException("key shouldn't be null");
         }
@@ -887,7 +892,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      *
      * @return A {@link Bundle} or {@code null}
      */
-    public @Nullable Bundle getExtras() {
+    @Nullable
+    public Bundle getExtras() {
         try {
             return mBundle.getBundle(METADATA_KEY_EXTRAS);
         } catch (Exception e) {
@@ -911,7 +917,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      *
      * @return a Set of String keys
      */
-    public @NonNull Set<String> keySet() {
+    @NonNull
+    public Set<String> keySet() {
         return mBundle.keySet();
     }
 
@@ -922,7 +929,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      *
      * @return The Bundle backing this metadata.
      */
-    public @NonNull Bundle toBundle() {
+    @NonNull
+    public Bundle toBundle() {
         return mBundle;
     }
 
@@ -938,7 +946,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
      * @param bundle bundle for the metadata
      * @return a new MediaMetadata2x
      */
-    public static @NonNull MediaMetadata2 fromBundle(@Nullable Bundle bundle) {
+    @NonNull
+    public static MediaMetadata2 fromBundle(@Nullable Bundle bundle) {
         return (bundle == null) ? null : new MediaMetadata2(bundle);
     }
 
@@ -1030,7 +1039,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The CharSequence value to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putText(@NonNull @TextKey String key,
+        @NonNull
+        public Builder putText(@NonNull @TextKey String key,
                 @Nullable CharSequence value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
@@ -1074,7 +1084,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The String value to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putString(@NonNull @TextKey String key,
+        @NonNull
+        public Builder putString(@NonNull @TextKey String key,
                 @Nullable String value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
@@ -1109,7 +1120,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The String value to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putLong(@NonNull @LongKey String key, long value) {
+        @NonNull
+        public Builder putLong(@NonNull @LongKey String key, long value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
             }
@@ -1136,7 +1148,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The String value to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putRating(@NonNull @RatingKey String key,
+        @NonNull
+        public Builder putRating(@NonNull @RatingKey String key,
                 @Nullable Rating2 value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
@@ -1169,7 +1182,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The Bitmap to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putBitmap(@NonNull @BitmapKey String key,
+        @NonNull
+        public Builder putBitmap(@NonNull @BitmapKey String key,
                 @Nullable Bitmap value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
@@ -1191,7 +1205,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param value The float value to store
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder putFloat(@NonNull @LongKey String key, float value) {
+        @NonNull
+        public Builder putFloat(@NonNull @LongKey String key, float value) {
             if (key == null) {
                 throw new IllegalArgumentException("key shouldn't be null");
             }
@@ -1211,7 +1226,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          * @param extras The extras to include with this description or null.
          * @return The Builder to allow chaining
          */
-        public @NonNull Builder setExtras(@Nullable Bundle extras) {
+        @NonNull
+        public Builder setExtras(@Nullable Bundle extras) {
             mBundle.putBundle(METADATA_KEY_EXTRAS, extras);
             return this;
         }
@@ -1221,7 +1237,8 @@ public final class MediaMetadata2 implements VersionedParcelable {
          *
          * @return The new MediaMetadata2x instance
          */
-        public @NonNull MediaMetadata2 build() {
+        @NonNull
+        public MediaMetadata2 build() {
             return new MediaMetadata2(mBundle);
         }
 

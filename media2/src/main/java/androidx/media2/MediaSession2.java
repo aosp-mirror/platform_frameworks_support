@@ -196,7 +196,8 @@ public class MediaSession2 implements AutoCloseable {
      *
      * @return player.
      */
-    public @NonNull SessionPlayer2 getPlayer() {
+    @NonNull
+    public SessionPlayer2 getPlayer() {
         return mImpl.getPlayer();
     }
 
@@ -205,14 +206,16 @@ public class MediaSession2 implements AutoCloseable {
      *
      * @return
      */
-    public @NonNull String getId() {
+    @NonNull
+    public String getId() {
         return mImpl.getId();
     }
 
     /**
      * Returns the {@link SessionToken2} for creating {@link MediaController2}.
      */
-    public @NonNull SessionToken2 getToken() {
+    @NonNull
+    public SessionToken2 getToken() {
         return mImpl.getToken();
     }
 
@@ -233,7 +236,8 @@ public class MediaSession2 implements AutoCloseable {
      *
      * @return list of {@link ControllerInfo}
      */
-    public @NonNull List<ControllerInfo> getConnectedControllers() {
+    @NonNull
+    public List<ControllerInfo> getConnectedControllers() {
         return mImpl.getConnectedControllers();
     }
 
@@ -265,7 +269,8 @@ public class MediaSession2 implements AutoCloseable {
      * @param controller controller to specify layout.
      * @param layout ordered list of layout.
      */
-    public @NonNull ListenableFuture<SessionResult> setCustomLayout(
+    @NonNull
+    public ListenableFuture<SessionResult> setCustomLayout(
             @NonNull ControllerInfo controller, @NonNull List<CommandButton> layout) {
         if (controller == null) {
             throw new IllegalArgumentException("controller shouldn't be null");
@@ -322,7 +327,8 @@ public class MediaSession2 implements AutoCloseable {
      * @param args optional argument
      * @see #broadcastCustomCommand(SessionCommand2, Bundle)
      */
-    public @NonNull ListenableFuture<SessionResult> sendCustomCommand(
+    @NonNull
+    public ListenableFuture<SessionResult> sendCustomCommand(
             @NonNull ControllerInfo controller, @NonNull SessionCommand2 command,
             @Nullable Bundle args) {
         if (controller == null) {
@@ -399,7 +405,8 @@ public class MediaSession2 implements AutoCloseable {
          * @param controller controller information.
          * @return allowed commands. Can be {@code null} to reject connection.
          */
-        public @Nullable SessionCommandGroup2 onConnect(@NonNull MediaSession2 session,
+        @Nullable
+        public SessionCommandGroup2 onConnect(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller) {
             SessionCommandGroup2 commands = new SessionCommandGroup2.Builder()
                     .addAllPredefinedCommands(SessionCommand2.COMMAND_VERSION_1)
@@ -496,7 +503,8 @@ public class MediaSession2 implements AutoCloseable {
          * @return translated media item for player with the mediaId. Can be {@code null} to ignore.
          * @see MediaMetadata2#METADATA_KEY_MEDIA_ID
          */
-        public @Nullable MediaItem2 onCreateMediaItem(@NonNull MediaSession2 session,
+        @Nullable
+        public MediaItem2 onCreateMediaItem(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId) {
             return null;
         }
@@ -539,7 +547,8 @@ public class MediaSession2 implements AutoCloseable {
          *         {@code null} is returned.
          * @see SessionCommand2#COMMAND_CODE_CUSTOM
          */
-        public @NonNull SessionResult onCustomCommand(@NonNull MediaSession2 session,
+        @NonNull
+        public SessionResult onCustomCommand(@NonNull MediaSession2 session,
                 @NonNull ControllerInfo controller, @NonNull SessionCommand2 customCommand,
                 @Nullable Bundle args) {
             return new SessionResult(RESULT_CODE_NOT_SUPPORTED, null);
@@ -826,23 +835,27 @@ public class MediaSession2 implements AutoCloseable {
         }
 
         @Override
-        public @NonNull Builder setSessionActivity(@Nullable PendingIntent pi) {
+        @NonNull
+        public Builder setSessionActivity(@Nullable PendingIntent pi) {
             return super.setSessionActivity(pi);
         }
 
         @Override
-        public @NonNull Builder setId(@NonNull String id) {
+        @NonNull
+        public Builder setId(@NonNull String id) {
             return super.setId(id);
         }
 
         @Override
-        public @NonNull Builder setSessionCallback(@NonNull Executor executor,
+        @NonNull
+        public Builder setSessionCallback(@NonNull Executor executor,
                 @NonNull SessionCallback callback) {
             return super.setSessionCallback(executor, callback);
         }
 
         @Override
-        public @NonNull MediaSession2 build() {
+        @NonNull
+        public MediaSession2 build() {
             if (mCallbackExecutor == null) {
                 mCallbackExecutor = ContextCompat.getMainExecutor(mContext);
             }
@@ -882,7 +895,8 @@ public class MediaSession2 implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public @NonNull RemoteUserInfo getRemoteUserInfo() {
+        @NonNull
+        public RemoteUserInfo getRemoteUserInfo() {
             return mRemoteUserInfo;
         }
 
@@ -891,7 +905,8 @@ public class MediaSession2 implements AutoCloseable {
          *         {@link androidx.media.MediaSessionManager.RemoteUserInfo#LEGACY_CONTROLLER} if
          *         the package name cannot be obtained.
          */
-        public @NonNull String getPackageName() {
+        @NonNull
+        public String getPackageName() {
             return mRemoteUserInfo.getPackageName();
         }
 
@@ -993,7 +1008,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return command or {@code null}
          */
-        public @Nullable SessionCommand2 getCommand() {
+        @Nullable
+        public SessionCommand2 getCommand() {
             return mCommand;
         }
 
@@ -1013,7 +1029,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return custom display name. Can be {@code null} or empty.
          */
-        public @Nullable String getDisplayName() {
+        @Nullable
+        public String getDisplayName() {
             return mDisplayName;
         }
 
@@ -1022,7 +1039,8 @@ public class MediaSession2 implements AutoCloseable {
          *
          * @return
          */
-        public @Nullable Bundle getExtras() {
+        @Nullable
+        public Bundle getExtras() {
             return mExtras;
         }
 
@@ -1040,7 +1058,8 @@ public class MediaSession2 implements AutoCloseable {
          * @return Bundle
          */
         @RestrictTo(LIBRARY_GROUP)
-        public @NonNull Bundle toBundle() {
+        @NonNull
+        public Bundle toBundle() {
             Bundle bundle = new Bundle();
             bundle.putBundle(KEY_COMMAND, mCommand.toBundle());
             bundle.putInt(KEY_ICON_RES_ID, mIconResId);
@@ -1055,7 +1074,8 @@ public class MediaSession2 implements AutoCloseable {
          * @return CommandButton
          */
         @RestrictTo(LIBRARY_GROUP)
-        public static @Nullable CommandButton fromBundle(Bundle bundle) {
+        @Nullable
+        public static CommandButton fromBundle(Bundle bundle) {
             if (bundle == null) {
                 return null;
             }
@@ -1089,7 +1109,8 @@ public class MediaSession2 implements AutoCloseable {
              *
              * @param command session command
              */
-            public @NonNull Builder setCommand(@Nullable SessionCommand2 command) {
+            @NonNull
+            public Builder setCommand(@Nullable SessionCommand2 command) {
                 mCommand = command;
                 return this;
             }
@@ -1103,7 +1124,8 @@ public class MediaSession2 implements AutoCloseable {
              *
              * @param resId resource id of the button
              */
-            public @NonNull Builder setIconResId(int resId) {
+            @NonNull
+            public Builder setIconResId(int resId) {
                 mIconResId = resId;
                 return this;
             }
@@ -1113,7 +1135,8 @@ public class MediaSession2 implements AutoCloseable {
              *
              * @param displayName display name of the button
              */
-            public @NonNull Builder setDisplayName(@Nullable String displayName) {
+            @NonNull
+            public Builder setDisplayName(@Nullable String displayName) {
                 mDisplayName = displayName;
                 return this;
             }
@@ -1125,7 +1148,8 @@ public class MediaSession2 implements AutoCloseable {
              * @param enabled {@code true} if the button is enabled and ready.
              *          {@code false} otherwise.
              */
-            public @NonNull Builder setEnabled(boolean enabled) {
+            @NonNull
+            public Builder setEnabled(boolean enabled) {
                 mEnabled = enabled;
                 return this;
             }
@@ -1135,7 +1159,8 @@ public class MediaSession2 implements AutoCloseable {
              *
              * @param extras extras information of the button
              */
-            public @NonNull Builder setExtras(@Nullable Bundle extras) {
+            @NonNull
+            public Builder setExtras(@Nullable Bundle extras) {
                 mExtras = extras;
                 return this;
             }
@@ -1145,7 +1170,8 @@ public class MediaSession2 implements AutoCloseable {
              *
              * @return a new {@link CommandButton}
              */
-            public @NonNull CommandButton build() {
+            @NonNull
+            public CommandButton build() {
                 return new CommandButton(mCommand, mIconResId, mDisplayName, mExtras, mEnabled);
             }
         }
@@ -1451,7 +1477,8 @@ public class MediaSession2 implements AutoCloseable {
          * @see #sendCustomCommand(ControllerInfo, SessionCommand2, Bundle)
          * @return result of send custom command
          */
-        public @Nullable Bundle getCustomCommandResult() {
+        @Nullable
+        public Bundle getCustomCommandResult() {
             return mCustomCommandResult;
         }
 

@@ -300,7 +300,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
-    public @Nullable AudioAttributesCompat getAudioAttributes() {
+    @Nullable
+    public AudioAttributesCompat getAudioAttributes() {
         return mPlayer.getAudioAttributes();
     }
 

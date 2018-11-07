@@ -309,7 +309,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     }
 
     @Override
-    public @NonNull SessionPlayer2 getPlayer() {
+    @NonNull
+    public SessionPlayer2 getPlayer() {
         synchronized (mLock) {
             return mPlayer;
         }
@@ -321,12 +322,14 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     }
 
     @Override
-    public @NonNull SessionToken2 getToken() {
+    @NonNull
+    public SessionToken2 getToken() {
         return mSessionToken;
     }
 
     @Override
-    public @NonNull List<ControllerInfo> getConnectedControllers() {
+    @NonNull
+    public List<ControllerInfo> getConnectedControllers() {
         List<ControllerInfo> controllers = new ArrayList<>();
         controllers.addAll(mSession2Stub.getConnectedControllersManager()
                 .getConnectedControllers());
@@ -744,7 +747,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
     // package private and private methods
     ///////////////////////////////////////////////////
     @Override
-    public @NonNull MediaSession2 getInstance() {
+    @NonNull
+    public MediaSession2 getInstance() {
         return mInstance;
     }
 

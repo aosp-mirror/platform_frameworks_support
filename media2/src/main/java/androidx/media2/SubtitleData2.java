@@ -143,7 +143,8 @@ public final class SubtitleData2 {
      * of the subtitle track.
      * @return the encoded subtitle data
      */
-    public @NonNull byte[] getData() {
+    @NonNull
+    public byte[] getData() {
         return mData;
     }
 }

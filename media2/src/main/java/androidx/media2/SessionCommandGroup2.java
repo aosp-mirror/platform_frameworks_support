@@ -134,7 +134,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
     /**
      * Gets all commands of this command group.
      */
-    public @NonNull Set<SessionCommand2> getCommands() {
+    @NonNull
+    public Set<SessionCommand2> getCommands() {
         return new HashSet<>(mCommands);
     }
 
@@ -143,7 +144,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public @NonNull Bundle toBundle() {
+    @NonNull
+    public Bundle toBundle() {
         ArrayList<Bundle> list = new ArrayList<>();
         for (SessionCommand2 command : mCommands) {
             list.add(command.toBundle());
@@ -158,7 +160,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public static @Nullable SessionCommandGroup2 fromBundle(Bundle commands) {
+    @Nullable
+    public static SessionCommandGroup2 fromBundle(Bundle commands) {
         if (commands == null) {
             return null;
         }
@@ -205,7 +208,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          *
          * @param command A command to add. Shouldn't be {@code null}.
          */
-        public @NonNull Builder addCommand(@NonNull SessionCommand2 command) {
+        @NonNull
+        public Builder addCommand(@NonNull SessionCommand2 command) {
             if (command == null) {
                 throw new IllegalArgumentException("command shouldn't be null");
             }
@@ -219,7 +223,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          * @param commandCode A command code to add.
          *                    Shouldn't be {@link SessionCommand2#COMMAND_CODE_CUSTOM}.
          */
-        public @NonNull Builder addCommand(@CommandCode int commandCode) {
+        @NonNull
+        public Builder addCommand(@CommandCode int commandCode) {
             if (commandCode == COMMAND_CODE_CUSTOM) {
                 throw new IllegalArgumentException(
                         "Use addCommand(SessionCommand2) for COMMAND_CODE_CUSTOM.");
@@ -241,7 +246,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          * @see SessionCommand2#COMMAND_VERSION_1
          * @see MediaSession2.SessionCallback#onConnect(MediaSession2, MediaSession2.ControllerInfo)
          */
-        public @NonNull Builder addAllPredefinedCommands(@CommandVersion int version) {
+        @NonNull
+        public Builder addAllPredefinedCommands(@CommandVersion int version) {
             if (version != COMMAND_VERSION_1) {
                 throw new IllegalArgumentException("Unknown command version " + version);
             }
@@ -257,7 +263,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          *
          * @param command A command to find. Shouldn't be {@code null}.
          */
-        public @NonNull Builder removeCommand(@NonNull SessionCommand2 command) {
+        @NonNull
+        public Builder removeCommand(@NonNull SessionCommand2 command) {
             if (command == null) {
                 throw new IllegalArgumentException("command shouldn't be null");
             }
@@ -271,7 +278,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          * @param commandCode A command code to find.
          *                    Shouldn't be {@link SessionCommand2#COMMAND_CODE_CUSTOM}.
          */
-        public @NonNull Builder removeCommand(@CommandCode int commandCode) {
+        @NonNull
+        public Builder removeCommand(@CommandCode int commandCode) {
             if (commandCode == COMMAND_CODE_CUSTOM) {
                 throw new IllegalArgumentException("commandCode shouldn't be COMMAND_CODE_CUSTOM");
             }
@@ -330,7 +338,8 @@ public final class SessionCommandGroup2 implements VersionedParcelable {
          *
          * @return a new {@link SessionCommandGroup2}.
          */
-        public @NonNull SessionCommandGroup2 build() {
+        @NonNull
+        public SessionCommandGroup2 build() {
             return new SessionCommandGroup2(mCommands);
         }
     }

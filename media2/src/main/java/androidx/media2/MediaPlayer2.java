@@ -383,7 +383,8 @@ public abstract class MediaPlayer2 {
      * Gets the audio attributes for this MediaPlayer2.
      * @return attributes a set of audio attributes
      */
-    public abstract @Nullable AudioAttributesCompat getAudioAttributes();
+    @Nullable
+    public abstract AudioAttributesCompat getAudioAttributes();
 
     /**
      * Sets the media item as described by a MediaItem2.
@@ -418,7 +419,8 @@ public abstract class MediaPlayer2 {
      *
      * @return the current MediaItem2
      */
-    public abstract @Nullable MediaItem2 getCurrentMediaItem();
+    @Nullable
+    public abstract MediaItem2 getCurrentMediaItem();
 
     /**
      * Configures the player to loop on the current media item.

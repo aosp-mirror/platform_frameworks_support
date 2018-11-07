@@ -776,27 +776,32 @@ class MediaController2ImplBase implements MediaController2Impl {
     }
 
     @Override
-    public @NonNull Context getContext() {
+    @NonNull
+    public Context getContext() {
         return mContext;
     }
 
     @Override
-    public @NonNull ControllerCallback getCallback() {
+    @NonNull
+    public ControllerCallback getCallback() {
         return mCallback;
     }
 
     @Override
-    public @NonNull Executor getCallbackExecutor() {
+    @NonNull
+    public Executor getCallbackExecutor() {
         return mCallbackExecutor;
     }
 
     @Override
-    public @Nullable MediaBrowserCompat getBrowserCompat() {
+    @Nullable
+    public MediaBrowserCompat getBrowserCompat() {
         return null;
     }
 
     @Override
-    public @NonNull MediaController2 getInstance() {
+    @NonNull
+    public MediaController2 getInstance() {
         return mInstance;
     }
 

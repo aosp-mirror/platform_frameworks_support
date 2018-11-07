@@ -197,7 +197,8 @@ public class MediaItem2 implements VersionedParcelable {
      *
      * @return metadata from the session
      */
-    public @Nullable MediaMetadata2 getMetadata() {
+    @Nullable
+    public MediaMetadata2 getMetadata() {
         return mMetadata;
     }
 
@@ -227,7 +228,8 @@ public class MediaItem2 implements VersionedParcelable {
      */
     // TODO: Remove
     @RestrictTo(LIBRARY)
-    public @Nullable String getMediaId() {
+    @Nullable
+    public String getMediaId() {
         return mMetadata != null ? mMetadata.getString(MediaMetadata2.METADATA_KEY_MEDIA_ID) : null;
     }
 
@@ -274,7 +276,8 @@ public class MediaItem2 implements VersionedParcelable {
          * @param metadata metadata
          * @return this instance for chaining
          */
-        public @NonNull T setMetadata(@Nullable MediaMetadata2 metadata) {
+        @NonNull
+        public T setMetadata(@Nullable MediaMetadata2 metadata) {
             mMetadata = metadata;
             return (T) this;
         }
@@ -286,7 +289,8 @@ public class MediaItem2 implements VersionedParcelable {
          * @param position the start position in milliseconds at which the playback will start
          * @return the same Builder instance.
          */
-        public @NonNull T setStartPosition(long position) {
+        @NonNull
+        public T setStartPosition(long position) {
             if (position < 0) {
                 position = 0;
             }
@@ -301,7 +305,8 @@ public class MediaItem2 implements VersionedParcelable {
          * @param position the end position in milliseconds at which the playback will end
          * @return the same Builder instance.
          */
-        public @NonNull T setEndPosition(long position) {
+        @NonNull
+        public T setEndPosition(long position) {
             if (position < 0) {
                 position = POSITION_UNKNOWN;
             }
@@ -314,7 +319,8 @@ public class MediaItem2 implements VersionedParcelable {
          *
          * @return a new {@link MediaItem2}.
          */
-        public @NonNull MediaItem2 build() {
+        @NonNull
+        public MediaItem2 build() {
             return new MediaItem2(this);
         }
     }

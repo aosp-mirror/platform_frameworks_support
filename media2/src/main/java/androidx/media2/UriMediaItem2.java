@@ -74,7 +74,8 @@ public class UriMediaItem2 extends MediaItem2 {
      * Return the Uri of this media item.
      * @return the Uri of this media item
      */
-    public @NonNull Uri getUri() {
+    @NonNull
+    public Uri getUri() {
         return mUri;
     }
 
@@ -93,7 +94,8 @@ public class UriMediaItem2 extends MediaItem2 {
      * Return the Uri cookies of this media item.
      * @return the Uri cookies of this media item
      */
-    public @Nullable List<HttpCookie> getUriCookies() {
+    @Nullable
+    public List<HttpCookie> getUriCookies() {
         if (mUriCookies == null) {
             return null;
         }
@@ -104,7 +106,8 @@ public class UriMediaItem2 extends MediaItem2 {
      * Return the Context used for resolving the Uri of this media item.
      * @return the Context used for resolving the Uri of this media item
      */
-    public @NonNull Context getUriContext() {
+    @NonNull
+    public Context getUriContext() {
         return mUriContext;
     }
 
@@ -180,7 +183,8 @@ public class UriMediaItem2 extends MediaItem2 {
          * @return A new UriMediaItem2 with values supplied by the Builder.
          */
         @Override
-        public @NonNull UriMediaItem2 build() {
+        @NonNull
+        public UriMediaItem2 build() {
             return new UriMediaItem2(this);
         }
     }

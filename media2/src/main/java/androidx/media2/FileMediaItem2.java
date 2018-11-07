@@ -67,7 +67,8 @@ public class FileMediaItem2 extends MediaItem2 {
      * Return the FileDescriptor of this media item.
      * @return the FileDescriptor of this media item
      */
-    public @NonNull FileDescriptor getFileDescriptor() {
+    @NonNull
+    public FileDescriptor getFileDescriptor() {
         return mFD;
     }
 
@@ -144,7 +145,8 @@ public class FileMediaItem2 extends MediaItem2 {
          * @return A new FileMediaItem2 with values supplied by the Builder.
          */
         @Override
-        public @NonNull FileMediaItem2 build() {
+        @NonNull
+        public FileMediaItem2 build() {
             return new FileMediaItem2(this);
         }
     }

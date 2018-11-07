@@ -189,14 +189,16 @@ public final class SessionToken2 implements VersionedParcelable {
     /**
      * @return package name
      */
-    public @NonNull String getPackageName() {
+    @NonNull
+    public String getPackageName() {
         return mImpl.getPackageName();
     }
 
     /**
      * @return service name. Can be {@code null} for TYPE_SESSION.
      */
-    public @Nullable String getServiceName() {
+    @Nullable
+    public String getServiceName() {
         return mImpl.getServiceName();
     }
 
