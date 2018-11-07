@@ -17,13 +17,17 @@
 package androidx.slice.widget;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import androidx.annotation.RestrictTo;
 import androidx.slice.view.R;
 
+import static androidx.slice.core.SliceHints.ICON_IMAGE;
+import static androidx.slice.core.SliceHints.UNKNOWN_IMAGE;
 import static androidx.slice.widget.SliceView.MODE_LARGE;
+import static androidx.slice.widget.SliceView.MODE_SMALL;
 
 /**
  * Holds style information shared between child views of a slice
@@ -51,6 +55,13 @@ public class SliceStyle {
     private int mRowSingleTextWithRangeHeight;
     private int mRowMinHeight;
     private int mRowRangeHeight;
+
+    private int mGridBigPicMinHeight;
+    private int mGridBigPicMaxHeight;
+    private int mGridAllImagesHeight;
+    private int mGridImageTextHeight;
+    private int mGridMaxHeight;
+    private int mGridMinHeight;
 
     public SliceStyle(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SliceView,
@@ -84,17 +95,28 @@ public class SliceStyle {
             mGridTopPadding = (int) a.getDimension(R.styleable.SliceView_gridTopPadding, 0);
             mGridBottomPadding = (int) a.getDimension(R.styleable.SliceView_gridBottomPadding, 0);
 
+            Resources res = context.getResources();
+
             // XXX: Is it okay that I'm using context.getResources() and not a?
-            mRowMaxHeight = context.getResources().getDimensionPixelSize(
-                    R.dimen.abc_slice_row_max_height);
-            mRowTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+
+            mRowMaxHeight = res.getDimensionPixelSize(R.dimen.abc_slice_row_max_height);
+            mRowTextWithRangeHeight = res.getDimensionPixelSize(
                     R.dimen.abc_slice_row_range_multi_text_height);
-            mRowSingleTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+            mRowSingleTextWithRangeHeight = res.getDimensionPixelSize(
                     R.dimen.abc_slice_row_range_single_text_height);
-            mRowMinHeight = context.getResources().getDimensionPixelSize(
-                    R.dimen.abc_slice_row_min_height);
-            mRowRangeHeight = context.getResources().getDimensionPixelSize(
-                    R.dimen.abc_slice_row_range_height);
+            mRowMinHeight = res.getDimensionPixelSize(R.dimen.abc_slice_row_min_height);
+            mRowRangeHeight = res.getDimensionPixelSize(R.dimen.abc_slice_row_range_height);
+
+            mGridBigPicMinHeight = res.getDimensionPixelSize(
+                    R.dimen.abc_slice_big_pic_min_height);
+            mGridBigPicMaxHeight = res.getDimensionPixelSize(
+                    R.dimen.abc_slice_big_pic_max_height);
+            mGridAllImagesHeight = res.getDimensionPixelSize(
+                    R.dimen.abc_slice_grid_image_only_height);
+            mGridImageTextHeight = res.getDimensionPixelSize(
+                    R.dimen.abc_slice_grid_image_text_height);
+            mGridMinHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_min_height);
+            mGridMaxHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_max_height);
         } finally {
             a.recycle();
         }
@@ -175,5 +197,33 @@ public class SliceStyle {
         } else {
             return maxHeight;
         }
+    }
+
+    public int getGridHeight(GridContent grid, SliceViewPolicy policy) {
+        boolean isSmall = policy.getMode() == MODE_SMALL;
+        if (!grid.isValid()) {
+            return 0;
+        }
+        int largestImageMode = grid.getLargestImageMode();
+        int height;
+        if (grid.isAllImages()) {
+            height = grid.getGridContent().size() == 1
+                    ? isSmall ? mGridBigPicMinHeight : mGridBigPicMaxHeight
+                    : largestImageMode == ICON_IMAGE ? mGridMinHeight
+                            : mGridAllImagesHeight;
+        } else {
+            boolean twoLines = grid.getMaxCellLineCount() > 1;
+            boolean hasImage = grid.hasImage();
+            boolean iconImagesOrNone = largestImageMode == ICON_IMAGE
+                    || largestImageMode == UNKNOWN_IMAGE;
+            height = (twoLines && !isSmall)
+                    ? hasImage ? mGridMaxHeight : mGridMinHeight
+                    : iconImagesOrNone ? mGridMinHeight : mGridImageTextHeight;
+        }
+        int topPadding = grid.isAllImages() && grid.getRowIndex() == 0
+                ? mGridTopPadding : 0;
+        int bottomPadding = grid.isAllImages() && grid.getIsLastIndex()
+                ? mGridBottomPadding : 0;
+        return height + topPadding + bottomPadding;
     }
 }
