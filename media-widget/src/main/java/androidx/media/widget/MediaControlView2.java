@@ -1657,12 +1657,10 @@ public class MediaControlView2 extends BaseLayout {
         mNextButton = v.findViewById(R.id.next);
         if (mNextButton != null) {
             mNextButton.setOnClickListener(mNextListener);
-            mNextButton.setVisibility(View.GONE);
         }
         mPrevButton = v.findViewById(R.id.prev);
         if (mPrevButton != null) {
             mPrevButton.setOnClickListener(mPrevListener);
-            mPrevButton.setVisibility(View.GONE);
         }
         return v;
     }
@@ -1826,6 +1824,28 @@ public class MediaControlView2 extends BaseLayout {
         } else {
             if (mFfwdButton != null) {
                 mFfwdButton.setVisibility(View.GONE);
+            }
+        }
+        if (commands.hasCommand(
+                SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM)) {
+            if (mPrevButton != null) {
+                mPrevButton.setVisibility(VISIBLE);
+                mPrevButton.setEnabled(true);
+            }
+        } else {
+            if (mPrevButton != null) {
+                mPrevButton.setVisibility(View.GONE);
+            }
+        }
+        if (commands.hasCommand(
+                SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM)) {
+            if (mNextButton != null) {
+                mNextButton.setVisibility(VISIBLE);
+                mNextButton.setEnabled(true);
+            }
+        } else {
+            if (mNextButton != null) {
+                mNextButton.setVisibility(View.GONE);
             }
         }
         if (commands.hasCommand(SessionCommand2.COMMAND_CODE_PLAYER_SEEK_TO)) {
