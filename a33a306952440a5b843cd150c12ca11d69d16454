@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "02aaefe0_0c5bbe5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-07T06:20:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf3fe89d_edfb138b",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "a33a306952440a5b843cd150c12ca11d69d16454",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038debd5_dffbd469",
         "filename": "media2/src/androidTest/java/androidx/media2/MockMediaLibraryService2.java",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "a33a306952440a5b843cd150c12ca11d69d16454",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6245603a_ac7fb874",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockMediaLibraryService2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-07T06:20:13Z",
+      "side": 1,
+      "message": "Done\n\nAnd I also handle more cases (not sure it\u0027s necessary)",
+      "parentUuid": "038debd5_dffbd469",
+      "revId": "a33a306952440a5b843cd150c12ca11d69d16454",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
