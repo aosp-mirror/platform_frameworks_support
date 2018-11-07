@@ -1,0 +1,357 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0889dad_fdf5dc87",
+        "filename": "car/core/res/layout/alpha_jump_list_item.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "This is only needed for a test? Put it into the androidTest folder instead.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b3534e_b7271ce6",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Since testing alpha jump will introduce a large adapter class, let\u0027s pull alpha jump tests in its own file.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5209fd08_f12fcf49",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Can you rename this to be something more generic? AlphaJumpAdapter is probably good enough",
+      "range": {
+        "startLine": 993,
+        "startChar": 24,
+        "endLine": 993,
+        "endChar": 37
+      },
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e699831_d6dbd486",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "You never actually check anything out of this array. So there\u0027s not point in having this hard-coded list. I would just make it so that this adapter has a hard-coded number of items (say 100) and create an array of dummy strings where the values don\u0027t matter with a for loop",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d31ff0_c046da6c",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "I don\u0027t think this adapter needs to be so complicated. You\u0027re not using it to ensure that the alpha jump button shows up. So as long as it implements AlphaJumpAdapter and populates some entries, then it should be fine.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b11cd5_8bd79005",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Let\u0027s repurpose this so that it keeps track of if the button is enabled or not, rather than if it\u0027s visible.\n\nRename to mAlphaJumpButtonEnabled.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ef8876_2c956c91",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Set mShowAlphaJumpButton to the \"show\" value here.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea503ed1_2c1169f1",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Combine these two into one statement:\n\n  if (isInlayout() || !isLaidOut()) { ... }",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 9
+      },
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dba0d7c_54350940",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Remove this now",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923e9428_63443652",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Introduce a variable that keeps track of the current height. That way you don\u0027t have to constantly reiterate all the values that need to be added. \n\nYou can repurpose \"buttonHeight\" to do this (just rename it).",
+      "range": {
+        "startLine": 371,
+        "startChar": 12,
+        "endLine": 371,
+        "endChar": 59
+      },
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6135bfff_b668d92e",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "I\u0027m not actually sure you should use this method. I think the method itself has a different connotation. \n\nSome one can pass \"true\" to this method, meaning the thumb is enabled. But the thumb could not show itself because it doesn\u0027t have enough space. It could be slightly confusing if someone passes \"true\" to this method, and have isScrollbarThumbEnabled() return different values before and after a measurement pass.\n\nI think you should just set visibility here",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5897be2_805e25af",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "nit: add a new line before this",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3669fe25_d545909d",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Return early instead and make this the very first check in this method:\n\n  if (mUpButton.getVisibility \u003d\u003d GONE) { \n    return;\n  }\n\nAnd add a comment about why there\u0027s a return.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6e4714_b4737fb2",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Check visibility insetad",
+      "range": {
+        "startLine": 407,
+        "startChar": 16,
+        "endLine": 407,
+        "endChar": 36
+      },
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a8a611_ba45e868",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Check visibility instead",
+      "range": {
+        "startLine": 416,
+        "startChar": 16,
+        "endLine": 416,
+        "endChar": 35
+      },
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bfe5e8a_f461ade5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "You just need a visibility check here",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9da7a73d_0bd5e021",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Make an entirely new activity to test this instead.",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e86fc822_1cf6e054",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Revert changes here",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aca84eec_f742b876",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_view.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-07T19:09:16Z",
+      "side": 1,
+      "message": "Revert changes",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
