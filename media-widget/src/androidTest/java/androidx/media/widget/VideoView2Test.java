@@ -222,7 +222,7 @@ public class VideoView2Test {
 
     // TODO: Shortly prevented to be run, since it crashed.
     //       Revive @Test annotation after investigating b/118412745.
-    // @Test
+    @Test
     public void testPlayVideoOnTextureView() throws Throwable {
         // Don't run the test if the codec isn't supported.
         if (!hasCodec()) {
@@ -244,19 +244,55 @@ public class VideoView2Test {
                 mVideoView.setMediaItem2(mMediaItem);
             }
         });
-        verify(mockViewTypeListener, timeout(TIME_OUT))
-                .onViewTypeChanged(mVideoView, VideoView2.VIEW_TYPE_TEXTUREVIEW);
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController2.class), any(SessionCommandGroup2.class));
+
+        verify(mockViewTypeListener, timeout(TIME_OUT))
+                .onViewTypeChanged(mVideoView, VideoView2.VIEW_TYPE_TEXTUREVIEW);
+        assertEquals(mVideoView.getViewType(), mVideoView.VIEW_TYPE_TEXTUREVIEW);
 
         mController.play();
         verify(mControllerCallback, timeout(TIME_OUT).atLeast(1)).onPlayerStateChanged(
                 any(MediaController2.class), eq(SessionPlayer2.PLAYER_STATE_PLAYING));
-        verify(mControllerCallback, timeout(TIME_OUT).atLeast(1)).onPlayerStateChanged(
-                any(MediaController2.class), eq(SessionPlayer2.PLAYER_STATE_PAUSED));
     }
 
     @Test
+    public void testSetViewType() throws Throwable {
+        // Don't run the test if the codec isn't supported.
+        if (!hasCodec()) {
+            Log.i(TAG, "SKIPPING testPlayVideoOnTextureView(): codec is not supported");
+            return;
+        }
+
+        final VideoView2.OnViewTypeChangedListener mockViewTypeListener =
+                mock(VideoView2.OnViewTypeChangedListener.class);
+
+        // The default view type is surface view.
+        assertEquals(mVideoView.getViewType(), mVideoView.VIEW_TYPE_SURFACEVIEW);
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setOnViewTypeChangedListener(mockViewTypeListener);
+                mVideoView.setViewType(mVideoView.VIEW_TYPE_TEXTUREVIEW);
+                mVideoView.setViewType(mVideoView.VIEW_TYPE_SURFACEVIEW);
+                mVideoView.setViewType(mVideoView.VIEW_TYPE_TEXTUREVIEW);
+                mVideoView.setViewType(mVideoView.VIEW_TYPE_SURFACEVIEW);
+                mVideoView.setMediaItem2(mMediaItem);
+            }
+        });
+
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
+                any(MediaController2.class), any(SessionCommandGroup2.class));
+        verify(mControllerCallback, timeout(TIME_OUT).atLeast(1)).onPlayerStateChanged(
+                any(MediaController2.class), eq(SessionPlayer2.PLAYER_STATE_PAUSED));
+
+        verify(mockViewTypeListener, timeout(TIME_OUT).atLeast(1))
+                .onViewTypeChanged(mVideoView, VideoView2.VIEW_TYPE_SURFACEVIEW);
+        assertEquals(mVideoView.getViewType(), mVideoView.VIEW_TYPE_SURFACEVIEW);
+    }
+
+    // @Test
     public void testSubtitleSelection() throws Throwable {
         if (!hasCodec()) {
             Log.i(TAG, "SKIPPING testSubtitleSelection(): codec is not supported");
@@ -270,6 +306,7 @@ public class VideoView2Test {
         });
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController2.class), any(SessionCommandGroup2.class));
+
         mController.play();
 
         // Verify the subtitle track count

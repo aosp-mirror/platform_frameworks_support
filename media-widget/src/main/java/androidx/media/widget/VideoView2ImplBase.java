@@ -102,6 +102,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     private VideoView2.OnViewTypeChangedListener mViewTypeChangedListener;
 
     VideoViewInterface mCurrentView;
+    VideoViewInterface mTargetView;
     private VideoTextureView mTextureView;
     private VideoSurfaceView mSurfaceView;
 
@@ -197,6 +198,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
         }
     };
+    private boolean mSetSurfaceIsPending;
 
     @Override
     public void initialize(
@@ -268,6 +270,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             mSurfaceView.setVisibility(View.GONE);
             mCurrentView = mTextureView;
         }
+        mTargetView = mCurrentView;
+        mSetSurfaceIsPending = true;
 
         MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder();
         builder.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK);
@@ -425,7 +429,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
      */
     @Override
     public void setViewType(@VideoView2.ViewType int viewType) {
-        if (viewType == mCurrentView.getViewType()) {
+        if (viewType == mTargetView.getViewType()) {
+            Log.d(TAG, "setViewType with the same type (" + viewType + ") is ignored.");
             return;
         }
         VideoViewInterface targetView;
@@ -438,8 +443,14 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         } else {
             throw new IllegalArgumentException("Unknown view type: " + viewType);
         }
-        ((View) targetView).setVisibility(View.VISIBLE);
-        targetView.takeOver(mCurrentView);
+        mTargetView = targetView;
+        ((View) mTargetView).setVisibility(View.VISIBLE);
+        if (targetView.hasAvailableSurface() && mMediaPlayer != null) {
+            doSetSurface(mTargetView);
+            mSetSurfaceIsPending = false;
+        } else {
+            mSetSurfaceIsPending = true;
+        }
         mInstance.requestLayout();
     }
 
@@ -473,15 +484,14 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
 
             mSurfaceView.setMediaPlayer(mMediaPlayer);
             mTextureView.setMediaPlayer(mMediaPlayer);
-            mCurrentView.assignSurfaceToMediaPlayer(mMediaPlayer);
 
             if (mMediaSession != null) {
                 mMediaSession.updatePlayer(mMediaPlayer);
             }
-        } else {
-            if (!mCurrentView.assignSurfaceToMediaPlayer(mMediaPlayer)) {
-                Log.w(TAG, "failed to assign surface");
-            }
+        }
+        if (mSetSurfaceIsPending && mTargetView.hasAvailableSurface()) {
+            doSetSurface(mTargetView);
+            mSetSurfaceIsPending = false;
         }
 
         ensureSessionWithPlayer(mMediaPlayer);
@@ -503,6 +513,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         mMediaSession.close();
         mMediaPlayer = null;
         mMediaSession = null;
+        mSetSurfaceIsPending = true;
     }
 
     @Override
@@ -569,15 +580,34 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     ///////////////////////////////////////////////////
 
     @Override
-    public void onSurfaceCreated(View view, int width, int height) {
+    public void onSurfaceCreated(final View view, int width, int height) {
         if (DEBUG) {
             Log.d(TAG, "onSurfaceCreated(). mCurrentState=" + mCurrentState
                     + ", mTargetState=" + mTargetState + ", width/height: " + width + "/" + height
                     + ", " + view.toString());
         }
+        if (view == mTargetView && mMediaPlayer != null) {
+            if (!mTargetView.hasAvailableSurface()) {
+                Log.e(TAG, "onSurfaceCreated() is called, but target surface is not valid.");
+                return;
+            }
+            doSetSurface((VideoViewInterface) view);
+            mSetSurfaceIsPending = false;
+        }
         if (needToStart()) {
             mMediaSession.getPlayer().play();
         }
+    }
+
+    private void doSetSurface(final VideoViewInterface view) {
+        mMediaPlayer.setSurface(mTargetView.getSurface()).addListener(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        onSurfaceTakeOverDone(view);
+                    }
+                }, mCallbackExecutor
+        );
     }
 
     @Override
@@ -601,10 +631,13 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         if (DEBUG) {
             Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
         }
+        if (view != mCurrentView) {
+            ((View) mCurrentView).setVisibility(View.GONE);
+            mCurrentView = view;
+        }
         if (mCurrentState != STATE_PLAYING) {
             mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
         }
-        mCurrentView = view;
         if (mViewTypeChangedListener != null) {
             mViewTypeChangedListener.onViewTypeChanged(mInstance, view.getViewType());
         }
@@ -677,8 +710,9 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             }
             mSurfaceView.setMediaPlayer(mMediaPlayer);
             mTextureView.setMediaPlayer(mMediaPlayer);
-            if (!mCurrentView.assignSurfaceToMediaPlayer(mMediaPlayer)) {
-                Log.w(TAG, "failed to assign surface");
+            if (mSetSurfaceIsPending && mTargetView.hasAvailableSurface()) {
+                doSetSurface(mTargetView);
+                mSetSurfaceIsPending = false;
             }
             mMediaPlayer.setAudioAttributes(mAudioAttributes);
 
@@ -1224,6 +1258,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
                 if (DEBUG) {
                     Log.w(TAG, "onCommandRequest() is ignored. session is already gone.");
                 }
+
             }
             switch (command.getCommandCode()) {
                 case SessionCommand2.COMMAND_CODE_PLAYER_PLAY:

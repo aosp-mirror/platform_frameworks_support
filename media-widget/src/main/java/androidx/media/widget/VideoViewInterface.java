@@ -16,35 +16,15 @@
 
 package androidx.media.widget;
 
+import android.view.Surface;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.media2.XMediaPlayer;
 
 interface VideoViewInterface {
-    /**
-     * Assigns the view's surface to the given MediaPlayer instance.
-     *
-     * @param mp MediaPlayer
-     * @return true if the surface is successfully assigned, false if not. It will fail to assign
-     *         if any of MediaPlayer or surface is unavailable.
-     */
-    boolean assignSurfaceToMediaPlayer(XMediaPlayer mp);
     void setSurfaceListener(SurfaceListener l);
     int getViewType();
     void setMediaPlayer(XMediaPlayer mp);
-
-    /**
-     * Takes over oldView. It means that the MediaPlayer will start rendering on this view.
-     * The visibility of oldView will be set as {@link View#GONE}. If the view doesn't have a
-     * MediaPlayer instance or its surface is not available, the actual execution is deferred until
-     * a MediaPlayer instance is set by {@link #setMediaPlayer} or its surface becomes available.
-     * {@link SurfaceListener#onSurfaceTakeOverDone} will be called when the actual execution is
-     * done.
-     *
-     * @param oldView The view that MediaPlayer is currently rendering on.
-     */
-    void takeOver(@NonNull VideoViewInterface oldView);
 
     /**
      * Indicates if the view's surface is available.
@@ -52,6 +32,7 @@ interface VideoViewInterface {
      * @return true if the surface is available.
      */
     boolean hasAvailableSurface();
+    Surface getSurface();
 
     /**
      * An instance of VideoViewInterface calls these surface notification methods accordingly if

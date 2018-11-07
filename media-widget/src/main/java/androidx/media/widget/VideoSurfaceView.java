@@ -24,9 +24,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.media2.XMediaPlayer;
 
@@ -38,9 +36,6 @@ class VideoSurfaceView extends SurfaceView
     private Surface mSurface = null;
     private SurfaceListener mSurfaceListener = null;
     private XMediaPlayer mMediaPlayer;
-    // A flag to indicate taking over other view should be proceed.
-    private boolean mIsTakingOverOldView;
-    private VideoViewInterface mOldView;
 
     VideoSurfaceView(Context context) {
         super(context, null);
@@ -48,18 +43,9 @@ class VideoSurfaceView extends SurfaceView
     }
 
     ////////////////////////////////////////////////////
-    // implements VideoViewInterfaceWithMp1
+    // implements VideoViewInterface
     ////////////////////////////////////////////////////
 
-    @Override
-    public boolean assignSurfaceToMediaPlayer(XMediaPlayer mp) {
-        Log.d(TAG, "assignSurfaceToMediaPlayer(): mSurface: " + mSurface);
-        if (mp == null || !hasAvailableSurface()) {
-            return false;
-        }
-        mp.setSurface(mSurface);
-        return true;
-    }
 
     @Override
     public void setSurfaceListener(SurfaceListener l) {
@@ -74,29 +60,16 @@ class VideoSurfaceView extends SurfaceView
     @Override
     public void setMediaPlayer(XMediaPlayer mp) {
         mMediaPlayer = mp;
-        if (mIsTakingOverOldView) {
-            takeOver(mOldView);
-        }
-    }
-
-    @Override
-    public void takeOver(@NonNull VideoViewInterface oldView) {
-        if (assignSurfaceToMediaPlayer(mMediaPlayer)) {
-            ((View) oldView).setVisibility(GONE);
-            mIsTakingOverOldView = false;
-            mOldView = null;
-            if (mSurfaceListener != null) {
-                mSurfaceListener.onSurfaceTakeOverDone(this);
-            }
-        } else {
-            mIsTakingOverOldView = true;
-            mOldView = oldView;
-        }
     }
 
     @Override
     public boolean hasAvailableSurface() {
         return mSurface != null && mSurface.isValid();
+    }
+
+    @Override
+    public Surface getSurface() {
+        return mSurface;
     }
 
     ////////////////////////////////////////////////////
@@ -107,12 +80,6 @@ class VideoSurfaceView extends SurfaceView
     public void surfaceCreated(SurfaceHolder holder) {
         Log.d(TAG, "surfaceCreated: mSurface: " + mSurface + ", new : " + holder.getSurface());
         mSurface = holder.getSurface();
-        if (mIsTakingOverOldView) {
-            takeOver(mOldView);
-        } else {
-            assignSurfaceToMediaPlayer(mMediaPlayer);
-        }
-
         if (mSurfaceListener != null) {
             Rect rect = holder.getSurfaceFrame();
             mSurfaceListener.onSurfaceCreated(this, rect.width(), rect.height());
