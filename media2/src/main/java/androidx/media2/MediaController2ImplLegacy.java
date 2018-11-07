@@ -17,8 +17,6 @@
 package androidx.media2;
 
 import static android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DURATION;
-import static android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID;
-import static android.support.v4.media.session.MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS;
 
 import static androidx.media2.BaseResult2.RESULT_CODE_BAD_VALUE;
 import static androidx.media2.MediaConstants2.ARGUMENT_COMMAND_CODE;
@@ -31,11 +29,9 @@ import static androidx.media2.MediaConstants2.CONTROLLER_COMMAND_BY_COMMAND_CODE
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_DISCONNECTED;
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_NOT_SUPPORTED;
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_SUCCESS;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
-import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 import static androidx.media2.SessionPlayer2.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.SessionPlayer2.PLAYER_STATE_IDLE;
 import static androidx.media2.SessionPlayer2.UNKNOWN_TIME;
@@ -145,21 +141,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     MediaItem2 mCurrentMediaItem;
     @GuardedBy("mLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mBufferingState;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mCurrentMediaItemIndex;
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mSkipToPlaylistIndex = -1;
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    long mBufferedPosition;
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     PlaybackInfo mPlaybackInfo;
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    SessionCommandGroup2 mAllowedCommands;
 
     // Media 1.0 variables
     @GuardedBy("mLock")
@@ -714,7 +696,6 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
                 return createFutureWithResult(RESULT_CODE_DISCONNECTED);
             }
-            mSkipToPlaylistIndex = index;
             mControllerCompat.getTransportControls().skipToQueueItem(
                     mQueue.get(index).getQueueId());
         }
@@ -847,30 +828,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             if (mIsReleased || mConnected) {
                 return;
             }
-            long sessionFlags = mControllerCompat.getFlags();
-            boolean includePlaylistCommands = (sessionFlags & FLAG_HANDLES_QUEUE_COMMANDS) != 0;
-            commandsBuilder.addAllPlayerCommands(COMMAND_VERSION_CURRENT, includePlaylistCommands);
-            commandsBuilder.addAllVolumeCommands(COMMAND_VERSION_CURRENT);
-            commandsBuilder.addAllSessionCommands(COMMAND_VERSION_CURRENT);
-
-            commandsBuilder.removeCommand(COMMAND_CODE_PLAYER_SET_SPEED);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SELECT_ROUTE);
-
-            commandsBuilder.addCommand(new SessionCommand2(SESSION_COMMAND_ON_EXTRA_CHANGED, null));
-            commandsBuilder.addCommand(
-                    new SessionCommand2(SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED, null));
-
-            mAllowedCommands = commandsBuilder.build();
-
             mPlaybackStateCompat = mControllerCompat.getPlaybackState();
             if (mPlaybackStateCompat == null) {
                 mPlayerState = PLAYER_STATE_IDLE;
-                mBufferedPosition = UNKNOWN_TIME;
             } else {
                 mPlayerState = MediaUtils2.convertToPlayerState(mPlaybackStateCompat);
-                mBufferedPosition = mPlaybackStateCompat.getBufferedPosition();
             }
 
             mPlaybackInfo = MediaUtils2.toPlaybackInfo2(mControllerCompat.getPlaybackInfo());
@@ -890,8 +852,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             mPlaylistMetadata = MediaUtils2.convertToMediaMetadata2(
                     mControllerCompat.getQueueTitle());
 
-            // Call this after set playlist.
-            setCurrentMediaItemLocked(mControllerCompat.getMetadata());
+            mMediaMetadataCompat = mControllerCompat.getMetadata();
+            mCurrentMediaItem = MediaUtils2.convertToMediaItem2(mMediaMetadataCompat);
             mConnected = true;
         }
         mCallbackExecutor.execute(new Runnable() {
@@ -970,68 +932,6 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         controller.sendCommand(command, args, receiver);
     }
 
-    @SuppressWarnings({"GuardedBy", "WeakerAccess"}) /* WeakerAccess for synthetic access */
-    void setCurrentMediaItemLocked(MediaMetadataCompat metadata) {
-        mMediaMetadataCompat = metadata;
-        if (metadata == null) {
-            mCurrentMediaItemIndex = -1;
-            mCurrentMediaItem = null;
-            return;
-        }
-
-        if (mQueue == null) {
-            mCurrentMediaItemIndex = -1;
-            mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
-            return;
-        }
-
-        if (mPlaybackStateCompat != null) {
-            // If playback state is updated before, compare use queue id and media id.
-            long queueId = mPlaybackStateCompat.getActiveQueueItemId();
-            for (int i = 0; i < mQueue.size(); ++i) {
-                QueueItem item = mQueue.get(i);
-                if (item.getQueueId() == queueId) {
-                    mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
-                    mCurrentMediaItemIndex = i;
-                    return;
-                }
-            }
-        }
-
-        String mediaId = metadata.getString(METADATA_KEY_MEDIA_ID);
-        if (mediaId == null) {
-            mCurrentMediaItemIndex = -1;
-            mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
-            return;
-        }
-
-        // Need to find the media item in the playlist using mediaId.
-        // Note that there can be multiple media items with the same media id.
-        if (mSkipToPlaylistIndex >= 0 && mSkipToPlaylistIndex < mQueue.size()
-                && TextUtils.equals(mediaId,
-                        mQueue.get(mSkipToPlaylistIndex).getDescription().getMediaId())) {
-            // metadata changed after skipToPlaylistIItem() was called.
-            mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
-            mCurrentMediaItemIndex = mSkipToPlaylistIndex;
-            mSkipToPlaylistIndex = -1;
-            return;
-        }
-
-        // Find mediaId from the playlist.
-        for (int i = 0; i < mQueue.size(); ++i) {
-            QueueItem item = mQueue.get(i);
-            if (TextUtils.equals(mediaId, item.getDescription().getMediaId())) {
-                mCurrentMediaItemIndex = i;
-                mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
-                return;
-            }
-        }
-
-        // Failed to find media item from the playlist.
-        mCurrentMediaItemIndex = -1;
-        mCurrentMediaItem = MediaUtils2.convertToMediaItem2(mMediaMetadataCompat);
-    }
-
     private class ConnectionCallback extends MediaBrowserCompat.ConnectionCallback {
         ConnectionCallback() {
         }
@@ -1085,24 +985,47 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         @Override
         public void onPlaybackStateChanged(final PlaybackStateCompat state) {
             final PlaybackStateCompat prevState;
-            final MediaItem2 currentItem;
+            final MediaItem2 oldCurrentItem;
+            final MediaItem2 newCurrentItem;
             synchronized (mLock) {
+                oldCurrentItem = mCurrentMediaItem;
                 prevState = mPlaybackStateCompat;
                 mPlaybackStateCompat = state;
                 mPlayerState = MediaUtils2.convertToPlayerState(state);
-                mBufferedPosition = state == null ? UNKNOWN_TIME
-                        : state.getBufferedPosition();
 
+                // Update the current media item if given playback state gives active queue item ID.
                 if (mQueue != null && state != null) {
                     for (int i = 0; i < mQueue.size(); ++i) {
-                        if (mQueue.get(i).getQueueId() == state.getActiveQueueItemId()) {
-                            mCurrentMediaItemIndex = i;
-                            mCurrentMediaItem = mPlaylist.get(i);
+                        QueueItem queueItem = mQueue.get(i);
+                        String mediaId = queueItem.getDescription().getMediaId();
+
+                        // Update the current media item only when:
+                        //   1) The current media item is null, or
+                        //   2) The media ID of active queue item is different from the
+                        //      current media item's.
+                        // This is to preserve the data from onMetadataChanged() since the
+                        // MediaMetadataCompat has better coverage than MediaDescriptionCompat.
+                        if (queueItem.getQueueId() == state.getActiveQueueItemId()) {
+                            if (mCurrentMediaItem == null
+                                    || !TextUtils.equals(mediaId, mCurrentMediaItem.getMediaId())) {
+                                mCurrentMediaItem = mPlaylist.get(i);
+                            }
+                            break;
                         }
                     }
                 }
-                currentItem = mCurrentMediaItem;
+                newCurrentItem = mCurrentMediaItem;
             }
+
+            if (oldCurrentItem != newCurrentItem) {
+                mCallbackExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onCurrentMediaItemChanged(mInstance, newCurrentItem);
+                    }
+                });
+            }
+
             if (state == null) {
                 if (prevState != null) {
                     mCallbackExecutor.execute(new Runnable() {
@@ -1146,7 +1069,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 }
             }
 
-            if (currentItem == null) {
+            if (newCurrentItem == null) {
                 return;
             }
             // Update buffering state if needed
@@ -1158,7 +1081,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 mCallbackExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.onBufferingStateChanged(mInstance, currentItem, bufferingState);
+                        mCallback.onBufferingStateChanged(mInstance, newCurrentItem, bufferingState);
                     }
                 });
             }
@@ -1166,9 +1089,18 @@ class MediaController2ImplLegacy implements MediaController2Impl {
 
         @Override
         public void onMetadataChanged(MediaMetadataCompat metadata) {
+            final MediaItem2 currentMediaItem;
             synchronized (mLock) {
-                setCurrentMediaItemLocked(metadata);
+                mMediaMetadataCompat = metadata;
+                mCurrentMediaItem = MediaUtils2.convertToMediaItem2(metadata);
+                currentMediaItem = mCurrentMediaItem;
             }
+            mCallbackExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onCurrentMediaItemChanged(mInstance, currentMediaItem);
+                }
+            });
         }
 
         @Override

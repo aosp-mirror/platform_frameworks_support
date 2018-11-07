@@ -57,6 +57,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Tests {@link MediaController2} interacting with {@link MediaSessionCompat}.
+ *
+ * TODO: Pull out callback tests to a separate file (i.e. MediaController2LegacyCallbackTest).
  */
 @SmallTest
 public class MediaController2LegacyTest extends MediaSession2TestBase {
@@ -189,6 +191,33 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
         mSession.setQueueTitle(queueTitle);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(metadataFromCallback.get(), mController.getPlaylistMetadata());
+    }
+
+    @Test
+    public void testControllerCallback_onCurrentMediaItemChanged_bySetMetadata() throws Exception {
+        prepareLooper();
+        final String testMediaId = "testControllerCallback_onCurrentMediaItemChanged";
+        final CountDownLatch latch = new CountDownLatch(1);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item) {
+                MediaTestUtils.assertMediaItemWithId(testMediaId, item);
+                latch.countDown();
+            }
+        };
+        mController = createController(mSession.getSessionToken(), true, callback);
+        MediaMetadataCompat metadata = new MediaMetadataCompat.Builder()
+                .putText(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, testMediaId)
+                .build();
+        mSession.setMetadata(metadata);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testControllerCallback_onCurrentMediaItemChanged_bySetPlaybackState()
+            throws Exception {
+        prepareLooper();
+        // TODO: Fill here
     }
 
     @Test
