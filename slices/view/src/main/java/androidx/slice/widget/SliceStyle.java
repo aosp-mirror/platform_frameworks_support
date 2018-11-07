@@ -23,6 +23,8 @@ import android.util.AttributeSet;
 import androidx.annotation.RestrictTo;
 import androidx.slice.view.R;
 
+import static androidx.slice.widget.SliceView.MODE_LARGE;
+
 /**
  * Holds style information shared between child views of a slice
  * @hide
@@ -43,6 +45,12 @@ public class SliceStyle {
     private int mVerticalGridTextPadding;
     private int mGridTopPadding;
     private int mGridBottomPadding;
+
+    private int mMaxHeight;
+    private int mTextWithRangeHeight;
+    private int mSingleTextWithRangeHeight;
+    private int mMinHeight;
+    private int mRangeHeight;
 
     public SliceStyle(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SliceView,
@@ -75,6 +83,18 @@ public class SliceStyle {
                     R.styleable.SliceView_gridTextVerticalPadding, defaultVerticalGridPadding);
             mGridTopPadding = (int) a.getDimension(R.styleable.SliceView_gridTopPadding, 0);
             mGridBottomPadding = (int) a.getDimension(R.styleable.SliceView_gridBottomPadding, 0);
+
+            // XXX: Is it okay that I'm using context.getResources() and not a?
+            mMaxHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_max_height);
+            mTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_multi_text_height);
+            mSingleTextWithRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_single_text_height);
+            mMinHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_min_height);
+            mRangeHeight = context.getResources().getDimensionPixelSize(
+                    R.dimen.abc_slice_row_range_height);
         } finally {
             a.recycle();
         }
@@ -138,5 +158,22 @@ public class SliceStyle {
 
     public int getGridBottomPadding() {
         return mGridBottomPadding;
+    }
+
+    public int getRowHeight(RowContent row, SliceViewPolicy policy) {
+        int maxHeight = policy.getMaxSmallHeight() > 0 ? policy.getMaxSmallHeight() : mMaxHeight;
+        if (row.getRange() != null || policy.getMode() == MODE_LARGE) {
+            if (row.getRange() != null) {
+                // Range element always has set height and then the height of the text
+                // area on the row will vary depending on if 1 or 2 lines of text.
+                int textAreaHeight = row.getLineCount() > 1 ? mTextWithRangeHeight
+                        : mSingleTextWithRangeHeight;
+                return textAreaHeight + mRangeHeight;
+            } else {
+                return (row.getLineCount() > 1 || row.getIsHeader()) ? maxHeight : mMinHeight;
+            }
+        } else {
+            return maxHeight;
+        }
     }
 }
