@@ -62,8 +62,6 @@ public class ListContent extends SliceContent {
     private RowContent mSeeMoreContent;
     private ArrayList<SliceContent> mRowItems = new ArrayList<>();
     private List<SliceAction> mSliceActions;
-    private int mMinScrollHeight;
-    private int mLargeHeight;
     private Context mContext;
 
     public ListContent(Context context, @NonNull Slice slice) {
@@ -72,12 +70,6 @@ public class ListContent extends SliceContent {
             return;
         }
         mContext = context;
-        if (context != null) {
-            mMinScrollHeight = context.getResources()
-                    .getDimensionPixelSize(R.dimen.abc_slice_row_min_height);
-            mLargeHeight = context.getResources()
-                    .getDimensionPixelSize(R.dimen.abc_slice_large_height);
-        }
         populate(slice);
     }
 
@@ -130,33 +122,7 @@ public class ListContent extends SliceContent {
 
     @Override
     public int getHeight(SliceStyle style, SliceViewPolicy policy) {
-        if (policy.getMode() == MODE_SMALL) {
-            return mHeaderContent.getHeight(style, policy);
-        }
-        int maxHeight = policy.getMaxHeight();
-        boolean scrollable = policy.isScrollable();
-
-        int desiredHeight = getListHeight(mRowItems, style, policy);
-        if (maxHeight > 0) {
-            // Always ensure we're at least the height of our small version.
-            int smallHeight = mHeaderContent.getHeight(style, policy);
-            maxHeight = Math.max(smallHeight, maxHeight);
-        }
-        int maxLargeHeight = maxHeight > 0
-                ? maxHeight
-                : mLargeHeight;
-        // Do we have enough content to reasonably scroll in our max?
-        boolean bigEnoughToScroll = desiredHeight - maxLargeHeight >= mMinScrollHeight;
-
-        // Adjust for scrolling
-        int height = bigEnoughToScroll ? maxLargeHeight
-                : maxHeight <= 0 ? desiredHeight
-                : Math.min(maxLargeHeight, desiredHeight);
-        if (!scrollable) {
-            height = getListHeight(getItemsForNonScrollingList(height, style, policy),
-                    style, policy);
-        }
-        return height;
+        return style.getListHeight(this, policy);
     }
 
     /**
@@ -173,54 +139,9 @@ public class ListContent extends SliceContent {
         if (policy.getMode() == MODE_SMALL) {
             return new ArrayList(Arrays.asList(getHeader()));
         } else if (!policy.isScrollable() && availableHeight > 0) {
-            return getItemsForNonScrollingList(availableHeight, style, policy);
+            return style.getListItemsForNonScrollingList(this, availableHeight, policy);
         }
         return getRowItems();
-    }
-
-    /**
-     * Returns a list of items that can fit in the provided height. If this list
-     * has a see more item this will be displayed in the list if appropriate.
-     *
-     * @param availableHeight to use to determine the row items to return.
-     * @param style the style info to use when determining row items to return.
-     * @param policy the policy info (scrolling, mode) to use when determining row items to return.
-     *
-     * @return the list of items that can be displayed in the provided height.
-     */
-    @NonNull
-    private ArrayList<SliceContent> getItemsForNonScrollingList(int availableHeight,
-            SliceStyle style, SliceViewPolicy policy) {
-        ArrayList<SliceContent> visibleItems = new ArrayList<>();
-        if (mRowItems == null || mRowItems.size() == 0) {
-            return visibleItems;
-        }
-        final int minItemCountForSeeMore = mHeaderContent != null ? 2 : 1;
-        int visibleHeight = 0;
-        // Need to show see more
-        if (mSeeMoreContent != null) {
-            visibleHeight += mSeeMoreContent.getHeight(style, policy);
-        }
-        int rowCount = mRowItems.size();
-        for (int i = 0; i < rowCount; i++) {
-            int itemHeight = mRowItems.get(i).getHeight(style, policy);
-            if (availableHeight > 0 && visibleHeight + itemHeight > availableHeight) {
-                break;
-            } else {
-                visibleHeight += itemHeight;
-                visibleItems.add(mRowItems.get(i));
-            }
-        }
-        if (mSeeMoreContent != null && visibleItems.size() >= minItemCountForSeeMore
-                && visibleItems.size() != rowCount) {
-            // Only add see more if we're at least showing one item and it's not the header
-            visibleItems.add(mSeeMoreContent);
-        }
-        if (visibleItems.size() == 0) {
-            // Didn't have enough space to show anything; should still show something
-            visibleItems.add(mRowItems.get(0));
-        }
-        return visibleItems;
     }
 
     /**
@@ -244,6 +165,10 @@ public class ListContent extends SliceContent {
     @NonNull
     public ArrayList<SliceContent> getRowItems() {
         return mRowItems;
+    }
+
+    public SliceContent getSeeMoreItem() {
+        return mSeeMoreContent;
     }
 
     /**
