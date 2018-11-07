@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "4524317f_d26009d5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-07T01:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3f658ce_06506f60",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6538b63_3973a542",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 3
@@ -69,6 +87,24 @@
       "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2100d448_e96844e5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-07T01:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6538b63_3973a542",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "1469b752_e3b90949",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-07T01:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3df53a15_1b87bc1b",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db55eeaa_d52c829c",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 3
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "61cbad65_27cbb951",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-07T01:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db55eeaa_d52c829c",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76ecb15c_b5838ee5",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 3
@@ -117,6 +189,24 @@
       "writtenOn": "2018-11-02T00:34:20Z",
       "side": 1,
       "message": "Was there a reason why setting visibility wasn\u0027t enough to determine if we should lay out these views?\n\nI prefer setting the visibility because it\u0027s one less state variable you have to keep track of.",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d674647_28cdae58",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-07T01:40:32Z",
+      "side": 1,
+      "message": "Just want to keep the value consistent with what really happen, if we do not update the boolean value, user may get the wrong value from PagedListView using isScrollbarThumbEnabled().",
+      "parentUuid": "76ecb15c_b5838ee5",
       "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
