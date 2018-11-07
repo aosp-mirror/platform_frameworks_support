@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "992150ea_184a96ab",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Not related to this CL, but how about assertMediaItemHasId and change the order of two arguments?",
+      "range": {
+        "startLine": 161,
+        "startChar": 23,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b8033b0_cd998096",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "I have currently no good alternative of this in my mind, but maybe there\u0027s better naming for this?",
+      "range": {
+        "startLine": 168,
+        "startChar": 23,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205de817_e27b997a",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "assertMediaItemsHaveEqualId?",
+      "range": {
+        "startLine": 180,
+        "startChar": 23,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f8af36_e5e734c3",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "assertMediaItemListsHaveEqualIds?",
+      "range": {
+        "startLine": 185,
+        "startChar": 23,
+        "endLine": 185,
+        "endChar": 49
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c04ae4bb_16f5ce43",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "assertMediaItemClass?",
+      "range": {
+        "startLine": 192,
+        "startChar": 23,
+        "endLine": 192,
+        "endChar": 39
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6418448c_7e509ada",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/MediaTestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "How about using class?\n\n  assertEquals(MediaItem2.class, item.getClass());",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 60
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91de7101_d8be77d6",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaController2CallbackTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Let\u0027s use create MediaUtils2.assertMediaItemClass(MediaItem2 item) and use this.\nHere and other files which uses \u0027instanceof\u0027.",
+      "range": {
+        "startLine": 279,
+        "startChar": 32,
+        "endLine": 279,
+        "endChar": 76
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64a50576_a1786b63",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowser2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "let\u0027s move to above line",
+      "range": {
+        "startLine": 54,
+        "startChar": 20,
+        "endLine": 54,
+        "endChar": 52
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88dc485d_62b0ca41",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaBrowser2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 54
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872f4f59_3a5d93ba",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaController2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 176,
+        "startChar": 20,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f813128_6d70715f",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/RemoteMediaController2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 353,
+        "startChar": 20,
+        "endLine": 353,
+        "endChar": 54
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b447531a_9e21e0d7",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaItem2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Q) Is writeToParcel not called in same process?",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cca1f6c0_a2236184",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaItem2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "testUriItem",
+      "range": {
+        "startLine": 63,
+        "startChar": 21,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd287879_265fa84a",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "maybe possible to move to above line?",
+      "range": {
+        "startLine": 565,
+        "startChar": 25,
+        "endLine": 565,
+        "endChar": 58
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5019ecba_d8997b94",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 578,
+        "endChar": 0
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be158d9_ec7bbb60",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ditto, here and others",
+      "range": {
+        "startLine": 596,
+        "startChar": 24,
+        "endLine": 596,
+        "endChar": 60
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "826c7d77_a8cbe02e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "can be move to above line, here and others",
+      "range": {
+        "startLine": 1293,
+        "startChar": 20,
+        "endLine": 1293,
+        "endChar": 54
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ef83c9_abda3ba5",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Not needed (here and below)",
+      "range": {
+        "startLine": 285,
+        "startChar": 48,
+        "endLine": 285,
+        "endChar": 59
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c983a9b7_a6fd60c3",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Q) Does the writeToParcel() not called when the binder calls happen within local process?\nIf not, I think we can remove mItem and all its usages.",
+      "range": {
+        "startLine": 746,
+        "startChar": 62,
+        "endLine": 746,
+        "endChar": 90
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b50652_b727155b",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "ers",
+      "range": {
+        "startLine": 746,
+        "startChar": 47,
+        "endLine": 746,
+        "endChar": 49
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f35374bf_857d24da",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-07T06:45:32Z",
+      "side": 1,
+      "message": "Not needed",
+      "range": {
+        "startLine": 761,
+        "startChar": 8,
+        "endLine": 764,
+        "endChar": 9
+      },
+      "revId": "60f7a613c6374c7022189667d00f7d9452733561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
