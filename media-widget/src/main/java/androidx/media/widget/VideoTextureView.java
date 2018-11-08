@@ -27,12 +27,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.media2.MediaPlayer;
 
 @RequiresApi(21)
 class VideoTextureView extends TextureView
         implements VideoViewInterface, TextureView.SurfaceTextureListener {
-    private static final String TAG = "VideoTextureViewWithMp1";
+    private static final String TAG = "VideoTextureView";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private Surface mSurface;
@@ -48,7 +49,7 @@ class VideoTextureView extends TextureView
     }
 
     ////////////////////////////////////////////////////
-    // implements VideoViewInterfaceWithMp1
+    // implements VideoViewInterface
     ////////////////////////////////////////////////////
 
     @Override
@@ -57,7 +58,20 @@ class VideoTextureView extends TextureView
             // Surface is not ready.
             return false;
         }
-        mp.setSurface(mSurface);
+        mp.setSurface(mSurface).addListener(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mOldView != null) {
+                            ((View) mOldView).setVisibility(GONE);
+                            mOldView = null;
+                        }
+                        if (mSurfaceListener != null) {
+                            mSurfaceListener.onSurfaceTakeOverDone(VideoTextureView.this);
+                        }
+                    }
+                }, ContextCompat.getMainExecutor(getContext())
+        );
         return true;
     }
 
@@ -82,12 +96,8 @@ class VideoTextureView extends TextureView
     @Override
     public void takeOver(@NonNull VideoViewInterface oldView) {
         if (assignSurfaceToMediaPlayer(mMediaPlayer)) {
-            ((View) oldView).setVisibility(GONE);
             mIsTakingOverOldView = false;
-            mOldView = null;
-            if (mSurfaceListener != null) {
-                mSurfaceListener.onSurfaceTakeOverDone(this);
-            }
+
         } else {
             mIsTakingOverOldView = true;
             mOldView = oldView;

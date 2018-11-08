@@ -102,6 +102,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
     private VideoView2.OnViewTypeChangedListener mViewTypeChangedListener;
 
     VideoViewInterface mCurrentView;
+    VideoViewInterface mTargetView;
     private VideoTextureView mTextureView;
     private VideoSurfaceView mSurfaceView;
 
@@ -268,6 +269,7 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
             mSurfaceView.setVisibility(View.GONE);
             mCurrentView = mTextureView;
         }
+        mTargetView = mCurrentView;
 
         MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder();
         builder.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK);
@@ -425,7 +427,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
      */
     @Override
     public void setViewType(@VideoView2.ViewType int viewType) {
-        if (viewType == mCurrentView.getViewType()) {
+        if (viewType == mTargetView.getViewType()) {
+            Log.d(TAG, "setViewType with the same type (" + viewType + ") is ignored.");
             return;
         }
         VideoViewInterface targetView;
@@ -438,6 +441,8 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
         } else {
             throw new IllegalArgumentException("Unknown view type: " + viewType);
         }
+
+        mTargetView = targetView;
         ((View) targetView).setVisibility(View.VISIBLE);
         targetView.takeOver(mCurrentView);
         mInstance.requestLayout();
@@ -598,15 +603,23 @@ class VideoView2ImplBase implements VideoView2Impl, VideoViewInterface.SurfaceLi
 
     @Override
     public void onSurfaceTakeOverDone(VideoViewInterface view) {
+        if (view != mTargetView) {
+            if (DEBUG) {
+                Log.d(TAG, "onSurfaceTakeOverDone(). view is not targetView. ignore.: " + view);
+            }
+            return;
+        }
         if (DEBUG) {
             Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
         }
         if (mCurrentState != STATE_PLAYING) {
             mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
         }
-        mCurrentView = view;
-        if (mViewTypeChangedListener != null) {
-            mViewTypeChangedListener.onViewTypeChanged(mInstance, view.getViewType());
+        if (view != mCurrentView) {
+            mCurrentView = view;
+            if (mViewTypeChangedListener != null) {
+                mViewTypeChangedListener.onViewTypeChanged(mInstance, view.getViewType());
+            }
         }
 
         if (needToStart()) {
