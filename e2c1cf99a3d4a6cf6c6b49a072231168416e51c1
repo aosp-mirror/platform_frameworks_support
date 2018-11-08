@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f4c1afb_78e5256a",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-08T12:42:05Z",
+      "side": 1,
+      "message": "setCurrentMediaItemLocked?",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1107,
+        "endChar": 0
+      },
+      "revId": "e2c1cf99a3d4a6cf6c6b49a072231168416e51c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
