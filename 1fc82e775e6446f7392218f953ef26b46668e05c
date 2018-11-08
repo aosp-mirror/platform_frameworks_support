@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22c71608_43b66668",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 55
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T23:30:42Z",
+      "side": 1,
+      "message": "1.0.0-alpha1",
+      "range": {
+        "startLine": 83,
+        "startChar": 33,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "1fc82e775e6446f7392218f953ef26b46668e05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9577e0_1f7a9b1e",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T23:30:42Z",
+      "side": 1,
+      "message": "is there a way to check it an app is used the share-target module? Because if not, we can avoid the disk io.\nOne option could be to add some meta-data in the application info and check that",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "1fc82e775e6446f7392218f953ef26b46668e05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
