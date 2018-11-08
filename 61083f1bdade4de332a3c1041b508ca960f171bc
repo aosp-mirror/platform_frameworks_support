@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c16f169_c4a580fb",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoSurfaceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-08T06:21:14Z",
+      "side": 1,
+      "message": "It should be package private.\nPlease run lint. (./gradlew :media-widget:check)",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8f6a831_906eeb46",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoSurfaceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-08T06:21:14Z",
+      "side": 1,
+      "message": "Remove this empty line",
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d938c0_23ef3d2b",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoTextureView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-08T06:21:14Z",
+      "side": 1,
+      "message": "Remove this empty line.",
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
