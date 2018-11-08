@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f279cb7_5b5bab9c",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T18:02:56Z",
+      "side": 1,
+      "message": "Do we have any other use case of this type except for checking if the operation is seek or not? How about to change this to boolean?",
+      "range": {
+        "startLine": 913,
+        "startChar": 16,
+        "endLine": 913,
+        "endChar": 48
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
