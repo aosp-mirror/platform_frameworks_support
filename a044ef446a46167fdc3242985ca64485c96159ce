@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3721215_86166bb3",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-08T21:49:02Z",
+      "side": 1,
+      "message": "this method can be static as well",
+      "range": {
+        "startLine": 794,
+        "startChar": 4,
+        "endLine": 794,
+        "endChar": 11
+      },
+      "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
