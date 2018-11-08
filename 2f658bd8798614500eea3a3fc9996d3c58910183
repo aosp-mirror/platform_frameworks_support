@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701afb39_1ab38928",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "what happens if there was an error on non-last future?",
+      "range": {
+        "startLine": 569,
+        "startChar": 16,
+        "endLine": 571,
+        "endChar": 42
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa9e69f_2c133b06",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "Can you add \"@GuardedBy(\"mPendingFutures\")\" and add comment about this is for pending operations within this MediaPlayer?",
+      "range": {
+        "startLine": 583,
+        "startChar": 58,
+        "endLine": 583,
+        "endChar": 73
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e28ae6c7_0910f354",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "how about to make addPendingFuture() return the pendingFuture and do the following patterns:\n\nreturn addPendingFuture(new Pend....() {\n    ...\n});\n\nIt\u0027s the pattern already used in MP2Impl.",
+      "range": {
+        "startLine": 689,
+        "startChar": 8,
+        "endLine": 690,
+        "endChar": 28
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6c29645_20bcef0e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "This does not match to the method. Can you define constants in XMediaPlayer? Or, if this is just for checking the type is seek or not you can have boolean variable.",
+      "range": {
+        "startLine": 874,
+        "startChar": 29,
+        "endLine": 874,
+        "endChar": 63
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd23bbe_1207c62e",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2175,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "why this method has \u0027Internal\u0027 suffix while we don\u0027t have createFutureForResultCode() method?",
+      "range": {
+        "startLine": 2175,
+        "startChar": 68,
+        "endLine": 2175,
+        "endChar": 76
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777fd3f8_32e2affd",
+        "filename": "media2/src/main/java/androidx/media2/XMediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-08T05:00:42Z",
+      "side": 1,
+      "message": "\"is being handled\"?",
+      "range": {
+        "startLine": 2348,
+        "startChar": 36,
+        "endLine": 2348,
+        "endChar": 55
+      },
+      "revId": "2f658bd8798614500eea3a3fc9996d3c58910183",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
