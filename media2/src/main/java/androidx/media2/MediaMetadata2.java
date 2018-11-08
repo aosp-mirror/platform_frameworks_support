@@ -29,13 +29,17 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StringDef;
 import androidx.collection.ArrayMap;
 import androidx.media2.MediaLibraryService2.MediaLibrarySession;
+import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -110,8 +114,8 @@ import java.util.Set;
 //   - Don't implement Parcelable for updatable support.
 //   - Also support MediaDescription features. MediaDescription is deprecated instead because
 //     it was insufficient for controller to display media contents. (e.g. duration is missing)
-@VersionedParcelize
-public final class MediaMetadata2 implements VersionedParcelable {
+@VersionedParcelize(isCustom = true)
+public final class MediaMetadata2 extends CustomVersionedParcelable {
     private static final String TAG = "MediaMetadata2";
 
     /**
@@ -738,6 +742,9 @@ public final class MediaMetadata2 implements VersionedParcelable {
     @ParcelField(1)
     Bundle mBundle;
 
+    @ParcelField(2)
+    ParcelImplListSlice mBitmapListSlice;
+
     /**
      * Used for VersionedParcelable
      */
@@ -940,6 +947,36 @@ public final class MediaMetadata2 implements VersionedParcelable {
      */
     public static @NonNull MediaMetadata2 fromBundle(@Nullable Bundle bundle) {
         return (bundle == null) ? null : new MediaMetadata2(bundle);
+    }
+
+    @Override
+    public void onPreParceling(boolean isStream) {
+        List<ParcelImpl> parcelImplList = new ArrayList<>();
+        for (String key : mBundle.keySet()) {
+            Object value = mBundle.get(key);
+            if (!(value instanceof Bitmap)) {
+                // Note: Null bitmap is sent through mBundle.
+                continue;
+            }
+            Bitmap bitmap = (Bitmap) value;
+
+            // TODO: Resizing logic comes here.
+
+            parcelImplList.add((ParcelImpl) ParcelUtils.toParcelable(new BitmapEntry(key, bitmap)));
+            mBundle.remove(key);
+        }
+        mBitmapListSlice = new ParcelImplListSlice(parcelImplList);
+    }
+
+    @Override
+    public void onPostParceling() {
+        List<ParcelImpl> parcelImplList = mBitmapListSlice.getList();
+        for (ParcelImpl parcelImpl : parcelImplList) {
+            BitmapEntry entry = ParcelUtils.fromParcelable(parcelImpl);
+            mBundle.putParcelable(entry.getKey(), entry.getBitmap());
+        }
+        parcelImplList.clear();
+        mBitmapListSlice = null;
     }
 
     /**
@@ -1233,6 +1270,37 @@ public final class MediaMetadata2 implements VersionedParcelable {
             int height = (int) (bmp.getHeight() * scale);
             int width = (int) (bmp.getWidth() * scale);
             return Bitmap.createScaledBitmap(bmp, width, height, true);
+        }
+    }
+
+    /**
+     * A class for sending bitmaps one-by-one.
+     */
+    @VersionedParcelize
+    static final class BitmapEntry implements VersionedParcelable {
+        @ParcelField(1)
+        String mKey;
+
+        @ParcelField(2)
+        Bitmap mBitmap;
+
+        /**
+         * Used for VersionedParcelable
+         */
+        BitmapEntry() {
+        }
+
+        BitmapEntry(@NonNull String key, @Nullable Bitmap bitmap) {
+            mKey = key;
+            mBitmap = bitmap;
+        }
+
+        String getKey() {
+            return mKey;
+        }
+
+        Bitmap getBitmap() {
+            return mBitmap;
         }
     }
 }
