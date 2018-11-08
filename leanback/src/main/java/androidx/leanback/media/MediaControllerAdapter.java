@@ -44,7 +44,7 @@ public class MediaControllerAdapter extends PlayerAdapter {
     private static final String TAG = "MediaControllerAdapter";
     private static final boolean DEBUG = false;
 
-    private MediaControllerCompat mController;
+    private MediaControllerCompat mControllerCompat;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Handler mHandler = new Handler();
 
@@ -123,13 +123,13 @@ public class MediaControllerAdapter extends PlayerAdapter {
     /**
      * Constructor for the adapter using {@link MediaControllerCompat}.
      *
-     * @param controller Object of MediaControllerCompat..
+     * @param controllerCompat Object of MediaControllerCompat..
      */
-    public MediaControllerAdapter(MediaControllerCompat controller) {
-        if (controller == null) {
+    public MediaControllerAdapter(MediaControllerCompat controllerCompat) {
+        if (controllerCompat == null) {
             throw new NullPointerException("Object of MediaControllerCompat is null");
         }
-        mController = controller;
+        mControllerCompat = controllerCompat;
     }
 
     /**
@@ -138,82 +138,83 @@ public class MediaControllerAdapter extends PlayerAdapter {
      * @return Media Controller Compat object owned by this class.
      */
     public MediaControllerCompat getMediaController() {
-        return mController;
+        return mControllerCompat;
     }
 
     @Override
     public void play() {
-        mController.getTransportControls().play();
+        mControllerCompat.getTransportControls().play();
     }
 
     @Override
     public void pause() {
-        mController.getTransportControls().pause();
+        mControllerCompat.getTransportControls().pause();
     }
 
     @Override
     public void seekTo(long positionInMs) {
-        mController.getTransportControls().seekTo(positionInMs);
+        mControllerCompat.getTransportControls().seekTo(positionInMs);
     }
 
     @Override
     public void next() {
-        mController.getTransportControls().skipToNext();
+        mControllerCompat.getTransportControls().skipToNext();
     }
 
     @Override
     public void previous() {
-        mController.getTransportControls().skipToPrevious();
+        mControllerCompat.getTransportControls().skipToPrevious();
     }
 
     @Override
     public void fastForward() {
-        mController.getTransportControls().fastForward();
+        mControllerCompat.getTransportControls().fastForward();
     }
 
     @Override
     public void rewind() {
-        mController.getTransportControls().rewind();
+        mControllerCompat.getTransportControls().rewind();
     }
 
     @Override
     public void setRepeatAction(int repeatActionIndex) {
         int repeatMode = mapRepeatActionToRepeatMode(repeatActionIndex);
-        mController.getTransportControls().setRepeatMode(repeatMode);
+        mControllerCompat.getTransportControls().setRepeatMode(repeatMode);
     }
 
     @Override
     public void setShuffleAction(int shuffleActionIndex) {
         int shuffleMode = mapShuffleActionToShuffleMode(shuffleActionIndex);
-        mController.getTransportControls().setShuffleMode(shuffleMode);
+        mControllerCompat.getTransportControls().setShuffleMode(shuffleMode);
     }
 
     @Override
     public boolean isPlaying() {
-        if (mController.getPlaybackState() == null) {
+        if (mControllerCompat.getPlaybackState() == null) {
             return false;
         }
-        return mController.getPlaybackState().getState()
+        return mControllerCompat.getPlaybackState().getState()
                 == PlaybackStateCompat.STATE_PLAYING
-                || mController.getPlaybackState().getState()
+                || mControllerCompat.getPlaybackState().getState()
                 == PlaybackStateCompat.STATE_FAST_FORWARDING
-                || mController.getPlaybackState().getState() == PlaybackStateCompat.STATE_REWINDING;
+                || mControllerCompat.getPlaybackState().getState()
+                == PlaybackStateCompat.STATE_REWINDING;
     }
 
     @Override
     public long getCurrentPosition() {
-        if (mController.getPlaybackState() == null) {
+        if (mControllerCompat.getPlaybackState() == null) {
             return 0;
         }
-        return mController.getPlaybackState().getPosition();
+        return mControllerCompat.getPlaybackState().getPosition();
     }
 
     @Override
     public long getBufferedPosition() {
-        if (mController.getPlaybackState() == null) {
+        if (mControllerCompat.getPlaybackState() == null) {
             return 0;
         }
-        return mController.getPlaybackState().getBufferedPosition();
+        return mControllerCompat.getPlaybackState().getBufferedPosition();
     }
 
     /**
@@ -222,10 +223,10 @@ public class MediaControllerAdapter extends PlayerAdapter {
      * @return Title of current media.
      */
     public CharSequence getMediaTitle() {
-        if (mController.getMetadata() == null) {
+        if (mControllerCompat.getMetadata() == null) {
             return "";
         }
-        return mController.getMetadata().getDescription().getTitle();
+        return mControllerCompat.getMetadata().getDescription().getTitle();
     }
 
     /**
@@ -234,10 +235,10 @@ public class MediaControllerAdapter extends PlayerAdapter {
      * @return Subtitle of current media.
      */
     public CharSequence getMediaSubtitle() {
-        if (mController.getMetadata() == null) {
+        if (mControllerCompat.getMetadata() == null) {
             return "";
         }
-        return mController.getMetadata().getDescription().getSubtitle();
+        return mControllerCompat.getMetadata().getDescription().getSubtitle();
     }
 
     /**
@@ -246,30 +247,30 @@ public class MediaControllerAdapter extends PlayerAdapter {
      * @return Drawable art of current media.
      */
     public Drawable getMediaArt(Context context) {
-        if (mController.getMetadata() == null) {
+        if (mControllerCompat.getMetadata() == null) {
             return null;
         }
-        Bitmap bitmap = mController.getMetadata().getDescription().getIconBitmap();
+        Bitmap bitmap = mControllerCompat.getMetadata().getDescription().getIconBitmap();
         return bitmap == null ? null : new BitmapDrawable(context.getResources(), bitmap);
     }
 
     @Override
     public long getDuration() {
-        if (mController.getMetadata() == null) {
+        if (mControllerCompat.getMetadata() == null) {
             return 0;
         }
-        return (int) mController.getMetadata().getLong(
+        return (int) mControllerCompat.getMetadata().getLong(
                 MediaMetadataCompat.METADATA_KEY_DURATION);
     }
 
     @Override
     public void onAttachedToHost(PlaybackGlueHost host) {
-        mController.registerCallback(mMediaControllerCallback);
+        mControllerCompat.registerCallback(mMediaControllerCallback);
     }
 
     @Override
     public void onDetachedFromHost() {
-        mController.unregisterCallback(mMediaControllerCallback);
+        mControllerCompat.unregisterCallback(mMediaControllerCallback);
     }
 
     @Override
@@ -284,10 +285,10 @@ public class MediaControllerAdapter extends PlayerAdapter {
     @Override
     public long getSupportedActions() {
         long supportedActions = 0;
-        if (mController.getPlaybackState() == null) {
+        if (mControllerCompat.getPlaybackState() == null) {
             return supportedActions;
         }
-        long actionsFromController = mController.getPlaybackState().getActions();
+        long actionsFromController = mControllerCompat.getPlaybackState().getActions();
         // Translation.
         if ((actionsFromController & PlaybackStateCompat.ACTION_PLAY_PAUSE) != 0) {
             supportedActions |= ACTION_PLAY_PAUSE;
