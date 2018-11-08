@@ -22,6 +22,30 @@
       "revId": "e2c1cf99a3d4a6cf6c6b49a072231168416e51c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd0baf8c_568cc698",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-08T12:51:48Z",
+      "side": 1,
+      "message": "Ack. Not in scope of this CL.",
+      "parentUuid": "9f4c1afb_78e5256a",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1107,
+        "endChar": 0
+      },
+      "revId": "e2c1cf99a3d4a6cf6c6b49a072231168416e51c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
