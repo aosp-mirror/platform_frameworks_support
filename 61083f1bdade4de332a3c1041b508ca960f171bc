@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8a79b3b3_55967f8a",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoSurfaceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-08T07:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c16f169_c4a580fb",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8f6a831_906eeb46",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoSurfaceView.java",
         "patchSetId": 1
@@ -65,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b332eb42_b640fbf8",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoSurfaceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-08T07:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f6a831_906eeb46",
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79d938c0_23ef3d2b",
         "filename": "media-widget/src/main/java/androidx/media/widget/VideoTextureView.java",
         "patchSetId": 1
@@ -79,6 +121,24 @@
       "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b654dd2b_1bec2ee8",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoTextureView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-08T07:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d938c0_23ef3d2b",
+      "revId": "61083f1bdade4de332a3c1041b508ca960f171bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
