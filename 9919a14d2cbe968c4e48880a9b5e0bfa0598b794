@@ -22,6 +22,30 @@
       "revId": "9919a14d2cbe968c4e48880a9b5e0bfa0598b794",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c264c8df_d591425f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2910,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-08T05:18:11Z",
+      "side": 1,
+      "message": "Moved into MediaSessionImplBase",
+      "parentUuid": "acbfc33e_4d85d99d",
+      "range": {
+        "startLine": 2910,
+        "startChar": 23,
+        "endLine": 2910,
+        "endChar": 51
+      },
+      "revId": "9919a14d2cbe968c4e48880a9b5e0bfa0598b794",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
