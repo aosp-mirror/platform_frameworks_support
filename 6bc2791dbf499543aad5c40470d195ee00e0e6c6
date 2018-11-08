@@ -306,6 +306,24 @@
     },
     {
       "key": {
+        "uuid": "6fe26f17_3c9c014c",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "i\u0027m saying i don\u0027t think you needed to add it here to currentHeight. in checking ShowScrollBarThumb and mAlphaJumpButtonEnabled, mSeparatingMargin will be added. \n\ni understand why we are adding the height of up/down buttons and top/bottom padding, but i don\u0027t understand the purpose of adding margin here.",
+      "parentUuid": "a36d3b6b_61f8d320",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f58b2aa2_35215093",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 12

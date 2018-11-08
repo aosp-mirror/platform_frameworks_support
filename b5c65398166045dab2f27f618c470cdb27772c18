@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b918c1f3_3baf3f61",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "nitpick: extra space",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 8
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "850a1cee_98182ef7",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "can you explain what bias means in this context? I\u0027m thinking something along the line of \"removing one pixel off the height so it falls short of needed height\"",
+      "range": {
+        "startLine": 143,
+        "startChar": 19,
+        "endLine": 143,
+        "endChar": 41
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc5d760_16727516",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "rename to separateMarginCount",
+      "range": {
+        "startLine": 146,
+        "startChar": 16,
+        "endLine": 146,
+        "endChar": 33
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab214d7e_a85bb38b",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "if we are getting up button height, might as also get down button, instead of doubling it",
+      "range": {
+        "startLine": 153,
+        "startChar": 31,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e672e41_1797ccc2",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "indentation looks off. can you double check? i think it fits in the same line",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 157,
+        "endChar": 51
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ca38fa_dff47eb9",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "is number of separateMargin tied to whether these widgets are included..? \nit seems like if allowAlphaJump \u003d\u003d true, numSeparateMargin will need to +1. is this right?\n\nif that\u0027s the case can you decouple the parameters? maybe add margin automatically? (and add additional margin if needed)",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 28
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f327f3_77708134",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T23:55:02Z",
+      "side": 1,
+      "message": "what is the purpose of this DUMMY?",
+      "range": {
+        "startLine": 187,
+        "startChar": 14,
+        "endLine": 187,
+        "endChar": 67
+      },
+      "revId": "b5c65398166045dab2f27f618c470cdb27772c18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
