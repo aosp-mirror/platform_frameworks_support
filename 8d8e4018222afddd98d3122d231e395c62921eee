@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "777630a5_e8a1f21c",
+        "filename": "media-widget/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-08T06:44:14Z",
+      "side": 1,
+      "message": "NonNull?",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 108
+      },
+      "revId": "8d8e4018222afddd98d3122d231e395c62921eee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
