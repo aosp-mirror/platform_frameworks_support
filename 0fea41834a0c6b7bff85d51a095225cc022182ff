@@ -46,6 +46,30 @@
       "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcbe6c96_f0141514",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-11-08T09:07:17Z",
+      "side": 1,
+      "message": "No keys available in the public API for now.\nIt just serves as a container for passing custom data between a TextClassifier implementation and its clients.\nWe will properly document keys/data-types if any ever becomes public API.",
+      "parentUuid": "b993b6e2_e0cce119",
+      "range": {
+        "startLine": 409,
+        "startChar": 11,
+        "endLine": 409,
+        "endChar": 34
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
