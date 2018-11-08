@@ -16,11 +16,12 @@
 
 package androidx.media2;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
-import androidx.collection.ArrayMap;
+import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.MediaSession2.MediaSession2Impl;
@@ -33,20 +34,12 @@ import java.util.List;
  * Manages connected {@link ControllerInfo}. This is thread-safe.
  */
 class ConnectedControllersManager<T> {
-    private static final String TAG = "MS2ControllerMgr";
-    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+    static final String TAG = "MS2ControllerMgr";
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private final Object mLock = new Object();
     @GuardedBy("mLock")
-    private final ArrayMap<ControllerInfo, SessionCommandGroup2> mAllowedCommandGroupMap =
-            new ArrayMap<>();
-    @GuardedBy("mLock")
-    private final ArrayMap<ControllerInfo, SequencedFutureManager>
-            mControllerToSequencedFutureManager = new ArrayMap<>();
-    @GuardedBy("mLock")
-    private final ArrayMap<T, ControllerInfo> mControllers = new ArrayMap<>();
-    @GuardedBy("mLock")
-    private final ArrayMap<ControllerInfo, T> mKeys = new ArrayMap<>();
+    private final List<ConnectedControllerInfo> mConnectedControllerInfos = new ArrayList<>();
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final MediaSession2Impl mSessionImpl;
@@ -55,78 +48,96 @@ class ConnectedControllersManager<T> {
         mSessionImpl = session;
     }
 
-    public void addController(T key, ControllerInfo controller, SessionCommandGroup2 commands) {
-        if (key == null || controller == null) {
+    public void addController(T controller, ControllerInfo controllerInfo,
+            SessionCommandGroup2 commands) {
+        if (controller == null || controllerInfo == null) {
             if (DEBUG) {
-                throw new IllegalArgumentException("key nor controller shouldn't be null");
+                throw new IllegalArgumentException("controller nor controllerInfo shouldn't be"
+                        + " null");
             }
             return;
         }
         synchronized (mLock) {
-            mAllowedCommandGroupMap.put(controller, commands);
-            mControllerToSequencedFutureManager.put(controller, new SequencedFutureManager());
-            mControllers.put(key, controller);
-            mKeys.put(controller, key);
+            for (int i = 0; i < mConnectedControllerInfos.size(); i++) {
+                ConnectedControllerInfo connectedControllerInfo = mConnectedControllerInfos.get(i);
+                if (connectedControllerInfo.contains(controller)) {
+                    // already exist. Only update allowed commands.
+                    mConnectedControllerInfos.set(i,
+                            new ConnectedControllerInfo(connectedControllerInfo.controllerInfo,
+                                    connectedControllerInfo.controller, commands,
+                                    connectedControllerInfo.sequencedFutureManager));
+                    return;
+                }
+            }
+            mConnectedControllerInfos.add(new ConnectedControllerInfo(
+                    controllerInfo, controller, commands, new SequencedFutureManager()));
         }
         // TODO: Also notify controller connected.
     }
 
-    public void updateAllowedCommands(ControllerInfo controller, SessionCommandGroup2 commands) {
+    public void updateAllowedCommands(ControllerInfo controllerInfo,
+            SessionCommandGroup2 commands) {
+        if (controllerInfo == null) {
+            return;
+        }
         synchronized (mLock) {
-            if (!mAllowedCommandGroupMap.containsKey(controller)) {
-                if (DEBUG) {
-                    Log.d(TAG, "Cannot update allowed command for disconnected controller "
-                            + controller);
+            for (int i = 0; i < mConnectedControllerInfos.size(); i++) {
+                ConnectedControllerInfo connectedControllerInfo = mConnectedControllerInfos.get(i);
+                if (connectedControllerInfo.contains(controllerInfo)) {
+                    mConnectedControllerInfos.set(i,
+                            new ConnectedControllerInfo(connectedControllerInfo.controllerInfo,
+                                    connectedControllerInfo.controller, commands,
+                                    connectedControllerInfo.sequencedFutureManager));
+                    return;
                 }
-                return;
             }
-            mAllowedCommandGroupMap.put(controller, commands);
         }
         // TODO: Also notify allowed command changes here.
     }
 
-    public void removeController(T key) {
-        if (key == null) {
-            return;
-        }
-        final ControllerInfo controller;
-        final SequencedFutureManager manager;
-        synchronized (mLock) {
-            controller = mControllers.remove(key);
-            mKeys.remove(controller);
-            mAllowedCommandGroupMap.remove(controller);
-            manager = mControllerToSequencedFutureManager.remove(controller);
-        }
-        if (manager != null) {
-            manager.close();
-        }
-        notifyDisconnected(controller);
-    }
-
-    public void removeController(ControllerInfo controller) {
+    public void removeController(T controller) {
         if (controller == null) {
             return;
         }
-        final SequencedFutureManager manager;
+        ConnectedControllerInfo removedController = null;
         synchronized (mLock) {
-            T key = mKeys.remove(controller);
-            mControllers.remove(key);
-            mAllowedCommandGroupMap.remove(controller);
-            manager = mControllerToSequencedFutureManager.remove(controller);
+            for (ConnectedControllerInfo info : mConnectedControllerInfos) {
+                if (info.contains(controller)) {
+                    mConnectedControllerInfos.remove(info);
+                    removedController = info;
+                    break;
+                }
+            }
         }
-        if (manager != null) {
-            manager.close();
-        }
-        notifyDisconnected(controller);
+        onControllerRemoved(removedController);
     }
 
-    private void notifyDisconnected(final ControllerInfo controller) {
-        if (DEBUG) {
-            Log.d(TAG, "Controller " + controller + " is disconnected");
-        }
-        if (mSessionImpl.isClosed() || controller == null) {
+    public void removeController(ControllerInfo controllerInfo) {
+        if (controllerInfo == null) {
             return;
         }
+        ConnectedControllerInfo removedController = null;
+        synchronized (mLock) {
+            for (ConnectedControllerInfo info : mConnectedControllerInfos) {
+                if (info.contains(controllerInfo)) {
+                    mConnectedControllerInfos.remove(info);
+                    removedController = info;
+                    break;
+                }
+            }
+        }
+        onControllerRemoved(removedController);
+    }
+
+    private void onControllerRemoved(final ConnectedControllerInfo connectedControllerInfo) {
+        if (mSessionImpl.isClosed() || connectedControllerInfo == null
+                || connectedControllerInfo.controllerInfo == null) {
+            return;
+        }
+        if (DEBUG) {
+            Log.d(TAG, "Controller " + connectedControllerInfo.controllerInfo + " is disconnected");
+        }
+        connectedControllerInfo.sequencedFutureManager.close();
         mSessionImpl.getCallbackExecutor().execute(new Runnable() {
             @Override
             public void run() {
@@ -134,94 +145,127 @@ class ConnectedControllersManager<T> {
                     return;
                 }
                 mSessionImpl.getCallback().onDisconnected(mSessionImpl.getInstance(),
-                        controller);
+                        connectedControllerInfo.controllerInfo);
             }
         });
     }
 
-    public List<ControllerInfo> getConnectedControllers() {
+    public final List<ControllerInfo> getConnectedControllers() {
         ArrayList<ControllerInfo> controllers = new ArrayList<>();
         synchronized (mLock) {
-            for (int i = 0; i < mControllers.size(); i++) {
-                controllers.add(mControllers.valueAt(i));
+            for (ConnectedControllerInfo info : mConnectedControllerInfos) {
+                controllers.add(info.controllerInfo);
             }
         }
         return controllers;
     }
 
-    public boolean isConnected(ControllerInfo controller) {
-        synchronized (mLock) {
-            return controller != null && mKeys.get(controller) != null;
-        }
+    public final boolean isConnected(ControllerInfo controller) {
+        return getConnectedControllerInfo(controller) != null;
     }
 
     /**
      * Gets the sequenced future manager.
      *
-     * @param controller controller
+     * @param controllerInfo controller info
      * @return sequenced future manager. Can be {@code null} if the controller was null or
      *         disconencted.
      */
-    public @Nullable SequencedFutureManager getSequencedFutureManager(
-            @Nullable ControllerInfo controller) {
+    @Nullable
+    public final SequencedFutureManager getSequencedFutureManager(
+            @Nullable ControllerInfo controllerInfo) {
+        ConnectedControllerInfo info = getConnectedControllerInfo(controllerInfo);
+        return info != null ? info.sequencedFutureManager : null;
+    }
+
+    /**
+     * Gets the sequenced future manager.
+     *
+     * @param controller key
+     * @return sequenced future manager. Can be {@code null} if the controller was null or
+     *         disconencted.
+     */
+    public SequencedFutureManager getSequencedFutureManager(@Nullable T controller) {
+        ConnectedControllerInfo info = getConnectedControllerInfo(controller);
+        return info != null ? info.sequencedFutureManager : null;
+    }
+
+    public boolean isAllowedCommand(ControllerInfo controllerInfo, SessionCommand2 command) {
+        ConnectedControllerInfo info = getConnectedControllerInfo(controllerInfo);
+        return info != null && info.allowedCommands.hasCommand(command);
+    }
+
+    public boolean isAllowedCommand(ControllerInfo controllerInfo, @CommandCode int commandCode) {
+        ConnectedControllerInfo info = getConnectedControllerInfo(controllerInfo);
+        return info != null && info.allowedCommands.hasCommand(commandCode);
+    }
+
+    public ControllerInfo getController(T controller) {
+        ConnectedControllerInfo info = getConnectedControllerInfo(controller);
+        return info != null ? info.controllerInfo : null;
+    }
+
+    private ConnectedControllerInfo getConnectedControllerInfo(ControllerInfo controllerInfo) {
+        if (controllerInfo == null) {
+            return null;
+        }
+        synchronized (mLock) {
+            for (ConnectedControllerInfo info : mConnectedControllerInfos) {
+                if (info.contains(controllerInfo)) {
+                    return info;
+                }
+            }
+        }
+        return null;
+    }
+
+    private ConnectedControllerInfo getConnectedControllerInfo(T controller) {
         if (controller == null) {
             return null;
         }
         synchronized (mLock) {
-            return isConnected(controller)
-                    ? mControllerToSequencedFutureManager.get(controller) : null;
-        }
-    }
-
-    /**
-     * Gets the sequenced future manager.
-     *
-     * @param key key
-     * @return sequenced future manager. Can be {@code null} if the controller was null or
-     *         disconencted.
-     */
-    public @Nullable SequencedFutureManager getSequencedFutureManager(@Nullable T key) {
-        synchronized (mLock) {
-            return getSequencedFutureManager(getController(key));
-        }
-    }
-
-    public boolean isAllowedCommand(ControllerInfo controller, SessionCommand2 command) {
-        SessionCommandGroup2 allowedCommands;
-        synchronized (mLock) {
-            allowedCommands = mAllowedCommandGroupMap.get(controller);
-        }
-        return allowedCommands != null && allowedCommands.hasCommand(command);
-    }
-
-    public boolean isAllowedCommand(ControllerInfo controller, @CommandCode int commandCode) {
-        SessionCommandGroup2 allowedCommands;
-        synchronized (mLock) {
-            allowedCommands = mAllowedCommandGroupMap.get(controller);
-        }
-        return allowedCommands != null && allowedCommands.hasCommand(commandCode);
-    }
-
-    public ControllerInfo getController(T key) {
-        if (key == null) {
-            return null;
-        }
-        synchronized (mLock) {
-            if (key instanceof RemoteUserInfo) {
-                // Workaround MediaBrowserServiceCompat's issue that that RemoteUserInfo from
-                // onGetRoot and other methods are differ even for the same controller.
-                // TODO: Remove this workaround
-                RemoteUserInfo user = (RemoteUserInfo) key;
-                for (int i = 0; i < mControllers.size(); i++) {
-                    RemoteUserInfo info = (RemoteUserInfo) mControllers.keyAt(i);
-                    if (user.getPackageName().equals(info.getPackageName())
-                            && user.getUid() == info.getUid()) {
-                        return mControllers.valueAt(i);
-                    }
+            for (ConnectedControllerInfo info : mConnectedControllerInfos) {
+                if (info.contains(controller)) {
+                    return info;
                 }
-                return null;
             }
-            return mControllers.get(key);
+        }
+        return null;
+    }
+
+    private class ConnectedControllerInfo {
+        public final ControllerInfo controllerInfo;
+        public final T controller;
+        public final SessionCommandGroup2 allowedCommands;
+        public final SequencedFutureManager sequencedFutureManager;
+
+        ConnectedControllerInfo(ControllerInfo controllerInfo, T controller,
+                SessionCommandGroup2 allowedCommands,
+                SequencedFutureManager sequencedFutureManager) {
+            this.controllerInfo = controllerInfo;
+            this.controller = controller;
+            this.allowedCommands = allowedCommands;
+            this.sequencedFutureManager = sequencedFutureManager;
+        }
+
+        public boolean contains(ControllerInfo controllerInfo) {
+            return ObjectsCompat.equals(this.controllerInfo, controllerInfo);
+        }
+
+        public boolean contains(T controller) {
+            if (controller instanceof RemoteUserInfo) {
+                // Only checks the package name and UID to workaround two things.
+                // 1. In MediaBrowserServiceCompat, RemoteUserInfo from onGetRoot and other methods
+                //    are differ even for the same controller.
+                // 2. For key presses, RemoteUserInfo differs for individual key events.
+                RemoteUserInfo remoteUserInfo = (RemoteUserInfo) this.controller;
+                RemoteUserInfo other = (RemoteUserInfo) controller;
+                if (TextUtils.equals(remoteUserInfo.getPackageName(), other.getPackageName())
+                        && remoteUserInfo.getUid() == other.getUid()) {
+                    return true;
+                }
+            }
+            return ObjectsCompat.equals(this.controller, controller);
         }
     }
 }
