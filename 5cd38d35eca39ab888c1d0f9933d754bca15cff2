@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "f6387bee_2f1c485d",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-08T23:47:38Z",
+      "side": 1,
+      "message": "Oh I didn\u0027t know that there were such plans. But we need some simple way to create ListenableFuture (usecase - implementation of ListenableWorker), so we need it public. Should we rename it here at least?",
+      "parentUuid": "cdc64846_2fd932be",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58bccc4_59b75bb3",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-08T23:47:38Z",
+      "side": 1,
+      "message": "Charles, you originally have \"true\" here. I feel it is bit too bold to interrupt thread by default. Why did you choose to do that in a first place? Would you recommend to go back to \"true\"?",
+      "range": {
+        "startLine": 252,
+        "startChar": 20,
+        "endLine": 252,
+        "endChar": 25
+      },
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96158daa_b471ab75",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/ExecutionList.java",
         "patchSetId": 1
@@ -36,6 +83,24 @@
       "writtenOn": "2018-11-08T23:27:51Z",
       "side": 1,
       "message": "Does it really make sense to fork this out of guava? I think I can refactor the code to avoid it .",
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0933af26_0025b7c8",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/ExecutionList.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-08T23:47:38Z",
+      "side": 1,
+      "message": "I made it package private + it is relatively simple, so for me it is ok, but in general I don\u0027t have strong opinion about that, if you recommend to refactor it - sure, let\u0027s do it.",
+      "parentUuid": "96158daa_b471ab75",
       "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
