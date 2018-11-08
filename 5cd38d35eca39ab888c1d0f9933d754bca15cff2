@@ -22,6 +22,23 @@
       "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96158daa_b471ab75",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/ExecutionList.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2018-11-08T23:27:51Z",
+      "side": 1,
+      "message": "Does it really make sense to fork this out of guava? I think I can refactor the code to avoid it .",
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
