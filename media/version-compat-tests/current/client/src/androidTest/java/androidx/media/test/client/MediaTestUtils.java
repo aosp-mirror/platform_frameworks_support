@@ -24,11 +24,11 @@ import android.os.Bundle;
 
 import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
 import androidx.media.test.lib.TestUtils;
-import androidx.media2.FileMediaItem2;
-import androidx.media2.MediaItem2;
-import androidx.media2.MediaLibraryService2.LibraryParams;
-import androidx.media2.MediaMetadata2;
-import androidx.media2.MediaUtils2;
+import androidx.media2.FileMediaItem;
+import androidx.media2.MediaItem;
+import androidx.media2.MediaLibraryService.LibraryParams;
+import androidx.media2.MediaMetadata;
+import androidx.media2.MediaUtils;
 import androidx.versionedparcelable.ParcelImpl;
 
 import java.io.FileDescriptor;
@@ -48,34 +48,34 @@ public final class MediaTestUtils {
 //     * @param id
 //     * @return
 //     */
-//    public static SessionToken2 getServiceToken(Context context, String id) {
+//    public static SessionToken getServiceToken(Context context, String id) {
 //        switch (id) {
 //            case MockMediaSessionService2.ID:
-//                return new SessionToken2(context, new ComponentName(
+//                return new SessionToken(context, new ComponentName(
 //                        context.getPackageName(), MockMediaSessionService2.class.getName()));
-//            case MockMediaLibraryService2.ID:
-//                return new SessionToken2(context, new ComponentName(
-//                        context.getPackageName(), MockMediaLibraryService2.class.getName()));
+//            case MockMediaLibraryService.ID:
+//                return new SessionToken(context, new ComponentName(
+//                        context.getPackageName(), MockMediaLibraryService.class.getName()));
 //        }
 //        fail("Unknown id=" + id);
 //        return null;
 //    }
 
     /**
-     * Create a list of {@link FileMediaItem2} for testing purpose.
+     * Create a list of {@link FileMediaItem} for testing purpose.
      * <p>
      * Caller's method name will be used for prefix of each media item's media id.
      *
      * @param size list size
      * @return the newly created playlist
      */
-    public static List<MediaItem2> createFileMediaItems(int size) {
-        final List<MediaItem2> list = new ArrayList<>();
+    public static List<MediaItem> createFileMediaItems(int size) {
+        final List<MediaItem> list = new ArrayList<>();
         String caller = Thread.currentThread().getStackTrace()[1].getMethodName();
         for (int i = 0; i < size; i++) {
-            list.add(new FileMediaItem2.Builder(new FileDescriptor())
-                    .setMetadata(new MediaMetadata2.Builder()
-                            .putString(MediaMetadata2.METADATA_KEY_MEDIA_ID,
+            list.add(new FileMediaItem.Builder(new FileDescriptor())
+                    .setMetadata(new MediaMetadata.Builder()
+                            .putString(MediaMetadata.METADATA_KEY_MEDIA_ID,
                                     caller + "_item_" + (i + 1)).build())
                     .build());
         }
@@ -88,8 +88,8 @@ public final class MediaTestUtils {
      * @return the newly created media item
      * @see #createMetadata()
      */
-    public static MediaItem2 createFileMediaItemWithMetadata() {
-        return new FileMediaItem2.Builder(new FileDescriptor())
+    public static MediaItem createFileMediaItemWithMetadata() {
+        return new FileMediaItem.Builder(new FileDescriptor())
                 .setMetadata(createMetadata())
                 .build();
     }
@@ -101,19 +101,19 @@ public final class MediaTestUtils {
      *
      * @return the newly created media item
      */
-    public static MediaMetadata2 createMetadata() {
+    public static MediaMetadata createMetadata() {
         String mediaId = Thread.currentThread().getStackTrace()[1].getMethodName();
-        return new MediaMetadata2.Builder()
-                .putString(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId).build();
+        return new MediaMetadata.Builder()
+                .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, mediaId).build();
     }
 
-    public static List<ParcelImpl> convertToParcelImplList(List<MediaItem2> list) {
+    public static List<ParcelImpl> convertToParcelImplList(List<MediaItem> list) {
         if (list == null) {
             return null;
         }
         List<ParcelImpl> result = new ArrayList<>();
-        for (MediaItem2 item : list) {
-            result.add(MediaUtils2.toParcelable(item));
+        for (MediaItem item : list) {
+            result.add(MediaUtils.toParcelable(item));
         }
         return result;
     }
@@ -150,14 +150,14 @@ public final class MediaTestUtils {
         }
     }
 
-    public static void assertMediaItemHasId(MediaItem2 item, String expectedId) {
+    public static void assertMediaItemHasId(MediaItem item, String expectedId) {
         assertNotNull(item);
         assertNotNull(item.getMetadata());
         assertEquals(expectedId, item.getMetadata().getString(
-                MediaMetadata2.METADATA_KEY_MEDIA_ID));
+                MediaMetadata.METADATA_KEY_MEDIA_ID));
     }
 
-    public static void assertPaginatedListHasIds(List<MediaItem2> paginatedList,
+    public static void assertPaginatedListHasIds(List<MediaItem> paginatedList,
             List<String> fullIdList, int page, int pageSize) {
         int fromIndex = page * pageSize;
         int toIndex = Math.min((page + 1) * pageSize, fullIdList.size());
@@ -168,25 +168,25 @@ public final class MediaTestUtils {
         }
     }
 
-    public static void assertEqualMediaIds(MediaItem2 a, MediaItem2 b) {
-        assertEquals(a.getMetadata().getString(MediaMetadata2.METADATA_KEY_MEDIA_ID),
-                b.getMetadata().getString(MediaMetadata2.METADATA_KEY_MEDIA_ID));
+    public static void assertEqualMediaIds(MediaItem a, MediaItem b) {
+        assertEquals(a.getMetadata().getString(MediaMetadata.METADATA_KEY_MEDIA_ID),
+                b.getMetadata().getString(MediaMetadata.METADATA_KEY_MEDIA_ID));
     }
 
-    public static void assertEqualMediaIds(List<MediaItem2> a, List<MediaItem2> b) {
+    public static void assertEqualMediaIds(List<MediaItem> a, List<MediaItem> b) {
         assertEquals(a.size(), b.size());
         for (int i = 0; i < a.size(); i++) {
             assertEqualMediaIds(a.get(i), b.get(i));
         }
     }
 
-    public static void assertNotMediaItemSubclass(List<MediaItem2> list) {
-        for (MediaItem2 item : list) {
+    public static void assertNotMediaItemSubclass(List<MediaItem> list) {
+        for (MediaItem item : list) {
             assertNotMediaItemSubclass(item);
         }
     }
 
-    public static void assertNotMediaItemSubclass(MediaItem2 item) {
-        assertEquals(MediaItem2.class, item.getClass());
+    public static void assertNotMediaItemSubclass(MediaItem item) {
+        assertEquals(MediaItem.class, item.getClass());
     }
 }
