@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f33320e8_3713b06d",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-08T23:38:47Z",
+      "side": 0,
+      "message": "Need to remove this from public_attrs.xml",
+      "revId": "2326328689a18d15e4c4062e7043f2720c42225e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "527bd281_abd04176",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-08T23:38:47Z",
+      "side": 0,
+      "message": "Same here for public_dimens.xml",
+      "revId": "2326328689a18d15e4c4062e7043f2720c42225e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c14d5a_22d5dd0d",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-08T23:38:47Z",
+      "side": 0,
+      "message": "And public_styles.xml",
+      "revId": "2326328689a18d15e4c4062e7043f2720c42225e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
