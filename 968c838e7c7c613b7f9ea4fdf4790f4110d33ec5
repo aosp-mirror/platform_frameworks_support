@@ -674,6 +674,24 @@
     },
     {
       "key": {
+        "uuid": "e68f79af_32fe5e85",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e86fc822_1cf6e054",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aca84eec_f742b876",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_view.xml",
         "patchSetId": 6
@@ -688,6 +706,24 @@
       "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61449e22_b46c54cd",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_view.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aca84eec_f742b876",
+      "revId": "968c838e7c7c613b7f9ea4fdf4790f4110d33ec5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

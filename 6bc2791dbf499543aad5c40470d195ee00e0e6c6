@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd4ed15d_a471c250",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6d91211_e74d0d12",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f1010ef_9f82b086",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 12
@@ -39,6 +63,24 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e0c7266_eaf55b76",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f1010ef_9f82b086",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8813b33f_f0b94938",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "982da500_600bef8c",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0416977f_0e727f3a",
         "filename": "car/core/src/androidTest/res/layout/alpha_jump_list_item.xml",
         "patchSetId": 12
@@ -73,6 +133,24 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238d7a2c_20b4784f",
+        "filename": "car/core/src/androidTest/res/layout/alpha_jump_list_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0416977f_0e727f3a",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "dd6ce489_5dcdc9b8",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c20ff79_a088b5f5",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3e1628e_8cc90a18",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 12
@@ -107,6 +203,24 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7702f74_67e15ef0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3e1628e_8cc90a18",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +264,48 @@
     },
     {
       "key": {
+        "uuid": "734e896f_499cd22f",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feace0a8_e1ecdcb3",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 75
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a36d3b6b_61f8d320",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "I think it only used in calculate the thumb track height. Because seperateMargin is considered during the layout process, so we need to consider it as part of height restriction.",
+      "parentUuid": "7abe2a4e_422583ae",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f58b2aa2_35215093",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 12
@@ -161,6 +317,30 @@
       "writtenOn": "2018-11-08T19:37:41Z",
       "side": 1,
       "message": "just a suggestion: consider using ternary op here and for alpha jump button. \n\n(up/down button are grouped so i think it\u0027s okay)",
+      "range": {
+        "startLine": 368,
+        "startChar": 12,
+        "endLine": 372,
+        "endChar": 13
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2c203f_cb8a9ad7",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Thank you for the suggestion.",
+      "parentUuid": "f58b2aa2_35215093",
       "range": {
         "startLine": 368,
         "startChar": 12,
@@ -190,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "8272df59_2806cbbc",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198cceef_d8e176df",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6413f908_b68e0bf2",
         "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
         "patchSetId": 12
@@ -201,6 +399,24 @@
       "writtenOn": "2018-11-08T19:37:41Z",
       "side": 1,
       "message": "Seems like you are relying on popping out keyboard to demo not showing scrollbar. So this demo activity will not work on screens that are tall enough to show both keyboard and paged list view.\n\nYou can set layout_height of paged list view to fix it to certain height, but I personally don\u0027t think this change warrants a separate demo activity",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00e33ba_fc753d3f",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Will keep it just for easy testing :)",
+      "parentUuid": "6413f908_b68e0bf2",
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -230,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "636a44ab_f917743c",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44cf35dc_71ea23d3",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 82
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "784be380_8c6d0936",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 12
@@ -247,6 +487,24 @@
     },
     {
       "key": {
+        "uuid": "11058251_7a034c69",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "784be380_8c6d0936",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ef43b52_94d73eea",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 12
@@ -261,6 +519,24 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e180710_43785626",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ef43b52_94d73eea",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -284,6 +560,30 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc52532_c1b3b360",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/paged_list_edit_text_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-08T22:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5b14ced_1322dc58",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
