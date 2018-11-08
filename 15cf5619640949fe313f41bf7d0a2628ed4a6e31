@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b463a7ef_e5a888ce",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T01:34:53Z",
+      "side": 1,
+      "message": "for API 25+, get it from system server",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "15cf5619640949fe313f41bf7d0a2628ed4a6e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c6cd0b_f130f86f",
+        "filename": "sharetarget/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 54
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T01:34:53Z",
+      "side": 1,
+      "message": "2018?",
+      "revId": "15cf5619640949fe313f41bf7d0a2628ed4a6e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f1d2a8_d943ba35",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T01:34:53Z",
+      "side": 1,
+      "message": "do a first loop over targets.\nIf no targets match, there is no need to call shortcutSaver.getShortcuts();",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "15cf5619640949fe313f41bf7d0a2628ed4a6e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a198147_7a18a17b",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T01:34:53Z",
+      "side": 1,
+      "message": "Define this as public constant in ShortcutManagerCompat?",
+      "range": {
+        "startLine": 71,
+        "startChar": 44,
+        "endLine": 71,
+        "endChar": 61
+      },
+      "revId": "15cf5619640949fe313f41bf7d0a2628ed4a6e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a2d0a9_7549f78c",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-08T01:34:53Z",
+      "side": 1,
+      "message": "don\u0027t catch blanket exception.\nAnd the app does not need to crash here",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 9
+      },
+      "revId": "15cf5619640949fe313f41bf7d0a2628ed4a6e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
