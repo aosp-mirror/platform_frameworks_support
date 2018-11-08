@@ -1,0 +1,289 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6d91211_e74d0d12",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "Can you add a comment on how it\u0027s different from PLVTest?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f1010ef_9f82b086",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "982da500_600bef8c",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "can you add some comment?\n\nif the params are always 2, 1, 1, 0/1, 0/1, ..., 0/-1), consider using boolean",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0416977f_0e727f3a",
+        "filename": "car/core/src/androidTest/res/layout/alpha_jump_list_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "there\u0027s already paged_list_item_column_card.xml. can it be used instead adding new file?",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c20ff79_a088b5f5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e1628e_8cc90a18",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "nitpicking.. I don\u0027t think this comment is helpful - it\u0027s essentially mScrollThumb.requestLayout() in human language.",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7abe2a4e_422583ae",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "what is this mSeparatingMargin for? it\u0027s added when thumb and alpha jump button are measured.",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feace0a8_e1ecdcb3",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "can you rearrange these vars so they are listed from top to bottom?",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 75
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58b2aa2_35215093",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "just a suggestion: consider using ternary op here and for alpha jump button. \n\n(up/down button are grouped so i think it\u0027s okay)",
+      "range": {
+        "startLine": 368,
+        "startChar": 12,
+        "endLine": 372,
+        "endChar": 13
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198cceef_d8e176df",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "2 extra lines",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6413f908_b68e0bf2",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "Seems like you are relying on popping out keyboard to demo not showing scrollbar. So this demo activity will not work on screens that are tall enough to show both keyboard and paged list view.\n\nYou can set layout_height of paged list view to fix it to certain height, but I personally don\u0027t think this change warrants a separate demo activity",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cf35dc_71ea23d3",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "perhaps \"PagedListView to hide components in scroll bar when its height is too short\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 82
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "784be380_8c6d0936",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "extra empty line",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef43b52_94d73eea",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b14ced_1322dc58",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/paged_list_edit_text_item.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-08T19:37:41Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
