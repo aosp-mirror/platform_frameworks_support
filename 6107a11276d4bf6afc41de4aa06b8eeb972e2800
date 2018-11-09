@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f1f5e12_b9ee4cbe",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T16:05:36Z",
+      "side": 1,
+      "message": "seems like a bit weird place to register observer. why do we need do it in a loop?",
+      "range": {
+        "startLine": 76,
+        "startChar": 22,
+        "endLine": 78,
+        "endChar": 25
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
