@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69d796ab_f971b93f",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-09T07:26:40Z",
+      "side": 1,
+      "message": "I\u0027ve CC\u0027d you on the corresponding platform changes.",
+      "parentUuid": "1ea31092_860cbccd",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 48
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78554b53_a076ac7d",
         "filename": "textclassifier/api/current.txt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0bebc3_d737f371",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-09T07:26:40Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "78554b53_a076ac7d",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 90
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6bc57482_ba993346",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-09T07:26:40Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "f5ba4cbe_27c05aee",
+      "range": {
+        "startLine": 150,
+        "startChar": 3,
+        "endLine": 150,
+        "endChar": 48
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62d72f30_f2cad0ab",
         "filename": "textclassifier/api/current.txt",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8bf01083_502f116b",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-09T07:26:40Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "62d72f30_f2cad0ab",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 161,
+        "endChar": 98
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a324554_61c66d14",
         "filename": "textclassifier/api/current.txt",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343822c2_c80d68c9",
+        "filename": "textclassifier/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-09T07:26:40Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "8a324554_61c66d14",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 48
+      },
+      "revId": "0fea41834a0c6b7bff85d51a095225cc022182ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
