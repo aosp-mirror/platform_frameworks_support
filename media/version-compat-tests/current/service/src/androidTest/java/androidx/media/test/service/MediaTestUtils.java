@@ -32,7 +32,6 @@ import androidx.media2.MediaItem2;
 import androidx.media2.MediaLibraryService2.LibraryParams;
 import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaSession2;
-import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerInfo;
 
 import java.io.FileDescriptor;
@@ -150,17 +149,6 @@ public final class MediaTestUtils {
             for (Parcelable itemBundle : parcelables) {
                 result.add(MediaItem2.fromBundle((Bundle) itemBundle));
             }
-        }
-        return result;
-    }
-
-    public static List<CommandButton> buttonListFromBundleList(List<Bundle> bundleList) {
-        if (bundleList == null) {
-            return null;
-        }
-        List<CommandButton> result = new ArrayList<>();
-        for (int i = 0; i < bundleList.size(); i++) {
-            result.add(CommandButton.fromBundle(bundleList.get(i)));
         }
         return result;
     }

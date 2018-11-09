@@ -59,6 +59,7 @@ import androidx.media2.SessionCommand2;
 import androidx.media2.SessionCommandGroup2;
 import androidx.media2.SessionPlayer2;
 import androidx.media2.SessionToken2;
+import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
 import java.util.ArrayList;
@@ -272,12 +273,12 @@ public class RemoteMediaSession2 {
     public void setCustomLayout(@NonNull ControllerInfo controller,
             @NonNull List<CommandButton> layout) {
         try {
-            List<Bundle> bundleList = new ArrayList<>();
+            List<ParcelImpl> parcelList = new ArrayList<>();
             for (CommandButton btn : layout) {
-                bundleList.add(btn.toBundle());
+                parcelList.add((ParcelImpl) ParcelUtils.toParcelable(btn));
             }
             // TODO: ControllerInfo should be handled.
-            mBinder.setCustomLayout(mSessionId, null, bundleList);
+            mBinder.setCustomLayout(mSessionId, null, parcelList);
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call setCustomLayout()");
         }

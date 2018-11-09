@@ -35,7 +35,7 @@ interface IRemoteMediaSession2 {
     void close(String sessionId);
     void setAllowedCommands(String sessionId, in Bundle controller, in Bundle commands);
     void notifyRoutesInfoChanged(String sessionId, in Bundle controller, in List<Bundle> routes);
-    void setCustomLayout(String sessionId, in Bundle controller, in List<Bundle> layout);
+    void setCustomLayout(String sessionId, in Bundle controller, in List<ParcelImpl> layout);
 
     // SessionPlayer2 Methods
     void setPlayerState(String sessionId, int state);

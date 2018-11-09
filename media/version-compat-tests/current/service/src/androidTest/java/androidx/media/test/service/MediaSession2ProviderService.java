@@ -55,6 +55,7 @@ import androidx.media2.FileMediaItem2;
 import androidx.media2.MediaItem2;
 import androidx.media2.MediaMetadata2;
 import androidx.media2.MediaSession2;
+import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.MediaSession2.ControllerInfo;
 import androidx.media2.MediaUtils2;
 import androidx.media2.SessionCommand2;
@@ -264,11 +265,20 @@ public class MediaSession2ProviderService extends Service {
         }
 
         @Override
-        public void setCustomLayout(String sessionId, Bundle controller, List<Bundle> layout)
+        public void setCustomLayout(String sessionId, Bundle controller, List<ParcelImpl> layout)
                 throws RemoteException {
+            if (layout == null) {
+                return;
+            }
             MediaSession2 session2 = mSession2Map.get(sessionId);
             ControllerInfo info = MediaTestUtils.getTestControllerInfo(session2);
-            session2.setCustomLayout(info, MediaTestUtils.buttonListFromBundleList(layout));
+            List<CommandButton> buttons = new ArrayList<>();
+            for (ParcelImpl parcel : layout) {
+                if (parcel != null) {
+                    buttons.add((CommandButton) ParcelUtils.fromParcelable(parcel));
+                }
+            }
+            session2.setCustomLayout(info, buttons);
         }
 
         ////////////////////////////////////////////////////////////////////////////////
