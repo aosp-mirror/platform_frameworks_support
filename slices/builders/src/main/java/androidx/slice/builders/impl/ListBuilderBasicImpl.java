@@ -22,10 +22,12 @@ import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.Slice.HINT_TTL;
 import static android.app.slice.Slice.SUBTYPE_COLOR;
 import static android.app.slice.Slice.SUBTYPE_LAYOUT_DIRECTION;
+import static android.app.slice.Slice.SUBTYPE_VALUE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.builders.ListBuilder.INFINITY;
+import static androidx.slice.core.SliceHints.HINT_SHOW_ACTION_DIVIDER;
 import static androidx.slice.core.SliceHints.SUBTYPE_MILLIS;
 
 import android.app.PendingIntent;
@@ -63,6 +65,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
     private CharSequence mSubtitle;
     private SliceAction mSliceAction;
     private IconCompat mIconCompat;
+    private boolean mShowActionDivider;
 
     /**
      */
@@ -89,6 +92,7 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
         if (mIconCompat == null && builder.getTitleIcon() != null) {
             mIconCompat = builder.getTitleIcon();
         }
+        mShowActionDivider = builder.hasActionDivider();
     }
 
     /**
@@ -250,6 +254,9 @@ public class ListBuilderBasicImpl extends TemplateBuilderImpl implements ListBui
                 sb.addText(keyword, null);
             }
             builder.addSubSlice(sb.addHints(HINT_KEYWORDS).build());
+        }
+        if (mShowActionDivider) {
+            builder.addInt(1, SUBTYPE_VALUE, HINT_SHOW_ACTION_DIVIDER);
         }
         Slice.Builder slice = new Slice.Builder(getBuilder());
         if (mSliceAction != null) {

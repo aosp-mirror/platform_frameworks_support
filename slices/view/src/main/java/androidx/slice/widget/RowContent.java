@@ -35,6 +35,7 @@ import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
+import static androidx.slice.core.SliceHints.HINT_SHOW_ACTION_DIVIDER;
 import static androidx.slice.widget.SliceView.MODE_LARGE;
 
 import android.content.Context;
@@ -78,6 +79,7 @@ public class RowContent extends SliceContent {
     private int mSingleTextWithRangeHeight;
     private int mMinHeight;
     private int mRangeHeight;
+    private boolean mShowActionDivider;
 
     public RowContent(Context context, SliceItem rowSlice, int position) {
         super(rowSlice, position);
@@ -134,7 +136,8 @@ public class RowContent extends SliceContent {
             ArrayList<SliceItem> endItems = new ArrayList<>();
             for (int i = 0; i < rowItems.size(); i++) {
                 final SliceItem item = rowItems.get(i);
-                if (FORMAT_TEXT.equals(item.getFormat())) {
+                final String format = item.getFormat();
+                if (FORMAT_TEXT.equals(format)) {
                     if ((mTitleItem == null || !mTitleItem.hasHint(HINT_TITLE))
                             && item.hasHint(HINT_TITLE) && !item.hasHint(HINT_SUMMARY)) {
                         mTitleItem = item;
@@ -143,6 +146,8 @@ public class RowContent extends SliceContent {
                     } else if (mSummaryItem == null && item.hasHint(HINT_SUMMARY)) {
                         mSummaryItem = item;
                     }
+                } else if (FORMAT_INT.equals(format) && item.hasHint(HINT_SHOW_ACTION_DIVIDER)) {
+                    mShowActionDivider = item.getInt() != 0 ? true : false;
                 } else {
                     endItems.add(item);
                 }
@@ -336,6 +341,13 @@ public class RowContent extends SliceContent {
     }
 
     /**
+     * @return whether this row content needs to show the end divider.
+     */
+    public boolean hasActionDivider() {
+        return mShowActionDivider;
+    }
+
+    /**
      * @return whether this row content represents a default see more item.
      */
     public boolean isDefaultSeeMore() {
@@ -407,6 +419,7 @@ public class RowContent extends SliceContent {
                 || FORMAT_ACTION.equals(itemFormat)
                 || FORMAT_REMOTE_INPUT.equals(itemFormat)
                 || FORMAT_SLICE.equals(itemFormat)
-                || (FORMAT_INT.equals(itemFormat) && SUBTYPE_RANGE.equals(slice.getSubType()));
+                || (FORMAT_INT.equals(itemFormat) && (SUBTYPE_RANGE.equals(slice.getSubType())
+                        || item.hasHint(HINT_SHOW_ACTION_DIVIDER)));
     }
 }

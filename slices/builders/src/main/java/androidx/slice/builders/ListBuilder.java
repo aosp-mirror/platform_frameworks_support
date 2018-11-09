@@ -901,6 +901,7 @@ public class ListBuilder extends TemplateSliceBuilder {
         private boolean mHasEndImage;
         private boolean mHasDefaultToggle;
         private boolean mHasTimestamp;
+        private boolean mShowActionDivider;
         private long mTimeStamp = -1;
         private boolean mTitleItemLoading;
         private int mTitleImageMode;
@@ -1204,6 +1205,15 @@ public class ListBuilder extends TemplateSliceBuilder {
         }
 
         /**
+         * Show the action divider for the row.
+         */
+        @NonNull
+        public RowBuilder showActionDivider() {
+            mShowActionDivider = true;
+            return this;
+        }
+
+        /**
          * Sets the content description for the row.
          */
         @NonNull
@@ -1245,6 +1255,14 @@ public class ListBuilder extends TemplateSliceBuilder {
         @RestrictTo(LIBRARY)
         public boolean hasEndImage() {
             return mHasEndImage;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY)
+        public boolean hasActionDivider() {
+            return mShowActionDivider;
         }
 
         /**

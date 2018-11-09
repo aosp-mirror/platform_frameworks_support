@@ -43,6 +43,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
 import static androidx.slice.builders.ListBuilder.INFINITY;
 import static androidx.slice.builders.ListBuilder.LARGE_IMAGE;
+import static androidx.slice.core.SliceHints.HINT_SHOW_ACTION_DIVIDER;
 import static androidx.slice.core.SliceHints.SUBTYPE_MILLIS;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
 
@@ -413,6 +414,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         private Slice mStartItem;
         private ArrayList<Slice> mEndItems = new ArrayList<>();
         private CharSequence mContentDescr;
+        private boolean mShowActionDivider;
 
         /**
          */
@@ -437,6 +439,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
                 setBuilder(new Slice.Builder(builder.getUri()));
             }
             setPrimaryAction(builder.getPrimaryAction());
+            showActionDivider(builder.hasActionDivider());
             if (builder.getLayoutDirection() != -1) {
                 setLayoutDirection(builder.getLayoutDirection());
             }
@@ -536,6 +539,13 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
         @NonNull
         private void setPrimaryAction(@NonNull SliceAction action) {
             mPrimaryAction = action;
+        }
+
+        /**
+         */
+        @NonNull
+        private void showActionDivider(boolean show) {
+            mShowActionDivider = show;
         }
 
         /**
@@ -648,6 +658,9 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
             }
             if (mSubtitleItem != null) {
                 b.addItem(mSubtitleItem);
+            }
+            if (mShowActionDivider) {
+                b.addInt(1, SUBTYPE_VALUE, HINT_SHOW_ACTION_DIVIDER);
             }
             for (int i = 0; i < mEndItems.size(); i++) {
                 Slice item = mEndItems.get(i);

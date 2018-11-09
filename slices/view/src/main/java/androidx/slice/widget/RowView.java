@@ -414,9 +414,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mEndContainer.setVisibility(endItemCount > 0 ? VISIBLE : GONE);
 
-        // If there is a row action and the first end item is a default toggle, show the divider.
-        mDivider.setVisibility(mRowAction != null && firstItemIsADefaultToggle
-                ? View.VISIBLE : View.GONE);
+        // If there is a row action and the first end item is a default toggle, or action divider
+        // is set by builder, show the divider.
+        mDivider.setVisibility((mRowAction != null && firstItemIsADefaultToggle)
+                || mRowContent.hasActionDivider() ? View.VISIBLE : View.GONE);
         boolean hasStartAction = mStartItem != null
                 && SliceQuery.find(mStartItem, FORMAT_ACTION) != null;
         boolean hasEndItemAction = endAction != null;

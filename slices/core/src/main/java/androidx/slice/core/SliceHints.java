@@ -16,14 +16,15 @@
 
 package androidx.slice.core;
 
-import java.lang.annotation.Retention;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import java.lang.annotation.Retention;
 
 /**
  * Temporary class to contain hint constants for slices to be used.
@@ -68,6 +69,11 @@ public class SliceHints {
      * sub-slices.
      */
     public static final String HINT_SELECTION = "selection";
+
+    /**
+     * Hint indicating that this slice's row needs to show an action divider
+     */
+    public static final String HINT_SHOW_ACTION_DIVIDER = "show_action_divider";
 
     /**
      * Subtype indicating that this slice represents the key passed back to the application when the
