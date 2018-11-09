@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bd8eff1_aefa170d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1ee3f31c_346c2306",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a140d7d5_f0d6a337",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b875902b_f627eff4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a140d7d5_f0d6a337",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "25457eb0_70befaa2",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Let me add a comment.",
+      "parentUuid": "e20b0f22_4a4891af",
+      "range": {
+        "startLine": 560,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 42
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09334506_39544103",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -91,6 +163,30 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35cadf20_3ba22a22",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "I don\u0027t know the details, but we can\u0027t.",
+      "parentUuid": "09334506_39544103",
+      "range": {
+        "startLine": 679,
+        "startChar": 29,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a44ef2b_36d539c6",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Oops! I\u0027ll remove this comment int the next CL.",
+      "parentUuid": "af745c04_a7d379c1",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 63
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "065ce70a_e0343206",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "26ccfca4_220e4b77",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "That\u0027s because caller this can be run on different threads. (mExecutor and public method caller thread)",
+      "parentUuid": "065ce70a_e0343206",
+      "range": {
+        "startLine": 709,
+        "startChar": 20,
+        "endLine": 712,
+        "endChar": 21
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a15ce26a_40d32dbc",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -160,6 +304,30 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a602b306_0a0bc86d",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a15ce26a_40d32dbc",
+      "range": {
+        "startLine": 733,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 63
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "83bb427f_dbef3018",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Will do in the next CL.",
+      "parentUuid": "93bd5e25_08a90a69",
+      "range": {
+        "startLine": 989,
+        "startChar": 0,
+        "endLine": 994,
+        "endChar": 0
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a43d83fc_e6bedea3",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -253,6 +445,30 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58859b3_df0680fb",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a43d83fc_e6bedea3",
+      "range": {
+        "startLine": 1107,
+        "startChar": 32,
+        "endLine": 1107,
+        "endChar": 48
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -279,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "bd99fd07_7b79c5e1",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "Will address this in the next CL.",
+      "parentUuid": "ed4bda61_b5305d6f",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1409,
+        "endChar": 0
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5963633a_c3e2de11",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -299,6 +539,30 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe69d347_650c209f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2435,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T04:58:21Z",
+      "side": 1,
+      "message": "I couldn\u0027t catch your point.\nPendingFuture is executed one by one except \"SeekTo\".\nSo, it should be finished here.",
+      "parentUuid": "5963633a_c3e2de11",
+      "range": {
+        "startLine": 2435,
+        "startChar": 0,
+        "endLine": 2435,
+        "endChar": 21
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
