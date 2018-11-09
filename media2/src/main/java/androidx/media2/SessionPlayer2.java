@@ -890,7 +890,7 @@ public abstract class SessionPlayer2 implements AutoCloseable {
 
         /**
          * Gets the {@link MediaItem2} for which the command was executed. In other words, this is
-         * the current media item when the command was completed.
+         * the current media item when the command was completed, or the item sent as an argument.
          *
          * @return media item when the command is completed. Can be {@code null} for an error, or
          *         the current media item was {@code null}.
