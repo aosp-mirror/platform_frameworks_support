@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31eecbda_dadc2be6",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewSmoothScrollToPositionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-09T15:00:10Z",
+      "side": 1,
+      "message": "nit.\nfind is a better name here.",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 26
+      },
+      "revId": "63682c8199459900eeb9142058f749f5839b2395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
