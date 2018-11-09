@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f39ab5bd_bac38bc3",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T12:51:20Z",
+      "side": 1,
+      "message": "MediaUtils2",
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893183e0_31250a5a",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T12:51:20Z",
+      "side": 1,
+      "message": "MediaUtils2",
+      "range": {
+        "startLine": 985,
+        "startChar": 32,
+        "endLine": 985,
+        "endChar": 43
+      },
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "956d692a_52dcd1c8",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T12:51:20Z",
+      "side": 1,
+      "message": "also mention about the bitmap format.",
+      "range": {
+        "startLine": 1186,
+        "startChar": 82,
+        "endLine": 1187,
+        "endChar": 0
+      },
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
