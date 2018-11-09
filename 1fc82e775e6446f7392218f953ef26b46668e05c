@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c51f1b9_17a6404e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 55
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-09T01:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22c71608_43b66668",
+      "range": {
+        "startLine": 83,
+        "startChar": 33,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "1fc82e775e6446f7392218f953ef26b46668e05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf9577e0_1f7a9b1e",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
         "patchSetId": 55
