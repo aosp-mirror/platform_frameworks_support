@@ -69,6 +69,30 @@
       "revId": "1fc82e775e6446f7392218f953ef26b46668e05c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e51fca_e1d294e9",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-09T22:27:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9577e0_1f7a9b1e",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "1fc82e775e6446f7392218f953ef26b46668e05c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
