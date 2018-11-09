@@ -22,6 +22,30 @@
       "revId": "63682c8199459900eeb9142058f749f5839b2395",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a11a60b_df1fce2a",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewSmoothScrollToPositionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-11-09T20:29:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31eecbda_dadc2be6",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 26
+      },
+      "revId": "63682c8199459900eeb9142058f749f5839b2395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
