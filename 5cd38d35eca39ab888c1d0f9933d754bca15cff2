@@ -176,6 +176,24 @@
       "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad91977_1d8b1e6f",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/ExecutionList.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T15:27:54Z",
+      "side": 1,
+      "message": "I refactored code to get rid of it, though I\u0027m not happy with results",
+      "parentUuid": "0933af26_0025b7c8",
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
