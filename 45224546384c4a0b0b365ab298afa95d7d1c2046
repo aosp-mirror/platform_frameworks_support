@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a27d0d4_708237df",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T01:57:30Z",
+      "side": 1,
+      "message": "This should be located in the separated line.\n\n@Nullabke\npublic MediaControlView2 getMediaControlView2()",
+      "range": {
+        "startLine": 158,
+        "startChar": 11,
+        "endLine": 158,
+        "endChar": 20
+      },
+      "revId": "45224546384c4a0b0b365ab298afa95d7d1c2046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5fc49d_ae1882bc",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T01:57:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 19
+      },
+      "revId": "45224546384c4a0b0b365ab298afa95d7d1c2046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac22321d_6d658d6c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T01:57:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 12
+      },
+      "revId": "45224546384c4a0b0b365ab298afa95d7d1c2046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698065d8_1a46cf6f",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2ImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-09T01:57:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 311,
+        "startChar": 12,
+        "endLine": 311,
+        "endChar": 19
+      },
+      "revId": "45224546384c4a0b0b365ab298afa95d7d1c2046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
