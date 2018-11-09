@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "1ee3f31c_346c2306",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Handle?",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a140d7d5_f0d6a337",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "MediaPlayerTest",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20b0f22_4a4891af",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "This is being called outside of this class, and it looks like error prone.\nWhat about followings?\n\n  public void execute() {\n    if (!mExceuted \u0026\u0026 !isCancelled()) {\n       mExceuted \u003d true;\n       mFutures \u003d onExecute();\n    }\n    if (!isDone() \u0026\u0026 !isDone()) {\n      setResultIfFinished();\n    }\n  }\n\n  private void setResultIfFinished() { .. }\n\n\nI\u0027m asking this because both isDone() and setResultIfFinished() are used if the PendingFuture is finished.",
+      "range": {
+        "startLine": 560,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 42
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09334506_39544103",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Question) Can\u0027t we use ResolvableFuture\u003cV\u003e directly here?",
+      "range": {
+        "startLine": 679,
+        "startChar": 29,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af745c04_a7d379c1",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Q) Do we need extra CL after this?",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 63
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "065ce70a_e0343206",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Q) Not specific to your CL, but do you know why these code snippets need to be done with the lock hold?",
+      "range": {
+        "startLine": 709,
+        "startChar": 20,
+        "endLine": 712,
+        "endChar": 21
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a15ce26a_40d32dbc",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Q) Do we need extra CL after this?",
+      "range": {
+        "startLine": 733,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 63
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f279cb7_5b5bab9c",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 12
@@ -46,6 +207,98 @@
       "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93bd5e25_08a90a69",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "I prefer moving this check inside the PendingFuture (and don\u0027t throw exception there). Otherwise, following code may fail because of the timing issue\n\n step 1) addPlaylistItem(0, item);\n step 2) removePlaylistItem(0);\n step 3) addPlaylistItem(0, item); \u003c- may fail if PendingFuture in step 2) hasn\u0027t started.",
+      "range": {
+        "startLine": 989,
+        "startChar": 0,
+        "endLine": 994,
+        "endChar": 0
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a43d83fc_e6bedea3",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "\u0027index !\u003d itemIdx\u0027 or remove this condition.\nOtherwise, the same item can exist in the playlist twice.",
+      "range": {
+        "startLine": 1107,
+        "startChar": 32,
+        "endLine": 1107,
+        "endChar": 48
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4bda61_b5305d6f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "Q) A new PendingFuture may be added after this. Is it OK to simply cancel and remove pending futures here?",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1409,
+        "endChar": 0
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5963633a_c3e2de11",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2435,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T04:20:10Z",
+      "side": 1,
+      "message": "what happens if the pendingFuture is finished here?\nShouldn\u0027t we also check isDone() at L2422?",
+      "range": {
+        "startLine": 2435,
+        "startChar": 0,
+        "endLine": 2435,
+        "endChar": 21
+      },
+      "revId": "07d76714bc87e8c72411a257ac2a7b9993fba62b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
