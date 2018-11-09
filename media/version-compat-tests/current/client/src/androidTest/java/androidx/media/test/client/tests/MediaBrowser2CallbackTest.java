@@ -36,6 +36,7 @@ import static androidx.media.test.lib.MediaBrowser2Constants
         .SUBSCRIBE_ID_NOTIFY_CHILDREN_CHANGED_TO_ONE;
 import static androidx.media.test.lib.MediaBrowser2Constants
         .SUBSCRIBE_ID_NOTIFY_CHILDREN_CHANGED_TO_ONE_WITH_NON_SUBSCRIBED_ID;
+import static androidx.media2.MediaBrowser2.BrowserResult.RESULT_CODE_BAD_VALUE;
 import static androidx.media2.MediaBrowser2.BrowserResult.RESULT_CODE_SUCCESS;
 
 import static junit.framework.Assert.assertEquals;
@@ -176,14 +177,36 @@ public class MediaBrowser2CallbackTest extends MediaController2CallbackTest {
     }
 
     @Test
-    public void testGetItem_nullResult() throws Exception {
+    public void testGetItem_unknownId() throws Exception {
         prepareLooper();
         final String mediaId = "random_media_id";
 
         BrowserResult result = createBrowser().getItem(mediaId)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
-        assertNotEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_CODE_BAD_VALUE, result.getResultCode());
         assertNull(result.getMediaItem());
+    }
+
+    @Test
+    public void testGetItem_nullResult() throws Exception {
+        prepareLooper();
+        final String mediaId = MediaBrowser2Constants.MEDIA_ID_GET_NULL_ITEM;
+
+        // Exception will be thrown in the service side, and the process will be crashed.
+        BrowserResult result = createBrowser().getItem(mediaId)
+                .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertNotEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+    }
+
+    @Test
+    public void testGetItem_invalidResult() throws Exception {
+        prepareLooper();
+        final String mediaId = MediaBrowser2Constants.MEDIA_ID_GET_INVALID_ITEM;
+
+        // Exception will be thrown in the service side, and the process will be crashed.
+        BrowserResult result = createBrowser().getItem(mediaId)
+                .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertNotEquals(RESULT_CODE_SUCCESS, result.getResultCode());
     }
 
     @Test
