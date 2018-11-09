@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6753bc8_7557a378",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T11:19:04Z",
+      "side": 1,
+      "message": "Two questions\n\nQ1) Runnable codes looks the same as cancelFutures() at L595-599. Am I correct?\nQ2) If so, what about adding listener inside of the PendingFutures#execute() if mExecuteCalled was false? If so, we can reuse the addPendingFuture() code and mFutures can be private.\n\nI\u0027m telling this because\n1. we can make mFutures private\n2. for-loop with Object will be gone.\n\nYou may ignore this if it doesn\u0027t make sense.",
+      "range": {
+        "startLine": 679,
+        "startChar": 12,
+        "endLine": 692,
+        "endChar": 26
+      },
+      "revId": "ad1ec1da114ed4d6bb3db3a5017b3db6bee51137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce9d2b6_b624ea5b",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2428,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T11:19:04Z",
+      "side": 1,
+      "message": "Minor comment, feel free to ignore) What about this?\n\n            Iterator\u003cPendingFuture\u003c? super PlayerResult\u003e\u003e it \u003d mPendingFutures.iterator();\n            while (it.hasNext()) {\n                 PendingFuture f \u003d it.next();\n                 if (f.isCancelled() || f.execute()) {\n\t\t\tit.remove();\n                 } else {\n                        break;\n\t         }\n            }\n            // Execute skip futures earlier for making them be skipped.\n\t    while (it.hasNext()) {\n                PendingFuture f \u003d it.next();\n                if (!f.mIsSeekTo) {\n                    break;\n                }\n                f.execute();\n            }",
+      "range": {
+        "startLine": 2408,
+        "startChar": 12,
+        "endLine": 2428,
+        "endChar": 13
+      },
+      "revId": "ad1ec1da114ed4d6bb3db3a5017b3db6bee51137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a3c3ba4_4aba0147",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-09T11:19:04Z",
+      "side": 1,
+      "message": "Could you be more specific?\nThis reads to me that \u0027when addPlaylistItem(int index, MediaItem2 item) is finished, PlayerResult can contain either current media item or the item sent as an argument\u0027.",
+      "range": {
+        "startLine": 892,
+        "startChar": 75,
+        "endLine": 893,
+        "endChar": 97
+      },
+      "revId": "ad1ec1da114ed4d6bb3db3a5017b3db6bee51137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
