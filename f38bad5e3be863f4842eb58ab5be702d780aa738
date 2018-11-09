@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "85f7cdb3_9db32964",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T17:45:25Z",
+      "side": 1,
+      "message": "Created bug, added todo.",
+      "parentUuid": "c8daffe5_532bbb70",
+      "range": {
+        "startLine": 105,
+        "startChar": 56,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "f38bad5e3be863f4842eb58ab5be702d780aa738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a9913aa_6079fcb4",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
         "patchSetId": 4
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "*sigh*\n\nImagine how many methods you could get rid of if you made proguard part of the default toolchain...",
       "parentUuid": "6dd97047_7ae423f0",
+      "range": {
+        "startLine": 186,
+        "startChar": 11,
+        "endLine": 186,
+        "endChar": 27
+      },
+      "revId": "f38bad5e3be863f4842eb58ab5be702d780aa738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a881831f_6d81a8a7",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T17:45:25Z",
+      "side": 1,
+      "message": "Very true, hopefully we\u0027ll be able to work with R8/D8 team to enable some more aggressive checks at least for our libraries. But it is in the future, in the meantime we do this.",
+      "parentUuid": "ddfab430_07dc3950",
       "range": {
         "startLine": 186,
         "startChar": 11,
