@@ -77,18 +77,22 @@ public class MediaItem2 extends CustomVersionedParcelable {
 
     private static final String KEY_METADATA = "android.media.mediaitem2.metadata";
 
-    @ParcelField(1)
+    @NonParcelField
+    private final Object mLock = new Object();
+
+    @GuardedBy("mLock")
+    @NonParcelField
     MediaMetadata2 mMetadata;
+    @GuardedBy("mLock")
+    @NonParcelField
+    private final List<Pair<OnMetadataChangedListener, Executor>> mListeners = new ArrayList<>();
+
+    @ParcelField(1)
+    MediaMetadata2 mMetadataForParcel;
     @ParcelField(2)
     long mStartPositionMs = 0;
     @ParcelField(3)
     long mEndPositionMs = POSITION_UNKNOWN;
-
-    @NonParcelField
-    private final Object mLock = new Object();
-    @GuardedBy("mLock")
-    @NonParcelField
-    private final List<Pair<OnMetadataChangedListener, Executor>> mListeners = new ArrayList<>();
 
     /**
      * Used for VersionedParcelable
@@ -181,14 +185,14 @@ public class MediaItem2 extends CustomVersionedParcelable {
      * @see MediaMetadata2#METADATA_KEY_MEDIA_ID
      */
     public void setMetadata(@Nullable MediaMetadata2 metadata) {
-        if (mMetadata != null && metadata != null
-                && !TextUtils.equals(getMediaId(), metadata.getMediaId())) {
-            Log.d(TAG, "MediaItem's media ID shouldn't be changed");
-            return;
-        }
-        mMetadata = metadata;
         List<Pair<OnMetadataChangedListener, Executor>> listeners = new ArrayList<>();
         synchronized (mLock) {
+            if (mMetadata != null && metadata != null
+                    && !TextUtils.equals(getMediaId(), metadata.getMediaId())) {
+                Log.d(TAG, "MediaItem's media ID shouldn't be changed");
+                return;
+            }
+            mMetadata = metadata;
             listeners.addAll(mListeners);
         }
 
@@ -209,7 +213,9 @@ public class MediaItem2 extends CustomVersionedParcelable {
      * @return metadata from the session
      */
     public @Nullable MediaMetadata2 getMetadata() {
-        return mMetadata;
+        synchronized (mLock) {
+            return mMetadata;
+        }
     }
 
     /**
@@ -357,6 +363,17 @@ public class MediaItem2 extends CustomVersionedParcelable {
             throw new RuntimeException("MediaItem2's subclasses shouldn't be parcelized."
                     + " Use instead");
         }
-        super.onPreParceling(isStream);
+        synchronized (mLock) {
+            mMetadataForParcel = mMetadata != null
+                    ? new MediaMetadata2.Builder(mMetadata).build() : null;
+        }
+    }
+
+    @Override
+    public void onPostParceling() {
+        synchronized (mLock) {
+            mMetadata = mMetadataForParcel;
+            mMetadataForParcel = null;
+        }
     }
 }
