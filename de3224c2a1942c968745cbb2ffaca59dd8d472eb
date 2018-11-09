@@ -1,0 +1,265 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d675172d_b0aa94e5",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "nit: Remove this new line.",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9a03d11_34e2f6a8",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Since this is called in all the tests, move it to the setUp().",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ed296f_745eb4b6",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "This needs more javadoc. Why would someone want to remove a pixel?",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ced9378e_2730a067",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "So for tests, it\u0027s better when things are more verbose. We don\u0027t have to worry about performance. For someone looking at the line:\n\n  setLayoutRestrictions(true, true, false);\n\nIt would be hard for them to know what those parameters mean or what the method does without looking at the code of the method. We should make these as clear as possible, even if it means more duplicate code.\n\nWe could possibly do this with a Builder pattern for a data object that gets passed to this method instead:\n\n  setLayoutRestrictions(LayoutRestrictions layoutRestrictions) { ... }\n\nAnd then the class:\n\n  class LayoutRestrictions {\n    boolean mHasSpaceForScrollThumb;\n    ...\n    \n    LayoutRestrictions setHasSpaceForScrollThumb(boolean hasSpace) { ... }\n  }\n\nAnd then in your test you can write:\n\n  public void testScrollBarViewShowAllWhenLimitedSpace() {\n    LayoutRestrictions layoutRestrictions \u003d LayoutRestrictions.Builder()\n        .setHasSpaceForThumb(true)\n        .setHasSpaceForAlphaJump(true)\n        .build();\n\n    setLayoutRestrictions(layoutRestrictions);\n  }",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f4ddc9_4f30ead0",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Javadoc and private",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a63f1839_e61a2115",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "There\u0027s no need to sort anything. Remove all the logic related to sorting",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8dea7a_55b81495",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Remove this and just use mStrings.",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e50c207_6c04b4f1",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be so complicated. The value doesn\u0027t matter here. \n\nSomething like:\n\n  mStrings[i] \u003d \"Dummy\" + i; \n\nis probably good enough",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 13
+      },
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72950852_2d2c838f",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Reword as:\n\nIf the up and down buttons are GONE, this implies there is not enough room to layout the rest of the views.",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b98d0e_47d0539e",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "nit: remove these two new lines",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b0aae0_57ab7721",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "This item count can live within the DemoAdapter since it never changes. No need to pass it from the Activity to the adapter.",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0eeb3b_985f0c6d",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Needs a better description. Talk about how the items all have EditText in them so that it\u0027ll trigger the keyboard to come up.",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8c75586_b9b58053",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Can this be private?",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a597d9f_262e68fc",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Remove this new line",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea21e5a_41e5179d",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-09T22:15:21Z",
+      "side": 1,
+      "message": "Remove extra new line",
+      "revId": "de3224c2a1942c968745cbb2ffaca59dd8d472eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
