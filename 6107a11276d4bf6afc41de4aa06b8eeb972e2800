@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "4dc70ee3_65137e8c",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/TestUtil.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-09T23:15:52Z",
+      "side": 1,
+      "message": "Is doing this twice somewhat magical?",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 47
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523f393f_5658c401",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationLiveDataContainer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-09T23:15:52Z",
+      "side": 1,
+      "message": "Could this be `Void` making it clear the value type bears no meaning?",
+      "range": {
+        "startLine": 38,
+        "startChar": 42,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad307ec8_a3969310",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationLiveDataContainer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-09T23:15:52Z",
+      "side": 1,
+      "message": "I would move this method to InvalidationTracker, either a private method or inlined in createLiveData, that way InvalidationLiveDataContainer doesn\u0027t depend on InvalidationTracker which itself already contains a InvalidationLiveDataContainer. Making this class even more simpler.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 5
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37e5b7b_06465e6e",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-09T23:15:52Z",
+      "side": 1,
+      "message": "Is it necessary to validate and resolve views at this point? Eventually, once the LiveData is active the tables will get validated when the LiveData\u0027s InvalidationTracker.Observer is added as to the InvalidationTracker.",
+      "range": {
+        "startLine": 565,
+        "startChar": 16,
+        "endLine": 565,
+        "endChar": 56
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f1f5e12_b9ee4cbe",
         "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
         "patchSetId": 13
@@ -18,6 +110,29 @@
         "startChar": 22,
         "endLine": 78,
         "endChar": 25
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "456cb12c_13422c24",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-09T23:15:52Z",
+      "side": 1,
+      "message": "Curious question more than a comment. Why is this runnable always done in the main thread?",
+      "range": {
+        "startLine": 109,
+        "startChar": 19,
+        "endLine": 109,
+        "endChar": 40
       },
       "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
