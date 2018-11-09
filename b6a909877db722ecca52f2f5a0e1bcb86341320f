@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ea319872_57666f30",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-09T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f39ab5bd_bac38bc3",
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "893183e0_31250a5a",
         "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "93c0d46a_876d4d66",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-09T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "893183e0_31250a5a",
+      "range": {
+        "startLine": 985,
+        "startChar": 32,
+        "endLine": 985,
+        "endChar": 43
+      },
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "956d692a_52dcd1c8",
         "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
         "patchSetId": 4
@@ -62,6 +104,30 @@
       "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32c10d0_985be5aa",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-09T13:01:47Z",
+      "side": 1,
+      "message": "Seems bitmap instances cannot represent a compressed image.",
+      "parentUuid": "956d692a_52dcd1c8",
+      "range": {
+        "startLine": 1186,
+        "startChar": 82,
+        "endLine": 1187,
+        "endChar": 0
+      },
+      "revId": "b6a909877db722ecca52f2f5a0e1bcb86341320f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
