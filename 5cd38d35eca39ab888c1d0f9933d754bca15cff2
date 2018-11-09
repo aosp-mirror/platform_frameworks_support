@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "ba3dda71_a3810e68",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T14:24:43Z",
+      "side": 1,
+      "message": "hmm. I thought for some reason that AbstractFuture.cancel(true) results in thread Thread#interrupt() but it is simple not true.  Went back to \"true\" here, but yeah looks like it doesn\u0027t affect anything at all.",
+      "parentUuid": "dae8e51c_6be6ad94",
+      "range": {
+        "startLine": 252,
+        "startChar": 20,
+        "endLine": 252,
+        "endChar": 25
+      },
+      "revId": "5cd38d35eca39ab888c1d0f9933d754bca15cff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96158daa_b471ab75",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/ExecutionList.java",
         "patchSetId": 1
