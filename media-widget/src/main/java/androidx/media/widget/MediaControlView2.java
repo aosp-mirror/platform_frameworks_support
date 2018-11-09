@@ -308,13 +308,13 @@ public class MediaControlView2 extends BaseLayout {
         super(context, attrs, defStyleAttr);
 
         mResources = context.getResources();
+        mController = new Controller2();
         // Inflate MediaControlView2 from XML
         mRoot = makeControllerView();
         addView(mRoot);
         mShowControllerIntervalMs = DEFAULT_SHOW_CONTROLLER_INTERVAL_MS;
         mAccessibilityManager = (AccessibilityManager) context.getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
-        mController = new Controller2();
     }
 
     /**
@@ -1644,25 +1644,35 @@ public class MediaControlView2 extends BaseLayout {
         }
         mFfwdButton = v.findViewById(R.id.ffwd);
         if (mFfwdButton != null) {
-            mFfwdButton.setOnClickListener(mFfwdListener);
             if (mMediaType == MEDIA_TYPE_MUSIC) {
                 mFfwdButton.setVisibility(View.GONE);
+            } else {
+                mFfwdButton.setOnClickListener(mFfwdListener);
             }
         }
         mRewButton = v.findViewById(R.id.rew);
         if (mRewButton != null) {
-            mRewButton.setOnClickListener(mRewListener);
             if (mMediaType == MEDIA_TYPE_MUSIC) {
                 mRewButton.setVisibility(View.GONE);
+            } else {
+                mRewButton.setOnClickListener(mRewListener);
             }
         }
         mNextButton = v.findViewById(R.id.next);
         if (mNextButton != null) {
-            mNextButton.setOnClickListener(mNextListener);
+            if (mController.canSkipToNext()) {
+                mNextButton.setOnClickListener(mNextListener);
+            } else {
+                mNextButton.setVisibility(View.GONE);
+            }
         }
         mPrevButton = v.findViewById(R.id.prev);
         if (mPrevButton != null) {
-            mPrevButton.setOnClickListener(mPrevListener);
+            if (mController.canSkipToPrevious()) {
+                mPrevButton.setOnClickListener(mPrevListener);
+            } else {
+                mPrevButton.setVisibility(View.GONE);
+            }
         }
         return v;
     }
@@ -2177,6 +2187,14 @@ public class MediaControlView2 extends BaseLayout {
         boolean canSeekForward() {
             return mAllowedCommands != null && mAllowedCommands.hasCommand(
                     SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD);
+        }
+        boolean canSkipToNext() {
+            return mAllowedCommands != null && mAllowedCommands.hasCommand(
+                    SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM);
+        }
+        boolean canSkipToPrevious() {
+            return mAllowedCommands != null && mAllowedCommands.hasCommand(
+                    SessionCommand2.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM);
         }
         void pause() {
             if (mController2 != null) {
