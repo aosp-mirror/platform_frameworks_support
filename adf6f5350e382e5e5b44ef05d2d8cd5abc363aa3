@@ -22,6 +22,30 @@
       "revId": "adf6f5350e382e5e5b44ef05d2d8cd5abc363aa3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9d3a79f_e9836751",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T16:30:07Z",
+      "side": 1,
+      "message": "Noice. Done.",
+      "parentUuid": "bc55eb89_93c9d67b",
+      "range": {
+        "startLine": 281,
+        "startChar": 39,
+        "endLine": 281,
+        "endChar": 43
+      },
+      "revId": "adf6f5350e382e5e5b44ef05d2d8cd5abc363aa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
