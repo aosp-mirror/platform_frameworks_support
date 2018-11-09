@@ -70,6 +70,29 @@
       "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e085771_ac9c90f3",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-11-09T22:00:39Z",
+      "side": 1,
+      "message": "nit: I would cache the reflection results.",
+      "range": {
+        "startLine": 794,
+        "startChar": 18,
+        "endLine": 794,
+        "endChar": 44
+      },
+      "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
