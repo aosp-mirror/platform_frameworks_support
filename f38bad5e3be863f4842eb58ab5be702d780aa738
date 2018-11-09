@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7795ef47_f61f30aa",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T17:08:35Z",
+      "side": 1,
+      "message": "Chris (@cpovirk) suggested a while ago to wait till guava 27.0 becomes more adopted before implementing it, because usage of InternalFutureFailureAccess breaks people who simply exclude listenablefuture artifact. Guava 27.0 was released very recently, so I\u0027d wait a bit more.",
+      "parentUuid": "bbe0bd57_53e6df1f",
+      "range": {
+        "startLine": 105,
+        "startChar": 56,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "f38bad5e3be863f4842eb58ab5be702d780aa738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a9913aa_6079fcb4",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "f38bad5e3be863f4842eb58ab5be702d780aa738",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd97047_7ae423f0",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-09T17:08:35Z",
+      "side": 1,
+      "message": "our world is not proguarded and we have a lint that checks it: ¯\\_(ツ)_/¯\n\nSeriously speaking in every specific case it looks super nit-picky, but once we actually removed all synthetic accesses - we get rid of more than a thousand methods in androidx.",
+      "parentUuid": "8a9913aa_6079fcb4",
+      "range": {
+        "startLine": 186,
+        "startChar": 11,
+        "endLine": 186,
+        "endChar": 27
+      },
+      "revId": "f38bad5e3be863f4842eb58ab5be702d780aa738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
