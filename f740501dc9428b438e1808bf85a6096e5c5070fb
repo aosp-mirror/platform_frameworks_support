@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6d8bf61_050adf87",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextSelection.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-09T22:14:39Z",
+      "side": 1,
+      "message": "Given that we always create at least an empty bundle, should we make all the setExtras @NonNull?",
+      "range": {
+        "startLine": 274,
+        "startChar": 33,
+        "endLine": 274,
+        "endChar": 56
+      },
+      "revId": "f740501dc9428b438e1808bf85a6096e5c5070fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
