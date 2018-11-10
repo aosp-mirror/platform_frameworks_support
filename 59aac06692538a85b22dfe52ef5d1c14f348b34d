@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf6b8f11_b31a8f69",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aa98710_da566e33",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03f05e08_bd824246",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
         "patchSetId": 57
@@ -45,6 +69,30 @@
       "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d71032_d6a5bf06",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03f05e08_bd824246",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 50
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "51f4a37b_02b410e8",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa0d9ebf_3ac66688",
+      "range": {
+        "startLine": 299,
+        "startChar": 27,
+        "endLine": 299,
+        "endChar": 49
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d53674d7_62c80089",
         "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
         "patchSetId": 57
@@ -91,6 +163,30 @@
       "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c551fd3_454232dd",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53674d7_62c80089",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 86
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,48 @@
     },
     {
       "key": {
+        "uuid": "da585477_e15ae59f",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "yes, the manifest should have the following lines:\n\n\u003cservice android:name\u003d\"androidx.sharetarget.ChooserTargetServiceCompat\"\n         android:label\u003d\"@string/some_label\"\n         android:permission\u003d\"android.permission.BIND_CHOOSER_TARGET_SERVICE\"\u003e\n    \u003cintent-filter\u003e\n        \u003caction android:name\u003d\"android.service.chooser.ChooserTargetService\" /\u003e\n    \u003c/intent-filter\u003e\n\u003c/service\u003e",
+      "parentUuid": "d1968bfd_6bf972da",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d59a1af0_2698e615",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa68b547_61b6af1d",
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "303925e7_acb9ec0a",
         "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
         "patchSetId": 57
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "8a571f07_6b634261",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "303925e7_acb9ec0a",
+      "range": {
+        "startLine": 109,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bec39edd_48d438e3",
         "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
         "patchSetId": 57
@@ -177,6 +339,30 @@
       "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db551d80_c8ed8a07",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-10T03:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bec39edd_48d438e3",
+      "range": {
+        "startLine": 116,
+        "startChar": 21,
+        "endLine": 117,
+        "endChar": 30
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
