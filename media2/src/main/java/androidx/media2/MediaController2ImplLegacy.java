@@ -18,7 +18,6 @@ package androidx.media2;
 
 import static android.support.v4.media.MediaMetadataCompat.METADATA_KEY_DURATION;
 import static android.support.v4.media.MediaMetadataCompat.METADATA_KEY_MEDIA_ID;
-import static android.support.v4.media.session.MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS;
 
 import static androidx.media2.BaseResult2.RESULT_CODE_BAD_VALUE;
 import static androidx.media2.MediaConstants2.ARGUMENT_COMMAND_CODE;
@@ -31,11 +30,9 @@ import static androidx.media2.MediaConstants2.CONTROLLER_COMMAND_BY_COMMAND_CODE
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_DISCONNECTED;
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_NOT_SUPPORTED;
 import static androidx.media2.MediaController2.ControllerResult.RESULT_CODE_SUCCESS;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
-import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 import static androidx.media2.SessionPlayer2.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.SessionPlayer2.PLAYER_STATE_IDLE;
 import static androidx.media2.SessionPlayer2.UNKNOWN_TIME;
@@ -64,12 +61,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.app.BundleCompat;
+import androidx.core.util.ObjectsCompat;
 import androidx.media2.MediaController2.ControllerCallback;
 import androidx.media2.MediaController2.ControllerResult;
 import androidx.media2.MediaController2.MediaController2Impl;
 import androidx.media2.MediaController2.PlaybackInfo;
 import androidx.media2.MediaController2.VolumeDirection;
 import androidx.media2.MediaController2.VolumeFlags;
+import androidx.media2.MediaSession2.CommandButton;
 import androidx.media2.SessionCommand2.CommandCode;
 import androidx.media2.SessionPlayer2.BuffState;
 import androidx.media2.SessionPlayer2.RepeatMode;
@@ -78,6 +77,7 @@ import androidx.media2.SessionPlayer2.ShuffleMode;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executor;
 
 // TODO: Find better way to return listenable future.
@@ -87,10 +87,6 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private static final long POSITION_DIFF_TOLERANCE = 100;
-    private static final String SESSION_COMMAND_ON_EXTRA_CHANGED =
-            "android.media.session.command.ON_EXTRA_CHANGED";
-    private static final String SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED =
-            "android.media.session.command.ON_CAPTIONING_ENALBED_CHANGED";
 
     // Note: Using {@code null} doesn't helpful here because MediaBrowserServiceCompat always wraps
     //       the rootHints so it becomes non-null.
@@ -160,6 +156,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
     @GuardedBy("mLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     SessionCommandGroup2 mAllowedCommands;
+    @GuardedBy("mLock")
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    List<CommandButton> mCustomLayout;
 
     // Media 1.0 variables
     @GuardedBy("mLock")
@@ -841,37 +840,23 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked token=" + mToken);
         }
-        final SessionCommandGroup2.Builder commandsBuilder = new SessionCommandGroup2.Builder();
+        final SessionCommandGroup2 allowedCommands;
+        final List<CommandButton> customLayout;
 
         synchronized (mLock) {
             if (mIsReleased || mConnected) {
                 return;
             }
-            long sessionFlags = mControllerCompat.getFlags();
-            boolean includePlaylistCommands = (sessionFlags & FLAG_HANDLES_QUEUE_COMMANDS) != 0;
-            commandsBuilder.addAllPlayerCommands(COMMAND_VERSION_CURRENT, includePlaylistCommands);
-            commandsBuilder.addAllVolumeCommands(COMMAND_VERSION_CURRENT);
-            commandsBuilder.addAllSessionCommands(COMMAND_VERSION_CURRENT);
-
-            commandsBuilder.removeCommand(COMMAND_CODE_PLAYER_SET_SPEED);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO);
-            commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SELECT_ROUTE);
-
-            commandsBuilder.addCommand(new SessionCommand2(SESSION_COMMAND_ON_EXTRA_CHANGED, null));
-            commandsBuilder.addCommand(
-                    new SessionCommand2(SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED, null));
-
-            mAllowedCommands = commandsBuilder.build();
-
             mPlaybackStateCompat = mControllerCompat.getPlaybackState();
-            if (mPlaybackStateCompat == null) {
-                mPlayerState = PLAYER_STATE_IDLE;
-                mBufferedPosition = UNKNOWN_TIME;
-            } else {
-                mPlayerState = MediaUtils2.convertToPlayerState(mPlaybackStateCompat);
-                mBufferedPosition = mPlaybackStateCompat.getBufferedPosition();
-            }
+            mAllowedCommands = MediaUtils2.convertToSessionCommandGroup(
+                    mControllerCompat.getFlags(), mPlaybackStateCompat);
+            mPlayerState = MediaUtils2.convertToPlayerState(mPlaybackStateCompat);
+            mBufferedPosition = mPlaybackStateCompat == null
+                    ? UNKNOWN_TIME : mPlaybackStateCompat.getBufferedPosition();
+            mCustomLayout = MediaUtils2.convertToCustomLayout(mPlaybackStateCompat);
+
+            allowedCommands = mAllowedCommands;
+            customLayout = mCustomLayout;
 
             mPlaybackInfo = MediaUtils2.toPlaybackInfo2(mControllerCompat.getPlaybackInfo());
 
@@ -897,9 +882,17 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         mCallbackExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mCallback.onConnected(mInstance, commandsBuilder.build());
+                mCallback.onConnected(mInstance, allowedCommands);
             }
         });
+        if (customLayout.size() != 0) {
+            mCallbackExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onSetCustomLayout(mInstance, customLayout);
+                }
+            });
+        }
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -1087,6 +1080,10 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             final PlaybackStateCompat prevState;
             final MediaItem2 prevItem;
             final MediaItem2 currentItem;
+            final List<CommandButton> prevLayout;
+            final List<CommandButton> currentLayout;
+            final SessionCommandGroup2 prevAllowedCommands;
+            final SessionCommandGroup2 currentAllowedCommands;
             synchronized (mLock) {
                 prevItem = mCurrentMediaItem;
                 prevState = mPlaybackStateCompat;
@@ -1104,6 +1101,15 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                     }
                 }
                 currentItem = mCurrentMediaItem;
+
+                prevLayout = mCustomLayout;
+                mCustomLayout = MediaUtils2.convertToCustomLayout(state);
+                currentLayout = mCustomLayout;
+
+                prevAllowedCommands = mAllowedCommands;
+                mAllowedCommands = MediaUtils2.convertToSessionCommandGroup(
+                        mControllerCompat.getFlags(), mPlaybackStateCompat);
+                currentAllowedCommands = mAllowedCommands;
             }
 
             if (prevItem != currentItem) {
@@ -1156,6 +1162,39 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                         }
                     });
                 }
+            }
+
+            Set<SessionCommand2> prevCommands = prevAllowedCommands.getCommands();
+            Set<SessionCommand2> currentCommands = currentAllowedCommands.getCommands();
+            if (prevCommands.size() != currentCommands.size()
+                    || !prevCommands.containsAll(currentCommands)) {
+                mCallbackExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onAllowedCommandsChanged(mInstance, currentAllowedCommands);
+                    }
+                });
+            }
+            boolean layoutChanged;
+            if (prevLayout.size() == currentLayout.size()) {
+                layoutChanged = false;
+                for (int i = 0; i < currentLayout.size(); i++) {
+                    if (!ObjectsCompat.equals(prevLayout.get(i).getCommand(),
+                            currentLayout.get(i).getCommand())) {
+                        layoutChanged = true;
+                        break;
+                    }
+                }
+            } else {
+                layoutChanged = true;
+            }
+            if (layoutChanged) {
+                mCallbackExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onSetCustomLayout(mInstance, currentLayout);
+                    }
+                });
             }
 
             if (currentItem == null) {
@@ -1242,7 +1281,7 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 @Override
                 public void run() {
                     mCallback.onCustomCommand(mInstance,
-                            new SessionCommand2(SESSION_COMMAND_ON_EXTRA_CHANGED, null),
+                            new SessionCommand2(MediaUtils2.SESSION_COMMAND_ON_EXTRA_CHANGED, null),
                             extras);
                 }
             });
@@ -1264,7 +1303,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 @Override
                 public void run() {
                     mCallback.onCustomCommand(mInstance,
-                            new SessionCommand2(SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED,
+                            new SessionCommand2(
+                                    MediaUtils2.SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED,
                                     null), null);
                 }
             });

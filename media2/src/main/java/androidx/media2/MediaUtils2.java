@@ -17,6 +17,7 @@
 package androidx.media2;
 
 import static android.support.v4.media.MediaDescriptionCompat.EXTRA_BT_FOLDER_TYPE;
+import static android.support.v4.media.session.MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS;
 
 import static androidx.media2.MediaMetadata2.BROWSABLE_TYPE_MIXED;
 import static androidx.media2.MediaMetadata2.BROWSABLE_TYPE_NONE;
@@ -30,6 +31,11 @@ import static androidx.media2.MediaMetadata2.METADATA_KEY_MEDIA_ID;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_MEDIA_URI;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_PLAYABLE;
 import static androidx.media2.MediaMetadata2.METADATA_KEY_TITLE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_PLAYER_SET_SPEED;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SELECT_ROUTE;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO;
+import static androidx.media2.SessionCommand2.COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO;
+import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -45,6 +51,7 @@ import android.support.v4.media.RatingCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat.QueueItem;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v4.media.session.PlaybackStateCompat.CustomAction;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
@@ -81,6 +88,11 @@ public class MediaUtils2 {
             command.run();
         }
     };
+
+    static final String SESSION_COMMAND_ON_EXTRA_CHANGED =
+            "android.media.session.command.ON_EXTRA_CHANGED";
+    static final String SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED =
+            "android.media.session.command.ON_CAPTIONING_ENALBED_CHANGED";
 
     private MediaUtils2() {
     }
@@ -715,6 +727,67 @@ public class MediaUtils2 {
             }
         }
         return newList;
+    }
+
+    /**
+     * Converts {@link MediaControllerCompat#getFlags() session flags} and
+     * {@link PlaybackStateCompat} to the {@link SessionCommandGroup2}.
+     * <p>
+     * This ignores {@link PlaybackStateCompat#getActions() actions} in the
+     * {@link PlaybackStateCompat} to workaround media apps' issues that they don't set playback
+     * state correctly.
+     *
+     * @param sessionFlags session flag
+     * @param state playback state
+     * @return
+     */
+    public static SessionCommandGroup2 convertToSessionCommandGroup(long sessionFlags,
+            PlaybackStateCompat state) {
+        SessionCommandGroup2.Builder commandsBuilder = new SessionCommandGroup2.Builder();
+        boolean includePlaylistCommands = (sessionFlags & FLAG_HANDLES_QUEUE_COMMANDS) != 0;
+        commandsBuilder.addAllPlayerCommands(COMMAND_VERSION_CURRENT, includePlaylistCommands);
+        commandsBuilder.addAllVolumeCommands(COMMAND_VERSION_CURRENT);
+        commandsBuilder.addAllSessionCommands(COMMAND_VERSION_CURRENT);
+
+        commandsBuilder.removeCommand(COMMAND_CODE_PLAYER_SET_SPEED);
+        commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SUBSCRIBE_ROUTES_INFO);
+        commandsBuilder.removeCommand(COMMAND_CODE_SESSION_UNSUBSCRIBE_ROUTES_INFO);
+        commandsBuilder.removeCommand(COMMAND_CODE_SESSION_SELECT_ROUTE);
+
+        commandsBuilder.addCommand(new SessionCommand2(SESSION_COMMAND_ON_EXTRA_CHANGED, null));
+        commandsBuilder.addCommand(
+                new SessionCommand2(SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED, null));
+
+        if (state != null && state.getCustomActions() != null) {
+            for (CustomAction customAction : state.getCustomActions()) {
+                commandsBuilder.addCommand(
+                        new SessionCommand2(customAction.getAction(), customAction.getExtras()));
+            }
+        }
+        return commandsBuilder.build();
+    }
+
+    /**
+     * Converts {@link CustomAction} in the {@link PlaybackStateCompat} to the custom layout, which
+     * is the list of the {@link CommandButton}.
+     *
+     * @param state playback state
+     * @return custom layout. Always non-null.
+     */
+    public static List<CommandButton> convertToCustomLayout(PlaybackStateCompat state) {
+        List<CommandButton> layout = new ArrayList<>();
+        if (state == null) {
+            return layout;
+        }
+        for (CustomAction action : state.getCustomActions()) {
+            CommandButton button = new CommandButton.Builder()
+                    .setCommand(new SessionCommand2(action.getAction(), action.getExtras()))
+                    .setDisplayName(action.getName())
+                    .setEnabled(true)
+                    .setIconResId(action.getIcon()).build();
+            layout.add(button);
+        }
+        return layout;
     }
 
     /**
