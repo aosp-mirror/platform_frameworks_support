@@ -1493,26 +1493,18 @@ public class MediaPlayer extends SessionPlayer2 {
         return mPlayer.getMaxPlayerVolume();
     }
 
-    /**
-     * @return the width of the video, or 0 if there is no video,
-     * no display surface was set, or the width has not been determined
-     * yet. The {@link PlayerCallback} can be registered via {@link #registerPlayerCallback} to
-     * receive a notification {@link PlayerCallback#onVideoSizeChanged} when the width
-     * is available.
-     */
-    public int getVideoWidth() {
-        return mPlayer.getVideoWidth();
-    }
 
     /**
-     * @return the height of the video, or 0 if there is no video,
-     * no display surface was set, or the height has not been determined
-     * yet. The {@link PlayerCallback} can be registered via {@link #registerPlayerCallback} to
-     * receive a notification {@link PlayerCallback#onVideoSizeChanged} when the height is
-     * available.
+     * Returns the size of the video.
+     *
+     * @return the size of the video. The width and height of size could be 0 if there is no video,
+     * no display surface was set, or the size has not been determined yet.
+     * The {@link PlayerCallback} can be registered via {@link #registerPlayerCallback} to
+     * receive a notification {@link PlayerCallback#onVideoSizeChanged} when the size
+     * is available.
      */
-    public int getVideoHeight() {
-        return mPlayer.getVideoHeight();
+    public @NonNull VideoSize getVideoSize() {
+        return new VideoSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
     }
 
     /**
@@ -2459,10 +2451,11 @@ public class MediaPlayer extends SessionPlayer2 {
         @Override
         public void onVideoSizeChanged(
                 MediaPlayer2 mp, final MediaItem2 item, final int width, final int height) {
+            final VideoSize size = new VideoSize(width, height);
             notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
                 @Override
                 public void callCallback(PlayerCallback callback) {
-                    callback.onVideoSizeChanged(MediaPlayer.this, item, width, height);
+                    callback.onVideoSizeChanged(MediaPlayer.this, item, size);
                 }
             });
         }
@@ -2573,11 +2566,10 @@ public class MediaPlayer extends SessionPlayer2 {
          *
          * @param mp the player associated with this callback
          * @param item the MediaItem2 of this media item
-         * @param width the width of the video
-         * @param height the height of the video
+         * @param size the size of the video
          */
         public void onVideoSizeChanged(
-                @NonNull MediaPlayer mp, @NonNull MediaItem2 item, int width, int height) { }
+                @NonNull MediaPlayer mp, @NonNull MediaItem2 item, @NonNull VideoSize size) { }
 
         /**
          * Called to indicate available timed metadata
