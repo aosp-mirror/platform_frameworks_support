@@ -57,7 +57,7 @@ import java.util.concurrent.Executor;
  * subclasses' type. This will sanitize process specific information (e.g.
  * {@link java.io.FileDescriptor}, {@link android.content.Context}, etc).
  * <p>
- * This object isn't a thread safe.
+ * This object is thread safe.
  */
 @VersionedParcelize(isCustom = true)
 public class MediaItem2 extends CustomVersionedParcelable {
@@ -74,6 +74,10 @@ public class MediaItem2 extends CustomVersionedParcelable {
      */
     public static final long POSITION_UNKNOWN = LONG_MAX;
 
+    @NonParcelField
+    private final Object mLock = new Object();
+
+    @GuardedBy("mLock")
     @ParcelField(1)
     MediaMetadata2 mMetadata;
     @ParcelField(2)
@@ -81,8 +85,6 @@ public class MediaItem2 extends CustomVersionedParcelable {
     @ParcelField(3)
     long mEndPositionMs = POSITION_UNKNOWN;
 
-    @NonParcelField
-    private final Object mLock = new Object();
     @GuardedBy("mLock")
     @NonParcelField
     private final List<Pair<OnMetadataChangedListener, Executor>> mListeners = new ArrayList<>();
@@ -145,14 +147,14 @@ public class MediaItem2 extends CustomVersionedParcelable {
      * @see MediaMetadata2#METADATA_KEY_MEDIA_ID
      */
     public void setMetadata(@Nullable MediaMetadata2 metadata) {
-        if (mMetadata != null && metadata != null
-                && !TextUtils.equals(getMediaId(), metadata.getMediaId())) {
-            Log.d(TAG, "MediaItem's media ID shouldn't be changed");
-            return;
-        }
-        mMetadata = metadata;
         List<Pair<OnMetadataChangedListener, Executor>> listeners = new ArrayList<>();
         synchronized (mLock) {
+            if (mMetadata != null && metadata != null
+                    && !TextUtils.equals(getMediaId(), metadata.getMediaId())) {
+                Log.d(TAG, "MediaItem's media ID shouldn't be changed");
+                return;
+            }
+            mMetadata = metadata;
             listeners.addAll(mListeners);
         }
 
