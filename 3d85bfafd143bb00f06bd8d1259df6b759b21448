@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "bfc3e968_9738cd32",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need this prefix. You should be able to just do :\n\n  findViewById(R.id.paged_list_view)\n\nChange for all the other instances too",
+      "range": {
+        "startLine": 68,
+        "startChar": 48,
+        "endLine": 68,
+        "endChar": 66
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65ac62c5_5e635594",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 22
@@ -25,6 +48,40 @@
     },
     {
       "key": {
+        "uuid": "5ca4538d_e12b5d6b",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Add a new line before this",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a300b9b_4bd93473",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "I\u0027m still not really certain what this parameter is for. Why do we need a 1 pixel adjustment for some of the tests but not all? Are you trying to account for rounding errors?",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99ac3f61_a65cc19a",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 22
@@ -42,6 +99,171 @@
         "endLine": 130,
         "endChar": 48
       },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a78b7f79_b7bb5068",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Move this down to where you actually use the parameter",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d4008b_57dc10a5",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Do a requestLayout() here instead",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 45
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50c30ac1_8898553d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "nit: add a new line before and after the constructor",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0826b5_38a61bc5",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Move this to a static final variable",
+      "range": {
+        "startLine": 172,
+        "startChar": 34,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4853cbb_7f572052",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Initialize this with the declaration and declare mStrings final",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df3acb6_d86bf1bc",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Remove the extra new line from the ned of the file",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa056ea_9e602ef0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "nit: Add a new line after this",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abbabe16_5211f5c4",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "nit: Add a period to the end of all the comments.",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396b4a40_307d8187",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Move this check to the beginning of onLayout()\n\n  @Override\n  public void onLayout(...) {\n    if (mUpButton.getVisibility() \u003d\u003d GONE) {\n      return;\n    }\n    ...\n  }\n\nWe don\u0027t need to calculate anything before this check. Since it returns, we can check it first",
       "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -81,6 +303,93 @@
         "startChar": 33,
         "endLine": 32,
         "endChar": 60
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bd1cc14_96019743",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "I think this is fine. The demo activity doesn\u0027t need to be so robust. It\u0027s just a demo and not used for anything.",
+      "parentUuid": "d9846ef6_d755e4c2",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae6e674d_ba51df4f",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Initialize this with the initial number of items (80).",
+      "range": {
+        "startLine": 56,
+        "startChar": 48,
+        "endLine": 56,
+        "endChar": 57
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8350e787_4d00860d",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Actually, can you just inline this method?",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23378033_c5fc9ae9",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-12T23:19:39Z",
+      "side": 1,
+      "message": "Pull this into a static final variable",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 34
       },
       "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
