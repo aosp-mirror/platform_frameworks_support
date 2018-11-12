@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cafe72e_2e81b1db",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/ListContent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-11-12T18:23:31Z",
+      "side": 0,
+      "message": "Remove this.",
+      "revId": "d1be130011e02da609ef90d6eaf176c4c25c31da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
