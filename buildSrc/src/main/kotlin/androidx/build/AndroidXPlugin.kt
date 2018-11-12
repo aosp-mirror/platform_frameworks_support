@@ -43,9 +43,12 @@ import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -110,6 +113,13 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        if (project.hasProperty("snapshot")) {
+            // To avoid conflicting snapshot versions, we are using date and time.
+            val snapshotDate = LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+            val newExtra = "-SNAPSHOT$snapshotDate"
+            project.extra.set("snapshotVersion", newExtra)
+        }
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -142,7 +152,6 @@ class AndroidXPlugin : Plugin<Project> {
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
         buildTestApksTask.dependsOn(createCoverageJarTask)
-
         Release.createGlobalArchiveTask(this)
 
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
@@ -156,7 +165,6 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
-
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {

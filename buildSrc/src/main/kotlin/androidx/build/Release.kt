@@ -196,6 +196,10 @@ object Release {
                             " because publish is false!"
             )
         }
+        if (project.hasProperty("snapshot") && Version(project.version as String).extra == null) {
+            // No need to create snapshot for stable version.
+            return
+        }
         val mavenGroup = extension.mavenGroup ?: throw IllegalArgumentException(
                 "Cannot register a project to release if it does not have a mavenGroup set up"
         )

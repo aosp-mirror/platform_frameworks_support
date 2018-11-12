@@ -17,6 +17,7 @@
 package androidx.build
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.extra
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -40,7 +41,7 @@ data class Version(
 
     fun isPatch(): Boolean = patch != 0
 
-    fun isSnapshot(): Boolean = "-SNAPSHOT" == extra
+    fun isSnapshot(): Boolean = extra?.startsWith("-SNAPSHOT") ?: false
 
     fun isAlpha(): Boolean = extra?.toLowerCase()?.startsWith("-alpha") ?: false
 
@@ -90,6 +91,12 @@ data class Version(
 }
 
 fun Project.setupVersion(extension: SupportLibraryExtension) = afterEvaluate {
+    if (project.rootProject.hasProperty("snapshot") && extension.mavenVersion != null &&
+            extension.publish && extension.mavenVersion?.extra != null) {
+        val snapshotExtra = project.rootProject.extra.get("snapshotVersion") as String
+        extension.mavenVersion = Version("${extension.mavenVersion?.major}." +
+                "${extension.mavenVersion?.minor}.${extension.mavenVersion?.patch}$snapshotExtra")
+    }
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     version = extension.mavenVersion?.toString()
 }
