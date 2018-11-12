@@ -173,131 +173,141 @@ class MediaSession2Stub extends IMediaSession2.Stub {
             final @Nullable SessionCommand2 sessionCommand,
             final @CommandCode int commandCode,
             final @NonNull SessionTask task) {
-        final ControllerInfo controller = mConnectedControllersManager.getController(
-                caller.asBinder());
-        if (mSessionImpl.isClosed() || controller == null) {
-            return;
-        }
-        mSessionImpl.getCallbackExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (!mConnectedControllersManager.isConnected(controller)) {
-                    return;
-                }
-                SessionCommand2 commandForOnCommandRequest;
-                if (sessionCommand != null) {
-                    if (!mConnectedControllersManager.isAllowedCommand(
-                            controller, sessionCommand)) {
-                        if (DEBUG) {
-                            Log.d(TAG, "Command (" + sessionCommand + ") from "
-                                    + controller + " isn't allowed.");
-                        }
+        final long token = Binder.clearCallingIdentity();
+        try {
+            final ControllerInfo controller = mConnectedControllersManager.getController(
+                    caller.asBinder());
+            if (mSessionImpl.isClosed() || controller == null) {
+                return;
+            }
+            mSessionImpl.getCallbackExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (!mConnectedControllersManager.isConnected(controller)) {
                         return;
                     }
-                    commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
-                            sessionCommand.getCommandCode());
-                } else {
-                    if (!mConnectedControllersManager.isAllowedCommand(controller, commandCode)) {
-                        if (DEBUG) {
-                            Log.d(TAG, "Command (" + commandCode + ") from "
-                                    + controller + " isn't allowed.");
-                        }
-                        return;
-                    }
-                    commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
-                            commandCode);
-                }
-                try {
-                    if (commandForOnCommandRequest != null) {
-                        int resultCode = mSessionImpl.getCallback().onCommandRequest(
-                                mSessionImpl.getInstance(), controller, commandForOnCommandRequest);
-                        if (resultCode != RESULT_CODE_SUCCESS) {
-                            // Don't run rejected command.
+                    SessionCommand2 commandForOnCommandRequest;
+                    if (sessionCommand != null) {
+                        if (!mConnectedControllersManager.isAllowedCommand(
+                                controller, sessionCommand)) {
                             if (DEBUG) {
-                                Log.d(TAG, "Command (" + commandForOnCommandRequest + ") from "
-                                        + controller + " was rejected by " + mSessionImpl
-                                        + ", code=" + resultCode);
+                                Log.d(TAG, "Command (" + sessionCommand + ") from "
+                                        + controller + " isn't allowed.");
                             }
-                            sendSessionResult(controller, seq, resultCode);
                             return;
                         }
+                        commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
+                                sessionCommand.getCommandCode());
+                    } else {
+                        if (!mConnectedControllersManager.isAllowedCommand(controller,
+                                commandCode)) {
+                            if (DEBUG) {
+                                Log.d(TAG, "Command (" + commandCode + ") from "
+                                        + controller + " isn't allowed.");
+                            }
+                            return;
+                        }
+                        commandForOnCommandRequest = sCommandsForOnCommandRequest.get(
+                                commandCode);
                     }
-                    if (task instanceof SessionPlayerTask) {
-                        final ListenableFuture<PlayerResult> future =
-                                ((SessionPlayerTask) task).run(controller);
-                        if (future == null) {
-                            throw new RuntimeException("SessionPlayer has returned null,"
-                                    + " commandCode=" + commandCode);
-                        } else {
-                            future.addListener(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        sendPlayerResult(controller, seq,
-                                                future.get(0, TimeUnit.MILLISECONDS));
-                                    } catch (Exception e) {
-                                        Log.w(TAG, "Cannot obtain PlayerResult after the"
-                                                + " command is finished", e);
-                                        sendSessionResult(controller, seq,
-                                                RESULT_CODE_INVALID_STATE);
-                                    }
+                    try {
+                        if (commandForOnCommandRequest != null) {
+                            int resultCode = mSessionImpl.getCallback().onCommandRequest(
+                                    mSessionImpl.getInstance(), controller,
+                                    commandForOnCommandRequest);
+                            if (resultCode != RESULT_CODE_SUCCESS) {
+                                // Don't run rejected command.
+                                if (DEBUG) {
+                                    Log.d(TAG, "Command (" + commandForOnCommandRequest
+                                            + ") from " + controller + " was rejected by "
+                                            + mSessionImpl + ", code=" + resultCode);
                                 }
-                            }, DIRECT_EXECUTOR);
+                                sendSessionResult(controller, seq, resultCode);
+                                return;
+                            }
                         }
-                    } else if (task instanceof SessionCallbackTask) {
-                        final Object result = ((SessionCallbackTask) task).run(controller);
-                        if (result == null) {
-                            throw new RuntimeException("SessionCallback has returned null,"
-                                    + " commandCode=" + commandCode);
-                        } else if (result instanceof Integer) {
-                            sendSessionResult(controller, seq, (Integer) result);
-                        } else if (result instanceof SessionResult) {
-                            sendSessionResult(controller, seq, (SessionResult) result);
+                        if (task instanceof SessionPlayerTask) {
+                            final ListenableFuture<PlayerResult> future =
+                                    ((SessionPlayerTask) task).run(controller);
+                            if (future == null) {
+                                throw new RuntimeException("SessionPlayer has returned null,"
+                                        + " commandCode=" + commandCode);
+                            } else {
+                                future.addListener(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            sendPlayerResult(controller, seq,
+                                                    future.get(0, TimeUnit.MILLISECONDS));
+                                        } catch (Exception e) {
+                                            Log.w(TAG, "Cannot obtain PlayerResult after the"
+                                                    + " command is finished", e);
+                                            sendSessionResult(controller, seq,
+                                                    RESULT_CODE_INVALID_STATE);
+                                        }
+                                    }
+                                }, DIRECT_EXECUTOR);
+                            }
+                        } else if (task instanceof SessionCallbackTask) {
+                            final Object result = ((SessionCallbackTask) task).run(controller);
+                            if (result == null) {
+                                throw new RuntimeException("SessionCallback has returned null,"
+                                        + " commandCode=" + commandCode);
+                            } else if (result instanceof Integer) {
+                                sendSessionResult(controller, seq, (Integer) result);
+                            } else if (result instanceof SessionResult) {
+                                sendSessionResult(controller, seq, (SessionResult) result);
+                            } else if (DEBUG) {
+                                throw new RuntimeException("Unexpected return type " + result
+                                        + ". Fix bug");
+                            }
+                        } else if (task instanceof LibrarySessionCallbackTask) {
+                            final Object result = ((LibrarySessionCallbackTask) task).run(
+                                    controller);
+                            if (result == null) {
+                                throw new RuntimeException("LibrarySessionCallback has returned"
+                                        + " null, commandCode=" + commandCode);
+                            } else if (result instanceof Integer) {
+                                sendLibraryResult(controller, seq, (Integer) result);
+                            } else if (result instanceof LibraryResult) {
+                                sendLibraryResult(controller, seq, (LibraryResult) result);
+                            } else if (DEBUG) {
+                                throw new RuntimeException("Unexpected return type " + result
+                                        + ". Fix bug");
+                            }
                         } else if (DEBUG) {
-                            throw new RuntimeException("Unexpected return type " + result
-                                    + ". Fix bug");
+                            throw new RuntimeException("Unknown task " + task + ". Fix bug");
                         }
-                    } else if (task instanceof LibrarySessionCallbackTask) {
-                        final Object result = ((LibrarySessionCallbackTask) task).run(controller);
-                        if (result == null) {
-                            throw new RuntimeException("LibrarySessionCallback has returned"
-                                    + " null, commandCode=" + commandCode);
-                        } else if (result instanceof Integer) {
-                            sendLibraryResult(controller, seq, (Integer) result);
-                        } else if (result instanceof LibraryResult) {
-                            sendLibraryResult(controller, seq, (LibraryResult) result);
-                        } else if (DEBUG) {
-                            throw new RuntimeException("Unexpected return type " + result
-                                    + ". Fix bug");
+                    } catch (RemoteException e) {
+                        // Currently it's TransactionTooLargeException or DeadSystemException.
+                        // We'd better to leave log for those cases because
+                        //   - TransactionTooLargeException means that we may need to fix our code.
+                        //     (e.g. add pagination or special way to deliver Bitmap)
+                        //   - DeadSystemException means that errors around it can be ignored.
+                        Log.w(TAG, "Exception in " + controller.toString(), e);
+                    } catch (Exception e) {
+                        // Any random exception may be happen inside
+                        // of the session player / callback.
+
+                        if (RETHROW_EXCEPTION) {
+                            throw e;
                         }
-                    } else if (DEBUG) {
-                        throw new RuntimeException("Unknown task " + task + ". Fix bug");
-                    }
-                } catch (RemoteException e) {
-                    // Currently it's TransactionTooLargeException or DeadSystemException.
-                    // We'd better to leave log for those cases because
-                    //   - TransactionTooLargeException means that we may need to fix our code.
-                    //     (e.g. add pagination or special way to deliver Bitmap)
-                    //   - DeadSystemException means that errors around it can be ignored.
-                    Log.w(TAG, "Exception in " + controller.toString(), e);
-                } catch (Exception e) {
-                    // Any random exception may be happen inside of the session player / callback.
-                    if (RETHROW_EXCEPTION) {
-                        throw e;
-                    }
-                    if (task instanceof PlayerTask) {
-                        sendPlayerResult(controller, seq,
-                                new PlayerResult(PlayerResult.RESULT_CODE_UNKNOWN_ERROR, null));
-                    } else if (task instanceof SessionCallbackTask) {
-                        sendSessionResult(controller, seq,
-                                SessionResult.RESULT_CODE_UNKNOWN_ERROR);
-                    } else if (task instanceof LibrarySessionCallbackTask) {
-                        sendLibraryResult(controller, seq,
-                                LibraryResult.RESULT_CODE_UNKNOWN_ERROR);
+                        if (task instanceof PlayerTask) {
+                            sendPlayerResult(controller, seq,
+                                    new PlayerResult(PlayerResult.RESULT_CODE_UNKNOWN_ERROR, null));
+                        } else if (task instanceof SessionCallbackTask) {
+                            sendSessionResult(controller, seq,
+                                    SessionResult.RESULT_CODE_UNKNOWN_ERROR);
+                        } else if (task instanceof LibrarySessionCallbackTask) {
+                            sendLibraryResult(controller, seq,
+                                    LibraryResult.RESULT_CODE_UNKNOWN_ERROR);
+                        }
                     }
                 }
-            }
-        });
+            });
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     private void dispatchLibrarySessionTask(@NonNull IMediaController2 caller, int seq,
@@ -315,97 +325,104 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         final ControllerInfo controllerInfo = new ControllerInfo(remoteUserInfo,
                 mSessionManager.isTrustedForMediaControl(remoteUserInfo),
                 new Controller2Cb(caller));
-        mSessionImpl.getCallbackExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mSessionImpl.isClosed()) {
-                    return;
-                }
-                final IBinder callbackBinder = ((Controller2Cb) controllerInfo.getControllerCb())
-                        .getCallbackBinder();
-                synchronized (mLock) {
-                    // Keep connecting controllers.
-                    // This helps sessions to call APIs in the onConnect()
-                    // (e.g. setCustomLayout()) instead of pending them.
-                    mConnectingControllers.add(callbackBinder);
-                }
-                SessionCommandGroup2 allowedCommands = mSessionImpl.getCallback().onConnect(
-                        mSessionImpl.getInstance(), controllerInfo);
-                // Don't reject connection for the request from trusted app.
-                // Otherwise server will fail to retrieve session's information to dispatch
-                // media keys to.
-                boolean accept = allowedCommands != null || controllerInfo.isTrusted();
-                if (accept) {
-                    if (DEBUG) {
-                        Log.d(TAG, "Accepting connection, controllerInfo=" + controllerInfo
-                                + " allowedCommands=" + allowedCommands);
-                    }
-                    if (allowedCommands == null) {
-                        // For trusted apps, send non-null allowed commands to keep
-                        // connection.
-                        allowedCommands = new SessionCommandGroup2();
-                    }
-                    synchronized (mLock) {
-                        mConnectingControllers.remove(callbackBinder);
-                        mConnectedControllersManager.addController(
-                                callbackBinder, controllerInfo, allowedCommands);
-                    }
-                    // If connection is accepted, notify the current state to the controller.
-                    // It's needed because we cannot call synchronous calls between
-                    // session/controller.
-                    // Note: We're doing this after the onConnectionChanged(), but there's no
-                    //       guarantee that events here are notified after the onConnected()
-                    //       because IMediaController2 is oneway (i.e. async call) and Stub will
-                    //       use thread poll for incoming calls.
-                    final int playerState = mSessionImpl.getPlayerState();
-                    final ParcelImpl currentItem = MediaUtils2.toParcelable(
-                            mSessionImpl.getCurrentMediaItem());
-                    final long positionEventTimeMs = SystemClock.elapsedRealtime();
-                    final long positionMs = mSessionImpl.getCurrentPosition();
-                    final float playbackSpeed = mSessionImpl.getPlaybackSpeed();
-                    final long bufferedPositionMs = mSessionImpl.getBufferedPosition();
-                    final ParcelImpl playbackInfo =
-                            MediaUtils2.toParcelable(mSessionImpl.getPlaybackInfo());
-                    final int repeatMode = mSessionImpl.getRepeatMode();
-                    final int shuffleMode = mSessionImpl.getShuffleMode();
-                    final PendingIntent sessionActivity = mSessionImpl.getSessionActivity();
-                    final List<MediaItem2> playlist =
-                            allowedCommands.hasCommand(
-                                    SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)
-                                    ? mSessionImpl.getPlaylist() : null;
-                    final ParcelImplListSlice playlistSlice =
-                            MediaUtils2.convertMediaItem2ListToParcelImplListSlice(playlist);
-
-                    // Double check if session is still there, because close() can be called in
-                    // another thread.
+        final long token = Binder.clearCallingIdentity();
+        try {
+            mSessionImpl.getCallbackExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
                     if (mSessionImpl.isClosed()) {
                         return;
                     }
-                    try {
-                        caller.onConnected(MediaSession2Stub.this,
-                                MediaUtils2.toParcelable(allowedCommands),
-                                playerState, currentItem, positionEventTimeMs, positionMs,
-                                playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
-                                shuffleMode, playlistSlice, sessionActivity);
-                    } catch (RemoteException e) {
-                        // Controller may be died prematurely.
-                    }
-                } else {
+                    final IBinder callbackBinder =
+                            ((Controller2Cb) controllerInfo.getControllerCb())
+                                    .getCallbackBinder();
                     synchronized (mLock) {
-                        mConnectingControllers.remove(callbackBinder);
+                        // Keep connecting controllers.
+                        // This helps sessions to call APIs in the onConnect()
+                        // (e.g. setCustomLayout()) instead of pending them.
+                        mConnectingControllers.add(callbackBinder);
                     }
-                    if (DEBUG) {
-                        Log.d(TAG, "Rejecting connection, controllerInfo=" + controllerInfo);
-                    }
-                    try {
-                        caller.onDisconnected();
-                    } catch (RemoteException e) {
-                        // Controller may be died prematurely.
-                        // Not an issue because we'll ignore it anyway.
+                    SessionCommandGroup2 allowedCommands = mSessionImpl.getCallback().onConnect(
+                            mSessionImpl.getInstance(), controllerInfo);
+                    // Don't reject connection for the request from trusted app.
+                    // Otherwise server will fail to retrieve session's information to dispatch
+                    // media keys to.
+                    boolean accept = allowedCommands != null || controllerInfo.isTrusted();
+                    if (accept) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Accepting connection, controllerInfo="
+                                    + controllerInfo + " allowedCommands=" + allowedCommands);
+                        }
+                        if (allowedCommands == null) {
+                            // For trusted apps, send non-null allowed commands to keep
+                            // connection.
+                            allowedCommands = new SessionCommandGroup2();
+                        }
+                        synchronized (mLock) {
+                            mConnectingControllers.remove(callbackBinder);
+                            mConnectedControllersManager.addController(
+                                    callbackBinder, controllerInfo, allowedCommands);
+                        }
+                        // If connection is accepted, notify the current state to the controller.
+                        // It's needed because we cannot call synchronous calls between
+                        // session/controller.
+                        // Note: We're doing this after the onConnectionChanged(), but there's no
+                        //       guarantee that events here are notified after the onConnected()
+                        //       because IMediaController2 is oneway (i.e. async call) and Stub will
+                        //       use thread poll for incoming calls.
+                        final int playerState = mSessionImpl.getPlayerState();
+                        final ParcelImpl currentItem = MediaUtils2.toParcelable(
+                                mSessionImpl.getCurrentMediaItem());
+                        final long positionEventTimeMs = SystemClock.elapsedRealtime();
+                        final long positionMs = mSessionImpl.getCurrentPosition();
+                        final float playbackSpeed = mSessionImpl.getPlaybackSpeed();
+                        final long bufferedPositionMs = mSessionImpl.getBufferedPosition();
+                        final ParcelImpl playbackInfo =
+                                MediaUtils2.toParcelable(mSessionImpl.getPlaybackInfo());
+                        final int repeatMode = mSessionImpl.getRepeatMode();
+                        final int shuffleMode = mSessionImpl.getShuffleMode();
+                        final PendingIntent sessionActivity = mSessionImpl.getSessionActivity();
+                        final List<MediaItem2> playlist =
+                                allowedCommands.hasCommand(
+                                        SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)
+                                        ? mSessionImpl.getPlaylist() : null;
+                        final ParcelImplListSlice playlistSlice =
+                                MediaUtils2.convertMediaItem2ListToParcelImplListSlice(playlist);
+
+                        // Double check if session is still there, because close() can be
+                        // called in another thread.
+                        if (mSessionImpl.isClosed()) {
+                            return;
+                        }
+                        try {
+                            caller.onConnected(MediaSession2Stub.this,
+                                    MediaUtils2.toParcelable(allowedCommands),
+                                    playerState, currentItem, positionEventTimeMs, positionMs,
+                                    playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
+                                    shuffleMode, playlistSlice, sessionActivity);
+                        } catch (RemoteException e) {
+                            // Controller may be died prematurely.
+                        }
+                    } else {
+                        synchronized (mLock) {
+                            mConnectingControllers.remove(callbackBinder);
+                        }
+                        if (DEBUG) {
+                            Log.d(TAG, "Rejecting connection, controllerInfo="
+                                    + controllerInfo);
+                        }
+                        try {
+                            caller.onDisconnected();
+                        } catch (RemoteException e) {
+                            // Controller may be died prematurely.
+                            // Not an issue because we'll ignore it anyway.
+                        }
                     }
                 }
-            }
-        });
+            });
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -447,7 +464,12 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null) {
             return;
         }
-        mConnectedControllersManager.removeController(caller.asBinder());
+        final long token = Binder.clearCallingIdentity();
+        try {
+            mConnectedControllersManager.removeController(caller.asBinder());
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     @Override
@@ -456,13 +478,18 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null || controllerResult == null) {
             return;
         }
-        SequencedFutureManager manager = mConnectedControllersManager.getSequencedFutureManager(
-                caller.asBinder());
-        if (manager == null) {
-            return;
+        final long token = Binder.clearCallingIdentity();
+        try {
+            SequencedFutureManager manager = mConnectedControllersManager.getSequencedFutureManager(
+                    caller.asBinder());
+            if (manager == null) {
+                return;
+            }
+            MediaController2.ControllerResult result = MediaUtils2.fromParcelable(controllerResult);
+            manager.setFutureResult(seq, SessionResult.from(result));
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-        MediaController2.ControllerResult result = MediaUtils2.fromParcelable(controllerResult);
-        manager.setFutureResult(seq, SessionResult.from(result));
     }
 
     @Override
