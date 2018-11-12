@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "077ed2b9_243cc694",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavInflater.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-12T20:58:56Z",
+      "side": 1,
+      "message": "You can save an indentation level if you minimize the try catch to just surround the Class.forName call.\n\nClass\u003c?\u003e cls \u003d null;\ntry {\n    cls \u003d Class.forName(argType);\n} catch (ClassNotFoundException e) {\n    e.printStackTrace();\n}",
+      "range": {
+        "startLine": 171,
+        "startChar": 28,
+        "endLine": 172,
+        "endChar": 70
+      },
+      "revId": "a3c9c4abc3ee0b2e46a7fb78b0d9bb99277a314f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e32bb0_af0438cc",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_writer_test/MainFragmentArgs.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-12T20:58:56Z",
+      "side": 1,
+      "message": "For arrays we should use Arrays.hashCode() to calculate the hash code.",
+      "range": {
+        "startLine": 216,
+        "startChar": 56,
+        "endLine": 216,
+        "endChar": 80
+      },
+      "revId": "a3c9c4abc3ee0b2e46a7fb78b0d9bb99277a314f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
