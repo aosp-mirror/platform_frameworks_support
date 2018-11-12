@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5201e936_ac865da6",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceStyle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-12T19:13:06Z",
+      "side": 1,
+      "message": "yeah, I think you move these outside the try block. I think we might want to include a comment differentiating between things we\u0027re pulling from the attributes vs things that are internal to the lib / can\u0027t be styled by devs.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 79
+      },
+      "revId": "f021be3d912e0c570c2150ae29e6a24d2939ca5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
