@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb746b1b_a20ae961",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/TestUtil.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "i think so, i copied from what we had there, dating back to a CL sergey sent to fix a flake. \nI guess it would happen if a graph is not collected at once. And we would probably make this even more future proof if we did this in a loop.",
+      "parentUuid": "4dc70ee3_65137e8c",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 47
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "523f393f_5658c401",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationLiveDataContainer.java",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6107fd_2cab7d9f",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationLiveDataContainer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "newSetFromMap requires Boolean.\n\nhttps://docs.oracle.com/javase/7/docs/api/java/util/Collections.html#newSetFromMap(java.util.Map)",
+      "parentUuid": "523f393f_5658c401",
+      "range": {
+        "startLine": 38,
+        "startChar": 42,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "196ecd87_984f60d4",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationLiveDataContainer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "i should actually pass the database in the constructor to this class. Tracked LiveData instances are better encapsulated here but that `mDatabase` reference is ugly.",
+      "parentUuid": "ad307ec8_a3969310",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 5
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d37e5b7b_06465e6e",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cf076f7_34e76013",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "I wanted it to crash instantly rather than crashing when observer happens.\nThis will allow reporting the error earlier in the right place.",
+      "parentUuid": "d37e5b7b_06465e6e",
+      "range": {
+        "startLine": 565,
+        "startChar": 16,
+        "endLine": 565,
+        "endChar": 56
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "453c2e31_3b66a549",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "yea does not need to be inside the loop. I copied this from generated code and didn\u0027t notice this. Will move out.",
+      "parentUuid": "2f1f5e12_b9ee4cbe",
+      "range": {
+        "startLine": 76,
+        "startChar": 22,
+        "endLine": 78,
+        "endChar": 25
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "456cb12c_13422c24",
         "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74bcba42_80a94013",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-12T19:58:19Z",
+      "side": 1,
+      "message": "because it calls hasActiveObservers which can only safely be called on the main thread.",
+      "parentUuid": "456cb12c_13422c24",
+      "range": {
+        "startLine": 109,
+        "startChar": 19,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "6107a11276d4bf6afc41de4aa06b8eeb972e2800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
