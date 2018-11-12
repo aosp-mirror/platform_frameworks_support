@@ -22,6 +22,30 @@
       "revId": "139e6c66518604483ba58381f8fff2658bc98828",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6610bcd_31b6903a",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceStyle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-12T18:52:32Z",
+      "side": 1,
+      "message": "Ohh yes it is fine to be using res here because these currently all come from the lib and are not configurable on SliceView",
+      "parentUuid": "cec46bc0_a2452fee",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 79
+      },
+      "revId": "139e6c66518604483ba58381f8fff2658bc98828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
