@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "2c0607fb_a497de9b",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-11-12T21:31:02Z",
+      "side": 1,
+      "message": "Put that in https://android-review.googlesource.com/c/platform/frameworks/support/+/757270/58/sharetarget/src/main/AndroidManifest.xml ?",
+      "parentUuid": "da585477_e15ae59f",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "59aac06692538a85b22dfe52ef5d1c14f348b34d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "303925e7_acb9ec0a",
         "filename": "sharetarget/src/main/java/androidx/sharetarget/ChooserTargetServiceCompat.java",
         "patchSetId": 57
