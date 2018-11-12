@@ -93,6 +93,54 @@
       "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014b0b30_b960e139",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-12T14:20:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e085771_ac9c90f3",
+      "range": {
+        "startLine": 794,
+        "startChar": 18,
+        "endLine": 794,
+        "endChar": 44
+      },
+      "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc25e4c_a605960b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-12T14:20:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e085771_ac9c90f3",
+      "range": {
+        "startLine": 794,
+        "startChar": 18,
+        "endLine": 794,
+        "endChar": 44
+      },
+      "revId": "a044ef446a46167fdc3242985ca64485c96159ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
