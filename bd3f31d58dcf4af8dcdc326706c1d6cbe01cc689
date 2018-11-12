@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "119a38c8_11810881",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2Stub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:02:29Z",
+      "side": 1,
+      "message": "Same code needed.",
+      "range": {
+        "startLine": 488,
+        "startChar": 7,
+        "endLine": 488,
+        "endChar": 8
+      },
+      "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c3c28b3_d5129723",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:02:29Z",
+      "side": 1,
+      "message": "How about gathering all codes in dispatch*Task to dispatchSessionTaskInternal()?",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 9
+      },
+      "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1861712f_340f7bed",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:02:29Z",
+      "side": 1,
+      "message": "It seems better to move this to L459\u0027s connect().",
+      "range": {
+        "startLine": 333,
+        "startChar": 8,
+        "endLine": 333,
+        "endChar": 57
+      },
+      "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
