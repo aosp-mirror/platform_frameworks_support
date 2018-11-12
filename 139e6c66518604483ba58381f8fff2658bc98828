@@ -22,6 +22,30 @@
       "revId": "139e6c66518604483ba58381f8fff2658bc98828",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e25f01c_5c55aa87",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/ListContent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-11-12T21:55:59Z",
+      "side": 0,
+      "message": "Sure -- what\u0027s the right way to mark that version as deprecated?",
+      "parentUuid": "1fdfdf37_2a8c2023",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 40
+      },
+      "revId": "139e6c66518604483ba58381f8fff2658bc98828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
