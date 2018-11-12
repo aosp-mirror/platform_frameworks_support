@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fdfdf37_2a8c2023",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/ListContent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-12T18:37:44Z",
+      "side": 0,
+      "message": "can we keep a version of the constructor with context for now, there are a couple people using this for testing / in sysui right now:\n\nhttps://cs.corp.google.com/android/frameworks/base/packages/SystemUI/src/com/android/keyguard/KeyguardSliceView.java?type\u003dcs\u0026q\u003dnew+ListContent+package:%5Eandroid$\u0026g\u003d0\u0026l\u003d162\n\nhttps://cs.corp.google.com/android/packages/apps/Settings/tests/robotests/src/com/android/settings/wifi/calling/WifiCallingSliceHelperTest.java?type\u003dcs\u0026q\u003dnew+ListContent+package:%5Eandroid$\u0026g\u003d0\u0026l\u003d365",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 40
+      },
+      "revId": "139e6c66518604483ba58381f8fff2658bc98828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
