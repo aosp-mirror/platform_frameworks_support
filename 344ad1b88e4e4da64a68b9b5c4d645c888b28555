@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ba7dd6f_1b66cc2a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binder/GuavaListenableFutureInsertMethodBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-11-12T20:42:21Z",
+      "side": 1,
+      "message": "It\u0027s possible to return the inserted/updated/deleted values, instead of just void or a count.\n\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/823585/1/room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binder/GuavaListenableFutureInsertMethodBinder.kt\n\nDoes this impl work for those cases? There\u0027s an adapter in the normal insertion set that does it, right?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "344ad1b88e4e4da64a68b9b5c4d645c888b28555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83dc6652_acada9e5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binderprovider/GuavaListenableFutureInsertMethodBinderProvider.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-11-12T20:42:21Z",
+      "side": 1,
+      "message": "Add an error check for failing to include the right module at runtime: https://android-review.googlesource.com/c/platform/frameworks/support/+/823585/1/room/compiler/src/main/kotlin/androidx/room/solver/shortcut/binderprovider/GuavaListenableFutureInsertMethodBinderProvider.kt",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "344ad1b88e4e4da64a68b9b5c4d645c888b28555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75e2ec3_6bd1711d",
+        "filename": "room/guava/src/main/java/androidx/room/guava/GuavaRoom.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2018-11-12T20:42:21Z",
+      "side": 1,
+      "message": "What happens to the Query object? Is there one?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 65
+      },
+      "revId": "344ad1b88e4e4da64a68b9b5c4d645c888b28555",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
