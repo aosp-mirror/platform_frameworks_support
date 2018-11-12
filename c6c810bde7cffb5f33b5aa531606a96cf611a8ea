@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7df97191_cd752db4",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceStyle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2018-11-12T18:23:42Z",
+      "side": 1,
+      "message": "These should be prefixed with \"Row\" in this change, not a future one.",
+      "revId": "c6c810bde7cffb5f33b5aa531606a96cf611a8ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
