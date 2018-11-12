@@ -16,9 +16,12 @@
   -->
 
 <!-- This layout is inflated by android.R.layout.preference so the id cannot change -->
-<Switch
+<CheckBox
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/switch_widget"
+    android:id="@android:id/checkbox"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    style="?attr/switchStyle"/>
+    android:button="@drawable/car_checkbox"
+    android:focusable="false"
+    android:clickable="false"
+    android:background="?android:attr/listChoiceIndicatorMultiple" />
