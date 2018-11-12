@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d78da02a_d9196486",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Q) Is renaming widget not included in this CL? If so, let\u0027s modify the commit message (Drop \"2\" suffix in media2 module)",
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156bd192_f314f2d0",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Rename needed?",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 49
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b703b6bb_095a1b9c",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "drop?",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884df325_23f9d9fc",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41214cd_ababe743",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 78,
+        "endLine": 22,
+        "endChar": 79
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16a46760_daeb81de",
+        "filename": "media-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "rename",
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc7fb0be_9979087c",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Seems not natural. Some of them dropped \"2\", but some of them didn\u0027t.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33dab181_c19abce7",
+        "filename": "media-widget/src/main/java/androidx/media/widget/VideoView2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f5cb0d_525a2892",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Can we drop this with resolving conflict with above one?",
+      "range": {
+        "startLine": 545,
+        "startChar": 51,
+        "endLine": 545,
+        "endChar": 52
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c3518b_650295a5",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2302,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Can we drop this?",
+      "range": {
+        "startLine": 2302,
+        "startChar": 66,
+        "endLine": 2302,
+        "endChar": 67
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6130c3ad_d58cfe16",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Can we drop this? If not, then let\u0027s change the value of the string as well. (SESSION2_TOKEN)",
+      "range": {
+        "startLine": 421,
+        "startChar": 42,
+        "endLine": 421,
+        "endChar": 43
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5754b88_017c6419",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "Let\u0027s drop 2 here too, or leave TODO for test-related constants.",
+      "range": {
+        "startLine": 30,
+        "startChar": 81,
+        "endLine": 30,
+        "endChar": 82
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3c34ae_d38b6003",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSessionManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 67,
+        "startChar": 42,
+        "endLine": 67,
+        "endChar": 43
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c71f3ae_2fba1d68",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/tests/MediaSessionManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T12:24:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 69,
+        "startChar": 31,
+        "endLine": 69,
+        "endChar": 32
+      },
+      "revId": "b990f83476056750c78c9d21133f8c2b88706523",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
