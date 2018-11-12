@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b4d29f7_44129799",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-12T22:11:35Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 1506,
+        "startChar": 10,
+        "endLine": 1506,
+        "endChar": 11
+      },
+      "revId": "b152601445538c63f40dae136b482534acdd668f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e94b2beb_5fcd8a41",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2572,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-12T22:11:35Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 2572,
+        "startChar": 66,
+        "endLine": 2572,
+        "endChar": 67
+      },
+      "revId": "b152601445538c63f40dae136b482534acdd668f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b2dddec_2fae3d5d",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-12T22:11:35Z",
+      "side": 1,
+      "message": "\"video\"",
+      "range": {
+        "startLine": 30,
+        "startChar": 37,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "b152601445538c63f40dae136b482534acdd668f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56d207c_dd99d2b6",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002682
+      },
+      "writtenOn": "2018-11-12T22:11:35Z",
+      "side": 1,
+      "message": "\"video\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 39,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "b152601445538c63f40dae136b482534acdd668f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
