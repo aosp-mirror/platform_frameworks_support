@@ -160,13 +160,23 @@ class MediaSession2Stub extends IMediaSession2.Stub {
     private void dispatchSessionTask(@NonNull IMediaController2 caller, int seq,
             final @CommandCode int commandCode,
             final @NonNull SessionTask task) {
-        dispatchSessionTaskInternal(caller, seq, null, commandCode, task);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            dispatchSessionTaskInternal(caller, seq, null, commandCode, task);
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     private void dispatchSessionTask(@NonNull IMediaController2 caller, int seq,
             @NonNull final SessionCommand2 sessionCommand,
             @NonNull final SessionTask task) {
-        dispatchSessionTaskInternal(caller, seq, sessionCommand, COMMAND_CODE_CUSTOM, task);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            dispatchSessionTaskInternal(caller, seq, sessionCommand, COMMAND_CODE_CUSTOM, task);
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     private void dispatchSessionTaskInternal(@NonNull IMediaController2 caller, final int seq,
@@ -305,7 +315,12 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (!(mSessionImpl instanceof MediaLibrarySessionImpl)) {
             throw new RuntimeException("MediaSession2 cannot handle MediaLibrarySession command");
         }
-        dispatchSessionTaskInternal(caller, seq, null, commandCode, task);
+        final long token = Binder.clearCallingIdentity();
+        try {
+            dispatchSessionTaskInternal(caller, seq, null, commandCode, task);
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     void connect(final IMediaController2 caller, final String callingPackage, final int pid,
@@ -315,97 +330,104 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         final ControllerInfo controllerInfo = new ControllerInfo(remoteUserInfo,
                 mSessionManager.isTrustedForMediaControl(remoteUserInfo),
                 new Controller2Cb(caller));
-        mSessionImpl.getCallbackExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mSessionImpl.isClosed()) {
-                    return;
-                }
-                final IBinder callbackBinder = ((Controller2Cb) controllerInfo.getControllerCb())
-                        .getCallbackBinder();
-                synchronized (mLock) {
-                    // Keep connecting controllers.
-                    // This helps sessions to call APIs in the onConnect()
-                    // (e.g. setCustomLayout()) instead of pending them.
-                    mConnectingControllers.add(callbackBinder);
-                }
-                SessionCommandGroup2 allowedCommands = mSessionImpl.getCallback().onConnect(
-                        mSessionImpl.getInstance(), controllerInfo);
-                // Don't reject connection for the request from trusted app.
-                // Otherwise server will fail to retrieve session's information to dispatch
-                // media keys to.
-                boolean accept = allowedCommands != null || controllerInfo.isTrusted();
-                if (accept) {
-                    if (DEBUG) {
-                        Log.d(TAG, "Accepting connection, controllerInfo=" + controllerInfo
-                                + " allowedCommands=" + allowedCommands);
-                    }
-                    if (allowedCommands == null) {
-                        // For trusted apps, send non-null allowed commands to keep
-                        // connection.
-                        allowedCommands = new SessionCommandGroup2();
-                    }
-                    synchronized (mLock) {
-                        mConnectingControllers.remove(callbackBinder);
-                        mConnectedControllersManager.addController(
-                                callbackBinder, controllerInfo, allowedCommands);
-                    }
-                    // If connection is accepted, notify the current state to the controller.
-                    // It's needed because we cannot call synchronous calls between
-                    // session/controller.
-                    // Note: We're doing this after the onConnectionChanged(), but there's no
-                    //       guarantee that events here are notified after the onConnected()
-                    //       because IMediaController2 is oneway (i.e. async call) and Stub will
-                    //       use thread poll for incoming calls.
-                    final int playerState = mSessionImpl.getPlayerState();
-                    final ParcelImpl currentItem = MediaUtils2.toParcelable(
-                            mSessionImpl.getCurrentMediaItem());
-                    final long positionEventTimeMs = SystemClock.elapsedRealtime();
-                    final long positionMs = mSessionImpl.getCurrentPosition();
-                    final float playbackSpeed = mSessionImpl.getPlaybackSpeed();
-                    final long bufferedPositionMs = mSessionImpl.getBufferedPosition();
-                    final ParcelImpl playbackInfo =
-                            MediaUtils2.toParcelable(mSessionImpl.getPlaybackInfo());
-                    final int repeatMode = mSessionImpl.getRepeatMode();
-                    final int shuffleMode = mSessionImpl.getShuffleMode();
-                    final PendingIntent sessionActivity = mSessionImpl.getSessionActivity();
-                    final List<MediaItem2> playlist =
-                            allowedCommands.hasCommand(
-                                    SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)
-                                    ? mSessionImpl.getPlaylist() : null;
-                    final ParcelImplListSlice playlistSlice =
-                            MediaUtils2.convertMediaItem2ListToParcelImplListSlice(playlist);
-
-                    // Double check if session is still there, because close() can be called in
-                    // another thread.
+        final long token = Binder.clearCallingIdentity();
+        try {
+            mSessionImpl.getCallbackExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
                     if (mSessionImpl.isClosed()) {
                         return;
                     }
-                    try {
-                        caller.onConnected(MediaSession2Stub.this,
-                                MediaUtils2.toParcelable(allowedCommands),
-                                playerState, currentItem, positionEventTimeMs, positionMs,
-                                playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
-                                shuffleMode, playlistSlice, sessionActivity);
-                    } catch (RemoteException e) {
-                        // Controller may be died prematurely.
-                    }
-                } else {
+                    final IBinder callbackBinder =
+                            ((Controller2Cb) controllerInfo.getControllerCb())
+                                    .getCallbackBinder();
                     synchronized (mLock) {
-                        mConnectingControllers.remove(callbackBinder);
+                        // Keep connecting controllers.
+                        // This helps sessions to call APIs in the onConnect()
+                        // (e.g. setCustomLayout()) instead of pending them.
+                        mConnectingControllers.add(callbackBinder);
                     }
-                    if (DEBUG) {
-                        Log.d(TAG, "Rejecting connection, controllerInfo=" + controllerInfo);
-                    }
-                    try {
-                        caller.onDisconnected();
-                    } catch (RemoteException e) {
-                        // Controller may be died prematurely.
-                        // Not an issue because we'll ignore it anyway.
+                    SessionCommandGroup2 allowedCommands = mSessionImpl.getCallback().onConnect(
+                            mSessionImpl.getInstance(), controllerInfo);
+                    // Don't reject connection for the request from trusted app.
+                    // Otherwise server will fail to retrieve session's information to dispatch
+                    // media keys to.
+                    boolean accept = allowedCommands != null || controllerInfo.isTrusted();
+                    if (accept) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Accepting connection, controllerInfo="
+                                    + controllerInfo + " allowedCommands=" + allowedCommands);
+                        }
+                        if (allowedCommands == null) {
+                            // For trusted apps, send non-null allowed commands to keep
+                            // connection.
+                            allowedCommands = new SessionCommandGroup2();
+                        }
+                        synchronized (mLock) {
+                            mConnectingControllers.remove(callbackBinder);
+                            mConnectedControllersManager.addController(
+                                    callbackBinder, controllerInfo, allowedCommands);
+                        }
+                        // If connection is accepted, notify the current state to the controller.
+                        // It's needed because we cannot call synchronous calls between
+                        // session/controller.
+                        // Note: We're doing this after the onConnectionChanged(), but there's no
+                        //       guarantee that events here are notified after the onConnected()
+                        //       because IMediaController2 is oneway (i.e. async call) and Stub will
+                        //       use thread poll for incoming calls.
+                        final int playerState = mSessionImpl.getPlayerState();
+                        final ParcelImpl currentItem = MediaUtils2.toParcelable(
+                                mSessionImpl.getCurrentMediaItem());
+                        final long positionEventTimeMs = SystemClock.elapsedRealtime();
+                        final long positionMs = mSessionImpl.getCurrentPosition();
+                        final float playbackSpeed = mSessionImpl.getPlaybackSpeed();
+                        final long bufferedPositionMs = mSessionImpl.getBufferedPosition();
+                        final ParcelImpl playbackInfo =
+                                MediaUtils2.toParcelable(mSessionImpl.getPlaybackInfo());
+                        final int repeatMode = mSessionImpl.getRepeatMode();
+                        final int shuffleMode = mSessionImpl.getShuffleMode();
+                        final PendingIntent sessionActivity = mSessionImpl.getSessionActivity();
+                        final List<MediaItem2> playlist =
+                                allowedCommands.hasCommand(
+                                        SessionCommand2.COMMAND_CODE_PLAYER_GET_PLAYLIST)
+                                        ? mSessionImpl.getPlaylist() : null;
+                        final ParcelImplListSlice playlistSlice =
+                                MediaUtils2.convertMediaItem2ListToParcelImplListSlice(playlist);
+
+                        // Double check if session is still there, because close() can be
+                        // called in another thread.
+                        if (mSessionImpl.isClosed()) {
+                            return;
+                        }
+                        try {
+                            caller.onConnected(MediaSession2Stub.this,
+                                    MediaUtils2.toParcelable(allowedCommands),
+                                    playerState, currentItem, positionEventTimeMs, positionMs,
+                                    playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
+                                    shuffleMode, playlistSlice, sessionActivity);
+                        } catch (RemoteException e) {
+                            // Controller may be died prematurely.
+                        }
+                    } else {
+                        synchronized (mLock) {
+                            mConnectingControllers.remove(callbackBinder);
+                        }
+                        if (DEBUG) {
+                            Log.d(TAG, "Rejecting connection, controllerInfo="
+                                    + controllerInfo);
+                        }
+                        try {
+                            caller.onDisconnected();
+                        } catch (RemoteException e) {
+                            // Controller may be died prematurely.
+                            // Not an issue because we'll ignore it anyway.
+                        }
                     }
                 }
-            }
-        });
+            });
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -447,7 +469,12 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null) {
             return;
         }
-        mConnectedControllersManager.removeController(caller.asBinder());
+        final long token = Binder.clearCallingIdentity();
+        try {
+            mConnectedControllersManager.removeController(caller.asBinder());
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
     }
 
     @Override
@@ -456,13 +483,18 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         if (caller == null || controllerResult == null) {
             return;
         }
-        SequencedFutureManager manager = mConnectedControllersManager.getSequencedFutureManager(
-                caller.asBinder());
-        if (manager == null) {
-            return;
+        final long token = Binder.clearCallingIdentity();
+        try {
+            SequencedFutureManager manager = mConnectedControllersManager.getSequencedFutureManager(
+                    caller.asBinder());
+            if (manager == null) {
+                return;
+            }
+            MediaController2.ControllerResult result = MediaUtils2.fromParcelable(controllerResult);
+            manager.setFutureResult(seq, SessionResult.from(result));
+        } finally {
+            Binder.restoreCallingIdentity(token);
         }
-        MediaController2.ControllerResult result = MediaUtils2.fromParcelable(controllerResult);
-        manager.setFutureResult(seq, SessionResult.from(result));
     }
 
     @Override
