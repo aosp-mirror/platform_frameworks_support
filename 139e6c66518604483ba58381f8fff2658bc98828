@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cec46bc0_a2452fee",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceStyle.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-12T18:42:30Z",
+      "side": 1,
+      "message": "did I write this? I don\u0027t even know what I mean.... feel free to remove..",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 79
+      },
+      "revId": "139e6c66518604483ba58381f8fff2658bc98828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
