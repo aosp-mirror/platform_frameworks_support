@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c235b55e_d1ec2142",
+        "filename": "media-widget/src/main/java/androidx/media/widget/MediaControlView2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-12T04:24:17Z",
+      "side": 1,
+      "message": "Add an empty line between methods.",
+      "revId": "86144b31766a56420e77b103d7d80ce9f5b7a4d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
