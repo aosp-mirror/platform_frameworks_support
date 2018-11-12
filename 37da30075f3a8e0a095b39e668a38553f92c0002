@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c8aabc3_a717f0a9",
+        "filename": "media2/api/1.0.0-alpha03.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:23:49Z",
+      "side": 1,
+      "message": "Correction: https://android-review.googlesource.com/c/platform/frameworks/support/+/813463",
+      "parentUuid": "048a0732_25bfddcf",
+      "range": {
+        "startLine": 185,
+        "startChar": 63,
+        "endLine": 185,
+        "endChar": 88
+      },
+      "revId": "37da30075f3a8e0a095b39e668a38553f92c0002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fb351ba_2c82b14c",
         "filename": "media2/api/1.0.0-alpha03.txt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-12T08:21:31Z",
       "side": 1,
       "message": "Note: This is a follow-up of aosp/821001 for missing api update.",
+      "range": {
+        "startLine": 269,
+        "startChar": 36,
+        "endLine": 269,
+        "endChar": 98
+      },
+      "revId": "37da30075f3a8e0a095b39e668a38553f92c0002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d807c10_8e10e866",
+        "filename": "media2/api/1.0.0-alpha03.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:23:49Z",
+      "side": 1,
+      "message": "Correction: https://android-review.googlesource.com/c/platform/frameworks/support/+/821001",
+      "parentUuid": "7fb351ba_2c82b14c",
       "range": {
         "startLine": 269,
         "startChar": 36,
