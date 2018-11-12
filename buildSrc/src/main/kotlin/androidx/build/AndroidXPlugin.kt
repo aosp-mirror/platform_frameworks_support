@@ -53,6 +53,8 @@ import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 import java.util.concurrent.ConcurrentHashMap
 import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -120,6 +122,13 @@ class AndroidXPlugin : Plugin<Project> {
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
+        if (project.hasProperty(SNAPSHOT_PROPERTY)) {
+            // To avoid conflicting snapshot versions, we are using date and time.
+            val snapshotDate = LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+            val newExtra = "-SNAPSHOT$snapshotDate"
+            project.extra.set(SNAPSHOT_VERSION_PROPERTY, newExtra)
+        }
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -153,7 +162,6 @@ class AndroidXPlugin : Plugin<Project> {
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
         buildTestApksTask.dependsOn(createCoverageJarTask)
-
         Release.createGlobalArchiveTask(this)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
@@ -166,7 +174,6 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
-
         // Iterate through all the project and substitute any artifact dependency of a
         // maxdepversions future configuration with the corresponding tip of tree project.
         subprojects { project ->
@@ -309,6 +316,9 @@ class AndroidXPlugin : Plugin<Project> {
         const val BUILD_TEST_APKS = "buildTestApks"
     }
 }
+
+const val SNAPSHOT_VERSION_PROPERTY = "snapshotVersion"
+const val SNAPSHOT_PROPERTY = "snapshot"
 
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
