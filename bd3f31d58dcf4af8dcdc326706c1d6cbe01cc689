@@ -164,6 +164,30 @@
       "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1522b446_781055d2",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:31:48Z",
+      "side": 1,
+      "message": "https://cs.corp.google.com/android/frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java?rcl\u003dd8bfc60262858674428a59a5de62b2aaa68fc966\u0026l\u003d1008",
+      "parentUuid": "cf126137_a20011dd",
+      "range": {
+        "startLine": 333,
+        "startChar": 8,
+        "endLine": 333,
+        "endChar": 57
+      },
+      "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
