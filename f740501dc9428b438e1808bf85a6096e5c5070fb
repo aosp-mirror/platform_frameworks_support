@@ -22,6 +22,30 @@
       "revId": "f740501dc9428b438e1808bf85a6096e5c5070fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5a3379_be011f7c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextSelection.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1344796
+      },
+      "writtenOn": "2018-11-12T08:25:51Z",
+      "side": 1,
+      "message": "It\u0027s nullable in platform and seems like a subtle incompatibility to introduce - so I\u0027d be tempted to match platform here. Looking at other builders with setExtras in androidx, all of the ones I could find accept null (though most don\u0027t have the correct annotation in the signature to indicate that).\nBased on that, I\u0027m tempted to leave this as-is. Please let me know if you feel strongly otherwise.",
+      "parentUuid": "c6d8bf61_050adf87",
+      "range": {
+        "startLine": 274,
+        "startChar": 33,
+        "endLine": 274,
+        "endChar": 56
+      },
+      "revId": "f740501dc9428b438e1808bf85a6096e5c5070fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
