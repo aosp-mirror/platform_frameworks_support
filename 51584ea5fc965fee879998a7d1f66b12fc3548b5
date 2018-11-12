@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81351319_cd672c7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T06:23:20Z",
+      "side": 1,
+      "message": "This seems to be not matching with the actual code change. Let\u0027s remove this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "51584ea5fc965fee879998a7d1f66b12fc3548b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
