@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9270a34_ca383b4c",
+        "filename": "appcompat/src/androidTest/res/layout/appcompat_spinner_activity.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "the indent seems different compared to the previous item, fix",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6bb59ec_d23b269e",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "you have a getter for the test, so can this be private? who else uses it?",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 16
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298a6d69_87782d5d",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "you lost the !mPopup.isShowing() check here, is that on purpose?",
+      "range": {
+        "startLine": 260,
+        "startChar": 24,
+        "endLine": 260,
+        "endChar": 88
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335c6a49_48cb2f1d",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "this code is repeated in 2 places, how about a private showPopup() method that does all this for you?",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 449,
+        "endChar": 13
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b0ee8c8_f81c78b0",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "should this be an exception?",
+      "range": {
+        "startLine": 831,
+        "startChar": 12,
+        "endLine": 831,
+        "endChar": 80
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c0d4d12_4c1544ac",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-12T11:47:26Z",
+      "side": 1,
+      "message": "are these known enum-ints? if so, use the tag for where they are defined, which will be an @IntDef where the values are. this will allow the IDE to flag when values that don\u0027t make sense are passed",
+      "range": {
+        "startLine": 947,
+        "startChar": 25,
+        "endLine": 947,
+        "endChar": 28
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
