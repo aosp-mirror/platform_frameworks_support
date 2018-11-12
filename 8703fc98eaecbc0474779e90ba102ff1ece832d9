@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fef508e_d4ad066a",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c595c5d_25dca154",
+      "range": {
+        "startLine": 1975,
+        "startChar": 56,
+        "endLine": 1975,
+        "endChar": 74
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2f9a298_158374ff",
         "filename": "core/api/1.1.0-alpha01.txt",
         "patchSetId": 16
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6ee35c35_56f2a6b4",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2f9a298_158374ff",
+      "range": {
+        "startLine": 1977,
+        "startChar": 163,
+        "endLine": 1977,
+        "endChar": 261
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0916a4d_2f194aea",
         "filename": "core/api/1.1.0-alpha01.txt",
         "patchSetId": 16
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-12T19:01:50Z",
       "side": 1,
       "message": "Nullability annotation here and below.",
+      "range": {
+        "startLine": 2450,
+        "startChar": 30,
+        "endLine": 2450,
+        "endChar": 125
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a07a7df_4ab0c361",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2450,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "I don\u0027t understand this, where is it needed?",
+      "parentUuid": "d0916a4d_2f194aea",
       "range": {
         "startLine": 2450,
         "startChar": 30,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3dc7d80b_42a483cf",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2483,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fd5bc98_d94383b1",
+      "range": {
+        "startLine": 2483,
+        "startChar": 4,
+        "endLine": 2483,
+        "endChar": 74
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6fbc607_3499b65b",
         "filename": "core/api/1.1.0-alpha01.txt",
         "patchSetId": 16
@@ -114,6 +210,30 @@
       "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "525929a1_65fc5ba5",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6fbc607_3499b65b",
+      "range": {
+        "startLine": 2484,
+        "startChar": 4,
+        "endLine": 2484,
+        "endChar": 94
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "aec7c695_67712e35",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2594,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91112ab0_bd272262",
+      "range": {
+        "startLine": 2594,
+        "startChar": 34,
+        "endLine": 2594,
+        "endChar": 52
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eb1439f_c90aa84a",
         "filename": "core/api/1.1.0-alpha01.txt",
         "patchSetId": 16
@@ -160,6 +304,30 @@
       "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814316b4_19fc322b",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2607,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-12T21:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eb1439f_c90aa84a",
+      "range": {
+        "startLine": 2607,
+        "startChar": 57,
+        "endLine": 2607,
+        "endChar": 61
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
