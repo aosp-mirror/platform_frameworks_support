@@ -140,6 +140,30 @@
       "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf126137_a20011dd",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2Stub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-12T08:29:31Z",
+      "side": 1,
+      "message": "That\u0027s right. But we can just store the uid and pid before cleaning them. For example:\n\n  final int uid \u003d Binder.get*Uid();\n  final int pid \u003d Binder.get*Pid();\n\n  token \u003d Binder.clearCallingIdentity();\n  connect(..., uid, pid);\n  Binder.restoreCallingIdentity(token);",
+      "parentUuid": "ec9edad3_ef76ec73",
+      "range": {
+        "startLine": 333,
+        "startChar": 8,
+        "endLine": 333,
+        "endChar": 57
+      },
+      "revId": "bd3f31d58dcf4af8dcdc326706c1d6cbe01cc689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
