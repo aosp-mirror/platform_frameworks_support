@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ea38b70_6c748ec5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/LocaleTestUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "Is it a direct copy? Might be easier to maintain if it were, and we just kept it as Java. Or have you made multiple changes to it?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 218
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f98f46e4_e3b99ceb",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/LocaleTestUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "nit: we assume the default language is not RTL.. most likely fine, but it\u0027d be better not to rely on that",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 46
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caef4449_aaa66d60",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "I\u0027d add an assertion that if config.rtl\u003d\u003dfalse then the language is LTR. It\u0027d enforce the assumed contract that we rely on here.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f989a59_a11df438",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "nit: I\u0027d sometimes add config\u0027s fields to the \u0027global namespace\u0027. In here it\u0027d mean adding a line config.apply { \u003cexisting code starting from setUpTest\u003e }",
+      "range": {
+        "startLine": 221,
+        "startChar": 18,
+        "endLine": 221,
+        "endChar": 36
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a567b1df_8889c4e2",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "nit: I\u0027d skip attributes names here",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 758,
+        "endChar": 38
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aabdd5e5_624e83eb",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/ViewAdapter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "We probably need this in the FragmentAdapter as well",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce503ae6_0b4127ea",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-12T15:35:44Z",
+      "side": 1,
+      "message": "nit: change to \"found\"?\nfeel free to ignore",
+      "range": {
+        "startLine": 224,
+        "startChar": 40,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "4815695603d3468d10540859d6fee64af6936cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
