@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65ac62c5_5e635594",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-12T21:01:18Z",
+      "side": 1,
+      "message": "super nitpick... please fix format regarding spaces: \"/* var_name\u003d */ value\"",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ac3f61_a65cc19a",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-12T21:01:18Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 130,
+        "startChar": 47,
+        "endLine": 130,
+        "endChar": 48
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4011a65b_140b31f0",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-12T21:01:18Z",
+      "side": 1,
+      "message": "nit: can you add an empty line here",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9846ef6_d755e4c2",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-12T21:01:18Z",
+      "side": 1,
+      "message": "again, this demo activity doesn\u0027t work if it runs on a taller screen. \n\nif it\u0027s only for testing, it\u0027s no longer needed after the change is submitted. if you want to keep it, i think some changes will make it work on all screen sizes by supporting adjusting PLV height (maybe add a progress bar)",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
