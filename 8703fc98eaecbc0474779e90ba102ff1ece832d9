@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c595c5d_25dca154",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Needs nullability annotation.",
+      "range": {
+        "startLine": 1975,
+        "startChar": 56,
+        "endLine": 1975,
+        "endChar": 74
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2f9a298_158374ff",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Needs nullability annotation.",
+      "range": {
+        "startLine": 1977,
+        "startChar": 163,
+        "endLine": 1977,
+        "endChar": 261
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0916a4d_2f194aea",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2450,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Nullability annotation here and below.",
+      "range": {
+        "startLine": 2450,
+        "startChar": 30,
+        "endLine": 2450,
+        "endChar": 125
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fd5bc98_d94383b1",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2483,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Don\u0027t expose this as API.",
+      "range": {
+        "startLine": 2483,
+        "startChar": 4,
+        "endLine": 2483,
+        "endChar": 74
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6fbc607_3499b65b",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Don\u0027t expose this as API.",
+      "range": {
+        "startLine": 2484,
+        "startChar": 4,
+        "endLine": 2484,
+        "endChar": 94
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91112ab0_bd272262",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2594,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Nullability annotation",
+      "range": {
+        "startLine": 2594,
+        "startChar": 34,
+        "endLine": 2594,
+        "endChar": 52
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb1439f_c90aa84a",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2607,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-12T19:01:50Z",
+      "side": 1,
+      "message": "Html here and elsewhere for consistency with platform APIs.",
+      "range": {
+        "startLine": 2607,
+        "startChar": 57,
+        "endLine": 2607,
+        "endChar": 61
+      },
+      "revId": "8703fc98eaecbc0474779e90ba102ff1ece832d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
