@@ -32,7 +32,7 @@ def includeProject(name, filePath) {
 // Libraries
 //
 /////////////////////////////
-
+includeProject(":dependencytest", "dependencytest")
 includeProject(":activity", "activity")
 includeProject(":activity-ktx", "activity/ktx")
 includeProject(":annotation", "annotations")
