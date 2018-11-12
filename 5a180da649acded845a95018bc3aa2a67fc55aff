@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8416ad84_b4469d63",
+        "filename": "fragment/testing/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-12T17:00:20Z",
+      "side": 1,
+      "message": "Remove this dependency. See other note on how to avoid ViewModelProviders.of()",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "5a180da649acded845a95018bc3aa2a67fc55aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28cc5df9_00f4cff2",
+        "filename": "fragment/testing/src/main/java/androidx/fragment/app/testing/FragmentScenario.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-12T17:00:20Z",
+      "side": 1,
+      "message": "Replace this with:\nViewModelProvider viewModelProvider \u003d new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()));\nFragmentFactory factory \u003d viewModelProvider\n    .get(FragmentFactoryHolderViewModel.class)\n    .getFragmentFactory();",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "5a180da649acded845a95018bc3aa2a67fc55aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
