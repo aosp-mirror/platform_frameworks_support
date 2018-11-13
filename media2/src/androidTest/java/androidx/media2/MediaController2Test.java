@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -613,14 +614,16 @@ public class MediaController2Test extends MediaSession2TestBase {
         final List<MediaItem2> list = TestUtils.createMediaItems(listSize);
         mPlayer.setPlaylist(list, null);
 
-        final MediaItem2 currentItem = list.get(3);
+        final int index = 3;
+        final MediaItem2 currentItem = list.get(index);
         final MediaItem2 unknownItem = TestUtils.createMediaItemWithMetadata();
         final CountDownLatch latch = new CountDownLatch(3);
         final MediaController2 controller =
                 createController(mSession.getToken(), true, new ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(MediaController2 controller,
-                            MediaItem2 item) {
+                            MediaItem2 item, int index) {
+                        Log.v(TAG, "HIYA index: " + index);
                         switch ((int) latch.getCount()) {
                             case 3:
                                 assertEquals(unknownItem, item);
@@ -636,11 +639,11 @@ public class MediaController2Test extends MediaSession2TestBase {
                 });
 
         // Player notifies with the unknown item. It's still OK.
-        mPlayer.notifyCurrentMediaItemChanged(unknownItem);
+        mPlayer.notifyCurrentMediaItemChanged(unknownItem, -1);
         // Known DSD should be notified through the onCurrentMediaItemChanged.
-        mPlayer.notifyCurrentMediaItemChanged(currentItem);
+        mPlayer.notifyCurrentMediaItemChanged(currentItem, index);
         // Null DSD becomes null MediaItem2.
-        mPlayer.notifyCurrentMediaItemChanged(null);
+        mPlayer.notifyCurrentMediaItemChanged(null, -1);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -1548,7 +1551,7 @@ public class MediaController2Test extends MediaSession2TestBase {
         final ControllerCallback callback = new ControllerCallback() {
             @Override
             public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
-                    @Nullable MediaItem2 item) {
+                    @Nullable MediaItem2 item, int index) {
                 MediaMetadata2 metadata = item.getMetadata();
                 if (metadata != null) {
                     switch ((int) latch.getCount()) {
@@ -1568,7 +1571,7 @@ public class MediaController2Test extends MediaSession2TestBase {
         };
         MediaController2 controller = createController(mSession.getToken(), true, callback);
         mPlayer.setMediaItem(item);
-        mPlayer.notifyCurrentMediaItemChanged(item);
+        mPlayer.notifyCurrentMediaItemChanged(item, -1);
         assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         item.setMetadata(TestUtils.createMetadata(item.getMediaId(), duration));
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));

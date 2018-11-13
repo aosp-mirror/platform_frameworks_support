@@ -1363,8 +1363,8 @@ class MediaSession2Stub extends IMediaSession2.Stub {
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
-            mIControllerCallback.onCurrentMediaItemChanged(MediaUtils2.toParcelable(item));
+        void onCurrentMediaItemChanged(MediaItem2 item, int index) throws RemoteException {
+            mIControllerCallback.onCurrentMediaItemChanged(MediaUtils2.toParcelable(item), index);
         }
 
         @Override

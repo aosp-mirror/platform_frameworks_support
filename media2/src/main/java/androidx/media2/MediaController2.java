@@ -1259,10 +1259,11 @@ public class MediaController2 implements AutoCloseable {
          *
          * @param controller the controller for this event
          * @param item new item
+         * @param index index of current media item in playlist, or -1 if playlist is null.
          * @see #onBufferingStateChanged(MediaController2, MediaItem2, int)
          */
         public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
-                @Nullable MediaItem2 item) { }
+                @Nullable MediaItem2 item, int index) { }
 
         /**
          * Called when a playlist is changed.

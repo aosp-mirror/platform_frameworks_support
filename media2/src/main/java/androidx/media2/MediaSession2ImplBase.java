@@ -936,7 +936,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
             dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
-                    callback.onCurrentMediaItemChanged(newCurrentItem);
+                    callback.onCurrentMediaItemChanged(newCurrentItem,
+                            ((SessionPlayerCallback) mPlayerCallback).mCurrentItemIndex);
                 }
             });
         }
@@ -1142,6 +1143,7 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         private List<MediaItem2> mList;
         private final CurrentMediaItemListener mCurrentItemChangedListener;
         private final PlaylistItemListener mPlaylistItemChangedListener;
+        private int mCurrentItemIndex;
 
         SessionPlayerCallback(MediaSession2ImplBase session) {
             mSession = new WeakReference<>(session);
@@ -1150,7 +1152,8 @@ class MediaSession2ImplBase implements MediaSession2Impl {
         }
 
         @Override
-        public void onCurrentMediaItemChanged(final SessionPlayer2 player, final MediaItem2 item) {
+        public void onCurrentMediaItemChanged(final SessionPlayer2 player, final MediaItem2 item,
+                final int index) {
             final MediaSession2ImplBase session = getSession();
             if (session == null || session.getPlayer() != player || player == null) {
                 return;
@@ -1165,13 +1168,14 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 }
                 mMediaItem = item;
             }
+            mCurrentItemIndex = index;
 
             // Note: No sanity check whether the item is in the playlist.
             updateDurationIfNeeded(player, item);
             session.dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
-                    callback.onCurrentMediaItemChanged(item);
+                    callback.onCurrentMediaItemChanged(item, index);
                 }
             });
         }
@@ -1409,7 +1413,9 @@ class MediaSession2ImplBase implements MediaSession2Impl {
                 session.dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {
                     @Override
                     public void run(ControllerCb callback) throws RemoteException {
-                        callback.onCurrentMediaItemChanged(item);
+                        callback.onCurrentMediaItemChanged(item,
+                                ((SessionPlayerCallback) session.mPlayerCallback)
+                                        .mCurrentItemIndex);
                     }
                 });
             }
