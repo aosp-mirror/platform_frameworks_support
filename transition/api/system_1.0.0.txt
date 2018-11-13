@@ -1,0 +1,45 @@
+// Signature format: 2.0
+package androidx.transition {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FragmentTransitionSupport extends androidx.fragment.app.FragmentTransitionImpl {
+    ctor public FragmentTransitionSupport();
+    method public void addTarget(Object!, android.view.View!);
+    method public void addTargets(Object!, java.util.ArrayList<android.view.View>!);
+    method public void beginDelayedTransition(android.view.ViewGroup!, Object!);
+    method public boolean canHandle(Object!);
+    method public Object! cloneTransition(Object!);
+    method public Object! mergeTransitionsInSequence(Object!, Object!, Object!);
+    method public Object! mergeTransitionsTogether(Object!, Object!, Object!);
+    method public void removeTarget(Object!, android.view.View!);
+    method public void replaceTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public void scheduleHideFragmentView(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method public void scheduleRemoveTargets(Object!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!);
+    method public void setEpicenter(Object!, android.view.View!);
+    method public void setEpicenter(Object!, android.graphics.Rect!);
+    method public void setSharedElementTargets(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method public void swapSharedElementTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public Object! wrapTransitionInSet(Object!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({android.view.Gravity.LEFT, android.view.Gravity.TOP, android.view.Gravity.RIGHT, android.view.Gravity.BOTTOM, android.view.Gravity.START, android.view.Gravity.END}) public static @interface Slide.GravityFlag {
+  }
+
+  public abstract class Transition implements java.lang.Cloneable {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void animate(android.animation.Animator!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void cancel();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void createAnimators(android.view.ViewGroup!, androidx.transition.TransitionValuesMaps!, androidx.transition.TransitionValuesMaps!, java.util.ArrayList<androidx.transition.TransitionValues>!, java.util.ArrayList<androidx.transition.TransitionValues>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void end();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void pause(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void resume(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void runAnimators();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void start();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.transition.Transition.MATCH_INSTANCE, androidx.transition.Transition.MATCH_NAME, androidx.transition.Transition.MATCH_ID, androidx.transition.Transition.MATCH_ITEM_ID}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface Transition.MatchOrder {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef(flag=true, value={androidx.transition.Visibility.MODE_IN, androidx.transition.Visibility.MODE_OUT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface Visibility.Mode {
+  }
+
+}
+

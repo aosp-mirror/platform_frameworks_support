@@ -1,0 +1,11 @@
+// Signature format: 2.0
+package androidx.paging {
+
+  @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class LivePagedListProvider<Key, Value> extends androidx.paging.DataSource.Factory<Key,Value> {
+    ctor @Deprecated public LivePagedListProvider();
+    method @Deprecated public androidx.paging.DataSource<Key,Value>! create();
+    method @Deprecated @WorkerThread protected abstract androidx.paging.DataSource<Key,Value>! createDataSource();
+  }
+
+}
+

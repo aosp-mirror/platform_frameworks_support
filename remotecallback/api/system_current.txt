@@ -1,0 +1,34 @@
+// Signature format: 2.0
+package androidx.remotecallback {
+
+  public class AppWidgetProviderWithCallbacks<T extends androidx.remotecallback.CallbackReceiver> extends android.appwidget.AppWidgetProvider implements androidx.remotecallback.CallbackReceiver<T> {
+    method public androidx.remotecallback.RemoteCallback! toRemoteCallback(Class<T>!, android.os.Bundle!, String!);
+  }
+
+  public abstract class BroadcastReceiverWithCallbacks<T extends androidx.remotecallback.CallbackReceiver> extends android.content.BroadcastReceiver implements androidx.remotecallback.CallbackReceiver<T> {
+    method public androidx.remotecallback.RemoteCallback! toRemoteCallback(Class<T>!, android.os.Bundle!, String!);
+  }
+
+  public interface CallbackReceiver<T> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public androidx.remotecallback.RemoteCallback! toRemoteCallback(Class<T>!, android.os.Bundle!, String!);
+  }
+
+  public abstract class ContentProviderWithCallbacks<T extends androidx.remotecallback.ContentProviderWithCallbacks> extends android.content.ContentProvider implements androidx.remotecallback.CallbackReceiver<T> {
+    method public androidx.remotecallback.RemoteCallback! toRemoteCallback(Class<T>!, android.os.Bundle!, String!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public class ProviderRelayReceiver extends android.content.BroadcastReceiver {
+    ctor public ProviderRelayReceiver();
+    method public void onReceive(android.content.Context!, android.content.Intent!);
+    field public static final String ACTION_PROVIDER_RELAY = "androidx.remotecallback.action.PROVIDER_RELAY";
+  }
+
+  public class RemoteCallback {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public RemoteCallback(android.content.Context, @androidx.remotecallback.RemoteCallback.RemoteCallbackType int, android.content.Intent, String, android.os.Bundle);
+  }
+
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.remotecallback.RemoteCallback.TYPE_RECEIVER, androidx.remotecallback.RemoteCallback.TYPE_PROVIDER}) public static @interface RemoteCallback.RemoteCallbackType {
+  }
+
+}
+

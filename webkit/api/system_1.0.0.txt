@@ -1,0 +1,63 @@
+// Signature format: 2.0
+package androidx.webkit {
+
+  public abstract class SafeBrowsingResponseCompat {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public SafeBrowsingResponseCompat();
+  }
+
+  public abstract class ServiceWorkerControllerCompat {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public ServiceWorkerControllerCompat();
+  }
+
+  public abstract class ServiceWorkerWebSettingsCompat {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public ServiceWorkerWebSettingsCompat();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({android.webkit.WebSettings.LOAD_DEFAULT, android.webkit.WebSettings.LOAD_CACHE_ELSE_NETWORK, android.webkit.WebSettings.LOAD_NO_CACHE, android.webkit.WebSettings.LOAD_CACHE_ONLY}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface ServiceWorkerWebSettingsCompat.CacheMode {
+  }
+
+  public abstract class WebMessagePortCompat {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public WebMessagePortCompat();
+    method @RequiresApi(23) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract android.webkit.WebMessagePort! getFrameworkPort();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract java.lang.reflect.InvocationHandler! getInvocationHandler();
+  }
+
+  public abstract class WebResourceErrorCompat {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public WebResourceErrorCompat();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({android.webkit.WebViewClient.ERROR_UNKNOWN, android.webkit.WebViewClient.ERROR_HOST_LOOKUP, android.webkit.WebViewClient.ERROR_UNSUPPORTED_AUTH_SCHEME, android.webkit.WebViewClient.ERROR_AUTHENTICATION, android.webkit.WebViewClient.ERROR_PROXY_AUTHENTICATION, android.webkit.WebViewClient.ERROR_CONNECT, android.webkit.WebViewClient.ERROR_IO, android.webkit.WebViewClient.ERROR_TIMEOUT, android.webkit.WebViewClient.ERROR_REDIRECT_LOOP, android.webkit.WebViewClient.ERROR_UNSUPPORTED_SCHEME, android.webkit.WebViewClient.ERROR_FAILED_SSL_HANDSHAKE, android.webkit.WebViewClient.ERROR_BAD_URL, android.webkit.WebViewClient.ERROR_FILE, android.webkit.WebViewClient.ERROR_FILE_NOT_FOUND, android.webkit.WebViewClient.ERROR_TOO_MANY_REQUESTS, android.webkit.WebViewClient.ERROR_UNSAFE_RESOURCE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface WebResourceErrorCompat.NetErrorCode {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef(flag=true, value={android.webkit.WebSettings.MENU_ITEM_NONE, android.webkit.WebSettings.MENU_ITEM_SHARE, android.webkit.WebSettings.MENU_ITEM_WEB_SEARCH, android.webkit.WebSettings.MENU_ITEM_PROCESS_TEXT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @java.lang.annotation.Target({java.lang.annotation.ElementType.PARAMETER, java.lang.annotation.ElementType.METHOD}) public static @interface WebSettingsCompat.MenuItemFlags {
+  }
+
+  public class WebViewClientCompat extends android.webkit.WebViewClient {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final String[]! getSupportedFeatures();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(21) public final void onReceivedError(android.webkit.WebView, android.webkit.WebResourceRequest, java.lang.reflect.InvocationHandler);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(23) public final void onReceivedError(android.webkit.WebView, android.webkit.WebResourceRequest, android.webkit.WebResourceError);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void onSafeBrowsingHit(android.webkit.WebView, android.webkit.WebResourceRequest, @androidx.webkit.WebViewClientCompat.SafeBrowsingThreat int, java.lang.reflect.InvocationHandler);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(27) public final void onSafeBrowsingHit(android.webkit.WebView, android.webkit.WebResourceRequest, @androidx.webkit.WebViewClientCompat.SafeBrowsingThreat int, android.webkit.SafeBrowsingResponse);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({android.webkit.WebViewClient.SAFE_BROWSING_THREAT_UNKNOWN, android.webkit.WebViewClient.SAFE_BROWSING_THREAT_MALWARE, android.webkit.WebViewClient.SAFE_BROWSING_THREAT_PHISHING, android.webkit.WebViewClient.SAFE_BROWSING_THREAT_UNWANTED_SOFTWARE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface WebViewClientCompat.SafeBrowsingThreat {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @StringDef({androidx.webkit.WebViewFeature.VISUAL_STATE_CALLBACK, androidx.webkit.WebViewFeature.OFF_SCREEN_PRERASTER, androidx.webkit.WebViewFeature.SAFE_BROWSING_ENABLE, androidx.webkit.WebViewFeature.DISABLED_ACTION_MODE_MENU_ITEMS, androidx.webkit.WebViewFeature.START_SAFE_BROWSING, androidx.webkit.WebViewFeature.SAFE_BROWSING_WHITELIST, androidx.webkit.WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL, androidx.webkit.WebViewFeature.SERVICE_WORKER_BASIC_USAGE, androidx.webkit.WebViewFeature.SERVICE_WORKER_CACHE_MODE, androidx.webkit.WebViewFeature.SERVICE_WORKER_CONTENT_ACCESS, androidx.webkit.WebViewFeature.SERVICE_WORKER_FILE_ACCESS, androidx.webkit.WebViewFeature.SERVICE_WORKER_BLOCK_NETWORK_LOADS, androidx.webkit.WebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST, androidx.webkit.WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR, androidx.webkit.WebViewFeature.RECEIVE_HTTP_ERROR, androidx.webkit.WebViewFeature.SHOULD_OVERRIDE_WITH_REDIRECTS, androidx.webkit.WebViewFeature.SAFE_BROWSING_HIT, androidx.webkit.WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT, androidx.webkit.WebViewFeature.WEB_RESOURCE_ERROR_GET_DESCRIPTION, androidx.webkit.WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE, androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY, androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED, androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_SHOW_INTERSTITIAL, androidx.webkit.WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE, androidx.webkit.WebViewFeature.WEB_MESSAGE_PORT_CLOSE, androidx.webkit.WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK, androidx.webkit.WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL, androidx.webkit.WebViewFeature.POST_WEB_MESSAGE, androidx.webkit.WebViewFeature.WEB_MESSAGE_CALLBACK_ON_MESSAGE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @java.lang.annotation.Target({java.lang.annotation.ElementType.PARAMETER, java.lang.annotation.ElementType.METHOD}) public static @interface WebViewFeature.WebViewSupportFeature {
+  }
+
+  public abstract class WebViewRenderer {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public WebViewRenderer();
+  }
+
+}
+
+package @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) androidx.webkit.internal {
+
+  public class WebMessagePortImpl extends androidx.webkit.WebMessagePortCompat {
+    method @RequiresApi(23) public android.webkit.WebMessagePort! getFrameworkPort();
+    method public java.lang.reflect.InvocationHandler! getInvocationHandler();
+  }
+
+}
+

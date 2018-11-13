@@ -1,0 +1,23 @@
+// Signature format: 2.0
+package @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) androidx.work.impl.background.firebase {
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseDelayedJobAlarmReceiver extends android.content.BroadcastReceiver {
+    ctor public FirebaseDelayedJobAlarmReceiver();
+    method public void onReceive(android.content.Context!, android.content.Intent!);
+  }
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseJobScheduler implements androidx.work.impl.Scheduler {
+    ctor public FirebaseJobScheduler(android.content.Context);
+    method public void cancel(String);
+    method public void schedule(androidx.work.impl.model.WorkSpec...!);
+  }
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseJobService extends com.firebase.jobdispatcher.JobService implements androidx.work.impl.ExecutionListener {
+    ctor public FirebaseJobService();
+    method public void onExecuted(String, boolean);
+    method public boolean onStartJob(com.firebase.jobdispatcher.JobParameters!);
+    method public boolean onStopJob(com.firebase.jobdispatcher.JobParameters!);
+  }
+
+}
+
