@@ -1,0 +1,225 @@
+// Signature format: 2.0
+package androidx.viewpager.widget {
+
+  public abstract class PagerAdapter {
+    method void setViewPagerObserver(android.database.DataSetObserver!);
+    field private final android.database.DataSetObservable! mObservable;
+    field private android.database.DataSetObserver! mViewPagerObserver;
+  }
+
+  public class PagerTabStrip extends androidx.viewpager.widget.PagerTitleStrip {
+    method int getMinHeight();
+    method void updateTextPositions(int, float, boolean);
+    field private static final int FULL_UNDERLINE_HEIGHT = 1; // 0x1
+    field private static final int INDICATOR_HEIGHT = 3; // 0x3
+    field private static final int MIN_PADDING_BOTTOM = 6; // 0x6
+    field private static final int MIN_STRIP_HEIGHT = 32; // 0x20
+    field private static final int MIN_TEXT_SPACING = 64; // 0x40
+    field private static final int TAB_PADDING = 16; // 0x10
+    field private static final int TAB_SPACING = 32; // 0x20
+    field private boolean mDrawFullUnderline;
+    field private boolean mDrawFullUnderlineSet;
+    field private int mFullUnderlineHeight;
+    field private boolean mIgnoreTap;
+    field private int mIndicatorColor;
+    field private int mIndicatorHeight;
+    field private float mInitialMotionX;
+    field private float mInitialMotionY;
+    field private int mMinPaddingBottom;
+    field private int mMinStripHeight;
+    field private int mMinTextSpacing;
+    field private int mTabAlpha;
+    field private int mTabPadding;
+    field private final android.graphics.Paint! mTabPaint;
+    field private final android.graphics.Rect! mTempRect;
+    field private int mTouchSlop;
+  }
+
+  @androidx.viewpager.widget.ViewPager.DecorView public class PagerTitleStrip extends android.view.ViewGroup {
+    method int getMinHeight();
+    method private static void setSingleLineAllCaps(android.widget.TextView!);
+    method void updateAdapter(androidx.viewpager.widget.PagerAdapter!, androidx.viewpager.widget.PagerAdapter!);
+    method void updateText(int, androidx.viewpager.widget.PagerAdapter!);
+    method void updateTextPositions(int, float, boolean);
+    field private static final int[]! ATTRS;
+    field private static final float SIDE_ALPHA = 0.6f;
+    field private static final int[]! TEXT_ATTRS;
+    field private static final int TEXT_SPACING = 16; // 0x10
+    field android.widget.TextView! mCurrText;
+    field private int mGravity;
+    field private int mLastKnownCurrentPage;
+    field float mLastKnownPositionOffset;
+    field android.widget.TextView! mNextText;
+    field private int mNonPrimaryAlpha;
+    field private final androidx.viewpager.widget.PagerTitleStrip.PageListener! mPageListener;
+    field androidx.viewpager.widget.ViewPager! mPager;
+    field android.widget.TextView! mPrevText;
+    field private int mScaledTextSpacing;
+    field int mTextColor;
+    field private boolean mUpdatingPositions;
+    field private boolean mUpdatingText;
+    field private java.lang.ref.WeakReference<androidx.viewpager.widget.PagerAdapter>! mWatchingAdapter;
+  }
+
+  private class PagerTitleStrip.PageListener extends android.database.DataSetObserver implements androidx.viewpager.widget.ViewPager.OnAdapterChangeListener androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+    ctor PagerTitleStrip.PageListener();
+    field private int mScrollState;
+  }
+
+  private static class PagerTitleStrip.SingleLineAllCapsTransform extends android.text.method.SingleLineTransformationMethod {
+    ctor PagerTitleStrip.SingleLineAllCapsTransform(android.content.Context!);
+    field private java.util.Locale! mLocale;
+  }
+
+  public class ViewPager extends android.view.ViewGroup {
+    method androidx.viewpager.widget.ViewPager.ItemInfo! addNewItem(int, int);
+    method private void calculatePageOffsets(androidx.viewpager.widget.ViewPager.ItemInfo!, int, androidx.viewpager.widget.ViewPager.ItemInfo!);
+    method private void completeScroll(boolean);
+    method void dataSetChanged();
+    method private int determineTargetPage(int, float, int, int);
+    method private void dispatchOnPageScrolled(int, float, int);
+    method private void dispatchOnPageSelected(int);
+    method private void dispatchOnScrollStateChanged(int);
+    method float distanceInfluenceForSnapDuration(float);
+    method private void enableLayers(boolean);
+    method private void endDrag();
+    method private android.graphics.Rect! getChildRectInPagerCoordinates(android.graphics.Rect!, android.view.View!);
+    method private int getClientWidth();
+    method androidx.viewpager.widget.ViewPager.ItemInfo! infoForAnyChild(android.view.View!);
+    method androidx.viewpager.widget.ViewPager.ItemInfo! infoForChild(android.view.View!);
+    method private androidx.viewpager.widget.ViewPager.ItemInfo! infoForCurrentScrollPosition();
+    method androidx.viewpager.widget.ViewPager.ItemInfo! infoForPosition(int);
+    method void initViewPager();
+    method private static boolean isDecorView(android.view.View);
+    method private boolean isGutterDrag(float, float);
+    method private void onSecondaryPointerUp(android.view.MotionEvent!);
+    method boolean pageLeft();
+    method boolean pageRight();
+    method private boolean pageScrolled(int);
+    method private boolean performDrag(float);
+    method void populate();
+    method void populate(int);
+    method private void recomputeScrollPosition(int, int, int, int);
+    method private void removeNonDecorViews();
+    method private void requestParentDisallowInterceptTouchEvent(boolean);
+    method private boolean resetTouch();
+    method private void scrollToItem(int, boolean, int, boolean);
+    method void setCurrentItemInternal(int, boolean, boolean);
+    method void setCurrentItemInternal(int, boolean, boolean, int);
+    method androidx.viewpager.widget.ViewPager.OnPageChangeListener! setInternalPageChangeListener(androidx.viewpager.widget.ViewPager.OnPageChangeListener!);
+    method void setScrollState(int);
+    method private void setScrollingCacheEnabled(boolean);
+    method void smoothScrollTo(int, int, int);
+    method private void sortChildDrawingOrder();
+    field private static final int CLOSE_ENOUGH = 2; // 0x2
+    field private static final java.util.Comparator<androidx.viewpager.widget.ViewPager.ItemInfo>! COMPARATOR;
+    field private static final boolean DEBUG = false;
+    field private static final int DEFAULT_GUTTER_SIZE = 16; // 0x10
+    field private static final int DEFAULT_OFFSCREEN_PAGES = 1; // 0x1
+    field private static final int DRAW_ORDER_DEFAULT = 0; // 0x0
+    field private static final int DRAW_ORDER_FORWARD = 1; // 0x1
+    field private static final int DRAW_ORDER_REVERSE = 2; // 0x2
+    field private static final int INVALID_POINTER = -1; // 0xffffffff
+    field static final int[]! LAYOUT_ATTRS;
+    field private static final int MAX_SETTLE_DURATION = 600; // 0x258
+    field private static final int MIN_DISTANCE_FOR_FLING = 25; // 0x19
+    field private static final int MIN_FLING_VELOCITY = 400; // 0x190
+    field private static final String TAG = "ViewPager";
+    field private static final boolean USE_CACHE = false;
+    field private int mActivePointerId;
+    field androidx.viewpager.widget.PagerAdapter! mAdapter;
+    field private java.util.List<androidx.viewpager.widget.ViewPager.OnAdapterChangeListener>! mAdapterChangeListeners;
+    field private int mBottomPageBounds;
+    field private boolean mCalledSuper;
+    field private int mCloseEnough;
+    field int mCurItem;
+    field private int mDecorChildCount;
+    field private int mDefaultGutterSize;
+    field private boolean mDragInGutterEnabled;
+    field private int mDrawingOrder;
+    field private java.util.ArrayList<android.view.View>! mDrawingOrderedChildren;
+    field private final Runnable! mEndScrollRunnable;
+    field private int mExpectedAdapterCount;
+    field private long mFakeDragBeginTime;
+    field private boolean mFakeDragging;
+    field private boolean mFirstLayout;
+    field private float mFirstOffset;
+    field private int mFlingDistance;
+    field private int mGutterSize;
+    field private boolean mInLayout;
+    field private float mInitialMotionX;
+    field private float mInitialMotionY;
+    field private androidx.viewpager.widget.ViewPager.OnPageChangeListener! mInternalPageChangeListener;
+    field private boolean mIsBeingDragged;
+    field private boolean mIsScrollStarted;
+    field private boolean mIsUnableToDrag;
+    field private final java.util.ArrayList<androidx.viewpager.widget.ViewPager.ItemInfo>! mItems;
+    field private float mLastMotionX;
+    field private float mLastMotionY;
+    field private float mLastOffset;
+    field private android.widget.EdgeEffect! mLeftEdge;
+    field private android.graphics.drawable.Drawable! mMarginDrawable;
+    field private int mMaximumVelocity;
+    field private int mMinimumVelocity;
+    field private androidx.viewpager.widget.ViewPager.PagerObserver! mObserver;
+    field private int mOffscreenPageLimit;
+    field private androidx.viewpager.widget.ViewPager.OnPageChangeListener! mOnPageChangeListener;
+    field private java.util.List<androidx.viewpager.widget.ViewPager.OnPageChangeListener>! mOnPageChangeListeners;
+    field private int mPageMargin;
+    field private androidx.viewpager.widget.ViewPager.PageTransformer! mPageTransformer;
+    field private int mPageTransformerLayerType;
+    field private boolean mPopulatePending;
+    field private android.os.Parcelable! mRestoredAdapterState;
+    field private ClassLoader! mRestoredClassLoader;
+    field private int mRestoredCurItem;
+    field private android.widget.EdgeEffect! mRightEdge;
+    field private int mScrollState;
+    field private android.widget.Scroller! mScroller;
+    field private boolean mScrollingCacheEnabled;
+    field private final androidx.viewpager.widget.ViewPager.ItemInfo! mTempItem;
+    field private final android.graphics.Rect! mTempRect;
+    field private int mTopPageBounds;
+    field private int mTouchSlop;
+    field private android.view.VelocityTracker! mVelocityTracker;
+    field private static final android.view.animation.Interpolator! sInterpolator;
+    field private static final androidx.viewpager.widget.ViewPager.ViewPositionComparator! sPositionComparator;
+  }
+
+  static class ViewPager.ItemInfo {
+    ctor ViewPager.ItemInfo();
+    field Object! object;
+    field float offset;
+    field int position;
+    field boolean scrolling;
+    field float widthFactor;
+  }
+
+  public static class ViewPager.LayoutParams extends android.view.ViewGroup.LayoutParams {
+    field int childIndex;
+    field boolean needsMeasure;
+    field int position;
+    field float widthFactor;
+  }
+
+  class ViewPager.MyAccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor ViewPager.MyAccessibilityDelegate();
+    method private boolean canScroll();
+  }
+
+  private class ViewPager.PagerObserver extends android.database.DataSetObserver {
+    ctor ViewPager.PagerObserver();
+  }
+
+  public static class ViewPager.SavedState extends androidx.customview.view.AbsSavedState {
+    ctor ViewPager.SavedState(android.os.Parcel!, ClassLoader!);
+    field android.os.Parcelable! adapterState;
+    field ClassLoader! loader;
+    field int position;
+  }
+
+  static class ViewPager.ViewPositionComparator implements java.util.Comparator<android.view.View> {
+    ctor ViewPager.ViewPositionComparator();
+  }
+
+}
+

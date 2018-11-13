@@ -1,0 +1,14 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public class ViewModelProviders {
+    method private static android.app.Activity! checkActivity(androidx.fragment.app.Fragment!);
+    method private static android.app.Application! checkApplication(android.app.Activity!);
+  }
+
+  @Deprecated public class ViewModelStores {
+    ctor private ViewModelStores();
+  }
+
+}
+

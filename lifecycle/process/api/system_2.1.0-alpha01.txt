@@ -1,0 +1,45 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  class EmptyActivityLifecycleCallbacks implements android.app.Application.ActivityLifecycleCallbacks {
+    ctor EmptyActivityLifecycleCallbacks();
+  }
+
+  class LifecycleDispatcher {
+    ctor private LifecycleDispatcher();
+    method static void init(android.content.Context!);
+    field private static java.util.concurrent.atomic.AtomicBoolean! sInitialized;
+  }
+
+  @VisibleForTesting static class LifecycleDispatcher.DispatcherActivityCallback extends androidx.lifecycle.EmptyActivityLifecycleCallbacks {
+    ctor LifecycleDispatcher.DispatcherActivityCallback();
+  }
+
+  public class ProcessLifecycleOwner implements androidx.lifecycle.LifecycleOwner {
+    ctor private ProcessLifecycleOwner();
+    method void activityPaused();
+    method void activityResumed();
+    method void activityStarted();
+    method void activityStopped();
+    method void attach(android.content.Context!);
+    method void dispatchPauseIfNeeded();
+    method void dispatchStopIfNeeded();
+    method static void init(android.content.Context!);
+    field @VisibleForTesting static final long TIMEOUT_MS = 700L; // 0x2bcL
+    field private Runnable! mDelayedPauseRunnable;
+    field private android.os.Handler! mHandler;
+    field androidx.lifecycle.ReportFragment.ActivityInitializationListener! mInitializationListener;
+    field private boolean mPauseSent;
+    field private final androidx.lifecycle.LifecycleRegistry! mRegistry;
+    field private int mResumedCounter;
+    field private int mStartedCounter;
+    field private boolean mStopSent;
+    field private static final androidx.lifecycle.ProcessLifecycleOwner! sInstance;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ProcessLifecycleOwnerInitializer extends android.content.ContentProvider {
+    ctor public ProcessLifecycleOwnerInitializer();
+  }
+
+}
+

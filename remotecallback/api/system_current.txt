@@ -1,0 +1,63 @@
+// Signature format: 2.0
+package androidx.remotecallback {
+
+  public class AppWidgetProviderWithCallbacks<T extends androidx.remotecallback.CallbackReceiver> extends android.appwidget.AppWidgetProvider implements androidx.remotecallback.CallbackReceiver<T> {
+    field android.content.Context! mContext;
+  }
+
+  public abstract class BroadcastReceiverWithCallbacks<T extends androidx.remotecallback.CallbackReceiver> extends android.content.BroadcastReceiver implements androidx.remotecallback.CallbackReceiver<T> {
+    field android.content.Context! mContext;
+  }
+
+  public class CallbackHandlerRegistry {
+    method private String! determineAuthority(android.content.Context!, String!, Class<?>!);
+    method <T extends androidx.remotecallback.CallbackReceiver> void ensureInitialized(Class<T>!);
+    method private static Class<? extends java.lang.Runnable>! findInitClass(Class<? extends androidx.remotecallback.CallbackReceiver>!) throws java.lang.ClassNotFoundException;
+    method private androidx.remotecallback.CallbackHandlerRegistry.ClsHandler! findMap(Class<?>!);
+    method <T extends androidx.remotecallback.CallbackReceiver> T! getAndResetStub(Class<? extends androidx.remotecallback.CallbackReceiver>!, android.content.Context!, String!);
+    method private void initStub(androidx.remotecallback.CallbackReceiver!, Class<? extends androidx.remotecallback.CallbackReceiver>!, android.content.Context!, String!);
+    method private <T extends androidx.remotecallback.CallbackReceiver> void registerHandler(Class<T>!, String!, androidx.remotecallback.CallbackHandlerRegistry.CallbackHandler<T>!);
+    method private <T extends androidx.remotecallback.CallbackReceiver> void runInit(Class<T>!);
+    field private static final String TAG = "CallbackHandlerRegistry";
+    field private final androidx.collection.ArrayMap<java.lang.Class<? extends androidx.remotecallback.CallbackReceiver>,androidx.remotecallback.CallbackHandlerRegistry.ClsHandler>! mClsLookup;
+    field static final androidx.remotecallback.CallbackHandlerRegistry! sInstance;
+  }
+
+  static class CallbackHandlerRegistry.ClsHandler {
+    ctor CallbackHandlerRegistry.ClsHandler();
+    field androidx.remotecallback.CallbackReceiver! mCallStub;
+    field final androidx.collection.ArrayMap<java.lang.String,androidx.remotecallback.CallbackHandlerRegistry.CallbackHandler<? extends androidx.remotecallback.CallbackReceiver>>! mHandlers;
+  }
+
+  public interface CallbackReceiver<T> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public androidx.remotecallback.RemoteCallback! toRemoteCallback(Class<T>!, android.os.Bundle!, String!);
+  }
+
+  public abstract class ContentProviderWithCallbacks<T extends androidx.remotecallback.ContentProviderWithCallbacks> extends android.content.ContentProvider implements androidx.remotecallback.CallbackReceiver<T> {
+    field String! mAuthority;
+    field android.content.Context! mContext;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public class ProviderRelayReceiver extends android.content.BroadcastReceiver {
+    ctor public ProviderRelayReceiver();
+    field public static final String ACTION_PROVIDER_RELAY = "androidx.remotecallback.action.PROVIDER_RELAY";
+    field static final String EXTRA_AUTHORITY = "androidx.remotecallback.extra.AUTHORITY";
+    field static final String METHOD_PROVIDER_CALLBACK = "androidx.remotecallback.method.PROVIDER_CALLBACK";
+  }
+
+  public class RemoteCallback {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public RemoteCallback(android.content.Context, int, android.content.Intent, String, android.os.Bundle);
+    method private static android.net.Uri! generateUri(android.content.Intent!);
+    field static final String EXTRA_METHOD = "remotecallback.method";
+    field private final android.os.Bundle! mArguments;
+    field private final android.content.Context! mContext;
+    field private final android.content.Intent! mIntent;
+    field private final String! mReceiverClass;
+    field private final int mType;
+  }
+
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.remotecallback.RemoteCallback.TYPE_RECEIVER, androidx.remotecallback.RemoteCallback.TYPE_PROVIDER}) public static @interface RemoteCallback.RemoteCallbackType {
+  }
+
+}
+

@@ -1,0 +1,740 @@
+// Signature format: 2.0
+package androidx.textclassifier {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) final class BundleUtils {
+    ctor private BundleUtils();
+    method static java.util.Map<java.lang.String,java.lang.Float>! getFloatStringMapOrThrow(android.os.Bundle, String);
+    method static androidx.core.os.LocaleListCompat? getLocaleList(android.os.Bundle, String);
+    method static Long? getLong(android.os.Bundle, String);
+    method static java.util.List<androidx.core.app.RemoteActionCompat>! getRemoteActionListOrThrow(android.os.Bundle, String);
+    method static java.util.List<androidx.textclassifier.TextLinks.TextLink>! getTextLinkListOrThrow(android.os.Bundle, String);
+    method static void putLocaleList(android.os.Bundle, String, androidx.core.os.LocaleListCompat?);
+    method static void putLong(android.os.Bundle, String, Long?);
+    method static void putMap(android.os.Bundle, String, java.util.Map<java.lang.String,java.lang.Float>?);
+    method static void putRemoteActionList(android.os.Bundle, String, java.util.List<androidx.core.app.RemoteActionCompat>?);
+    method static void putTextLinkList(android.os.Bundle, String, java.util.List<androidx.textclassifier.TextLinks.TextLink>?);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) final class ConvertUtils {
+    ctor private ConvertUtils();
+    method @RequiresApi(28) static java.util.Map<java.lang.String,java.lang.Float> createFloatMapFromTextLinks(android.view.textclassifier.TextLinks.TextLink);
+    method @RequiresApi(26) public static androidx.core.graphics.drawable.IconCompat createIconFromDrawable(android.graphics.drawable.Drawable);
+    method @RequiresApi(26) static java.time.ZonedDateTime? createZonedDateTimeFromUtc(Long!);
+    method @RequiresApi(28) static android.view.textclassifier.TextClassifier.EntityConfig? toPlatformEntityConfig(androidx.textclassifier.TextClassifier.EntityConfig?);
+    method @RequiresApi(24) static android.os.LocaleList? unwrapLocalListCompat(androidx.core.os.LocaleListCompat?);
+    method @RequiresApi(24) static androidx.core.os.LocaleListCompat? wrapLocalList(android.os.LocaleList?);
+    method @RequiresApi(28) public static Long? zonedDateTimeToUtcMs(java.time.ZonedDateTime?);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) final class EntityConfidence {
+    ctor EntityConfidence(java.util.Map<java.lang.String,java.lang.Float>);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) java.util.Map<java.lang.String,java.lang.Float> getConfidenceMap();
+    method @FloatRange(from=0.0, to=1.0) public float getConfidenceScore(String!);
+    method public java.util.List<java.lang.String> getEntities();
+    method private void resetSortedEntitiesFromMap();
+    field final androidx.collection.ArrayMap<java.lang.String,java.lang.Float>! mEntityConfidence;
+    field private final java.util.ArrayList<java.lang.String>! mSortedEntities;
+  }
+
+  private class EntityConfidence.EntityConfidenceComparator implements java.util.Comparator<java.lang.String> {
+    ctor EntityConfidence.EntityConfidenceComparator();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) final class LegacyTextClassifier extends androidx.textclassifier.TextClassifier {
+    ctor @VisibleForTesting LegacyTextClassifier(androidx.textclassifier.MatchMaker!);
+    method private static void addLinks(androidx.textclassifier.TextLinks.Builder!, String!, String!);
+    method private androidx.textclassifier.TextClassification! createTextClassification(String!, String!);
+    method private static int entityTypeToLinkifyMask(String!);
+    method public static androidx.textclassifier.LegacyTextClassifier! of(android.content.Context!);
+    field private static final java.util.List<java.lang.String>! DEFAULT_ENTITY_TYPES;
+    field private static final String LOG_TAG = "LegacyTextClassifier";
+    field private static final int NOT_LINKIFY = 0; // 0x0
+    field private final androidx.textclassifier.MatchMaker! mMatchMaker;
+    field private static androidx.textclassifier.LegacyTextClassifier! sInstance;
+  }
+
+  @VisibleForTesting static final class LegacyTextClassifier.MatchMakerImpl implements androidx.textclassifier.MatchMaker {
+    ctor LegacyTextClassifier.MatchMakerImpl(android.content.Context!);
+    ctor LegacyTextClassifier.MatchMakerImpl(android.content.Context!, android.content.pm.PackageManager!, android.os.Bundle!, androidx.textclassifier.LegacyTextClassifier.MatchMakerImpl.PermissionsChecker!);
+    method private java.util.List<androidx.core.app.RemoteActionCompat>! createForEmail(String!);
+    method private java.util.List<androidx.core.app.RemoteActionCompat>! createForPhone(String!);
+    method private java.util.List<androidx.core.app.RemoteActionCompat>! createForUrl(String!);
+    method private android.app.PendingIntent? createPendingIntent(android.content.Intent!, int);
+    method private static androidx.textclassifier.LegacyTextClassifier.MatchMakerImpl.PermissionsChecker! createPermissionsChecker(android.content.Context!);
+    method private androidx.core.app.RemoteActionCompat? createRemoteAction(android.content.Intent!, String!, String!, int);
+    method private static android.os.Bundle! createUserRestrictions(android.content.Context!);
+    method public java.util.List<androidx.core.app.RemoteActionCompat>! getActions(String!, CharSequence!);
+    method private java.util.List<androidx.core.app.RemoteActionCompat>! immutableList(java.util.List<androidx.core.app.RemoteActionCompat>!);
+    field private static final androidx.core.graphics.drawable.IconCompat! NO_ICON;
+    field private final android.content.Context! mContext;
+    field private final android.content.pm.PackageManager! mPackageManager;
+    field private final androidx.textclassifier.LegacyTextClassifier.MatchMakerImpl.PermissionsChecker! mPermissionsChecker;
+    field private final android.os.Bundle! mUserRestrictions;
+  }
+
+  static interface LegacyTextClassifier.MatchMakerImpl.PermissionsChecker {
+    method public boolean hasPermission(android.content.pm.ActivityInfo!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final class MainThreadExecutor implements java.util.concurrent.Executor {
+    ctor public MainThreadExecutor();
+    field private final android.os.Handler! mHandler;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) interface MatchMaker {
+    method public java.util.List<androidx.core.app.RemoteActionCompat>! getActions(String!, CharSequence!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(api=android.os.Build.VERSION_CODES.O) final class PlatformTextClassifier implements android.view.textclassifier.TextClassifier {
+    ctor PlatformTextClassifier(android.content.Context, androidx.textclassifier.TextClassifier);
+    field private final android.content.Context! mContext;
+    field private final androidx.textclassifier.TextClassifier! mTextClassifier;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(android.os.Build.VERSION_CODES.O) public class PlatformTextClassifierWrapper extends androidx.textclassifier.TextClassifier {
+    ctor @VisibleForTesting PlatformTextClassifierWrapper(android.content.Context, android.view.textclassifier.TextClassifier);
+    method public static androidx.textclassifier.PlatformTextClassifierWrapper create(android.content.Context);
+    field private final android.content.Context! mContext;
+    field private final androidx.textclassifier.TextClassifier! mFallback;
+    field private final android.view.textclassifier.TextClassifier! mPlatformTextClassifier;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class SelectionEvent {
+    ctor SelectionEvent(int, int, int, String!, int, String?);
+    ctor private SelectionEvent(int, int, String!, int, String!, String!, int, String!, String!, long, long, long, int, androidx.textclassifier.TextClassificationSessionId!, int, int, int, int);
+    method private static void checkActionType(int) throws java.lang.IllegalArgumentException;
+    method public static androidx.textclassifier.SelectionEvent createFromBundle(android.os.Bundle);
+    method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, int);
+    method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, int, androidx.textclassifier.TextClassification);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int, androidx.textclassifier.TextClassification);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int, androidx.textclassifier.TextSelection);
+    method public static androidx.textclassifier.SelectionEvent createSelectionStartedEvent(int, int);
+    method int getAbsoluteEnd();
+    method int getAbsoluteStart();
+    method public long getDurationSincePreviousEvent();
+    method public long getDurationSinceSessionStart();
+    method public int getEnd();
+    method public String getEntityType();
+    method public int getEventIndex();
+    method public long getEventTime();
+    method public int getEventType();
+    method public int getInvocationMethod();
+    method public String getPackageName();
+    method public String? getResultId();
+    method public androidx.textclassifier.TextClassificationSessionId? getSessionId();
+    method public int getSmartEnd();
+    method public int getSmartStart();
+    method public int getStart();
+    method public String getWidgetType();
+    method public String? getWidgetVersion();
+    method boolean isTerminal();
+    method public static boolean isTerminal(int);
+    method androidx.textclassifier.SelectionEvent! setDurationSincePreviousEvent(long);
+    method androidx.textclassifier.SelectionEvent! setDurationSinceSessionStart(long);
+    method androidx.textclassifier.SelectionEvent! setEnd(int);
+    method androidx.textclassifier.SelectionEvent! setEventIndex(int);
+    method androidx.textclassifier.SelectionEvent! setEventTime(long);
+    method void setEventType(int);
+    method void setInvocationMethod(int);
+    method androidx.textclassifier.SelectionEvent! setResultId(String?);
+    method androidx.textclassifier.SelectionEvent! setSessionId(androidx.textclassifier.TextClassificationSessionId!);
+    method androidx.textclassifier.SelectionEvent! setSmartEnd(int);
+    method androidx.textclassifier.SelectionEvent! setSmartStart(int);
+    method androidx.textclassifier.SelectionEvent! setStart(int);
+    method void setTextClassificationSessionContext(androidx.textclassifier.TextClassificationContext!);
+    method public android.os.Bundle toBundle();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) Object toPlatform(android.content.Context);
+    method @RequiresApi(28) private android.view.textclassifier.SelectionEvent toPlatformSelectionActionEvent(android.content.Context);
+    method @RequiresApi(28) private android.view.textclassifier.SelectionEvent toPlatformSelectionModifiedEvent(android.content.Context);
+    field public static final int ACTION_ABANDON = 107; // 0x6b
+    field public static final int ACTION_COPY = 101; // 0x65
+    field public static final int ACTION_CUT = 103; // 0x67
+    field public static final int ACTION_DRAG = 106; // 0x6a
+    field public static final int ACTION_OTHER = 108; // 0x6c
+    field public static final int ACTION_OVERTYPE = 100; // 0x64
+    field public static final int ACTION_PASTE = 102; // 0x66
+    field public static final int ACTION_RESET = 201; // 0xc9
+    field public static final int ACTION_SELECT_ALL = 200; // 0xc8
+    field public static final int ACTION_SHARE = 104; // 0x68
+    field public static final int ACTION_SMART_SHARE = 105; // 0x69
+    field public static final int EVENT_AUTO_SELECTION = 5; // 0x5
+    field public static final int EVENT_SELECTION_MODIFIED = 2; // 0x2
+    field public static final int EVENT_SELECTION_STARTED = 1; // 0x1
+    field public static final int EVENT_SMART_SELECTION_MULTI = 4; // 0x4
+    field public static final int EVENT_SMART_SELECTION_SINGLE = 3; // 0x3
+    field private static final String EXTRA_ABSOLUTE_END = "extra_absolute_end";
+    field private static final String EXTRA_ABSOLUTE_START = "extra_absolute_start";
+    field private static final String EXTRA_DURATION_SINCE_PREVIOUS_EVENT = "extra_duration_since_previous_event";
+    field private static final String EXTRA_DURATION_SINCE_SESSION_START = "extra_duration_since_session_start";
+    field private static final String EXTRA_END = "extra_end";
+    field private static final String EXTRA_ENTITY_TYPE = "extra_entity_type";
+    field private static final String EXTRA_EVENT_INDEX = "extra_event_index";
+    field private static final String EXTRA_EVENT_TIME = "extra_event_time";
+    field private static final String EXTRA_EVENT_TYPE = "extra_event_type";
+    field private static final String EXTRA_INVOCATION_METHOD = "extra_invocation_method";
+    field private static final String EXTRA_PACKAGE_NAME = "extra_package_name";
+    field private static final String EXTRA_RESULT_ID = "extra_result_id";
+    field private static final String EXTRA_SESSION_ID = "extra_session_id";
+    field private static final String EXTRA_SMART_END = "extra_smart_end";
+    field private static final String EXTRA_SMART_START = "extra_smart_start";
+    field private static final String EXTRA_START = "extra_start";
+    field private static final String EXTRA_WIDGET_TYPE = "extra_widget_type";
+    field private static final String EXTRA_WIDGET_VERSION = "extra_widget_version";
+    field public static final int INVOCATION_LINK = 2; // 0x2
+    field public static final int INVOCATION_MANUAL = 1; // 0x1
+    field public static final int INVOCATION_UNKNOWN = 0; // 0x0
+    field private static final String NO_SIGNATURE = "";
+    field private final int mAbsoluteEnd;
+    field private final int mAbsoluteStart;
+    field private long mDurationSincePreviousEvent;
+    field private long mDurationSinceSessionStart;
+    field private int mEnd;
+    field private final String! mEntityType;
+    field private int mEventIndex;
+    field private long mEventTime;
+    field private int mEventType;
+    field private int mInvocationMethod;
+    field private String! mPackageName;
+    field private String? mResultId;
+    field private androidx.textclassifier.TextClassificationSessionId? mSessionId;
+    field private int mSmartEnd;
+    field private int mSmartStart;
+    field private int mStart;
+    field private androidx.textclassifier.TextClassification? mTextClassification;
+    field private androidx.textclassifier.TextSelection? mTextSelection;
+    field private String! mWidgetType;
+    field private String? mWidgetVersion;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.ACTION_OVERTYPE, androidx.textclassifier.SelectionEvent.ACTION_COPY, androidx.textclassifier.SelectionEvent.ACTION_PASTE, androidx.textclassifier.SelectionEvent.ACTION_CUT, androidx.textclassifier.SelectionEvent.ACTION_SHARE, androidx.textclassifier.SelectionEvent.ACTION_SMART_SHARE, androidx.textclassifier.SelectionEvent.ACTION_DRAG, androidx.textclassifier.SelectionEvent.ACTION_ABANDON, androidx.textclassifier.SelectionEvent.ACTION_OTHER, androidx.textclassifier.SelectionEvent.ACTION_SELECT_ALL, androidx.textclassifier.SelectionEvent.ACTION_RESET}) public static @interface SelectionEvent.ActionType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.ACTION_OVERTYPE, androidx.textclassifier.SelectionEvent.ACTION_COPY, androidx.textclassifier.SelectionEvent.ACTION_PASTE, androidx.textclassifier.SelectionEvent.ACTION_CUT, androidx.textclassifier.SelectionEvent.ACTION_SHARE, androidx.textclassifier.SelectionEvent.ACTION_SMART_SHARE, androidx.textclassifier.SelectionEvent.ACTION_DRAG, androidx.textclassifier.SelectionEvent.ACTION_ABANDON, androidx.textclassifier.SelectionEvent.ACTION_OTHER, androidx.textclassifier.SelectionEvent.ACTION_SELECT_ALL, androidx.textclassifier.SelectionEvent.ACTION_RESET, androidx.textclassifier.SelectionEvent.EVENT_SELECTION_STARTED, androidx.textclassifier.SelectionEvent.EVENT_SELECTION_MODIFIED, androidx.textclassifier.SelectionEvent.EVENT_SMART_SELECTION_SINGLE, androidx.textclassifier.SelectionEvent.EVENT_SMART_SELECTION_MULTI, androidx.textclassifier.SelectionEvent.EVENT_AUTO_SELECTION}) public static @interface SelectionEvent.EventType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.INVOCATION_MANUAL, androidx.textclassifier.SelectionEvent.INVOCATION_LINK, androidx.textclassifier.SelectionEvent.INVOCATION_UNKNOWN}) public static @interface SelectionEvent.InvocationMethod {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) interface SessionStrategy {
+    method public void destroy();
+    method public boolean isDestroyed();
+    method public void reportSelectionEvent(androidx.textclassifier.SelectionEvent);
+    field public static final androidx.textclassifier.SessionStrategy! NO_OP;
+  }
+
+  public final class TextClassification {
+    ctor TextClassification(String?, java.util.List<androidx.core.app.RemoteActionCompat>, androidx.textclassifier.EntityConfidence, String?);
+    method private static androidx.core.app.RemoteActionCompat createRemoteActionCompat(android.content.Context, android.view.textclassifier.TextClassification);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(26) static androidx.textclassifier.TextClassification fromPlatform(android.content.Context, android.view.textclassifier.TextClassification);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(26) Object toPlatform(android.content.Context);
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) static final androidx.textclassifier.TextClassification! EMPTY;
+    field private static final String EXTRA_ACTIONS = "actions";
+    field private static final String EXTRA_ENTITY_CONFIDENCE = "entity_conf";
+    field private static final String EXTRA_ID = "id";
+    field private static final String EXTRA_TEXT = "text";
+    field private static final androidx.core.graphics.drawable.IconCompat! NO_ICON;
+    field private final java.util.List<androidx.core.app.RemoteActionCompat> mActions;
+    field private final androidx.textclassifier.EntityConfidence mEntityConfidence;
+    field private final String? mId;
+    field private final String? mText;
+  }
+
+  public static final class TextClassification.Builder {
+    field private java.util.List<androidx.core.app.RemoteActionCompat> mActions;
+    field private final java.util.Map<java.lang.String,java.lang.Float> mEntityConfidence;
+    field private String? mId;
+    field private String? mText;
+  }
+
+  public static final class TextClassification.Request {
+    ctor TextClassification.Request(CharSequence!, int, int, androidx.core.os.LocaleListCompat!, Long!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) static androidx.textclassifier.TextClassification.Request fromPlatform(android.view.textclassifier.TextClassification.Request);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) Object toPlatform();
+    field private static final String EXTRA_CALLING_PACKAGE_NAME = "calling_package";
+    field private static final String EXTRA_DEFAULT_LOCALES = "locales";
+    field private static final String EXTRA_END_INDEX = "end";
+    field private static final String EXTRA_REFERENCE_TIME = "reftime";
+    field private static final String EXTRA_START_INDEX = "start";
+    field private static final String EXTRA_TEXT = "text";
+    field private final androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final int mEndIndex;
+    field private final Long? mReferenceTime;
+    field private final int mStartIndex;
+    field private final CharSequence! mText;
+  }
+
+  public static final class TextClassification.Request.Builder {
+    field private androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final int mEndIndex;
+    field private Long? mReferenceTime;
+    field private final int mStartIndex;
+    field private final CharSequence! mText;
+  }
+
+  public final class TextClassificationContext {
+    ctor TextClassificationContext(String!, String!, String!);
+    method @RequiresApi(28) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) Object toPlatform();
+    field private static final String EXTRA_PACKAGE_NAME = "package_name";
+    field private static final String EXTRA_WIDGET_VERSION = "widget_version";
+    field private static final String EXTRA_WIGET_TYPE = "widget_type";
+    field private final String! mPackageName;
+    field private final String! mWidgetType;
+    field private final String? mWidgetVersion;
+  }
+
+  public static final class TextClassificationContext.Builder {
+    field private final String! mPackageName;
+    field private final String! mWidgetType;
+    field private String? mWidgetVersion;
+  }
+
+  public final class TextClassificationManager {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @VisibleForTesting TextClassificationManager(android.content.Context);
+    method private static androidx.textclassifier.TextClassifier! defaultTextClassifier(android.content.Context);
+    method @RequiresApi(api=android.os.Build.VERSION_CODES.O) private void setPlatformTextClassifier(androidx.textclassifier.TextClassifier?);
+    field private final android.content.Context! mContext;
+    field private final androidx.textclassifier.TextClassifier! mDefaultTextClassifier;
+    field private final Object! mLock;
+    field @GuardedBy("mLock") private androidx.textclassifier.TextClassifier! mTextClassifier;
+    field private static final Object! sLock;
+    field @GuardedBy("sLock") private static final java.util.WeakHashMap<android.content.Context,androidx.textclassifier.TextClassificationManager>! sMapping;
+  }
+
+  public final class TextClassificationSessionId {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public TextClassificationSessionId();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public TextClassificationSessionId(String);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public String flattenToString();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static androidx.textclassifier.TextClassificationSessionId unflattenFromString(String);
+    field private static final String EXTRA_VALUE = "value";
+    field private final String mValue;
+  }
+
+  public abstract class TextClassifier {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) static void ensureNotOnMainThread();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @WorkerThread public void onSelectionEvent(androidx.textclassifier.SelectionEvent);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final void reportSelectionEvent(androidx.textclassifier.SelectionEvent);
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final String DEFAULT_LOG_TAG = "androidx_tc";
+    field private static final int GENERATE_LINKS_MAX_TEXT_LENGTH_DEFAULT = 100000; // 0x186a0
+  }
+
+  public static final class TextClassifier.EntityConfig {
+    ctor TextClassifier.EntityConfig(java.util.Collection<java.lang.String>!, java.util.Collection<java.lang.String>!, java.util.Collection<java.lang.String>!, boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) public android.view.textclassifier.TextClassifier.EntityConfig toPlatform();
+    field private static final String EXTRA_EXCLUDED_ENTITY_TYPES = "excluded";
+    field private static final String EXTRA_HINTS = "hints";
+    field private static final String EXTRA_INCLUDED_ENTITY_TYPES = "included";
+    field private static final String EXTRA_INCLUDE_ENTITY_TYPES_FROM_TC = "include_entity_types_from_tc";
+    field private final java.util.Collection<java.lang.String>! mExcludedEntityTypes;
+    field private final java.util.Collection<java.lang.String>! mHints;
+    field private final boolean mIncludeDefaultEntityTypes;
+    field private final java.util.Collection<java.lang.String>! mIncludedEntityTypes;
+  }
+
+  public static final class TextClassifier.EntityConfig.Builder {
+    field private java.util.Collection<java.lang.String>? mExcludedEntityTypes;
+    field private java.util.Collection<java.lang.String>? mHints;
+    field private boolean mIncludeDefaultEntityTypes;
+    field private java.util.Collection<java.lang.String>? mIncludedEntityTypes;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @StringDef({androidx.textclassifier.TextClassifier.TYPE_UNKNOWN, androidx.textclassifier.TextClassifier.TYPE_OTHER, androidx.textclassifier.TextClassifier.TYPE_EMAIL, androidx.textclassifier.TextClassifier.TYPE_PHONE, androidx.textclassifier.TextClassifier.TYPE_ADDRESS, androidx.textclassifier.TextClassifier.TYPE_URL, androidx.textclassifier.TextClassifier.TYPE_DATE, androidx.textclassifier.TextClassifier.TYPE_DATE_TIME, androidx.textclassifier.TextClassifier.TYPE_FLIGHT_NUMBER}) static @interface TextClassifier.EntityType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @StringDef({androidx.textclassifier.TextClassifier.HINT_TEXT_IS_EDITABLE, androidx.textclassifier.TextClassifier.HINT_TEXT_IS_NOT_EDITABLE}) static @interface TextClassifier.Hints {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @StringDef({androidx.textclassifier.TextClassifier.WIDGET_TYPE_TEXTVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_EDITTEXT, androidx.textclassifier.TextClassifier.WIDGET_TYPE_UNSELECTABLE_TEXTVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_WEBVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_EDIT_WEBVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_CUSTOM_TEXTVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_CUSTOM_EDITTEXT, androidx.textclassifier.TextClassifier.WIDGET_TYPE_CUSTOM_UNSELECTABLE_TEXTVIEW, androidx.textclassifier.TextClassifier.WIDGET_TYPE_UNKNOWN}) static @interface TextClassifier.WidgetType {
+  }
+
+  public final class TextLinks {
+    ctor TextLinks(CharSequence!, java.util.List<androidx.textclassifier.TextLinks.TextLink>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) static androidx.textclassifier.TextLinks fromPlatform(android.view.textclassifier.TextLinks, CharSequence);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public CharSequence getText();
+    field private static final String EXTRA_FULL_TEXT = "text";
+    field private static final String EXTRA_LINKS = "links";
+    field private static final String LOG_TAG = "TextLinks";
+    field private final CharSequence! mFullText;
+    field private final java.util.List<androidx.textclassifier.TextLinks.TextLink>! mLinks;
+    field static final androidx.textclassifier.MainThreadExecutor! sMainThreadExecutor;
+    field static final java.util.concurrent.Executor! sWorkerExecutor;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.TextLinks.APPLY_STRATEGY_IGNORE, androidx.textclassifier.TextLinks.APPLY_STRATEGY_REPLACE}) public static @interface TextLinks.ApplyStrategy {
+  }
+
+  public static final class TextLinks.Builder {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public androidx.textclassifier.TextLinks.Builder addLink(int, int, java.util.Map<java.lang.String,java.lang.Float>, android.text.style.URLSpan?);
+    method androidx.textclassifier.TextLinks.Builder addLink(androidx.textclassifier.TextLinks.TextLink!);
+    field private final CharSequence! mFullText;
+    field private final java.util.ArrayList<androidx.textclassifier.TextLinks.TextLink>! mLinks;
+  }
+
+  public static class TextLinks.DefaultTextLinkSpan extends androidx.textclassifier.TextLinks.TextLinkSpan {
+    method private androidx.core.os.LocaleListCompat! getLocales(android.widget.TextView!);
+  }
+
+  private static class TextLinks.DefaultTextLinkSpan.ClassifyTextRunnable implements java.lang.Runnable {
+    ctor private TextLinks.DefaultTextLinkSpan.ClassifyTextRunnable(android.widget.TextView!, androidx.textclassifier.TextLinks.DefaultTextLinkSpan!, androidx.textclassifier.TextClassification.Request!, android.text.Spanned!);
+    field private android.text.Spanned! mClassifiedSpan;
+    field private androidx.textclassifier.TextClassification.Request! mRequest;
+    field private androidx.textclassifier.TextLinks.DefaultTextLinkSpan! mTextLinkSpan;
+    field private java.lang.ref.WeakReference<android.widget.TextView>! mTextView;
+  }
+
+  public static final class TextLinks.Request {
+    ctor TextLinks.Request(CharSequence, androidx.core.os.LocaleListCompat?, androidx.textclassifier.TextClassifier.EntityConfig?, Long?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) android.view.textclassifier.TextLinks.Request toPlatform();
+    field private static final String EXTRA_DEFAULT_LOCALES = "locales";
+    field private static final String EXTRA_ENTITY_CONFIG = "entity_config";
+    field private static final String EXTRA_REFERENCE_TIME = "reference_time";
+    field private static final String EXTRA_TEXT = "text";
+    field private final androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final androidx.textclassifier.TextClassifier.EntityConfig mEntityConfig;
+    field private Long? mReferenceTime;
+    field private final CharSequence! mText;
+  }
+
+  public static final class TextLinks.Request.Builder {
+    field private androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private androidx.textclassifier.TextClassifier.EntityConfig? mEntityConfig;
+    field private Long? mReferenceTime;
+    field private final CharSequence! mText;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.TextLinks.STATUS_UNKNOWN, androidx.textclassifier.TextLinks.STATUS_LINKS_APPLIED, androidx.textclassifier.TextLinks.STATUS_NO_LINKS_FOUND, androidx.textclassifier.TextLinks.STATUS_NO_LINKS_APPLIED, androidx.textclassifier.TextLinks.STATUS_DIFFERENT_TEXT}) public static @interface TextLinks.Status {
+  }
+
+  public static final class TextLinks.TextLink {
+    ctor @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) TextLinks.TextLink(int, int, java.util.Map<java.lang.String,java.lang.Float>, android.text.style.URLSpan?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public android.text.style.URLSpan? getUrlSpan();
+    field private static final String EXTRA_END = "end";
+    field private static final String EXTRA_ENTITY_SCORES = "scores";
+    field private static final String EXTRA_START = "start";
+    field private final int mEnd;
+    field private final androidx.textclassifier.EntityConfidence! mEntityScores;
+    field private final int mStart;
+    field private final android.text.style.URLSpan? mUrlSpan;
+  }
+
+  public abstract static class TextLinks.TextLinkSpan extends android.text.style.ClickableSpan {
+    field private androidx.textclassifier.TextLinks.TextLinkSpanData! mTextLinkSpanData;
+  }
+
+  public static class TextLinks.TextLinkSpanData {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) TextLinks.TextLinkSpanData(androidx.textclassifier.TextLinks.TextLink, androidx.textclassifier.TextClassifier, Long?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public Long? getReferenceTime();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) androidx.textclassifier.TextClassifier! getTextClassifier();
+    field private final Long? mReferenceTime;
+    field private final androidx.textclassifier.TextClassifier mTextClassifier;
+    field private final androidx.textclassifier.TextLinks.TextLink mTextLink;
+  }
+
+  public final class TextLinksParams {
+    ctor TextLinksParams(int, androidx.textclassifier.TextLinks.SpanFactory!, androidx.textclassifier.TextClassifier.EntityConfig?, androidx.core.os.LocaleListCompat?, Long?);
+    method int apply(android.text.Spannable, androidx.textclassifier.TextLinks, androidx.textclassifier.TextClassifier);
+    method boolean canApply(android.text.Spannable, androidx.textclassifier.TextLinks);
+    method static int checkApplyStrategy(int);
+    method androidx.core.os.LocaleListCompat? getDefaultLocales();
+    method androidx.textclassifier.TextClassifier.EntityConfig? getEntityConfig();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public Long? getReferenceTime();
+    field static final androidx.textclassifier.TextLinks.SpanFactory! DEFAULT_SPAN_FACTORY;
+    field private final int mApplyStrategy;
+    field private final androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final androidx.textclassifier.TextClassifier.EntityConfig? mEntityConfig;
+    field private final Long? mReferenceTime;
+    field private final androidx.textclassifier.TextLinks.SpanFactory! mSpanFactory;
+  }
+
+  public static final class TextLinksParams.Builder {
+    field private int mApplyStrategy;
+    field private androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private androidx.textclassifier.TextClassifier.EntityConfig? mEntityConfig;
+    field private Long? mReferenceTime;
+    field private androidx.textclassifier.TextLinks.SpanFactory! mSpanFactory;
+  }
+
+  public final class TextSelection {
+    ctor TextSelection(int, int, androidx.textclassifier.EntityConfidence, String?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(26) static androidx.textclassifier.TextSelection fromPlatform(android.view.textclassifier.TextSelection);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(26) Object toPlatform();
+    field private static final String EXTRA_END_INDEX = "end";
+    field private static final String EXTRA_ENTITY_CONFIDENCE = "entity_conf";
+    field private static final String EXTRA_ID = "id";
+    field private static final String EXTRA_START_INDEX = "start";
+    field private final int mEndIndex;
+    field private final androidx.textclassifier.EntityConfidence mEntityConfidence;
+    field private final String? mId;
+    field private final int mStartIndex;
+  }
+
+  public static final class TextSelection.Builder {
+    field private final int mEndIndex;
+    field private final java.util.Map<java.lang.String,java.lang.Float> mEntityConfidence;
+    field private String? mId;
+    field private final int mStartIndex;
+  }
+
+  public static final class TextSelection.Request {
+    ctor TextSelection.Request(CharSequence!, int, int, androidx.core.os.LocaleListCompat!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) static androidx.textclassifier.TextSelection.Request fromPlatfrom(android.view.textclassifier.TextSelection.Request);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) Object toPlatform();
+    field private static final String EXTRA_CALLING_PACKAGE_NAME = "calling_package";
+    field private static final String EXTRA_DEFAULT_LOCALES = "locales";
+    field private static final String EXTRA_END_INDEX = "end";
+    field private static final String EXTRA_START_INDEX = "start";
+    field private static final String EXTRA_TEXT = "text";
+    field private final androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final int mEndIndex;
+    field private final int mStartIndex;
+    field private final CharSequence! mText;
+  }
+
+  public static final class TextSelection.Request.Builder {
+    field private androidx.core.os.LocaleListCompat? mDefaultLocales;
+    field private final int mEndIndex;
+    field private final int mStartIndex;
+    field private final CharSequence! mText;
+  }
+
+}
+
+package androidx.textclassifier.widget {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(android.os.Build.VERSION_CODES.M) final class FloatingToolbar {
+    ctor FloatingToolbar(android.view.View!);
+    method private static android.content.Context! applyDefaultTheme(android.content.Context!);
+    method static android.view.ViewGroup! createContentContainer(android.content.Context!);
+    method static android.animation.AnimatorSet! createEnterAnimation(android.view.View!);
+    method static android.animation.AnimatorSet! createExitAnimation(android.view.View!, int, android.animation.Animator.AnimatorListener!);
+    method static android.view.View! createMenuItemButton(android.content.Context!, androidx.core.internal.view.SupportMenuItem!, int, boolean);
+    method static android.widget.PopupWindow! createPopupWindow(android.view.ViewGroup!, android.view.View.OnClickListener!);
+    method public void dismiss();
+    method private void doShow();
+    method public androidx.core.internal.view.SupportMenu? getMenu();
+    method @VisibleForTesting android.graphics.Rect! getToolbarContainerBoundsForTesting();
+    method private java.util.List<androidx.core.internal.view.SupportMenuItem>! getVisibleAndEnabledMenuItems(androidx.core.internal.view.SupportMenu!);
+    method public void hide();
+    method private boolean isCurrentlyShowing(java.util.List<androidx.core.internal.view.SupportMenuItem>!);
+    method public boolean isHidden();
+    method public boolean isShowing();
+    method private void registerOrientationHandler();
+    method static boolean requiresActionButton(androidx.core.internal.view.SupportMenuItem!);
+    method static boolean requiresOverflow(androidx.core.internal.view.SupportMenuItem!);
+    method public void setContentRect(android.graphics.Rect!);
+    method public void setDismissOnMenuItemClick(boolean);
+    method public void setMenu(androidx.core.internal.view.SupportMenu!);
+    method public void setOnDismissListener(android.widget.PopupWindow.OnDismissListener?);
+    method public void setOnMenuItemClickListener(androidx.core.internal.view.SupportMenuItem.OnMenuItemClickListener!);
+    method public void setSuggestedWidth(int);
+    method public void show();
+    method private void unregisterOrientationHandler();
+    method public void updateLayout();
+    method static void updateMenuItemButton(android.view.View!, androidx.core.internal.view.SupportMenuItem!, int, boolean);
+    field static final Object FLOATING_TOOLBAR_TAG;
+    field static final Object MAIN_PANEL_TAG;
+    field static final int MENU_ID_SMART_ACTION;
+    field private static final androidx.core.internal.view.SupportMenuItem.OnMenuItemClickListener! NO_OP_MENUITEM_CLICK_LISTENER;
+    field static final Object OVERFLOW_PANEL_TAG;
+    field private final android.graphics.Rect! mContentRect;
+    field private androidx.core.internal.view.SupportMenu! mMenu;
+    field private androidx.core.internal.view.SupportMenuItem.OnMenuItemClickListener! mMenuItemClickListener;
+    field @VisibleForTesting final java.util.Comparator<androidx.core.internal.view.SupportMenuItem>! mMenuItemComparator;
+    field private final android.view.View.OnLayoutChangeListener! mOrientationChangeHandler;
+    field final androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup! mPopup;
+    field private final android.graphics.Rect! mPreviousContentRect;
+    field private final android.view.View! mRootView;
+    field private java.util.List<androidx.core.internal.view.SupportMenuItem>! mShowingMenuItems;
+    field private int mSuggestedWidth;
+    field boolean mWidthChanged;
+  }
+
+  private static final class FloatingToolbar.FloatingToolbarPopup {
+    ctor FloatingToolbar.FloatingToolbarPopup(android.content.Context!, android.view.View!, Runnable!);
+    method int calculateOverflowHeight(int);
+    method void cancelDismissAndHideAnimations();
+    method void cancelOverflowAnimations();
+    method void clearPanels();
+    method void closeOverflow();
+    method android.view.ViewGroup! createMainPanel();
+    method private android.view.animation.Animation.AnimationListener! createOverflowAnimationListener();
+    method android.widget.ImageButton! createOverflowButton();
+    method androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup.OverflowPanel! createOverflowPanel();
+    method public void dismiss();
+    method int getAdjustedDuration(int);
+    method int getAdjustedToolbarWidth(int);
+    method android.graphics.Rect! getContainerBounds();
+    method int getOverflowWidth();
+    method boolean hasOverflow();
+    method public void hide();
+    method public boolean isHidden();
+    method boolean isInRTLMode();
+    method boolean isOverflowAnimating();
+    method public boolean isShowing();
+    method java.util.List<androidx.core.internal.view.SupportMenuItem>! layoutMainPanelItems(java.util.List<androidx.core.internal.view.SupportMenuItem>!, int);
+    method public void layoutMenuItems(java.util.List<androidx.core.internal.view.SupportMenuItem>!, androidx.core.internal.view.SupportMenuItem.OnMenuItemClickListener!, int);
+    method void layoutOverflowPanelItems(java.util.List<androidx.core.internal.view.SupportMenuItem>!);
+    method void maybeComputeTransitionDurationScale();
+    method private static android.util.Size! measure(android.view.View!);
+    method void openOverflow();
+    method void positionContentYCoordinatesIfOpeningOverflowUpwards();
+    method void preparePopupContent();
+    method void refreshCoordinatesAndOverflowDirection(android.graphics.Rect!);
+    method void refreshViewPort();
+    method void runDismissAnimation();
+    method void runHideAnimation();
+    method void runShowAnimation();
+    method void setButtonTagAndClickListener(android.view.View!, androidx.core.internal.view.SupportMenuItem!);
+    method void setDismissOnMenuItemClick(boolean);
+    method static void setHeight(android.view.View!, int);
+    method public void setOnDismissListener(android.widget.PopupWindow.OnDismissListener?);
+    method void setPanelsStatesAtRestingPosition();
+    method private static void setSize(android.view.View!, int, int);
+    method private static void setSize(android.view.View!, android.util.Size!);
+    method static void setWidth(android.view.View!, int);
+    method public void show(android.graphics.Rect!);
+    method void updateCoordinates(android.graphics.Rect!);
+    method void updateOverflowHeight(int);
+    method void updatePopupSize();
+    field private static final int MAX_OVERFLOW_SIZE = 4; // 0x4
+    field private static final int MIN_OVERFLOW_SIZE = 2; // 0x2
+    field final android.graphics.drawable.Drawable! mArrow;
+    field final android.view.animation.AnimationSet! mCloseOverflowAnimation;
+    field final android.view.ViewGroup! mContentContainer;
+    field final android.content.Context! mContext;
+    field final android.graphics.Point! mCoordsOnWindow;
+    field final android.animation.AnimatorSet! mDismissAnimation;
+    field boolean mDismissOnMenuItemClick;
+    field final Runnable! mDismissRunnable;
+    field boolean mDismissed;
+    field final android.view.animation.Interpolator! mFastOutLinearInInterpolator;
+    field final android.view.animation.Interpolator! mFastOutSlowInInterpolator;
+    field boolean mHidden;
+    field final android.animation.AnimatorSet! mHideAnimation;
+    field final int mIconTextSpacing;
+    field boolean mIsOverflowOpen;
+    field final int mLineHeight;
+    field final android.view.animation.Interpolator! mLinearOutSlowInInterpolator;
+    field final android.view.animation.Interpolator! mLogAccelerateInterpolator;
+    field final android.view.ViewGroup! mMainPanel;
+    field android.util.Size! mMainPanelSize;
+    field final int mMarginHorizontal;
+    field final int mMarginVertical;
+    field final android.view.View.OnClickListener! mMenuItemButtonOnClickListener;
+    field android.widget.PopupWindow.OnDismissListener! mOnDismiss;
+    field androidx.core.internal.view.SupportMenuItem.OnMenuItemClickListener! mOnMenuItemClickListener;
+    field final android.view.View.OnClickListener! mOnOutsideTouchHandler;
+    field final android.view.animation.AnimationSet! mOpenOverflowAnimation;
+    field boolean mOpenOverflowUpwards;
+    field final android.graphics.drawable.Drawable! mOverflow;
+    field final android.view.animation.Animation.AnimationListener! mOverflowAnimationListener;
+    field final android.widget.ImageButton! mOverflowButton;
+    field final android.util.Size! mOverflowButtonSize;
+    field final androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup.OverflowPanel! mOverflowPanel;
+    field android.util.Size! mOverflowPanelSize;
+    field final androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup.OverflowPanelViewHelper! mOverflowPanelViewHelper;
+    field final android.view.View! mParent;
+    field final android.widget.PopupWindow! mPopupWindow;
+    field final Runnable! mPreparePopupContentRTLHelper;
+    field final android.animation.AnimatorSet! mShowAnimation;
+    field final int[]! mTmpCoords;
+    field final android.graphics.drawable.AnimatedVectorDrawable! mToArrow;
+    field final android.graphics.drawable.AnimatedVectorDrawable! mToOverflow;
+    field int mTransitionDurationScale;
+    field final android.graphics.Rect! mViewPortOnScreen;
+  }
+
+  static final class FloatingToolbar.FloatingToolbarPopup.LogAccelerateInterpolator implements android.view.animation.Interpolator {
+    ctor FloatingToolbar.FloatingToolbarPopup.LogAccelerateInterpolator();
+    method private static float computeLog(float, int);
+    field private static final int BASE = 100; // 0x64
+    field private static final float LOGS_SCALE;
+  }
+
+  private static final class FloatingToolbar.FloatingToolbarPopup.OverflowPanel extends android.widget.ListView {
+    ctor FloatingToolbar.FloatingToolbarPopup.OverflowPanel(androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup!);
+    field private final androidx.textclassifier.widget.FloatingToolbar.FloatingToolbarPopup! mPopup;
+  }
+
+  private static final class FloatingToolbar.FloatingToolbarPopup.OverflowPanelViewHelper {
+    ctor FloatingToolbar.FloatingToolbarPopup.OverflowPanelViewHelper(android.content.Context!, int);
+    method public int calculateWidth(androidx.core.internal.view.SupportMenuItem!);
+    method private android.view.View! createMenuButton(androidx.core.internal.view.SupportMenuItem!);
+    method public android.view.View! getView(androidx.core.internal.view.SupportMenuItem!, int, android.view.View!);
+    method private boolean shouldShowIcon(androidx.core.internal.view.SupportMenuItem!);
+    field private final android.view.View! mCalculator;
+    field private final android.content.Context! mContext;
+    field private final int mIconTextSpacing;
+    field private final int mSidePadding;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(android.os.Build.VERSION_CODES.M) @UiThread public final class ToolbarController {
+    ctor private ToolbarController(android.widget.TextView!);
+    method private static androidx.core.internal.view.SupportMenu! createMenu(android.widget.TextView!, androidx.textclassifier.widget.ToolbarController.BackgroundSpan!, java.util.List<androidx.core.app.RemoteActionCompat>!);
+    method static void dismissImmediately(androidx.textclassifier.widget.FloatingToolbar!);
+    method private static int[]! getCoordinates(android.widget.TextView!, int);
+    method static String? getHighlightedText(android.widget.TextView!, androidx.textclassifier.widget.ToolbarController.BackgroundSpan!);
+    method public static androidx.textclassifier.widget.ToolbarController! getInstance(android.widget.TextView!);
+    method static boolean hasValidTextView(android.widget.TextView!);
+    method @VisibleForTesting boolean isToolbarShowing();
+    method static void removeHighlight(android.widget.TextView!);
+    method private static void setHighlight(android.widget.TextView!, androidx.textclassifier.widget.ToolbarController.BackgroundSpan!, int, int, androidx.textclassifier.widget.FloatingToolbar!);
+    method private static void setListeners(android.widget.TextView!, androidx.textclassifier.widget.FloatingToolbar!);
+    method public void show(java.util.List<androidx.core.app.RemoteActionCompat>!, int, int);
+    method static int withAlpha(int);
+    field private static final int ALPHA = 20; // 0x14
+    field private static final int HIGHLIGHT_DELAY_MS = 80; // 0x50
+    field private static final String LOG_TAG = "ToolbarController";
+    field private static final int ORDER_START = 50; // 0x32
+    field private final android.graphics.Rect! mContentRect;
+    field private final androidx.textclassifier.widget.ToolbarController.BackgroundSpan! mHighlight;
+    field private final android.widget.TextView! mTextView;
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+    field private static java.lang.ref.WeakReference<androidx.textclassifier.widget.ToolbarController>! sInstance;
+  }
+
+  private static final class ToolbarController.ActionModeCallback extends android.view.ActionMode.Callback2 {
+    ctor ToolbarController.ActionModeCallback(androidx.textclassifier.widget.FloatingToolbar!, android.view.ActionMode.Callback?, boolean);
+    field final android.view.ActionMode.Callback? mOriginalCallback;
+    field private final boolean mPreferMe;
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+  }
+
+  @VisibleForTesting static final class ToolbarController.BackgroundSpan extends android.text.style.BackgroundColorSpan {
+    ctor ToolbarController.BackgroundSpan(int);
+    field private static final android.text.style.CharacterStyle! NON_PARCELABLE_UNDERLYING;
+  }
+
+  private static final class ToolbarController.OnMenuItemClickListener implements android.view.MenuItem.OnMenuItemClickListener {
+    ctor ToolbarController.OnMenuItemClickListener(androidx.textclassifier.widget.FloatingToolbar!);
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+  }
+
+  private static final class ToolbarController.OnTextViewDetachedListener implements android.view.ViewTreeObserver.OnWindowAttachListener {
+    ctor ToolbarController.OnTextViewDetachedListener(androidx.textclassifier.widget.FloatingToolbar!);
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+  }
+
+  private static final class ToolbarController.OnTextViewFocusChangeListener implements android.view.ViewTreeObserver.OnGlobalFocusChangeListener {
+    ctor ToolbarController.OnTextViewFocusChangeListener(android.widget.TextView!, androidx.textclassifier.widget.FloatingToolbar!);
+    field private final android.widget.TextView! mTextView;
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+  }
+
+  private static final class ToolbarController.OnToolbarDismissListener implements android.widget.PopupWindow.OnDismissListener {
+    ctor ToolbarController.OnToolbarDismissListener(android.widget.TextView!, androidx.textclassifier.widget.ToolbarController.OnWindowFocusChangeListener!, androidx.textclassifier.widget.ToolbarController.OnTextViewFocusChangeListener!, androidx.textclassifier.widget.ToolbarController.OnTextViewDetachedListener!, androidx.textclassifier.widget.ToolbarController.ActionModeCallback!, androidx.textclassifier.widget.ToolbarController.ActionModeCallback!);
+    field private final androidx.textclassifier.widget.ToolbarController.ActionModeCallback! mInsertionCallback;
+    field private final androidx.textclassifier.widget.ToolbarController.OnTextViewFocusChangeListener! mOnFocusChangeListener;
+    field private final androidx.textclassifier.widget.ToolbarController.OnTextViewDetachedListener! mOnTextViewDetachedListener;
+    field private final androidx.textclassifier.widget.ToolbarController.OnWindowFocusChangeListener! mOnWindowFocusChangeListener;
+    field private final androidx.textclassifier.widget.ToolbarController.ActionModeCallback! mSelectionCallback;
+    field private final android.widget.TextView! mTextView;
+  }
+
+  private static final class ToolbarController.OnWindowFocusChangeListener implements android.view.ViewTreeObserver.OnWindowFocusChangeListener {
+    ctor ToolbarController.OnWindowFocusChangeListener(androidx.textclassifier.widget.FloatingToolbar!);
+    field private final androidx.textclassifier.widget.FloatingToolbar! mToolbar;
+  }
+
+}
+

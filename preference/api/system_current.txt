@@ -1,0 +1,602 @@
+// Signature format: 2.0
+package androidx.preference {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class AndroidResources {
+    ctor private AndroidResources();
+    field public static final int ANDROID_R_EDITTEXT_PREFERENCE_STYLE = 16842898; // 0x1010092
+    field public static final int ANDROID_R_ICON_FRAME = 16908350; // 0x102003e
+    field public static final int ANDROID_R_LIST_CONTAINER = 16908351; // 0x102003f
+    field public static final int ANDROID_R_PREFERENCE_FRAGMENT_STYLE = 16844038; // 0x1010506
+    field public static final int ANDROID_R_SWITCH_WIDGET = 16908352; // 0x1020040
+  }
+
+  public class CheckBoxPreference extends androidx.preference.TwoStatePreference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void performClick(android.view.View!);
+    method private void syncCheckboxView(android.view.View!);
+    method private void syncViewIfAccessibilityEnabled(android.view.View!);
+    field private final androidx.preference.CheckBoxPreference.Listener! mListener;
+  }
+
+  private class CheckBoxPreference.Listener implements android.widget.CompoundButton.OnCheckedChangeListener {
+    ctor CheckBoxPreference.Listener();
+  }
+
+  final class CollapsiblePreferenceGroupController {
+    ctor CollapsiblePreferenceGroupController(androidx.preference.PreferenceGroup!, androidx.preference.PreferenceGroupAdapter!);
+    method private androidx.preference.CollapsiblePreferenceGroupController.ExpandButton! createExpandButton(androidx.preference.PreferenceGroup!, java.util.List<androidx.preference.Preference>!);
+    method private java.util.List<androidx.preference.Preference>! createInnerVisiblePreferencesList(androidx.preference.PreferenceGroup!);
+    method public java.util.List<androidx.preference.Preference>! createVisiblePreferencesList(androidx.preference.PreferenceGroup!);
+    field private final android.content.Context! mContext;
+    field private boolean mHasExpandablePreference;
+    field final androidx.preference.PreferenceGroupAdapter! mPreferenceGroupAdapter;
+  }
+
+  static class CollapsiblePreferenceGroupController.ExpandButton extends androidx.preference.Preference {
+    ctor CollapsiblePreferenceGroupController.ExpandButton(android.content.Context!, java.util.List<androidx.preference.Preference>!, long);
+    method public long getId();
+    method private void initLayout();
+    method private void setSummary(java.util.List<androidx.preference.Preference>!);
+    field private long mId;
+  }
+
+  public abstract class DialogPreference extends androidx.preference.Preference {
+    field private android.graphics.drawable.Drawable! mDialogIcon;
+    field private int mDialogLayoutResId;
+    field private CharSequence! mDialogMessage;
+    field private CharSequence! mDialogTitle;
+    field private CharSequence! mNegativeButtonText;
+    field private CharSequence! mPositiveButtonText;
+  }
+
+  public class DropDownPreference extends androidx.preference.ListPreference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int findSpinnerIndexOfValue(String!);
+    method private void updateEntries();
+    field private final android.widget.ArrayAdapter! mAdapter;
+    field private final android.content.Context! mContext;
+    field private final android.widget.AdapterView.OnItemSelectedListener! mItemSelectedListener;
+    field private android.widget.Spinner! mSpinner;
+  }
+
+  public class EditTextPreference extends androidx.preference.DialogPreference {
+    field private String! mText;
+  }
+
+  private static class EditTextPreference.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor EditTextPreference.SavedState(android.os.Parcel!);
+    ctor EditTextPreference.SavedState(android.os.Parcelable!);
+    field public static final android.os.Parcelable.Creator<androidx.preference.EditTextPreference.SavedState>! CREATOR;
+    field String! mText;
+  }
+
+  public static final class EditTextPreference.SimpleSummaryProvider implements androidx.preference.Preference.SummaryProvider<androidx.preference.EditTextPreference> {
+    ctor private EditTextPreference.SimpleSummaryProvider();
+    field private static androidx.preference.EditTextPreference.SimpleSummaryProvider! sSimpleSummaryProvider;
+  }
+
+  @Deprecated public class EditTextPreferenceDialogFragment extends androidx.preference.PreferenceDialogFragment {
+    method private androidx.preference.EditTextPreference! getEditTextPreference();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected boolean needInputMethod();
+    field private static final String SAVE_STATE_TEXT = "EditTextPreferenceDialogFragment.text";
+    field private android.widget.EditText! mEditText;
+    field private CharSequence! mText;
+  }
+
+  public class EditTextPreferenceDialogFragmentCompat extends androidx.preference.PreferenceDialogFragmentCompat {
+    method private androidx.preference.EditTextPreference! getEditTextPreference();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected boolean needInputMethod();
+    field private static final String SAVE_STATE_TEXT = "EditTextPreferenceDialogFragment.text";
+    field private android.widget.EditText! mEditText;
+    field private CharSequence! mText;
+  }
+
+  public class ListPreference extends androidx.preference.DialogPreference {
+    method private int getValueIndex();
+    field private static final String TAG = "ListPreference";
+    field private CharSequence[]! mEntries;
+    field private CharSequence[]! mEntryValues;
+    field private String! mSummary;
+    field private String! mValue;
+    field private boolean mValueSet;
+  }
+
+  private static class ListPreference.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor ListPreference.SavedState(android.os.Parcel!);
+    ctor ListPreference.SavedState(android.os.Parcelable!);
+    field public static final android.os.Parcelable.Creator<androidx.preference.ListPreference.SavedState>! CREATOR;
+    field String! mValue;
+  }
+
+  public static final class ListPreference.SimpleSummaryProvider implements androidx.preference.Preference.SummaryProvider<androidx.preference.ListPreference> {
+    ctor private ListPreference.SimpleSummaryProvider();
+    field private static androidx.preference.ListPreference.SimpleSummaryProvider! sSimpleSummaryProvider;
+  }
+
+  @Deprecated public class ListPreferenceDialogFragment extends androidx.preference.PreferenceDialogFragment {
+    method private androidx.preference.ListPreference! getListPreference();
+    field private static final String SAVE_STATE_ENTRIES = "ListPreferenceDialogFragment.entries";
+    field private static final String SAVE_STATE_ENTRY_VALUES = "ListPreferenceDialogFragment.entryValues";
+    field private static final String SAVE_STATE_INDEX = "ListPreferenceDialogFragment.index";
+    field int mClickedDialogEntryIndex;
+    field private CharSequence[]! mEntries;
+    field private CharSequence[]! mEntryValues;
+  }
+
+  public class ListPreferenceDialogFragmentCompat extends androidx.preference.PreferenceDialogFragmentCompat {
+    method private androidx.preference.ListPreference! getListPreference();
+    field private static final String SAVE_STATE_ENTRIES = "ListPreferenceDialogFragment.entries";
+    field private static final String SAVE_STATE_ENTRY_VALUES = "ListPreferenceDialogFragment.entryValues";
+    field private static final String SAVE_STATE_INDEX = "ListPreferenceDialogFragment.index";
+    field int mClickedDialogEntryIndex;
+    field private CharSequence[]! mEntries;
+    field private CharSequence[]! mEntryValues;
+  }
+
+  public class MultiSelectListPreference extends androidx.preference.DialogPreference {
+    field private CharSequence[]! mEntries;
+    field private CharSequence[]! mEntryValues;
+    field private java.util.Set<java.lang.String>! mValues;
+  }
+
+  private static class MultiSelectListPreference.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor MultiSelectListPreference.SavedState(android.os.Parcel!);
+    ctor MultiSelectListPreference.SavedState(android.os.Parcelable!);
+    field public static final android.os.Parcelable.Creator<androidx.preference.MultiSelectListPreference.SavedState>! CREATOR;
+    field java.util.Set<java.lang.String>! mValues;
+  }
+
+  @Deprecated public class MultiSelectListPreferenceDialogFragment extends androidx.preference.PreferenceDialogFragment {
+    method private androidx.preference.internal.AbstractMultiSelectListPreference! getListPreference();
+    field private static final String SAVE_STATE_CHANGED = "MultiSelectListPreferenceDialogFragment.changed";
+    field private static final String SAVE_STATE_ENTRIES = "MultiSelectListPreferenceDialogFragment.entries";
+    field private static final String SAVE_STATE_ENTRY_VALUES = "MultiSelectListPreferenceDialogFragment.entryValues";
+    field private static final String SAVE_STATE_VALUES = "MultiSelectListPreferenceDialogFragment.values";
+    field CharSequence[]! mEntries;
+    field CharSequence[]! mEntryValues;
+    field java.util.Set<java.lang.String>! mNewValues;
+    field boolean mPreferenceChanged;
+  }
+
+  public class MultiSelectListPreferenceDialogFragmentCompat extends androidx.preference.PreferenceDialogFragmentCompat {
+    method private androidx.preference.internal.AbstractMultiSelectListPreference! getListPreference();
+    field private static final String SAVE_STATE_CHANGED = "MultiSelectListPreferenceDialogFragmentCompat.changed";
+    field private static final String SAVE_STATE_ENTRIES = "MultiSelectListPreferenceDialogFragmentCompat.entries";
+    field private static final String SAVE_STATE_ENTRY_VALUES = "MultiSelectListPreferenceDialogFragmentCompat.entryValues";
+    field private static final String SAVE_STATE_VALUES = "MultiSelectListPreferenceDialogFragmentCompat.values";
+    field CharSequence[]! mEntries;
+    field CharSequence[]! mEntryValues;
+    field java.util.Set<java.lang.String>! mNewValues;
+    field boolean mPreferenceChanged;
+  }
+
+  public class Preference implements java.lang.Comparable<androidx.preference.Preference> {
+    method void assignParent(androidx.preference.PreferenceGroup?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final void clearWasDetached();
+    method void dispatchRestoreInstanceState(android.os.Bundle!);
+    method void dispatchSaveInstanceState(android.os.Bundle!);
+    method private void dispatchSetInitialValue();
+    method StringBuilder! getFilterableStringBuilder();
+    method long getId();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean isCopyingEnabled();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onAttachedToHierarchy(androidx.preference.PreferenceManager!, long);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void performClick(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void performClick();
+    method private void registerDependency();
+    method private void registerDependent(androidx.preference.Preference!);
+    method void requireKey();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setCopyingEnabled(boolean);
+    method private void setEnabledStateOnViews(android.view.View!, boolean);
+    method final void setOnPreferenceChangeInternalListener(androidx.preference.Preference.OnPreferenceChangeInternalListener!);
+    method private void tryCommit(android.content.SharedPreferences.Editor);
+    method private void unregisterDependency();
+    method private void unregisterDependent(androidx.preference.Preference!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final boolean wasDetached();
+    field private static final String CLIPBOARD_ID = "Preference";
+    field private boolean mAllowDividerAbove;
+    field private boolean mAllowDividerBelow;
+    field private boolean mBaseMethodCalled;
+    field private final android.view.View.OnClickListener! mClickListener;
+    field private android.content.Context! mContext;
+    field private boolean mCopyingEnabled;
+    field private Object! mDefaultValue;
+    field private String! mDependencyKey;
+    field private boolean mDependencyMet;
+    field private java.util.List<androidx.preference.Preference>! mDependents;
+    field private boolean mEnabled;
+    field private android.os.Bundle! mExtras;
+    field private String! mFragment;
+    field private boolean mHasId;
+    field private boolean mHasSingleLineTitleAttr;
+    field private android.graphics.drawable.Drawable! mIcon;
+    field private int mIconResId;
+    field private boolean mIconSpaceReserved;
+    field private long mId;
+    field private android.content.Intent! mIntent;
+    field private String! mKey;
+    field private int mLayoutResId;
+    field private androidx.preference.Preference.OnPreferenceChangeInternalListener! mListener;
+    field private androidx.preference.Preference.OnPreferenceChangeListener! mOnChangeListener;
+    field private androidx.preference.Preference.OnPreferenceClickListener! mOnClickListener;
+    field private androidx.preference.Preference.OnPreferenceCopyListener! mOnCopyListener;
+    field private int mOrder;
+    field private boolean mParentDependencyMet;
+    field private androidx.preference.PreferenceGroup! mParentGroup;
+    field private boolean mPersistent;
+    field private androidx.preference.PreferenceDataStore? mPreferenceDataStore;
+    field private androidx.preference.PreferenceManager? mPreferenceManager;
+    field private boolean mRequiresKey;
+    field private boolean mSelectable;
+    field private boolean mShouldDisableView;
+    field private boolean mSingleLineTitle;
+    field private CharSequence! mSummary;
+    field private androidx.preference.Preference.SummaryProvider! mSummaryProvider;
+    field private CharSequence! mTitle;
+    field private int mViewId;
+    field private boolean mVisible;
+    field private boolean mWasDetached;
+    field private int mWidgetLayoutResId;
+  }
+
+  static interface Preference.OnPreferenceChangeInternalListener {
+    method public void onPreferenceChange(androidx.preference.Preference!);
+    method public void onPreferenceHierarchyChange(androidx.preference.Preference!);
+    method public void onPreferenceVisibilityChange(androidx.preference.Preference!);
+  }
+
+  private static class Preference.OnPreferenceCopyListener implements android.view.MenuItem.OnMenuItemClickListener android.view.View.OnCreateContextMenuListener {
+    ctor Preference.OnPreferenceCopyListener(androidx.preference.Preference!);
+    field private final androidx.preference.Preference! mPreference;
+  }
+
+  @Deprecated public abstract class PreferenceDialogFragment extends android.app.DialogFragment implements android.content.DialogInterface.OnClickListener {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected boolean needInputMethod();
+    method private void requestInputMethod(android.app.Dialog!);
+    field private static final String SAVE_STATE_ICON = "PreferenceDialogFragment.icon";
+    field private static final String SAVE_STATE_LAYOUT = "PreferenceDialogFragment.layout";
+    field private static final String SAVE_STATE_MESSAGE = "PreferenceDialogFragment.message";
+    field private static final String SAVE_STATE_NEGATIVE_TEXT = "PreferenceDialogFragment.negativeText";
+    field private static final String SAVE_STATE_POSITIVE_TEXT = "PreferenceDialogFragment.positiveText";
+    field private static final String SAVE_STATE_TITLE = "PreferenceDialogFragment.title";
+    field private android.graphics.drawable.BitmapDrawable! mDialogIcon;
+    field @LayoutRes private int mDialogLayoutRes;
+    field private CharSequence! mDialogMessage;
+    field private CharSequence! mDialogTitle;
+    field private CharSequence! mNegativeButtonText;
+    field private CharSequence! mPositiveButtonText;
+    field private androidx.preference.DialogPreference! mPreference;
+    field private int mWhichButtonClicked;
+  }
+
+  public abstract class PreferenceDialogFragmentCompat extends androidx.fragment.app.DialogFragment implements android.content.DialogInterface.OnClickListener {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected boolean needInputMethod();
+    method private void requestInputMethod(android.app.Dialog!);
+    field private static final String SAVE_STATE_ICON = "PreferenceDialogFragment.icon";
+    field private static final String SAVE_STATE_LAYOUT = "PreferenceDialogFragment.layout";
+    field private static final String SAVE_STATE_MESSAGE = "PreferenceDialogFragment.message";
+    field private static final String SAVE_STATE_NEGATIVE_TEXT = "PreferenceDialogFragment.negativeText";
+    field private static final String SAVE_STATE_POSITIVE_TEXT = "PreferenceDialogFragment.positiveText";
+    field private static final String SAVE_STATE_TITLE = "PreferenceDialogFragment.title";
+    field private android.graphics.drawable.BitmapDrawable! mDialogIcon;
+    field @LayoutRes private int mDialogLayoutRes;
+    field private CharSequence! mDialogMessage;
+    field private CharSequence! mDialogTitle;
+    field private CharSequence! mNegativeButtonText;
+    field private CharSequence! mPositiveButtonText;
+    field private androidx.preference.DialogPreference! mPreference;
+    field private int mWhichButtonClicked;
+  }
+
+  @Deprecated public abstract class PreferenceFragment extends android.app.Fragment implements androidx.preference.DialogPreference.TargetFragment androidx.preference.PreferenceManager.OnDisplayPreferenceDialogListener androidx.preference.PreferenceManager.OnNavigateToScreenListener androidx.preference.PreferenceManager.OnPreferenceTreeClickListener {
+    method void bindPreferences();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.app.Fragment! getCallbackFragment();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onBindPreferences();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onUnbindPreferences();
+    method private void postBindPreferences();
+    method private void requirePreferenceManager();
+    method private void scrollToPreferenceInternal(androidx.preference.Preference!, String!);
+    method private void unbindPreferences();
+    field private static final String DIALOG_FRAGMENT_TAG = "androidx.preference.PreferenceFragment.DIALOG";
+    field private static final int MSG_BIND_PREFERENCES = 1; // 0x1
+    field private static final String PREFERENCES_TAG = "android:preferences";
+    field private final androidx.preference.PreferenceFragment.DividerDecoration! mDividerDecoration;
+    field private final android.os.Handler! mHandler;
+    field private boolean mHavePrefs;
+    field private boolean mInitDone;
+    field private int mLayoutResId;
+    field androidx.recyclerview.widget.RecyclerView! mList;
+    field private androidx.preference.PreferenceManager! mPreferenceManager;
+    field private final Runnable! mRequestFocus;
+    field private Runnable! mSelectPreferenceRunnable;
+    field private android.content.Context! mStyledContext;
+  }
+
+  private class PreferenceFragment.DividerDecoration extends androidx.recyclerview.widget.RecyclerView.ItemDecoration {
+    ctor PreferenceFragment.DividerDecoration();
+    method public void setAllowDividerAfterLastItem(boolean);
+    method public void setDivider(android.graphics.drawable.Drawable!);
+    method public void setDividerHeight(int);
+    method private boolean shouldDrawDividerBelow(android.view.View!, androidx.recyclerview.widget.RecyclerView!);
+    field private boolean mAllowDividerAfterLastItem;
+    field private android.graphics.drawable.Drawable! mDivider;
+    field private int mDividerHeight;
+  }
+
+  private static class PreferenceFragment.ScrollToPreferenceObserver extends androidx.recyclerview.widget.RecyclerView.AdapterDataObserver {
+    ctor PreferenceFragment.ScrollToPreferenceObserver(androidx.recyclerview.widget.RecyclerView.Adapter!, androidx.recyclerview.widget.RecyclerView!, androidx.preference.Preference!, String!);
+    method private void scrollToPreference();
+    field private final androidx.recyclerview.widget.RecyclerView.Adapter! mAdapter;
+    field private final String! mKey;
+    field private final androidx.recyclerview.widget.RecyclerView! mList;
+    field private final androidx.preference.Preference! mPreference;
+  }
+
+  public abstract class PreferenceFragmentCompat extends androidx.fragment.app.Fragment implements androidx.preference.DialogPreference.TargetFragment androidx.preference.PreferenceManager.OnDisplayPreferenceDialogListener androidx.preference.PreferenceManager.OnNavigateToScreenListener androidx.preference.PreferenceManager.OnPreferenceTreeClickListener {
+    method void bindPreferences();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.fragment.app.Fragment! getCallbackFragment();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onBindPreferences();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onUnbindPreferences();
+    method private void postBindPreferences();
+    method private void requirePreferenceManager();
+    method private void scrollToPreferenceInternal(androidx.preference.Preference!, String!);
+    method private void unbindPreferences();
+    field private static final String DIALOG_FRAGMENT_TAG = "androidx.preference.PreferenceFragment.DIALOG";
+    field private static final int MSG_BIND_PREFERENCES = 1; // 0x1
+    field private static final String PREFERENCES_TAG = "android:preferences";
+    field private static final String TAG = "PreferenceFragment";
+    field private final androidx.preference.PreferenceFragmentCompat.DividerDecoration! mDividerDecoration;
+    field private android.os.Handler! mHandler;
+    field private boolean mHavePrefs;
+    field private boolean mInitDone;
+    field private int mLayoutResId;
+    field androidx.recyclerview.widget.RecyclerView! mList;
+    field private androidx.preference.PreferenceManager! mPreferenceManager;
+    field private final Runnable! mRequestFocus;
+    field private Runnable! mSelectPreferenceRunnable;
+  }
+
+  private class PreferenceFragmentCompat.DividerDecoration extends androidx.recyclerview.widget.RecyclerView.ItemDecoration {
+    ctor PreferenceFragmentCompat.DividerDecoration();
+    method public void setAllowDividerAfterLastItem(boolean);
+    method public void setDivider(android.graphics.drawable.Drawable!);
+    method public void setDividerHeight(int);
+    method private boolean shouldDrawDividerBelow(android.view.View!, androidx.recyclerview.widget.RecyclerView!);
+    field private boolean mAllowDividerAfterLastItem;
+    field private android.graphics.drawable.Drawable! mDivider;
+    field private int mDividerHeight;
+  }
+
+  private static class PreferenceFragmentCompat.ScrollToPreferenceObserver extends androidx.recyclerview.widget.RecyclerView.AdapterDataObserver {
+    ctor public PreferenceFragmentCompat.ScrollToPreferenceObserver(androidx.recyclerview.widget.RecyclerView.Adapter!, androidx.recyclerview.widget.RecyclerView!, androidx.preference.Preference!, String!);
+    method private void scrollToPreference();
+    field private final androidx.recyclerview.widget.RecyclerView.Adapter! mAdapter;
+    field private final String! mKey;
+    field private final androidx.recyclerview.widget.RecyclerView! mList;
+    field private final androidx.preference.Preference! mPreference;
+  }
+
+  public abstract class PreferenceGroup extends androidx.preference.Preference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.preference.PreferenceGroup.OnExpandButtonClickListener? getOnExpandButtonClickListener();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean isAttached();
+    method private boolean removePreferenceInt(androidx.preference.Preference!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setOnExpandButtonClickListener(androidx.preference.PreferenceGroup.OnExpandButtonClickListener?);
+    method void sortPreferences();
+    field private static final String TAG = "PreferenceGroup";
+    field private boolean mAttachedToHierarchy;
+    field private final Runnable! mClearRecycleCacheRunnable;
+    field private int mCurrentPreferenceOrder;
+    field private final android.os.Handler! mHandler;
+    field final androidx.collection.SimpleArrayMap<java.lang.String,java.lang.Long>! mIdRecycleCache;
+    field private int mInitialExpandedChildrenCount;
+    field private androidx.preference.PreferenceGroup.OnExpandButtonClickListener! mOnExpandButtonClickListener;
+    field private boolean mOrderingAsAdded;
+    field private java.util.List<androidx.preference.Preference>! mPreferenceList;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static interface PreferenceGroup.OnExpandButtonClickListener {
+    method public void onExpandButtonClick();
+  }
+
+  static class PreferenceGroup.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor PreferenceGroup.SavedState(android.os.Parcel!);
+    ctor PreferenceGroup.SavedState(android.os.Parcelable!, int);
+    field public static final android.os.Parcelable.Creator<androidx.preference.PreferenceGroup.SavedState>! CREATOR;
+    field int mInitialExpandedChildrenCount;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class PreferenceGroupAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.preference.PreferenceViewHolder> implements androidx.preference.Preference.OnPreferenceChangeInternalListener androidx.preference.PreferenceGroup.PreferencePositionCallback {
+    ctor public PreferenceGroupAdapter(androidx.preference.PreferenceGroup!);
+    ctor private PreferenceGroupAdapter(androidx.preference.PreferenceGroup!, android.os.Handler!);
+    method private void addPreferenceClassName(androidx.preference.Preference!);
+    method @VisibleForTesting static androidx.preference.PreferenceGroupAdapter! createInstanceWithCustomHandler(androidx.preference.PreferenceGroup!, android.os.Handler!);
+    method private androidx.preference.PreferenceGroupAdapter.PreferenceLayout! createPreferenceLayout(androidx.preference.Preference!, androidx.preference.PreferenceGroupAdapter.PreferenceLayout!);
+    method private void flattenPreferenceGroup(java.util.List<androidx.preference.Preference>!, androidx.preference.PreferenceGroup!);
+    method public androidx.preference.Preference! getItem(int);
+    method public void onPreferenceChange(androidx.preference.Preference!);
+    method public void onPreferenceHierarchyChange(androidx.preference.Preference!);
+    method public void onPreferenceVisibilityChange(androidx.preference.Preference!);
+    method void syncMyPreferences();
+    field private android.os.Handler! mHandler;
+    field private androidx.preference.PreferenceGroup! mPreferenceGroup;
+    field private androidx.preference.CollapsiblePreferenceGroupController! mPreferenceGroupController;
+    field private java.util.List<androidx.preference.PreferenceGroupAdapter.PreferenceLayout>! mPreferenceLayouts;
+    field private java.util.List<androidx.preference.Preference>! mPreferenceList;
+    field private java.util.List<androidx.preference.Preference>! mPreferenceListInternal;
+    field private Runnable! mSyncRunnable;
+    field private androidx.preference.PreferenceGroupAdapter.PreferenceLayout! mTempPreferenceLayout;
+  }
+
+  private static class PreferenceGroupAdapter.PreferenceLayout {
+    ctor PreferenceGroupAdapter.PreferenceLayout();
+    ctor PreferenceGroupAdapter.PreferenceLayout(androidx.preference.PreferenceGroupAdapter.PreferenceLayout!);
+    field String! mName;
+    field int mResId;
+    field int mWidgetResId;
+  }
+
+  class PreferenceInflater {
+    ctor public PreferenceInflater(android.content.Context!, androidx.preference.PreferenceManager!);
+    method private androidx.preference.Preference! createItem(String, String[]?, android.util.AttributeSet!) throws java.lang.ClassNotFoundException, android.view.InflateException;
+    method private androidx.preference.Preference! createItemFromTag(String!, android.util.AttributeSet!);
+    method public android.content.Context! getContext();
+    method public String[]! getDefaultPackages();
+    method public androidx.preference.Preference! inflate(int, androidx.preference.PreferenceGroup?);
+    method public androidx.preference.Preference! inflate(org.xmlpull.v1.XmlPullParser!, androidx.preference.PreferenceGroup?);
+    method private void init(androidx.preference.PreferenceManager!);
+    method protected androidx.preference.Preference! onCreateItem(String!, android.util.AttributeSet!) throws java.lang.ClassNotFoundException;
+    method private androidx.preference.PreferenceGroup onMergeRoots(androidx.preference.PreferenceGroup!, androidx.preference.PreferenceGroup);
+    method private void rInflate(org.xmlpull.v1.XmlPullParser!, androidx.preference.Preference!, android.util.AttributeSet!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method public void setDefaultPackages(String[]!);
+    method private static void skipCurrentTag(org.xmlpull.v1.XmlPullParser!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    field private static final java.util.HashMap<java.lang.String,java.lang.reflect.Constructor>! CONSTRUCTOR_MAP;
+    field private static final Class<?>[]! CONSTRUCTOR_SIGNATURE;
+    field private static final String EXTRA_TAG_NAME = "extra";
+    field private static final String INTENT_TAG_NAME = "intent";
+    field private final Object[]! mConstructorArgs;
+    field private final android.content.Context! mContext;
+    field private String[]! mDefaultPackages;
+    field private androidx.preference.PreferenceManager! mPreferenceManager;
+  }
+
+  public class PreferenceManager {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public PreferenceManager(android.content.Context!);
+    method private static int getDefaultSharedPreferencesMode();
+    method private static String! getDefaultSharedPreferencesName(android.content.Context!);
+    method android.content.SharedPreferences.Editor! getEditor();
+    method long getNextId();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.preference.PreferenceScreen! inflateFromResource(android.content.Context!, int, androidx.preference.PreferenceScreen!);
+    method private void setNoCommit(boolean);
+    method boolean shouldCommit();
+    field private static final int STORAGE_DEFAULT = 0; // 0x0
+    field private static final int STORAGE_DEVICE_PROTECTED = 1; // 0x1
+    field private android.content.Context! mContext;
+    field private android.content.SharedPreferences.Editor? mEditor;
+    field private long mNextId;
+    field private boolean mNoCommit;
+    field private androidx.preference.PreferenceManager.OnDisplayPreferenceDialogListener! mOnDisplayPreferenceDialogListener;
+    field private androidx.preference.PreferenceManager.OnNavigateToScreenListener! mOnNavigateToScreenListener;
+    field private androidx.preference.PreferenceManager.OnPreferenceTreeClickListener! mOnPreferenceTreeClickListener;
+    field private androidx.preference.PreferenceManager.PreferenceComparisonCallback! mPreferenceComparisonCallback;
+    field private androidx.preference.PreferenceDataStore? mPreferenceDataStore;
+    field private androidx.preference.PreferenceScreen! mPreferenceScreen;
+    field private android.content.SharedPreferences? mSharedPreferences;
+    field private int mSharedPreferencesMode;
+    field private String! mSharedPreferencesName;
+    field private int mStorage;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class PreferenceRecyclerViewAccessibilityDelegate extends androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate {
+    ctor public PreferenceRecyclerViewAccessibilityDelegate(androidx.recyclerview.widget.RecyclerView!);
+    field final androidx.core.view.AccessibilityDelegateCompat! mDefaultItemDelegate;
+    field final androidx.core.view.AccessibilityDelegateCompat! mItemDelegate;
+    field final androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+  }
+
+  public final class PreferenceScreen extends androidx.preference.PreferenceGroup {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public PreferenceScreen(android.content.Context!, android.util.AttributeSet!);
+    field private boolean mShouldUseGeneratedIds;
+  }
+
+  public class PreferenceViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor PreferenceViewHolder(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.TESTS) public static androidx.preference.PreferenceViewHolder! createInstanceForTests(android.view.View!);
+    field private final android.util.SparseArray<android.view.View>! mCachedViews;
+    field private boolean mDividerAllowedAbove;
+    field private boolean mDividerAllowedBelow;
+  }
+
+  public class SeekBarPreference extends androidx.preference.Preference {
+    method private void setValueInternal(int, boolean);
+    method void syncValueInternal(android.widget.SeekBar!);
+    field private static final String TAG = "SeekBarPreference";
+    field boolean mAdjustable;
+    field private int mMax;
+    field int mMin;
+    field android.widget.SeekBar! mSeekBar;
+    field private android.widget.SeekBar.OnSeekBarChangeListener! mSeekBarChangeListener;
+    field private int mSeekBarIncrement;
+    field private android.view.View.OnKeyListener! mSeekBarKeyListener;
+    field int mSeekBarValue;
+    field private android.widget.TextView! mSeekBarValueTextView;
+    field private boolean mShowSeekBarValue;
+    field boolean mTrackingTouch;
+  }
+
+  private static class SeekBarPreference.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor SeekBarPreference.SavedState(android.os.Parcel!);
+    ctor SeekBarPreference.SavedState(android.os.Parcelable!);
+    field public static final android.os.Parcelable.Creator<androidx.preference.SeekBarPreference.SavedState>! CREATOR;
+    field int mMax;
+    field int mMin;
+    field int mSeekBarValue;
+  }
+
+  public class SwitchPreference extends androidx.preference.TwoStatePreference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void performClick(android.view.View!);
+    method private void syncSwitchView(android.view.View!);
+    method private void syncViewIfAccessibilityEnabled(android.view.View!);
+    field private final androidx.preference.SwitchPreference.Listener! mListener;
+    field private CharSequence! mSwitchOff;
+    field private CharSequence! mSwitchOn;
+  }
+
+  private class SwitchPreference.Listener implements android.widget.CompoundButton.OnCheckedChangeListener {
+    ctor SwitchPreference.Listener();
+  }
+
+  public class SwitchPreferenceCompat extends androidx.preference.TwoStatePreference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void performClick(android.view.View!);
+    method private void syncSwitchView(android.view.View!);
+    method private void syncViewIfAccessibilityEnabled(android.view.View!);
+    field private final androidx.preference.SwitchPreferenceCompat.Listener! mListener;
+    field private CharSequence! mSwitchOff;
+    field private CharSequence! mSwitchOn;
+  }
+
+  private class SwitchPreferenceCompat.Listener implements android.widget.CompoundButton.OnCheckedChangeListener {
+    ctor SwitchPreferenceCompat.Listener();
+  }
+
+  public abstract class TwoStatePreference extends androidx.preference.Preference {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void syncSummaryView(android.view.View!);
+    field private boolean mCheckedSet;
+    field private boolean mDisableDependentsState;
+    field private CharSequence! mSummaryOff;
+    field private CharSequence! mSummaryOn;
+  }
+
+  static class TwoStatePreference.SavedState extends androidx.preference.Preference.BaseSavedState {
+    ctor TwoStatePreference.SavedState(android.os.Parcel!);
+    ctor TwoStatePreference.SavedState(android.os.Parcelable!);
+    field public static final android.os.Parcelable.Creator<androidx.preference.TwoStatePreference.SavedState>! CREATOR;
+    field boolean mChecked;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class UnPressableLinearLayout extends android.widget.LinearLayout {
+    ctor public UnPressableLinearLayout(android.content.Context!);
+    ctor public UnPressableLinearLayout(android.content.Context!, android.util.AttributeSet!);
+  }
+
+}
+
+package @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) androidx.preference.internal {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class AbstractMultiSelectListPreference extends androidx.preference.DialogPreference {
+    ctor public AbstractMultiSelectListPreference(android.content.Context!, android.util.AttributeSet!, int, int);
+    ctor public AbstractMultiSelectListPreference(android.content.Context!, android.util.AttributeSet!, int);
+    ctor public AbstractMultiSelectListPreference(android.content.Context!, android.util.AttributeSet!);
+    ctor public AbstractMultiSelectListPreference(android.content.Context!);
+    method public abstract CharSequence[]! getEntries();
+    method public abstract CharSequence[]! getEntryValues();
+    method public abstract java.util.Set<java.lang.String>! getValues();
+    method public abstract void setValues(java.util.Set<java.lang.String>!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class PreferenceImageView extends android.widget.ImageView {
+    ctor public PreferenceImageView(android.content.Context!);
+    ctor public PreferenceImageView(android.content.Context!, android.util.AttributeSet!);
+    ctor public PreferenceImageView(android.content.Context!, android.util.AttributeSet!, int);
+    field private int mMaxHeight;
+    field private int mMaxWidth;
+  }
+
+}
+

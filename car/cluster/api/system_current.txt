@@ -1,0 +1,179 @@
+// Signature format: 2.0
+package androidx.car.cluster.navigation {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final class Common {
+    ctor private Common();
+    method public static <T> java.util.List<T> immutableOrEmpty(java.util.List<T>?);
+    method public static String nonNullOrEmpty(String?);
+  }
+
+  public final class Destination implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Destination();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Destination(String, String, androidx.car.cluster.navigation.Distance?, androidx.car.cluster.navigation.Time?, androidx.car.cluster.navigation.LatLng?);
+    field String! mAddress;
+    field androidx.car.cluster.navigation.Distance! mDistance;
+    field androidx.car.cluster.navigation.Time! mEta;
+    field androidx.car.cluster.navigation.LatLng! mLatLng;
+    field String! mTitle;
+  }
+
+  public static final class Destination.Builder {
+    field private String! mAddress;
+    field private androidx.car.cluster.navigation.Distance! mDistance;
+    field private androidx.car.cluster.navigation.Time! mEta;
+    field private androidx.car.cluster.navigation.LatLng! mLatLng;
+    field private String! mTitle;
+  }
+
+  public final class Distance implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Distance();
+    field androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.Distance.Unit>! mDisplayUnit;
+    field String! mDisplayValue;
+    field int mMeters;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final class EnumWrapper<T extends java.lang.Enum<T>> implements androidx.versionedparcelable.VersionedParcelable {
+    ctor EnumWrapper();
+    ctor @java.lang.SafeVarargs EnumWrapper(T, T...);
+    method private static <T extends java.lang.Enum<T>> T? getEnumByName(Class<T>, String);
+    method public static <T extends java.lang.Enum<T>> T getValue(androidx.car.cluster.navigation.EnumWrapper<T>?, T);
+    method @java.lang.SafeVarargs public static <T extends java.lang.Enum<T>> androidx.car.cluster.navigation.EnumWrapper<T> of(T, T...);
+    field java.util.List<java.lang.String>! mValues;
+  }
+
+  public class ImageReference implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) ImageReference();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) ImageReference(String, @IntRange(from=1, to=java.lang.Integer.MAX_VALUE) int, @IntRange(from=1, to=java.lang.Integer.MAX_VALUE) int, boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public String getRawContentUri();
+    field private static final String HEIGHT_HINT_PARAMETER = "h";
+    field private static final String SCHEME = "content://";
+    field private static final String WIDTH_HINT_PARAMETER = "w";
+    field String! mContentUri;
+    field boolean mIsTintable;
+    field int mOriginalHeight;
+    field int mOriginalWidth;
+  }
+
+  public static final class ImageReference.Builder {
+    field private String! mContentUri;
+    field private boolean mIsTintable;
+    field private int mOriginalHeight;
+    field private int mOriginalWidth;
+  }
+
+  public final class Lane implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Lane();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Lane(java.util.List<androidx.car.cluster.navigation.LaneDirection>);
+    field java.util.List<androidx.car.cluster.navigation.LaneDirection>! mDirections;
+  }
+
+  public static final class Lane.Builder {
+    field private java.util.List<androidx.car.cluster.navigation.LaneDirection>! mDirections;
+  }
+
+  public final class LaneDirection implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) LaneDirection();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) LaneDirection(androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.LaneDirection.Shape>, boolean);
+    field boolean mHighlighted;
+    field androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.LaneDirection.Shape>! mShape;
+  }
+
+  public static final class LaneDirection.Builder {
+    field private boolean mHighlighted;
+    field private androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.LaneDirection.Shape>! mShape;
+  }
+
+  public final class LatLng implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) LatLng();
+    field double mLatitude;
+    field double mLongitude;
+  }
+
+  public final class Maneuver implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Maneuver();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Maneuver(androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.Maneuver.Type>, int, androidx.car.cluster.navigation.ImageReference?);
+    field androidx.car.cluster.navigation.ImageReference! mIcon;
+    field int mRoundaboutExitNumber;
+    field androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.Maneuver.Type>! mType;
+  }
+
+  public static final class Maneuver.Builder {
+    field private androidx.car.cluster.navigation.ImageReference! mIcon;
+    field private int mRoundaboutExitNumber;
+    field private androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.Maneuver.Type>! mType;
+  }
+
+  public final class NavigationState implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) NavigationState();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) NavigationState(java.util.List<androidx.car.cluster.navigation.Step>, java.util.List<androidx.car.cluster.navigation.Destination>, androidx.car.cluster.navigation.Segment?, androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.NavigationState.ServiceStatus>);
+    field androidx.car.cluster.navigation.Segment! mCurrentSegment;
+    field java.util.List<androidx.car.cluster.navigation.Destination>! mDestinations;
+    field androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.NavigationState.ServiceStatus>! mServiceStatus;
+    field java.util.List<androidx.car.cluster.navigation.Step>! mSteps;
+  }
+
+  public static final class NavigationState.Builder {
+    field private androidx.car.cluster.navigation.Segment! mCurrentSegment;
+    field private java.util.List<androidx.car.cluster.navigation.Destination>! mDestinations;
+    field private androidx.car.cluster.navigation.EnumWrapper<androidx.car.cluster.navigation.NavigationState.ServiceStatus>! mServiceStatus;
+    field private java.util.List<androidx.car.cluster.navigation.Step>! mSteps;
+  }
+
+  public class RichText implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) RichText();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) RichText(java.util.List<androidx.car.cluster.navigation.RichTextElement>);
+    method java.util.List<androidx.car.cluster.navigation.RichTextElement> getElements();
+    field java.util.List<androidx.car.cluster.navigation.RichTextElement>! mElements;
+  }
+
+  public static final class RichText.Builder {
+    field private java.util.List<androidx.car.cluster.navigation.RichTextElement>! mElements;
+  }
+
+  public class RichTextElement implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) RichTextElement();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public RichTextElement(String, androidx.car.cluster.navigation.ImageReference?);
+    method androidx.car.cluster.navigation.ImageReference? getImage();
+    method String getText();
+    field androidx.car.cluster.navigation.ImageReference! mImage;
+    field String! mText;
+  }
+
+  public static class RichTextElement.Builder {
+    field private androidx.car.cluster.navigation.ImageReference! mImage;
+  }
+
+  public class Segment implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Segment();
+    field String! mName;
+  }
+
+  public final class Step implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Step();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Step(androidx.car.cluster.navigation.Distance?, androidx.car.cluster.navigation.Maneuver?, java.util.List<androidx.car.cluster.navigation.Lane>, androidx.car.cluster.navigation.ImageReference?, androidx.car.cluster.navigation.RichText?);
+    field androidx.car.cluster.navigation.RichText! mCue;
+    field androidx.car.cluster.navigation.Distance! mDistance;
+    field java.util.List<androidx.car.cluster.navigation.Lane>! mLanes;
+    field androidx.car.cluster.navigation.ImageReference! mLanesImage;
+    field androidx.car.cluster.navigation.Maneuver! mManeuver;
+  }
+
+  public static final class Step.Builder {
+    field private androidx.car.cluster.navigation.RichText! mCue;
+    field private androidx.car.cluster.navigation.Distance! mDistance;
+    field private java.util.List<androidx.car.cluster.navigation.Lane>! mLanes;
+    field private androidx.car.cluster.navigation.ImageReference! mLanesImage;
+    field private androidx.car.cluster.navigation.Maneuver! mManeuver;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final class Time implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) Time();
+    ctor Time(java.time.ZonedDateTime);
+    method java.time.ZonedDateTime getTime();
+    method private java.time.ZoneId! getZonedId();
+    field long mSecondsSinceEpoch;
+    field String! mZoneId;
+  }
+
+}
+

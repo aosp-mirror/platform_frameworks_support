@@ -1,0 +1,73 @@
+// Signature format: 2.0
+package androidx.arch.core.internal {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FastSafeIterableMap<K, V> extends androidx.arch.core.internal.SafeIterableMap<K,V> {
+    ctor public FastSafeIterableMap();
+    method public java.util.Map.Entry<K,V>! ceil(K!);
+    method public boolean contains(K!);
+    method protected androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! get(K!);
+    method public V! putIfAbsent(K, V);
+    method public V! remove(K);
+    field private java.util.HashMap<K,androidx.arch.core.internal.SafeIterableMap.Entry<K,V>>! mHashMap;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class SafeIterableMap<K, V> implements java.lang.Iterable<java.util.Map.Entry<K,V>> {
+    ctor public SafeIterableMap();
+    method public java.util.Iterator<java.util.Map.Entry<K,V>>! descendingIterator();
+    method public java.util.Map.Entry<K,V>! eldest();
+    method protected androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! get(K!);
+    method public androidx.arch.core.internal.SafeIterableMap.IteratorWithAdditions! iteratorWithAdditions();
+    method public java.util.Map.Entry<K,V>! newest();
+    method protected androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! put(K, V);
+    method public V! putIfAbsent(K, V);
+    method public V! remove(K);
+    method public int size();
+    field private androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mEnd;
+    field private java.util.WeakHashMap<androidx.arch.core.internal.SafeIterableMap.SupportRemove<K,V>,java.lang.Boolean>! mIterators;
+    field private int mSize;
+    field androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mStart;
+  }
+
+  static class SafeIterableMap.AscendingIterator<K, V> extends androidx.arch.core.internal.SafeIterableMap.ListIterator<K,V> {
+    ctor SafeIterableMap.AscendingIterator(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!, androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! backward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! forward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+  }
+
+  private static class SafeIterableMap.DescendingIterator<K, V> extends androidx.arch.core.internal.SafeIterableMap.ListIterator<K,V> {
+    ctor SafeIterableMap.DescendingIterator(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!, androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! backward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! forward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+  }
+
+  static class SafeIterableMap.Entry<K, V> implements java.util.Map.Entry<K,V> {
+    ctor SafeIterableMap.Entry(K, V);
+    field final K mKey;
+    field androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mNext;
+    field androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mPrevious;
+    field final V mValue;
+  }
+
+  private class SafeIterableMap.IteratorWithAdditions implements java.util.Iterator<java.util.Map.Entry<K,V>> androidx.arch.core.internal.SafeIterableMap.SupportRemove<K,V> {
+    ctor SafeIterableMap.IteratorWithAdditions();
+    method public void supportRemove(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>);
+    field private boolean mBeforeStart;
+    field private androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mCurrent;
+  }
+
+  private abstract static class SafeIterableMap.ListIterator<K, V> implements java.util.Iterator<java.util.Map.Entry<K,V>> androidx.arch.core.internal.SafeIterableMap.SupportRemove<K,V> {
+    ctor SafeIterableMap.ListIterator(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!, androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method abstract androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! backward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method abstract androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! forward(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>!);
+    method private androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! nextNode();
+    method public void supportRemove(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>);
+    field androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mExpectedEnd;
+    field androidx.arch.core.internal.SafeIterableMap.Entry<K,V>! mNext;
+  }
+
+  static interface SafeIterableMap.SupportRemove<K, V> {
+    method public void supportRemove(androidx.arch.core.internal.SafeIterableMap.Entry<K,V>);
+  }
+
+}
+

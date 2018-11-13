@@ -16,13 +16,13 @@
 
 package androidx.build.metalava
 
+import androidx.build.checkapi.ApiLocation
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.api.BaseVariant
 import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
@@ -33,15 +33,15 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
      *
      * Note: Marked as an output so that this task will be properly incremental.
      */
-    @get:InputFile
-    @get:OutputFile
-    var apiTxtFile: File? = null
+    @InputFiles
+    var apiLocation: ApiLocation? = null
 
     @TaskAction
     fun exec() {
         val dependencyClasspath = checkNotNull(
                 dependencyClasspath) { "Dependency classpath not set." }
-        val apiTxtFile = checkNotNull(apiTxtFile) { "Current API file not set." }
+        val publicApiFile = checkNotNull(apiLocation?.publicApiFile) { "Public API file not set." }
+        val privateApiFile = checkNotNull(apiLocation?.privateApiFile) { "Private API file not set." }
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
@@ -53,7 +53,11 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
 
             "--check-compatibility:api:released",
-            apiTxtFile.toString(),
+            publicApiFile.toString(),
+
+            // TODO(jeffrygaston) make checking compatibility of private API files work too. See also b/119425160
+            // "--check-compatibility:api:released",
+            // privateApiFile.toString(),
 
             "--compatible-output=no",
             "--omit-common-packages=yes",

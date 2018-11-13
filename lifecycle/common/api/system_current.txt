@@ -1,0 +1,94 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  class ClassesInfoCache {
+    ctor ClassesInfoCache();
+    method private androidx.lifecycle.ClassesInfoCache.CallbackInfo! createInfo(Class!, java.lang.reflect.Method[]?);
+    method private java.lang.reflect.Method[]! getDeclaredMethods(Class!);
+    method androidx.lifecycle.ClassesInfoCache.CallbackInfo! getInfo(Class!);
+    method boolean hasLifecycleMethods(Class!);
+    method private void verifyAndPutHandler(java.util.Map<androidx.lifecycle.ClassesInfoCache.MethodReference,androidx.lifecycle.Lifecycle.Event>!, androidx.lifecycle.ClassesInfoCache.MethodReference!, androidx.lifecycle.Lifecycle.Event!, Class!);
+    field private static final int CALL_TYPE_NO_ARG = 0; // 0x0
+    field private static final int CALL_TYPE_PROVIDER = 1; // 0x1
+    field private static final int CALL_TYPE_PROVIDER_WITH_EVENT = 2; // 0x2
+    field private final java.util.Map<java.lang.Class,androidx.lifecycle.ClassesInfoCache.CallbackInfo>! mCallbackMap;
+    field private final java.util.Map<java.lang.Class,java.lang.Boolean>! mHasLifecycleMethods;
+    field static androidx.lifecycle.ClassesInfoCache! sInstance;
+  }
+
+  static class ClassesInfoCache.CallbackInfo {
+    ctor ClassesInfoCache.CallbackInfo(java.util.Map<androidx.lifecycle.ClassesInfoCache.MethodReference,androidx.lifecycle.Lifecycle.Event>!);
+    method void invokeCallbacks(androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.Lifecycle.Event!, Object!);
+    method private static void invokeMethodsForEvent(java.util.List<androidx.lifecycle.ClassesInfoCache.MethodReference>!, androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.Lifecycle.Event!, Object!);
+    field final java.util.Map<androidx.lifecycle.Lifecycle.Event,java.util.List<androidx.lifecycle.ClassesInfoCache.MethodReference>>! mEventToHandlers;
+    field final java.util.Map<androidx.lifecycle.ClassesInfoCache.MethodReference,androidx.lifecycle.Lifecycle.Event>! mHandlerToEvent;
+  }
+
+  static class ClassesInfoCache.MethodReference {
+    ctor ClassesInfoCache.MethodReference(int, java.lang.reflect.Method!);
+    method void invokeCallback(androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.Lifecycle.Event!, Object!);
+    field final int mCallType;
+    field final java.lang.reflect.Method! mMethod;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class CompositeGeneratedAdaptersObserver implements androidx.lifecycle.LifecycleEventObserver {
+    ctor CompositeGeneratedAdaptersObserver(androidx.lifecycle.GeneratedAdapter[]!);
+    field private final androidx.lifecycle.GeneratedAdapter[]! mGeneratedAdapters;
+  }
+
+  interface FullLifecycleObserver extends androidx.lifecycle.LifecycleObserver {
+    method public void onCreate(androidx.lifecycle.LifecycleOwner!);
+    method public void onDestroy(androidx.lifecycle.LifecycleOwner!);
+    method public void onPause(androidx.lifecycle.LifecycleOwner!);
+    method public void onResume(androidx.lifecycle.LifecycleOwner!);
+    method public void onStart(androidx.lifecycle.LifecycleOwner!);
+    method public void onStop(androidx.lifecycle.LifecycleOwner!);
+  }
+
+  class FullLifecycleObserverAdapter implements androidx.lifecycle.LifecycleEventObserver {
+    ctor FullLifecycleObserverAdapter(androidx.lifecycle.FullLifecycleObserver!, androidx.lifecycle.LifecycleEventObserver!);
+    field private final androidx.lifecycle.FullLifecycleObserver! mFullLifecycleObserver;
+    field private final androidx.lifecycle.LifecycleEventObserver! mLifecycleEventObserver;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public interface GeneratedAdapter {
+    method public void callMethods(androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.Lifecycle.Event!, boolean, androidx.lifecycle.MethodCallsLogger!);
+  }
+
+  @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public interface GenericLifecycleObserver extends androidx.lifecycle.LifecycleEventObserver {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class Lifecycling {
+    ctor private Lifecycling();
+    method private static androidx.lifecycle.GeneratedAdapter! createGeneratedAdapter(java.lang.reflect.Constructor<? extends androidx.lifecycle.GeneratedAdapter>!, Object!);
+    method private static java.lang.reflect.Constructor<? extends androidx.lifecycle.GeneratedAdapter>? generatedConstructor(Class<?>!);
+    method public static String! getAdapterName(String!);
+    method static androidx.lifecycle.LifecycleEventObserver getCallback(Object!);
+    method private static int getObserverConstructorType(Class<?>!);
+    method private static boolean isLifecycleParent(Class<?>!);
+    method private static int resolveObserverCallbackType(Class<?>!);
+    field private static final int GENERATED_CALLBACK = 2; // 0x2
+    field private static final int REFLECTIVE_CALLBACK = 1; // 0x1
+    field private static java.util.Map<java.lang.Class,java.lang.Integer>! sCallbackCache;
+    field private static java.util.Map<java.lang.Class,java.util.List<java.lang.reflect.Constructor<? extends androidx.lifecycle.GeneratedAdapter>>>! sClassToAdapters;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class MethodCallsLogger {
+    ctor public MethodCallsLogger();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean approveCall(String!, int);
+    field private java.util.Map<java.lang.String,java.lang.Integer>! mCalledMethods;
+  }
+
+  class ReflectiveGenericLifecycleObserver implements androidx.lifecycle.LifecycleEventObserver {
+    ctor ReflectiveGenericLifecycleObserver(Object!);
+    field private final androidx.lifecycle.ClassesInfoCache.CallbackInfo! mInfo;
+    field private final Object! mWrapped;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class SingleGeneratedAdapterObserver implements androidx.lifecycle.LifecycleEventObserver {
+    ctor SingleGeneratedAdapterObserver(androidx.lifecycle.GeneratedAdapter!);
+    field private final androidx.lifecycle.GeneratedAdapter! mGeneratedAdapter;
+  }
+
+}
+

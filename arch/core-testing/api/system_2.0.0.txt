@@ -1,0 +1,47 @@
+// Signature format: 2.0
+package androidx.arch.core.executor {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class JunitTaskExecutorRule implements org.junit.rules.TestRule {
+    ctor public JunitTaskExecutorRule(int, boolean);
+    method void afterFinished();
+    method void beforeStart();
+    method public void drainTasks(int) throws java.lang.InterruptedException;
+    method void finishExecutors() throws java.lang.InterruptedException, org.junit.runners.model.MultipleFailureException;
+    method public androidx.arch.core.executor.TaskExecutor! getTaskExecutor();
+    field private final androidx.arch.core.executor.TaskExecutorWithFakeMainThread! mTaskExecutor;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class TaskExecutorWithFakeMainThread extends androidx.arch.core.executor.TaskExecutor {
+    ctor public TaskExecutorWithFakeMainThread(int);
+    method public void drainTasks(int) throws java.lang.InterruptedException;
+    method java.util.List<java.lang.Throwable>! getErrors();
+    method void shutdown(int) throws java.lang.InterruptedException;
+    field java.util.List<java.lang.Throwable>! mCaughtExceptions;
+    field private java.util.concurrent.ExecutorService! mIOService;
+    field private final int mIOThreadCount;
+    field Thread! mMainThread;
+    field private java.util.concurrent.ExecutorService! mMainThreadService;
+  }
+
+  class TaskExecutorWithFakeMainThread.LoggingThread extends java.lang.Thread {
+    ctor TaskExecutorWithFakeMainThread.LoggingThread(Runnable!);
+  }
+
+}
+
+package androidx.arch.core.executor.testing {
+
+  public class CountingTaskExecutorRule extends org.junit.rules.TestWatcher {
+    method void decrement();
+    method void increment();
+    field private final Object! mCountLock;
+    field private int mTaskCount;
+  }
+
+  class CountingTaskExecutorRule.CountingRunnable implements java.lang.Runnable {
+    ctor CountingTaskExecutorRule.CountingRunnable(Runnable!);
+    field final Runnable! mWrapped;
+  }
+
+}
+

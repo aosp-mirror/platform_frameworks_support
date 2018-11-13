@@ -1,0 +1,846 @@
+// Signature format: 2.0
+package androidx.transition {
+
+  class AnimatorUtils {
+    ctor private AnimatorUtils();
+    method static void addPauseListener(android.animation.Animator, android.animation.AnimatorListenerAdapter);
+    method static void pause(android.animation.Animator);
+    method static void resume(android.animation.Animator);
+  }
+
+  static interface AnimatorUtils.AnimatorPauseListenerCompat {
+    method public void onAnimationPause(android.animation.Animator!);
+    method public void onAnimationResume(android.animation.Animator!);
+  }
+
+  public class ArcMotion extends androidx.transition.PathMotion {
+    method private static float toTangent(float);
+    field private static final float DEFAULT_MAX_ANGLE_DEGREES = 70.0f;
+    field private static final float DEFAULT_MAX_TANGENT;
+    field private static final float DEFAULT_MIN_ANGLE_DEGREES = 0.0f;
+    field private float mMaximumAngle;
+    field private float mMaximumTangent;
+    field private float mMinimumHorizontalAngle;
+    field private float mMinimumHorizontalTangent;
+    field private float mMinimumVerticalAngle;
+    field private float mMinimumVerticalTangent;
+  }
+
+  public class AutoTransition extends androidx.transition.TransitionSet {
+    method private void init();
+  }
+
+  public class ChangeBounds extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    method private boolean parentMatches(android.view.View!, android.view.View!);
+    field private static final android.util.Property<android.view.View,android.graphics.PointF>! BOTTOM_RIGHT_ONLY_PROPERTY;
+    field private static final android.util.Property<androidx.transition.ChangeBounds.ViewBounds,android.graphics.PointF>! BOTTOM_RIGHT_PROPERTY;
+    field private static final android.util.Property<android.graphics.drawable.Drawable,android.graphics.PointF>! DRAWABLE_ORIGIN_PROPERTY;
+    field private static final android.util.Property<android.view.View,android.graphics.PointF>! POSITION_PROPERTY;
+    field private static final String PROPNAME_BOUNDS = "android:changeBounds:bounds";
+    field private static final String PROPNAME_CLIP = "android:changeBounds:clip";
+    field private static final String PROPNAME_PARENT = "android:changeBounds:parent";
+    field private static final String PROPNAME_WINDOW_X = "android:changeBounds:windowX";
+    field private static final String PROPNAME_WINDOW_Y = "android:changeBounds:windowY";
+    field private static final android.util.Property<android.view.View,android.graphics.PointF>! TOP_LEFT_ONLY_PROPERTY;
+    field private static final android.util.Property<androidx.transition.ChangeBounds.ViewBounds,android.graphics.PointF>! TOP_LEFT_PROPERTY;
+    field private boolean mReparent;
+    field private boolean mResizeClip;
+    field private int[]! mTempLocation;
+    field private static androidx.transition.RectEvaluator! sRectEvaluator;
+    field private static final String[]! sTransitionProperties;
+  }
+
+  private static class ChangeBounds.ViewBounds {
+    ctor ChangeBounds.ViewBounds(android.view.View!);
+    method void setBottomRight(android.graphics.PointF!);
+    method private void setLeftTopRightBottom();
+    method void setTopLeft(android.graphics.PointF!);
+    field private int mBottom;
+    field private int mBottomRightCalls;
+    field private int mLeft;
+    field private int mRight;
+    field private int mTop;
+    field private int mTopLeftCalls;
+    field private android.view.View! mView;
+  }
+
+  public class ChangeClipBounds extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    field private static final String PROPNAME_BOUNDS = "android:clipBounds:bounds";
+    field private static final String PROPNAME_CLIP = "android:clipBounds:clip";
+    field private static final String[]! sTransitionProperties;
+  }
+
+  public class ChangeImageTransform extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    method private static android.graphics.Matrix! centerCropMatrix(android.widget.ImageView!);
+    method private static android.graphics.Matrix copyImageMatrix(android.widget.ImageView);
+    method private android.animation.ObjectAnimator! createMatrixAnimator(android.widget.ImageView!, android.graphics.Matrix!, android.graphics.Matrix!);
+    method private android.animation.ObjectAnimator createNullAnimator(android.widget.ImageView);
+    method private static android.graphics.Matrix! fitXYMatrix(android.widget.ImageView!);
+    field private static final android.util.Property<android.widget.ImageView,android.graphics.Matrix>! ANIMATED_TRANSFORM_PROPERTY;
+    field private static final android.animation.TypeEvaluator<android.graphics.Matrix>! NULL_MATRIX_EVALUATOR;
+    field private static final String PROPNAME_BOUNDS = "android:changeImageTransform:bounds";
+    field private static final String PROPNAME_MATRIX = "android:changeImageTransform:matrix";
+    field private static final String[]! sTransitionProperties;
+  }
+
+  public class ChangeScroll extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    field private static final String[]! PROPERTIES;
+    field private static final String PROPNAME_SCROLL_X = "android:changeScroll:x";
+    field private static final String PROPNAME_SCROLL_Y = "android:changeScroll:y";
+  }
+
+  public class ChangeTransform extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    method private void createGhostView(android.view.ViewGroup!, androidx.transition.TransitionValues!, androidx.transition.TransitionValues!);
+    method private android.animation.ObjectAnimator! createTransformAnimator(androidx.transition.TransitionValues!, androidx.transition.TransitionValues!, boolean);
+    method private boolean parentsMatch(android.view.ViewGroup!, android.view.ViewGroup!);
+    method static void setIdentityTransforms(android.view.View!);
+    method private void setMatricesForParent(androidx.transition.TransitionValues!, androidx.transition.TransitionValues!);
+    method static void setTransforms(android.view.View!, float, float, float, float, float, float, float, float);
+    field private static final android.util.Property<androidx.transition.ChangeTransform.PathAnimatorMatrix,float[]>! NON_TRANSLATIONS_PROPERTY;
+    field private static final String PROPNAME_INTERMEDIATE_MATRIX = "android:changeTransform:intermediateMatrix";
+    field private static final String PROPNAME_INTERMEDIATE_PARENT_MATRIX = "android:changeTransform:intermediateParentMatrix";
+    field private static final String PROPNAME_MATRIX = "android:changeTransform:matrix";
+    field private static final String PROPNAME_PARENT = "android:changeTransform:parent";
+    field private static final String PROPNAME_PARENT_MATRIX = "android:changeTransform:parentMatrix";
+    field private static final String PROPNAME_TRANSFORMS = "android:changeTransform:transforms";
+    field private static final boolean SUPPORTS_VIEW_REMOVAL_SUPPRESSION;
+    field private static final android.util.Property<androidx.transition.ChangeTransform.PathAnimatorMatrix,android.graphics.PointF>! TRANSLATIONS_PROPERTY;
+    field private boolean mReparent;
+    field private android.graphics.Matrix! mTempMatrix;
+    field boolean mUseOverlay;
+    field private static final String[]! sTransitionProperties;
+  }
+
+  private static class ChangeTransform.GhostListener extends androidx.transition.TransitionListenerAdapter {
+    ctor ChangeTransform.GhostListener(android.view.View!, androidx.transition.GhostViewImpl!);
+    field private androidx.transition.GhostViewImpl! mGhostView;
+    field private android.view.View! mView;
+  }
+
+  private static class ChangeTransform.PathAnimatorMatrix {
+    ctor ChangeTransform.PathAnimatorMatrix(android.view.View!, float[]!);
+    method android.graphics.Matrix! getMatrix();
+    method private void setAnimationMatrix();
+    method void setTranslation(android.graphics.PointF!);
+    method void setValues(float[]!);
+    field private final android.graphics.Matrix! mMatrix;
+    field private float mTranslationX;
+    field private float mTranslationY;
+    field private final float[]! mValues;
+    field private final android.view.View! mView;
+  }
+
+  private static class ChangeTransform.Transforms {
+    ctor ChangeTransform.Transforms(android.view.View!);
+    method public void restore(android.view.View!);
+    field final float mRotationX;
+    field final float mRotationY;
+    field final float mRotationZ;
+    field final float mScaleX;
+    field final float mScaleY;
+    field final float mTranslationX;
+    field final float mTranslationY;
+    field final float mTranslationZ;
+  }
+
+  public class CircularPropagation extends androidx.transition.VisibilityPropagation {
+    method private static float distance(float, float, float, float);
+    field private float mPropagationSpeed;
+  }
+
+  public class Explode extends androidx.transition.Visibility {
+    method private static float calculateDistance(float, float);
+    method private static float calculateMaxDistance(android.view.View!, int, int);
+    method private void calculateOut(android.view.View!, android.graphics.Rect!, int[]!);
+    method private void captureValues(androidx.transition.TransitionValues!);
+    field private static final String PROPNAME_SCREEN_BOUNDS = "android:explode:screenBounds";
+    field private int[]! mTempLoc;
+    field private static final android.animation.TimeInterpolator! sAccelerate;
+    field private static final android.animation.TimeInterpolator! sDecelerate;
+  }
+
+  public class Fade extends androidx.transition.Visibility {
+    method private android.animation.Animator! createAnimation(android.view.View!, float, float);
+    method private static float getStartAlpha(androidx.transition.TransitionValues!, float);
+    field private static final String LOG_TAG = "Fade";
+    field private static final String PROPNAME_TRANSITION_ALPHA = "android:fade:transitionAlpha";
+  }
+
+  private static class Fade.FadeAnimatorListener extends android.animation.AnimatorListenerAdapter {
+    ctor Fade.FadeAnimatorListener(android.view.View!);
+    field private boolean mLayerTypeChanged;
+    field private final android.view.View! mView;
+  }
+
+  class FloatArrayEvaluator implements android.animation.TypeEvaluator<float[]> {
+    ctor FloatArrayEvaluator(float[]!);
+    field private float[]! mArray;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FragmentTransitionSupport extends androidx.fragment.app.FragmentTransitionImpl {
+    ctor public FragmentTransitionSupport();
+    method private static boolean hasSimpleTarget(androidx.transition.Transition!);
+  }
+
+  class GhostViewApi14 extends android.view.View implements androidx.transition.GhostViewImpl {
+    ctor GhostViewApi14(android.view.View!);
+    method static androidx.transition.GhostViewImpl! addGhost(android.view.View!, android.view.ViewGroup!);
+    method private static android.widget.FrameLayout! findFrameLayout(android.view.ViewGroup!);
+    method static androidx.transition.GhostViewApi14! getGhostView(android.view.View);
+    method static void removeGhost(android.view.View!);
+    method public void reserveEndViewTransition(android.view.ViewGroup!, android.view.View!);
+    method private static void setGhostView(android.view.View, androidx.transition.GhostViewApi14!);
+    field android.graphics.Matrix! mCurrentMatrix;
+    field private int mDeltaX;
+    field private int mDeltaY;
+    field private final android.graphics.Matrix! mMatrix;
+    field private final android.view.ViewTreeObserver.OnPreDrawListener! mOnPreDrawListener;
+    field int mReferences;
+    field android.view.ViewGroup! mStartParent;
+    field android.view.View! mStartView;
+    field final android.view.View! mView;
+  }
+
+  @RequiresApi(21) class GhostViewApi21 implements androidx.transition.GhostViewImpl {
+    ctor private GhostViewApi21(android.view.View);
+    method static androidx.transition.GhostViewImpl! addGhost(android.view.View!, android.view.ViewGroup!, android.graphics.Matrix!);
+    method private static void fetchAddGhostMethod();
+    method private static void fetchGhostViewClass();
+    method private static void fetchRemoveGhostMethod();
+    method static void removeGhost(android.view.View!);
+    method public void reserveEndViewTransition(android.view.ViewGroup!, android.view.View!);
+    method public void setVisibility(int);
+    field private static final String TAG = "GhostViewApi21";
+    field private final android.view.View! mGhostView;
+    field private static java.lang.reflect.Method! sAddGhostMethod;
+    field private static boolean sAddGhostMethodFetched;
+    field private static Class<?>! sGhostViewClass;
+    field private static boolean sGhostViewClassFetched;
+    field private static java.lang.reflect.Method! sRemoveGhostMethod;
+    field private static boolean sRemoveGhostMethodFetched;
+  }
+
+  interface GhostViewImpl {
+    method public void reserveEndViewTransition(android.view.ViewGroup!, android.view.View!);
+    method public void setVisibility(int);
+  }
+
+  class GhostViewUtils {
+    ctor private GhostViewUtils();
+    method static androidx.transition.GhostViewImpl! addGhost(android.view.View!, android.view.ViewGroup!, android.graphics.Matrix!);
+    method static void removeGhost(android.view.View!);
+  }
+
+  class ImageViewUtils {
+    ctor private ImageViewUtils();
+    method static void animateTransform(android.widget.ImageView!, android.graphics.Matrix!);
+    method private static void fetchAnimateTransformMethod();
+    method static void reserveEndAnimateTransform(android.widget.ImageView!, android.animation.Animator!);
+    method static void startAnimateTransform(android.widget.ImageView!);
+    field private static final String TAG = "ImageViewUtils";
+    field private static java.lang.reflect.Method! sAnimateTransformMethod;
+    field private static boolean sAnimateTransformMethodFetched;
+  }
+
+  class MatrixUtils {
+    ctor private MatrixUtils();
+    field static final android.graphics.Matrix! IDENTITY_MATRIX;
+  }
+
+  class ObjectAnimatorUtils {
+    ctor private ObjectAnimatorUtils();
+    method static <T> android.animation.ObjectAnimator! ofPointF(T!, android.util.Property<T,android.graphics.PointF>!, android.graphics.Path!);
+  }
+
+  class PathProperty<T> extends android.util.Property<T,java.lang.Float> {
+    ctor PathProperty(android.util.Property<T,android.graphics.PointF>!, android.graphics.Path!);
+    field private float mCurrentFraction;
+    field private final float mPathLength;
+    field private final android.graphics.PathMeasure! mPathMeasure;
+    field private final android.graphics.PointF! mPointF;
+    field private final float[]! mPosition;
+    field private final android.util.Property<T,android.graphics.PointF>! mProperty;
+  }
+
+  public class PatternPathMotion extends androidx.transition.PathMotion {
+    method private static float distance(float, float);
+    field private android.graphics.Path! mOriginalPatternPath;
+    field private final android.graphics.Path! mPatternPath;
+    field private final android.graphics.Matrix! mTempMatrix;
+  }
+
+  class PropertyValuesHolderUtils {
+    ctor private PropertyValuesHolderUtils();
+    method static android.animation.PropertyValuesHolder! ofPointF(android.util.Property<?,android.graphics.PointF>!, android.graphics.Path!);
+  }
+
+  class RectEvaluator implements android.animation.TypeEvaluator<android.graphics.Rect> {
+    ctor RectEvaluator();
+    ctor RectEvaluator(android.graphics.Rect!);
+    field private android.graphics.Rect! mRect;
+  }
+
+  public class Scene {
+    ctor private Scene(android.view.ViewGroup!, int, android.content.Context!);
+    method boolean isCreatedFromLayoutResource();
+    method static void setCurrentScene(android.view.View, androidx.transition.Scene?);
+    field private android.content.Context! mContext;
+    field private Runnable! mEnterAction;
+    field private Runnable! mExitAction;
+    field private android.view.View! mLayout;
+    field private int mLayoutId;
+    field private android.view.ViewGroup! mSceneRoot;
+  }
+
+  public class SidePropagation extends androidx.transition.VisibilityPropagation {
+    method private int distance(android.view.View!, int, int, int, int, int, int, int, int);
+    method private int getMaxDistance(android.view.ViewGroup!);
+    field private float mPropagationSpeed;
+    field private int mSide;
+  }
+
+  public class Slide extends androidx.transition.Visibility {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    field private static final String PROPNAME_SCREEN_POSITION = "android:slide:screenPosition";
+    field private androidx.transition.Slide.CalculateSlide! mSlideCalculator;
+    field private int mSlideEdge;
+    field private static final android.animation.TimeInterpolator! sAccelerate;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateBottom;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateEnd;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateLeft;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateRight;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateStart;
+    field private static final androidx.transition.Slide.CalculateSlide! sCalculateTop;
+    field private static final android.animation.TimeInterpolator! sDecelerate;
+  }
+
+  private static interface Slide.CalculateSlide {
+    method public float getGoneX(android.view.ViewGroup!, android.view.View!);
+    method public float getGoneY(android.view.ViewGroup!, android.view.View!);
+  }
+
+  private abstract static class Slide.CalculateSlideHorizontal implements androidx.transition.Slide.CalculateSlide {
+    ctor private Slide.CalculateSlideHorizontal();
+    method public float getGoneY(android.view.ViewGroup!, android.view.View!);
+  }
+
+  private abstract static class Slide.CalculateSlideVertical implements androidx.transition.Slide.CalculateSlide {
+    ctor private Slide.CalculateSlideVertical();
+    method public float getGoneX(android.view.ViewGroup!, android.view.View!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({android.view.Gravity.LEFT, android.view.Gravity.TOP, android.view.Gravity.RIGHT, android.view.Gravity.BOTTOM, android.view.Gravity.START, android.view.Gravity.END}) public static @interface Slide.GravityFlag {
+  }
+
+  class Styleable {
+    ctor private Styleable();
+    field @StyleableRes static final int[]! ARC_MOTION;
+    field @StyleableRes static final int[]! CHANGE_BOUNDS;
+    field @StyleableRes static final int[]! CHANGE_TRANSFORM;
+    field @StyleableRes static final int[]! FADE;
+    field @StyleableRes static final int[]! PATTERN_PATH_MOTION;
+    field @StyleableRes static final int[]! SLIDE;
+    field @StyleableRes static final int[]! TRANSITION;
+    field @StyleableRes static final int[]! TRANSITION_MANAGER;
+    field @StyleableRes static final int[]! TRANSITION_SET;
+    field @StyleableRes static final int[]! TRANSITION_TARGET;
+    field @StyleableRes static final int[]! VISIBILITY_TRANSITION;
+  }
+
+  static interface Styleable.ArcMotion {
+    field @StyleableRes public static final int MAXIMUM_ANGLE = 2; // 0x2
+    field @StyleableRes public static final int MINIMUM_HORIZONTAL_ANGLE = 0; // 0x0
+    field @StyleableRes public static final int MINIMUM_VERTICAL_ANGLE = 1; // 0x1
+  }
+
+  static interface Styleable.ChangeBounds {
+    field @StyleableRes public static final int RESIZE_CLIP = 0; // 0x0
+  }
+
+  static interface Styleable.ChangeTransform {
+    field @StyleableRes public static final int REPARENT = 0; // 0x0
+    field @StyleableRes public static final int REPARENT_WITH_OVERLAY = 1; // 0x1
+  }
+
+  static interface Styleable.Fade {
+    field @StyleableRes public static final int FADING_MODE = 0; // 0x0
+  }
+
+  static interface Styleable.PatternPathMotion {
+    field @StyleableRes public static final int PATTERN_PATH_DATA = 0; // 0x0
+  }
+
+  static interface Styleable.Slide {
+    field @StyleableRes public static final int SLIDE_EDGE = 0; // 0x0
+  }
+
+  static interface Styleable.Transition {
+    field @StyleableRes public static final int DURATION = 1; // 0x1
+    field @StyleableRes public static final int INTERPOLATOR = 0; // 0x0
+    field @StyleableRes public static final int MATCH_ORDER = 3; // 0x3
+    field @StyleableRes public static final int START_DELAY = 2; // 0x2
+  }
+
+  static interface Styleable.TransitionManager {
+    field @StyleableRes public static final int FROM_SCENE = 0; // 0x0
+    field @StyleableRes public static final int TO_SCENE = 1; // 0x1
+    field @StyleableRes public static final int TRANSITION = 2; // 0x2
+  }
+
+  static interface Styleable.TransitionSet {
+    field @StyleableRes public static final int TRANSITION_ORDERING = 0; // 0x0
+  }
+
+  static interface Styleable.TransitionTarget {
+    field @StyleableRes public static final int EXCLUDE_CLASS = 3; // 0x3
+    field @StyleableRes public static final int EXCLUDE_ID = 2; // 0x2
+    field @StyleableRes public static final int EXCLUDE_NAME = 5; // 0x5
+    field @StyleableRes public static final int TARGET_CLASS = 0; // 0x0
+    field @StyleableRes public static final int TARGET_ID = 1; // 0x1
+    field @StyleableRes public static final int TARGET_NAME = 4; // 0x4
+  }
+
+  static interface Styleable.VisibilityTransition {
+    field @StyleableRes public static final int TRANSITION_VISIBILITY_MODE = 0; // 0x0
+  }
+
+  public abstract class Transition implements java.lang.Cloneable {
+    method private void addUnmatched(androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!);
+    method private static void addViewValues(androidx.transition.TransitionValuesMaps!, android.view.View!, androidx.transition.TransitionValues!);
+    method private static boolean alreadyContains(int[]!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void animate(android.animation.Animator!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void cancel();
+    method private void captureHierarchy(android.view.View!, boolean);
+    method void capturePropagationValues(androidx.transition.TransitionValues!);
+    method void captureValues(android.view.ViewGroup!, boolean);
+    method void clearValues(boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void createAnimators(android.view.ViewGroup!, androidx.transition.TransitionValuesMaps!, androidx.transition.TransitionValuesMaps!, java.util.ArrayList<androidx.transition.TransitionValues>!, java.util.ArrayList<androidx.transition.TransitionValues>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void end();
+    method private java.util.ArrayList<java.lang.Integer>! excludeId(java.util.ArrayList<java.lang.Integer>!, int, boolean);
+    method private static <T> java.util.ArrayList<T>! excludeObject(java.util.ArrayList<T>!, T!, boolean);
+    method private java.util.ArrayList<java.lang.Class>! excludeType(java.util.ArrayList<java.lang.Class>!, Class!, boolean);
+    method private java.util.ArrayList<android.view.View>! excludeView(java.util.ArrayList<android.view.View>!, android.view.View!, boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) void forceToEnd(android.view.ViewGroup!);
+    method androidx.transition.TransitionValues! getMatchedTransitionValues(android.view.View!, boolean);
+    method private static androidx.collection.ArrayMap<android.animation.Animator,androidx.transition.Transition.AnimationInfo>! getRunningAnimators();
+    method private static boolean isValidMatch(int);
+    method boolean isValidTarget(android.view.View!);
+    method private static boolean isValueChanged(androidx.transition.TransitionValues!, androidx.transition.TransitionValues!, String!);
+    method private void matchIds(androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, android.util.SparseArray<android.view.View>!, android.util.SparseArray<android.view.View>!);
+    method private void matchInstances(androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!);
+    method private void matchItemIds(androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.LongSparseArray<android.view.View>!, androidx.collection.LongSparseArray<android.view.View>!);
+    method private void matchNames(androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>!, androidx.collection.ArrayMap<java.lang.String,android.view.View>!, androidx.collection.ArrayMap<java.lang.String,android.view.View>!);
+    method private void matchStartAndEnd(androidx.transition.TransitionValuesMaps!, androidx.transition.TransitionValuesMaps!);
+    method private static int[]! parseMatchOrder(String!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void pause(android.view.View!);
+    method void playTransition(android.view.ViewGroup!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void resume(android.view.View!);
+    method private void runAnimator(android.animation.Animator!, androidx.collection.ArrayMap<android.animation.Animator,androidx.transition.Transition.AnimationInfo>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void runAnimators();
+    method void setCanRemoveViews(boolean);
+    method androidx.transition.Transition! setSceneRoot(android.view.ViewGroup!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void start();
+    method String! toString(String!);
+    field static final boolean DBG = false;
+    field private static final int[]! DEFAULT_MATCH_ORDER;
+    field private static final String LOG_TAG = "Transition";
+    field private static final int MATCH_FIRST = 1; // 0x1
+    field private static final String MATCH_ID_STR = "id";
+    field private static final String MATCH_INSTANCE_STR = "instance";
+    field private static final String MATCH_ITEM_ID_STR = "itemId";
+    field private static final int MATCH_LAST = 4; // 0x4
+    field private static final String MATCH_NAME_STR = "name";
+    field private static final androidx.transition.PathMotion! STRAIGHT_PATH_MOTION;
+    field private java.util.ArrayList<android.animation.Animator>! mAnimators;
+    field boolean mCanRemoveViews;
+    field java.util.ArrayList<android.animation.Animator>! mCurrentAnimators;
+    field long mDuration;
+    field private androidx.transition.TransitionValuesMaps! mEndValues;
+    field private java.util.ArrayList<androidx.transition.TransitionValues>! mEndValuesList;
+    field private boolean mEnded;
+    field private androidx.transition.Transition.EpicenterCallback! mEpicenterCallback;
+    field private android.animation.TimeInterpolator! mInterpolator;
+    field private java.util.ArrayList<androidx.transition.Transition.TransitionListener>! mListeners;
+    field private int[]! mMatchOrder;
+    field private String! mName;
+    field private androidx.collection.ArrayMap<java.lang.String,java.lang.String>! mNameOverrides;
+    field private int mNumInstances;
+    field androidx.transition.TransitionSet! mParent;
+    field private androidx.transition.PathMotion! mPathMotion;
+    field private boolean mPaused;
+    field androidx.transition.TransitionPropagation! mPropagation;
+    field private android.view.ViewGroup! mSceneRoot;
+    field private long mStartDelay;
+    field private androidx.transition.TransitionValuesMaps! mStartValues;
+    field private java.util.ArrayList<androidx.transition.TransitionValues>! mStartValuesList;
+    field private java.util.ArrayList<android.view.View>! mTargetChildExcludes;
+    field private java.util.ArrayList<android.view.View>! mTargetExcludes;
+    field private java.util.ArrayList<java.lang.Integer>! mTargetIdChildExcludes;
+    field private java.util.ArrayList<java.lang.Integer>! mTargetIdExcludes;
+    field java.util.ArrayList<java.lang.Integer>! mTargetIds;
+    field private java.util.ArrayList<java.lang.String>! mTargetNameExcludes;
+    field private java.util.ArrayList<java.lang.String>! mTargetNames;
+    field private java.util.ArrayList<java.lang.Class>! mTargetTypeChildExcludes;
+    field private java.util.ArrayList<java.lang.Class>! mTargetTypeExcludes;
+    field private java.util.ArrayList<java.lang.Class>! mTargetTypes;
+    field java.util.ArrayList<android.view.View>! mTargets;
+    field private static ThreadLocal<androidx.collection.ArrayMap<android.animation.Animator,androidx.transition.Transition.AnimationInfo>>! sRunningAnimators;
+  }
+
+  private static class Transition.AnimationInfo {
+    ctor Transition.AnimationInfo(android.view.View!, String!, androidx.transition.Transition!, androidx.transition.WindowIdImpl!, androidx.transition.TransitionValues!);
+    field String! mName;
+    field androidx.transition.Transition! mTransition;
+    field androidx.transition.TransitionValues! mValues;
+    field android.view.View! mView;
+    field androidx.transition.WindowIdImpl! mWindowId;
+  }
+
+  private static class Transition.ArrayListManager {
+    ctor private Transition.ArrayListManager();
+    method static <T> java.util.ArrayList<T>! add(java.util.ArrayList<T>!, T!);
+    method static <T> java.util.ArrayList<T>! remove(java.util.ArrayList<T>!, T!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.transition.Transition.MATCH_INSTANCE, androidx.transition.Transition.MATCH_NAME, androidx.transition.Transition.MATCH_ID, androidx.transition.Transition.MATCH_ITEM_ID}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface Transition.MatchOrder {
+  }
+
+  public class TransitionInflater {
+    ctor private TransitionInflater(android.content.Context);
+    method private Object! createCustom(android.util.AttributeSet!, Class!, String!);
+    method private androidx.transition.Transition! createTransitionFromXml(org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!, androidx.transition.Transition!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private androidx.transition.TransitionManager! createTransitionManagerFromXml(org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!, android.view.ViewGroup!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private void getTargetIds(org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!, androidx.transition.Transition!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private void loadTransition(android.util.AttributeSet!, org.xmlpull.v1.XmlPullParser!, android.view.ViewGroup!, androidx.transition.TransitionManager!) throws android.content.res.Resources.NotFoundException;
+    field private static final androidx.collection.ArrayMap<java.lang.String,java.lang.reflect.Constructor>! CONSTRUCTORS;
+    field private static final Class<?>[]! CONSTRUCTOR_SIGNATURE;
+    field private final android.content.Context! mContext;
+  }
+
+  public class TransitionManager {
+    method private static void changeScene(androidx.transition.Scene!, androidx.transition.Transition!);
+    method static androidx.collection.ArrayMap<android.view.ViewGroup,java.util.ArrayList<androidx.transition.Transition>>! getRunningTransitions();
+    method private androidx.transition.Transition! getTransition(androidx.transition.Scene!);
+    method private static void sceneChangeRunTransition(android.view.ViewGroup!, androidx.transition.Transition!);
+    method private static void sceneChangeSetup(android.view.ViewGroup!, androidx.transition.Transition!);
+    field private static final String LOG_TAG = "TransitionManager";
+    field private androidx.collection.ArrayMap<androidx.transition.Scene,androidx.collection.ArrayMap<androidx.transition.Scene,androidx.transition.Transition>>! mScenePairTransitions;
+    field private androidx.collection.ArrayMap<androidx.transition.Scene,androidx.transition.Transition>! mSceneTransitions;
+    field private static androidx.transition.Transition! sDefaultTransition;
+    field static java.util.ArrayList<android.view.ViewGroup>! sPendingTransitions;
+    field private static ThreadLocal<java.lang.ref.WeakReference<androidx.collection.ArrayMap<android.view.ViewGroup,java.util.ArrayList<androidx.transition.Transition>>>>! sRunningTransitions;
+  }
+
+  private static class TransitionManager.MultiListener implements android.view.View.OnAttachStateChangeListener android.view.ViewTreeObserver.OnPreDrawListener {
+    ctor TransitionManager.MultiListener(androidx.transition.Transition!, android.view.ViewGroup!);
+    method private void removeListeners();
+    field android.view.ViewGroup! mSceneRoot;
+    field androidx.transition.Transition! mTransition;
+  }
+
+  public class TransitionSet extends androidx.transition.Transition {
+    method private void addTransitionInternal(androidx.transition.Transition);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void cancel();
+    method void capturePropagationValues(androidx.transition.TransitionValues!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void createAnimators(android.view.ViewGroup!, androidx.transition.TransitionValuesMaps!, androidx.transition.TransitionValuesMaps!, java.util.ArrayList<androidx.transition.TransitionValues>!, java.util.ArrayList<androidx.transition.TransitionValues>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) void forceToEnd(android.view.ViewGroup!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void pause(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void resume(android.view.View!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void runAnimators();
+    method void setCanRemoveViews(boolean);
+    method androidx.transition.TransitionSet! setSceneRoot(android.view.ViewGroup!);
+    method private void setupStartEndListeners();
+    method String! toString(String!);
+    field private static final int FLAG_CHANGE_EPICENTER = 8; // 0x8
+    field private static final int FLAG_CHANGE_INTERPOLATOR = 1; // 0x1
+    field private static final int FLAG_CHANGE_PATH_MOTION = 4; // 0x4
+    field private static final int FLAG_CHANGE_PROPAGATION = 2; // 0x2
+    field private int mChangeFlags;
+    field int mCurrentListeners;
+    field private boolean mPlayTogether;
+    field boolean mStarted;
+    field private java.util.ArrayList<androidx.transition.Transition>! mTransitions;
+  }
+
+  static class TransitionSet.TransitionSetListener extends androidx.transition.TransitionListenerAdapter {
+    ctor TransitionSet.TransitionSetListener(androidx.transition.TransitionSet!);
+    field androidx.transition.TransitionSet! mTransitionSet;
+  }
+
+  class TransitionUtils {
+    ctor private TransitionUtils();
+    method static android.view.View! copyViewImage(android.view.ViewGroup!, android.view.View!, android.view.View!);
+    method private static android.graphics.Bitmap! createViewBitmap(android.view.View!, android.graphics.Matrix!, android.graphics.RectF!, android.view.ViewGroup!);
+    method static android.animation.Animator! mergeAnimators(android.animation.Animator!, android.animation.Animator!);
+    field private static final boolean HAS_IS_ATTACHED_TO_WINDOW;
+    field private static final boolean HAS_OVERLAY;
+    field private static final boolean HAS_PICTURE_BITMAP;
+    field private static final int MAX_IMAGE_SIZE = 1048576; // 0x100000
+  }
+
+  static class TransitionUtils.MatrixEvaluator implements android.animation.TypeEvaluator<android.graphics.Matrix> {
+    ctor TransitionUtils.MatrixEvaluator();
+    field final float[]! mTempEndValues;
+    field final android.graphics.Matrix! mTempMatrix;
+    field final float[]! mTempStartValues;
+  }
+
+  public class TransitionValues {
+    field final java.util.ArrayList<androidx.transition.Transition>! mTargetedTransitions;
+  }
+
+  class TransitionValuesMaps {
+    ctor TransitionValuesMaps();
+    field final android.util.SparseArray<android.view.View>! mIdValues;
+    field final androidx.collection.LongSparseArray<android.view.View>! mItemIdValues;
+    field final androidx.collection.ArrayMap<java.lang.String,android.view.View>! mNameValues;
+    field final androidx.collection.ArrayMap<android.view.View,androidx.transition.TransitionValues>! mViewValues;
+  }
+
+  class TranslationAnimationCreator {
+    ctor private TranslationAnimationCreator();
+    method static android.animation.Animator? createAnimation(android.view.View, androidx.transition.TransitionValues, int, int, float, float, float, float, android.animation.TimeInterpolator?, androidx.transition.Transition);
+  }
+
+  private static class TranslationAnimationCreator.TransitionPositionListener extends android.animation.AnimatorListenerAdapter implements androidx.transition.Transition.TransitionListener {
+    ctor TranslationAnimationCreator.TransitionPositionListener(android.view.View!, android.view.View!, int, int, float, float);
+    field private final android.view.View! mMovingView;
+    field private float mPausedX;
+    field private float mPausedY;
+    field private final int mStartX;
+    field private final int mStartY;
+    field private final float mTerminalX;
+    field private final float mTerminalY;
+    field private int[]! mTransitionPosition;
+    field private final android.view.View! mViewInHierarchy;
+  }
+
+  class ViewGroupOverlayApi14 extends androidx.transition.ViewOverlayApi14 implements androidx.transition.ViewGroupOverlayImpl {
+    ctor ViewGroupOverlayApi14(android.content.Context!, android.view.ViewGroup!, android.view.View!);
+    method public void add(android.view.View);
+    method static androidx.transition.ViewGroupOverlayApi14! createFrom(android.view.ViewGroup!);
+    method public void remove(android.view.View);
+  }
+
+  @RequiresApi(18) class ViewGroupOverlayApi18 implements androidx.transition.ViewGroupOverlayImpl {
+    ctor ViewGroupOverlayApi18(android.view.ViewGroup);
+    method public void add(android.graphics.drawable.Drawable);
+    method public void add(android.view.View);
+    method public void remove(android.graphics.drawable.Drawable);
+    method public void remove(android.view.View);
+    field private final android.view.ViewGroupOverlay! mViewGroupOverlay;
+  }
+
+  interface ViewGroupOverlayImpl extends androidx.transition.ViewOverlayImpl {
+    method public void add(android.view.View);
+    method public void remove(android.view.View);
+  }
+
+  class ViewGroupUtils {
+    ctor private ViewGroupUtils();
+    method static androidx.transition.ViewGroupOverlayImpl! getOverlay(android.view.ViewGroup);
+    method static void suppressLayout(android.view.ViewGroup, boolean);
+  }
+
+  class ViewGroupUtilsApi14 {
+    ctor private ViewGroupUtilsApi14();
+    method private static void cancelLayoutTransition(android.animation.LayoutTransition!);
+    method static void suppressLayout(android.view.ViewGroup, boolean);
+    field private static final int LAYOUT_TRANSITION_CHANGING = 4; // 0x4
+    field private static final String TAG = "ViewGroupUtilsApi14";
+    field private static java.lang.reflect.Method! sCancelMethod;
+    field private static boolean sCancelMethodFetched;
+    field private static android.animation.LayoutTransition! sEmptyLayoutTransition;
+    field private static java.lang.reflect.Field! sLayoutSuppressedField;
+    field private static boolean sLayoutSuppressedFieldFetched;
+  }
+
+  @RequiresApi(18) class ViewGroupUtilsApi18 {
+    ctor private ViewGroupUtilsApi18();
+    method private static void fetchSuppressLayoutMethod();
+    method static void suppressLayout(android.view.ViewGroup, boolean);
+    field private static final String TAG = "ViewUtilsApi18";
+    field private static java.lang.reflect.Method! sSuppressLayoutMethod;
+    field private static boolean sSuppressLayoutMethodFetched;
+  }
+
+  class ViewOverlayApi14 implements androidx.transition.ViewOverlayImpl {
+    ctor ViewOverlayApi14(android.content.Context!, android.view.ViewGroup!, android.view.View!);
+    method public void add(android.graphics.drawable.Drawable);
+    method static androidx.transition.ViewOverlayApi14! createFrom(android.view.View!);
+    method static android.view.ViewGroup! getContentView(android.view.View!);
+    method public void remove(android.graphics.drawable.Drawable);
+    field protected androidx.transition.ViewOverlayApi14.OverlayViewGroup! mOverlayViewGroup;
+  }
+
+  static class ViewOverlayApi14.OverlayViewGroup extends android.view.ViewGroup {
+    ctor ViewOverlayApi14.OverlayViewGroup(android.content.Context!, android.view.ViewGroup!, android.view.View!, androidx.transition.ViewOverlayApi14!);
+    method public void add(android.graphics.drawable.Drawable!);
+    method public void add(android.view.View!);
+    method private void getOffset(int[]!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected android.view.ViewParent! invalidateChildInParentFast(int, int, android.graphics.Rect!);
+    method boolean isEmpty();
+    method public void remove(android.graphics.drawable.Drawable!);
+    method public void remove(android.view.View!);
+    field java.util.ArrayList<android.graphics.drawable.Drawable>! mDrawables;
+    field android.view.ViewGroup! mHostView;
+    field android.view.View! mRequestingView;
+    field androidx.transition.ViewOverlayApi14! mViewOverlay;
+    field static java.lang.reflect.Method! sInvalidateChildInParentFastMethod;
+  }
+
+  @RequiresApi(18) class ViewOverlayApi18 implements androidx.transition.ViewOverlayImpl {
+    ctor ViewOverlayApi18(android.view.View);
+    method public void add(android.graphics.drawable.Drawable);
+    method public void remove(android.graphics.drawable.Drawable);
+    field private final android.view.ViewOverlay! mViewOverlay;
+  }
+
+  interface ViewOverlayImpl {
+    method public void add(android.graphics.drawable.Drawable);
+    method public void remove(android.graphics.drawable.Drawable);
+  }
+
+  class ViewUtils {
+    ctor private ViewUtils();
+    method static void clearNonTransitionAlpha(android.view.View);
+    method private static void fetchViewFlagsField();
+    method static androidx.transition.ViewOverlayImpl! getOverlay(android.view.View);
+    method static float getTransitionAlpha(android.view.View);
+    method static androidx.transition.WindowIdImpl! getWindowId(android.view.View);
+    method static void saveNonTransitionAlpha(android.view.View);
+    method static void setAnimationMatrix(android.view.View, android.graphics.Matrix?);
+    method static void setLeftTopRightBottom(android.view.View, int, int, int, int);
+    method static void setTransitionAlpha(android.view.View, float);
+    method static void setTransitionVisibility(android.view.View, int);
+    method static void transformMatrixToGlobal(android.view.View, android.graphics.Matrix);
+    method static void transformMatrixToLocal(android.view.View, android.graphics.Matrix);
+    field static final android.util.Property<android.view.View,android.graphics.Rect>! CLIP_BOUNDS;
+    field private static final androidx.transition.ViewUtilsBase! IMPL;
+    field private static final String TAG = "ViewUtils";
+    field static final android.util.Property<android.view.View,java.lang.Float>! TRANSITION_ALPHA;
+    field private static final int VISIBILITY_MASK = 12; // 0xc
+    field private static java.lang.reflect.Field! sViewFlagsField;
+    field private static boolean sViewFlagsFieldFetched;
+  }
+
+  @RequiresApi(19) class ViewUtilsApi19 extends androidx.transition.ViewUtilsBase {
+    ctor ViewUtilsApi19();
+    method public void clearNonTransitionAlpha(android.view.View);
+    method private void fetchGetTransitionAlphaMethod();
+    method private void fetchSetTransitionAlphaMethod();
+    method public float getTransitionAlpha(android.view.View);
+    method public void saveNonTransitionAlpha(android.view.View);
+    method public void setTransitionAlpha(android.view.View, float);
+    field private static final String TAG = "ViewUtilsApi19";
+    field private static java.lang.reflect.Method! sGetTransitionAlphaMethod;
+    field private static boolean sGetTransitionAlphaMethodFetched;
+    field private static java.lang.reflect.Method! sSetTransitionAlphaMethod;
+    field private static boolean sSetTransitionAlphaMethodFetched;
+  }
+
+  @RequiresApi(21) class ViewUtilsApi21 extends androidx.transition.ViewUtilsApi19 {
+    ctor ViewUtilsApi21();
+    method private void fetchSetAnimationMatrix();
+    method private void fetchTransformMatrixToGlobalMethod();
+    method private void fetchTransformMatrixToLocalMethod();
+    method public void setAnimationMatrix(android.view.View, android.graphics.Matrix!);
+    method public void transformMatrixToGlobal(android.view.View, android.graphics.Matrix);
+    method public void transformMatrixToLocal(android.view.View, android.graphics.Matrix);
+    field private static final String TAG = "ViewUtilsApi21";
+    field private static java.lang.reflect.Method! sSetAnimationMatrixMethod;
+    field private static boolean sSetAnimationMatrixMethodFetched;
+    field private static java.lang.reflect.Method! sTransformMatrixToGlobalMethod;
+    field private static boolean sTransformMatrixToGlobalMethodFetched;
+    field private static java.lang.reflect.Method! sTransformMatrixToLocalMethod;
+    field private static boolean sTransformMatrixToLocalMethodFetched;
+  }
+
+  @RequiresApi(22) class ViewUtilsApi22 extends androidx.transition.ViewUtilsApi21 {
+    ctor ViewUtilsApi22();
+    method private void fetchSetLeftTopRightBottomMethod();
+    method public void setLeftTopRightBottom(android.view.View!, int, int, int, int);
+    field private static final String TAG = "ViewUtilsApi22";
+    field private static java.lang.reflect.Method! sSetLeftTopRightBottomMethod;
+    field private static boolean sSetLeftTopRightBottomMethodFetched;
+  }
+
+  class ViewUtilsBase {
+    ctor ViewUtilsBase();
+    method public void clearNonTransitionAlpha(android.view.View);
+    method private void fetchSetFrame();
+    method public float getTransitionAlpha(android.view.View);
+    method public void saveNonTransitionAlpha(android.view.View);
+    method public void setAnimationMatrix(android.view.View, android.graphics.Matrix!);
+    method public void setLeftTopRightBottom(android.view.View!, int, int, int, int);
+    method public void setTransitionAlpha(android.view.View, float);
+    method public void transformMatrixToGlobal(android.view.View, android.graphics.Matrix);
+    method public void transformMatrixToLocal(android.view.View, android.graphics.Matrix);
+    field private static final String TAG = "ViewUtilsBase";
+    field private float[]! mMatrixValues;
+    field private static boolean sSetFrameFetched;
+    field private static java.lang.reflect.Method! sSetFrameMethod;
+  }
+
+  public abstract class Visibility extends androidx.transition.Transition {
+    method private void captureValues(androidx.transition.TransitionValues!);
+    method private androidx.transition.Visibility.VisibilityInfo! getVisibilityChangeInfo(androidx.transition.TransitionValues!, androidx.transition.TransitionValues!);
+    field private static final String PROPNAME_PARENT = "android:visibility:parent";
+    field private static final String PROPNAME_SCREEN_LOCATION = "android:visibility:screenLocation";
+    field static final String PROPNAME_VISIBILITY = "android:visibility:visibility";
+    field private int mMode;
+    field private static final String[]! sTransitionProperties;
+  }
+
+  private static class Visibility.DisappearListener extends android.animation.AnimatorListenerAdapter implements androidx.transition.AnimatorUtils.AnimatorPauseListenerCompat androidx.transition.Transition.TransitionListener {
+    ctor Visibility.DisappearListener(android.view.View!, int, boolean);
+    method private void hideViewWhenNotCanceled();
+    method private void suppressLayout(boolean);
+    field boolean mCanceled;
+    field private final int mFinalVisibility;
+    field private boolean mLayoutSuppressed;
+    field private final android.view.ViewGroup! mParent;
+    field private final boolean mSuppressLayout;
+    field private final android.view.View! mView;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef(flag=true, value={androidx.transition.Visibility.MODE_IN, androidx.transition.Visibility.MODE_OUT, androidx.transition.Fade.IN, androidx.transition.Fade.OUT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface Visibility.Mode {
+  }
+
+  private static class Visibility.VisibilityInfo {
+    ctor Visibility.VisibilityInfo();
+    field android.view.ViewGroup! mEndParent;
+    field int mEndVisibility;
+    field boolean mFadeIn;
+    field android.view.ViewGroup! mStartParent;
+    field int mStartVisibility;
+    field boolean mVisibilityChange;
+  }
+
+  public abstract class VisibilityPropagation extends androidx.transition.TransitionPropagation {
+    method private static int getViewCoordinate(androidx.transition.TransitionValues!, int);
+    field private static final String PROPNAME_VIEW_CENTER = "android:visibilityPropagation:center";
+    field private static final String PROPNAME_VISIBILITY = "android:visibilityPropagation:visibility";
+    field private static final String[]! VISIBILITY_PROPAGATION_VALUES;
+  }
+
+  class WindowIdApi14 implements androidx.transition.WindowIdImpl {
+    ctor WindowIdApi14(android.os.IBinder!);
+    field private final android.os.IBinder! mToken;
+  }
+
+  @RequiresApi(18) class WindowIdApi18 implements androidx.transition.WindowIdImpl {
+    ctor WindowIdApi18(android.view.View);
+    field private final android.view.WindowId! mWindowId;
+  }
+
+  interface WindowIdImpl {
+  }
+
+}
+

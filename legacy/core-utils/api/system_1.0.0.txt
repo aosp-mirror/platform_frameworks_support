@@ -1,0 +1,11 @@
+// Signature format: 2.0
+package androidx.legacy.content {
+
+  @Deprecated public abstract class WakefulBroadcastReceiver extends android.content.BroadcastReceiver {
+    field private static final String EXTRA_WAKE_LOCK_ID = "androidx.contentpager.content.wakelockid";
+    field private static int mNextId;
+    field private static final android.util.SparseArray<android.os.PowerManager.WakeLock>! sActiveWakeLocks;
+  }
+
+}
+

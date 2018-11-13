@@ -1,0 +1,11 @@
+// Signature format: 2.0
+package androidx.annotation {
+
+  @IntDef({androidx.annotation.Dimension.PX, androidx.annotation.Dimension.DP, androidx.annotation.Dimension.SP}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @interface DimensionUnit {
+  }
+
+  @IntDef({androidx.annotation.VisibleForTesting.PRIVATE, androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE, androidx.annotation.VisibleForTesting.PROTECTED, androidx.annotation.VisibleForTesting.NONE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @interface ProductionVisibility {
+  }
+
+}
+

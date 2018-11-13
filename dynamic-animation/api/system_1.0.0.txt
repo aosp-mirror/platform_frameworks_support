@@ -1,0 +1,165 @@
+// Signature format: 2.0
+package androidx.dynamicanimation.animation {
+
+  class AnimationHandler {
+    ctor AnimationHandler();
+    method public void addAnimationFrameCallback(androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback!, long);
+    method private void cleanUpList();
+    method void doAnimationFrame(long);
+    method public static long getFrameTime();
+    method public static androidx.dynamicanimation.animation.AnimationHandler! getInstance();
+    method androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallbackProvider! getProvider();
+    method private boolean isCallbackDue(androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback!, long);
+    method public void removeCallback(androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback!);
+    method public void setProvider(androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallbackProvider!);
+    field private static final long FRAME_DELAY_MS = 10L; // 0xaL
+    field final java.util.ArrayList<androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback>! mAnimationCallbacks;
+    field private final androidx.dynamicanimation.animation.AnimationHandler.AnimationCallbackDispatcher! mCallbackDispatcher;
+    field long mCurrentFrameTime;
+    field private final androidx.collection.SimpleArrayMap<androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback,java.lang.Long>! mDelayedCallbackStartTime;
+    field private boolean mListDirty;
+    field private androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallbackProvider! mProvider;
+    field public static final ThreadLocal<androidx.dynamicanimation.animation.AnimationHandler>! sAnimatorHandler;
+  }
+
+  class AnimationHandler.AnimationCallbackDispatcher {
+    ctor AnimationHandler.AnimationCallbackDispatcher();
+    method void dispatchAnimationFrame();
+  }
+
+  static interface AnimationHandler.AnimationFrameCallback {
+    method public boolean doAnimationFrame(long);
+  }
+
+  abstract static class AnimationHandler.AnimationFrameCallbackProvider {
+    ctor AnimationHandler.AnimationFrameCallbackProvider(androidx.dynamicanimation.animation.AnimationHandler.AnimationCallbackDispatcher!);
+    method abstract void postFrameCallback();
+    field final androidx.dynamicanimation.animation.AnimationHandler.AnimationCallbackDispatcher! mDispatcher;
+  }
+
+  private static class AnimationHandler.FrameCallbackProvider14 extends androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallbackProvider {
+    ctor AnimationHandler.FrameCallbackProvider14(androidx.dynamicanimation.animation.AnimationHandler.AnimationCallbackDispatcher!);
+    method void postFrameCallback();
+    field private final android.os.Handler! mHandler;
+    field long mLastFrameTime;
+    field private final Runnable! mRunnable;
+  }
+
+  @RequiresApi(android.os.Build.VERSION_CODES.JELLY_BEAN) private static class AnimationHandler.FrameCallbackProvider16 extends androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallbackProvider {
+    ctor AnimationHandler.FrameCallbackProvider16(androidx.dynamicanimation.animation.AnimationHandler.AnimationCallbackDispatcher!);
+    method void postFrameCallback();
+    field private final android.view.Choreographer! mChoreographer;
+    field private final android.view.Choreographer.FrameCallback! mChoreographerCallback;
+  }
+
+  public abstract class DynamicAnimation<T extends androidx.dynamicanimation.animation.DynamicAnimation<T>> implements androidx.dynamicanimation.animation.AnimationHandler.AnimationFrameCallback {
+    ctor DynamicAnimation(androidx.dynamicanimation.animation.FloatValueHolder!);
+    ctor DynamicAnimation(K!, androidx.dynamicanimation.animation.FloatPropertyCompat<K>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean doAnimationFrame(long);
+    method private void endAnimationInternal(boolean);
+    method abstract float getAcceleration(float, float);
+    method private float getPropertyValue();
+    method float getValueThreshold();
+    method abstract boolean isAtEquilibrium(float, float);
+    method private static <T> void removeEntry(java.util.ArrayList<T>!, T!);
+    method private static <T> void removeNullEntries(java.util.ArrayList<T>!);
+    method void setPropertyValue(float);
+    method abstract void setValueThreshold(float);
+    method private void startAnimationInternal();
+    method abstract boolean updateValueAndVelocity(long);
+    field private static final float THRESHOLD_MULTIPLIER = 0.75f;
+    field private static final float UNSET = 3.4028235E38f;
+    field private final java.util.ArrayList<androidx.dynamicanimation.animation.DynamicAnimation.OnAnimationEndListener>! mEndListeners;
+    field private long mLastFrameTime;
+    field float mMaxValue;
+    field float mMinValue;
+    field private float mMinVisibleChange;
+    field final androidx.dynamicanimation.animation.FloatPropertyCompat! mProperty;
+    field boolean mRunning;
+    field boolean mStartValueIsSet;
+    field final Object! mTarget;
+    field private final java.util.ArrayList<androidx.dynamicanimation.animation.DynamicAnimation.OnAnimationUpdateListener>! mUpdateListeners;
+    field float mValue;
+    field float mVelocity;
+  }
+
+  static class DynamicAnimation.MassState {
+    ctor DynamicAnimation.MassState();
+    field float mValue;
+    field float mVelocity;
+  }
+
+  public abstract static class DynamicAnimation.ViewProperty extends androidx.dynamicanimation.animation.FloatPropertyCompat<android.view.View> {
+    ctor private DynamicAnimation.ViewProperty(String!);
+  }
+
+  public final class FlingAnimation extends androidx.dynamicanimation.animation.DynamicAnimation<androidx.dynamicanimation.animation.FlingAnimation> {
+    method float getAcceleration(float, float);
+    method boolean isAtEquilibrium(float, float);
+    method void setValueThreshold(float);
+    method boolean updateValueAndVelocity(long);
+    field private final androidx.dynamicanimation.animation.FlingAnimation.DragForce! mFlingForce;
+  }
+
+  static final class FlingAnimation.DragForce implements androidx.dynamicanimation.animation.Force {
+    ctor FlingAnimation.DragForce();
+    method public float getAcceleration(float, float);
+    method float getFrictionScalar();
+    method public boolean isAtEquilibrium(float, float);
+    method void setFrictionScalar(float);
+    method void setValueThreshold(float);
+    method androidx.dynamicanimation.animation.DynamicAnimation.MassState! updateValueAndVelocity(float, float, long);
+    field private static final float DEFAULT_FRICTION = -4.2f;
+    field private static final float VELOCITY_THRESHOLD_MULTIPLIER = 62.5f;
+    field private float mFriction;
+    field private final androidx.dynamicanimation.animation.DynamicAnimation.MassState! mMassState;
+    field private float mVelocityThreshold;
+  }
+
+  public abstract class FloatPropertyCompat<T> {
+    field final String! mPropertyName;
+  }
+
+  public final class FloatValueHolder {
+    field private float mValue;
+  }
+
+  interface Force {
+    method public float getAcceleration(float, float);
+    method public boolean isAtEquilibrium(float, float);
+  }
+
+  public final class SpringAnimation extends androidx.dynamicanimation.animation.DynamicAnimation<androidx.dynamicanimation.animation.SpringAnimation> {
+    method float getAcceleration(float, float);
+    method boolean isAtEquilibrium(float, float);
+    method private void sanityCheck();
+    method void setValueThreshold(float);
+    method boolean updateValueAndVelocity(long);
+    field private static final float UNSET = 3.4028235E38f;
+    field private boolean mEndRequested;
+    field private float mPendingPosition;
+    field private androidx.dynamicanimation.animation.SpringForce! mSpring;
+  }
+
+  public final class SpringForce implements androidx.dynamicanimation.animation.Force {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public float getAcceleration(float, float);
+    method private void init();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean isAtEquilibrium(float, float);
+    method void setValueThreshold(double);
+    method androidx.dynamicanimation.animation.DynamicAnimation.MassState! updateValues(double, double, long);
+    field private static final double UNSET = 1.7976931348623157E308;
+    field private static final double VELOCITY_THRESHOLD_MULTIPLIER = 62.5;
+    field private double mDampedFreq;
+    field double mDampingRatio;
+    field private double mFinalPosition;
+    field private double mGammaMinus;
+    field private double mGammaPlus;
+    field private boolean mInitialized;
+    field private final androidx.dynamicanimation.animation.DynamicAnimation.MassState! mMassState;
+    field double mNaturalFreq;
+    field private double mValueThreshold;
+    field private double mVelocityThreshold;
+  }
+
+}
+

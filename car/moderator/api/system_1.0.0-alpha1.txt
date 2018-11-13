@@ -1,0 +1,58 @@
+// Signature format: 2.0
+package androidx.car.moderator {
+
+  public class ContentRateLimiter {
+    ctor @VisibleForTesting ContentRateLimiter(@FloatRange(from=0, fromInclusive=false) double, @FloatRange(from=0) double, @IntRange(from=0) long, androidx.car.moderator.ContentRateLimiter.ElapsedTimeProvider!);
+    method private double getLastCalculatedPermitCount();
+    method private void setLastCalculatedPermitCount(double, long);
+    field private static final String TAG = "ContentRateLimiter";
+    field private final androidx.car.moderator.ContentRateLimiter.ElapsedTimeProvider! mElapsedTimeProvider;
+    field private long mFillDelayMs;
+    field private double mLastCalculatedPermitCount;
+    field private double mMaxStoredPermits;
+    field private long mResumeIncrementingMs;
+    field private boolean mSecondaryFillDelayPermitAvailable;
+    field private long mStableIntervalMs;
+    field private boolean mUnlimitedModeEnabled;
+  }
+
+  static interface ContentRateLimiter.ElapsedTimeProvider {
+    method public long getElapsedRealtime();
+  }
+
+  class SpeedBumpController {
+    ctor SpeedBumpController(androidx.car.moderator.SpeedBumpView!);
+    method android.view.View! getLockoutMessageView();
+    method private void hideLockOutMessage();
+    method boolean onTouchEvent(android.view.MotionEvent!);
+    method private void showLockOutMessage();
+    method void start();
+    method void stop();
+    method void updateUnlimitedModeEnabled(android.car.drivingstate.CarUxRestrictions!);
+    field private static final double ACQUIRED_PERMITS_PER_SECOND = 0.5;
+    field private static final double MAX_PERMIT_POOL = 5.0;
+    field private static final long PERMIT_FILL_DELAY_MS = 600L; // 0x258L
+    field private static final String TAG = "SpeedBumpController";
+    field final android.car.Car? mCar;
+    field android.car.drivingstate.CarUxRestrictionsManager? mCarUxRestrictionsManager;
+    field final androidx.car.moderator.ContentRateLimiter! mContentRateLimiter;
+    field private final android.content.Context! mContext;
+    field final android.os.Handler! mHandler;
+    field boolean mInteractionPermitted;
+    field final int mLockOutMessageDurationMs;
+    field private final android.widget.ImageView! mLockoutImageView;
+    field final android.view.View! mLockoutMessageView;
+    field private final android.content.ServiceConnection! mServiceConnection;
+  }
+
+  public class SpeedBumpView extends android.widget.FrameLayout {
+    field private final androidx.car.moderator.SpeedBumpController! mSpeedBumpController;
+  }
+
+  class SystemClockTimeProvider implements androidx.car.moderator.ContentRateLimiter.ElapsedTimeProvider {
+    ctor SystemClockTimeProvider();
+    method public long getElapsedRealtime();
+  }
+
+}
+

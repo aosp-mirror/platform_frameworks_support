@@ -1,0 +1,40 @@
+// Signature format: 2.0
+package androidx.percentlayout.widget {
+
+  @Deprecated public class PercentFrameLayout extends android.widget.FrameLayout {
+    field private final androidx.percentlayout.widget.PercentLayoutHelper! mHelper;
+  }
+
+  @Deprecated public static class PercentFrameLayout.LayoutParams extends android.widget.FrameLayout.LayoutParams implements androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutParams {
+    field private androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutInfo! mPercentLayoutInfo;
+  }
+
+  @Deprecated public class PercentLayoutHelper {
+    method private static boolean shouldHandleMeasuredHeightTooSmall(android.view.View!, androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutInfo!);
+    method private static boolean shouldHandleMeasuredWidthTooSmall(android.view.View!, androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutInfo!);
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "PercentLayout";
+    field private static final boolean VERBOSE = false;
+    field private final android.view.ViewGroup! mHost;
+  }
+
+  @Deprecated public static class PercentLayoutHelper.PercentLayoutInfo {
+    field final androidx.percentlayout.widget.PercentLayoutHelper.PercentMarginLayoutParams! mPreservedParams;
+  }
+
+  static class PercentLayoutHelper.PercentMarginLayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    ctor public PercentLayoutHelper.PercentMarginLayoutParams(int, int);
+    field boolean mIsHeightComputedFromAspectRatio;
+    field boolean mIsWidthComputedFromAspectRatio;
+  }
+
+  @Deprecated public class PercentRelativeLayout extends android.widget.RelativeLayout {
+    field private final androidx.percentlayout.widget.PercentLayoutHelper! mHelper;
+  }
+
+  @Deprecated public static class PercentRelativeLayout.LayoutParams extends android.widget.RelativeLayout.LayoutParams implements androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutParams {
+    field private androidx.percentlayout.widget.PercentLayoutHelper.PercentLayoutInfo! mPercentLayoutInfo;
+  }
+
+}
+

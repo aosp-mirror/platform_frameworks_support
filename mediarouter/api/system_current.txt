@@ -1,0 +1,1746 @@
+// Signature format: 2.0
+package androidx.mediarouter.app {
+
+  public class MediaRouteActionProvider extends androidx.core.view.ActionProvider {
+    method void refreshRoute();
+    field private static final String TAG = "MediaRouteActionProvider";
+    field private androidx.mediarouter.app.MediaRouteButton! mButton;
+    field private final androidx.mediarouter.app.MediaRouteActionProvider.MediaRouterCallback! mCallback;
+    field private androidx.mediarouter.app.MediaRouteDialogFactory! mDialogFactory;
+    field private final androidx.mediarouter.media.MediaRouter! mRouter;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  private static final class MediaRouteActionProvider.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor public MediaRouteActionProvider.MediaRouterCallback(androidx.mediarouter.app.MediaRouteActionProvider!);
+    method private void refreshRoute(androidx.mediarouter.media.MediaRouter!);
+    field private final java.lang.ref.WeakReference<androidx.mediarouter.app.MediaRouteActionProvider>! mProviderWeak;
+  }
+
+  public class MediaRouteButton extends android.view.View {
+    method private android.app.Activity! getActivity();
+    method private androidx.fragment.app.FragmentManager! getFragmentManager();
+    method private void loadRemoteIndicatorIfNeeded();
+    method void refreshRoute();
+    method void refreshVisibility();
+    method void setCheatSheetEnabled(boolean);
+    method void setRemoteIndicatorDrawableInternal(android.graphics.drawable.Drawable!);
+    method private void updateContentDescription();
+    field private static final int[]! CHECKABLE_STATE_SET;
+    field private static final int[]! CHECKED_STATE_SET;
+    field private static final String CHOOSER_FRAGMENT_TAG = "android.support.v7.mediarouter:MediaRouteChooserDialogFragment";
+    field private static final int CONNECTION_STATE_CONNECTED = 2; // 0x2
+    field private static final int CONNECTION_STATE_CONNECTING = 1; // 0x1
+    field private static final int CONNECTION_STATE_DISCONNECTED = 0; // 0x0
+    field private static final String CONTROLLER_FRAGMENT_TAG = "android.support.v7.mediarouter:MediaRouteControllerDialogFragment";
+    field private static final String TAG = "MediaRouteButton";
+    field private boolean mAttachedToWindow;
+    field private android.content.res.ColorStateList! mButtonTint;
+    field private final androidx.mediarouter.app.MediaRouteButton.MediaRouterCallback! mCallback;
+    field private int mConnectionState;
+    field private androidx.mediarouter.app.MediaRouteDialogFactory! mDialogFactory;
+    field private int mMinHeight;
+    field private int mMinWidth;
+    field private android.graphics.drawable.Drawable! mRemoteIndicator;
+    field androidx.mediarouter.app.MediaRouteButton.RemoteIndicatorLoader! mRemoteIndicatorLoader;
+    field private int mRemoteIndicatorResIdToLoad;
+    field private final androidx.mediarouter.media.MediaRouter! mRouter;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+    field private int mVisibility;
+    field private static androidx.mediarouter.app.MediaRouteButton.ConnectivityReceiver! sConnectivityReceiver;
+    field static final android.util.SparseArray<android.graphics.drawable.Drawable.ConstantState>! sRemoteIndicatorCache;
+  }
+
+  private static final class MediaRouteButton.ConnectivityReceiver extends android.content.BroadcastReceiver {
+    ctor MediaRouteButton.ConnectivityReceiver(android.content.Context!);
+    method public boolean isConnected();
+    method public void registerReceiver(androidx.mediarouter.app.MediaRouteButton!);
+    method public void unregisterReceiver(androidx.mediarouter.app.MediaRouteButton!);
+    field private java.util.List<androidx.mediarouter.app.MediaRouteButton>! mButtons;
+    field private final android.content.Context! mContext;
+    field private boolean mIsConnected;
+  }
+
+  private final class MediaRouteButton.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor MediaRouteButton.MediaRouterCallback();
+  }
+
+  private final class MediaRouteButton.RemoteIndicatorLoader extends android.os.AsyncTask<java.lang.Void,java.lang.Void,android.graphics.drawable.Drawable> {
+    ctor MediaRouteButton.RemoteIndicatorLoader(int);
+    method private void cacheAndReset(android.graphics.drawable.Drawable!);
+    field private final int mResId;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class MediaRouteCastDialog extends androidx.appcompat.app.AppCompatDialog {
+    ctor public MediaRouteCastDialog(android.content.Context!);
+    ctor public MediaRouteCastDialog(android.content.Context!, int);
+    method @RequiresApi(17) private static android.graphics.Bitmap! blurBitmap(android.graphics.Bitmap!, float, android.content.Context!);
+    method void clearLoadedBitmap();
+    method int getDesiredArtHeight(int, int);
+    method java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getGroupableRoutes();
+    method public android.support.v4.media.session.MediaSessionCompat.Token! getMediaSession();
+    method java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getMemberRoutes();
+    method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
+    method java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getTransferableRoutes();
+    method static boolean isBitmapRecycled(android.graphics.Bitmap!);
+    method private boolean isIconChanged();
+    method public boolean onFilterRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void onFilterRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>);
+    method static void setLayoutHeight(android.view.View!, int);
+    method private void setMediaSession(android.support.v4.media.session.MediaSessionCompat.Token!);
+    method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector);
+    method private boolean shouldDeferUpdateViews();
+    method void updateArtIconIfNeeded();
+    method void updateLayout();
+    method void updateMetadataViews();
+    method void updateRoutes();
+    method void updateRoutesView();
+    method void updateViewsIfNeeded();
+    field private static final int BLUR_RADIUS = 10; // 0xa
+    field static final int COLOR_WHITE_ON_DARK_BACKGROUND = -1; // 0xffffffff
+    field private static final int CONNECTION_TIMEOUT_MS = 30000; // 0x7530
+    field static final boolean DEBUG;
+    field static final int MIN_UNMUTED_VOLUME = 1; // 0x1
+    field static final int MSG_UPDATE_ROUTES_VIEW = 1; // 0x1
+    field static final int MSG_UPDATE_ROUTE_VOLUME_BY_USER = 2; // 0x2
+    field static final int MUTED_VOLUME = 0; // 0x0
+    field static final String TAG = "MediaRouteCastDialog";
+    field private static final int UPDATE_ROUTES_VIEW_DELAY_MS = 300; // 0x12c
+    field private static final int UPDATE_VOLUME_DELAY_MS = 500; // 0x1f4
+    field androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter! mAdapter;
+    field int mArtIconBackgroundColor;
+    field android.graphics.Bitmap! mArtIconBitmap;
+    field boolean mArtIconIsLoaded;
+    field android.graphics.Bitmap! mArtIconLoadedBitmap;
+    field android.net.Uri! mArtIconUri;
+    field private android.widget.ImageView! mArtView;
+    field private boolean mAttachedToWindow;
+    field java.util.Map<java.lang.String,java.lang.Integer>! mBeforeMuteVolumeMap;
+    field private final androidx.mediarouter.app.MediaRouteCastDialog.MediaRouterCallback! mCallback;
+    field private android.widget.ImageButton! mCloseButton;
+    field android.content.Context! mContext;
+    field androidx.mediarouter.app.MediaRouteCastDialog.MediaControllerCallback! mControllerCallback;
+    field private boolean mCreated;
+    field android.support.v4.media.MediaDescriptionCompat! mDescription;
+    field androidx.mediarouter.app.MediaRouteCastDialog.FetchArtTask! mFetchArtTask;
+    field final java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupableRoutes;
+    field final android.os.Handler! mHandler;
+    field boolean mIsAnimatingVolumeSliderLayout;
+    field boolean mIsSelectingRoute;
+    field private long mLastUpdateTime;
+    field android.support.v4.media.session.MediaControllerCompat! mMediaController;
+    field final java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mMemberRoutes;
+    field private android.widget.ImageView! mMetadataBackground;
+    field private android.view.View! mMetadataBlackScrim;
+    field private androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mRouteForVolumeUpdatingByUser;
+    field final androidx.mediarouter.media.MediaRouter! mRouter;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mSelectedRoute;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+    field private android.widget.Button! mStopCastingButton;
+    field private android.widget.TextView! mSubtitleView;
+    field private String! mTitlePlaceholder;
+    field private android.widget.TextView! mTitleView;
+    field final java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mTransferableRoutes;
+    field final java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mUngroupableRoutes;
+    field private boolean mUpdateMetadataViewsDeferred;
+    field private boolean mUpdateRoutesViewDeferred;
+    field androidx.mediarouter.app.MediaRouteCastDialog.VolumeChangeListener! mVolumeChangeListener;
+    field int mVolumeSliderColor;
+    field java.util.Map<java.lang.String,androidx.mediarouter.app.MediaRouteCastDialog.MediaRouteVolumeSliderHolder>! mVolumeSliderHolderMap;
+  }
+
+  private class MediaRouteCastDialog.FetchArtTask extends android.os.AsyncTask<java.lang.Void,java.lang.Void,android.graphics.Bitmap> {
+    ctor MediaRouteCastDialog.FetchArtTask();
+    method public android.graphics.Bitmap! getIconBitmap();
+    method public android.net.Uri! getIconUri();
+    method private java.io.InputStream! openInputStreamByScheme(android.net.Uri!) throws java.io.IOException;
+    field private int mBackgroundColor;
+    field private final android.graphics.Bitmap! mIconBitmap;
+    field private final android.net.Uri! mIconUri;
+  }
+
+  private final class MediaRouteCastDialog.MediaControllerCallback extends android.support.v4.media.session.MediaControllerCompat.Callback {
+    ctor MediaRouteCastDialog.MediaControllerCallback();
+  }
+
+  private abstract class MediaRouteCastDialog.MediaRouteVolumeSliderHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor MediaRouteCastDialog.MediaRouteVolumeSliderHolder(android.view.View!, android.widget.ImageButton!, androidx.mediarouter.app.MediaRouteVolumeSlider!);
+    method @CallSuper void bindRouteVolumeSliderHolder(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method int getUnmutedVolume();
+    method void setMute(boolean);
+    method void updateVolume();
+    field final android.widget.ImageButton! mMuteButton;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field final androidx.mediarouter.app.MediaRouteVolumeSlider! mVolumeSlider;
+  }
+
+  private final class MediaRouteCastDialog.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor MediaRouteCastDialog.MediaRouterCallback();
+    method private boolean isSelectingDynamicRoute();
+  }
+
+  private final class MediaRouteCastDialog.RecyclerAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder> {
+    ctor MediaRouteCastDialog.RecyclerAdapter();
+    method private android.graphics.drawable.Drawable! getDefaultIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method android.graphics.drawable.Drawable! getIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item! getItem(int);
+    method private boolean isGroupVolumeNeeded();
+    method void notifyAdapterDataSetChanged();
+    method void setItems();
+    field private static final int ITEM_TYPE_GROUP = 4; // 0x4
+    field private static final int ITEM_TYPE_GROUP_VOLUME = 1; // 0x1
+    field private static final int ITEM_TYPE_HEADER = 2; // 0x2
+    field private static final int ITEM_TYPE_ROUTE = 3; // 0x3
+    field private static final String TAG = "RecyclerAdapter";
+    field private final android.graphics.drawable.Drawable! mDefaultIcon;
+    field private final android.view.LayoutInflater! mInflater;
+    field private final java.util.ArrayList<androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item>! mItems;
+    field private final android.graphics.drawable.Drawable! mSpeakerGroupIcon;
+    field private final android.graphics.drawable.Drawable! mSpeakerIcon;
+    field private final android.graphics.drawable.Drawable! mTvIcon;
+  }
+
+  private class MediaRouteCastDialog.RecyclerAdapter.GroupViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor MediaRouteCastDialog.RecyclerAdapter.GroupViewHolder(android.view.View!);
+    method public void bindGroupViewHolder(androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item!);
+    method private boolean isEnabled(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    field final float mDisabledAlpha;
+    field final android.widget.ImageView! mImageView;
+    field final android.view.View! mItemView;
+    field final android.widget.ProgressBar! mProgressBar;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field final android.widget.TextView! mTextView;
+  }
+
+  private class MediaRouteCastDialog.RecyclerAdapter.GroupVolumeViewHolder extends androidx.mediarouter.app.MediaRouteCastDialog.MediaRouteVolumeSliderHolder {
+    ctor MediaRouteCastDialog.RecyclerAdapter.GroupVolumeViewHolder(android.view.View!);
+    method public void bindGroupVolumeViewHolder(androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item!);
+    field private final android.widget.TextView! mTextView;
+  }
+
+  private class MediaRouteCastDialog.RecyclerAdapter.HeaderViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor MediaRouteCastDialog.RecyclerAdapter.HeaderViewHolder(android.view.View!);
+    method public void bindHeaderViewHolder(androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item!);
+    field private final android.widget.TextView! mTextView;
+  }
+
+  private class MediaRouteCastDialog.RecyclerAdapter.Item {
+    ctor MediaRouteCastDialog.RecyclerAdapter.Item(Object!, int);
+    method public Object! getData();
+    method public int getType();
+    field private final Object! mData;
+    field private final int mType;
+  }
+
+  private class MediaRouteCastDialog.RecyclerAdapter.RouteViewHolder extends androidx.mediarouter.app.MediaRouteCastDialog.MediaRouteVolumeSliderHolder {
+    ctor MediaRouteCastDialog.RecyclerAdapter.RouteViewHolder(android.view.View!);
+    method void animateLayoutHeight(android.view.View!, int);
+    method public void bindRouteViewHolder(androidx.mediarouter.app.MediaRouteCastDialog.RecyclerAdapter.Item!);
+    method private boolean isEnabled(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method boolean isSelected(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    field private android.view.animation.Interpolator! mAccelerateDecelerateInterpolator;
+    field final android.widget.CheckBox! mCheckBox;
+    field final android.view.View.OnClickListener! mCheckBoxClickListener;
+    field final int mCollapsedLayoutHeight;
+    field final float mDisabledAlpha;
+    field final int mExpandedLayoutHeight;
+    field final android.widget.ImageView! mImageView;
+    field final android.view.View! mItemView;
+    field private final int mLayoutAnimationDurationMs;
+    field final android.widget.ProgressBar! mProgressBar;
+    field final android.widget.TextView! mTextView;
+    field final android.widget.RelativeLayout! mVolumeSliderLayout;
+  }
+
+  static final class MediaRouteCastDialog.RouteComparator implements java.util.Comparator<androidx.mediarouter.media.MediaRouter.RouteInfo> {
+    ctor MediaRouteCastDialog.RouteComparator();
+    field public static final androidx.mediarouter.app.MediaRouteCastDialog.RouteComparator! sInstance;
+  }
+
+  private class MediaRouteCastDialog.VolumeChangeListener implements android.widget.SeekBar.OnSeekBarChangeListener {
+    ctor MediaRouteCastDialog.VolumeChangeListener();
+  }
+
+  public class MediaRouteChooserDialog extends androidx.appcompat.app.AppCompatDialog {
+    method void updateLayout();
+    method void updateRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>!);
+    field static final int MSG_UPDATE_ROUTES = 1; // 0x1
+    field static final String TAG = "MediaRouteChooserDialog";
+    field private static final long UPDATE_ROUTES_DELAY_MS = 300L; // 0x12cL
+    field private androidx.mediarouter.app.MediaRouteChooserDialog.RouteAdapter! mAdapter;
+    field private boolean mAttachedToWindow;
+    field private final androidx.mediarouter.app.MediaRouteChooserDialog.MediaRouterCallback! mCallback;
+    field private final android.os.Handler! mHandler;
+    field private long mLastUpdateTime;
+    field private android.widget.ListView! mListView;
+    field private final androidx.mediarouter.media.MediaRouter! mRouter;
+    field private java.util.ArrayList<androidx.mediarouter.media.MediaRouter.RouteInfo>! mRoutes;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+    field private android.widget.TextView! mTitleView;
+  }
+
+  private final class MediaRouteChooserDialog.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor MediaRouteChooserDialog.MediaRouterCallback();
+  }
+
+  private final class MediaRouteChooserDialog.RouteAdapter extends android.widget.ArrayAdapter<androidx.mediarouter.media.MediaRouter.RouteInfo> implements android.widget.ListView.OnItemClickListener {
+    ctor public MediaRouteChooserDialog.RouteAdapter(android.content.Context!, java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>!);
+    method private android.graphics.drawable.Drawable! getDefaultIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method private android.graphics.drawable.Drawable! getIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    field private final android.graphics.drawable.Drawable! mDefaultIcon;
+    field private final android.view.LayoutInflater! mInflater;
+    field private final android.graphics.drawable.Drawable! mSpeakerGroupIcon;
+    field private final android.graphics.drawable.Drawable! mSpeakerIcon;
+    field private final android.graphics.drawable.Drawable! mTvIcon;
+  }
+
+  static final class MediaRouteChooserDialog.RouteComparator implements java.util.Comparator<androidx.mediarouter.media.MediaRouter.RouteInfo> {
+    ctor MediaRouteChooserDialog.RouteComparator();
+    field public static final androidx.mediarouter.app.MediaRouteChooserDialog.RouteComparator! sInstance;
+  }
+
+  public class MediaRouteChooserDialogFragment extends androidx.fragment.app.DialogFragment {
+    method private void ensureRouteSelector();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.app.MediaRouteDevicePickerDialog! onCreateDevicePickerDialog(android.content.Context!);
+    field private static final String ARGUMENT_SELECTOR = "selector";
+    field private static final boolean USE_SUPPORT_DYNAMIC_GROUP;
+    field private android.app.Dialog! mDialog;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  public class MediaRouteControllerDialog extends androidx.appcompat.app.AlertDialog {
+    method private void animateGroupListItems(java.util.Map<androidx.mediarouter.media.MediaRouter.RouteInfo,android.graphics.Rect>!, java.util.Map<androidx.mediarouter.media.MediaRouter.RouteInfo,android.graphics.drawable.BitmapDrawable>!);
+    method void animateGroupListItemsInternal(java.util.Map<androidx.mediarouter.media.MediaRouter.RouteInfo,android.graphics.Rect>!, java.util.Map<androidx.mediarouter.media.MediaRouter.RouteInfo,android.graphics.drawable.BitmapDrawable>!);
+    method private void animateLayoutHeight(android.view.View!, int);
+    method private boolean canShowPlaybackControlLayout();
+    method void clearGroupListAnimation(boolean);
+    method void clearLoadedBitmap();
+    method private void fadeInAddedRoutes();
+    method void finishAnimation(boolean);
+    method int getDesiredArtHeight(int, int);
+    method private androidx.mediarouter.media.MediaRouter.RouteGroup! getGroup();
+    method private static int getLayoutHeight(android.view.View!);
+    method private int getMainControllerHeight(boolean);
+    method static boolean isBitmapRecycled(android.graphics.Bitmap!);
+    method private boolean isIconChanged();
+    method boolean isPauseActionSupported();
+    method boolean isPlayActionSupported();
+    method boolean isStopActionSupported();
+    method boolean isVolumeControlAvailable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method void loadInterpolator();
+    method private void rebuildVolumeGroupList(boolean);
+    method static void setLayoutHeight(android.view.View!, int);
+    method private void setMediaSession(android.support.v4.media.session.MediaSessionCompat.Token!);
+    method void startGroupListFadeInAnimation();
+    method void startGroupListFadeInAnimationInternal();
+    method void update(boolean);
+    method void updateArtIconIfNeeded();
+    method void updateLayout();
+    method void updateLayoutHeight(boolean);
+    method void updateLayoutHeightInternal(boolean);
+    method private void updateMediaControlVisibility(boolean);
+    method private void updatePlaybackControlLayout();
+    method private void updateVolumeControlLayout();
+    method void updateVolumeGroupItemHeight(android.view.View!);
+    method private static boolean uriEquals(android.net.Uri!, android.net.Uri!);
+    field static final int BUTTON_DISCONNECT_RES_ID = 16908314; // 0x102001a
+    field private static final int BUTTON_NEUTRAL_RES_ID = 16908315; // 0x102001b
+    field static final int BUTTON_STOP_RES_ID = 16908313; // 0x1020019
+    field static final int CONNECTION_TIMEOUT_MILLIS;
+    field static final boolean DEBUG;
+    field static final String TAG = "MediaRouteCtrlDialog";
+    field static final int VOLUME_UPDATE_DELAY_MILLIS = 500; // 0x1f4
+    field private android.view.animation.Interpolator! mAccelerateDecelerateInterpolator;
+    field final android.view.accessibility.AccessibilityManager! mAccessibilityManager;
+    field int mArtIconBackgroundColor;
+    field android.graphics.Bitmap! mArtIconBitmap;
+    field boolean mArtIconIsLoaded;
+    field android.graphics.Bitmap! mArtIconLoadedBitmap;
+    field android.net.Uri! mArtIconUri;
+    field private android.widget.ImageView! mArtView;
+    field private boolean mAttachedToWindow;
+    field private final androidx.mediarouter.app.MediaRouteControllerDialog.MediaRouterCallback! mCallback;
+    field private android.widget.ImageButton! mCloseButton;
+    field android.content.Context! mContext;
+    field androidx.mediarouter.app.MediaRouteControllerDialog.MediaControllerCallback! mControllerCallback;
+    field private boolean mCreated;
+    field private android.widget.FrameLayout! mCustomControlLayout;
+    field private android.view.View! mCustomControlView;
+    field android.widget.FrameLayout! mDefaultControlLayout;
+    field android.support.v4.media.MediaDescriptionCompat! mDescription;
+    field private android.widget.LinearLayout! mDialogAreaLayout;
+    field private int mDialogContentWidth;
+    field private android.widget.Button! mDisconnectButton;
+    field private android.view.View! mDividerView;
+    field private android.widget.FrameLayout! mExpandableAreaLayout;
+    field private android.view.animation.Interpolator! mFastOutSlowInInterpolator;
+    field androidx.mediarouter.app.MediaRouteControllerDialog.FetchArtTask! mFetchArtTask;
+    field private androidx.mediarouter.app.MediaRouteExpandCollapseButton! mGroupExpandCollapseButton;
+    field int mGroupListAnimationDurationMs;
+    field Runnable! mGroupListFadeInAnimation;
+    field private int mGroupListFadeInDurationMs;
+    field private int mGroupListFadeOutDurationMs;
+    field private java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupMemberRoutes;
+    field java.util.Set<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupMemberRoutesAdded;
+    field java.util.Set<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupMemberRoutesAnimatingWithBitmap;
+    field private java.util.Set<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupMemberRoutesRemoved;
+    field boolean mHasPendingUpdate;
+    field private android.view.animation.Interpolator! mInterpolator;
+    field boolean mIsGroupExpanded;
+    field boolean mIsGroupListAnimating;
+    field boolean mIsGroupListAnimationPending;
+    field private android.view.animation.Interpolator! mLinearOutSlowInInterpolator;
+    field android.support.v4.media.session.MediaControllerCompat! mMediaController;
+    field private android.widget.LinearLayout! mMediaMainControlLayout;
+    field boolean mPendingUpdateAnimationNeeded;
+    field private android.widget.ImageButton! mPlaybackControlButton;
+    field private android.widget.RelativeLayout! mPlaybackControlLayout;
+    field final androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mRouteInVolumeSliderTouched;
+    field private android.widget.TextView! mRouteNameTextView;
+    field final androidx.mediarouter.media.MediaRouter! mRouter;
+    field android.support.v4.media.session.PlaybackStateCompat! mState;
+    field private android.widget.Button! mStopCastingButton;
+    field private android.widget.TextView! mSubtitleView;
+    field private android.widget.TextView! mTitleView;
+    field androidx.mediarouter.app.MediaRouteControllerDialog.VolumeChangeListener! mVolumeChangeListener;
+    field private boolean mVolumeControlEnabled;
+    field private android.widget.LinearLayout! mVolumeControlLayout;
+    field androidx.mediarouter.app.MediaRouteControllerDialog.VolumeGroupAdapter! mVolumeGroupAdapter;
+    field androidx.mediarouter.app.OverlayListView! mVolumeGroupList;
+    field private int mVolumeGroupListItemHeight;
+    field private int mVolumeGroupListItemIconSize;
+    field private int mVolumeGroupListMaxHeight;
+    field private final int mVolumeGroupListPaddingTop;
+    field android.widget.SeekBar! mVolumeSlider;
+    field java.util.Map<androidx.mediarouter.media.MediaRouter.RouteInfo,android.widget.SeekBar>! mVolumeSliderMap;
+  }
+
+  private final class MediaRouteControllerDialog.ClickListener implements android.view.View.OnClickListener {
+    ctor MediaRouteControllerDialog.ClickListener();
+  }
+
+  private class MediaRouteControllerDialog.FetchArtTask extends android.os.AsyncTask<java.lang.Void,java.lang.Void,android.graphics.Bitmap> {
+    ctor MediaRouteControllerDialog.FetchArtTask();
+    method public android.graphics.Bitmap! getIconBitmap();
+    method public android.net.Uri! getIconUri();
+    method private java.io.InputStream! openInputStreamByScheme(android.net.Uri!) throws java.io.IOException;
+    field private static final long SHOW_ANIM_TIME_THRESHOLD_MILLIS = 120L; // 0x78L
+    field private int mBackgroundColor;
+    field private final android.graphics.Bitmap! mIconBitmap;
+    field private final android.net.Uri! mIconUri;
+    field private long mStartTimeMillis;
+  }
+
+  private final class MediaRouteControllerDialog.MediaControllerCallback extends android.support.v4.media.session.MediaControllerCompat.Callback {
+    ctor MediaRouteControllerDialog.MediaControllerCallback();
+  }
+
+  private final class MediaRouteControllerDialog.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor MediaRouteControllerDialog.MediaRouterCallback();
+  }
+
+  private class MediaRouteControllerDialog.VolumeChangeListener implements android.widget.SeekBar.OnSeekBarChangeListener {
+    ctor MediaRouteControllerDialog.VolumeChangeListener();
+    field private final Runnable! mStopTrackingTouch;
+  }
+
+  private class MediaRouteControllerDialog.VolumeGroupAdapter extends android.widget.ArrayAdapter<androidx.mediarouter.media.MediaRouter.RouteInfo> {
+    ctor public MediaRouteControllerDialog.VolumeGroupAdapter(android.content.Context!, java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>!);
+    field final float mDisabledAlpha;
+  }
+
+  public class MediaRouteControllerDialogFragment extends androidx.fragment.app.DialogFragment {
+    method private void ensureRouteSelector();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteSelector! getRouteSelector();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.app.MediaRouteCastDialog! onCreateCastDialog(android.content.Context!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector!);
+    field private static final String ARGUMENT_SELECTOR = "selector";
+    field private static final boolean USE_SUPPORT_DYNAMIC_GROUP;
+    field private android.app.Dialog! mDialog;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class MediaRouteDevicePickerDialog extends androidx.appcompat.app.AppCompatDialog {
+    ctor public MediaRouteDevicePickerDialog(android.content.Context!);
+    ctor public MediaRouteDevicePickerDialog(android.content.Context!, int);
+    method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
+    method public boolean onFilterRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void onFilterRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>);
+    method public void refreshRoutes();
+    method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector);
+    method void updateLayout();
+    method void updateRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>!);
+    field private static final int ITEM_TYPE_HEADER = 1; // 0x1
+    field private static final int ITEM_TYPE_NONE = 0; // 0x0
+    field private static final int ITEM_TYPE_ROUTE = 2; // 0x2
+    field static final int MSG_UPDATE_ROUTES = 1; // 0x1
+    field private static final String TAG = "MediaRouteDevicePickerDialog";
+    field private androidx.mediarouter.app.MediaRouteDevicePickerDialog.RecyclerAdapter! mAdapter;
+    field private boolean mAttachedToWindow;
+    field private final androidx.mediarouter.app.MediaRouteDevicePickerDialog.MediaRouterCallback! mCallback;
+    field private android.widget.ImageButton! mCloseButton;
+    field android.content.Context! mContext;
+    field private final android.os.Handler! mHandler;
+    field boolean mIsSelectingDynamicRoute;
+    field private long mLastUpdateTime;
+    field private androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field final androidx.mediarouter.media.MediaRouter! mRouter;
+    field java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mRoutes;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+    field private long mUpdateRoutesDelayMs;
+  }
+
+  private final class MediaRouteDevicePickerDialog.MediaRouterCallback extends androidx.mediarouter.media.MediaRouter.Callback {
+    ctor MediaRouteDevicePickerDialog.MediaRouterCallback();
+  }
+
+  private final class MediaRouteDevicePickerDialog.RecyclerAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder> {
+    ctor MediaRouteDevicePickerDialog.RecyclerAdapter();
+    method private android.graphics.drawable.Drawable! getDefaultIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method android.graphics.drawable.Drawable! getIconDrawable(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public androidx.mediarouter.app.MediaRouteDevicePickerDialog.RecyclerAdapter.Item! getItem(int);
+    method void setItems();
+    field private static final String TAG = "RecyclerAdapter";
+    field private final android.graphics.drawable.Drawable! mDefaultIcon;
+    field private final android.view.LayoutInflater! mInflater;
+    field private final java.util.ArrayList<androidx.mediarouter.app.MediaRouteDevicePickerDialog.RecyclerAdapter.Item>! mItems;
+    field private final android.graphics.drawable.Drawable! mSpeakerGroupIcon;
+    field private final android.graphics.drawable.Drawable! mSpeakerIcon;
+    field private final android.graphics.drawable.Drawable! mTvIcon;
+  }
+
+  private class MediaRouteDevicePickerDialog.RecyclerAdapter.HeaderViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor MediaRouteDevicePickerDialog.RecyclerAdapter.HeaderViewHolder(android.view.View!);
+    method public void binHeaderView(androidx.mediarouter.app.MediaRouteDevicePickerDialog.RecyclerAdapter.Item!);
+    field android.widget.TextView! mTextView;
+  }
+
+  private class MediaRouteDevicePickerDialog.RecyclerAdapter.Item {
+    ctor MediaRouteDevicePickerDialog.RecyclerAdapter.Item(Object!);
+    method public Object! getData();
+    method public int getType();
+    field private final Object! mData;
+    field private final int mType;
+  }
+
+  private class MediaRouteDevicePickerDialog.RecyclerAdapter.RouteViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    ctor MediaRouteDevicePickerDialog.RecyclerAdapter.RouteViewHolder(android.view.View!);
+    method public void bindRouteView(androidx.mediarouter.app.MediaRouteDevicePickerDialog.RecyclerAdapter.Item!);
+    field final android.widget.ImageView! mImageView;
+    field final android.view.View! mItemView;
+    field final android.widget.ProgressBar! mProgressBar;
+    field final android.widget.TextView! mTextView;
+  }
+
+  static final class MediaRouteDevicePickerDialog.RouteComparator implements java.util.Comparator<androidx.mediarouter.media.MediaRouter.RouteInfo> {
+    ctor MediaRouteDevicePickerDialog.RouteComparator();
+    field public static final androidx.mediarouter.app.MediaRouteDevicePickerDialog.RouteComparator! sInstance;
+  }
+
+  public class MediaRouteDialogFactory {
+    field private static final androidx.mediarouter.app.MediaRouteDialogFactory! sDefault;
+  }
+
+  final class MediaRouteDialogHelper {
+    ctor private MediaRouteDialogHelper();
+    method public static int getDialogHeight(android.content.Context!);
+    method public static int getDialogWidth(android.content.Context!);
+    method public static <E> java.util.HashMap<E,android.graphics.drawable.BitmapDrawable>! getItemBitmapMap(android.content.Context!, android.widget.ListView!, android.widget.ArrayAdapter<E>!);
+    method public static <E> java.util.HashMap<E,android.graphics.Rect>! getItemBoundMap(android.widget.ListView!, android.widget.ArrayAdapter<E>!);
+    method public static <E> java.util.Set<E>! getItemsAdded(java.util.List<E>!, java.util.List<E>!);
+    method public static <E> java.util.Set<E>! getItemsRemoved(java.util.List<E>!, java.util.List<E>!);
+    method private static android.graphics.drawable.BitmapDrawable! getViewBitmap(android.content.Context!, android.view.View!);
+    method public static <E> boolean listUnorderedEquals(java.util.List<E>!, java.util.List<E>!);
+    field private static final boolean USE_SUPPORT_DYNAMIC_GROUP;
+  }
+
+  public class MediaRouteDiscoveryFragment extends androidx.fragment.app.Fragment {
+    method private void ensureRouteSelector();
+    method private void ensureRouter();
+    field private static final String ARGUMENT_SELECTOR = "selector";
+    field private androidx.mediarouter.media.MediaRouter.Callback! mCallback;
+    field private androidx.mediarouter.media.MediaRouter! mRouter;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  class MediaRouteExpandCollapseButton extends android.widget.ImageButton {
+    ctor public MediaRouteExpandCollapseButton(android.content.Context!);
+    ctor public MediaRouteExpandCollapseButton(android.content.Context!, android.util.AttributeSet!);
+    ctor public MediaRouteExpandCollapseButton(android.content.Context!, android.util.AttributeSet!, int);
+    field final android.graphics.drawable.AnimationDrawable! mCollapseAnimationDrawable;
+    field final String! mCollapseGroupDescription;
+    field final android.graphics.drawable.AnimationDrawable! mExpandAnimationDrawable;
+    field final String! mExpandGroupDescription;
+    field boolean mIsGroupExpanded;
+    field android.view.View.OnClickListener! mListener;
+  }
+
+  class MediaRouteVolumeSlider extends androidx.appcompat.widget.AppCompatSeekBar {
+    ctor public MediaRouteVolumeSlider(android.content.Context!);
+    ctor public MediaRouteVolumeSlider(android.content.Context!, android.util.AttributeSet!);
+    ctor public MediaRouteVolumeSlider(android.content.Context!, android.util.AttributeSet!, int);
+    method public void setColor(int);
+    method public void setColor(int, int);
+    method public void setHideThumb(boolean);
+    field private static final String TAG = "MediaRouteVolumeSlider";
+    field private int mBackgroundColor;
+    field private final float mDisabledAlpha;
+    field private boolean mHideThumb;
+    field private int mProgressAndThumbColor;
+    field private android.graphics.drawable.Drawable! mThumb;
+  }
+
+  final class MediaRouterThemeHelper {
+    ctor private MediaRouterThemeHelper();
+    method static android.content.Context! createThemedButtonContext(android.content.Context!);
+    method static android.content.Context! createThemedDialogContext(android.content.Context!, int, boolean);
+    method static int createThemedDialogStyle(android.content.Context!);
+    method static int getButtonTextColor(android.content.Context!);
+    method static android.graphics.drawable.Drawable! getCheckBoxDrawableIcon(android.content.Context!);
+    method static int getControllerColor(android.content.Context!, int);
+    method static android.graphics.drawable.Drawable! getDefaultDrawableIcon(android.content.Context!);
+    method static float getDisabledAlpha(android.content.Context!);
+    method private static android.graphics.drawable.Drawable! getIconByAttrId(android.content.Context!, int);
+    method private static android.graphics.drawable.Drawable! getIconByDrawableId(android.content.Context!, int);
+    method static android.graphics.drawable.Drawable! getMuteButtonDrawableIcon(android.content.Context!);
+    method private static int getRouterThemeId(android.content.Context!);
+    method static android.graphics.drawable.Drawable! getSpeakerDrawableIcon(android.content.Context!);
+    method static android.graphics.drawable.Drawable! getSpeakerGroupDrawableIcon(android.content.Context!);
+    method static android.content.res.TypedArray! getStyledAttributes(android.content.Context!);
+    method private static int getThemeColor(android.content.Context!, int, int);
+    method static int getThemeResource(android.content.Context!, int);
+    method static android.graphics.drawable.Drawable! getTvDrawableIcon(android.content.Context!);
+    method private static boolean isLightTheme(android.content.Context!);
+    method static void setDialogBackgroundColor(android.content.Context!, android.app.Dialog!);
+    method static void setIndeterminateProgressBarColor(android.content.Context!, android.widget.ProgressBar!);
+    method static void setMediaControlsBackgroundColor(android.content.Context!, android.view.View!, android.view.View!, boolean);
+    method static void setVolumeSliderColor(android.content.Context!, androidx.mediarouter.app.MediaRouteVolumeSlider!, android.view.View!);
+    method static void setVolumeSliderColor(android.content.Context!, androidx.mediarouter.app.MediaRouteVolumeSlider!);
+    field static final int COLOR_DARK_ON_LIGHT_BACKGROUND = -570425344; // 0xde000000
+    field private static final int COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID;
+    field static final int COLOR_WHITE_ON_DARK_BACKGROUND = -1; // 0xffffffff
+    field private static final float MIN_CONTRAST = 3.0f;
+    field private static final boolean USE_SUPPORT_DYNAMIC_GROUP;
+  }
+
+  @IntDef({androidx.mediarouter.app.MediaRouterThemeHelper.COLOR_DARK_ON_LIGHT_BACKGROUND, androidx.mediarouter.app.MediaRouterThemeHelper.COLOR_WHITE_ON_DARK_BACKGROUND}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouterThemeHelper.ControllerColorType {
+  }
+
+  final class OverlayListView extends android.widget.ListView {
+    ctor public OverlayListView(android.content.Context!);
+    ctor public OverlayListView(android.content.Context!, android.util.AttributeSet!);
+    ctor public OverlayListView(android.content.Context!, android.util.AttributeSet!, int);
+    method public void addOverlayObject(androidx.mediarouter.app.OverlayListView.OverlayObject!);
+    method public void startAnimationAll();
+    method public void stopAnimationAll();
+    field private final java.util.List<androidx.mediarouter.app.OverlayListView.OverlayObject>! mOverlayObjects;
+  }
+
+  public static class OverlayListView.OverlayObject {
+    ctor public OverlayListView.OverlayObject(android.graphics.drawable.BitmapDrawable!, android.graphics.Rect!);
+    method public android.graphics.drawable.BitmapDrawable! getBitmapDrawable();
+    method public boolean isAnimationStarted();
+    method public androidx.mediarouter.app.OverlayListView.OverlayObject! setAlphaAnimation(float, float);
+    method public androidx.mediarouter.app.OverlayListView.OverlayObject! setAnimationEndListener(androidx.mediarouter.app.OverlayListView.OverlayObject.OnAnimationEndListener!);
+    method public androidx.mediarouter.app.OverlayListView.OverlayObject! setDuration(long);
+    method public androidx.mediarouter.app.OverlayListView.OverlayObject! setInterpolator(android.view.animation.Interpolator!);
+    method public androidx.mediarouter.app.OverlayListView.OverlayObject! setTranslateYAnimation(int);
+    method public void startAnimation(long);
+    method public void stopAnimation();
+    method public boolean update(long);
+    field private android.graphics.drawable.BitmapDrawable! mBitmap;
+    field private float mCurrentAlpha;
+    field private android.graphics.Rect! mCurrentBounds;
+    field private int mDeltaY;
+    field private long mDuration;
+    field private float mEndAlpha;
+    field private android.view.animation.Interpolator! mInterpolator;
+    field private boolean mIsAnimationEnded;
+    field private boolean mIsAnimationStarted;
+    field private androidx.mediarouter.app.OverlayListView.OverlayObject.OnAnimationEndListener! mListener;
+    field private float mStartAlpha;
+    field private android.graphics.Rect! mStartRect;
+    field private long mStartTime;
+  }
+
+  public static interface OverlayListView.OverlayObject.OnAnimationEndListener {
+    method public void onAnimationEnd();
+  }
+
+}
+
+package androidx.mediarouter.media {
+
+  public final class MediaControlIntent {
+    ctor private MediaControlIntent();
+  }
+
+  public final class MediaItemMetadata {
+    ctor private MediaItemMetadata();
+  }
+
+  public final class MediaItemStatus {
+    ctor MediaItemStatus(android.os.Bundle!);
+    method private static String! playbackStateToString(int);
+    field static final String KEY_CONTENT_DURATION = "contentDuration";
+    field static final String KEY_CONTENT_POSITION = "contentPosition";
+    field static final String KEY_EXTRAS = "extras";
+    field static final String KEY_PLAYBACK_STATE = "playbackState";
+    field static final String KEY_TIMESTAMP = "timestamp";
+    field final android.os.Bundle! mBundle;
+  }
+
+  public static final class MediaItemStatus.Builder {
+    field private final android.os.Bundle! mBundle;
+  }
+
+  public final class MediaRouteDescriptor {
+    ctor MediaRouteDescriptor(android.os.Bundle!);
+    method void ensureControlFilters();
+    method void ensureGroupMemberIds();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public java.util.List<java.lang.String>! getGroupMemberIds();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int getMaxClientVersion();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int getMinClientVersion();
+    field static final String IS_DYNAMIC_GROUP_ROUTE = "isDynamicGroupRoute";
+    field static final String KEY_CAN_DISCONNECT = "canDisconnect";
+    field static final String KEY_CONNECTING = "connecting";
+    field static final String KEY_CONNECTION_STATE = "connectionState";
+    field static final String KEY_CONTROL_FILTERS = "controlFilters";
+    field static final String KEY_DESCRIPTION = "status";
+    field static final String KEY_DEVICE_TYPE = "deviceType";
+    field static final String KEY_ENABLED = "enabled";
+    field static final String KEY_EXTRAS = "extras";
+    field static final String KEY_GROUP_MEMBER_IDS = "groupMemberIds";
+    field static final String KEY_ICON_URI = "iconUri";
+    field static final String KEY_ID = "id";
+    field static final String KEY_MAX_CLIENT_VERSION = "maxClientVersion";
+    field static final String KEY_MIN_CLIENT_VERSION = "minClientVersion";
+    field static final String KEY_NAME = "name";
+    field static final String KEY_PLAYBACK_STREAM = "playbackStream";
+    field static final String KEY_PLAYBACK_TYPE = "playbackType";
+    field static final String KEY_PRESENTATION_DISPLAY_ID = "presentationDisplayId";
+    field static final String KEY_SETTINGS_INTENT = "settingsIntent";
+    field static final String KEY_VOLUME = "volume";
+    field static final String KEY_VOLUME_HANDLING = "volumeHandling";
+    field static final String KEY_VOLUME_MAX = "volumeMax";
+    field final android.os.Bundle! mBundle;
+    field java.util.List<android.content.IntentFilter>! mControlFilters;
+    field java.util.List<java.lang.String>! mGroupMemberIds;
+  }
+
+  public static final class MediaRouteDescriptor.Builder {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteDescriptor.Builder! addGroupMemberId(String!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteDescriptor.Builder! addGroupMemberIds(java.util.Collection<java.lang.String>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteDescriptor.Builder! removeGroupMemberId(String!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteDescriptor.Builder! setMaxClientVersion(int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteDescriptor.Builder! setMinClientVersion(int);
+    field private final android.os.Bundle! mBundle;
+    field private java.util.ArrayList<android.content.IntentFilter>! mControlFilters;
+    field private java.util.ArrayList<java.lang.String>! mGroupMemberIds;
+  }
+
+  public final class MediaRouteDiscoveryRequest {
+    ctor private MediaRouteDiscoveryRequest(android.os.Bundle!);
+    method private void ensureSelector();
+    field private static final String KEY_ACTIVE_SCAN = "activeScan";
+    field private static final String KEY_SELECTOR = "selector";
+    field private final android.os.Bundle! mBundle;
+    field private androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  public abstract class MediaRouteProvider {
+    ctor MediaRouteProvider(android.content.Context!, androidx.mediarouter.media.MediaRouteProvider.ProviderMetadata!);
+    method void deliverDescriptorChanged();
+    method void deliverDiscoveryRequestChanged();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteProvider.RouteController? onCreateRouteController(String, String);
+    field static final int MSG_DELIVER_DESCRIPTOR_CHANGED = 1; // 0x1
+    field static final int MSG_DELIVER_DISCOVERY_REQUEST_CHANGED = 2; // 0x2
+    field private androidx.mediarouter.media.MediaRouteProvider.Callback! mCallback;
+    field private final android.content.Context! mContext;
+    field private androidx.mediarouter.media.MediaRouteProviderDescriptor! mDescriptor;
+    field private androidx.mediarouter.media.MediaRouteDiscoveryRequest! mDiscoveryRequest;
+    field private final androidx.mediarouter.media.MediaRouteProvider.ProviderHandler! mHandler;
+    field private final androidx.mediarouter.media.MediaRouteProvider.ProviderMetadata! mMetadata;
+    field private boolean mPendingDescriptorChange;
+    field private boolean mPendingDiscoveryRequestChange;
+  }
+
+  public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor {
+    ctor MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor(androidx.mediarouter.media.MediaRouteDescriptor!, int, boolean, boolean, boolean);
+    method static androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor! fromBundle(android.os.Bundle!);
+    method android.os.Bundle! toBundle();
+    field static final String KEY_IS_GROUPABLE = "isGroupable";
+    field static final String KEY_IS_TRANSFERABLE = "isTransferable";
+    field static final String KEY_IS_UNSELECTABLE = "isUnselectable";
+    field static final String KEY_MEDIA_ROUTE_DESCRIPTOR = "mrDescriptor";
+    field static final String KEY_SELECTION_STATE = "selectionState";
+    field android.os.Bundle! mBundle;
+    field final boolean mIsGroupable;
+    field final boolean mIsTransferable;
+    field final boolean mIsUnselectable;
+    field final androidx.mediarouter.media.MediaRouteDescriptor! mMediaRouteDescriptor;
+    field final int mSelectionState;
+  }
+
+  public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.Builder {
+    field private boolean mIsGroupable;
+    field private boolean mIsTransferable;
+    field private boolean mIsUnselectable;
+    field private final androidx.mediarouter.media.MediaRouteDescriptor! mRouteDescriptor;
+    field private int mSelectionState;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.UNSELECTING, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.UNSELECTED, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SELECTING, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SELECTED}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SelectionState {
+  }
+
+  private final class MediaRouteProvider.ProviderHandler extends android.os.Handler {
+    ctor MediaRouteProvider.ProviderHandler();
+  }
+
+  public static final class MediaRouteProvider.ProviderMetadata {
+    ctor MediaRouteProvider.ProviderMetadata(android.content.ComponentName!);
+    field private final android.content.ComponentName! mComponentName;
+  }
+
+  public final class MediaRouteProviderDescriptor {
+    ctor MediaRouteProviderDescriptor(java.util.List<androidx.mediarouter.media.MediaRouteDescriptor>!, boolean);
+    field private static final String KEY_ROUTES = "routes";
+    field private static final String KEY_SUPPORTS_DYNAMIC_GROUP_ROUTE = "supportsDynamicGroupRoute";
+    field android.os.Bundle! mBundle;
+    field final java.util.List<androidx.mediarouter.media.MediaRouteDescriptor>! mRoutes;
+    field final boolean mSupportsDynamicGroupRoute;
+  }
+
+  public static final class MediaRouteProviderDescriptor.Builder {
+    method androidx.mediarouter.media.MediaRouteProviderDescriptor.Builder! setRoutes(java.util.Collection<androidx.mediarouter.media.MediaRouteDescriptor>!);
+    field private java.util.List<androidx.mediarouter.media.MediaRouteDescriptor>! mRoutes;
+    field private boolean mSupportsDynamicGroupRoute;
+  }
+
+  abstract class MediaRouteProviderProtocol {
+    ctor private MediaRouteProviderProtocol();
+    method public static boolean isValidRemoteMessenger(android.os.Messenger!);
+    field public static final String CLIENT_DATA_MEMBER_ROUTE_ID = "memberRouteId";
+    field public static final String CLIENT_DATA_MEMBER_ROUTE_IDS = "memberRouteIds";
+    field public static final String CLIENT_DATA_ROUTE_ID = "routeId";
+    field public static final String CLIENT_DATA_ROUTE_LIBRARY_GROUP = "routeGroupId";
+    field public static final String CLIENT_DATA_UNSELECT_REASON = "unselectReason";
+    field public static final String CLIENT_DATA_VOLUME = "volume";
+    field public static final int CLIENT_MSG_ADD_MEMBER_ROUTE = 12; // 0xc
+    field public static final int CLIENT_MSG_CREATE_DYNAMIC_GROUP_ROUTE_CONTROLLER = 11; // 0xb
+    field public static final int CLIENT_MSG_CREATE_ROUTE_CONTROLLER = 3; // 0x3
+    field public static final int CLIENT_MSG_REGISTER = 1; // 0x1
+    field public static final int CLIENT_MSG_RELEASE_ROUTE_CONTROLLER = 4; // 0x4
+    field public static final int CLIENT_MSG_REMOVE_MEMBER_ROUTE = 13; // 0xd
+    field public static final int CLIENT_MSG_ROUTE_CONTROL_REQUEST = 9; // 0x9
+    field public static final int CLIENT_MSG_SELECT_ROUTE = 5; // 0x5
+    field public static final int CLIENT_MSG_SET_DISCOVERY_REQUEST = 10; // 0xa
+    field public static final int CLIENT_MSG_SET_ROUTE_VOLUME = 7; // 0x7
+    field public static final int CLIENT_MSG_UNREGISTER = 2; // 0x2
+    field public static final int CLIENT_MSG_UNSELECT_ROUTE = 6; // 0x6
+    field public static final int CLIENT_MSG_UPDATE_MEMBER_ROUTES = 14; // 0xe
+    field public static final int CLIENT_MSG_UPDATE_ROUTE_VOLUME = 8; // 0x8
+    field public static final int CLIENT_VERSION_1 = 1; // 0x1
+    field public static final int CLIENT_VERSION_2 = 2; // 0x2
+    field public static final int CLIENT_VERSION_3 = 3; // 0x3
+    field public static final int CLIENT_VERSION_CURRENT = 3; // 0x3
+    field static final int CLIENT_VERSION_START = 1; // 0x1
+    field public static final String DATA_KEY_DYNAMIC_ROUTE_DESCRIPTORS = "dynamicRoutes";
+    field public static final String DATA_KEY_GROUPABLE_SECION_TITLE = "groupableTitle";
+    field public static final String DATA_KEY_TRANSFERABLE_SECTION_TITLE = "transferableTitle";
+    field public static final String SERVICE_DATA_ERROR = "error";
+    field public static final String SERVICE_INTERFACE = "android.media.MediaRouteProviderService";
+    field public static final int SERVICE_MSG_CONTROL_REQUEST_FAILED = 4; // 0x4
+    field public static final int SERVICE_MSG_CONTROL_REQUEST_SUCCEEDED = 3; // 0x3
+    field public static final int SERVICE_MSG_DESCRIPTOR_CHANGED = 5; // 0x5
+    field public static final int SERVICE_MSG_DYNAMIC_ROUTE_CREATED = 6; // 0x6
+    field public static final int SERVICE_MSG_DYNAMIC_ROUTE_DESCRIPTORS_CHANGED = 7; // 0x7
+    field public static final int SERVICE_MSG_GENERIC_FAILURE = 0; // 0x0
+    field public static final int SERVICE_MSG_GENERIC_SUCCESS = 1; // 0x1
+    field public static final int SERVICE_MSG_REGISTERED = 2; // 0x2
+    field public static final int SERVICE_VERSION_1 = 1; // 0x1
+    field public static final int SERVICE_VERSION_2 = 2; // 0x2
+    field public static final int SERVICE_VERSION_CURRENT = 2; // 0x2
+  }
+
+  public abstract class MediaRouteProviderService extends android.app.Service {
+    method @VisibleForTesting static android.os.Bundle! createDescriptorBundleForClientVersion(androidx.mediarouter.media.MediaRouteProviderDescriptor!, int);
+    method int findClient(android.os.Messenger!);
+    method private androidx.mediarouter.media.MediaRouteProviderService.ClientRecord! getClient(android.os.Messenger!);
+    method static String! getClientId(android.os.Messenger!);
+    method boolean onAddMemberRoute(android.os.Messenger!, int, int, String!);
+    method void onBinderDied(android.os.Messenger!);
+    method boolean onCreateDynamicGroupRouteController(android.os.Messenger!, int, int, String!);
+    method boolean onCreateRouteController(android.os.Messenger!, int, int, String!, String!);
+    method boolean onRegisterClient(android.os.Messenger!, int, int);
+    method boolean onReleaseRouteController(android.os.Messenger!, int, int);
+    method boolean onRemoveMemberRoute(android.os.Messenger!, int, int, String!);
+    method boolean onRouteControlRequest(android.os.Messenger!, int, int, android.content.Intent!);
+    method boolean onSelectRoute(android.os.Messenger!, int, int);
+    method boolean onSetDiscoveryRequest(android.os.Messenger!, int, androidx.mediarouter.media.MediaRouteDiscoveryRequest!);
+    method boolean onSetRouteVolume(android.os.Messenger!, int, int, int);
+    method boolean onUnregisterClient(android.os.Messenger!, int);
+    method boolean onUnselectRoute(android.os.Messenger!, int, int, int);
+    method boolean onUpdateMemberRoutes(android.os.Messenger!, int, int, java.util.List<java.lang.String>!);
+    method boolean onUpdateRouteVolume(android.os.Messenger!, int, int, int);
+    method void sendDescriptorChanged(androidx.mediarouter.media.MediaRouteProviderDescriptor!);
+    method static void sendGenericFailure(android.os.Messenger!, int);
+    method private static void sendGenericSuccess(android.os.Messenger!, int);
+    method static void sendReply(android.os.Messenger!, int, int, int, Object!, android.os.Bundle!);
+    method boolean updateCompositeDiscoveryRequest();
+    field static final boolean DEBUG;
+    field static final int PRIVATE_MSG_CLIENT_DIED = 1; // 0x1
+    field static final String TAG = "MediaRouteProviderSrv";
+    field private final java.util.ArrayList<androidx.mediarouter.media.MediaRouteProviderService.ClientRecord>! mClients;
+    field private androidx.mediarouter.media.MediaRouteDiscoveryRequest! mCompositeDiscoveryRequest;
+    field final androidx.mediarouter.media.MediaRouteProviderService.PrivateHandler! mPrivateHandler;
+    field androidx.mediarouter.media.MediaRouteProvider! mProvider;
+    field private final androidx.mediarouter.media.MediaRouteProviderService.ProviderCallback! mProviderCallback;
+    field private final androidx.mediarouter.media.MediaRouteProviderService.ReceiveHandler! mReceiveHandler;
+    field private final android.os.Messenger! mReceiveMessenger;
+  }
+
+  private final class MediaRouteProviderService.ClientRecord implements android.os.IBinder.DeathRecipient {
+    ctor public MediaRouteProviderService.ClientRecord(android.os.Messenger!, int);
+    method public android.os.Bundle! createDynamicGroupRouteController(String!, int);
+    method public boolean createRouteController(String!, String!, int);
+    method public void dispose();
+    method public androidx.mediarouter.media.MediaRouteProvider.RouteController! getRouteController(int);
+    method public boolean hasMessenger(android.os.Messenger!);
+    method public boolean register();
+    method public boolean releaseRouteController(int);
+    method void sendDynamicRouteDescriptors(androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController!, java.util.Collection<androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor>!);
+    method public boolean setDiscoveryRequest(androidx.mediarouter.media.MediaRouteDiscoveryRequest!);
+    field private final android.util.SparseArray<androidx.mediarouter.media.MediaRouteProvider.RouteController>! mControllers;
+    field public androidx.mediarouter.media.MediaRouteDiscoveryRequest! mDiscoveryRequest;
+    field final androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener! mDynamicRoutesChangedListener;
+    field public final android.os.Messenger! mMessenger;
+    field public final int mVersion;
+  }
+
+  private final class MediaRouteProviderService.PrivateHandler extends android.os.Handler {
+    ctor MediaRouteProviderService.PrivateHandler();
+  }
+
+  private final class MediaRouteProviderService.ProviderCallback extends androidx.mediarouter.media.MediaRouteProvider.Callback {
+    ctor MediaRouteProviderService.ProviderCallback();
+  }
+
+  private static final class MediaRouteProviderService.ReceiveHandler extends android.os.Handler {
+    ctor public MediaRouteProviderService.ReceiveHandler(androidx.mediarouter.media.MediaRouteProviderService!);
+    method private boolean processMessage(int, android.os.Messenger!, int, int, Object!, android.os.Bundle!);
+    field private final java.lang.ref.WeakReference<androidx.mediarouter.media.MediaRouteProviderService>! mServiceRef;
+  }
+
+  public final class MediaRouteSelector {
+    ctor MediaRouteSelector(android.os.Bundle!, java.util.List<java.lang.String>!);
+    method void ensureControlCategories();
+    field static final String KEY_CONTROL_CATEGORIES = "controlCategories";
+    field private final android.os.Bundle! mBundle;
+    field java.util.List<java.lang.String>! mControlCategories;
+  }
+
+  public static final class MediaRouteSelector.Builder {
+    field private java.util.ArrayList<java.lang.String>! mControlCategories;
+  }
+
+  public final class MediaRouter {
+    ctor MediaRouter(android.content.Context!);
+    method static void checkCallingThread();
+    method private int findCallbackRecord(androidx.mediarouter.media.MediaRouter.Callback!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouter.RouteInfo? getRoute(android.os.Bundle!);
+    method androidx.mediarouter.media.MediaRouter.RouteInfo? getRoute(String!);
+    field static final boolean DEBUG;
+    field static final String TAG = "MediaRouter";
+    field final java.util.ArrayList<androidx.mediarouter.media.MediaRouter.CallbackRecord>! mCallbackRecords;
+    field final android.content.Context! mContext;
+    field static androidx.mediarouter.media.MediaRouter.GlobalMediaRouter! sGlobal;
+  }
+
+  @IntDef(flag=true, value={androidx.mediarouter.media.MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN, androidx.mediarouter.media.MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY, androidx.mediarouter.media.MediaRouter.CALLBACK_FLAG_UNFILTERED_EVENTS}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouter.CallbackFlags {
+  }
+
+  private static final class MediaRouter.CallbackRecord {
+    ctor public MediaRouter.CallbackRecord(androidx.mediarouter.media.MediaRouter!, androidx.mediarouter.media.MediaRouter.Callback!);
+    method public boolean filterRouteEvent(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    field public final androidx.mediarouter.media.MediaRouter.Callback! mCallback;
+    field public int mFlags;
+    field public final androidx.mediarouter.media.MediaRouter! mRouter;
+    field public androidx.mediarouter.media.MediaRouteSelector! mSelector;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class MediaRouter.DynamicGroupInfo extends androidx.mediarouter.media.MediaRouter.RouteGroup {
+    ctor MediaRouter.DynamicGroupInfo(androidx.mediarouter.media.MediaRouter.ProviderInfo!, String!, String!, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController?);
+    method androidx.mediarouter.media.MediaRouter.RouteInfo! findRouteByDynamicRouteDescriptor(androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController! getController();
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getGroupableRoutes();
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getTransferableRoutes();
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getUnselectableRoutes();
+    method void updateDescriptors(java.util.Collection<androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor>!);
+    field androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController! mController;
+    field private java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mGroupableRoutes;
+    field private java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mTransferableRoutes;
+    field private java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mUnselectableRoutes;
+  }
+
+  private static final class MediaRouter.GlobalMediaRouter implements androidx.mediarouter.media.RegisteredMediaRouteProviderWatcher.Callback androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback {
+    ctor MediaRouter.GlobalMediaRouter(android.content.Context!);
+    method public void addProvider(androidx.mediarouter.media.MediaRouteProvider!);
+    method public void addRemoteControlClient(Object!);
+    method String! assignRouteUniqueId(androidx.mediarouter.media.MediaRouter.ProviderInfo!, String!);
+    method androidx.mediarouter.media.MediaRouter.RouteInfo! chooseFallbackRoute();
+    method private androidx.mediarouter.media.MediaRouter.ProviderInfo! findProviderInfo(androidx.mediarouter.media.MediaRouteProvider!);
+    method private int findRemoteControlClientRecord(Object!);
+    method private int findRouteByUniqueId(String!);
+    method androidx.mediarouter.media.MediaRouter.RouteInfo! getBluetoothRoute();
+    method public android.content.ContentResolver! getContentResolver();
+    method androidx.mediarouter.media.MediaRouter.RouteInfo getDefaultRoute();
+    method public android.view.Display! getDisplay(int);
+    method public android.support.v4.media.session.MediaSessionCompat.Token! getMediaSessionToken();
+    method public android.content.Context! getProviderContext(String!);
+    method java.util.List<androidx.mediarouter.media.MediaRouter.ProviderInfo>! getProviders();
+    method public androidx.mediarouter.media.MediaRouter.RouteInfo! getRoute(String!);
+    method public androidx.mediarouter.media.MediaRouter! getRouter(android.content.Context!);
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getRoutes();
+    method androidx.mediarouter.media.MediaRouter.RouteInfo getSelectedRoute();
+    method String! getUniqueId(androidx.mediarouter.media.MediaRouter.ProviderInfo!, String!);
+    method public boolean isRouteAvailable(androidx.mediarouter.media.MediaRouteSelector!, int);
+    method private boolean isSystemDefaultRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method private boolean isSystemLiveAudioOnlyRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSystemRouteSelectedByDescriptorId(String!);
+    method public void removeProvider(androidx.mediarouter.media.MediaRouteProvider!);
+    method public void removeRemoteControlClient(Object!);
+    method public void requestSetVolume(androidx.mediarouter.media.MediaRouter.RouteInfo!, int);
+    method public void requestUpdateVolume(androidx.mediarouter.media.MediaRouter.RouteInfo!, int);
+    method void selectRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method void selectRoute(androidx.mediarouter.media.MediaRouter.RouteInfo, int);
+    method void selectRouteIntoGroup(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void sendControlRequest(androidx.mediarouter.media.MediaRouter.RouteInfo!, android.content.Intent!, androidx.mediarouter.media.MediaRouter.ControlRequestCallback!);
+    method public void setMediaSession(Object!);
+    method public void setMediaSessionCompat(android.support.v4.media.session.MediaSessionCompat!);
+    method private void setMediaSessionRecord(androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.MediaSessionRecord!);
+    method private void setSelectedRouteInternal(androidx.mediarouter.media.MediaRouter.RouteInfo, int);
+    method public void start();
+    method void unselectRouteFromGroup(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void updateDiscoveryRequest();
+    method private void updatePlaybackInfoFromSelectedRoute();
+    method private void updateProviderContents(androidx.mediarouter.media.MediaRouter.ProviderInfo!, androidx.mediarouter.media.MediaRouteProviderDescriptor!);
+    method void updateProviderDescriptor(androidx.mediarouter.media.MediaRouteProvider!, androidx.mediarouter.media.MediaRouteProviderDescriptor!);
+    method private int updateRouteDescriptorAndNotify(androidx.mediarouter.media.MediaRouter.RouteInfo!, androidx.mediarouter.media.MediaRouteDescriptor!);
+    method void updateSelectedRouteIfNeeded(boolean);
+    field final android.content.Context! mApplicationContext;
+    field private androidx.mediarouter.media.MediaRouter.RouteInfo! mBluetoothRoute;
+    field final androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.CallbackHandler! mCallbackHandler;
+    field private android.support.v4.media.session.MediaSessionCompat! mCompatSession;
+    field private androidx.mediarouter.media.MediaRouter.RouteInfo! mDefaultRoute;
+    field private androidx.mediarouter.media.MediaRouteDiscoveryRequest! mDiscoveryRequest;
+    field private final androidx.core.hardware.display.DisplayManagerCompat! mDisplayManager;
+    field androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener! mDynamicRoutesListener;
+    field private androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.ForegroundChecker! mForegroundChecker;
+    field private final boolean mLowRam;
+    field private androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.MediaSessionRecord! mMediaSession;
+    field final androidx.mediarouter.media.RemoteControlClientCompat.PlaybackInfo! mPlaybackInfo;
+    field private final androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.ProviderCallback! mProviderCallback;
+    field private final java.util.ArrayList<androidx.mediarouter.media.MediaRouter.ProviderInfo>! mProviders;
+    field android.support.v4.media.session.MediaSessionCompat! mRccMediaSession;
+    field private androidx.mediarouter.media.RegisteredMediaRouteProviderWatcher! mRegisteredProviderWatcher;
+    field private final java.util.ArrayList<androidx.mediarouter.media.MediaRouter.GlobalMediaRouter.RemoteControlClientRecord>! mRemoteControlClients;
+    field private final java.util.Map<java.lang.String,androidx.mediarouter.media.MediaRouteProvider.RouteController>! mRouteControllerMap;
+    field final java.util.ArrayList<java.lang.ref.WeakReference<androidx.mediarouter.media.MediaRouter>>! mRouters;
+    field private final java.util.ArrayList<androidx.mediarouter.media.MediaRouter.RouteInfo>! mRoutes;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mSelectedRoute;
+    field androidx.mediarouter.media.MediaRouteProvider.RouteController! mSelectedRouteController;
+    field private android.support.v4.media.session.MediaSessionCompat.OnActiveChangeListener! mSessionActiveListener;
+    field final androidx.mediarouter.media.SystemMediaRouteProvider! mSystemProvider;
+    field private final java.util.Map<androidx.core.util.Pair<java.lang.String,java.lang.String>,java.lang.String>! mUniqueIdMap;
+  }
+
+  private final class MediaRouter.GlobalMediaRouter.CallbackHandler extends android.os.Handler {
+    ctor MediaRouter.GlobalMediaRouter.CallbackHandler();
+    method private void invokeCallback(androidx.mediarouter.media.MediaRouter.CallbackRecord!, int, Object!, int);
+    method public void post(int, Object!);
+    method public void post(int, Object!, int);
+    method private void syncWithSystemProvider(int, Object!);
+    field public static final int MSG_PROVIDER_ADDED = 513; // 0x201
+    field public static final int MSG_PROVIDER_CHANGED = 515; // 0x203
+    field public static final int MSG_PROVIDER_REMOVED = 514; // 0x202
+    field public static final int MSG_ROUTE_ADDED = 257; // 0x101
+    field public static final int MSG_ROUTE_CHANGED = 259; // 0x103
+    field public static final int MSG_ROUTE_PRESENTATION_DISPLAY_CHANGED = 261; // 0x105
+    field public static final int MSG_ROUTE_REMOVED = 258; // 0x102
+    field public static final int MSG_ROUTE_SELECTED = 262; // 0x106
+    field public static final int MSG_ROUTE_UNSELECTED = 263; // 0x107
+    field public static final int MSG_ROUTE_VOLUME_CHANGED = 260; // 0x104
+    field private static final int MSG_TYPE_MASK = 65280; // 0xff00
+    field private static final int MSG_TYPE_PROVIDER = 512; // 0x200
+    field private static final int MSG_TYPE_ROUTE = 256; // 0x100
+    field private final java.util.ArrayList<androidx.mediarouter.media.MediaRouter.CallbackRecord>! mTempCallbackRecords;
+  }
+
+  private static final class MediaRouter.GlobalMediaRouter.ForegroundChecker implements android.app.Application.ActivityLifecycleCallbacks {
+    ctor private MediaRouter.GlobalMediaRouter.ForegroundChecker();
+    method public boolean isForeground();
+    field public static final long DELAY_MS = 700L; // 0x2bcL
+    field private Runnable! mChecker;
+    field private final android.os.Handler! mHandler;
+    field private boolean mIsForeground;
+    field private boolean mIsStopped;
+  }
+
+  private final class MediaRouter.GlobalMediaRouter.MediaSessionRecord {
+    ctor MediaRouter.GlobalMediaRouter.MediaSessionRecord(Object!);
+    ctor MediaRouter.GlobalMediaRouter.MediaSessionRecord(android.support.v4.media.session.MediaSessionCompat!);
+    method public void clearVolumeHandling();
+    method public void configureVolume(int, int, int);
+    method public android.support.v4.media.session.MediaSessionCompat.Token! getToken();
+    field private int mControlType;
+    field private int mMaxVolume;
+    field private final android.support.v4.media.session.MediaSessionCompat! mMsCompat;
+    field private androidx.media.VolumeProviderCompat! mVpCompat;
+  }
+
+  private final class MediaRouter.GlobalMediaRouter.ProviderCallback extends androidx.mediarouter.media.MediaRouteProvider.Callback {
+    ctor MediaRouter.GlobalMediaRouter.ProviderCallback();
+  }
+
+  private final class MediaRouter.GlobalMediaRouter.RemoteControlClientRecord implements androidx.mediarouter.media.RemoteControlClientCompat.VolumeCallback {
+    ctor public MediaRouter.GlobalMediaRouter.RemoteControlClientRecord(Object!);
+    method public void disconnect();
+    method public Object! getRemoteControlClient();
+    method public void onVolumeSetRequest(int);
+    method public void onVolumeUpdateRequest(int);
+    method public void updatePlaybackInfo();
+    field private boolean mDisconnected;
+    field private final androidx.mediarouter.media.RemoteControlClientCompat! mRccCompat;
+  }
+
+  public static final class MediaRouter.ProviderInfo {
+    ctor MediaRouter.ProviderInfo(androidx.mediarouter.media.MediaRouteProvider!);
+    method androidx.mediarouter.media.MediaRouter.RouteInfo! findRouteByDescriptorId(String!);
+    method int findRouteIndexByDescriptorId(String!);
+    method android.content.res.Resources! getResources();
+    method boolean supportsDynamicGroup();
+    method boolean updateDescriptor(androidx.mediarouter.media.MediaRouteProviderDescriptor!);
+    field private androidx.mediarouter.media.MediaRouteProviderDescriptor! mDescriptor;
+    field private final androidx.mediarouter.media.MediaRouteProvider.ProviderMetadata! mMetadata;
+    field final androidx.mediarouter.media.MediaRouteProvider! mProviderInstance;
+    field private android.content.res.Resources! mResources;
+    field private boolean mResourcesNotAvailable;
+    field final java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mRoutes;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class MediaRouter.RouteGroup extends androidx.mediarouter.media.MediaRouter.RouteInfo {
+    ctor MediaRouter.RouteGroup(androidx.mediarouter.media.MediaRouter.ProviderInfo!, String!, String!);
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getMemberRoutes();
+    method int maybeUpdateDescriptor(androidx.mediarouter.media.MediaRouteDescriptor!);
+    field protected java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! mMemberRoutes;
+  }
+
+  public static class MediaRouter.RouteInfo {
+    ctor MediaRouter.RouteInfo(androidx.mediarouter.media.MediaRouter.ProviderInfo!, String!, String!);
+    method String! getDescriptorId();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int getPresentationDisplayId();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.mediarouter.media.MediaRouteProvider! getProviderInstance();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int getSelectionState();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.os.Bundle getUniqueRouteDescriptorBundle();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean isDefaultOrBluetooth();
+    method boolean isSelectable();
+    method private static boolean isSystemMediaRouteProvider(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method int maybeUpdateDescriptor(androidx.mediarouter.media.MediaRouteDescriptor!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void selectIntoGroup();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void unselectFromGroup();
+    method int updateDescriptor(androidx.mediarouter.media.MediaRouteDescriptor!);
+    field static final int CHANGE_GENERAL = 1; // 0x1
+    field static final int CHANGE_PRESENTATION_DISPLAY = 4; // 0x4
+    field static final int CHANGE_VOLUME = 2; // 0x2
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final int DEVICE_TYPE_BLUETOOTH = 3; // 0x3
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final int DEVICE_TYPE_UNKNOWN = 0; // 0x0
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final int PRESENTATION_DISPLAY_ID_NONE = -1; // 0xffffffff
+    field static final String SYSTEM_MEDIA_ROUTE_PROVIDER_PACKAGE_NAME = "android";
+    field private boolean mCanDisconnect;
+    field private int mConnectionState;
+    field private final java.util.ArrayList<android.content.IntentFilter>! mControlFilters;
+    field private String! mDescription;
+    field androidx.mediarouter.media.MediaRouteDescriptor! mDescriptor;
+    field final String! mDescriptorId;
+    field private int mDeviceType;
+    field boolean mEnabled;
+    field private android.os.Bundle! mExtras;
+    field private android.net.Uri! mIconUri;
+    field private String! mName;
+    field private int mPlaybackStream;
+    field private int mPlaybackType;
+    field private android.view.Display! mPresentationDisplay;
+    field private int mPresentationDisplayId;
+    field private final androidx.mediarouter.media.MediaRouter.ProviderInfo! mProvider;
+    field int mSelectionState;
+    field private android.content.IntentSender! mSettingsIntent;
+    field final String! mUniqueId;
+    field private int mVolume;
+    field private int mVolumeHandling;
+    field private int mVolumeMax;
+  }
+
+  @IntDef({androidx.mediarouter.media.MediaRouter.RouteInfo.CONNECTION_STATE_DISCONNECTED, androidx.mediarouter.media.MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING, androidx.mediarouter.media.MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTED}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouter.RouteInfo.ConnectionState {
+  }
+
+  @IntDef({0x0, androidx.mediarouter.media.MediaRouter.RouteInfo.DEVICE_TYPE_TV, androidx.mediarouter.media.MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER, 0x3}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouter.RouteInfo.DeviceType {
+  }
+
+  @IntDef({androidx.mediarouter.media.MediaRouter.RouteInfo.PLAYBACK_TYPE_LOCAL, androidx.mediarouter.media.MediaRouter.RouteInfo.PLAYBACK_TYPE_REMOTE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouter.RouteInfo.PlaybackType {
+  }
+
+  @IntDef({androidx.mediarouter.media.MediaRouter.RouteInfo.PLAYBACK_VOLUME_FIXED, androidx.mediarouter.media.MediaRouter.RouteInfo.PLAYBACK_VOLUME_VARIABLE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface MediaRouter.RouteInfo.PlaybackVolume {
+  }
+
+  @RequiresApi(24) final class MediaRouterApi24 {
+    ctor private MediaRouterApi24();
+  }
+
+  public static final class MediaRouterApi24.RouteInfo {
+    ctor private MediaRouterApi24.RouteInfo();
+    method public static int getDeviceType(Object!);
+  }
+
+  @RequiresApi(16) final class MediaRouterJellybean {
+    ctor private MediaRouterJellybean();
+    method public static void addCallback(Object!, int, Object!);
+    method public static void addUserRoute(Object!, Object!);
+    method static boolean checkRoutedToBluetooth(android.content.Context!);
+    method public static Object! createCallback(androidx.mediarouter.media.MediaRouterJellybean.Callback!);
+    method public static Object! createRouteCategory(Object!, String!, boolean);
+    method public static Object! createUserRoute(Object!, Object!);
+    method public static Object! createVolumeCallback(androidx.mediarouter.media.MediaRouterJellybean.VolumeCallback!);
+    method public static java.util.List! getCategories(Object!);
+    method public static Object! getMediaRouter(android.content.Context!);
+    method public static java.util.List! getRoutes(Object!);
+    method public static Object! getSelectedRoute(Object!, int);
+    method public static void removeCallback(Object!, Object!);
+    method public static void removeUserRoute(Object!, Object!);
+    method public static void selectRoute(Object!, int, Object!);
+    field public static final int ALL_ROUTE_TYPES = 8388611; // 0x800003
+    field public static final int DEVICE_OUT_BLUETOOTH = 896; // 0x380
+    field public static final int ROUTE_TYPE_LIVE_AUDIO = 1; // 0x1
+    field public static final int ROUTE_TYPE_LIVE_VIDEO = 2; // 0x2
+    field public static final int ROUTE_TYPE_USER = 8388608; // 0x800000
+    field private static final String TAG = "MediaRouterJellybean";
+  }
+
+  public static interface MediaRouterJellybean.Callback {
+    method public void onRouteAdded(Object!);
+    method public void onRouteChanged(Object!);
+    method public void onRouteGrouped(Object!, Object!, int);
+    method public void onRouteRemoved(Object!);
+    method public void onRouteSelected(int, Object!);
+    method public void onRouteUngrouped(Object!, Object!);
+    method public void onRouteUnselected(int, Object!);
+    method public void onRouteVolumeChanged(Object!);
+  }
+
+  static class MediaRouterJellybean.CallbackProxy<T extends androidx.mediarouter.media.MediaRouterJellybean.Callback> extends android.media.MediaRouter.Callback {
+    ctor public MediaRouterJellybean.CallbackProxy(T!);
+    field protected final T! mCallback;
+  }
+
+  public static final class MediaRouterJellybean.GetDefaultRouteWorkaround {
+    ctor public MediaRouterJellybean.GetDefaultRouteWorkaround();
+    method public Object! getDefaultRoute(Object!);
+    field private java.lang.reflect.Method! mGetSystemAudioRouteMethod;
+  }
+
+  public static final class MediaRouterJellybean.RouteCategory {
+    ctor private MediaRouterJellybean.RouteCategory();
+    method public static CharSequence! getName(Object!, android.content.Context!);
+    method public static java.util.List! getRoutes(Object!);
+    method public static int getSupportedTypes(Object!);
+    method public static boolean isGroupable(Object!);
+  }
+
+  public static final class MediaRouterJellybean.RouteGroup {
+    ctor private MediaRouterJellybean.RouteGroup();
+    method public static java.util.List! getGroupedRoutes(Object!);
+  }
+
+  public static final class MediaRouterJellybean.RouteInfo {
+    ctor private MediaRouterJellybean.RouteInfo();
+    method public static Object! getCategory(Object!);
+    method public static Object! getGroup(Object!);
+    method public static android.graphics.drawable.Drawable! getIconDrawable(Object!);
+    method public static CharSequence! getName(Object!, android.content.Context!);
+    method public static int getPlaybackStream(Object!);
+    method public static int getPlaybackType(Object!);
+    method public static CharSequence! getStatus(Object!);
+    method public static int getSupportedTypes(Object!);
+    method public static Object! getTag(Object!);
+    method public static int getVolume(Object!);
+    method public static int getVolumeHandling(Object!);
+    method public static int getVolumeMax(Object!);
+    method public static boolean isGroup(Object!);
+    method public static void requestSetVolume(Object!, int);
+    method public static void requestUpdateVolume(Object!, int);
+    method public static void setTag(Object!, Object!);
+  }
+
+  public static final class MediaRouterJellybean.SelectRouteWorkaround {
+    ctor public MediaRouterJellybean.SelectRouteWorkaround();
+    method public void selectRoute(Object!, int, Object!);
+    field private java.lang.reflect.Method! mSelectRouteIntMethod;
+  }
+
+  public static final class MediaRouterJellybean.UserRouteInfo {
+    ctor private MediaRouterJellybean.UserRouteInfo();
+    method public static void setIconDrawable(Object!, android.graphics.drawable.Drawable!);
+    method public static void setName(Object!, CharSequence!);
+    method public static void setPlaybackStream(Object!, int);
+    method public static void setPlaybackType(Object!, int);
+    method public static void setRemoteControlClient(Object!, Object!);
+    method public static void setStatus(Object!, CharSequence!);
+    method public static void setVolume(Object!, int);
+    method public static void setVolumeCallback(Object!, Object!);
+    method public static void setVolumeHandling(Object!, int);
+    method public static void setVolumeMax(Object!, int);
+  }
+
+  public static interface MediaRouterJellybean.VolumeCallback {
+    method public void onVolumeSetRequest(Object!, int);
+    method public void onVolumeUpdateRequest(Object!, int);
+  }
+
+  static class MediaRouterJellybean.VolumeCallbackProxy<T extends androidx.mediarouter.media.MediaRouterJellybean.VolumeCallback> extends android.media.MediaRouter.VolumeCallback {
+    ctor public MediaRouterJellybean.VolumeCallbackProxy(T!);
+    field protected final T! mCallback;
+  }
+
+  @RequiresApi(17) final class MediaRouterJellybeanMr1 {
+    ctor private MediaRouterJellybeanMr1();
+    method public static Object! createCallback(androidx.mediarouter.media.MediaRouterJellybeanMr1.Callback!);
+    field private static final String TAG = "MediaRouterJellybeanMr1";
+  }
+
+  public static final class MediaRouterJellybeanMr1.ActiveScanWorkaround implements java.lang.Runnable {
+    ctor public MediaRouterJellybeanMr1.ActiveScanWorkaround(android.content.Context!, android.os.Handler!);
+    method public void setActiveScanRouteTypes(int);
+    field private static final int WIFI_DISPLAY_SCAN_INTERVAL = 15000; // 0x3a98
+    field private boolean mActivelyScanningWifiDisplays;
+    field private final android.hardware.display.DisplayManager! mDisplayManager;
+    field private final android.os.Handler! mHandler;
+    field private java.lang.reflect.Method! mScanWifiDisplaysMethod;
+  }
+
+  public static interface MediaRouterJellybeanMr1.Callback extends androidx.mediarouter.media.MediaRouterJellybean.Callback {
+    method public void onRoutePresentationDisplayChanged(Object!);
+  }
+
+  static class MediaRouterJellybeanMr1.CallbackProxy<T extends androidx.mediarouter.media.MediaRouterJellybeanMr1.Callback> extends androidx.mediarouter.media.MediaRouterJellybean.CallbackProxy<T> {
+    ctor public MediaRouterJellybeanMr1.CallbackProxy(T!);
+  }
+
+  public static final class MediaRouterJellybeanMr1.IsConnectingWorkaround {
+    ctor public MediaRouterJellybeanMr1.IsConnectingWorkaround();
+    method public boolean isConnecting(Object!);
+    field private java.lang.reflect.Method! mGetStatusCodeMethod;
+    field private int mStatusConnecting;
+  }
+
+  public static final class MediaRouterJellybeanMr1.RouteInfo {
+    ctor private MediaRouterJellybeanMr1.RouteInfo();
+    method public static android.view.Display! getPresentationDisplay(Object!);
+    method public static boolean isEnabled(Object!);
+  }
+
+  @RequiresApi(18) final class MediaRouterJellybeanMr2 {
+    ctor private MediaRouterJellybeanMr2();
+    method public static void addCallback(Object!, int, Object!, int);
+    method public static Object! getDefaultRoute(Object!);
+  }
+
+  public static final class MediaRouterJellybeanMr2.RouteInfo {
+    ctor private MediaRouterJellybeanMr2.RouteInfo();
+    method public static CharSequence! getDescription(Object!);
+    method public static boolean isConnecting(Object!);
+  }
+
+  public static final class MediaRouterJellybeanMr2.UserRouteInfo {
+    ctor private MediaRouterJellybeanMr2.UserRouteInfo();
+    method public static void setDescription(Object!, CharSequence!);
+  }
+
+  public final class MediaSessionStatus {
+    ctor MediaSessionStatus(android.os.Bundle!);
+    method private static String! sessionStateToString(int);
+    field static final String KEY_EXTRAS = "extras";
+    field static final String KEY_QUEUE_PAUSED = "queuePaused";
+    field static final String KEY_SESSION_STATE = "sessionState";
+    field static final String KEY_TIMESTAMP = "timestamp";
+    field final android.os.Bundle! mBundle;
+  }
+
+  public static final class MediaSessionStatus.Builder {
+    field private final android.os.Bundle! mBundle;
+  }
+
+  final class RegisteredMediaRouteProvider extends androidx.mediarouter.media.MediaRouteProvider implements android.content.ServiceConnection {
+    ctor public RegisteredMediaRouteProvider(android.content.Context!, android.content.ComponentName!);
+    method private void attachControllersToConnection();
+    method private void bind();
+    method private androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController! createDynamicGroupRouteController(String!);
+    method private androidx.mediarouter.media.MediaRouteProvider.RouteController! createRouteController(String!, String!);
+    method private void detachControllersFromConnection();
+    method private void disconnect();
+    method private androidx.mediarouter.media.RegisteredMediaRouteProvider.ControllerConnection! findControllerById(int);
+    method public boolean hasComponentName(String!, String!);
+    method void onConnectionDescriptorChanged(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!, androidx.mediarouter.media.MediaRouteProviderDescriptor!);
+    method void onConnectionDied(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method void onConnectionError(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!, String!);
+    method void onConnectionReady(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method void onControllerReleased(androidx.mediarouter.media.RegisteredMediaRouteProvider.ControllerConnection!);
+    method public androidx.mediarouter.media.MediaRouteProvider.RouteController! onCreateRouteController(String, String);
+    method void onDynamicRouteDescriptorChanged(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!, int, java.util.List<androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor>!);
+    method public void rebindIfDisconnected();
+    method private boolean shouldBind();
+    method public void start();
+    method public void stop();
+    method private void unbind();
+    method private void updateBinding();
+    field static final boolean DEBUG;
+    field static final String TAG = "MediaRouteProviderProxy";
+    field private androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection! mActiveConnection;
+    field private boolean mBound;
+    field private final android.content.ComponentName! mComponentName;
+    field private boolean mConnectionReady;
+    field private final java.util.ArrayList<androidx.mediarouter.media.RegisteredMediaRouteProvider.ControllerConnection>! mControllerConnections;
+    field final androidx.mediarouter.media.RegisteredMediaRouteProvider.PrivateHandler! mPrivateHandler;
+    field private boolean mStarted;
+  }
+
+  private final class RegisteredMediaRouteProvider.Connection implements android.os.IBinder.DeathRecipient {
+    ctor public RegisteredMediaRouteProvider.Connection(android.os.Messenger!);
+    method public void addMemberRoute(int, String!);
+    method public int createDynamicGroupRouteController(String!, androidx.mediarouter.media.MediaRouter.ControlRequestCallback!);
+    method public int createRouteController(String!, String!);
+    method public void dispose();
+    method void failPendingCallbacks();
+    method public boolean onControlRequestFailed(int, String!, android.os.Bundle!);
+    method public boolean onControlRequestSucceeded(int, android.os.Bundle!);
+    method public boolean onDescriptorChanged(android.os.Bundle!);
+    method public void onDynamicGroupRouteControllerCreated(int, android.os.Bundle!);
+    method public boolean onDynamicRouteDescriptorsChanged(int, android.os.Bundle!);
+    method public boolean onGenericFailure(int);
+    method public boolean onGenericSuccess(int);
+    method public boolean onRegistered(int, int, android.os.Bundle!);
+    method public boolean register();
+    method public void releaseRouteController(int);
+    method public void removeMemberRoute(int, String!);
+    method public void selectRoute(int);
+    method public boolean sendControlRequest(int, android.content.Intent!, androidx.mediarouter.media.MediaRouter.ControlRequestCallback!);
+    method private boolean sendRequest(int, int, int, Object!, android.os.Bundle!);
+    method public void setDiscoveryRequest(androidx.mediarouter.media.MediaRouteDiscoveryRequest!);
+    method public void setVolume(int, int);
+    method public void unselectRoute(int, int);
+    method public void updateMemberRoutes(int, java.util.List<java.lang.String>!);
+    method public void updateVolume(int, int);
+    field private int mNextControllerId;
+    field private int mNextRequestId;
+    field private final android.util.SparseArray<androidx.mediarouter.media.MediaRouter.ControlRequestCallback>! mPendingCallbacks;
+    field private int mPendingRegisterRequestId;
+    field private final androidx.mediarouter.media.RegisteredMediaRouteProvider.ReceiveHandler! mReceiveHandler;
+    field private final android.os.Messenger! mReceiveMessenger;
+    field private final android.os.Messenger! mServiceMessenger;
+    field private int mServiceVersion;
+  }
+
+  static interface RegisteredMediaRouteProvider.ControllerConnection {
+    method public void attachConnection(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method public void detachConnection();
+    method public int getControllerId();
+  }
+
+  private static final class RegisteredMediaRouteProvider.PrivateHandler extends android.os.Handler {
+    ctor RegisteredMediaRouteProvider.PrivateHandler();
+  }
+
+  private static final class RegisteredMediaRouteProvider.ReceiveHandler extends android.os.Handler {
+    ctor public RegisteredMediaRouteProvider.ReceiveHandler(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method public void dispose();
+    method private boolean processMessage(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!, int, int, int, Object!, android.os.Bundle!);
+    field private final java.lang.ref.WeakReference<androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection>! mConnectionRef;
+  }
+
+  private final class RegisteredMediaRouteProvider.RegisteredDynamicController extends androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController implements androidx.mediarouter.media.RegisteredMediaRouteProvider.ControllerConnection {
+    ctor RegisteredMediaRouteProvider.RegisteredDynamicController(String!);
+    method public void attachConnection(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method public void detachConnection();
+    method public int getControllerId();
+    method void onDynamicRoutesChanged(java.util.List<androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor>!);
+    field private androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection! mConnection;
+    field private int mControllerId;
+    field androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener! mDynamicRoutesChangedListener;
+    field String! mGroupableSectionTitle;
+    field private final String! mInitialMemberRouteId;
+    field private java.util.concurrent.Executor! mListenerExecutor;
+    field private int mPendingSetVolume;
+    field private int mPendingUpdateVolumeDelta;
+    field String! mRouteId;
+    field private boolean mSelected;
+    field String! mTransferableSectionTitle;
+  }
+
+  private final class RegisteredMediaRouteProvider.RegisteredRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController implements androidx.mediarouter.media.RegisteredMediaRouteProvider.ControllerConnection {
+    ctor RegisteredMediaRouteProvider.RegisteredRouteController(String!, String!);
+    method public void attachConnection(androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection!);
+    method public void detachConnection();
+    method public int getControllerId();
+    field private androidx.mediarouter.media.RegisteredMediaRouteProvider.Connection! mConnection;
+    field private int mControllerId;
+    field private int mPendingSetVolume;
+    field private int mPendingUpdateVolumeDelta;
+    field private final String! mRouteGroupId;
+    field private final String! mRouteId;
+    field private boolean mSelected;
+  }
+
+  final class RegisteredMediaRouteProviderWatcher {
+    ctor public RegisteredMediaRouteProviderWatcher(android.content.Context!, androidx.mediarouter.media.RegisteredMediaRouteProviderWatcher.Callback!);
+    method private int findProvider(String!, String!);
+    method void scanPackages();
+    method public void start();
+    method public void stop();
+    field private final androidx.mediarouter.media.RegisteredMediaRouteProviderWatcher.Callback! mCallback;
+    field private final android.content.Context! mContext;
+    field private final android.os.Handler! mHandler;
+    field private final android.content.pm.PackageManager! mPackageManager;
+    field private final java.util.ArrayList<androidx.mediarouter.media.RegisteredMediaRouteProvider>! mProviders;
+    field private boolean mRunning;
+    field private final android.content.BroadcastReceiver! mScanPackagesReceiver;
+    field private final Runnable! mScanPackagesRunnable;
+  }
+
+  public static interface RegisteredMediaRouteProviderWatcher.Callback {
+    method public void addProvider(androidx.mediarouter.media.MediaRouteProvider!);
+    method public void removeProvider(androidx.mediarouter.media.MediaRouteProvider!);
+  }
+
+  abstract class RemoteControlClientCompat {
+    ctor protected RemoteControlClientCompat(android.content.Context!, Object!);
+    method public Object! getRemoteControlClient();
+    method public static androidx.mediarouter.media.RemoteControlClientCompat! obtain(android.content.Context!, Object!);
+    method public void setPlaybackInfo(androidx.mediarouter.media.RemoteControlClientCompat.PlaybackInfo!);
+    method public void setVolumeCallback(androidx.mediarouter.media.RemoteControlClientCompat.VolumeCallback!);
+    field protected final android.content.Context! mContext;
+    field protected final Object! mRcc;
+    field protected androidx.mediarouter.media.RemoteControlClientCompat.VolumeCallback! mVolumeCallback;
+  }
+
+  @RequiresApi(16) static class RemoteControlClientCompat.JellybeanImpl extends androidx.mediarouter.media.RemoteControlClientCompat {
+    ctor public RemoteControlClientCompat.JellybeanImpl(android.content.Context!, Object!);
+    method public void setPlaybackInfo(androidx.mediarouter.media.RemoteControlClientCompat.PlaybackInfo!);
+    field private boolean mRegistered;
+    field private final Object! mRouterObj;
+    field private final Object! mUserRouteCategoryObj;
+    field private final Object! mUserRouteObj;
+  }
+
+  private static final class RemoteControlClientCompat.JellybeanImpl.VolumeCallbackWrapper implements androidx.mediarouter.media.MediaRouterJellybean.VolumeCallback {
+    ctor public RemoteControlClientCompat.JellybeanImpl.VolumeCallbackWrapper(androidx.mediarouter.media.RemoteControlClientCompat.JellybeanImpl!);
+    method public void onVolumeSetRequest(Object!, int);
+    method public void onVolumeUpdateRequest(Object!, int);
+    field private final java.lang.ref.WeakReference<androidx.mediarouter.media.RemoteControlClientCompat.JellybeanImpl>! mImplWeak;
+  }
+
+  static class RemoteControlClientCompat.LegacyImpl extends androidx.mediarouter.media.RemoteControlClientCompat {
+    ctor public RemoteControlClientCompat.LegacyImpl(android.content.Context!, Object!);
+  }
+
+  public static final class RemoteControlClientCompat.PlaybackInfo {
+    ctor public RemoteControlClientCompat.PlaybackInfo();
+    field public int playbackStream;
+    field public int playbackType;
+    field public int volume;
+    field public int volumeHandling;
+    field public int volumeMax;
+  }
+
+  public static interface RemoteControlClientCompat.VolumeCallback {
+    method public void onVolumeSetRequest(int);
+    method public void onVolumeUpdateRequest(int);
+  }
+
+  public class RemotePlaybackClient {
+    method void adoptSession(String!);
+    method static String! bundleToString(android.os.Bundle!);
+    method private void detectFeatures();
+    method private boolean doesRouteSupportMessaging();
+    method void handleError(android.content.Intent!, androidx.mediarouter.media.RemotePlaybackClient.ActionCallback!, String!, android.os.Bundle!);
+    method void handleInvalidResult(android.content.Intent!, androidx.mediarouter.media.RemotePlaybackClient.ActionCallback!, android.os.Bundle!);
+    method static String! inferMissingResult(String!, String!);
+    method private static void logRequest(android.content.Intent!);
+    method private void performItemAction(android.content.Intent!, String!, String!, android.os.Bundle!, androidx.mediarouter.media.RemotePlaybackClient.ItemActionCallback!);
+    method private void performSessionAction(android.content.Intent!, String!, android.os.Bundle!, androidx.mediarouter.media.RemotePlaybackClient.SessionActionCallback!);
+    method private void playOrEnqueue(android.net.Uri!, String!, android.os.Bundle!, long, android.os.Bundle!, androidx.mediarouter.media.RemotePlaybackClient.ItemActionCallback!, String!);
+    method private boolean routeSupportsAction(String!);
+    method private void throwIfMessageNotSupported();
+    method private void throwIfNoCurrentSession();
+    method private void throwIfQueuingNotSupported();
+    method private void throwIfRemotePlaybackNotSupported();
+    method private void throwIfSessionManagementNotSupported();
+    field static final boolean DEBUG;
+    field static final String TAG = "RemotePlaybackClient";
+    field private final androidx.mediarouter.media.RemotePlaybackClient.ActionReceiver! mActionReceiver;
+    field private final android.content.Context! mContext;
+    field private final android.app.PendingIntent! mItemStatusPendingIntent;
+    field private final android.app.PendingIntent! mMessagePendingIntent;
+    field androidx.mediarouter.media.RemotePlaybackClient.OnMessageReceivedListener! mOnMessageReceivedListener;
+    field private final androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field private boolean mRouteSupportsMessaging;
+    field private boolean mRouteSupportsQueuing;
+    field private boolean mRouteSupportsRemotePlayback;
+    field private boolean mRouteSupportsSessionManagement;
+    field String! mSessionId;
+    field private final android.app.PendingIntent! mSessionStatusPendingIntent;
+    field androidx.mediarouter.media.RemotePlaybackClient.StatusCallback! mStatusCallback;
+  }
+
+  private final class RemotePlaybackClient.ActionReceiver extends android.content.BroadcastReceiver {
+    ctor RemotePlaybackClient.ActionReceiver();
+    field public static final String ACTION_ITEM_STATUS_CHANGED = "androidx.mediarouter.media.actions.ACTION_ITEM_STATUS_CHANGED";
+    field public static final String ACTION_MESSAGE_RECEIVED = "androidx.mediarouter.media.actions.ACTION_MESSAGE_RECEIVED";
+    field public static final String ACTION_SESSION_STATUS_CHANGED = "androidx.mediarouter.media.actions.ACTION_SESSION_STATUS_CHANGED";
+  }
+
+  abstract class SystemMediaRouteProvider extends androidx.mediarouter.media.MediaRouteProvider {
+    ctor protected SystemMediaRouteProvider(android.content.Context!);
+    method protected Object! getDefaultRoute();
+    method protected Object! getSystemRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public static androidx.mediarouter.media.SystemMediaRouteProvider! obtain(android.content.Context!, androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback!);
+    method public void onSyncRouteAdded(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteChanged(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteRemoved(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteSelected(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    field public static final String DEFAULT_ROUTE_ID = "DEFAULT_ROUTE";
+    field public static final String PACKAGE_NAME = "android";
+    field private static final String TAG = "SystemMediaRouteProvider";
+  }
+
+  @RequiresApi(24) private static class SystemMediaRouteProvider.Api24Impl extends androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanMr2Impl {
+    ctor public SystemMediaRouteProvider.Api24Impl(android.content.Context!, androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback!);
+    method protected void onBuildSystemRouteDescriptor(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!, androidx.mediarouter.media.MediaRouteDescriptor.Builder!);
+  }
+
+  @RequiresApi(16) static class SystemMediaRouteProvider.JellybeanImpl extends androidx.mediarouter.media.SystemMediaRouteProvider implements androidx.mediarouter.media.MediaRouterJellybean.Callback androidx.mediarouter.media.MediaRouterJellybean.VolumeCallback {
+    ctor public SystemMediaRouteProvider.JellybeanImpl(android.content.Context!, androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback!);
+    method private boolean addSystemRouteNoPublish(Object!);
+    method private String! assignRouteId(Object!);
+    method protected Object! createCallbackObj();
+    method protected Object! createVolumeCallbackObj();
+    method protected int findSystemRouteRecord(Object!);
+    method protected int findSystemRouteRecordByDescriptorId(String!);
+    method protected int findUserRouteRecord(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method protected Object! getDefaultRoute();
+    method protected String! getRouteName(Object!);
+    method protected Object! getSystemRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method protected androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord! getUserRouteRecord(Object!);
+    method protected void onBuildSystemRouteDescriptor(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!, androidx.mediarouter.media.MediaRouteDescriptor.Builder!);
+    method public void onRouteAdded(Object!);
+    method public void onRouteChanged(Object!);
+    method public void onRouteGrouped(Object!, Object!, int);
+    method public void onRouteRemoved(Object!);
+    method public void onRouteSelected(int, Object!);
+    method public void onRouteUngrouped(Object!, Object!);
+    method public void onRouteUnselected(int, Object!);
+    method public void onRouteVolumeChanged(Object!);
+    method public void onSyncRouteAdded(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteChanged(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteRemoved(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onSyncRouteSelected(androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void onVolumeSetRequest(Object!, int);
+    method public void onVolumeUpdateRequest(Object!, int);
+    method protected void publishRoutes();
+    method protected void selectRoute(Object!);
+    method protected void updateCallback();
+    method protected void updateSystemRouteDescriptor(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!);
+    method private void updateSystemRoutes();
+    method protected void updateUserRouteProperties(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord!);
+    field private static final java.util.ArrayList<android.content.IntentFilter>! LIVE_AUDIO_CONTROL_FILTERS;
+    field private static final java.util.ArrayList<android.content.IntentFilter>! LIVE_VIDEO_CONTROL_FILTERS;
+    field protected boolean mActiveScan;
+    field protected final Object! mCallbackObj;
+    field protected boolean mCallbackRegistered;
+    field private androidx.mediarouter.media.MediaRouterJellybean.GetDefaultRouteWorkaround! mGetDefaultRouteWorkaround;
+    field protected int mRouteTypes;
+    field protected final Object! mRouterObj;
+    field private androidx.mediarouter.media.MediaRouterJellybean.SelectRouteWorkaround! mSelectRouteWorkaround;
+    field private final androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback! mSyncCallback;
+    field protected final java.util.ArrayList<androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord>! mSystemRouteRecords;
+    field protected final Object! mUserRouteCategoryObj;
+    field protected final java.util.ArrayList<androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord>! mUserRouteRecords;
+    field protected final Object! mVolumeCallbackObj;
+  }
+
+  protected static final class SystemMediaRouteProvider.JellybeanImpl.SystemRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController {
+    ctor public SystemMediaRouteProvider.JellybeanImpl.SystemRouteController(Object!);
+    field private final Object! mRouteObj;
+  }
+
+  protected static final class SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord {
+    ctor public SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord(Object!, String!);
+    field public androidx.mediarouter.media.MediaRouteDescriptor! mRouteDescriptor;
+    field public final String! mRouteDescriptorId;
+    field public final Object! mRouteObj;
+  }
+
+  protected static final class SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord {
+    ctor public SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord(androidx.mediarouter.media.MediaRouter.RouteInfo!, Object!);
+    field public final androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field public final Object! mRouteObj;
+  }
+
+  @RequiresApi(17) private static class SystemMediaRouteProvider.JellybeanMr1Impl extends androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl implements androidx.mediarouter.media.MediaRouterJellybeanMr1.Callback {
+    ctor public SystemMediaRouteProvider.JellybeanMr1Impl(android.content.Context!, androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback!);
+    method protected Object! createCallbackObj();
+    method protected boolean isConnecting(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!);
+    method protected void onBuildSystemRouteDescriptor(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!, androidx.mediarouter.media.MediaRouteDescriptor.Builder!);
+    method public void onRoutePresentationDisplayChanged(Object!);
+    method protected void updateCallback();
+    field private androidx.mediarouter.media.MediaRouterJellybeanMr1.ActiveScanWorkaround! mActiveScanWorkaround;
+    field private androidx.mediarouter.media.MediaRouterJellybeanMr1.IsConnectingWorkaround! mIsConnectingWorkaround;
+  }
+
+  @RequiresApi(18) private static class SystemMediaRouteProvider.JellybeanMr2Impl extends androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanMr1Impl {
+    ctor public SystemMediaRouteProvider.JellybeanMr2Impl(android.content.Context!, androidx.mediarouter.media.SystemMediaRouteProvider.SyncCallback!);
+    method protected Object! getDefaultRoute();
+    method protected boolean isConnecting(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!);
+    method protected void onBuildSystemRouteDescriptor(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.SystemRouteRecord!, androidx.mediarouter.media.MediaRouteDescriptor.Builder!);
+    method protected void selectRoute(Object!);
+    method protected void updateCallback();
+    method protected void updateUserRouteProperties(androidx.mediarouter.media.SystemMediaRouteProvider.JellybeanImpl.UserRouteRecord!);
+  }
+
+  static class SystemMediaRouteProvider.LegacyImpl extends androidx.mediarouter.media.SystemMediaRouteProvider {
+    ctor public SystemMediaRouteProvider.LegacyImpl(android.content.Context!);
+    method void publishRoutes();
+    field private static final java.util.ArrayList<android.content.IntentFilter>! CONTROL_FILTERS;
+    field static final int PLAYBACK_STREAM = 3; // 0x3
+    field final android.media.AudioManager! mAudioManager;
+    field int mLastReportedVolume;
+    field private final androidx.mediarouter.media.SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver! mVolumeChangeReceiver;
+  }
+
+  final class SystemMediaRouteProvider.LegacyImpl.DefaultRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController {
+    ctor SystemMediaRouteProvider.LegacyImpl.DefaultRouteController();
+  }
+
+  final class SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver extends android.content.BroadcastReceiver {
+    ctor SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver();
+    field public static final String EXTRA_VOLUME_STREAM_TYPE = "android.media.EXTRA_VOLUME_STREAM_TYPE";
+    field public static final String EXTRA_VOLUME_STREAM_VALUE = "android.media.EXTRA_VOLUME_STREAM_VALUE";
+    field public static final String VOLUME_CHANGED_ACTION = "android.media.VOLUME_CHANGED_ACTION";
+  }
+
+  public static interface SystemMediaRouteProvider.SyncCallback {
+    method public void onSystemRouteSelectedByDescriptorId(String!);
+  }
+
+}
+

@@ -1,0 +1,23 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public class LifecycleService extends android.app.Service implements androidx.lifecycle.LifecycleOwner {
+    field private final androidx.lifecycle.ServiceLifecycleDispatcher! mDispatcher;
+  }
+
+  public class ServiceLifecycleDispatcher {
+    method private void postDispatchRunnable(androidx.lifecycle.Lifecycle.Event!);
+    field private final android.os.Handler! mHandler;
+    field private androidx.lifecycle.ServiceLifecycleDispatcher.DispatchRunnable! mLastDispatchRunnable;
+    field private final androidx.lifecycle.LifecycleRegistry! mRegistry;
+  }
+
+  static class ServiceLifecycleDispatcher.DispatchRunnable implements java.lang.Runnable {
+    ctor ServiceLifecycleDispatcher.DispatchRunnable(androidx.lifecycle.LifecycleRegistry, androidx.lifecycle.Lifecycle.Event!);
+    field final androidx.lifecycle.Lifecycle.Event! mEvent;
+    field private final androidx.lifecycle.LifecycleRegistry! mRegistry;
+    field private boolean mWasExecuted;
+  }
+
+}
+

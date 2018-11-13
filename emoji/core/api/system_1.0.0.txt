@@ -1,0 +1,522 @@
+// Signature format: 2.0
+package androidx.emoji.text {
+
+  @AnyThread public class EmojiCompat {
+    ctor private EmojiCompat(androidx.emoji.text.EmojiCompat.Config);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @ColorInt int getEmojiSpanIndicatorColor();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) boolean isEmojiSpanIndicatorEnabled();
+    method private boolean isInitialized();
+    method private void loadMetadata();
+    method void onMetadataLoadFailed(Throwable?);
+    method void onMetadataLoadSuccess();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting public static androidx.emoji.text.EmojiCompat! reset(androidx.emoji.text.EmojiCompat.Config);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting public static androidx.emoji.text.EmojiCompat! reset(androidx.emoji.text.EmojiCompat!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting void setGlyphChecker(androidx.emoji.text.EmojiProcessor.GlyphChecker);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void updateEditorInfoAttrs(android.view.inputmethod.EditorInfo);
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) static final int EMOJI_COUNT_UNLIMITED = 2147483647; // 0x7fffffff
+    field final int[]! mEmojiAsDefaultStyleExceptions;
+    field private final int mEmojiSpanIndicatorColor;
+    field private final boolean mEmojiSpanIndicatorEnabled;
+    field private final androidx.emoji.text.EmojiCompat.CompatInternal! mHelper;
+    field @GuardedBy("mInitLock") private final java.util.Set<androidx.emoji.text.EmojiCompat.InitCallback>! mInitCallbacks;
+    field private final java.util.concurrent.locks.ReadWriteLock! mInitLock;
+    field @GuardedBy("mInitLock") private int mLoadState;
+    field private final android.os.Handler! mMainHandler;
+    field private final int mMetadataLoadStrategy;
+    field final androidx.emoji.text.EmojiCompat.MetadataRepoLoader! mMetadataLoader;
+    field final boolean mReplaceAll;
+    field final boolean mUseEmojiAsDefaultStyle;
+    field @GuardedBy("sInstanceLock") private static volatile androidx.emoji.text.EmojiCompat! sInstance;
+    field private static final Object! sInstanceLock;
+  }
+
+  private static class EmojiCompat.CompatInternal {
+    ctor EmojiCompat.CompatInternal(androidx.emoji.text.EmojiCompat!);
+    method String! getAssetSignature();
+    method boolean hasEmojiGlyph(CharSequence);
+    method boolean hasEmojiGlyph(CharSequence, int);
+    method void loadMetadata();
+    method CharSequence! process(CharSequence, @IntRange(from=0) int, @IntRange(from=0) int, @IntRange(from=0) int, boolean);
+    method void setGlyphChecker(androidx.emoji.text.EmojiProcessor.GlyphChecker);
+    method void updateEditorInfoAttrs(android.view.inputmethod.EditorInfo);
+    field final androidx.emoji.text.EmojiCompat! mEmojiCompat;
+  }
+
+  @RequiresApi(19) private static final class EmojiCompat.CompatInternal19 extends androidx.emoji.text.EmojiCompat.CompatInternal {
+    ctor EmojiCompat.CompatInternal19(androidx.emoji.text.EmojiCompat!);
+    method String! getAssetSignature();
+    method boolean hasEmojiGlyph(CharSequence);
+    method boolean hasEmojiGlyph(CharSequence, int);
+    method void loadMetadata();
+    method void onMetadataLoadSuccess(androidx.emoji.text.MetadataRepo);
+    method CharSequence! process(CharSequence, int, int, int, boolean);
+    method void setGlyphChecker(androidx.emoji.text.EmojiProcessor.GlyphChecker);
+    method void updateEditorInfoAttrs(android.view.inputmethod.EditorInfo);
+    field private volatile androidx.emoji.text.MetadataRepo! mMetadataRepo;
+    field private volatile androidx.emoji.text.EmojiProcessor! mProcessor;
+  }
+
+  public abstract static class EmojiCompat.Config {
+    field int[]! mEmojiAsDefaultStyleExceptions;
+    field int mEmojiSpanIndicatorColor;
+    field boolean mEmojiSpanIndicatorEnabled;
+    field java.util.Set<androidx.emoji.text.EmojiCompat.InitCallback>! mInitCallbacks;
+    field int mMetadataLoadStrategy;
+    field final androidx.emoji.text.EmojiCompat.MetadataRepoLoader! mMetadataLoader;
+    field boolean mReplaceAll;
+    field boolean mUseEmojiAsDefaultStyle;
+  }
+
+  private static class EmojiCompat.ListenerDispatcher implements java.lang.Runnable {
+    ctor EmojiCompat.ListenerDispatcher(androidx.emoji.text.EmojiCompat.InitCallback, int);
+    ctor EmojiCompat.ListenerDispatcher(java.util.Collection<androidx.emoji.text.EmojiCompat.InitCallback>, int);
+    ctor EmojiCompat.ListenerDispatcher(java.util.Collection<androidx.emoji.text.EmojiCompat.InitCallback>, int, Throwable?);
+    field private final java.util.List<androidx.emoji.text.EmojiCompat.InitCallback>! mInitCallbacks;
+    field private final int mLoadState;
+    field private final Throwable! mThrowable;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.emoji.text.EmojiCompat.LOAD_STATE_DEFAULT, androidx.emoji.text.EmojiCompat.LOAD_STATE_LOADING, androidx.emoji.text.EmojiCompat.LOAD_STATE_SUCCEEDED, androidx.emoji.text.EmojiCompat.LOAD_STATE_FAILED}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EmojiCompat.LoadState {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.emoji.text.EmojiCompat.LOAD_STRATEGY_DEFAULT, androidx.emoji.text.EmojiCompat.LOAD_STRATEGY_MANUAL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EmojiCompat.LoadStrategy {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.emoji.text.EmojiCompat.REPLACE_STRATEGY_DEFAULT, androidx.emoji.text.EmojiCompat.REPLACE_STRATEGY_NON_EXISTENT, androidx.emoji.text.EmojiCompat.REPLACE_STRATEGY_ALL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EmojiCompat.ReplaceStrategy {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) static class EmojiCompat.SpanFactory {
+    ctor EmojiCompat.SpanFactory();
+    method androidx.emoji.text.EmojiSpan! createSpan(androidx.emoji.text.EmojiMetadata);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @AnyThread @RequiresApi(19) public class EmojiMetadata {
+    ctor EmojiMetadata(androidx.emoji.text.MetadataRepo, @IntRange(from=0) int);
+    method public void draw(android.graphics.Canvas, float, float, android.graphics.Paint);
+    method public int getCodepointAt(int);
+    method public int getCodepointsLength();
+    method public short getCompatAdded();
+    method public int getHasGlyph();
+    method public short getHeight();
+    method public int getId();
+    method private androidx.text.emoji.flatbuffer.MetadataItem! getMetadataItem();
+    method public short getSdkAdded();
+    method public android.graphics.Typeface! getTypeface();
+    method public short getWidth();
+    method public boolean isDefaultEmoji();
+    method public void setHasGlyph(boolean);
+    field public static final int HAS_GLYPH_ABSENT = 1; // 0x1
+    field public static final int HAS_GLYPH_EXISTS = 2; // 0x2
+    field public static final int HAS_GLYPH_UNKNOWN = 0; // 0x0
+    field private volatile int mHasGlyph;
+    field private final int mIndex;
+    field private final androidx.emoji.text.MetadataRepo! mMetadataRepo;
+    field private static final ThreadLocal<androidx.text.emoji.flatbuffer.MetadataItem>! sMetadataItem;
+  }
+
+  @IntDef({androidx.emoji.text.EmojiMetadata.HAS_GLYPH_UNKNOWN, androidx.emoji.text.EmojiMetadata.HAS_GLYPH_ABSENT, androidx.emoji.text.EmojiMetadata.HAS_GLYPH_EXISTS}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EmojiMetadata.HasGlyph {
+  }
+
+  @AnyThread @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) final class EmojiProcessor {
+    ctor EmojiProcessor(androidx.emoji.text.MetadataRepo, androidx.emoji.text.EmojiCompat.SpanFactory, boolean, int[]?);
+    method private void addEmoji(android.text.Spannable, androidx.emoji.text.EmojiMetadata!, int, int);
+    method private static boolean delete(android.text.Editable!, android.view.KeyEvent!, boolean);
+    method androidx.emoji.text.EmojiMetadata! getEmojiMetadata(CharSequence);
+    method static boolean handleDeleteSurroundingText(android.view.inputmethod.InputConnection, android.text.Editable, @IntRange(from=0) int, @IntRange(from=0) int, boolean);
+    method static boolean handleOnKeyDown(android.text.Editable, int, android.view.KeyEvent!);
+    method private boolean hasGlyph(CharSequence!, int, int, androidx.emoji.text.EmojiMetadata!);
+    method private static boolean hasInvalidSelection(int, int);
+    method private static boolean hasModifiers(android.view.KeyEvent!);
+    method CharSequence! process(CharSequence, @IntRange(from=0) int, @IntRange(from=0) int, @IntRange(from=0) int, boolean);
+    method void setGlyphChecker(androidx.emoji.text.EmojiProcessor.GlyphChecker);
+    field private static final int ACTION_ADVANCE_BOTH = 1; // 0x1
+    field private static final int ACTION_ADVANCE_END = 2; // 0x2
+    field private static final int ACTION_FLUSH = 3; // 0x3
+    field private final int[]! mEmojiAsDefaultStyleExceptions;
+    field private androidx.emoji.text.EmojiProcessor.GlyphChecker! mGlyphChecker;
+    field private final androidx.emoji.text.MetadataRepo! mMetadataRepo;
+    field private final androidx.emoji.text.EmojiCompat.SpanFactory! mSpanFactory;
+    field private final boolean mUseEmojiAsDefaultStyle;
+  }
+
+  @IntDef({androidx.emoji.text.EmojiProcessor.ACTION_ADVANCE_BOTH, androidx.emoji.text.EmojiProcessor.ACTION_ADVANCE_END, androidx.emoji.text.EmojiProcessor.ACTION_FLUSH}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface EmojiProcessor.Action {
+  }
+
+  private static final class EmojiProcessor.CodepointIndexFinder {
+    ctor private EmojiProcessor.CodepointIndexFinder();
+    method static int findIndexBackward(CharSequence!, int, int);
+    method static int findIndexForward(CharSequence!, int, int);
+    field private static final int INVALID_INDEX = -1; // 0xffffffff
+  }
+
+  @AnyThread @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class EmojiProcessor.GlyphChecker {
+    ctor EmojiProcessor.GlyphChecker();
+    method private static StringBuilder! getStringBuilder();
+    method public boolean hasGlyph(CharSequence!, int, int);
+    field private static final int PAINT_TEXT_SIZE = 10; // 0xa
+    field private final android.text.TextPaint! mTextPaint;
+    field private static final ThreadLocal<java.lang.StringBuilder>! sStringBuilder;
+  }
+
+  static final class EmojiProcessor.ProcessorSm {
+    ctor EmojiProcessor.ProcessorSm(androidx.emoji.text.MetadataRepo.Node!, boolean, int[]!);
+    method int check(int);
+    method androidx.emoji.text.EmojiMetadata! getCurrentMetadata();
+    method androidx.emoji.text.EmojiMetadata! getFlushMetadata();
+    method private static boolean isEmojiStyle(int);
+    method boolean isInFlushableState();
+    method private static boolean isTextStyle(int);
+    method private int reset();
+    method private boolean shouldUseEmojiPresentationStyleForSingleCodepoint();
+    field private static final int STATE_DEFAULT = 1; // 0x1
+    field private static final int STATE_WALKING = 2; // 0x2
+    field private int mCurrentDepth;
+    field private androidx.emoji.text.MetadataRepo.Node! mCurrentNode;
+    field private final int[]! mEmojiAsDefaultStyleExceptions;
+    field private androidx.emoji.text.MetadataRepo.Node! mFlushNode;
+    field private int mLastCodepoint;
+    field private final androidx.emoji.text.MetadataRepo.Node! mRootNode;
+    field private int mState;
+    field private final boolean mUseEmojiAsDefaultStyle;
+  }
+
+  @RequiresApi(19) public abstract class EmojiSpan extends android.text.style.ReplacementSpan {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) EmojiSpan(androidx.emoji.text.EmojiMetadata);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final int getHeight();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting public final int getId();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final androidx.emoji.text.EmojiMetadata! getMetadata();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final float getRatio();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) final int getWidth();
+    field private short mHeight;
+    field private final androidx.emoji.text.EmojiMetadata! mMetadata;
+    field private float mRatio;
+    field private final android.graphics.Paint.FontMetricsInt! mTmpFontMetrics;
+    field private short mWidth;
+  }
+
+  public class FontRequestEmojiCompatConfig extends androidx.emoji.text.EmojiCompat.Config {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public FontRequestEmojiCompatConfig(android.content.Context, androidx.core.provider.FontRequest, androidx.emoji.text.FontRequestEmojiCompatConfig.FontProviderHelper);
+    field private static final androidx.emoji.text.FontRequestEmojiCompatConfig.FontProviderHelper! DEFAULT_FONTS_CONTRACT;
+  }
+
+  public static class FontRequestEmojiCompatConfig.ExponentialBackoffRetryPolicy extends androidx.emoji.text.FontRequestEmojiCompatConfig.RetryPolicy {
+    field private long mRetryOrigin;
+    field private final long mTotalMs;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class FontRequestEmojiCompatConfig.FontProviderHelper {
+    ctor public FontRequestEmojiCompatConfig.FontProviderHelper();
+    method public android.graphics.Typeface! buildTypeface(android.content.Context, androidx.core.provider.FontsContractCompat.FontInfo) throws android.content.pm.PackageManager.NameNotFoundException;
+    method public androidx.core.provider.FontsContractCompat.FontFamilyResult! fetchFonts(android.content.Context, androidx.core.provider.FontRequest) throws android.content.pm.PackageManager.NameNotFoundException;
+    method public void registerObserver(android.content.Context, android.net.Uri, android.database.ContentObserver);
+    method public void unregisterObserver(android.content.Context, android.database.ContentObserver);
+  }
+
+  private static class FontRequestEmojiCompatConfig.FontRequestMetadataLoader implements androidx.emoji.text.EmojiCompat.MetadataRepoLoader {
+    ctor FontRequestEmojiCompatConfig.FontRequestMetadataLoader(android.content.Context, androidx.core.provider.FontRequest, androidx.emoji.text.FontRequestEmojiCompatConfig.FontProviderHelper);
+    method private void cleanUp();
+    method @RequiresApi(19) void createMetadata();
+    method private androidx.core.provider.FontsContractCompat.FontInfo! retrieveFontInfo();
+    method @RequiresApi(19) private void scheduleRetry(android.net.Uri!, long);
+    method public void setHandler(android.os.Handler!);
+    method public void setRetryPolicy(androidx.emoji.text.FontRequestEmojiCompatConfig.RetryPolicy!);
+    field androidx.emoji.text.EmojiCompat.MetadataRepoLoaderCallback! mCallback;
+    field private final android.content.Context! mContext;
+    field private final androidx.emoji.text.FontRequestEmojiCompatConfig.FontProviderHelper! mFontProviderHelper;
+    field private Runnable! mHandleMetadataCreationRunner;
+    field @GuardedBy("mLock") private android.os.Handler! mHandler;
+    field private final Object! mLock;
+    field private android.database.ContentObserver! mObserver;
+    field private final androidx.core.provider.FontRequest! mRequest;
+    field @GuardedBy("mLock") private androidx.emoji.text.FontRequestEmojiCompatConfig.RetryPolicy? mRetryPolicy;
+    field @GuardedBy("mLock") private android.os.HandlerThread! mThread;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @AnyThread @RequiresApi(19) class MetadataListReader {
+    ctor private MetadataListReader();
+    method private static androidx.emoji.text.MetadataListReader.OffsetInfo! findOffsetInfo(androidx.emoji.text.MetadataListReader.OpenTypeReader!) throws java.io.IOException;
+    method static androidx.text.emoji.flatbuffer.MetadataList! read(java.io.InputStream!) throws java.io.IOException;
+    method static androidx.text.emoji.flatbuffer.MetadataList! read(java.nio.ByteBuffer!) throws java.io.IOException;
+    method static androidx.text.emoji.flatbuffer.MetadataList! read(android.content.res.AssetManager!, String!) throws java.io.IOException;
+    method static long toUnsignedInt(int);
+    method static int toUnsignedShort(short);
+    field private static final int EMJI_TAG = 1164798569; // 0x456d6a69
+    field private static final int EMJI_TAG_DEPRECATED = 1701669481; // 0x656d6a69
+    field private static final int META_TABLE_NAME = 1835365473; // 0x6d657461
+  }
+
+  private static class MetadataListReader.ByteBufferReader implements androidx.emoji.text.MetadataListReader.OpenTypeReader {
+    ctor MetadataListReader.ByteBufferReader(java.nio.ByteBuffer!);
+    method public long getPosition();
+    method public int readTag() throws java.io.IOException;
+    method public long readUnsignedInt() throws java.io.IOException;
+    method public int readUnsignedShort() throws java.io.IOException;
+    method public void skip(int) throws java.io.IOException;
+    field private final java.nio.ByteBuffer! mByteBuffer;
+  }
+
+  private static class MetadataListReader.InputStreamOpenTypeReader implements androidx.emoji.text.MetadataListReader.OpenTypeReader {
+    ctor MetadataListReader.InputStreamOpenTypeReader(java.io.InputStream!);
+    method public long getPosition();
+    method private void read(@IntRange(from=0, to=androidx.emoji.text.MetadataListReader.OpenTypeReader.UINT32_BYTE_COUNT) int) throws java.io.IOException;
+    method public int readTag() throws java.io.IOException;
+    method public long readUnsignedInt() throws java.io.IOException;
+    method public int readUnsignedShort() throws java.io.IOException;
+    method public void skip(int) throws java.io.IOException;
+    field private final byte[]! mByteArray;
+    field private final java.nio.ByteBuffer! mByteBuffer;
+    field private final java.io.InputStream! mInputStream;
+    field private long mPosition;
+  }
+
+  private static class MetadataListReader.OffsetInfo {
+    ctor MetadataListReader.OffsetInfo(long, long);
+    method long getLength();
+    method long getStartOffset();
+    field private final long mLength;
+    field private final long mStartOffset;
+  }
+
+  private static interface MetadataListReader.OpenTypeReader {
+    method public long getPosition();
+    method public int readTag() throws java.io.IOException;
+    method public long readUnsignedInt() throws java.io.IOException;
+    method public int readUnsignedShort() throws java.io.IOException;
+    method public void skip(int) throws java.io.IOException;
+    field public static final int UINT16_BYTE_COUNT = 2; // 0x2
+    field public static final int UINT32_BYTE_COUNT = 4; // 0x4
+  }
+
+  @AnyThread @RequiresApi(19) public final class MetadataRepo {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) MetadataRepo();
+    ctor private MetadataRepo(android.graphics.Typeface, androidx.text.emoji.flatbuffer.MetadataList);
+    method private void constructIndex(androidx.text.emoji.flatbuffer.MetadataList!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public char[]! getEmojiCharArray();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.text.emoji.flatbuffer.MetadataList! getMetadataList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) int getMetadataVersion();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) androidx.emoji.text.MetadataRepo.Node! getRootNode();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) android.graphics.Typeface! getTypeface();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting void put(androidx.emoji.text.EmojiMetadata);
+    field private static final int DEFAULT_ROOT_SIZE = 1024; // 0x400
+    field private final char[]! mEmojiCharArray;
+    field private final androidx.text.emoji.flatbuffer.MetadataList! mMetadataList;
+    field private final androidx.emoji.text.MetadataRepo.Node! mRootNode;
+    field private final android.graphics.Typeface! mTypeface;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) static class MetadataRepo.Node {
+    ctor private MetadataRepo.Node();
+    ctor MetadataRepo.Node(int);
+    method androidx.emoji.text.MetadataRepo.Node! get(int);
+    method final androidx.emoji.text.EmojiMetadata! getData();
+    method void put(androidx.emoji.text.EmojiMetadata, int, int);
+    field private final android.util.SparseArray<androidx.emoji.text.MetadataRepo.Node>! mChildren;
+    field private androidx.emoji.text.EmojiMetadata! mData;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) public final class TypefaceEmojiSpan extends androidx.emoji.text.EmojiSpan {
+    ctor public TypefaceEmojiSpan(androidx.emoji.text.EmojiMetadata!);
+    method private static android.graphics.Paint! getDebugPaint();
+    field private static android.graphics.Paint! sDebugPaint;
+  }
+
+}
+
+package androidx.emoji.widget {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class EditTextAttributeHelper {
+    ctor public EditTextAttributeHelper(android.view.View, android.util.AttributeSet!, int, int);
+    method public int getMaxEmojiCount();
+    field static final int MAX_EMOJI_COUNT = 2147483647; // 0x7fffffff
+    field private int mMaxEmojiCount;
+  }
+
+  public class EmojiButton extends android.widget.Button {
+    method private androidx.emoji.widget.EmojiTextViewHelper! getEmojiTextViewHelper();
+    method private void init();
+    field private androidx.emoji.widget.EmojiTextViewHelper! mEmojiTextViewHelper;
+    field private boolean mInitialized;
+  }
+
+  public class EmojiEditText extends android.widget.EditText {
+    method private androidx.emoji.widget.EmojiEditTextHelper! getEmojiEditTextHelper();
+    method private void init(android.util.AttributeSet?, int, int);
+    field private androidx.emoji.widget.EmojiEditTextHelper! mEmojiEditTextHelper;
+    field private boolean mInitialized;
+  }
+
+  public final class EmojiEditTextHelper {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) int getEmojiReplaceStrategy();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) void setEmojiReplaceStrategy(int);
+    field private int mEmojiReplaceStrategy;
+    field private final androidx.emoji.widget.EmojiEditTextHelper.HelperInternal! mHelper;
+    field private int mMaxEmojiCount;
+  }
+
+  static class EmojiEditTextHelper.HelperInternal {
+    ctor EmojiEditTextHelper.HelperInternal();
+    method android.text.method.KeyListener! getKeyListener(android.text.method.KeyListener);
+    method android.view.inputmethod.InputConnection! onCreateInputConnection(android.view.inputmethod.InputConnection, android.view.inputmethod.EditorInfo);
+    method void setEmojiReplaceStrategy(int);
+    method void setMaxEmojiCount(int);
+  }
+
+  @RequiresApi(19) private static class EmojiEditTextHelper.HelperInternal19 extends androidx.emoji.widget.EmojiEditTextHelper.HelperInternal {
+    ctor EmojiEditTextHelper.HelperInternal19(android.widget.EditText);
+    method android.text.method.KeyListener! getKeyListener(android.text.method.KeyListener);
+    method android.view.inputmethod.InputConnection! onCreateInputConnection(android.view.inputmethod.InputConnection, android.view.inputmethod.EditorInfo);
+    method void setEmojiReplaceStrategy(int);
+    method void setMaxEmojiCount(int);
+    field private final android.widget.EditText! mEditText;
+    field private final androidx.emoji.widget.EmojiTextWatcher! mTextWatcher;
+  }
+
+  final class EmojiEditableFactory extends android.text.Editable.Factory {
+    ctor private EmojiEditableFactory();
+    method public static android.text.Editable.Factory! getInstance();
+    field @GuardedBy("sInstanceLock") private static volatile android.text.Editable.Factory! sInstance;
+    field private static final Object! sInstanceLock;
+    field private static Class<?>? sWatcherClass;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class EmojiExtractEditText extends android.inputmethodservice.ExtractEditText {
+    ctor public EmojiExtractEditText(android.content.Context!);
+    ctor public EmojiExtractEditText(android.content.Context!, android.util.AttributeSet!);
+    ctor public EmojiExtractEditText(android.content.Context!, android.util.AttributeSet!, int);
+    ctor @RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP) public EmojiExtractEditText(android.content.Context!, android.util.AttributeSet!, int, int);
+    method private androidx.emoji.widget.EmojiEditTextHelper! getEmojiEditTextHelper();
+    method public int getEmojiReplaceStrategy();
+    method public int getMaxEmojiCount();
+    method private void init(android.util.AttributeSet?, int, int);
+    method public void setEmojiReplaceStrategy(int);
+    method public void setMaxEmojiCount(@IntRange(from=0) int);
+    field private androidx.emoji.widget.EmojiEditTextHelper! mEmojiEditTextHelper;
+    field private boolean mInitialized;
+  }
+
+  public class EmojiExtractTextLayout extends android.widget.LinearLayout {
+    method private android.view.View.OnClickListener! getButtonClickListener(android.inputmethodservice.InputMethodService!);
+    method private void init(android.content.Context, android.util.AttributeSet?, int, int);
+    field private android.view.View.OnClickListener! mButtonOnClickListener;
+    field private android.view.ViewGroup! mExtractAccessories;
+    field private androidx.emoji.widget.ExtractButtonCompat! mExtractAction;
+    field private androidx.emoji.widget.EmojiExtractEditText! mExtractEditText;
+    field private boolean mInitialized;
+  }
+
+  private static final class EmojiExtractTextLayout.ButtonOnclickListener implements android.view.View.OnClickListener {
+    ctor EmojiExtractTextLayout.ButtonOnclickListener(android.inputmethodservice.InputMethodService!);
+    field private final android.inputmethodservice.InputMethodService! mInputMethodService;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) final class EmojiInputConnection extends android.view.inputmethod.InputConnectionWrapper {
+    ctor EmojiInputConnection(android.widget.TextView, android.view.inputmethod.InputConnection, android.view.inputmethod.EditorInfo);
+    method private android.text.Editable! getEditable();
+    field private final android.widget.TextView! mTextView;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) final class EmojiInputFilter implements android.text.InputFilter {
+    ctor EmojiInputFilter(android.widget.TextView);
+    method private androidx.emoji.text.EmojiCompat.InitCallback! getInitCallback();
+    method static void updateSelection(android.text.Spannable!, int, int);
+    field private androidx.emoji.text.EmojiCompat.InitCallback! mInitCallback;
+    field private final android.widget.TextView! mTextView;
+  }
+
+  private static class EmojiInputFilter.InitCallbackImpl extends androidx.emoji.text.EmojiCompat.InitCallback {
+    ctor EmojiInputFilter.InitCallbackImpl(android.widget.TextView!);
+    field private final java.lang.ref.Reference<android.widget.TextView>! mViewRef;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) final class EmojiKeyListener implements android.text.method.KeyListener {
+    ctor EmojiKeyListener(android.text.method.KeyListener!);
+    field private final android.text.method.KeyListener! mKeyListener;
+  }
+
+  public class EmojiTextView extends android.widget.TextView {
+    method private androidx.emoji.widget.EmojiTextViewHelper! getEmojiTextViewHelper();
+    method private void init();
+    field private androidx.emoji.widget.EmojiTextViewHelper! mEmojiTextViewHelper;
+    field private boolean mInitialized;
+  }
+
+  public final class EmojiTextViewHelper {
+    field private final androidx.emoji.widget.EmojiTextViewHelper.HelperInternal! mHelper;
+  }
+
+  static class EmojiTextViewHelper.HelperInternal {
+    ctor EmojiTextViewHelper.HelperInternal();
+    method android.text.InputFilter[]! getFilters(android.text.InputFilter[]);
+    method void setAllCaps(boolean);
+    method void updateTransformationMethod();
+    method android.text.method.TransformationMethod! wrapTransformationMethod(android.text.method.TransformationMethod!);
+  }
+
+  @RequiresApi(19) private static class EmojiTextViewHelper.HelperInternal19 extends androidx.emoji.widget.EmojiTextViewHelper.HelperInternal {
+    ctor EmojiTextViewHelper.HelperInternal19(android.widget.TextView!);
+    method android.text.InputFilter[]! getFilters(android.text.InputFilter[]);
+    method void setAllCaps(boolean);
+    method void updateTransformationMethod();
+    method android.text.method.TransformationMethod! wrapTransformationMethod(android.text.method.TransformationMethod!);
+    field private final androidx.emoji.widget.EmojiInputFilter! mEmojiInputFilter;
+    field private final android.widget.TextView! mTextView;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) final class EmojiTextWatcher implements android.text.TextWatcher {
+    ctor EmojiTextWatcher(android.widget.EditText!);
+    method int getEmojiReplaceStrategy();
+    method private androidx.emoji.text.EmojiCompat.InitCallback! getInitCallback();
+    method int getMaxEmojiCount();
+    method void setEmojiReplaceStrategy(int);
+    method void setMaxEmojiCount(int);
+    field private final android.widget.EditText! mEditText;
+    field private int mEmojiReplaceStrategy;
+    field private androidx.emoji.text.EmojiCompat.InitCallback! mInitCallback;
+    field private int mMaxEmojiCount;
+  }
+
+  private static class EmojiTextWatcher.InitCallbackImpl extends androidx.emoji.text.EmojiCompat.InitCallback {
+    ctor EmojiTextWatcher.InitCallbackImpl(android.widget.EditText!);
+    field private final java.lang.ref.Reference<android.widget.EditText>! mViewRef;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) class EmojiTransformationMethod implements android.text.method.TransformationMethod {
+    ctor EmojiTransformationMethod(android.text.method.TransformationMethod!);
+    field private final android.text.method.TransformationMethod! mTransformationMethod;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ExtractButtonCompat extends android.widget.Button {
+    ctor public ExtractButtonCompat(android.content.Context!);
+    ctor public ExtractButtonCompat(android.content.Context!, android.util.AttributeSet!);
+    ctor public ExtractButtonCompat(android.content.Context!, android.util.AttributeSet!, int);
+    ctor @RequiresApi(api=android.os.Build.VERSION_CODES.LOLLIPOP) public ExtractButtonCompat(android.content.Context!, android.util.AttributeSet!, int, int);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class SpannableBuilder extends android.text.SpannableStringBuilder {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) SpannableBuilder(Class<?>);
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) SpannableBuilder(Class<?>, CharSequence);
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) SpannableBuilder(Class<?>, CharSequence, int, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void beginBatchEdit();
+    method private void blockWatchers();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) static androidx.emoji.widget.SpannableBuilder! create(Class<?>, CharSequence);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void endBatchEdit();
+    method private void fireWatchers();
+    method private androidx.emoji.widget.SpannableBuilder.WatcherWrapper! getWatcherFor(Object!);
+    method private boolean isWatcher(Object?);
+    method private boolean isWatcher(Class<?>);
+    method private void unblockwatchers();
+    field private final Class<?>! mWatcherClass;
+    field private final java.util.List<androidx.emoji.widget.SpannableBuilder.WatcherWrapper>! mWatchers;
+  }
+
+  private static class SpannableBuilder.WatcherWrapper implements android.text.SpanWatcher android.text.TextWatcher {
+    ctor SpannableBuilder.WatcherWrapper(Object!);
+    method final void blockCalls();
+    method private boolean isEmojiSpan(Object!);
+    method final void unblockCalls();
+    field private final java.util.concurrent.atomic.AtomicInteger! mBlockCalls;
+    field final Object! mObject;
+  }
+
+}
+

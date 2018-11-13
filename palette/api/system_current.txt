@@ -1,0 +1,148 @@
+// Signature format: 2.0
+package androidx.palette.graphics {
+
+  final class ColorCutQuantizer {
+    ctor ColorCutQuantizer(int[]!, int, androidx.palette.graphics.Palette.Filter[]!);
+    method static int approximateToRgb888(int, int, int);
+    method private static int approximateToRgb888(int);
+    method private java.util.List<androidx.palette.graphics.Palette.Swatch>! generateAverageColors(java.util.Collection<androidx.palette.graphics.ColorCutQuantizer.Vbox>!);
+    method java.util.List<androidx.palette.graphics.Palette.Swatch>! getQuantizedColors();
+    method static void modifySignificantOctet(int[]!, int, int, int);
+    method private static int modifyWordWidth(int, int, int);
+    method private static int quantizeFromRgb888(int);
+    method private java.util.List<androidx.palette.graphics.Palette.Swatch>! quantizePixels(int);
+    method static int quantizedBlue(int);
+    method static int quantizedGreen(int);
+    method static int quantizedRed(int);
+    method private boolean shouldIgnoreColor(int);
+    method private boolean shouldIgnoreColor(androidx.palette.graphics.Palette.Swatch!);
+    method private boolean shouldIgnoreColor(int, float[]!);
+    method private void splitBoxes(java.util.PriorityQueue<androidx.palette.graphics.ColorCutQuantizer.Vbox>!, int);
+    field static final int COMPONENT_BLUE = -1; // 0xffffffff
+    field static final int COMPONENT_GREEN = -2; // 0xfffffffe
+    field static final int COMPONENT_RED = -3; // 0xfffffffd
+    field private static final String LOG_TAG = "ColorCutQuantizer";
+    field private static final boolean LOG_TIMINGS = false;
+    field private static final int QUANTIZE_WORD_MASK = 31; // 0x1f
+    field private static final int QUANTIZE_WORD_WIDTH = 5; // 0x5
+    field private static final java.util.Comparator<androidx.palette.graphics.ColorCutQuantizer.Vbox>! VBOX_COMPARATOR_VOLUME;
+    field final int[]! mColors;
+    field final androidx.palette.graphics.Palette.Filter[]! mFilters;
+    field final int[]! mHistogram;
+    field final java.util.List<androidx.palette.graphics.Palette.Swatch>! mQuantizedColors;
+    field private final float[]! mTempHsl;
+    field final android.util.TimingLogger? mTimingLogger;
+  }
+
+  private class ColorCutQuantizer.Vbox {
+    ctor ColorCutQuantizer.Vbox(int, int);
+    method final boolean canSplit();
+    method final int findSplitPoint();
+    method final void fitBox();
+    method final androidx.palette.graphics.Palette.Swatch! getAverageColor();
+    method final int getColorCount();
+    method final int getLongestColorDimension();
+    method final int getVolume();
+    method final androidx.palette.graphics.ColorCutQuantizer.Vbox! splitBox();
+    field private int mLowerIndex;
+    field private int mMaxBlue;
+    field private int mMaxGreen;
+    field private int mMaxRed;
+    field private int mMinBlue;
+    field private int mMinGreen;
+    field private int mMinRed;
+    field private int mPopulation;
+    field private int mUpperIndex;
+  }
+
+  public final class Palette {
+    ctor Palette(java.util.List<androidx.palette.graphics.Palette.Swatch>!, java.util.List<androidx.palette.graphics.Target>!);
+    method private androidx.palette.graphics.Palette.Swatch? findDominantSwatch();
+    method void generate();
+    method private float generateScore(androidx.palette.graphics.Palette.Swatch!, androidx.palette.graphics.Target!);
+    method private androidx.palette.graphics.Palette.Swatch? generateScoredTarget(androidx.palette.graphics.Target!);
+    method private androidx.palette.graphics.Palette.Swatch? getMaxScoredSwatchForTarget(androidx.palette.graphics.Target!);
+    method private boolean shouldBeScoredForTarget(androidx.palette.graphics.Palette.Swatch!, androidx.palette.graphics.Target!);
+    field static final int DEFAULT_CALCULATE_NUMBER_COLORS = 16; // 0x10
+    field static final androidx.palette.graphics.Palette.Filter! DEFAULT_FILTER;
+    field static final int DEFAULT_RESIZE_BITMAP_AREA = 12544; // 0x3100
+    field static final String LOG_TAG = "Palette";
+    field static final boolean LOG_TIMINGS = false;
+    field static final float MIN_CONTRAST_BODY_TEXT = 4.5f;
+    field static final float MIN_CONTRAST_TITLE_TEXT = 3.0f;
+    field private final androidx.palette.graphics.Palette.Swatch? mDominantSwatch;
+    field private final java.util.Map<androidx.palette.graphics.Target,androidx.palette.graphics.Palette.Swatch>! mSelectedSwatches;
+    field private final java.util.List<androidx.palette.graphics.Palette.Swatch>! mSwatches;
+    field private final java.util.List<androidx.palette.graphics.Target>! mTargets;
+    field private final android.util.SparseBooleanArray! mUsedColors;
+  }
+
+  public static final class Palette.Builder {
+    method private int[]! getPixelsFromBitmap(android.graphics.Bitmap!);
+    method private android.graphics.Bitmap! scaleBitmapDown(android.graphics.Bitmap!);
+    field private final android.graphics.Bitmap? mBitmap;
+    field private final java.util.List<androidx.palette.graphics.Palette.Filter>! mFilters;
+    field private int mMaxColors;
+    field private android.graphics.Rect? mRegion;
+    field private int mResizeArea;
+    field private int mResizeMaxDimension;
+    field private final java.util.List<androidx.palette.graphics.Palette.Swatch>? mSwatches;
+    field private final java.util.List<androidx.palette.graphics.Target>! mTargets;
+  }
+
+  public static final class Palette.Swatch {
+    method private void ensureTextColorsGenerated();
+    field private final int mBlue;
+    field private int mBodyTextColor;
+    field private boolean mGeneratedTextColors;
+    field private final int mGreen;
+    field private float[]? mHsl;
+    field private final int mPopulation;
+    field private final int mRed;
+    field private final int mRgb;
+    field private int mTitleTextColor;
+  }
+
+  public final class Target {
+    ctor Target();
+    ctor Target(androidx.palette.graphics.Target);
+    method void normalizeWeights();
+    method private static void setDefaultDarkLightnessValues(androidx.palette.graphics.Target!);
+    method private static void setDefaultLightLightnessValues(androidx.palette.graphics.Target!);
+    method private static void setDefaultMutedSaturationValues(androidx.palette.graphics.Target!);
+    method private static void setDefaultNormalLightnessValues(androidx.palette.graphics.Target!);
+    method private static void setDefaultVibrantSaturationValues(androidx.palette.graphics.Target!);
+    method private void setDefaultWeights();
+    method private static void setTargetDefaultValues(float[]!);
+    field static final int INDEX_MAX = 2; // 0x2
+    field static final int INDEX_MIN = 0; // 0x0
+    field static final int INDEX_TARGET = 1; // 0x1
+    field static final int INDEX_WEIGHT_LUMA = 1; // 0x1
+    field static final int INDEX_WEIGHT_POP = 2; // 0x2
+    field static final int INDEX_WEIGHT_SAT = 0; // 0x0
+    field private static final float MAX_DARK_LUMA = 0.45f;
+    field private static final float MAX_MUTED_SATURATION = 0.4f;
+    field private static final float MAX_NORMAL_LUMA = 0.7f;
+    field private static final float MIN_LIGHT_LUMA = 0.55f;
+    field private static final float MIN_NORMAL_LUMA = 0.3f;
+    field private static final float MIN_VIBRANT_SATURATION = 0.35f;
+    field private static final float TARGET_DARK_LUMA = 0.26f;
+    field private static final float TARGET_LIGHT_LUMA = 0.74f;
+    field private static final float TARGET_MUTED_SATURATION = 0.3f;
+    field private static final float TARGET_NORMAL_LUMA = 0.5f;
+    field private static final float TARGET_VIBRANT_SATURATION = 1.0f;
+    field private static final float WEIGHT_LUMA = 0.52f;
+    field private static final float WEIGHT_POPULATION = 0.24f;
+    field private static final float WEIGHT_SATURATION = 0.24f;
+    field boolean mIsExclusive;
+    field final float[]! mLightnessTargets;
+    field final float[]! mSaturationTargets;
+    field final float[]! mWeights;
+  }
+
+  public static final class Target.Builder {
+    field private final androidx.palette.graphics.Target! mTarget;
+  }
+
+}
+

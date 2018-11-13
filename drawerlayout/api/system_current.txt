@@ -1,0 +1,135 @@
+// Signature format: 2.0
+package androidx.drawerlayout.widget {
+
+  public class DrawerLayout extends android.view.ViewGroup {
+    method void cancelChildViewTouch();
+    method boolean checkDrawerViewAbsoluteGravity(android.view.View!, int);
+    method void closeDrawers(boolean);
+    method void dispatchOnDrawerClosed(android.view.View!);
+    method void dispatchOnDrawerOpened(android.view.View!);
+    method void dispatchOnDrawerSlide(android.view.View!, float);
+    method private boolean dispatchTransformedGenericPointerEvent(android.view.MotionEvent!, android.view.View!);
+    method android.view.View! findDrawerWithGravity(int);
+    method android.view.View! findOpenDrawer();
+    method android.view.View! findVisibleDrawer();
+    method int getDrawerViewAbsoluteGravity(android.view.View!);
+    method float getDrawerViewOffset(android.view.View!);
+    method private android.view.MotionEvent! getTransformedMotionEvent(android.view.MotionEvent!, android.view.View!);
+    method static String! gravityToString(int);
+    method private static boolean hasOpaqueBackground(android.view.View!);
+    method private boolean hasPeekingDrawer();
+    method private boolean hasVisibleDrawer();
+    method static boolean includeChildForAccessibility(android.view.View!);
+    method boolean isContentView(android.view.View!);
+    method boolean isDrawerView(android.view.View!);
+    method private boolean isInBoundsOfChild(float, float, android.view.View!);
+    method private void mirror(android.graphics.drawable.Drawable!, int);
+    method void moveDrawerToOffset(android.view.View!, float);
+    method private android.graphics.drawable.Drawable! resolveLeftShadow();
+    method private android.graphics.drawable.Drawable! resolveRightShadow();
+    method private void resolveShadowDrawables();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setChildInsets(Object!, boolean);
+    method void setDrawerViewOffset(android.view.View!, float);
+    method private void updateChildrenImportantForAccessibility(android.view.View!, boolean);
+    method void updateDrawerState(int, android.view.View!);
+    field private static final boolean ALLOW_EDGE_LOCK = false;
+    field static final boolean CAN_HIDE_DESCENDANTS;
+    field private static final boolean CHILDREN_DISALLOW_INTERCEPT = true;
+    field private static final int DEFAULT_SCRIM_COLOR = -1728053248; // 0x99000000
+    field private static final int DRAWER_ELEVATION = 10; // 0xa
+    field static final int[]! LAYOUT_ATTRS;
+    field private static final int MIN_DRAWER_MARGIN = 64; // 0x40
+    field private static final int MIN_FLING_VELOCITY = 400; // 0x190
+    field private static final int PEEK_DELAY = 160; // 0xa0
+    field private static final boolean SET_DRAWER_SHADOW_FROM_ELEVATION;
+    field private static final String TAG = "DrawerLayout";
+    field private static final int[]! THEME_ATTRS;
+    field private static final float TOUCH_SLOP_SENSITIVITY = 1.0f;
+    field private final androidx.drawerlayout.widget.DrawerLayout.ChildAccessibilityDelegate! mChildAccessibilityDelegate;
+    field private android.graphics.Rect! mChildHitRect;
+    field private android.graphics.Matrix! mChildInvertedMatrix;
+    field private boolean mChildrenCanceledTouch;
+    field private boolean mDrawStatusBarBackground;
+    field private float mDrawerElevation;
+    field private int mDrawerState;
+    field private boolean mFirstLayout;
+    field private boolean mInLayout;
+    field private float mInitialMotionX;
+    field private float mInitialMotionY;
+    field private Object! mLastInsets;
+    field private final androidx.drawerlayout.widget.DrawerLayout.ViewDragCallback! mLeftCallback;
+    field private final androidx.customview.widget.ViewDragHelper! mLeftDragger;
+    field private androidx.drawerlayout.widget.DrawerLayout.DrawerListener? mListener;
+    field private java.util.List<androidx.drawerlayout.widget.DrawerLayout.DrawerListener>! mListeners;
+    field private int mLockModeEnd;
+    field private int mLockModeLeft;
+    field private int mLockModeRight;
+    field private int mLockModeStart;
+    field private int mMinDrawerMargin;
+    field private final java.util.ArrayList<android.view.View>! mNonDrawerViews;
+    field private final androidx.drawerlayout.widget.DrawerLayout.ViewDragCallback! mRightCallback;
+    field private final androidx.customview.widget.ViewDragHelper! mRightDragger;
+    field private int mScrimColor;
+    field private float mScrimOpacity;
+    field private android.graphics.Paint! mScrimPaint;
+    field private android.graphics.drawable.Drawable! mShadowEnd;
+    field private android.graphics.drawable.Drawable! mShadowLeft;
+    field private android.graphics.drawable.Drawable! mShadowLeftResolved;
+    field private android.graphics.drawable.Drawable! mShadowRight;
+    field private android.graphics.drawable.Drawable! mShadowRightResolved;
+    field private android.graphics.drawable.Drawable! mShadowStart;
+    field private android.graphics.drawable.Drawable! mStatusBarBackground;
+    field private CharSequence! mTitleLeft;
+    field private CharSequence! mTitleRight;
+  }
+
+  class DrawerLayout.AccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor DrawerLayout.AccessibilityDelegate();
+    method private void addChildrenForAccessibility(androidx.core.view.accessibility.AccessibilityNodeInfoCompat!, android.view.ViewGroup!);
+    method private void copyNodeInfoNoChildren(androidx.core.view.accessibility.AccessibilityNodeInfoCompat!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    field private final android.graphics.Rect! mTmpRect;
+  }
+
+  static final class DrawerLayout.ChildAccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor DrawerLayout.ChildAccessibilityDelegate();
+  }
+
+  @IntDef(value={android.view.Gravity.LEFT, android.view.Gravity.RIGHT, androidx.core.view.GravityCompat.START, androidx.core.view.GravityCompat.END}, flag=true) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface DrawerLayout.EdgeGravity {
+  }
+
+  public static class DrawerLayout.LayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    field private static final int FLAG_IS_CLOSING = 4; // 0x4
+    field private static final int FLAG_IS_OPENED = 1; // 0x1
+    field private static final int FLAG_IS_OPENING = 2; // 0x2
+    field boolean isPeeking;
+    field float onScreen;
+    field int openState;
+  }
+
+  @IntDef({androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED, androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED, androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_OPEN, androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNDEFINED}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface DrawerLayout.LockMode {
+  }
+
+  protected static class DrawerLayout.SavedState extends androidx.customview.view.AbsSavedState {
+    field int lockModeEnd;
+    field int lockModeLeft;
+    field int lockModeRight;
+    field int lockModeStart;
+    field int openDrawerGravity;
+  }
+
+  @IntDef({androidx.drawerlayout.widget.DrawerLayout.STATE_IDLE, androidx.drawerlayout.widget.DrawerLayout.STATE_DRAGGING, androidx.drawerlayout.widget.DrawerLayout.STATE_SETTLING}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface DrawerLayout.State {
+  }
+
+  private class DrawerLayout.ViewDragCallback extends androidx.customview.widget.ViewDragHelper.Callback {
+    ctor DrawerLayout.ViewDragCallback(int);
+    method private void closeOtherDrawer();
+    method void peekDrawer();
+    method public void removeCallbacks();
+    method public void setDragger(androidx.customview.widget.ViewDragHelper!);
+    field private final int mAbsGravity;
+    field private androidx.customview.widget.ViewDragHelper! mDragger;
+    field private final Runnable! mPeekRunnable;
+  }
+
+}
+

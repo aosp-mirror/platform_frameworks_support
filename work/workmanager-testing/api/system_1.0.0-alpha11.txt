@@ -1,0 +1,33 @@
+// Signature format: 2.0
+package androidx.work.testing {
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) class TestScheduler implements androidx.work.impl.ExecutionListener androidx.work.impl.Scheduler {
+    ctor TestScheduler();
+    method private void scheduleInternal(java.util.Collection<java.lang.String>!);
+    method void setAllConstraintsMet(java.util.UUID);
+    method void setInitialDelayMet(java.util.UUID);
+    method void setPeriodDelayMet(java.util.UUID);
+    field private final java.util.Map<java.lang.String,androidx.work.testing.TestScheduler.InternalWorkState>! mInternalWorkStates;
+    field private static final Object! sLock;
+  }
+
+  private static class TestScheduler.InternalWorkState {
+    ctor TestScheduler.InternalWorkState(androidx.work.impl.model.WorkSpec);
+    method boolean isRunnable();
+    method void reset();
+    field boolean mConstraintsMet;
+    field boolean mInitialDelayMet;
+    field boolean mPeriodDelayMet;
+    field androidx.work.impl.model.WorkSpec mWorkSpec;
+  }
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) abstract class TestWorkManagerImpl extends androidx.work.impl.WorkManagerImpl implements androidx.work.testing.TestDriver {
+    ctor TestWorkManagerImpl(android.content.Context, androidx.work.Configuration);
+  }
+
+  public final class WorkManagerTestInitHelper {
+    ctor private WorkManagerTestInitHelper();
+  }
+
+}
+

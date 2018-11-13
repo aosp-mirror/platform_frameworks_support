@@ -1,0 +1,23 @@
+// Signature format: 2.0
+package androidx.interpolator.view.animation {
+
+  public class FastOutLinearInInterpolator extends androidx.interpolator.view.animation.LookupTableInterpolator implements android.view.animation.Interpolator {
+    field private static final float[]! VALUES;
+  }
+
+  public class FastOutSlowInInterpolator extends androidx.interpolator.view.animation.LookupTableInterpolator implements android.view.animation.Interpolator {
+    field private static final float[]! VALUES;
+  }
+
+  public class LinearOutSlowInInterpolator extends androidx.interpolator.view.animation.LookupTableInterpolator implements android.view.animation.Interpolator {
+    field private static final float[]! VALUES;
+  }
+
+  abstract class LookupTableInterpolator implements android.view.animation.Interpolator {
+    ctor protected LookupTableInterpolator(float[]!);
+    field private final float mStepSize;
+    field private final float[]! mValues;
+  }
+
+}
+

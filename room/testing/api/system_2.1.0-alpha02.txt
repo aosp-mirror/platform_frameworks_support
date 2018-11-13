@@ -1,0 +1,41 @@
+// Signature format: 2.0
+package androidx.room.testing {
+
+  public class MigrationTestHelper extends org.junit.rules.TestWatcher {
+    method private static int findPrimaryKeyPosition(androidx.room.migration.bundle.EntityBundle!, androidx.room.migration.bundle.FieldBundle!);
+    method private androidx.room.migration.bundle.SchemaBundle! loadSchema(int) throws java.io.IOException;
+    method private androidx.room.migration.bundle.SchemaBundle! loadSchema(android.content.Context!, int) throws java.io.IOException;
+    method private androidx.sqlite.db.SupportSQLiteDatabase! openDatabase(String!, androidx.room.RoomOpenHelper!);
+    method private static androidx.room.util.TableInfo.Column! toColumn(androidx.room.migration.bundle.EntityBundle!, androidx.room.migration.bundle.FieldBundle!);
+    method private static java.util.Map<java.lang.String,androidx.room.util.TableInfo.Column>! toColumnMap(androidx.room.migration.bundle.EntityBundle!);
+    method private static java.util.Set<java.lang.String>! toColumnNamesSet(androidx.room.migration.bundle.EntityBundle!);
+    method private static java.util.Set<androidx.room.util.TableInfo.ForeignKey>! toForeignKeys(java.util.List<androidx.room.migration.bundle.ForeignKeyBundle>!);
+    method static androidx.room.util.FtsTableInfo! toFtsTableInfo(androidx.room.migration.bundle.FtsEntityBundle!);
+    method private static java.util.Set<androidx.room.util.TableInfo.Index>! toIndices(java.util.List<androidx.room.migration.bundle.IndexBundle>!);
+    method static androidx.room.util.TableInfo! toTableInfo(androidx.room.migration.bundle.EntityBundle!);
+    method static androidx.room.util.ViewInfo! toViewInfo(androidx.room.migration.bundle.DatabaseViewBundle!);
+    field private static final String TAG = "MigrationTestHelper";
+    field private final String! mAssetsFolder;
+    field private android.app.Instrumentation! mInstrumentation;
+    field private java.util.List<java.lang.ref.WeakReference<androidx.sqlite.db.SupportSQLiteDatabase>>! mManagedDatabases;
+    field private java.util.List<java.lang.ref.WeakReference<androidx.room.RoomDatabase>>! mManagedRoomDatabases;
+    field private final androidx.sqlite.db.SupportSQLiteOpenHelper.Factory! mOpenFactory;
+    field private boolean mTestStarted;
+  }
+
+  static class MigrationTestHelper.CreatingDelegate extends androidx.room.testing.MigrationTestHelper.RoomOpenHelperDelegate {
+    ctor MigrationTestHelper.CreatingDelegate(androidx.room.migration.bundle.DatabaseBundle!);
+  }
+
+  static class MigrationTestHelper.MigratingDelegate extends androidx.room.testing.MigrationTestHelper.RoomOpenHelperDelegate {
+    ctor MigrationTestHelper.MigratingDelegate(androidx.room.migration.bundle.DatabaseBundle!, boolean);
+    field private final boolean mVerifyDroppedTables;
+  }
+
+  abstract static class MigrationTestHelper.RoomOpenHelperDelegate extends androidx.room.RoomOpenHelper.Delegate {
+    ctor MigrationTestHelper.RoomOpenHelperDelegate(androidx.room.migration.bundle.DatabaseBundle!);
+    field final androidx.room.migration.bundle.DatabaseBundle! mDatabaseBundle;
+  }
+
+}
+

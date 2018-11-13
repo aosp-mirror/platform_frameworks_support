@@ -1,0 +1,26 @@
+// Signature format: 2.0
+package androidx.emoji.widget {
+
+  public class EmojiAppCompatButton extends androidx.appcompat.widget.AppCompatButton {
+    method private androidx.emoji.widget.EmojiTextViewHelper! getEmojiTextViewHelper();
+    method private void init();
+    field private androidx.emoji.widget.EmojiTextViewHelper! mEmojiTextViewHelper;
+    field private boolean mInitialized;
+  }
+
+  public class EmojiAppCompatEditText extends androidx.appcompat.widget.AppCompatEditText {
+    method private androidx.emoji.widget.EmojiEditTextHelper! getEmojiEditTextHelper();
+    method private void init(android.util.AttributeSet?, int);
+    field private androidx.emoji.widget.EmojiEditTextHelper! mEmojiEditTextHelper;
+    field private boolean mInitialized;
+  }
+
+  public class EmojiAppCompatTextView extends androidx.appcompat.widget.AppCompatTextView {
+    method private androidx.emoji.widget.EmojiTextViewHelper! getEmojiTextViewHelper();
+    method private void init();
+    field private androidx.emoji.widget.EmojiTextViewHelper! mEmojiTextViewHelper;
+    field private boolean mInitialized;
+  }
+
+}
+

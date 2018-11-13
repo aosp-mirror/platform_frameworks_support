@@ -1,0 +1,15 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public abstract class AbstractSavedStateRegistry<S> implements androidx.lifecycle.SavedStateRegistry<S> {
+    field private androidx.arch.core.internal.SafeIterableMap<java.lang.String,androidx.lifecycle.SavedStateRegistry.SavedStateProvider<S>>! mComponents;
+    field private boolean mRestored;
+    field private java.util.Map<java.lang.String,S>! mSavedState;
+  }
+
+  public final class BundleSavedStateRegistry extends androidx.lifecycle.AbstractSavedStateRegistry<android.os.Bundle> {
+    field private static final String SAVED_COMPONENTS_KEY = "androidx.lifecycle.BundlableSavedStateRegistry.key";
+  }
+
+}
+

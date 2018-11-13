@@ -1,0 +1,19 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  internal final class CloseableCoroutineScope implements java.io.Closeable kotlinx.coroutines.CoroutineScope {
+    ctor public CloseableCoroutineScope(kotlin.coroutines.CoroutineContext context);
+    property public kotlin.coroutines.CoroutineContext coroutineContext;
+    field private final kotlin.coroutines.CoroutineContext coroutineContext;
+  }
+
+  public final class ViewModelKt {
+    field private static final String JOB_KEY = "androidx.lifecycle.ViewModelCoroutineScope.JOB_KEY";
+  }
+
+  public final class ViewModelProviderKt {
+    method @MainThread private static <VM extends androidx.lifecycle.ViewModel> VM! get(androidx.lifecycle.ViewModelProvider);
+  }
+
+}
+

@@ -1,0 +1,208 @@
+// Signature format: 2.0
+package androidx.swiperefreshlayout.widget {
+
+  class CircleImageView extends android.widget.ImageView {
+    ctor CircleImageView(android.content.Context!, int);
+    method private boolean elevationSupported();
+    method public void setAnimationListener(android.view.animation.Animation.AnimationListener!);
+    method public void setBackgroundColorRes(int);
+    field private static final int FILL_SHADOW_COLOR = 1023410176; // 0x3d000000
+    field private static final int KEY_SHADOW_COLOR = 503316480; // 0x1e000000
+    field private static final int SHADOW_ELEVATION = 4; // 0x4
+    field private static final float SHADOW_RADIUS = 3.5f;
+    field private static final float X_OFFSET = 0.0f;
+    field private static final float Y_OFFSET = 1.75f;
+    field private android.view.animation.Animation.AnimationListener! mListener;
+    field int mShadowRadius;
+  }
+
+  private class CircleImageView.OvalShadow extends android.graphics.drawable.shapes.OvalShape {
+    ctor CircleImageView.OvalShadow(int);
+    method private void updateRadialGradient(int);
+    field private android.graphics.RadialGradient! mRadialGradient;
+    field private android.graphics.Paint! mShadowPaint;
+  }
+
+  public class CircularProgressDrawable extends android.graphics.drawable.Drawable implements android.graphics.drawable.Animatable {
+    method private void applyFinishTranslation(float, androidx.swiperefreshlayout.widget.CircularProgressDrawable.Ring!);
+    method void applyTransformation(float, androidx.swiperefreshlayout.widget.CircularProgressDrawable.Ring!, boolean);
+    method private int evaluateColorChange(float, int, int);
+    method private float getRotation();
+    method private void setRotation(float);
+    method private void setSizeParameters(float, float, float, float);
+    method private void setupAnimators();
+    method void updateRingColor(float, androidx.swiperefreshlayout.widget.CircularProgressDrawable.Ring!);
+    field private static final int ANIMATION_DURATION = 1332; // 0x534
+    field private static final int ARROW_HEIGHT = 5; // 0x5
+    field private static final int ARROW_HEIGHT_LARGE = 6; // 0x6
+    field private static final int ARROW_WIDTH = 10; // 0xa
+    field private static final int ARROW_WIDTH_LARGE = 12; // 0xc
+    field private static final float CENTER_RADIUS = 7.5f;
+    field private static final float CENTER_RADIUS_LARGE = 11.0f;
+    field private static final int[]! COLORS;
+    field private static final float COLOR_CHANGE_OFFSET = 0.75f;
+    field private static final float GROUP_FULL_ROTATION = 216.0f;
+    field private static final android.view.animation.Interpolator! LINEAR_INTERPOLATOR;
+    field private static final android.view.animation.Interpolator! MATERIAL_INTERPOLATOR;
+    field private static final float MAX_PROGRESS_ARC = 0.8f;
+    field private static final float MIN_PROGRESS_ARC = 0.01f;
+    field private static final float RING_ROTATION = 0.20999998f;
+    field private static final float SHRINK_OFFSET = 0.5f;
+    field private static final float STROKE_WIDTH = 2.5f;
+    field private static final float STROKE_WIDTH_LARGE = 3.0f;
+    field private android.animation.Animator! mAnimator;
+    field boolean mFinishing;
+    field private android.content.res.Resources! mResources;
+    field private final androidx.swiperefreshlayout.widget.CircularProgressDrawable.Ring! mRing;
+    field private float mRotation;
+    field float mRotationCount;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.swiperefreshlayout.widget.CircularProgressDrawable.LARGE, androidx.swiperefreshlayout.widget.CircularProgressDrawable.DEFAULT}) public static @interface CircularProgressDrawable.ProgressDrawableSize {
+  }
+
+  private static class CircularProgressDrawable.Ring {
+    ctor CircularProgressDrawable.Ring();
+    method void draw(android.graphics.Canvas!, android.graphics.Rect!);
+    method void drawTriangle(android.graphics.Canvas!, float, float, android.graphics.RectF!);
+    method int getAlpha();
+    method float getArrowHeight();
+    method float getArrowScale();
+    method float getArrowWidth();
+    method int getBackgroundColor();
+    method float getCenterRadius();
+    method int[]! getColors();
+    method float getEndTrim();
+    method int getNextColor();
+    method int getNextColorIndex();
+    method float getRotation();
+    method boolean getShowArrow();
+    method float getStartTrim();
+    method int getStartingColor();
+    method float getStartingEndTrim();
+    method float getStartingRotation();
+    method float getStartingStartTrim();
+    method android.graphics.Paint.Cap! getStrokeCap();
+    method float getStrokeWidth();
+    method void goToNextColor();
+    method void resetOriginals();
+    method void setAlpha(int);
+    method void setArrowDimensions(float, float);
+    method void setArrowScale(float);
+    method void setBackgroundColor(int);
+    method void setCenterRadius(float);
+    method void setColor(int);
+    method void setColorFilter(android.graphics.ColorFilter!);
+    method void setColorIndex(int);
+    method void setColors(int[]);
+    method void setEndTrim(float);
+    method void setRotation(float);
+    method void setShowArrow(boolean);
+    method void setStartTrim(float);
+    method void setStrokeCap(android.graphics.Paint.Cap!);
+    method void setStrokeWidth(float);
+    method void storeOriginals();
+    field int mAlpha;
+    field android.graphics.Path! mArrow;
+    field int mArrowHeight;
+    field final android.graphics.Paint! mArrowPaint;
+    field float mArrowScale;
+    field int mArrowWidth;
+    field final android.graphics.Paint! mCirclePaint;
+    field int mColorIndex;
+    field int[]! mColors;
+    field int mCurrentColor;
+    field float mEndTrim;
+    field final android.graphics.Paint! mPaint;
+    field float mRingCenterRadius;
+    field float mRotation;
+    field boolean mShowArrow;
+    field float mStartTrim;
+    field float mStartingEndTrim;
+    field float mStartingRotation;
+    field float mStartingStartTrim;
+    field float mStrokeWidth;
+    field final android.graphics.RectF! mTempBounds;
+  }
+
+  public class SwipeRefreshLayout extends android.view.ViewGroup implements androidx.core.view.NestedScrollingChild androidx.core.view.NestedScrollingChild2 androidx.core.view.NestedScrollingChild3 androidx.core.view.NestedScrollingParent androidx.core.view.NestedScrollingParent2 androidx.core.view.NestedScrollingParent3 {
+    method private void animateOffsetToCorrectPosition(int, android.view.animation.Animation.AnimationListener!);
+    method private void animateOffsetToStartPosition(int, android.view.animation.Animation.AnimationListener!);
+    method private void createProgressView();
+    method private void ensureTarget();
+    method private void finishSpinner(float);
+    method private boolean isAnimationRunning(android.view.animation.Animation!);
+    method private void moveSpinner(float);
+    method void moveToStart(float);
+    method private void onSecondaryPointerUp(android.view.MotionEvent!);
+    method void reset();
+    method void setAnimationProgress(float);
+    method private void setColorViewAlpha(int);
+    method private void setRefreshing(boolean, boolean);
+    method void setTargetOffsetTopAndBottom(int);
+    method private android.view.animation.Animation! startAlphaAnimation(int, int);
+    method private void startDragging(float);
+    method private void startProgressAlphaMaxAnimation();
+    method private void startProgressAlphaStartAnimation();
+    method void startScaleDownAnimation(android.view.animation.Animation.AnimationListener!);
+    method private void startScaleDownReturnToStartAnimation(int, android.view.animation.Animation.AnimationListener!);
+    method private void startScaleUpAnimation(android.view.animation.Animation.AnimationListener!);
+    field private static final int ALPHA_ANIMATION_DURATION = 300; // 0x12c
+    field private static final int ANIMATE_TO_START_DURATION = 200; // 0xc8
+    field private static final int ANIMATE_TO_TRIGGER_DURATION = 200; // 0xc8
+    field private static final int CIRCLE_BG_LIGHT = -328966; // 0xfffafafa
+    field @VisibleForTesting static final int CIRCLE_DIAMETER = 40; // 0x28
+    field @VisibleForTesting static final int CIRCLE_DIAMETER_LARGE = 56; // 0x38
+    field private static final float DECELERATE_INTERPOLATION_FACTOR = 2.0f;
+    field private static final int DEFAULT_CIRCLE_TARGET = 64; // 0x40
+    field private static final float DRAG_RATE = 0.5f;
+    field private static final int INVALID_POINTER = -1; // 0xffffffff
+    field private static final int[]! LAYOUT_ATTRS;
+    field private static final String! LOG_TAG;
+    field private static final int MAX_ALPHA = 255; // 0xff
+    field private static final float MAX_PROGRESS_ANGLE = 0.8f;
+    field private static final int SCALE_DOWN_DURATION = 150; // 0x96
+    field private static final int STARTING_PROGRESS_ALPHA = 76; // 0x4c
+    field private int mActivePointerId;
+    field private android.view.animation.Animation! mAlphaMaxAnimation;
+    field private android.view.animation.Animation! mAlphaStartAnimation;
+    field private final android.view.animation.Animation! mAnimateToCorrectPosition;
+    field private final android.view.animation.Animation! mAnimateToStartPosition;
+    field private androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnChildScrollUpCallback! mChildScrollUpCallback;
+    field private int mCircleDiameter;
+    field androidx.swiperefreshlayout.widget.CircleImageView! mCircleView;
+    field private int mCircleViewIndex;
+    field int mCurrentTargetOffsetTop;
+    field int mCustomSlingshotDistance;
+    field private final android.view.animation.DecelerateInterpolator! mDecelerateInterpolator;
+    field private float mInitialDownY;
+    field private float mInitialMotionY;
+    field private boolean mIsBeingDragged;
+    field androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener! mListener;
+    field private int mMediumAnimationDuration;
+    field private boolean mNestedScrollInProgress;
+    field private final androidx.core.view.NestedScrollingChildHelper! mNestedScrollingChildHelper;
+    field private final androidx.core.view.NestedScrollingParentHelper! mNestedScrollingParentHelper;
+    field private final int[]! mNestedScrollingV2ConsumedCompat;
+    field boolean mNotify;
+    field private final int[]! mParentOffsetInWindow;
+    field private final int[]! mParentScrollConsumed;
+    field androidx.swiperefreshlayout.widget.CircularProgressDrawable! mProgress;
+    field private android.view.animation.Animation.AnimationListener! mRefreshListener;
+    field boolean mRefreshing;
+    field private boolean mReturningToStart;
+    field boolean mScale;
+    field private android.view.animation.Animation! mScaleAnimation;
+    field private android.view.animation.Animation! mScaleDownAnimation;
+    field private android.view.animation.Animation! mScaleDownToStartAnimation;
+    field int mSpinnerOffsetEnd;
+    field float mStartingScale;
+    field private android.view.View! mTarget;
+    field private float mTotalDragDistance;
+    field private float mTotalUnconsumed;
+    field private int mTouchSlop;
+    field boolean mUsingCustomStart;
+  }
+
+}
+

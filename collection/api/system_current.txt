@@ -1,0 +1,165 @@
+// Signature format: 2.0
+package androidx.collection {
+
+  public class ArrayMap<K, V> extends androidx.collection.SimpleArrayMap<K,V> implements java.util.Map<K,V> {
+    method private androidx.collection.MapCollections<K,V>! getCollection();
+    field androidx.collection.MapCollections<K,V>? mCollections;
+  }
+
+  public final class ArraySet<E> implements java.util.Collection<E> java.util.Set<E> {
+    method private void allocArrays(int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void append(E!);
+    method private static void freeArrays(int[]!, Object[]!, int);
+    method private androidx.collection.MapCollections<E,E>! getCollection();
+    method private int indexOf(Object!, int);
+    method private int indexOfNull();
+    field private static final int BASE_SIZE = 4; // 0x4
+    field private static final int CACHE_SIZE = 10; // 0xa
+    field private static final boolean DEBUG = false;
+    field private static final int[]! INT;
+    field private static final Object[]! OBJECT;
+    field private static final String TAG = "ArraySet";
+    field Object[]! mArray;
+    field private androidx.collection.MapCollections<E,E>! mCollections;
+    field private int[]! mHashes;
+    field int mSize;
+    field private static Object[]? sBaseCache;
+    field private static int sBaseCacheSize;
+    field private static Object[]? sTwiceBaseCache;
+    field private static int sTwiceBaseCacheSize;
+  }
+
+  public final class CircularArray<E> {
+    method private void doubleCapacity();
+    field private int mCapacityBitmask;
+    field private E[]! mElements;
+    field private int mHead;
+    field private int mTail;
+  }
+
+  public final class CircularIntArray {
+    method private void doubleCapacity();
+    field private int mCapacityBitmask;
+    field private int[]! mElements;
+    field private int mHead;
+    field private int mTail;
+  }
+
+  class ContainerHelpers {
+    ctor private ContainerHelpers();
+    method static int binarySearch(int[]!, int, int);
+    method static int binarySearch(long[]!, int, long);
+    method public static boolean equal(Object!, Object!);
+    method public static int idealByteArraySize(int);
+    method public static int idealIntArraySize(int);
+    method public static int idealLongArraySize(int);
+    field static final int[]! EMPTY_INTS;
+    field static final long[]! EMPTY_LONGS;
+    field static final Object[]! EMPTY_OBJECTS;
+  }
+
+  public class LongSparseArray<E> implements java.lang.Cloneable {
+    method private void gc();
+    field private static final Object! DELETED;
+    field private boolean mGarbage;
+    field private long[]! mKeys;
+    field private int mSize;
+    field private Object[]! mValues;
+  }
+
+  public class LruCache<K, V> {
+    method private int safeSizeOf(K!, V!);
+    field private int createCount;
+    field private int evictionCount;
+    field private int hitCount;
+    field private final java.util.LinkedHashMap<K,V>! map;
+    field private int maxSize;
+    field private int missCount;
+    field private int putCount;
+    field private int size;
+  }
+
+  abstract class MapCollections<K, V> {
+    ctor MapCollections();
+    method protected abstract void colClear();
+    method protected abstract Object! colGetEntry(int, int);
+    method protected abstract java.util.Map<K,V>! colGetMap();
+    method protected abstract int colGetSize();
+    method protected abstract int colIndexOfKey(Object!);
+    method protected abstract int colIndexOfValue(Object!);
+    method protected abstract void colPut(K!, V!);
+    method protected abstract void colRemoveAt(int);
+    method protected abstract V! colSetValue(int, V!);
+    method public static <K, V> boolean containsAllHelper(java.util.Map<K,V>!, java.util.Collection<?>!);
+    method public static <T> boolean equalsSetHelper(java.util.Set<T>!, Object!);
+    method public java.util.Set<java.util.Map.Entry<K,V>>! getEntrySet();
+    method public java.util.Set<K>! getKeySet();
+    method public java.util.Collection<V>! getValues();
+    method public static <K, V> boolean removeAllHelper(java.util.Map<K,V>!, java.util.Collection<?>!);
+    method public static <K, V> boolean retainAllHelper(java.util.Map<K,V>!, java.util.Collection<?>!);
+    method public Object[]! toArrayHelper(int);
+    method public <T> T[]! toArrayHelper(T[]!, int);
+    field androidx.collection.MapCollections.EntrySet? mEntrySet;
+    field androidx.collection.MapCollections.KeySet? mKeySet;
+    field androidx.collection.MapCollections.ValuesCollection? mValues;
+  }
+
+  final class MapCollections.ArrayIterator<T> implements java.util.Iterator<T> {
+    ctor MapCollections.ArrayIterator(int);
+    field boolean mCanRemove;
+    field int mIndex;
+    field final int mOffset;
+    field int mSize;
+  }
+
+  final class MapCollections.EntrySet implements java.util.Set<java.util.Map.Entry<K,V>> {
+    ctor MapCollections.EntrySet();
+  }
+
+  final class MapCollections.KeySet implements java.util.Set<K> {
+    ctor MapCollections.KeySet();
+  }
+
+  final class MapCollections.MapIterator implements java.util.Iterator<java.util.Map.Entry<K,V>> java.util.Map.Entry<K,V> {
+    ctor MapCollections.MapIterator();
+    field int mEnd;
+    field boolean mEntryValid;
+    field int mIndex;
+  }
+
+  final class MapCollections.ValuesCollection implements java.util.Collection<V> {
+    ctor MapCollections.ValuesCollection();
+  }
+
+  public class SimpleArrayMap<K, V> {
+    method private void allocArrays(int);
+    method private static int binarySearchHashes(int[]!, int, int);
+    method private static void freeArrays(int[]!, Object[]!, int);
+    method int indexOf(Object!, int);
+    method int indexOfNull();
+    method int indexOfValue(Object!);
+    field private static final int BASE_SIZE = 4; // 0x4
+    field private static final int CACHE_SIZE = 10; // 0xa
+    field private static final boolean CONCURRENT_MODIFICATION_EXCEPTIONS = true;
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "ArrayMap";
+    field Object[]! mArray;
+    field static Object[]? mBaseCache;
+    field static int mBaseCacheSize;
+    field int[]! mHashes;
+    field int mSize;
+    field static Object[]? mTwiceBaseCache;
+    field static int mTwiceBaseCacheSize;
+  }
+
+  public class SparseArrayCompat<E> implements java.lang.Cloneable {
+    method private void gc();
+    field private static final Object! DELETED;
+    field private boolean mGarbage;
+    field private int[]! mKeys;
+    field private int mSize;
+    field private Object[]! mValues;
+  }
+
+}
+

@@ -1,0 +1,107 @@
+// Signature format: 2.0
+package androidx.concurrent.futures {
+
+  public abstract class AbstractResolvableFuture<V> implements com.google.common.util.concurrent.ListenableFuture<V> {
+    method private void addDoneString(StringBuilder!);
+    method private static java.util.concurrent.CancellationException! cancellationExceptionWithCause(String?, Throwable?);
+    method static <T> T checkNotNull(T?);
+    method private androidx.concurrent.futures.AbstractResolvableFuture.Listener! clearListeners(androidx.concurrent.futures.AbstractResolvableFuture.Listener!);
+    method static void complete(androidx.concurrent.futures.AbstractResolvableFuture<?>!);
+    method private static void executeListener(Runnable!, java.util.concurrent.Executor!);
+    method private V! getDoneValue(Object!) throws java.util.concurrent.ExecutionException;
+    method static Object! getFutureValue(com.google.common.util.concurrent.ListenableFuture<?>!);
+    method private static <V> V! getUninterruptibly(java.util.concurrent.Future<V>!) throws java.util.concurrent.ExecutionException;
+    method final void maybePropagateCancellationTo(java.util.concurrent.Future<?>?);
+    method private void releaseWaiters();
+    method private void removeWaiter(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method private String! userObjectToString(Object!);
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.AtomicHelper! ATOMIC_HELPER;
+    field static final boolean GENERATE_CANCELLATION_CAUSES;
+    field private static final Object! NULL;
+    field private static final long SPIN_THRESHOLD_NANOS = 1000L; // 0x3e8L
+    field volatile androidx.concurrent.futures.AbstractResolvableFuture.Listener? listeners;
+    field private static final java.util.logging.Logger! log;
+    field volatile Object? value;
+    field volatile androidx.concurrent.futures.AbstractResolvableFuture.Waiter? waiters;
+  }
+
+  private abstract static class AbstractResolvableFuture.AtomicHelper {
+    ctor private AbstractResolvableFuture.AtomicHelper();
+    method abstract boolean casListeners(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!);
+    method abstract boolean casValue(androidx.concurrent.futures.AbstractResolvableFuture<?>!, Object!, Object!);
+    method abstract boolean casWaiters(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method abstract void putNext(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method abstract void putThread(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, Thread!);
+  }
+
+  private static final class AbstractResolvableFuture.Cancellation {
+    ctor AbstractResolvableFuture.Cancellation(boolean, Throwable?);
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.Cancellation! CAUSELESS_CANCELLED;
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.Cancellation! CAUSELESS_INTERRUPTED;
+    field final Throwable? cause;
+    field final boolean wasInterrupted;
+  }
+
+  private static final class AbstractResolvableFuture.Failure {
+    ctor AbstractResolvableFuture.Failure(Throwable!);
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.Failure! FALLBACK_INSTANCE;
+    field final Throwable! exception;
+  }
+
+  private static final class AbstractResolvableFuture.Listener {
+    ctor AbstractResolvableFuture.Listener(Runnable!, java.util.concurrent.Executor!);
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.Listener! TOMBSTONE;
+    field final java.util.concurrent.Executor! executor;
+    field androidx.concurrent.futures.AbstractResolvableFuture.Listener? next;
+    field final Runnable! task;
+  }
+
+  private static final class AbstractResolvableFuture.SafeAtomicHelper extends androidx.concurrent.futures.AbstractResolvableFuture.AtomicHelper {
+    ctor AbstractResolvableFuture.SafeAtomicHelper(java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture.Waiter,java.lang.Thread>!, java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture.Waiter,androidx.concurrent.futures.AbstractResolvableFuture.Waiter>!, java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,androidx.concurrent.futures.AbstractResolvableFuture.Waiter>!, java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,androidx.concurrent.futures.AbstractResolvableFuture.Listener>!, java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,java.lang.Object>!);
+    method boolean casListeners(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!);
+    method boolean casValue(androidx.concurrent.futures.AbstractResolvableFuture<?>!, Object!, Object!);
+    method boolean casWaiters(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method void putNext(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method void putThread(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, Thread!);
+    field final java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,androidx.concurrent.futures.AbstractResolvableFuture.Listener>! listenersUpdater;
+    field final java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,java.lang.Object>! valueUpdater;
+    field final java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture.Waiter,androidx.concurrent.futures.AbstractResolvableFuture.Waiter>! waiterNextUpdater;
+    field final java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture.Waiter,java.lang.Thread>! waiterThreadUpdater;
+    field final java.util.concurrent.atomic.AtomicReferenceFieldUpdater<androidx.concurrent.futures.AbstractResolvableFuture,androidx.concurrent.futures.AbstractResolvableFuture.Waiter>! waitersUpdater;
+  }
+
+  private static final class AbstractResolvableFuture.SetFuture<V> implements java.lang.Runnable {
+    ctor AbstractResolvableFuture.SetFuture(androidx.concurrent.futures.AbstractResolvableFuture<V>!, com.google.common.util.concurrent.ListenableFuture<? extends V>!);
+    field final com.google.common.util.concurrent.ListenableFuture<? extends V>! future;
+    field final androidx.concurrent.futures.AbstractResolvableFuture<V>! owner;
+  }
+
+  private static final class AbstractResolvableFuture.SynchronizedHelper extends androidx.concurrent.futures.AbstractResolvableFuture.AtomicHelper {
+    ctor AbstractResolvableFuture.SynchronizedHelper();
+    method boolean casListeners(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!, androidx.concurrent.futures.AbstractResolvableFuture.Listener!);
+    method boolean casValue(androidx.concurrent.futures.AbstractResolvableFuture<?>!, Object!, Object!);
+    method boolean casWaiters(androidx.concurrent.futures.AbstractResolvableFuture<?>!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method void putNext(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method void putThread(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!, Thread!);
+  }
+
+  private static final class AbstractResolvableFuture.Waiter {
+    ctor AbstractResolvableFuture.Waiter(boolean);
+    ctor AbstractResolvableFuture.Waiter();
+    method void setNext(androidx.concurrent.futures.AbstractResolvableFuture.Waiter!);
+    method void unpark();
+    field static final androidx.concurrent.futures.AbstractResolvableFuture.Waiter! TOMBSTONE;
+    field volatile androidx.concurrent.futures.AbstractResolvableFuture.Waiter? next;
+    field volatile Thread? thread;
+  }
+
+  enum DirectExecutor implements java.util.concurrent.Executor {
+    enum_constant public static final androidx.concurrent.futures.DirectExecutor INSTANCE;
+  }
+
+  public final class ResolvableFuture<V> extends androidx.concurrent.futures.AbstractResolvableFuture<V> {
+    ctor private ResolvableFuture();
+  }
+
+}
+

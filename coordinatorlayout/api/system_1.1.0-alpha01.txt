@@ -1,0 +1,159 @@
+// Signature format: 2.0
+package androidx.coordinatorlayout.widget {
+
+  public class CoordinatorLayout extends android.view.ViewGroup implements androidx.core.view.NestedScrollingParent2 androidx.core.view.NestedScrollingParent3 {
+    method private static android.graphics.Rect acquireTempRect();
+    method void addPreDrawListener();
+    method private static int clamp(int, int, int);
+    method private void constrainChildRect(androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams!, android.graphics.Rect!, int, int);
+    method private androidx.core.view.WindowInsetsCompat! dispatchApplyWindowInsetsToBehaviors(androidx.core.view.WindowInsetsCompat!);
+    method void ensurePreDrawListener();
+    method void getChildRect(android.view.View!, boolean, android.graphics.Rect!);
+    method @VisibleForTesting final java.util.List<android.view.View>! getDependencySortedChildren();
+    method void getDescendantRect(android.view.View!, android.graphics.Rect!);
+    method void getDesiredAnchoredChildRect(android.view.View!, int, android.graphics.Rect!, android.graphics.Rect!);
+    method private void getDesiredAnchoredChildRectWithoutConstraints(android.view.View!, int, android.graphics.Rect!, android.graphics.Rect!, androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams!, int, int);
+    method private int getKeyline(int);
+    method void getLastChildRect(android.view.View!, android.graphics.Rect!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final androidx.core.view.WindowInsetsCompat! getLastWindowInsets();
+    method androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams! getResolvedLayoutParams(android.view.View!);
+    method private void getTopSortedChildren(java.util.List<android.view.View>!);
+    method private boolean hasDependencies(android.view.View!);
+    method private void layoutChild(android.view.View!, int);
+    method private void layoutChildWithAnchor(android.view.View!, android.view.View!, int);
+    method private void layoutChildWithKeyline(android.view.View!, int, int);
+    method private void offsetChildByInset(android.view.View!, android.graphics.Rect!, int);
+    method void offsetChildToAnchor(android.view.View!, int);
+    method final void onChildViewsChanged(int);
+    method static androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior! parseBehavior(android.content.Context!, android.util.AttributeSet!, String!);
+    method private boolean performIntercept(android.view.MotionEvent!, int);
+    method private void prepareChildren();
+    method void recordLastChildRect(android.view.View!, android.graphics.Rect!);
+    method private static void releaseTempRect(android.graphics.Rect);
+    method void removePreDrawListener();
+    method private void resetTouchBehaviors(boolean);
+    method private static int resolveAnchoredChildGravity(int);
+    method private static int resolveGravity(int);
+    method private static int resolveKeylineGravity(int);
+    method private void setInsetOffsetX(android.view.View!, int);
+    method private void setInsetOffsetY(android.view.View!, int);
+    method final androidx.core.view.WindowInsetsCompat! setWindowInsets(androidx.core.view.WindowInsetsCompat!);
+    method private void setupForInsets();
+    field static final Class<?>[]! CONSTRUCTOR_PARAMS;
+    field static final int EVENT_NESTED_SCROLL = 1; // 0x1
+    field static final int EVENT_PRE_DRAW = 0; // 0x0
+    field static final int EVENT_VIEW_REMOVED = 2; // 0x2
+    field static final String TAG = "CoordinatorLayout";
+    field static final java.util.Comparator<android.view.View>! TOP_SORTED_CHILDREN_COMPARATOR;
+    field private static final int TYPE_ON_INTERCEPT = 0; // 0x0
+    field private static final int TYPE_ON_TOUCH = 1; // 0x1
+    field static final String! WIDGET_PACKAGE_NAME;
+    field private androidx.core.view.OnApplyWindowInsetsListener! mApplyWindowInsetsListener;
+    field private final int[]! mBehaviorConsumed;
+    field private android.view.View! mBehaviorTouchView;
+    field private final androidx.coordinatorlayout.widget.DirectedAcyclicGraph<android.view.View>! mChildDag;
+    field private final java.util.List<android.view.View>! mDependencySortedChildren;
+    field private boolean mDisallowInterceptReset;
+    field private boolean mDrawStatusBarBackground;
+    field private boolean mIsAttachedToWindow;
+    field private int[]! mKeylines;
+    field private androidx.core.view.WindowInsetsCompat! mLastInsets;
+    field private boolean mNeedsPreDrawListener;
+    field private final androidx.core.view.NestedScrollingParentHelper! mNestedScrollingParentHelper;
+    field private android.view.View! mNestedScrollingTarget;
+    field private final int[]! mNestedScrollingV2ConsumedCompat;
+    field android.view.ViewGroup.OnHierarchyChangeListener! mOnHierarchyChangeListener;
+    field private androidx.coordinatorlayout.widget.CoordinatorLayout.OnPreDrawListener! mOnPreDrawListener;
+    field private android.graphics.Paint! mScrimPaint;
+    field private android.graphics.drawable.Drawable! mStatusBarBackground;
+    field private final java.util.List<android.view.View>! mTempDependenciesList;
+    field private final java.util.List<android.view.View>! mTempList1;
+    field static final ThreadLocal<java.util.Map<java.lang.String,java.lang.reflect.Constructor<androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior>>>! sConstructors;
+    field private static final androidx.core.util.Pools.Pool<android.graphics.Rect>! sRectPool;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.coordinatorlayout.widget.CoordinatorLayout.EVENT_PRE_DRAW, androidx.coordinatorlayout.widget.CoordinatorLayout.EVENT_NESTED_SCROLL, androidx.coordinatorlayout.widget.CoordinatorLayout.EVENT_VIEW_REMOVED}) public static @interface CoordinatorLayout.DispatchChangeEvent {
+  }
+
+  private class CoordinatorLayout.HierarchyChangeListener implements android.view.ViewGroup.OnHierarchyChangeListener {
+    ctor CoordinatorLayout.HierarchyChangeListener();
+  }
+
+  public static class CoordinatorLayout.LayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    ctor CoordinatorLayout.LayoutParams(android.content.Context, android.util.AttributeSet?);
+    method boolean checkAnchorChanged();
+    method boolean dependsOn(androidx.coordinatorlayout.widget.CoordinatorLayout!, android.view.View!, android.view.View!);
+    method boolean didBlockInteraction();
+    method android.view.View! findAnchorView(androidx.coordinatorlayout.widget.CoordinatorLayout!, android.view.View!);
+    method boolean getChangedAfterNestedScroll();
+    method android.graphics.Rect! getLastChildRect();
+    method void invalidateAnchor();
+    method boolean isBlockingInteractionBelow(androidx.coordinatorlayout.widget.CoordinatorLayout!, android.view.View!);
+    method boolean isNestedScrollAccepted(int);
+    method void resetChangedAfterNestedScroll();
+    method void resetNestedScroll(int);
+    method void resetTouchBehaviorTracking();
+    method private void resolveAnchorView(android.view.View!, androidx.coordinatorlayout.widget.CoordinatorLayout!);
+    method void setChangedAfterNestedScroll(boolean);
+    method void setLastChildRect(android.graphics.Rect!);
+    method void setNestedScrollAccepted(int, boolean);
+    method private boolean shouldDodge(android.view.View!, int);
+    method private boolean verifyAnchorView(android.view.View!, androidx.coordinatorlayout.widget.CoordinatorLayout!);
+    field android.view.View! mAnchorDirectChild;
+    field int mAnchorId;
+    field android.view.View! mAnchorView;
+    field androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior! mBehavior;
+    field boolean mBehaviorResolved;
+    field Object! mBehaviorTag;
+    field private boolean mDidAcceptNestedScrollNonTouch;
+    field private boolean mDidAcceptNestedScrollTouch;
+    field private boolean mDidBlockInteraction;
+    field private boolean mDidChangeAfterNestedScroll;
+    field int mInsetOffsetX;
+    field int mInsetOffsetY;
+    field final android.graphics.Rect! mLastChildRect;
+  }
+
+  class CoordinatorLayout.OnPreDrawListener implements android.view.ViewTreeObserver.OnPreDrawListener {
+    ctor CoordinatorLayout.OnPreDrawListener();
+  }
+
+  protected static class CoordinatorLayout.SavedState extends androidx.customview.view.AbsSavedState {
+    field android.util.SparseArray<android.os.Parcelable>! behaviorStates;
+  }
+
+  static class CoordinatorLayout.ViewElevationComparator implements java.util.Comparator<android.view.View> {
+    ctor CoordinatorLayout.ViewElevationComparator();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final class DirectedAcyclicGraph<T> {
+    ctor public DirectedAcyclicGraph();
+    method public void addEdge(T, T);
+    method public void addNode(T);
+    method public void clear();
+    method public boolean contains(T);
+    method private void dfs(T!, java.util.ArrayList<T>!, java.util.HashSet<T>!);
+    method private java.util.ArrayList<T> getEmptyList();
+    method public java.util.List? getIncomingEdges(T);
+    method public java.util.List<T>? getOutgoingEdges(T);
+    method public java.util.ArrayList<T> getSortedList();
+    method public boolean hasOutgoingEdges(T);
+    method private void poolList(java.util.ArrayList<T>);
+    method int size();
+    field private final androidx.collection.SimpleArrayMap<T,java.util.ArrayList<T>>! mGraph;
+    field private final androidx.core.util.Pools.Pool<java.util.ArrayList<T>>! mListPool;
+    field private final java.util.ArrayList<T>! mSortResult;
+    field private final java.util.HashSet<T>! mSortTmpMarked;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public class ViewGroupUtils {
+    ctor private ViewGroupUtils();
+    method public static void getDescendantRect(android.view.ViewGroup!, android.view.View!, android.graphics.Rect!);
+    method private static void offsetDescendantMatrix(android.view.ViewParent!, android.view.View!, android.graphics.Matrix!);
+    method static void offsetDescendantRect(android.view.ViewGroup!, android.view.View!, android.graphics.Rect!);
+    field private static final ThreadLocal<android.graphics.Matrix>! sMatrix;
+    field private static final ThreadLocal<android.graphics.RectF>! sRectF;
+  }
+
+}
+

@@ -1,0 +1,30 @@
+// Signature format: 2.0
+package androidx.paging {
+
+  public final class RxPagedListBuilder<Key, Value> {
+    field private androidx.paging.PagedList.BoundaryCallback! mBoundaryCallback;
+    field private androidx.paging.PagedList.Config! mConfig;
+    field private androidx.paging.DataSource.Factory<Key,Value>! mDataSourceFactory;
+    field private java.util.concurrent.Executor! mFetchExecutor;
+    field private io.reactivex.Scheduler! mFetchScheduler;
+    field private Key! mInitialLoadKey;
+    field private java.util.concurrent.Executor! mNotifyExecutor;
+    field private io.reactivex.Scheduler! mNotifyScheduler;
+  }
+
+  static class RxPagedListBuilder.PagingObservableOnSubscribe<Key, Value> implements io.reactivex.functions.Cancellable androidx.paging.DataSource.InvalidatedCallback io.reactivex.ObservableOnSubscribe<androidx.paging.PagedList<Value>> java.lang.Runnable {
+    ctor RxPagedListBuilder.PagingObservableOnSubscribe(Key?, androidx.paging.PagedList.Config, androidx.paging.PagedList.BoundaryCallback?, androidx.paging.DataSource.Factory<Key,Value>, java.util.concurrent.Executor, java.util.concurrent.Executor);
+    method private androidx.paging.PagedList<Value>! createPagedList();
+    field private final androidx.paging.PagedList.BoundaryCallback? mBoundaryCallback;
+    field private final androidx.paging.PagedList.Config mConfig;
+    field private androidx.paging.DataSource<Key,Value>? mDataSource;
+    field private final androidx.paging.DataSource.Factory<Key,Value> mDataSourceFactory;
+    field private io.reactivex.ObservableEmitter<androidx.paging.PagedList<Value>>! mEmitter;
+    field private final java.util.concurrent.Executor mFetchExecutor;
+    field private final Key? mInitialLoadKey;
+    field private androidx.paging.PagedList<Value>? mList;
+    field private final java.util.concurrent.Executor mNotifyExecutor;
+  }
+
+}
+

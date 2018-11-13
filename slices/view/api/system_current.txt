@@ -1,0 +1,850 @@
+// Signature format: 2.0
+package androidx.slice {
+
+  @RequiresApi(19) public class SliceMetadata {
+    ctor private SliceMetadata(android.content.Context, androidx.slice.Slice);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static java.util.List<androidx.slice.core.SliceAction>? getSliceActions(androidx.slice.Slice);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public long getTimeToExpiry();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean isExpired();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean neverExpires();
+    field private android.content.Context! mContext;
+    field private long mExpiry;
+    field private androidx.slice.widget.RowContent! mHeaderContent;
+    field private long mLastUpdated;
+    field private androidx.slice.widget.ListContent! mListContent;
+    field private androidx.slice.core.SliceAction! mPrimaryAction;
+    field private androidx.slice.Slice! mSlice;
+    field private java.util.List<androidx.slice.core.SliceAction>! mSliceActions;
+    field private int mTemplateType;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.slice.SliceMetadata.LOADED_NONE, androidx.slice.SliceMetadata.LOADED_PARTIAL, androidx.slice.SliceMetadata.LOADED_ALL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface SliceMetadata.SliceLoadingState {
+  }
+
+  @RequiresApi(19) public class SliceStructure {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public SliceStructure(androidx.slice.SliceItem!);
+    method private static void getStructure(androidx.slice.Slice!, StringBuilder!);
+    method private static void getStructure(androidx.slice.SliceItem!, StringBuilder!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public android.net.Uri? getUri();
+    field private final String! mStructure;
+    field private final android.net.Uri! mUri;
+  }
+
+  @RequiresApi(19) public class SliceUtils {
+    ctor private SliceUtils();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static androidx.core.graphics.drawable.IconCompat! convert(android.content.Context!, androidx.core.graphics.drawable.IconCompat!, androidx.slice.SliceUtils.SerializeOptions!);
+    method private static androidx.slice.Slice.Builder! copyMetadata(androidx.slice.Slice);
+    method private static boolean doesStreamStartWith(String!, java.io.BufferedInputStream!);
+    method static void handleOptions(android.content.Context!, androidx.slice.SliceItemHolder!, String!, androidx.slice.SliceUtils.SerializeOptions!);
+    method static void setActionsAndUpdateIcons(androidx.slice.SliceItemHolder!, androidx.slice.SliceItem.ActionHandler!, android.content.Context!, String!);
+  }
+
+  public static class SliceUtils.SerializeOptions {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void checkThrow(String!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public int getActionMode();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public android.graphics.Bitmap.CompressFormat! getFormat();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public int getImageMode();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public int getMaxHeight();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public int getMaxWidth();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public int getQuality();
+    field private int mActionMode;
+    field private android.graphics.Bitmap.CompressFormat! mFormat;
+    field private int mImageMode;
+    field private int mMaxHeight;
+    field private int mMaxWidth;
+    field private int mQuality;
+  }
+
+  @IntDef({androidx.slice.SliceUtils.SerializeOptions.MODE_THROW, androidx.slice.SliceUtils.SerializeOptions.MODE_REMOVE, androidx.slice.SliceUtils.SerializeOptions.MODE_CONVERT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) static @interface SliceUtils.SerializeOptions.FormatMode {
+  }
+
+  public static class SliceUtils.SliceParseException extends java.lang.Exception {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public SliceUtils.SliceParseException(String!, Throwable!);
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public SliceUtils.SliceParseException(String!);
+  }
+
+  @RequiresApi(19) public abstract class SliceViewManager {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) SliceViewManager();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public abstract class SliceViewManagerBase extends androidx.slice.SliceViewManager {
+    ctor SliceViewManagerBase(android.content.Context!);
+    method private androidx.slice.SliceViewManagerBase.SliceListenerImpl! getListener(android.net.Uri!, androidx.slice.SliceViewManager.SliceCallback!, androidx.slice.SliceViewManagerBase.SliceListenerImpl!);
+    field protected final android.content.Context! mContext;
+    field private final android.util.ArrayMap<android.util.Pair<android.net.Uri,androidx.slice.SliceViewManager.SliceCallback>,androidx.slice.SliceViewManagerBase.SliceListenerImpl>! mListenerLookup;
+  }
+
+  private class SliceViewManagerBase.SliceListenerImpl {
+    ctor SliceViewManagerBase.SliceListenerImpl(android.net.Uri!, java.util.concurrent.Executor!, androidx.slice.SliceViewManager.SliceCallback!);
+    method void startListening();
+    method void stopListening();
+    method void tryPin();
+    field final androidx.slice.SliceViewManager.SliceCallback! mCallback;
+    field final java.util.concurrent.Executor! mExecutor;
+    field private final android.database.ContentObserver! mObserver;
+    field private boolean mPinned;
+    field final Runnable! mUpdateSlice;
+    field android.net.Uri! mUri;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) class SliceViewManagerCompat extends androidx.slice.SliceViewManagerBase {
+    ctor SliceViewManagerCompat(android.content.Context!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(api=28) class SliceViewManagerWrapper extends androidx.slice.SliceViewManagerBase {
+    ctor SliceViewManagerWrapper(android.content.Context!);
+    ctor SliceViewManagerWrapper(android.content.Context!, android.app.slice.SliceManager!);
+    method private boolean isAuthoritySuspended(String!);
+    method private boolean isPackageSuspended(android.content.Intent!);
+    method private boolean isPackageSuspended(String!);
+    field private static final String TAG = "SliceViewManagerWrapper";
+    field private final androidx.collection.ArrayMap<java.lang.String,java.lang.String>! mCachedAuthorities;
+    field private final androidx.collection.ArrayMap<java.lang.String,java.lang.Boolean>! mCachedSuspendFlags;
+    field private final android.app.slice.SliceManager! mManager;
+    field private final java.util.Set<android.app.slice.SliceSpec>! mSpecs;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) class SliceXml {
+    ctor private SliceXml();
+    method public static byte[]! convertToBytes(androidx.core.graphics.drawable.IconCompat!, android.content.Context!, androidx.slice.SliceUtils.SerializeOptions!);
+    method private static String! hintStr(java.util.List<java.lang.String>!);
+    method @androidx.slice.Slice.SliceHint private static String[]! hints(String!);
+    method private static void parseItem(android.content.Context!, androidx.slice.Slice.Builder!, org.xmlpull.v1.XmlPullParser!, androidx.slice.SliceUtils.SliceActionListener!) throws java.io.IOException, androidx.slice.SliceUtils.SliceParseException, org.xmlpull.v1.XmlPullParserException;
+    method public static androidx.slice.Slice! parseSlice(android.content.Context!, java.io.InputStream!, String!, androidx.slice.SliceUtils.SliceActionListener!) throws java.io.IOException, androidx.slice.SliceUtils.SliceParseException;
+    method private static androidx.slice.Slice! parseSlice(android.content.Context!, org.xmlpull.v1.XmlPullParser!, androidx.slice.SliceUtils.SliceActionListener!) throws java.io.IOException, androidx.slice.SliceUtils.SliceParseException, org.xmlpull.v1.XmlPullParserException;
+    method private static void serialize(androidx.slice.Slice!, android.content.Context!, androidx.slice.SliceUtils.SerializeOptions!, org.xmlpull.v1.XmlSerializer!, boolean, String!) throws java.io.IOException;
+    method private static void serialize(androidx.slice.SliceItem!, android.content.Context!, androidx.slice.SliceUtils.SerializeOptions!, org.xmlpull.v1.XmlSerializer!) throws java.io.IOException;
+    method private static void serializeFileIcon(org.xmlpull.v1.XmlSerializer!, androidx.core.graphics.drawable.IconCompat!, android.content.Context!) throws java.io.IOException;
+    method private static void serializeIcon(org.xmlpull.v1.XmlSerializer!, androidx.core.graphics.drawable.IconCompat!, android.content.Context!, androidx.slice.SliceUtils.SerializeOptions!) throws java.io.IOException;
+    method private static void serializeResIcon(org.xmlpull.v1.XmlSerializer!, androidx.core.graphics.drawable.IconCompat!, android.content.Context!) throws java.io.IOException;
+    method public static void serializeSlice(androidx.slice.Slice!, android.content.Context!, java.io.OutputStream!, String!, androidx.slice.SliceUtils.SerializeOptions!) throws java.io.IOException;
+    field private static final String ATTR_FORMAT = "format";
+    field private static final String ATTR_HINTS = "hints";
+    field private static final String ATTR_ICON_PACKAGE = "pkg";
+    field private static final String ATTR_ICON_RES_TYPE = "resType";
+    field private static final String ATTR_ICON_TYPE = "iconType";
+    field private static final String ATTR_SUBTYPE = "subtype";
+    field private static final String ATTR_URI = "uri";
+    field private static final String ICON_TYPE_DEFAULT = "def";
+    field private static final String ICON_TYPE_RES = "res";
+    field private static final String ICON_TYPE_URI = "uri";
+    field private static final String! NAMESPACE;
+    field private static final String TAG_ACTION = "action";
+    field private static final String TAG_ITEM = "item";
+    field private static final String TAG_SLICE = "slice";
+  }
+
+}
+
+package androidx.slice.widget {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class ActionRow extends android.widget.FrameLayout {
+    ctor public ActionRow(android.content.Context!, boolean);
+    method private android.widget.ImageView! addAction(androidx.core.graphics.drawable.IconCompat!, boolean);
+    method private void addAction(android.view.View!);
+    method @RequiresApi(21) private void createRemoteInputView(int, android.content.Context!);
+    method @RequiresApi(21) private androidx.slice.widget.RemoteInputView! findRemoteInputView(android.view.View!);
+    method @RequiresApi(21) boolean handleRemoteInputClick(android.view.View!, androidx.slice.SliceItem!, android.app.RemoteInput!);
+    method @RequiresApi(21) private void handleSetRemoteInputActions(androidx.slice.SliceItem!, androidx.slice.SliceItem!, androidx.slice.SliceItem!);
+    method public void setActions(java.util.List<androidx.slice.core.SliceAction>, int);
+    method private void setColor(int);
+    field private static final int MAX_ACTIONS = 5; // 0x5
+    field private static final String TAG = "ActionRow";
+    field private final android.widget.LinearLayout! mActionsGroup;
+    field private int mColor;
+    field private final boolean mFullActions;
+    field private final int mIconPadding;
+    field private final int mSize;
+  }
+
+  @RequiresApi(19) public class EventInfo {
+    method private static String! actionToString(int);
+    method private static String! positionToString(int);
+    method private static String! rowTypeToString(int);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.slice.widget.EventInfo.ACTION_TYPE_TOGGLE, androidx.slice.widget.EventInfo.ACTION_TYPE_BUTTON, androidx.slice.widget.EventInfo.ACTION_TYPE_SLIDER, androidx.slice.widget.EventInfo.ACTION_TYPE_CONTENT, androidx.slice.widget.EventInfo.ACTION_TYPE_SEE_MORE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EventInfo.SliceActionType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.slice.widget.EventInfo.POSITION_START, androidx.slice.widget.EventInfo.POSITION_END, androidx.slice.widget.EventInfo.POSITION_CELL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EventInfo.SliceButtonPosition {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.slice.widget.EventInfo.ROW_TYPE_SHORTCUT, androidx.slice.widget.EventInfo.ROW_TYPE_LIST, androidx.slice.widget.EventInfo.ROW_TYPE_GRID, androidx.slice.widget.EventInfo.ROW_TYPE_MESSAGING, androidx.slice.widget.EventInfo.ROW_TYPE_TOGGLE, androidx.slice.widget.EventInfo.ROW_TYPE_SLIDER, androidx.slice.widget.EventInfo.ROW_TYPE_PROGRESS}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface EventInfo.SliceRowType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) public class GridContent extends androidx.slice.widget.SliceContent {
+    ctor public GridContent(android.content.Context!, androidx.slice.SliceItem!, int);
+    method private java.util.List<androidx.slice.SliceItem>! filterAndProcessItems(java.util.List<androidx.slice.SliceItem>!);
+    method public androidx.slice.SliceItem? getContentIntent();
+    method public java.util.ArrayList<androidx.slice.widget.GridContent.CellContent> getGridContent();
+    method public int getHeight(androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public int getLargestImageMode();
+    method public int getMaxCellLineCount();
+    method public androidx.slice.SliceItem? getSeeMoreItem();
+    method public CharSequence? getTitle();
+    method public boolean hasImage();
+    method public boolean isAllImages();
+    method public boolean isValid();
+    method private boolean populate(androidx.slice.SliceItem!);
+    method private void processContent(androidx.slice.widget.GridContent.CellContent!);
+    method public void setIsLastIndex(boolean);
+    field private boolean mAllImages;
+    field private int mAllImagesHeight;
+    field private int mBigPicMaxHeight;
+    field private int mBigPicMinHeight;
+    field private java.util.ArrayList<androidx.slice.widget.GridContent.CellContent>! mGridContent;
+    field private boolean mHasImage;
+    field private int mImageTextHeight;
+    field private boolean mIsLastIndex;
+    field private int mLargestImageMode;
+    field private int mMaxCellLineCount;
+    field private int mMaxHeight;
+    field private int mMinHeight;
+    field private androidx.slice.SliceItem! mPrimaryAction;
+    field private androidx.slice.SliceItem! mSeeMoreItem;
+    field private androidx.slice.SliceItem! mTitleItem;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class GridContent.CellContent {
+    ctor public GridContent.CellContent(androidx.slice.SliceItem!);
+    method public java.util.ArrayList<androidx.slice.SliceItem>! getCellItems();
+    method public CharSequence? getContentDescription();
+    method public androidx.slice.SliceItem! getContentIntent();
+    method public int getImageMode();
+    method public int getTextCount();
+    method public androidx.slice.SliceItem? getTitleItem();
+    method public boolean hasImage();
+    method public boolean isImageOnly();
+    method public boolean isValid();
+    method private boolean isValidCellContent(androidx.slice.SliceItem!);
+    method public boolean populate(androidx.slice.SliceItem!);
+    field private java.util.ArrayList<androidx.slice.SliceItem>! mCellItems;
+    field private androidx.slice.SliceItem! mContentDescr;
+    field private androidx.slice.SliceItem! mContentIntent;
+    field private boolean mHasImage;
+    field private int mImageMode;
+    field private int mTextCount;
+    field private androidx.slice.SliceItem! mTitleItem;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class GridRowView extends androidx.slice.widget.SliceChildView implements android.view.View.OnClickListener android.view.View.OnTouchListener {
+    ctor public GridRowView(android.content.Context!);
+    ctor public GridRowView(android.content.Context!, android.util.AttributeSet!);
+    method private void addCell(androidx.slice.widget.GridContent.CellContent!, int, int);
+    method private boolean addItem(androidx.slice.SliceItem!, int, android.view.ViewGroup!, int, boolean);
+    method private void addSeeMoreCount(int);
+    method private int determinePadding(androidx.slice.SliceItem!);
+    method private int getExtraBottomPadding();
+    method private int getExtraTopPadding();
+    method int getMaxCells();
+    method private void makeClickable(android.view.View!, boolean);
+    method private void makeEntireGridClickable(boolean);
+    method private void onForegroundActivated(android.view.MotionEvent!);
+    method void populateViews();
+    method public void resetView();
+    method private boolean scheduleMaxCellsUpdate();
+    method public void setInsets(int, int, int, int);
+    method public void setSliceItem(androidx.slice.widget.SliceContent!, boolean, int, int, androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setTint(@ColorInt int);
+    field private static final int MAX_CELL_IMAGES = 1; // 0x1
+    field private static final int MAX_CELL_TEXT = 2; // 0x2
+    field private static final int MAX_CELL_TEXT_SMALL = 1; // 0x1
+    field private static final String TAG = "GridRowView";
+    field private static final int TEXT_LAYOUT;
+    field private static final int TITLE_TEXT_LAYOUT;
+    field private android.view.View! mForeground;
+    field private androidx.slice.widget.GridContent! mGridContent;
+    field private int mGutter;
+    field private int mIconSize;
+    field private int mLargeImageHeight;
+    field private int[]! mLoc;
+    field boolean mMaxCellUpdateScheduled;
+    field int mMaxCells;
+    field private android.view.ViewTreeObserver.OnPreDrawListener! mMaxCellsUpdater;
+    field private int mRowCount;
+    field private int mRowIndex;
+    field private int mSmallImageMinWidth;
+    field private int mSmallImageSize;
+    field private int mTextPadding;
+    field private android.widget.LinearLayout! mViewContainer;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class LargeSliceAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.slice.widget.LargeSliceAdapter.SliceViewHolder> implements androidx.slice.widget.SliceActionView.SliceActionLoadingListener {
+    ctor public LargeSliceAdapter(android.content.Context!);
+    method public java.util.Set<androidx.slice.SliceItem>! getLoadingActions();
+    method private android.view.View! inflateForType(int);
+    method public void notifyHeaderChanged();
+    method public void onSliceActionLoading(androidx.slice.SliceItem!, int);
+    method public void setAllowTwoLines(boolean);
+    method public void setInsets(int, int, int, int);
+    method public void setLastUpdated(long);
+    method public void setLoadingActions(java.util.Set<androidx.slice.SliceItem>!);
+    method public void setParents(androidx.slice.widget.SliceView!, androidx.slice.widget.LargeTemplateView!);
+    method public void setPolicy(androidx.slice.widget.SliceViewPolicy!);
+    method public void setShowLastUpdated(boolean);
+    method public void setSliceActions(java.util.List<androidx.slice.core.SliceAction>!);
+    method public void setSliceItems(java.util.List<androidx.slice.widget.SliceContent>!, int, int);
+    method public void setSliceObserver(androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setStyle(androidx.slice.widget.SliceStyle!);
+    field static final int HEADER_INDEX = 0; // 0x0
+    field static final int TYPE_DEFAULT = 1; // 0x1
+    field static final int TYPE_GRID = 3; // 0x3
+    field static final int TYPE_HEADER = 2; // 0x2
+    field static final int TYPE_MESSAGE = 4; // 0x4
+    field static final int TYPE_MESSAGE_LOCAL = 5; // 0x5
+    field boolean mAllowTwoLines;
+    field int mColor;
+    field final android.content.Context! mContext;
+    field private final androidx.slice.widget.LargeSliceAdapter.IdGenerator! mIdGen;
+    field int mInsetBottom;
+    field int mInsetEnd;
+    field int mInsetStart;
+    field int mInsetTop;
+    field long mLastUpdated;
+    field java.util.Set<androidx.slice.SliceItem>! mLoadingActions;
+    field androidx.slice.widget.SliceView! mParent;
+    field androidx.slice.widget.SliceViewPolicy! mPolicy;
+    field boolean mShowLastUpdated;
+    field java.util.List<androidx.slice.core.SliceAction>! mSliceActions;
+    field androidx.slice.widget.SliceView.OnSliceActionListener! mSliceObserver;
+    field androidx.slice.widget.SliceStyle! mSliceStyle;
+    field private java.util.List<androidx.slice.widget.LargeSliceAdapter.SliceWrapper>! mSlices;
+    field androidx.slice.widget.LargeTemplateView! mTemplateView;
+  }
+
+  private static class LargeSliceAdapter.IdGenerator {
+    ctor LargeSliceAdapter.IdGenerator();
+    method private String! genString(androidx.slice.SliceItem!);
+    method public long getId(androidx.slice.SliceItem!);
+    method public void resetUsage();
+    field private final androidx.collection.ArrayMap<java.lang.String,java.lang.Long>! mCurrentIds;
+    field private long mNextLong;
+    field private final androidx.collection.ArrayMap<java.lang.String,java.lang.Integer>! mUsedIds;
+  }
+
+  public class LargeSliceAdapter.SliceViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder implements android.view.View.OnClickListener android.view.View.OnTouchListener {
+    ctor public LargeSliceAdapter.SliceViewHolder(android.view.View!);
+    method void bind(androidx.slice.widget.SliceContent!, int);
+    field public final androidx.slice.widget.SliceChildView! mSliceChildView;
+  }
+
+  protected static class LargeSliceAdapter.SliceWrapper {
+    ctor public LargeSliceAdapter.SliceWrapper(androidx.slice.widget.SliceContent!, androidx.slice.widget.LargeSliceAdapter.IdGenerator!, int);
+    method public static int getFormat(androidx.slice.SliceItem!);
+    field final long mId;
+    field final androidx.slice.widget.SliceContent! mItem;
+    field final int mType;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class LargeTemplateView extends androidx.slice.widget.SliceChildView implements androidx.slice.widget.SliceViewPolicy.PolicyChangeListener {
+    ctor public LargeTemplateView(android.content.Context!);
+    method public java.util.Set<androidx.slice.SliceItem>! getLoadingActions();
+    method public void onForegroundActivated(android.view.MotionEvent!);
+    method public void onMaxHeightChanged(int);
+    method public void onMaxSmallChanged(int);
+    method public void onModeChanged(int);
+    method public void onScrollingChanged(boolean);
+    method public void resetView();
+    method public void setActionLoading(androidx.slice.SliceItem!);
+    method public void setAllowTwoLines(boolean);
+    method public void setInsets(int, int, int, int);
+    method public void setLastUpdated(long);
+    method public void setLoadingActions(java.util.Set<androidx.slice.SliceItem>!);
+    method public void setPolicy(androidx.slice.widget.SliceViewPolicy!);
+    method public void setShowLastUpdated(boolean);
+    method public void setSliceActionListener(androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setSliceActions(java.util.List<androidx.slice.core.SliceAction>!);
+    method public void setSliceContent(androidx.slice.widget.ListContent!);
+    method public void setStyle(androidx.slice.widget.SliceStyle!);
+    method public void setTint(int);
+    method private void updateDisplayedItems(int);
+    method private void updateOverscroll();
+    field private final androidx.slice.widget.LargeSliceAdapter! mAdapter;
+    field private java.util.ArrayList<androidx.slice.widget.SliceContent>! mDisplayedItems;
+    field private int mDisplayedItemsHeight;
+    field private final android.view.View! mForeground;
+    field private androidx.slice.widget.ListContent! mListContent;
+    field private int[]! mLoc;
+    field private androidx.slice.widget.SliceView! mParent;
+    field private final androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) public class ListContent extends androidx.slice.widget.SliceContent {
+    ctor public ListContent(android.content.Context!, androidx.slice.Slice);
+    method private static androidx.slice.SliceItem? findHeaderItem(androidx.slice.Slice);
+    method private androidx.slice.core.SliceAction? findPrimaryAction();
+    method public androidx.slice.widget.RowContent? getHeader();
+    method public int getHeaderTemplateType();
+    method public int getHeight(androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method private java.util.ArrayList<androidx.slice.widget.SliceContent> getItemsForNonScrollingList(int, androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public static int getListHeight(java.util.List<androidx.slice.widget.SliceContent>!, androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public java.util.ArrayList<androidx.slice.widget.SliceContent>! getRowItems(int, androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public java.util.ArrayList<androidx.slice.widget.SliceContent> getRowItems();
+    method public static int getRowType(androidx.slice.widget.SliceContent!, boolean, java.util.List<androidx.slice.core.SliceAction>!);
+    method private static androidx.slice.SliceItem? getSeeMoreItem(androidx.slice.Slice);
+    method public androidx.slice.core.SliceAction? getShortcut(android.content.Context?);
+    method public java.util.List<androidx.slice.core.SliceAction>? getSliceActions();
+    method public boolean isValid();
+    method private static boolean isValidHeader(androidx.slice.SliceItem!);
+    method private void populate(androidx.slice.Slice!);
+    field private android.content.Context! mContext;
+    field private androidx.slice.widget.RowContent! mHeaderContent;
+    field private int mLargeHeight;
+    field private int mMinScrollHeight;
+    field private androidx.slice.core.SliceAction! mPrimaryAction;
+    field private java.util.ArrayList<androidx.slice.widget.SliceContent>! mRowItems;
+    field private androidx.slice.widget.RowContent! mSeeMoreContent;
+    field private java.util.List<androidx.slice.core.SliceAction>! mSliceActions;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class MessageView extends androidx.slice.widget.SliceChildView {
+    ctor public MessageView(android.content.Context!);
+    method public int getMode();
+    method public void resetView();
+    method public void setSliceItem(androidx.slice.widget.SliceContent!, boolean, int, int, androidx.slice.widget.SliceView.OnSliceActionListener!);
+    field private android.widget.TextView! mDetails;
+    field private android.widget.ImageView! mIcon;
+    field private int mRowIndex;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(21) public class RemoteInputView extends android.widget.LinearLayout implements android.text.TextWatcher android.view.View.OnClickListener {
+    ctor public RemoteInputView(android.content.Context!, android.util.AttributeSet!);
+    method private void focus();
+    method public void focusAnimated();
+    method public static androidx.slice.widget.RemoteInputView! inflate(android.content.Context!, android.view.ViewGroup!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final boolean isConfirmKey(int);
+    method void onDefocus();
+    method private void reset();
+    method void sendRemoteInput();
+    method public void setAction(androidx.slice.SliceItem!);
+    method public void setRemoteInput(android.app.RemoteInput[]!, android.app.RemoteInput!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void setRevealParameters(int, int, int);
+    method private void updateSendButton();
+    field private static final String TAG = "RemoteInput";
+    field public static final Object! VIEW_TAG;
+    field private androidx.slice.SliceItem! mAction;
+    field androidx.slice.widget.RemoteInputView.RemoteEditText! mEditText;
+    field private android.widget.ProgressBar! mProgressBar;
+    field private android.app.RemoteInput! mRemoteInput;
+    field private android.app.RemoteInput[]! mRemoteInputs;
+    field private boolean mResetting;
+    field private int mRevealCx;
+    field private int mRevealCy;
+    field private int mRevealR;
+    field private android.widget.ImageButton! mSendButton;
+  }
+
+  public static class RemoteInputView.RemoteEditText extends android.widget.EditText {
+    ctor public RemoteInputView.RemoteEditText(android.content.Context!, android.util.AttributeSet!);
+    method private void defocusIfNeeded(boolean);
+    method private boolean isTemporarilyDetachedCompat();
+    method void setInnerFocusable(boolean);
+    field private final android.graphics.drawable.Drawable! mBackground;
+    field androidx.slice.widget.RemoteInputView! mRemoteInputView;
+    field boolean mShowImeOnInputConnection;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) public class RowContent extends androidx.slice.widget.SliceContent {
+    ctor public RowContent(android.content.Context!, androidx.slice.SliceItem!, int);
+    method private void determineStartAndPrimaryAction(androidx.slice.SliceItem);
+    method private static java.util.ArrayList<androidx.slice.SliceItem>! filterInvalidItems(androidx.slice.SliceItem!);
+    method public java.util.ArrayList<androidx.slice.SliceItem>! getEndItems();
+    method public int getHeight(androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public androidx.slice.SliceItem? getInputRangeThumb();
+    method public int getLineCount();
+    method public androidx.slice.SliceItem? getPrimaryAction();
+    method public androidx.slice.SliceItem? getRange();
+    method public androidx.slice.SliceItem? getStartItem();
+    method public androidx.slice.SliceItem? getSubtitleItem();
+    method public androidx.slice.SliceItem? getSummaryItem();
+    method public androidx.slice.SliceItem? getTitleItem();
+    method public java.util.ArrayList<androidx.slice.core.SliceAction>! getToggleItems();
+    method private static boolean hasText(androidx.slice.SliceItem!);
+    method public boolean isDefaultSeeMore();
+    method public boolean isValid();
+    method private static boolean isValidRow(androidx.slice.SliceItem!);
+    method private static boolean isValidRowContent(androidx.slice.SliceItem!, androidx.slice.SliceItem!);
+    method private boolean populate(androidx.slice.SliceItem!, boolean);
+    method private void processContent(androidx.slice.SliceItem, boolean);
+    method public void setIsHeader(boolean);
+    field private static final String TAG = "RowContent";
+    field private java.util.ArrayList<androidx.slice.SliceItem>! mEndItems;
+    field private boolean mIsHeader;
+    field private int mLineCount;
+    field private int mMaxHeight;
+    field private int mMinHeight;
+    field private androidx.slice.SliceItem! mPrimaryAction;
+    field private androidx.slice.SliceItem! mRange;
+    field private int mRangeHeight;
+    field private int mSingleTextWithRangeHeight;
+    field private androidx.slice.SliceItem! mStartItem;
+    field private androidx.slice.SliceItem! mSubtitleItem;
+    field private androidx.slice.SliceItem! mSummaryItem;
+    field private int mTextWithRangeHeight;
+    field private androidx.slice.SliceItem! mTitleItem;
+    field private java.util.ArrayList<androidx.slice.core.SliceAction>! mToggleItems;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class RowView extends androidx.slice.widget.SliceChildView implements android.view.View.OnClickListener {
+    ctor public RowView(android.content.Context!);
+    method private void addAction(androidx.slice.core.SliceActionImpl!, int, android.view.ViewGroup!, boolean);
+    method private boolean addItem(androidx.slice.SliceItem!, int, boolean);
+    method private void addRange(androidx.slice.SliceItem!);
+    method private void addSubtitle(boolean);
+    method private void determineRangeValues(androidx.slice.SliceItem!);
+    method private CharSequence! getRelativeTimeString(long);
+    method private int getRowContentHeight();
+    method private void populateViews(boolean);
+    method public void resetView();
+    method private void resetViewState();
+    method void sendSliderValue();
+    method public void setAllowTwoLines(boolean);
+    method public void setInsets(int, int, int, int);
+    method public void setLastUpdated(long);
+    method public void setLoadingActions(java.util.Set<androidx.slice.SliceItem>!);
+    method public void setShowLastUpdated(boolean);
+    method public void setSliceActions(java.util.List<androidx.slice.core.SliceAction>!);
+    method public void setSliceItem(androidx.slice.widget.SliceContent!, boolean, int, int, androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setTint(@ColorInt int);
+    method private void setViewClickable(android.view.View!, boolean);
+    method private void showSeeMore();
+    method void updateActionSpinner();
+    method private void updateEndItems();
+    method private void updateRangePadding();
+    field private static final int MAX_END_ITEMS = 3; // 0x3
+    field private static final int SLIDER_INTERVAL = 200; // 0xc8
+    field private static final String TAG = "RowView";
+    field private android.widget.ProgressBar! mActionSpinner;
+    field private android.util.ArrayMap<androidx.slice.core.SliceActionImpl,androidx.slice.widget.SliceActionView>! mActions;
+    field private boolean mAllowTwoLines;
+    field private android.widget.LinearLayout! mContent;
+    field private android.view.View! mDivider;
+    field private android.widget.LinearLayout! mEndContainer;
+    field android.os.Handler! mHandler;
+    field private java.util.List<androidx.slice.core.SliceAction>! mHeaderActions;
+    field private int mIconSize;
+    field private int mIdealRangeHeight;
+    field private int mImageSize;
+    field private boolean mIsHeader;
+    field boolean mIsRangeSliding;
+    field long mLastSentRangeUpdate;
+    field private android.widget.TextView! mLastUpdatedText;
+    field protected java.util.Set<androidx.slice.SliceItem>! mLoadingActions;
+    field private int mMaxSmallHeight;
+    field private int mMeasuredRangeHeight;
+    field private android.widget.TextView! mPrimaryText;
+    field private android.widget.ProgressBar! mRangeBar;
+    field boolean mRangeHasPendingUpdate;
+    field private androidx.slice.SliceItem! mRangeItem;
+    field int mRangeMinValue;
+    field Runnable! mRangeUpdater;
+    field boolean mRangeUpdaterRunning;
+    field int mRangeValue;
+    field private android.widget.LinearLayout! mRootView;
+    field private androidx.slice.core.SliceActionImpl! mRowAction;
+    field androidx.slice.widget.RowContent! mRowContent;
+    field int mRowIndex;
+    field private android.widget.TextView! mSecondaryText;
+    field private android.view.View! mSeeMoreView;
+    field private android.widget.SeekBar.OnSeekBarChangeListener! mSeekBarChangeListener;
+    field boolean mShowActionSpinner;
+    field private android.widget.LinearLayout! mStartContainer;
+    field private androidx.slice.SliceItem! mStartItem;
+    field private android.util.ArrayMap<androidx.slice.core.SliceActionImpl,androidx.slice.widget.SliceActionView>! mToggles;
+    field private static final boolean sCanSpecifyLargerRangeBarHeight;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class ShortcutView extends androidx.slice.widget.SliceChildView {
+    ctor public ShortcutView(android.content.Context!);
+    method public java.util.Set<androidx.slice.SliceItem>! getLoadingActions();
+    method public int getMode();
+    method public void resetView();
+    method public void setLoadingActions(java.util.Set<androidx.slice.SliceItem>!);
+    method public void setSliceContent(androidx.slice.widget.ListContent!);
+    field private static final String TAG = "ShortcutView";
+    field private androidx.slice.SliceItem! mActionItem;
+    field private androidx.core.graphics.drawable.IconCompat! mIcon;
+    field private CharSequence! mLabel;
+    field private int mLargeIconSize;
+    field private androidx.slice.widget.ListContent! mListContent;
+    field private java.util.Set<androidx.slice.SliceItem>! mLoadingActions;
+    field private int mSmallIconSize;
+    field private android.net.Uri! mUri;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class SliceActionView extends android.widget.FrameLayout implements android.widget.CompoundButton.OnCheckedChangeListener android.view.View.OnClickListener {
+    ctor public SliceActionView(android.content.Context!);
+    method public androidx.slice.core.SliceActionImpl? getAction();
+    method public void sendAction();
+    method private void sendActionInternal();
+    method public void setAction(androidx.slice.core.SliceActionImpl, androidx.slice.widget.EventInfo!, androidx.slice.widget.SliceView.OnSliceActionListener!, int, androidx.slice.widget.SliceActionView.SliceActionLoadingListener!);
+    method public void setLoading(boolean);
+    method public void toggle();
+    field static final int[]! CHECKED_STATE_SET;
+    field private static final String TAG = "SliceActionView";
+    field private android.view.View! mActionView;
+    field private androidx.slice.widget.EventInfo! mEventInfo;
+    field private int mIconSize;
+    field private int mImageSize;
+    field private androidx.slice.widget.SliceActionView.SliceActionLoadingListener! mLoadingListener;
+    field private androidx.slice.widget.SliceView.OnSliceActionListener! mObserver;
+    field private android.widget.ProgressBar! mProgressView;
+    field private androidx.slice.core.SliceActionImpl! mSliceAction;
+  }
+
+  private static class SliceActionView.ImageToggle extends android.widget.ImageView implements android.widget.Checkable android.view.View.OnClickListener {
+    ctor SliceActionView.ImageToggle(android.content.Context!);
+    field private boolean mIsChecked;
+    field private android.view.View.OnClickListener! mListener;
+  }
+
+  static interface SliceActionView.SliceActionLoadingListener {
+    method public void onSliceActionLoading(androidx.slice.SliceItem!, int);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public abstract class SliceChildView extends android.widget.FrameLayout {
+    ctor public SliceChildView(android.content.Context);
+    ctor public SliceChildView(android.content.Context!, android.util.AttributeSet!);
+    method public java.util.Set<androidx.slice.SliceItem>! getLoadingActions();
+    method public int getMode();
+    method public abstract void resetView();
+    method public void setActionLoading(androidx.slice.SliceItem!);
+    method public void setAllowTwoLines(boolean);
+    method public void setInsets(int, int, int, int);
+    method public void setLastUpdated(long);
+    method public void setLoadingActions(java.util.Set<androidx.slice.SliceItem>!);
+    method public void setPolicy(androidx.slice.widget.SliceViewPolicy!);
+    method public void setShowLastUpdated(boolean);
+    method public void setSliceActionListener(androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setSliceActionLoadingListener(androidx.slice.widget.SliceActionView.SliceActionLoadingListener!);
+    method public void setSliceActions(java.util.List<androidx.slice.core.SliceAction>!);
+    method public void setSliceContent(androidx.slice.widget.ListContent!);
+    method public void setSliceItem(androidx.slice.widget.SliceContent!, boolean, int, int, androidx.slice.widget.SliceView.OnSliceActionListener!);
+    method public void setStyle(androidx.slice.widget.SliceStyle!);
+    method public void setTint(@ColorInt int);
+    field protected int mInsetBottom;
+    field protected int mInsetEnd;
+    field protected int mInsetStart;
+    field protected int mInsetTop;
+    field protected long mLastUpdated;
+    field protected androidx.slice.widget.SliceActionView.SliceActionLoadingListener! mLoadingListener;
+    field protected int mMode;
+    field protected androidx.slice.widget.SliceView.OnSliceActionListener! mObserver;
+    field protected boolean mShowLastUpdated;
+    field protected androidx.slice.widget.SliceStyle! mSliceStyle;
+    field protected int mTintColor;
+    field protected androidx.slice.widget.SliceViewPolicy! mViewPolicy;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class SliceContent {
+    ctor public SliceContent(androidx.slice.Slice!);
+    ctor public SliceContent(androidx.slice.SliceItem!, int);
+    method private androidx.slice.core.SliceAction! fallBackToAppData(android.content.Context!, androidx.slice.SliceItem!, androidx.slice.SliceItem!, int, androidx.slice.SliceItem!);
+    method public int getAccentColor();
+    method public CharSequence? getContentDescription();
+    method public int getHeight(androidx.slice.widget.SliceStyle!, androidx.slice.widget.SliceViewPolicy!);
+    method public int getLayoutDir();
+    method public androidx.slice.core.SliceAction? getShortcut(android.content.Context?);
+    method public androidx.slice.SliceItem? getSliceItem();
+    method private void init(androidx.slice.SliceItem!);
+    method public boolean isValid();
+    field protected androidx.slice.SliceItem! mColorItem;
+    field protected androidx.slice.SliceItem! mContentDescr;
+    field protected androidx.slice.SliceItem! mLayoutDirItem;
+    field protected int mRowIndex;
+    field protected androidx.slice.SliceItem! mSliceItem;
+  }
+
+  @RequiresApi(19) public final class SliceLiveData {
+    ctor private SliceLiveData();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static androidx.slice.widget.SliceLiveData.CachedSliceLiveData fromStream(android.content.Context, androidx.slice.SliceViewManager!, java.io.InputStream, androidx.slice.widget.SliceLiveData.OnErrorListener!);
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final androidx.slice.SliceSpec! OLD_BASIC;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final androidx.slice.SliceSpec! OLD_LIST;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final java.util.Set<androidx.slice.SliceSpec>! SUPPORTED_SPECS;
+    field private static final String TAG = "SliceLiveData";
+  }
+
+  public static class SliceLiveData.CachedSliceLiveData extends androidx.lifecycle.LiveData<androidx.slice.Slice> {
+    ctor SliceLiveData.CachedSliceLiveData(android.content.Context!, androidx.slice.SliceViewManager!, java.io.InputStream!, androidx.slice.widget.SliceLiveData.OnErrorListener!);
+    method void goLive(android.net.Uri!, android.content.Context!, android.content.Intent!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) protected void loadInitialSlice();
+    method void onSliceError(int, Throwable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) protected void updateSlice();
+    field private boolean mActive;
+    field final android.content.Context! mContext;
+    field private boolean mInitialSliceLoaded;
+    field private java.io.InputStream! mInput;
+    field private final androidx.slice.widget.SliceLiveData.OnErrorListener! mListener;
+    field private boolean mLive;
+    field java.util.List<android.content.Context>! mPendingContext;
+    field java.util.List<android.content.Intent>! mPendingIntent;
+    field java.util.List<android.net.Uri>! mPendingUri;
+    field final androidx.slice.SliceViewManager.SliceCallback! mSliceCallback;
+    field private boolean mSliceCallbackRegistered;
+    field final androidx.slice.SliceViewManager! mSliceViewManager;
+    field androidx.slice.SliceStructure! mStructure;
+    field private final Runnable! mUpdateSlice;
+    field android.net.Uri! mUri;
+  }
+
+  private static class SliceLiveData.SliceLiveDataImpl extends androidx.lifecycle.LiveData<androidx.slice.Slice> {
+    ctor SliceLiveData.SliceLiveDataImpl(android.content.Context!, android.net.Uri!);
+    ctor SliceLiveData.SliceLiveDataImpl(android.content.Context!, android.content.Intent!);
+    field final android.content.Intent! mIntent;
+    field final androidx.slice.SliceViewManager.SliceCallback! mSliceCallback;
+    field final androidx.slice.SliceViewManager! mSliceViewManager;
+    field private final Runnable! mUpdateSlice;
+    field android.net.Uri! mUri;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) class SliceMetrics {
+    ctor SliceMetrics();
+    method public static androidx.slice.widget.SliceMetrics? getInstance(android.content.Context, android.net.Uri);
+    method protected void logHidden();
+    method protected void logTouch(int, android.net.Uri);
+    method protected void logVisible();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(api=28) class SliceMetricsWrapper extends androidx.slice.widget.SliceMetrics {
+    ctor SliceMetricsWrapper(android.content.Context, android.net.Uri);
+    method protected void logHidden();
+    method protected void logTouch(int, android.net.Uri);
+    method protected void logVisible();
+    field private final android.app.slice.SliceMetrics! mSliceMetrics;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public class SliceStyle {
+    ctor public SliceStyle(android.content.Context!, android.util.AttributeSet!, int, int);
+    method public int getGridBottomPadding();
+    method public int getGridSubtitleSize();
+    method public int getGridTitleSize();
+    method public int getGridTopPadding();
+    method public int getHeaderSubtitleSize();
+    method public int getHeaderTitleSize();
+    method public int getSubtitleColor();
+    method public int getSubtitleSize();
+    method public int getTintColor();
+    method public int getTitleColor();
+    method public int getTitleSize();
+    method public int getVerticalGridTextPadding();
+    method public int getVerticalHeaderTextPadding();
+    method public int getVerticalTextPadding();
+    method public void setTintColor(int);
+    field private int mGridBottomPadding;
+    field private int mGridSubtitleSize;
+    field private int mGridTitleSize;
+    field private int mGridTopPadding;
+    field private int mHeaderSubtitleSize;
+    field private int mHeaderTitleSize;
+    field private int mSubtitleColor;
+    field private int mSubtitleSize;
+    field private int mTintColor;
+    field private int mTitleColor;
+    field private int mTitleSize;
+    field private int mVerticalGridTextPadding;
+    field private int mVerticalHeaderTextPadding;
+    field private int mVerticalTextPadding;
+  }
+
+  @RequiresApi(19) public class SliceView extends android.view.ViewGroup implements androidx.lifecycle.Observer<androidx.slice.Slice> android.view.View.OnClickListener {
+    method private void applyConfigurations();
+    method private android.view.ViewGroup.LayoutParams! getChildLp(android.view.View!);
+    method private int getHeightForMode(int);
+    method private int getTintColor();
+    method private boolean handleTouchForLongpress(android.view.MotionEvent!);
+    method private void init(android.content.Context!, android.util.AttributeSet!, int, int);
+    method private void initSliceMetrics(androidx.slice.Slice?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean isShowingActionRow();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public boolean isSliceViewClickable();
+    method private void logSliceMetricsOnTouch(androidx.slice.SliceItem!, androidx.slice.widget.EventInfo!);
+    method private void logSliceMetricsVisibilityChange(boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static String! modeToString(int);
+    method private void refreshLastUpdatedLabel(boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void setClickInfo(int[]!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void setMode(int, boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void setShowActionRow(boolean);
+    method private void updateActions();
+    method private void updateViewConfig();
+    field private static final int REFRESH_LAST_UPDATED_IN_MILLIS = 60000; // 0xea60
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final java.util.Comparator<androidx.slice.core.SliceAction>! SLICE_ACTION_PRIORITY_COMPARATOR;
+    field private static final String TAG = "SliceView";
+    field private androidx.slice.widget.ActionRow! mActionRow;
+    field private int mActionRowHeight;
+    field private java.util.List<androidx.slice.core.SliceAction>! mActions;
+    field int[]! mClickInfo;
+    field private androidx.slice.Slice! mCurrentSlice;
+    field private boolean mCurrentSliceLoggedVisible;
+    field private androidx.slice.widget.SliceMetrics! mCurrentSliceMetrics;
+    field androidx.slice.widget.SliceChildView! mCurrentView;
+    field private int mDownX;
+    field private int mDownY;
+    field android.os.Handler! mHandler;
+    field boolean mInLongpress;
+    field private int mLargeHeight;
+    field androidx.slice.widget.ListContent! mListContent;
+    field android.view.View.OnLongClickListener! mLongClickListener;
+    field Runnable! mLongpressCheck;
+    field private int mMinTemplateHeight;
+    field private android.view.View.OnClickListener! mOnClickListener;
+    field boolean mPressing;
+    field Runnable! mRefreshLastUpdated;
+    field private int mShortcutSize;
+    field private boolean mShowActions;
+    field private boolean mShowLastUpdated;
+    field androidx.slice.SliceMetadata! mSliceMetadata;
+    field private androidx.slice.widget.SliceView.OnSliceActionListener! mSliceObserver;
+    field private androidx.slice.widget.SliceStyle! mSliceStyle;
+    field private int mThemeTintColor;
+    field private int mTouchSlopSquared;
+    field private androidx.slice.widget.SliceViewPolicy! mViewPolicy;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @IntDef({androidx.slice.widget.SliceView.MODE_SMALL, androidx.slice.widget.SliceView.MODE_LARGE, androidx.slice.widget.SliceView.MODE_SHORTCUT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface SliceView.SliceMode {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class SliceViewPolicy {
+    ctor public SliceViewPolicy();
+    method public int getMaxHeight();
+    method public int getMaxSmallHeight();
+    method public int getMode();
+    method public boolean isScrollable();
+    method public void setListener(androidx.slice.widget.SliceViewPolicy.PolicyChangeListener!);
+    method public void setMaxHeight(int);
+    method public void setMaxSmallHeight(int);
+    method public void setMode(int);
+    method public void setScrollable(boolean);
+    field private androidx.slice.widget.SliceViewPolicy.PolicyChangeListener! mListener;
+    field private int mMaxHeight;
+    field private int mMaxSmallHeight;
+    field private int mMode;
+    field private boolean mScrollable;
+  }
+
+  public static interface SliceViewPolicy.PolicyChangeListener {
+    method public void onMaxHeightChanged(int);
+    method public void onMaxSmallChanged(int);
+    method public void onModeChanged(int);
+    method public void onScrollingChanged(boolean);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(19) public class SliceViewUtil {
+    ctor private SliceViewUtil();
+    method @ColorInt public static int applyAlpha(float, int);
+    method @ColorInt public static int applyAlphaAttr(android.content.Context, @AttrRes int, int);
+    method public static void createCircledIcon(android.content.Context, int, androidx.core.graphics.drawable.IconCompat!, boolean, android.view.ViewGroup!);
+    method public static androidx.core.graphics.drawable.IconCompat! createIconFromDrawable(android.graphics.drawable.Drawable!);
+    method public static android.graphics.Bitmap getCircularBitmap(android.graphics.Bitmap!);
+    method @ColorInt public static int getColorAccent(android.content.Context);
+    method @ColorInt public static int getColorAttr(android.content.Context, @AttrRes int);
+    method @ColorInt public static int getColorError(android.content.Context);
+    method @ColorInt public static int getDefaultColor(android.content.Context, int);
+    method @ColorInt public static int getDisabled(android.content.Context, int);
+    method public static android.graphics.drawable.Drawable! getDrawable(android.content.Context, @AttrRes int);
+    method public static int getThemeAttr(android.content.Context, @AttrRes int);
+    method public static CharSequence! getTimestampString(android.content.Context!, long);
+    method public static int resolveLayoutDirection(int);
+    method public static void tintIndeterminateProgressBar(android.content.Context!, android.widget.ProgressBar!);
+  }
+
+}
+

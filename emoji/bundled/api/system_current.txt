@@ -1,0 +1,17 @@
+// Signature format: 2.0
+package androidx.emoji.bundled {
+
+  private static class BundledEmojiCompatConfig.BundledMetadataLoader implements androidx.emoji.text.EmojiCompat.MetadataRepoLoader {
+    ctor BundledEmojiCompatConfig.BundledMetadataLoader(android.content.Context);
+    field private final android.content.Context! mContext;
+  }
+
+  @RequiresApi(19) private static class BundledEmojiCompatConfig.InitRunnable implements java.lang.Runnable {
+    ctor BundledEmojiCompatConfig.InitRunnable(android.content.Context!, androidx.emoji.text.EmojiCompat.MetadataRepoLoaderCallback!);
+    field private static final String FONT_NAME = "NotoColorEmojiCompat.ttf";
+    field private final android.content.Context! mContext;
+    field private final androidx.emoji.text.EmojiCompat.MetadataRepoLoaderCallback! mLoaderCallback;
+  }
+
+}
+

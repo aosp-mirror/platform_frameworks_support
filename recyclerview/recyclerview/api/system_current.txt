@@ -1,0 +1,1788 @@
+// Signature format: 2.0
+package androidx.recyclerview.widget {
+
+  class AdapterHelper implements androidx.recyclerview.widget.OpReorderer.Callback {
+    ctor AdapterHelper(androidx.recyclerview.widget.AdapterHelper.Callback!);
+    ctor AdapterHelper(androidx.recyclerview.widget.AdapterHelper.Callback!, boolean);
+    method androidx.recyclerview.widget.AdapterHelper! addUpdateOp(androidx.recyclerview.widget.AdapterHelper.UpdateOp...!);
+    method private void applyAdd(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method private void applyMove(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method public int applyPendingUpdatesToPosition(int);
+    method private void applyRemove(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method private void applyUpdate(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method private boolean canFindInPreLayout(int);
+    method void consumePostponedUpdates();
+    method void consumeUpdatesInOnePass();
+    method private void dispatchAndUpdateViewHolders(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method void dispatchFirstPassAndUpdateViewHolders(androidx.recyclerview.widget.AdapterHelper.UpdateOp!, int);
+    method int findPositionOffset(int);
+    method int findPositionOffset(int, int);
+    method boolean hasAnyUpdateTypes(int);
+    method boolean hasPendingUpdates();
+    method boolean hasUpdates();
+    method public androidx.recyclerview.widget.AdapterHelper.UpdateOp! obtainUpdateOp(int, int, int, Object!);
+    method boolean onItemRangeChanged(int, int, Object!);
+    method boolean onItemRangeInserted(int, int);
+    method boolean onItemRangeMoved(int, int, int);
+    method boolean onItemRangeRemoved(int, int);
+    method private void postponeAndUpdateViewHolders(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method void preProcess();
+    method public void recycleUpdateOp(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method void recycleUpdateOpsAndClearList(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!);
+    method void reset();
+    method private int updatePositionWithPostponed(int, int);
+    field private static final boolean DEBUG = false;
+    field static final int POSITION_TYPE_INVISIBLE = 0; // 0x0
+    field static final int POSITION_TYPE_NEW_OR_LAID_OUT = 1; // 0x1
+    field private static final String TAG = "AHT";
+    field final androidx.recyclerview.widget.AdapterHelper.Callback! mCallback;
+    field final boolean mDisableRecycler;
+    field private int mExistingUpdateTypes;
+    field Runnable! mOnItemProcessedCallback;
+    field final androidx.recyclerview.widget.OpReorderer! mOpReorderer;
+    field final java.util.ArrayList<androidx.recyclerview.widget.AdapterHelper.UpdateOp>! mPendingUpdates;
+    field final java.util.ArrayList<androidx.recyclerview.widget.AdapterHelper.UpdateOp>! mPostponedList;
+    field private androidx.core.util.Pools.Pool<androidx.recyclerview.widget.AdapterHelper.UpdateOp>! mUpdateOpPool;
+  }
+
+  static interface AdapterHelper.Callback {
+    method public androidx.recyclerview.widget.RecyclerView.ViewHolder! findViewHolder(int);
+    method public void markViewHoldersUpdated(int, int, Object!);
+    method public void offsetPositionsForAdd(int, int);
+    method public void offsetPositionsForMove(int, int);
+    method public void offsetPositionsForRemovingInvisible(int, int);
+    method public void offsetPositionsForRemovingLaidOutOrNewView(int, int);
+    method public void onDispatchFirstPass(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method public void onDispatchSecondPass(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+  }
+
+  static class AdapterHelper.UpdateOp {
+    ctor AdapterHelper.UpdateOp(int, int, int, Object!);
+    method String! cmdToString();
+    field static final int ADD = 1; // 0x1
+    field static final int MOVE = 8; // 0x8
+    field static final int POOL_SIZE = 30; // 0x1e
+    field static final int REMOVE = 2; // 0x2
+    field static final int UPDATE = 4; // 0x4
+    field int cmd;
+    field int itemCount;
+    field Object! payload;
+    field int positionStart;
+  }
+
+  public final class AdapterListUpdateCallback implements androidx.recyclerview.widget.ListUpdateCallback {
+    field private final androidx.recyclerview.widget.RecyclerView.Adapter mAdapter;
+  }
+
+  public final class AsyncDifferConfig<T> {
+    ctor AsyncDifferConfig(java.util.concurrent.Executor?, java.util.concurrent.Executor, androidx.recyclerview.widget.DiffUtil.ItemCallback<T>);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public java.util.concurrent.Executor? getMainThreadExecutor();
+    field private final java.util.concurrent.Executor mBackgroundThreadExecutor;
+    field private final androidx.recyclerview.widget.DiffUtil.ItemCallback<T> mDiffCallback;
+    field private final java.util.concurrent.Executor? mMainThreadExecutor;
+  }
+
+  public static final class AsyncDifferConfig.Builder<T> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.recyclerview.widget.AsyncDifferConfig.Builder<T> setMainThreadExecutor(java.util.concurrent.Executor!);
+    field private java.util.concurrent.Executor! mBackgroundThreadExecutor;
+    field private final androidx.recyclerview.widget.DiffUtil.ItemCallback<T>! mDiffCallback;
+    field private java.util.concurrent.Executor? mMainThreadExecutor;
+    field private static java.util.concurrent.Executor! sDiffExecutor;
+    field private static final Object! sExecutorLock;
+  }
+
+  public class AsyncListDiffer<T> {
+    method void latchList(java.util.List<T>, androidx.recyclerview.widget.DiffUtil.DiffResult, Runnable?);
+    method private void onCurrentListChanged(java.util.List<T>, Runnable?);
+    field final androidx.recyclerview.widget.AsyncDifferConfig<T>! mConfig;
+    field private java.util.List<T>? mList;
+    field private final java.util.List<androidx.recyclerview.widget.AsyncListDiffer.ListListener<T>>! mListeners;
+    field java.util.concurrent.Executor! mMainThreadExecutor;
+    field int mMaxScheduledGeneration;
+    field private java.util.List<T> mReadOnlyList;
+    field private final androidx.recyclerview.widget.ListUpdateCallback! mUpdateCallback;
+    field private static final java.util.concurrent.Executor! sMainThreadExecutor;
+  }
+
+  private static class AsyncListDiffer.MainThreadExecutor implements java.util.concurrent.Executor {
+    ctor AsyncListDiffer.MainThreadExecutor();
+    field final android.os.Handler! mHandler;
+  }
+
+  public class AsyncListUtil<T> {
+    method private boolean isRefreshPending();
+    method void log(String!, java.lang.Object...!);
+    method void updateRange();
+    field static final boolean DEBUG = false;
+    field static final String TAG = "AsyncListUtil";
+    field boolean mAllowScrollHints;
+    field private final androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>! mBackgroundCallback;
+    field final androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>! mBackgroundProxy;
+    field final androidx.recyclerview.widget.AsyncListUtil.DataCallback<T>! mDataCallback;
+    field int mDisplayedGeneration;
+    field int mItemCount;
+    field private final androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>! mMainThreadCallback;
+    field final androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>! mMainThreadProxy;
+    field final android.util.SparseIntArray! mMissingPositions;
+    field final int[]! mPrevRange;
+    field int mRequestedGeneration;
+    field private int mScrollHint;
+    field final Class<T>! mTClass;
+    field final androidx.recyclerview.widget.TileList<T>! mTileList;
+    field final int mTileSize;
+    field final int[]! mTmpRange;
+    field final int[]! mTmpRangeExtended;
+    field final androidx.recyclerview.widget.AsyncListUtil.ViewCallback! mViewCallback;
+  }
+
+  public class BatchingListUpdateCallback implements androidx.recyclerview.widget.ListUpdateCallback {
+    field private static final int TYPE_ADD = 1; // 0x1
+    field private static final int TYPE_CHANGE = 3; // 0x3
+    field private static final int TYPE_NONE = 0; // 0x0
+    field private static final int TYPE_REMOVE = 2; // 0x2
+    field int mLastEventCount;
+    field Object! mLastEventPayload;
+    field int mLastEventPosition;
+    field int mLastEventType;
+    field final androidx.recyclerview.widget.ListUpdateCallback! mWrapped;
+  }
+
+  class ChildHelper {
+    ctor ChildHelper(androidx.recyclerview.widget.ChildHelper.Callback!);
+    method void addView(android.view.View!, boolean);
+    method void addView(android.view.View!, int, boolean);
+    method void attachViewToParent(android.view.View!, int, android.view.ViewGroup.LayoutParams!, boolean);
+    method void detachViewFromParent(int);
+    method android.view.View! findHiddenNonRemovedView(int);
+    method android.view.View! getChildAt(int);
+    method int getChildCount();
+    method private int getOffset(int);
+    method android.view.View! getUnfilteredChildAt(int);
+    method int getUnfilteredChildCount();
+    method void hide(android.view.View!);
+    method private void hideViewInternal(android.view.View!);
+    method int indexOfChild(android.view.View!);
+    method boolean isHidden(android.view.View!);
+    method void removeAllViewsUnfiltered();
+    method void removeView(android.view.View!);
+    method void removeViewAt(int);
+    method boolean removeViewIfHidden(android.view.View!);
+    method void unhide(android.view.View!);
+    method private boolean unhideViewInternal(android.view.View!);
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "ChildrenHelper";
+    field final androidx.recyclerview.widget.ChildHelper.Bucket! mBucket;
+    field final androidx.recyclerview.widget.ChildHelper.Callback! mCallback;
+    field final java.util.List<android.view.View>! mHiddenViews;
+  }
+
+  static class ChildHelper.Bucket {
+    ctor ChildHelper.Bucket();
+    method void clear(int);
+    method int countOnesBefore(int);
+    method private void ensureNext();
+    method boolean get(int);
+    method void insert(int, boolean);
+    method boolean remove(int);
+    method void reset();
+    method void set(int);
+    field static final int BITS_PER_WORD = 64; // 0x40
+    field static final long LAST_BIT = -9223372036854775808L; // 0x8000000000000000L
+    field long mData;
+    field androidx.recyclerview.widget.ChildHelper.Bucket! mNext;
+  }
+
+  static interface ChildHelper.Callback {
+    method public void addView(android.view.View!, int);
+    method public void attachViewToParent(android.view.View!, int, android.view.ViewGroup.LayoutParams!);
+    method public void detachViewFromParent(int);
+    method public android.view.View! getChildAt(int);
+    method public int getChildCount();
+    method public androidx.recyclerview.widget.RecyclerView.ViewHolder! getChildViewHolder(android.view.View!);
+    method public int indexOfChild(android.view.View!);
+    method public void onEnteredHiddenState(android.view.View!);
+    method public void onLeftHiddenState(android.view.View!);
+    method public void removeAllViews();
+    method public void removeViewAt(int);
+  }
+
+  public class DefaultItemAnimator extends androidx.recyclerview.widget.SimpleItemAnimator {
+    method void animateAddImpl(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void animateChangeImpl(androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo!);
+    method void animateMoveImpl(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int, int, int, int);
+    method private void animateRemoveImpl(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void cancelAll(java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>!);
+    method void dispatchFinishedWhenDone();
+    method private void endChangeAnimation(java.util.List<androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo>!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private void endChangeAnimationIfNecessary(androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo!);
+    method private boolean endChangeAnimationIfNecessary(androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private void resetAnimation(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    field private static final boolean DEBUG = false;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mAddAnimations;
+    field java.util.ArrayList<java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>>! mAdditionsList;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mChangeAnimations;
+    field java.util.ArrayList<java.util.ArrayList<androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo>>! mChangesList;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mMoveAnimations;
+    field java.util.ArrayList<java.util.ArrayList<androidx.recyclerview.widget.DefaultItemAnimator.MoveInfo>>! mMovesList;
+    field private java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mPendingAdditions;
+    field private java.util.ArrayList<androidx.recyclerview.widget.DefaultItemAnimator.ChangeInfo>! mPendingChanges;
+    field private java.util.ArrayList<androidx.recyclerview.widget.DefaultItemAnimator.MoveInfo>! mPendingMoves;
+    field private java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mPendingRemovals;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mRemoveAnimations;
+    field private static android.animation.TimeInterpolator! sDefaultInterpolator;
+  }
+
+  private static class DefaultItemAnimator.ChangeInfo {
+    ctor private DefaultItemAnimator.ChangeInfo(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    ctor DefaultItemAnimator.ChangeInfo(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ViewHolder!, int, int, int, int);
+    field public int fromX;
+    field public int fromY;
+    field public androidx.recyclerview.widget.RecyclerView.ViewHolder! newHolder;
+    field public androidx.recyclerview.widget.RecyclerView.ViewHolder! oldHolder;
+    field public int toX;
+    field public int toY;
+  }
+
+  private static class DefaultItemAnimator.MoveInfo {
+    ctor DefaultItemAnimator.MoveInfo(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int, int, int, int);
+    field public int fromX;
+    field public int fromY;
+    field public androidx.recyclerview.widget.RecyclerView.ViewHolder! holder;
+    field public int toX;
+    field public int toY;
+  }
+
+  public class DiffUtil {
+    ctor private DiffUtil();
+    method private static androidx.recyclerview.widget.DiffUtil.Snake! diffPartial(androidx.recyclerview.widget.DiffUtil.Callback!, int, int, int, int, int[]!, int[]!, int);
+    field private static final java.util.Comparator<androidx.recyclerview.widget.DiffUtil.Snake>! SNAKE_COMPARATOR;
+  }
+
+  public static class DiffUtil.DiffResult {
+    ctor DiffUtil.DiffResult(androidx.recyclerview.widget.DiffUtil.Callback!, java.util.List<androidx.recyclerview.widget.DiffUtil.Snake>!, int[]!, int[]!, boolean);
+    method private void addRootSnake();
+    method private void dispatchAdditions(java.util.List<androidx.recyclerview.widget.DiffUtil.PostponedUpdate>!, androidx.recyclerview.widget.ListUpdateCallback!, int, int, int);
+    method private void dispatchRemovals(java.util.List<androidx.recyclerview.widget.DiffUtil.PostponedUpdate>!, androidx.recyclerview.widget.ListUpdateCallback!, int, int, int);
+    method private void findAddition(int, int, int);
+    method private boolean findMatchingItem(int, int, int, boolean);
+    method private void findMatchingItems();
+    method private void findRemoval(int, int, int);
+    method @VisibleForTesting java.util.List<androidx.recyclerview.widget.DiffUtil.Snake>! getSnakes();
+    method private static androidx.recyclerview.widget.DiffUtil.PostponedUpdate! removePostponedUpdate(java.util.List<androidx.recyclerview.widget.DiffUtil.PostponedUpdate>!, int, boolean);
+    field private static final int FLAG_CHANGED = 2; // 0x2
+    field private static final int FLAG_IGNORE = 16; // 0x10
+    field private static final int FLAG_MASK = 31; // 0x1f
+    field private static final int FLAG_MOVED_CHANGED = 4; // 0x4
+    field private static final int FLAG_MOVED_NOT_CHANGED = 8; // 0x8
+    field private static final int FLAG_NOT_CHANGED = 1; // 0x1
+    field private static final int FLAG_OFFSET = 5; // 0x5
+    field private final androidx.recyclerview.widget.DiffUtil.Callback! mCallback;
+    field private final boolean mDetectMoves;
+    field private final int[]! mNewItemStatuses;
+    field private final int mNewListSize;
+    field private final int[]! mOldItemStatuses;
+    field private final int mOldListSize;
+    field private final java.util.List<androidx.recyclerview.widget.DiffUtil.Snake>! mSnakes;
+  }
+
+  private static class DiffUtil.PostponedUpdate {
+    ctor public DiffUtil.PostponedUpdate(int, int, boolean);
+    field int currentPos;
+    field int posInOwnerList;
+    field boolean removal;
+  }
+
+  static class DiffUtil.Range {
+    ctor public DiffUtil.Range();
+    ctor public DiffUtil.Range(int, int, int, int);
+    field int newListEnd;
+    field int newListStart;
+    field int oldListEnd;
+    field int oldListStart;
+  }
+
+  static class DiffUtil.Snake {
+    ctor DiffUtil.Snake();
+    field boolean removal;
+    field boolean reverse;
+    field int size;
+    field int x;
+    field int y;
+  }
+
+  public class DividerItemDecoration extends androidx.recyclerview.widget.RecyclerView.ItemDecoration {
+    method private void drawHorizontal(android.graphics.Canvas!, androidx.recyclerview.widget.RecyclerView!);
+    method private void drawVertical(android.graphics.Canvas!, androidx.recyclerview.widget.RecyclerView!);
+    field private static final int[]! ATTRS;
+    field private static final String TAG = "DividerItem";
+    field private final android.graphics.Rect! mBounds;
+    field private android.graphics.drawable.Drawable! mDivider;
+    field private int mOrientation;
+  }
+
+  @VisibleForTesting class FastScroller extends androidx.recyclerview.widget.RecyclerView.ItemDecoration implements androidx.recyclerview.widget.RecyclerView.OnItemTouchListener {
+    ctor FastScroller(androidx.recyclerview.widget.RecyclerView!, android.graphics.drawable.StateListDrawable!, android.graphics.drawable.Drawable!, android.graphics.drawable.StateListDrawable!, android.graphics.drawable.Drawable!, int, int, int);
+    method public void attachToRecyclerView(androidx.recyclerview.widget.RecyclerView?);
+    method private void cancelHide();
+    method private void destroyCallbacks();
+    method private void drawHorizontalScrollbar(android.graphics.Canvas!);
+    method private void drawVerticalScrollbar(android.graphics.Canvas!);
+    method private int[]! getHorizontalRange();
+    method @VisibleForTesting android.graphics.drawable.Drawable! getHorizontalThumbDrawable();
+    method @VisibleForTesting android.graphics.drawable.Drawable! getHorizontalTrackDrawable();
+    method private int[]! getVerticalRange();
+    method @VisibleForTesting android.graphics.drawable.Drawable! getVerticalThumbDrawable();
+    method @VisibleForTesting android.graphics.drawable.Drawable! getVerticalTrackDrawable();
+    method @VisibleForTesting void hide(int);
+    method private void horizontalScrollTo(float);
+    method public boolean isDragging();
+    method private boolean isLayoutRTL();
+    method @VisibleForTesting boolean isPointInsideHorizontalThumb(float, float);
+    method @VisibleForTesting boolean isPointInsideVerticalThumb(float, float);
+    method @VisibleForTesting boolean isVisible();
+    method void requestRedraw();
+    method private void resetHideDelay(int);
+    method private int scrollTo(float, float, int[]!, int, int, int);
+    method void setState(int);
+    method private void setupCallbacks();
+    method public void show();
+    method void updateScrollPosition(int, int);
+    method private void verticalScrollTo(float);
+    field private static final int ANIMATION_STATE_FADING_IN = 1; // 0x1
+    field private static final int ANIMATION_STATE_FADING_OUT = 3; // 0x3
+    field private static final int ANIMATION_STATE_IN = 2; // 0x2
+    field private static final int ANIMATION_STATE_OUT = 0; // 0x0
+    field private static final int DRAG_NONE = 0; // 0x0
+    field private static final int DRAG_X = 1; // 0x1
+    field private static final int DRAG_Y = 2; // 0x2
+    field private static final int[]! EMPTY_STATE_SET;
+    field private static final int HIDE_DELAY_AFTER_DRAGGING_MS = 1200; // 0x4b0
+    field private static final int HIDE_DELAY_AFTER_VISIBLE_MS = 1500; // 0x5dc
+    field private static final int HIDE_DURATION_MS = 500; // 0x1f4
+    field private static final int[]! PRESSED_STATE_SET;
+    field private static final int SCROLLBAR_FULL_OPAQUE = 255; // 0xff
+    field private static final int SHOW_DURATION_MS = 500; // 0x1f4
+    field private static final int STATE_DRAGGING = 2; // 0x2
+    field private static final int STATE_HIDDEN = 0; // 0x0
+    field private static final int STATE_VISIBLE = 1; // 0x1
+    field int mAnimationState;
+    field private int mDragState;
+    field private final Runnable! mHideRunnable;
+    field @VisibleForTesting float mHorizontalDragX;
+    field private final int[]! mHorizontalRange;
+    field @VisibleForTesting int mHorizontalThumbCenterX;
+    field private final android.graphics.drawable.StateListDrawable! mHorizontalThumbDrawable;
+    field private final int mHorizontalThumbHeight;
+    field @VisibleForTesting int mHorizontalThumbWidth;
+    field private final android.graphics.drawable.Drawable! mHorizontalTrackDrawable;
+    field private final int mHorizontalTrackHeight;
+    field private final int mMargin;
+    field private boolean mNeedHorizontalScrollbar;
+    field private boolean mNeedVerticalScrollbar;
+    field private final androidx.recyclerview.widget.RecyclerView.OnScrollListener! mOnScrollListener;
+    field private androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field private int mRecyclerViewHeight;
+    field private int mRecyclerViewWidth;
+    field private final int mScrollbarMinimumRange;
+    field final android.animation.ValueAnimator! mShowHideAnimator;
+    field private int mState;
+    field @VisibleForTesting float mVerticalDragY;
+    field private final int[]! mVerticalRange;
+    field @VisibleForTesting int mVerticalThumbCenterY;
+    field final android.graphics.drawable.StateListDrawable! mVerticalThumbDrawable;
+    field @VisibleForTesting int mVerticalThumbHeight;
+    field private final int mVerticalThumbWidth;
+    field final android.graphics.drawable.Drawable! mVerticalTrackDrawable;
+    field private final int mVerticalTrackWidth;
+  }
+
+  @IntDef({androidx.recyclerview.widget.FastScroller.ANIMATION_STATE_OUT, androidx.recyclerview.widget.FastScroller.ANIMATION_STATE_FADING_IN, androidx.recyclerview.widget.FastScroller.ANIMATION_STATE_IN, androidx.recyclerview.widget.FastScroller.ANIMATION_STATE_FADING_OUT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface FastScroller.AnimationState {
+  }
+
+  private class FastScroller.AnimatorListener extends android.animation.AnimatorListenerAdapter {
+    ctor FastScroller.AnimatorListener();
+    field private boolean mCanceled;
+  }
+
+  private class FastScroller.AnimatorUpdater implements android.animation.ValueAnimator.AnimatorUpdateListener {
+    ctor FastScroller.AnimatorUpdater();
+  }
+
+  @IntDef({androidx.recyclerview.widget.FastScroller.DRAG_X, androidx.recyclerview.widget.FastScroller.DRAG_Y, androidx.recyclerview.widget.FastScroller.DRAG_NONE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface FastScroller.DragState {
+  }
+
+  @IntDef({androidx.recyclerview.widget.FastScroller.STATE_HIDDEN, androidx.recyclerview.widget.FastScroller.STATE_VISIBLE, androidx.recyclerview.widget.FastScroller.STATE_DRAGGING}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface FastScroller.State {
+  }
+
+  final class GapWorker implements java.lang.Runnable {
+    ctor GapWorker();
+    method public void add(androidx.recyclerview.widget.RecyclerView!);
+    method private void buildTaskList();
+    method private void flushTaskWithDeadline(androidx.recyclerview.widget.GapWorker.Task!, long);
+    method private void flushTasksWithDeadline(long);
+    method static boolean isPrefetchPositionAttached(androidx.recyclerview.widget.RecyclerView!, int);
+    method void postFromTraversal(androidx.recyclerview.widget.RecyclerView!, int, int);
+    method void prefetch(long);
+    method private void prefetchInnerRecyclerViewWithDeadline(androidx.recyclerview.widget.RecyclerView?, long);
+    method private androidx.recyclerview.widget.RecyclerView.ViewHolder! prefetchPositionWithDeadline(androidx.recyclerview.widget.RecyclerView!, int, long);
+    method public void remove(androidx.recyclerview.widget.RecyclerView!);
+    field long mFrameIntervalNs;
+    field long mPostTimeNs;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView>! mRecyclerViews;
+    field private java.util.ArrayList<androidx.recyclerview.widget.GapWorker.Task>! mTasks;
+    field static final ThreadLocal<androidx.recyclerview.widget.GapWorker>! sGapWorker;
+    field static java.util.Comparator<androidx.recyclerview.widget.GapWorker.Task>! sTaskComparator;
+  }
+
+  static class GapWorker.LayoutPrefetchRegistryImpl implements androidx.recyclerview.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry {
+    ctor GapWorker.LayoutPrefetchRegistryImpl();
+    method void clearPrefetchPositions();
+    method void collectPrefetchPositionsFromView(androidx.recyclerview.widget.RecyclerView!, boolean);
+    method boolean lastPrefetchIncludedPosition(int);
+    method void setPrefetchVector(int, int);
+    field int mCount;
+    field int[]! mPrefetchArray;
+    field int mPrefetchDx;
+    field int mPrefetchDy;
+  }
+
+  static class GapWorker.Task {
+    ctor GapWorker.Task();
+    method public void clear();
+    field public int distanceToItem;
+    field public boolean immediate;
+    field public int position;
+    field public androidx.recyclerview.widget.RecyclerView! view;
+    field public int viewVelocity;
+  }
+
+  public class GridLayoutManager extends androidx.recyclerview.widget.LinearLayoutManager {
+    method private void assignSpans(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int, boolean);
+    method private void cachePreLayoutSpanMapping();
+    method private void calculateItemBorders(int);
+    method static int[]! calculateItemBorders(int[]!, int, int);
+    method private void clearPreLayoutSpanMappingCache();
+    method void collectPrefetchPositionsForLayoutState(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!, androidx.recyclerview.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry!);
+    method private void ensureAnchorIsInCorrectSpan(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!, int);
+    method private void ensureViewSet();
+    method android.view.View! findReferenceChild(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int, int, int);
+    method int getSpaceForSpanRange(int, int);
+    method private int getSpanGroupIndex(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int);
+    method private int getSpanIndex(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int);
+    method private int getSpanSize(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int);
+    method private void guessMeasurement(float, int);
+    method void layoutChunk(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!, androidx.recyclerview.widget.LinearLayoutManager.LayoutChunkResult!);
+    method private void measureChild(android.view.View!, int, boolean);
+    method private void measureChildWithDecorationsAndMargin(android.view.View!, int, int, boolean);
+    method void onAnchorReady(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!, int);
+    method private void updateMeasurements();
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "GridLayoutManager";
+    field int[]! mCachedBorders;
+    field final android.graphics.Rect! mDecorInsets;
+    field boolean mPendingSpanCountChange;
+    field final android.util.SparseIntArray! mPreLayoutSpanIndexCache;
+    field final android.util.SparseIntArray! mPreLayoutSpanSizeCache;
+    field android.view.View[]! mSet;
+    field int mSpanCount;
+    field androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup! mSpanSizeLookup;
+  }
+
+  public static class GridLayoutManager.LayoutParams extends androidx.recyclerview.widget.RecyclerView.LayoutParams {
+    field int mSpanIndex;
+    field int mSpanSize;
+  }
+
+  public abstract static class GridLayoutManager.SpanSizeLookup {
+    method int findReferenceIndexFromCache(int);
+    method int getCachedSpanIndex(int, int);
+    field private boolean mCacheSpanIndices;
+    field final android.util.SparseIntArray! mSpanIndexCache;
+  }
+
+  public class ItemTouchHelper extends androidx.recyclerview.widget.RecyclerView.ItemDecoration implements androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener {
+    method private void addChildDrawingOrderCallback();
+    method private int checkHorizontalSwipe(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int);
+    method void checkSelectForSwipe(int, android.view.MotionEvent!, int);
+    method private int checkVerticalSwipe(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int);
+    method private void destroyCallbacks();
+    method void endRecoverAnimation(androidx.recyclerview.widget.RecyclerView.ViewHolder!, boolean);
+    method androidx.recyclerview.widget.ItemTouchHelper.RecoverAnimation! findAnimation(android.view.MotionEvent!);
+    method android.view.View! findChildView(android.view.MotionEvent!);
+    method private java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>! findSwapTargets(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private androidx.recyclerview.widget.RecyclerView.ViewHolder! findSwipedView(android.view.MotionEvent!);
+    method private void getSelectedDxDy(float[]!);
+    method boolean hasRunningRecoverAnim();
+    method private static boolean hitTest(android.view.View!, float, float, float, float);
+    method void moveIfNecessary(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void obtainVelocityTracker();
+    method void postDispatchSwipe(androidx.recyclerview.widget.ItemTouchHelper.RecoverAnimation!, int);
+    method private void releaseVelocityTracker();
+    method void removeChildDrawingOrderCallbackIfNecessary(android.view.View!);
+    method boolean scrollIfNecessary();
+    method void select(androidx.recyclerview.widget.RecyclerView.ViewHolder?, int);
+    method private void setupCallbacks();
+    method private void startGestureDetection();
+    method private void stopGestureDetection();
+    method private int swipeIfNecessary(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void updateDxDy(android.view.MotionEvent!, int, int);
+    field static final int ACTION_MODE_DRAG_MASK = 16711680; // 0xff0000
+    field private static final int ACTION_MODE_IDLE_MASK = 255; // 0xff
+    field static final int ACTION_MODE_SWIPE_MASK = 65280; // 0xff00
+    field private static final int ACTIVE_POINTER_ID_NONE = -1; // 0xffffffff
+    field private static final boolean DEBUG = false;
+    field static final int DIRECTION_FLAG_COUNT = 8; // 0x8
+    field private static final int PIXELS_PER_SECOND = 1000; // 0x3e8
+    field private static final String TAG = "ItemTouchHelper";
+    field private int mActionState;
+    field int mActivePointerId;
+    field androidx.recyclerview.widget.ItemTouchHelper.Callback mCallback;
+    field private androidx.recyclerview.widget.RecyclerView.ChildDrawingOrderCallback! mChildDrawingOrderCallback;
+    field private java.util.List<java.lang.Integer>! mDistances;
+    field private long mDragScrollStartTimeInMs;
+    field float mDx;
+    field float mDy;
+    field androidx.core.view.GestureDetectorCompat! mGestureDetector;
+    field float mInitialTouchX;
+    field float mInitialTouchY;
+    field private androidx.recyclerview.widget.ItemTouchHelper.ItemTouchHelperGestureListener! mItemTouchHelperGestureListener;
+    field private float mMaxSwipeVelocity;
+    field private final androidx.recyclerview.widget.RecyclerView.OnItemTouchListener! mOnItemTouchListener;
+    field android.view.View! mOverdrawChild;
+    field int mOverdrawChildPosition;
+    field final java.util.List<android.view.View>! mPendingCleanup;
+    field java.util.List<androidx.recyclerview.widget.ItemTouchHelper.RecoverAnimation>! mRecoverAnimations;
+    field androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field final Runnable! mScrollRunnable;
+    field androidx.recyclerview.widget.RecyclerView.ViewHolder! mSelected;
+    field int mSelectedFlags;
+    field private float mSelectedStartX;
+    field private float mSelectedStartY;
+    field private int mSlop;
+    field private java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mSwapTargets;
+    field private float mSwipeEscapeVelocity;
+    field private final float[]! mTmpPosition;
+    field private android.graphics.Rect! mTmpRect;
+    field android.view.VelocityTracker! mVelocityTracker;
+  }
+
+  public abstract static class ItemTouchHelper.Callback {
+    method final int getAbsoluteMovementFlags(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private int getMaxDragScroll(androidx.recyclerview.widget.RecyclerView!);
+    method boolean hasDragFlag(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method boolean hasSwipeFlag(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void onDraw(android.graphics.Canvas!, androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.ViewHolder!, java.util.List<androidx.recyclerview.widget.ItemTouchHelper.RecoverAnimation>!, int, float, float);
+    method void onDrawOver(android.graphics.Canvas!, androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.ViewHolder!, java.util.List<androidx.recyclerview.widget.ItemTouchHelper.RecoverAnimation>!, int, float, float);
+    field private static final int ABS_HORIZONTAL_DIR_FLAGS = 789516; // 0xc0c0c
+    field private static final long DRAG_SCROLL_ACCELERATION_LIMIT_TIME_MS = 2000L; // 0x7d0L
+    field static final int RELATIVE_DIR_FLAGS = 3158064; // 0x303030
+    field private int mCachedMaxScrollSpeed;
+    field private static final android.view.animation.Interpolator! sDragScrollInterpolator;
+    field private static final android.view.animation.Interpolator! sDragViewScrollCapInterpolator;
+  }
+
+  private class ItemTouchHelper.ItemTouchHelperGestureListener extends android.view.GestureDetector.SimpleOnGestureListener {
+    ctor ItemTouchHelper.ItemTouchHelperGestureListener();
+    method void doNotReactToLongPress();
+    field private boolean mShouldReactToLongPress;
+  }
+
+  private static class ItemTouchHelper.RecoverAnimation implements android.animation.Animator.AnimatorListener {
+    ctor ItemTouchHelper.RecoverAnimation(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int, int, float, float, float, float);
+    method public void cancel();
+    method public void setDuration(long);
+    method public void setFraction(float);
+    method public void start();
+    method public void update();
+    field final int mActionState;
+    field final int mAnimationType;
+    field boolean mEnded;
+    field private float mFraction;
+    field boolean mIsPendingCleanup;
+    field boolean mOverridden;
+    field final float mStartDx;
+    field final float mStartDy;
+    field final float mTargetX;
+    field final float mTargetY;
+    field private final android.animation.ValueAnimator! mValueAnimator;
+    field final androidx.recyclerview.widget.RecyclerView.ViewHolder! mViewHolder;
+    field float mX;
+    field float mY;
+  }
+
+  public abstract static class ItemTouchHelper.SimpleCallback extends androidx.recyclerview.widget.ItemTouchHelper.Callback {
+    field private int mDefaultDragDirs;
+    field private int mDefaultSwipeDirs;
+  }
+
+  class ItemTouchUIUtilImpl implements androidx.recyclerview.widget.ItemTouchUIUtil {
+    ctor ItemTouchUIUtilImpl();
+    method private static float findMaxElevation(androidx.recyclerview.widget.RecyclerView!, android.view.View!);
+    field static final androidx.recyclerview.widget.ItemTouchUIUtil! INSTANCE;
+  }
+
+  class LayoutState {
+    ctor LayoutState();
+    method boolean hasMore(androidx.recyclerview.widget.RecyclerView.State!);
+    method android.view.View! next(androidx.recyclerview.widget.RecyclerView.Recycler!);
+    field static final int INVALID_LAYOUT = -2147483648; // 0x80000000
+    field static final int ITEM_DIRECTION_HEAD = -1; // 0xffffffff
+    field static final int ITEM_DIRECTION_TAIL = 1; // 0x1
+    field static final int LAYOUT_END = 1; // 0x1
+    field static final int LAYOUT_START = -1; // 0xffffffff
+    field int mAvailable;
+    field int mCurrentPosition;
+    field int mEndLine;
+    field boolean mInfinite;
+    field int mItemDirection;
+    field int mLayoutDirection;
+    field boolean mRecycle;
+    field int mStartLine;
+    field boolean mStopInFocusable;
+  }
+
+  public class LinearLayoutManager extends androidx.recyclerview.widget.RecyclerView.LayoutManager implements androidx.recyclerview.widget.ItemTouchHelper.ViewDropHandler androidx.recyclerview.widget.RecyclerView.SmoothScroller.ScrollVectorProvider {
+    method void collectPrefetchPositionsForLayoutState(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!, androidx.recyclerview.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry!);
+    method private int computeScrollExtent(androidx.recyclerview.widget.RecyclerView.State!);
+    method private int computeScrollOffset(androidx.recyclerview.widget.RecyclerView.State!);
+    method private int computeScrollRange(androidx.recyclerview.widget.RecyclerView.State!);
+    method int convertFocusDirectionToLayoutDirection(int);
+    method androidx.recyclerview.widget.LinearLayoutManager.LayoutState! createLayoutState();
+    method void ensureLayoutState();
+    method int fill(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method private android.view.View! findFirstPartiallyOrCompletelyInvisibleChild();
+    method private android.view.View! findFirstReferenceChild(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method private android.view.View! findFirstVisibleChildClosestToEnd(boolean, boolean);
+    method private android.view.View! findFirstVisibleChildClosestToStart(boolean, boolean);
+    method private android.view.View! findLastPartiallyOrCompletelyInvisibleChild();
+    method private android.view.View! findLastReferenceChild(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method android.view.View! findOnePartiallyOrCompletelyInvisibleChild(int, int);
+    method android.view.View! findOneVisibleChild(int, int, boolean, boolean);
+    method private android.view.View! findPartiallyOrCompletelyInvisibleChildClosestToEnd();
+    method private android.view.View! findPartiallyOrCompletelyInvisibleChildClosestToStart();
+    method android.view.View! findReferenceChild(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int, int, int);
+    method private android.view.View! findReferenceChildClosestToEnd(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method private android.view.View! findReferenceChildClosestToStart(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method private int fixLayoutEndGap(int, androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method private int fixLayoutStartGap(int, androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method private android.view.View! getChildClosestToEnd();
+    method private android.view.View! getChildClosestToStart();
+    method void layoutChunk(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!, androidx.recyclerview.widget.LinearLayoutManager.LayoutChunkResult!);
+    method private void layoutForPredictiveAnimations(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, int, int);
+    method private void logChildren();
+    method void onAnchorReady(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!, int);
+    method private void recycleByLayoutState(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.LinearLayoutManager.LayoutState!);
+    method private void recycleChildren(androidx.recyclerview.widget.RecyclerView.Recycler!, int, int);
+    method private void recycleViewsFromEnd(androidx.recyclerview.widget.RecyclerView.Recycler!, int);
+    method private void recycleViewsFromStart(androidx.recyclerview.widget.RecyclerView.Recycler!, int);
+    method boolean resolveIsInfinite();
+    method private void resolveShouldLayoutReverse();
+    method int scrollBy(int, androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method boolean shouldMeasureTwice();
+    method private boolean updateAnchorFromChildren(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!);
+    method private boolean updateAnchorFromPendingData(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!);
+    method private void updateAnchorInfoForLayout(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!);
+    method private void updateLayoutState(int, int, boolean, androidx.recyclerview.widget.RecyclerView.State!);
+    method private void updateLayoutStateToFillEnd(androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!);
+    method private void updateLayoutStateToFillEnd(int, int);
+    method private void updateLayoutStateToFillStart(androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo!);
+    method private void updateLayoutStateToFillStart(int, int);
+    method void validateChildOrder();
+    field static final boolean DEBUG = false;
+    field private static final float MAX_SCROLL_FACTOR = 0.33333334f;
+    field private static final String TAG = "LinearLayoutManager";
+    field final androidx.recyclerview.widget.LinearLayoutManager.AnchorInfo! mAnchorInfo;
+    field private int mInitialPrefetchItemCount;
+    field private boolean mLastStackFromEnd;
+    field private final androidx.recyclerview.widget.LinearLayoutManager.LayoutChunkResult! mLayoutChunkResult;
+    field private androidx.recyclerview.widget.LinearLayoutManager.LayoutState! mLayoutState;
+    field int mOrientation;
+    field androidx.recyclerview.widget.OrientationHelper! mOrientationHelper;
+    field androidx.recyclerview.widget.LinearLayoutManager.SavedState! mPendingSavedState;
+    field int mPendingScrollPosition;
+    field int mPendingScrollPositionOffset;
+    field private boolean mRecycleChildrenOnDetach;
+    field private boolean mReverseLayout;
+    field boolean mShouldReverseLayout;
+    field private boolean mSmoothScrollbarEnabled;
+    field private boolean mStackFromEnd;
+  }
+
+  static class LinearLayoutManager.AnchorInfo {
+    ctor LinearLayoutManager.AnchorInfo();
+    method void assignCoordinateFromPadding();
+    method public void assignFromView(android.view.View!, int);
+    method public void assignFromViewAndKeepVisibleRect(android.view.View!, int);
+    method boolean isViewValidAsAnchor(android.view.View!, androidx.recyclerview.widget.RecyclerView.State!);
+    method void reset();
+    field int mCoordinate;
+    field boolean mLayoutFromEnd;
+    field androidx.recyclerview.widget.OrientationHelper! mOrientationHelper;
+    field int mPosition;
+    field boolean mValid;
+  }
+
+  protected static class LinearLayoutManager.LayoutChunkResult {
+    method void resetInternal();
+  }
+
+  static class LinearLayoutManager.LayoutState {
+    ctor LinearLayoutManager.LayoutState();
+    method public void assignPositionFromScrapList();
+    method public void assignPositionFromScrapList(android.view.View!);
+    method boolean hasMore(androidx.recyclerview.widget.RecyclerView.State!);
+    method void log();
+    method android.view.View! next(androidx.recyclerview.widget.RecyclerView.Recycler!);
+    method private android.view.View! nextViewFromScrapList();
+    method public android.view.View! nextViewInLimitedList(android.view.View!);
+    field static final int INVALID_LAYOUT = -2147483648; // 0x80000000
+    field static final int ITEM_DIRECTION_HEAD = -1; // 0xffffffff
+    field static final int ITEM_DIRECTION_TAIL = 1; // 0x1
+    field static final int LAYOUT_END = 1; // 0x1
+    field static final int LAYOUT_START = -1; // 0xffffffff
+    field static final int SCROLLING_OFFSET_NaN = -2147483648; // 0x80000000
+    field static final String TAG = "LLM#LayoutState";
+    field int mAvailable;
+    field int mCurrentPosition;
+    field int mExtra;
+    field boolean mInfinite;
+    field boolean mIsPreLayout;
+    field int mItemDirection;
+    field int mLastScrollDelta;
+    field int mLayoutDirection;
+    field int mOffset;
+    field boolean mRecycle;
+    field java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mScrapList;
+    field int mScrollingOffset;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class LinearLayoutManager.SavedState implements android.os.Parcelable {
+    ctor public LinearLayoutManager.SavedState();
+    ctor LinearLayoutManager.SavedState(android.os.Parcel!);
+    ctor public LinearLayoutManager.SavedState(androidx.recyclerview.widget.LinearLayoutManager.SavedState!);
+    method boolean hasValidAnchor();
+    method void invalidateAnchor();
+    field public static final android.os.Parcelable.Creator<androidx.recyclerview.widget.LinearLayoutManager.SavedState>! CREATOR;
+    field boolean mAnchorLayoutFromEnd;
+    field int mAnchorOffset;
+    field int mAnchorPosition;
+  }
+
+  public class LinearSmoothScroller extends androidx.recyclerview.widget.RecyclerView.SmoothScroller {
+    method private int clampApplyScroll(int, int);
+    field private static final boolean DEBUG = false;
+    field private static final float MILLISECONDS_PER_INCH = 25.0f;
+    field private final float MILLISECONDS_PER_PX;
+    field private static final float TARGET_SEEK_EXTRA_SCROLL_RATIO = 1.2f;
+    field private static final int TARGET_SEEK_SCROLL_DISTANCE_PX = 10000; // 0x2710
+  }
+
+  public class LinearSnapHelper extends androidx.recyclerview.widget.SnapHelper {
+    method private float computeDistancePerChild(androidx.recyclerview.widget.RecyclerView.LayoutManager!, androidx.recyclerview.widget.OrientationHelper!);
+    method private int distanceToCenter(androidx.recyclerview.widget.RecyclerView.LayoutManager, android.view.View, androidx.recyclerview.widget.OrientationHelper!);
+    method private int estimateNextPositionDiffForFling(androidx.recyclerview.widget.RecyclerView.LayoutManager!, androidx.recyclerview.widget.OrientationHelper!, int, int);
+    method private android.view.View? findCenterView(androidx.recyclerview.widget.RecyclerView.LayoutManager!, androidx.recyclerview.widget.OrientationHelper!);
+    method private androidx.recyclerview.widget.OrientationHelper getHorizontalHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager);
+    method private androidx.recyclerview.widget.OrientationHelper getVerticalHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager);
+    field private static final float INVALID_DISTANCE = 1.0f;
+    field private androidx.recyclerview.widget.OrientationHelper? mHorizontalHelper;
+    field private androidx.recyclerview.widget.OrientationHelper? mVerticalHelper;
+  }
+
+  public abstract class ListAdapter<T, VH extends androidx.recyclerview.widget.RecyclerView.ViewHolder> extends androidx.recyclerview.widget.RecyclerView.Adapter<VH> {
+    field final androidx.recyclerview.widget.AsyncListDiffer<T>! mDiffer;
+    field private final androidx.recyclerview.widget.AsyncListDiffer.ListListener<T>! mListener;
+  }
+
+  class MessageThreadUtil<T> implements androidx.recyclerview.widget.ThreadUtil<T> {
+    ctor MessageThreadUtil();
+    method public androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>! getBackgroundProxy(androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>!);
+    method public androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>! getMainThreadProxy(androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>!);
+  }
+
+  static class MessageThreadUtil.MessageQueue {
+    ctor MessageThreadUtil.MessageQueue();
+    method androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! next();
+    method void removeMessages(int);
+    method void sendMessage(androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem!);
+    method void sendMessageAtFrontOfQueue(androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem!);
+    field private androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! mRoot;
+  }
+
+  static class MessageThreadUtil.SyncQueueItem {
+    ctor MessageThreadUtil.SyncQueueItem();
+    method static androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! obtainMessage(int, int, int, int, int, int, Object!);
+    method static androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! obtainMessage(int, int, int);
+    method static androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! obtainMessage(int, int, Object!);
+    method void recycle();
+    field public int arg1;
+    field public int arg2;
+    field public int arg3;
+    field public int arg4;
+    field public int arg5;
+    field public Object! data;
+    field androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! next;
+    field private static androidx.recyclerview.widget.MessageThreadUtil.SyncQueueItem! sPool;
+    field private static final Object! sPoolLock;
+    field public int what;
+  }
+
+  class OpReorderer {
+    ctor OpReorderer(androidx.recyclerview.widget.OpReorderer.Callback!);
+    method private int getLastMoveOutOfOrder(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!);
+    method void reorderOps(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!);
+    method private void swapMoveAdd(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method private void swapMoveOp(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!, int, int);
+    method void swapMoveRemove(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    method void swapMoveUpdate(java.util.List<androidx.recyclerview.widget.AdapterHelper.UpdateOp>!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!, int, androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+    field final androidx.recyclerview.widget.OpReorderer.Callback! mCallback;
+  }
+
+  static interface OpReorderer.Callback {
+    method public androidx.recyclerview.widget.AdapterHelper.UpdateOp! obtainUpdateOp(int, int, int, Object!);
+    method public void recycleUpdateOp(androidx.recyclerview.widget.AdapterHelper.UpdateOp!);
+  }
+
+  public abstract class OrientationHelper {
+    ctor private OrientationHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager!);
+    field private static final int INVALID_SIZE = -2147483648; // 0x80000000
+    field private int mLastTotalSpace;
+    field final android.graphics.Rect! mTmpRect;
+  }
+
+  public class PagerSnapHelper extends androidx.recyclerview.widget.SnapHelper {
+    method private int distanceToCenter(androidx.recyclerview.widget.RecyclerView.LayoutManager, android.view.View, androidx.recyclerview.widget.OrientationHelper!);
+    method private android.view.View? findCenterView(androidx.recyclerview.widget.RecyclerView.LayoutManager!, androidx.recyclerview.widget.OrientationHelper!);
+    method private androidx.recyclerview.widget.OrientationHelper getHorizontalHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager);
+    method private androidx.recyclerview.widget.OrientationHelper? getOrientationHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager!);
+    method private androidx.recyclerview.widget.OrientationHelper getVerticalHelper(androidx.recyclerview.widget.RecyclerView.LayoutManager);
+    method private boolean isForwardFling(androidx.recyclerview.widget.RecyclerView.LayoutManager!, int, int);
+    method private boolean isReverseLayout(androidx.recyclerview.widget.RecyclerView.LayoutManager!);
+    field private static final int MAX_SCROLL_ON_FLING_DURATION = 100; // 0x64
+    field private androidx.recyclerview.widget.OrientationHelper? mHorizontalHelper;
+    field private androidx.recyclerview.widget.OrientationHelper? mVerticalHelper;
+  }
+
+  public class RecyclerView extends android.view.ViewGroup implements androidx.core.view.NestedScrollingChild2 androidx.core.view.NestedScrollingChild3 androidx.core.view.ScrollingView {
+    method void absorbGlows(int, int);
+    method private void addAnimatingView(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void animateAppearance(androidx.recyclerview.widget.RecyclerView.ViewHolder, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo?, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo);
+    method private void animateChange(androidx.recyclerview.widget.RecyclerView.ViewHolder, androidx.recyclerview.widget.RecyclerView.ViewHolder, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo, boolean, boolean);
+    method void animateDisappearance(androidx.recyclerview.widget.RecyclerView.ViewHolder, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo?);
+    method void assertInLayoutOrScroll(String!);
+    method void assertNotInLayoutOrScroll(String!);
+    method boolean canReuseUpdatedViewHolder(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private void cancelScroll();
+    method static void clearNestedRecyclerViewIfNotNested(androidx.recyclerview.widget.RecyclerView.ViewHolder);
+    method void clearOldPositions();
+    method void considerReleasingGlowsOnScroll(int, int);
+    method void consumePendingUpdateOperations();
+    method private void createLayoutManager(android.content.Context!, String!, android.util.AttributeSet!, int, int);
+    method void defaultOnMeasure(int, int);
+    method private boolean didChildRangeChange(int, int);
+    method void dispatchChildAttached(android.view.View!);
+    method void dispatchChildDetached(android.view.View!);
+    method private void dispatchContentChangedIfNecessary();
+    method void dispatchLayout();
+    method private void dispatchLayoutStep1();
+    method private void dispatchLayoutStep2();
+    method private void dispatchLayoutStep3();
+    method void dispatchOnScrollStateChanged(int);
+    method void dispatchOnScrolled(int, int);
+    method void dispatchPendingImportantForAccessibilityChanges();
+    method private boolean dispatchToOnItemTouchListeners(android.view.MotionEvent!);
+    method void ensureBottomGlow();
+    method void ensureLeftGlow();
+    method void ensureRightGlow();
+    method void ensureTopGlow();
+    method String! exceptionLabel();
+    method final void fillRemainingScrollValues(androidx.recyclerview.widget.RecyclerView.State!);
+    method private boolean findInterceptingOnItemTouchListener(android.view.MotionEvent!);
+    method private void findMinMaxChildLayoutPositions(int[]!);
+    method static androidx.recyclerview.widget.RecyclerView? findNestedRecyclerView(android.view.View);
+    method private android.view.View? findNextViewToFocus();
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder? findViewHolderForPosition(int, boolean);
+    method int getAdapterPositionFor(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method long getChangedHolderKey(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method static androidx.recyclerview.widget.RecyclerView.ViewHolder! getChildViewHolderInt(android.view.View!);
+    method static void getDecoratedBoundsWithMarginsInt(android.view.View!, android.graphics.Rect!);
+    method private int getDeepestFocusedViewWithId(android.view.View!);
+    method private String! getFullClassName(android.content.Context!, String!);
+    method android.graphics.Rect! getItemDecorInsetsForChild(android.view.View!);
+    method long getNanoTime();
+    method private androidx.core.view.NestedScrollingChildHelper! getScrollingChildHelper();
+    method private void handleMissingPreInfoForChangeError(long, androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private boolean hasUpdatedView();
+    method void initAdapterManager();
+    method private void initAutofill();
+    method private void initChildrenHelper();
+    method @VisibleForTesting void initFastScroller(android.graphics.drawable.StateListDrawable!, android.graphics.drawable.Drawable!, android.graphics.drawable.StateListDrawable!, android.graphics.drawable.Drawable!);
+    method void invalidateGlows();
+    method boolean isAccessibilityEnabled();
+    method private boolean isPreferredNextFocus(android.view.View!, android.view.View!, int);
+    method void jumpToPositionForSmoothScroller(int);
+    method void markItemDecorInsetsDirty();
+    method void markKnownViewsInvalid();
+    method void offsetPositionRecordsForInsert(int, int);
+    method void offsetPositionRecordsForMove(int, int);
+    method void offsetPositionRecordsForRemove(int, int, boolean);
+    method void onEnterLayoutOrScroll();
+    method void onExitLayoutOrScroll();
+    method void onExitLayoutOrScroll(boolean);
+    method private void onPointerUp(android.view.MotionEvent!);
+    method void postAnimationRunner();
+    method private boolean predictiveItemAnimationsEnabled();
+    method private void processAdapterUpdatesAndSetAnimationFlags();
+    method void processDataSetCompletelyChanged(boolean);
+    method private void pullGlows(float, float, float, float);
+    method void recordAnimationInfoIfBouncedHiddenView(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo!);
+    method private void recoverFocusFromState();
+    method private void releaseGlows();
+    method void removeAndRecycleViews();
+    method boolean removeAnimatingView(android.view.View!);
+    method void repositionShadowingViews();
+    method private void requestChildOnScreen(android.view.View, android.view.View?);
+    method private void resetFocusInfo();
+    method private void resetScroll();
+    method private void saveFocusInfo();
+    method void saveOldPositions();
+    method boolean scrollByInternal(int, int, android.view.MotionEvent!);
+    method void scrollStep(int, int, int[]?);
+    method private void setAdapterInternal(androidx.recyclerview.widget.RecyclerView.Adapter?, boolean, boolean);
+    method @VisibleForTesting boolean setChildImportantForAccessibilityInternal(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int);
+    method void setScrollState(int);
+    method boolean shouldDeferAccessibilityEvent(android.view.accessibility.AccessibilityEvent!);
+    method void startInterceptRequestLayout();
+    method void stopInterceptRequestLayout(boolean);
+    method private void stopScrollersInternal();
+    method void viewRangeUpdate(int, int, Object!);
+    field static final boolean ALLOW_SIZE_IN_UNSPECIFIED_SPEC;
+    field static final boolean ALLOW_THREAD_GAP_WORK;
+    field private static final int[]! CLIP_TO_PADDING_ATTR;
+    field static final boolean DEBUG = false;
+    field static final int DEFAULT_ORIENTATION = 1; // 0x1
+    field static final boolean DISPATCH_TEMP_DETACH = false;
+    field private static final boolean FORCE_ABS_FOCUS_SEARCH_DIRECTION;
+    field static final boolean FORCE_INVALIDATE_DISPLAY_LIST;
+    field static final long FOREVER_NS = 9223372036854775807L; // 0x7fffffffffffffffL
+    field private static final boolean IGNORE_DETACHED_FOCUSED_CHILD;
+    field private static final int INVALID_POINTER = -1; // 0xffffffff
+    field private static final Class<?>[]! LAYOUT_MANAGER_CONSTRUCTOR_SIGNATURE;
+    field static final int MAX_SCROLL_DURATION = 2000; // 0x7d0
+    field private static final int[]! NESTED_SCROLLING_ATTRS;
+    field static final boolean POST_UPDATES_ON_ANIMATION;
+    field static final String TAG = "RecyclerView";
+    field static final String TRACE_BIND_VIEW_TAG = "RV OnBindView";
+    field static final String TRACE_CREATE_VIEW_TAG = "RV CreateView";
+    field private static final String TRACE_HANDLE_ADAPTER_UPDATES_TAG = "RV PartialInvalidate";
+    field static final String TRACE_NESTED_PREFETCH_TAG = "RV Nested Prefetch";
+    field private static final String TRACE_ON_DATA_SET_CHANGE_LAYOUT_TAG = "RV FullInvalidate";
+    field private static final String TRACE_ON_LAYOUT_TAG = "RV OnLayout";
+    field static final String TRACE_PREFETCH_TAG = "RV Prefetch";
+    field static final String TRACE_SCROLL_TAG = "RV Scroll";
+    field static final boolean VERBOSE_TRACING = false;
+    field androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate! mAccessibilityDelegate;
+    field private final android.view.accessibility.AccessibilityManager! mAccessibilityManager;
+    field androidx.recyclerview.widget.RecyclerView.Adapter! mAdapter;
+    field androidx.recyclerview.widget.AdapterHelper! mAdapterHelper;
+    field boolean mAdapterUpdateDuringMeasure;
+    field private android.widget.EdgeEffect! mBottomGlow;
+    field private androidx.recyclerview.widget.RecyclerView.ChildDrawingOrderCallback! mChildDrawingOrderCallback;
+    field androidx.recyclerview.widget.ChildHelper! mChildHelper;
+    field boolean mClipToPadding;
+    field boolean mDataSetHasChangedAfterLayout;
+    field boolean mDispatchItemsChangedEvent;
+    field private int mDispatchScrollCounter;
+    field private int mEatenAccessibilityChangeFlags;
+    field private androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory mEdgeEffectFactory;
+    field boolean mEnableFastScroller;
+    field @VisibleForTesting boolean mFirstLayoutComplete;
+    field androidx.recyclerview.widget.GapWorker! mGapWorker;
+    field boolean mHasFixedSize;
+    field private boolean mIgnoreMotionEventTillDown;
+    field private int mInitialTouchX;
+    field private int mInitialTouchY;
+    field private int mInterceptRequestLayoutDepth;
+    field private androidx.recyclerview.widget.RecyclerView.OnItemTouchListener! mInterceptingOnItemTouchListener;
+    field boolean mIsAttached;
+    field androidx.recyclerview.widget.RecyclerView.ItemAnimator! mItemAnimator;
+    field private androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemAnimatorListener! mItemAnimatorListener;
+    field private Runnable! mItemAnimatorRunner;
+    field final java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ItemDecoration>! mItemDecorations;
+    field boolean mItemsAddedOrRemoved;
+    field boolean mItemsChanged;
+    field private int mLastTouchX;
+    field private int mLastTouchY;
+    field @VisibleForTesting androidx.recyclerview.widget.RecyclerView.LayoutManager! mLayout;
+    field boolean mLayoutFrozen;
+    field private int mLayoutOrScrollCounter;
+    field boolean mLayoutWasDefered;
+    field private android.widget.EdgeEffect! mLeftGlow;
+    field private final int mMaxFlingVelocity;
+    field private final int mMinFlingVelocity;
+    field private final int[]! mMinMaxLayoutPositions;
+    field private final int[]! mNestedOffsets;
+    field private final androidx.recyclerview.widget.RecyclerView.RecyclerViewDataObserver! mObserver;
+    field private java.util.List<androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener>! mOnChildAttachStateListeners;
+    field private androidx.recyclerview.widget.RecyclerView.OnFlingListener! mOnFlingListener;
+    field private final java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.OnItemTouchListener>! mOnItemTouchListeners;
+    field @VisibleForTesting final java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mPendingAccessibilityImportanceChange;
+    field private androidx.recyclerview.widget.RecyclerView.SavedState! mPendingSavedState;
+    field boolean mPostedAnimatorRunner;
+    field androidx.recyclerview.widget.GapWorker.LayoutPrefetchRegistryImpl! mPrefetchRegistry;
+    field private boolean mPreserveFocusAfterLayout;
+    field final androidx.recyclerview.widget.RecyclerView.Recycler! mRecycler;
+    field androidx.recyclerview.widget.RecyclerView.RecyclerListener! mRecyclerListener;
+    field final int[]! mReusableIntPair;
+    field private android.widget.EdgeEffect! mRightGlow;
+    field private float mScaledHorizontalScrollFactor;
+    field private float mScaledVerticalScrollFactor;
+    field private androidx.recyclerview.widget.RecyclerView.OnScrollListener! mScrollListener;
+    field private java.util.List<androidx.recyclerview.widget.RecyclerView.OnScrollListener>! mScrollListeners;
+    field private final int[]! mScrollOffset;
+    field private int mScrollPointerId;
+    field private int mScrollState;
+    field private androidx.core.view.NestedScrollingChildHelper! mScrollingChildHelper;
+    field final androidx.recyclerview.widget.RecyclerView.State! mState;
+    field final android.graphics.Rect! mTempRect;
+    field private final android.graphics.Rect! mTempRect2;
+    field final android.graphics.RectF! mTempRectF;
+    field private android.widget.EdgeEffect! mTopGlow;
+    field private int mTouchSlop;
+    field final Runnable! mUpdateChildViewsRunnable;
+    field private android.view.VelocityTracker! mVelocityTracker;
+    field final androidx.recyclerview.widget.RecyclerView.ViewFlinger! mViewFlinger;
+    field private final androidx.recyclerview.widget.ViewInfoStore.ProcessCallback! mViewInfoProcessCallback;
+    field final androidx.recyclerview.widget.ViewInfoStore! mViewInfoStore;
+    field static final android.view.animation.Interpolator! sQuinticInterpolator;
+  }
+
+  public abstract static class RecyclerView.Adapter<VH extends androidx.recyclerview.widget.RecyclerView.ViewHolder> {
+    field private boolean mHasStableIds;
+    field private final androidx.recyclerview.widget.RecyclerView.AdapterDataObservable! mObservable;
+  }
+
+  static class RecyclerView.AdapterDataObservable extends android.database.Observable<androidx.recyclerview.widget.RecyclerView.AdapterDataObserver> {
+    ctor RecyclerView.AdapterDataObservable();
+    method public boolean hasObservers();
+    method public void notifyChanged();
+    method public void notifyItemMoved(int, int);
+    method public void notifyItemRangeChanged(int, int);
+    method public void notifyItemRangeChanged(int, int, Object?);
+    method public void notifyItemRangeInserted(int, int);
+    method public void notifyItemRangeRemoved(int, int);
+  }
+
+  public abstract static class RecyclerView.ItemAnimator {
+    method @androidx.recyclerview.widget.RecyclerView.ItemAnimator.AdapterChanges static int buildAdapterChangeFlagsForAnimations(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void setListener(androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemAnimatorListener!);
+    field private long mAddDuration;
+    field private long mChangeDuration;
+    field private java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemAnimatorFinishedListener>! mFinishedListeners;
+    field private androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemAnimatorListener! mListener;
+    field private long mMoveDuration;
+    field private long mRemoveDuration;
+  }
+
+  static interface RecyclerView.ItemAnimator.ItemAnimatorListener {
+    method public void onAnimationFinished(androidx.recyclerview.widget.RecyclerView.ViewHolder);
+  }
+
+  private class RecyclerView.ItemAnimatorRestoreListener implements androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemAnimatorListener {
+    ctor RecyclerView.ItemAnimatorRestoreListener();
+    method public void onAnimationFinished(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+  }
+
+  public abstract static class RecyclerView.LayoutManager {
+    method private void addViewInt(android.view.View!, int, boolean);
+    method private void detachViewInternal(int, android.view.View);
+    method void dispatchAttachedToWindow(androidx.recyclerview.widget.RecyclerView!);
+    method void dispatchDetachedFromWindow(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.Recycler!);
+    method private int[]! getChildRectangleOnScreenScrollAmount(android.view.View!, android.graphics.Rect!);
+    method boolean hasFlexibleChildInBothOrientations();
+    method private boolean isFocusedChildVisibleAfterScrolling(androidx.recyclerview.widget.RecyclerView!, int, int);
+    method private static boolean isMeasurementUpToDate(int, int, int);
+    method void onInitializeAccessibilityNodeInfo(androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method void onInitializeAccessibilityNodeInfoForItem(android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method void onSmoothScrollerStopped(androidx.recyclerview.widget.RecyclerView.SmoothScroller!);
+    method boolean performAccessibilityAction(int, android.os.Bundle?);
+    method boolean performAccessibilityActionForItem(android.view.View, int, android.os.Bundle?);
+    method void removeAndRecycleScrapInt(androidx.recyclerview.widget.RecyclerView.Recycler!);
+    method private void scrapOrRecycleView(androidx.recyclerview.widget.RecyclerView.Recycler!, int, android.view.View!);
+    method void setExactMeasureSpecsFrom(androidx.recyclerview.widget.RecyclerView!);
+    method void setMeasureSpecs(int, int);
+    method void setMeasuredDimensionFromChildren(int, int);
+    method void setRecyclerView(androidx.recyclerview.widget.RecyclerView!);
+    method boolean shouldMeasureChild(android.view.View!, int, int, androidx.recyclerview.widget.RecyclerView.LayoutParams!);
+    method boolean shouldMeasureTwice();
+    method boolean shouldReMeasureChild(android.view.View!, int, int, androidx.recyclerview.widget.RecyclerView.LayoutParams!);
+    method void stopSmoothScroller();
+    field boolean mAutoMeasure;
+    field androidx.recyclerview.widget.ChildHelper! mChildHelper;
+    field private int mHeight;
+    field private int mHeightMode;
+    field androidx.recyclerview.widget.ViewBoundsCheck! mHorizontalBoundCheck;
+    field private final androidx.recyclerview.widget.ViewBoundsCheck.Callback! mHorizontalBoundCheckCallback;
+    field boolean mIsAttachedToWindow;
+    field private boolean mItemPrefetchEnabled;
+    field private boolean mMeasurementCacheEnabled;
+    field int mPrefetchMaxCountObserved;
+    field boolean mPrefetchMaxObservedInInitialPrefetch;
+    field androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field boolean mRequestedSimpleAnimations;
+    field androidx.recyclerview.widget.RecyclerView.SmoothScroller? mSmoothScroller;
+    field androidx.recyclerview.widget.ViewBoundsCheck! mVerticalBoundCheck;
+    field private final androidx.recyclerview.widget.ViewBoundsCheck.Callback! mVerticalBoundCheckCallback;
+    field private int mWidth;
+    field private int mWidthMode;
+  }
+
+  public static class RecyclerView.LayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    field final android.graphics.Rect! mDecorInsets;
+    field boolean mInsetsDirty;
+    field boolean mPendingInvalidate;
+    field androidx.recyclerview.widget.RecyclerView.ViewHolder! mViewHolder;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.recyclerview.widget.RecyclerView.HORIZONTAL, androidx.recyclerview.widget.RecyclerView.VERTICAL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface RecyclerView.Orientation {
+  }
+
+  public static class RecyclerView.RecycledViewPool {
+    method void attach();
+    method void detach();
+    method void factorInBindTime(int, long);
+    method void factorInCreateTime(int, long);
+    method private androidx.recyclerview.widget.RecyclerView.RecycledViewPool.ScrapData! getScrapDataForType(int);
+    method void onAdapterChanged(androidx.recyclerview.widget.RecyclerView.Adapter!, androidx.recyclerview.widget.RecyclerView.Adapter!, boolean);
+    method long runningAverage(long, long);
+    method int size();
+    method boolean willBindInTime(int, long, long);
+    method boolean willCreateInTime(int, long, long);
+    field private static final int DEFAULT_MAX_SCRAP = 5; // 0x5
+    field private int mAttachCount;
+    field android.util.SparseArray<androidx.recyclerview.widget.RecyclerView.RecycledViewPool.ScrapData>! mScrap;
+  }
+
+  static class RecyclerView.RecycledViewPool.ScrapData {
+    ctor RecyclerView.RecycledViewPool.ScrapData();
+    field long mBindRunningAverageNs;
+    field long mCreateRunningAverageNs;
+    field int mMaxScrap;
+    field final java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mScrapHeap;
+  }
+
+  public final class RecyclerView.Recycler {
+    method void addViewHolderToRecycledViewPool(androidx.recyclerview.widget.RecyclerView.ViewHolder, boolean);
+    method private void attachAccessibilityDelegateOnBind(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void clearOldPositions();
+    method void clearScrap();
+    method void dispatchViewRecycled(androidx.recyclerview.widget.RecyclerView.ViewHolder);
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder! getChangedScrapViewForPosition(int);
+    method androidx.recyclerview.widget.RecyclerView.RecycledViewPool! getRecycledViewPool();
+    method int getScrapCount();
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder! getScrapOrCachedViewForId(long, int, boolean);
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder! getScrapOrHiddenOrCachedHolderForPosition(int, boolean);
+    method android.view.View! getScrapViewAt(int);
+    method android.view.View! getViewForPosition(int, boolean);
+    method private void invalidateDisplayListInt(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private void invalidateDisplayListInt(android.view.ViewGroup!, boolean);
+    method void markItemDecorInsetsDirty();
+    method void markKnownViewsInvalid();
+    method void offsetPositionRecordsForInsert(int, int);
+    method void offsetPositionRecordsForMove(int, int);
+    method void offsetPositionRecordsForRemove(int, int, boolean);
+    method void onAdapterChanged(androidx.recyclerview.widget.RecyclerView.Adapter!, androidx.recyclerview.widget.RecyclerView.Adapter!, boolean);
+    method void quickRecycleScrapView(android.view.View!);
+    method void recycleAndClearCachedViews();
+    method void recycleCachedViewAt(int);
+    method void recycleViewHolderInternal(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void scrapView(android.view.View!);
+    method void setRecycledViewPool(androidx.recyclerview.widget.RecyclerView.RecycledViewPool!);
+    method void setViewCacheExtension(androidx.recyclerview.widget.RecyclerView.ViewCacheExtension!);
+    method private boolean tryBindViewHolderByDeadline(androidx.recyclerview.widget.RecyclerView.ViewHolder, int, int, long);
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder? tryGetViewHolderForPositionByDeadline(int, boolean, long);
+    method void unscrapView(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void updateViewCacheSize();
+    method boolean validateViewHolderForOffsetPosition(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void viewRangeUpdate(int, int);
+    field static final int DEFAULT_CACHE_SIZE = 2; // 0x2
+    field final java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mAttachedScrap;
+    field final java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mCachedViews;
+    field java.util.ArrayList<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mChangedScrap;
+    field androidx.recyclerview.widget.RecyclerView.RecycledViewPool! mRecyclerPool;
+    field private int mRequestedCacheMax;
+    field private final java.util.List<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mUnmodifiableAttachedScrap;
+    field private androidx.recyclerview.widget.RecyclerView.ViewCacheExtension! mViewCacheExtension;
+    field int mViewCacheMax;
+  }
+
+  private class RecyclerView.RecyclerViewDataObserver extends androidx.recyclerview.widget.RecyclerView.AdapterDataObserver {
+    ctor RecyclerView.RecyclerViewDataObserver();
+    method void triggerUpdateProcessor();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class RecyclerView.SavedState extends androidx.customview.view.AbsSavedState {
+    ctor RecyclerView.SavedState(android.os.Parcel!, ClassLoader!);
+    ctor RecyclerView.SavedState(android.os.Parcelable!);
+    method void copyFrom(androidx.recyclerview.widget.RecyclerView.SavedState!);
+    field public static final android.os.Parcelable.Creator<androidx.recyclerview.widget.RecyclerView.SavedState>! CREATOR;
+    field android.os.Parcelable! mLayoutState;
+  }
+
+  public abstract static class RecyclerView.SmoothScroller {
+    method void onAnimation(int, int);
+    method void start(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.LayoutManager!);
+    field private androidx.recyclerview.widget.RecyclerView.LayoutManager! mLayoutManager;
+    field private boolean mPendingInitialRun;
+    field private androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field private final androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action! mRecyclingAction;
+    field private boolean mRunning;
+    field private boolean mStarted;
+    field private int mTargetPosition;
+    field private android.view.View! mTargetView;
+  }
+
+  public static class RecyclerView.SmoothScroller.Action {
+    method boolean hasJumpTarget();
+    method void runIfNecessary(androidx.recyclerview.widget.RecyclerView!);
+    method private void validate();
+    field private boolean mChanged;
+    field private int mConsecutiveUpdates;
+    field private int mDuration;
+    field private int mDx;
+    field private int mDy;
+    field private android.view.animation.Interpolator! mInterpolator;
+    field private int mJumpToPosition;
+  }
+
+  public static class RecyclerView.State {
+    method void assertLayoutStep(int);
+    method void prepareForNestedPrefetch(androidx.recyclerview.widget.RecyclerView.Adapter!);
+    field static final int STEP_ANIMATIONS = 4; // 0x4
+    field static final int STEP_LAYOUT = 2; // 0x2
+    field static final int STEP_START = 1; // 0x1
+    field private android.util.SparseArray<java.lang.Object>! mData;
+    field int mDeletedInvisibleItemCountSincePreviousLayout;
+    field long mFocusedItemId;
+    field int mFocusedItemPosition;
+    field int mFocusedSubChildId;
+    field boolean mInPreLayout;
+    field boolean mIsMeasuring;
+    field int mItemCount;
+    field int mLayoutStep;
+    field int mPreviousLayoutItemCount;
+    field int mRemainingScrollHorizontal;
+    field int mRemainingScrollVertical;
+    field boolean mRunPredictiveAnimations;
+    field boolean mRunSimpleAnimations;
+    field boolean mStructureChanged;
+    field int mTargetPosition;
+    field boolean mTrackOldChangeHolders;
+  }
+
+  @IntDef(flag=true, value={androidx.recyclerview.widget.RecyclerView.State.STEP_START, androidx.recyclerview.widget.RecyclerView.State.STEP_LAYOUT, androidx.recyclerview.widget.RecyclerView.State.STEP_ANIMATIONS}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) static @interface RecyclerView.State.LayoutState {
+  }
+
+  class RecyclerView.ViewFlinger implements java.lang.Runnable {
+    ctor RecyclerView.ViewFlinger();
+    method private int computeScrollDuration(int, int, int, int);
+    method private void disableRunOnAnimationRequests();
+    method private float distanceInfluenceForSnapDuration(float);
+    method private void enableRunOnAnimationRequests();
+    method public void fling(int, int);
+    method void postOnAnimation();
+    method public void smoothScrollBy(int, int);
+    method public void smoothScrollBy(int, int, int, int);
+    method public void smoothScrollBy(int, int, int);
+    method public void smoothScrollBy(int, int, android.view.animation.Interpolator!);
+    method public void smoothScrollBy(int, int, int, android.view.animation.Interpolator!);
+    method public void stop();
+    field private boolean mEatRunOnAnimationRequest;
+    field android.view.animation.Interpolator! mInterpolator;
+    field private int mLastFlingX;
+    field private int mLastFlingY;
+    field android.widget.OverScroller! mOverScroller;
+    field private boolean mReSchedulePostAnimationCallback;
+  }
+
+  public abstract static class RecyclerView.ViewHolder {
+    method void addChangePayload(Object!);
+    method void addFlags(int);
+    method void clearOldPosition();
+    method void clearPayload();
+    method void clearReturnedFromScrapFlag();
+    method void clearTmpDetachFlag();
+    method private void createPayloadsIfNeeded();
+    method boolean doesTransientStatePreventRecycling();
+    method void flagRemovedAndOffsetPosition(int, int, boolean);
+    method java.util.List<java.lang.Object>! getUnmodifiedPayloads();
+    method boolean hasAnyOfTheFlags(int);
+    method boolean isAdapterPositionUnknown();
+    method boolean isAttachedToTransitionOverlay();
+    method boolean isBound();
+    method boolean isInvalid();
+    method boolean isRemoved();
+    method boolean isScrap();
+    method boolean isTmpDetached();
+    method boolean isUpdated();
+    method boolean needsUpdate();
+    method void offsetPosition(int, boolean);
+    method void onEnteredHiddenState(androidx.recyclerview.widget.RecyclerView!);
+    method void onLeftHiddenState(androidx.recyclerview.widget.RecyclerView!);
+    method void resetInternal();
+    method void saveOldPosition();
+    method void setFlags(int, int);
+    method void setScrapContainer(androidx.recyclerview.widget.RecyclerView.Recycler!, boolean);
+    method boolean shouldBeKeptAsChild();
+    method boolean shouldIgnore();
+    method void stopIgnoring();
+    method void unScrap();
+    method boolean wasReturnedFromScrap();
+    field static final int FLAG_ADAPTER_FULLUPDATE = 1024; // 0x400
+    field static final int FLAG_ADAPTER_POSITION_UNKNOWN = 512; // 0x200
+    field static final int FLAG_APPEARED_IN_PRE_LAYOUT = 4096; // 0x1000
+    field static final int FLAG_BOUNCED_FROM_HIDDEN_LIST = 8192; // 0x2000
+    field static final int FLAG_BOUND = 1; // 0x1
+    field static final int FLAG_IGNORE = 128; // 0x80
+    field static final int FLAG_INVALID = 4; // 0x4
+    field static final int FLAG_MOVED = 2048; // 0x800
+    field static final int FLAG_NOT_RECYCLABLE = 16; // 0x10
+    field static final int FLAG_REMOVED = 8; // 0x8
+    field static final int FLAG_RETURNED_FROM_SCRAP = 32; // 0x20
+    field static final int FLAG_SET_A11Y_ITEM_DELEGATE = 16384; // 0x4000
+    field static final int FLAG_TMP_DETACHED = 256; // 0x100
+    field static final int FLAG_UPDATE = 2; // 0x2
+    field private static final java.util.List<java.lang.Object>! FULLUPDATE_PAYLOADS;
+    field static final int PENDING_ACCESSIBILITY_STATE_NOT_SET = -1; // 0xffffffff
+    field int mFlags;
+    field boolean mInChangeScrap;
+    field private int mIsRecyclableCount;
+    field long mItemId;
+    field int mItemViewType;
+    field java.lang.ref.WeakReference<androidx.recyclerview.widget.RecyclerView>! mNestedRecyclerView;
+    field int mOldPosition;
+    field androidx.recyclerview.widget.RecyclerView! mOwnerRecyclerView;
+    field java.util.List<java.lang.Object>! mPayloads;
+    field @VisibleForTesting int mPendingAccessibilityState;
+    field int mPosition;
+    field int mPreLayoutPosition;
+    field androidx.recyclerview.widget.RecyclerView.Recycler! mScrapContainer;
+    field androidx.recyclerview.widget.RecyclerView.ViewHolder! mShadowedHolder;
+    field androidx.recyclerview.widget.RecyclerView.ViewHolder! mShadowingHolder;
+    field java.util.List<java.lang.Object>! mUnmodifiedPayloads;
+    field private int mWasImportantForAccessibilityBeforeHidden;
+  }
+
+  public class RecyclerViewAccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    method boolean shouldIgnore();
+    field final androidx.core.view.AccessibilityDelegateCompat! mItemDelegate;
+    field final androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+  }
+
+  public static class RecyclerViewAccessibilityDelegate.ItemDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    field final androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate! mRecyclerViewDelegate;
+  }
+
+  class ScrollbarHelper {
+    ctor private ScrollbarHelper();
+    method static int computeScrollExtent(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.OrientationHelper!, android.view.View!, android.view.View!, androidx.recyclerview.widget.RecyclerView.LayoutManager!, boolean);
+    method static int computeScrollOffset(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.OrientationHelper!, android.view.View!, android.view.View!, androidx.recyclerview.widget.RecyclerView.LayoutManager!, boolean, boolean);
+    method static int computeScrollRange(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.OrientationHelper!, android.view.View!, android.view.View!, androidx.recyclerview.widget.RecyclerView.LayoutManager!, boolean);
+  }
+
+  public abstract class SimpleItemAnimator extends androidx.recyclerview.widget.RecyclerView.ItemAnimator {
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "SimpleItemAnimator";
+    field boolean mSupportsChangeAnimations;
+  }
+
+  public abstract class SnapHelper extends androidx.recyclerview.widget.RecyclerView.OnFlingListener {
+    method private void destroyCallbacks();
+    method private void setupCallbacks() throws java.lang.IllegalStateException;
+    method private boolean snapFromFling(androidx.recyclerview.widget.RecyclerView.LayoutManager, int, int);
+    method void snapToTargetExistingView();
+    field static final float MILLISECONDS_PER_INCH = 100.0f;
+    field private android.widget.Scroller! mGravityScroller;
+    field androidx.recyclerview.widget.RecyclerView! mRecyclerView;
+    field private final androidx.recyclerview.widget.RecyclerView.OnScrollListener! mScrollListener;
+  }
+
+  public class SortedList<T> {
+    method private int add(T!, boolean);
+    method private void addAllInternal(T[]!);
+    method private void addToData(int, T!);
+    method private T[]! copyArray(T[]!);
+    method private int findIndexOf(T!, T[]!, int, int, int);
+    method private int findSameItem(T!, T[]!, int, int);
+    method private int linearEqualitySearch(T!, int, int, int);
+    method private void merge(T[]!, int);
+    method private boolean remove(T!, boolean);
+    method private void removeItemAtIndex(int, boolean);
+    method private void replaceAllInsert(T!);
+    method private void replaceAllInternal(T[]);
+    method private void replaceAllRemove();
+    method private int sortAndDedup(T[]);
+    method private void throwIfInMutationOperation();
+    field private static final int CAPACITY_GROWTH = 10; // 0xa
+    field private static final int DELETION = 2; // 0x2
+    field private static final int INSERTION = 1; // 0x1
+    field private static final int LOOKUP = 4; // 0x4
+    field private static final int MIN_CAPACITY = 10; // 0xa
+    field private androidx.recyclerview.widget.SortedList.BatchedCallback! mBatchedCallback;
+    field private androidx.recyclerview.widget.SortedList.Callback! mCallback;
+    field T[]! mData;
+    field private int mNewDataStart;
+    field private T[]! mOldData;
+    field private int mOldDataSize;
+    field private int mOldDataStart;
+    field private int mSize;
+    field private final Class<T>! mTClass;
+  }
+
+  public static class SortedList.BatchedCallback<T2> extends androidx.recyclerview.widget.SortedList.Callback<T2> {
+    field private final androidx.recyclerview.widget.BatchingListUpdateCallback! mBatchingListUpdateCallback;
+    field final androidx.recyclerview.widget.SortedList.Callback<T2>! mWrappedCallback;
+  }
+
+  public abstract class SortedListAdapterCallback<T2> extends androidx.recyclerview.widget.SortedList.Callback<T2> {
+    field final androidx.recyclerview.widget.RecyclerView.Adapter! mAdapter;
+  }
+
+  public class StaggeredGridLayoutManager extends androidx.recyclerview.widget.RecyclerView.LayoutManager implements androidx.recyclerview.widget.RecyclerView.SmoothScroller.ScrollVectorProvider {
+    method private void appendViewToAllSpans(android.view.View!);
+    method private void applyPendingSavedState(androidx.recyclerview.widget.StaggeredGridLayoutManager.AnchorInfo!);
+    method boolean areAllEndsEqual();
+    method boolean areAllStartsEqual();
+    method private void attachViewToSpans(android.view.View!, androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams!, androidx.recyclerview.widget.LayoutState!);
+    method private int calculateScrollDirectionForPosition(int);
+    method boolean checkForGaps();
+    method private boolean checkSpanForGap(androidx.recyclerview.widget.StaggeredGridLayoutManager.Span!);
+    method private int computeScrollExtent(androidx.recyclerview.widget.RecyclerView.State!);
+    method private int computeScrollOffset(androidx.recyclerview.widget.RecyclerView.State!);
+    method private int computeScrollRange(androidx.recyclerview.widget.RecyclerView.State!);
+    method private int convertFocusDirectionToLayoutDirection(int);
+    method private androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem! createFullSpanItemFromEnd(int);
+    method private androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem! createFullSpanItemFromStart(int);
+    method private void createOrientationHelpers();
+    method private int fill(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.LayoutState!, androidx.recyclerview.widget.RecyclerView.State!);
+    method private int findFirstReferenceChildPosition(int);
+    method android.view.View! findFirstVisibleItemClosestToEnd(boolean);
+    method android.view.View! findFirstVisibleItemClosestToStart(boolean);
+    method int findFirstVisibleItemPositionInt();
+    method private int findLastReferenceChildPosition(int);
+    method private void fixEndGap(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method private void fixStartGap(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method int getFirstChildPosition();
+    method int getLastChildPosition();
+    method private int getMaxEnd(int);
+    method private int getMaxStart(int);
+    method private int getMinEnd(int);
+    method private int getMinStart(int);
+    method private androidx.recyclerview.widget.StaggeredGridLayoutManager.Span! getNextSpan(androidx.recyclerview.widget.LayoutState!);
+    method private void handleUpdate(int, int, int);
+    method android.view.View! hasGapsToFix();
+    method boolean isLayoutRTL();
+    method private void measureChildWithDecorationsAndMargin(android.view.View!, androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams!, boolean);
+    method private void measureChildWithDecorationsAndMargin(android.view.View!, int, int, boolean);
+    method private void onLayoutChildren(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, boolean);
+    method private boolean preferLastSpan(int);
+    method void prepareLayoutStateForDelta(int, androidx.recyclerview.widget.RecyclerView.State!);
+    method private void prependViewToAllSpans(android.view.View!);
+    method private void recycle(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.LayoutState!);
+    method private void recycleFromEnd(androidx.recyclerview.widget.RecyclerView.Recycler!, int);
+    method private void recycleFromStart(androidx.recyclerview.widget.RecyclerView.Recycler!, int);
+    method private void repositionToWrapContentIfNecessary();
+    method private void resolveShouldLayoutReverse();
+    method int scrollBy(int, androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!);
+    method private void setLayoutStateDirection(int);
+    method private void updateAllRemainingSpans(int, int);
+    method private boolean updateAnchorFromChildren(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.StaggeredGridLayoutManager.AnchorInfo!);
+    method boolean updateAnchorFromPendingData(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.StaggeredGridLayoutManager.AnchorInfo!);
+    method void updateAnchorInfoForLayout(androidx.recyclerview.widget.RecyclerView.State!, androidx.recyclerview.widget.StaggeredGridLayoutManager.AnchorInfo!);
+    method private void updateLayoutState(int, androidx.recyclerview.widget.RecyclerView.State!);
+    method void updateMeasureSpecs(int);
+    method private void updateRemainingSpans(androidx.recyclerview.widget.StaggeredGridLayoutManager.Span!, int, int);
+    method private int updateSpecWithExtra(int, int, int);
+    field static final boolean DEBUG = false;
+    field static final int INVALID_OFFSET = -2147483648; // 0x80000000
+    field private static final float MAX_SCROLL_FACTOR = 0.33333334f;
+    field private static final String TAG = "StaggeredGridLManager";
+    field private final androidx.recyclerview.widget.StaggeredGridLayoutManager.AnchorInfo! mAnchorInfo;
+    field private final Runnable! mCheckForGapsRunnable;
+    field private int mFullSizeSpec;
+    field private int mGapStrategy;
+    field private boolean mLaidOutInvalidFullSpan;
+    field private boolean mLastLayoutFromEnd;
+    field private boolean mLastLayoutRTL;
+    field private final androidx.recyclerview.widget.LayoutState mLayoutState;
+    field androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup! mLazySpanLookup;
+    field private int mOrientation;
+    field private androidx.recyclerview.widget.StaggeredGridLayoutManager.SavedState! mPendingSavedState;
+    field int mPendingScrollPosition;
+    field int mPendingScrollPositionOffset;
+    field private int[]! mPrefetchDistances;
+    field androidx.recyclerview.widget.OrientationHelper mPrimaryOrientation;
+    field private java.util.BitSet! mRemainingSpans;
+    field boolean mReverseLayout;
+    field androidx.recyclerview.widget.OrientationHelper mSecondaryOrientation;
+    field boolean mShouldReverseLayout;
+    field private int mSizePerSpan;
+    field private boolean mSmoothScrollbarEnabled;
+    field private int mSpanCount;
+    field androidx.recyclerview.widget.StaggeredGridLayoutManager.Span[]! mSpans;
+    field private final android.graphics.Rect! mTmpRect;
+  }
+
+  class StaggeredGridLayoutManager.AnchorInfo {
+    ctor StaggeredGridLayoutManager.AnchorInfo();
+    method void assignCoordinateFromPadding();
+    method void assignCoordinateFromPadding(int);
+    method void reset();
+    method void saveSpanReferenceLines(androidx.recyclerview.widget.StaggeredGridLayoutManager.Span[]!);
+    field boolean mInvalidateOffsets;
+    field boolean mLayoutFromEnd;
+    field int mOffset;
+    field int mPosition;
+    field int[]! mSpanReferenceLines;
+    field boolean mValid;
+  }
+
+  public static class StaggeredGridLayoutManager.LayoutParams extends androidx.recyclerview.widget.RecyclerView.LayoutParams {
+    field boolean mFullSpan;
+    field androidx.recyclerview.widget.StaggeredGridLayoutManager.Span! mSpan;
+  }
+
+  static class StaggeredGridLayoutManager.LazySpanLookup {
+    ctor StaggeredGridLayoutManager.LazySpanLookup();
+    method public void addFullSpanItem(androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem!);
+    method void clear();
+    method void ensureSize(int);
+    method int forceInvalidateAfter(int);
+    method public androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem! getFirstFullSpanItemInRange(int, int, int, boolean);
+    method public androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem! getFullSpanItem(int);
+    method int getSpan(int);
+    method int invalidateAfter(int);
+    method private int invalidateFullSpansAfter(int);
+    method void offsetForAddition(int, int);
+    method void offsetForRemoval(int, int);
+    method private void offsetFullSpansForAddition(int, int);
+    method private void offsetFullSpansForRemoval(int, int);
+    method void setSpan(int, androidx.recyclerview.widget.StaggeredGridLayoutManager.Span!);
+    method int sizeForPosition(int);
+    field private static final int MIN_SIZE = 10; // 0xa
+    field int[]! mData;
+    field java.util.List<androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem>! mFullSpanItems;
+  }
+
+  static class StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem implements android.os.Parcelable {
+    ctor StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem(android.os.Parcel!);
+    ctor StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem();
+    method int getGapForSpan(int);
+    field public static final android.os.Parcelable.Creator<androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem>! CREATOR;
+    field int mGapDir;
+    field int[]! mGapPerSpan;
+    field boolean mHasUnwantedGapAfter;
+    field int mPosition;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static class StaggeredGridLayoutManager.SavedState implements android.os.Parcelable {
+    ctor public StaggeredGridLayoutManager.SavedState();
+    ctor StaggeredGridLayoutManager.SavedState(android.os.Parcel!);
+    ctor public StaggeredGridLayoutManager.SavedState(androidx.recyclerview.widget.StaggeredGridLayoutManager.SavedState!);
+    method void invalidateAnchorPositionInfo();
+    method void invalidateSpanInfo();
+    field public static final android.os.Parcelable.Creator<androidx.recyclerview.widget.StaggeredGridLayoutManager.SavedState>! CREATOR;
+    field boolean mAnchorLayoutFromEnd;
+    field int mAnchorPosition;
+    field java.util.List<androidx.recyclerview.widget.StaggeredGridLayoutManager.LazySpanLookup.FullSpanItem>! mFullSpanItems;
+    field boolean mLastLayoutRTL;
+    field boolean mReverseLayout;
+    field int[]! mSpanLookup;
+    field int mSpanLookupSize;
+    field int[]! mSpanOffsets;
+    field int mSpanOffsetsSize;
+    field int mVisibleAnchorPosition;
+  }
+
+  class StaggeredGridLayoutManager.Span {
+    ctor StaggeredGridLayoutManager.Span(int);
+    method void appendToSpan(android.view.View!);
+    method void cacheReferenceLineAndClear(boolean, int);
+    method void calculateCachedEnd();
+    method void calculateCachedStart();
+    method void clear();
+    method public int findFirstCompletelyVisibleItemPosition();
+    method public int findFirstPartiallyVisibleItemPosition();
+    method public int findFirstVisibleItemPosition();
+    method public int findLastCompletelyVisibleItemPosition();
+    method public int findLastPartiallyVisibleItemPosition();
+    method public int findLastVisibleItemPosition();
+    method int findOnePartiallyOrCompletelyVisibleChild(int, int, boolean, boolean, boolean);
+    method int findOnePartiallyVisibleChild(int, int, boolean);
+    method int findOneVisibleChild(int, int, boolean);
+    method public int getDeletedSize();
+    method int getEndLine(int);
+    method int getEndLine();
+    method public android.view.View! getFocusableViewAfter(int, int);
+    method androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams! getLayoutParams(android.view.View!);
+    method int getStartLine(int);
+    method int getStartLine();
+    method void invalidateCache();
+    method void onOffset(int);
+    method void popEnd();
+    method void popStart();
+    method void prependToSpan(android.view.View!);
+    method void setLine(int);
+    field static final int INVALID_LINE = -2147483648; // 0x80000000
+    field int mCachedEnd;
+    field int mCachedStart;
+    field int mDeletedSize;
+    field final int mIndex;
+    field java.util.ArrayList<android.view.View>! mViews;
+  }
+
+  interface ThreadUtil<T> {
+    method public androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>! getBackgroundProxy(androidx.recyclerview.widget.ThreadUtil.BackgroundCallback<T>!);
+    method public androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>! getMainThreadProxy(androidx.recyclerview.widget.ThreadUtil.MainThreadCallback<T>!);
+  }
+
+  public static interface ThreadUtil.BackgroundCallback<T> {
+    method public void loadTile(int, int);
+    method public void recycleTile(androidx.recyclerview.widget.TileList.Tile<T>!);
+    method public void refresh(int);
+    method public void updateRange(int, int, int, int, int);
+  }
+
+  public static interface ThreadUtil.MainThreadCallback<T> {
+    method public void addTile(int, androidx.recyclerview.widget.TileList.Tile<T>!);
+    method public void removeTile(int, int);
+    method public void updateItemCount(int, int);
+  }
+
+  class TileList<T> {
+    ctor public TileList(int);
+    method public androidx.recyclerview.widget.TileList.Tile<T>! addOrReplace(androidx.recyclerview.widget.TileList.Tile<T>!);
+    method public void clear();
+    method public androidx.recyclerview.widget.TileList.Tile<T>! getAtIndex(int);
+    method public T! getItemAt(int);
+    method public androidx.recyclerview.widget.TileList.Tile<T>! removeAtPos(int);
+    method public int size();
+    field androidx.recyclerview.widget.TileList.Tile<T>! mLastAccessedTile;
+    field final int mTileSize;
+    field private final android.util.SparseArray<androidx.recyclerview.widget.TileList.Tile<T>>! mTiles;
+  }
+
+  public static class TileList.Tile<T> {
+    ctor public TileList.Tile(Class<T>!, int);
+    method boolean containsPosition(int);
+    method T! getByPosition(int);
+    field public int mItemCount;
+    field public final T[]! mItems;
+    field androidx.recyclerview.widget.TileList.Tile<T>! mNext;
+    field public int mStartPosition;
+  }
+
+  class ViewBoundsCheck {
+    ctor ViewBoundsCheck(androidx.recyclerview.widget.ViewBoundsCheck.Callback!);
+    method android.view.View! findOneViewWithinBoundFlags(int, int, int, int);
+    method boolean isViewWithinBoundFlags(android.view.View!, int);
+    field static final int CVE_PVE_POS = 12; // 0xc
+    field static final int CVE_PVS_POS = 8; // 0x8
+    field static final int CVS_PVE_POS = 4; // 0x4
+    field static final int CVS_PVS_POS = 0; // 0x0
+    field static final int EQ = 2; // 0x2
+    field static final int FLAG_CVE_EQ_PVE = 8192; // 0x2000
+    field static final int FLAG_CVE_EQ_PVS = 512; // 0x200
+    field static final int FLAG_CVE_GT_PVE = 4096; // 0x1000
+    field static final int FLAG_CVE_GT_PVS = 256; // 0x100
+    field static final int FLAG_CVE_LT_PVE = 16384; // 0x4000
+    field static final int FLAG_CVE_LT_PVS = 1024; // 0x400
+    field static final int FLAG_CVS_EQ_PVE = 32; // 0x20
+    field static final int FLAG_CVS_EQ_PVS = 2; // 0x2
+    field static final int FLAG_CVS_GT_PVE = 16; // 0x10
+    field static final int FLAG_CVS_GT_PVS = 1; // 0x1
+    field static final int FLAG_CVS_LT_PVE = 64; // 0x40
+    field static final int FLAG_CVS_LT_PVS = 4; // 0x4
+    field static final int GT = 1; // 0x1
+    field static final int LT = 4; // 0x4
+    field static final int MASK = 7; // 0x7
+    field androidx.recyclerview.widget.ViewBoundsCheck.BoundFlags! mBoundFlags;
+    field final androidx.recyclerview.widget.ViewBoundsCheck.Callback! mCallback;
+  }
+
+  static class ViewBoundsCheck.BoundFlags {
+    ctor ViewBoundsCheck.BoundFlags();
+    method void addFlags(int);
+    method boolean boundsMatch();
+    method int compare(int, int);
+    method void resetFlags();
+    method void setBounds(int, int, int, int);
+    field int mBoundFlags;
+    field int mChildEnd;
+    field int mChildStart;
+    field int mRvEnd;
+    field int mRvStart;
+  }
+
+  static interface ViewBoundsCheck.Callback {
+    method public android.view.View! getChildAt(int);
+    method public int getChildEnd(android.view.View!);
+    method public int getChildStart(android.view.View!);
+    method public int getParentEnd();
+    method public int getParentStart();
+  }
+
+  @IntDef(flag=true, value={androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_GT_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_EQ_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_LT_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_GT_PVE, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_EQ_PVE, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVS_LT_PVE, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_GT_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_EQ_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_LT_PVS, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_GT_PVE, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_EQ_PVE, androidx.recyclerview.widget.ViewBoundsCheck.FLAG_CVE_LT_PVE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface ViewBoundsCheck.ViewBounds {
+  }
+
+  class ViewInfoStore {
+    ctor ViewInfoStore();
+    method void addToAppearedInPreLayoutHolders(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo!);
+    method void addToDisappearedInLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void addToOldChangeHolders(long, androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void addToPostLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo!);
+    method void addToPreLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo!);
+    method void clear();
+    method androidx.recyclerview.widget.RecyclerView.ViewHolder! getFromOldChangeHolders(long);
+    method boolean isDisappearing(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method boolean isInPreLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void onDetach();
+    method public void onViewDetached(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method private androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo! popFromLayoutStep(androidx.recyclerview.widget.RecyclerView.ViewHolder!, int);
+    method androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo? popFromPostLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo? popFromPreLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void process(androidx.recyclerview.widget.ViewInfoStore.ProcessCallback!);
+    method void removeFromDisappearedInLayout(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    method void removeViewHolder(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+    field private static final boolean DEBUG = false;
+    field @VisibleForTesting final androidx.collection.ArrayMap<androidx.recyclerview.widget.RecyclerView.ViewHolder,androidx.recyclerview.widget.ViewInfoStore.InfoRecord>! mLayoutHolderMap;
+    field @VisibleForTesting final androidx.collection.LongSparseArray<androidx.recyclerview.widget.RecyclerView.ViewHolder>! mOldChangedHolders;
+  }
+
+  static class ViewInfoStore.InfoRecord {
+    ctor private ViewInfoStore.InfoRecord();
+    method static void drainCache();
+    method static androidx.recyclerview.widget.ViewInfoStore.InfoRecord! obtain();
+    method static void recycle(androidx.recyclerview.widget.ViewInfoStore.InfoRecord!);
+    field static final int FLAG_APPEAR = 2; // 0x2
+    field static final int FLAG_APPEAR_AND_DISAPPEAR = 3; // 0x3
+    field static final int FLAG_APPEAR_PRE_AND_POST = 14; // 0xe
+    field static final int FLAG_DISAPPEARED = 1; // 0x1
+    field static final int FLAG_POST = 8; // 0x8
+    field static final int FLAG_PRE = 4; // 0x4
+    field static final int FLAG_PRE_AND_POST = 12; // 0xc
+    field int flags;
+    field androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo? postInfo;
+    field androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo? preInfo;
+    field static androidx.core.util.Pools.Pool<androidx.recyclerview.widget.ViewInfoStore.InfoRecord>! sPool;
+  }
+
+  static interface ViewInfoStore.ProcessCallback {
+    method public void processAppeared(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo?, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo!);
+    method public void processDisappeared(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo?);
+    method public void processPersistent(androidx.recyclerview.widget.RecyclerView.ViewHolder!, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo, androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo);
+    method public void unused(androidx.recyclerview.widget.RecyclerView.ViewHolder!);
+  }
+
+}
+

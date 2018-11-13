@@ -1,0 +1,9 @@
+// Signature format: 2.0
+package androidx.paging {
+
+  public final class RxPagedListKt {
+    method private static <Key, Value> androidx.paging.RxPagedListBuilder<Key,Value>! createRxPagedListBuilder(androidx.paging.DataSource.Factory<Key,Value>! dataSourceFactory, androidx.paging.PagedList.Config! config, Key! initialLoadKey, androidx.paging.PagedList.BoundaryCallback<Value>! boundaryCallback, io.reactivex.Scheduler! fetchScheduler, io.reactivex.Scheduler! notifyScheduler);
+  }
+
+}
+

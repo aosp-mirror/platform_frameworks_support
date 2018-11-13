@@ -1,0 +1,50 @@
+// Signature format: 2.0
+package androidx.paging {
+
+  public class AsyncPagedListDiffer<T> {
+    method void latchPagedList(androidx.paging.PagedList<T>, androidx.paging.PagedList<T>, androidx.recyclerview.widget.DiffUtil.DiffResult, int, Runnable?);
+    method private void onCurrentListChanged(androidx.paging.PagedList<T>?, androidx.paging.PagedList<T>?, Runnable?);
+    field final androidx.recyclerview.widget.AsyncDifferConfig<T>! mConfig;
+    field private boolean mIsContiguous;
+    field private final java.util.List<androidx.paging.AsyncPagedListDiffer.PagedListListener<T>>! mListeners;
+    field androidx.paging.PagedList.LoadStateListener! mLoadStateListener;
+    field final java.util.List<androidx.paging.PagedList.LoadStateListener>! mLoadStateListeners;
+    field final androidx.paging.PagedList.LoadStateManager! mLoadStateManager;
+    field java.util.concurrent.Executor! mMainThreadExecutor;
+    field int mMaxScheduledGeneration;
+    field private androidx.paging.PagedList<T>! mPagedList;
+    field private androidx.paging.PagedList.Callback! mPagedListCallback;
+    field private androidx.paging.PagedList<T>! mSnapshot;
+    field final androidx.recyclerview.widget.ListUpdateCallback! mUpdateCallback;
+  }
+
+  public final class LivePagedListBuilder<Key, Value> {
+    method @AnyThread private static <Key, Value> androidx.lifecycle.LiveData<androidx.paging.PagedList<Value>> create(Key?, androidx.paging.PagedList.Config, androidx.paging.PagedList.BoundaryCallback?, androidx.paging.DataSource.Factory<Key,Value>, java.util.concurrent.Executor, java.util.concurrent.Executor);
+    field private androidx.paging.PagedList.BoundaryCallback! mBoundaryCallback;
+    field private androidx.paging.PagedList.Config! mConfig;
+    field private androidx.paging.DataSource.Factory<Key,Value>! mDataSourceFactory;
+    field private java.util.concurrent.Executor! mFetchExecutor;
+    field private Key! mInitialLoadKey;
+  }
+
+  public abstract class PagedListAdapter<T, VH extends androidx.recyclerview.widget.RecyclerView.ViewHolder> extends androidx.recyclerview.widget.RecyclerView.Adapter<VH> {
+    field final androidx.paging.AsyncPagedListDiffer<T>! mDiffer;
+    field private final androidx.paging.AsyncPagedListDiffer.PagedListListener<T>! mListener;
+    field private final androidx.paging.PagedList.LoadStateListener! mLoadStateListener;
+  }
+
+  class PagedStorageDiffHelper {
+    ctor private PagedStorageDiffHelper();
+    method static <T> androidx.recyclerview.widget.DiffUtil.DiffResult! computeDiff(androidx.paging.PagedStorage<T>!, androidx.paging.PagedStorage<T>!, androidx.recyclerview.widget.DiffUtil.ItemCallback<T>!);
+    method static <T> void dispatchDiff(androidx.recyclerview.widget.ListUpdateCallback!, androidx.paging.PagedStorage<T>!, androidx.paging.PagedStorage<T>!, androidx.recyclerview.widget.DiffUtil.DiffResult!);
+    method static int transformAnchorIndex(androidx.recyclerview.widget.DiffUtil.DiffResult, androidx.paging.PagedStorage, androidx.paging.PagedStorage, int);
+  }
+
+  private static class PagedStorageDiffHelper.OffsettingListUpdateCallback implements androidx.recyclerview.widget.ListUpdateCallback {
+    ctor PagedStorageDiffHelper.OffsettingListUpdateCallback(int, androidx.recyclerview.widget.ListUpdateCallback!);
+    field private final androidx.recyclerview.widget.ListUpdateCallback! mCallback;
+    field private final int mOffset;
+  }
+
+}
+

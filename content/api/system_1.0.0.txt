@@ -1,0 +1,103 @@
+// Signature format: 2.0
+package androidx.contentpager.content {
+
+  public class ContentPager {
+    method static android.os.Bundle! buildExtras(android.os.Bundle?, int, @androidx.contentpager.content.ContentPager.CursorDisposition int);
+    method private static <T> boolean contains(T[]!, T!);
+    method @WorkerThread @GuardedBy("mContentLock") private android.database.Cursor! createPagedCursor(androidx.contentpager.content.Query!);
+    method private android.database.CursorWindow! getWindow(android.database.Cursor!);
+    method @WorkerThread private boolean isProviderPaged(android.database.Cursor!);
+    method @WorkerThread android.database.Cursor! loadContentInBackground(androidx.contentpager.content.Query!);
+    method @MainThread void onCursorReady(androidx.contentpager.content.Query!, android.database.Cursor!);
+    method @WorkerThread private android.database.Cursor? processProviderPagedCursor(androidx.contentpager.content.Query!, android.database.Cursor!);
+    field @VisibleForTesting static final String CURSOR_DISPOSITION = "androidx.appcompat.widget.CURSOR_DISPOSITION";
+    field private static final boolean DEBUG = false;
+    field private static final int DEFAULT_CURSOR_CACHE_SIZE = 1; // 0x1
+    field private static final String TAG = "ContentPager";
+    field @GuardedBy("mContentLock") private final java.util.Set<androidx.contentpager.content.Query>! mActiveQueries;
+    field private final Object! mContentLock;
+    field @GuardedBy("mContentLock") private final androidx.contentpager.content.ContentPager.CursorCache! mCursorCache;
+    field private final androidx.contentpager.content.ContentPager.QueryRunner.Callback! mQueryCallback;
+    field private final androidx.contentpager.content.ContentPager.QueryRunner! mQueryRunner;
+    field private final android.content.ContentResolver! mResolver;
+    field final androidx.contentpager.content.ContentPager.Stats! mStats;
+  }
+
+  private static final class ContentPager.CursorCache extends androidx.collection.LruCache<android.net.Uri,android.database.Cursor> {
+    ctor ContentPager.CursorCache(int);
+    method @WorkerThread boolean hasEntry(android.net.Uri!);
+  }
+
+  private static final class ContentPager.CursorView extends android.database.CursorWrapper {
+    ctor ContentPager.CursorView(android.database.Cursor!, int, @androidx.contentpager.content.ContentPager.CursorDisposition int);
+    field private final android.os.Bundle! mExtras;
+    field private final int mSize;
+  }
+
+  static final class ContentPager.Stats {
+    ctor ContentPager.Stats();
+    method void includeStats(android.os.Bundle!);
+    method void increment(String!);
+    field static final String EXTRA_COMPAT_PAGED = "android-support:extra-compat-paged";
+    field static final String EXTRA_PROVIDER_PAGED = "android-support:extra-provider-paged";
+    field static final String EXTRA_RESOLVED_QUERIES = "android-support:extra-resolved-queries";
+    field static final String EXTRA_TOTAL_QUERIES = "android-support:extra-total-queries";
+    field private int mCompatPaged;
+    field private int mProviderPaged;
+    field private int mResolvedQueries;
+    field private int mTotalQueries;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) final class InMemoryCursor extends android.database.AbstractCursor {
+    ctor InMemoryCursor(android.database.Cursor!, int, int, int);
+    method private void checkValidColumn(int);
+    method private void checkValidPosition();
+    method private int getCellPosition(int, int, int);
+    field private static final int NUM_TYPES = 5; // 0x5
+    field private byte[][]! mBlobs;
+    field private final String[]! mColumnNames;
+    field private final int[]! mColumnType;
+    field private final int[]! mColumnTypeCount;
+    field private double[]! mDoubles;
+    field private final android.os.Bundle! mExtras;
+    field private long[]! mLongs;
+    field private final androidx.contentpager.content.InMemoryCursor.ObserverRelay! mObserverRelay;
+    field private final int mRowCount;
+    field private String[]! mStrings;
+    field private final int[][]! mTypedColumnIndex;
+  }
+
+  private static class InMemoryCursor.ObserverRelay extends android.database.ContentObserver {
+    ctor InMemoryCursor.ObserverRelay(android.database.Cursor!);
+    method void registerContentObserver(android.database.ContentObserver!);
+    method void unregisterContentObserver(android.database.ContentObserver!);
+    field private final android.database.Cursor! mCursor;
+  }
+
+  public final class LoaderQueryRunner implements androidx.contentpager.content.ContentPager.QueryRunner {
+    field private static final String CONTENT_URI_KEY = "contentUri";
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "LoaderQueryRunner";
+    field final android.content.Context! mContext;
+    field final android.app.LoaderManager! mLoaderMgr;
+  }
+
+  public final class Query {
+    ctor Query(android.net.Uri, String[]?, android.os.Bundle, android.os.CancellationSignal?, androidx.contentpager.content.ContentPager.ContentCallback);
+    method void cancel();
+    method androidx.contentpager.content.ContentPager.ContentCallback getCallback();
+    method android.database.Cursor? run(android.content.ContentResolver);
+    field private static final boolean DEBUG = true;
+    field private static final String TAG = "Query";
+    field private final androidx.contentpager.content.ContentPager.ContentCallback! mCallback;
+    field private final android.os.CancellationSignal! mCancellationSignal;
+    field private final int mId;
+    field private final int mLimit;
+    field private final int mOffset;
+    field private final String[]? mProjection;
+    field private final android.os.Bundle! mQueryArgs;
+    field private final android.net.Uri! mUri;
+  }
+
+}
+

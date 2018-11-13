@@ -1,0 +1,83 @@
+// Signature format: 2.0
+package androidx.recommendation.app {
+
+  public final class ContentRecommendation {
+    ctor ContentRecommendation(androidx.recommendation.app.ContentRecommendation.Builder!);
+    method static <T> T! checkNotNull(T!);
+    field private boolean mAutoDismiss;
+    field private final String! mBackgroundImageUri;
+    field private final int mBadgeIconId;
+    field private final int mColor;
+    field private final String[]! mContentGenres;
+    field private final android.graphics.Bitmap! mContentImage;
+    field private final androidx.recommendation.app.ContentRecommendation.IntentData! mContentIntentData;
+    field private final String[]! mContentTypes;
+    field private final androidx.recommendation.app.ContentRecommendation.IntentData! mDismissIntentData;
+    field private String! mGroup;
+    field private final String! mIdTag;
+    field private final String! mMaturityRating;
+    field private final String! mPriceType;
+    field private final String! mPriceValue;
+    field private int mProgressAmount;
+    field private int mProgressMax;
+    field private final long mRunningTime;
+    field private String! mSortKey;
+    field private final String! mSourceName;
+    field private int mStatus;
+    field private final String! mText;
+    field private final String! mTitle;
+  }
+
+  public static final class ContentRecommendation.Builder {
+    field boolean mBuilderAutoDismiss;
+    field String! mBuilderBackgroundImageUri;
+    field int mBuilderBadgeIconId;
+    field int mBuilderColor;
+    field String[]! mBuilderContentGenres;
+    field android.graphics.Bitmap! mBuilderContentImage;
+    field androidx.recommendation.app.ContentRecommendation.IntentData! mBuilderContentIntentData;
+    field String[]! mBuilderContentTypes;
+    field androidx.recommendation.app.ContentRecommendation.IntentData! mBuilderDismissIntentData;
+    field String! mBuilderGroup;
+    field String! mBuilderIdTag;
+    field String! mBuilderMaturityRating;
+    field String! mBuilderPriceType;
+    field String! mBuilderPriceValue;
+    field int mBuilderProgressAmount;
+    field int mBuilderProgressMax;
+    field long mBuilderRunningTime;
+    field String! mBuilderSortKey;
+    field String! mBuilderSourceName;
+    field int mBuilderStatus;
+    field String! mBuilderText;
+    field String! mBuilderTitle;
+  }
+
+  public static class ContentRecommendation.IntentData {
+    field android.content.Intent! mIntent;
+    field android.os.Bundle! mOptions;
+    field int mRequestCode;
+    field int mType;
+  }
+
+  public final class RecommendationExtender implements android.app.Notification.Extender {
+    field private static final String EXTRA_CONTENT_INFO_EXTENDER = "android.CONTENT_INFO_EXTENSIONS";
+    field private static final String KEY_CONTENT_GENRES = "android.contentGenre";
+    field private static final String KEY_CONTENT_MATURITY_RATING = "android.contentMaturity";
+    field private static final String KEY_CONTENT_PRICING_TYPE = "android.contentPricing.type";
+    field private static final String KEY_CONTENT_PRICING_VALUE = "android.contentPricing.value";
+    field private static final String KEY_CONTENT_RUN_LENGTH = "android.contentLength";
+    field private static final String KEY_CONTENT_STATUS = "android.contentStatus";
+    field private static final String KEY_CONTENT_TYPE = "android.contentType";
+    field private static final String TAG = "RecommendationExtender";
+    field private int mContentStatus;
+    field private String[]! mGenres;
+    field private String! mMaturityRating;
+    field private String! mPricingType;
+    field private String! mPricingValue;
+    field private long mRunLength;
+    field private String[]! mTypes;
+  }
+
+}
+

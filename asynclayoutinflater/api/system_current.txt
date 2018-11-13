@@ -1,0 +1,39 @@
+// Signature format: 2.0
+package androidx.asynclayoutinflater.view {
+
+  public final class AsyncLayoutInflater {
+    field private static final String TAG = "AsyncLayoutInflater";
+    field android.os.Handler! mHandler;
+    field private android.os.Handler.Callback! mHandlerCallback;
+    field androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateThread! mInflateThread;
+    field android.view.LayoutInflater! mInflater;
+  }
+
+  private static class AsyncLayoutInflater.BasicInflater extends android.view.LayoutInflater {
+    ctor AsyncLayoutInflater.BasicInflater(android.content.Context!);
+    field private static final String[]! sClassPrefixList;
+  }
+
+  private static class AsyncLayoutInflater.InflateRequest {
+    ctor AsyncLayoutInflater.InflateRequest();
+    field androidx.asynclayoutinflater.view.AsyncLayoutInflater.OnInflateFinishedListener! callback;
+    field androidx.asynclayoutinflater.view.AsyncLayoutInflater! inflater;
+    field android.view.ViewGroup! parent;
+    field int resid;
+    field android.view.View! view;
+  }
+
+  private static class AsyncLayoutInflater.InflateThread extends java.lang.Thread {
+    ctor private AsyncLayoutInflater.InflateThread();
+    method public void enqueue(androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateRequest!);
+    method public static androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateThread! getInstance();
+    method public androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateRequest! obtainRequest();
+    method public void releaseRequest(androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateRequest!);
+    method public void runInner();
+    field private java.util.concurrent.ArrayBlockingQueue<androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateRequest>! mQueue;
+    field private androidx.core.util.Pools.SynchronizedPool<androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateRequest>! mRequestPool;
+    field private static final androidx.asynclayoutinflater.view.AsyncLayoutInflater.InflateThread! sInstance;
+  }
+
+}
+

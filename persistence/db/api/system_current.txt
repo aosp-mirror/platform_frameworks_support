@@ -1,0 +1,44 @@
+// Signature format: 2.0
+package androidx.sqlite.db {
+
+  public final class SimpleSQLiteQuery implements androidx.sqlite.db.SupportSQLiteQuery {
+    method private static void bind(androidx.sqlite.db.SupportSQLiteProgram!, int, Object!);
+    field private final Object[]? mBindArgs;
+    field private final String! mQuery;
+  }
+
+  public abstract static class SupportSQLiteOpenHelper.Callback {
+    method private void deleteDatabaseFile(String!);
+    field private static final String TAG = "SupportSQLite";
+  }
+
+  public static class SupportSQLiteOpenHelper.Configuration {
+    ctor SupportSQLiteOpenHelper.Configuration(android.content.Context, String?, androidx.sqlite.db.SupportSQLiteOpenHelper.Callback);
+  }
+
+  public static class SupportSQLiteOpenHelper.Configuration.Builder {
+    ctor SupportSQLiteOpenHelper.Configuration.Builder(android.content.Context);
+    field androidx.sqlite.db.SupportSQLiteOpenHelper.Callback! mCallback;
+    field android.content.Context! mContext;
+    field String! mName;
+  }
+
+  public final class SupportSQLiteQueryBuilder {
+    ctor private SupportSQLiteQueryBuilder(String!);
+    method private static void appendClause(StringBuilder!, String!, String!);
+    method private static void appendColumns(StringBuilder!, String[]!);
+    method private static boolean isEmpty(String!);
+    field private Object[]! mBindArgs;
+    field private String[]! mColumns;
+    field private boolean mDistinct;
+    field private String! mGroupBy;
+    field private String! mHaving;
+    field private String! mLimit;
+    field private String! mOrderBy;
+    field private String! mSelection;
+    field private final String! mTable;
+    field private static final java.util.regex.Pattern! sLimitPattern;
+  }
+
+}
+

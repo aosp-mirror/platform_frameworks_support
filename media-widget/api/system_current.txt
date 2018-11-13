@@ -1,0 +1,514 @@
+// Signature format: 2.0
+package androidx.media.widget {
+
+  class BaseLayout extends android.view.ViewGroup {
+    ctor BaseLayout(android.content.Context);
+    ctor BaseLayout(android.content.Context, android.util.AttributeSet?);
+    ctor BaseLayout(android.content.Context, android.util.AttributeSet?, @AttrRes int);
+    ctor @RequiresApi(21) BaseLayout(android.content.Context, android.util.AttributeSet?, @AttrRes int, @StyleRes int);
+    method private int getPaddingBottomWithForeground();
+    method private int getPaddingLeftWithForeground();
+    method private int getPaddingRightWithForeground();
+    method private int getPaddingTopWithForeground();
+    method private boolean isForegroundInsidePadding();
+    field private final java.util.ArrayList<android.view.View>! mMatchParentChildren;
+  }
+
+  @RequiresApi(21) public class MediaControlView2 extends androidx.media.widget.BaseLayout {
+    method void animateOverflow(android.animation.ValueAnimator!);
+    method private void disableUnsupportedButtons();
+    method void dismissSettingsWindow();
+    method void displaySettingsWindow(android.widget.BaseAdapter!);
+    method long getLatestSeekPosition();
+    method private void hideSettingsAndOverflow();
+    method static android.view.View! inflateLayout(android.content.Context!, int);
+    method private android.view.View! inflateTransportControls(int);
+    method private void initControllerView(android.view.ViewGroup!);
+    method private void initializeSettingsLists();
+    method boolean isHttpSchemeUrl(androidx.media2.MediaItem2!);
+    method private android.view.ViewGroup! makeControllerView();
+    method void removeCustomSpeedFromList();
+    method void resetHideCallbacks();
+    method private int retrieveOrientation();
+    method void seekTo(long, boolean);
+    method long setProgress();
+    method void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector!);
+    method void setShowControllerInterval(long);
+    method boolean shouldNotHideBars();
+    method private void showAllBars();
+    method String! stringForTime(long);
+    method private void toggleMediaControlViewVisibility();
+    method void togglePausePlayState();
+    method void updateAllowedCommands(androidx.media2.SessionCommandGroup2!);
+    method void updateForStoppedState(boolean);
+    method private void updateLayout(int, int, int, int, int);
+    method void updateLayoutForAd();
+    method private void updateLayoutForSizeChange(int);
+    method void updateMetadata();
+    method void updateSelectedSpeed(int, String!);
+    field private static final long AD_SKIP_WAIT_TIME_MS = 5000L; // 0x1388L
+    field private static final int BOTTOM_BAR_RIGHT_VIEW_MAX_ICON_NUM_DEFAULT = 3; // 0x3
+    field private static final int BOTTOM_BAR_RIGHT_VIEW_MAX_ICON_NUM_MUSIC = 2; // 0x2
+    field static final String COMMAND_HIDE_SUBTITLE = "hideSubtitle";
+    field static final String COMMAND_SELECT_AUDIO_TRACK = "SelectTrack";
+    field static final String COMMAND_SHOW_SUBTITLE = "showSubtitle";
+    field static final boolean DEBUG;
+    field private static final long DEFAULT_PROGRESS_UPDATE_TIME_MS = 1000L; // 0x3e8L
+    field private static final long DEFAULT_SHOW_CONTROLLER_INTERVAL_MS = 2000L; // 0x7d0L
+    field static final String EVENT_UPDATE_MEDIA_TYPE_STATUS = "UpdateMediaTypeStatus";
+    field static final String EVENT_UPDATE_SUBTITLE_DESELECTED = "UpdateSubtitleDeselected";
+    field static final String EVENT_UPDATE_SUBTITLE_SELECTED = "UpdateSubtitleSelected";
+    field static final String EVENT_UPDATE_TRACK_STATUS = "UpdateTrackStatus";
+    field private static final long FORWARD_TIME_MS = 30000L; // 0x7530L
+    field private static final long HIDE_TIME_MS = 250L; // 0xfaL
+    field static final String KEY_AUDIO_TRACK_COUNT = "AudioTrackCount";
+    field static final String KEY_SELECTED_AUDIO_INDEX = "SelectedAudioIndex";
+    field static final String KEY_SELECTED_SUBTITLE_INDEX = "SelectedSubtitleIndex";
+    field static final String KEY_STATE_IS_ADVERTISEMENT = "MediaTypeAdvertisement";
+    field static final String KEY_SUBTITLE_TRACK_COUNT = "SubtitleTrackCount";
+    field static final String KEY_SUBTITLE_TRACK_LANGUAGE_LIST = "SubtitleTrackLanguageList";
+    field static final String KEY_VIDEO_TRACK_COUNT = "VideoTrackCount";
+    field private static final int MAX_PROGRESS = 1000; // 0x3e8
+    field private static final int MAX_SCALE_LEVEL = 10000; // 0x2710
+    field private static final int MEDIA_TYPE_ADVERTISEMENT = 2; // 0x2
+    field private static final int MEDIA_TYPE_DEFAULT = 0; // 0x0
+    field private static final int MEDIA_TYPE_MUSIC = 1; // 0x1
+    field private static final int PLAYBACK_SPEED_1x_INDEX = 3; // 0x3
+    field private static final String RESOURCE_EMPTY = "";
+    field private static final int RESOURCE_NON_EXISTENT = -1; // 0xffffffff
+    field private static final long REWIND_TIME_MS = 10000L; // 0x2710L
+    field private static final int SEEK_POSITION_NOT_SET = -1; // 0xffffffff
+    field private static final int SETTINGS_MODE_AUDIO_TRACK = 0; // 0x0
+    field private static final int SETTINGS_MODE_MAIN = 4; // 0x4
+    field private static final int SETTINGS_MODE_PLAYBACK_SPEED = 1; // 0x1
+    field private static final int SETTINGS_MODE_SUBTITLE_TRACK = 2; // 0x2
+    field private static final int SETTINGS_MODE_VIDEO_QUALITY = 3; // 0x3
+    field private static final long SHOW_TIME_MS = 250L; // 0xfaL
+    field private static final int SIZE_TYPE_EMBEDDED = 0; // 0x0
+    field private static final int SIZE_TYPE_FULL = 1; // 0x1
+    field private static final int SIZE_TYPE_MINIMAL = 2; // 0x2
+    field private static final String TAG = "MediaControlView2";
+    field private static final int UX_STATE_ALL_VISIBLE = 0; // 0x0
+    field private static final int UX_STATE_ANIMATING = 3; // 0x3
+    field private static final int UX_STATE_NONE_VISIBLE = 2; // 0x2
+    field private static final int UX_STATE_ONLY_PROGRESS_VISIBLE = 1; // 0x1
+    field private android.view.accessibility.AccessibilityManager! mAccessibilityManager;
+    field private android.view.View! mAdExternalLink;
+    field private android.widget.TextView! mAdRemainingView;
+    field private android.widget.TextView! mAdSkipView;
+    field int mAudioTrackCount;
+    field java.util.List<java.lang.String>! mAudioTrackList;
+    field private android.widget.ImageButton! mBackButton;
+    field private final android.view.View.OnClickListener! mBackListener;
+    field android.view.ViewGroup! mBasicControls;
+    field private android.view.ViewGroup! mBottomBar;
+    field private android.view.ViewGroup! mBottomBarLeftView;
+    field private android.view.ViewGroup! mBottomBarRightView;
+    field private android.view.ViewGroup! mCenterView;
+    field androidx.media.widget.MediaControlView2.Controller2! mController;
+    field long mCurrentSeekPosition;
+    field android.widget.TextView! mCurrentTime;
+    field android.view.ViewGroup! mCustomButtons;
+    field int mCustomPlaybackSpeedIndex;
+    field boolean mDragging;
+    field long mDuration;
+    field private int mEmbeddedSettingsItemWidth;
+    field private android.widget.TextView! mEndTime;
+    field android.view.ViewGroup! mExtraControls;
+    field android.widget.ImageButton! mFfwdButton;
+    field private final android.view.View.OnClickListener! mFfwdListener;
+    field private StringBuilder! mFormatBuilder;
+    field private java.util.Formatter! mFormatter;
+    field android.widget.ImageButton! mFullScreenButton;
+    field private final android.view.View.OnClickListener! mFullScreenListener;
+    field private int mFullSettingsItemWidth;
+    field private final Runnable! mHideAllBars;
+    field android.animation.AnimatorSet! mHideAllBarsAnimator;
+    field Runnable! mHideMainBars;
+    field android.animation.AnimatorSet! mHideMainBarsAnimator;
+    field final Runnable! mHideProgressBar;
+    field android.animation.AnimatorSet! mHideProgressBarAnimator;
+    field private int mIconSize;
+    field boolean mIsAdvertisement;
+    field boolean mIsFullScreen;
+    field boolean mIsStopped;
+    field private int mMaxTimeViewWidth;
+    field int mMediaType;
+    field private android.widget.LinearLayout! mMinimalSizeFullScreenView;
+    field boolean mNeedToHideBars;
+    field private android.widget.ImageButton! mNextButton;
+    field private final android.view.View.OnClickListener! mNextListener;
+    field long mNextSeekPosition;
+    field androidx.media.widget.MediaControlView2.OnFullScreenListener! mOnFullScreenListener;
+    field private int mOriginalLeftBarWidth;
+    field android.animation.ValueAnimator! mOverflowHideAnimator;
+    field android.widget.ImageButton! mOverflowHideButton;
+    field private final android.view.View.OnClickListener! mOverflowHideListener;
+    field boolean mOverflowIsShowing;
+    field android.animation.ValueAnimator! mOverflowShowAnimator;
+    field android.widget.ImageButton! mOverflowShowButton;
+    field private final android.view.View.OnClickListener! mOverflowShowListener;
+    field android.widget.ImageButton! mPlayPauseButton;
+    field private final android.view.View.OnClickListener! mPlayPauseListener;
+    field long mPlaybackActions;
+    field java.util.List<java.lang.Integer>! mPlaybackSpeedMultBy100List;
+    field java.util.List<java.lang.String>! mPlaybackSpeedTextList;
+    field private android.widget.ImageButton! mPrevButton;
+    field private final android.view.View.OnClickListener! mPrevListener;
+    field private int mPrevOrientation;
+    field private int mPrevWidth;
+    field android.widget.ProgressBar! mProgress;
+    field android.view.View! mProgressBar;
+    field private android.view.View! mProgressBuffer;
+    field android.content.res.Resources! mResources;
+    field android.widget.ImageButton! mRewButton;
+    field private final android.view.View.OnClickListener! mRewListener;
+    field private android.view.ViewGroup! mRoot;
+    field private androidx.mediarouter.app.MediaRouteButton! mRouteButton;
+    field private androidx.mediarouter.media.MediaRouteSelector! mRouteSelector;
+    field boolean mSeekAvailable;
+    field private final android.widget.SeekBar.OnSeekBarChangeListener! mSeekListener;
+    field int mSelectedAudioTrackIndex;
+    field int mSelectedSpeedIndex;
+    field int mSelectedSubtitleTrackIndex;
+    field int mSelectedVideoQualityIndex;
+    field androidx.media.widget.MediaControlView2.SettingsAdapter! mSettingsAdapter;
+    field private android.widget.ImageButton! mSettingsButton;
+    field private final android.view.View.OnClickListener! mSettingsButtonListener;
+    field private android.widget.PopupWindow.OnDismissListener! mSettingsDismissListener;
+    field private java.util.List<java.lang.Integer>! mSettingsIconIdsList;
+    field private final android.widget.AdapterView.OnItemClickListener! mSettingsItemClickListener;
+    field private int mSettingsItemHeight;
+    field private android.widget.ListView! mSettingsListView;
+    field private java.util.List<java.lang.String>! mSettingsMainTextsList;
+    field int mSettingsMode;
+    field java.util.List<java.lang.String>! mSettingsSubTextsList;
+    field private android.widget.PopupWindow! mSettingsWindow;
+    field private int mSettingsWindowMargin;
+    field private final Runnable! mShowAllBars;
+    field android.animation.AnimatorSet! mShowAllBarsAnimator;
+    field long mShowControllerIntervalMs;
+    field private final Runnable! mShowMainBars;
+    field android.animation.AnimatorSet! mShowMainBarsAnimator;
+    field int mSizeType;
+    field androidx.media.widget.MediaControlView2.SubSettingsAdapter! mSubSettingsAdapter;
+    field android.widget.ImageButton! mSubtitleButton;
+    field java.util.List<java.lang.String>! mSubtitleDescriptionsList;
+    field private final android.view.View.OnClickListener! mSubtitleListener;
+    field int mSubtitleTrackCount;
+    field private android.view.ViewGroup! mTimeView;
+    field private android.view.View! mTitleBar;
+    field private android.widget.TextView! mTitleView;
+    field android.view.View! mTransportControls;
+    field final Runnable! mUpdateProgress;
+    field int mUxState;
+    field private android.widget.ImageButton! mVideoQualityButton;
+    field java.util.List<java.lang.String>! mVideoQualityList;
+    field private final android.view.View.OnClickListener! mVideoQualityListener;
+    field int mVideoTrackCount;
+    field boolean mWasPlaying;
+    field private android.view.WindowManager! mWindowManager;
+  }
+
+  class MediaControlView2.Controller2 {
+    ctor MediaControlView2.Controller2();
+    method boolean canPause();
+    method boolean canSeekBackward();
+    method boolean canSeekForward();
+    method boolean canSkipToNext();
+    method boolean canSkipToPrevious();
+    method androidx.media2.SessionCommandGroup2! getAllowedCommands();
+    method CharSequence! getArtistText();
+    method long getBufferPercentage();
+    method androidx.media2.MediaItem2! getCurrentMediaItem();
+    method long getCurrentPosition();
+    method long getDurationMs();
+    method int getPlaybackState();
+    method CharSequence! getTitle();
+    method boolean hasMetadata();
+    method void hideSubtitle();
+    method boolean isPlaying();
+    method void pause();
+    method void play();
+    method void seekTo(long);
+    method void selectAudioTrack(int);
+    method void setAllowedCommands(androidx.media2.SessionCommandGroup2!);
+    method void setMediaSessionToken2(androidx.media2.SessionToken2!);
+    method void setSpeed(float);
+    method void showSubtitle(int);
+    method void skipToNextItem();
+    method void skipToPreviousItem();
+    field androidx.media2.SessionCommandGroup2! mAllowedCommands;
+    field private java.util.concurrent.Executor! mCallbackExecutor;
+    field private androidx.media2.MediaController2! mController2;
+    field androidx.media2.MediaMetadata2! mMediaMetadata2;
+    field int mPlaybackState;
+    field int mPrevState;
+  }
+
+  class MediaControlView2.Controller2.MediaControllerCallback extends androidx.media2.MediaController2.ControllerCallback {
+    ctor MediaControlView2.Controller2.MediaControllerCallback();
+  }
+
+  private class MediaControlView2.SettingsAdapter extends android.widget.BaseAdapter {
+    ctor MediaControlView2.SettingsAdapter(java.util.List<java.lang.String>!, java.util.List<java.lang.String>?, java.util.List<java.lang.Integer>?);
+    method public String! getMainText(int);
+    method public void setSubTexts(java.util.List<java.lang.String>!);
+    method public void updateSubTexts(java.util.List<java.lang.String>!);
+    field private java.util.List<java.lang.Integer>! mIconIds;
+    field private java.util.List<java.lang.String>! mMainTexts;
+    field private java.util.List<java.lang.String>! mSubTexts;
+  }
+
+  private class MediaControlView2.SubSettingsAdapter extends android.widget.BaseAdapter {
+    ctor MediaControlView2.SubSettingsAdapter(java.util.List<java.lang.String>!, int);
+    method public String! getMainText(int);
+    method public void setCheckPosition(int);
+    method public void setTexts(java.util.List<java.lang.String>!);
+    field private int mCheckPosition;
+    field private java.util.List<java.lang.String>! mTexts;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(api=android.os.Build.VERSION_CODES.LOLLIPOP) public class RoutePlayer extends android.media.session.MediaSession.Callback {
+    ctor public RoutePlayer(android.content.Context!, androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void openVideo(android.net.Uri!);
+    method private void playInternal(android.net.Uri!);
+    method public void release();
+    method public void setPlayerEventCallback(androidx.media.widget.RoutePlayer.PlayerEventCallback!);
+    method void updateItemStatus(String!, androidx.mediarouter.media.MediaItemStatus!);
+    method void updateSessionStatus(String!, androidx.mediarouter.media.MediaSessionStatus!);
+    field public static final long PLAYBACK_ACTIONS = 334L; // 0x14eL
+    field private androidx.media.widget.RoutePlayer.PlayerEventCallback! mCallback;
+    field private androidx.mediarouter.media.RemotePlaybackClient! mClient;
+    field private String! mItemId;
+    field private String! mSessionId;
+    field private androidx.mediarouter.media.RemotePlaybackClient.StatusCallback! mStatusCallback;
+  }
+
+  public abstract static class RoutePlayer.PlayerEventCallback {
+    ctor public RoutePlayer.PlayerEventCallback();
+    method public void onPlayerStateChanged(androidx.mediarouter.media.MediaItemStatus!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(api=android.os.Build.VERSION_CODES.LOLLIPOP) public class RoutePlayer2 extends androidx.media2.RemoteSessionPlayer2 {
+    ctor public RoutePlayer2(android.content.Context!, androidx.mediarouter.media.MediaRouteSelector!, androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method int convertPlaybackStateToPlayerState(int);
+    method private com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! createResult();
+    method private com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! createResult(int);
+    method boolean isSessionActive(androidx.mediarouter.media.MediaSessionStatus!);
+    method private com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! playInternal();
+    method void setCurrentPosition(long);
+    field static final boolean DEBUG;
+    field private static final String TAG = "RoutePlayer2";
+    field boolean mCanResume;
+    field private androidx.mediarouter.media.RemotePlaybackClient! mClient;
+    field int mCurrentPlayerState;
+    field long mDuration;
+    field private androidx.media2.MediaItem2! mItem;
+    field String! mItemId;
+    field long mLastStatusChangedTime;
+    field private androidx.mediarouter.media.MediaRouter! mMediaRouter;
+    field final java.util.List<androidx.concurrent.futures.ResolvableFuture<androidx.media2.SessionPlayer2.PlayerResult>>! mPendingVolumeResult;
+    field long mPosition;
+    field private androidx.mediarouter.media.MediaRouter.Callback! mRouterCallback;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mSelectedRoute;
+    field private androidx.mediarouter.media.RemotePlaybackClient.StatusCallback! mStatusCallback;
+  }
+
+  @RequiresApi(21) class SubtitleAnchorView extends androidx.media.widget.BaseLayout implements androidx.media2.subtitle.SubtitleController.Anchor {
+    ctor SubtitleAnchorView(android.content.Context!);
+    ctor SubtitleAnchorView(android.content.Context!, android.util.AttributeSet?);
+    ctor SubtitleAnchorView(android.content.Context!, android.util.AttributeSet?, int);
+    ctor SubtitleAnchorView(android.content.Context!, android.util.AttributeSet?, int, int);
+    field private static final String TAG = "SubtitleAnchorView";
+    field private androidx.media2.subtitle.SubtitleTrack.RenderingWidget! mSubtitleWidget;
+    field private androidx.media2.subtitle.SubtitleTrack.RenderingWidget.OnChangedListener! mSubtitlesChangedListener;
+  }
+
+  @RequiresApi(21) class VideoSurfaceView extends android.view.SurfaceView implements android.view.SurfaceHolder.Callback androidx.media.widget.VideoViewInterface {
+    ctor VideoSurfaceView(android.content.Context!);
+    method public boolean assignSurfaceToMediaPlayer(androidx.media2.MediaPlayer!);
+    method public int getViewType();
+    method public boolean hasAvailableSurface();
+    method public void setMediaPlayer(androidx.media2.MediaPlayer!);
+    method public void setSurfaceListener(androidx.media.widget.VideoViewInterface.SurfaceListener!);
+    method public void takeOver(androidx.media.widget.VideoViewInterface);
+    field private static final boolean DEBUG;
+    field private static final String TAG = "VideoSurfaceView";
+    field private boolean mIsTakingOverOldView;
+    field private androidx.media2.MediaPlayer! mMediaPlayer;
+    field androidx.media.widget.VideoViewInterface! mOldView;
+    field private android.view.Surface! mSurface;
+    field androidx.media.widget.VideoViewInterface.SurfaceListener! mSurfaceListener;
+  }
+
+  @RequiresApi(21) class VideoTextureView extends android.view.TextureView implements android.view.TextureView.SurfaceTextureListener androidx.media.widget.VideoViewInterface {
+    ctor VideoTextureView(android.content.Context!);
+    method public boolean assignSurfaceToMediaPlayer(androidx.media2.MediaPlayer!);
+    method public int getViewType();
+    method public boolean hasAvailableSurface();
+    method public void setMediaPlayer(androidx.media2.MediaPlayer!);
+    method public void setSurfaceListener(androidx.media.widget.VideoViewInterface.SurfaceListener!);
+    method public void takeOver(androidx.media.widget.VideoViewInterface);
+    field private static final boolean DEBUG;
+    field private static final String TAG = "VideoTextureView";
+    field private boolean mIsTakingOverOldView;
+    field private androidx.media2.MediaPlayer! mMediaPlayer;
+    field androidx.media.widget.VideoViewInterface! mOldView;
+    field private android.view.Surface! mSurface;
+    field androidx.media.widget.VideoViewInterface.SurfaceListener! mSurfaceListener;
+  }
+
+  public class VideoView2 extends androidx.media.widget.BaseLayout {
+    method @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setOnViewTypeChangedListener(androidx.media.widget.VideoView2.OnViewTypeChangedListener!);
+    field private static final boolean DEBUG;
+    field private static final String TAG = "VideoView2";
+    field private androidx.media.widget.VideoView2Impl! mImpl;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static interface VideoView2.OnViewTypeChangedListener {
+    method public void onViewTypeChanged(android.view.View!, int);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.media.widget.VideoView2.VIEW_TYPE_TEXTUREVIEW, androidx.media.widget.VideoView2.VIEW_TYPE_SURFACEVIEW}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface VideoView2.ViewType {
+  }
+
+  interface VideoView2Impl {
+    method public androidx.media.widget.MediaControlView2! getMediaControlView2();
+    method public androidx.media2.SessionToken2 getMediaSessionToken2();
+    method public int getViewType();
+    method public void initialize(androidx.media.widget.VideoView2!, android.content.Context!, android.util.AttributeSet?, int);
+    method public void onAttachedToWindowImpl();
+    method public void onDetachedFromWindowImpl();
+    method public void onMeasureImpl(int, int);
+    method public void onTouchEventImpl(android.view.MotionEvent!);
+    method public void onTrackballEventImpl(android.view.MotionEvent!);
+    method public void onVisibilityAggregatedImpl(boolean);
+    method public void setAudioAttributes(androidx.media.AudioAttributesCompat);
+    method public void setMediaControlView2(androidx.media.widget.MediaControlView2, long);
+    method public void setMediaItem2(androidx.media2.MediaItem2);
+    method public void setOnViewTypeChangedListener(androidx.media.widget.VideoView2.OnViewTypeChangedListener!);
+    method public void setViewType(int);
+  }
+
+  @RequiresApi(28) class VideoView2ImplBase implements androidx.media.widget.VideoView2Impl androidx.media.widget.VideoViewInterface.SurfaceListener {
+    ctor VideoView2ImplBase();
+    method private void attachMediaControlView();
+    method void deselectSubtitleTrack();
+    method void ensureSessionWithPlayer(androidx.media2.SessionPlayer2!);
+    method private android.graphics.drawable.Drawable! extractAlbumArt(androidx.media2.MediaMetadata2!, android.media.MediaMetadataRetriever!, android.graphics.drawable.Drawable!);
+    method androidx.media2.MediaMetadata2! extractMetadata();
+    method private String! extractString(androidx.media2.MediaMetadata2!, String!, android.media.MediaMetadataRetriever!, int, String!);
+    method android.os.Bundle! extractTrackInfoData();
+    method public androidx.media.widget.MediaControlView2! getMediaControlView2();
+    method public androidx.media2.SessionToken2 getMediaSessionToken2();
+    method public int getViewType();
+    method public void initialize(androidx.media.widget.VideoView2!, android.content.Context!, android.util.AttributeSet?, int);
+    method private boolean isMediaPrepared();
+    method boolean isRemotePlayback();
+    method private boolean isWaitingPlayback();
+    method boolean needToStart();
+    method public void onAttachedToWindowImpl();
+    method public void onDetachedFromWindowImpl();
+    method public void onMeasureImpl(int, int);
+    method public void onSurfaceChanged(android.view.View!, int, int);
+    method public void onSurfaceCreated(android.view.View!, int, int);
+    method public void onSurfaceDestroyed(android.view.View!);
+    method public void onSurfaceTakeOverDone(androidx.media.widget.VideoViewInterface!);
+    method public void onTouchEventImpl(android.view.MotionEvent!);
+    method public void onTrackballEventImpl(android.view.MotionEvent!);
+    method public void onVisibilityAggregatedImpl(boolean);
+    method void openVideo();
+    method void resetPlayer();
+    method private int retrieveOrientation();
+    method void selectSubtitleTrack(int);
+    method public void setAudioAttributes(androidx.media.AudioAttributesCompat);
+    method public void setMediaControlView2(androidx.media.widget.MediaControlView2, long);
+    method public void setMediaItem2(androidx.media2.MediaItem2);
+    method public void setOnViewTypeChangedListener(androidx.media.widget.VideoView2.OnViewTypeChangedListener!);
+    method public void setViewType(int);
+    method private void updateCurrentMusicView(android.view.View!);
+    field static final boolean DEBUG;
+    field private static final int INVALID_TRACK_INDEX = -1; // 0xffffffff
+    field private static final int SIZE_TYPE_EMBEDDED = 0; // 0x0
+    field private static final int SIZE_TYPE_FULL = 1; // 0x1
+    field private static final int STATE_ERROR = -1; // 0xffffffff
+    field private static final int STATE_IDLE = 0; // 0x0
+    field private static final int STATE_PAUSED = 4; // 0x4
+    field private static final int STATE_PLAYBACK_COMPLETED = 5; // 0x5
+    field private static final int STATE_PLAYING = 3; // 0x3
+    field private static final int STATE_PREPARED = 2; // 0x2
+    field private static final int STATE_PREPARING = 1; // 0x1
+    field private static final String SUBTITLE_TRACK_LANG_UNDEFINED = "und";
+    field private static final String TAG = "VideoView2ImplBase";
+    field private androidx.media.AudioAttributesCompat! mAudioAttributes;
+    field java.util.ArrayList<java.lang.Integer>! mAudioTrackIndices;
+    field java.util.concurrent.Executor! mCallbackExecutor;
+    field android.view.View! mCurrentMusicView;
+    field int mCurrentState;
+    field androidx.media.widget.VideoViewInterface! mCurrentView;
+    field int mDominantColor;
+    field androidx.media.widget.VideoView2! mInstance;
+    field boolean mIsMusicMediaType;
+    field private android.view.WindowManager! mManager;
+    field androidx.media.widget.MediaControlView2! mMediaControlView;
+    field androidx.media2.MediaItem2! mMediaItem;
+    field androidx.media.widget.VideoView2Player! mMediaPlayer;
+    field androidx.media2.MediaPlayer.PlayerCallback! mMediaPlayerCallback;
+    field private androidx.mediarouter.media.MediaRouter! mMediaRouter;
+    field androidx.media2.MediaSession2! mMediaSession;
+    field private android.graphics.drawable.Drawable! mMusicAlbumDrawable;
+    field private String! mMusicArtistText;
+    field android.view.View! mMusicEmbeddedView;
+    field android.view.View! mMusicFullLandscapeView;
+    field android.view.View! mMusicFullPortraitView;
+    field private int mPrevWidth;
+    field androidx.mediarouter.media.MediaRouter.RouteInfo! mRoute;
+    field androidx.media.widget.RoutePlayer2! mRoutePlayer;
+    field androidx.mediarouter.media.MediaRouteSelector! mRouteSelector;
+    field private final androidx.mediarouter.media.MediaRouter.Callback! mRouterCallback;
+    field long mSeekWhenPrepared;
+    field int mSelectedAudioTrackIndex;
+    field int mSelectedSubtitleTrackIndex;
+    field private int mSizeType;
+    field private androidx.media.widget.SubtitleAnchorView! mSubtitleAnchorView;
+    field private androidx.media2.subtitle.SubtitleController! mSubtitleController;
+    field android.util.SparseArray<androidx.media2.subtitle.SubtitleTrack>! mSubtitleTracks;
+    field private androidx.media.widget.VideoSurfaceView! mSurfaceView;
+    field int mTargetState;
+    field androidx.media.widget.VideoViewInterface! mTargetView;
+    field private androidx.media.widget.VideoTextureView! mTextureView;
+    field private String! mTitle;
+    field int mVideoHeight;
+    field private java.util.ArrayList<java.lang.Integer>! mVideoTrackIndices;
+    field int mVideoWidth;
+    field private androidx.media.widget.VideoView2.OnViewTypeChangedListener! mViewTypeChangedListener;
+  }
+
+  class VideoView2ImplBase.MediaSessionCallback extends androidx.media2.MediaSession2.SessionCallback {
+    ctor VideoView2ImplBase.MediaSessionCallback();
+  }
+
+  class VideoView2Player extends androidx.media2.MediaPlayer {
+    ctor VideoView2Player(android.content.Context!);
+    field private androidx.media2.MediaItem2! mMediaItem;
+  }
+
+  interface VideoViewInterface {
+    method public boolean assignSurfaceToMediaPlayer(androidx.media2.MediaPlayer!);
+    method public int getViewType();
+    method public boolean hasAvailableSurface();
+    method public void setMediaPlayer(androidx.media2.MediaPlayer!);
+    method public void setSurfaceListener(androidx.media.widget.VideoViewInterface.SurfaceListener!);
+    method public void takeOver(androidx.media.widget.VideoViewInterface);
+  }
+
+  public static interface VideoViewInterface.SurfaceListener {
+    method public void onSurfaceChanged(android.view.View!, int, int);
+    method public void onSurfaceCreated(android.view.View!, int, int);
+    method public void onSurfaceDestroyed(android.view.View!);
+    method public void onSurfaceTakeOverDone(androidx.media.widget.VideoViewInterface!);
+  }
+
+}
+

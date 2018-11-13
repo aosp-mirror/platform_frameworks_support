@@ -1,0 +1,308 @@
+// Signature format: 2.0
+package androidx.vectordrawable.graphics.drawable {
+
+  class AndroidResources {
+    ctor private AndroidResources();
+    field public static final int FAST_OUT_LINEAR_IN = 17563663; // 0x10c000f
+    field public static final int FAST_OUT_SLOW_IN = 17563661; // 0x10c000d
+    field public static final int LINEAR_OUT_SLOW_IN = 17563662; // 0x10c000e
+    field static final int[]! STYLEABLE_ANIMATED_VECTOR_DRAWABLE;
+    field static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_DRAWABLE = 0; // 0x0
+    field static final int[]! STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET;
+    field @StyleableRes static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET_ANIMATION = 1; // 0x1
+    field @StyleableRes static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET_NAME = 0; // 0x0
+    field public static final int[]! STYLEABLE_ANIMATOR;
+    field public static final int STYLEABLE_ANIMATOR_DURATION = 1; // 0x1
+    field public static final int STYLEABLE_ANIMATOR_INTERPOLATOR = 0; // 0x0
+    field public static final int STYLEABLE_ANIMATOR_REPEAT_COUNT = 3; // 0x3
+    field public static final int STYLEABLE_ANIMATOR_REPEAT_MODE = 4; // 0x4
+    field public static final int[]! STYLEABLE_ANIMATOR_SET;
+    field public static final int STYLEABLE_ANIMATOR_SET_ORDERING = 0; // 0x0
+    field public static final int STYLEABLE_ANIMATOR_START_OFFSET = 2; // 0x2
+    field public static final int STYLEABLE_ANIMATOR_VALUE_FROM = 5; // 0x5
+    field public static final int STYLEABLE_ANIMATOR_VALUE_TO = 6; // 0x6
+    field public static final int STYLEABLE_ANIMATOR_VALUE_TYPE = 7; // 0x7
+    field public static final int[]! STYLEABLE_KEYFRAME;
+    field public static final int STYLEABLE_KEYFRAME_FRACTION = 3; // 0x3
+    field public static final int STYLEABLE_KEYFRAME_INTERPOLATOR = 1; // 0x1
+    field public static final int STYLEABLE_KEYFRAME_VALUE = 0; // 0x0
+    field public static final int STYLEABLE_KEYFRAME_VALUE_TYPE = 2; // 0x2
+    field public static final int[]! STYLEABLE_PATH_INTERPOLATOR;
+    field public static final int STYLEABLE_PATH_INTERPOLATOR_CONTROL_X_1 = 0; // 0x0
+    field public static final int STYLEABLE_PATH_INTERPOLATOR_CONTROL_X_2 = 2; // 0x2
+    field public static final int STYLEABLE_PATH_INTERPOLATOR_CONTROL_Y_1 = 1; // 0x1
+    field public static final int STYLEABLE_PATH_INTERPOLATOR_CONTROL_Y_2 = 3; // 0x3
+    field public static final int STYLEABLE_PATH_INTERPOLATOR_PATH_DATA = 4; // 0x4
+    field public static final int[]! STYLEABLE_PROPERTY_ANIMATOR;
+    field public static final int STYLEABLE_PROPERTY_ANIMATOR_PATH_DATA = 1; // 0x1
+    field public static final int STYLEABLE_PROPERTY_ANIMATOR_PROPERTY_NAME = 0; // 0x0
+    field public static final int STYLEABLE_PROPERTY_ANIMATOR_PROPERTY_X_NAME = 2; // 0x2
+    field public static final int STYLEABLE_PROPERTY_ANIMATOR_PROPERTY_Y_NAME = 3; // 0x3
+    field public static final int[]! STYLEABLE_PROPERTY_VALUES_HOLDER;
+    field public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_PROPERTY_NAME = 3; // 0x3
+    field public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_FROM = 0; // 0x0
+    field public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_TO = 1; // 0x1
+    field public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_TYPE = 2; // 0x2
+    field static final int STYLEABLE_VECTOR_DRAWABLE_ALPHA = 4; // 0x4
+    field static final int STYLEABLE_VECTOR_DRAWABLE_AUTO_MIRRORED = 5; // 0x5
+    field static final int[]! STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH;
+    field static final int STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_NAME = 0; // 0x0
+    field static final int STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_PATH_DATA = 1; // 0x1
+    field static final int[]! STYLEABLE_VECTOR_DRAWABLE_GROUP;
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_NAME = 0; // 0x0
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_PIVOT_X = 1; // 0x1
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_PIVOT_Y = 2; // 0x2
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_ROTATION = 5; // 0x5
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_X = 3; // 0x3
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_Y = 4; // 0x4
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_X = 6; // 0x6
+    field static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_Y = 7; // 0x7
+    field static final int STYLEABLE_VECTOR_DRAWABLE_HEIGHT = 2; // 0x2
+    field static final int STYLEABLE_VECTOR_DRAWABLE_NAME = 0; // 0x0
+    field static final int[]! STYLEABLE_VECTOR_DRAWABLE_PATH;
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_ALPHA = 12; // 0xc
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_COLOR = 1; // 0x1
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_NAME = 0; // 0x0
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_PATH_DATA = 2; // 0x2
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_ALPHA = 11; // 0xb
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_COLOR = 3; // 0x3
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_CAP = 8; // 0x8
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_JOIN = 9; // 0x9
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_MITER_LIMIT = 10; // 0xa
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_WIDTH = 4; // 0x4
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_END = 6; // 0x6
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_FILLTYPE = 13; // 0xd
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_OFFSET = 7; // 0x7
+    field static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_START = 5; // 0x5
+    field static final int STYLEABLE_VECTOR_DRAWABLE_TINT = 1; // 0x1
+    field static final int STYLEABLE_VECTOR_DRAWABLE_TINT_MODE = 6; // 0x6
+    field static final int[]! STYLEABLE_VECTOR_DRAWABLE_TYPE_ARRAY;
+    field static final int STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_HEIGHT = 8; // 0x8
+    field static final int STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_WIDTH = 7; // 0x7
+    field static final int STYLEABLE_VECTOR_DRAWABLE_WIDTH = 3; // 0x3
+  }
+
+  abstract class VectorDrawableCommon extends android.graphics.drawable.Drawable implements androidx.core.graphics.drawable.TintAwareDrawable {
+    ctor VectorDrawableCommon();
+    field android.graphics.drawable.Drawable! mDelegateDrawable;
+  }
+
+  public class VectorDrawableCompat extends androidx.vectordrawable.graphics.drawable.VectorDrawableCommon implements androidx.core.graphics.drawable.TintAwareDrawable {
+    ctor VectorDrawableCompat();
+    ctor VectorDrawableCompat(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VectorDrawableCompatState);
+    method static int applyAlpha(int, float);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public float getPixelSize();
+    method Object! getTargetByName(String!);
+    method private void inflateInternal(android.content.res.Resources!, org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!, android.content.res.Resources.Theme!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private boolean needMirroring();
+    method private static android.graphics.PorterDuff.Mode! parseTintModeCompat(int, android.graphics.PorterDuff.Mode!);
+    method private void printGroupTree(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VGroup!, int);
+    method void setAllowCaching(boolean);
+    method private void updateStateFromTypedArray(android.content.res.TypedArray!, org.xmlpull.v1.XmlPullParser!, android.content.res.Resources.Theme!) throws org.xmlpull.v1.XmlPullParserException;
+    method android.graphics.PorterDuffColorFilter! updateTintFilter(android.graphics.PorterDuffColorFilter!, android.content.res.ColorStateList!, android.graphics.PorterDuff.Mode!);
+    field private static final boolean DBG_VECTOR_DRAWABLE = false;
+    field static final android.graphics.PorterDuff.Mode! DEFAULT_TINT_MODE;
+    field private static final int LINECAP_BUTT = 0; // 0x0
+    field private static final int LINECAP_ROUND = 1; // 0x1
+    field private static final int LINECAP_SQUARE = 2; // 0x2
+    field private static final int LINEJOIN_BEVEL = 2; // 0x2
+    field private static final int LINEJOIN_MITER = 0; // 0x0
+    field private static final int LINEJOIN_ROUND = 1; // 0x1
+    field static final String LOGTAG = "VectorDrawableCompat";
+    field private static final int MAX_CACHED_BITMAP_SIZE = 2048; // 0x800
+    field private static final String SHAPE_CLIP_PATH = "clip-path";
+    field private static final String SHAPE_GROUP = "group";
+    field private static final String SHAPE_PATH = "path";
+    field private static final String SHAPE_VECTOR = "vector";
+    field private boolean mAllowCaching;
+    field private android.graphics.drawable.Drawable.ConstantState! mCachedConstantStateDelegate;
+    field private android.graphics.ColorFilter! mColorFilter;
+    field private boolean mMutated;
+    field private android.graphics.PorterDuffColorFilter! mTintFilter;
+    field private final android.graphics.Rect! mTmpBounds;
+    field private final float[]! mTmpFloats;
+    field private final android.graphics.Matrix! mTmpMatrix;
+    field private androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VectorDrawableCompatState! mVectorState;
+  }
+
+  private static class VectorDrawableCompat.VClipPath extends androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPath {
+    ctor public VectorDrawableCompat.VClipPath();
+    ctor public VectorDrawableCompat.VClipPath(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VClipPath!);
+    method public void inflate(android.content.res.Resources!, android.util.AttributeSet!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!);
+    method public boolean isClipPath();
+    method private void updateStateFromTypedArray(android.content.res.TypedArray!);
+  }
+
+  private static class VectorDrawableCompat.VFullPath extends androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPath {
+    ctor public VectorDrawableCompat.VFullPath();
+    ctor public VectorDrawableCompat.VFullPath(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VFullPath!);
+    method public void applyTheme(android.content.res.Resources.Theme!);
+    method public boolean canApplyTheme();
+    method float getFillAlpha();
+    method @ColorInt int getFillColor();
+    method float getStrokeAlpha();
+    method @ColorInt int getStrokeColor();
+    method private android.graphics.Paint.Cap! getStrokeLineCap(int, android.graphics.Paint.Cap!);
+    method private android.graphics.Paint.Join! getStrokeLineJoin(int, android.graphics.Paint.Join!);
+    method float getStrokeWidth();
+    method float getTrimPathEnd();
+    method float getTrimPathOffset();
+    method float getTrimPathStart();
+    method public void inflate(android.content.res.Resources!, android.util.AttributeSet!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!);
+    method public boolean isStateful();
+    method public boolean onStateChanged(int[]!);
+    method void setFillAlpha(float);
+    method void setFillColor(int);
+    method void setStrokeAlpha(float);
+    method void setStrokeColor(int);
+    method void setStrokeWidth(float);
+    method void setTrimPathEnd(float);
+    method void setTrimPathOffset(float);
+    method void setTrimPathStart(float);
+    method private void updateStateFromTypedArray(android.content.res.TypedArray!, org.xmlpull.v1.XmlPullParser!, android.content.res.Resources.Theme!);
+    field private static final int FILL_TYPE_WINDING = 0; // 0x0
+    field float mFillAlpha;
+    field androidx.core.content.res.ComplexColorCompat! mFillColor;
+    field int mFillRule;
+    field float mStrokeAlpha;
+    field androidx.core.content.res.ComplexColorCompat! mStrokeColor;
+    field android.graphics.Paint.Cap! mStrokeLineCap;
+    field android.graphics.Paint.Join! mStrokeLineJoin;
+    field float mStrokeMiterlimit;
+    field float mStrokeWidth;
+    field private int[]! mThemeAttrs;
+    field float mTrimPathEnd;
+    field float mTrimPathOffset;
+    field float mTrimPathStart;
+  }
+
+  private static class VectorDrawableCompat.VGroup extends androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VObject {
+    ctor public VectorDrawableCompat.VGroup(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VGroup!, androidx.collection.ArrayMap<java.lang.String,java.lang.Object>!);
+    ctor public VectorDrawableCompat.VGroup();
+    method public String! getGroupName();
+    method public android.graphics.Matrix! getLocalMatrix();
+    method public float getPivotX();
+    method public float getPivotY();
+    method public float getRotation();
+    method public float getScaleX();
+    method public float getScaleY();
+    method public float getTranslateX();
+    method public float getTranslateY();
+    method public void inflate(android.content.res.Resources!, android.util.AttributeSet!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!);
+    method public boolean isStateful();
+    method public boolean onStateChanged(int[]!);
+    method public void setPivotX(float);
+    method public void setPivotY(float);
+    method public void setRotation(float);
+    method public void setScaleX(float);
+    method public void setScaleY(float);
+    method public void setTranslateX(float);
+    method public void setTranslateY(float);
+    method private void updateLocalMatrix();
+    method private void updateStateFromTypedArray(android.content.res.TypedArray!, org.xmlpull.v1.XmlPullParser!);
+    field int mChangingConfigurations;
+    field final java.util.ArrayList<androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VObject>! mChildren;
+    field private String! mGroupName;
+    field final android.graphics.Matrix! mLocalMatrix;
+    field private float mPivotX;
+    field private float mPivotY;
+    field float mRotate;
+    field private float mScaleX;
+    field private float mScaleY;
+    field final android.graphics.Matrix! mStackedMatrix;
+    field private int[]! mThemeAttrs;
+    field private float mTranslateX;
+    field private float mTranslateY;
+  }
+
+  private abstract static class VectorDrawableCompat.VObject {
+    ctor private VectorDrawableCompat.VObject();
+    method public boolean isStateful();
+    method public boolean onStateChanged(int[]!);
+  }
+
+  private abstract static class VectorDrawableCompat.VPath extends androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VObject {
+    ctor public VectorDrawableCompat.VPath();
+    ctor public VectorDrawableCompat.VPath(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPath!);
+    method public void applyTheme(android.content.res.Resources.Theme!);
+    method public boolean canApplyTheme();
+    method public androidx.core.graphics.PathParser.PathDataNode[]! getPathData();
+    method public String! getPathName();
+    method public boolean isClipPath();
+    method public String! nodesToString(androidx.core.graphics.PathParser.PathDataNode[]!);
+    method public void printVPath(int);
+    method public void setPathData(androidx.core.graphics.PathParser.PathDataNode[]!);
+    method public void toPath(android.graphics.Path!);
+    field int mChangingConfigurations;
+    field protected androidx.core.graphics.PathParser.PathDataNode[]! mNodes;
+    field String! mPathName;
+  }
+
+  private static class VectorDrawableCompat.VPathRenderer {
+    ctor public VectorDrawableCompat.VPathRenderer();
+    ctor public VectorDrawableCompat.VPathRenderer(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPathRenderer!);
+    method private static float cross(float, float, float, float);
+    method public void draw(android.graphics.Canvas!, int, int, android.graphics.ColorFilter!);
+    method private void drawGroupTree(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VGroup!, android.graphics.Matrix!, android.graphics.Canvas!, int, int, android.graphics.ColorFilter!);
+    method private void drawPath(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VGroup!, androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPath!, android.graphics.Canvas!, int, int, android.graphics.ColorFilter!);
+    method public float getAlpha();
+    method private float getMatrixScale(android.graphics.Matrix!);
+    method public int getRootAlpha();
+    method public boolean isStateful();
+    method public boolean onStateChanged(int[]!);
+    method public void setAlpha(float);
+    method public void setRootAlpha(int);
+    field private static final android.graphics.Matrix! IDENTITY_MATRIX;
+    field float mBaseHeight;
+    field float mBaseWidth;
+    field private int mChangingConfigurations;
+    field android.graphics.Paint! mFillPaint;
+    field private final android.graphics.Matrix! mFinalPathMatrix;
+    field Boolean! mIsStateful;
+    field private final android.graphics.Path! mPath;
+    field private android.graphics.PathMeasure! mPathMeasure;
+    field private final android.graphics.Path! mRenderPath;
+    field int mRootAlpha;
+    field final androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VGroup! mRootGroup;
+    field String! mRootName;
+    field android.graphics.Paint! mStrokePaint;
+    field final androidx.collection.ArrayMap<java.lang.String,java.lang.Object>! mVGTargetsMap;
+    field float mViewportHeight;
+    field float mViewportWidth;
+  }
+
+  private static class VectorDrawableCompat.VectorDrawableCompatState extends android.graphics.drawable.Drawable.ConstantState {
+    ctor public VectorDrawableCompat.VectorDrawableCompatState(androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VectorDrawableCompatState!);
+    ctor public VectorDrawableCompat.VectorDrawableCompatState();
+    method public boolean canReuseBitmap(int, int);
+    method public boolean canReuseCache();
+    method public void createCachedBitmapIfNeeded(int, int);
+    method public void drawCachedBitmapWithRootAlpha(android.graphics.Canvas!, android.graphics.ColorFilter!, android.graphics.Rect!);
+    method public android.graphics.Paint! getPaint(android.graphics.ColorFilter!);
+    method public boolean hasTranslucentRoot();
+    method public boolean isStateful();
+    method public boolean onStateChanged(int[]!);
+    method public void updateCacheStates();
+    method public void updateCachedBitmap(int, int);
+    field boolean mAutoMirrored;
+    field boolean mCacheDirty;
+    field boolean mCachedAutoMirrored;
+    field android.graphics.Bitmap! mCachedBitmap;
+    field int mCachedRootAlpha;
+    field int[]! mCachedThemeAttrs;
+    field android.content.res.ColorStateList! mCachedTint;
+    field android.graphics.PorterDuff.Mode! mCachedTintMode;
+    field int mChangingConfigurations;
+    field android.graphics.Paint! mTempPaint;
+    field android.content.res.ColorStateList! mTint;
+    field android.graphics.PorterDuff.Mode! mTintMode;
+    field androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.VPathRenderer! mVPathRenderer;
+  }
+
+  @RequiresApi(24) private static class VectorDrawableCompat.VectorDrawableDelegateState extends android.graphics.drawable.Drawable.ConstantState {
+    ctor public VectorDrawableCompat.VectorDrawableDelegateState(android.graphics.drawable.Drawable.ConstantState!);
+    field private final android.graphics.drawable.Drawable.ConstantState! mDelegateState;
+  }
+
+}
+

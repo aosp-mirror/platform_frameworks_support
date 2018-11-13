@@ -1,0 +1,37 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public final class LiveDataReactiveStreams {
+    ctor private LiveDataReactiveStreams();
+  }
+
+  private static final class LiveDataReactiveStreams.LiveDataPublisher<T> implements org.reactivestreams.Publisher<T> {
+    ctor LiveDataReactiveStreams.LiveDataPublisher(androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.LiveData<T>!);
+    field final androidx.lifecycle.LifecycleOwner! mLifecycle;
+    field final androidx.lifecycle.LiveData<T>! mLiveData;
+  }
+
+  static final class LiveDataReactiveStreams.LiveDataPublisher.LiveDataSubscription<T> implements androidx.lifecycle.Observer<T> org.reactivestreams.Subscription {
+    ctor LiveDataReactiveStreams.LiveDataPublisher.LiveDataSubscription(org.reactivestreams.Subscriber<? super T>!, androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.LiveData<T>!);
+    field volatile boolean mCanceled;
+    field T? mLatest;
+    field final androidx.lifecycle.LifecycleOwner! mLifecycle;
+    field final androidx.lifecycle.LiveData<T>! mLiveData;
+    field boolean mObserving;
+    field long mRequested;
+    field final org.reactivestreams.Subscriber<? super T>! mSubscriber;
+  }
+
+  private static class LiveDataReactiveStreams.PublisherLiveData<T> extends androidx.lifecycle.LiveData<T> {
+    ctor LiveDataReactiveStreams.PublisherLiveData(org.reactivestreams.Publisher<T>);
+    field private final org.reactivestreams.Publisher<T>! mPublisher;
+    field final java.util.concurrent.atomic.AtomicReference<androidx.lifecycle.LiveDataReactiveStreams.PublisherLiveData.LiveDataSubscriber>! mSubscriber;
+  }
+
+  final class LiveDataReactiveStreams.PublisherLiveData.LiveDataSubscriber extends java.util.concurrent.atomic.AtomicReference<org.reactivestreams.Subscription> implements org.reactivestreams.Subscriber<T> {
+    ctor LiveDataReactiveStreams.PublisherLiveData.LiveDataSubscriber();
+    method public void cancelSubscription();
+  }
+
+}
+

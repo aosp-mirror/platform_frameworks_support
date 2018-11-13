@@ -1,0 +1,361 @@
+// Signature format: 2.0
+package androidx.paging {
+
+  abstract class ContiguousDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+    method abstract void dispatchLoadAfter(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method abstract void dispatchLoadBefore(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method abstract void dispatchLoadInitial(Key?, int, int, boolean, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method abstract Key! getKey(int, Value!);
+    method boolean isContiguous();
+    method boolean supportsPageDropping();
+  }
+
+  class ContiguousPagedList<K, V> extends androidx.paging.PagedList<V> implements androidx.paging.PagedStorage.Callback {
+    ctor ContiguousPagedList(androidx.paging.ContiguousDataSource<K,V>, java.util.concurrent.Executor, java.util.concurrent.Executor, androidx.paging.PagedList.BoundaryCallback<V>?, androidx.paging.PagedList.Config, K?, int);
+    method @MainThread void dispatchUpdatesSinceSnapshot(androidx.paging.PagedList<V>, androidx.paging.PagedList.Callback);
+    method static int getAppendItemsRequested(int, int, int);
+    method static int getPrependItemsRequested(int, int, int);
+    method boolean isContiguous();
+    method @MainThread protected void loadAroundInternal(int);
+    method @MainThread public void onEmptyAppend();
+    method @MainThread public void onEmptyPrepend();
+    method @MainThread public void onInitialized(int);
+    method @MainThread public void onPageAppended(int, int, int);
+    method @MainThread public void onPageInserted(int, int);
+    method @MainThread public void onPagePlaceholderInserted(int);
+    method @MainThread public void onPagePrepended(int, int, int);
+    method public void onPagesRemoved(int, int);
+    method public void onPagesSwappedToPlaceholder(int, int);
+    method @MainThread private void scheduleAppend();
+    method @MainThread private void schedulePrepend();
+    field static final int LAST_LOAD_UNSPECIFIED = -1; // 0xffffffff
+    field int mAppendItemsRequested;
+    field final androidx.paging.ContiguousDataSource<K,V>! mDataSource;
+    field int mPrependItemsRequested;
+    field androidx.paging.PageResult.Receiver<V>! mReceiver;
+    field boolean mReplacePagesWithNulls;
+    field final boolean mShouldTrim;
+  }
+
+  public abstract class DataSource<Key, Value> {
+    ctor DataSource();
+    method static <A, B> java.util.List<B>! convert(androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>!, java.util.List<A>!);
+    method static <X, Y> androidx.arch.core.util.Function<java.util.List<X>,java.util.List<Y>> createListFunction(androidx.arch.core.util.Function<X,Y>);
+    method abstract boolean isContiguous();
+    field private java.util.concurrent.atomic.AtomicBoolean! mInvalid;
+    field private java.util.concurrent.CopyOnWriteArrayList<androidx.paging.DataSource.InvalidatedCallback>! mOnInvalidatedCallbacks;
+  }
+
+  static class DataSource.LoadCallbackHelper<T> {
+    ctor DataSource.LoadCallbackHelper(androidx.paging.DataSource, int, java.util.concurrent.Executor?, androidx.paging.PageResult.Receiver<T>);
+    method void dispatchErrorToReceiver(Throwable, boolean);
+    method boolean dispatchInvalidResultIfInvalid();
+    method void dispatchOnCurrentThread(androidx.paging.PageResult<T>?, Throwable?, boolean);
+    method void dispatchResultToReceiver(androidx.paging.PageResult<T>);
+    method private void dispatchToReceiver(androidx.paging.PageResult<T>?, Throwable?, boolean);
+    method void setPostExecutor(java.util.concurrent.Executor!);
+    method static void validateInitialLoadParams(java.util.List<?>, int, int);
+    field private final androidx.paging.DataSource! mDataSource;
+    field @GuardedBy("mSignalLock") private boolean mHasSignalled;
+    field private java.util.concurrent.Executor! mPostExecutor;
+    field final androidx.paging.PageResult.Receiver<T>! mReceiver;
+    field final int mResultType;
+    field private final Object! mSignalLock;
+  }
+
+  public abstract class ItemKeyedDataSource<Key, Value> extends androidx.paging.ContiguousDataSource<Key,Value> {
+    method final void dispatchLoadAfter(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final void dispatchLoadBefore(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final void dispatchLoadInitial(Key?, int, int, boolean, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final Key? getKey(int, Value!);
+  }
+
+  static class ItemKeyedDataSource.LoadCallbackImpl<Value> extends androidx.paging.ItemKeyedDataSource.LoadCallback<Value> {
+    ctor ItemKeyedDataSource.LoadCallbackImpl(androidx.paging.ItemKeyedDataSource, int, java.util.concurrent.Executor?, androidx.paging.PageResult.Receiver<Value>);
+    field final androidx.paging.DataSource.LoadCallbackHelper<Value>! mCallbackHelper;
+  }
+
+  static class ItemKeyedDataSource.LoadInitialCallbackImpl<Value> extends androidx.paging.ItemKeyedDataSource.LoadInitialCallback<Value> {
+    ctor ItemKeyedDataSource.LoadInitialCallbackImpl(androidx.paging.ItemKeyedDataSource, boolean, androidx.paging.PageResult.Receiver<Value>);
+    field final androidx.paging.DataSource.LoadCallbackHelper<Value>! mCallbackHelper;
+    field private final boolean mCountingEnabled;
+  }
+
+  class ListDataSource<T> extends androidx.paging.PositionalDataSource<T> {
+    ctor public ListDataSource(java.util.List<T>!);
+    field private final java.util.List<T>! mList;
+  }
+
+  public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.ContiguousDataSource<Key,Value> {
+    method final void dispatchLoadAfter(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final void dispatchLoadBefore(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final void dispatchLoadInitial(Key?, int, int, boolean, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method final Key? getKey(int, Value!);
+    method private Key? getNextKey();
+    method private Key? getPreviousKey();
+    method void initKeys(Key?, Key?);
+    method void setNextKey(Key?);
+    method void setPreviousKey(Key?);
+    method boolean supportsPageDropping();
+    field private final Object! mKeyLock;
+    field @GuardedBy("mKeyLock") private Key? mNextKey;
+    field @GuardedBy("mKeyLock") private Key? mPreviousKey;
+  }
+
+  static class PageKeyedDataSource.LoadCallbackImpl<Key, Value> extends androidx.paging.PageKeyedDataSource.LoadCallback<Key,Value> {
+    ctor PageKeyedDataSource.LoadCallbackImpl(androidx.paging.PageKeyedDataSource<Key,Value>, int, java.util.concurrent.Executor?, androidx.paging.PageResult.Receiver<Value>);
+    field final androidx.paging.DataSource.LoadCallbackHelper<Value>! mCallbackHelper;
+    field private final androidx.paging.PageKeyedDataSource<Key,Value>! mDataSource;
+  }
+
+  static class PageKeyedDataSource.LoadInitialCallbackImpl<Key, Value> extends androidx.paging.PageKeyedDataSource.LoadInitialCallback<Key,Value> {
+    ctor PageKeyedDataSource.LoadInitialCallbackImpl(androidx.paging.PageKeyedDataSource<Key,Value>, boolean, androidx.paging.PageResult.Receiver<Value>);
+    field final androidx.paging.DataSource.LoadCallbackHelper<Value>! mCallbackHelper;
+    field private final boolean mCountingEnabled;
+    field private final androidx.paging.PageKeyedDataSource<Key,Value>! mDataSource;
+  }
+
+  class PageResult<T> {
+    ctor PageResult(java.util.List<T>, int, int, int);
+    ctor PageResult(java.util.List<T>, int);
+    method static <T> androidx.paging.PageResult<T>! getEmptyResult();
+    method static <T> androidx.paging.PageResult<T>! getInvalidResult();
+    method public boolean isInvalid();
+    field static final int APPEND = 1; // 0x1
+    field private static final androidx.paging.PageResult! EMPTY_RESULT;
+    field static final int INIT = 0; // 0x0
+    field private static final androidx.paging.PageResult! INVALID_RESULT;
+    field static final int PREPEND = 2; // 0x2
+    field static final int TILE = 3; // 0x3
+    field public final int leadingNulls;
+    field public final java.util.List<T> page;
+    field public final int positionOffset;
+    field public final int trailingNulls;
+  }
+
+  abstract static class PageResult.Receiver<T> {
+    ctor PageResult.Receiver();
+    method @MainThread public abstract void onPageError(int, Throwable, boolean);
+    method @MainThread public abstract void onPageResult(int, androidx.paging.PageResult<T>);
+  }
+
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.paging.PageResult.INIT, androidx.paging.PageResult.APPEND, androidx.paging.PageResult.PREPEND, androidx.paging.PageResult.TILE}) static @interface PageResult.ResultType {
+  }
+
+  public abstract class PagedList<T> extends java.util.AbstractList<T> {
+    ctor PagedList(androidx.paging.PagedStorage<T>, java.util.concurrent.Executor, java.util.concurrent.Executor, androidx.paging.PagedList.BoundaryCallback<T>?, androidx.paging.PagedList.Config);
+    method static <K, T> androidx.paging.PagedList<T> create(androidx.paging.DataSource<K,T>, java.util.concurrent.Executor, java.util.concurrent.Executor, androidx.paging.PagedList.BoundaryCallback<T>?, androidx.paging.PagedList.Config, K?);
+    method @AnyThread void deferBoundaryCallbacks(boolean, boolean, boolean);
+    method void dispatchBoundaryCallbacks(boolean, boolean);
+    method abstract void dispatchUpdatesSinceSnapshot(androidx.paging.PagedList<T>, androidx.paging.PagedList.Callback);
+    method static boolean equalsHelper(Object?, Object?);
+    method abstract boolean isContiguous();
+    method abstract void loadAroundInternal(int);
+    method void notifyChanged(int, int);
+    method void notifyInserted(int, int);
+    method void notifyRemoved(int, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) void offsetAccessIndices(int);
+    method void tryDispatchBoundaryCallbacks(boolean);
+    field final java.util.concurrent.Executor mBackgroundThreadExecutor;
+    field final androidx.paging.PagedList.BoundaryCallback<T>? mBoundaryCallback;
+    field boolean mBoundaryCallbackBeginDeferred;
+    field boolean mBoundaryCallbackEndDeferred;
+    field private final java.util.ArrayList<java.lang.ref.WeakReference<androidx.paging.PagedList.Callback>>! mCallbacks;
+    field final androidx.paging.PagedList.Config mConfig;
+    field private final java.util.concurrent.atomic.AtomicBoolean! mDetached;
+    field private int mHighestIndexAccessed;
+    field T! mLastItem;
+    field int mLastLoad;
+    field final java.util.ArrayList<java.lang.ref.WeakReference<androidx.paging.PagedList.LoadStateListener>>! mListeners;
+    field final androidx.paging.PagedList.LoadStateManager! mLoadStateManager;
+    field private int mLowestIndexAccessed;
+    field final java.util.concurrent.Executor mMainThreadExecutor;
+    field final int mRequiredRemainder;
+    field final androidx.paging.PagedStorage<T> mStorage;
+  }
+
+  public static final class PagedList.Builder<Key, Value> {
+    field private androidx.paging.PagedList.BoundaryCallback! mBoundaryCallback;
+    field private final androidx.paging.PagedList.Config! mConfig;
+    field private final androidx.paging.DataSource<Key,Value>! mDataSource;
+    field private java.util.concurrent.Executor! mFetchExecutor;
+    field private Key! mInitialKey;
+    field private java.util.concurrent.Executor! mNotifyExecutor;
+  }
+
+  public static class PagedList.Config {
+    ctor PagedList.Config(int, int, boolean, int, int);
+  }
+
+  public static final class PagedList.Config.Builder {
+    field static final int DEFAULT_INITIAL_PAGE_MULTIPLIER = 3; // 0x3
+    field private boolean mEnablePlaceholders;
+    field private int mInitialLoadSizeHint;
+    field private int mMaxSize;
+    field private int mPageSize;
+    field private int mPrefetchDistance;
+  }
+
+  abstract static class PagedList.LoadStateManager {
+    ctor PagedList.LoadStateManager();
+    method public androidx.paging.PagedList.LoadState getEnd();
+    method public Throwable? getEndError();
+    method public androidx.paging.PagedList.LoadState getRefresh();
+    method public Throwable? getRefreshError();
+    method public androidx.paging.PagedList.LoadState getStart();
+    method public Throwable? getStartError();
+    method protected abstract void onStateChanged(androidx.paging.PagedList.LoadType, androidx.paging.PagedList.LoadState, Throwable?);
+    method void setState(androidx.paging.PagedList.LoadType, androidx.paging.PagedList.LoadState, Throwable?);
+    field private androidx.paging.PagedList.LoadState mEnd;
+    field private Throwable? mEndError;
+    field private androidx.paging.PagedList.LoadState mRefresh;
+    field private Throwable? mRefreshError;
+    field private androidx.paging.PagedList.LoadState mStart;
+    field private Throwable? mStartError;
+  }
+
+  final class PagedStorage<T> extends java.util.AbstractList<T> {
+    ctor PagedStorage();
+    ctor PagedStorage(int, java.util.List<T>!, int);
+    ctor private PagedStorage(androidx.paging.PagedStorage<T>!);
+    method void allocatePageRange(int, int);
+    method public void allocatePlaceholders(int, int, int, androidx.paging.PagedStorage.Callback!);
+    method void appendPage(java.util.List<T>, androidx.paging.PagedStorage.Callback);
+    method int computeLeadingNulls();
+    method int computeTrailingNulls();
+    method T! getFirstLoadedItem();
+    method T! getLastLoadedItem();
+    method int getLeadingNullCount();
+    method int getLoadedCount();
+    method int getMiddleOfLoadedRange();
+    method int getNumberAppended();
+    method int getNumberPrepended();
+    method int getPageCount();
+    method int getPositionOffset();
+    method int getStorageCount();
+    method int getTrailingNullCount();
+    method public boolean hasPage(int, int);
+    method private void init(int, java.util.List<T>!, int, int);
+    method void init(int, java.util.List<T>, int, int, androidx.paging.PagedStorage.Callback);
+    method void initAndSplit(int, java.util.List<T>, int, int, int, androidx.paging.PagedStorage.Callback);
+    method public void insertPage(int, java.util.List<T>, androidx.paging.PagedStorage.Callback?);
+    method boolean isTiled();
+    method private boolean needsTrim(int, int, int);
+    method boolean needsTrimFromEnd(int, int);
+    method boolean needsTrimFromFront(int, int);
+    method boolean pageWouldBeBoundary(int, boolean);
+    method void prependPage(java.util.List<T>, androidx.paging.PagedStorage.Callback);
+    method boolean shouldPreTrimNewPage(int, int, int);
+    method androidx.paging.PagedStorage<T>! snapshot();
+    method boolean trimFromEnd(boolean, int, int, androidx.paging.PagedStorage.Callback);
+    method boolean trimFromFront(boolean, int, int, androidx.paging.PagedStorage.Callback);
+    method void tryInsertPageAndTrim(int, java.util.List<T>, int, int, int, androidx.paging.PagedStorage.Callback);
+    field private static final java.util.List! PLACEHOLDER_LIST;
+    field private int mLeadingNullCount;
+    field private int mLoadedCount;
+    field private int mNumberAppended;
+    field private int mNumberPrepended;
+    field private int mPageSize;
+    field private final java.util.ArrayList<java.util.List<T>>! mPages;
+    field private int mPositionOffset;
+    field private int mStorageCount;
+    field private int mTrailingNullCount;
+  }
+
+  static interface PagedStorage.Callback {
+    method public void onEmptyAppend();
+    method public void onEmptyPrepend();
+    method public void onInitialized(int);
+    method public void onPageAppended(int, int, int);
+    method public void onPageInserted(int, int);
+    method public void onPagePlaceholderInserted(int);
+    method public void onPagePrepended(int, int, int);
+    method public void onPagesRemoved(int, int);
+    method public void onPagesSwappedToPlaceholder(int, int);
+  }
+
+  public abstract class PositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
+    method final void dispatchLoadInitial(boolean, int, int, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<T>);
+    method final void dispatchLoadRange(int, int, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<T>);
+    method boolean isContiguous();
+    method androidx.paging.ContiguousDataSource<java.lang.Integer,T> wrapAsContiguousWithoutPlaceholders();
+  }
+
+  static class PositionalDataSource.ContiguousWithoutPlaceholdersWrapper<Value> extends androidx.paging.ContiguousDataSource<java.lang.Integer,Value> {
+    ctor PositionalDataSource.ContiguousWithoutPlaceholdersWrapper(androidx.paging.PositionalDataSource<Value>);
+    method void dispatchLoadAfter(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method void dispatchLoadBefore(int, Value, int, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method void dispatchLoadInitial(Integer?, int, int, boolean, java.util.concurrent.Executor, androidx.paging.PageResult.Receiver<Value>);
+    method Integer! getKey(int, Value!);
+    field final androidx.paging.PositionalDataSource<Value> mSource;
+  }
+
+  static class PositionalDataSource.LoadInitialCallbackImpl<T> extends androidx.paging.PositionalDataSource.LoadInitialCallback<T> {
+    ctor PositionalDataSource.LoadInitialCallbackImpl(androidx.paging.PositionalDataSource, boolean, int, androidx.paging.PageResult.Receiver<T>!);
+    field final androidx.paging.DataSource.LoadCallbackHelper<T>! mCallbackHelper;
+    field private final boolean mCountingEnabled;
+    field private final int mPageSize;
+  }
+
+  static class PositionalDataSource.LoadRangeCallbackImpl<T> extends androidx.paging.PositionalDataSource.LoadRangeCallback<T> {
+    ctor PositionalDataSource.LoadRangeCallbackImpl(androidx.paging.PositionalDataSource, int, int, java.util.concurrent.Executor!, androidx.paging.PageResult.Receiver<T>!);
+    field private androidx.paging.DataSource.LoadCallbackHelper<T>! mCallbackHelper;
+    field private final int mPositionOffset;
+  }
+
+  class SnapshotPagedList<T> extends androidx.paging.PagedList<T> {
+    ctor SnapshotPagedList(androidx.paging.PagedList<T>);
+    method void dispatchUpdatesSinceSnapshot(androidx.paging.PagedList<T>, androidx.paging.PagedList.Callback);
+    method boolean isContiguous();
+    method void loadAroundInternal(int);
+    field private final boolean mContiguous;
+    field private final androidx.paging.DataSource<?,T>! mDataSource;
+    field private final Object! mLastKey;
+  }
+
+  @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class TiledDataSource<T> extends androidx.paging.PositionalDataSource<T> {
+    method @WorkerThread public abstract int countItems();
+    method boolean isContiguous();
+    method @WorkerThread public abstract java.util.List<T>? loadRange(int, int);
+  }
+
+  class TiledPagedList<T> extends androidx.paging.PagedList<T> implements androidx.paging.PagedStorage.Callback {
+    ctor @WorkerThread TiledPagedList(androidx.paging.PositionalDataSource<T>, java.util.concurrent.Executor, java.util.concurrent.Executor, androidx.paging.PagedList.BoundaryCallback<T>?, androidx.paging.PagedList.Config, int);
+    method protected void dispatchUpdatesSinceSnapshot(androidx.paging.PagedList<T>, androidx.paging.PagedList.Callback);
+    method boolean isContiguous();
+    method protected void loadAroundInternal(int);
+    method public void onEmptyAppend();
+    method public void onEmptyPrepend();
+    method public void onInitialized(int);
+    method public void onPageAppended(int, int, int);
+    method public void onPageInserted(int, int);
+    method public void onPagePlaceholderInserted(int);
+    method public void onPagePrepended(int, int, int);
+    method public void onPagesRemoved(int, int);
+    method public void onPagesSwappedToPlaceholder(int, int);
+    field final androidx.paging.PositionalDataSource<T>! mDataSource;
+    field androidx.paging.PageResult.Receiver<T>! mReceiver;
+  }
+
+  class WrapperItemKeyedDataSource<K, A, B> extends androidx.paging.ItemKeyedDataSource<K,B> {
+    ctor WrapperItemKeyedDataSource(androidx.paging.ItemKeyedDataSource<K,A>!, androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>!);
+    method java.util.List<B>! convertWithStashedKeys(java.util.List<A>!);
+    field private final java.util.IdentityHashMap<B,K>! mKeyMap;
+    field final androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>! mListFunction;
+    field private final androidx.paging.ItemKeyedDataSource<K,A>! mSource;
+  }
+
+  class WrapperPageKeyedDataSource<K, A, B> extends androidx.paging.PageKeyedDataSource<K,B> {
+    ctor WrapperPageKeyedDataSource(androidx.paging.PageKeyedDataSource<K,A>!, androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>!);
+    field final androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>! mListFunction;
+    field private final androidx.paging.PageKeyedDataSource<K,A>! mSource;
+  }
+
+  class WrapperPositionalDataSource<A, B> extends androidx.paging.PositionalDataSource<B> {
+    ctor WrapperPositionalDataSource(androidx.paging.PositionalDataSource<A>!, androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>!);
+    field final androidx.arch.core.util.Function<java.util.List<A>,java.util.List<B>>! mListFunction;
+    field private final androidx.paging.PositionalDataSource<A>! mSource;
+  }
+
+}
+

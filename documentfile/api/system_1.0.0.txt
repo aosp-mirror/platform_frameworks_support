@@ -1,0 +1,54 @@
+// Signature format: 2.0
+package androidx.documentfile.provider {
+
+  public abstract class DocumentFile {
+    ctor DocumentFile(androidx.documentfile.provider.DocumentFile?);
+    field static final String TAG = "DocumentFile";
+    field private final androidx.documentfile.provider.DocumentFile? mParent;
+  }
+
+  @RequiresApi(19) class DocumentsContractApi19 {
+    ctor private DocumentsContractApi19();
+    method public static boolean canRead(android.content.Context!, android.net.Uri!);
+    method public static boolean canWrite(android.content.Context!, android.net.Uri!);
+    method private static void closeQuietly(AutoCloseable?);
+    method public static boolean exists(android.content.Context!, android.net.Uri!);
+    method public static long getFlags(android.content.Context!, android.net.Uri!);
+    method public static String? getName(android.content.Context!, android.net.Uri!);
+    method private static String? getRawType(android.content.Context!, android.net.Uri!);
+    method public static String? getType(android.content.Context!, android.net.Uri!);
+    method public static boolean isDirectory(android.content.Context!, android.net.Uri!);
+    method public static boolean isFile(android.content.Context!, android.net.Uri!);
+    method public static boolean isVirtual(android.content.Context!, android.net.Uri!);
+    method public static long lastModified(android.content.Context!, android.net.Uri!);
+    method public static long length(android.content.Context!, android.net.Uri!);
+    method private static int queryForInt(android.content.Context!, android.net.Uri!, String!, int);
+    method private static long queryForLong(android.content.Context!, android.net.Uri!, String!, long);
+    method private static String? queryForString(android.content.Context!, android.net.Uri!, String!, String?);
+    field private static final int FLAG_VIRTUAL_DOCUMENT = 512; // 0x200
+    field private static final String TAG = "DocumentFile";
+  }
+
+  class RawDocumentFile extends androidx.documentfile.provider.DocumentFile {
+    ctor RawDocumentFile(androidx.documentfile.provider.DocumentFile?, java.io.File!);
+    method private static boolean deleteContents(java.io.File!);
+    method private static String! getTypeForName(String!);
+    field private java.io.File! mFile;
+  }
+
+  @RequiresApi(19) class SingleDocumentFile extends androidx.documentfile.provider.DocumentFile {
+    ctor SingleDocumentFile(androidx.documentfile.provider.DocumentFile?, android.content.Context!, android.net.Uri!);
+    field private android.content.Context! mContext;
+    field private android.net.Uri! mUri;
+  }
+
+  @RequiresApi(21) class TreeDocumentFile extends androidx.documentfile.provider.DocumentFile {
+    ctor TreeDocumentFile(androidx.documentfile.provider.DocumentFile?, android.content.Context!, android.net.Uri!);
+    method private static void closeQuietly(AutoCloseable?);
+    method private static android.net.Uri? createFile(android.content.Context!, android.net.Uri!, String!, String!);
+    field private android.content.Context! mContext;
+    field private android.net.Uri! mUri;
+  }
+
+}
+

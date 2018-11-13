@@ -1,0 +1,248 @@
+// Signature format: 2.0
+package androidx.gridlayout.widget {
+
+  public class GridLayout extends android.view.ViewGroup {
+    method static int adjust(int, int);
+    method static <T> T[]! append(T[]!, T[]!);
+    method static boolean canStretch(int);
+    method private void checkLayoutParams(androidx.gridlayout.widget.GridLayout.LayoutParams!, boolean);
+    method private static int clip(androidx.gridlayout.widget.GridLayout.Interval!, boolean, int);
+    method private int computeLayoutParamsHashCode();
+    method private void consistencyCheck();
+    method private static androidx.gridlayout.widget.GridLayout.Alignment! createSwitchingAlignment(androidx.gridlayout.widget.GridLayout.Alignment!, androidx.gridlayout.widget.GridLayout.Alignment!);
+    method private void drawLine(android.graphics.Canvas!, int, int, int, int, android.graphics.Paint!);
+    method private static boolean fits(int[]!, int, int, int);
+    method static androidx.gridlayout.widget.GridLayout.Alignment! getAlignment(int, boolean);
+    method private int getDefaultMargin(android.view.View!, boolean, boolean);
+    method private int getDefaultMargin(android.view.View!, boolean, boolean, boolean);
+    method private int getDefaultMargin(android.view.View!, androidx.gridlayout.widget.GridLayout.LayoutParams!, boolean, boolean);
+    method final androidx.gridlayout.widget.GridLayout.LayoutParams! getLayoutParams(android.view.View!);
+    method private int getMargin(android.view.View!, boolean, boolean);
+    method int getMargin1(android.view.View!, boolean, boolean);
+    method private int getMeasurement(android.view.View!, boolean);
+    method final int getMeasurementIncludingMargin(android.view.View!, boolean);
+    method private int getTotalMargin(android.view.View!, boolean);
+    method static void handleInvalidParams(String!);
+    method private void invalidateStructure();
+    method private void invalidateValues();
+    method private boolean isLayoutRtlCompat();
+    method static int max2(int[]!, int);
+    method private void measureChildWithMargins2(android.view.View!, int, int, int, int);
+    method private void measureChildrenWithMargins(int, int, boolean);
+    method private static void procrusteanFill(int[]!, int, int, int);
+    method private static void setCellGroup(androidx.gridlayout.widget.GridLayout.LayoutParams!, int, int, int, int);
+    method private void validateLayoutParams();
+    field private static final int ALIGNMENT_MODE;
+    field static final int CAN_STRETCH = 2; // 0x2
+    field private static final int COLUMN_COUNT;
+    field private static final int COLUMN_ORDER_PRESERVED;
+    field private static final int DEFAULT_ALIGNMENT_MODE = 1; // 0x1
+    field static final int DEFAULT_CONTAINER_MARGIN = 0; // 0x0
+    field private static final int DEFAULT_COUNT = -2147483648; // 0x80000000
+    field static final boolean DEFAULT_ORDER_PRESERVED = true;
+    field private static final int DEFAULT_ORIENTATION = 0; // 0x0
+    field private static final boolean DEFAULT_USE_DEFAULT_MARGINS = false;
+    field static final int INFLEXIBLE = 0; // 0x0
+    field private static final androidx.gridlayout.widget.GridLayout.Alignment! LEADING;
+    field static final android.util.Printer! LOG_PRINTER;
+    field static final int MAX_SIZE = 100000; // 0x186a0
+    field static final android.util.Printer! NO_PRINTER;
+    field private static final int ORIENTATION;
+    field private static final int ROW_COUNT;
+    field private static final int ROW_ORDER_PRESERVED;
+    field private static final androidx.gridlayout.widget.GridLayout.Alignment! TRAILING;
+    field static final androidx.gridlayout.widget.GridLayout.Alignment! UNDEFINED_ALIGNMENT;
+    field static final int UNINITIALIZED_HASH = 0; // 0x0
+    field private static final int USE_DEFAULT_MARGINS;
+    field int mAlignmentMode;
+    field int mDefaultGap;
+    field final androidx.gridlayout.widget.GridLayout.Axis! mHorizontalAxis;
+    field int mLastLayoutParamsHashCode;
+    field int mOrientation;
+    field android.util.Printer! mPrinter;
+    field boolean mUseDefaultMargins;
+    field final androidx.gridlayout.widget.GridLayout.Axis! mVerticalAxis;
+  }
+
+  public abstract static class GridLayout.Alignment {
+    ctor GridLayout.Alignment();
+    method abstract int getAlignmentValue(android.view.View!, int, int);
+    method androidx.gridlayout.widget.GridLayout.Bounds! getBounds();
+    method abstract String! getDebugString();
+    method abstract int getGravityOffset(android.view.View!, int);
+    method int getSizeInCell(android.view.View!, int, int);
+  }
+
+  static final class GridLayout.Arc {
+    ctor public GridLayout.Arc(androidx.gridlayout.widget.GridLayout.Interval!, androidx.gridlayout.widget.GridLayout.MutableInt!);
+    field public final androidx.gridlayout.widget.GridLayout.Interval! span;
+    field public boolean valid;
+    field public final androidx.gridlayout.widget.GridLayout.MutableInt! value;
+  }
+
+  static final class GridLayout.Assoc<K, V> extends java.util.ArrayList<android.util.Pair<K,V>> {
+    ctor private GridLayout.Assoc(Class<K>!, Class<V>!);
+    method public static <K, V> androidx.gridlayout.widget.GridLayout.Assoc<K,V>! of(Class<K>!, Class<V>!);
+    method public androidx.gridlayout.widget.GridLayout.PackedMap<K,V>! pack();
+    method public void put(K!, V!);
+    field private final Class<K>! keyType;
+    field private final Class<V>! valueType;
+  }
+
+  final class GridLayout.Axis {
+    ctor GridLayout.Axis(boolean);
+    method private void addComponentSizes(java.util.List<androidx.gridlayout.widget.GridLayout.Arc>!, androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>!);
+    method private String! arcsToString(java.util.List<androidx.gridlayout.widget.GridLayout.Arc>!);
+    method private int calculateMaxIndex();
+    method private float calculateTotalWeight();
+    method private void computeArcs();
+    method private void computeGroupBounds();
+    method private boolean computeHasWeights();
+    method private void computeLinks(androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>!, boolean);
+    method private void computeLocations(int[]!);
+    method private void computeMargins(boolean);
+    method private androidx.gridlayout.widget.GridLayout.Arc[]! createArcs();
+    method private androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Spec,androidx.gridlayout.widget.GridLayout.Bounds>! createGroupBounds();
+    method private androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>! createLinks(boolean);
+    method public androidx.gridlayout.widget.GridLayout.Arc[]! getArcs();
+    method private androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>! getBackwardLinks();
+    method public int getCount();
+    method public int[]! getDeltas();
+    method private androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>! getForwardLinks();
+    method public androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Spec,androidx.gridlayout.widget.GridLayout.Bounds>! getGroupBounds();
+    method public int[]! getLeadingMargins();
+    method public int[]! getLocations();
+    method private int getMaxIndex();
+    method private int getMeasure(int, int);
+    method public int getMeasure(int);
+    method public int[]! getTrailingMargins();
+    method androidx.gridlayout.widget.GridLayout.Arc[][]! groupArcsByFirstVertex(androidx.gridlayout.widget.GridLayout.Arc[]!);
+    method private boolean hasWeights();
+    method private void include(java.util.List<androidx.gridlayout.widget.GridLayout.Arc>!, androidx.gridlayout.widget.GridLayout.Interval!, androidx.gridlayout.widget.GridLayout.MutableInt!, boolean);
+    method private void include(java.util.List<androidx.gridlayout.widget.GridLayout.Arc>!, androidx.gridlayout.widget.GridLayout.Interval!, androidx.gridlayout.widget.GridLayout.MutableInt!);
+    method private void init(int[]!);
+    method public void invalidateStructure();
+    method public void invalidateValues();
+    method public boolean isOrderPreserved();
+    method public void layout(int);
+    method private void logError(String!, androidx.gridlayout.widget.GridLayout.Arc[]!, boolean[]!);
+    method private boolean relax(int[]!, androidx.gridlayout.widget.GridLayout.Arc!);
+    method public void setCount(int);
+    method public void setOrderPreserved(boolean);
+    method private void setParentConstraints(int, int);
+    method private void shareOutDelta(int, float);
+    method private int size(int[]!);
+    method private boolean solve(androidx.gridlayout.widget.GridLayout.Arc[]!, int[]!);
+    method private boolean solve(androidx.gridlayout.widget.GridLayout.Arc[]!, int[]!, boolean);
+    method private boolean solve(int[]!);
+    method private void solveAndDistributeSpace(int[]!);
+    method private androidx.gridlayout.widget.GridLayout.Arc[]! topologicalSort(androidx.gridlayout.widget.GridLayout.Arc[]!);
+    method private androidx.gridlayout.widget.GridLayout.Arc[]! topologicalSort(java.util.List<androidx.gridlayout.widget.GridLayout.Arc>!);
+    field static final int COMPLETE = 2; // 0x2
+    field static final int NEW = 0; // 0x0
+    field static final int PENDING = 1; // 0x1
+    field public androidx.gridlayout.widget.GridLayout.Arc[]! arcs;
+    field public boolean arcsValid;
+    field androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>! backwardLinks;
+    field public boolean backwardLinksValid;
+    field public int definedCount;
+    field public int[]! deltas;
+    field androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Interval,androidx.gridlayout.widget.GridLayout.MutableInt>! forwardLinks;
+    field public boolean forwardLinksValid;
+    field androidx.gridlayout.widget.GridLayout.PackedMap<androidx.gridlayout.widget.GridLayout.Spec,androidx.gridlayout.widget.GridLayout.Bounds>! groupBounds;
+    field public boolean groupBoundsValid;
+    field public boolean hasWeights;
+    field public boolean hasWeightsValid;
+    field public final boolean horizontal;
+    field public int[]! leadingMargins;
+    field public boolean leadingMarginsValid;
+    field public int[]! locations;
+    field public boolean locationsValid;
+    field private int maxIndex;
+    field boolean orderPreserved;
+    field private androidx.gridlayout.widget.GridLayout.MutableInt! parentMax;
+    field private androidx.gridlayout.widget.GridLayout.MutableInt! parentMin;
+    field public int[]! trailingMargins;
+    field public boolean trailingMarginsValid;
+  }
+
+  static class GridLayout.Bounds {
+    ctor GridLayout.Bounds();
+    method protected int getOffset(androidx.gridlayout.widget.GridLayout!, android.view.View!, androidx.gridlayout.widget.GridLayout.Alignment!, int, boolean);
+    method protected void include(int, int);
+    method protected final void include(androidx.gridlayout.widget.GridLayout!, android.view.View!, androidx.gridlayout.widget.GridLayout.Spec!, androidx.gridlayout.widget.GridLayout.Axis!, int);
+    method protected void reset();
+    method protected int size(boolean);
+    field public int after;
+    field public int before;
+    field public int flexibility;
+  }
+
+  static final class GridLayout.Interval {
+    ctor public GridLayout.Interval(int, int);
+    method androidx.gridlayout.widget.GridLayout.Interval! inverse();
+    method int size();
+    field public final int max;
+    field public final int min;
+  }
+
+  public static class GridLayout.LayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    ctor private GridLayout.LayoutParams(int, int, int, int, int, int, androidx.gridlayout.widget.GridLayout.Spec!, androidx.gridlayout.widget.GridLayout.Spec!);
+    method private void init(android.content.Context!, android.util.AttributeSet!);
+    method private void reInitSuper(android.content.Context!, android.util.AttributeSet!);
+    method final void setColumnSpecSpan(androidx.gridlayout.widget.GridLayout.Interval!);
+    method final void setRowSpecSpan(androidx.gridlayout.widget.GridLayout.Interval!);
+    field private static final int BOTTOM_MARGIN;
+    field private static final int COLUMN;
+    field private static final int COLUMN_SPAN;
+    field private static final int COLUMN_WEIGHT;
+    field private static final int DEFAULT_COLUMN = -2147483648; // 0x80000000
+    field private static final int DEFAULT_HEIGHT = -2; // 0xfffffffe
+    field private static final int DEFAULT_MARGIN = -2147483648; // 0x80000000
+    field private static final int DEFAULT_ROW = -2147483648; // 0x80000000
+    field private static final androidx.gridlayout.widget.GridLayout.Interval! DEFAULT_SPAN;
+    field private static final int DEFAULT_SPAN_SIZE;
+    field private static final int DEFAULT_WIDTH = -2; // 0xfffffffe
+    field private static final int GRAVITY;
+    field private static final int LEFT_MARGIN;
+    field private static final int MARGIN;
+    field private static final int RIGHT_MARGIN;
+    field private static final int ROW;
+    field private static final int ROW_SPAN;
+    field private static final int ROW_WEIGHT;
+    field private static final int TOP_MARGIN;
+  }
+
+  static final class GridLayout.MutableInt {
+    ctor public GridLayout.MutableInt();
+    ctor public GridLayout.MutableInt(int);
+    method public void reset();
+    field public int value;
+  }
+
+  static final class GridLayout.PackedMap<K, V> {
+    ctor GridLayout.PackedMap(K[]!, V[]!);
+    method private static <K> K[]! compact(K[]!, int[]!);
+    method private static <K> int[]! createIndex(K[]!);
+    method public V! getValue(int);
+    field public final int[]! index;
+    field public final K[]! keys;
+    field public final V[]! values;
+  }
+
+  public static class GridLayout.Spec {
+    ctor private GridLayout.Spec(boolean, androidx.gridlayout.widget.GridLayout.Interval!, androidx.gridlayout.widget.GridLayout.Alignment!, float);
+    ctor GridLayout.Spec(boolean, int, int, androidx.gridlayout.widget.GridLayout.Alignment!, float);
+    method final androidx.gridlayout.widget.GridLayout.Spec! copyWriteAlignment(androidx.gridlayout.widget.GridLayout.Alignment!);
+    method final androidx.gridlayout.widget.GridLayout.Spec! copyWriteSpan(androidx.gridlayout.widget.GridLayout.Interval!);
+    method final int getFlexibility();
+    field static final float DEFAULT_WEIGHT = 0.0f;
+    field static final androidx.gridlayout.widget.GridLayout.Spec! UNDEFINED;
+    field final androidx.gridlayout.widget.GridLayout.Alignment! alignment;
+    field final androidx.gridlayout.widget.GridLayout.Interval! span;
+    field final boolean startDefined;
+    field final float weight;
+  }
+
+}
+

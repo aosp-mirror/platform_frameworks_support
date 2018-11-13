@@ -1,0 +1,54 @@
+// Signature format: 2.0
+package androidx.legacy.app {
+
+  @Deprecated public class ActionBarDrawerToggle implements androidx.drawerlayout.widget.DrawerLayout.DrawerListener {
+    method private static boolean assumeMaterial(android.content.Context!);
+    method private android.graphics.drawable.Drawable! getThemeUpIndicator();
+    method private void setActionBarDescription(int);
+    method private void setActionBarUpIndicator(android.graphics.drawable.Drawable!, int);
+    field private static final int ID_HOME = 16908332; // 0x102002c
+    field private static final String TAG = "ActionBarDrawerToggle";
+    field private static final int[]! THEME_ATTRS;
+    field private static final float TOGGLE_DRAWABLE_OFFSET = 0.33333334f;
+    field final android.app.Activity! mActivity;
+    field private final androidx.legacy.app.ActionBarDrawerToggle.Delegate! mActivityImpl;
+    field private final int mCloseDrawerContentDescRes;
+    field private android.graphics.drawable.Drawable! mDrawerImage;
+    field private final int mDrawerImageResource;
+    field private boolean mDrawerIndicatorEnabled;
+    field private final androidx.drawerlayout.widget.DrawerLayout! mDrawerLayout;
+    field private boolean mHasCustomUpIndicator;
+    field private android.graphics.drawable.Drawable! mHomeAsUpIndicator;
+    field private final int mOpenDrawerContentDescRes;
+    field private androidx.legacy.app.ActionBarDrawerToggle.SetIndicatorInfo! mSetIndicatorInfo;
+    field private androidx.legacy.app.ActionBarDrawerToggle.SlideDrawable! mSlider;
+  }
+
+  private static class ActionBarDrawerToggle.SetIndicatorInfo {
+    ctor ActionBarDrawerToggle.SetIndicatorInfo(android.app.Activity!);
+    field java.lang.reflect.Method! mSetHomeActionContentDescription;
+    field java.lang.reflect.Method! mSetHomeAsUpIndicator;
+    field android.widget.ImageView! mUpIndicatorView;
+  }
+
+  private class ActionBarDrawerToggle.SlideDrawable extends android.graphics.drawable.InsetDrawable implements android.graphics.drawable.Drawable.Callback {
+    ctor ActionBarDrawerToggle.SlideDrawable(android.graphics.drawable.Drawable!);
+    method public float getPosition();
+    method public void setOffset(float);
+    method public void setPosition(float);
+    field private final boolean mHasMirroring;
+    field private float mOffset;
+    field private float mPosition;
+    field private final android.graphics.Rect! mTmpRect;
+  }
+
+}
+
+package androidx.legacy.widget {
+
+  @Deprecated public class Space extends android.view.View {
+    method private static int getDefaultSize2(int, int);
+  }
+
+}
+

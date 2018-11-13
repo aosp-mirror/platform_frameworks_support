@@ -1,0 +1,55 @@
+// Signature format: 2.0
+package androidx.print {
+
+  public final class PrintHelper {
+    method static android.graphics.Bitmap! convertBitmapForColorMode(android.graphics.Bitmap!, int);
+    method @RequiresApi(19) private static android.print.PrintAttributes.Builder! copyAttributes(android.print.PrintAttributes!);
+    method static android.graphics.Matrix! getMatrix(int, int, android.graphics.RectF!, int);
+    method static boolean isPortrait(android.graphics.Bitmap!);
+    method private android.graphics.Bitmap! loadBitmap(android.net.Uri!, android.graphics.BitmapFactory.Options!) throws java.io.FileNotFoundException;
+    method android.graphics.Bitmap! loadConstrainedBitmap(android.net.Uri!) throws java.io.FileNotFoundException;
+    method @RequiresApi(19) void writeBitmap(android.print.PrintAttributes!, int, android.graphics.Bitmap!, android.os.ParcelFileDescriptor!, android.os.CancellationSignal!, android.print.PrintDocumentAdapter.WriteResultCallback!);
+    field static final boolean IS_MIN_MARGINS_HANDLING_CORRECT;
+    field private static final String LOG_TAG = "PrintHelper";
+    field private static final int MAX_PRINT_SIZE = 3500; // 0xdac
+    field static final boolean PRINT_ACTIVITY_RESPECTS_ORIENTATION;
+    field int mColorMode;
+    field final android.content.Context! mContext;
+    field android.graphics.BitmapFactory.Options! mDecodeOptions;
+    field final Object! mLock;
+    field int mOrientation;
+    field int mScaleMode;
+  }
+
+  @IntDef({androidx.print.PrintHelper.COLOR_MODE_MONOCHROME, androidx.print.PrintHelper.COLOR_MODE_COLOR}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface PrintHelper.ColorMode {
+  }
+
+  @IntDef({androidx.print.PrintHelper.ORIENTATION_LANDSCAPE, androidx.print.PrintHelper.ORIENTATION_PORTRAIT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface PrintHelper.Orientation {
+  }
+
+  @RequiresApi(19) private class PrintHelper.PrintBitmapAdapter extends android.print.PrintDocumentAdapter {
+    ctor PrintHelper.PrintBitmapAdapter(String!, int, android.graphics.Bitmap!, androidx.print.PrintHelper.OnPrintFinishCallback!);
+    field private android.print.PrintAttributes! mAttributes;
+    field private final android.graphics.Bitmap! mBitmap;
+    field private final androidx.print.PrintHelper.OnPrintFinishCallback! mCallback;
+    field private final int mFittingMode;
+    field private final String! mJobName;
+  }
+
+  @RequiresApi(19) private class PrintHelper.PrintUriAdapter extends android.print.PrintDocumentAdapter {
+    ctor PrintHelper.PrintUriAdapter(String!, android.net.Uri!, androidx.print.PrintHelper.OnPrintFinishCallback!, int);
+    method void cancelLoad();
+    field android.print.PrintAttributes! mAttributes;
+    field android.graphics.Bitmap! mBitmap;
+    field final androidx.print.PrintHelper.OnPrintFinishCallback! mCallback;
+    field final int mFittingMode;
+    field final android.net.Uri! mImageFile;
+    field final String! mJobName;
+    field android.os.AsyncTask<android.net.Uri,java.lang.Boolean,android.graphics.Bitmap>! mLoadBitmap;
+  }
+
+  @IntDef({androidx.print.PrintHelper.SCALE_MODE_FIT, androidx.print.PrintHelper.SCALE_MODE_FILL}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface PrintHelper.ScaleMode {
+  }
+
+}
+

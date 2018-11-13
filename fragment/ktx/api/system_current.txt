@@ -1,0 +1,16 @@
+// Signature format: 2.0
+package androidx.fragment.app {
+
+  public final class FragmentViewModelLazy<VM extends androidx.lifecycle.ViewModel> implements kotlin.Lazy<VM> {
+    field private VM! cached;
+    field private final androidx.lifecycle.ViewModelProvider.Factory! factory;
+    field private final androidx.fragment.app.Fragment! fragment;
+    field private final kotlin.reflect.KClass<VM>! viewModelClass;
+  }
+
+  public final class FragmentViewModelLazyKt {
+    method @MainThread private static <VM extends androidx.lifecycle.ViewModel> kotlin.Lazy<VM>! viewModels(androidx.fragment.app.Fragment, androidx.lifecycle.ViewModelProvider.Factory! factory = null);
+  }
+
+}
+

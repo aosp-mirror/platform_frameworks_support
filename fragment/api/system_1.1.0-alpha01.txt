@@ -1,0 +1,777 @@
+// Signature format: 2.0
+package androidx.fragment.app {
+
+  final class BackStackRecord extends androidx.fragment.app.FragmentTransaction implements androidx.fragment.app.FragmentManager.BackStackEntry androidx.fragment.app.FragmentManagerImpl.OpGenerator {
+    ctor public BackStackRecord(androidx.fragment.app.FragmentManagerImpl!);
+    method void addOp(androidx.fragment.app.BackStackRecord.Op!);
+    method void bumpBackStackNesting(int);
+    method int commitInternal(boolean);
+    method private void doAddOp(int, androidx.fragment.app.Fragment!, String?, int);
+    method public void dump(String!, java.io.PrintWriter!);
+    method public void dump(String!, java.io.PrintWriter!, boolean);
+    method void executeOps();
+    method void executePopOps(boolean);
+    method androidx.fragment.app.Fragment! expandOps(java.util.ArrayList<androidx.fragment.app.Fragment>!, androidx.fragment.app.Fragment!);
+    method public boolean generateOps(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+    method boolean interactsWith(int);
+    method boolean interactsWith(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, int, int);
+    method private static boolean isFragmentPostponed(androidx.fragment.app.BackStackRecord.Op!);
+    method boolean isPostponed();
+    method public void runOnCommitRunnables();
+    method void setOnStartPostponedListener(androidx.fragment.app.Fragment.OnStartEnterTransitionListener!);
+    method androidx.fragment.app.Fragment! trackAddedFragmentsInPop(java.util.ArrayList<androidx.fragment.app.Fragment>!, androidx.fragment.app.Fragment!);
+    field static final int OP_ADD = 1; // 0x1
+    field static final int OP_ATTACH = 7; // 0x7
+    field static final int OP_DETACH = 6; // 0x6
+    field static final int OP_HIDE = 4; // 0x4
+    field static final int OP_NULL = 0; // 0x0
+    field static final int OP_REMOVE = 3; // 0x3
+    field static final int OP_REPLACE = 2; // 0x2
+    field static final int OP_SET_PRIMARY_NAV = 8; // 0x8
+    field static final int OP_SHOW = 5; // 0x5
+    field static final int OP_UNSET_PRIMARY_NAV = 9; // 0x9
+    field static final String TAG = "FragmentManager";
+    field boolean mAddToBackStack;
+    field boolean mAllowAddToBackStack;
+    field int mBreadCrumbShortTitleRes;
+    field CharSequence! mBreadCrumbShortTitleText;
+    field int mBreadCrumbTitleRes;
+    field CharSequence! mBreadCrumbTitleText;
+    field java.util.ArrayList<java.lang.Runnable>! mCommitRunnables;
+    field boolean mCommitted;
+    field int mEnterAnim;
+    field int mExitAnim;
+    field int mIndex;
+    field final androidx.fragment.app.FragmentManagerImpl! mManager;
+    field String? mName;
+    field java.util.ArrayList<androidx.fragment.app.BackStackRecord.Op>! mOps;
+    field int mPopEnterAnim;
+    field int mPopExitAnim;
+    field boolean mReorderingAllowed;
+    field java.util.ArrayList<java.lang.String>! mSharedElementSourceNames;
+    field java.util.ArrayList<java.lang.String>! mSharedElementTargetNames;
+    field int mTransition;
+    field int mTransitionStyle;
+  }
+
+  static final class BackStackRecord.Op {
+    ctor BackStackRecord.Op();
+    ctor BackStackRecord.Op(int, androidx.fragment.app.Fragment!);
+    field int cmd;
+    field int enterAnim;
+    field int exitAnim;
+    field androidx.fragment.app.Fragment! fragment;
+    field int popEnterAnim;
+    field int popExitAnim;
+  }
+
+  final class BackStackState implements android.os.Parcelable {
+    ctor public BackStackState(androidx.fragment.app.BackStackRecord!);
+    ctor public BackStackState(android.os.Parcel!);
+    method public androidx.fragment.app.BackStackRecord! instantiate(androidx.fragment.app.FragmentManagerImpl!);
+    field public static final android.os.Parcelable.Creator<androidx.fragment.app.BackStackState>! CREATOR;
+    field final int mBreadCrumbShortTitleRes;
+    field final CharSequence! mBreadCrumbShortTitleText;
+    field final int mBreadCrumbTitleRes;
+    field final CharSequence! mBreadCrumbTitleText;
+    field final java.util.ArrayList<java.lang.String>! mFragmentWhos;
+    field final int mIndex;
+    field final String! mName;
+    field final int[]! mOps;
+    field final boolean mReorderingAllowed;
+    field final java.util.ArrayList<java.lang.String>! mSharedElementSourceNames;
+    field final java.util.ArrayList<java.lang.String>! mSharedElementTargetNames;
+    field final int mTransition;
+    field final int mTransitionStyle;
+  }
+
+  public class DialogFragment extends androidx.fragment.app.Fragment implements android.content.DialogInterface.OnCancelListener android.content.DialogInterface.OnDismissListener {
+    method void dismissInternal(boolean);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setupDialog(android.app.Dialog, int);
+    field private static final String SAVED_BACK_STACK_ID = "android:backStackId";
+    field private static final String SAVED_CANCELABLE = "android:cancelable";
+    field private static final String SAVED_DIALOG_STATE_TAG = "android:savedDialogState";
+    field private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
+    field private static final String SAVED_STYLE = "android:style";
+    field private static final String SAVED_THEME = "android:theme";
+    field int mBackStackId;
+    field boolean mCancelable;
+    field android.app.Dialog? mDialog;
+    field boolean mDismissed;
+    field boolean mShownByMe;
+    field boolean mShowsDialog;
+    field int mStyle;
+    field int mTheme;
+    field boolean mViewDestroyed;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.fragment.app.DialogFragment.STYLE_NORMAL, androidx.fragment.app.DialogFragment.STYLE_NO_TITLE, androidx.fragment.app.DialogFragment.STYLE_NO_FRAME, androidx.fragment.app.DialogFragment.STYLE_NO_INPUT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface DialogFragment.DialogStyle {
+  }
+
+  public class Fragment implements android.content.ComponentCallbacks androidx.lifecycle.LifecycleOwner android.view.View.OnCreateContextMenuListener androidx.lifecycle.ViewModelStoreOwner {
+    method void callStartTransitionListener();
+    method private androidx.fragment.app.Fragment.AnimationInfo! ensureAnimationInfo();
+    method androidx.fragment.app.Fragment? findFragmentByWho(String);
+    method android.view.View! getAnimatingAway();
+    method android.animation.Animator! getAnimator();
+    method androidx.core.app.SharedElementCallback! getEnterTransitionCallback();
+    method androidx.core.app.SharedElementCallback! getExitTransitionCallback();
+    method @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.view.LayoutInflater getLayoutInflater(android.os.Bundle?);
+    method int getNextAnim();
+    method int getNextTransition();
+    method int getNextTransitionStyle();
+    method int getStateAfterAnimating();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final boolean hasOptionsMenu();
+    method void initState();
+    method void instantiateChildFragmentManager();
+    method boolean isHideReplaced();
+    method final boolean isInBackStack();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final boolean isMenuVisible();
+    method boolean isPostponed();
+    method void noteStateNotSaved();
+    method androidx.fragment.app.FragmentManager? peekChildFragmentManager();
+    method void performActivityCreated(android.os.Bundle!);
+    method void performConfigurationChanged(android.content.res.Configuration);
+    method boolean performContextItemSelected(android.view.MenuItem);
+    method void performCreate(android.os.Bundle!);
+    method boolean performCreateOptionsMenu(android.view.Menu, android.view.MenuInflater);
+    method void performCreateView(android.view.LayoutInflater, android.view.ViewGroup?, android.os.Bundle?);
+    method void performDestroy();
+    method void performDestroyView();
+    method void performDetach();
+    method android.view.LayoutInflater performGetLayoutInflater(android.os.Bundle?);
+    method void performLowMemory();
+    method void performMultiWindowModeChanged(boolean);
+    method boolean performOptionsItemSelected(android.view.MenuItem);
+    method void performOptionsMenuClosed(android.view.Menu);
+    method void performPause();
+    method void performPictureInPictureModeChanged(boolean);
+    method boolean performPrepareOptionsMenu(android.view.Menu);
+    method void performResume();
+    method void performSaveInstanceState(android.os.Bundle!);
+    method void performStart();
+    method void performStop();
+    method void restoreChildFragmentState(android.os.Bundle?);
+    method final void restoreViewState(android.os.Bundle!);
+    method void setAnimatingAway(android.view.View!);
+    method void setAnimator(android.animation.Animator!);
+    method void setHideReplaced(boolean);
+    method void setNextAnim(int);
+    method void setNextTransition(int, int);
+    method void setOnStartEnterTransitionListener(androidx.fragment.app.Fragment.OnStartEnterTransitionListener!);
+    method void setStateAfterAnimating(int);
+    field static final int ACTIVITY_CREATED = 2; // 0x2
+    field static final int CREATED = 1; // 0x1
+    field static final int INITIALIZING = 0; // 0x0
+    field static final int RESUMED = 4; // 0x4
+    field static final int STARTED = 3; // 0x3
+    field static final Object! USE_DEFAULT_TRANSITION;
+    field boolean mAdded;
+    field androidx.fragment.app.Fragment.AnimationInfo! mAnimationInfo;
+    field android.os.Bundle! mArguments;
+    field int mBackStackNesting;
+    field boolean mCalled;
+    field androidx.fragment.app.FragmentManagerImpl! mChildFragmentManager;
+    field android.view.ViewGroup! mContainer;
+    field int mContainerId;
+    field boolean mDeferStart;
+    field boolean mDetached;
+    field int mFragmentId;
+    field androidx.fragment.app.FragmentManagerImpl! mFragmentManager;
+    field boolean mFromLayout;
+    field boolean mHasMenu;
+    field boolean mHidden;
+    field boolean mHiddenChanged;
+    field androidx.fragment.app.FragmentHostCallback! mHost;
+    field boolean mInLayout;
+    field android.view.View! mInnerView;
+    field boolean mIsCreated;
+    field boolean mIsNewlyAdded;
+    field android.view.LayoutInflater! mLayoutInflater;
+    field final androidx.lifecycle.LifecycleRegistry! mLifecycleRegistry;
+    field boolean mMenuVisible;
+    field androidx.fragment.app.Fragment! mParentFragment;
+    field boolean mPerformedCreateView;
+    field float mPostponedAlpha;
+    field boolean mRemoving;
+    field boolean mRestored;
+    field boolean mRetainInstance;
+    field boolean mRetainInstanceChangedWhileDetached;
+    field android.os.Bundle! mSavedFragmentState;
+    field Boolean? mSavedUserVisibleHint;
+    field android.util.SparseArray<android.os.Parcelable>! mSavedViewState;
+    field int mState;
+    field String! mTag;
+    field androidx.fragment.app.Fragment! mTarget;
+    field int mTargetRequestCode;
+    field String! mTargetWho;
+    field boolean mUserVisibleHint;
+    field android.view.View! mView;
+    field androidx.lifecycle.LifecycleOwner! mViewLifecycleOwner;
+    field androidx.lifecycle.MutableLiveData<androidx.lifecycle.LifecycleOwner>! mViewLifecycleOwnerLiveData;
+    field androidx.lifecycle.LifecycleRegistry! mViewLifecycleRegistry;
+    field String mWho;
+  }
+
+  static class Fragment.AnimationInfo {
+    ctor Fragment.AnimationInfo();
+    field Boolean! mAllowEnterTransitionOverlap;
+    field Boolean! mAllowReturnTransitionOverlap;
+    field android.view.View! mAnimatingAway;
+    field android.animation.Animator! mAnimator;
+    field Object! mEnterTransition;
+    field androidx.core.app.SharedElementCallback! mEnterTransitionCallback;
+    field boolean mEnterTransitionPostponed;
+    field Object! mExitTransition;
+    field androidx.core.app.SharedElementCallback! mExitTransitionCallback;
+    field boolean mIsHideReplaced;
+    field int mNextAnim;
+    field int mNextTransition;
+    field int mNextTransitionStyle;
+    field Object! mReenterTransition;
+    field Object! mReturnTransition;
+    field Object! mSharedElementEnterTransition;
+    field Object! mSharedElementReturnTransition;
+    field androidx.fragment.app.Fragment.OnStartEnterTransitionListener! mStartEnterTransitionListener;
+    field int mStateAfterAnimating;
+  }
+
+  static interface Fragment.OnStartEnterTransitionListener {
+    method public void onStartEnterTransition();
+    method public void startListening();
+  }
+
+  public static class Fragment.SavedState implements android.os.Parcelable {
+    ctor Fragment.SavedState(android.os.Bundle!);
+    ctor Fragment.SavedState(android.os.Parcel, ClassLoader?);
+    field final android.os.Bundle! mState;
+  }
+
+  public class FragmentActivity extends androidx.activity.ComponentActivity implements androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator {
+    method private int allocateRequestIndex(androidx.fragment.app.Fragment);
+    method static void checkForValidRequestCode(int);
+    method final android.view.View? dispatchFragmentsOnCreateView(android.view.View?, String, android.content.Context, android.util.AttributeSet);
+    method private void markFragmentsCreated();
+    method private static boolean markState(androidx.fragment.app.FragmentManager!, androidx.lifecycle.Lifecycle.State!);
+    method @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected boolean onPrepareOptionsPanel(android.view.View?, android.view.Menu);
+    method void requestPermissionsFromFragment(androidx.fragment.app.Fragment, String[], int);
+    field static final String ALLOCATED_REQUEST_INDICIES_TAG = "android:support:request_indicies";
+    field static final String FRAGMENTS_TAG = "android:support:fragments";
+    field static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS = 65534; // 0xfffe
+    field static final String NEXT_CANDIDATE_REQUEST_INDEX_TAG = "android:support:next_request_index";
+    field static final String REQUEST_FRAGMENT_WHO_TAG = "android:support:request_fragment_who";
+    field private static final String TAG = "FragmentActivity";
+    field boolean mCreated;
+    field final androidx.fragment.app.FragmentController! mFragments;
+    field int mNextCandidateRequestIndex;
+    field androidx.collection.SparseArrayCompat<java.lang.String>! mPendingFragmentActivityResults;
+    field boolean mRequestedPermissionsFromFragment;
+    field boolean mResumed;
+    field boolean mStartedActivityFromFragment;
+    field boolean mStartedIntentSenderFromFragment;
+    field boolean mStopped;
+  }
+
+  class FragmentActivity.HostCallbacks extends androidx.fragment.app.FragmentHostCallback<androidx.fragment.app.FragmentActivity> implements androidx.lifecycle.ViewModelStoreOwner {
+    ctor public FragmentActivity.HostCallbacks();
+    method public void onAttachFragment(androidx.fragment.app.Fragment);
+  }
+
+  public class FragmentController {
+    ctor private FragmentController(androidx.fragment.app.FragmentHostCallback<?>!);
+    field private final androidx.fragment.app.FragmentHostCallback<?>! mHost;
+  }
+
+  public class FragmentFactory {
+    method static boolean isFragmentClass(ClassLoader, String);
+    method private static Class<?> loadClass(ClassLoader, String) throws java.lang.ClassNotFoundException;
+    field private static final androidx.collection.SimpleArrayMap<java.lang.String,java.lang.Class<?>>! sClassMap;
+  }
+
+  public abstract class FragmentHostCallback<E> extends androidx.fragment.app.FragmentContainer {
+    ctor FragmentHostCallback(androidx.fragment.app.FragmentActivity);
+    ctor FragmentHostCallback(android.app.Activity?, android.content.Context, android.os.Handler, int);
+    method android.app.Activity? getActivity();
+    method android.content.Context getContext();
+    method android.os.Handler getHandler();
+    method void onAttachFragment(androidx.fragment.app.Fragment);
+    field private final android.app.Activity? mActivity;
+    field private final android.content.Context mContext;
+    field final androidx.fragment.app.FragmentManagerImpl! mFragmentManager;
+    field private final android.os.Handler mHandler;
+    field private final int mWindowAnimations;
+  }
+
+  public abstract class FragmentManager {
+    method @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.fragment.app.FragmentTransaction openTransaction();
+  }
+
+  final class FragmentManagerImpl extends androidx.fragment.app.FragmentManager implements android.view.LayoutInflater.Factory2 {
+    ctor FragmentManagerImpl();
+    method private void addAddedFragments(androidx.collection.ArraySet<androidx.fragment.app.Fragment>!);
+    method void addBackStackState(androidx.fragment.app.BackStackRecord!);
+    method public void addFragment(androidx.fragment.app.Fragment!, boolean);
+    method void addRetainedFragment(androidx.fragment.app.Fragment);
+    method public int allocBackStackIndex(androidx.fragment.app.BackStackRecord!);
+    method private void animateRemoveFragment(androidx.fragment.app.Fragment, androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator, int);
+    method public void attachController(androidx.fragment.app.FragmentHostCallback, androidx.fragment.app.FragmentContainer, androidx.fragment.app.Fragment?);
+    method public void attachFragment(androidx.fragment.app.Fragment!);
+    method private void burpActive();
+    method private void checkStateLoss();
+    method private void cleanupExec();
+    method void completeExecute(androidx.fragment.app.BackStackRecord!, boolean, boolean, boolean);
+    method void completeShowHideFragment(androidx.fragment.app.Fragment!);
+    method public void detachFragment(androidx.fragment.app.Fragment!);
+    method public void dispatchActivityCreated();
+    method public void dispatchConfigurationChanged(android.content.res.Configuration);
+    method public boolean dispatchContextItemSelected(android.view.MenuItem);
+    method public void dispatchCreate();
+    method public boolean dispatchCreateOptionsMenu(android.view.Menu, android.view.MenuInflater);
+    method public void dispatchDestroy();
+    method public void dispatchDestroyView();
+    method public void dispatchLowMemory();
+    method public void dispatchMultiWindowModeChanged(boolean);
+    method void dispatchOnFragmentActivityCreated(androidx.fragment.app.Fragment, android.os.Bundle?, boolean);
+    method void dispatchOnFragmentAttached(androidx.fragment.app.Fragment, android.content.Context, boolean);
+    method void dispatchOnFragmentCreated(androidx.fragment.app.Fragment, android.os.Bundle?, boolean);
+    method void dispatchOnFragmentDestroyed(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentDetached(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentPaused(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentPreAttached(androidx.fragment.app.Fragment, android.content.Context, boolean);
+    method void dispatchOnFragmentPreCreated(androidx.fragment.app.Fragment, android.os.Bundle?, boolean);
+    method void dispatchOnFragmentResumed(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentSaveInstanceState(androidx.fragment.app.Fragment, android.os.Bundle, boolean);
+    method void dispatchOnFragmentStarted(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentStopped(androidx.fragment.app.Fragment, boolean);
+    method void dispatchOnFragmentViewCreated(androidx.fragment.app.Fragment, android.view.View, android.os.Bundle?, boolean);
+    method void dispatchOnFragmentViewDestroyed(androidx.fragment.app.Fragment, boolean);
+    method public boolean dispatchOptionsItemSelected(android.view.MenuItem);
+    method public void dispatchOptionsMenuClosed(android.view.Menu);
+    method public void dispatchPause();
+    method public void dispatchPictureInPictureModeChanged(boolean);
+    method public boolean dispatchPrepareOptionsMenu(android.view.Menu);
+    method public void dispatchResume();
+    method public void dispatchStart();
+    method private void dispatchStateChange(int);
+    method public void dispatchStop();
+    method void doPendingDeferredStart();
+    method private void endAnimatingAwayFragments();
+    method public void enqueueAction(androidx.fragment.app.FragmentManagerImpl.OpGenerator!, boolean);
+    method private void ensureExecReady(boolean);
+    method void ensureInflatedFragmentView(androidx.fragment.app.Fragment!);
+    method public boolean execPendingActions();
+    method public void execSingleAction(androidx.fragment.app.FragmentManagerImpl.OpGenerator!, boolean);
+    method private static void executeOps(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, int, int);
+    method private void executeOpsTogether(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, int, int);
+    method private void executePostponedTransaction(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+    method public androidx.fragment.app.Fragment! findFragmentByWho(String);
+    method private androidx.fragment.app.Fragment! findFragmentUnder(androidx.fragment.app.Fragment!);
+    method private void forcePostponedTransactions();
+    method public void freeBackStackIndex(int);
+    method private boolean generateOpsForPendingActions(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+    method int getActiveFragmentCount();
+    method java.util.List<androidx.fragment.app.Fragment> getActiveFragments();
+    method private static android.view.animation.Animation.AnimationListener! getAnimationListener(android.view.animation.Animation!);
+    method androidx.fragment.app.FragmentManagerViewModel getChildNonConfig(androidx.fragment.app.Fragment);
+    method android.view.LayoutInflater.Factory2! getLayoutInflaterFactory();
+    method androidx.lifecycle.ViewModelStore getViewModelStore(androidx.fragment.app.Fragment);
+    method public void hideFragment(androidx.fragment.app.Fragment!);
+    method boolean isStateAtLeast(int);
+    method androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator! loadAnimation(androidx.fragment.app.Fragment!, int, boolean, int);
+    method void makeActive(androidx.fragment.app.Fragment!);
+    method static androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator! makeFadeAnimation(float, float);
+    method void makeInactive(androidx.fragment.app.Fragment!);
+    method static androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator! makeOpenCloseAnimation(float, float, float, float);
+    method private void makeRemovedFragmentsInvisible(androidx.collection.ArraySet<androidx.fragment.app.Fragment>!);
+    method static boolean modifiesAlpha(androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator!);
+    method static boolean modifiesAlpha(android.animation.Animator!);
+    method void moveFragmentToExpectedState(androidx.fragment.app.Fragment!);
+    method void moveToState(androidx.fragment.app.Fragment!, int, int, int, boolean);
+    method void moveToState(androidx.fragment.app.Fragment!);
+    method void moveToState(int, boolean);
+    method public void noteStateNotSaved();
+    method public void performPendingDeferredStart(androidx.fragment.app.Fragment!);
+    method private boolean popBackStackImmediate(String!, int, int);
+    method boolean popBackStackState(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, String!, int, int);
+    method private int postponePostponableTransactions(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, int, int, androidx.collection.ArraySet<androidx.fragment.app.Fragment>!);
+    method public void removeFragment(androidx.fragment.app.Fragment!);
+    method private void removeRedundantOperationsAndExecute(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+    method void removeRetainedFragment(androidx.fragment.app.Fragment);
+    method void reportBackStackChanged();
+    method void restoreAllState(android.os.Parcelable!, androidx.fragment.app.FragmentManagerNonConfig!);
+    method void restoreSaveState(android.os.Parcelable!);
+    method @Deprecated androidx.fragment.app.FragmentManagerNonConfig! retainNonConfig();
+    method public static int reverseTransit(int);
+    method android.os.Parcelable! saveAllState();
+    method android.os.Bundle! saveFragmentBasicState(androidx.fragment.app.Fragment!);
+    method void saveFragmentViewState(androidx.fragment.app.Fragment!);
+    method void scheduleCommit();
+    method public void setBackStackIndex(int, androidx.fragment.app.BackStackRecord!);
+    method private static void setHWLayerAnimListenerIfAlpha(android.view.View!, androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator!);
+    method public void setPrimaryNavigationFragment(androidx.fragment.app.Fragment!);
+    method static boolean shouldRunOnHWLayer(android.view.View!, androidx.fragment.app.FragmentManagerImpl.AnimationOrAnimator!);
+    method public void showFragment(androidx.fragment.app.Fragment!);
+    method void startPendingDeferredFragments();
+    method private void throwException(RuntimeException!);
+    method public static int transitToStyleIndex(int, boolean);
+    field static final int ANIM_DUR = 220; // 0xdc
+    field public static final int ANIM_STYLE_CLOSE_ENTER = 3; // 0x3
+    field public static final int ANIM_STYLE_CLOSE_EXIT = 4; // 0x4
+    field public static final int ANIM_STYLE_FADE_ENTER = 5; // 0x5
+    field public static final int ANIM_STYLE_FADE_EXIT = 6; // 0x6
+    field public static final int ANIM_STYLE_OPEN_ENTER = 1; // 0x1
+    field public static final int ANIM_STYLE_OPEN_EXIT = 2; // 0x2
+    field static boolean DEBUG;
+    field static final android.view.animation.Interpolator! DECELERATE_CUBIC;
+    field static final android.view.animation.Interpolator! DECELERATE_QUINT;
+    field static final String TAG = "FragmentManager";
+    field static final String TARGET_REQUEST_CODE_STATE_TAG = "android:target_req_state";
+    field static final String TARGET_STATE_TAG = "android:target_state";
+    field static final String USER_VISIBLE_HINT_TAG = "android:user_visible_hint";
+    field static final String VIEW_STATE_TAG = "android:view_state";
+    field final java.util.HashMap<java.lang.String,androidx.fragment.app.Fragment>! mActive;
+    field final java.util.ArrayList<androidx.fragment.app.Fragment>! mAdded;
+    field java.util.ArrayList<java.lang.Integer>! mAvailBackStackIndices;
+    field java.util.ArrayList<androidx.fragment.app.BackStackRecord>! mBackStack;
+    field java.util.ArrayList<androidx.fragment.app.FragmentManager.OnBackStackChangedListener>! mBackStackChangeListeners;
+    field java.util.ArrayList<androidx.fragment.app.BackStackRecord>! mBackStackIndices;
+    field androidx.fragment.app.FragmentContainer! mContainer;
+    field java.util.ArrayList<androidx.fragment.app.Fragment>! mCreatedMenus;
+    field int mCurState;
+    field boolean mDestroyed;
+    field Runnable! mExecCommit;
+    field boolean mExecutingActions;
+    field androidx.fragment.app.FragmentFactory! mFragmentFactory;
+    field boolean mHavePendingDeferredStart;
+    field androidx.fragment.app.FragmentHostCallback! mHost;
+    field private final java.util.concurrent.CopyOnWriteArrayList<androidx.fragment.app.FragmentManagerImpl.FragmentLifecycleCallbacksHolder>! mLifecycleCallbacks;
+    field boolean mNeedMenuInvalidate;
+    field int mNextFragmentIndex;
+    field private androidx.fragment.app.FragmentManagerViewModel! mNonConfig;
+    field androidx.fragment.app.Fragment! mParent;
+    field java.util.ArrayList<androidx.fragment.app.FragmentManagerImpl.OpGenerator>! mPendingActions;
+    field java.util.ArrayList<androidx.fragment.app.FragmentManagerImpl.StartEnterTransitionListener>! mPostponedTransactions;
+    field androidx.fragment.app.Fragment? mPrimaryNav;
+    field android.util.SparseArray<android.os.Parcelable>! mStateArray;
+    field android.os.Bundle! mStateBundle;
+    field boolean mStateSaved;
+    field boolean mStopped;
+    field java.util.ArrayList<androidx.fragment.app.Fragment>! mTmpAddedFragments;
+    field java.util.ArrayList<java.lang.Boolean>! mTmpIsPop;
+    field java.util.ArrayList<androidx.fragment.app.BackStackRecord>! mTmpRecords;
+    field static java.lang.reflect.Field! sAnimationListenerField;
+  }
+
+  private static class FragmentManagerImpl.AnimateOnHWLayerIfNeededListener extends androidx.fragment.app.FragmentManagerImpl.AnimationListenerWrapper {
+    ctor FragmentManagerImpl.AnimateOnHWLayerIfNeededListener(android.view.View!, android.view.animation.Animation.AnimationListener!);
+    field android.view.View! mView;
+  }
+
+  private static class FragmentManagerImpl.AnimationListenerWrapper implements android.view.animation.Animation.AnimationListener {
+    ctor FragmentManagerImpl.AnimationListenerWrapper(android.view.animation.Animation.AnimationListener!);
+    field private final android.view.animation.Animation.AnimationListener! mWrapped;
+  }
+
+  private static class FragmentManagerImpl.AnimationOrAnimator {
+    ctor FragmentManagerImpl.AnimationOrAnimator(android.view.animation.Animation!);
+    ctor FragmentManagerImpl.AnimationOrAnimator(android.animation.Animator!);
+    field public final android.view.animation.Animation! animation;
+    field public final android.animation.Animator! animator;
+  }
+
+  private static class FragmentManagerImpl.AnimatorOnHWLayerIfNeededListener extends android.animation.AnimatorListenerAdapter {
+    ctor FragmentManagerImpl.AnimatorOnHWLayerIfNeededListener(android.view.View!);
+    field android.view.View! mView;
+  }
+
+  private static class FragmentManagerImpl.EndViewTransitionAnimator extends android.view.animation.AnimationSet implements java.lang.Runnable {
+    ctor FragmentManagerImpl.EndViewTransitionAnimator(android.view.animation.Animation, android.view.ViewGroup, android.view.View);
+    field private boolean mAnimating;
+    field private final android.view.View! mChild;
+    field private boolean mEnded;
+    field private final android.view.ViewGroup! mParent;
+    field private boolean mTransitionEnded;
+  }
+
+  private static final class FragmentManagerImpl.FragmentLifecycleCallbacksHolder {
+    ctor FragmentManagerImpl.FragmentLifecycleCallbacksHolder(androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks!, boolean);
+    field final androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks! mCallback;
+    field final boolean mRecursive;
+  }
+
+  static class FragmentManagerImpl.FragmentTag {
+    ctor private FragmentManagerImpl.FragmentTag();
+    field public static final int[]! Fragment;
+    field public static final int Fragment_id = 1; // 0x1
+    field public static final int Fragment_name = 0; // 0x0
+    field public static final int Fragment_tag = 2; // 0x2
+  }
+
+  static interface FragmentManagerImpl.OpGenerator {
+    method public boolean generateOps(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+  }
+
+  private class FragmentManagerImpl.PopBackStackState implements androidx.fragment.app.FragmentManagerImpl.OpGenerator {
+    ctor FragmentManagerImpl.PopBackStackState(String!, int, int);
+    method public boolean generateOps(java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!);
+    field final int mFlags;
+    field final int mId;
+    field final String! mName;
+  }
+
+  static class FragmentManagerImpl.StartEnterTransitionListener implements androidx.fragment.app.Fragment.OnStartEnterTransitionListener {
+    ctor FragmentManagerImpl.StartEnterTransitionListener(androidx.fragment.app.BackStackRecord!, boolean);
+    method public void cancelTransaction();
+    method public void completeTransaction();
+    method public boolean isReady();
+    method public void onStartEnterTransition();
+    method public void startListening();
+    field final boolean mIsBack;
+    field private int mNumPostponed;
+    field final androidx.fragment.app.BackStackRecord! mRecord;
+  }
+
+  @Deprecated public class FragmentManagerNonConfig {
+    ctor FragmentManagerNonConfig(java.util.Collection<androidx.fragment.app.Fragment>?, java.util.Map<java.lang.String,androidx.fragment.app.FragmentManagerNonConfig>?, java.util.Map<java.lang.String,androidx.lifecycle.ViewModelStore>?);
+    method java.util.Map<java.lang.String,androidx.fragment.app.FragmentManagerNonConfig>? getChildNonConfigs();
+    method java.util.Collection<androidx.fragment.app.Fragment>? getFragments();
+    method java.util.Map<java.lang.String,androidx.lifecycle.ViewModelStore>? getViewModelStores();
+    method boolean isRetaining(androidx.fragment.app.Fragment!);
+    field private final java.util.Map<java.lang.String,androidx.fragment.app.FragmentManagerNonConfig>? mChildNonConfigs;
+    field private final java.util.Collection<androidx.fragment.app.Fragment>? mFragments;
+    field private final java.util.Map<java.lang.String,androidx.lifecycle.ViewModelStore>? mViewModelStores;
+  }
+
+  final class FragmentManagerState implements android.os.Parcelable {
+    ctor public FragmentManagerState();
+    ctor public FragmentManagerState(android.os.Parcel!);
+    field public static final android.os.Parcelable.Creator<androidx.fragment.app.FragmentManagerState>! CREATOR;
+    field java.util.ArrayList<androidx.fragment.app.FragmentState>! mActive;
+    field java.util.ArrayList<java.lang.String>! mAdded;
+    field androidx.fragment.app.BackStackState[]! mBackStack;
+    field int mNextFragmentIndex;
+    field String! mPrimaryNavActiveWho;
+  }
+
+  class FragmentManagerViewModel extends androidx.lifecycle.ViewModel {
+    ctor FragmentManagerViewModel(boolean);
+    method void addRetainedFragment(androidx.fragment.app.Fragment);
+    method void clearNonConfigState(androidx.fragment.app.Fragment);
+    method androidx.fragment.app.FragmentManagerViewModel getChildNonConfig(androidx.fragment.app.Fragment);
+    method static androidx.fragment.app.FragmentManagerViewModel getInstance(androidx.lifecycle.ViewModelStore!);
+    method java.util.Collection<androidx.fragment.app.Fragment> getRetainedFragments();
+    method @Deprecated androidx.fragment.app.FragmentManagerNonConfig? getSnapshot();
+    method androidx.lifecycle.ViewModelStore getViewModelStore(androidx.fragment.app.Fragment);
+    method void removeRetainedFragment(androidx.fragment.app.Fragment);
+    method @Deprecated void restoreFromSnapshot(androidx.fragment.app.FragmentManagerNonConfig?);
+    method boolean shouldDestroy(androidx.fragment.app.Fragment);
+    field private static final androidx.lifecycle.ViewModelProvider.Factory! FACTORY;
+    field private final java.util.HashMap<java.lang.String,androidx.fragment.app.FragmentManagerViewModel>! mChildNonConfigs;
+    field private boolean mHasBeenCleared;
+    field private boolean mHasSavedSnapshot;
+    field private final java.util.HashSet<androidx.fragment.app.Fragment>! mRetainedFragments;
+    field private final boolean mStateAutomaticallySaved;
+    field private final java.util.HashMap<java.lang.String,androidx.lifecycle.ViewModelStore>! mViewModelStores;
+  }
+
+  public abstract class FragmentPagerAdapter extends androidx.viewpager.widget.PagerAdapter {
+    method private static String! makeFragmentName(int, long);
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "FragmentPagerAdapter";
+    field private androidx.fragment.app.FragmentTransaction! mCurTransaction;
+    field private androidx.fragment.app.Fragment! mCurrentPrimaryItem;
+    field private final androidx.fragment.app.FragmentManager! mFragmentManager;
+  }
+
+  final class FragmentState implements android.os.Parcelable {
+    ctor FragmentState(androidx.fragment.app.Fragment!);
+    ctor FragmentState(android.os.Parcel!);
+    method public androidx.fragment.app.Fragment! instantiate(androidx.fragment.app.FragmentHostCallback!, androidx.fragment.app.FragmentFactory);
+    field public static final android.os.Parcelable.Creator<androidx.fragment.app.FragmentState>! CREATOR;
+    field final android.os.Bundle! mArguments;
+    field final String! mClassName;
+    field final int mContainerId;
+    field final boolean mDetached;
+    field final int mFragmentId;
+    field final boolean mFromLayout;
+    field final boolean mHidden;
+    field androidx.fragment.app.Fragment! mInstance;
+    field final boolean mRetainInstance;
+    field android.os.Bundle! mSavedFragmentState;
+    field final String! mTag;
+    field final String! mWho;
+  }
+
+  public abstract class FragmentStatePagerAdapter extends androidx.viewpager.widget.PagerAdapter {
+    field private static final boolean DEBUG = false;
+    field private static final String TAG = "FragmentStatePagerAdapt";
+    field private androidx.fragment.app.FragmentTransaction! mCurTransaction;
+    field private androidx.fragment.app.Fragment! mCurrentPrimaryItem;
+    field private final androidx.fragment.app.FragmentManager! mFragmentManager;
+    field private java.util.ArrayList<androidx.fragment.app.Fragment>! mFragments;
+    field private java.util.ArrayList<androidx.fragment.app.Fragment.SavedState>! mSavedState;
+  }
+
+  public class FragmentTabHost extends android.widget.TabHost implements android.widget.TabHost.OnTabChangeListener {
+    method private androidx.fragment.app.FragmentTransaction? doTabChanged(String?, androidx.fragment.app.FragmentTransaction?);
+    method private void ensureContent();
+    method private void ensureHierarchy(android.content.Context!);
+    method private androidx.fragment.app.FragmentTabHost.TabInfo? getTabInfoForTag(String!);
+    method private void initFragmentTabHost(android.content.Context!, android.util.AttributeSet!);
+    field private boolean mAttached;
+    field private int mContainerId;
+    field private android.content.Context! mContext;
+    field private androidx.fragment.app.FragmentManager! mFragmentManager;
+    field private androidx.fragment.app.FragmentTabHost.TabInfo! mLastTab;
+    field private android.widget.TabHost.OnTabChangeListener! mOnTabChangeListener;
+    field private android.widget.FrameLayout! mRealTabContent;
+    field private final java.util.ArrayList<androidx.fragment.app.FragmentTabHost.TabInfo>! mTabs;
+  }
+
+  static class FragmentTabHost.DummyTabFactory implements android.widget.TabHost.TabContentFactory {
+    ctor public FragmentTabHost.DummyTabFactory(android.content.Context!);
+    field private final android.content.Context! mContext;
+  }
+
+  static class FragmentTabHost.SavedState extends android.view.View.BaseSavedState {
+    ctor FragmentTabHost.SavedState(android.os.Parcelable!);
+    ctor FragmentTabHost.SavedState(android.os.Parcel!);
+    field public static final android.os.Parcelable.Creator<androidx.fragment.app.FragmentTabHost.SavedState>! CREATOR;
+    field String! curTab;
+  }
+
+  static final class FragmentTabHost.TabInfo {
+    ctor FragmentTabHost.TabInfo(String, Class<?>, android.os.Bundle?);
+    field final android.os.Bundle? args;
+    field final Class<?> clss;
+    field androidx.fragment.app.Fragment! fragment;
+    field final String tag;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.fragment.app.FragmentTransaction.TRANSIT_NONE, androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN, androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_CLOSE, androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) private static @interface FragmentTransaction.Transit {
+  }
+
+  class FragmentTransition {
+    ctor private FragmentTransition();
+    method private static void addSharedElementsWithMatchingNames(java.util.ArrayList<android.view.View>!, androidx.collection.ArrayMap<java.lang.String,android.view.View>!, java.util.Collection<java.lang.String>!);
+    method private static void addToFirstInLastOut(androidx.fragment.app.BackStackRecord!, androidx.fragment.app.BackStackRecord.Op!, android.util.SparseArray<androidx.fragment.app.FragmentTransition.FragmentContainerTransition>!, boolean, boolean);
+    method public static void calculateFragments(androidx.fragment.app.BackStackRecord!, android.util.SparseArray<androidx.fragment.app.FragmentTransition.FragmentContainerTransition>!, boolean);
+    method private static androidx.collection.ArrayMap<java.lang.String,java.lang.String>! calculateNameOverrides(int, java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, int, int);
+    method public static void calculatePopFragments(androidx.fragment.app.BackStackRecord!, android.util.SparseArray<androidx.fragment.app.FragmentTransition.FragmentContainerTransition>!, boolean);
+    method static void callSharedElementStartEnd(androidx.fragment.app.Fragment!, androidx.fragment.app.Fragment!, boolean, androidx.collection.ArrayMap<java.lang.String,android.view.View>!, boolean);
+    method private static boolean canHandleAll(androidx.fragment.app.FragmentTransitionImpl!, java.util.List<java.lang.Object>!);
+    method static androidx.collection.ArrayMap<java.lang.String,android.view.View>! captureInSharedElements(androidx.fragment.app.FragmentTransitionImpl!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, Object!, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!);
+    method private static androidx.collection.ArrayMap<java.lang.String,android.view.View>! captureOutSharedElements(androidx.fragment.app.FragmentTransitionImpl!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, Object!, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!);
+    method private static androidx.fragment.app.FragmentTransitionImpl! chooseImpl(androidx.fragment.app.Fragment!, androidx.fragment.app.Fragment!);
+    method static java.util.ArrayList<android.view.View>! configureEnteringExitingViews(androidx.fragment.app.FragmentTransitionImpl!, Object!, androidx.fragment.app.Fragment!, java.util.ArrayList<android.view.View>!, android.view.View!);
+    method private static Object! configureSharedElementsOrdered(androidx.fragment.app.FragmentTransitionImpl!, android.view.ViewGroup!, android.view.View!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!, Object!, Object!);
+    method private static Object! configureSharedElementsReordered(androidx.fragment.app.FragmentTransitionImpl!, android.view.ViewGroup!, android.view.View!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!, Object!, Object!);
+    method private static void configureTransitionsOrdered(androidx.fragment.app.FragmentManagerImpl!, int, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, android.view.View!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!);
+    method private static void configureTransitionsReordered(androidx.fragment.app.FragmentManagerImpl!, int, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, android.view.View!, androidx.collection.ArrayMap<java.lang.String,java.lang.String>!);
+    method private static androidx.fragment.app.FragmentTransition.FragmentContainerTransition! ensureContainer(androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, android.util.SparseArray<androidx.fragment.app.FragmentTransition.FragmentContainerTransition>!, int);
+    method private static String! findKeyForValue(androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, String!);
+    method private static Object! getEnterTransition(androidx.fragment.app.FragmentTransitionImpl!, androidx.fragment.app.Fragment!, boolean);
+    method private static Object! getExitTransition(androidx.fragment.app.FragmentTransitionImpl!, androidx.fragment.app.Fragment!, boolean);
+    method static android.view.View! getInEpicenterView(androidx.collection.ArrayMap<java.lang.String,android.view.View>!, androidx.fragment.app.FragmentTransition.FragmentContainerTransition!, Object!, boolean);
+    method private static Object! getSharedElementTransition(androidx.fragment.app.FragmentTransitionImpl!, androidx.fragment.app.Fragment!, androidx.fragment.app.Fragment!, boolean);
+    method private static Object! mergeTransitions(androidx.fragment.app.FragmentTransitionImpl!, Object!, Object!, Object!, androidx.fragment.app.Fragment!, boolean);
+    method private static void replaceHide(androidx.fragment.app.FragmentTransitionImpl!, Object!, androidx.fragment.app.Fragment!, java.util.ArrayList<android.view.View>!);
+    method private static androidx.fragment.app.FragmentTransitionImpl! resolveSupportImpl();
+    method private static void retainValues(androidx.collection.ArrayMap<java.lang.String,java.lang.String>!, androidx.collection.ArrayMap<java.lang.String,android.view.View>!);
+    method private static void scheduleTargetChange(androidx.fragment.app.FragmentTransitionImpl!, android.view.ViewGroup!, androidx.fragment.app.Fragment!, android.view.View!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!);
+    method private static void setOutEpicenter(androidx.fragment.app.FragmentTransitionImpl!, Object!, Object!, androidx.collection.ArrayMap<java.lang.String,android.view.View>!, boolean, androidx.fragment.app.BackStackRecord!);
+    method static void setViewVisibility(java.util.ArrayList<android.view.View>!, int);
+    method static void startTransitions(androidx.fragment.app.FragmentManagerImpl!, java.util.ArrayList<androidx.fragment.app.BackStackRecord>!, java.util.ArrayList<java.lang.Boolean>!, int, int, boolean);
+    method static boolean supportsTransition();
+    field private static final int[]! INVERSE_OPS;
+    field private static final androidx.fragment.app.FragmentTransitionImpl! PLATFORM_IMPL;
+    field private static final androidx.fragment.app.FragmentTransitionImpl! SUPPORT_IMPL;
+  }
+
+  static class FragmentTransition.FragmentContainerTransition {
+    ctor FragmentTransition.FragmentContainerTransition();
+    field public androidx.fragment.app.Fragment! firstOut;
+    field public boolean firstOutIsPop;
+    field public androidx.fragment.app.BackStackRecord! firstOutTransaction;
+    field public androidx.fragment.app.Fragment! lastIn;
+    field public boolean lastInIsPop;
+    field public androidx.fragment.app.BackStackRecord! lastInTransaction;
+  }
+
+  @RequiresApi(21) class FragmentTransitionCompat21 extends androidx.fragment.app.FragmentTransitionImpl {
+    ctor FragmentTransitionCompat21();
+    method public void addTarget(Object!, android.view.View!);
+    method public void addTargets(Object!, java.util.ArrayList<android.view.View>!);
+    method public void beginDelayedTransition(android.view.ViewGroup!, Object!);
+    method public boolean canHandle(Object!);
+    method public Object! cloneTransition(Object!);
+    method private static boolean hasSimpleTarget(android.transition.Transition!);
+    method public Object! mergeTransitionsInSequence(Object!, Object!, Object!);
+    method public Object! mergeTransitionsTogether(Object!, Object!, Object!);
+    method public void removeTarget(Object!, android.view.View!);
+    method public void replaceTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public void scheduleHideFragmentView(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method public void scheduleRemoveTargets(Object!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!);
+    method public void setEpicenter(Object!, android.view.View!);
+    method public void setEpicenter(Object!, android.graphics.Rect!);
+    method public void setSharedElementTargets(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method public void swapSharedElementTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public Object! wrapTransitionInSet(Object!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class FragmentTransitionImpl {
+    ctor public FragmentTransitionImpl();
+    method public abstract void addTarget(Object!, android.view.View!);
+    method public abstract void addTargets(Object!, java.util.ArrayList<android.view.View>!);
+    method public abstract void beginDelayedTransition(android.view.ViewGroup!, Object!);
+    method protected static void bfsAddViewChildren(java.util.List<android.view.View>!, android.view.View!);
+    method public abstract boolean canHandle(Object!);
+    method void captureTransitioningViews(java.util.ArrayList<android.view.View>!, android.view.View!);
+    method public abstract Object! cloneTransition(Object!);
+    method private static boolean containedBeforeIndex(java.util.List<android.view.View>!, android.view.View!, int);
+    method static String! findKeyForValue(java.util.Map<java.lang.String,java.lang.String>!, String!);
+    method void findNamedViews(java.util.Map<java.lang.String,android.view.View>!, android.view.View!);
+    method protected void getBoundsOnScreen(android.view.View!, android.graphics.Rect!);
+    method protected static boolean isNullOrEmpty(java.util.List!);
+    method public abstract Object! mergeTransitionsInSequence(Object!, Object!, Object!);
+    method public abstract Object! mergeTransitionsTogether(Object!, Object!, Object!);
+    method java.util.ArrayList<java.lang.String>! prepareSetNameOverridesReordered(java.util.ArrayList<android.view.View>!);
+    method public abstract void removeTarget(Object!, android.view.View!);
+    method public abstract void replaceTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public abstract void scheduleHideFragmentView(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method void scheduleNameReset(android.view.ViewGroup!, java.util.ArrayList<android.view.View>!, java.util.Map<java.lang.String,java.lang.String>!);
+    method public abstract void scheduleRemoveTargets(Object!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!, Object!, java.util.ArrayList<android.view.View>!);
+    method public abstract void setEpicenter(Object!, android.view.View!);
+    method public abstract void setEpicenter(Object!, android.graphics.Rect!);
+    method void setNameOverridesOrdered(android.view.View!, java.util.ArrayList<android.view.View>!, java.util.Map<java.lang.String,java.lang.String>!);
+    method void setNameOverridesReordered(android.view.View!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<java.lang.String>!, java.util.Map<java.lang.String,java.lang.String>!);
+    method public abstract void setSharedElementTargets(Object!, android.view.View!, java.util.ArrayList<android.view.View>!);
+    method public abstract void swapSharedElementTargets(Object!, java.util.ArrayList<android.view.View>!, java.util.ArrayList<android.view.View>!);
+    method public abstract Object! wrapTransitionInSet(Object!);
+  }
+
+  public class ListFragment extends androidx.fragment.app.Fragment {
+    method private void ensureList();
+    method private void setListShown(boolean, boolean);
+    field static final int INTERNAL_EMPTY_ID = 16711681; // 0xff0001
+    field static final int INTERNAL_LIST_CONTAINER_ID = 16711683; // 0xff0003
+    field static final int INTERNAL_PROGRESS_CONTAINER_ID = 16711682; // 0xff0002
+    field android.widget.ListAdapter! mAdapter;
+    field CharSequence! mEmptyText;
+    field android.view.View! mEmptyView;
+    field private final android.os.Handler! mHandler;
+    field android.widget.ListView! mList;
+    field android.view.View! mListContainer;
+    field boolean mListShown;
+    field private final android.widget.AdapterView.OnItemClickListener! mOnClickListener;
+    field android.view.View! mProgressContainer;
+    field private final Runnable! mRequestFocus;
+    field android.widget.TextView! mStandardEmptyView;
+  }
+
+  final class SuperNotCalledException extends android.util.AndroidRuntimeException {
+    ctor public SuperNotCalledException(String!);
+  }
+
+}
+

@@ -1,0 +1,34 @@
+// Signature format: 2.0
+package androidx.localbroadcastmanager.content {
+
+  public final class LocalBroadcastManager {
+    ctor private LocalBroadcastManager(android.content.Context!);
+    method void executePendingBroadcasts();
+    field private static final boolean DEBUG = false;
+    field static final int MSG_EXEC_PENDING_BROADCASTS = 1; // 0x1
+    field private static final String TAG = "LocalBroadcastManager";
+    field private final java.util.HashMap<java.lang.String,java.util.ArrayList<androidx.localbroadcastmanager.content.LocalBroadcastManager.ReceiverRecord>>! mActions;
+    field private final android.content.Context! mAppContext;
+    field private final android.os.Handler! mHandler;
+    field private static androidx.localbroadcastmanager.content.LocalBroadcastManager! mInstance;
+    field private static final Object! mLock;
+    field private final java.util.ArrayList<androidx.localbroadcastmanager.content.LocalBroadcastManager.BroadcastRecord>! mPendingBroadcasts;
+    field private final java.util.HashMap<android.content.BroadcastReceiver,java.util.ArrayList<androidx.localbroadcastmanager.content.LocalBroadcastManager.ReceiverRecord>>! mReceivers;
+  }
+
+  private static final class LocalBroadcastManager.BroadcastRecord {
+    ctor LocalBroadcastManager.BroadcastRecord(android.content.Intent!, java.util.ArrayList<androidx.localbroadcastmanager.content.LocalBroadcastManager.ReceiverRecord>!);
+    field final android.content.Intent! intent;
+    field final java.util.ArrayList<androidx.localbroadcastmanager.content.LocalBroadcastManager.ReceiverRecord>! receivers;
+  }
+
+  private static final class LocalBroadcastManager.ReceiverRecord {
+    ctor LocalBroadcastManager.ReceiverRecord(android.content.IntentFilter!, android.content.BroadcastReceiver!);
+    field boolean broadcasting;
+    field boolean dead;
+    field final android.content.IntentFilter! filter;
+    field final android.content.BroadcastReceiver! receiver;
+  }
+
+}
+

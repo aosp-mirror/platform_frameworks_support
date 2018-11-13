@@ -1,0 +1,26 @@
+// Signature format: 2.0
+package androidx.work {
+
+  public abstract class CoroutineWorker extends androidx.work.ListenableWorker {
+    method internal final androidx.work.impl.utils.futures.SettableFuture<androidx.work.ListenableWorker.Payload> getFuture$lintWithKotlin();
+    method internal final kotlinx.coroutines.Job getJob$lintWithKotlin();
+    property internal final androidx.work.impl.utils.futures.SettableFuture<androidx.work.ListenableWorker.Payload> future;
+    property internal final kotlinx.coroutines.Job job;
+    field private final kotlinx.coroutines.CoroutineDispatcher coroutineContext;
+    field internal final androidx.work.impl.utils.futures.SettableFuture<androidx.work.ListenableWorker.Payload> future;
+    field internal final kotlinx.coroutines.Job job;
+  }
+
+  public final class OneTimeWorkRequestKt {
+    method private static <W extends androidx.work.ListenableWorker> androidx.work.OneTimeWorkRequest.Builder! OneTimeWorkRequestBuilder();
+  }
+
+  public final class PeriodicWorkRequestKt {
+    method private static <W extends androidx.work.ListenableWorker> androidx.work.PeriodicWorkRequest.Builder! PeriodicWorkRequestBuilder(long repeatInterval, java.util.concurrent.TimeUnit! repeatIntervalTimeUnit);
+    method @RequiresApi(26) private static <W extends androidx.work.ListenableWorker> androidx.work.PeriodicWorkRequest.Builder! PeriodicWorkRequestBuilder(java.time.Duration! repeatInterval);
+    method private static <W extends androidx.work.ListenableWorker> androidx.work.PeriodicWorkRequest.Builder! PeriodicWorkRequestBuilder(long repeatInterval, java.util.concurrent.TimeUnit! repeatIntervalTimeUnit, long flexTimeInterval, java.util.concurrent.TimeUnit! flexTimeIntervalUnit);
+    method @RequiresApi(26) private static <W extends androidx.work.ListenableWorker> androidx.work.PeriodicWorkRequest.Builder! PeriodicWorkRequestBuilder(java.time.Duration! repeatInterval, java.time.Duration! flexTimeInterval);
+  }
+
+}
+

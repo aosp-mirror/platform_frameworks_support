@@ -1,0 +1,254 @@
+// Signature format: 2.0
+package androidx.exifinterface.media {
+
+  public class ExifInterface {
+    method private void addDefaultValuesForCompatibility();
+    method private static void closeQuietly(java.io.Closeable!);
+    method private String! convertDecimalDegree(double);
+    method private static double convertRationalLatLonToDouble(String!, String!);
+    method private static long[]! convertToLongArray(Object!);
+    method private static int copy(java.io.InputStream!, java.io.OutputStream!) throws java.io.IOException;
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public long getDateTime();
+    method private androidx.exifinterface.media.ExifInterface.ExifAttribute? getExifAttribute(String);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public long getGpsDateTime();
+    method private void getJpegAttributes(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, int, int) throws java.io.IOException;
+    method private int getMimeType(java.io.BufferedInputStream!) throws java.io.IOException;
+    method private void getOrfAttributes(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private void getRafAttributes(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private void getRawAttributes(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private void getRw2Attributes(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private static android.util.Pair<java.lang.Integer,java.lang.Integer>! guessDataFormat(String!);
+    method private void handleThumbnailFromJfif(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, java.util.HashMap!) throws java.io.IOException;
+    method private void handleThumbnailFromStrips(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, java.util.HashMap!) throws java.io.IOException;
+    method private static boolean isJpegFormat(byte[]!) throws java.io.IOException;
+    method private boolean isOrfFormat(byte[]!) throws java.io.IOException;
+    method private boolean isRafFormat(byte[]!) throws java.io.IOException;
+    method private boolean isRw2Format(byte[]!) throws java.io.IOException;
+    method private boolean isSupportedDataType(java.util.HashMap!) throws java.io.IOException;
+    method private boolean isThumbnail(java.util.HashMap!) throws java.io.IOException;
+    method private void loadAttributes(java.io.InputStream) throws java.io.IOException;
+    method private void parseTiffHeaders(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, int) throws java.io.IOException;
+    method private void printAttributes();
+    method private java.nio.ByteOrder! readByteOrder(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private void readExifSegment(byte[]!, int) throws java.io.IOException;
+    method private void readImageFileDirectory(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, int) throws java.io.IOException;
+    method private void removeAttribute(String!);
+    method private void retrieveJpegImageSize(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, int) throws java.io.IOException;
+    method private void saveJpegAttributes(java.io.InputStream!, java.io.OutputStream!) throws java.io.IOException;
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public void setDateTime(long);
+    method private void setThumbnailData(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!) throws java.io.IOException;
+    method private void swapBasedOnImageSize(int, int) throws java.io.IOException;
+    method private boolean updateAttribute(String!, androidx.exifinterface.media.ExifInterface.ExifAttribute!);
+    method private void updateImageSizeValues(androidx.exifinterface.media.ExifInterface.ByteOrderedDataInputStream!, int) throws java.io.IOException;
+    method private void validateImages(java.io.InputStream!) throws java.io.IOException;
+    method private int writeExifSegment(androidx.exifinterface.media.ExifInterface.ByteOrderedDataOutputStream!, int) throws java.io.IOException;
+    field static final java.nio.charset.Charset! ASCII;
+    field static final short BYTE_ALIGN_II = 18761; // 0x4949
+    field static final short BYTE_ALIGN_MM = 19789; // 0x4d4d
+    field private static final boolean DEBUG = false;
+    field static final byte[]! EXIF_ASCII_PREFIX;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! EXIF_POINTER_TAGS;
+    field static final androidx.exifinterface.media.ExifInterface.ExifTag[][]! EXIF_TAGS;
+    field private static final java.util.List<java.lang.Integer>! FLIPPED_ROTATION_ORDER;
+    field static final byte[]! IDENTIFIER_EXIF_APP1;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! IFD_EXIF_TAGS;
+    field private static final int IFD_FORMAT_BYTE = 1; // 0x1
+    field static final int[]! IFD_FORMAT_BYTES_PER_FORMAT;
+    field private static final int IFD_FORMAT_DOUBLE = 12; // 0xc
+    field private static final int IFD_FORMAT_IFD = 13; // 0xd
+    field static final String[]! IFD_FORMAT_NAMES;
+    field private static final int IFD_FORMAT_SBYTE = 6; // 0x6
+    field private static final int IFD_FORMAT_SINGLE = 11; // 0xb
+    field private static final int IFD_FORMAT_SLONG = 9; // 0x9
+    field private static final int IFD_FORMAT_SRATIONAL = 10; // 0xa
+    field private static final int IFD_FORMAT_SSHORT = 8; // 0x8
+    field private static final int IFD_FORMAT_STRING = 2; // 0x2
+    field private static final int IFD_FORMAT_ULONG = 4; // 0x4
+    field private static final int IFD_FORMAT_UNDEFINED = 7; // 0x7
+    field private static final int IFD_FORMAT_URATIONAL = 5; // 0x5
+    field private static final int IFD_FORMAT_USHORT = 3; // 0x3
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! IFD_GPS_TAGS;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! IFD_INTEROPERABILITY_TAGS;
+    field private static final int IFD_OFFSET = 8; // 0x8
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! IFD_THUMBNAIL_TAGS;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! IFD_TIFF_TAGS;
+    field private static final int IFD_TYPE_EXIF = 1; // 0x1
+    field private static final int IFD_TYPE_GPS = 2; // 0x2
+    field private static final int IFD_TYPE_INTEROPERABILITY = 3; // 0x3
+    field private static final int IFD_TYPE_ORF_CAMERA_SETTINGS = 7; // 0x7
+    field private static final int IFD_TYPE_ORF_IMAGE_PROCESSING = 8; // 0x8
+    field private static final int IFD_TYPE_ORF_MAKER_NOTE = 6; // 0x6
+    field private static final int IFD_TYPE_PEF = 9; // 0x9
+    field static final int IFD_TYPE_PREVIEW = 5; // 0x5
+    field static final int IFD_TYPE_PRIMARY = 0; // 0x0
+    field static final int IFD_TYPE_THUMBNAIL = 4; // 0x4
+    field private static final int IMAGE_TYPE_ARW = 1; // 0x1
+    field private static final int IMAGE_TYPE_CR2 = 2; // 0x2
+    field private static final int IMAGE_TYPE_DNG = 3; // 0x3
+    field private static final int IMAGE_TYPE_JPEG = 4; // 0x4
+    field private static final int IMAGE_TYPE_NEF = 5; // 0x5
+    field private static final int IMAGE_TYPE_NRW = 6; // 0x6
+    field private static final int IMAGE_TYPE_ORF = 7; // 0x7
+    field private static final int IMAGE_TYPE_PEF = 8; // 0x8
+    field private static final int IMAGE_TYPE_RAF = 9; // 0x9
+    field private static final int IMAGE_TYPE_RW2 = 10; // 0xa
+    field private static final int IMAGE_TYPE_SRW = 11; // 0xb
+    field private static final int IMAGE_TYPE_UNKNOWN = 0; // 0x0
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag! JPEG_INTERCHANGE_FORMAT_LENGTH_TAG;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag! JPEG_INTERCHANGE_FORMAT_TAG;
+    field static final byte[]! JPEG_SIGNATURE;
+    field static final byte MARKER = -1; // 0xffffffff
+    field static final byte MARKER_APP1 = -31; // 0xffffffe1
+    field private static final byte MARKER_COM = -2; // 0xfffffffe
+    field static final byte MARKER_EOI = -39; // 0xffffffd9
+    field private static final byte MARKER_SOF0 = -64; // 0xffffffc0
+    field private static final byte MARKER_SOF1 = -63; // 0xffffffc1
+    field private static final byte MARKER_SOF10 = -54; // 0xffffffca
+    field private static final byte MARKER_SOF11 = -53; // 0xffffffcb
+    field private static final byte MARKER_SOF13 = -51; // 0xffffffcd
+    field private static final byte MARKER_SOF14 = -50; // 0xffffffce
+    field private static final byte MARKER_SOF15 = -49; // 0xffffffcf
+    field private static final byte MARKER_SOF2 = -62; // 0xffffffc2
+    field private static final byte MARKER_SOF3 = -61; // 0xffffffc3
+    field private static final byte MARKER_SOF5 = -59; // 0xffffffc5
+    field private static final byte MARKER_SOF6 = -58; // 0xffffffc6
+    field private static final byte MARKER_SOF7 = -57; // 0xffffffc7
+    field private static final byte MARKER_SOF9 = -55; // 0xffffffc9
+    field private static final byte MARKER_SOI = -40; // 0xffffffd8
+    field private static final byte MARKER_SOS = -38; // 0xffffffda
+    field private static final int MAX_THUMBNAIL_SIZE = 512; // 0x200
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! ORF_CAMERA_SETTINGS_TAGS;
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! ORF_IMAGE_PROCESSING_TAGS;
+    field private static final byte[]! ORF_MAKER_NOTE_HEADER_1;
+    field private static final int ORF_MAKER_NOTE_HEADER_1_SIZE = 8; // 0x8
+    field private static final byte[]! ORF_MAKER_NOTE_HEADER_2;
+    field private static final int ORF_MAKER_NOTE_HEADER_2_SIZE = 12; // 0xc
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! ORF_MAKER_NOTE_TAGS;
+    field private static final short ORF_SIGNATURE_1 = 20306; // 0x4f52
+    field private static final short ORF_SIGNATURE_2 = 21330; // 0x5352
+    field private static final int PEF_MAKER_NOTE_SKIP_SIZE = 6; // 0x6
+    field private static final String PEF_SIGNATURE = "PENTAX";
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag[]! PEF_TAGS;
+    field private static final int RAF_INFO_SIZE = 160; // 0xa0
+    field private static final int RAF_JPEG_LENGTH_VALUE_SIZE = 4; // 0x4
+    field private static final int RAF_OFFSET_TO_JPEG_IMAGE_OFFSET = 84; // 0x54
+    field private static final String RAF_SIGNATURE = "FUJIFILMCCD-RAW";
+    field private static final java.util.List<java.lang.Integer>! ROTATION_ORDER;
+    field private static final short RW2_SIGNATURE = 85; // 0x55
+    field private static final int SIGNATURE_CHECK_SIZE = 5000; // 0x1388
+    field static final byte START_CODE = 42; // 0x2a
+    field private static final String TAG = "ExifInterface";
+    field private static final String TAG_EXIF_IFD_POINTER = "ExifIFDPointer";
+    field private static final String TAG_GPS_INFO_IFD_POINTER = "GPSInfoIFDPointer";
+    field private static final String TAG_HAS_THUMBNAIL = "HasThumbnail";
+    field private static final String TAG_INTEROPERABILITY_IFD_POINTER = "InteroperabilityIFDPointer";
+    field private static final String TAG_ORF_CAMERA_SETTINGS_IFD_POINTER = "CameraSettingsIFDPointer";
+    field private static final String TAG_ORF_IMAGE_PROCESSING_IFD_POINTER = "ImageProcessingIFDPointer";
+    field private static final androidx.exifinterface.media.ExifInterface.ExifTag! TAG_RAF_IMAGE_SIZE;
+    field private static final String TAG_SUB_IFD_POINTER = "SubIFDPointer";
+    field private static final String TAG_THUMBNAIL_DATA = "ThumbnailData";
+    field private static final String TAG_THUMBNAIL_LENGTH = "ThumbnailLength";
+    field private static final String TAG_THUMBNAIL_OFFSET = "ThumbnailOffset";
+    field private final android.content.res.AssetManager.AssetInputStream! mAssetInputStream;
+    field private final java.util.HashMap<java.lang.String,androidx.exifinterface.media.ExifInterface.ExifAttribute>[]! mAttributes;
+    field private java.util.Set<java.lang.Integer>! mAttributesOffsets;
+    field private java.nio.ByteOrder! mExifByteOrder;
+    field private int mExifOffset;
+    field private final String! mFilename;
+    field private boolean mHasThumbnail;
+    field private boolean mIsSupportedFile;
+    field private int mMimeType;
+    field private int mOrfMakerNoteOffset;
+    field private int mOrfThumbnailLength;
+    field private int mOrfThumbnailOffset;
+    field private int mRw2JpgFromRawOffset;
+    field private byte[]! mThumbnailBytes;
+    field private int mThumbnailCompression;
+    field private int mThumbnailLength;
+    field private int mThumbnailOffset;
+    field private static final java.util.HashMap<java.lang.Integer,java.lang.Integer>! sExifPointerTagMap;
+    field private static final java.util.HashMap<java.lang.Integer,androidx.exifinterface.media.ExifInterface.ExifTag>[]! sExifTagMapsForReading;
+    field private static final java.util.HashMap<java.lang.String,androidx.exifinterface.media.ExifInterface.ExifTag>[]! sExifTagMapsForWriting;
+    field private static java.text.SimpleDateFormat! sFormatter;
+    field private static final java.util.regex.Pattern! sGpsTimestampPattern;
+    field private static final java.util.regex.Pattern! sNonZeroTimePattern;
+    field private static final java.util.HashSet<java.lang.String>! sTagSetForCompatibility;
+  }
+
+  private static class ExifInterface.ByteOrderedDataInputStream extends java.io.InputStream implements java.io.DataInput {
+    ctor public ExifInterface.ByteOrderedDataInputStream(java.io.InputStream!) throws java.io.IOException;
+    ctor public ExifInterface.ByteOrderedDataInputStream(byte[]!) throws java.io.IOException;
+    method public int getLength();
+    method public int peek();
+    method public long readUnsignedInt() throws java.io.IOException;
+    method public void seek(long) throws java.io.IOException;
+    method public void setByteOrder(java.nio.ByteOrder!);
+    field private static final java.nio.ByteOrder! BIG_ENDIAN;
+    field private static final java.nio.ByteOrder! LITTLE_ENDIAN;
+    field private java.nio.ByteOrder! mByteOrder;
+    field private java.io.DataInputStream! mDataInputStream;
+    field final int mLength;
+    field int mPosition;
+  }
+
+  private static class ExifInterface.ByteOrderedDataOutputStream extends java.io.FilterOutputStream {
+    ctor public ExifInterface.ByteOrderedDataOutputStream(java.io.OutputStream!, java.nio.ByteOrder!);
+    method public void setByteOrder(java.nio.ByteOrder!);
+    method public void writeByte(int) throws java.io.IOException;
+    method public void writeInt(int) throws java.io.IOException;
+    method public void writeShort(short) throws java.io.IOException;
+    method public void writeUnsignedInt(long) throws java.io.IOException;
+    method public void writeUnsignedShort(int) throws java.io.IOException;
+    field private java.nio.ByteOrder! mByteOrder;
+    field private final java.io.OutputStream! mOutputStream;
+  }
+
+  private static class ExifInterface.ExifAttribute {
+    ctor ExifInterface.ExifAttribute(int, int, byte[]!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createByte(String!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createDouble(double[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createDouble(double, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createSLong(int[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createSLong(int, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createSRational(androidx.exifinterface.media.ExifInterface.Rational[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createSRational(androidx.exifinterface.media.ExifInterface.Rational!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createString(String!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createULong(long[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createULong(long, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createURational(androidx.exifinterface.media.ExifInterface.Rational[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createURational(androidx.exifinterface.media.ExifInterface.Rational!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createUShort(int[]!, java.nio.ByteOrder!);
+    method public static androidx.exifinterface.media.ExifInterface.ExifAttribute! createUShort(int, java.nio.ByteOrder!);
+    method public double getDoubleValue(java.nio.ByteOrder!);
+    method public int getIntValue(java.nio.ByteOrder!);
+    method public String! getStringValue(java.nio.ByteOrder!);
+    method Object! getValue(java.nio.ByteOrder!);
+    method public int size();
+    field public final byte[]! bytes;
+    field public final int format;
+    field public final int numberOfComponents;
+  }
+
+  static class ExifInterface.ExifTag {
+    ctor ExifInterface.ExifTag(String!, int, int);
+    ctor ExifInterface.ExifTag(String!, int, int, int);
+    method boolean isFormatCompatible(int);
+    field public final String! name;
+    field public final int number;
+    field public final int primaryFormat;
+    field public final int secondaryFormat;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.exifinterface.media.ExifInterface.IFD_TYPE_PRIMARY, androidx.exifinterface.media.ExifInterface.IFD_TYPE_EXIF, androidx.exifinterface.media.ExifInterface.IFD_TYPE_GPS, androidx.exifinterface.media.ExifInterface.IFD_TYPE_INTEROPERABILITY, androidx.exifinterface.media.ExifInterface.IFD_TYPE_THUMBNAIL, androidx.exifinterface.media.ExifInterface.IFD_TYPE_PREVIEW, androidx.exifinterface.media.ExifInterface.IFD_TYPE_ORF_MAKER_NOTE, androidx.exifinterface.media.ExifInterface.IFD_TYPE_ORF_CAMERA_SETTINGS, androidx.exifinterface.media.ExifInterface.IFD_TYPE_ORF_IMAGE_PROCESSING, androidx.exifinterface.media.ExifInterface.IFD_TYPE_PEF}) public static @interface ExifInterface.IfdType {
+  }
+
+  private static class ExifInterface.Rational {
+    ctor ExifInterface.Rational(double);
+    ctor ExifInterface.Rational(long, long);
+    method public double calculate();
+    field public final long denominator;
+    field public final long numerator;
+  }
+
+}
+

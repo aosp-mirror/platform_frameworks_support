@@ -1,0 +1,142 @@
+// Signature format: 2.0
+package androidx.customview.view {
+
+  public abstract class AbsSavedState implements android.os.Parcelable {
+    ctor private AbsSavedState();
+    field private final android.os.Parcelable! mSuperState;
+  }
+
+}
+
+package androidx.customview.widget {
+
+  public abstract class ExploreByTouchHelper extends androidx.core.view.AccessibilityDelegateCompat {
+    method private boolean clearAccessibilityFocus(int);
+    method private boolean clickKeyboardFocusedVirtualView();
+    method private android.view.accessibility.AccessibilityEvent! createEvent(int, int);
+    method private android.view.accessibility.AccessibilityEvent! createEventForChild(int, int);
+    method private android.view.accessibility.AccessibilityEvent! createEventForHost(int);
+    method private androidx.core.view.accessibility.AccessibilityNodeInfoCompat createNodeForChild(int);
+    method private androidx.core.view.accessibility.AccessibilityNodeInfoCompat createNodeForHost();
+    method private androidx.collection.SparseArrayCompat<androidx.core.view.accessibility.AccessibilityNodeInfoCompat>! getAllNodes();
+    method private void getBoundsInParent(int, android.graphics.Rect!);
+    method private static android.graphics.Rect! guessPreviouslyFocusedRect(android.view.View, int, android.graphics.Rect);
+    method private boolean isVisibleToUser(android.graphics.Rect!);
+    method private static int keyToDirection(int);
+    method private boolean moveFocus(int, android.graphics.Rect?);
+    method androidx.core.view.accessibility.AccessibilityNodeInfoCompat obtainAccessibilityNodeInfo(int);
+    method boolean performAction(int, int, android.os.Bundle!);
+    method private boolean performActionForChild(int, int, android.os.Bundle!);
+    method private boolean performActionForHost(int, android.os.Bundle!);
+    method private boolean requestAccessibilityFocus(int);
+    method private void updateHoveredVirtualView(int);
+    field private static final String DEFAULT_CLASS_NAME = "android.view.View";
+    field private static final android.graphics.Rect! INVALID_PARENT_BOUNDS;
+    field private static final androidx.customview.widget.FocusStrategy.BoundsAdapter<androidx.core.view.accessibility.AccessibilityNodeInfoCompat>! NODE_ADAPTER;
+    field private static final androidx.customview.widget.FocusStrategy.CollectionAdapter<androidx.collection.SparseArrayCompat<androidx.core.view.accessibility.AccessibilityNodeInfoCompat>,androidx.core.view.accessibility.AccessibilityNodeInfoCompat>! SPARSE_VALUES_ADAPTER;
+    field int mAccessibilityFocusedVirtualViewId;
+    field private final android.view.View! mHost;
+    field private int mHoveredVirtualViewId;
+    field int mKeyboardFocusedVirtualViewId;
+    field private final android.view.accessibility.AccessibilityManager! mManager;
+    field private androidx.customview.widget.ExploreByTouchHelper.MyNodeProvider! mNodeProvider;
+    field private final int[]! mTempGlobalRect;
+    field private final android.graphics.Rect! mTempParentRect;
+    field private final android.graphics.Rect! mTempScreenRect;
+    field private final android.graphics.Rect! mTempVisibleRect;
+  }
+
+  private class ExploreByTouchHelper.MyNodeProvider extends androidx.core.view.accessibility.AccessibilityNodeProviderCompat {
+    ctor ExploreByTouchHelper.MyNodeProvider();
+  }
+
+  class FocusStrategy {
+    ctor private FocusStrategy();
+    method private static boolean beamBeats(int, android.graphics.Rect, android.graphics.Rect, android.graphics.Rect);
+    method private static boolean beamsOverlap(int, android.graphics.Rect, android.graphics.Rect);
+    method public static <L, T> T! findNextFocusInAbsoluteDirection(L, androidx.customview.widget.FocusStrategy.CollectionAdapter<L,T>, androidx.customview.widget.FocusStrategy.BoundsAdapter<T>, T?, android.graphics.Rect, int);
+    method public static <L, T> T! findNextFocusInRelativeDirection(L, androidx.customview.widget.FocusStrategy.CollectionAdapter<L,T>, androidx.customview.widget.FocusStrategy.BoundsAdapter<T>, T?, int, boolean, boolean);
+    method private static <T> T! getNextFocusable(T!, java.util.ArrayList<T>!, boolean);
+    method private static <T> T! getPreviousFocusable(T!, java.util.ArrayList<T>!, boolean);
+    method private static int getWeightedDistanceFor(int, int);
+    method private static boolean isBetterCandidate(int, android.graphics.Rect, android.graphics.Rect, android.graphics.Rect);
+    method private static boolean isCandidate(android.graphics.Rect, android.graphics.Rect, int);
+    method private static boolean isToDirectionOf(int, android.graphics.Rect, android.graphics.Rect);
+    method private static int majorAxisDistance(int, android.graphics.Rect, android.graphics.Rect);
+    method private static int majorAxisDistanceRaw(int, android.graphics.Rect, android.graphics.Rect);
+    method private static int majorAxisDistanceToFarEdge(int, android.graphics.Rect, android.graphics.Rect);
+    method private static int majorAxisDistanceToFarEdgeRaw(int, android.graphics.Rect, android.graphics.Rect);
+    method private static int minorAxisDistance(int, android.graphics.Rect, android.graphics.Rect);
+  }
+
+  public static interface FocusStrategy.BoundsAdapter<T> {
+    method public void obtainBounds(T!, android.graphics.Rect!);
+  }
+
+  public static interface FocusStrategy.CollectionAdapter<T, V> {
+    method public V! get(T!, int);
+    method public int size(T!);
+  }
+
+  private static class FocusStrategy.SequentialComparator<T> implements java.util.Comparator<T> {
+    ctor FocusStrategy.SequentialComparator(boolean, androidx.customview.widget.FocusStrategy.BoundsAdapter<T>!);
+    field private final androidx.customview.widget.FocusStrategy.BoundsAdapter<T>! mAdapter;
+    field private final boolean mIsLayoutRtl;
+    field private final android.graphics.Rect! mTemp1;
+    field private final android.graphics.Rect! mTemp2;
+  }
+
+  public class ViewDragHelper {
+    ctor private ViewDragHelper(android.content.Context, android.view.ViewGroup, androidx.customview.widget.ViewDragHelper.Callback);
+    method private boolean checkNewEdgeDrag(float, float, int, int);
+    method private boolean checkTouchSlop(android.view.View!, float, float);
+    method private int clampMag(int, int, int);
+    method private float clampMag(float, float, float);
+    method private void clearMotionHistory();
+    method private void clearMotionHistory(int);
+    method private int computeAxisDuration(int, int, int);
+    method private int computeSettleDuration(android.view.View!, int, int, int, int);
+    method private void dispatchViewReleased(float, float);
+    method private float distanceInfluenceForSnapDuration(float);
+    method private void dragTo(int, int, int, int);
+    method private void ensureMotionHistorySizeForId(int);
+    method private boolean forceSettleCapturedViewAt(int, int, int, int);
+    method private int getEdgesTouched(int, int);
+    method private boolean isValidPointerForActionMove(int);
+    method private void releaseViewForPointerUp();
+    method private void reportNewEdgeDrags(float, float, int);
+    method private void saveInitialMotion(float, float, int);
+    method private void saveLastMotion(android.view.MotionEvent!);
+    method void setDragState(int);
+    method boolean tryCaptureViewForDrag(android.view.View!, int);
+    field private static final int BASE_SETTLE_DURATION = 256; // 0x100
+    field private static final int EDGE_SIZE = 20; // 0x14
+    field private static final int MAX_SETTLE_DURATION = 600; // 0x258
+    field private static final String TAG = "ViewDragHelper";
+    field private int mActivePointerId;
+    field private final androidx.customview.widget.ViewDragHelper.Callback! mCallback;
+    field private android.view.View! mCapturedView;
+    field private int mDragState;
+    field private int[]! mEdgeDragsInProgress;
+    field private int[]! mEdgeDragsLocked;
+    field private int mEdgeSize;
+    field private int[]! mInitialEdgesTouched;
+    field private float[]! mInitialMotionX;
+    field private float[]! mInitialMotionY;
+    field private float[]! mLastMotionX;
+    field private float[]! mLastMotionY;
+    field private float mMaxVelocity;
+    field private float mMinVelocity;
+    field private final android.view.ViewGroup! mParentView;
+    field private int mPointersDown;
+    field private boolean mReleaseInProgress;
+    field private android.widget.OverScroller! mScroller;
+    field private final Runnable! mSetIdleRunnable;
+    field private int mTouchSlop;
+    field private int mTrackingEdges;
+    field private android.view.VelocityTracker! mVelocityTracker;
+    field private static final android.view.animation.Interpolator! sInterpolator;
+  }
+
+}
+

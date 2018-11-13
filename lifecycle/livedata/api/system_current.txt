@@ -1,0 +1,36 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class ComputableLiveData<T> {
+    ctor public ComputableLiveData();
+    ctor public ComputableLiveData(java.util.concurrent.Executor);
+    method @WorkerThread protected abstract T! compute();
+    method public androidx.lifecycle.LiveData<T> getLiveData();
+    method public void invalidate();
+    field final java.util.concurrent.atomic.AtomicBoolean! mComputing;
+    field final java.util.concurrent.Executor! mExecutor;
+    field final java.util.concurrent.atomic.AtomicBoolean! mInvalid;
+    field @VisibleForTesting final Runnable! mInvalidationRunnable;
+    field final androidx.lifecycle.LiveData<T>! mLiveData;
+    field @VisibleForTesting final Runnable! mRefreshRunnable;
+  }
+
+  public class MediatorLiveData<T> extends androidx.lifecycle.MutableLiveData<T> {
+    field private androidx.arch.core.internal.SafeIterableMap<androidx.lifecycle.LiveData<?>,androidx.lifecycle.MediatorLiveData.Source<?>>! mSources;
+  }
+
+  private static class MediatorLiveData.Source<V> implements androidx.lifecycle.Observer<V> {
+    ctor MediatorLiveData.Source(androidx.lifecycle.LiveData<V>!, androidx.lifecycle.Observer<? super V>!);
+    method void plug();
+    method void unplug();
+    field final androidx.lifecycle.LiveData<V>! mLiveData;
+    field final androidx.lifecycle.Observer<? super V>! mObserver;
+    field int mVersion;
+  }
+
+  public class Transformations {
+    ctor private Transformations();
+  }
+
+}
+

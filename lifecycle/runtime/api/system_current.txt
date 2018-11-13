@@ -1,0 +1,54 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public class LifecycleRegistry extends androidx.lifecycle.Lifecycle {
+    method private void backwardPass(androidx.lifecycle.LifecycleOwner!);
+    method private androidx.lifecycle.Lifecycle.State! calculateTargetState(androidx.lifecycle.LifecycleObserver!);
+    method private static androidx.lifecycle.Lifecycle.Event! downEvent(androidx.lifecycle.Lifecycle.State!);
+    method private void forwardPass(androidx.lifecycle.LifecycleOwner!);
+    method static androidx.lifecycle.Lifecycle.State! getStateAfter(androidx.lifecycle.Lifecycle.Event!);
+    method private boolean isSynced();
+    method static androidx.lifecycle.Lifecycle.State! min(androidx.lifecycle.Lifecycle.State, androidx.lifecycle.Lifecycle.State?);
+    method private void moveToState(androidx.lifecycle.Lifecycle.State!);
+    method private void popParentState();
+    method private void pushParentState(androidx.lifecycle.Lifecycle.State!);
+    method private void sync();
+    method private static androidx.lifecycle.Lifecycle.Event! upEvent(androidx.lifecycle.Lifecycle.State!);
+    field private static final String LOG_TAG = "LifecycleRegistry";
+    field private int mAddingObserverCounter;
+    field private boolean mHandlingEvent;
+    field private final java.lang.ref.WeakReference<androidx.lifecycle.LifecycleOwner>! mLifecycleOwner;
+    field private boolean mNewEventOccurred;
+    field private androidx.arch.core.internal.FastSafeIterableMap<androidx.lifecycle.LifecycleObserver,androidx.lifecycle.LifecycleRegistry.ObserverWithState>! mObserverMap;
+    field private java.util.ArrayList<androidx.lifecycle.Lifecycle.State>! mParentStates;
+    field private androidx.lifecycle.Lifecycle.State! mState;
+  }
+
+  static class LifecycleRegistry.ObserverWithState {
+    ctor LifecycleRegistry.ObserverWithState(androidx.lifecycle.LifecycleObserver!, androidx.lifecycle.Lifecycle.State!);
+    method void dispatchEvent(androidx.lifecycle.LifecycleOwner!, androidx.lifecycle.Lifecycle.Event!);
+    field androidx.lifecycle.LifecycleEventObserver! mLifecycleObserver;
+    field androidx.lifecycle.Lifecycle.State! mState;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ReportFragment extends android.app.Fragment {
+    ctor public ReportFragment();
+    method private void dispatch(androidx.lifecycle.Lifecycle.Event!);
+    method private void dispatchCreate(androidx.lifecycle.ReportFragment.ActivityInitializationListener!);
+    method private void dispatchResume(androidx.lifecycle.ReportFragment.ActivityInitializationListener!);
+    method private void dispatchStart(androidx.lifecycle.ReportFragment.ActivityInitializationListener!);
+    method static androidx.lifecycle.ReportFragment! get(android.app.Activity!);
+    method public static void injectIfNeededIn(android.app.Activity!);
+    method void setProcessListener(androidx.lifecycle.ReportFragment.ActivityInitializationListener!);
+    field private static final String REPORT_FRAGMENT_TAG = "androidx.lifecycle.LifecycleDispatcher.report_fragment_tag";
+    field private androidx.lifecycle.ReportFragment.ActivityInitializationListener! mProcessListener;
+  }
+
+  static interface ReportFragment.ActivityInitializationListener {
+    method public void onCreate();
+    method public void onResume();
+    method public void onStart();
+  }
+
+}
+

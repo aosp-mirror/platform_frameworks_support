@@ -1,0 +1,40 @@
+// Signature format: 2.0
+package androidx.arch.core.executor {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ArchTaskExecutor extends androidx.arch.core.executor.TaskExecutor {
+    ctor private ArchTaskExecutor();
+    method public void executeOnDiskIO(Runnable!);
+    method public static java.util.concurrent.Executor getIOThreadExecutor();
+    method public static androidx.arch.core.executor.ArchTaskExecutor getInstance();
+    method public static java.util.concurrent.Executor getMainThreadExecutor();
+    method public boolean isMainThread();
+    method public void postToMainThread(Runnable!);
+    method public void setDelegate(androidx.arch.core.executor.TaskExecutor?);
+    field private androidx.arch.core.executor.TaskExecutor mDefaultTaskExecutor;
+    field private androidx.arch.core.executor.TaskExecutor mDelegate;
+    field private static final java.util.concurrent.Executor sIOThreadExecutor;
+    field private static volatile androidx.arch.core.executor.ArchTaskExecutor! sInstance;
+    field private static final java.util.concurrent.Executor sMainThreadExecutor;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class DefaultTaskExecutor extends androidx.arch.core.executor.TaskExecutor {
+    ctor public DefaultTaskExecutor();
+    method private static android.os.Handler! createAsync(android.os.Looper);
+    method public void executeOnDiskIO(Runnable!);
+    method public boolean isMainThread();
+    method public void postToMainThread(Runnable!);
+    field private final java.util.concurrent.ExecutorService! mDiskIO;
+    field private final Object! mLock;
+    field private volatile android.os.Handler? mMainHandler;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract class TaskExecutor {
+    ctor public TaskExecutor();
+    method public abstract void executeOnDiskIO(Runnable);
+    method public void executeOnMainThread(Runnable);
+    method public abstract boolean isMainThread();
+    method public abstract void postToMainThread(Runnable);
+  }
+
+}
+

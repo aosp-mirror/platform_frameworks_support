@@ -1,0 +1,134 @@
+// Signature format: 2.0
+package androidx.loader.app {
+
+  class LoaderManagerImpl extends androidx.loader.app.LoaderManager {
+    ctor LoaderManagerImpl(androidx.lifecycle.LifecycleOwner, androidx.lifecycle.ViewModelStore);
+    method @MainThread private <D> androidx.loader.content.Loader<D> createAndInstallLoader(int, android.os.Bundle?, androidx.loader.app.LoaderManager.LoaderCallbacks<D>, androidx.loader.content.Loader<D>?);
+    field static boolean DEBUG;
+    field static final String TAG = "LoaderManager";
+    field private final androidx.lifecycle.LifecycleOwner mLifecycleOwner;
+    field private final androidx.loader.app.LoaderManagerImpl.LoaderViewModel mLoaderViewModel;
+  }
+
+  public static class LoaderManagerImpl.LoaderInfo<D> extends androidx.lifecycle.MutableLiveData<D> implements androidx.loader.content.Loader.OnLoadCompleteListener<D> {
+    ctor LoaderManagerImpl.LoaderInfo(int, android.os.Bundle?, androidx.loader.content.Loader<D>, androidx.loader.content.Loader<D>?);
+    method @MainThread androidx.loader.content.Loader<D>! destroy(boolean);
+    method public void dump(String!, java.io.FileDescriptor!, java.io.PrintWriter!, String[]!);
+    method androidx.loader.content.Loader<D> getLoader();
+    method boolean isCallbackWaitingForData();
+    method void markForRedelivery();
+    method @MainThread androidx.loader.content.Loader<D> setCallback(androidx.lifecycle.LifecycleOwner, androidx.loader.app.LoaderManager.LoaderCallbacks<D>);
+    field private final android.os.Bundle? mArgs;
+    field private final int mId;
+    field private androidx.lifecycle.LifecycleOwner! mLifecycleOwner;
+    field private final androidx.loader.content.Loader<D> mLoader;
+    field private androidx.loader.app.LoaderManagerImpl.LoaderObserver<D>! mObserver;
+    field private androidx.loader.content.Loader<D>! mPriorLoader;
+  }
+
+  static class LoaderManagerImpl.LoaderObserver<D> implements androidx.lifecycle.Observer<D> {
+    ctor LoaderManagerImpl.LoaderObserver(androidx.loader.content.Loader<D>, androidx.loader.app.LoaderManager.LoaderCallbacks<D>);
+    method public void dump(String!, java.io.PrintWriter!);
+    method boolean hasDeliveredData();
+    method @MainThread void reset();
+    field private final androidx.loader.app.LoaderManager.LoaderCallbacks<D> mCallback;
+    field private boolean mDeliveredData;
+    field private final androidx.loader.content.Loader<D> mLoader;
+  }
+
+  static class LoaderManagerImpl.LoaderViewModel extends androidx.lifecycle.ViewModel {
+    ctor LoaderManagerImpl.LoaderViewModel();
+    method public void dump(String!, java.io.FileDescriptor!, java.io.PrintWriter!, String[]!);
+    method void finishCreatingLoader();
+    method static androidx.loader.app.LoaderManagerImpl.LoaderViewModel getInstance(androidx.lifecycle.ViewModelStore!);
+    method <D> androidx.loader.app.LoaderManagerImpl.LoaderInfo<D>! getLoader(int);
+    method boolean hasRunningLoaders();
+    method boolean isCreatingLoader();
+    method void markForRedelivery();
+    method void putLoader(int, androidx.loader.app.LoaderManagerImpl.LoaderInfo);
+    method void removeLoader(int);
+    method void startCreatingLoader();
+    field private static final androidx.lifecycle.ViewModelProvider.Factory! FACTORY;
+    field private boolean mCreatingLoader;
+    field private androidx.collection.SparseArrayCompat<androidx.loader.app.LoaderManagerImpl.LoaderInfo>! mLoaders;
+  }
+
+}
+
+package androidx.loader.content {
+
+  public abstract class AsyncTaskLoader<D> extends androidx.loader.content.Loader<D> {
+    method void dispatchOnCancelled(androidx.loader.content.AsyncTaskLoader.LoadTask!, D!);
+    method void dispatchOnLoadComplete(androidx.loader.content.AsyncTaskLoader.LoadTask!, D!);
+    method void executePendingTask();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void waitForLoader();
+    field static final boolean DEBUG = false;
+    field static final String TAG = "AsyncTaskLoader";
+    field volatile androidx.loader.content.AsyncTaskLoader.LoadTask! mCancellingTask;
+    field private java.util.concurrent.Executor! mExecutor;
+    field android.os.Handler! mHandler;
+    field long mLastLoadCompleteTime;
+    field volatile androidx.loader.content.AsyncTaskLoader.LoadTask! mTask;
+    field long mUpdateThrottle;
+  }
+
+  final class AsyncTaskLoader.LoadTask extends androidx.loader.content.ModernAsyncTask<D> implements java.lang.Runnable {
+    method protected D! doInBackground();
+    method protected void onCancelled(D!);
+    method protected void onPostExecute(D!);
+    method public void waitForLoader();
+    field private final java.util.concurrent.CountDownLatch! mDone;
+    field boolean waiting;
+  }
+
+  public class CursorLoader extends androidx.loader.content.AsyncTaskLoader<android.database.Cursor> {
+    field androidx.core.os.CancellationSignal! mCancellationSignal;
+    field android.database.Cursor! mCursor;
+    field final androidx.loader.content.Loader.ForceLoadContentObserver! mObserver;
+    field String[]! mProjection;
+    field String! mSelection;
+    field String[]! mSelectionArgs;
+    field String! mSortOrder;
+    field android.net.Uri! mUri;
+  }
+
+  public class Loader<D> {
+    field boolean mAbandoned;
+    field boolean mContentChanged;
+    field android.content.Context! mContext;
+    field int mId;
+    field androidx.loader.content.Loader.OnLoadCompleteListener<D>! mListener;
+    field androidx.loader.content.Loader.OnLoadCanceledListener<D>! mOnLoadCanceledListener;
+    field boolean mProcessingChange;
+    field boolean mReset;
+    field boolean mStarted;
+  }
+
+  abstract class ModernAsyncTask<Result> {
+    ctor ModernAsyncTask();
+    method public final boolean cancel(boolean);
+    method protected abstract Result! doInBackground();
+    method public final void executeOnExecutor(java.util.concurrent.Executor);
+    method void finish(Result!);
+    method private static android.os.Handler! getHandler();
+    method public final boolean isCancelled();
+    method protected void onCancelled(Result!);
+    method protected void onPostExecute(Result!);
+    method void postResult(Result!);
+    method void postResultIfNotInvoked(Result!);
+    field private static final String LOG_TAG = "AsyncTask";
+    field final java.util.concurrent.atomic.AtomicBoolean! mCancelled;
+    field private final java.util.concurrent.FutureTask<Result>! mFuture;
+    field private volatile androidx.loader.content.ModernAsyncTask.Status! mStatus;
+    field final java.util.concurrent.atomic.AtomicBoolean! mTaskInvoked;
+    field private static android.os.Handler! sHandler;
+  }
+
+  public static enum ModernAsyncTask.Status {
+    enum_constant public static final androidx.loader.content.ModernAsyncTask.Status FINISHED;
+    enum_constant public static final androidx.loader.content.ModernAsyncTask.Status PENDING;
+    enum_constant public static final androidx.loader.content.ModernAsyncTask.Status RUNNING;
+  }
+
+}
+

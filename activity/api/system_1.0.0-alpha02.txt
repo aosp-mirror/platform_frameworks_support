@@ -1,0 +1,26 @@
+// Signature format: 2.0
+package androidx.activity {
+
+  public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.lifecycle.LifecycleOwner androidx.lifecycle.ViewModelStoreOwner {
+    field private final androidx.lifecycle.LifecycleRegistry! mLifecycleRegistry;
+    field final java.util.concurrent.CopyOnWriteArrayList<androidx.activity.ComponentActivity.LifecycleAwareOnBackPressedCallback>! mOnBackPressedCallbacks;
+    field private androidx.lifecycle.ViewModelStore! mViewModelStore;
+  }
+
+  private class ComponentActivity.LifecycleAwareOnBackPressedCallback implements androidx.lifecycle.GenericLifecycleObserver androidx.activity.OnBackPressedCallback {
+    ctor ComponentActivity.LifecycleAwareOnBackPressedCallback(androidx.lifecycle.Lifecycle, androidx.activity.OnBackPressedCallback);
+    method androidx.lifecycle.Lifecycle! getLifecycle();
+    method androidx.activity.OnBackPressedCallback! getOnBackPressedCallback();
+    method public void onRemoved();
+    field private final androidx.lifecycle.Lifecycle! mLifecycle;
+    field private final androidx.activity.OnBackPressedCallback! mOnBackPressedCallback;
+  }
+
+  static final class ComponentActivity.NonConfigurationInstances {
+    ctor ComponentActivity.NonConfigurationInstances();
+    field Object! custom;
+    field androidx.lifecycle.ViewModelStore! viewModelStore;
+  }
+
+}
+

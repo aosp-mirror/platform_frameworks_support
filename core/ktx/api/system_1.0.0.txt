@@ -1,0 +1,33 @@
+// Signature format: 2.0
+package androidx.core.content {
+
+  public final class ContextKt {
+    method private static <T> T! getSystemService(android.content.Context);
+  }
+
+}
+
+package androidx.core.content.res {
+
+  public final class TypedArrayKt {
+    method private static void checkAttribute(android.content.res.TypedArray, @StyleableRes int index);
+  }
+
+}
+
+package androidx.core.text {
+
+  public final class SpannedStringKt {
+    method private static <T> T[]! getSpans(android.text.Spanned, int start = 0, int end = length);
+  }
+
+}
+
+package androidx.core.view {
+
+  public final class ViewKt {
+    method private static <T extends android.view.ViewGroup.LayoutParams> void updateLayoutParamsTyped(android.view.View, kotlin.jvm.functions.Function1<? super T,kotlin.Unit>! block);
+  }
+
+}
+

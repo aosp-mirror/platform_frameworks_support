@@ -1,0 +1,80 @@
+// Signature format: 2.0
+package androidx.slidingpanelayout.widget {
+
+  public class SlidingPaneLayout extends android.view.ViewGroup {
+    method private boolean closePane(android.view.View!, int);
+    method private void dimChildView(android.view.View!, float, int);
+    method void dispatchOnPanelClosed(android.view.View!);
+    method void dispatchOnPanelOpened(android.view.View!);
+    method void dispatchOnPanelSlide(android.view.View!);
+    method void invalidateChildRegion(android.view.View!);
+    method boolean isDimmed(android.view.View!);
+    method boolean isLayoutRtlSupport();
+    method void onPanelDragged(int);
+    method private boolean openPane(android.view.View!, int);
+    method private void parallaxOtherViews(float);
+    method void setAllChildrenVisible();
+    method boolean smoothSlideTo(float, int);
+    method void updateObscuredViewsVisibility(android.view.View!);
+    method private static boolean viewIsOpaque(android.view.View!);
+    field private static final int DEFAULT_FADE_COLOR = -858993460; // 0xcccccccc
+    field private static final int DEFAULT_OVERHANG_SIZE = 32; // 0x20
+    field private static final int MIN_FLING_VELOCITY = 400; // 0x190
+    field private static final String TAG = "SlidingPaneLayout";
+    field private boolean mCanSlide;
+    field private int mCoveredFadeColor;
+    field private boolean mDisplayListReflectionLoaded;
+    field final androidx.customview.widget.ViewDragHelper! mDragHelper;
+    field private boolean mFirstLayout;
+    field private java.lang.reflect.Method! mGetDisplayList;
+    field private float mInitialMotionX;
+    field private float mInitialMotionY;
+    field boolean mIsUnableToDrag;
+    field private final int mOverhangSize;
+    field private androidx.slidingpanelayout.widget.SlidingPaneLayout.PanelSlideListener! mPanelSlideListener;
+    field private int mParallaxBy;
+    field private float mParallaxOffset;
+    field final java.util.ArrayList<androidx.slidingpanelayout.widget.SlidingPaneLayout.DisableLayerRunnable>! mPostedRunnables;
+    field boolean mPreservedOpenState;
+    field private java.lang.reflect.Field! mRecreateDisplayList;
+    field private android.graphics.drawable.Drawable! mShadowDrawableLeft;
+    field private android.graphics.drawable.Drawable! mShadowDrawableRight;
+    field float mSlideOffset;
+    field int mSlideRange;
+    field android.view.View! mSlideableView;
+    field private int mSliderFadeColor;
+    field private final android.graphics.Rect! mTmpRect;
+  }
+
+  class SlidingPaneLayout.AccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor SlidingPaneLayout.AccessibilityDelegate();
+    method private void copyNodeInfoNoChildren(androidx.core.view.accessibility.AccessibilityNodeInfoCompat!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method public boolean filter(android.view.View!);
+    field private final android.graphics.Rect! mTmpRect;
+  }
+
+  private class SlidingPaneLayout.DisableLayerRunnable implements java.lang.Runnable {
+    ctor SlidingPaneLayout.DisableLayerRunnable(android.view.View!);
+    field final android.view.View! mChildView;
+  }
+
+  private class SlidingPaneLayout.DragHelperCallback extends androidx.customview.widget.ViewDragHelper.Callback {
+    ctor SlidingPaneLayout.DragHelperCallback();
+  }
+
+  public static class SlidingPaneLayout.LayoutParams extends android.view.ViewGroup.MarginLayoutParams {
+    field private static final int[]! ATTRS;
+    field android.graphics.Paint! dimPaint;
+    field boolean dimWhenOffset;
+    field boolean slideable;
+  }
+
+  static class SlidingPaneLayout.SavedState extends androidx.customview.view.AbsSavedState {
+    ctor SlidingPaneLayout.SavedState(android.os.Parcelable!);
+    ctor SlidingPaneLayout.SavedState(android.os.Parcel!, ClassLoader!);
+    field public static final android.os.Parcelable.Creator<androidx.slidingpanelayout.widget.SlidingPaneLayout.SavedState>! CREATOR;
+    field boolean isOpen;
+  }
+
+}
+

@@ -1,0 +1,159 @@
+// Signature format: 2.0
+package androidx.browser.browseractions {
+
+  public class BrowserActionItem {
+    field private final android.app.PendingIntent! mAction;
+    field @DrawableRes private final int mIconId;
+    field private final String! mTitle;
+  }
+
+  class BrowserActionsFallbackMenuAdapter extends android.widget.BaseAdapter {
+    ctor BrowserActionsFallbackMenuAdapter(java.util.List<androidx.browser.browseractions.BrowserActionItem>!, android.content.Context!);
+    field private final android.content.Context! mContext;
+    field private final java.util.List<androidx.browser.browseractions.BrowserActionItem>! mMenuItems;
+  }
+
+  static class BrowserActionsFallbackMenuAdapter.ViewHolderItem {
+    ctor BrowserActionsFallbackMenuAdapter.ViewHolderItem();
+    field android.widget.ImageView! mIcon;
+    field android.widget.TextView! mText;
+  }
+
+  class BrowserActionsFallbackMenuDialog extends android.app.Dialog {
+    ctor BrowserActionsFallbackMenuDialog(android.content.Context!, android.view.View!);
+    method private void startAnimation(boolean);
+    field private static final long ENTER_ANIMATION_DURATION_MS = 250L; // 0xfaL
+    field private static final long EXIT_ANIMATION_DURATION_MS = 150L; // 0x96L
+    field private final android.view.View! mContentView;
+  }
+
+  class BrowserActionsFallbackMenuUi implements android.widget.AdapterView.OnItemClickListener {
+    ctor BrowserActionsFallbackMenuUi(android.content.Context!, android.net.Uri!, java.util.List<androidx.browser.browseractions.BrowserActionItem>!);
+    method public void displayMenu();
+    method private androidx.browser.browseractions.BrowserActionsFallbackMenuView! initMenuView(android.view.View!);
+    method @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) void setMenuUiListener(androidx.browser.browseractions.BrowserActionsFallbackMenuUi.BrowserActionsFallMenuUiListener!);
+    field private static final String TAG = "BrowserActionskMenuUi";
+    field private androidx.browser.browseractions.BrowserActionsFallbackMenuDialog! mBrowserActionsDialog;
+    field private final android.content.Context! mContext;
+    field private final java.util.List<androidx.browser.browseractions.BrowserActionItem>! mMenuItems;
+    field androidx.browser.browseractions.BrowserActionsFallbackMenuUi.BrowserActionsFallMenuUiListener! mMenuUiListener;
+    field private final android.net.Uri! mUri;
+  }
+
+  @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) static interface BrowserActionsFallbackMenuUi.BrowserActionsFallMenuUiListener {
+    method public void onMenuShown(android.view.View!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class BrowserActionsFallbackMenuView extends android.widget.LinearLayout {
+    ctor public BrowserActionsFallbackMenuView(android.content.Context!, android.util.AttributeSet!);
+    field private final int mBrowserActionsMenuMaxWidthPx;
+    field private final int mBrowserActionsMenuMinPaddingPx;
+  }
+
+  public class BrowserActionsIntent {
+    ctor BrowserActionsIntent(android.content.Intent);
+    method private static java.util.List<android.content.pm.ResolveInfo>! getBrowserActionsIntentHandlers(android.content.Context!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting static void launchIntent(android.content.Context!, android.content.Intent!, java.util.List<android.content.pm.ResolveInfo>!);
+    method private static void openFallbackBrowserActionsMenu(android.content.Context!, android.content.Intent!);
+    method private static void openFallbackBrowserActionsMenu(android.content.Context!, android.net.Uri!, int, java.util.List<androidx.browser.browseractions.BrowserActionItem>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @VisibleForTesting static void setDialogShownListenter(androidx.browser.browseractions.BrowserActionsIntent.BrowserActionsFallDialogListener!);
+    field private static final String TAG = "BrowserActions";
+    field private static final String TEST_URL = "https://www.example.com";
+    field private final android.content.Intent mIntent;
+    field private static androidx.browser.browseractions.BrowserActionsIntent.BrowserActionsFallDialogListener! sDialogListenter;
+  }
+
+  @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) static interface BrowserActionsIntent.BrowserActionsFallDialogListener {
+    method public void onDialogShown();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.browser.browseractions.BrowserActionsIntent.ITEM_INVALID_ITEM, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_NEW_TAB, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_INCOGNITO, androidx.browser.browseractions.BrowserActionsIntent.ITEM_DOWNLOAD, androidx.browser.browseractions.BrowserActionsIntent.ITEM_COPY, androidx.browser.browseractions.BrowserActionsIntent.ITEM_SHARE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsItemId {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_NONE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_IMAGE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_VIDEO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_AUDIO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_FILE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_PLUGIN}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsUrlType {
+  }
+
+  public static final class BrowserActionsIntent.Builder {
+    method private android.os.Bundle! getBundleFromItem(androidx.browser.browseractions.BrowserActionItem!);
+    field private android.content.Context! mContext;
+    field private final android.content.Intent! mIntent;
+    field private java.util.ArrayList<android.os.Bundle>! mMenuItems;
+    field private android.app.PendingIntent! mOnItemSelectedPendingIntent;
+    field private int mType;
+    field private android.net.Uri! mUri;
+  }
+
+}
+
+package androidx.browser.customtabs {
+
+  public class CustomTabsClient {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) CustomTabsClient(ICustomTabsService!, android.content.ComponentName!);
+    field private final ICustomTabsService! mService;
+    field private final android.content.ComponentName! mServiceComponentName;
+  }
+
+  public final class CustomTabsIntent {
+    ctor CustomTabsIntent(android.content.Intent!, android.os.Bundle!);
+    field private static final String EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS = "android.support.customtabs.extra.user_opt_out";
+    field private static final int MAX_TOOLBAR_ITEMS = 5; // 0x5
+  }
+
+  public static final class CustomTabsIntent.Builder {
+    field private java.util.ArrayList<android.os.Bundle>! mActionButtons;
+    field private boolean mInstantAppsEnabled;
+    field private final android.content.Intent! mIntent;
+    field private java.util.ArrayList<android.os.Bundle>! mMenuItems;
+    field private android.os.Bundle! mStartAnimationBundle;
+  }
+
+  public abstract class CustomTabsService extends android.app.Service {
+    field private ICustomTabsService.Stub! mBinder;
+    field final java.util.Map<android.os.IBinder,android.os.IBinder.DeathRecipient>! mDeathRecipientMap;
+  }
+
+  public final class CustomTabsSession {
+    ctor CustomTabsSession(ICustomTabsService!, ICustomTabsCallback!, android.content.ComponentName!);
+    method android.os.IBinder! getBinder();
+    method android.content.ComponentName! getComponentName();
+    field private static final String TAG = "CustomTabsSession";
+    field private final ICustomTabsCallback! mCallback;
+    field private final android.content.ComponentName! mComponentName;
+    field private final Object! mLock;
+    field private final ICustomTabsService! mService;
+  }
+
+  public class CustomTabsSessionToken {
+    ctor CustomTabsSessionToken(ICustomTabsCallback!);
+    method android.os.IBinder! getCallbackBinder();
+    field private static final String TAG = "CustomTabsSessionToken";
+    field private final androidx.browser.customtabs.CustomTabsCallback! mCallback;
+    field final ICustomTabsCallback! mCallbackBinder;
+  }
+
+  static class CustomTabsSessionToken.MockCallback {
+    ctor CustomTabsSessionToken.MockCallback();
+    method public android.os.IBinder! asBinder();
+    method public void extraCallback(String!, android.os.Bundle!);
+    method public void onMessageChannelReady(android.os.Bundle!);
+    method public void onNavigationEvent(int, android.os.Bundle!);
+    method public void onPostMessage(String!, android.os.Bundle!);
+    method public void onRelationshipValidationResult(@androidx.browser.customtabs.CustomTabsService.Relation int, android.net.Uri!, boolean, android.os.Bundle!);
+  }
+
+  public class PostMessageService extends android.app.Service {
+    field private IPostMessageService.Stub! mBinder;
+  }
+
+  public abstract class PostMessageServiceConnection implements android.content.ServiceConnection {
+    field private final Object! mLock;
+    field private IPostMessageService! mService;
+    field private final ICustomTabsCallback! mSessionBinder;
+  }
+
+  public class TrustedWebUtils {
+    ctor private TrustedWebUtils();
+  }
+
+}
+

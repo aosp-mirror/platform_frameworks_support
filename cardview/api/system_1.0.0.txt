@@ -1,0 +1,163 @@
+// Signature format: 2.0
+package androidx.cardview.widget {
+
+  public class CardView extends android.widget.FrameLayout {
+    field private static final int[]! COLOR_BACKGROUND_ATTR;
+    field private static final androidx.cardview.widget.CardViewImpl! IMPL;
+    field private final androidx.cardview.widget.CardViewDelegate! mCardViewDelegate;
+    field private boolean mCompatPadding;
+    field final android.graphics.Rect! mContentPadding;
+    field private boolean mPreventCornerOverlap;
+    field final android.graphics.Rect! mShadowBounds;
+    field int mUserSetMinHeight;
+    field int mUserSetMinWidth;
+  }
+
+  @RequiresApi(17) class CardViewApi17Impl extends androidx.cardview.widget.CardViewBaseImpl {
+    ctor CardViewApi17Impl();
+    method public void initStatic();
+  }
+
+  @RequiresApi(21) class CardViewApi21Impl implements androidx.cardview.widget.CardViewImpl {
+    ctor CardViewApi21Impl();
+    method public android.content.res.ColorStateList! getBackgroundColor(androidx.cardview.widget.CardViewDelegate!);
+    method private androidx.cardview.widget.RoundRectDrawable! getCardBackground(androidx.cardview.widget.CardViewDelegate!);
+    method public float getElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMaxElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinHeight(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinWidth(androidx.cardview.widget.CardViewDelegate!);
+    method public float getRadius(androidx.cardview.widget.CardViewDelegate!);
+    method public void initStatic();
+    method public void initialize(androidx.cardview.widget.CardViewDelegate!, android.content.Context!, android.content.res.ColorStateList!, float, float, float);
+    method public void onCompatPaddingChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void onPreventCornerOverlapChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void setBackgroundColor(androidx.cardview.widget.CardViewDelegate!, android.content.res.ColorStateList?);
+    method public void setElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setMaxElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setRadius(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void updatePadding(androidx.cardview.widget.CardViewDelegate!);
+  }
+
+  class CardViewBaseImpl implements androidx.cardview.widget.CardViewImpl {
+    ctor CardViewBaseImpl();
+    method private androidx.cardview.widget.RoundRectDrawableWithShadow! createBackground(android.content.Context!, android.content.res.ColorStateList!, float, float, float);
+    method public android.content.res.ColorStateList! getBackgroundColor(androidx.cardview.widget.CardViewDelegate!);
+    method public float getElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMaxElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinHeight(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinWidth(androidx.cardview.widget.CardViewDelegate!);
+    method public float getRadius(androidx.cardview.widget.CardViewDelegate!);
+    method private androidx.cardview.widget.RoundRectDrawableWithShadow! getShadowBackground(androidx.cardview.widget.CardViewDelegate!);
+    method public void initStatic();
+    method public void initialize(androidx.cardview.widget.CardViewDelegate!, android.content.Context!, android.content.res.ColorStateList!, float, float, float);
+    method public void onCompatPaddingChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void onPreventCornerOverlapChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void setBackgroundColor(androidx.cardview.widget.CardViewDelegate!, android.content.res.ColorStateList?);
+    method public void setElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setMaxElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setRadius(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void updatePadding(androidx.cardview.widget.CardViewDelegate!);
+    field final android.graphics.RectF! mCornerRect;
+  }
+
+  interface CardViewDelegate {
+    method public android.graphics.drawable.Drawable! getCardBackground();
+    method public android.view.View! getCardView();
+    method public boolean getPreventCornerOverlap();
+    method public boolean getUseCompatPadding();
+    method public void setCardBackground(android.graphics.drawable.Drawable!);
+    method public void setMinWidthHeightInternal(int, int);
+    method public void setShadowPadding(int, int, int, int);
+  }
+
+  interface CardViewImpl {
+    method public android.content.res.ColorStateList! getBackgroundColor(androidx.cardview.widget.CardViewDelegate!);
+    method public float getElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMaxElevation(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinHeight(androidx.cardview.widget.CardViewDelegate!);
+    method public float getMinWidth(androidx.cardview.widget.CardViewDelegate!);
+    method public float getRadius(androidx.cardview.widget.CardViewDelegate!);
+    method public void initStatic();
+    method public void initialize(androidx.cardview.widget.CardViewDelegate!, android.content.Context!, android.content.res.ColorStateList!, float, float, float);
+    method public void onCompatPaddingChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void onPreventCornerOverlapChanged(androidx.cardview.widget.CardViewDelegate!);
+    method public void setBackgroundColor(androidx.cardview.widget.CardViewDelegate!, android.content.res.ColorStateList?);
+    method public void setElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setMaxElevation(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void setRadius(androidx.cardview.widget.CardViewDelegate!, float);
+    method public void updatePadding(androidx.cardview.widget.CardViewDelegate!);
+  }
+
+  @RequiresApi(21) class RoundRectDrawable extends android.graphics.drawable.Drawable {
+    ctor RoundRectDrawable(android.content.res.ColorStateList!, float);
+    method private android.graphics.PorterDuffColorFilter! createTintFilter(android.content.res.ColorStateList!, android.graphics.PorterDuff.Mode!);
+    method public android.content.res.ColorStateList! getColor();
+    method float getPadding();
+    method public float getRadius();
+    method private void setBackground(android.content.res.ColorStateList!);
+    method public void setColor(android.content.res.ColorStateList?);
+    method void setPadding(float, boolean, boolean);
+    method void setRadius(float);
+    method private void updateBounds(android.graphics.Rect!);
+    field private android.content.res.ColorStateList! mBackground;
+    field private final android.graphics.RectF! mBoundsF;
+    field private final android.graphics.Rect! mBoundsI;
+    field private boolean mInsetForPadding;
+    field private boolean mInsetForRadius;
+    field private float mPadding;
+    field private final android.graphics.Paint! mPaint;
+    field private float mRadius;
+    field private android.content.res.ColorStateList! mTint;
+    field private android.graphics.PorterDuffColorFilter! mTintFilter;
+    field private android.graphics.PorterDuff.Mode! mTintMode;
+  }
+
+  class RoundRectDrawableWithShadow extends android.graphics.drawable.Drawable {
+    ctor RoundRectDrawableWithShadow(android.content.res.Resources!, android.content.res.ColorStateList!, float, float, float);
+    method private void buildComponents(android.graphics.Rect!);
+    method private void buildShadowCorners();
+    method static float calculateHorizontalPadding(float, float, boolean);
+    method static float calculateVerticalPadding(float, float, boolean);
+    method private void drawShadow(android.graphics.Canvas!);
+    method android.content.res.ColorStateList! getColor();
+    method float getCornerRadius();
+    method void getMaxShadowAndCornerPadding(android.graphics.Rect!);
+    method float getMaxShadowSize();
+    method float getMinHeight();
+    method float getMinWidth();
+    method float getShadowSize();
+    method void setAddPaddingForCorners(boolean);
+    method private void setBackground(android.content.res.ColorStateList!);
+    method void setColor(android.content.res.ColorStateList?);
+    method void setCornerRadius(float);
+    method void setMaxShadowSize(float);
+    method private void setShadowSize(float, float);
+    method void setShadowSize(float);
+    method private int toEven(float);
+    field private static final double COS_45;
+    field private static final float SHADOW_MULTIPLIER = 1.5f;
+    field private boolean mAddPaddingForCorners;
+    field private android.content.res.ColorStateList! mBackground;
+    field private final android.graphics.RectF! mCardBounds;
+    field private float mCornerRadius;
+    field private android.graphics.Paint! mCornerShadowPaint;
+    field private android.graphics.Path! mCornerShadowPath;
+    field private boolean mDirty;
+    field private android.graphics.Paint! mEdgeShadowPaint;
+    field private final int mInsetShadow;
+    field private android.graphics.Paint! mPaint;
+    field private boolean mPrintedShadowClipWarning;
+    field private float mRawMaxShadowSize;
+    field private float mRawShadowSize;
+    field private final int mShadowEndColor;
+    field private float mShadowSize;
+    field private final int mShadowStartColor;
+    field static androidx.cardview.widget.RoundRectDrawableWithShadow.RoundRectHelper! sRoundRectHelper;
+  }
+
+  static interface RoundRectDrawableWithShadow.RoundRectHelper {
+    method public void drawRoundRect(android.graphics.Canvas!, android.graphics.RectF!, float, android.graphics.Paint!);
+  }
+
+}
+

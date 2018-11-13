@@ -1,0 +1,41 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public class AndroidViewModel extends androidx.lifecycle.ViewModel {
+    field private android.app.Application! mApplication;
+  }
+
+  public abstract class ViewModel {
+    method @MainThread final void clear();
+    method private static void closeWithRuntimeException(Object!);
+    method <T> T! getTag(String!);
+    method <T> T! setTagIfAbsent(String!, T!);
+    field private final java.util.concurrent.ConcurrentHashMap<java.lang.String,java.lang.Object>? mBagOfTags;
+    field private volatile boolean mCleared;
+  }
+
+  public class ViewModelProvider {
+    field private static final String DEFAULT_KEY = "androidx.lifecycle.ViewModelProvider.DefaultKey";
+    field private final androidx.lifecycle.ViewModelProvider.KeyedFactory! mFactory;
+    field private final androidx.lifecycle.ViewModelStore! mViewModelStore;
+  }
+
+  public static class ViewModelProvider.AndroidViewModelFactory extends androidx.lifecycle.ViewModelProvider.NewInstanceFactory {
+    field private android.app.Application! mApplication;
+    field private static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory! sInstance;
+  }
+
+  private static class ViewModelProvider.FactoryWrapper implements androidx.lifecycle.ViewModelProvider.KeyedFactory {
+    ctor ViewModelProvider.FactoryWrapper(androidx.lifecycle.ViewModelProvider.Factory!);
+    field private final androidx.lifecycle.ViewModelProvider.Factory! mFactory;
+  }
+
+  public class ViewModelStore {
+    method final androidx.lifecycle.ViewModel! get(String!);
+    method java.util.Set<java.lang.String>! keys();
+    method final void put(String!, androidx.lifecycle.ViewModel!);
+    field private final java.util.HashMap<java.lang.String,androidx.lifecycle.ViewModel>! mMap;
+  }
+
+}
+

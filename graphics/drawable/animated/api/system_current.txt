@@ -1,0 +1,112 @@
+// Signature format: 2.0
+package androidx.vectordrawable.graphics.drawable {
+
+  public abstract static class Animatable2Compat.AnimationCallback {
+    method @RequiresApi(android.os.Build.VERSION_CODES.M) android.graphics.drawable.Animatable2.AnimationCallback! getPlatformCallback();
+    field android.graphics.drawable.Animatable2.AnimationCallback! mPlatformCallback;
+  }
+
+  public class AnimatedVectorDrawableCompat extends androidx.vectordrawable.graphics.drawable.VectorDrawableCommon implements androidx.vectordrawable.graphics.drawable.Animatable2Compat androidx.core.graphics.drawable.TintAwareDrawable {
+    ctor AnimatedVectorDrawableCompat();
+    ctor private AnimatedVectorDrawableCompat(android.content.Context?);
+    ctor private AnimatedVectorDrawableCompat(android.content.Context?, androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.AnimatedVectorDrawableCompatState?, android.content.res.Resources?);
+    method @RequiresApi(23) private static void registerPlatformCallback(android.graphics.drawable.AnimatedVectorDrawable, androidx.vectordrawable.graphics.drawable.Animatable2Compat.AnimationCallback);
+    method private void removeAnimatorSetListener();
+    method private void setupAnimatorsForTarget(String!, android.animation.Animator!);
+    method private void setupColorAnimator(android.animation.Animator!);
+    method @RequiresApi(23) private static boolean unregisterPlatformCallback(android.graphics.drawable.AnimatedVectorDrawable!, androidx.vectordrawable.graphics.drawable.Animatable2Compat.AnimationCallback!);
+    field private static final String ANIMATED_VECTOR = "animated-vector";
+    field private static final boolean DBG_ANIMATION_VECTOR_DRAWABLE = false;
+    field private static final String LOGTAG = "AnimatedVDCompat";
+    field private static final String TARGET = "target";
+    field private androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.AnimatedVectorDrawableCompatState! mAnimatedVectorState;
+    field java.util.ArrayList<androidx.vectordrawable.graphics.drawable.Animatable2Compat.AnimationCallback>! mAnimationCallbacks;
+    field private android.animation.Animator.AnimatorListener! mAnimatorListener;
+    field private android.animation.ArgbEvaluator! mArgbEvaluator;
+    field androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.AnimatedVectorDrawableDelegateState! mCachedConstantStateDelegate;
+    field final android.graphics.drawable.Drawable.Callback! mCallback;
+    field private android.content.Context! mContext;
+  }
+
+  private static class AnimatedVectorDrawableCompat.AnimatedVectorDrawableCompatState extends android.graphics.drawable.Drawable.ConstantState {
+    ctor public AnimatedVectorDrawableCompat.AnimatedVectorDrawableCompatState(android.content.Context!, androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat.AnimatedVectorDrawableCompatState!, android.graphics.drawable.Drawable.Callback!, android.content.res.Resources!);
+    method public void setupAnimatorSet();
+    field android.animation.AnimatorSet! mAnimatorSet;
+    field java.util.ArrayList<android.animation.Animator>! mAnimators;
+    field int mChangingConfigurations;
+    field androidx.collection.ArrayMap<android.animation.Animator,java.lang.String>! mTargetNameMap;
+    field androidx.vectordrawable.graphics.drawable.VectorDrawableCompat! mVectorDrawable;
+  }
+
+  @RequiresApi(24) private static class AnimatedVectorDrawableCompat.AnimatedVectorDrawableDelegateState extends android.graphics.drawable.Drawable.ConstantState {
+    ctor public AnimatedVectorDrawableCompat.AnimatedVectorDrawableDelegateState(android.graphics.drawable.Drawable.ConstantState!);
+    field private final android.graphics.drawable.Drawable.ConstantState! mDelegateState;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class AnimationUtilsCompat {
+    ctor private AnimationUtilsCompat();
+    method private static android.view.animation.Interpolator! createInterpolatorFromXml(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method public static android.view.animation.Interpolator! loadInterpolator(android.content.Context!, int) throws android.content.res.Resources.NotFoundException;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class AnimatorInflaterCompat {
+    ctor private AnimatorInflaterCompat();
+    method private static android.animation.Animator! createAnimatorFromXml(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!, float) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private static android.animation.Animator! createAnimatorFromXml(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!, android.animation.AnimatorSet!, int, float) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private static android.animation.Keyframe! createNewKeyframe(android.animation.Keyframe!, float);
+    method private static void distributeKeyframes(android.animation.Keyframe[]!, float, int, int);
+    method private static void dumpKeyframes(Object[]!, String!);
+    method private static android.animation.PropertyValuesHolder! getPVH(android.content.res.TypedArray!, int, int, int, String!);
+    method private static int inferValueTypeFromValues(android.content.res.TypedArray!, int, int);
+    method private static int inferValueTypeOfKeyframe(android.content.res.Resources!, android.content.res.Resources.Theme!, android.util.AttributeSet!, org.xmlpull.v1.XmlPullParser!);
+    method private static boolean isColorType(int);
+    method public static android.animation.Animator! loadAnimator(android.content.Context!, @AnimatorRes int) throws android.content.res.Resources.NotFoundException;
+    method public static android.animation.Animator! loadAnimator(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, @AnimatorRes int) throws android.content.res.Resources.NotFoundException;
+    method public static android.animation.Animator! loadAnimator(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, @AnimatorRes int, float) throws android.content.res.Resources.NotFoundException;
+    method private static android.animation.ValueAnimator! loadAnimator(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, android.util.AttributeSet!, android.animation.ValueAnimator!, float, org.xmlpull.v1.XmlPullParser!) throws android.content.res.Resources.NotFoundException;
+    method private static android.animation.Keyframe! loadKeyframe(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, android.util.AttributeSet!, int, org.xmlpull.v1.XmlPullParser!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private static android.animation.ObjectAnimator! loadObjectAnimator(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, android.util.AttributeSet!, float, org.xmlpull.v1.XmlPullParser!) throws android.content.res.Resources.NotFoundException;
+    method private static android.animation.PropertyValuesHolder! loadPvh(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!, String!, int) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private static android.animation.PropertyValuesHolder[]! loadValues(android.content.Context!, android.content.res.Resources!, android.content.res.Resources.Theme!, org.xmlpull.v1.XmlPullParser!, android.util.AttributeSet!) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method private static void parseAnimatorFromTypeArray(android.animation.ValueAnimator!, android.content.res.TypedArray!, android.content.res.TypedArray!, float, org.xmlpull.v1.XmlPullParser!);
+    method private static void setupObjectAnimator(android.animation.ValueAnimator!, android.content.res.TypedArray!, int, float, org.xmlpull.v1.XmlPullParser!);
+    method private static void setupPathMotion(android.graphics.Path!, android.animation.ObjectAnimator!, float, String!, String!);
+    field private static final boolean DBG_ANIMATOR_INFLATER = false;
+    field private static final int MAX_NUM_POINTS = 100; // 0x64
+    field private static final String TAG = "AnimatorInflater";
+    field private static final int TOGETHER = 0; // 0x0
+    field private static final int VALUE_TYPE_COLOR = 3; // 0x3
+    field private static final int VALUE_TYPE_FLOAT = 0; // 0x0
+    field private static final int VALUE_TYPE_INT = 1; // 0x1
+    field private static final int VALUE_TYPE_PATH = 2; // 0x2
+    field private static final int VALUE_TYPE_UNDEFINED = 4; // 0x4
+  }
+
+  private static class AnimatorInflaterCompat.PathDataEvaluator implements android.animation.TypeEvaluator<androidx.core.graphics.PathParser.PathDataNode[]> {
+    ctor AnimatorInflaterCompat.PathDataEvaluator();
+    ctor AnimatorInflaterCompat.PathDataEvaluator(androidx.core.graphics.PathParser.PathDataNode[]!);
+    field private androidx.core.graphics.PathParser.PathDataNode[]! mNodeArray;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ArgbEvaluator implements android.animation.TypeEvaluator {
+    ctor public ArgbEvaluator();
+    method public static androidx.vectordrawable.graphics.drawable.ArgbEvaluator! getInstance();
+    field private static final androidx.vectordrawable.graphics.drawable.ArgbEvaluator! sInstance;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class PathInterpolatorCompat implements android.view.animation.Interpolator {
+    ctor public PathInterpolatorCompat(android.content.Context!, android.util.AttributeSet!, org.xmlpull.v1.XmlPullParser!);
+    ctor public PathInterpolatorCompat(android.content.res.Resources!, android.content.res.Resources.Theme!, android.util.AttributeSet!, org.xmlpull.v1.XmlPullParser!);
+    method private void initCubic(float, float, float, float);
+    method private void initPath(android.graphics.Path!);
+    method private void initQuad(float, float);
+    method private void parseInterpolatorFromTypeArray(android.content.res.TypedArray!, org.xmlpull.v1.XmlPullParser!);
+    field public static final double EPSILON = 1.0E-5;
+    field public static final int MAX_NUM_POINTS = 3000; // 0xbb8
+    field private static final float PRECISION = 0.002f;
+    field private float[]! mX;
+    field private float[]! mY;
+  }
+
+}
+

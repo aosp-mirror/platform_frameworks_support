@@ -1,0 +1,234 @@
+// Signature format: 2.0
+package androidx.heifwriter {
+
+  public class EglRectBlt {
+    ctor public EglRectBlt(androidx.heifwriter.Texture2dProgram!, int, int);
+    method public void copyRect(int, float[]!, android.graphics.Rect!);
+    method public static java.nio.FloatBuffer! createFloatBuffer(float[]!);
+    method public int createTextureObject();
+    method public void loadTexture(int, android.graphics.Bitmap!);
+    method public void release(boolean);
+    method void setTexRect(android.graphics.Rect!);
+    field private static final java.nio.FloatBuffer! FULL_RECTANGLE_BUF;
+    field private static final float[]! FULL_RECTANGLE_COORDS;
+    field private static final int SIZEOF_FLOAT = 4; // 0x4
+    field private androidx.heifwriter.Texture2dProgram! mProgram;
+    field private final java.nio.FloatBuffer! mTexCoordArray;
+    field private final float[]! mTexCoords;
+    field private final int mTexHeight;
+    field private final int mTexWidth;
+  }
+
+  public class EglWindowSurface {
+    ctor public EglWindowSurface(android.view.Surface!);
+    method private void checkEglError(String!);
+    method private void createEGLSurface();
+    method private void eglSetup();
+    method public int getHeight();
+    method public android.view.Surface! getSurface();
+    method public int getWidth();
+    method public void makeCurrent();
+    method public void makeUnCurrent();
+    method public void release();
+    method private void releaseEGLSurface();
+    method public void setPresentationTime(long);
+    method public boolean swapBuffers();
+    method public void updateSize(int, int);
+    field private static final String TAG = "EglWindowSurface";
+    field private android.opengl.EGLConfig[]! mConfigs;
+    field private android.opengl.EGLContext! mEGLContext;
+    field private android.opengl.EGLDisplay! mEGLDisplay;
+    field private android.opengl.EGLSurface! mEGLSurface;
+    field private int mHeight;
+    field private android.view.Surface! mSurface;
+    field private int mWidth;
+  }
+
+  public final class HeifEncoder implements java.lang.AutoCloseable android.graphics.SurfaceTexture.OnFrameAvailableListener {
+    ctor public HeifEncoder(int, int, boolean, int, int, android.os.Handler?, androidx.heifwriter.HeifEncoder.Callback) throws java.io.IOException;
+    method private java.nio.ByteBuffer! acquireEmptyBuffer();
+    method public void addBitmap(android.graphics.Bitmap);
+    method public void addYuvBuffer(int, byte[]);
+    method private void addYuvBufferInternal(byte[]?);
+    method private long computePresentationTime(int);
+    method private static void copyOneTileYUV(java.nio.ByteBuffer!, android.media.Image!, int, int, android.graphics.Rect!, android.graphics.Rect!);
+    method private void copyTilesGL();
+    method private java.nio.ByteBuffer! getCurrentBuffer();
+    method public android.view.Surface getInputSurface();
+    method void maybeCopyOneTileYUV();
+    method private void returnEmptyBufferAndNotify(boolean);
+    method public void setEndOfInputStreamTimestamp(long);
+    method public void start();
+    method public void stopAsync();
+    method void stopInternal();
+    field private static final boolean DEBUG = false;
+    field private static final int GRID_HEIGHT = 512; // 0x200
+    field private static final int GRID_WIDTH = 512; // 0x200
+    field private static final int INPUT_BUFFER_POOL_SIZE = 2; // 0x2
+    field public static final int INPUT_MODE_BITMAP = 2; // 0x2
+    field public static final int INPUT_MODE_BUFFER = 0; // 0x0
+    field public static final int INPUT_MODE_SURFACE = 1; // 0x1
+    field private static final double MAX_COMPRESS_RATIO = 0.25;
+    field private static final String TAG = "HeifEncoder";
+    field final androidx.heifwriter.HeifEncoder.Callback! mCallback;
+    field final java.util.ArrayList<java.lang.Integer>! mCodecInputBuffers;
+    field private java.nio.ByteBuffer! mCurrentBuffer;
+    field private final android.graphics.Rect! mDstRect;
+    field androidx.heifwriter.HeifEncoder.SurfaceEOSTracker! mEOSTracker;
+    field private final java.util.ArrayList<java.nio.ByteBuffer>! mEmptyBuffers;
+    field android.media.MediaCodec! mEncoder;
+    field private androidx.heifwriter.EglWindowSurface! mEncoderEglSurface;
+    field private android.view.Surface! mEncoderSurface;
+    field private final java.util.ArrayList<java.nio.ByteBuffer>! mFilledBuffers;
+    field final int mGridCols;
+    field final int mGridHeight;
+    field final int mGridRows;
+    field final int mGridWidth;
+    field final android.os.Handler! mHandler;
+    field private final android.os.HandlerThread! mHandlerThread;
+    field final int mHeight;
+    field boolean mInputEOS;
+    field private int mInputIndex;
+    field private final int mInputMode;
+    field private android.view.Surface! mInputSurface;
+    field private android.graphics.SurfaceTexture! mInputTexture;
+    field private final int mNumTiles;
+    field private androidx.heifwriter.EglRectBlt! mRectBlt;
+    field private final android.graphics.Rect! mSrcRect;
+    field private int mTextureId;
+    field private final float[]! mTmpMatrix;
+    field final boolean mUseGrid;
+    field final int mWidth;
+  }
+
+  public abstract static class HeifEncoder.Callback {
+    ctor public HeifEncoder.Callback();
+    method public abstract void onComplete(androidx.heifwriter.HeifEncoder);
+    method public abstract void onDrainOutputBuffer(androidx.heifwriter.HeifEncoder, java.nio.ByteBuffer);
+    method public abstract void onError(androidx.heifwriter.HeifEncoder, android.media.MediaCodec.CodecException);
+    method public abstract void onOutputFormatChanged(androidx.heifwriter.HeifEncoder, android.media.MediaFormat);
+  }
+
+  class HeifEncoder.EncoderCallback extends android.media.MediaCodec.Callback {
+    ctor HeifEncoder.EncoderCallback();
+    method private void stopAndNotify(android.media.MediaCodec.CodecException?);
+    field private boolean mOutputEOS;
+  }
+
+  @IntDef({androidx.heifwriter.HeifEncoder.INPUT_MODE_BUFFER, androidx.heifwriter.HeifEncoder.INPUT_MODE_SURFACE, androidx.heifwriter.HeifEncoder.INPUT_MODE_BITMAP}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface HeifEncoder.InputMode {
+  }
+
+  private class HeifEncoder.SurfaceEOSTracker {
+    ctor HeifEncoder.SurfaceEOSTracker(boolean);
+    method private void doSignalEOSLocked();
+    method private void updateEOSLocked();
+    method void updateInputEOSTime(long);
+    method boolean updateLastInputAndEncoderTime(long, long);
+    method void updateLastOutputTime(long);
+    field private static final boolean DEBUG_EOS = false;
+    field final boolean mCopyTiles;
+    field long mEncoderEOSTimeUs;
+    field long mInputEOSTimeNs;
+    field long mLastEncoderTimeUs;
+    field long mLastInputTimeNs;
+    field long mLastOutputTimeUs;
+    field boolean mSignaled;
+  }
+
+  public final class HeifWriter implements java.lang.AutoCloseable {
+    ctor HeifWriter(String, java.io.FileDescriptor, int, int, int, boolean, int, int, int, int, android.os.Handler?) throws java.io.IOException;
+    method private void checkMode(int);
+    method private void checkStarted(boolean);
+    method private void checkStartedAndMode(int);
+    method void closeInternal();
+    method void processExifData();
+    field private static final boolean DEBUG = false;
+    field private static final int MUXER_DATA_FLAG = 16; // 0x10
+    field private static final String TAG = "HeifWriter";
+    field private final java.util.List<android.util.Pair<java.lang.Integer,java.nio.ByteBuffer>>! mExifList;
+    field private final android.os.Handler! mHandler;
+    field private final android.os.HandlerThread! mHandlerThread;
+    field private androidx.heifwriter.HeifEncoder! mHeifEncoder;
+    field private final int mInputMode;
+    field final int mMaxImages;
+    field android.media.MediaMuxer! mMuxer;
+    field final java.util.concurrent.atomic.AtomicBoolean! mMuxerStarted;
+    field int mNumTiles;
+    field int mOutputIndex;
+    field final int mPrimaryIndex;
+    field final androidx.heifwriter.HeifWriter.ResultWaiter! mResultWaiter;
+    field final int mRotation;
+    field private boolean mStarted;
+    field int[]! mTrackIndexArray;
+  }
+
+  public static final class HeifWriter.Builder {
+    ctor private HeifWriter.Builder(String!, java.io.FileDescriptor!, int, int, int);
+    field private final java.io.FileDescriptor! mFd;
+    field private boolean mGridEnabled;
+    field private android.os.Handler! mHandler;
+    field private final int mHeight;
+    field private final int mInputMode;
+    field private int mMaxImages;
+    field private final String! mPath;
+    field private int mPrimaryIndex;
+    field private int mQuality;
+    field private int mRotation;
+    field private final int mWidth;
+  }
+
+  class HeifWriter.HeifCallback extends androidx.heifwriter.HeifEncoder.Callback {
+    ctor HeifWriter.HeifCallback();
+    method public void onComplete(androidx.heifwriter.HeifEncoder);
+    method public void onDrainOutputBuffer(androidx.heifwriter.HeifEncoder, java.nio.ByteBuffer);
+    method public void onError(androidx.heifwriter.HeifEncoder, android.media.MediaCodec.CodecException);
+    method public void onOutputFormatChanged(androidx.heifwriter.HeifEncoder, android.media.MediaFormat);
+    method private void stopAndNotify(Exception?);
+    field private boolean mEncoderStopped;
+  }
+
+  @IntDef({androidx.heifwriter.HeifWriter.INPUT_MODE_BUFFER, androidx.heifwriter.HeifWriter.INPUT_MODE_SURFACE, androidx.heifwriter.HeifWriter.INPUT_MODE_BITMAP}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface HeifWriter.InputMode {
+  }
+
+  static class HeifWriter.ResultWaiter {
+    ctor HeifWriter.ResultWaiter();
+    method void signalResult(Exception?);
+    method void waitForResult(long) throws java.lang.Exception;
+    field private boolean mDone;
+    field private Exception! mException;
+  }
+
+  public class Texture2dProgram {
+    ctor public Texture2dProgram(int);
+    method public static void checkGlError(String!);
+    method public static void checkLocation(int, String!);
+    method public static int createProgram(String!, String!);
+    method public int createTextureObject();
+    method public void draw(float[]!, java.nio.FloatBuffer!, int, int, int, int, float[]!, java.nio.FloatBuffer!, int, int);
+    method public int getProgramType();
+    method public static int loadShader(int, String!);
+    method public void loadTexture(int, android.graphics.Bitmap!);
+    method public void release();
+    field private static final boolean DEBUG = false;
+    field private static final String FRAGMENT_SHADER_2D = "precision mediump float;\nvarying vec2 vTextureCoord;\nuniform sampler2D sTexture;\nvoid main() {\n    gl_FragColor = texture2D(sTexture, vTextureCoord);\n}\n";
+    field private static final String FRAGMENT_SHADER_EXT = "#extension GL_OES_EGL_image_external : require\nprecision mediump float;\nvarying vec2 vTextureCoord;\nuniform samplerExternalOES sTexture;\nvoid main() {\n    gl_FragColor = texture2D(sTexture, vTextureCoord);\n}\n";
+    field public static final float[]! IDENTITY_MATRIX;
+    field private static final String TAG = "Texture2dProgram";
+    field public static final int TEXTURE_2D = 0; // 0x0
+    field public static final int TEXTURE_EXT = 1; // 0x1
+    field private static final String VERTEX_SHADER = "uniform mat4 uMVPMatrix;\nuniform mat4 uTexMatrix;\nattribute vec4 aPosition;\nattribute vec4 aTextureCoord;\nvarying vec2 vTextureCoord;\nvoid main() {\n    gl_Position = uMVPMatrix * aPosition;\n    vTextureCoord = (uTexMatrix * aTextureCoord).xy;\n}\n";
+    field public static final float[]! V_FLIP_MATRIX;
+    field private int mProgramHandle;
+    field private int mProgramType;
+    field private int mTextureTarget;
+    field private int maPositionLoc;
+    field private int maTextureCoordLoc;
+    field private int muMVPMatrixLoc;
+    field private int muTexMatrixLoc;
+  }
+
+  @IntDef({androidx.heifwriter.Texture2dProgram.TEXTURE_2D, androidx.heifwriter.Texture2dProgram.TEXTURE_EXT}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface Texture2dProgram.ProgramType {
+  }
+
+}
+

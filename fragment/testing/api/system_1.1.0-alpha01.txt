@@ -1,0 +1,22 @@
+// Signature format: 2.0
+package androidx.fragment.app.testing {
+
+  public final class FragmentScenario<F extends androidx.fragment.app.Fragment> {
+    ctor private FragmentScenario(Class<F>, androidx.test.core.app.ActivityScenario<androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity>);
+    method private static <F extends androidx.fragment.app.Fragment> androidx.fragment.app.testing.FragmentScenario<F> internalLaunch(Class<F>, android.os.Bundle?, androidx.fragment.app.FragmentFactory?, int);
+    field private static final String FRAGMENT_TAG = "FragmentScenario_Fragment_Tag";
+    field private final androidx.test.core.app.ActivityScenario<androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity>! mActivityScenario;
+    field final Class<F>! mFragmentClass;
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static class FragmentScenario.EmptyFragmentActivity extends androidx.fragment.app.FragmentActivity {
+    ctor public FragmentScenario.EmptyFragmentActivity();
+  }
+
+  public final class FragmentScenarioKt {
+    method private static <F extends androidx.fragment.app.Fragment> androidx.fragment.app.testing.FragmentScenario<F>! launchFragment(android.os.Bundle! fragmentArgs = null, androidx.fragment.app.FragmentFactory! factory = null);
+    method private static <F extends androidx.fragment.app.Fragment> androidx.fragment.app.testing.FragmentScenario<F>! launchFragmentInContainer(android.os.Bundle! fragmentArgs = null, androidx.fragment.app.FragmentFactory! factory = null);
+  }
+
+}
+

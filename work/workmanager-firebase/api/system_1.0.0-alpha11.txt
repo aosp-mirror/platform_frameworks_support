@@ -1,0 +1,47 @@
+// Signature format: 2.0
+package @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) androidx.work.impl.background.firebase {
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseDelayedJobAlarmReceiver extends android.content.BroadcastReceiver {
+    ctor public FirebaseDelayedJobAlarmReceiver();
+    method static androidx.work.impl.background.firebase.FirebaseJobScheduler? getFirebaseJobScheduler(androidx.work.impl.WorkManagerImpl);
+    field private static final String TAG = "FirebaseAlarmReceiver";
+    field static final String WORKSPEC_ID_KEY = "WORKSPEC_ID";
+  }
+
+  class FirebaseJobConverter {
+    ctor FirebaseJobConverter(com.firebase.jobdispatcher.FirebaseJobDispatcher!);
+    method com.firebase.jobdispatcher.Job! convert(androidx.work.impl.model.WorkSpec!);
+    method private static com.firebase.jobdispatcher.ObservedUri! convertContentUriTrigger(androidx.work.ContentUriTriggers.Trigger!);
+    method @RequiresApi(24) private static com.firebase.jobdispatcher.JobTrigger.ContentUriTrigger! createContentUriTriggers(androidx.work.impl.model.WorkSpec!);
+    method private static com.firebase.jobdispatcher.JobTrigger.ExecutionWindowTrigger! createPeriodicTrigger(androidx.work.impl.model.WorkSpec!);
+    method private com.firebase.jobdispatcher.RetryStrategy! createRetryStrategy(androidx.work.impl.model.WorkSpec!);
+    method private int[]! getConstraints(androidx.work.impl.model.WorkSpec!);
+    method private void setExecutionTrigger(com.firebase.jobdispatcher.Job.Builder!, androidx.work.impl.model.WorkSpec!);
+    method private int[]! toIntArray(java.util.List<java.lang.Integer>!);
+    field static final long FIREBASE_MIN_BACKOFF_DURATION = 30000L; // 0x7530L
+    field private static final String TAG = "FirebaseJobConverter";
+    field private com.firebase.jobdispatcher.FirebaseJobDispatcher! mDispatcher;
+  }
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseJobScheduler implements androidx.work.impl.Scheduler {
+    ctor public FirebaseJobScheduler(android.content.Context);
+    method private android.app.PendingIntent! createScheduleLaterPendingIntent(androidx.work.impl.model.WorkSpec!);
+    method private void scheduleLater(androidx.work.impl.model.WorkSpec!);
+    method void scheduleNow(androidx.work.impl.model.WorkSpec!);
+    field private static final String TAG = "FirebaseJobScheduler";
+    field private android.app.AlarmManager! mAlarmManager;
+    field private final android.content.Context! mAppContext;
+    field private final com.firebase.jobdispatcher.FirebaseJobDispatcher! mDispatcher;
+    field private androidx.work.impl.utils.IdGenerator! mIdGenerator;
+    field private final androidx.work.impl.background.firebase.FirebaseJobConverter! mJobConverter;
+  }
+
+  @RestrictTo(android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class FirebaseJobService extends com.firebase.jobdispatcher.JobService implements androidx.work.impl.ExecutionListener {
+    ctor public FirebaseJobService();
+    field private static final String TAG = "FirebaseJobService";
+    field private final java.util.Map<java.lang.String,com.firebase.jobdispatcher.JobParameters>! mJobParameters;
+    field private androidx.work.impl.WorkManagerImpl! mWorkManagerImpl;
+  }
+
+}
+

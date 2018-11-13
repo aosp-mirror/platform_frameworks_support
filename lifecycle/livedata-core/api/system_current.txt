@@ -1,0 +1,47 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public abstract class LiveData<T> {
+    method static void assertMainThread(String!);
+    method private void considerNotify(androidx.lifecycle.LiveData.ObserverWrapper!);
+    method void dispatchingValue(androidx.lifecycle.LiveData.ObserverWrapper?);
+    method int getVersion();
+    field static final Object! NOT_SET;
+    field static final int START_VERSION = -1; // 0xffffffff
+    field int mActiveCount;
+    field private volatile Object! mData;
+    field final Object! mDataLock;
+    field private boolean mDispatchInvalidated;
+    field private boolean mDispatchingValue;
+    field private androidx.arch.core.internal.SafeIterableMap<androidx.lifecycle.Observer<? super T>,androidx.lifecycle.LiveData.ObserverWrapper>! mObservers;
+    field volatile Object! mPendingData;
+    field private final Runnable! mPostValueRunnable;
+    field private int mVersion;
+  }
+
+  private class LiveData.AlwaysActiveObserver extends androidx.lifecycle.LiveData.ObserverWrapper {
+    ctor LiveData.AlwaysActiveObserver(androidx.lifecycle.Observer<? super T>!);
+    method boolean shouldBeActive();
+  }
+
+  class LiveData.LifecycleBoundObserver extends androidx.lifecycle.LiveData.ObserverWrapper implements androidx.lifecycle.LifecycleEventObserver {
+    ctor LiveData.LifecycleBoundObserver(androidx.lifecycle.LifecycleOwner, androidx.lifecycle.Observer<? super T>!);
+    method void detachObserver();
+    method boolean isAttachedTo(androidx.lifecycle.LifecycleOwner!);
+    method boolean shouldBeActive();
+    field final androidx.lifecycle.LifecycleOwner mOwner;
+  }
+
+  private abstract class LiveData.ObserverWrapper {
+    ctor LiveData.ObserverWrapper(androidx.lifecycle.Observer<? super T>!);
+    method void activeStateChanged(boolean);
+    method void detachObserver();
+    method boolean isAttachedTo(androidx.lifecycle.LifecycleOwner!);
+    method abstract boolean shouldBeActive();
+    field boolean mActive;
+    field int mLastVersion;
+    field final androidx.lifecycle.Observer<? super T>! mObserver;
+  }
+
+}
+

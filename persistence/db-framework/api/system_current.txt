@@ -1,0 +1,40 @@
+// Signature format: 2.0
+package androidx.sqlite.db.framework {
+
+  class FrameworkSQLiteDatabase implements androidx.sqlite.db.SupportSQLiteDatabase {
+    ctor FrameworkSQLiteDatabase(android.database.sqlite.SQLiteDatabase!);
+    method boolean isDelegate(android.database.sqlite.SQLiteDatabase!);
+    field private static final String[]! CONFLICT_VALUES;
+    field private static final String[]! EMPTY_STRING_ARRAY;
+    field private final android.database.sqlite.SQLiteDatabase! mDelegate;
+  }
+
+  class FrameworkSQLiteOpenHelper implements androidx.sqlite.db.SupportSQLiteOpenHelper {
+    ctor FrameworkSQLiteOpenHelper(android.content.Context!, String!, androidx.sqlite.db.SupportSQLiteOpenHelper.Callback!);
+    method private androidx.sqlite.db.framework.FrameworkSQLiteOpenHelper.OpenHelper! createDelegate(android.content.Context!, String!, androidx.sqlite.db.SupportSQLiteOpenHelper.Callback!);
+    field private final androidx.sqlite.db.framework.FrameworkSQLiteOpenHelper.OpenHelper! mDelegate;
+  }
+
+  static class FrameworkSQLiteOpenHelper.OpenHelper extends android.database.sqlite.SQLiteOpenHelper {
+    ctor FrameworkSQLiteOpenHelper.OpenHelper(android.content.Context!, String!, androidx.sqlite.db.framework.FrameworkSQLiteDatabase[]!, androidx.sqlite.db.SupportSQLiteOpenHelper.Callback!);
+    method androidx.sqlite.db.SupportSQLiteDatabase! getReadableSupportDatabase();
+    method androidx.sqlite.db.framework.FrameworkSQLiteDatabase! getWrappedDb(android.database.sqlite.SQLiteDatabase!);
+    method static androidx.sqlite.db.framework.FrameworkSQLiteDatabase! getWrappedDb(androidx.sqlite.db.framework.FrameworkSQLiteDatabase[]!, android.database.sqlite.SQLiteDatabase!);
+    method androidx.sqlite.db.SupportSQLiteDatabase! getWritableSupportDatabase();
+    field final androidx.sqlite.db.SupportSQLiteOpenHelper.Callback! mCallback;
+    field final androidx.sqlite.db.framework.FrameworkSQLiteDatabase[]! mDbRef;
+    field private boolean mMigrated;
+  }
+
+  class FrameworkSQLiteProgram implements androidx.sqlite.db.SupportSQLiteProgram {
+    ctor FrameworkSQLiteProgram(android.database.sqlite.SQLiteProgram!);
+    field private final android.database.sqlite.SQLiteProgram! mDelegate;
+  }
+
+  class FrameworkSQLiteStatement extends androidx.sqlite.db.framework.FrameworkSQLiteProgram implements androidx.sqlite.db.SupportSQLiteStatement {
+    ctor FrameworkSQLiteStatement(android.database.sqlite.SQLiteStatement!);
+    field private final android.database.sqlite.SQLiteStatement! mDelegate;
+  }
+
+}
+
