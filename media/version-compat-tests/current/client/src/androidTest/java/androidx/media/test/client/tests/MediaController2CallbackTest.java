@@ -270,7 +270,7 @@ public class MediaController2CallbackTest extends MediaSession2TestBase {
                 mRemoteSession2.getToken(), true, new MediaController2.ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(MediaController2 controller,
-                            MediaItem2 item) {
+                            MediaItem2 item, int index) {
                         switch ((int) latchForControllerCallback.getCount()) {
                             case 3:
                                 // No check needed..

@@ -2402,7 +2402,7 @@ public class MediaControlView2 extends BaseLayout {
 
             @Override
             public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
-                    @NonNull MediaItem2 mediaItem) {
+                    @NonNull MediaItem2 mediaItem, int index) {
                 if (DEBUG) {
                     Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
                 }

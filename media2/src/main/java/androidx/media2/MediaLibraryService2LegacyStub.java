@@ -445,7 +445,7 @@ class MediaLibraryService2LegacyStub extends MediaSessionService2LegacyStub {
         }
 
         @Override
-        final void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
+        final void onCurrentMediaItemChanged(MediaItem2 item, int index) throws RemoteException {
             // No-op. BrowserCompat doesn't understand Controller features.
         }
 

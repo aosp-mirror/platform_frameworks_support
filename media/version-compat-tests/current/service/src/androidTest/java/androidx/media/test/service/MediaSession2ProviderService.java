@@ -368,14 +368,14 @@ public class MediaSession2ProviderService extends Service {
             switch (index) {
                 case INDEX_FOR_UNKONWN_ITEM:
                     player.notifyCurrentMediaItemChanged(
-                            new FileMediaItem2.Builder(new FileDescriptor()).build());
+                            new FileMediaItem2.Builder(new FileDescriptor()).build(), index);
                     break;
                 case INDEX_FOR_NULL_ITEM:
-                    player.notifyCurrentMediaItemChanged(null);
+                    player.notifyCurrentMediaItemChanged(null, index);
                     break;
                 default:
                     player.notifyCurrentMediaItemChanged(
-                            player.getPlaylist().get(index));
+                            player.getPlaylist().get(index), index);
                     break;
             }
         }

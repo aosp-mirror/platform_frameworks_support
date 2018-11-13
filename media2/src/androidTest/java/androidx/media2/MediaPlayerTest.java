@@ -1445,7 +1445,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer2 player, MediaItem2 item) {
+            public void onCurrentMediaItemChanged(SessionPlayer2 player, MediaItem2 item,
+                    int index) {
                 onCurrentMediaItemChangedMonitor.signal();
             }
         };
@@ -1465,7 +1466,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer2 player, MediaItem2 item) {
+            public void onCurrentMediaItemChanged(SessionPlayer2 player, MediaItem2 item,
+                    int index) {
                 onCurrentMediaItemChangedMonitor.signal();
             }
         };

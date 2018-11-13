@@ -2362,7 +2362,8 @@ public class MediaPlayer extends SessionPlayer2 {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item);
+                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item,
+                                    mCurrentShuffleIdx);
                         }
                     });
                     break;

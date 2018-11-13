@@ -863,7 +863,7 @@ class MediaController2ImplBase implements MediaController2Impl {
         }
     }
 
-    void notifyCurrentMediaItemChanged(final MediaItem2 item) {
+    void notifyCurrentMediaItemChanged(final MediaItem2 item, final int index) {
         synchronized (mLock) {
             mCurrentMediaItem = item;
         }
@@ -873,7 +873,7 @@ class MediaController2ImplBase implements MediaController2Impl {
                 if (!mInstance.isConnected()) {
                     return;
                 }
-                mCallback.onCurrentMediaItemChanged(mInstance, item);
+                mCallback.onCurrentMediaItemChanged(mInstance, item, index);
             }
         });
 
