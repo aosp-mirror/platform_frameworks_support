@@ -55,12 +55,15 @@ import androidx.annotation.StringRes;
 import androidx.core.app.SharedElementCallback;
 import androidx.core.util.DebugUtils;
 import androidx.core.view.LayoutInflaterCompat;
+import androidx.lifecycle.BundleSavedStateRegistry;
+import androidx.lifecycle.BundleSavedStateRegistryOwner;
 import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateRegistry;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
@@ -86,7 +89,7 @@ import java.util.UUID;
  *
  */
 public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener, LifecycleOwner,
-        ViewModelStoreOwner {
+        ViewModelStoreOwner, BundleSavedStateRegistryOwner {
 
     static final Object USE_DEFAULT_TRANSITION = new Object();
 
@@ -245,6 +248,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     LifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
+    BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+
     @Override
     @NonNull
     public Lifecycle getLifecycle() {
@@ -321,6 +326,12 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new IllegalStateException("Can't access ViewModels from detached fragment");
         }
         return mFragmentManager.getViewModelStore(this);
+    }
+
+    @NonNull
+    @Override
+    public SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
+        return mSavedStateRegistry;
     }
 
     /**
@@ -1504,6 +1515,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
+        mSavedStateRegistry.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
         if (mChildFragmentManager != null
                 && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
@@ -2625,6 +2637,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
+        mSavedStateRegistry.performSave(outState);
         if (mChildFragmentManager != null) {
             Parcelable p = mChildFragmentManager.saveAllState();
             if (p != null) {
