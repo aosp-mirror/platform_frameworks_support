@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a98da13_d679674a",
+        "filename": "lifecycle/viewmodel-fragment/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-13T01:34:28Z",
+      "side": 1,
+      "message": "is this conflicting?",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "dbfbe7218366263ad23974d3b8e8cb22d553f40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
