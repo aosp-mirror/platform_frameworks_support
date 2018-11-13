@@ -1033,6 +1033,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
 
         @Override
         public void onSessionEvent(final String event, final Bundle extras) {
+            synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
+            }
             mCallbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -1052,6 +1057,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             final SessionCommandGroup2 prevAllowedCommands;
             final SessionCommandGroup2 currentAllowedCommands;
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 prevItem = mCurrentMediaItem;
                 prevState = mPlaybackStateCompat;
                 mPlaybackStateCompat = state;
@@ -1187,6 +1195,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             final MediaItem2 prevItem;
             final MediaItem2 currentItem;
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 prevItem = mCurrentMediaItem;
                 setCurrentMediaItemLocked(metadata);
                 currentItem = mCurrentMediaItem;
@@ -1206,6 +1217,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
             final List<MediaItem2> playlist;
             final MediaMetadata2 playlistMetadata;
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 mQueue = MediaUtils2.removeNullElements(queue);
                 if (mQueue == null || mQueue.size() == 0) {
                     // MediaSessionCompat can set queue as null or empty. However, SessionPlayer2
@@ -1231,6 +1245,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         public void onQueueTitleChanged(CharSequence title) {
             final MediaMetadata2 playlistMetadata;
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 mPlaylistMetadata = MediaUtils2.convertToMediaMetadata2(title);
                 playlistMetadata = mPlaylistMetadata;
             }
@@ -1244,6 +1261,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
 
         @Override
         public void onExtrasChanged(final Bundle extras) {
+            synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
+            }
             mCallbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -1255,6 +1277,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
 
         @Override
         public void onAudioInfoChanged(final MediaControllerCompat.PlaybackInfo info) {
+            synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
+            }
             mCallbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -1265,6 +1292,11 @@ class MediaController2ImplLegacy implements MediaController2Impl {
 
         @Override
         public void onCaptioningEnabledChanged(final boolean enabled) {
+            synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
+            }
             mCallbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -1277,6 +1309,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         @Override
         public void onRepeatModeChanged(@PlaybackStateCompat.RepeatMode final int repeatMode) {
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 mRepeatMode = repeatMode;
             }
             mCallbackExecutor.execute(new Runnable() {
@@ -1290,6 +1325,9 @@ class MediaController2ImplLegacy implements MediaController2Impl {
         @Override
         public void onShuffleModeChanged(@PlaybackStateCompat.ShuffleMode final int shuffleMode) {
             synchronized (mLock) {
+                if (mIsReleased) {
+                    return;
+                }
                 mShuffleMode = shuffleMode;
             }
             mCallbackExecutor.execute(new Runnable() {
