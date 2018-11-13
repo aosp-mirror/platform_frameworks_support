@@ -40,7 +40,7 @@ import java.lang.reflect.Method;
  */
 @TargetApi(Build.VERSION_CODES.KITKAT)
 @RestrictTo(LIBRARY_GROUP)
-@SuppressLint("RestrictedApi") // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
+@SuppressLint("RestrictedApi")  // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
 /* package */ final class FileDescriptorUtil {
 
     /**
