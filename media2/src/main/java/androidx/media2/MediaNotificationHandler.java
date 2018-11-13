@@ -24,6 +24,7 @@ import static android.support.v4.media.session.PlaybackStateCompat.ACTION_STOP;
 
 import static androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -51,6 +52,7 @@ import java.util.List;
  */
 @VisibleForTesting(otherwise = PACKAGE_PRIVATE)
 @RestrictTo(RestrictTo.Scope.LIBRARY)
+@SuppressLint("ObsoleteSdkInt") // TODO: Remove once the minSdkVersion is lowered enough.
 public class MediaNotificationHandler extends
         MediaSession2.SessionCallback.ForegroundServiceEventCallback {
     private static final int NOTIFICATION_ID = 1001;

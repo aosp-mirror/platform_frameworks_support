@@ -16,6 +16,7 @@
 
 package androidx.media.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -31,6 +32,7 @@ import androidx.annotation.StyleRes;
 
 import java.util.ArrayList;
 
+@SuppressLint("ObsoleteSdkInt") // TODO: Remove once the minSdkVersion is lowered enough.
 class BaseLayout extends ViewGroup {
     private final ArrayList<View> mMatchParentChildren = new ArrayList<>(1);
 
