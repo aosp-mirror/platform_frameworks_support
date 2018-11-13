@@ -33,6 +33,12 @@ dependencies {
     annotationProcessor(project(":versionedparcelable-annotation"))
 }
 
+android {
+    defaultConfig {
+        minSdkVersion 28
+    }
+}
+
 supportLibrary {
     name = "AndroidX media2 library"
     publish = true

@@ -20,13 +20,12 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":media"))
     implementation(project(":media-widget"))
     implementation(project(":core"))
 }
 
 android {
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 28
     }
 }

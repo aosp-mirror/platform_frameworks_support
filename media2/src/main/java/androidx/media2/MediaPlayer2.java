@@ -19,6 +19,7 @@ package androidx.media2;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -226,6 +227,7 @@ import java.util.concurrent.Executor;
  */
 @TargetApi(Build.VERSION_CODES.KITKAT)
 @RestrictTo(LIBRARY)
+@SuppressLint("ObsoleteSdkInt") // TODO: Remove once the minSdkVersion is lowered enough.
 public abstract class MediaPlayer2 {
 
     /**
