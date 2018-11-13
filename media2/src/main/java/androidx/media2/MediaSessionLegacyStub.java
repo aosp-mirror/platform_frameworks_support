@@ -23,6 +23,7 @@ import static androidx.media2.MediaUtils2.TRANSACTION_SIZE_LIMIT_IN_BYTES;
 import static androidx.media2.SessionCommand2.COMMAND_CODE_CUSTOM;
 import static androidx.media2.SessionCommand2.COMMAND_VERSION_CURRENT;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -58,6 +59,7 @@ import java.util.List;
 import java.util.Set;
 
 // Getting the commands from MediaControllerCompat'
+@SuppressLint("ObsoleteSdkInt") // TODO: Remove once the minSdkVersion is lowered enough.
 class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     private static final String TAG = "MediaSessionLegacyStub";

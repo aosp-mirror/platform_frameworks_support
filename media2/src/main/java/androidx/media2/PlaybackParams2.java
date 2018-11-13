@@ -18,6 +18,7 @@ package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.media.AudioTrack;
 import android.media.PlaybackParams;
 import android.os.Build;
@@ -62,6 +63,7 @@ import java.lang.annotation.RetentionPolicy;
  * similar to {@link AudioTrack#setPlaybackRate(int)}.</li>
  * </ul>
  */
+@SuppressLint("ObsoleteSdkInt") // TODO: Remove once the minSdkVersion is lowered enough.
 public final class PlaybackParams2 {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)

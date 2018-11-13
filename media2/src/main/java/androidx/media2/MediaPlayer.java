@@ -600,7 +600,8 @@ public class MediaPlayer extends SessionPlayer2 {
 
         abstract List<ResolvableFuture<V>> onExecute();
 
-        private void cancelFutures() {
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        void cancelFutures() {
             for (ResolvableFuture<V> future : mFutures) {
                 if (!future.isCancelled() && !future.isDone()) {
                     future.cancel(true);
