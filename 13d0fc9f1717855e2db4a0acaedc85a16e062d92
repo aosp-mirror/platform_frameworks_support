@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "160755c2_2a0cd48c",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2ImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T05:08:40Z",
+      "side": 1,
+      "message": "If the controller2 gets the allowed commands from PlaybackStateCompat.CustomAction, I guess that the controller2 users can call MediaController2.sendCustomCommand() with those commands, which will eventually call MediaControllerCompat.sendCustomCommand() (As seen in L589).\n\nHowever, actually the PlaybackStateCompat.CustomAction is expected to be sent through MediaControllerCompat.TransportControls.sendCustomAction(), not sendCustomCommand. Therefore the session may not be prepared for those custom actions in onCustomCommand().\n\nI think we need to distinguish the two:\n1) \u0027Real\u0027 custom commands -\u003e Should be sent through MediaControllerCompat.sendCommand()\n2) Custom commands made from PlaybackState.CustomAction -\u003e MediaControllerCompat.TransportControls.sendCustomAction()",
+      "range": {
+        "startLine": 575,
+        "startChar": 4,
+        "endLine": 576,
+        "endChar": 36
+      },
+      "revId": "13d0fc9f1717855e2db4a0acaedc85a16e062d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
