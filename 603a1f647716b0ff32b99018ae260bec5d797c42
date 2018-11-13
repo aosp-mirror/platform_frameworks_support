@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79e28127_0841586b",
+        "filename": "localbroadcastmanager/src/main/java/androidx/localbroadcastmanager/content/LocalBroadcastManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-13T23:31:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2643b9fb_fd02ce7f",
+      "revId": "603a1f647716b0ff32b99018ae260bec5d797c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03d16bbf_13e62c2b",
         "filename": "localbroadcastmanager/src/main/java/androidx/localbroadcastmanager/content/LocalBroadcastManager.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-13T19:51:03Z",
       "side": 1,
       "message": "Leading underscores?!? Weird!",
+      "revId": "603a1f647716b0ff32b99018ae260bec5d797c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b6d4ee_90d21f50",
+        "filename": "localbroadcastmanager/src/main/java/androidx/localbroadcastmanager/content/LocalBroadcastManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-13T23:31:48Z",
+      "side": 1,
+      "message": "let it burn (っ▀¯▀)つ",
+      "parentUuid": "03d16bbf_13e62c2b",
       "revId": "603a1f647716b0ff32b99018ae260bec5d797c42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
