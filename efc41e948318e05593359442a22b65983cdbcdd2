@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6e75904_d82890fb",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-13T20:36:34Z",
+      "side": 1,
+      "message": "You don\u0027t seem to be using espresso?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 71
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca299833_b98abbef",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-13T20:36:34Z",
+      "side": 1,
+      "message": "You don\u0027t need any of these.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 1
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c1d615_73ad96e8",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-13T20:36:34Z",
+      "side": 1,
+      "message": "Remove these. We should not allow adding new warnings to this library.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
