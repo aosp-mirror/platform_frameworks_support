@@ -1,0 +1,15 @@
+// Signature format: 2.0
+package androidx.browser.browseractions {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class BrowserActionsFallbackMenuView extends android.widget.LinearLayout {
+    ctor public BrowserActionsFallbackMenuView(android.content.Context!, android.util.AttributeSet!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.browser.browseractions.BrowserActionsIntent.ITEM_INVALID_ITEM, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_NEW_TAB, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_INCOGNITO, androidx.browser.browseractions.BrowserActionsIntent.ITEM_DOWNLOAD, androidx.browser.browseractions.BrowserActionsIntent.ITEM_COPY, androidx.browser.browseractions.BrowserActionsIntent.ITEM_SHARE}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsItemId {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_NONE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_IMAGE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_VIDEO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_AUDIO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_FILE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_PLUGIN}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsUrlType {
+  }
+
+}
+
