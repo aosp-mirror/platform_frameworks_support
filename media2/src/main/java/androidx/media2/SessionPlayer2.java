@@ -479,10 +479,10 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      * Skips to the previous item in the playlist.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)} when it's
      * completed.
      *
-     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)
      */
     public abstract @NonNull ListenableFuture<PlayerResult> skipToPreviousPlaylistItem();
 
@@ -490,10 +490,10 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      * Skips to the next item in the playlist.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)} when it's
      * completed.
      *
-     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)
      */
     public abstract @NonNull ListenableFuture<PlayerResult> skipToNextPlaylistItem();
 
@@ -501,11 +501,11 @@ public abstract class SessionPlayer2 implements AutoCloseable {
      * Skips to the the media item.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)} when it's
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)} when it's
      * completed.
      *
      * @param item media item to start playing from
-     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2)
+     * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer2, MediaItem2, int)
      */
     public abstract @NonNull ListenableFuture<PlayerResult> skipToPlaylistItem(
             @NonNull MediaItem2 item);
@@ -771,10 +771,11 @@ public abstract class SessionPlayer2 implements AutoCloseable {
          *
          * @param player the player whose media item changed.
          * @param item the new current media item.
+         * @param index the index of item in list, or -1 if list doesn't exist.
          * @see #getCurrentMediaItem()
          */
         public void onCurrentMediaItemChanged(@NonNull SessionPlayer2 player,
-                @NonNull MediaItem2 item) {
+                @NonNull MediaItem2 item, int index) {
         }
 
         /**

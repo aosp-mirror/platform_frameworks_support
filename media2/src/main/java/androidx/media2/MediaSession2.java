@@ -1127,7 +1127,8 @@ public class MediaSession2 implements AutoCloseable {
                 @BuffState int bufferingState, long bufferedPositionMs) throws RemoteException;
         abstract void onSeekCompleted(long eventTimeMs, long positionMs, long position)
                 throws RemoteException;
-        abstract void onCurrentMediaItemChanged(@Nullable MediaItem2 item) throws RemoteException;
+        abstract void onCurrentMediaItemChanged(@Nullable MediaItem2 item, int index)
+                throws RemoteException;
         abstract void onPlaylistChanged(@NonNull List<MediaItem2> playlist,
                 @Nullable MediaMetadata2 metadata) throws RemoteException;
         abstract void onPlaylistMetadataChanged(@Nullable MediaMetadata2 metadata)

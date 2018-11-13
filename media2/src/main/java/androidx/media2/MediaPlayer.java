@@ -600,7 +600,7 @@ public class MediaPlayer extends SessionPlayer2 {
 
         abstract List<ResolvableFuture<V>> onExecute();
 
-        private void cancelFutures() {
+        void cancelFutures() {
             for (ResolvableFuture<V> future : mFutures) {
                 if (!future.isCancelled() && !future.isDone()) {
                     future.cancel(true);
@@ -2362,7 +2362,8 @@ public class MediaPlayer extends SessionPlayer2 {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item);
+                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item,
+                                    mCurrentShuffleIdx);
                         }
                     });
                     break;
