@@ -548,11 +548,6 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
         // Overrides DynamicGroupRouteController
 
         @Override
-        public String getDynamicGroupRouteId() {
-            return mRouteId;
-        }
-
-        @Override
         public String getGroupableSelectionTitle() {
             return mGroupableSectionTitle;
         }
