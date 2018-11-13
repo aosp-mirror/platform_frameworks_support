@@ -1,0 +1,13 @@
+// Signature format: 2.0
+package androidx.fragment.app.testing {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static class FragmentScenario.EmptyFragmentActivity extends androidx.fragment.app.FragmentActivity {
+    ctor public FragmentScenario.EmptyFragmentActivity();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static class FragmentScenario.FragmentFactoryHolderViewModel extends androidx.lifecycle.ViewModel {
+    ctor public FragmentScenario.FragmentFactoryHolderViewModel();
+  }
+
+}
+
