@@ -643,7 +643,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
+        void onCurrentMediaItemChanged(MediaItem2 item, int index) throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
@@ -770,7 +770,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
+        void onCurrentMediaItemChanged(MediaItem2 item, int index) throws RemoteException {
             mSessionImpl.getSessionCompat().setMetadata(item == null ? null
                     : MediaUtils2.convertToMediaMetadataCompat(item.getMetadata()));
         }

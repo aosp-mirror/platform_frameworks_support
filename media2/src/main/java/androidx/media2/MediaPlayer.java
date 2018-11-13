@@ -600,7 +600,7 @@ public class MediaPlayer extends SessionPlayer2 {
 
         abstract List<ResolvableFuture<V>> onExecute();
 
-        private void cancelFutures() {
+        void cancelFutures() {
             for (ResolvableFuture<V> future : mFutures) {
                 if (!future.isCancelled() && !future.isDone()) {
                     future.cancel(true);
@@ -2358,11 +2358,13 @@ public class MediaPlayer extends SessionPlayer2 {
                     });
                     break;
                 case MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE:
+                    final int index = getCurrentMediaItemIndex();
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
                                 SessionPlayer2.PlayerCallback callback) {
-                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item);
+                            callback.onCurrentMediaItemChanged(MediaPlayer.this, item,
+                                    index);
                         }
                     });
                     break;
@@ -2418,6 +2420,15 @@ public class MediaPlayer extends SessionPlayer2 {
                 }
                 f.execute();
             }
+        }
+    }
+
+    private int getCurrentMediaItemIndex() {
+        synchronized (mPlaylistLock) {
+            if (mCurrentShuffleIdx < 0) {
+                return END_OF_PLAYLIST;
+            }
+            return mPlaylist.indexOf(mShuffledList.get(mCurrentShuffleIdx));
         }
     }
 

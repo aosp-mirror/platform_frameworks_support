@@ -185,14 +185,14 @@ public class MockPlayer extends SessionPlayer2 {
         }
     }
 
-    public void notifyCurrentMediaItemChanged(final MediaItem2 item) {
+    public void notifyCurrentMediaItemChanged(final MediaItem2 item, final int index) {
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;
             pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onCurrentMediaItemChanged(MockPlayer.this, item);
+                    callback.onCurrentMediaItemChanged(MockPlayer.this, item, index);
                 }
             });
         }

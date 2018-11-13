@@ -305,7 +305,7 @@ public class MediaControlView2Test {
                 createController(new MediaController2.ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
-                            @Nullable MediaItem2 item) {
+                            @Nullable MediaItem2 item, int index) {
                         if (item != null) {
                             MediaMetadata2 metadata = item.getMetadata();
                             if (metadata != null) {
@@ -356,7 +356,7 @@ public class MediaControlView2Test {
                 createController(new MediaController2.ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(@NonNull MediaController2 controller,
-                            @Nullable MediaItem2 item) {
+                            @Nullable MediaItem2 item, int index) {
                         if (item != null) {
                             MediaMetadata2 metadata = item.getMetadata();
                             if (metadata != null) {
