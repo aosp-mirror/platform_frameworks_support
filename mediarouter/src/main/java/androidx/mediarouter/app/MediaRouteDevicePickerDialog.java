@@ -260,14 +260,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
         @Override
         public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
-            // When selecting dynamic route, dynamic group route of selecting route is created at
-            // this point. So, the dialog can finally be dismissed.
-            if (mIsSelectingDynamicRoute && mRouter.getSelectedRoute() == info) {
-                mIsSelectingDynamicRoute = false;
-                dismiss();
-            } else {
-                refreshRoutes();
-            }
+            refreshRoutes();
         }
 
         @Override
@@ -277,7 +270,14 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
         @Override
         public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo info) {
-            refreshRoutes();
+            // When selecting dynamic route, dynamic group route of selecting route is created at
+            // this point. So, the dialog can finally be dismissed.
+            if (mIsSelectingDynamicRoute && mRouter.getSelectedRoute() == info) {
+                mIsSelectingDynamicRoute = false;
+                dismiss();
+            } else {
+                refreshRoutes();
+            }
         }
 
         @Override
@@ -404,7 +404,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             }
 
             // Otherwise, make the best guess based on other route information.
-            if (route instanceof MediaRouter.RouteGroup) {
+            if (route.isGroup()) {
                 // Only speakers can be grouped for now.
                 return mSpeakerGroupIcon;
             }
@@ -490,7 +490,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                 mItemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (route instanceof MediaRouter.DynamicGroupInfo) {
+                        if (route.isDynamicGroup()) {
                             mIsSelectingDynamicRoute = true;
                         }
                         route.select();
