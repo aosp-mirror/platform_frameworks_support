@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2643b9fb_fd02ce7f",
+        "filename": "localbroadcastmanager/src/main/java/androidx/localbroadcastmanager/content/LocalBroadcastManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-11-13T19:51:03Z",
+      "side": 1,
+      "message": "Maybe: global -\u003e application-wide",
+      "revId": "603a1f647716b0ff32b99018ae260bec5d797c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03d16bbf_13e62c2b",
+        "filename": "localbroadcastmanager/src/main/java/androidx/localbroadcastmanager/content/LocalBroadcastManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2018-11-13T19:51:03Z",
+      "side": 1,
+      "message": "Leading underscores?!? Weird!",
+      "revId": "603a1f647716b0ff32b99018ae260bec5d797c42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
