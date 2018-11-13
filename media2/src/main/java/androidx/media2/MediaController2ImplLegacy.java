@@ -1110,7 +1110,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 mCallbackExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.onCurrentMediaItemChanged(mInstance, currentItem);
+                        mCallback.onCurrentMediaItemChanged(mInstance, currentItem,
+                                mCurrentMediaItemIndex);
                     }
                 });
             }
@@ -1189,7 +1190,8 @@ class MediaController2ImplLegacy implements MediaController2Impl {
                 mCallbackExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.onCurrentMediaItemChanged(mInstance, currentItem);
+                        mCallback.onCurrentMediaItemChanged(mInstance, currentItem,
+                                mCurrentMediaItemIndex);
                     }
                 });
             }

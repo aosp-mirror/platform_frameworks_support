@@ -96,7 +96,7 @@ class MediaController2Stub extends IMediaController2.Stub {
     }
 
     @Override
-    public void onCurrentMediaItemChanged(ParcelImpl item) {
+    public void onCurrentMediaItemChanged(ParcelImpl item, int index) {
         if (item == null) {
             return;
         }
@@ -109,7 +109,8 @@ class MediaController2Stub extends IMediaController2.Stub {
                 Log.w(TAG, "Don't fail silently here. Highly likely a bug");
                 return;
             }
-            controller.notifyCurrentMediaItemChanged((MediaItem2) MediaUtils2.fromParcelable(item));
+            controller.notifyCurrentMediaItemChanged((MediaItem2) MediaUtils2.fromParcelable(item),
+                    index);
         } finally {
             Binder.restoreCallingIdentity(token);
         }

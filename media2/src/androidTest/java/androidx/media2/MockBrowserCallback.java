@@ -140,8 +140,8 @@ public class MockBrowserCallback extends BrowserCallback
     }
 
     @Override
-    public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item) {
-        mCallbackProxy.onCurrentMediaItemChanged(controller, item);
+    public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item, int index) {
+        mCallbackProxy.onCurrentMediaItemChanged(controller, item, index);
     }
 
     @Override

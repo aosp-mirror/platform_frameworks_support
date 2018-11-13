@@ -31,7 +31,7 @@ import androidx.versionedparcelable.ParcelImpl;
  * @hide
  */
 oneway interface IMediaController2 {
-    void onCurrentMediaItemChanged(in ParcelImpl item) = 0;
+    void onCurrentMediaItemChanged(in ParcelImpl item, int index) = 0;
     void onPlayerStateChanged(long eventTimeMs, long positionMs, int state) = 1;
     void onPlaybackSpeedChanged(long eventTimeMs, long positionMs, float speed) = 2;
     void onBufferingStateChanged(in ParcelImpl item, int state, long bufferedPositionMs) = 3;

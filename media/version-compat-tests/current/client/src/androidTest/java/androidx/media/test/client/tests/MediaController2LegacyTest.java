@@ -273,7 +273,8 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item) {
+            public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item,
+                    int index) {
                 MediaTestUtils.assertMediaItemHasId(item, testMediaId);
                 latch.countDown();
             }
@@ -305,7 +306,8 @@ public class MediaController2LegacyTest extends MediaSession2TestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item) {
+            public void onCurrentMediaItemChanged(MediaController2 controller, MediaItem2 item,
+                    int index) {
                 MediaTestUtils.assertMediaIdEquals(testList.get(newItemIndex), item);
                 latch.countDown();
             }
