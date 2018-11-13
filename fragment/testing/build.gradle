@@ -54,4 +54,5 @@ supportLibrary {
     inceptionYear = "2018"
     description = "Extensions for testing 'fragment' artifact"
     useMetalava = true
+    checkReleasedRestrictedAPIs = false
 }

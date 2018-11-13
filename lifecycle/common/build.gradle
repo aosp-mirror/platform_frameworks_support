@@ -39,4 +39,5 @@ supportLibrary {
     inceptionYear = "2017"
     description = "Android Lifecycle-Common"
     url = SupportLibraryExtension.ARCHITECTURE_URL
+    checkReleasedRestrictedAPIs = false
 }
