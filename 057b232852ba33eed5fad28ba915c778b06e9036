@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a808616_5cf2e654",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-13T07:24:32Z",
+      "side": 1,
+      "message": "not set",
+      "range": {
+        "startLine": 1262,
+        "startChar": 86,
+        "endLine": 1262,
+        "endChar": 90
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77985c2_0cee2bdd",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2366,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-13T07:24:32Z",
+      "side": 1,
+      "message": "This is not the index of playlist.",
+      "range": {
+        "startLine": 2366,
+        "startChar": 36,
+        "endLine": 2366,
+        "endChar": 54
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
