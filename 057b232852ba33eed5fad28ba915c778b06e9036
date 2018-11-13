@@ -2,6 +2,161 @@
   "comments": [
     {
       "key": {
+        "uuid": "c7ab544c_3687943e",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "Don\u0027t we need the index here too?",
+      "range": {
+        "startLine": 143,
+        "startChar": 23,
+        "endLine": 143,
+        "endChar": 153
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb79558_14f6c493",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "testIndex?",
+      "range": {
+        "startLine": 616,
+        "startChar": 18,
+        "endLine": 616,
+        "endChar": 23
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7df0f64_1e107c10",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "given index should be checked. (assertEquals(testIndex, index))",
+      "range": {
+        "startLine": 626,
+        "startChar": 28,
+        "endLine": 632,
+        "endChar": 35
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8183df3e_8e6e1ecc",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "What index do we expect for player in following cases?\n1) The item is not in the list (L640)\n2) The item is null (L645)\n\nWe may need to document the behavior somewhere in SessionPlayer.",
+      "range": {
+        "startLine": 640,
+        "startChar": 8,
+        "endLine": 646,
+        "endChar": 0
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f7dae7_5b2f21d4",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaController2Test.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "ditto, need to check the index",
+      "range": {
+        "startLine": 1556,
+        "startChar": 24,
+        "endLine": 1564,
+        "endChar": 92
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "701074dd_898f17a5",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "ditto (need to check index)",
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d177be5_938ccd62",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "ditto (need to check index)",
+      "range": {
+        "startLine": 1470,
+        "startChar": 14,
+        "endLine": 1470,
+        "endChar": 32
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a808616_5cf2e654",
         "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
         "patchSetId": 4
@@ -49,6 +204,29 @@
     },
     {
       "key": {
+        "uuid": "433c38b1_5b682177",
+        "filename": "media2/src/main/java/androidx/media2/MediaController2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "What does happen if the current media item is not in the playlist?",
+      "range": {
+        "startLine": 1262,
+        "startChar": 24,
+        "endLine": 1262,
+        "endChar": 63
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a77985c2_0cee2bdd",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 4
@@ -93,6 +271,29 @@
       "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "275b87c3_c6cb61da",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession2ImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "I\u0027m not sure that callback holding an info is a good practice.\nShouldn\u0027t the index be stored either session or player?\n\nAlso, this method is called when player is changed (updatePlayer()).\nThen I think the mCurrentItemIndex has invalid value since the player is changed.",
+      "range": {
+        "startLine": 940,
+        "startChar": 29,
+        "endLine": 940,
+        "endChar": 87
+      },
+      "revId": "057b232852ba33eed5fad28ba915c778b06e9036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

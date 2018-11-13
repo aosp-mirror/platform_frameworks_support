@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db9a06ca_c25b43a5",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2367,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-13T08:39:04Z",
+      "side": 1,
+      "message": "Since we are changing MediaPlayer, I think we need to add tests in MediaPlayerTest too.",
+      "range": {
+        "startLine": 2366,
+        "startChar": 27,
+        "endLine": 2367,
+        "endChar": 43
+      },
+      "revId": "6a4f58e0c2b9e91ff91938774b2609a0bdf40c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
