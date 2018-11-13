@@ -240,7 +240,6 @@ package androidx.mediarouter.media {
 
   public abstract static class MediaRouteProvider.DynamicGroupRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController {
     ctor public MediaRouteProvider.DynamicGroupRouteController();
-    method public abstract String getDynamicGroupRouteId();
     method public String? getGroupableSelectionTitle();
     method public String? getTransferableSectionTitle();
     method public abstract void onAddMemberRoute(String);
@@ -407,6 +406,7 @@ package androidx.mediarouter.media {
     method public android.os.Bundle? getExtras();
     method public android.net.Uri! getIconUri();
     method public String getId();
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>! getMemberRoutes();
     method public String! getName();
     method public int getPlaybackStream();
     method public int getPlaybackType();
