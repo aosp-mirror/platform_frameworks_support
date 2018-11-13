@@ -1,0 +1,122 @@
+// Signature format: 2.0
+package androidx.textclassifier {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final class MainThreadExecutor implements java.util.concurrent.Executor {
+    ctor public MainThreadExecutor();
+    method public void execute(Runnable);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(android.os.Build.VERSION_CODES.O) public class PlatformTextClassifierWrapper extends androidx.textclassifier.TextClassifier {
+    method public static androidx.textclassifier.PlatformTextClassifierWrapper create(android.content.Context);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final class SelectionEvent {
+    method public static androidx.textclassifier.SelectionEvent createFromBundle(android.os.Bundle);
+    method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, @androidx.textclassifier.SelectionEvent.ActionType int);
+    method public static androidx.textclassifier.SelectionEvent createSelectionActionEvent(int, int, @androidx.textclassifier.SelectionEvent.ActionType int, androidx.textclassifier.TextClassification);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int, androidx.textclassifier.TextClassification);
+    method public static androidx.textclassifier.SelectionEvent createSelectionModifiedEvent(int, int, androidx.textclassifier.TextSelection);
+    method public static androidx.textclassifier.SelectionEvent createSelectionStartedEvent(@androidx.textclassifier.SelectionEvent.InvocationMethod int, int);
+    method public long getDurationSincePreviousEvent();
+    method public long getDurationSinceSessionStart();
+    method public int getEnd();
+    method public String getEntityType();
+    method public int getEventIndex();
+    method public long getEventTime();
+    method @androidx.textclassifier.SelectionEvent.EventType public int getEventType();
+    method @androidx.textclassifier.SelectionEvent.InvocationMethod public int getInvocationMethod();
+    method public String getPackageName();
+    method public String? getResultId();
+    method public androidx.textclassifier.TextClassificationSessionId? getSessionId();
+    method public int getSmartEnd();
+    method public int getSmartStart();
+    method public int getStart();
+    method public String getWidgetType();
+    method public String? getWidgetVersion();
+    method public static boolean isTerminal(@androidx.textclassifier.SelectionEvent.EventType int);
+    method public android.os.Bundle toBundle();
+    field public static final int ACTION_ABANDON = 107; // 0x6b
+    field public static final int ACTION_COPY = 101; // 0x65
+    field public static final int ACTION_CUT = 103; // 0x67
+    field public static final int ACTION_DRAG = 106; // 0x6a
+    field public static final int ACTION_OTHER = 108; // 0x6c
+    field public static final int ACTION_OVERTYPE = 100; // 0x64
+    field public static final int ACTION_PASTE = 102; // 0x66
+    field public static final int ACTION_RESET = 201; // 0xc9
+    field public static final int ACTION_SELECT_ALL = 200; // 0xc8
+    field public static final int ACTION_SHARE = 104; // 0x68
+    field public static final int ACTION_SMART_SHARE = 105; // 0x69
+    field public static final int EVENT_AUTO_SELECTION = 5; // 0x5
+    field public static final int EVENT_SELECTION_MODIFIED = 2; // 0x2
+    field public static final int EVENT_SELECTION_STARTED = 1; // 0x1
+    field public static final int EVENT_SMART_SELECTION_MULTI = 4; // 0x4
+    field public static final int EVENT_SMART_SELECTION_SINGLE = 3; // 0x3
+    field public static final int INVOCATION_LINK = 2; // 0x2
+    field public static final int INVOCATION_MANUAL = 1; // 0x1
+    field public static final int INVOCATION_UNKNOWN = 0; // 0x0
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.ACTION_OVERTYPE, androidx.textclassifier.SelectionEvent.ACTION_COPY, androidx.textclassifier.SelectionEvent.ACTION_PASTE, androidx.textclassifier.SelectionEvent.ACTION_CUT, androidx.textclassifier.SelectionEvent.ACTION_SHARE, androidx.textclassifier.SelectionEvent.ACTION_SMART_SHARE, androidx.textclassifier.SelectionEvent.ACTION_DRAG, androidx.textclassifier.SelectionEvent.ACTION_ABANDON, androidx.textclassifier.SelectionEvent.ACTION_OTHER, androidx.textclassifier.SelectionEvent.ACTION_SELECT_ALL, androidx.textclassifier.SelectionEvent.ACTION_RESET}) public static @interface SelectionEvent.ActionType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.ACTION_OVERTYPE, androidx.textclassifier.SelectionEvent.ACTION_COPY, androidx.textclassifier.SelectionEvent.ACTION_PASTE, androidx.textclassifier.SelectionEvent.ACTION_CUT, androidx.textclassifier.SelectionEvent.ACTION_SHARE, androidx.textclassifier.SelectionEvent.ACTION_SMART_SHARE, androidx.textclassifier.SelectionEvent.ACTION_DRAG, androidx.textclassifier.SelectionEvent.ACTION_ABANDON, androidx.textclassifier.SelectionEvent.ACTION_OTHER, androidx.textclassifier.SelectionEvent.ACTION_SELECT_ALL, androidx.textclassifier.SelectionEvent.ACTION_RESET, androidx.textclassifier.SelectionEvent.EVENT_SELECTION_STARTED, androidx.textclassifier.SelectionEvent.EVENT_SELECTION_MODIFIED, androidx.textclassifier.SelectionEvent.EVENT_SMART_SELECTION_SINGLE, androidx.textclassifier.SelectionEvent.EVENT_SMART_SELECTION_MULTI, androidx.textclassifier.SelectionEvent.EVENT_AUTO_SELECTION}) public static @interface SelectionEvent.EventType {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.SelectionEvent.INVOCATION_MANUAL, androidx.textclassifier.SelectionEvent.INVOCATION_LINK, androidx.textclassifier.SelectionEvent.INVOCATION_UNKNOWN}) public static @interface SelectionEvent.InvocationMethod {
+  }
+
+  public final class TextClassificationSessionId {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public TextClassificationSessionId();
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public TextClassificationSessionId(String);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public String flattenToString();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static androidx.textclassifier.TextClassificationSessionId unflattenFromString(String);
+  }
+
+  public abstract class TextClassifier {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @WorkerThread public void onSelectionEvent(androidx.textclassifier.SelectionEvent);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public final void reportSelectionEvent(androidx.textclassifier.SelectionEvent);
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public static final String DEFAULT_LOG_TAG = "androidx_tc";
+  }
+
+  public static final class TextClassifier.EntityConfig {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @RequiresApi(28) public android.view.textclassifier.TextClassifier.EntityConfig toPlatform();
+  }
+
+  public final class TextLinks {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public CharSequence getText();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.TextLinks.APPLY_STRATEGY_IGNORE, androidx.textclassifier.TextLinks.APPLY_STRATEGY_REPLACE}) public static @interface TextLinks.ApplyStrategy {
+  }
+
+  public static final class TextLinks.Builder {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public androidx.textclassifier.TextLinks.Builder addLink(int, int, java.util.Map<java.lang.String,java.lang.Float>, android.text.style.URLSpan?);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.textclassifier.TextLinks.STATUS_UNKNOWN, androidx.textclassifier.TextLinks.STATUS_LINKS_APPLIED, androidx.textclassifier.TextLinks.STATUS_NO_LINKS_FOUND, androidx.textclassifier.TextLinks.STATUS_NO_LINKS_APPLIED, androidx.textclassifier.TextLinks.STATUS_DIFFERENT_TEXT}) public static @interface TextLinks.Status {
+  }
+
+  public static final class TextLinks.TextLink {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public android.text.style.URLSpan? getUrlSpan();
+  }
+
+  public static class TextLinks.TextLinkSpanData {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public Long? getReferenceTime();
+  }
+
+  public final class TextLinksParams {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY) public Long? getReferenceTime();
+  }
+
+}
+
+package androidx.textclassifier.widget {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(android.os.Build.VERSION_CODES.M) @UiThread public final class ToolbarController {
+    method public static androidx.textclassifier.widget.ToolbarController! getInstance(android.widget.TextView!);
+    method public void show(java.util.List<androidx.core.app.RemoteActionCompat>!, int, int);
+  }
+
+}
+

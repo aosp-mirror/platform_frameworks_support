@@ -1,0 +1,68 @@
+// Signature format: 2.0
+package androidx.media.widget {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(api=android.os.Build.VERSION_CODES.LOLLIPOP) public class RoutePlayer extends android.media.session.MediaSession.Callback {
+    ctor public RoutePlayer(android.content.Context!, androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public void openVideo(android.net.Uri!);
+    method public void release();
+    method public void setPlayerEventCallback(androidx.media.widget.RoutePlayer.PlayerEventCallback!);
+    field public static final long PLAYBACK_ACTIONS = 334L; // 0x14eL
+  }
+
+  public abstract static class RoutePlayer.PlayerEventCallback {
+    ctor public RoutePlayer.PlayerEventCallback();
+    method public void onPlayerStateChanged(androidx.mediarouter.media.MediaItemStatus!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(api=android.os.Build.VERSION_CODES.LOLLIPOP) public class RoutePlayer2 extends androidx.media2.RemoteSessionPlayer2 {
+    ctor public RoutePlayer2(android.content.Context!, androidx.mediarouter.media.MediaRouteSelector!, androidx.mediarouter.media.MediaRouter.RouteInfo!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! addPlaylistItem(int, androidx.media2.MediaItem2!);
+    method public java.util.concurrent.Future<androidx.media2.SessionPlayer2.PlayerResult>! adjustVolume(int);
+    method public void close();
+    method public androidx.media.AudioAttributesCompat! getAudioAttributes();
+    method public long getBufferedPosition();
+    method public int getBufferingState();
+    method public androidx.media2.MediaItem2! getCurrentMediaItem();
+    method public long getCurrentPosition();
+    method public long getDuration();
+    method public int getMaxVolume();
+    method public float getPlaybackSpeed();
+    method public int getPlayerState();
+    method public java.util.List<androidx.media2.MediaItem2>! getPlaylist();
+    method public androidx.media2.MediaMetadata2! getPlaylistMetadata();
+    method public int getRepeatMode();
+    method public int getShuffleMode();
+    method public int getVolume();
+    method public int getVolumeControlType();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! pause();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! play();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! prepare();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! removePlaylistItem(androidx.media2.MediaItem2!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! replacePlaylistItem(int, androidx.media2.MediaItem2!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! seekTo(long);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setAudioAttributes(androidx.media.AudioAttributesCompat!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setMediaItem(androidx.media2.MediaItem2!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setPlaybackSpeed(float);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setPlaylist(java.util.List<androidx.media2.MediaItem2>!, androidx.media2.MediaMetadata2!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setRepeatMode(int);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! setShuffleMode(int);
+    method public java.util.concurrent.Future<androidx.media2.SessionPlayer2.PlayerResult>! setVolume(int);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! skipToNextPlaylistItem();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! skipToPlaylistItem(androidx.media2.MediaItem2!);
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! skipToPreviousPlaylistItem();
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer2.PlayerResult>! updatePlaylistMetadata(androidx.media2.MediaMetadata2!);
+  }
+
+  public class VideoView2 extends android.view.ViewGroup {
+    method @VisibleForTesting @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setOnViewTypeChangedListener(androidx.media.widget.VideoView2.OnViewTypeChangedListener!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static interface VideoView2.OnViewTypeChangedListener {
+    method public void onViewTypeChanged(android.view.View!, @androidx.media.widget.VideoView2.ViewType int);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef({androidx.media.widget.VideoView2.VIEW_TYPE_TEXTUREVIEW, androidx.media.widget.VideoView2.VIEW_TYPE_SURFACEVIEW}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface VideoView2.ViewType {
+  }
+
+}
+

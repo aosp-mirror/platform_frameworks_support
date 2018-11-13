@@ -1,0 +1,73 @@
+// Signature format: 2.0
+package androidx.car.navigation.utils {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public interface Bundlable {
+    method public void fromBundle(androidx.car.navigation.utils.BundleMarshaller);
+    method public void toBundle(androidx.car.navigation.utils.BundleMarshaller);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class BundleMarshaller {
+    ctor public BundleMarshaller();
+    method public void applyDelta(android.os.Bundle!);
+    method public boolean getBoolean(String);
+    method public <T extends androidx.car.navigation.utils.Bundlable> T? getBundlable(String, T?, java.util.function.Supplier<T>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T>? getBundlableList(String, java.util.List<T>?, java.util.function.Supplier<T>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> java.util.List<T> getBundlableListNonNull(String, java.util.List<T>, java.util.function.Supplier<T>);
+    method public <T extends androidx.car.navigation.utils.Bundlable> T getBundlableNonNull(String, T, java.util.function.Supplier<T>);
+    method public android.os.Bundle! getBundle();
+    method public android.os.Bundle! getDelta();
+    method public double getDouble(String);
+    method public <T extends java.lang.Enum<T>> T? getEnum(String, Class<T>);
+    method public <T extends java.lang.Enum<T>> T getEnumNonNull(String, Class<T>, T);
+    method public float getFloat(String);
+    method public int getInt(String);
+    method public String? getString(String);
+    method public String getStringNonNull(String, String);
+    method public void putBoolean(String, boolean);
+    method public <T extends androidx.car.navigation.utils.Bundlable> void putBundlable(String, T?);
+    method public <T extends androidx.car.navigation.utils.Bundlable> void putBundlableList(String, java.util.List<T>?);
+    method public void putDouble(String, double);
+    method public <T extends java.lang.Enum<T>> void putEnum(String, T?);
+    method public void putFloat(String, float);
+    method public void putInt(String, int);
+    method public void putString(String, String?);
+    method public void resetBundle();
+    method public void resetDelta();
+    method public void setBundle(android.os.Bundle!);
+  }
+
+}
+
+package androidx.car.util {
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class CarUxRestrictionsHelper {
+    ctor public CarUxRestrictionsHelper(android.content.Context!, android.car.drivingstate.CarUxRestrictionsManager.OnUxRestrictionsChangedListener!);
+    method public void start();
+    method public void stop();
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class CarUxRestrictionsUtils {
+    method public static void apply(android.content.Context!, androidx.car.uxrestrictions.CarUxRestrictions!, android.widget.TextView!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class DropShadowScrollListener extends androidx.car.widget.PagedListView.OnScrollListener {
+    ctor public DropShadowScrollListener(android.view.View!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public class ListItemBackgroundResolver {
+    method public static void setBackground(android.view.View!, int, int);
+  }
+
+}
+
+package androidx.car.uxrestrictions {
+
+  public final class CarUxRestrictions {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public CarUxRestrictions(android.car.drivingstate.CarUxRestrictions!);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @IntDef(flag=true, value={androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_BASELINE, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_DIALPAD, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_FILTERING, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_LIMIT_STRING_LENGTH, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_KEYBOARD, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_VIDEO, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_LIMIT_CONTENT, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_SETUP, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_TEXT_MESSAGE, androidx.car.uxrestrictions.CarUxRestrictions.UX_RESTRICTIONS_NO_VOICE_TRANSCRIPTION}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface CarUxRestrictions.CarUxRestrictionsInfo {
+  }
+
+}
+
