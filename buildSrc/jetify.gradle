@@ -62,6 +62,8 @@ task stripArchive(type: Zip) {
             "m2repository/androidx/slice/slice-core/**",
             "m2repository/androidx/slice/slice-view/**",
             "m2repository/androidx/slidingpanelayout/**",
+            "m2repository/androidx/sqlite/sqlite/**",
+            "m2repository/androidx/sqlite/sqlite-framework/**",
             "m2repository/androidx/swiperefreshlayout/**",
             "m2repository/androidx/textclassifier/**",
             "m2repository/androidx/transition/**",
