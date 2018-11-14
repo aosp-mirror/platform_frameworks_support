@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a8d19d5b_fa69bbde",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Missed this one",
+      "parentUuid": "32ff0715_4a6d2853",
+      "range": {
+        "startLine": 114,
+        "startChar": 44,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "377175d1_ae303fc6",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 24
@@ -410,6 +434,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b331f972_4bfa6b48",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Good point! Forgot this was the constructor",
+      "parentUuid": "7ed6f6bf_324a03d6",
+      "range": {
+        "startLine": 92,
+        "startChar": 32,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

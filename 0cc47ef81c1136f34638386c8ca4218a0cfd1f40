@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d65b45c_e8002b77",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Last code formatting fix (I hope). There is also a space between the comment and the actual value:\n\n  /* allowUpDownButtons\u003d */ false",
+      "range": {
+        "startLine": 89,
+        "startChar": 55,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526332c2_a6f05a6d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Ok I thought about this some more. I think it actually makes more sense to make this method only take parameters that allow thumb and alpha jump. Then in the test where you\u0027re testing that the up/down buttons don\u0027t show, do an entirely different setup for the layout. It\u0027s better to be more verbose in tests.\n\nThe reason is that if you pass \"false\" for the up/down button and \"true\" for the other two parameters, it shouldn\u0027t actually show anything. Meaning this method doesn\u0027t respect the values of the parameters. If the up/down buttons don\u0027t show, then nothing should show.\n\nSo I\u0027d suggest making:\n\n  void setLayoutRestrictions(boolean allowScrollThumb, boolean allowAlphaJump);",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a481b99_40472c59",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Comment unnecessary",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421bf447_89f248c8",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "The height should be in a dimens file so we can use \"dp\". Right now, these values are pixels, and they\u0027re going to remain constant across screen densities.",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5bbd89d_782efa5a",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "Always need a default case, even if it\u0027s empty.",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e03fc5_e5c2dfef",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 27
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T19:04:34Z",
+      "side": 1,
+      "message": "paddingStart instead",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
