@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52f6f0fe_4d27f30d",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 0,
+      "message": "nit: I\u0027m not sure if there\u0027s wasteful work being done pre-21, since none of this will work there anyway.",
+      "range": {
+        "startLine": 498,
+        "startChar": 16,
+        "endLine": 498,
+        "endChar": 43
+      },
+      "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

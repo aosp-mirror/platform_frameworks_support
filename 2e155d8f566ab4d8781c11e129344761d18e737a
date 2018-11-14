@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45cc668f_0e8f4b64",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "Maybe point out that the return value can be used to remove the action?",
+      "range": {
+        "startLine": 1171,
+        "startChar": 91,
+        "endLine": 1171,
+        "endChar": 97
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6995aaf_65c7f872",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "View.NO_ID?",
+      "range": {
+        "startLine": 1171,
+        "startChar": 61,
+        "endLine": 1171,
+        "endChar": 63
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aada605_5eb80e37",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "Is there a situation where we\u0027d want to have no label and/or no command?",
+      "range": {
+        "startLine": 1179,
+        "startChar": 32,
+        "endLine": 1180,
+        "endChar": 54
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f11607f4_ba0d4ac5",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "nit: all caps?\nACCESSIBILITY_ACTIONS_RESOURCE_IDS",
+      "range": {
+        "startLine": 1190,
+        "startChar": 31,
+        "endLine": 1190,
+        "endChar": 43
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f92dd8e2_c673095c",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "if (actions.get(j).getId() !\u003d id) continue is slightly faster and less code.",
+      "range": {
+        "startLine": 1231,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 60
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "725b0d0e_28c9253e",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "Cut-and-paste error - need to describe the replace process. I think this is a bit subtle, so it may take a bit more.",
+      "range": {
+        "startLine": 1241,
+        "startChar": 7,
+        "endLine": 1241,
+        "endChar": 56
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb5ed24_2c6ebec4",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "nit: no need for capitals",
+      "range": {
+        "startLine": 1244,
+        "startChar": 33,
+        "endLine": 1244,
+        "endChar": 43
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42d0ee0_df32a04b",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": ", or null not to specify the action",
+      "range": {
+        "startLine": 1245,
+        "startChar": 54,
+        "endLine": 1245,
+        "endChar": 60
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe9c6ad_f2740207",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "user",
+      "range": {
+        "startLine": 1245,
+        "startChar": 24,
+        "endLine": 1245,
+        "endChar": 27
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a41f8f5_464ac37c",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "I can imagine that replacing a standard action would make the label optional, but again why would the command be null?",
+      "range": {
+        "startLine": 1256,
+        "startChar": 66,
+        "endLine": 1257,
+        "endChar": 57
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b44cac8_63638d4f",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-14T04:31:24Z",
+      "side": 1,
+      "message": "Curious: Why not just private?",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
