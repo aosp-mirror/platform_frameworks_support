@@ -35,9 +35,6 @@ import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
-import static androidx.slice.widget.SliceView.MODE_LARGE;
-
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -49,7 +46,6 @@ import androidx.slice.SliceItem;
 import androidx.slice.core.SliceAction;
 import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
-import androidx.slice.view.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +69,7 @@ public class RowContent extends SliceContent {
     private SliceItem mRange;
     private boolean mIsHeader;
     private int mLineCount = 0;
+    private boolean mShowActionDivider;
 
     public RowContent(SliceItem rowSlice, int position) {
         super(rowSlice, position);
@@ -317,6 +314,20 @@ public class RowContent extends SliceContent {
         return FORMAT_ACTION.equals(mSliceItem.getFormat())
                 && mSliceItem.getSlice().hasHint(HINT_SEE_MORE)
                 && mSliceItem.getSlice().getItems().isEmpty();
+    }
+
+    /**
+     * Set whether this row content needs to show the action divider.
+     */
+    public void showActionDivider(boolean enabled) {
+        mShowActionDivider = enabled;
+    }
+
+    /**
+     * @return whether this row content needs to show the action divider.
+     */
+    public boolean hasActionDivider() {
+        return mShowActionDivider;
     }
 
     /**

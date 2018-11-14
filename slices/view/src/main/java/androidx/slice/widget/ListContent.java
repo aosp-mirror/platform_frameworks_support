@@ -260,6 +260,17 @@ public class ListContent extends SliceContent {
     }
 
     /**
+     * Whether all the row contents should show action dividers.
+     */
+    public void showActionDividers(boolean enabled) {
+        for (SliceContent item : mRowItems) {
+            if (item instanceof RowContent) {
+                ((RowContent) item).showActionDivider(enabled);
+            }
+        }
+    }
+
+    /**
      * @return suitable action to use for a tap on the slice template or for the shortcut.
      */
     @Nullable
