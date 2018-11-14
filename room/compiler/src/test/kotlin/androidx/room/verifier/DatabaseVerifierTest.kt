@@ -33,6 +33,8 @@ import androidx.room.vo.Fields
 import androidx.room.vo.PrimaryKey
 import collect
 import columnNames
+import com.sun.tools.javac.code.Attribute
+import com.sun.tools.javac.code.Symbol
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.hasItem
@@ -47,7 +49,6 @@ import simpleRun
 import java.sql.Connection
 import javax.lang.model.element.Element
 import javax.lang.model.element.ExecutableElement
-import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.PrimitiveType
 import javax.lang.model.type.TypeKind
@@ -213,6 +214,33 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
         }.compilesWithoutError()
     }
 
+    @Test
+    fun defaultValue_exprError() {
+        simpleRun { invocation ->
+            val db = database(
+                listOf(
+                    entity(
+                        "User",
+                        field(
+                            "id",
+                            primitive(invocation.context, TypeKind.INT),
+                            SQLTypeAffinity.INTEGER
+                        ),
+                        field(
+                            "name",
+                            invocation.context.COMMON_TYPES.STRING,
+                            SQLTypeAffinity.TEXT,
+                            defaultValue = "(NO_SUCH_CONSTANT)"
+                        )
+                    )
+                ),
+                emptyList()
+            )
+            val element = mock(Element::class.java)
+            DatabaseVerifier.create(invocation.context, element, db.entities, db.views)!!
+        }.failsToCompile().withErrorContaining("default value of column [name]")
+    }
+
     private fun validQueryTest(sql: String, cb: (QueryResultInfo) -> Unit) {
         simpleRun { invocation ->
             val verifier = createVerifier(invocation)
@@ -235,7 +263,7 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
 
     private fun database(entities: List<Entity>, views: List<DatabaseView>): Database {
         return Database(
-                element = mock(TypeElement::class.java),
+                element = mock(Symbol.ClassSymbol::class.java),
                 type = mock(TypeMirror::class.java),
                 entities = entities,
                 views = views,
@@ -247,7 +275,7 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
 
     private fun entity(tableName: String, vararg fields: Field): Entity {
         return Entity(
-                element = mock(TypeElement::class.java),
+                element = mock(Symbol.ClassSymbol::class.java),
                 tableName = tableName,
                 type = mock(DeclaredType::class.java),
                 fields = fields.toList(),
@@ -262,7 +290,7 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
 
     private fun view(viewName: String, query: String, vararg fields: Field): DatabaseView {
         return DatabaseView(
-                element = mock(TypeElement::class.java),
+                element = mock(Symbol.ClassSymbol::class.java),
                 viewName = viewName,
                 type = mock(DeclaredType::class.java),
                 fields = fields.toList(),
@@ -272,20 +300,28 @@ class DatabaseVerifierTest(private val useLocalizedCollation: Boolean) {
         )
     }
 
-    private fun field(name: String, type: TypeMirror, affinity: SQLTypeAffinity): Field {
-        val element = mock(Element::class.java)
+    private fun field(
+        name: String,
+        type: TypeMirror,
+        affinity: SQLTypeAffinity,
+        defaultValue: String? = null
+    ): Field {
+        val element = mock(Symbol.MethodSymbol::class.java)
+        doReturn(com.sun.tools.javac.util.List.nil<Attribute.Compound>())
+            .`when`(element).annotationMirrors
         doReturn(type).`when`(element).asType()
         val f = Field(
-                element = element,
-                name = name,
-                type = type,
-                columnName = name,
-                affinity = affinity,
-                collate = if (useLocalizedCollation && affinity == SQLTypeAffinity.TEXT) {
-                    Collate.LOCALIZED
-                } else {
-                    null
-                }
+            element = element,
+            name = name,
+            type = type,
+            columnName = name,
+            affinity = affinity,
+            collate = if (useLocalizedCollation && affinity == SQLTypeAffinity.TEXT) {
+                Collate.LOCALIZED
+            } else {
+                null
+            },
+            defaultValue = defaultValue
         )
         assignGetterSetter(f, name, type)
         return f

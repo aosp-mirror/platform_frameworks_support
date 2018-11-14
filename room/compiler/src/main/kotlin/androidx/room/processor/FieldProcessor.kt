@@ -23,6 +23,7 @@ import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.EmbeddedField
 import androidx.room.vo.Field
 import com.squareup.javapoet.TypeName
+import java.util.Locale
 import javax.lang.model.element.Element
 import javax.lang.model.type.DeclaredType
 
@@ -46,7 +47,7 @@ class FieldProcessor(
             name
         }
         val columnName = (fieldParent?.prefix ?: "") + rawCName
-        val affinity = try {
+        var affinity: SQLTypeAffinity? = try {
             SQLTypeAffinity.fromAnnotationValue(columnInfo?.typeAffinity)
         } catch (ex: NumberFormatException) {
             null
@@ -63,16 +64,18 @@ class FieldProcessor(
                 columnName = columnName,
                 affinity = affinity,
                 collate = Collate.fromAnnotationValue(columnInfo?.collate),
+                defaultValue = null,
                 parent = fieldParent,
                 indexed = columnInfo?.index ?: false)
 
+        val adapter = context.typeAdapterStore.findColumnTypeAdapter(field.type, field.affinity)
+        affinity = adapter?.typeAffinity
+
         when (bindingScope) {
             BindingScope.TWO_WAY -> {
-                val adapter = context.typeAdapterStore.findColumnTypeAdapter(field.type,
-                        field.affinity)
                 field.statementBinder = adapter
                 field.cursorValueReader = adapter
-                field.affinity = adapter?.typeAffinity ?: field.affinity
+                field.affinity = affinity
                 context.checker.check(adapter != null, field.element,
                         ProcessorErrors.CANNOT_FIND_COLUMN_TYPE_ADAPTER)
             }
@@ -89,7 +92,43 @@ class FieldProcessor(
                         ProcessorErrors.CANNOT_FIND_CURSOR_READER)
             }
         }
+
+        field.defaultValue = extractDefaultValue(columnInfo?.defaultValue, affinity, field.nonNull)
         return field
+    }
+
+    private fun extractDefaultValue(
+        value: String?,
+        affinity: SQLTypeAffinity?,
+        fieldNonNull: Boolean
+    ): String? {
+        if (value == null) {
+            return null
+        }
+        val trimmed = value.trim().toLowerCase(Locale.ENGLISH)
+        return if (affinity == SQLTypeAffinity.TEXT) {
+            if (value == ColumnInfo.VALUE_UNSPECIFIED) {
+                null
+            } else if (trimmed.startsWith("(") || trimmed in SQLITE_VALUE_CONSTANTS) {
+                if (trimmed == "null" && fieldNonNull) {
+                    context.logger.e(element, ProcessorErrors.DEFAULT_VALUE_NULLABILITY)
+                }
+                value
+            } else {
+                "'${value.trim('\'')}'"
+            }
+        } else {
+            if (value == ColumnInfo.VALUE_UNSPECIFIED || trimmed == "") {
+                null
+            } else if (trimmed == "null") {
+                if (fieldNonNull) {
+                    context.logger.e(element, ProcessorErrors.DEFAULT_VALUE_NULLABILITY)
+                }
+                value
+            } else {
+                value
+            }
+        }
     }
 
     /**
@@ -101,3 +140,10 @@ class FieldProcessor(
         READ_FROM_CURSOR // just cursor to value
     }
 }
+
+internal val SQLITE_VALUE_CONSTANTS = listOf(
+    "null",
+    "current_time",
+    "current_date",
+    "current_timestamp"
+)
