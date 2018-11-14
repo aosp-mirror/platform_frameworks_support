@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "c14dc88b_2b503a6f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T22:58:26Z",
+      "side": 1,
+      "message": "Ok I see. I like the positive check more, but I think we have to do away with this helper method then.\n\nThe problem still exists that someone can pass conflicting parameters to this method and it won\u0027t do what they expect. (e.g. false for allowUpDownButtons and \"true\" for both thumb/jump. The up/down buttons might actually show up in this case).\n\nWe want to avoid making tests have too much logic; it\u0027s hard to verify that the test is working properly. We can afford to be more verbose in the test and to duplicate code if it makes the test more clear. \n\nIf you want, you can save some of the views as fields so you don\u0027t have to call findViewById each time. Otherwise, I\u0027d do the height calculation in each test individually.",
+      "parentUuid": "098c1f0f_d13db0f1",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a481b99_40472c59",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 27
