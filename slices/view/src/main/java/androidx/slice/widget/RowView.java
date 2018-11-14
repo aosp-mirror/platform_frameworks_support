@@ -396,6 +396,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         // If we're here we might be able to show end items
         int endItemCount = 0;
         boolean firstItemIsADefaultToggle = false;
+        boolean singleActionAtTheEnd = false;
         SliceItem endAction = null;
         for (int i = 0; i < endItems.size(); i++) {
             final SliceItem endItem = (endItems.get(i) instanceof SliceItem)
@@ -410,14 +411,18 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                     if (endItemCount == 1) {
                         firstItemIsADefaultToggle = !mToggles.isEmpty()
                                 && SliceQuery.find(endItem.getSlice(), FORMAT_IMAGE) == null;
+                        singleActionAtTheEnd = endItems.size() == 1
+                                && SliceQuery.find(endItem, FORMAT_ACTION) != null;
                     }
                 }
             }
         }
         mEndContainer.setVisibility(endItemCount > 0 ? VISIBLE : GONE);
 
-        // If there is a row action and the first end item is a default toggle, show the divider.
-        mDivider.setVisibility(mRowAction != null && firstItemIsADefaultToggle
+        // If there is a row action and the first end item is a default toggle, or action divider
+        // is set by presenter and a single action is at the end of the row, show the divider.
+        mDivider.setVisibility(mRowAction != null && (firstItemIsADefaultToggle
+                || (mRowContent.hasActionDivider() && singleActionAtTheEnd))
                 ? View.VISIBLE : View.GONE);
         boolean hasStartAction = mStartItem != null
                 && SliceQuery.find(mStartItem, FORMAT_ACTION) != null;
