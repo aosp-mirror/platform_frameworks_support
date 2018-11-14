@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b52d38fc_c761d84f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T22:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d65b45c_e8002b77",
+      "range": {
+        "startLine": 89,
+        "startChar": 55,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "526332c2_a6f05a6d",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 27
@@ -36,6 +60,24 @@
       "writtenOn": "2018-11-14T19:04:34Z",
       "side": 1,
       "message": "Ok I thought about this some more. I think it actually makes more sense to make this method only take parameters that allow thumb and alpha jump. Then in the test where you\u0027re testing that the up/down buttons don\u0027t show, do an entirely different setup for the layout. It\u0027s better to be more verbose in tests.\n\nThe reason is that if you pass \"false\" for the up/down button and \"true\" for the other two parameters, it shouldn\u0027t actually show anything. Meaning this method doesn\u0027t respect the values of the parameters. If the up/down buttons don\u0027t show, then nothing should show.\n\nSo I\u0027d suggest making:\n\n  void setLayoutRestrictions(boolean allowScrollThumb, boolean allowAlphaJump);",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "098c1f0f_d13db0f1",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T22:09:55Z",
+      "side": 1,
+      "message": "For the method with two variables, it still has a problem that even allowAlphaJump is true and allowScrollThumb is false, the AlphaJump button will not show. \nI also rethink the function, I think I will test it from a positive way, to test that the component will show when the view height reached the minimum height requirement. This will make more sense I think. BTW, I think that method is just a helper function to setup the layout of PagedListView, actually the boolean variable does not mean that component(like thumb) will be shown, it just mean we will add the component height when we set the PLV layout.",
+      "parentUuid": "526332c2_a6f05a6d",
       "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -56,6 +98,24 @@
       "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899f3e85_eca8ec24",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T22:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a481b99_40472c59",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "7368fa5d_149cecec",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T22:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5bbd89d_782efa5a",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5e03fc5_e5c2dfef",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 27
@@ -113,6 +191,30 @@
       "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7de967_6a294909",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 27
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T22:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e03fc5_e5c2dfef",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
