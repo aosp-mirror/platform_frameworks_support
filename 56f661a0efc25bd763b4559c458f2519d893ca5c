@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9b83ad9f_4f542fe9",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/RoutePlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "319769ee_f215ca54",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6d6516f_f65617c9",
         "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MockPlayer.java",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e21641f_e1c336ad",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6d6516f_f65617c9",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d1f7ec7e_ee5cbf6b",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Changed to -1.",
+      "parentUuid": "59f33c54_988896cb",
+      "range": {
+        "startLine": 635,
+        "startChar": 32,
+        "endLine": 635,
+        "endChar": 50
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88b232e0_72296841",
         "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
         "patchSetId": 3
@@ -85,6 +151,30 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a565174_7342e6e3",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "This is a strange test case IMO...but since Sungsoo\u0027s CL will change skipToPlaylistItem(MediaItem) to skipToPlaylistItem(int index)",
+      "parentUuid": "88b232e0_72296841",
+      "range": {
+        "startLine": 643,
+        "startChar": 8,
+        "endLine": 643,
+        "endChar": 48
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "5688b8ae_2b9ab6c4",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "561f274b_70b676d8",
+      "range": {
+        "startLine": 1508,
+        "startChar": 41,
+        "endLine": 1508,
+        "endChar": 43
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dc6eea7_eddd90a7",
         "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
         "patchSetId": 3
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "2a7bc2bf_51bbfe2c",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc6eea7_eddd90a7",
+      "range": {
+        "startLine": 32,
+        "startChar": 34,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fbb7b75_7bcb3254",
         "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
         "patchSetId": 3
@@ -148,6 +286,24 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb003f9_5290c592",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fbb7b75_7bcb3254",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "e89bfe28_9d1286c6",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df974430_7734412c",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bc19e74_889710e4",
         "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
         "patchSetId": 3
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e1af0705_14713f8d",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "I don\u0027t think this will fail any existing tests, but I added TODOs to check for invalid index.",
+      "parentUuid": "8bc19e74_889710e4",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b44ac18e_521efbe0",
         "filename": "media2/src/main/java/androidx/media2/MediaController.java",
         "patchSetId": 3
@@ -217,6 +421,30 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb73cf8_1493b4e9",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b44ac18e_521efbe0",
+      "range": {
+        "startLine": 882,
+        "startChar": 7,
+        "endLine": 882,
+        "endChar": 10
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -266,6 +494,54 @@
     },
     {
       "key": {
+        "uuid": "c3f4897c_f5955bec",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ac32e4_f2651760",
+      "range": {
+        "startLine": 883,
+        "startChar": 7,
+        "endLine": 884,
+        "endChar": 90
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "842bdcd0_ab6b383e",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfcfdb4d_a1efc39e",
+      "range": {
+        "startLine": 883,
+        "startChar": 7,
+        "endLine": 884,
+        "endChar": 89
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "769b595f_d98a58e5",
         "filename": "media2/src/main/java/androidx/media2/MediaControllerImplLegacy.java",
         "patchSetId": 3
@@ -286,6 +562,30 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c44113_00bb9a7c",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "769b595f_d98a58e5",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -329,6 +629,48 @@
     },
     {
       "key": {
+        "uuid": "e4f2282d_00a8f3af",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8400ed88_af4ef4d0",
+      "range": {
+        "startLine": 986,
+        "startChar": 20,
+        "endLine": 986,
+        "endChar": 56
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1db6954_2c3c9f4f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbbb789_e56e35f6",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03781478_430ceaef",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 3
@@ -340,6 +682,30 @@
       "writtenOn": "2018-11-14T11:39:58Z",
       "side": 1,
       "message": "Let\u0027s check that this doesn\u0027t exceed (list.size() - 1).",
+      "range": {
+        "startLine": 1358,
+        "startChar": 16,
+        "endLine": 1358,
+        "endChar": 34
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c617c5d9_62273568",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Is there a case where this would exceed list.size() - 1?",
+      "parentUuid": "03781478_430ceaef",
       "range": {
         "startLine": 1358,
         "startChar": 16,
@@ -375,6 +741,30 @@
     },
     {
       "key": {
+        "uuid": "ae00f50f_5f2a30b6",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "1. Is there a case where this would exceed list.size() - 1?\n2. Done.",
+      "parentUuid": "7c3f2ef7_17f8007e",
+      "range": {
+        "startLine": 1369,
+        "startChar": 33,
+        "endLine": 1369,
+        "endChar": 51
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8283d355_a0bc9ed6",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 3
@@ -398,6 +788,30 @@
     },
     {
       "key": {
+        "uuid": "f1a24987_e9aef57c",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8283d355_a0bc9ed6",
+      "range": {
+        "startLine": 1384,
+        "startChar": 33,
+        "endLine": 1384,
+        "endChar": 51
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb31f8a2_cdd35903",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 3
@@ -409,6 +823,30 @@
       "writtenOn": "2018-11-14T11:29:49Z",
       "side": 1,
       "message": "why not \"return player.getCurrentMediaItemIndex();\"?",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 17
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd7e24b3_360ad9e0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Talked offline and decided to add default value instead of null.",
+      "parentUuid": "fb31f8a2_cdd35903",
       "range": {
         "startLine": 688,
         "startChar": 0,
@@ -444,6 +882,30 @@
     },
     {
       "key": {
+        "uuid": "08d0ce12_3947ee4a",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "thank you",
+      "parentUuid": "bb4138fd_b0f5377a",
+      "range": {
+        "startLine": 601,
+        "startChar": 15,
+        "endLine": 601,
+        "endChar": 19
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6661ecb_41d10411",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 3
@@ -464,6 +926,30 @@
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f2eb44_7b49a8c4",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-14T12:37:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6661ecb_41d10411",
+      "range": {
+        "startLine": 607,
+        "startChar": 14,
+        "endLine": 608,
+        "endChar": 94
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
