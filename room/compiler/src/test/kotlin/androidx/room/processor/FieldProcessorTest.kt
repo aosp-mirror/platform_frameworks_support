@@ -30,6 +30,8 @@ import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -348,6 +350,59 @@ class FieldProcessorTest {
                                 affinity = SQLTypeAffinity.TEXT)))
             }.compilesWithoutError()
         }
+    }
+
+    @Test
+    fun defaultValues_number() {
+        testDefaultValue("\"1\"", "int") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("1")))
+        }
+        testDefaultValue("\"\"", "int") { defaultValue ->
+            assertThat(defaultValue, `is`(nullValue()))
+        }
+        testDefaultValue("\"null\"", "int") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("null")))
+        }
+        testDefaultValue("ColumnInfo.VALUE_UNSPECIFIED", "int") { defaultValue ->
+            assertThat(defaultValue, `is`(nullValue()))
+        }
+        testDefaultValue("\"CURRENT_TIMESTAMP\"", "long") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("CURRENT_TIMESTAMP")))
+        }
+    }
+
+    @Test
+    fun defaultValues_text() {
+        testDefaultValue("\"a\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("'a'")))
+        }
+        testDefaultValue("\"'a'\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("'a'")))
+        }
+        testDefaultValue("\"\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("''")))
+        }
+        testDefaultValue("\"null\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("null")))
+        }
+        testDefaultValue("ColumnInfo.VALUE_UNSPECIFIED", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(nullValue()))
+        }
+        testDefaultValue("\"CURRENT_TIMESTAMP\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("CURRENT_TIMESTAMP")))
+        }
+        testDefaultValue("\"('Created at ' || CURRENT_TIMESTAMP)\"", "String") { defaultValue ->
+            assertThat(defaultValue, `is`(equalTo("('Created at ' || CURRENT_TIMESTAMP)")))
+        }
+    }
+
+    private fun testDefaultValue(defaultValue: String, fieldType: String, body: (String?) -> Unit) {
+        singleEntity("""
+            @ColumnInfo(defaultValue = $defaultValue)
+            $fieldType name;
+        """) { field, _ ->
+            body(field.defaultValue)
+        }.compilesWithoutError()
     }
 
     fun singleEntity(vararg input: String, handler: (Field, invocation: TestInvocation) -> Unit):
