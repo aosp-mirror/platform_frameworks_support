@@ -26,16 +26,22 @@ import androidx.room.solver.types.StatementValueBinder
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.Element
 import javax.lang.model.type.TypeMirror
+
 // used in cache matching, must stay as a data class or implement equals
-data class Field(val element: Element, val name: String, val type: TypeMirror,
-                 var affinity: SQLTypeAffinity?,
-                 val collate: Collate? = null,
-                 val columnName: String = name,
-                 /* means that this field does not belong to parent, instead, it belongs to a
-                 * embedded child of the main Pojo*/
-                 val parent: EmbeddedField? = null,
-                 // index might be removed when being merged into an Entity
-                 var indexed: Boolean = false) : HasSchemaIdentity {
+data class Field(
+    val element: Element,
+    val name: String,
+    val type: TypeMirror,
+    var affinity: SQLTypeAffinity?,
+    val collate: Collate? = null,
+    val columnName: String = name,
+    var defaultValue: String? = null,
+    // null here means that this field does not belong to parent, instead, it belongs to an
+    // embedded child of the main Pojo
+    val parent: EmbeddedField? = null,
+    // index might be removed when being merged into an Entity
+    var indexed: Boolean = false
+) : HasSchemaIdentity {
     lateinit var getter: FieldGetter
     lateinit var setter: FieldSetter
     // binds the field into a statement
@@ -126,6 +132,9 @@ data class Field(val element: Element, val name: String, val type: TypeMirror,
         }
         if (collate != null) {
             columnSpec.append(" COLLATE ${collate.name}")
+        }
+        if (defaultValue != null) {
+            columnSpec.append(" DEFAULT $defaultValue")
         }
         return "`$columnName` ${(affinity ?: SQLTypeAffinity.TEXT).name}$columnSpec"
     }
