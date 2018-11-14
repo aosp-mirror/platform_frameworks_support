@@ -943,7 +943,6 @@ public class MediaPlayer extends SessionPlayer {
                 synchronized (mPlaylistLock) {
                     mPlaylistMetadata = metadata;
                     mPlaylist.clear();
-                    mShuffledList.clear();
                     mPlaylist.addAll(playlist);
                     applyShuffleModeLocked();
                     mCurrentShuffleIdx = 0;
@@ -984,7 +983,9 @@ public class MediaPlayer extends SessionPlayer {
             List<ResolvableFuture<PlayerResult>> onExecute() {
                 Pair<MediaItem, MediaItem> updatedCurNextItem;
                 synchronized (mPlaylistLock) {
+                    Log.v(TAG, "HIYA addPlaylistItem1");
                     if (mPlaylist.contains(item)) {
+                        Log.v(TAG, "HIYA addPlaylistItem2");
                         return createFuturesForResultCode(RESULT_CODE_BAD_VALUE, item);
                     }
                     int clampedIndex = clamp(index, mPlaylist.size());
@@ -1000,6 +1001,8 @@ public class MediaPlayer extends SessionPlayer {
                     if (addedShuffleIdx <= mCurrentShuffleIdx) {
                         mCurrentShuffleIdx++;
                     }
+                    Log.v(TAG, "HIYA addPlaylistItem3");
+
                     updatedCurNextItem = updateAndGetCurrentNextItemIfNeededLocked();
                 }
                 final List<MediaItem> playlist = getPlaylist();
@@ -1347,6 +1350,47 @@ public class MediaPlayer extends SessionPlayer {
     @Nullable
     public MediaItem getCurrentMediaItem() {
         return mPlayer.getCurrentMediaItem();
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        synchronized (mPlaylistLock) {
+            if (mCurrentShuffleIdx < 0) {
+                Log.v(TAG, "HIYA getCurrentMediaItemIndex1: " + END_OF_PLAYLIST);
+                return END_OF_PLAYLIST;
+            }
+            return mPlaylist.indexOf(mShuffledList.get(mCurrentShuffleIdx));
+        }
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        synchronized (mPlaylistLock) {
+            int prevShuffleIdx = mCurrentShuffleIdx - 1;
+            if (prevShuffleIdx < 0) {
+                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                    return mPlaylist.indexOf(mPlaylist.size() - 1);
+                } else {
+                    return END_OF_PLAYLIST;
+                }
+            }
+            return mPlaylist.indexOf(mShuffledList.get(prevShuffleIdx));
+        }
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        synchronized (mPlaylistLock) {
+            int nextShuffleIdx = mCurrentShuffleIdx + 1;
+            if (nextShuffleIdx >= mShuffledList.size()) {
+                if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                    return mPlaylist.indexOf(mShuffledList.get(0));
+                } else {
+                    return END_OF_PLAYLIST;
+                }
+            }
+            return mPlaylist.indexOf(mShuffledList.get(nextShuffleIdx));
+        }
     }
 
     @Override

@@ -879,6 +879,42 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
+     * Get the lastly cached current item index from
+     * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)} or
+     * {@link ControllerCallback#onPlaylistChanged(MediaController, List, MediaMetadata)}.
+     *
+     * @return the index of current item in playlist, or -1 if current media item does not exist or
+     * playlist is not set.
+     */
+    public int getCurrentMediaItemIndex() {
+        return isConnected() ? getImpl().getCurrentMediaItemIndex() : null;
+    }
+
+    /**
+     * Get the lastly cached previous item index from
+     * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)} or
+     * {@link ControllerCallback#onPlaylistChanged(MediaController, List, MediaMetadata)}.
+     *
+     * @return the index of previous item in playlist, or -1 if previous media item does not exist
+     * or playlist is not set.
+     */
+    public int getPreviousMediaItemIndex() {
+        return isConnected() ? getImpl().getPreviousMediaItemIndex() : null;
+    }
+
+    /**
+     * Get the lastly cached next item index from
+     * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)} or
+     * {@link ControllerCallback#onPlaylistChanged(MediaController, List, MediaMetadata)}.
+     *
+     * @return the index of next item in playlist, or -1 if next media item does not exist or
+     * playlist is not set.
+     */
+    public int getNextMediaItemIndex() {
+        return isConnected() ? getImpl().getNextMediaItemIndex() : null;
+    }
+
+    /**
      * Skips to the previous item in the playlist.
      * <p>
      * This calls {@link SessionPlayer#skipToPreviousPlaylistItem()}.
@@ -1055,6 +1091,9 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<ControllerResult> replacePlaylistItem(int index,
                 @NonNull String mediaId);
         MediaItem getCurrentMediaItem();
+        int getCurrentMediaItemIndex();
+        int getPreviousMediaItemIndex();
+        int getNextMediaItemIndex();
         ListenableFuture<ControllerResult> skipToPreviousItem();
         ListenableFuture<ControllerResult> skipToNextItem();
         ListenableFuture<ControllerResult> skipToPlaylistItem(@NonNull int index);

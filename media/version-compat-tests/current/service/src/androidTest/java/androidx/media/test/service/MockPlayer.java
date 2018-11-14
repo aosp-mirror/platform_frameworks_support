@@ -33,6 +33,8 @@ import java.util.concurrent.Executor;
  * A mock implementation of {@link SessionPlayer} for testing.
  */
 public class MockPlayer extends SessionPlayer {
+    private static final int ITEM_NON_EXISTENT = -1;
+
     public final CountDownLatch mCountDownLatch;
     public final boolean mChangePlayerStateWithTransportControl;
 
@@ -315,6 +317,32 @@ public class MockPlayer extends SessionPlayer {
     @Override
     public MediaItem getCurrentMediaItem() {
         return mCurrentMediaItem;
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        if (mPlaylist != null) {
+            return mPlaylist.indexOf(mCurrentMediaItem);
+        }
+        return ITEM_NON_EXISTENT;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        int currentIdx = getCurrentMediaItemIndex();
+        if (currentIdx == ITEM_NON_EXISTENT || currentIdx == 0) {
+            return ITEM_NON_EXISTENT;
+        }
+        return currentIdx--;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        int currentIdx = getCurrentMediaItemIndex();
+        if (currentIdx == ITEM_NON_EXISTENT || currentIdx == mPlaylist.size() - 1) {
+            return ITEM_NON_EXISTENT;
+        }
+        return currentIdx++;
     }
 
     @Override

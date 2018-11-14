@@ -669,6 +669,21 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
+    public int getCurrentMediaItemIndex() {
+        return 0;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return 0;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return 0;
+    }
+
+    @Override
     public ListenableFuture<ControllerResult> skipToPreviousItem() {
         return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM,
                 new RemoteSessionTask() {
@@ -827,7 +842,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
         }
     }
 
-    void notifyCurrentMediaItemChanged(final MediaItem item) {
+    void notifyCurrentMediaItemChanged(final MediaItem item, int currentIdx, int previousIdx,
+            int nextIdx) {
         synchronized (mLock) {
             mCurrentMediaItem = item;
         }
@@ -894,7 +910,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
-    void notifyPlaylistChanges(final List<MediaItem> playlist, final MediaMetadata metadata) {
+    void notifyPlaylistChanges(final List<MediaItem> playlist, final MediaMetadata metadata,
+            int currentIdx, int previousIdx, int nextIdx) {
         synchronized (mLock) {
             mPlaylist = playlist;
             mPlaylistMetadata = metadata;

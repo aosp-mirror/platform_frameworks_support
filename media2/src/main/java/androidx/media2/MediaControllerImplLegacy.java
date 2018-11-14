@@ -77,8 +77,8 @@ import java.util.concurrent.Executor;
 
 // TODO: Find better way to return listenable future.
 class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
-
     private static final String TAG = "MC2ImplLegacy";
+    private static final int ITEM_NON_EXISTENT = -1;
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private static final long POSITION_DIFF_TOLERANCE = 100;
@@ -161,7 +161,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
 
     // Media 1.0 variables
     @GuardedBy("mLock")
-    private MediaControllerCompat mControllerCompat;
+    MediaControllerCompat mControllerCompat;
     @GuardedBy("mLock")
     private ControllerCompatCallback mControllerCompatCallback;
     @GuardedBy("mLock")
@@ -684,6 +684,21 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
             }
             return mCurrentMediaItem;
         }
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
     }
 
     @Override
