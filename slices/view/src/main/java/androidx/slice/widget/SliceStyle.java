@@ -16,6 +16,8 @@
 
 package androidx.slice.widget;
 
+import static androidx.slice.widget.SliceView.MODE_LARGE;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -23,8 +25,6 @@ import android.util.AttributeSet;
 
 import androidx.annotation.RestrictTo;
 import androidx.slice.view.R;
-
-import static androidx.slice.widget.SliceView.MODE_LARGE;
 
 /**
  * Holds style information shared between child views of a slice
@@ -99,6 +99,10 @@ public class SliceStyle {
                 R.dimen.abc_slice_row_range_single_text_height);
         mRowMinHeight = r.getDimensionPixelSize(R.dimen.abc_slice_row_min_height);
         mRowRangeHeight = r.getDimensionPixelSize(R.dimen.abc_slice_row_range_height);
+    }
+
+    public int getRowMaxHeight() {
+        return mRowMaxHeight;
     }
 
     public void setTintColor(int tint) {
