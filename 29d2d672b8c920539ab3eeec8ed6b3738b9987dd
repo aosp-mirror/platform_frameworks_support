@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "831ad57e_588e539e",
+        "filename": "appcompat/src/androidTest/res/layout/appcompat_spinner_activity.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9270a34_ca383b4c",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6bb59ec_d23b269e",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a89fcf43_ee750ac2",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "The method was package private before (despite being private in the framework) because, I assume, this way we avoid a warning related to synthetic accessor access. I made it private and used the getter where relevant for now.",
+      "parentUuid": "b6bb59ec_d23b269e",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 16
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f798e6ca_9c613d71",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "Nope, it was my mistake. Fixed.",
+      "parentUuid": "298a6d69_87782d5d",
+      "range": {
+        "startLine": 260,
+        "startChar": 24,
+        "endLine": 260,
+        "endChar": 88
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "335c6a49_48cb2f1d",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-12T11:47:26Z",
       "side": 1,
       "message": "this code is repeated in 2 places, how about a private showPopup() method that does all this for you?",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 449,
+        "endChar": 13
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "499507d6_1878e175",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "I extracted a method out of this but right now it is package private as I get a warning when I use it in certain places (\"requires synthetic accessor\") and I understand this can cause extra overhead (in time and space) when compiling. Is this ok ?",
+      "parentUuid": "335c6a49_48cb2f1d",
       "range": {
         "startLine": 443,
         "startChar": 12,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4f8fd502_3ab84d62",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "The method was actually ported from the framework and as it doesn\u0027t throw an exception there I just let it have the same behavior in appcompat. I can change it if you think it is best.",
+      "parentUuid": "3b0ee8c8_f81c78b0",
+      "range": {
+        "startLine": 831,
+        "startChar": 12,
+        "endLine": 831,
+        "endChar": 80
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c0d4d12_4c1544ac",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2018-11-12T11:47:26Z",
       "side": 1,
       "message": "are these known enum-ints? if so, use the tag for where they are defined, which will be an @IntDef where the values are. this will allow the IDE to flag when values that don\u0027t make sense are passed",
+      "range": {
+        "startLine": 947,
+        "startChar": 25,
+        "endLine": 947,
+        "endChar": 28
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7acade9e_e14a7040",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-14T16:53:14Z",
+      "side": 1,
+      "message": "The TextDirection and TextAlignment annotations aren\u0027t available in API 14 and some of their values aren\u0027t available prior to API 23 which is why, I assume, they weren\u0027t used in appcompat previously either. I can backport them though if you think it best.",
+      "parentUuid": "9c0d4d12_4c1544ac",
       "range": {
         "startLine": 947,
         "startChar": 25,
