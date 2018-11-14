@@ -21,7 +21,6 @@ import androidx.media.AudioAttributesCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -30,6 +29,8 @@ import java.util.concurrent.Executor;
  * A mock implementation of {@link SessionPlayer} for testing.
  */
 public class MockPlayer extends SessionPlayer {
+    private static final int ITEM_NON_EXISTENT = -1;
+
     public final CountDownLatch mCountDownLatch;
     public final boolean mChangePlayerStateWithTransportControl;
 
@@ -269,9 +270,8 @@ public class MockPlayer extends SessionPlayer {
     public ListenableFuture<PlayerResult> setMediaItem(MediaItem item) {
         mItem = item;
         mCurrentMediaItem = item;
-        ArrayList list = new ArrayList<>();
-        list.add(item);
-        return setPlaylist(list, null);
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
@@ -303,6 +303,32 @@ public class MockPlayer extends SessionPlayer {
     }
 
     @Override
+    public int getCurrentMediaItemIndex() {
+        if (mPlaylist == null) {
+            return ITEM_NON_EXISTENT;
+        }
+        return mPlaylist.indexOf(mItem);
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        int currentIdx = getCurrentMediaItemIndex();
+        if (currentIdx == ITEM_NON_EXISTENT || currentIdx == 0) {
+            return ITEM_NON_EXISTENT;
+        }
+        return currentIdx--;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        int currentIdx = getCurrentMediaItemIndex();
+        if (currentIdx == ITEM_NON_EXISTENT || currentIdx == mPlaylist.size() - 1) {
+            return ITEM_NON_EXISTENT;
+        }
+        return currentIdx++;
+    }
+
+    @Override
     public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item) {
         mAddPlaylistItemCalled = true;
         mIndex = index;
@@ -331,7 +357,9 @@ public class MockPlayer extends SessionPlayer {
     @Override
     public ListenableFuture<PlayerResult> skipToPlaylistItem(MediaItem item) {
         mSkipToPlaylistItemCalled = true;
-        mItem = item;
+        if (mPlaylist != null && mPlaylist.contains(item)) {
+            mItem = item;
+        }
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }

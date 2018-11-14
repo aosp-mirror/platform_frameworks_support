@@ -27,6 +27,8 @@ import java.util.concurrent.CountDownLatch;
  * Mock implementation of {@link RemoteSessionPlayer}.
  */
 public class MockRemotePlayer extends RemoteSessionPlayer {
+    private static final int ITEM_NON_EXISTENT = -1;
+
     public final CountDownLatch mLatch = new CountDownLatch(1);
     public boolean mSetVolumeToCalled;
     public boolean mAdjustVolumeCalled;
@@ -216,6 +218,21 @@ public class MockRemotePlayer extends RemoteSessionPlayer {
     @Override
     public MediaItem getCurrentMediaItem() {
         return null;
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return ITEM_NON_EXISTENT;
     }
 
     @Override
