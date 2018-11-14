@@ -686,7 +686,7 @@ public class MediaControllerLegacyTest extends MediaSessionTestBase {
     }
 
     @Test
-    public void testCaptioningEnabled() throws Exception {
+    public void testControllerCallback_onCustomCommand_bySetCaptioningEnabled() throws Exception {
         prepareLooper();
         final String sessionCommandOnCaptioningEnabledChanged =
                 "android.media.session.command.ON_CAPTIONING_ENALBED_CHANGED";

@@ -228,7 +228,6 @@ public class RemoteMediaSessionCompat {
         } catch (RemoteException ex) {
             Log.e(TAG, "Failed to call setCaptioningEnabled()");
         }
-
     }
     ////////////////////////////////////////////////////////////////////////////////
     // Non-public methods
