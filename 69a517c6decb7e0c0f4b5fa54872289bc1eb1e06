@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67ff5d0e_d6e8e185",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-14T21:52:00Z",
+      "side": 1,
+      "message": "If we want a unique identifier we can also use https://docs.gradle.org/current/javadoc/org/gradle/api/artifacts/maven/MavenDeployer.html#isUniqueVersion--",
+      "parentUuid": "39be7763_596ef5bf",
+      "range": {
+        "startLine": 120,
+        "startChar": 37,
+        "endLine": 120,
+        "endChar": 50
+      },
+      "revId": "69a517c6decb7e0c0f4b5fa54872289bc1eb1e06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "026c0f62_c470b38b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/Release.kt",
         "patchSetId": 1
