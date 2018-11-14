@@ -43,7 +43,7 @@ import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
 import androidx.viewpager2.widget.swipe.FragmentAdapter
-import androidx.viewpager2.widget.swipe.PageSwiper
+import androidx.viewpager2.widget.swipe.PageSwiperEspresso
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
@@ -115,8 +115,10 @@ open class BaseTest {
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
-        val swiper: PageSwiper
-            get() = PageSwiper(viewPager.adapter.itemCount, viewPager.orientation, isRtl)
+        val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+
+        val swiper: PageSwiperEspresso
+            get() = PageSwiperEspresso(viewPager.adapter.itemCount, viewPager.orientation, isRtl)
 
         val isRtl get() = ViewCompat.getLayoutDirection(viewPager) ==
                 ViewCompat.LAYOUT_DIRECTION_RTL
@@ -198,6 +200,12 @@ open class BaseTest {
         }
 
         waitForRenderLatch.await(5, TimeUnit.SECONDS)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            // Give slow devices some time to warm up,
+            // to prevent severe frame drops in the smooth scroll
+            Thread.sleep(1000)
+        }
     }
 
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {

@@ -26,6 +26,7 @@ import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
+import androidx.viewpager2.widget.swipe.PageSwiperManual
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.MatcherAssert.assertThat
@@ -72,20 +73,22 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                 val listener = viewPager.addNewRecordingListener()
                 val movingForward = targetPage > startPage
 
-                // when
+                // when we are close enough
                 val waitTillCloseEnough = viewPager.addWaitForDistanceToTarget(targetPage,
                     distanceToTargetWhenStartDrag)
                 runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
                 waitTillCloseEnough.await(1, SECONDS)
 
+                // then perform a swipe
+                val swiper = PageSwiperManual(orientation, isRtl)
                 if (dragInOppositeDirection == movingForward) {
-                    swiper.swipePrevious()
+                    swiper.swipePrevious(instrumentation, viewPager)
                 } else {
-                    swiper.swipeNext()
+                    swiper.swipeNext(instrumentation, viewPager)
                 }
                 viewPager.addWaitForIdleLatch().await(2, SECONDS)
 
-                // then
+                // and check the result
                 listener.apply {
                     assertThat(
                         stateEvents.map { it.state },

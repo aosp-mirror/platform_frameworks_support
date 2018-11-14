@@ -31,12 +31,12 @@ import static org.hamcrest.CoreMatchers.allOf;
 import androidx.test.espresso.ViewAction;
 import androidx.viewpager2.widget.ViewPager2;
 
-public class PageSwiper {
+public class PageSwiperEspresso {
     private final int mLastPageIx;
     private final ViewAction mActionPrevious;
     private final ViewAction mActionNext;
 
-    public PageSwiper(
+    public PageSwiperEspresso(
             int totalPages,
             @ViewPager2.Orientation int orientation,
             boolean isRtl
