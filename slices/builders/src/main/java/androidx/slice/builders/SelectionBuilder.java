@@ -16,11 +16,9 @@
 
 package androidx.slice.builders;
 
-import android.app.PendingIntent;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import android.app.PendingIntent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +26,11 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.collection.ArraySet;
 import androidx.core.util.Pair;
+import androidx.remotecallback.RemoteCallback;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -105,6 +106,20 @@ public class SelectionBuilder {
      */
     public SelectionBuilder setInputAction(@NonNull PendingIntent inputAction) {
         mInputAction = inputAction;
+        return this;
+    }
+
+    /**
+     * Sets the {@link RemoteCallback} to send when the selection is made or changed.
+     *
+     * The intent will include an extra with the key {@link androidx.slice.Slice#EXTRA_SELECTION}
+     * and a {@link String} value containing the key of the key of the selected option.
+     *
+     * @param inputAction the intent to send when the user makes or changes the selection
+     * @return this SelectionBuilder
+     */
+    public SelectionBuilder setInputAction(@NonNull RemoteCallback inputAction) {
+        mInputAction = inputAction.toPendingIntent();
         return this;
     }
 
