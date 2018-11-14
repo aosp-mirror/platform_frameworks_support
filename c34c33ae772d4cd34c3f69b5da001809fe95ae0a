@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8ca11940_b2494a65",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/RemoteMediaSessionCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T08:39:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4cf84a2_055fc5d1",
+      "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0bea900_e8e643af",
         "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaControllerLegacyTest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b439a122_cf2f0252",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaControllerLegacyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T08:39:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0bea900_e8e643af",
+      "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4719ef_4c0124be",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaControllerLegacyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T08:39:52Z",
+      "side": 1,
+      "message": "Actually that is also my question.",
+      "parentUuid": "fe477a9a_f464ec8b",
+      "range": {
+        "startLine": 692,
+        "startChar": 17,
+        "endLine": 692,
+        "endChar": 76
+      },
+      "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
