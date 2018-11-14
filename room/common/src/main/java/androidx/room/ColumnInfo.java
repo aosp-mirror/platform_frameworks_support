@@ -74,6 +74,15 @@ public @interface ColumnInfo {
     @Collate int collate() default UNSPECIFIED;
 
     /**
+     * The default value for this column.
+     * <p>
+     * Note that a string value has to be surrounded with a single-quote.
+     *
+     * @return The default value for this column.
+     */
+    String defaultValue() default "";
+
+    /**
      * Constant to let Room inherit the field name as the column name. If used, Room will use the
      * field name as the column name.
      */
