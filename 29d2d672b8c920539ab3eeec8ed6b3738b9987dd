@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "d71fa259_68da09e3",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-14T17:15:12Z",
+      "side": 1,
+      "message": "ah I see, leave it this way then",
+      "parentUuid": "499507d6_1878e175",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 449,
+        "endChar": 13
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b0ee8c8_f81c78b0",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
         "patchSetId": 1
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "80053979_3e12d91e",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-14T17:15:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f8fd502_3ab84d62",
+      "range": {
+        "startLine": 831,
+        "startChar": 12,
+        "endLine": 831,
+        "endChar": 80
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c0d4d12_4c1544ac",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
         "patchSetId": 1
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "The TextDirection and TextAlignment annotations aren\u0027t available in API 14 and some of their values aren\u0027t available prior to API 23 which is why, I assume, they weren\u0027t used in appcompat previously either. I can backport them though if you think it best.",
       "parentUuid": "9c0d4d12_4c1544ac",
+      "range": {
+        "startLine": 947,
+        "startChar": 25,
+        "endLine": 947,
+        "endChar": 28
+      },
+      "revId": "29d2d672b8c920539ab3eeec8ed6b3738b9987dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2613315_47cb70c7",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-14T17:15:12Z",
+      "side": 1,
+      "message": "I see, this way is fine then.",
+      "parentUuid": "7acade9e_e14a7040",
       "range": {
         "startLine": 947,
         "startChar": 25,
