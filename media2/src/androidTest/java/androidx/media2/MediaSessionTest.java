@@ -288,10 +288,12 @@ public class MediaSessionTest extends MediaSessionTestBase {
     @Test
     public void testSkipToPlaylistItem() throws Exception {
         prepareLooper();
-        final MediaItem testMediaItem = TestUtils.createMediaItemWithMetadata();
-        mSession.getPlayer().skipToPlaylistItem(testMediaItem);
+        final List<MediaItem> testPlaylist = new ArrayList<>();
+        testPlaylist.add(TestUtils.createMediaItemWithMetadata());
+        mSession.getPlayer().setPlaylist(testPlaylist, null);
+        mSession.getPlayer().skipToPlaylistItem(testPlaylist.get(0));
         assertTrue(mPlayer.mSkipToPlaylistItemCalled);
-        assertSame(testMediaItem, mPlayer.mItem);
+        assertSame(testPlaylist.get(0), mPlayer.mItem);
     }
 
     @Test
