@@ -23,6 +23,7 @@ import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.EmbeddedField
 import androidx.room.vo.Field
 import com.squareup.javapoet.TypeName
+import java.util.Locale
 import javax.lang.model.element.Element
 import javax.lang.model.type.DeclaredType
 
@@ -63,6 +64,7 @@ class FieldProcessor(
                 columnName = columnName,
                 affinity = affinity,
                 collate = Collate.fromAnnotationValue(columnInfo?.collate),
+                defaultValue = null,
                 parent = fieldParent,
                 indexed = columnInfo?.index ?: false)
 
@@ -89,7 +91,31 @@ class FieldProcessor(
                         ProcessorErrors.CANNOT_FIND_CURSOR_READER)
             }
         }
+
+        field.defaultValue = extractDefaultValue(columnInfo?.defaultValue, field.affinity)
         return field
+    }
+
+    private fun extractDefaultValue(value: String?, affinity: SQLTypeAffinity?): String? {
+        if (value == null) {
+            return null
+        }
+        val trimmed = value.trim().toLowerCase(Locale.ENGLISH)
+        return if (affinity == SQLTypeAffinity.TEXT) {
+            if (value == ColumnInfo.VALUE_UNSPECIFIED) {
+                null
+            } else if (trimmed.startsWith("(") || trimmed in SQLITE_VALUE_CONSTANTS) {
+                value
+            } else {
+                "'${value.trim('\'')}'"
+            }
+        } else {
+            if (value == ColumnInfo.VALUE_UNSPECIFIED || trimmed == "") {
+                null
+            } else {
+                value
+            }
+        }
     }
 
     /**
@@ -101,3 +127,10 @@ class FieldProcessor(
         READ_FROM_CURSOR // just cursor to value
     }
 }
+
+internal val SQLITE_VALUE_CONSTANTS = listOf(
+    "null",
+    "current_time",
+    "current_date",
+    "current_timestamp"
+)
