@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "705be1c7_11aac88f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T12:56:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1379fa7e_253f11c7",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1223,
+        "endChar": 21
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd9714c3_0cd9baf5",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 2
