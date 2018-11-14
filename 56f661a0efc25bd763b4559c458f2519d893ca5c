@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b44ac18e_521efbe0",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T11:29:49Z",
+      "side": 1,
+      "message": "Gets",
+      "range": {
+        "startLine": 882,
+        "startChar": 7,
+        "endLine": 882,
+        "endChar": 10
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfcfdb4d_a1efc39e",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T11:29:49Z",
+      "side": 1,
+      "message": "Developers can\u0027t know when the values are cached\nWhat about followings?\n\"Gets the current item index in the playlist. The returned value can be out-dated after onCurrentMediaItemChanged() or onPlaylistCHanged() called.\"",
+      "range": {
+        "startLine": 883,
+        "startChar": 7,
+        "endLine": 884,
+        "endChar": 89
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8400ed88_af4ef4d0",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T11:29:49Z",
+      "side": 1,
+      "message": "remove logs here and other places.",
+      "range": {
+        "startLine": 986,
+        "startChar": 20,
+        "endLine": 986,
+        "endChar": 56
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb31f8a2_cdd35903",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-14T11:29:49Z",
+      "side": 1,
+      "message": "why not \"return player.getCurrentMediaItemIndex();\"?",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 17
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
