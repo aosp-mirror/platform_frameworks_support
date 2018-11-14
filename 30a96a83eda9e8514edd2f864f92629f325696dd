@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c74e8d11_6355376f",
+        "filename": "activity/ktx/src/androidTest/java/androidx/activity/ActivityViewModelLazyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-14T02:15:03Z",
+      "side": 1,
+      "message": "this is a bit weird syntax.\ndid we talk w/ dagger folks? maybe we can get a lazy? or get a property instead of the value ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 53,
+        "endLine": 46,
+        "endChar": 83
+      },
+      "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
