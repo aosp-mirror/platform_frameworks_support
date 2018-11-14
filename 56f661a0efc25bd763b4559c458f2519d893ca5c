@@ -2,6 +2,201 @@
   "comments": [
     {
       "key": {
+        "uuid": "319769ee_f215ca54",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/RoutePlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "May not be right) ITEM_NONE?",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d6516f_f65617c9",
+        "filename": "media/version-compat-tests/current/service/src/androidTest/java/androidx/media/test/service/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Maybe we need to care what repeat/shuffle modes are set, but let\u0027s do this later.\nPlease add TODO here.",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59f33c54_988896cb",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be -1 or some error value?\nWhat happens when we run L654 (null media item?)",
+      "range": {
+        "startLine": 635,
+        "startChar": 32,
+        "endLine": 635,
+        "endChar": 50
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b232e0_72296841",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Is calling \u0027skipToPlaylistItem\u0027 needed?",
+      "range": {
+        "startLine": 643,
+        "startChar": 8,
+        "endLine": 643,
+        "endChar": 48
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "561f274b_70b676d8",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Q) Is this because we have no playlist?",
+      "range": {
+        "startLine": 1508,
+        "startChar": 41,
+        "endLine": 1508,
+        "endChar": 43
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc6eea7_eddd90a7",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "NONE?",
+      "range": {
+        "startLine": 32,
+        "startChar": 34,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbb7b75_7bcb3254",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "mCurrentMediaItem?\n\nSince mItem is used for storing the argument of lastly called method.",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df974430_7734412c",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "ditto (Please leave TODO for regarding shuffle/repeat mode)",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc19e74_889710e4",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Note: This doesn\u0027t have any logic related to index. This may lead to test failures.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 5
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b44ac18e_521efbe0",
         "filename": "media2/src/main/java/androidx/media2/MediaController.java",
         "patchSetId": 3
@@ -48,6 +243,52 @@
     },
     {
       "key": {
+        "uuid": "87ac32e4_f2651760",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Developers will not know that the index is cached whenever those callbacks are called, since they have no \u0027index\u0027 argument.\n\nLet\u0027s add javadoc of those callbacks about this info.",
+      "range": {
+        "startLine": 883,
+        "startChar": 7,
+        "endLine": 884,
+        "endChar": 90
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769b595f_d98a58e5",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplLegacy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "ditto? (Here and all ITEM_NON_EXISTENT)",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8400ed88_af4ef4d0",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 3
@@ -71,6 +312,92 @@
     },
     {
       "key": {
+        "uuid": "9cbbb789_e56e35f6",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Please remove local debug logs when the testing is done.",
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03781478_430ceaef",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Let\u0027s check that this doesn\u0027t exceed (list.size() - 1).",
+      "range": {
+        "startLine": 1358,
+        "startChar": 16,
+        "endLine": 1358,
+        "endChar": 34
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c3f2ef7_17f8007e",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Let\u0027s check that:\n1) This doesn\u0027t exceed (list.size() - 1)\n2) \u003e\u003d 0 (since END_OF_PLAYLIST is -1)",
+      "range": {
+        "startLine": 1369,
+        "startChar": 33,
+        "endLine": 1369,
+        "endChar": 51
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8283d355_a0bc9ed6",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1384,
+        "startChar": 33,
+        "endLine": 1384,
+        "endChar": 51
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb31f8a2_cdd35903",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 3
@@ -87,6 +414,52 @@
         "startChar": 0,
         "endLine": 693,
         "endChar": 17
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4138fd_b0f5377a",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "nice catch",
+      "range": {
+        "startLine": 601,
+        "startChar": 15,
+        "endLine": 601,
+        "endChar": 19
+      },
+      "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6661ecb_41d10411",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:39:58Z",
+      "side": 1,
+      "message": "Let\u0027s add some javadoc also for these callback that get*Index() can be updated when they are called./",
+      "range": {
+        "startLine": 607,
+        "startChar": 14,
+        "endLine": 608,
+        "endChar": 94
       },
       "revId": "56f661a0efc25bd763b4559c458f2519d893ca5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
