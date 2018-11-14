@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "320adfb4_f8826686",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-14T19:19:32Z",
+      "side": 1,
+      "message": "Make this final",
+      "range": {
+        "startLine": 333,
+        "startChar": 4,
+        "endLine": 333,
+        "endChar": 10
+      },
+      "revId": "dbfbe7218366263ad23974d3b8e8cb22d553f40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a98da13_d679674a",
         "filename": "lifecycle/viewmodel-fragment/build.gradle",
         "patchSetId": 1
