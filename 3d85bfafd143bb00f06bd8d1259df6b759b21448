@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7089441b_0ef054a3",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T00:15:43Z",
+      "side": 1,
+      "message": "Ah you need to import \"androidx.car.test.R\"\n\n  import androidx.car.test.R;",
+      "parentUuid": "937d8f52_83fde38d",
+      "range": {
+        "startLine": 68,
+        "startChar": 48,
+        "endLine": 68,
+        "endChar": 66
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65ac62c5_5e635594",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 22
@@ -93,6 +117,30 @@
       "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d7ee3a_4a6c3231",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T00:15:43Z",
+      "side": 1,
+      "message": "You got the spacing wrong :P Add a space after the \"/*\" and before \"*/\"\n\n  /* allowScrollThumb\u003d */",
+      "parentUuid": "ae52e8ed_8aaad8ed",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -166,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "37c12f1b_357494a8",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T00:15:43Z",
+      "side": 1,
+      "message": "Ohh I think I understand. Could you just always substract \"1\" if any of the \"allow\" parameters is true?\n\nAnd then instead of bias, make the last variable \"allowUpDownButtons\"",
+      "parentUuid": "1f215b04_b718b46f",
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99ac3f61_a65cc19a",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 22
@@ -210,6 +276,30 @@
       "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad26d79_b4da2ed9",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-14T00:15:43Z",
+      "side": 1,
+      "message": "Still there :(",
+      "parentUuid": "3258662f_77d8d392",
+      "range": {
+        "startLine": 130,
+        "startChar": 47,
+        "endLine": 130,
+        "endChar": 48
+      },
+      "revId": "3d85bfafd143bb00f06bd8d1259df6b759b21448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
