@@ -46,6 +46,30 @@
       "revId": "a89216e1776c1eca8281bccc387aa25ab66748df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5f3a68c_63a11925",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-14T01:29:27Z",
+      "side": 1,
+      "message": "Thanks Fan. In general we\u0027re trying to keep \"styleistic\" things as part of something that SliceView configures rather than letting slice providers make that call.\n\nOur UXer\u0027s consider this to be more of a style rather than a component or something that a slice provider would specify -- it doesn\u0027t change the behavior of the slice, just the visuals.",
+      "parentUuid": "fd0b42e0_ef52bf8f",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "a89216e1776c1eca8281bccc387aa25ab66748df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
