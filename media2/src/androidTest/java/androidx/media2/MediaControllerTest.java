@@ -671,7 +671,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
         assertTrue(mPlayer.mRemovePlaylistItemCalled);
-        assertEquals(targetItem, mPlayer.mItem);
+        assertEquals(0, mPlayer.mIndex);
     }
 
     @Test
@@ -714,7 +714,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
         assertTrue(mPlayer.mSkipToPlaylistItemCalled);
-        assertEquals(playlist.get(1), mPlayer.mItem);
+        assertEquals(1, mPlayer.mIndex);
     }
 
     /**
