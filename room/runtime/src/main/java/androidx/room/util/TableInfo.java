@@ -218,13 +218,16 @@ public class TableInfo {
                 int typeIndex = cursor.getColumnIndex("type");
                 int notNullIndex = cursor.getColumnIndex("notnull");
                 int pkIndex = cursor.getColumnIndex("pk");
+                int defaultValueIndex = cursor.getColumnIndex("dflt_value");
 
                 while (cursor.moveToNext()) {
                     final String name = cursor.getString(nameIndex);
                     final String type = cursor.getString(typeIndex);
                     final boolean notNull = 0 != cursor.getInt(notNullIndex);
                     final int primaryKeyPosition = cursor.getInt(pkIndex);
-                    columns.put(name, new Column(name, type, notNull, primaryKeyPosition));
+                    final String defaultValue = cursor.getString(defaultValueIndex);
+                    columns.put(name,
+                            new Column(name, type, notNull, primaryKeyPosition, defaultValue));
                 }
             }
         } finally {
@@ -342,14 +345,20 @@ public class TableInfo {
          * positives.
          */
         public final int primaryKeyPosition;
+        /**
+         * The default value of this column.
+         */
+        public final String defaultValue;
 
         // if you change this constructor, you must change TableInfoWriter.kt
-        public Column(String name, String type, boolean notNull, int primaryKeyPosition) {
+        public Column(String name, String type, boolean notNull, int primaryKeyPosition,
+                String defaultValue) {
             this.name = name;
             this.type = type;
             this.notNull = notNull;
             this.primaryKeyPosition = primaryKeyPosition;
             this.affinity = findAffinity(type);
+            this.defaultValue = defaultValue;
         }
 
         /**
@@ -400,6 +409,11 @@ public class TableInfo {
             if (!name.equals(column.name)) return false;
             //noinspection SimplifiableIfStatement
             if (notNull != column.notNull) return false;
+            //noinspection EqualsReplaceableByObjectsCall
+            if (defaultValue != null ? !defaultValue.equals(column.defaultValue)
+                    : column.defaultValue != null) {
+                return false;
+            }
             return affinity == column.affinity;
         }
 
@@ -418,6 +432,7 @@ public class TableInfo {
             result = 31 * result + affinity;
             result = 31 * result + (notNull ? 1231 : 1237);
             result = 31 * result + primaryKeyPosition;
+            result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
             return result;
         }
 
@@ -429,6 +444,7 @@ public class TableInfo {
                     + ", affinity='" + affinity + '\''
                     + ", notNull=" + notNull
                     + ", primaryKeyPosition=" + primaryKeyPosition
+                    + ", defaultValue='" + defaultValue + '\''
                     + '}';
         }
     }
