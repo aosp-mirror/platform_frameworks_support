@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac10dc3_7a726a58",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-14T18:17:32Z",
+      "side": 1,
+      "message": "What happens if they don\u0027t use fully qualified names? e.g. \u003cpackage\u003e.\u003cclass-name\u003e ?\nMaybe if they only use class name we can infer the package name to be the application id.\n\nThat is we should be able to handle:\ncom.dany.app.data.Foo (full name)\n.data.Foo (short-hand name)\nFoo (just the class name)",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "d906f666c405addfb915587245b4e2f0dd54f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
