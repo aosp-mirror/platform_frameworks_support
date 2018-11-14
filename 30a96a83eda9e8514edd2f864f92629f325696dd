@@ -22,6 +22,30 @@
       "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77f85e2_e8a9973f",
+        "filename": "activity/ktx/src/androidTest/java/androidx/activity/ActivityViewModelLazyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-14T14:33:47Z",
+      "side": 1,
+      "message": "No, I didn\u0027t talk with dagger folks but it is not really their area.\nI\u0027ve initially tried Lazy\u003cFactory\u003e, but it is painful to initialize: usually it is done like this: \n\n val factory: Lazy\u003cFactory\u003e by lazy {...}\n\nbut it is getting dirty once you want to pass a value from onCrete. \n\nwe can pass a property. It will look like this:\n\n val daggerPoorCopyVM: TestDaggerViewModel by viewModels(::injectedFactory), \n\nbut I don\u0027t think it is less weird.",
+      "parentUuid": "c74e8d11_6355376f",
+      "range": {
+        "startLine": 46,
+        "startChar": 53,
+        "endLine": 46,
+        "endChar": 83
+      },
+      "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
