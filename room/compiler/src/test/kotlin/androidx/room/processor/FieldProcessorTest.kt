@@ -30,6 +30,7 @@ import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -348,6 +349,24 @@ class FieldProcessorTest {
                                 affinity = SQLTypeAffinity.TEXT)))
             }.compilesWithoutError()
         }
+    }
+
+    @Test
+    fun defaultValue() {
+        singleEntity("""
+            @ColumnInfo(defaultValue = "'John'")
+            String name;
+        """) { field, invocation ->
+            assertThat(field, `is`(equalTo(Field(
+                    name = "name",
+                    type = invocation.context.COMMON_TYPES.STRING,
+                    element = field.element,
+                    columnName = "name",
+                    defaultValue = "'John'",
+                    affinity = SQLTypeAffinity.TEXT))))
+            assertThat(field.databaseDefinition(false), `is`(equalTo(
+                    "`name` TEXT DEFAULT 'John'")))
+        }.compilesWithoutError()
     }
 
     fun singleEntity(vararg input: String, handler: (Field, invocation: TestInvocation) -> Unit):

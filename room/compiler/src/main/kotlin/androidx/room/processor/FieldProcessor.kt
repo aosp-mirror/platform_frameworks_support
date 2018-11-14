@@ -57,12 +57,19 @@ class FieldProcessor(
         context.checker.notUnbound(type, element,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_ENTITY_FIELDS)
 
+        val defaultValue = if (columnInfo?.defaultValue.isNullOrEmpty()) {
+            null
+        } else {
+            columnInfo?.defaultValue
+        }
+
         val field = Field(name = name,
                 type = member,
                 element = element,
                 columnName = columnName,
                 affinity = affinity,
                 collate = Collate.fromAnnotationValue(columnInfo?.collate),
+                defaultValue = defaultValue,
                 parent = fieldParent,
                 indexed = columnInfo?.index ?: false)
 
