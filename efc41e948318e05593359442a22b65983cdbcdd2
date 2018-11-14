@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b65e5e7a_e156c4f7",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-14T00:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e75904_d82890fb",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 71
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca299833_b98abbef",
         "filename": "sharetarget/build.gradle",
         "patchSetId": 59
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bdaad554_8c3f21d3",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-14T00:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca299833_b98abbef",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 1
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3c1d615_73ad96e8",
         "filename": "sharetarget/build.gradle",
         "patchSetId": 59
@@ -68,6 +116,30 @@
       "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7c96f0_5d7461c6",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 59
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-11-14T00:22:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c1d615_73ad96e8",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "efc41e948318e05593359442a22b65983cdbcdd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
