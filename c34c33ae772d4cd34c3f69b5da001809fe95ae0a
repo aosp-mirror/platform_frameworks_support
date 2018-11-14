@@ -116,6 +116,30 @@
       "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05a4b673_75b485df",
+        "filename": "media/version-compat-tests/current/client/src/androidTest/java/androidx/media/test/client/tests/MediaControllerLegacyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T10:11:01Z",
+      "side": 1,
+      "message": "Okay, then let\u0027s submit as-is, but please file a bug for different handling of captioningEnabled in future.",
+      "parentUuid": "8c4719ef_4c0124be",
+      "range": {
+        "startLine": 692,
+        "startChar": 17,
+        "endLine": 692,
+        "endChar": 76
+      },
+      "revId": "c34c33ae772d4cd34c3f69b5da001809fe95ae0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
