@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "0bad27c4_f42b2d0e",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45cc668f_0e8f4b64",
+      "range": {
+        "startLine": 1171,
+        "startChar": 91,
+        "endLine": 1171,
+        "endChar": 97
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f813a0ba_19cbe3ff",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6995aaf_65c7f872",
+      "range": {
+        "startLine": 1171,
+        "startChar": 61,
+        "endLine": 1171,
+        "endChar": 63
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3aada605_5eb80e37",
         "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
         "patchSetId": 19
@@ -68,6 +116,30 @@
       "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b81f7cec_7c82f08a",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Yea, that\u0027s a good point, negligence on my part.",
+      "parentUuid": "3aada605_5eb80e37",
+      "range": {
+        "startLine": 1179,
+        "startChar": 32,
+        "endLine": 1180,
+        "endChar": 54
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ea9de409_6dabe417",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f11607f4_ba0d4ac5",
+      "range": {
+        "startLine": 1190,
+        "startChar": 31,
+        "endLine": 1190,
+        "endChar": 43
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f92dd8e2_c673095c",
         "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
         "patchSetId": 19
@@ -105,6 +201,30 @@
       "writtenOn": "2018-11-14T04:31:24Z",
       "side": 1,
       "message": "if (actions.get(j).getId() !\u003d id) continue is slightly faster and less code.",
+      "range": {
+        "startLine": 1231,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 60
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972850e3_70c3291b",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "I don\u0027t understand what you are suggesting here?",
+      "parentUuid": "f92dd8e2_c673095c",
       "range": {
         "startLine": 1231,
         "startChar": 16,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "32e18e35_1253c798",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "725b0d0e_28c9253e",
+      "range": {
+        "startLine": 1241,
+        "startChar": 7,
+        "endLine": 1241,
+        "endChar": 56
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afb5ed24_2c6ebec4",
         "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
         "patchSetId": 19
@@ -160,6 +304,30 @@
       "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "062d3339_f91a85ba",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb5ed24_2c6ebec4",
+      "range": {
+        "startLine": 1244,
+        "startChar": 33,
+        "endLine": 1244,
+        "endChar": 43
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,54 @@
     },
     {
       "key": {
+        "uuid": "eb2cc594_af5bffe2",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d42d0ee0_df32a04b",
+      "range": {
+        "startLine": 1245,
+        "startChar": 54,
+        "endLine": 1245,
+        "endChar": 60
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "664a3d86_78008586",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe9c6ad_f2740207",
+      "range": {
+        "startLine": 1245,
+        "startChar": 24,
+        "endLine": 1245,
+        "endChar": 27
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a41f8f5_464ac37c",
         "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
         "patchSetId": 19
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "018aa3f2_c34998ec",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "If you want to adjust the label of the command. This is up to the service to determine if they want to consume it though.",
+      "parentUuid": "2a41f8f5_464ac37c",
+      "range": {
+        "startLine": 1256,
+        "startChar": 66,
+        "endLine": 1257,
+        "endChar": 57
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b44cac8_63638d4f",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 19
@@ -252,6 +492,30 @@
       "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47dade82_ef94978f",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 1,
+      "message": "There is a log in StandardAccessibilityActionCompat.",
+      "parentUuid": "9b44cac8_63638d4f",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

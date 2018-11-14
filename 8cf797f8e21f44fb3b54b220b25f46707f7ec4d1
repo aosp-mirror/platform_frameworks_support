@@ -22,6 +22,30 @@
       "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88976227_86bd0333",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-14T07:56:40Z",
+      "side": 0,
+      "message": "I don\u0027t understand this again?",
+      "parentUuid": "52f6f0fe_4d27f30d",
+      "range": {
+        "startLine": 498,
+        "startChar": 16,
+        "endLine": 498,
+        "endChar": 43
+      },
+      "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
