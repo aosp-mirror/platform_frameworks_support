@@ -36,12 +36,16 @@ public class FieldBundle implements SchemaEquality<FieldBundle> {
     private String mAffinity;
     @SerializedName("notNull")
     private boolean mNonNull;
+    @SerializedName("defaultValue")
+    private String mDefaultValue;
 
-    public FieldBundle(String fieldPath, String columnName, String affinity, boolean nonNull) {
+    public FieldBundle(String fieldPath, String columnName, String affinity, boolean nonNull,
+            String defaultValue) {
         mFieldPath = fieldPath;
         mColumnName = columnName;
         mAffinity = affinity;
         mNonNull = nonNull;
+        mDefaultValue = defaultValue;
     }
 
     public String getFieldPath() {
@@ -65,6 +69,10 @@ public class FieldBundle implements SchemaEquality<FieldBundle> {
         if (mNonNull != other.mNonNull) return false;
         if (mColumnName != null ? !mColumnName.equals(other.mColumnName)
                 : other.mColumnName != null) {
+            return false;
+        }
+        if (mDefaultValue != null ? !mDefaultValue.equals(other.mDefaultValue)
+                : other.mDefaultValue != null) {
             return false;
         }
         return mAffinity != null ? mAffinity.equals(other.mAffinity) : other.mAffinity == null;
