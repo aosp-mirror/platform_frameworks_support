@@ -22,6 +22,30 @@
       "revId": "a89216e1776c1eca8281bccc387aa25ab66748df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0b42e0_ef52bf8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1110928
+      },
+      "writtenOn": "2018-11-14T01:15:07Z",
+      "side": 1,
+      "message": "Ok we can move the change to View side. This means presenter will hardcode some display config.\n\nJust curious why shouldn\u0027t this be configured by Slice providers?",
+      "parentUuid": "1fe1a38d_740dc538",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "a89216e1776c1eca8281bccc387aa25ab66748df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
