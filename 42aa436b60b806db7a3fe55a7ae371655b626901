@@ -22,6 +22,30 @@
       "revId": "42aa436b60b806db7a3fe55a7ae371655b626901",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee15dfd_5ec99994",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleMediaRouteProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-14T05:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c0a6ec_663f023a",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "42aa436b60b806db7a3fe55a7ae371655b626901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
