@@ -1141,6 +1141,21 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mLayoutAnimationDurationMs = res.getInteger(
                         R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
                 mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
+
+                mItemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!mCheckBox.isChecked()) {
+                            view.setEnabled(false);
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setEnabled(false);
+                            mImageView.setVisibility(View.INVISIBLE);
+                            mProgressBar.setVisibility(View.VISIBLE);
+                            mRoute.selectIntoGroup();
+                            animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
+                        }
+                    }
+                });
             }
 
             boolean isSelected(MediaRouter.RouteInfo route) {
@@ -1177,6 +1192,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     boolean selected = isSelected(route);
                     boolean enabled = isEnabled(route);
 
+
                     // Set checked state of checkbox and replace progress bar with route type icon.
                     mCheckBox.setChecked(selected);
                     mProgressBar.setVisibility(View.INVISIBLE);
@@ -1184,6 +1200,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
                     // Set enabled states of views, height of volume slider layout and alpha value
                     // of itemView.
+                    mItemView.setEnabled(enabled && !selected);
                     mCheckBox.setEnabled(enabled);
                     mMuteButton.setEnabled(enabled);
                     mVolumeSlider.setEnabled(enabled);
