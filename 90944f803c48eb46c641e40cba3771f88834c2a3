@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd37e2cd_1aa4b944",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3dcd271_4a2a0c05",
+      "range": {
+        "startLine": 87,
+        "startChar": 33,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2d2f76c_6b96b741",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 24
@@ -45,6 +69,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ff0715_4a6d2853",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2d2f76c_6b96b741",
+      "range": {
+        "startLine": 114,
+        "startChar": 44,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3a764daa_34a18b72",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377175d1_ae303fc6",
+      "range": {
+        "startLine": 155,
+        "startChar": 46,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb1b7273_61c670a1",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 24
@@ -91,6 +163,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f890722_af252bf3",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb1b7273_61c670a1",
+      "range": {
+        "startLine": 170,
+        "startChar": 53,
+        "endLine": 170,
+        "endChar": 56
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "411d57ae_c5a9c1ab",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4581253b_d5bac027",
+      "range": {
+        "startLine": 171,
+        "startChar": 33,
+        "endLine": 171,
+        "endChar": 38
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fea51086_d844e5f9",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
         "patchSetId": 24
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "2b83af99_479d8e13",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea51086_d844e5f9",
+      "range": {
+        "startLine": 174,
+        "startChar": 32,
+        "endLine": 174,
+        "endChar": 37
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f717e9b1_6cb955e9",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 24
@@ -154,6 +298,24 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176fd4ce_60eaeac1",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "has changed",
+      "parentUuid": "f717e9b1_6cb955e9",
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "4e4ab212_30ec7762",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8b92612_5adedca7",
+      "range": {
+        "startLine": 88,
+        "startChar": 33,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e26324ef_97efa5c0",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 24
@@ -191,6 +377,30 @@
       "writtenOn": "2018-11-14T00:15:43Z",
       "side": 1,
       "message": "Use mItems.size() here",
+      "range": {
+        "startLine": 92,
+        "startChar": 32,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed6f6bf_324a03d6",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Actually the mItem.size() will return 0, because in the constructor we only set the capacity of the array list.\nAnd I did not find a decent way to get the capacity of a ArrayList so I guess use SIZE directly is the best way here.\n\nFYI\nhttps://www.quora.com/Why-does-the-size-of-an-ArrayList-return-zero-even-though-I-indicated-while-creating-the-list-that-the-initial-capacity-should-be-5",
+      "parentUuid": "e26324ef_97efa5c0",
       "range": {
         "startLine": 92,
         "startChar": 32,
@@ -220,6 +430,24 @@
     },
     {
       "key": {
+        "uuid": "a157e9a8_c13934a6",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "831f5408_4b6bc95e",
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240eed68_cf76c7ac",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 24
@@ -234,6 +462,24 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19df157c_2aa4e68b",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240eed68_cf76c7ac",
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "3678a954_665bec47",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "182240a8_5500d290",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcbf6819_4b4b1656",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 24
@@ -280,6 +550,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df0b12b_858de085",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcbf6819_4b4b1656",
+      "range": {
+        "startLine": 46,
+        "startChar": 37,
+        "endLine": 46,
+        "endChar": 41
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -306,6 +600,30 @@
     },
     {
       "key": {
+        "uuid": "15030bef_d244b587",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d357eab_60b2c53a",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9df1d6e9_91f5fb5c",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 24
@@ -326,6 +644,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166d2ee4_605ba4e0",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df1d6e9_91f5fb5c",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -352,6 +694,30 @@
     },
     {
       "key": {
+        "uuid": "87d54f21_827f917d",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc1988f_683dd659",
+      "range": {
+        "startLine": 57,
+        "startChar": 33,
+        "endLine": 57,
+        "endChar": 53
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24983b2f_2a128246",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 24
@@ -372,6 +738,30 @@
       "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52656c51_dd8b24a5",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 24
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-14T02:12:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24983b2f_2a128246",
+      "range": {
+        "startLine": 58,
+        "startChar": 43,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "90944f803c48eb46c641e40cba3771f88834c2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
