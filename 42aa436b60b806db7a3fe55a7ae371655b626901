@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47c0a6ec_663f023a",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleMediaRouteProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-14T05:28:25Z",
+      "side": 1,
+      "message": "Q) Is it enough for smooth dragging? Kevin proposed 10% to 1~2%, which might be 50~100?",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "42aa436b60b806db7a3fe55a7ae371655b626901",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
