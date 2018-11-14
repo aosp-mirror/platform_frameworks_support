@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0ebf4f2_22b8629d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "playlist",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84386deb_a30af695",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "Let\u0027s create a variable and use it:\n\nfinal int targetIndex \u003d 0;",
+      "range": {
+        "startLine": 669,
+        "startChar": 60,
+        "endLine": 669,
+        "endChar": 61
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb942f26_b1f509e9",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaSessionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "ditto (use final variable)",
+      "range": {
+        "startLine": 293,
+        "startChar": 48,
+        "endLine": 293,
+        "endChar": 49
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f9ad3c_e2fdc29c",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 1032,
+        "startChar": 75,
+        "endLine": 1032,
+        "endChar": 83
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ddf01e8_1dead3a2",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "Q) Can this be -1?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 20,
+        "endLine": 1047,
+        "endChar": 57
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3c83ac_cca81e06",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "ditto (remove), here and others",
+      "range": {
+        "startLine": 1207,
+        "startChar": 75,
+        "endLine": 1207,
+        "endChar": 83
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9714c3_0cd9baf5",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "\"The index of the item you want to remove in the playlist\" ?",
+      "range": {
+        "startLine": 457,
+        "startChar": 20,
+        "endLine": 457,
+        "endChar": 48
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba146337_ab0626da",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:02:13Z",
+      "side": 1,
+      "message": "The index of the item you want to play in the playlist?",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 61
+      },
+      "revId": "81804862730964918b3f0ddf4936cbe3c2673afd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
