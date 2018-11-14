@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec8a6e9b_b90d7432",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkManagerTestInitHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-14T21:10:23Z",
+      "side": 0,
+      "message": "Is this no longer NonNull?",
+      "revId": "b78738eb5e5e76d68fd10885b47341dcfeb5a64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
