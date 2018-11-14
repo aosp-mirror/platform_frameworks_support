@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cb01c74_fdb3039d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-14T11:14:39Z",
+      "side": 1,
+      "message": "Since we changed MediaPlayer, we need to run media2 tests (connectedCheck)",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "e0f2e7459427a0daa77adec594dab3cabd2e5b15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
