@@ -1141,6 +1141,27 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mLayoutAnimationDurationMs = res.getInteger(
                         R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
                 mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
+                mItemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!mCheckBox.isChecked()) {
+                            view.setEnabled(false);
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setEnabled(false);
+                            mImageView.setVisibility(View.INVISIBLE);
+                            mProgressBar.setVisibility(View.VISIBLE);
+                            mRoute.selectIntoGroup();
+                            animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
+                        } else {
+                            view.setEnabled(false);
+                            // If user clicked checked checkbox, isChecked returns false.
+                            mCheckBox.setChecked(false);
+                            mCheckBox.setEnabled(false);
+                            mRoute.unselectFromGroup();
+                            animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
+                        }
+                    }
+                });
             }
 
             boolean isSelected(MediaRouter.RouteInfo route) {
