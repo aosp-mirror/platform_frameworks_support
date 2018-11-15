@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55eb74e3_6941979c",
+        "filename": "media2/version-compat-tests/common/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-11-15T21:06:48Z",
+      "side": 1,
+      "message": "Remove and fix the warnings.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "b4c4e8269e287621b5b2eab7d31cf76e1ce26b65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
