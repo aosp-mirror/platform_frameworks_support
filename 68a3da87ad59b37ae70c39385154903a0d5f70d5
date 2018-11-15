@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc48003f_9b4a5496",
+        "filename": "navigation/runtime/ktx/src/main/java/androidx/navigation/ActivityNavigatorExtras.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-15T22:31:06Z",
+      "side": 1,
+      "message": "or what? :)",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 14
+      },
+      "revId": "68a3da87ad59b37ae70c39385154903a0d5f70d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
