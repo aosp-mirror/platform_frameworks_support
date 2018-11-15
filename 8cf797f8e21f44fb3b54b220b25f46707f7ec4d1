@@ -46,6 +46,30 @@
       "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc7b33a_e76ec641",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-15T01:27:35Z",
+      "side": 0,
+      "message": "You\u0027re removing the conditional for API 21, but I don\u0027t believe there are any services that can support custom actions before API 21.\n\nThis doesn\u0027t really matter if the method is very lightweight, but if the new API is going to add stuff to view tags on older platforms where the feature won\u0027t work, we should probably prevent it from doing so.",
+      "parentUuid": "88976227_86bd0333",
+      "range": {
+        "startLine": 498,
+        "startChar": 16,
+        "endLine": 498,
+        "endChar": 43
+      },
+      "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "9b4e1fac_f072647f",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-15T01:27:35Z",
+      "side": 1,
+      "message": "I was suggesting early termination from the loop, but I see my code doesn\u0027t actually work. This is better I think:\nif (actions.get(j).getId() !\u003d id) {\n    idAvailable \u003d false;\n    break;\n}",
+      "parentUuid": "972850e3_70c3291b",
+      "range": {
+        "startLine": 1231,
+        "startChar": 16,
+        "endLine": 1231,
+        "endChar": 60
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "725b0d0e_28c9253e",
         "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
         "patchSetId": 19
@@ -469,6 +493,30 @@
       "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01125f2f_5b39fe96",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-15T01:27:35Z",
+      "side": 1,
+      "message": "OK. I would explain the two use cases in the javadoc then.",
+      "parentUuid": "018aa3f2_c34998ec",
+      "range": {
+        "startLine": 1256,
+        "startChar": 66,
+        "endLine": 1257,
+        "endChar": 57
+      },
+      "revId": "2e155d8f566ab4d8781c11e129344761d18e737a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
