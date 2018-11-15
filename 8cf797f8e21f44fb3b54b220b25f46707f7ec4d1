@@ -70,6 +70,30 @@
       "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc204e9_29b9e671",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-15T03:54:22Z",
+      "side": 0,
+      "message": "The API Calls are wrapped in if API \u003e 21 , so that shouldn\u0027t be an issue.",
+      "parentUuid": "2cc7b33a_e76ec641",
+      "range": {
+        "startLine": 498,
+        "startChar": 16,
+        "endLine": 498,
+        "endChar": 43
+      },
+      "revId": "8cf797f8e21f44fb3b54b220b25f46707f7ec4d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
