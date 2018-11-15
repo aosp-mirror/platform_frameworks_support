@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "389292d0_abc205fa",
+        "filename": "paging/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-15T16:51:44Z",
+      "side": 1,
+      "message": "it is using completable live data so does not work :/",
+      "parentUuid": "a1794418_516d443a",
+      "range": {
+        "startLine": 38,
+        "startChar": 31,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "6cdfd058991902e47d15b74711a18ba5ecbc8227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3143bbc4_4cca1519",
         "filename": "room/runtime/build.gradle",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-15T12:16:22Z",
       "side": 1,
       "message": "I would suggest here livedata + appcompat instead, where there precedents of removing exposed dependencies in minor reeleases.",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "6cdfd058991902e47d15b74711a18ba5ecbc8227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f40f2625_0617932a",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-15T16:51:44Z",
+      "side": 1,
+      "message": "i can do LiveData but not sure why we need appcompat.\n\nI actually don\u0027t think we need lifecycle extensions here after having core runtime, i\u0027ll try removing it compiletely.",
+      "parentUuid": "3143bbc4_4cca1519",
       "range": {
         "startLine": 39,
         "startChar": 16,
