@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83c8c666_23a0e6d3",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-15T03:13:43Z",
+      "side": 1,
+      "message": "we should rename this to something like getCLoseReadLock to be more explicit.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "b66160d2a4be821127b39a7f7c1e693c3dc39d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
