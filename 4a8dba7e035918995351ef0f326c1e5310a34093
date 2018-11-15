@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c7a6c9d_0d181573",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-15T06:19:39Z",
+      "side": 1,
+      "message": "mIsMusic?",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "4a8dba7e035918995351ef0f326c1e5310a34093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1c2cdb_a3f41024",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-15T06:19:39Z",
+      "side": 1,
+      "message": "Please leave a comment.",
+      "range": {
+        "startLine": 1042,
+        "startChar": 24,
+        "endLine": 1042,
+        "endChar": 33
+      },
+      "revId": "4a8dba7e035918995351ef0f326c1e5310a34093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
