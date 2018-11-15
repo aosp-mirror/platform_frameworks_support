@@ -19,6 +19,8 @@ package androidx.room.verifier
 import androidx.room.processor.Context
 import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
+import androidx.room.vo.FtsEntity
+import androidx.room.vo.FtsOptions
 import androidx.room.vo.Warning
 import columnInfo
 import org.sqlite.JDBC
@@ -107,7 +109,15 @@ class DatabaseVerifier private constructor(
     init {
         entities.forEach { entity ->
             val stmt = connection.createStatement()
-            stmt.executeUpdate(stripLocalizeCollations(entity.createTableQuery))
+            val createTableQuery = if (entity is FtsEntity &&
+                !FtsOptions.defaultTokenizers.contains(entity.ftsOptions.tokenizer)) {
+                // Custom FTS tokenizer used, use simple create statement with stripped tokenizer
+                // since the DB used for verification probably doesn't have the tokenizer.
+                entity.createTableQuerySimple
+            } else {
+                entity.createTableQuery
+            }
+            stmt.executeUpdate(stripLocalizeCollations(createTableQuery))
             entity.indices.forEach {
                 stmt.executeUpdate(it.createQuery(entity.tableName))
             }
@@ -129,6 +139,8 @@ class DatabaseVerifier private constructor(
 
     private fun stripLocalizeCollations(sql: String) =
             COLLATE_LOCALIZED_UNICODE_PATTERN.matcher(sql).replaceAll(" COLLATE NOCASE")
+
+    private fun stripCustomTokenizer(sql: String) = ""
 
     fun closeConnection(context: Context) {
         if (!connection.isClosed) {
