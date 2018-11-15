@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b76a5b00_3b4004ab",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplLegacy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-15T03:03:08Z",
+      "side": 1,
+      "message": "Would you add some javadoc for this behavior somewhere? Since the developers will not know why -1 is returned.",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 5
+      },
+      "revId": "5cf527c0c5cee145c98c0b907c0a87027f4af1c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
