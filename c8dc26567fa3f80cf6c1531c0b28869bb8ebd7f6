@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e13ba1a_b3b7a41e",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-15T07:29:18Z",
+      "side": 1,
+      "message": "Please follow similar style with other methods (like L690)\n\n  Interoperability: When connected to\n     * {@link android.support.v4.media.session.MediaSessionCompat}, this will always return {@code -1}.\n\nOne of the advantage of doing this is that we can search these kind of things easily with keyword \"Interoperability\".",
+      "range": {
+        "startLine": 898,
+        "startChar": 7,
+        "endLine": 899,
+        "endChar": 33
+      },
+      "revId": "c8dc26567fa3f80cf6c1531c0b28869bb8ebd7f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
