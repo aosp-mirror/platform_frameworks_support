@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "151b5a3c_47d2426f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsEntity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-15T21:10:35Z",
+      "side": 1,
+      "message": "simple is not really desceription. maybe call it createTableWithouttokenizer ?\n\nwe may consider moving the other logic of stripping to 1 method as well.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "0699a493cedac6ef6a5b18841847f2e0cbcda226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790fab9e_0e35266c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/FtsOptions.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-15T21:10:35Z",
+      "side": 1,
+      "message": "instead of strip, can we do this:\nincludeTokenizer \u003d true\nto keep the argument positive and w/ default value ?\n\nwe can also consider providing a public function \ndatabaseDefinitionWithoutTokenizer . that might be better for clarity.",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "0699a493cedac6ef6a5b18841847f2e0cbcda226",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
