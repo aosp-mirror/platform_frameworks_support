@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1794418_516d443a",
+        "filename": "paging/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-15T12:16:22Z",
+      "side": 1,
+      "message": "I guess it actually can be LIVEDATA_CORE",
+      "range": {
+        "startLine": 38,
+        "startChar": 31,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "6cdfd058991902e47d15b74711a18ba5ecbc8227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3143bbc4_4cca1519",
+        "filename": "room/runtime/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-15T12:16:22Z",
+      "side": 1,
+      "message": "I would suggest here livedata + appcompat instead, where there precedents of removing exposed dependencies in minor reeleases.",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "6cdfd058991902e47d15b74711a18ba5ecbc8227",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
