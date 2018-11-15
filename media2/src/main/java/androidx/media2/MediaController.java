@@ -894,6 +894,9 @@ public class MediaController implements AutoCloseable {
      * Gets the previous item index in the playlist. The returned value can be outdated after
      * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)} or
      * {@link ControllerCallback#onPlaylistChanged(MediaController, List, MediaMetadata)} is called.
+     * <p>
+     * When connected to {@link android.support.v4.media.session.MediaSessionCompat},
+     * this value will return -1.
      *
      * @return the index of previous item in playlist, or -1 if previous media item does not exist
      * or playlist hasn't been set.
@@ -906,6 +909,9 @@ public class MediaController implements AutoCloseable {
      * Gets the next item index in the playlist. The returned value can be outdated after
      * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)} or
      * {@link ControllerCallback#onPlaylistChanged(MediaController, List, MediaMetadata)} is called.
+     * <p>
+     * When connected to {@link android.support.v4.media.session.MediaSessionCompat},
+     * this value will return -1.
      *
      * @return the index of next item in playlist, or -1 if next media item does not exist or
      * playlist hasn't been set.
