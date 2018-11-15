@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffd9ab17_2adb0681",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-11-15T08:54:31Z",
+      "side": 1,
+      "message": "I\u0027m not against this change as such, but I can\u0027t see why it\u0027s required for this CL, and it seems confusing that this is the only method that supports being run directly on the main thread?",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 10
+      },
+      "revId": "809c70c1ae4071f536ca60280eeca7a87535818c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d365122_d6299283",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/TracingControllerImpl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-11-15T08:54:31Z",
+      "side": 1,
+      "message": "It\u0027s confusing to have these methods that lazily get a given impl, but to have also fetched them eagerly in the ctor.\n\nIs there any reason not to delete these two methods, and then do the following, below?:\n\nif (feature.isSupportedByFramework()) {\n  return mFrameworksImpl.isTracing();\n} else if (feature.isSupportedByWebView()) {\n  return mBoundaryInterface.isTracing();\n} else {\n  ...\n}",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "809c70c1ae4071f536ca60280eeca7a87535818c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
