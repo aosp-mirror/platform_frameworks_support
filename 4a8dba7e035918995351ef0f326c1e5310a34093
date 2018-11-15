@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "038a42bd_2a26289a",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-15T08:16:07Z",
+      "side": 1,
+      "message": "mCurrentItemIsMusic sounds good for now. Okay, let me change it.",
+      "parentUuid": "9917cb0b_9b899b58",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "4a8dba7e035918995351ef0f326c1e5310a34093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f1c2cdb_a3f41024",
         "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
         "patchSetId": 1
