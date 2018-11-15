@@ -43,6 +43,10 @@ class FtsEntity(
         createTableQuery(tableName)
     }
 
+    val createTableQuerySimple by lazy {
+        createTableQuery(tableName, true)
+    }
+
     val nonHiddenFields by lazy {
         fields.filterNot {
             // 'rowid' primary key column and language id column are hidden columns
@@ -82,9 +86,9 @@ class FtsEntity(
         return identityKey.hash()
     }
 
-    private fun createTableQuery(tableName: String): String {
+    private fun createTableQuery(tableName: String, stripTokenizer: Boolean = false): String {
         val definitions = nonHiddenFields.map { it.databaseDefinition(false) } +
-                ftsOptions.databaseDefinition()
+                ftsOptions.databaseDefinition(stripTokenizer)
         return "CREATE VIRTUAL TABLE IF NOT EXISTS `$tableName` " +
                 "USING ${ftsVersion.name}(${definitions.joinToString(", ")})"
     }
