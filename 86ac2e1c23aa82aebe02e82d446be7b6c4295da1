@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a6a0e18_ae67e9d4",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-16T22:22:30Z",
+      "side": 1,
+      "message": "This can be val arg: String to skip the val arg \u003d arg line below",
+      "range": {
+        "startLine": 27,
+        "startChar": 50,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "86ac2e1c23aa82aebe02e82d446be7b6c4295da1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
