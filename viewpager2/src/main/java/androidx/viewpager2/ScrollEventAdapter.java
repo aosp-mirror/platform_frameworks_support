@@ -242,6 +242,15 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         }
     }
 
+    /**
+     * Let the adapter know that mCurrentItem was restored in onRestoreInstanceState
+     */
+    public void notifyRestoreCurrentItem(int currentItem) {
+        if (currentItem != 0) {
+            dispatchSelected(currentItem);
+        }
+    }
+
     private boolean isLayoutRTL() {
         return mLayoutManager.getLayoutDirection() == LAYOUT_DIRECTION_RTL;
     }
