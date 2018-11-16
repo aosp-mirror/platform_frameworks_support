@@ -16,6 +16,24 @@
       "revId": "62e1547bcc4a5f9bc602b5344569a5b71450ffce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146c57c5_eef0fd1d",
+        "filename": "work/workmanager-rxjava2/src/main/java/androidx/work/RxWorker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-16T02:03:08Z",
+      "side": 1,
+      "message": "thanks. merged them all.\ni don\u0027t like the runnable part much since it is not very descriptive but it is fine, i added a comment.",
+      "parentUuid": "bd9ba29c_1b5db901",
+      "revId": "62e1547bcc4a5f9bc602b5344569a5b71450ffce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
