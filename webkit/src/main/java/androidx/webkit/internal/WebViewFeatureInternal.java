@@ -265,7 +265,19 @@ public enum WebViewFeatureInternal {
     GET_WEB_CHROME_CLIENT(WebViewFeature.GET_WEB_CHROME_CLIENT, Build.VERSION_CODES.O),
 
     GET_WEB_VIEW_RENDERER(WebViewFeature.GET_WEB_VIEW_RENDERER),
-    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE);
+    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE),
+
+    /**
+     * This feature covers {@link WebViewCompat.setDocumentStartJavascript(WebView, String,
+     * boolean)} and {@link WebViewCompat.removeDocumentStartJavascript(WebView)}.
+     */
+    RUN_JAVASCRIPT_AT_DOCUMENT_START(WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START),
+
+    /**
+     * This feature covers {@link WebChromeClientCompat#onPostMessage(WebView, String, String,
+     * WebMessagePort[])}.
+     */
+    ON_POST_MESSAGE(WebViewFeature.ON_POST_MESSAGE);
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
 

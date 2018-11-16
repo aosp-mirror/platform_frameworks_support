@@ -83,6 +83,8 @@ public class WebViewFeature {
             GET_WEB_CHROME_CLIENT,
             GET_WEB_VIEW_RENDERER,
             WEB_VIEW_RENDERER_TERMINATE,
+            RUN_JAVASCRIPT_AT_DOCUMENT_START,
+            POST_WEB_MESSAGE,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -347,6 +349,11 @@ public class WebViewFeature {
      * This feature covers {@link WebViewRenderer#terminate()}
      */
     public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
+
+    public static final String RUN_JAVASCRIPT_AT_DOCUMENT_START =
+            Features.RUN_JAVASCRIPT_AT_DOCUMENT_START;
+
+    public static final String ON_POST_MESSAGE = Features.ON_POST_MESSAGE;
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

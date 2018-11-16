@@ -29,6 +29,12 @@ package androidx.webkit {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SERVICE_WORKER_CACHE_MODE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public abstract void setCacheMode(int);
   }
 
+  public class WebChromeClientCompat extends android.webkit.WebChromeClient {
+    ctor public WebChromeClientCompat();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final String[]! getSupportedFeatures();
+    method public void onPostMessage(android.webkit.WebView, String, String, androidx.webkit.WebMessagePortCompat[]);
+  }
+
   public class WebMessageCompat {
     ctor public WebMessageCompat(String?);
     ctor public WebMessageCompat(String?, androidx.webkit.WebMessagePortCompat[]?);
@@ -83,6 +89,8 @@ package androidx.webkit {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.GET_WEB_VIEW_RENDERER, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebViewRenderer? getWebViewRenderer(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.VISUAL_STATE_CALLBACK, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postVisualStateCallback(android.webkit.WebView, long, androidx.webkit.WebViewCompat.VisualStateCallback);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.POST_WEB_MESSAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postWebMessage(android.webkit.WebView, androidx.webkit.WebMessageCompat, android.net.Uri);
+    method public static void removeDocumentStartJavascript(android.webkit.WebView);
+    method public static void setDocumentStartJavascript(android.webkit.WebView, String, boolean);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_WHITELIST, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setSafeBrowsingWhitelist(java.util.List<java.lang.String>, android.webkit.ValueCallback<java.lang.Boolean>?);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.START_SAFE_BROWSING, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void startSafeBrowsing(android.content.Context, android.webkit.ValueCallback<java.lang.Boolean>?);
   }
@@ -99,9 +107,11 @@ package androidx.webkit {
     field public static final String GET_WEB_VIEW_CLIENT = "GET_WEB_VIEW_CLIENT";
     field public static final String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
     field public static final String OFF_SCREEN_PRERASTER = "OFF_SCREEN_PRERASTER";
+    field public static final String ON_POST_MESSAGE = "ON_POST_MESSAGE";
     field public static final String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
     field public static final String RECEIVE_HTTP_ERROR = "RECEIVE_HTTP_ERROR";
     field public static final String RECEIVE_WEB_RESOURCE_ERROR = "RECEIVE_WEB_RESOURCE_ERROR";
+    field public static final String RUN_JAVASCRIPT_AT_DOCUMENT_START = "RUN_JAVASCRIPT_AT_DOCUMENT_START";
     field public static final String SAFE_BROWSING_ENABLE = "SAFE_BROWSING_ENABLE";
     field public static final String SAFE_BROWSING_HIT = "SAFE_BROWSING_HIT";
     field public static final String SAFE_BROWSING_PRIVACY_POLICY_URL = "SAFE_BROWSING_PRIVACY_POLICY_URL";

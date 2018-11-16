@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
         final Context activityContext = this;
         MenuListView listView = findViewById(R.id.top_level_list);
         MenuListView.MenuItem[] menuItems = new MenuListView.MenuItem[] {
-                new MenuListView.MenuItem(
-                        getResources().getString(R.string.safebrowsing_activity_title),
-                        new Intent(activityContext, SafeBrowsingActivity.class)),
+            new MenuListView.MenuItem(
+                getResources().getString(R.string.safebrowsing_activity_title),
+                new Intent(activityContext, SafeBrowsingActivity.class)),
+            new MenuListView.MenuItem(
+                getResources().getString(R.string.js_java_interaction_activity_title),
+                new Intent(activityContext, JsJavaInteractionActivity.class)),
         };
         listView.setItems(menuItems);
     }

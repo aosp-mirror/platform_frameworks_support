@@ -14,3 +14,6 @@
 
 # Prevent WebViewClientCompat from being renamed, since chromium depends on this name.
 -keepnames public class androidx.webkit.WebViewClientCompat
+
+# Prevent WebChromeClientCompat from being renamed, since chromium depends on this name.
+-keepnames public class androidx.webkit.WebChromeClientCompat

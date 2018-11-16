@@ -513,6 +513,53 @@ public class WebViewCompat {
         }
     }
 
+    /**
+     * Set the JavaScript runs right after document element is created. Note that it might run
+     * multiple times for one page navigation.
+     *
+     * @param webview         The {@link android.webkit.WebView} we are interacting with.
+     * @param script          The JavaScript code we want to run.
+     * @param isMainFrameOnly If we want to run the JavaScript on main frame only.
+     */
+    @RequiresFeature(name = WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setDocumentStartJavascript(
+            @NonNull WebView webview, @NonNull final String script, final boolean isMainFrameOnly) {
+        final WebViewFeatureInternal feature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START);
+        if (feature.isSupportedByWebView()) {
+            try {
+                getProvider(webview).setDocumentStartJavascript(script, isMainFrameOnly);
+            } catch (Exception e) {
+                throw WebViewFeatureInternal.getUnsupportedOperationException();
+            }
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Removes JavaScript set by {@link #setDocumentStartJavascript(WebView, String, boolean)}
+     * method.
+     *
+     * @param webview The {@link android.webkit.WebView} we are interacting with.
+     */
+    @RequiresFeature(name = WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void removeDocumentStartJavascript(@NonNull WebView webview) {
+        final WebViewFeatureInternal feature =
+                WebViewFeatureInternal.getFeature(WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START);
+        if (feature.isSupportedByWebView()) {
+            try {
+                getProvider(webview).removeDocumentStartJavascript();
+            } catch (Exception e) {
+                throw WebViewFeatureInternal.getUnsupportedOperationException();
+            }
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
     private static WebViewProviderFactory getFactory() {
         return WebViewGlueCommunicator.getFactory();
     }

@@ -14,9 +14,19 @@
      limitations under the License.
 -->
 
-<resources>
-    <string name="main_activity_title">WebView AndroidX Demos</string>
-    <string name="safebrowsing_activity_title">Safe Browsing</string>
-    <string name="js_java_interaction_activity_title">Js Java Interaction</string>
-    <string name="not_updateable_webview">not updatable</string>
-</resources>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
