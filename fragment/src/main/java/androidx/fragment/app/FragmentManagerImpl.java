@@ -978,6 +978,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         f.mView = null;
                         // Set here to ensure that Observers are called after
                         // the Fragment's view is set to null
+                        f.mViewLifecycleRegistry = null;
                         f.mViewLifecycleOwner = null;
                         f.mViewLifecycleOwnerLiveData.setValue(null);
                         f.mInnerView = null;
