@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34c85a6_17785885",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-11-16T00:08:28Z",
+      "side": 1,
+      "message": "This you can actually pull out into its own method because it\u0027s mostly just boilerplate so you can call \"requestLayout\".",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 9
+      },
+      "revId": "6105ef2619e02b222058d5ddd29234642e3b8d19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
