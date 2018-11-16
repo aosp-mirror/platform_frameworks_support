@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "31686e94_0b44a739",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-16T00:30:11Z",
+      "side": 1,
+      "message": "Other methods call into this one. This change is to get parity with the CTS version of the class--Tim\u0027s CTS tests rely on calling this from both the main looper as well as the instrumentation thread.",
+      "parentUuid": "ffd9ab17_2adb0681",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 10
+      },
+      "revId": "809c70c1ae4071f536ca60280eeca7a87535818c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d365122_d6299283",
         "filename": "webkit/src/main/java/androidx/webkit/internal/TracingControllerImpl.java",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "809c70c1ae4071f536ca60280eeca7a87535818c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d06783_b4f9601d",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/TracingControllerImpl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-16T00:30:11Z",
+      "side": 1,
+      "message": "Can\u0027t assign mFrameworksImpl unless we\u0027re on \u003e\u003d 28. I think this is fine as-is (and that getFrameworksImpl() is @RequiresApi).",
+      "parentUuid": "3d365122_d6299283",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "809c70c1ae4071f536ca60280eeca7a87535818c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
