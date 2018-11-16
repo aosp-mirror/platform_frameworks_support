@@ -20,8 +20,6 @@ import android.os.Bundle
 import androidx.testutils.RecreatedActivity
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.test.R
-import androidx.viewpager2.widget.AdapterProvider
-import androidx.viewpager2.widget.ViewPager2
 
 class TestActivity : RecreatedActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +30,14 @@ class TestActivity : RecreatedActivity() {
 
         setContentView(R.layout.activity_test_layout)
 
-        /** hacky way of setting an adapter before [TestActivity.onRestoreInstanceState] fires */
-        if (adapterProvider != null) {
-            findViewById<ViewPager2>(R.id.view_pager).adapter = adapterProvider!!(this)
+        /** hacky way of configuring this instance from test code */
+        if (onCreateCallback != null) {
+            onCreateCallback!!(this)
         }
     }
 
     companion object {
-        @JvmStatic
-        var adapterProvider: AdapterProvider? = null
+        var onCreateCallback: ((TestActivity) -> Unit)? = null
         const val EXTRA_LANGUAGE = "language"
     }
 }

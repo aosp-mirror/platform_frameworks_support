@@ -102,10 +102,19 @@ open class BaseTest {
     }
 
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
-        fun recreateActivity(adapterProvider: AdapterProvider) {
-            TestActivity.adapterProvider = adapterProvider
+        fun recreateActivity(
+            adapterProvider: AdapterProvider,
+            onCreateCallback: ((ViewPager2) -> Unit)? = null
+        ) {
+            TestActivity.onCreateCallback = { activity ->
+                val viewPager = activity.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.adapter = adapterProvider(activity)
+                if (onCreateCallback != null) {
+                    onCreateCallback(viewPager)
+                }
+            }
             activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
-            TestActivity.adapterProvider = null
+            TestActivity.onCreateCallback = null
         }
 
         var activity: TestActivity = activityTestRule.activity
