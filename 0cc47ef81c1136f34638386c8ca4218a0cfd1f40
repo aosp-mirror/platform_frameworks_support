@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "fad5e3dd_0f72b713",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/AlphaJumpPagedListViewTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-16T01:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c14dc88b_2b503a6f",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a481b99_40472c59",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
         "patchSetId": 27
@@ -151,6 +169,24 @@
       "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3911d4dd_44868e66",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/PagedListViewShrinkActivity.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-16T01:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "421bf447_89f248c8",
+      "revId": "0cc47ef81c1136f34638386c8ca4218a0cfd1f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
