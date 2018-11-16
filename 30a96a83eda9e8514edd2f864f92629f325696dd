@@ -94,6 +94,53 @@
       "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb2494f_35ac1608",
+        "filename": "activity/ktx/src/androidTest/java/androidx/activity/ActivityViewModelLazyTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-16T02:30:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "074a14fa_2df331f0",
+      "range": {
+        "startLine": 46,
+        "startChar": 53,
+        "endLine": 46,
+        "endChar": 83
+      },
+      "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0af0fdfc_59b5237c",
+        "filename": "activity/ktx/src/main/java/androidx/activity/ActivityViewModelLazy.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-16T02:30:08Z",
+      "side": 1,
+      "message": "d,",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 15
+      },
+      "revId": "30a96a83eda9e8514edd2f864f92629f325696dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
