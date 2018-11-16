@@ -22,6 +22,30 @@
       "revId": "d906f666c405addfb915587245b4e2f0dd54f53a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ebba37_fcf7b562",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-16T12:18:17Z",
+      "side": 1,
+      "message": "To be consistent with how it works for other resources (Manifest), we should:\n1) use the module\u0027s manifest package name, not application Id\n2) only allow relative class names, i.e. they begin with a dot (\".Foo\") and are appended to the package name, i.e. only full name and short-hand name from your example would be allowed. \"Foo\" is ambiguous - it could also be a class in the default package.\n\nI\u0027ll see how I can go about implementing it.",
+      "parentUuid": "2ac10dc3_7a726a58",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "d906f666c405addfb915587245b4e2f0dd54f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
