@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aebc14c_f5e506b0",
+        "filename": "activity/src/androidTest/java/androidx/activity/LifecyclePwned.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-16T13:45:17Z",
+      "side": 1,
+      "message": "it has two different ways how it can be implemented",
+      "revId": "7105560e56d36a3f84551db3dc64bb3b8d3ba715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bfbf3253_2c257de3",
         "filename": "activity/src/androidTest/java/androidx/activity/LifecyclePwned.kt",
         "patchSetId": 2
