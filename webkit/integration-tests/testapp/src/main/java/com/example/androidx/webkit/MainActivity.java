@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 new MenuListView.MenuItem(
                         getResources().getString(R.string.asset_loader_list_activity_title),
                         new Intent(activityContext, AssetLoaderListActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.js_java_interaction_activity_title),
+                        new Intent(activityContext, JsJavaInteractionActivity.class)),
         };
         listView.setItems(menuItems);
     }

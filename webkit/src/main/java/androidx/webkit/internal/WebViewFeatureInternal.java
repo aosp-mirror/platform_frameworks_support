@@ -277,6 +277,18 @@ public enum WebViewFeatureInternal {
     WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE),
 
     /**
+     * This feature covers {@link WebViewCompat.setDocumentStartJavascript(WebView, String,
+     * boolean)} and {@link WebViewCompat.removeDocumentStartJavascript(WebView)}.
+     */
+    RUN_JAVASCRIPT_AT_DOCUMENT_START(WebViewFeature.RUN_JAVASCRIPT_AT_DOCUMENT_START),
+
+    /**
+     * This feature covers {@link WebChromeClientCompat#onPostMessage(WebView, String, String,
+     * WebMessagePort[])}.
+     */
+    ON_POST_MESSAGE(WebViewFeature.ON_POST_MESSAGE),
+
+    /**
      * This feature covers
      * {@link TracingController#getInstance()},
      * {@link TracingController#isTracing()},

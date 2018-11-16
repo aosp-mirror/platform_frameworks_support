@@ -118,4 +118,19 @@ public class WebViewProviderAdapter {
                 BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(
                       new WebViewRendererClientAdapter(executor, webViewRendererClient)));
     }
+
+    /**
+     * Adapter method for {@link WebViewCompat#setDocumentStartJavascript(WebView, String,
+     * boolean)}.
+     */
+    public void setDocumentStartJavascript(final String script, final boolean isMainFrameOnly) {
+        mImpl.setDocumentStartJavascript(script, isMainFrameOnly);
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#removeDocumentStartJavascript(WebView)}.
+     */
+    public void removeDocumentStartJavascript() {
+        mImpl.removeDocumentStartJavascript();
+    }
 }

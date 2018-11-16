@@ -18,6 +18,7 @@
     <string name="main_activity_title">WebView AndroidX Demos</string>
     <string name="safebrowsing_activity_title">Safe Browsing</string>
     <string name="proxy_override_activity_title">Proxy Override</string>
+    <string name="js_java_interaction_activity_title">Js Java Interaction</string>
     <string name="not_updateable_webview">not updatable</string>
     <string name="proxy_override_requests_served">Requests served: %d</string>
     <string name="asset_loader_ajax_activity_title">Asset Loader AJAX Demo</string>

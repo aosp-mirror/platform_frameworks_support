@@ -45,5 +45,11 @@
           android:exported="true" />
         <activity android:name=".AssetLoaderAjaxActivity"
           android:exported="true" />
+        <activity android:name=".JsJavaInteractionActivity"
+          android:exported="true"
+          android:launchMode="singleTask" />
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
