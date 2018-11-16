@@ -113,7 +113,7 @@ class TypefaceCompatApi24Impl extends TypefaceCompatBaseImpl {
                     family, buffer, ttcIndex, null /* variation axis */, weight, style);
             return result.booleanValue();
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
