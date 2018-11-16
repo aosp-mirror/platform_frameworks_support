@@ -2427,13 +2427,18 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         mPerformedCreateView = true;
         mViewLifecycleOwner = new LifecycleOwner() {
+            // Keep our own private copy so that we continue to return the same Lifecycle
+            // object even after mViewLifecycleRegistry is set to null after onDestroyView
+            private LifecycleRegistry mRegistry = null;
+
             @NonNull
             @Override
             public Lifecycle getLifecycle() {
-                if (mViewLifecycleRegistry == null) {
+                if (mRegistry == null) {
                     mViewLifecycleRegistry = new LifecycleRegistry(mViewLifecycleOwner);
+                    mRegistry = mViewLifecycleRegistry;
                 }
-                return mViewLifecycleRegistry;
+                return mRegistry;
             }
         };
         mViewLifecycleRegistry = null;
