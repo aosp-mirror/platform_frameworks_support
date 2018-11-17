@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e5d50d9_3d759a38",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-17T01:26:32Z",
+      "side": 1,
+      "message": "seems like we are never nulling this out though i think we should in onDestroyView to fix the issue?\nif yes, then we should mark this @Nullable\nif no, we should construct it here ?",
+      "range": {
+        "startLine": 243,
+        "startChar": 31,
+        "endLine": 243,
+        "endChar": 50
+      },
+      "revId": "2904fb6912e26edfda88c64ca30ede3ec9a08b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
