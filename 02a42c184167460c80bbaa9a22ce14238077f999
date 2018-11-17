@@ -22,6 +22,30 @@
       "revId": "02a42c184167460c80bbaa9a22ce14238077f999",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4ebd646_6e93cad9",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2443,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-17T00:06:51Z",
+      "side": 1,
+      "message": "Done, combined the mViewLifecycleOwner and mViewLifecycleRegistry.",
+      "parentUuid": "2946e16d_9f71711b",
+      "range": {
+        "startLine": 2429,
+        "startChar": 30,
+        "endLine": 2443,
+        "endChar": 10
+      },
+      "revId": "02a42c184167460c80bbaa9a22ce14238077f999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
