@@ -37,7 +37,7 @@ public class NavigatorProvider {
     }
 
     @NonNull
-    private static String getNameForNavigator(@NonNull Class<? extends Navigator> navigatorClass) {
+    static String getNameForNavigator(@NonNull Class<? extends Navigator> navigatorClass) {
         String name = sAnnotationNames.get(navigatorClass);
         if (name == null) {
             Navigator.Name annotation = navigatorClass.getAnnotation(Navigator.Name.class);
@@ -131,7 +131,15 @@ public class NavigatorProvider {
         if (!validateName(name)) {
             throw new IllegalArgumentException("navigator name cannot be an empty string");
         }
-        return mNavigators.put(name, navigator);
+
+        Navigator<? extends NavDestination> previousNavigator = mNavigators.put(name, navigator);
+        if (previousNavigator != navigator) {
+            if (previousNavigator != null) {
+                previousNavigator.onRemoved(this);
+            }
+            navigator.onAdded(this);
+        }
+        return previousNavigator;
     }
 
     Map<String, Navigator<? extends NavDestination>> getNavigators() {

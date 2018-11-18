@@ -19,6 +19,7 @@ package androidx.navigation
 import android.os.Bundle
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,6 +97,39 @@ class NavigatorProviderTest {
         assertThat(provider.getNavigator<EmptyNavigator>(EmptyNavigator.NAME))
             .isEqualTo(navigator)
     }
+
+    @Test
+    fun onAdded() {
+        val provider = NavigatorProvider()
+        val navigator = AddedAwareNavigator()
+        assertWithMessage("Provider should be null before being added")
+            .that(navigator.provider)
+            .isNull()
+
+        provider.addNavigator("added", navigator)
+        assertWithMessage("Provider should be set after addNavigator")
+            .that(navigator.provider)
+            .isSameAs(provider)
+    }
+
+    @Test
+    fun onRemoved() {
+        val provider = NavigatorProvider()
+        val navigator = AddedAwareNavigator()
+        assertWithMessage("Provider should be null before being added")
+            .that(navigator.provider)
+            .isNull()
+
+        provider.addNavigator("added", navigator)
+        assertWithMessage("Provider should be set after addNavigator")
+            .that(navigator.provider)
+            .isSameAs(provider)
+
+        provider.addNavigator("added", EmptyNavigator())
+        assertWithMessage("Provider should be null after being replaced")
+            .that(navigator.provider)
+            .isNull()
+    }
 }
 
 class NoNameNavigator : Navigator<NavDestination>() {
@@ -142,5 +176,17 @@ internal open class EmptyNavigator : Navigator<NavDestination>() {
 
     override fun popBackStack(): Boolean {
         throw IllegalStateException("popBackStack is not supported")
+    }
+}
+
+private class AddedAwareNavigator : EmptyNavigator() {
+    internal var provider: NavigatorProvider? = null
+
+    override fun onAdded(navigatorProvider: NavigatorProvider) {
+        provider = navigatorProvider
+    }
+
+    override fun onRemoved(navigatorProvider: NavigatorProvider) {
+        provider = null
     }
 }

@@ -29,6 +29,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.support.v4.util.Pair;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
@@ -130,7 +131,7 @@ public class NavDestination {
         }
     }
 
-    private final Navigator mNavigator;
+    private final String mNavigatorName;
     private NavGraph mParent;
     private int mId;
     private CharSequence mLabel;
@@ -140,9 +141,18 @@ public class NavDestination {
 
     /**
      * NavDestinations should be created via {@link Navigator#createDestination}.
+     * <p>
+     * This constructor requires that the given Navigator has a {@link Navigator.Name} annotation.
      */
     public NavDestination(@NonNull Navigator<? extends NavDestination> navigator) {
-        mNavigator = navigator;
+        this(NavigatorProvider.getNameForNavigator(navigator.getClass()));
+    }
+
+    /**
+     * NavDestinations should be created via {@link Navigator#createDestination}.
+     */
+    public NavDestination(@NonNull String navigatorName) {
+        mNavigatorName = navigatorName;
     }
 
     /**
@@ -213,13 +223,13 @@ public class NavDestination {
     }
 
     /**
-     * Returns the destination's {@link Navigator}.
+     * Returns the name associated with this destination's {@link Navigator}.
      *
-     * @return this destination's navigator
+     * @return the name associated with this destination's navigator
      */
     @NonNull
-    public Navigator getNavigator() {
-        return mNavigator;
+    public String getNavigatorName() {
+        return mNavigatorName;
     }
 
     /**
@@ -387,24 +397,24 @@ public class NavDestination {
     }
 
     /**
-     * Navigates to this destination.
+     * Combines the {@link #getDefaultArguments()} with the arguments provided
+     * to construct the final set of arguments that should be used to navigate
+     * to this destination.
      *
-     * <p>Uses the {@link #getNavigator() configured navigator} to navigate to this destination.
-     * Apps should not call this directly, instead use {@link NavController}'s navigation methods
-     * to ensure consistent back stack tracking and behavior.</p>
-     *  @param args arguments to the new destination
-     * @param navOptions options for navigation
-     * @param navigatorExtras extras to pass to the Navigator
+     * @hide
      */
-    @SuppressWarnings("unchecked")
-    public void navigate(@Nullable Bundle args, @Nullable NavOptions navOptions,
-            @Nullable Navigator.Extras navigatorExtras) {
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @Nullable
+    Bundle addInDefaultArgs(@Nullable Bundle args) {
         Bundle defaultArgs = getDefaultArguments();
+        if (args == null && defaultArgs.isEmpty()) {
+            return null;
+        }
         Bundle finalArgs = new Bundle();
         finalArgs.putAll(defaultArgs);
         if (args != null) {
             finalArgs.putAll(args);
         }
-        mNavigator.navigate(this, finalArgs, navOptions, navigatorExtras);
+        return finalArgs;
     }
 }

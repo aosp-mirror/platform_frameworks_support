@@ -163,6 +163,22 @@ public abstract class Navigator<D extends NavDestination> {
     }
 
     /**
+     * Callback when this Navigator has been added to a {@link NavigatorProvider}.
+     *
+     * @param navigatorProvider the NavigatorProvider this Navigator has been added to.
+     */
+    void onAdded(@NonNull NavigatorProvider navigatorProvider) {
+    }
+
+    /**
+     * Callback when this Navigator is removed from a {@link NavigatorProvider}.
+     *
+     * @param navigatorProvider the NavigatorProvider this Navigator was removed from.
+     */
+    void onRemoved(@NonNull NavigatorProvider navigatorProvider) {
+    }
+
+    /**
      * Called when the number of {@link OnNavigatorNavigatedListener listeners} change from 0 to 1
      */
     public void onActive() {

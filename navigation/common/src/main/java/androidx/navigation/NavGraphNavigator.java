@@ -31,7 +31,8 @@ import java.util.ArrayDeque;
 public class NavGraphNavigator extends Navigator<NavGraph> {
     private static final String KEY_BACK_STACK_IDS = "androidx-nav-graph:navigator:backStackIds";
 
-    private Context mContext;
+    private final Context mContext;
+    private NavigatorProvider mNavigatorProvider;
     private ArrayDeque<Integer> mBackStack = new ArrayDeque<>();
 
     /**
@@ -41,6 +42,18 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
      */
     public NavGraphNavigator(@NonNull Context context) {
         mContext = context;
+    }
+
+    @Override
+    void onAdded(@NonNull NavigatorProvider navigatorProvider) {
+        mNavigatorProvider = navigatorProvider;
+    }
+
+    @Override
+    void onRemoved(@NonNull NavigatorProvider navigatorProvider) {
+        if (navigatorProvider == mNavigatorProvider) {
+            mNavigatorProvider = null;
+        }
     }
 
     /**
@@ -56,6 +69,10 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
     @Override
     public void navigate(@NonNull NavGraph destination, @Nullable Bundle args,
             @Nullable NavOptions navOptions, @Nullable Extras navigatorExtras) {
+        if (mNavigatorProvider == null) {
+            throw new IllegalStateException("Called navigate on " + this
+                    + " when it is not added to a NavController");
+        }
         int startId = destination.getStartDestination();
         if (startId == 0) {
             throw new IllegalStateException("no start destination defined via"
@@ -77,7 +94,10 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
             mBackStack.add(destination.getId());
             dispatchOnNavigatorNavigated(destination.getId(), BACK_STACK_DESTINATION_ADDED);
         }
-        startDestination.navigate(args, navOptions, navigatorExtras);
+        Navigator<NavDestination> navigator = mNavigatorProvider.getNavigator(
+                startDestination.getNavigatorName());
+        navigator.navigate(startDestination, startDestination.addInDefaultArgs(args),
+                navOptions, navigatorExtras);
     }
 
     /**

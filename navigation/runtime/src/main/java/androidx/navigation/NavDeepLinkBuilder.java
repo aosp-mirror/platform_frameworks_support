@@ -259,7 +259,7 @@ public class NavDeepLinkBuilder {
             @NonNull
             @Override
             public NavDestination createDestination() {
-                return new NavDestination(this);
+                return new NavDestination("permissive");
             }
 
             @Override
