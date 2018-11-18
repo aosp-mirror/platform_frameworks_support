@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f85f235_7fdb2f9a",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavigatorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-18T20:41:09Z",
+      "side": 1,
+      "message": "Ok, since we think some of these behaviors are important, is it possible to mark part of methods  as \"final\" / provide some special hooks that we think are useful for overrides, mark some methods as @CallSuper?",
+      "revId": "25f1b2f4c173c9582916270f70adff59df248893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
