@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a36affe4_0edde754",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-18T21:00:17Z",
+      "side": 1,
+      "message": "it is not public is it needed to mark is as hidden?",
+      "revId": "f12e1dbcc69b2e5925d275327c134bce1683cf54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "926725e4_d8531b0b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/Navigator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-18T21:00:17Z",
+      "side": 1,
+      "message": "What do you think about simply passing NavigatorProvider into NavGraphNavigator? it looks like that you won\u0027t need these callbacks after that.",
+      "range": {
+        "startLine": 170,
+        "startChar": 9,
+        "endLine": 170,
+        "endChar": 16
+      },
+      "revId": "f12e1dbcc69b2e5925d275327c134bce1683cf54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
