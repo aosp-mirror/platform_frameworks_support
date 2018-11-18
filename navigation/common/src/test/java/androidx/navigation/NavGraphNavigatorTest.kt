@@ -69,14 +69,14 @@ class NavGraphNavigatorTest {
     fun navigateWithoutStartDestination() {
         val destination = createFirstDestination()
         val graph = createGraphWithDestination(destination, startId = 0)
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
     }
 
     @Test
     fun navigate() {
         val destination = createFirstDestination()
         val graph = createGraphWithDestination(destination)
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
@@ -95,7 +95,7 @@ class NavGraphNavigatorTest {
     fun navigateThenPop() {
         val destination = createFirstDestination()
         val graph = createGraphWithDestination(destination)
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
@@ -114,7 +114,8 @@ class NavGraphNavigatorTest {
         val destination = createFirstDestination()
         val graph = createGraphWithDestination(destination)
         // singleTop should still show as added on an empty stack
-        graph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
+        navGraphNavigator.navigate(graph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
@@ -125,11 +126,12 @@ class NavGraphNavigatorTest {
     fun navigateSingleTop() {
         val destination = createFirstDestination()
         val graph = createGraphWithDestination(destination)
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
-        graph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
+        navGraphNavigator.navigate(graph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_UNCHANGED)
@@ -144,11 +146,12 @@ class NavGraphNavigatorTest {
         val secondGraph = createGraphWithDestination(secondDestination).apply {
             id = SECOND_DESTINATION_ID
         }
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
-        secondGraph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
+        navGraphNavigator.navigate(secondGraph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 secondGraph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
@@ -162,14 +165,15 @@ class NavGraphNavigatorTest {
             id = FIRST_DESTINATION_ID
         }
         val graph = createGraphWithDestination(nestedGraph)
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 nestedGraph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
-        graph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
+        navGraphNavigator.navigate(graph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_UNCHANGED)

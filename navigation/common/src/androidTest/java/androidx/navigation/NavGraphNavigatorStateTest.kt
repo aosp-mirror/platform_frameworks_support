@@ -55,7 +55,7 @@ class NavGraphNavigatorStateTest {
             addDestination(destination)
             startDestination = FIRST_DESTINATION_ID
         }
-        graph.navigate(null, null, null)
+        navGraphNavigator.navigate(graph, null, null, null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_DESTINATION_ADDED)
@@ -64,7 +64,8 @@ class NavGraphNavigatorStateTest {
         val saveState = navGraphNavigator.onSaveState()
         navGraphNavigator.onRestoreState(saveState)
 
-        graph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
+        navGraphNavigator.navigate(graph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null)
         verify(listener).onNavigatorNavigated(navGraphNavigator,
                 graph.id,
                 Navigator.BACK_STACK_UNCHANGED)
