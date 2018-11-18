@@ -29,7 +29,7 @@ import org.junit.runners.JUnit4
 class SimpleNavigatorProviderTest {
     @Test
     fun addWithMissingAnnotationName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = NoNameNavigator()
         try {
             provider.addNavigator(navigator)
@@ -42,7 +42,7 @@ class SimpleNavigatorProviderTest {
 
     @Test
     fun addWithMissingAnnotationNameGetWithExplicitName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = NoNameNavigator()
         provider.addNavigator("name", navigator)
         assertThat(provider.getNavigator<NavDestination, NoNameNavigator>("name"))
@@ -51,7 +51,7 @@ class SimpleNavigatorProviderTest {
 
     @Test
     fun addWithExplicitNameGetWithExplicitName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = EmptyNavigator()
         provider.addNavigator("name", navigator)
 
@@ -67,7 +67,7 @@ class SimpleNavigatorProviderTest {
 
     @Test
     fun addWithExplicitNameGetWithMissingAnnotationName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = NoNameNavigator()
         provider.addNavigator("name", navigator)
         try {
@@ -81,7 +81,7 @@ class SimpleNavigatorProviderTest {
 
     @Test
     fun addWithAnnotationNameGetWithAnnotationName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = EmptyNavigator()
         provider.addNavigator(navigator)
         assertThat(provider.getNavigator(EmptyNavigator::class.java))
@@ -90,7 +90,7 @@ class SimpleNavigatorProviderTest {
 
     @Test
     fun addWithAnnotationNameGetWithExplicitName() {
-        val provider = SimpleNavigatorProvider()
+        val provider = NavigatorProvider()
         val navigator = EmptyNavigator()
         provider.addNavigator(navigator)
         assertThat(provider.getNavigator<NavDestination, EmptyNavigator>(EmptyNavigator.NAME))
@@ -118,7 +118,7 @@ class NoNameNavigator : Navigator<NavDestination>() {
 }
 
 /**
- * An empty [Navigator] used to test [SimpleNavigatorProvider].
+ * An empty [Navigator] used to test [NavigatorProvider].
  */
 @Navigator.Name(EmptyNavigator.NAME)
 internal open class EmptyNavigator : Navigator<NavDestination>() {
