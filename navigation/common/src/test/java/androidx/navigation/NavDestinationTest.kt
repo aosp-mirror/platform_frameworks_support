@@ -134,7 +134,7 @@ class NavDestinationTest {
         destination.id = DESTINATION_ID
         val parentId = 2
         @Suppress("UNCHECKED_CAST")
-        val parent = NavGraph(mock(Navigator::class.java) as Navigator<NavGraph>).apply {
+        val parent = NavGraphNavigator(mock(Context::class.java)).createDestination().apply {
             id = parentId
         }
         destination.parent = parent
