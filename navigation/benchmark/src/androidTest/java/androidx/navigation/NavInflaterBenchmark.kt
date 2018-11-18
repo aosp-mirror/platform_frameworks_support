@@ -34,7 +34,7 @@ class NavInflaterBenchmark {
 
     private val context = InstrumentationRegistry.getContext()
 
-    private var navInflater: NavInflater = NavInflater(context, SimpleNavigatorProvider().apply {
+    private var navInflater: NavInflater = NavInflater(context, NavigatorProvider().apply {
         addNavigator(NavGraphNavigator(context))
         addNavigator(TestNavigator())
     })
