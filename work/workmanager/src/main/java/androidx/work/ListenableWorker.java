@@ -57,7 +57,9 @@ public abstract class ListenableWorker {
 
         /**
          * Used to indicate that the work completed with a permanent failure.  Any work that depends
-         * on this will also be marked as failed and will not be run.
+         * on this will also be marked as failed and will not be run.  <b></b>If you need child
+         * workers to run , you need to return {@link #SUCCESS}</b>; failure indicates a permanent
+         * stoppage of the chain of work.
          */
         FAILURE,
 
@@ -275,7 +277,8 @@ public abstract class ListenableWorker {
         /**
          * Constructs a Payload with the given {@link Result} and an empty output.
          *
-         * @param result The result of the {@link #startWork()} computation
+         * @param result The {@link Result} of the {@link #startWork()} computation; note that
+         *               dependent work will not execute if you return {@link Result#FAILURE}
          */
         public Payload(@NonNull Result result) {
             this(result, Data.EMPTY);
@@ -284,7 +287,8 @@ public abstract class ListenableWorker {
         /**
          * Constructs a Payload with the given {@link Result} and output.
          *
-         * @param result The result of the {@link #startWork()} computation
+         * @param result The {@link Result} of the {@link #startWork()} computation; note that
+         *               dependent work will not execute if you return {@link Result#FAILURE}
          * @param output The output {@link Data} of the {@link #startWork()} computation
          */
         public Payload(@NonNull Result result, @NonNull Data output) {
