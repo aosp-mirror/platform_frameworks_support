@@ -45,6 +45,29 @@
       "revId": "1cb2ca79d834832ccaffdda732bd4084b2835b93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44177909_a527d929",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-19T04:08:22Z",
+      "side": 1,
+      "message": "shuffle/repeat mode change?",
+      "range": {
+        "startLine": 617,
+        "startChar": 14,
+        "endLine": 628,
+        "endChar": 30
+      },
+      "revId": "1cb2ca79d834832ccaffdda732bd4084b2835b93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
