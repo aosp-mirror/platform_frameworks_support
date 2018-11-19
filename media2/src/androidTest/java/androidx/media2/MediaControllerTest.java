@@ -794,6 +794,75 @@ public class MediaControllerTest extends MediaSessionTestBase {
     }
 
     @Test
+    public void testUpdatedIndicesInRepeatMode() throws InterruptedException {
+        prepareLooper();
+        final int noneRepeatMode = SessionPlayer.REPEAT_MODE_NONE;
+        final int groupRepeatMode = SessionPlayer.REPEAT_MODE_GROUP;
+        final CountDownLatch latch = new CountDownLatch(2);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onRepeatModeChanged(MediaController controller, int repeatMode) {
+                switch ((int) latch.getCount()) {
+                    case 2:
+                        assertEquals(noneRepeatMode, repeatMode);
+                        break;
+                    case 1:
+                        assertEquals(groupRepeatMode, repeatMode);
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mSession.getToken(), true, callback);
+
+        mPlayer.mPrevMediaItemIndex = -1;
+        mPlayer.mRepeatMode = noneRepeatMode;
+        // Need to call this in order to update previous media item index.
+        mPlayer.notifyRepeatModeChanged();
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(-1, controller.getPreviousMediaItemIndex());
+
+        mPlayer.mPrevMediaItemIndex = 2;
+        mPlayer.mRepeatMode = groupRepeatMode;
+        mPlayer.notifyRepeatModeChanged();
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(2, controller.getPreviousMediaItemIndex());
+    }
+
+    @Test
+    public void testUpdatedIndicesInShuffleMode() throws InterruptedException {
+        prepareLooper();
+        final int noneShuffleMode = SessionPlayer.SHUFFLE_MODE_NONE;
+        final int groupShuffleMode = SessionPlayer.SHUFFLE_MODE_GROUP;
+        final CountDownLatch latch = new CountDownLatch(2);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onShuffleModeChanged(@NonNull MediaController controller, int shuffleMode) {
+                switch ((int) latch.getCount()) {
+                    case 2:
+                        assertEquals(noneShuffleMode, shuffleMode);
+
+                        break;
+                    case 1:
+                        assertEquals(groupShuffleMode, shuffleMode);
+
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mSession.getToken(), true, callback);
+
+        mPlayer.mPrevMediaItemIndex = -1;
+        mPlayer.mShuffleMode = noneShuffleMode;
+        mPlayer.notifyShuffleModeChanged();
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        mPlayer.mPrevMediaItemIndex = 2;
+        mPlayer.mShuffleMode = groupShuffleMode;
+        mPlayer.notifyShuffleModeChanged();
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
     public void testSetVolumeTo() throws Exception {
         prepareLooper();
         final int maxVolume = 100;
