@@ -329,20 +329,40 @@ public class MockPlayer extends SessionPlayer {
 
     @Override
     public int getPreviousMediaItemIndex() {
-        // TODO: reflect repeat & shuffle modes
         int currentIdx = getCurrentMediaItemIndex();
-        if (currentIdx == ITEM_NONE || currentIdx == 0) {
+        if (currentIdx == ITEM_NONE) {
             return ITEM_NONE;
+        }
+        if (currentIdx == 0) {
+            if (mRepeatMode == REPEAT_MODE_NONE) {
+                return ITEM_NONE;
+            } else if (mRepeatMode == REPEAT_MODE_ONE) {
+                return currentIdx;
+            } else if (mRepeatMode == REPEAT_MODE_ALL) {
+                if (mPlaylist != null) {
+                    return mPlaylist.size() - 1;
+                }
+            }
         }
         return currentIdx--;
     }
 
     @Override
     public int getNextMediaItemIndex() {
-        // TODO: reflect repeat & shuffle modes
         int currentIdx = getCurrentMediaItemIndex();
-        if (currentIdx == ITEM_NONE || currentIdx == mPlaylist.size() - 1) {
+        if (currentIdx == ITEM_NONE) {
             return ITEM_NONE;
+        }
+        if (currentIdx == mPlaylist.size() - 1) {
+            if (mRepeatMode == REPEAT_MODE_NONE) {
+                return ITEM_NONE;
+            } else if (mRepeatMode == REPEAT_MODE_ONE) {
+                return currentIdx;
+            } else if (mRepeatMode == REPEAT_MODE_ALL) {
+                if (mPlaylist != null) {
+                    return 0;
+                }
+            }
         }
         return currentIdx++;
     }
@@ -381,22 +401,44 @@ public class MockPlayer extends SessionPlayer {
         // TODO: check for invalid index
         mSkipToPlaylistItemCalled = true;
         mIndex = index;
+        if (mPlaylist != null && index >= 0 && index < mPlaylist.size()) {
+            mItem = mPlaylist.get(index);
+            mCurrentMediaItem = mItem;
+        }
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
     public ListenableFuture<PlayerResult> skipToPreviousPlaylistItem() {
-        // TODO: reflect repeat & shuffle modes
         mSkipToPreviousItemCalled = true;
+        int currentIdx = getCurrentMediaItemIndex();
+        if (mPlaylist != null && currentIdx == 0) {
+            if (mRepeatMode == REPEAT_MODE_NONE) {
+                mCurrentMediaItem = null;
+            } else if (mRepeatMode == REPEAT_MODE_ONE) {
+                // do nothing
+            } else if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                mCurrentMediaItem = mPlaylist.get(mPlaylist.size() - 1);
+            }
+        }
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
     public ListenableFuture<PlayerResult> skipToNextPlaylistItem() {
-        // TODO: reflect repeat & shuffle modes
         mSkipToNextItemCalled = true;
+        int currentIdx = getCurrentMediaItemIndex();
+        if (mPlaylist != null && currentIdx == mPlaylist.size() - 1) {
+            if (mRepeatMode == REPEAT_MODE_NONE) {
+                mCurrentMediaItem = null;
+            } else if (mRepeatMode == REPEAT_MODE_ONE) {
+                // do nothing
+            } else if (mRepeatMode == REPEAT_MODE_ALL || mRepeatMode == REPEAT_MODE_GROUP) {
+                mCurrentMediaItem = mPlaylist.get(0);
+            }
+        }
         mCountDownLatch.countDown();
         return new SyncListenableFuture(mCurrentMediaItem);
     }
@@ -424,6 +466,21 @@ public class MockPlayer extends SessionPlayer {
         mSetShuffleModeCalled = true;
         mShuffleMode = shuffleMode;
         mCountDownLatch.countDown();
+        switch (mShuffleMode) {
+            case SHUFFLE_MODE_ALL:
+            case SHUFFLE_MODE_GROUP:
+                if (mPlaylist != null) {
+                    List<MediaItem> shuffledList = new ArrayList<>();
+                    int size = mPlaylist.size();
+                    for (int i = 0; i < size; i++) {
+                        shuffledList.add(mPlaylist.get((i + 1) % size));
+                    }
+                    mPlaylist = shuffledList;
+                }
+                break;
+            case SHUFFLE_MODE_NONE:
+                // do nothing
+        }
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 

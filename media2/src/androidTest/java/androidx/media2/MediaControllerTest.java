@@ -794,6 +794,38 @@ public class MediaControllerTest extends MediaSessionTestBase {
     }
 
     @Test
+    public void testUpdatedIndicesInRepeatMode() throws InterruptedException {
+        prepareLooper();
+        final MockPlayer player = new MockPlayer(2);
+        final List<MediaItem> list = TestUtils.createMediaItems(3);
+        player.setPlaylist(list, null /* Metadata */);
+        assertFalse(player.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        final int testRepeatMode = SessionPlayer.REPEAT_MODE_ALL;
+        player.setRepeatMode(testRepeatMode);
+        assertTrue(player.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        assertTrue(player.mSetRepeatModeCalled);
+        assertEquals(player.getPreviousMediaItemIndex(), 2);
+    }
+
+    @Test
+    public void testUpdatedIndicesInShuffleMode() throws InterruptedException {
+        prepareLooper();
+        final MockPlayer player = new MockPlayer(2);
+        final List<MediaItem> list = TestUtils.createMediaItems(3);
+        player.setPlaylist(list, null /* Metadata */);
+        assertFalse(player.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        final int testShuffleMode = SessionPlayer.SHUFFLE_MODE_ALL;
+        player.setShuffleMode(testShuffleMode);
+        assertTrue(player.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+
+        assertTrue(player.mSetShuffleModeCalled);
+        assertEquals(player.getCurrentMediaItemIndex(), 2);
+    }
+
+    @Test
     public void testSetVolumeTo() throws Exception {
         prepareLooper();
         final int maxVolume = 100;

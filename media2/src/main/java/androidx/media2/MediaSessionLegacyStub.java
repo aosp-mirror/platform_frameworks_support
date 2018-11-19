@@ -660,12 +660,14 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onShuffleModeChanged(int shuffleMode) throws RemoteException {
+        void onShuffleModeChanged(int shuffleMode, int currentIdx, int previousIdx, int nextIdx)
+                throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
         @Override
-        void onRepeatModeChanged(int repeatMode) throws RemoteException {
+        void onRepeatModeChanged(int repeatMode, int currentIdx, int previousIdx, int nextIdx)
+                throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
@@ -814,12 +816,14 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onShuffleModeChanged(int shuffleMode) throws RemoteException {
+        void onShuffleModeChanged(int shuffleMode, int currentIdx, int previousIdx, int nextIdx)
+                throws RemoteException {
             mSessionImpl.getSessionCompat().setShuffleMode(shuffleMode);
         }
 
         @Override
-        void onRepeatModeChanged(int repeatMode) throws RemoteException {
+        void onRepeatModeChanged(int repeatMode, int currentIdx, int previousIdx, int nextIdx)
+                throws RemoteException {
             mSessionImpl.getSessionCompat().setRepeatMode(repeatMode);
         }
 

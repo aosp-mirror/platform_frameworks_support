@@ -223,7 +223,7 @@ class MediaControllerStub extends IMediaController.Stub {
     }
 
     @Override
-    public void onRepeatModeChanged(int repeatMode) {
+    public void onRepeatModeChanged(int repeatMode, int currentIdx, int previousIdx, int nextIdx) {
         final long token = Binder.clearCallingIdentity();
         try {
             final MediaControllerImplBase controller;
@@ -233,14 +233,15 @@ class MediaControllerStub extends IMediaController.Stub {
                 Log.w(TAG, "Don't fail silently here. Highly likely a bug");
                 return;
             }
-            controller.notifyRepeatModeChanges(repeatMode);
+            controller.notifyRepeatModeChanges(repeatMode, currentIdx, previousIdx, nextIdx);
         } finally {
             Binder.restoreCallingIdentity(token);
         }
     }
 
     @Override
-    public void onShuffleModeChanged(int shuffleMode) {
+    public void onShuffleModeChanged(int shuffleMode, int currentIdx, int previousIdx,
+            int nextIdx) {
         final long token = Binder.clearCallingIdentity();
         try {
             final MediaControllerImplBase controller;
@@ -250,7 +251,7 @@ class MediaControllerStub extends IMediaController.Stub {
                 Log.w(TAG, "Don't fail silently here. Highly likely a bug");
                 return;
             }
-            controller.notifyShuffleModeChanges(shuffleMode);
+            controller.notifyShuffleModeChanges(shuffleMode, currentIdx, previousIdx, nextIdx);
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -343,7 +344,8 @@ class MediaControllerStub extends IMediaController.Stub {
                     result.getPositionMs(), result.getPlaybackSpeed(),
                     result.getBufferedPositionMs(), result.getPlaybackInfo(),
                     result.getRepeatMode(), result.getShuffleMode(), itemList,
-                    result.getSessionActivity());
+                    result.getSessionActivity(), result.getCurrentMediaItemIndex(),
+                    result.getPreviousMediaItemIndex(), result.getNextMediaItemIndex());
         } finally {
             Binder.restoreCallingIdentity(token);
         }
