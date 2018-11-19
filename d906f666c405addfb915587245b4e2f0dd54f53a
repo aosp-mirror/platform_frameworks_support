@@ -46,6 +46,30 @@
       "revId": "d906f666c405addfb915587245b4e2f0dd54f53a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25595b4_15716a47",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-19T12:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ebba37_fcf7b562",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "d906f666c405addfb915587245b4e2f0dd54f53a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
