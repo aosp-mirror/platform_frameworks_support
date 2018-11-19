@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8474a7ac_2f84d858",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-19T18:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f83479ef_700258b6",
+      "range": {
+        "startLine": 339,
+        "startChar": 40,
+        "endLine": 339,
+        "endChar": 41
+      },
+      "revId": "197dba13df2bd15a2a8c33a25f3efd985dd1aefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a62b88df_a8a13f6f",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "197dba13df2bd15a2a8c33a25f3efd985dd1aefd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8de54d_8098667d",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-19T18:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62b88df_a8a13f6f",
+      "range": {
+        "startLine": 341,
+        "startChar": 80,
+        "endLine": 341,
+        "endChar": 93
+      },
+      "revId": "197dba13df2bd15a2a8c33a25f3efd985dd1aefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
