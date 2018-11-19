@@ -22,6 +22,30 @@
       "revId": "77bcbf4d5a858f787ff54596e4c697122e6ca624",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f175df_cb8aa789",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T08:23:58Z",
+      "side": 1,
+      "message": "I just checked it and these are all the differences:\n- http://aosp/Ic283f055d746d5c3df645dc310c92dac3c80827f\n- http://ag/I8f65044807fd3e745f21e031a0aa01a5e6f74cd2\n- http://ag/I7fa2b3f095437f8077545d1fff795bb0d8fe6b89\n\nI will ask you in offline how to resolve the difference between fwk and compat.",
+      "parentUuid": "44cda435_3cb4a8d3",
+      "range": {
+        "startLine": 85,
+        "startChar": 37,
+        "endLine": 85,
+        "endChar": 55
+      },
+      "revId": "77bcbf4d5a858f787ff54596e4c697122e6ca624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
