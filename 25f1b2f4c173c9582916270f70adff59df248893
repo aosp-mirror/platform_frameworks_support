@@ -35,6 +35,24 @@
       "revId": "25f1b2f4c173c9582916270f70adff59df248893",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d10c236d_ab99e00d",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavigatorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-19T10:49:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b18bf0_57a32390",
+      "revId": "25f1b2f4c173c9582916270f70adff59df248893",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
