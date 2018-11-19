@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74c9f50c_48513b62",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-19T23:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320adfb4_f8826686",
+      "range": {
+        "startLine": 333,
+        "startChar": 4,
+        "endLine": 333,
+        "endChar": 10
+      },
+      "revId": "dbfbe7218366263ad23974d3b8e8cb22d553f40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a98da13_d679674a",
         "filename": "lifecycle/viewmodel-fragment/build.gradle",
         "patchSetId": 1
