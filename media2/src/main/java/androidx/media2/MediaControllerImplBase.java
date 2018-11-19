@@ -52,6 +52,7 @@ import static androidx.media2.SessionCommand.COMMAND_CODE_SESSION_SKIP_FORWARD;
 import static androidx.media2.SessionCommand.COMMAND_CODE_VOLUME_ADJUST_VOLUME;
 import static androidx.media2.SessionCommand.COMMAND_CODE_VOLUME_SET_VOLUME;
 import static androidx.media2.SessionPlayer.BUFFERING_STATE_UNKNOWN;
+import static androidx.media2.SessionPlayer.ITEM_INDEX_INVALID;
 import static androidx.media2.SessionPlayer.UNKNOWN_TIME;
 import static androidx.media2.SessionToken.TYPE_SESSION;
 
@@ -862,6 +863,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             mCurrentMediaItemIndex = currentMediaItemIndex;
             mPreviousMediaItemIndex = previousMediaItemIndex;
             mNextMediaItemIndex = nextMediaItemIndex;
+            if (mPlaylist != null && currentMediaItemIndex != ITEM_INDEX_INVALID
+                    && currentMediaItemIndex < mPlaylist.size()) {
+                mPlaylist.set(currentMediaItemIndex, item);
+            }
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
@@ -872,7 +877,6 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mCallback.onCurrentMediaItemChanged(mInstance, item);
             }
         });
-
     }
 
     void notifyPlayerStateChanges(long eventTimeMs, long positionMs, final int state) {
@@ -934,6 +938,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             mCurrentMediaItemIndex = currentMediaItemIndex;
             mPreviousMediaItemIndex = previousMediaItemIndex;
             mNextMediaItemIndex = nextMediaItemIndex;
+            if (currentMediaItemIndex != ITEM_INDEX_INVALID
+                    && currentMediaItemIndex < playlist.size()) {
+                mCurrentMediaItem = playlist.get(currentMediaItemIndex);
+            }
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
@@ -976,7 +984,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
-    void notifyRepeatModeChanges(final int repeatMode) {
+    void notifyRepeatModeChanges(final int repeatMode, int currentMediaItemIndex,
+            int previousMediaItemIndex, int nextMediaItemIndex) {
         synchronized (mLock) {
             mRepeatMode = repeatMode;
         }
@@ -991,7 +1000,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
-    void notifyShuffleModeChanges(final int shuffleMode) {
+    void notifyShuffleModeChanges(final int shuffleMode, int currentMediaItemIndex,
+            int previousMediaItemIndex, int nextMediaItemIndex) {
         synchronized (mLock) {
             mShuffleMode = shuffleMode;
         }
@@ -1048,7 +1058,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             final int repeatMode,
             final int shuffleMode,
             final List<MediaItem> playlist,
-            final PendingIntent sessionActivity) {
+            final PendingIntent sessionActivity,
+            final int currentMediaItemIndex,
+            final int previousMediaItemIndex,
+            final int nextMediaItemIndex) {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked sessionBinder=" + sessionBinder
                     + ", allowedCommands=" + allowedCommands);
@@ -1084,6 +1097,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mPlaylist = playlist;
                 mSessionActivity = sessionActivity;
                 mISession = sessionBinder;
+                mCurrentMediaItemIndex = currentMediaItemIndex;
+                mPreviousMediaItemIndex = previousMediaItemIndex;
+                mNextMediaItemIndex = nextMediaItemIndex;
                 try {
                     // Implementation for the local binder is no-op,
                     // so can be used without worrying about deadlock.
