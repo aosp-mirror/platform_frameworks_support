@@ -336,8 +336,12 @@ public class WorkerWrapper implements Runnable {
     }
 
     private boolean tryCheckForInterruptionAndResolve() {
+        // Interruptions can happen when :
+        // An explicit cancel* signal
+        // A change in constraint, which causes WorkManager to stop the Worker, or a timeout.
+        // One scheduler completing a Worker, and telling other Schedulers to cleanup.
         if (mInterrupted) {
-            Logger.info(TAG, String.format("Work interrupted for %s", mWorkDescription));
+            Logger.debug(TAG, String.format("Work interrupted for %s", mWorkDescription));
             WorkInfo.State currentState = mWorkSpecDao.getState(mWorkSpecId);
             if (currentState == null) {
                 // This can happen because of a beginUniqueWork(..., REPLACE, ...).  Notify the
