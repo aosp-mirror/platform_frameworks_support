@@ -385,6 +385,9 @@ class MediaSessionStub extends IMediaSession.Stub {
                                     ? mSessionImpl.getPlaylist() : null;
                     final ParcelImplListSlice playlistSlice =
                             MediaUtils.convertMediaItemListToParcelImplListSlice(playlist);
+                    final int currentIdx = mSessionImpl.getCurrentMediaItemIndex();
+                    final int previousIdx = mSessionImpl.getPreviousMediaItemIndex();
+                    final int nextIdx = mSessionImpl.getNextMediaItemIndex();
 
                     // Double check if session is still there, because close() can be called in
                     // another thread.
@@ -396,7 +399,8 @@ class MediaSessionStub extends IMediaSession.Stub {
                                 MediaUtils.toParcelable(allowedCommands),
                                 playerState, currentItem, positionEventTimeMs, positionMs,
                                 playbackSpeed, bufferedPositionMs, playbackInfo, repeatMode,
-                                shuffleMode, playlistSlice, sessionActivity);
+                                shuffleMode, playlistSlice, sessionActivity, currentIdx,
+                                previousIdx, nextIdx);
                     } catch (RemoteException e) {
                         // Controller may be died prematurely.
                     }
