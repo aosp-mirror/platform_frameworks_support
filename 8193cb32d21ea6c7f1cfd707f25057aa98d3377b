@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd2e6502_3ce5a5a1",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "I tried to add a local variable, but I couldn\u0027t because calling this() after some expressions is not allowed. Will it be better to add a method that wraps the code in the constructor below and then call it from the two constructors?",
+      "parentUuid": "3cc3ddf0_f0a8e363",
+      "range": {
+        "startLine": 1380,
+        "startChar": 23,
+        "endLine": 1380,
+        "endChar": 94
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "570908c2_7b08d524",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eb966fb_f61f1d26",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "Thanks, Done.",
+      "parentUuid": "570908c2_7b08d524",
+      "range": {
+        "startLine": 1411,
+        "startChar": 23,
+        "endLine": 1411,
+        "endChar": 24
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e818deb2_7fd12d01",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "No. But it needs to be synced with fwk.\n\nThere is one difference between AudioAttributesCompat.getLegacyStreamType() and removed toLegacyStreamType():\nWhen usage is equal to USAGE_ASSISTANCE_ACCESSIBILITY, the former returns STREAM_ACCESSIBILITY, the latter returns STREAM_MUSIC. And the framework returns STREAM_ACCESSIBILITY.",
+      "parentUuid": "bd63d5b4_792beeee",
+      "range": {
+        "startLine": 1417,
+        "startChar": 19,
+        "endLine": 1417,
+        "endChar": 56
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0bec47_eb93f89d",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "052e64a0_3f886dfb",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "It is copied from the fwk comment. Please let me follow it.",
+      "parentUuid": "8c0bec47_eb93f89d",
+      "range": {
+        "startLine": 1423,
+        "startChar": 18,
+        "endLine": 1423,
+        "endChar": 30
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c918cfa3_a774cf82",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "947b1a08_c2e9915c",
+      "range": {
+        "startLine": 1426,
+        "startChar": 23,
+        "endLine": 1426,
+        "endChar": 33
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f8178ad_b7d73dcd",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5768f54e_42208af5",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-19T09:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f8178ad_b7d73dcd",
+      "range": {
+        "startLine": 1428,
+        "startChar": 15,
+        "endLine": 1428,
+        "endChar": 23
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
