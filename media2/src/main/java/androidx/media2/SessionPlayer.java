@@ -278,6 +278,12 @@ public abstract class SessionPlayer implements AutoCloseable {
 
     public static final long UNKNOWN_TIME = -1;
 
+    /**
+     * Media item index is invalid. This value will be returned when the corresponding media item
+     * does not exist.
+     */
+    public static final int ITEM_INDEX_INVALID = -1;
+
     private final Object mLock = new Object();
     @GuardedBy("mLock")
     private final List<Pair<PlayerCallback, Executor>> mCallbacks = new ArrayList<>();
@@ -595,7 +601,10 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @ShuffleMode int getShuffleMode();
 
     /**
-     * Gets the current media item.
+     * Gets the current media item. This value may be updated when
+     * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
+     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is
+     * called.
      *
      * @return the current media item. Can be {@code null} only when media item or playlist hasn't
      *         been set.
@@ -607,8 +616,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is called.
      *
-     * @return the index of current media item. Can be -1 only when current media item is null or
-     *         playlist hasn't been set.
+     * @return the index of current media item. Can be {@link #ITEM_INDEX_INVALID} only when current
+     *         media item is null or playlist hasn't been set.
      */
     public abstract int getCurrentMediaItemIndex();
 
@@ -617,8 +626,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is called.
      *
-     * @return the index of previous media item. Can be -1 only when previous media item does not
-     *         exist or playlist hasn't been set.
+     * @return the index of previous media item. Can be {@link #ITEM_INDEX_INVALID} only when
+     *         previous media item does not exist or playlist hasn't been set.
      */
     public abstract int getPreviousMediaItemIndex();
 
@@ -627,8 +636,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is called.
      *
-     * @return the index of next media item. Can be -1 only when next media item does not exist or
-     *         playlist hasn't been set.
+     * @return the index of next media item. Can be {@link #ITEM_INDEX_INVALID} only when next media
+     *         item does not exist or playlist hasn't been set.
      */
     public abstract int getNextMediaItemIndex();
 
@@ -783,6 +792,10 @@ public abstract class SessionPlayer implements AutoCloseable {
 
         /**
          * Called when the repeat mode is changed.
+         * <p>
+         * {@link SessionPlayer#getPreviousMediaItemIndex()} and
+         * {@link SessionPlayer#getNextMediaItemIndex()} values can be outdated when this callback
+         * is called if the current media item is the first or last item in the playlist.
          *
          * @param player player for this event
          * @param repeatMode repeat mode

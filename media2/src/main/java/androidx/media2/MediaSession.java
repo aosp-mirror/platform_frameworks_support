@@ -1075,10 +1075,10 @@ public class MediaSession implements AutoCloseable {
                 int nextIdx) throws RemoteException;
         abstract void onPlaylistMetadataChanged(@Nullable MediaMetadata metadata)
                 throws RemoteException;
-        abstract void onShuffleModeChanged(@SessionPlayer.ShuffleMode int shuffleMode)
-                throws RemoteException;
-        abstract void onRepeatModeChanged(@SessionPlayer.RepeatMode int repeatMode)
-                throws RemoteException;
+        abstract void onShuffleModeChanged(@SessionPlayer.ShuffleMode int shuffleMode,
+                int currentIdx, int previousIdx, int nextIdx) throws RemoteException;
+        abstract void onRepeatModeChanged(@SessionPlayer.RepeatMode int repeatMode, int currentIdx,
+                int previousIdx, int nextIdx) throws RemoteException;
         abstract void onPlaybackCompleted() throws RemoteException;
         abstract void onDisconnected() throws RemoteException;
 

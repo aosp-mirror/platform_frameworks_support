@@ -39,8 +39,8 @@ oneway interface IMediaController {
         int previousIdx, int nextIdx) = 4;
     void onPlaylistMetadataChanged(in ParcelImpl metadata) = 5;
     void onPlaybackInfoChanged(in ParcelImpl playbackInfo) = 6;
-    void onRepeatModeChanged(int repeatMode) = 7;
-    void onShuffleModeChanged(int shuffleMode) = 8;
+    void onRepeatModeChanged(int repeatMode, int currentIdx, int previousIdx, int nextIdx) = 7;
+    void onShuffleModeChanged(int shuffleMode, int currentIdx, int previousIdx, int nextIdx) = 8;
     void onPlaybackCompleted() = 9;
     void onSeekCompleted(long eventTimeMs, long positionMs, long seekPositionMs) = 10;
 
