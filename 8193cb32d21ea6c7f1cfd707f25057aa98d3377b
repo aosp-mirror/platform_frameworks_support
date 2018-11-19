@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d535f1ea_633d7aa3",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T11:41:14Z",
+      "side": 1,
+      "message": "Oh, I forgot that. Then let\u0027s just leave it as-is, since that seems to be too much.",
+      "parentUuid": "cd2e6502_3ce5a5a1",
+      "range": {
+        "startLine": 1380,
+        "startChar": 23,
+        "endLine": 1380,
+        "endChar": 94
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "570908c2_7b08d524",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7dd3f675_6d032048",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T11:41:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e818deb2_7fd12d01",
+      "range": {
+        "startLine": 1417,
+        "startChar": 19,
+        "endLine": 1417,
+        "endChar": 56
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0bec47_eb93f89d",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "It is copied from the fwk comment. Please let me follow it.",
       "parentUuid": "8c0bec47_eb93f89d",
+      "range": {
+        "startLine": 1423,
+        "startChar": 18,
+        "endLine": 1423,
+        "endChar": 30
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43a229c8_c0301396",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T11:41:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "052e64a0_3f886dfb",
       "range": {
         "startLine": 1423,
         "startChar": 18,
@@ -237,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "7ba49f16_91865e84",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T11:41:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c918cfa3_a774cf82",
+      "range": {
+        "startLine": 1426,
+        "startChar": 23,
+        "endLine": 1426,
+        "endChar": 33
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f8178ad_b7d73dcd",
         "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
         "patchSetId": 1
@@ -272,6 +368,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "4f8178ad_b7d73dcd",
+      "range": {
+        "startLine": 1428,
+        "startChar": 15,
+        "endLine": 1428,
+        "endChar": 23
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb3002f2_b6d8897b",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T11:41:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5768f54e_42208af5",
       "range": {
         "startLine": 1428,
         "startChar": 15,
