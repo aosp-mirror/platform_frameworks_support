@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "627b8c5f_2ab9bb3e",
+        "filename": "media2/src/main/java/androidx/media2/ConnectedControllersManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-19T04:15:44Z",
+      "side": 1,
+      "message": "Q) can this happen?",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 48
+      },
+      "revId": "7fb9454a6c6cb0804eef5e771c440d0bf63c49de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e64de400_86ef45bf",
         "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
         "patchSetId": 5
