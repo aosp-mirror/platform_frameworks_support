@@ -1299,20 +1299,36 @@ class MediaSessionImplBase implements MediaSessionImpl {
 
         @Override
         public void onRepeatModeChanged(final SessionPlayer player, final int repeatMode) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || session.getPlayer() != player || player == null) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onRepeatModeChanged(repeatMode);
+                    callback.onCurrentMediaItemChanged(session.getCurrentMediaItem(),
+                            session.getCurrentMediaItemIndex(),
+                            session.getPreviousMediaItemIndex(),
+                            session.getNextMediaItemIndex());
                 }
             });
         }
 
         @Override
         public void onShuffleModeChanged(final SessionPlayer player, final int shuffleMode) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || session.getPlayer() != player || player == null) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerCallbackTask() {
                 @Override
                 public void run(ControllerCb callback) throws RemoteException {
                     callback.onShuffleModeChanged(shuffleMode);
+                    callback.onCurrentMediaItemChanged(session.getCurrentMediaItem(),
+                            session.getCurrentMediaItemIndex(),
+                            session.getPreviousMediaItemIndex(),
+                            session.getNextMediaItemIndex());
                 }
             });
         }
