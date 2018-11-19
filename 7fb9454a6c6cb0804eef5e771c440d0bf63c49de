@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e64de400_86ef45bf",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-19T03:06:12Z",
+      "side": 1,
+      "message": "This is wrong.\nAssume that two ControllerInfos have the same mControllerCb but different RemoteUserInfo.\nThen equals below will return true, but hashCode will differ.\n\nJust FYI, according to the Object documentation (http://shortn/_wl6S2n0HS4),\n\u0027If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.\u0027",
+      "range": {
+        "startLine": 861,
+        "startChar": 19,
+        "endLine": 862,
+        "endChar": 0
+      },
+      "revId": "7fb9454a6c6cb0804eef5e771c440d0bf63c49de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
