@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9191c73c_e0df9ef8",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 31
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d78a3439_b570ec93",
+      "range": {
+        "startLine": 47,
+        "startChar": 33,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "b0988c039034dfc376ab119f40ccbd8cc56b696b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30908037_5c9b3fac",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
         "patchSetId": 31
@@ -45,6 +69,30 @@
       "revId": "b0988c039034dfc376ab119f40ccbd8cc56b696b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8abc6527_82bbe708",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30908037_5c9b3fac",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 10
+      },
+      "revId": "b0988c039034dfc376ab119f40ccbd8cc56b696b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

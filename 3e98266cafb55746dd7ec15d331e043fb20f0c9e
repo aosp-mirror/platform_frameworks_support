@@ -210,6 +210,24 @@
       "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205aba9b_ce1be463",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d674647_28cdae58",
+      "revId": "3e98266cafb55746dd7ec15d331e043fb20f0c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -324,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "10ac4502_6f3d79fb",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe26f17_3c9c014c",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f58b2aa2_35215093",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
         "patchSetId": 12
@@ -368,6 +386,30 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd8b3a7_351443e8",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedScrollBarView.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2c203f_cb8a9ad7",
+      "range": {
+        "startLine": 368,
+        "startChar": 12,
+        "endLine": 372,
+        "endChar": 13
+      },
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -438,6 +480,24 @@
       "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20b37696_3586aedd",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-11-19T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a00e33ba_fc753d3f",
+      "revId": "6bc2791dbf499543aad5c40470d195ee00e0e6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
