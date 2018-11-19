@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f9736c0_a1a39269",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-11-19T08:43:03Z",
+      "side": 1,
+      "message": "Not related to this change, but should this have @Test?",
+      "range": {
+        "startLine": 1201,
+        "startChar": 4,
+        "endLine": 1203,
+        "endChar": 61
+      },
+      "revId": "d8c7ee498183e03031f70fe3ab06eefeb63dcd20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
