@@ -861,6 +861,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             mCurrentMediaItemIndex = currentMediaItemIndex;
             mPreviousMediaItemIndex = previousMediaItemIndex;
             mNextMediaItemIndex = nextMediaItemIndex;
+            if (mPlaylist != null && currentMediaItemIndex != -1
+                    && currentMediaItemIndex < mPlaylist.size()) {
+                mPlaylist.set(currentMediaItemIndex, item);
+            }
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
@@ -933,6 +937,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
             mCurrentMediaItemIndex = currentMediaItemIndex;
             mPreviousMediaItemIndex = previousMediaItemIndex;
             mNextMediaItemIndex = nextMediaItemIndex;
+            if (currentMediaItemIndex != -1) {
+                mCurrentMediaItem = playlist.get(currentMediaItemIndex);
+            }
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
@@ -1047,7 +1054,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             final int repeatMode,
             final int shuffleMode,
             final List<MediaItem> playlist,
-            final PendingIntent sessionActivity) {
+            final PendingIntent sessionActivity,
+            final int currentMediaItemIndex,
+            final int previousMediaItemIndex,
+            final int nextMediaItemIndex) {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked sessionBinder=" + sessionBinder
                     + ", allowedCommands=" + allowedCommands);
@@ -1083,6 +1093,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mPlaylist = playlist;
                 mSessionActivity = sessionActivity;
                 mISession = sessionBinder;
+                mCurrentMediaItemIndex = currentMediaItemIndex;
+                mPreviousMediaItemIndex = previousMediaItemIndex;
+                mNextMediaItemIndex = nextMediaItemIndex;
                 try {
                     // Implementation for the local binder is no-op,
                     // so can be used without worrying about deadlock.

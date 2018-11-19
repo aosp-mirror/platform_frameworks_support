@@ -323,7 +323,8 @@ class MediaControllerStub extends IMediaController.Stub {
     public void onConnected(IMediaSession sessionBinder, ParcelImpl commandGroup, int playerState,
             ParcelImpl currentItem, long positionEventTimeMs, long positionMs, float playbackSpeed,
             long bufferedPositionMs, ParcelImpl playbackInfo, int shuffleMode, int repeatMode,
-            ParcelImplListSlice listSlice, PendingIntent sessionActivity) {
+            ParcelImplListSlice listSlice, PendingIntent sessionActivity, int currentIdx,
+            int previousIdx, int nextIdx) {
         if (sessionBinder == null || commandGroup == null || currentItem == null
                 || playbackInfo == null) {
             return;
@@ -344,8 +345,7 @@ class MediaControllerStub extends IMediaController.Stub {
                     (MediaItem) MediaUtils.fromParcelable(currentItem),
                     positionEventTimeMs, positionMs, playbackSpeed, bufferedPositionMs,
                     (PlaybackInfo) MediaUtils.fromParcelable(playbackInfo), repeatMode,
-                    shuffleMode,
-                    itemList, sessionActivity);
+                    shuffleMode, itemList, sessionActivity, currentIdx, previousIdx, nextIdx);
         } finally {
             Binder.restoreCallingIdentity(token);
         }

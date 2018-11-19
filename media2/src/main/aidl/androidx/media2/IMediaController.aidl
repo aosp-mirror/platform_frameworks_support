@@ -48,7 +48,8 @@ oneway interface IMediaController {
     void onConnected(IMediaSession sessionBinder, in ParcelImpl commandGroup, int playerState,
         in ParcelImpl currentItem, long positionEventTimeMs, long positionMs, float playbackSpeed,
         long bufferedPositionMs, in ParcelImpl playbackInfo, int repeatMode, int shuffleMode,
-        in ParcelImplListSlice listSlice, in PendingIntent sessionActivity) = 11;
+        in ParcelImplListSlice listSlice, in PendingIntent sessionActivity, int currentIdx,
+        int previousIdx, int nextIdx) = 11;
     void onDisconnected() = 12;
 
     void onSetCustomLayout(int seq, in List<ParcelImpl> commandButtonlist) = 13;
