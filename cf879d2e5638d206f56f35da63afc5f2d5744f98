@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30c140f2_2e54b6ad",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1040388
+      },
+      "writtenOn": "2018-11-19T06:14:45Z",
+      "side": 1,
+      "message": "Is label \u003d\u003d null indicating that a service should use the default label for an action?  Should we document that?",
+      "range": {
+        "startLine": 1247,
+        "startChar": 66,
+        "endLine": 1247,
+        "endChar": 76
+      },
+      "revId": "cf879d2e5638d206f56f35da63afc5f2d5744f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98615d3b_48bfea2f",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1040388
+      },
+      "writtenOn": "2018-11-19T06:14:45Z",
+      "side": 1,
+      "message": "I read this and my first thought was that this is to used replace an action that the you had previously added.  Maybe overrideAccessibilityAction would be an improvement?  That would be consistent with AccessibilityNodeInfo.AccessibilityAction docs.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 23,
+        "endLine": 1256,
+        "endChar": 30
+      },
+      "revId": "cf879d2e5638d206f56f35da63afc5f2d5744f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42e31fb_4adbe0b5",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1040388
+      },
+      "writtenOn": "2018-11-19T06:14:45Z",
+      "side": 1,
+      "message": "What about mLabel?",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 84
+      },
+      "revId": "cf879d2e5638d206f56f35da63afc5f2d5744f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
