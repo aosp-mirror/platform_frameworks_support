@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55e218c8_9634a16b",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T18:53:38Z",
+      "side": 1,
+      "message": "Ack, I will reword this in a future CL.",
+      "parentUuid": "d5163ab2_4999428b",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "6dae2949965da6b88a9f07838e26809bafd8e0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe3ba7ca_4d0342e2",
         "filename": "work/workmanager/src/main/java/androidx/work/Worker.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6dae2949965da6b88a9f07838e26809bafd8e0a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84064f7a_221ec813",
+        "filename": "work/workmanager/src/main/java/androidx/work/Worker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T18:53:38Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "fe3ba7ca_4d0342e2",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "6dae2949965da6b88a9f07838e26809bafd8e0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
