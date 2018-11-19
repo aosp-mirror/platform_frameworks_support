@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cc3ddf0_f0a8e363",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "minor) Maybe better for readability to pull out this as a variable?",
+      "range": {
+        "startLine": 1380,
+        "startChar": 23,
+        "endLine": 1380,
+        "endChar": 94
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570908c2_7b08d524",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "U (uppercase)",
+      "range": {
+        "startLine": 1411,
+        "startChar": 23,
+        "endLine": 1411,
+        "endChar": 24
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd63d5b4_792beeee",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "Q) Are the AudioAttributesCompat.getLegacyStreamType() and the removed toLegacyStreamType() same? Are they interchangable?",
+      "range": {
+        "startLine": 1417,
+        "startChar": 19,
+        "endLine": 1417,
+        "endChar": 56
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0bec47_eb93f89d",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1423,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 1423,
+        "startChar": 18,
+        "endLine": 1423,
+        "endChar": 30
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "947b1a08_c2e9915c",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "minor) audio attributes?",
+      "range": {
+        "startLine": 1426,
+        "startChar": 23,
+        "endLine": 1426,
+        "endChar": 33
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8178ad_b7d73dcd",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-19T08:17:44Z",
+      "side": 1,
+      "message": "Q) Is it always non-null? If so, then we need to add @NonNull also in the PlaybackInfo\u0027s constructor (L1384)",
+      "range": {
+        "startLine": 1428,
+        "startChar": 15,
+        "endLine": 1428,
+        "endChar": 23
+      },
+      "revId": "8193cb32d21ea6c7f1cfd707f25057aa98d3377b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
