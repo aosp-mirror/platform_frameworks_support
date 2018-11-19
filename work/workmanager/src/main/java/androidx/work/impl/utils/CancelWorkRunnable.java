@@ -68,13 +68,29 @@ public abstract class CancelWorkRunnable implements Runnable {
     abstract void runInternal();
 
     void cancel(WorkManagerImpl workManagerImpl, String workSpecId) {
-        recursivelyCancelWorkAndDependents(workManagerImpl.getWorkDatabase(), workSpecId);
+        WorkDatabase database = workManagerImpl.getWorkDatabase();
+        // It's important that we mark the workSpecs as cancelled in a separate transaction.
+        // This is because, when we call processor.stopAndCancelWork(), the Worker can determine
+        // if it was explicitly cancelled, by inspecting its WorkState.
+        try {
+            database.beginTransaction();
+            recursivelyCancelWorkAndDependents(workManagerImpl.getWorkDatabase(), workSpecId);
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
 
-        Processor processor = workManagerImpl.getProcessor();
-        processor.stopAndCancelWork(workSpecId);
+        try {
+            database.beginTransaction();
+            Processor processor = workManagerImpl.getProcessor();
+            processor.stopAndCancelWork(workSpecId);
 
-        for (Scheduler scheduler : workManagerImpl.getSchedulers()) {
-            scheduler.cancel(workSpecId);
+            for (Scheduler scheduler : workManagerImpl.getSchedulers()) {
+                scheduler.cancel(workSpecId);
+            }
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
         }
     }
 
@@ -135,16 +151,10 @@ public abstract class CancelWorkRunnable implements Runnable {
             @Override
             void runInternal() {
                 WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
-                try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithTag(tag);
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
-                    }
-                    workDatabase.setTransactionSuccessful();
-                } finally {
-                    workDatabase.endTransaction();
+                WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithTag(tag);
+                for (String workSpecId : workSpecIds) {
+                    cancel(workManagerImpl, workSpecId);
                 }
                 reschedulePendingWorkers(workManagerImpl);
             }
@@ -168,18 +178,11 @@ public abstract class CancelWorkRunnable implements Runnable {
             @Override
             void runInternal() {
                 WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
-                try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithName(name);
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
-                    }
-                    workDatabase.setTransactionSuccessful();
-                } finally {
-                    workDatabase.endTransaction();
+                WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                List<String> workSpecIds = workSpecDao.getUnfinishedWorkWithName(name);
+                for (String workSpecId : workSpecIds) {
+                    cancel(workManagerImpl, workSpecId);
                 }
-
                 if (allowReschedule) {
                     reschedulePendingWorkers(workManagerImpl);
                 }
@@ -199,20 +202,16 @@ public abstract class CancelWorkRunnable implements Runnable {
             @Override
             void runInternal() {
                 WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
-                workDatabase.beginTransaction();
-                try {
-                    WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    List<String> workSpecIds = workSpecDao.getAllUnfinishedWork();
-                    for (String workSpecId : workSpecIds) {
-                        cancel(workManagerImpl, workSpecId);
-                    }
-                    workDatabase.setTransactionSuccessful();
-                    // Update the last cancelled time in Preferences.
-                    new Preferences(workManagerImpl.getApplicationContext())
-                            .setLastCancelAllTimeMillis(System.currentTimeMillis());
-                } finally {
-                    workDatabase.endTransaction();
+                WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+                List<String> workSpecIds = workSpecDao.getAllUnfinishedWork();
+                for (String workSpecId : workSpecIds) {
+                    cancel(workManagerImpl, workSpecId);
                 }
+
+                // Update the last cancelled time in Preferences.
+                new Preferences(workManagerImpl.getApplicationContext())
+                        .setLastCancelAllTimeMillis(System.currentTimeMillis());
+
                 // No need to call reschedule pending workers here as we just cancelled everything.
             }
         };
