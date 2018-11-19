@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5163ab2_4999428b",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-19T18:49:33Z",
+      "side": 1,
+      "message": "Consider reworking to: A building block that can perform work asynchronously",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "6dae2949965da6b88a9f07838e26809bafd8e0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe3ba7ca_4d0342e2",
+        "filename": "work/workmanager/src/main/java/androidx/work/Worker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-19T18:49:33Z",
+      "side": 1,
+      "message": "Consider reworking to: A building block that can perform work on a background thread...",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "6dae2949965da6b88a9f07838e26809bafd8e0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
