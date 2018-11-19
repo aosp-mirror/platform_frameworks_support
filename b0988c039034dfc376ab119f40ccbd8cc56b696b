@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d78a3439_b570ec93",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 31
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-19T19:31:05Z",
+      "side": 1,
+      "message": "why not name these buttons as their text..?",
+      "range": {
+        "startLine": 47,
+        "startChar": 33,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "b0988c039034dfc376ab119f40ccbd8cc56b696b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30908037_5c9b3fac",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_paged_list_shrink_view.xml",
+        "patchSetId": 31
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-11-19T19:31:05Z",
+      "side": 1,
+      "message": "nit: close tag in the same line",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 10
+      },
+      "revId": "b0988c039034dfc376ab119f40ccbd8cc56b696b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
