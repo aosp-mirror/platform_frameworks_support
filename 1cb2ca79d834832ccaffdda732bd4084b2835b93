@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "971d440a_ac0d4b90",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-19T02:35:02Z",
+      "side": 1,
+      "message": "No constant for this?",
+      "range": {
+        "startLine": 610,
+        "startChar": 55,
+        "endLine": 610,
+        "endChar": 57
+      },
+      "revId": "1cb2ca79d834832ccaffdda732bd4084b2835b93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5586b9cb_c35da7dd",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-19T02:35:02Z",
+      "side": 1,
+      "message": "Why it\u0027s needed?\nCan this be differ with getPlaylist().indexof(getCurrentMediaItem())?",
+      "range": {
+        "startLine": 613,
+        "startChar": 24,
+        "endLine": 613,
+        "endChar": 48
+      },
+      "revId": "1cb2ca79d834832ccaffdda732bd4084b2835b93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
