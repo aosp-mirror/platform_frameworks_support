@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de6419b6_8d38e0a9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T22:00:24Z",
+      "side": 1,
+      "message": "In the case of APPEND, isn\u0027t this called inside an outer transaction?",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "020d6f3168407bfa09778642c63151d0060f9593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d64cc04_dfaed3a7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T22:00:24Z",
+      "side": 1,
+      "message": "Does this actually have code that hits the database?",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 40
+      },
+      "revId": "020d6f3168407bfa09778642c63151d0060f9593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
