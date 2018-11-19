@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f83479ef_700258b6",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T18:11:58Z",
+      "side": 1,
+      "message": "Super-nit: remove space before :",
+      "range": {
+        "startLine": 339,
+        "startChar": 40,
+        "endLine": 339,
+        "endChar": 41
+      },
+      "revId": "197dba13df2bd15a2a8c33a25f3efd985dd1aefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a62b88df_a8a13f6f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-19T18:11:58Z",
+      "side": 1,
+      "message": "This should be its own line.  Timeouts aren\u0027t constraints.",
+      "range": {
+        "startLine": 341,
+        "startChar": 80,
+        "endLine": 341,
+        "endChar": 93
+      },
+      "revId": "197dba13df2bd15a2a8c33a25f3efd985dd1aefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
