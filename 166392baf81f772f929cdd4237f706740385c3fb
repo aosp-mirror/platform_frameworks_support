@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70842043_ef136b34",
+        "filename": "recyclerview/recyclerview/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-11-19T21:14:25Z",
+      "side": 1,
+      "message": "I don\u0027t see where this method was added in this CL... could you explain why this is valid?",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 63
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6392a1_7013a453",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-11-19T21:14:25Z",
+      "side": 1,
+      "message": "So I suppose this is sort of an integration test.  The new A11Y methods work on Views and aren\u0027t at all specific to RV, but this test is here as sort of an Integration test?  I would say that you should also do something for remove and replace, but I guess you have those unit tests elsewhere and it isn\u0027t obviously necessary to need to do integration tests for those as well.  Do I have that right?",
+      "range": {
+        "startLine": 307,
+        "startChar": 16,
+        "endLine": 307,
+        "endChar": 31
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca7987c3_e5fbf4a2",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-11-19T21:14:25Z",
+      "side": 1,
+      "message": "Can you add a link to at least the add and replace methods (maybe just add if you think replace is not nearly as important) via a {@link #foo(...) foo} link?\n\nThis will make it that much easier for developers to know what to do.\n\nI think ditto for all other comments where appropriate.",
+      "range": {
+        "startLine": 754,
+        "startChar": 19,
+        "endLine": 755,
+        "endChar": 29
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8c53173_093cd666",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-11-19T21:14:25Z",
+      "side": 1,
+      "message": "Add links here too, see my other comment.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
