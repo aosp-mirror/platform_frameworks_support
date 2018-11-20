@@ -22,7 +22,6 @@ import static androidx.media.AudioAttributesCompat.AUDIO_ATTRIBUTES_LEGACY_STREA
 import static androidx.media.AudioAttributesCompat.INVALID_STREAM_TYPE;
 
 import android.media.AudioAttributes;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -57,6 +56,7 @@ public class AudioAttributesImplApi21 implements AudioAttributesImpl {
     AudioAttributesImplApi21(AudioAttributes audioAttributes) {
         this(audioAttributes, INVALID_STREAM_TYPE);
     }
+
     AudioAttributesImplApi21(AudioAttributes audioAttributes, int explicitLegacyStream) {
         mAudioAttributes = audioAttributes;
         mLegacyStreamType = explicitLegacyStream;
@@ -71,9 +71,6 @@ public class AudioAttributesImplApi21 implements AudioAttributesImpl {
 
     @Override
     public int getVolumeControlStream() {
-        if (Build.VERSION.SDK_INT >= 26) {
-            return mAudioAttributes.getVolumeControlStream();
-        }
         return AudioAttributesCompat.toVolumeStreamType(true, getFlags(), getUsage());
     }
 
@@ -147,13 +144,57 @@ public class AudioAttributesImplApi21 implements AudioAttributesImpl {
         if (bundle == null) {
             return null;
         }
-        AudioAttributes frameworkAttrs = (AudioAttributes)
-                bundle.getParcelable(AUDIO_ATTRIBUTES_FRAMEWORKS);
+        AudioAttributes frameworkAttrs = bundle.getParcelable(AUDIO_ATTRIBUTES_FRAMEWORKS);
         if (frameworkAttrs == null) {
             return null;
         }
         int legacyStream = bundle.getInt(AUDIO_ATTRIBUTES_LEGACY_STREAM_TYPE,
                 INVALID_STREAM_TYPE);
         return new AudioAttributesImplApi21(frameworkAttrs, legacyStream);
+    }
+
+    static class Builder implements AudioAttributesImpl.Builder {
+        final AudioAttributes.Builder mFwkBuilder;
+
+        Builder() {
+            mFwkBuilder = new AudioAttributes.Builder();
+        }
+
+        Builder(Object aa) {
+            mFwkBuilder = new AudioAttributes.Builder((AudioAttributes) aa);
+        }
+
+        @Override
+        public AudioAttributesImpl build() {
+            return new AudioAttributesImplApi21(mFwkBuilder.build());
+        }
+
+        @Override
+        public Builder setUsage(int usage) {
+            if (usage == 16 /* USAGE_ASSISTANT */) {
+                // TODO: shouldn't we keep the origin usage?
+                usage = AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE;
+            }
+            mFwkBuilder.setUsage(usage);
+            return this;
+        }
+
+        @Override
+        public Builder setContentType(int contentType) {
+            mFwkBuilder.setContentType(contentType);
+            return this;
+        }
+
+        @Override
+        public Builder setFlags(int flags) {
+            mFwkBuilder.setFlags(flags);
+            return this;
+        }
+
+        @Override
+        public Builder setLegacyStreamType(int streamType) {
+            mFwkBuilder.setLegacyStreamType(streamType);
+            return this;
+        }
     }
 }
