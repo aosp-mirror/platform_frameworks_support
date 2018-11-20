@@ -22,6 +22,30 @@
       "revId": "9759f4771d377536d169ff0ab99e4ee8d2cc4da0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed87dee_136336a0",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-20T22:42:54Z",
+      "side": 1,
+      "message": "I can add it into framework API in Q, but I don\u0027t really see the point of a getter here?",
+      "parentUuid": "5f583b7f_d1d27dd8",
+      "range": {
+        "startLine": 1313,
+        "startChar": 23,
+        "endLine": 1313,
+        "endChar": 40
+      },
+      "revId": "9759f4771d377536d169ff0ab99e4ee8d2cc4da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
