@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e50cb4f3_3151da85",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-20T17:03:23Z",
+      "side": 1,
+      "message": "Can you make this lambda the first argument? From my testing, the trailing lambda for the factory still works.\n\nnoinline ownerProducer: (() -\u003e ViewModelStoreOwner) \u003d { this }\n\nI\u0027d like to be able to support parent Fragments (and ViewModels tied to NavGraphs b/111614463) without doing another API change here.",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "9e7abdc0a582a0c38f43e2f77fc790ad1f91d6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
