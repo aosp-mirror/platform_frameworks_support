@@ -67,6 +67,8 @@ class ConnectionResult extends CustomVersionedParcelable {
     ParcelImplListSlice mPlaylistSlice;
     @ParcelField(12)
     SessionCommandGroup mAllowedCommands;
+    @ParcelField(13)
+    int mVersion;
 
     // For versioned parcelable
     ConnectionResult() {
@@ -94,6 +96,7 @@ class ConnectionResult extends CustomVersionedParcelable {
             mPlaylistSlice = null;
         }
         mAllowedCommands = allowedCommands;
+        mVersion = MediaUtils.VERSION;
     }
 
     public IMediaSession getSessionStub() {
@@ -146,6 +149,10 @@ class ConnectionResult extends CustomVersionedParcelable {
 
     public SessionCommandGroup getAllowedCommands() {
         return mAllowedCommands;
+    }
+
+    public int getVersion() {
+        return mVersion;
     }
 
     @Override

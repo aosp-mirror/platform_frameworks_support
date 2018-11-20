@@ -87,6 +87,9 @@ public class MediaUtils {
         }
     };
 
+    // Initial version for all Media2 APIs.
+    public static final int VERSION = 0;
+
     private MediaUtils() {
     }
 

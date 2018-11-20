@@ -30,6 +30,8 @@ import androidx.versionedparcelable.VersionedParcelize;
 class ConnectionRequest implements VersionedParcelable {
     @ParcelField(0)
     String mPackageName;
+    @ParcelField(1)
+    int mVersion;
 
     // For versioned parcelable.
     ConnectionRequest() {
@@ -38,9 +40,14 @@ class ConnectionRequest implements VersionedParcelable {
 
     ConnectionRequest(String packageName) {
         mPackageName = packageName;
+        mVersion = MediaUtils.VERSION;
     }
 
     public String getPackageName() {
         return mPackageName;
+    }
+
+    public int getVersion() {
+        return mVersion;
     }
 }
