@@ -34,6 +34,24 @@
       "revId": "0f4cc0749f1d5b27ebfbee45f7d2c427f255f12c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18aaf1a_c8009f27",
+        "filename": "textclassifier/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-11-20T20:20:07Z",
+      "side": 1,
+      "message": "Gotcha, thanks.",
+      "parentUuid": "c2834898_b077f013",
+      "revId": "0f4cc0749f1d5b27ebfbee45f7d2c427f255f12c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
