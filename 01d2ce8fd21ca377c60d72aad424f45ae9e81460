@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "68eafdb9_20e8ea21",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-11-20T17:44:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f65c9df3_4c31a7b6",
+      "range": {
+        "startLine": 554,
+        "startChar": 50,
+        "endLine": 554,
+        "endChar": 59
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cdf3529_225910c5",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9e440f_141f55a4",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-11-20T17:44:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cdf3529_225910c5",
+      "range": {
+        "startLine": 571,
+        "startChar": 25,
+        "endLine": 571,
+        "endChar": 32
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8e5e9e31_def792ec",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-11-20T17:44:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adf88285_55199287",
+      "range": {
+        "startLine": 572,
+        "startChar": 7,
+        "endLine": 572,
+        "endChar": 23
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abf3fe80_9d0f5678",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ac8091f3_cf18801d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-11-20T17:44:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf3fe80_9d0f5678",
+      "range": {
+        "startLine": 575,
+        "startChar": 19,
+        "endLine": 575,
+        "endChar": 28
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c6c4d29_18061b1d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb0fb0cb_29126c14",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-11-20T17:44:09Z",
+      "side": 1,
+      "message": "Both order and duplicates shouldn\u0027t matter here. Since all elements in the exclusion list will be added in the same ProxyRules object I\u0027d say it\u0027s highly unlikely that there will ever be duplicates",
+      "parentUuid": "3c6c4d29_18061b1d",
+      "range": {
+        "startLine": 589,
+        "startChar": 12,
+        "endLine": 589,
+        "endChar": 34
+      },
+      "revId": "01d2ce8fd21ca377c60d72aad424f45ae9e81460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
