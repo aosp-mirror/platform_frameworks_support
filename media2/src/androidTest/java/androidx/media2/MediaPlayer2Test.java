@@ -45,13 +45,11 @@ import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,7 +65,6 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingDeque;
 
-@RunWith(AndroidJUnit4.class)
 public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
     private static final String LOG_TAG = "MediaPlayer2Test";
@@ -2522,6 +2519,8 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         setOnErrorListener();
         TestDataSourceCallback dataSource =
                 TestDataSourceCallback.fromAssetFd(mResources.openRawResourceFd(resid));
+        // Ensure that we throw after reading enough data for preparation to complete.
+        dataSource.throwFromReadAtPosition(500_000);
         mPlayer.setMediaItem(new CallbackMediaItem.Builder(dataSource).build());
 
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
@@ -2540,44 +2539,6 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
         mPlayer.prepare();
         mOnPrepareCalled.waitForSignal();
 
-        dataSource.throwFromReadAt();
-        mPlayer.play();
-        assertTrue(mOnErrorCalled.waitForSignal());
-    }
-
-    @Test
-    @LargeTest
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
-    public void testPlaybackFailsIfMedia2DataSourceReturnsAnError() throws Exception {
-        final int resid = R.raw.video_480x360_mp4_h264_1350kbps_30fps_aac_stereo_192kbps_44100hz;
-        /* FIXME: check the codec exists.
-        if (!MediaUtils.hasCodecsForResource(mContext, resid)) {
-            return;
-        }
-        */
-
-        TestDataSourceCallback dataSource =
-                TestDataSourceCallback.fromAssetFd(mResources.openRawResourceFd(resid));
-        mPlayer.setMediaItem(new CallbackMediaItem.Builder(dataSource).build());
-
-        setOnErrorListener();
-        MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
-            @Override
-            public void onInfo(MediaPlayer2 mp, MediaItem item, int what, int extra) {
-                if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
-                    mOnPrepareCalled.signal();
-                }
-            }
-        };
-        synchronized (mEventCbLock) {
-            mEventCallbacks.add(ecb);
-        }
-
-        mOnPrepareCalled.reset();
-        mPlayer.prepare();
-        mOnPrepareCalled.waitForSignal();
-
-        dataSource.returnFromReadAt(-2);
         mPlayer.play();
         assertTrue(mOnErrorCalled.waitForSignal());
     }
