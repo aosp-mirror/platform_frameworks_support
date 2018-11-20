@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9161942_375c39ec",
+        "filename": "textclassifier/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-11-20T19:51:27Z",
+      "side": 1,
+      "message": "Do we need to use the same version here?",
+      "revId": "0f4cc0749f1d5b27ebfbee45f7d2c427f255f12c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
