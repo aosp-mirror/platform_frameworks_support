@@ -45,6 +45,54 @@
       "revId": "e420207921e7d02a9c9552766119f532c93ac3df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c1d8d0_7047b8f9",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/EditTextPreferenceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-11-20T18:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d974691a_a0680924",
+      "range": {
+        "startLine": 74,
+        "startChar": 38,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "e420207921e7d02a9c9552766119f532c93ac3df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feb10ef7_8518ba50",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/EditTextPreferenceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2018-11-20T18:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76f45e7e_fe0a8872",
+      "range": {
+        "startLine": 74,
+        "startChar": 71,
+        "endLine": 74,
+        "endChar": 72
+      },
+      "revId": "e420207921e7d02a9c9552766119f532c93ac3df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
