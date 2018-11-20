@@ -18,13 +18,15 @@ package androidx.fragment.app
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.lifecycle.ViewModelStoreOwner
 import kotlin.reflect.KClass
 
 /**
- * Returns a property delegate to access Activity's [ViewModel], if [factoryProducer] is specified
+ * Returns a property delegate to access Fragment's [ViewModel], if [factoryProducer] is specified
  * then [ViewModelProvider.Factory] returned by it will be used to create [ViewModel] first time.
  *
  * ```
@@ -39,33 +41,42 @@ import kotlin.reflect.KClass
 @MainThread
 inline fun <reified VM : ViewModel> Fragment.viewModels(
     noinline factoryProducer: (() -> Factory)? = null
-): Lazy<VM> = FragmentViewModelLazy(this, VM::class, factoryProducer)
+) = createViewModelLazy(VM::class, { this }, factoryProducer)
 
 /**
- * An implementation of [Lazy] used by [Fragment.viewModels] tied to the given [fragment],
- * [viewModelClass], [factoryProducer]
+ * Returns a property delegate to access parent activity's [ViewModel],
+ * if [factoryProducer] is specified then [ViewModelProvider.Factory]
+ * returned by it will be used to create [ViewModel] first time.
+ *
+ * ```
+ * class MyFragment : Fragment() {
+ *     val viewmodel: MyViewModel by activityViewModels()
+ * }
+ * ```
+ *
+ * This property can be accessed only after this Fragment is attached i.e., after
+ * [Fragment.onAttach()], and access prior to that will result in IllegalArgumentException.
  */
-class FragmentViewModelLazy<VM : ViewModel>(
-    private val fragment: Fragment,
-    private val viewModelClass: KClass<VM>,
-    private val factoryProducer: (() -> Factory)?
-) : Lazy<VM> {
-    private var cached: VM? = null
+@MainThread
+inline fun <reified VM : ViewModel> Fragment.activityViewModels(
+    noinline factoryProducer: (() -> Factory)? = null
+) = createViewModelLazy(VM::class, ::requireActivity, factoryProducer)
 
-    override val value: VM
-        get() {
-            var viewModel = cached
-            if (viewModel == null) {
-                val application = fragment.activity?.application
-                        ?: throw IllegalArgumentException("ViewModel can be accessed " +
-                                "only when Fragment is attached")
-                val resolvedFactory = factoryProducer?.invoke()
-                    ?: AndroidViewModelFactory.getInstance(application)
-                viewModel = ViewModelProvider(fragment, resolvedFactory).get(viewModelClass.java)
-                cached = viewModel
-            }
-            return viewModel
-        }
-
-    override fun isInitialized() = cached != null
+/**
+ * Helper method for creation of [ViewModelLazy], that resolves `null` passed as [factoryProducer]
+ * to default factory.
+ */
+@MainThread
+fun <VM : ViewModel> Fragment.createViewModelLazy(
+    viewModelClass: KClass<VM>,
+    ownerProducer: () -> ViewModelStoreOwner,
+    factoryProducer: (() -> Factory)? = null
+): Lazy<VM> {
+    val factoryPromise = factoryProducer ?: {
+        val application = activity?.application ?: throw IllegalStateException(
+            "ViewModel can be accessed only when Fragment is attached"
+        )
+        AndroidViewModelFactory.getInstance(application)
+    }
+    return ViewModelLazy(viewModelClass, ownerProducer, factoryPromise)
 }
