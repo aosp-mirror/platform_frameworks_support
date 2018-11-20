@@ -22,13 +22,18 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 /**
  * The AccessibilityDelegate used by RecyclerView.
  * <p>
  * This class handles basic accessibility actions and delegates them to LayoutManager.
+ * @deprecated Use accessibility methods that act directly on the View instead, for example add
+ * actions using {@link ViewCompat#addAccessibilityAction(View,
+ * AccessibilityNodeInfoCompat.AccessibilityActionCompat)}.
  */
+@Deprecated
 public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateCompat {
     final RecyclerView mRecyclerView;
     final AccessibilityDelegateCompat mItemDelegate;
@@ -93,7 +98,11 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
      * If you are overriding {@code RecyclerViewAccessibilityDelegate#getItemDelegate()} but still
      * want to keep some default behavior, you can create an instance of this class and delegate to
      * the parent as necessary.
+     * @deprecated Use accessibility methods that act directly on the View instead, for example
+     * add actions using {@link ViewCompat#addAccessibilityAction(View,
+     * AccessibilityNodeInfoCompat.AccessibilityActionCompat)}.
      */
+    @Deprecated
     public static class ItemDelegate extends AccessibilityDelegateCompat {
         final RecyclerViewAccessibilityDelegate mRecyclerViewDelegate;
 
