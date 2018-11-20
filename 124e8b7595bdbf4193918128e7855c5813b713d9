@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7dd38395_11b405b7",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-20T16:51:28Z",
+      "side": 1,
+      "message": ":) now moving to NY?",
+      "parentUuid": "005305ec_e4a307ce",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "124e8b7595bdbf4193918128e7855c5813b713d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50e704cf_a19b1c87",
         "filename": "lifecycle/viewmodel/ktx/src/test/java/androidx/lifecycle/ViewModelLazyTest.kt",
         "patchSetId": 2
