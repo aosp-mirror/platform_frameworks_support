@@ -125,6 +125,7 @@ package androidx.recyclerview.widget {
     ctor public GridLayoutManager(android.content.Context!, int, int, boolean);
     method public int getSpanCount();
     method public androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup! getSpanSizeLookup();
+    method public void onInitializeAccessibilityNodeInfoForItem(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
     method public void setSpanCount(int);
     method public void setSpanSizeLookup(androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup!);
     field public static final int DEFAULT_SPAN_COUNT = -1; // 0xffffffff
@@ -245,6 +246,7 @@ package androidx.recyclerview.widget {
     method public boolean getStackFromEnd();
     method protected boolean isLayoutRTL();
     method public boolean isSmoothScrollbarEnabled();
+    method public void onInitializeAccessibilityEvent(android.view.accessibility.AccessibilityEvent!);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void prepareForDrop(android.view.View, android.view.View, int, int);
     method public void scrollToPositionWithOffset(int, int);
     method public void setInitialPrefetchItemCount(int);
@@ -386,7 +388,7 @@ package androidx.recyclerview.widget {
     method public int getChildLayoutPosition(android.view.View);
     method @Deprecated public int getChildPosition(android.view.View);
     method public androidx.recyclerview.widget.RecyclerView.ViewHolder! getChildViewHolder(android.view.View);
-    method public androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate? getCompatAccessibilityDelegate();
+    method @Deprecated public androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate? getCompatAccessibilityDelegate();
     method public void getDecoratedBoundsWithMargins(android.view.View, android.graphics.Rect);
     method public androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory getEdgeEffectFactory();
     method public androidx.recyclerview.widget.RecyclerView.ItemAnimator? getItemAnimator();
@@ -420,7 +422,7 @@ package androidx.recyclerview.widget {
     method public void removeOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
     method public void removeOnScrollListener(androidx.recyclerview.widget.RecyclerView.OnScrollListener);
     method public void scrollToPosition(int);
-    method public void setAccessibilityDelegateCompat(androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate?);
+    method @Deprecated public void setAccessibilityDelegateCompat(androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate?);
     method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter?);
     method public void setChildDrawingOrderCallback(androidx.recyclerview.widget.RecyclerView.ChildDrawingOrderCallback?);
     method public void setEdgeEffectFactory(androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory);
@@ -676,10 +678,10 @@ package androidx.recyclerview.widget {
     method @Deprecated public void onDetachedFromWindow(androidx.recyclerview.widget.RecyclerView!);
     method @CallSuper public void onDetachedFromWindow(androidx.recyclerview.widget.RecyclerView!, androidx.recyclerview.widget.RecyclerView.Recycler!);
     method public android.view.View? onFocusSearchFailed(android.view.View, int, androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State);
-    method public void onInitializeAccessibilityEvent(android.view.accessibility.AccessibilityEvent);
-    method public void onInitializeAccessibilityEvent(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.accessibility.AccessibilityEvent);
-    method public void onInitializeAccessibilityNodeInfo(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, androidx.core.view.accessibility.AccessibilityNodeInfoCompat);
-    method public void onInitializeAccessibilityNodeInfoForItem(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.View, androidx.core.view.accessibility.AccessibilityNodeInfoCompat);
+    method @Deprecated public void onInitializeAccessibilityEvent(android.view.accessibility.AccessibilityEvent);
+    method @Deprecated public void onInitializeAccessibilityEvent(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.accessibility.AccessibilityEvent);
+    method @Deprecated public void onInitializeAccessibilityNodeInfo(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, androidx.core.view.accessibility.AccessibilityNodeInfoCompat);
+    method @Deprecated public void onInitializeAccessibilityNodeInfoForItem(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.View, androidx.core.view.accessibility.AccessibilityNodeInfoCompat);
     method public android.view.View? onInterceptFocusSearch(android.view.View, int);
     method public void onItemsAdded(androidx.recyclerview.widget.RecyclerView, int, int);
     method public void onItemsChanged(androidx.recyclerview.widget.RecyclerView);
@@ -695,8 +697,8 @@ package androidx.recyclerview.widget {
     method public void onRestoreInstanceState(android.os.Parcelable!);
     method public android.os.Parcelable? onSaveInstanceState();
     method public void onScrollStateChanged(int);
-    method public boolean performAccessibilityAction(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, int, android.os.Bundle?);
-    method public boolean performAccessibilityActionForItem(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.View, int, android.os.Bundle?);
+    method @Deprecated public boolean performAccessibilityAction(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, int, android.os.Bundle?);
+    method @Deprecated public boolean performAccessibilityActionForItem(androidx.recyclerview.widget.RecyclerView.Recycler, androidx.recyclerview.widget.RecyclerView.State, android.view.View, int, android.os.Bundle?);
     method public void postOnAnimation(Runnable!);
     method public void removeAllViews();
     method public void removeAndRecycleAllViews(androidx.recyclerview.widget.RecyclerView.Recycler);
@@ -881,13 +883,18 @@ package androidx.recyclerview.widget {
     field public final android.view.View itemView;
   }
 
-  public class RecyclerViewAccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
-    ctor public RecyclerViewAccessibilityDelegate(androidx.recyclerview.widget.RecyclerView);
-    method public androidx.core.view.AccessibilityDelegateCompat getItemDelegate();
+  @Deprecated public class RecyclerViewAccessibilityDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor @Deprecated public RecyclerViewAccessibilityDelegate(androidx.recyclerview.widget.RecyclerView);
+    method @Deprecated public androidx.core.view.AccessibilityDelegateCompat getItemDelegate();
+    method @Deprecated public void onInitializeAccessibilityEvent(android.view.View!, android.view.accessibility.AccessibilityEvent!);
+    method @Deprecated public void onInitializeAccessibilityNodeInfo(android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method @Deprecated public boolean performAccessibilityAction(android.view.View!, int, android.os.Bundle!);
   }
 
-  public static class RecyclerViewAccessibilityDelegate.ItemDelegate extends androidx.core.view.AccessibilityDelegateCompat {
-    ctor public RecyclerViewAccessibilityDelegate.ItemDelegate(androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate);
+  @Deprecated public static class RecyclerViewAccessibilityDelegate.ItemDelegate extends androidx.core.view.AccessibilityDelegateCompat {
+    ctor @Deprecated public RecyclerViewAccessibilityDelegate.ItemDelegate(androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate);
+    method @Deprecated public void onInitializeAccessibilityNodeInfo(android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
+    method @Deprecated public boolean performAccessibilityAction(android.view.View!, int, android.os.Bundle!);
   }
 
   public abstract class SimpleItemAnimator extends androidx.recyclerview.widget.RecyclerView.ItemAnimator {
@@ -999,6 +1006,8 @@ package androidx.recyclerview.widget {
     method public boolean getReverseLayout();
     method public int getSpanCount();
     method public void invalidateSpanAssignments();
+    method public void onInitializeAccessibilityEvent(android.view.accessibility.AccessibilityEvent!);
+    method public void onInitializeAccessibilityNodeInfoForItem(androidx.recyclerview.widget.RecyclerView.Recycler!, androidx.recyclerview.widget.RecyclerView.State!, android.view.View!, androidx.core.view.accessibility.AccessibilityNodeInfoCompat!);
     method public void scrollToPositionWithOffset(int, int);
     method public void setGapStrategy(int);
     method public void setOrientation(int);

@@ -391,8 +391,11 @@ public class AccessibilityDelegateCompat {
     }
 
     static List<AccessibilityActionCompat> getActionList(View view) {
-        List<AccessibilityActionCompat> actions = (List<AccessibilityActionCompat>)
-                view.getTag(R.id.tag_accessibility_actions);
-        return actions == null ? Collections.<AccessibilityActionCompat>emptyList() : actions;
+        return getViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    static <T> List<T> getViewTagList(View view, int key) {
+        List<T> list = (List<T>) view.getTag(key);
+        return list == null ? Collections.<T>emptyList() : list;
     }
 }
