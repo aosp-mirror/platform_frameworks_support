@@ -3222,11 +3222,11 @@ public final class MediaRouter {
             private final Handler mHandler = new Handler();
             // Assume we are in foreground if we have no further information
             private boolean mIsForeground = true;
-            private boolean mIsStopped = false;
+            private boolean mIsPaused = false;
             private Runnable mChecker = new Runnable() {
                 @Override
                 public void run() {
-                    if (mIsForeground && mIsStopped) {
+                    if (mIsForeground && mIsPaused) {
                         mIsForeground = false;
                         sGlobal.updateDiscoveryRequest();
                     }
@@ -3241,8 +3241,11 @@ public final class MediaRouter {
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) { }
 
             @Override
-            public void onActivityStarted(Activity activity) {
-                mIsStopped = false;
+            public void onActivityStarted(Activity activity) { }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                mIsPaused = false;
                 boolean wasBackground = !mIsForeground;
                 mIsForeground = true;
 
@@ -3253,18 +3256,15 @@ public final class MediaRouter {
             }
 
             @Override
-            public void onActivityResumed(Activity activity) { }
-
-            @Override
-            public void onActivityPaused(Activity activity) { }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-                mIsStopped = true;
-                // By checking if onActivityStarted is not called after DELAY_MS
+            public void onActivityPaused(Activity activity) {
+                mIsPaused = true;
+                // By checking if onActivityResumed is not called after DELAY_MS
                 // we can note that the app goes to background
                 mHandler.postDelayed(mChecker, DELAY_MS);
             }
+
+            @Override
+            public void onActivityStopped(Activity activity) { }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
