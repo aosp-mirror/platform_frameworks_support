@@ -232,7 +232,11 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         }
     }
 
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
+    @Deprecated
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
         if (getChildCount() > 0) {

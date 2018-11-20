@@ -3695,7 +3695,11 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         return super.getColumnCountForAccessibility(recycler, state);
     }
 
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
+    @Deprecated
     public void onInitializeAccessibilityNodeInfoForItem(RecyclerView.Recycler recycler,
             RecyclerView.State state, View host, AccessibilityNodeInfoCompat info) {
         ViewGroup.LayoutParams lp = host.getLayoutParams();
