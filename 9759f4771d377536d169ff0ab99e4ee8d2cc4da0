@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f583b7f_d1d27dd8",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-11-20T19:17:20Z",
+      "side": 1,
+      "message": "Two things API council will likely raise:\n1) If we\u0027re adding a compat, we also need a framework API for Q.\n2) If we have a setter, we also need a getter.",
+      "range": {
+        "startLine": 1313,
+        "startChar": 23,
+        "endLine": 1313,
+        "endChar": 40
+      },
+      "revId": "9759f4771d377536d169ff0ab99e4ee8d2cc4da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
