@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "005305ec_e4a307ce",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-20T16:45:40Z",
+      "side": 1,
+      "message": "Done\n\nhttps://media3.giphy.com/media/UkLDtIRMMCOSk/giphy.gif?cid\u003d3640f6095bf4397a735a794459ef0ba6",
+      "parentUuid": "24eb49df_ad2a4f44",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "124e8b7595bdbf4193918128e7855c5813b713d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50e704cf_a19b1c87",
         "filename": "lifecycle/viewmodel/ktx/src/test/java/androidx/lifecycle/ViewModelLazyTest.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "124e8b7595bdbf4193918128e7855c5813b713d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecd4047_a5f3db9a",
+        "filename": "lifecycle/viewmodel/ktx/src/test/java/androidx/lifecycle/ViewModelLazyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-20T16:45:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e704cf_a19b1c87",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 8
+      },
+      "revId": "124e8b7595bdbf4193918128e7855c5813b713d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
