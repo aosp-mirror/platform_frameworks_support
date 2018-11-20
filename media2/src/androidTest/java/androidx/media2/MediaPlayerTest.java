@@ -788,7 +788,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mPlayer.prepare().get();
 
         mOnErrorCalled.reset();
-        dataSource.throwFromReadAt();
+        dataSource.throwFromReadAtPosition(500_000);
         mPlayer.play();
         assertTrue(mOnErrorCalled.waitForSignal());
     }
