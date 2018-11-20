@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbd34841_4a676494",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-20T14:08:58Z",
+      "side": 1,
+      "message": "this is not super-nice \u003d\\",
+      "range": {
+        "startLine": 28,
+        "startChar": 35,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "b84e109368f4e688ce5b3dcb7481e2560b44cb72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
