@@ -49,8 +49,14 @@ package androidx.preference {
     ctor public EditTextPreference(android.content.Context!, android.util.AttributeSet!, int);
     ctor public EditTextPreference(android.content.Context!, android.util.AttributeSet!);
     ctor public EditTextPreference(android.content.Context!);
+    method public androidx.preference.EditTextPreference.OnBindEditTextListener? getOnBindEditTextListener();
     method public String! getText();
+    method public void setOnBindEditTextListener(androidx.preference.EditTextPreference.OnBindEditTextListener?);
     method public void setText(String!);
+  }
+
+  public static interface EditTextPreference.OnBindEditTextListener {
+    method public void onBindEditText(android.widget.EditText!);
   }
 
   public static final class EditTextPreference.SimpleSummaryProvider implements androidx.preference.Preference.SummaryProvider<androidx.preference.EditTextPreference> {
