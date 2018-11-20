@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "053e7978_2f36d17a",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-11-20T18:45:45Z",
+      "side": 1,
+      "message": "In MediaPlayer, sniffing is done during prepare call. This new function seems requiring sniffer can\u0027t read beyond byte position 500000. This sounds risky, especially for mp4 files with meta data at the end of file.",
+      "range": {
+        "startLine": 2526,
+        "startChar": 43,
+        "endLine": 2526,
+        "endChar": 50
+      },
+      "revId": "448b860be2420471dfbb39f39c32760a00c6d299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
