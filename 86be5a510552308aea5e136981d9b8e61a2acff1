@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18a860e4_4a36742b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-20T06:16:04Z",
+      "side": 1,
+      "message": "Can you add \"Bug:\" with bug id?",
+      "revId": "86be5a510552308aea5e136981d9b8e61a2acff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26499845_540417d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-20T06:16:04Z",
+      "side": 1,
+      "message": "make sure you also ran updateApi, :mediarouter:lint, :mediarouter:connectedCheck",
+      "revId": "86be5a510552308aea5e136981d9b8e61a2acff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8322c2f5_641d17f3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-20T06:16:04Z",
+      "side": 1,
+      "message": "We prefer TODO(b/1234) rather than TODO(username). And it would be great if the comment is more descriptive so that anyone can catch up and improve it.\n\nReference:\nhttps://engdoc.corp.google.com/eng/doc/devguide/java/practices/comments.md?cl\u003dhead#todo",
+      "revId": "86be5a510552308aea5e136981d9b8e61a2acff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f07e4e_90840d3e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-20T06:16:04Z",
+      "side": 1,
+      "message": "Need \u0027!\u0027",
+      "range": {
+        "startLine": 2242,
+        "startChar": 68,
+        "endLine": 2242,
+        "endChar": 91
+      },
+      "revId": "86be5a510552308aea5e136981d9b8e61a2acff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9a663ee_af5ef6ed",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2451,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-20T06:16:04Z",
+      "side": 1,
+      "message": "what about static groups? in case a user uses old version of GMS core + up-to-date mediarouter app?",
+      "range": {
+        "startLine": 2451,
+        "startChar": 23,
+        "endLine": 2451,
+        "endChar": 45
+      },
+      "revId": "86be5a510552308aea5e136981d9b8e61a2acff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
