@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ece140a4_025ca403",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/ListContent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-20T03:31:14Z",
+      "side": 1,
+      "message": "Fix repo checkstyle_hook failed after rebase",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "e61b27abc24036a00358d7d8c2b3a3e3f8ddb9af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a8d86cb_139ce8c0",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-20T03:31:14Z",
+      "side": 1,
+      "message": "Fix repo checkstyle_hook failed after rebase",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "e61b27abc24036a00358d7d8c2b3a3e3f8ddb9af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21b5e33b_7b99ddf5",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-20T03:31:14Z",
+      "side": 1,
+      "message": "Fix repo checkstyle_hook failed after rebase",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "e61b27abc24036a00358d7d8c2b3a3e3f8ddb9af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
