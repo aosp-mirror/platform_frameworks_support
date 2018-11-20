@@ -46,6 +46,30 @@
       "revId": "b84e109368f4e688ce5b3dcb7481e2560b44cb72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bef8156_7bf76710",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-20T16:32:15Z",
+      "side": 1,
+      "message": "Yeah, one other not-super-nice thing that came to mind was Android Auto - they can\u0027t use ComponentActivity directly but they do want their pseudo activity thing to implement BundleSavedStateRegistryOwner.\n\nThis would be a lot cleaner as androidx.savedstate.bundle and that would allow it to rev separately from androidx.activity (which is the base of Fragment, AppCompat, etc, etc) at the cost of making another super tiny artifact. Given that almost all devs will take this only as a transitive dependency, maybe having a super small artifact is fine.",
+      "parentUuid": "fbd34841_4a676494",
+      "range": {
+        "startLine": 28,
+        "startChar": 35,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "b84e109368f4e688ce5b3dcb7481e2560b44cb72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
