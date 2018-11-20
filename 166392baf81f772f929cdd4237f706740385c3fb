@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "caf72e13_c9514416",
+        "filename": "recyclerview/recyclerview/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-20T09:16:22Z",
+      "side": 1,
+      "message": "Oh, it seems like when I deprecated the methods that the subclasses of LayoutManager were overriding, udpateApi felt it was necessary to add these to current.txt. Deprecating these overrides regardless so no one gets mistaken looking at the API diff.",
+      "parentUuid": "70842043_ef136b34",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 63
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc6392a1_7013a453",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "166392baf81f772f929cdd4237f706740385c3fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a5fe66_802ff942",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-20T09:16:22Z",
+      "side": 1,
+      "message": "Yea, all of the tests are in AccessibilityDelegateCompatTest, but I did want to leave an example here on how something would look for RecyclerView. Also I wanted something basic to verify we don\u0027t regress this specifically in recyclerView in the future.",
+      "parentUuid": "cc6392a1_7013a453",
+      "range": {
+        "startLine": 307,
+        "startChar": 16,
+        "endLine": 307,
+        "endChar": 31
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2095a4ef_cd5ac3de",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-20T09:16:22Z",
+      "side": 1,
+      "message": "Yea, I added it, but I left a couple places out, cause someone trying to add actions probably wouldn\u0027t be thinking through some particular API.",
+      "parentUuid": "ca7987c3_e5fbf4a2",
+      "range": {
+        "startLine": 754,
+        "startChar": 19,
+        "endLine": 755,
+        "endChar": 29
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8c53173_093cd666",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate.java",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "166392baf81f772f929cdd4237f706740385c3fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b266f7_237ed5d2",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-11-20T09:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8c53173_093cd666",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "166392baf81f772f929cdd4237f706740385c3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
