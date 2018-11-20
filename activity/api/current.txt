@@ -1,7 +1,17 @@
 // Signature format: 2.0
 package androidx.activity {
 
-  public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.lifecycle.BundleSavedStateRegistryOwner androidx.lifecycle.LifecycleOwner androidx.lifecycle.ViewModelStoreOwner {
+  public final class BundleSavedStateRegistry extends androidx.lifecycle.AbstractSavedStateRegistry<android.os.Bundle> {
+    ctor public BundleSavedStateRegistry();
+    method @MainThread public void performRestore(android.os.Bundle?);
+    method @MainThread public void performSave(android.os.Bundle);
+  }
+
+  public interface BundleSavedStateRegistryOwner {
+    method public androidx.lifecycle.SavedStateRegistry<android.os.Bundle> getBundleSavedStateRegistry();
+  }
+
+  public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.activity.BundleSavedStateRegistryOwner androidx.lifecycle.LifecycleOwner androidx.lifecycle.ViewModelStoreOwner {
     ctor public ComponentActivity();
     method public void addOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
     method public void addOnBackPressedCallback(androidx.lifecycle.LifecycleOwner, androidx.activity.OnBackPressedCallback);

@@ -46,6 +46,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 
+import androidx.activity.BundleSavedStateRegistry;
+import androidx.activity.BundleSavedStateRegistryOwner;
 import androidx.annotation.CallSuper;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -55,8 +57,6 @@ import androidx.annotation.StringRes;
 import androidx.core.app.SharedElementCallback;
 import androidx.core.util.DebugUtils;
 import androidx.core.view.LayoutInflaterCompat;
-import androidx.lifecycle.BundleSavedStateRegistry;
-import androidx.lifecycle.BundleSavedStateRegistryOwner;
 import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;

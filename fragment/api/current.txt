@@ -25,7 +25,7 @@ package androidx.fragment.app {
     field public static final int STYLE_NO_TITLE = 1; // 0x1
   }
 
-  public class Fragment implements androidx.lifecycle.BundleSavedStateRegistryOwner android.content.ComponentCallbacks androidx.lifecycle.LifecycleOwner android.view.View.OnCreateContextMenuListener androidx.lifecycle.ViewModelStoreOwner {
+  public class Fragment implements androidx.activity.BundleSavedStateRegistryOwner android.content.ComponentCallbacks androidx.lifecycle.LifecycleOwner android.view.View.OnCreateContextMenuListener androidx.lifecycle.ViewModelStoreOwner {
     ctor public Fragment();
     method public void dump(String, java.io.FileDescriptor?, java.io.PrintWriter, String[]?);
     method public final boolean equals(Object?);

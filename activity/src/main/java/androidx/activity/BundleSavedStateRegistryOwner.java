@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package androidx.lifecycle;
+package androidx.activity;
 
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.SavedStateRegistry;
 
 /**
  * A scope that owns {@link SavedStateRegistry}

@@ -11,16 +11,6 @@ package androidx.lifecycle {
     method @MainThread public final void unregisterSavedStateProvider(String);
   }
 
-  public final class BundleSavedStateRegistry extends androidx.lifecycle.AbstractSavedStateRegistry<android.os.Bundle> {
-    ctor public BundleSavedStateRegistry();
-    method @MainThread public void performRestore(android.os.Bundle?);
-    method @MainThread public void performSave(android.os.Bundle);
-  }
-
-  public interface BundleSavedStateRegistryOwner {
-    method public androidx.lifecycle.SavedStateRegistry<android.os.Bundle> getBundleSavedStateRegistry();
-  }
-
   public interface SavedStateRegistry<S> {
     method @MainThread public S? consumeRestoredStateForKey(String);
     method @MainThread public boolean isRestored();

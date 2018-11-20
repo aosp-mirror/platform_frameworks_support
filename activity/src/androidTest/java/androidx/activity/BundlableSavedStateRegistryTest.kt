@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.lifecycle
+package androidx.activity
 
 import android.os.Bundle
 import androidx.test.filters.SmallTest

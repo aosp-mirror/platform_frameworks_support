@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package androidx.lifecycle;
+package androidx.activity;
 
 import android.os.Bundle;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.AbstractSavedStateRegistry;
+import androidx.lifecycle.SavedStateRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +33,7 @@ import java.util.Map;
  * An owner of this {@link BundleSavedStateRegistry} must call {@link #performRestore(Bundle)}
  * once previously saved state becomes available to it.
  * <p>
- * To collect saved state supplied by {@link SavedStateProvider}
+ * To collect saved state supplied by {@link SavedStateRegistry.SavedStateProvider}
  * an owner should call {@link #performSave(Bundle)}
  */
 public final class BundleSavedStateRegistry extends AbstractSavedStateRegistry<Bundle> {

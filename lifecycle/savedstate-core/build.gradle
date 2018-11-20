@@ -20,8 +20,8 @@ import androidx.build.LibraryVersions
 import androidx.build.SupportLibraryExtension
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
-    id("kotlin-android")
+    id("SupportJavaLibraryPlugin")
+    id("kotlin")
 }
 
 dependencies {
@@ -31,10 +31,6 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(TEST_RUNNER)
     testImplementation(KOTLIN_STDLIB)
-
-    androidTestImplementation(JUNIT)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 supportLibrary {

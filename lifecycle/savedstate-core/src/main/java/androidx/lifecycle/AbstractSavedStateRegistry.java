@@ -16,9 +16,6 @@
 
 package androidx.lifecycle;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,11 +31,10 @@ import java.util.Map;
  * Implementations simply need to call {@link #restoreSavedState(Map)} to initialize restored state
  * and call {@link #saveState()} once system requests saved state.
  *
- * @param <S> represents a class for saving a state, typically it is {@link Bundle}
+ * @param <S> represents a class for saving a state, typically it is {@link android.os.Bundle}
  *
- * @see BundleSavedStateRegistry
+ * @see androidx.activity.BundleSavedStateRegistry
  */
-@SuppressLint("RestrictedApi")
 public abstract class AbstractSavedStateRegistry<S> implements SavedStateRegistry<S> {
     private SafeIterableMap<String, SavedStateProvider<S>> mComponents =
             new SafeIterableMap<>();

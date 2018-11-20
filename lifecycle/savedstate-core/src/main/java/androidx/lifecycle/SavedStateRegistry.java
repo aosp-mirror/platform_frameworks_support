@@ -16,8 +16,6 @@
 
 package androidx.lifecycle;
 
-import android.os.Bundle;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +23,7 @@ import androidx.annotation.Nullable;
 /**
  * An interface for plugging components that consumes and contributes to the saved state.
  *
- * @param <S> represents a class for saving a state, typically it is {@link Bundle}
+ * @param <S> represents a class for saving a state, typically it is {@link android.os.Bundle}
  */
 public interface SavedStateRegistry<S> {
     /**
@@ -62,14 +60,14 @@ public interface SavedStateRegistry<S> {
     /**
      * This interface marks a component that contributes to saved state.
      *
-     * @param <S> represents a class for saving a state, typically it is {@link Bundle}
+     * @param <S> represents a class for saving a state, typically it is {@link android.os.Bundle}
      */
     interface SavedStateProvider<S> {
         /**
          * Called to retrieve a state from a component before being killed
          * so later the state can be received from {@link #consumeRestoredStateForKey(String)}
          *
-         * @return Bundle with your saved state.
+         * @return S with your saved state.
          */
         @NonNull
         S saveState();
@@ -78,12 +76,12 @@ public interface SavedStateRegistry<S> {
     /**
      * Registers a {@link SavedStateProvider} by the given {@code key}. This
      * {@code savedStateProvider} will be called
-     * during state saving phase, returned bundle will be associated with the given {@code key}
+     * during state saving phase, returned object will be associated with the given {@code key}
      * and can be used after the restoration via {@link #consumeRestoredStateForKey(String)}.
      * <p>
      * If there is unconsumed value with the same {@code key},
      * the value supplied by {@code savedStateProvider} will be override and
-     * will be written to resulting saved state bundle.
+     * will be written to resulting saved state.
      * <p> if a provider was already registered with the given {@code key}, an implementation should
      * throw an {@link IllegalArgumentException}
      * @param key a key with which returned saved state will be associated
