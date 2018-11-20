@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99cef369_08d46523",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-20T17:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d685ccf9_65cf4afc",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 58
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4e95eee_1d6b89ef",
         "filename": "core/src/androidTest/java/androidx/core/graphics/TypefaceCompatTest.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "955a3e09_27fef306",
+        "filename": "core/src/androidTest/java/androidx/core/graphics/TypefaceCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-20T17:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4e95eee_1d6b89ef",
+      "range": {
+        "startLine": 459,
+        "startChar": 16,
+        "endLine": 459,
+        "endChar": 49
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fac4f0a_094f4335",
         "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompat.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6072eefe_8943da91",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-20T17:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fac4f0a_094f4335",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
