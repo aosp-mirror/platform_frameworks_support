@@ -16,21 +16,18 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
 import androidx.room.ext.arrayTypeName
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -45,19 +42,16 @@ class RxQueryResultBinder(
     override fun convertAndReturn(
         roomSQLiteQueryVar: String,
         canReleaseQuery: Boolean,
-        dbField: FieldSpec,
+        dbField: PropertySpec,
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
-        val callableImpl = TypeSpec.anonymousClassBuilder("").apply {
+        val callableImpl = TypeSpec.anonymousClassBuilder().apply {
             val typeName = typeArg.typeName()
-            superclass(ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
-                    typeName))
-            addMethod(MethodSpec.methodBuilder("call").apply {
+            superclass(java.util.concurrent.Callable::class.typeName().parameterizedBy(typeName))
+            addFunction(FunSpec.builder("call").apply {
                 returns(typeName)
-                addException(Exception::class.typeName())
-                addModifiers(Modifier.PUBLIC)
-                addAnnotation(Override::class.java)
+                addModifiers(KModifier.OVERRIDE)
                 createRunQueryAndReturnStatements(builder = this,
                         roomSQLiteQueryVar = roomSQLiteQueryVar,
                         inTransaction = inTransaction,
@@ -65,12 +59,12 @@ class RxQueryResultBinder(
                         scope = scope)
             }.build())
             if (canReleaseQuery) {
-                addMethod(createFinalizeMethod(roomSQLiteQueryVar))
+                addFunction(createFinalizeMethod(roomSQLiteQueryVar))
             }
         }.build()
         scope.builder().apply {
             val tableNamesList = queryTableNames.joinToString(",") { "\"$it\"" }
-            addStatement("return $T.$N($N, new $T{$L}, $L)",
+            addStatement("return %T.%N(%N, new %T{%L}, %L)",
                     RoomRxJava2TypeNames.RX_ROOM, rxType.methodName, DaoWriter.dbField,
                     String::class.arrayTypeName(), tableNamesList, callableImpl)
         }

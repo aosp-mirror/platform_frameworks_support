@@ -18,56 +18,56 @@ package androidx.room.solver.query.result
 
 import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.CommonTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.ANY
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 
 class PositionalDataSourceQueryResultBinder(
         val listAdapter: ListQueryResultAdapter?,
         val tableNames: Set<String>) : QueryResultBinder(listAdapter) {
-    val itemTypeName: TypeName = listAdapter?.rowAdapter?.out?.typeName() ?: TypeName.OBJECT
-    val typeName: ParameterizedTypeName = ParameterizedTypeName.get(
-            RoomTypeNames.LIMIT_OFFSET_DATA_SOURCE, itemTypeName)
+    val itemTypeName: TypeName = listAdapter?.rowAdapter?.out?.typeName() ?: ANY
+    val typeName: ParameterizedTypeName =
+            RoomTypeNames.LIMIT_OFFSET_DATA_SOURCE.parameterizedBy(itemTypeName)
     override fun convertAndReturn(roomSQLiteQueryVar: String,
                                   canReleaseQuery: Boolean,
-                                  dbField: FieldSpec,
+                                  dbField: PropertySpec,
                                   inTransaction: Boolean,
                                   scope: CodeGenScope) {
         // first comma for table names comes from the string since it might be empty in which case
         // we don't need a comma. If list is empty, this prevents generating bad code (it is still
         // an error to have empty list but that is already reported while item is processed)
         val tableNamesList = tableNames.joinToString("") { ", \"$it\"" }
-        val spec = TypeSpec.anonymousClassBuilder("$N, $L, $L $L",
-                dbField, roomSQLiteQueryVar, inTransaction, tableNamesList).apply {
+        val spec = TypeSpec.anonymousClassBuilder().apply {
             superclass(typeName)
-            addMethod(createConvertRowsMethod(scope))
+            addSuperclassConstructorParameter("%N, %L, %L %L",
+                dbField, roomSQLiteQueryVar, inTransaction, tableNamesList)
+            addFunction(createConvertRowsMethod(scope))
         }.build()
         scope.builder().apply {
-            addStatement("return $L", spec)
+            addStatement("return %L", spec)
         }
     }
 
-    private fun createConvertRowsMethod(scope: CodeGenScope): MethodSpec =
-            MethodSpec.methodBuilder("convertRows").apply {
-                addAnnotation(Override::class.java)
-                addModifiers(Modifier.PROTECTED)
-                returns(ParameterizedTypeName.get(CommonTypeNames.LIST, itemTypeName))
-                val cursorParam = ParameterSpec.builder(AndroidTypeNames.CURSOR, "cursor")
+    private fun createConvertRowsMethod(scope: CodeGenScope): FunSpec =
+            FunSpec.builder("convertRows").apply {
+                addModifiers(KModifier.PROTECTED, KModifier.OVERRIDE)
+                returns(CommonTypeNames.LIST.parameterizedBy(itemTypeName))
+                val cursorParam = ParameterSpec.builder("cursor", AndroidTypeNames.CURSOR)
                         .build()
                 addParameter(cursorParam)
                 val resultVar = scope.getTmpVar("_res")
                 val rowsScope = scope.fork()
                 listAdapter?.convert(resultVar, cursorParam.name, rowsScope)
                 addCode(rowsScope.builder().build())
-                addStatement("return $L", resultVar)
+                addStatement("return %L", resultVar)
             }.build()
 }

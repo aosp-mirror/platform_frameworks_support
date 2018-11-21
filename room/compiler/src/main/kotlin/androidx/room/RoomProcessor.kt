@@ -119,7 +119,7 @@ class RoomProcessor : BasicAnnotationProcessor() {
                         entry.value.groupBy { daoMethod ->
                             // first suffix guess: Database's simple name
                             val db = databases.first { db -> db.daoMethods.contains(daoMethod) }
-                            db.typeName.simpleName()
+                            db.typeName.simpleName
                         }.forEach { (dbName, methods) ->
                             if (methods.size == 1) {
                                 // good, db names do not clash, use db name as suffix

@@ -5,19 +5,15 @@ import androidx.room.RoomDatabase;
 import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.StringUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+
+import java.util.List;
+import java.util.concurrent.Callable;
+
+import javax.annotation.Generated;
+
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import java.lang.Exception;
-import java.lang.Integer;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.StringBuilder;
-import java.lang.SuppressWarnings;
-import java.lang.Void;
-import java.util.List;
-import java.util.concurrent.Callable;
-import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings("unchecked")

@@ -20,10 +20,8 @@ import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteStatement;
 
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.List;
+
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")

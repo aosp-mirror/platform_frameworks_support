@@ -16,19 +16,18 @@
 
 package androidx.room.solver.shortcut.result
 
-import androidx.room.ext.L
-import androidx.room.ext.N
-import androidx.room.ext.T
+import androidx.room.ext.arrayTypeName
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.ShortcutQueryParameter
 import androidx.room.writer.DaoWriter
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.UNIT
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 
@@ -123,13 +122,13 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
 
     fun createInsertionMethodBody(
         parameters: List<ShortcutQueryParameter>,
-        insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        insertionAdapters: Map<String, Pair<PropertySpec, TypeSpec>>,
         scope: CodeGenScope
     ) {
         scope.builder().apply {
             // TODO assert thread
             // TODO collect results
-            addStatement("$N.beginTransaction()", DaoWriter.dbField)
+            addStatement("%N.beginTransaction()", DaoWriter.dbField)
             val needsResultVar = insertionType != InsertionType.INSERT_VOID &&
                     insertionType != InsertionType.INSERT_VOID_OBJECT
             val resultVar = if (needsResultVar) {
@@ -144,25 +143,25 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
                     if (needsResultVar) {
                         // if it has more than 1 parameter, we would've already printed the error
                         // so we don't care about re-declaring the variable here
-                        addStatement("$T $L = $N.$L($L)",
+                        addStatement("%T %L = %N.%L(%L)",
                                 insertionType.returnTypeName, resultVar,
                                 insertionAdapter, insertionType.methodName,
                                 param.name)
                     } else {
-                        addStatement("$N.$L($L)", insertionAdapter, insertionType.methodName,
+                        addStatement("%N.%L(%L)", insertionAdapter, insertionType.methodName,
                                 param.name)
                     }
                 }
-                addStatement("$N.setTransactionSuccessful()",
+                addStatement("%N.setTransactionSuccessful()",
                         DaoWriter.dbField)
                 if (needsResultVar) {
-                    addStatement("return $L", resultVar)
+                    addStatement("return %L", resultVar)
                 } else if (insertionType == InsertionType.INSERT_VOID_OBJECT) {
                     addStatement("return null")
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()",
+                addStatement("%N.endTransaction()",
                         DaoWriter.dbField)
             }
             endControlFlow()
@@ -174,14 +173,13 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
         val methodName: String,
         val returnTypeName: TypeName
     ) {
-        INSERT_VOID("insert", TypeName.VOID), // return void
-        INSERT_VOID_OBJECT("insert", TypeName.VOID), // return void
-        INSERT_SINGLE_ID("insertAndReturnId", TypeName.LONG), // return long
-        INSERT_ID_ARRAY("insertAndReturnIdsArray",
-                ArrayTypeName.of(TypeName.LONG)), // return long[]
-        INSERT_ID_ARRAY_BOX("insertAndReturnIdsArrayBox",
-                ArrayTypeName.of(TypeName.LONG.box())), // return Long[]
+        INSERT_VOID("insert", UNIT), // return void
+        INSERT_VOID_OBJECT("insert", UNIT), // return void
+        INSERT_SINGLE_ID("insertAndReturnId", LONG), // return long
+        INSERT_ID_ARRAY("insertAndReturnIdsArray", LONG.arrayTypeName()), // return long[]
+        //TODO : doesn't make sence in kotlin
+        INSERT_ID_ARRAY_BOX("insertAndReturnIdsArrayBox", LONG.arrayTypeName()), // return Long[]
         INSERT_ID_LIST("insertAndReturnIdsList", // return List<Long>
-                ParameterizedTypeName.get(List::class.typeName(), TypeName.LONG.box()))
+                List::class.typeName().parameterizedBy(LONG))
     }
 }

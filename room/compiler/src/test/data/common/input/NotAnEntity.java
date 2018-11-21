@@ -15,7 +15,7 @@
  */
 
 package foo.bar;
-import androidx.room.*;
+
 public class NotAnEntity {
     int bookId;
     int uid;

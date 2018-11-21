@@ -17,24 +17,24 @@
 package androidx.room.writer
 
 import androidx.room.RoomProcessor
-import androidx.room.ext.S
 import androidx.room.ext.typeName
+import androidx.room.ext.writeTo
 import androidx.room.solver.CodeGenScope.Companion.CLASS_PROPERTY_PREFIX
-import com.squareup.javapoet.AnnotationSpec
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.JavaFile
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 import javax.annotation.processing.ProcessingEnvironment
 
 /**
  * Base class for all writers that can produce a class.
  */
 abstract class ClassWriter(private val className: ClassName) {
-    private val sharedFieldSpecs = mutableMapOf<String, FieldSpec>()
-    private val sharedMethodSpecs = mutableMapOf<String, MethodSpec>()
+    private val sharedPropertySpecs = mutableMapOf<String, PropertySpec>()
+    private val sharedFunSpecs = mutableMapOf<String, FunSpec>()
     private val sharedFieldNames = mutableSetOf<String>()
     private val sharedMethodNames = mutableSetOf<String>()
 
@@ -42,19 +42,17 @@ abstract class ClassWriter(private val className: ClassName) {
 
     fun write(processingEnv: ProcessingEnvironment) {
         val builder = createTypeSpecBuilder()
-        sharedFieldSpecs.values.forEach { builder.addField(it) }
-        sharedMethodSpecs.values.forEach { builder.addMethod(it) }
+        sharedPropertySpecs.values.forEach { builder.addProperty(it) }
+        sharedFunSpecs.values.forEach { builder.addFunction(it) }
         addGeneratedAnnotationIfAvailable(builder, processingEnv)
         addSuppressUnchecked(builder)
-        JavaFile.builder(className.packageName(), builder.build())
-                .build()
-                .writeTo(processingEnv.filer)
+        FileSpec.get(className.packageName, builder.build()).writeTo(processingEnv.filer)
     }
 
     private fun addSuppressUnchecked(builder: TypeSpec.Builder) {
         val suppressSpec = AnnotationSpec.builder(SuppressWarnings::class.typeName()).addMember(
                 "value",
-                S,
+                "%S",
                 "unchecked"
         ).build()
         builder.addAnnotation(suppressSpec)
@@ -66,11 +64,11 @@ abstract class ClassWriter(private val className: ClassName) {
                 .elementUtils
                 .getTypeElement("$GENERATED_PACKAGE.$GENERATED_NAME") != null
         if (generatedAnnotationAvailable) {
-            val className = ClassName.get(GENERATED_PACKAGE, GENERATED_NAME)
+            val className = ClassName(GENERATED_PACKAGE, GENERATED_NAME)
             val generatedAnnotationSpec =
                     AnnotationSpec.builder(className).addMember(
                             "value",
-                            S,
+                            "%S",
                             RoomProcessor::class.java.canonicalName).build()
             adapterTypeSpecBuilder.addAnnotation(generatedAnnotationSpec)
         }
@@ -92,38 +90,38 @@ abstract class ClassWriter(private val className: ClassName) {
         }
     }
 
-    fun getOrCreateField(sharedField: SharedFieldSpec): FieldSpec {
-        return sharedFieldSpecs.getOrPut(sharedField.getUniqueKey(), {
+    fun getOrCreateField(sharedField: SharedPropertySpec): PropertySpec {
+        return sharedPropertySpecs.getOrPut(sharedField.getUniqueKey(), {
             sharedField.build(this, makeUnique(sharedFieldNames, sharedField.baseName))
         })
     }
 
-    fun getOrCreateMethod(sharedMethod: SharedMethodSpec): MethodSpec {
-        return sharedMethodSpecs.getOrPut(sharedMethod.getUniqueKey(), {
+    fun getOrCreateMethod(sharedMethod: SharedFunSpec): FunSpec {
+        return sharedFunSpecs.getOrPut(sharedMethod.getUniqueKey(), {
             sharedMethod.build(this, makeUnique(sharedMethodNames, sharedMethod.baseName))
         })
     }
 
-    abstract class SharedFieldSpec(val baseName: String, val type: TypeName) {
+    abstract class SharedPropertySpec(val baseName: String, val type: TypeName) {
 
         abstract fun getUniqueKey(): String
 
-        abstract fun prepare(writer: ClassWriter, builder: FieldSpec.Builder)
+        abstract fun prepare(writer: ClassWriter, builder: PropertySpec.Builder)
 
-        fun build(classWriter: ClassWriter, name: String): FieldSpec {
-            val builder = FieldSpec.builder(type, name)
+        fun build(classWriter: ClassWriter, name: String): PropertySpec {
+            val builder = PropertySpec.builder(name, type)
             prepare(classWriter, builder)
             return builder.build()
         }
     }
 
-    abstract class SharedMethodSpec(val baseName: String) {
+    abstract class SharedFunSpec(val baseName: String) {
 
         abstract fun getUniqueKey(): String
-        abstract fun prepare(methodName: String, writer: ClassWriter, builder: MethodSpec.Builder)
+        abstract fun prepare(methodName: String, writer: ClassWriter, builder: FunSpec.Builder)
 
-        fun build(writer: ClassWriter, name: String): MethodSpec {
-            val builder = MethodSpec.methodBuilder(name)
+        fun build(writer: ClassWriter, name: String): FunSpec {
+            val builder = FunSpec.builder(name)
             prepare(name, writer, builder)
             return builder.build()
         }

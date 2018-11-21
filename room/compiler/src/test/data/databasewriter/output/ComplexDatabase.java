@@ -14,13 +14,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteOpenHelper.Callback;
 import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
-import java.lang.IllegalStateException;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")

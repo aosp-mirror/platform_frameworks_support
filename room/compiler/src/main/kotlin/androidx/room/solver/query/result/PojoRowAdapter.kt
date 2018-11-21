@@ -16,10 +16,7 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.L
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
-import androidx.room.ext.T
 import androidx.room.processor.Context
 import androidx.room.processor.ProcessorErrors
 import androidx.room.solver.CodeGenScope
@@ -29,8 +26,9 @@ import androidx.room.vo.FieldWithIndex
 import androidx.room.vo.Pojo
 import androidx.room.vo.RelationCollector
 import androidx.room.vo.Warning
+import androidx.room.vo.fieldByColumnName
 import androidx.room.writer.FieldReadWriteWriter
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.INT
 import stripNonJava
 import javax.lang.model.type.TypeMirror
 
@@ -58,7 +56,7 @@ class PojoRowAdapter(
                 // first check remaining, otherwise check any. maybe developer wants to map the same
                 // column into 2 fields. (if they want to post process etc)
                 val field = remainingFields.firstOrNull { it.columnName == column.name }
-                        ?: pojo.fields.firstOrNull { it.columnName == column.name }
+                        ?: pojo.fieldByColumnName(column.name)
                 if (field == null) {
                     unusedColumns.add(column.name)
                     null
@@ -119,22 +117,22 @@ class PojoRowAdapter(
             } else {
                 "getColumnIndexOrThrow"
             }
-            scope.builder().addStatement("final $T $L = $T.$L($L, $S)",
-                TypeName.INT, indexVar, RoomTypeNames.CURSOR_UTIL, indexMethod, cursorVarName,
+            scope.builder().addStatement("final %T %L = %T.%L(%L, %S)",
+                INT, indexVar, RoomTypeNames.CURSOR_UTIL, indexMethod, cursorVarName,
                 it.columnName)
             FieldWithIndex(field = it, indexVar = indexVar, alwaysExists = info != null)
         }
         if (relationCollectors.isNotEmpty()) {
             relationCollectors.forEach { it.writeInitCode(scope) }
             scope.builder().apply {
-                beginControlFlow("while ($L.moveToNext())", cursorVarName).apply {
+                beginControlFlow("while (%L.moveToNext())", cursorVarName).apply {
                     relationCollectors.forEach {
                         it.writeReadParentKeyCode(cursorVarName, mapping.fieldsWithIndices, scope)
                     }
                 }
                 endControlFlow()
             }
-            scope.builder().addStatement("$L.moveToPosition(-1)", cursorVarName)
+            scope.builder().addStatement("%L.moveToPosition(-1)", cursorVarName)
             relationCollectors.forEach { it.writeCollectionCode(scope) }
         }
     }

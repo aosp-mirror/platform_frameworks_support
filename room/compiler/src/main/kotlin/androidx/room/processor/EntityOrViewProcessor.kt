@@ -22,7 +22,7 @@ import androidx.room.ext.hasAnnotation
 import androidx.room.ext.typeName
 import androidx.room.vo.EntityOrView
 import androidx.room.vo.Field
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
 

@@ -15,35 +15,38 @@
  */
 package androidx.room.writer
 
-import androidx.room.ext.L
-import androidx.room.ext.N
+import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.RoomTypeNames
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 
 /**
  * Creates anonymous classes for RoomTypeNames#SHARED_SQLITE_STMT.
  */
 class PreparedStatementWriter(val queryWriter: QueryWriter) {
-    fun createAnonymous(classWriter: ClassWriter, dbParam: FieldSpec): TypeSpec {
+    fun createAnonymous(classWriter: ClassWriter, dbParam: PropertySpec): TypeSpec {
         val scope = CodeGenScope(classWriter)
         @Suppress("RemoveSingleExpressionStringTemplate")
-        return TypeSpec.anonymousClassBuilder("$N", dbParam).apply {
+//        return TypeSpec.objectBuilder("%N", dbParam).apply {
+        // TODO : not sure
+        return TypeSpec.anonymousClassBuilder().apply {
             superclass(RoomTypeNames.SHARED_SQLITE_STMT)
-            addMethod(MethodSpec.methodBuilder("createQuery").apply {
-                addAnnotation(Override::class.java)
-                returns(ClassName.get("java.lang", "String"))
-                addModifiers(Modifier.PUBLIC)
+            addFunction(FunSpec.builder("createQuery").apply {
+                addModifiers(KModifier.OVERRIDE)
+                returns(CommonTypeNames.STRING)
                 val queryName = scope.getTmpVar("_query")
                 val queryGenScope = scope.fork()
                 queryWriter.prepareQuery(queryName, queryGenScope)
                 addCode(queryGenScope.builder().build())
-                addStatement("return $L", queryName)
+                addStatement("return %L", queryName)
             }.build())
         }.build()
     }
+}
+
+class C {
+
 }

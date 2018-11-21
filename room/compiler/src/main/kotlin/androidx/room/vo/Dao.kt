@@ -16,8 +16,9 @@
 
 package androidx.room.vo
 
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.asClassName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
 
@@ -40,7 +41,7 @@ data class Dao(
         this.suffix = if (newSuffix == "") "" else "_$newSuffix"
     }
 
-    val typeName: ClassName by lazy { ClassName.get(element) }
+    val typeName: ClassName by lazy { element.asClassName() }
 
     val shortcutMethods: List<ShortcutMethod> by lazy {
         deletionMethods + updateMethods
@@ -53,13 +54,13 @@ data class Dao(
         val path = arrayListOf<String>()
         var enclosing = element.enclosingElement
         while (enclosing is TypeElement) {
-            path.add(ClassName.get(enclosing as TypeElement).simpleName())
+            path.add((enclosing as TypeElement).asClassName().simpleName)
             enclosing = enclosing.enclosingElement
         }
-        path.reversed().joinToString("_") + "${typeName.simpleName()}${suffix}_Impl"
+        path.reversed().joinToString("_") + "${typeName.simpleName}${suffix}_Impl"
     }
 
     val implTypeName: ClassName by lazy {
-        ClassName.get(typeName.packageName(), implClassName)
+        ClassName(typeName.packageName, implClassName)
     }
 }

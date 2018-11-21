@@ -17,15 +17,11 @@
 package androidx.room.writer
 
 import androidx.room.ext.CommonTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.vo.FtsEntity
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import stripNonJava
 
 class FtsTableInfoValidationWriter(val entity: FtsEntity) : ValidationWriter() {
@@ -34,26 +30,26 @@ class FtsTableInfoValidationWriter(val entity: FtsEntity) : ValidationWriter() {
         val expectedInfoVar = scope.getTmpVar("_info$suffix")
         scope.builder().apply {
             val columnListVar = scope.getTmpVar("_columns$suffix")
-            val columnListType = ParameterizedTypeName.get(HashSet::class.typeName(),
-                    CommonTypeNames.STRING)
+            val columnListType = HashSet::class.typeName().parameterizedBy(CommonTypeNames.STRING)
 
-            addStatement("final $T $L = new $T($L)", columnListType, columnListVar,
-                    columnListType, entity.fields.size)
+
+            addStatement("val %L = %T(%L)", columnListVar,
+                columnListType, entity.fields.size)
             entity.nonHiddenFields.forEach {
-                addStatement("$L.add($S)", columnListVar, it.columnName)
+                addStatement("%L.add(%S)", columnListVar, it.columnName)
             }
 
-            addStatement("final $T $L = new $T($S, $L, $S)",
+            addStatement("final %T %L = new %T(%S, %L, %S)",
                     RoomTypeNames.FTS_TABLE_INFO, expectedInfoVar, RoomTypeNames.FTS_TABLE_INFO,
                     entity.tableName, columnListVar, entity.createTableQuery)
 
             val existingVar = scope.getTmpVar("_existing$suffix")
-            addStatement("final $T $L = $T.read($N, $S)",
+            addStatement("final %T %L = %T.read(%N, %S)",
                     RoomTypeNames.FTS_TABLE_INFO, existingVar, RoomTypeNames.FTS_TABLE_INFO,
                     dbParam, entity.tableName)
 
-            beginControlFlow("if (!$L.equals($L))", expectedInfoVar, existingVar).apply {
-                addStatement("throw new $T($S + $L + $S + $L)",
+            beginControlFlow("if (!%L.equals(%L))", expectedInfoVar, existingVar).apply {
+                addStatement("throw new %T(%S + %L + %S + %L)",
                         IllegalStateException::class.typeName(),
                         "Migration didn't properly handle ${entity.tableName}" +
                                 "(${entity.element.qualifiedName}).\n Expected:\n",

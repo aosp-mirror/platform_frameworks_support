@@ -17,15 +17,12 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.AndroidTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
 
 /**
  * Base class for query result binders that observe the database. It includes common functionality
@@ -34,18 +31,17 @@ import javax.lang.model.element.Modifier
 abstract class BaseObservableQueryResultBinder(adapter: QueryResultAdapter?)
     : QueryResultBinder(adapter) {
 
-    protected fun createFinalizeMethod(roomSQLiteQueryVar: String): MethodSpec {
-        return MethodSpec.methodBuilder("finalize").apply {
-            addModifiers(Modifier.PROTECTED)
-            addAnnotation(Override::class.java)
-            addStatement("$L.release()", roomSQLiteQueryVar)
+    protected fun createFinalizeMethod(roomSQLiteQueryVar: String): FunSpec {
+        return FunSpec.builder("finalize").apply {
+            addModifiers(KModifier.PROTECTED, KModifier.OVERRIDE)
+            addStatement("%L.release()", roomSQLiteQueryVar)
         }.build()
     }
 
     protected fun createRunQueryAndReturnStatements(
-        builder: MethodSpec.Builder,
+        builder: FunSpec.Builder,
         roomSQLiteQueryVar: String,
-        dbField: FieldSpec,
+        dbField: PropertySpec,
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
@@ -59,7 +55,7 @@ abstract class BaseObservableQueryResultBinder(adapter: QueryResultAdapter?)
         val cursorVar = scope.getTmpVar("_cursor")
         transactionWrapper?.beginTransactionWithControlFlow()
         builder.apply {
-            addStatement("final $T $L = $T.query($N, $L, $L)",
+            addStatement("final %T %L = %T.query(%N, %L, %L)",
                     AndroidTypeNames.CURSOR,
                     cursorVar,
                     RoomTypeNames.DB_UTIL,
@@ -71,10 +67,10 @@ abstract class BaseObservableQueryResultBinder(adapter: QueryResultAdapter?)
                 adapter?.convert(outVar, cursorVar, adapterScope)
                 addCode(adapterScope.builder().build())
                 transactionWrapper?.commitTransaction()
-                addStatement("return $L", outVar)
+                addStatement("return %L", outVar)
             }
             nextControlFlow("finally").apply {
-                addStatement("$L.close()", cursorVar)
+                addStatement("%L.close()", cursorVar)
             }
             endControlFlow()
         }

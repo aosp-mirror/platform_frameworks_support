@@ -17,16 +17,13 @@
 package androidx.room.writer
 
 import androidx.room.ext.CommonTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.Entity
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.ParameterizedTypeName
+import androidx.room.vo.columnNames
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import stripNonJava
 import java.util.Arrays
 import java.util.HashMap
@@ -38,13 +35,13 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
         val expectedInfoVar = scope.getTmpVar("_info$suffix")
         scope.builder().apply {
             val columnListVar = scope.getTmpVar("_columns$suffix")
-            val columnListType = ParameterizedTypeName.get(HashMap::class.typeName(),
-                    CommonTypeNames.STRING, RoomTypeNames.TABLE_INFO_COLUMN)
+            val columnListType = HashMap::class.typeName().parameterizedBy(CommonTypeNames.STRING,
+                RoomTypeNames.TABLE_INFO_COLUMN)
 
-            addStatement("final $T $L = new $T($L)", columnListType, columnListVar,
+            addStatement("val %L = %T(%L)", columnListVar,
                     columnListType, entity.fields.size)
             entity.fields.forEach { field ->
-                addStatement("$L.put($S, new $T($S, $S, $L, $L))",
+                addStatement("%L.put(%S, %T(%S, %S, %L, %L))",
                         columnListVar, field.columnName, RoomTypeNames.TABLE_INFO_COLUMN,
                         /*name*/ field.columnName,
                         /*type*/ field.affinity?.name ?: SQLTypeAffinity.TEXT.name,
@@ -53,17 +50,17 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             }
 
             val foreignKeySetVar = scope.getTmpVar("_foreignKeys$suffix")
-            val foreignKeySetType = ParameterizedTypeName.get(HashSet::class.typeName(),
+            val foreignKeySetType = HashSet::class.typeName().parameterizedBy(
                     RoomTypeNames.TABLE_INFO_FOREIGN_KEY)
-            addStatement("final $T $L = new $T($L)", foreignKeySetType, foreignKeySetVar,
+            addStatement("val %L = new %T(%L)", foreignKeySetVar,
                     foreignKeySetType, entity.foreignKeys.size)
             entity.foreignKeys.forEach {
                 val myColumnNames = it.childFields
                         .joinToString(",") { "\"${it.columnName}\"" }
                 val refColumnNames = it.parentColumns
                         .joinToString(",") { "\"$it\"" }
-                addStatement("$L.add(new $T($S, $S, $S," +
-                        "$T.asList($L), $T.asList($L)))", foreignKeySetVar,
+                addStatement("%L.add(%T(%S, %S, %S," +
+                        "%T.asList(%L), %T.asList(%L)))", foreignKeySetVar,
                         RoomTypeNames.TABLE_INFO_FOREIGN_KEY,
                         /*parent table*/ it.parentTable,
                         /*on delete*/ it.onDelete.sqlName,
@@ -75,14 +72,12 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
             }
 
             val indicesSetVar = scope.getTmpVar("_indices$suffix")
-            val indicesType = ParameterizedTypeName.get(HashSet::class.typeName(),
+            val indicesType = HashSet::class.typeName().parameterizedBy(
                     RoomTypeNames.TABLE_INFO_INDEX)
-            addStatement("final $T $L = new $T($L)", indicesType, indicesSetVar,
-                    indicesType, entity.indices.size)
+            addStatement("val %L = %T(%L)", indicesSetVar, indicesType, entity.indices.size)
             entity.indices.forEach { index ->
-                val columnNames = index.fields
-                        .joinToString(",") { "\"${it.columnName}\"" }
-                addStatement("$L.add(new $T($S, $L, $T.asList($L)))",
+                val columnNames = index.columnNames.joinToString(",") { "\"$it\"" }
+                addStatement("%L.add(%T(%S, %L, %T.asList(%L)))",
                         indicesSetVar,
                         RoomTypeNames.TABLE_INFO_INDEX,
                         index.name,
@@ -91,17 +86,16 @@ class TableInfoValidationWriter(val entity: Entity) : ValidationWriter() {
                         columnNames)
             }
 
-            addStatement("final $T $L = new $T($S, $L, $L, $L)",
-                    RoomTypeNames.TABLE_INFO, expectedInfoVar, RoomTypeNames.TABLE_INFO,
+            addStatement("val %L = %T(%S, %L, %L, %L)",
+                    expectedInfoVar, RoomTypeNames.TABLE_INFO,
                     entity.tableName, columnListVar, foreignKeySetVar, indicesSetVar)
 
             val existingVar = scope.getTmpVar("_existing$suffix")
-            addStatement("final $T $L = $T.read($N, $S)",
-                    RoomTypeNames.TABLE_INFO, existingVar, RoomTypeNames.TABLE_INFO,
-                    dbParam, entity.tableName)
+            addStatement("val %L = %T.read(%N, %S)",
+                    existingVar, RoomTypeNames.TABLE_INFO, dbParam, entity.tableName)
 
-            beginControlFlow("if (! $L.equals($L))", expectedInfoVar, existingVar).apply {
-                addStatement("throw new $T($S + $L + $S + $L)",
+            beginControlFlow("if (! %L.equals(%L))", expectedInfoVar, existingVar).apply {
+                addStatement("throw %T(%S + %L + %S + %L)",
                         IllegalStateException::class.typeName(),
                         "Migration didn't properly handle ${entity.tableName}" +
                                 "(${entity.element.qualifiedName}).\n Expected:\n",

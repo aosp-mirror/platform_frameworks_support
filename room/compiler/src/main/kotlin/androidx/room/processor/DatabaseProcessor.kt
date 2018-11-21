@@ -22,6 +22,7 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.hasAnyOf
 import androidx.room.ext.toAnnotationBox
+import androidx.room.ext.typeName
 import androidx.room.verifier.DatabaseVerificaitonErrors
 import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
@@ -30,9 +31,12 @@ import androidx.room.vo.Database
 import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import androidx.room.vo.FtsEntity
+import androidx.room.vo.columnNames
+import androidx.room.vo.fieldByColumnName
+import asTypeElement
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 import java.util.Locale
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
@@ -45,7 +49,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
 
     val baseClassElement: TypeMirror by lazy {
         context.processingEnv.elementUtils.getTypeElement(
-                RoomTypeNames.ROOM_DB.packageName() + "." + RoomTypeNames.ROOM_DB.simpleName())
+                RoomTypeNames.ROOM_DB.packageName + "." + RoomTypeNames.ROOM_DB.simpleName)
                 .asType()
     }
 
@@ -92,12 +96,12 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
             // remove methods that belong to room
             val containing = it.enclosingElement
             MoreElements.isType(containing) &&
-                    TypeName.get(containing.asType()) == RoomTypeNames.ROOM_DB
+                    containing.asType().typeName() == RoomTypeNames.ROOM_DB
         }.map {
             val executable = MoreElements.asExecutable(it)
             // TODO when we add support for non Dao return types (e.g. database), this code needs
             // to change
-            val daoType = MoreTypes.asTypeElement(executable.returnType)
+            val daoType = executable.returnType.asTypeElement()
             val dao = DaoProcessor(context, daoType, declaredType, dbVerifier).process()
             DaoMethod(executable, executable.simpleName.toString(), dao)
         }
@@ -130,15 +134,13 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
                     return@foreignKeyLoop
                 }
                 val parentFields = foreignKey.parentColumns.mapNotNull { columnName ->
-                    val parentField = parent.fields.find {
-                        it.columnName == columnName
-                    }
+                    val parentField = parent.fieldByColumnName(columnName)
                     if (parentField == null) {
                         context.logger.e(entity.element,
                                 ProcessorErrors.foreignKeyParentColumnDoesNotExist(
                                         parentEntity = parent.element.qualifiedName.toString(),
                                         missingColumn = columnName,
-                                        allColumns = parent.fields.map { it.columnName }))
+                                        allColumns = parent.columnNames))
                     }
                     parentField
                 }
@@ -275,7 +277,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
         context.checker.check(entityList.isNotEmpty(), element,
                 ProcessorErrors.DATABASE_ANNOTATION_MUST_HAVE_LIST_OF_ENTITIES)
         return entityList.map {
-            EntityProcessor(context, MoreTypes.asTypeElement(it)).process()
+            EntityProcessor(context, it.asTypeElement()).process()
         }
     }
 
@@ -284,7 +286,7 @@ class DatabaseProcessor(baseContext: Context, val element: TypeElement) {
     ): Map<TypeElement, DatabaseView> {
         val viewList = dbAnnotation.getAsTypeMirrorList("views")
         return viewList.map {
-            val viewElement = MoreTypes.asTypeElement(it)
+            val viewElement = it.asTypeElement()
             viewElement to DatabaseViewProcessor(context, viewElement).process()
         }.toMap()
     }

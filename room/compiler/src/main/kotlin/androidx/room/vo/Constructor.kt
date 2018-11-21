@@ -16,10 +16,8 @@
 
 package androidx.room.vo
 
-import androidx.room.ext.L
-import androidx.room.ext.T
 import androidx.room.ext.typeName
-import com.squareup.javapoet.CodeBlock
+import com.squareup.kotlinpoet.CodeBlock
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 
@@ -44,11 +42,11 @@ data class Constructor(val element: ExecutableElement, val params: List<Param>) 
     fun writeConstructor(outVar: String, args: String, builder: CodeBlock.Builder) {
         when (element.kind) {
             ElementKind.CONSTRUCTOR -> {
-                builder.addStatement("$L = new $T($L)", outVar,
+                builder.addStatement("%L = new %T(%L)", outVar,
                         element.enclosingElement.asType().typeName(), args)
             }
             ElementKind.METHOD -> {
-                builder.addStatement("$L = $T.$L($L)", outVar,
+                builder.addStatement("%L = %T.%L(%L)", outVar,
                         element.enclosingElement.asType().typeName(),
                         element.simpleName.toString(), args)
             }

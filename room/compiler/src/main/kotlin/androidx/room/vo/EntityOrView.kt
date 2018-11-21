@@ -16,12 +16,12 @@
 
 package androidx.room.vo
 
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 
 /**
  * Common interface between [Entity] and [DatabaseView].
  */
-interface EntityOrView {
+interface EntityOrView : HasFields {
 
     /**
      * The name of this table or view as it is stored in an SQLite database.
@@ -29,6 +29,4 @@ interface EntityOrView {
     val tableName: String
 
     val typeName: TypeName
-
-    val fields: List<Field>
 }

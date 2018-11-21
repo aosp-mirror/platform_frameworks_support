@@ -16,19 +16,17 @@
 
 package androidx.room.solver.shortcut.binder
 
-import androidx.room.ext.L
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
 import androidx.room.vo.ShortcutQueryParameter
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -68,10 +66,10 @@ class RxCallableDeleteOrUpdateMethodBinder(
 
     override fun convertAndReturn(
         parameters: List<ShortcutQueryParameter>,
-        adapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        adapters: Map<String, Pair<PropertySpec, TypeSpec>>,
         scope: CodeGenScope
     ) {
-        val callable = TypeSpec.anonymousClassBuilder("").apply {
+        val callable = TypeSpec.anonymousClassBuilder().apply {
             val typeName = typeMirror.typeName()
             if (rxType == RxType.COMPLETABLE) {
                 // Since Completable is not parameterized and the Callable should return Void
@@ -79,19 +77,19 @@ class RxCallableDeleteOrUpdateMethodBinder(
                 superclass(java.util.concurrent.Callable::class.typeName())
             } else {
                 // Create a parameterized Callable object
-                superclass(ParameterizedTypeName.get(
-                        java.util.concurrent.Callable::class.typeName(),
+                superclass(
+                        java.util.concurrent.Callable::class.typeName().parameterizedBy(
                         typeName
                 ))
             }
-            addMethod(createCallMethod(
+            addFunction(createCallMethod(
                     parameters = parameters,
                     insertionAdapters = adapters,
                     scope = scope
             ))
         }.build()
         scope.builder().apply {
-            addStatement("return $T.fromCallable($L)", rxType.className, callable)
+            addStatement("return %T.fromCallable(%L)", rxType.className, callable)
         }
     }
 
@@ -113,20 +111,18 @@ class RxCallableDeleteOrUpdateMethodBinder(
      */
     private fun createCallMethod(
         parameters: List<ShortcutQueryParameter>,
-        insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        insertionAdapters: Map<String, Pair<PropertySpec, TypeSpec>>,
         scope: CodeGenScope
-    ): MethodSpec {
+    ): FunSpec {
         val adapterScope = scope.fork()
-        return MethodSpec.methodBuilder("call").apply {
+        return FunSpec.builder("call").apply {
             // For completable, we just return Void, instead of the type
             if (rxType == RxType.COMPLETABLE) {
                 returns(Void::class.typeName())
             } else {
                 returns(typeMirror.typeName())
             }
-            addException(Exception::class.typeName())
-            addModifiers(Modifier.PUBLIC)
-            addAnnotation(Override::class.java)
+            addModifiers(KModifier.OVERRIDE)
             // delegate the generation of the code in the call method to the instant method binder
             instantDeleteOrUpdateMethodBinder.convertAndReturn(
                     parameters = parameters,

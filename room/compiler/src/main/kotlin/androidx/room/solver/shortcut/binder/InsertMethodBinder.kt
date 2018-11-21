@@ -17,10 +17,10 @@
 package androidx.room.solver.shortcut.binder
 
 import androidx.room.solver.CodeGenScope
-import androidx.room.vo.ShortcutQueryParameter
 import androidx.room.solver.shortcut.result.InsertMethodAdapter
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.TypeSpec
+import androidx.room.vo.ShortcutQueryParameter
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 
 /**
  * Connects the insert method, the database and the [InsertMethodAdapter].
@@ -55,7 +55,7 @@ abstract class InsertMethodBinder(val adapter: InsertMethodAdapter?) {
      */
     abstract fun convertAndReturn(
         parameters: List<ShortcutQueryParameter>,
-        insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        insertionAdapters: Map<String, Pair<PropertySpec, TypeSpec>>,
         scope: CodeGenScope
     )
 }

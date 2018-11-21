@@ -16,12 +16,10 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.L
-import androidx.room.ext.T
+import androidx.room.ext.arrayTypeName
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.INT
 
 class ArrayQueryResultAdapter(rowAdapter: RowAdapter) : QueryResultAdapter(rowAdapter) {
     val type = rowAdapter.out
@@ -29,17 +27,17 @@ class ArrayQueryResultAdapter(rowAdapter: RowAdapter) : QueryResultAdapter(rowAd
         scope.builder().apply {
             rowAdapter?.onCursorReady(cursorVarName, scope)
 
-            val arrayType = ArrayTypeName.of(type.typeName())
-            addStatement("final $T $L = new $T[$L.getCount()]",
+            val arrayType = type.arrayTypeName()
+            addStatement("final %T %L = new %T[%L.getCount()]",
                     arrayType, outVarName, type.typeName(), cursorVarName)
             val tmpVarName = scope.getTmpVar("_item")
             val indexVar = scope.getTmpVar("_index")
-            addStatement("$T $L = 0", TypeName.INT, indexVar)
-            beginControlFlow("while($L.moveToNext())", cursorVarName).apply {
-                addStatement("final $T $L", type.typeName(), tmpVarName)
+            addStatement("%T %L = 0", INT, indexVar)
+            beginControlFlow("while(%L.moveToNext())", cursorVarName).apply {
+                addStatement("final %T %L", type.typeName(), tmpVarName)
                 rowAdapter?.convert(tmpVarName, cursorVarName, scope)
-                addStatement("$L[$L] = $L", outVarName, indexVar, tmpVarName)
-                addStatement("$L ++", indexVar)
+                addStatement("%L[%L] = %L", outVarName, indexVar, tmpVarName)
+                addStatement("%L ++", indexVar)
             }
             endControlFlow()
             rowAdapter?.onCursorFinished()?.invoke(scope)

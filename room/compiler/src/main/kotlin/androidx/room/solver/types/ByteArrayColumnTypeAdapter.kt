@@ -16,7 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.solver.CodeGenScope
 import javax.annotation.processing.ProcessingEnvironment
@@ -28,16 +27,16 @@ class ByteArrayColumnTypeAdapter(env: ProcessingEnvironment) : ColumnTypeAdapter
     override fun readFromCursor(outVarName: String, cursorVarName: String, indexVarName: String,
                                 scope: CodeGenScope) {
         scope.builder()
-                .addStatement("$L = $L.getBlob($L)", outVarName, cursorVarName, indexVarName)
+                .addStatement("%L = %L.getBlob(%L)", outVarName, cursorVarName, indexVarName)
     }
 
     override fun bindToStmt(stmtName: String, indexVarName: String, valueVarName: String,
                             scope: CodeGenScope) {
         scope.builder().apply {
-            beginControlFlow("if ($L == null)", valueVarName)
-                    .addStatement("$L.bindNull($L)", stmtName, indexVarName)
+            beginControlFlow("if (%L == null)", valueVarName)
+                    .addStatement("%L.bindNull(%L)", stmtName, indexVarName)
             nextControlFlow("else")
-                    .addStatement("$L.bindBlob($L, $L)", stmtName, indexVarName, valueVarName)
+                    .addStatement("%L.bindBlob(%L, %L)", stmtName, indexVarName, valueVarName)
             endControlFlow()
         }
     }

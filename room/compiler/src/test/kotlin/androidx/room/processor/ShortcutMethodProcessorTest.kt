@@ -31,10 +31,6 @@ import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -59,7 +55,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 """
         const val DAO_SUFFIX = "}"
         val USER_TYPE_NAME: TypeName = COMMON.USER_TYPE_NAME
-        val BOOK_TYPE_NAME: TypeName = ClassName.get("foo.bar", "Book")
+        val BOOK_TYPE_NAME: TypeName = ClassName("foo.bar", "Book")
     }
 
     @Test
@@ -152,7 +148,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
                 val param = shortcut.parameters.first()
                 assertThat(param.type.typeName(), `is`(
                         ParameterizedTypeName.get(
-                                ClassName.get("java.util", "List"), USER_TYPE_NAME) as TypeName))
+                                ClassName("java.util", "List"), USER_TYPE_NAME) as TypeName))
                 assertThat(param.entityType?.typeName(), `is`(USER_TYPE_NAME))
                 assertThat(shortcut.entities.size, `is`(1))
                 assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
@@ -189,7 +185,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             val param = shortcut.parameters.first()
             assertThat(param.type.typeName(), `is`(
                     ParameterizedTypeName.get(
-                            ClassName.get("java.util", "Set"),
+                            ClassName("java.util", "Set"),
                             COMMON.USER_TYPE_NAME
                     ) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
@@ -208,7 +204,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(shortcut.parameters.size, `is`(1))
             val param = shortcut.parameters.first()
             assertThat(param.type.typeName(), `is`(
-                    ParameterizedTypeName.get(ClassName.get("java.lang", "Iterable"),
+                    ParameterizedTypeName.get(ClassName("java.lang", "Iterable"),
                             COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
             assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))
@@ -227,7 +223,7 @@ abstract class ShortcutMethodProcessorTest<out T : ShortcutMethod>(
             assertThat(shortcut.parameters.size, `is`(1))
             val param = shortcut.parameters.first()
             assertThat(param.type.typeName(), `is`(
-                    ParameterizedTypeName.get(ClassName.get("foo.bar", "MyClass.MyList"),
+                    ParameterizedTypeName.get(ClassName("foo.bar", "MyClass.MyList"),
                             CommonTypeNames.STRING, COMMON.USER_TYPE_NAME) as TypeName))
             assertThat(shortcut.entities.size, `is`(1))
             assertThat(shortcut.entities["users"]?.typeName, `is`(USER_TYPE_NAME))

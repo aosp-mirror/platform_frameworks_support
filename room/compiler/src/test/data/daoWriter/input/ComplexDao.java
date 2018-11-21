@@ -15,9 +15,10 @@
  */
 
 package foo.bar;
-import androidx.room.*;
-import java.util.List;
+
 import androidx.lifecycle.LiveData;
+
+import java.util.List;
 @Dao
 abstract class ComplexDao {
     static class FullName {

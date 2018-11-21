@@ -26,7 +26,7 @@ import androidx.room.ext.SupportDbTypeNames
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.CustomTypeConverter
 import androidx.room.vo.Field
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.ElementKind
 
 object ProcessorErrors {

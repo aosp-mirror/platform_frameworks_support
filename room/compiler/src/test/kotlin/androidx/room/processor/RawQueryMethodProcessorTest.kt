@@ -37,9 +37,6 @@ import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeName
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -60,7 +57,7 @@ class RawQueryMethodProcessorTest {
                     )
             ))
             assertThat(query.returnType.typeName(),
-                    `is`(ArrayTypeName.of(TypeName.INT) as TypeName))
+                    `is`(ArrayTypeName.of(INT) as TypeName))
         }.compilesWithoutError()
     }
 
@@ -150,7 +147,7 @@ class RawQueryMethodProcessorTest {
 
     @Test
     fun pojo() {
-        val pojo: TypeName = ClassName.get("foo.bar.MyClass", "MyPojo")
+        val pojo: TypeName = ClassName("foo.bar.MyClass", "MyPojo")
         singleQueryMethod(
                 """
                 public class MyPojo {

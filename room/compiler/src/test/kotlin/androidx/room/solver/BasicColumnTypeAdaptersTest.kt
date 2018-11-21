@@ -18,12 +18,6 @@ package androidx.room.solver
 
 import androidx.room.processor.Context
 import androidx.room.testing.TestInvocation
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.JavaFile
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -42,8 +36,8 @@ class BasicColumnTypeAdaptersTest(val input: Input, val bindCode: String,
     val scope = testCodeGenScope()
 
     companion object {
-        val SQLITE_STMT: TypeName = ClassName.get("android.database.sqlite", "SQLiteStatement")
-        val CURSOR: TypeName = ClassName.get("android.database", "Cursor")
+        val SQLITE_STMT: TypeName = ClassName("android.database.sqlite", "SQLiteStatement")
+        val CURSOR: TypeName = ClassName("android.database", "Cursor")
 
         @Parameterized.Parameters(name = "kind:{0},bind:_{1},cursor:_{2}")
         @JvmStatic
@@ -121,12 +115,12 @@ class BasicColumnTypeAdaptersTest(val input: Input, val bindCode: String,
         val typeMirror = if (boxed) input.getBoxedTypeMirror(invocation.processingEnv)
         else input.getTypeMirror(invocation.processingEnv)
         val spec = TypeSpec.classBuilder("OutClass")
-                .addField(FieldSpec.builder(SQLITE_STMT, "st").build())
-                .addField(FieldSpec.builder(CURSOR, "crs").build())
-                .addField(FieldSpec.builder(TypeName.get(typeMirror), "out").build())
-                .addField(FieldSpec.builder(TypeName.get(typeMirror), "inp").build())
-                .addMethod(
-                        MethodSpec.methodBuilder("foo")
+                .addField(PropertySpec.builder(SQLITE_STMT, "st").build())
+                .addField(PropertySpec.builder(CURSOR, "crs").build())
+                .addField(PropertySpec.builder(TypeName.get(typeMirror), "out").build())
+                .addField(PropertySpec.builder(TypeName.get(typeMirror), "inp").build())
+                .addFunction(
+                        FunSpec.builder("foo")
                                 .addCode(scope.builder().build())
                                 .build()
                 )

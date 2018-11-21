@@ -26,8 +26,8 @@ import androidx.room.ext.typeName
 import androidx.room.parser.SqlParser
 import androidx.room.processor.ProcessorErrors.RAW_QUERY_STRING_PARAMETER_REMOVED
 import androidx.room.vo.RawQueryMethod
+import asTypeElement
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
@@ -45,7 +45,7 @@ class RawQueryMethodProcessor(
         context.checker.check(executableElement.hasAnnotation(RawQuery::class), executableElement,
                 ProcessorErrors.MISSING_RAWQUERY_ANNOTATION)
 
-        val returnTypeName = TypeName.get(executableType.returnType)
+        val returnTypeName = executableType.returnType.typeName()
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_QUERY_METHODS)
         val observedTableNames = processObservedTables()
@@ -74,7 +74,7 @@ class RawQueryMethodProcessor(
         val annotation = executableElement.toAnnotationBox(RawQuery::class)
         return annotation?.getAsTypeMirrorList("observedEntities")
                 ?.map {
-                    MoreTypes.asTypeElement(it)
+                    it.asTypeElement()
                 }
                 ?.flatMap {
                     if (it.isEntityElement()) {

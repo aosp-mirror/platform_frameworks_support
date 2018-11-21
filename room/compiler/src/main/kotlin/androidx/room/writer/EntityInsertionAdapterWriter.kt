@@ -16,29 +16,27 @@
 
 package androidx.room.writer
 
-import androidx.room.ext.L
+import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Entity
 import androidx.room.vo.FieldWithIndex
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier.PUBLIC
+import androidx.room.vo.columnNames
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.TypeSpec
 
 class EntityInsertionAdapterWriter(val entity: Entity, val onConflict: String) {
     fun createAnonymous(classWriter: ClassWriter, dbParam: String): TypeSpec {
         @Suppress("RemoveSingleExpressionStringTemplate")
-        return TypeSpec.anonymousClassBuilder("$L", dbParam).apply {
+        return TypeSpec.anonymousClassBuilder().apply {
             superclass(
-                    ParameterizedTypeName.get(RoomTypeNames.INSERTION_ADAPTER, entity.typeName)
+                RoomTypeNames.INSERTION_ADAPTER.parameterizedBy(entity.typeName)
             )
-
+            addSuperclassConstructorParameter("%L", dbParam)
             // If there is an auto-increment primary key with primitive type, we consider 0 as
             // not set. For such fields, we must generate a slightly different insertion SQL.
             val primitiveAutoGenerateField = if (entity.primaryKey.autoGenerateId) {
@@ -54,15 +52,13 @@ class EntityInsertionAdapterWriter(val entity: Entity, val onConflict: String) {
             } else {
                 null
             }
-            addMethod(MethodSpec.methodBuilder("createQuery").apply {
-                addAnnotation(Override::class.java)
-                returns(ClassName.get("java.lang", "String"))
-                addModifiers(PUBLIC)
+            addFunction(FunSpec.builder("createQuery").apply {
+                addModifiers(KModifier.OVERRIDE)
+                returns(CommonTypeNames.STRING)
                 val query =
                         "INSERT OR $onConflict INTO `${entity.tableName}`(" +
-                                entity.fields.joinToString(",") {
-                                    "`${it.columnName}`"
-                                } + ") VALUES (" +
+                                entity.columnNames.joinToString(",") { "`$it`" } +
+                                ") VALUES (" +
                                 entity.fields.joinToString(",") {
                                     if (primitiveAutoGenerateField == it) {
                                         "nullif(?, 0)"
@@ -70,18 +66,17 @@ class EntityInsertionAdapterWriter(val entity: Entity, val onConflict: String) {
                                         "?"
                                     }
                                 } + ")"
-                addStatement("return $S", query)
+                addStatement("return %S", query)
             }.build())
-            addMethod(MethodSpec.methodBuilder("bind").apply {
+            addFunction(FunSpec.builder("bind").apply {
                 val bindScope = CodeGenScope(classWriter)
-                addAnnotation(Override::class.java)
+                addModifiers(KModifier.OVERRIDE)
                 val stmtParam = "stmt"
-                addParameter(ParameterSpec.builder(SupportDbTypeNames.SQLITE_STMT,
-                        stmtParam).build())
+                addParameter(
+                    ParameterSpec.builder(
+                        stmtParam, SupportDbTypeNames.SQLITE_STMT).build())
                 val valueParam = "value"
-                addParameter(ParameterSpec.builder(entity.typeName, valueParam).build())
-                returns(TypeName.VOID)
-                addModifiers(PUBLIC)
+                addParameter(ParameterSpec.builder(valueParam, entity.typeName).build())
                 val mapped = FieldWithIndex.byOrder(entity.fields)
                 FieldReadWriteWriter.bindToStatement(
                         ownerVar = valueParam,

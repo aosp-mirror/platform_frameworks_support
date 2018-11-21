@@ -18,7 +18,7 @@ package androidx.room.vo
 
 import androidx.room.ext.hasAnyOf
 import androidx.room.ext.typeName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror

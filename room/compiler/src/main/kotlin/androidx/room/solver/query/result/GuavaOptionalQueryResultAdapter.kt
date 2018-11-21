@@ -17,11 +17,9 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.GuavaBaseTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 
 /**
  * Wraps a row adapter when there is only 1 item in the result, and the result's outer type is
@@ -36,8 +34,9 @@ class GuavaOptionalQueryResultAdapter(private val resultAdapter: SingleEntityQue
             val valueVarName = scope.getTmpVar("_value")
             resultAdapter.convert(valueVarName, cursorVarName, scope)
             addStatement(
-                    "final $T $L = $T.fromNullable($L)",
-                    ParameterizedTypeName.get(GuavaBaseTypeNames.OPTIONAL, type?.typeName()),
+                    "final %T %L = %T.fromNullable(%L)",
+                    // TODO: what?
+                    GuavaBaseTypeNames.OPTIONAL.parameterizedBy(type!!.typeName()),
                     outVarName,
                     GuavaBaseTypeNames.OPTIONAL,
                     valueVarName)

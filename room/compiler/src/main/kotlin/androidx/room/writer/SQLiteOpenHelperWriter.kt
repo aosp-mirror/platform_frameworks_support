@@ -17,24 +17,18 @@
 package androidx.room.writer
 
 import androidx.annotation.VisibleForTesting
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
 import androidx.room.ext.SupportDbTypeNames
-import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Database
 import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
 import androidx.room.vo.FtsEntity
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.TypeSpec
 import java.util.ArrayDeque
-import javax.lang.model.element.Modifier.PRIVATE
-import javax.lang.model.element.Modifier.PROTECTED
-import javax.lang.model.element.Modifier.PUBLIC
 
 /**
  * The threshold amount of statements in a validateMigration() method before creating additional
@@ -50,45 +44,45 @@ class SQLiteOpenHelperWriter(val database: Database) {
         scope.builder().apply {
             val sqliteConfigVar = scope.getTmpVar("_sqliteConfig")
             val callbackVar = scope.getTmpVar("_openCallback")
-            addStatement("final $T $L = new $T($N, $L, $S, $S)",
-                    SupportDbTypeNames.SQLITE_OPEN_HELPER_CALLBACK,
+            addStatement("val %L = %T(%N, %L, %S, %S)",
                     callbackVar, RoomTypeNames.OPEN_HELPER, configuration,
                     createOpenCallback(scope), database.identityHash, database.legacyIdentityHash)
             // build configuration
             addStatement(
                     """
-                    final $T $L = $T.builder($N.context)
-                    .name($N.name)
-                    .callback($L)
+                    val %L = %T.builder(%N.context)
+                    .name(%N.name)
+                    .callback(%L)
                     .build()
                     """.trimIndent(),
-                    SupportDbTypeNames.SQLITE_OPEN_HELPER_CONFIG, sqliteConfigVar,
+                    sqliteConfigVar,
                     SupportDbTypeNames.SQLITE_OPEN_HELPER_CONFIG,
                     configuration, configuration, callbackVar)
-            addStatement("final $T $N = $N.sqliteOpenHelperFactory.create($L)",
-                    SupportDbTypeNames.SQLITE_OPEN_HELPER, outVar,
-                    configuration, sqliteConfigVar)
+            addStatement("val %N = %N.sqliteOpenHelperFactory.create(%L)",
+                    outVar, configuration, sqliteConfigVar)
         }
     }
 
     private fun createOpenCallback(scope: CodeGenScope): TypeSpec {
-        return TypeSpec.anonymousClassBuilder(L, database.version).apply {
+//        return TypeSpec.anonymousClassBuilder(L, database.version).apply {
+        return TypeSpec.anonymousClassBuilder().apply {
             superclass(RoomTypeNames.OPEN_HELPER_DELEGATE)
-            addMethod(createCreateAllTables())
-            addMethod(createDropAllTables())
-            addMethod(createOnCreate(scope.fork()))
-            addMethod(createOnOpen(scope.fork()))
-            addMethod(createOnPreMigrate())
-            addMethod(createOnPostMigrate())
-            addMethods(createValidateMigration(scope.fork()))
+            addSuperclassConstructorParameter("%L", database.version)
+            addFunction(createCreateAllTables())
+            addFunction(createDropAllTables())
+            addFunction(createOnCreate(scope.fork()))
+            addFunction(createOnOpen(scope.fork()))
+            addFunction(createOnPreMigrate())
+            addFunction(createOnPostMigrate())
+            addFunctions(createValidateMigration(scope.fork()))
         }.build()
     }
 
-    private fun createValidateMigration(scope: CodeGenScope): List<MethodSpec> {
-        val methodSpecs = mutableListOf<MethodSpec>()
+    private fun createValidateMigration(scope: CodeGenScope): List<FunSpec> {
+        val methodSpecs = mutableListOf<FunSpec>()
         val entities = ArrayDeque(database.entities)
         val views = ArrayDeque(database.views)
-        val dbParam = ParameterSpec.builder(SupportDbTypeNames.DB, "_db").build()
+        val dbParam = ParameterSpec.builder( "_db", SupportDbTypeNames.DB).build()
         while (!entities.isEmpty() || !views.isEmpty()) {
             val isPrimaryMethod = methodSpecs.isEmpty()
             val methodName = if (isPrimaryMethod) {
@@ -96,12 +90,11 @@ class SQLiteOpenHelperWriter(val database: Database) {
             } else {
                 "validateMigration${methodSpecs.size + 1}"
             }
-            methodSpecs.add(MethodSpec.methodBuilder(methodName).apply {
+            methodSpecs.add(FunSpec.builder(methodName).apply {
                 if (isPrimaryMethod) {
-                    addModifiers(PROTECTED)
-                    addAnnotation(Override::class.java)
+                    addModifiers(KModifier.PROTECTED, KModifier.OVERRIDE)
                 } else {
-                    addModifiers(PRIVATE)
+                    addModifiers(KModifier.PRIVATE)
                 }
                 addParameter(dbParam)
                 var statementCount = 0
@@ -132,7 +125,7 @@ class SQLiteOpenHelperWriter(val database: Database) {
         if (methodSpecs.size > 1) {
             methodSpecs[0] = methodSpecs[0].toBuilder().apply {
                 methodSpecs.drop(1).forEach {
-                    addStatement("${it.name}($N)", dbParam)
+                    addStatement("${it.name}(%N)", dbParam)
                 }
             }.build()
         }
@@ -140,86 +133,74 @@ class SQLiteOpenHelperWriter(val database: Database) {
         return methodSpecs
     }
 
-    private fun createOnCreate(scope: CodeGenScope): MethodSpec {
-        return MethodSpec.methodBuilder("onCreate").apply {
-            addModifiers(PROTECTED)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
+    private fun createOnCreate(scope: CodeGenScope): FunSpec {
+        return FunSpec.builder("onCreate").apply {
+            addModifiers(KModifier.PROTECTED, KModifier.OVERRIDE)
+            addParameter( "_db", SupportDbTypeNames.DB)
             invokeCallbacks(scope, "onCreate")
         }.build()
     }
 
-    private fun createOnOpen(scope: CodeGenScope): MethodSpec {
-        return MethodSpec.methodBuilder("onOpen").apply {
-            addModifiers(PUBLIC)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
+    private fun createOnOpen(scope: CodeGenScope): FunSpec {
+        return FunSpec.builder("onOpen").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addParameter("_db", SupportDbTypeNames.DB)
             addStatement("mDatabase = _db")
             if (database.enableForeignKeys) {
-                addStatement("_db.execSQL($S)", "PRAGMA foreign_keys = ON")
+                addStatement("_db.execSQL(%S)", "PRAGMA foreign_keys = ON")
             }
             addStatement("internalInitInvalidationTracker(_db)")
             invokeCallbacks(scope, "onOpen")
         }.build()
     }
 
-    private fun createCreateAllTables(): MethodSpec {
-        return MethodSpec.methodBuilder("createAllTables").apply {
-            addModifiers(PUBLIC)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
+    private fun createCreateAllTables(): FunSpec {
+        return FunSpec.builder("createAllTables").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addParameter( "_db", SupportDbTypeNames.DB)
             database.bundle.buildCreateQueries().forEach {
-                addStatement("_db.execSQL($S)", it)
+                addStatement("_db.execSQL(%S)", it)
             }
         }.build()
     }
 
-    private fun createDropAllTables(): MethodSpec {
-        return MethodSpec.methodBuilder("dropAllTables").apply {
-            addModifiers(PUBLIC)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
+    private fun createDropAllTables(): FunSpec {
+        return FunSpec.builder("dropAllTables").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addParameter( "_db", SupportDbTypeNames.DB)
             database.entities.forEach {
-                addStatement("_db.execSQL($S)", createDropTableQuery(it))
+                addStatement("_db.execSQL(%S)", createDropTableQuery(it))
             }
             database.views.forEach {
-                addStatement("_db.execSQL($S)", createDropViewQuery(it))
+                addStatement("_db.execSQL(%S)", createDropViewQuery(it))
             }
         }.build()
     }
 
-    private fun createOnPreMigrate(): MethodSpec {
-        return MethodSpec.methodBuilder("onPreMigrate").apply {
-            addModifiers(PUBLIC)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
-            addStatement("$T.dropFtsSyncTriggers($L)", RoomTypeNames.DB_UTIL, "_db")
+    private fun createOnPreMigrate(): FunSpec {
+        return FunSpec.builder("onPreMigrate").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addParameter( "_db", SupportDbTypeNames.DB)
+            addStatement("%T.dropFtsSyncTriggers(%L)", RoomTypeNames.DB_UTIL, "_db")
         }.build()
     }
 
-    private fun createOnPostMigrate(): MethodSpec {
-        return MethodSpec.methodBuilder("onPostMigrate").apply {
-            addModifiers(PUBLIC)
-            addAnnotation(Override::class.java)
-            addParameter(SupportDbTypeNames.DB, "_db")
+    private fun createOnPostMigrate(): FunSpec {
+        return FunSpec.builder("onPostMigrate").apply {
+            addModifiers(KModifier.OVERRIDE)
+            addParameter( "_db", SupportDbTypeNames.DB)
             database.entities.filterIsInstance(FtsEntity::class.java)
                     .filter { it.ftsOptions.contentEntity != null }
                     .flatMap { it.contentSyncTriggerCreateQueries }
                     .forEach { syncTriggerQuery ->
-                        addStatement("_db.execSQL($S)", syncTriggerQuery)
+                        addStatement("_db.execSQL(%S)", syncTriggerQuery)
                     }
         }.build()
     }
 
-    private fun MethodSpec.Builder.invokeCallbacks(scope: CodeGenScope, methodName: String) {
-        val iVar = scope.getTmpVar("_i")
-        val sizeVar = scope.getTmpVar("_size")
-        beginControlFlow("if (mCallbacks != null)").apply {
-            beginControlFlow("for (int $N = 0, $N = mCallbacks.size(); $N < $N; $N++)",
-                    iVar, sizeVar, iVar, sizeVar, iVar).apply {
-                addStatement("mCallbacks.get($N).$N(_db)", iVar, methodName)
-            }
-            endControlFlow()
+    private fun FunSpec.Builder.invokeCallbacks(scope: CodeGenScope, methodName: String) {
+        beginControlFlow("mCallbacks?.forEach").apply {
+                addStatement("it.%N(_db)", methodName)
         }
         endControlFlow()
     }

@@ -16,8 +16,6 @@
 
 package androidx.room.writer
 
-import androidx.room.ext.L
-import androidx.room.ext.T
 import androidx.room.ext.defaultValue
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
@@ -28,7 +26,7 @@ import androidx.room.vo.Field
 import androidx.room.vo.FieldWithIndex
 import androidx.room.vo.Pojo
 import androidx.room.vo.RelationCollector
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 
 /**
  * Handles writing a field into statement or reading it from statement.
@@ -116,12 +114,12 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                             builder = scope.builder()
                     )
                     scope.builder().apply {
-                        beginControlFlow("if($L != null)", node.varName).apply {
+                        beginControlFlow("if(%L != null)", node.varName).apply {
                             bindWithDescendants()
                         }
                         nextControlFlow("else").apply {
                             node.allFields().forEach {
-                                addStatement("$L.bindNull($L)", stmtParamVar, it.indexVar)
+                                addStatement("%L.bindNull(%L)", stmtParamVar, it.indexVar)
                             }
                         }
                         endControlFlow()
@@ -150,7 +148,7 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
             if (constructor == null) {
                 // best hope code generation
                 scope.builder().apply {
-                    addStatement("$L = new $T()", outVar, typeName)
+                    addStatement("%L = new %T()", outVar, typeName)
                 }
                 return
             }
@@ -261,7 +259,7 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                     readNode()
                 } else {
                     // always declare, we'll set below
-                    scope.builder().addStatement("final $T $L", fieldParent.pojo.typeName,
+                    scope.builder().addStatement("final %T %L", fieldParent.pojo.typeName,
                                         node.varName)
                     if (fieldParent.nonNull) {
                         readNode()
@@ -275,11 +273,11 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                             }
                         }
                         scope.builder().apply {
-                            beginControlFlow("if (! ($L))", allNullCheck).apply {
+                            beginControlFlow("if (! (%L))", allNullCheck).apply {
                                 readNode()
                             }
                             nextControlFlow(" else ").apply {
-                                addStatement("$L = null", node.varName)
+                                addStatement("%L = null", node.varName)
                             }
                             endControlFlow()
                         }
@@ -324,9 +322,9 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                         }
                         CallType.METHOD -> {
                             val tmpField = scope.getTmpVar("_tmp${field.name.capitalize()}")
-                            addStatement("final $T $L", field.getter.type.typeName(), tmpField)
+                            addStatement("final %T %L", field.getter.type.typeName(), tmpField)
                             reader.readFromCursor(tmpField, cursorVar, indexVar, scope)
-                            addStatement("$L.$L($L)", ownerVar, field.setter.name, tmpField)
+                            addStatement("%L.%L(%L)", ownerVar, field.setter.name, tmpField)
                         }
                         CallType.CONSTRUCTOR -> {
                             // no-op
@@ -339,7 +337,7 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
             toRead()
         } else {
             scope.builder().apply {
-                beginControlFlow("if ($L != -1)", indexVar).apply {
+                beginControlFlow("if (%L != -1)", indexVar).apply {
                     toRead()
                 }
                 endControlFlow()
@@ -354,12 +352,12 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
         val tmpField = scope.getTmpVar("_tmp${field.name.capitalize()}")
         val typeName = field.getter.type.typeName()
         scope.builder().apply {
-            addStatement("final $T $L", typeName, tmpField)
+            addStatement("final %T %L", typeName, tmpField)
             if (alwaysExists) {
                 field.cursorValueReader?.readFromCursor(tmpField, cursorVar, indexVar, scope)
             } else {
-                beginControlFlow("if ($L == -1)", indexVar).apply {
-                    addStatement("$L = $L", tmpField, typeName.defaultValue())
+                beginControlFlow("if (%L == -1)", indexVar).apply {
+                    addStatement("%L = %L", tmpField, typeName.defaultValue())
                 }
                 nextControlFlow("else").apply {
                     field.cursorValueReader?.readFromCursor(tmpField, cursorVar, indexVar, scope)

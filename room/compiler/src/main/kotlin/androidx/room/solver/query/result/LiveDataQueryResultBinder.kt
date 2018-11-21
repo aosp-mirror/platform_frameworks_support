@@ -16,22 +16,19 @@
 
 package androidx.room.solver.query.result
 
-import androidx.annotation.NonNull
-import androidx.room.ext.L
 import androidx.room.ext.LifecyclesTypeNames
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.RoomTypeNames.INVALIDATION_OBSERVER
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.CodeBlock
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -44,25 +41,26 @@ class LiveDataQueryResultBinder(val typeArg: TypeMirror, val tableNames: Set<Str
     override fun convertAndReturn(
             roomSQLiteQueryVar: String,
             canReleaseQuery: Boolean,
-            dbField: FieldSpec,
+            dbField: PropertySpec,
             inTransaction: Boolean,
             scope: CodeGenScope
     ) {
         val typeName = typeArg.typeName()
 
         val liveDataImpl =
-                TypeSpec.anonymousClassBuilder(
-                        // This passes the Executor as a parameter to the superclass' constructor
-                        // while declaring an anonymous class.
-                        CodeBlock.builder().apply {
-                            add("$N.getQueryExecutor()", dbField)
-                        }.build().toString()).apply {
-            superclass(ParameterizedTypeName.get(LifecyclesTypeNames.COMPUTABLE_LIVE_DATA,
-                    typeName))
-            val observerField = FieldSpec.builder(RoomTypeNames.INVALIDATION_OBSERVER,
-                    scope.getTmpVar("_observer"), Modifier.PRIVATE).build()
-            addField(observerField)
-            addMethod(createComputeMethod(
+                TypeSpec.anonymousClassBuilder().apply {
+            superclass(LifecyclesTypeNames.COMPUTABLE_LIVE_DATA.parameterizedBy(typeName))
+
+            addSuperclassConstructorParameter( // This passes the Executor as a parameter to the superclass' constructor
+                // while declaring an anonymous class.
+                CodeBlock.builder().apply {
+                    add("%N.getQueryExecutor()", dbField)
+                }.build()
+            )
+            val observerField = PropertySpec.builder(scope.getTmpVar("_observer"),
+                RoomTypeNames.INVALIDATION_OBSERVER, KModifier.PRIVATE).build()
+            addProperty(observerField)
+            addFunction(createComputeMethod(
                     observerField = observerField,
                     typeName = typeName,
                     roomSQLiteQueryVar = roomSQLiteQueryVar,
@@ -71,30 +69,29 @@ class LiveDataQueryResultBinder(val typeArg: TypeMirror, val tableNames: Set<Str
                     scope = scope
             ))
             if (canReleaseQuery) {
-                addMethod(createFinalizeMethod(roomSQLiteQueryVar))
+                addFunction(createFinalizeMethod(roomSQLiteQueryVar))
             }
         }.build()
         scope.builder().apply {
-            addStatement("return $L.getLiveData()", liveDataImpl)
+            addStatement("return %L.getLiveData()", liveDataImpl)
         }
     }
 
     private fun createComputeMethod(
-            roomSQLiteQueryVar: String,
-            typeName: TypeName,
-            observerField: FieldSpec,
-            dbField: FieldSpec,
-            inTransaction: Boolean,
-            scope: CodeGenScope
-    ): MethodSpec {
-        return MethodSpec.methodBuilder("compute").apply {
-            addAnnotation(Override::class.java)
-            addModifiers(Modifier.PROTECTED)
+        roomSQLiteQueryVar: String,
+        typeName: TypeName,
+        observerField: PropertySpec,
+        dbField: PropertySpec,
+        inTransaction: Boolean,
+        scope: CodeGenScope
+    ): FunSpec {
+        return FunSpec.builder("compute").apply {
+            addModifiers(KModifier.PROTECTED, KModifier.OVERRIDE)
             returns(typeName)
 
-            beginControlFlow("if ($N == null)", observerField).apply {
-                addStatement("$N = $L", observerField, createAnonymousObserver())
-                addStatement("$N.getInvalidationTracker().addWeakObserver($N)",
+            beginControlFlow("if (%N == null)", observerField).apply {
+                addStatement("%N = %L", observerField, createAnonymousObserver())
+                addStatement("%N.getInvalidationTracker().addWeakObserver(%N)",
                         dbField, observerField)
             }
             endControlFlow()
@@ -109,16 +106,14 @@ class LiveDataQueryResultBinder(val typeArg: TypeMirror, val tableNames: Set<Str
 
     private fun createAnonymousObserver(): TypeSpec {
         val tableNamesList = tableNames.joinToString(",") { "\"$it\"" }
-        return TypeSpec.anonymousClassBuilder(tableNamesList).apply {
+        return TypeSpec.anonymousClassBuilder().apply {
             superclass(INVALIDATION_OBSERVER)
-            addMethod(MethodSpec.methodBuilder("onInvalidated").apply {
-                returns(TypeName.VOID)
-                addAnnotation(Override::class.java)
-                addParameter(ParameterSpec.builder(
-                        ParameterizedTypeName.get(Set::class.java, String::class.java), "tables")
-                        .addAnnotation(NonNull::class.java)
-                        .build())
-                addModifiers(Modifier.PUBLIC)
+            addSuperclassConstructorParameter(tableNamesList)
+            addFunction(FunSpec.builder("onInvalidated").apply {
+                addModifiers(KModifier.OVERRIDE)
+                addParameter(
+                    ParameterSpec.builder( "tables",
+                        Set::class.java.parameterizedBy(String::class.java)).build())
                 addStatement("invalidate()")
             }.build())
         }.build()

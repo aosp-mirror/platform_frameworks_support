@@ -18,11 +18,11 @@ package androidx.room.processor
 
 import androidx.room.ColumnInfo
 import androidx.room.ext.toAnnotationBox
+import androidx.room.ext.typeName
 import androidx.room.parser.Collate
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.EmbeddedField
 import androidx.room.vo.Field
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.Element
 import javax.lang.model.type.DeclaredType
 
@@ -37,7 +37,7 @@ class FieldProcessor(
     val context = baseContext.fork(element)
     fun process(): Field {
         val member = context.processingEnv.typeUtils.asMemberOf(containing, element)
-        val type = TypeName.get(member)
+        val type = member.typeName()
         val columnInfo = element.toAnnotationBox(ColumnInfo::class)?.value
         val name = element.simpleName.toString()
         val rawCName = if (columnInfo != null && columnInfo.name != ColumnInfo.INHERIT_FIELD_NAME) {

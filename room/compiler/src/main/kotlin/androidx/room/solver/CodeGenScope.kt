@@ -18,7 +18,7 @@ package androidx.room.solver
 
 import androidx.room.writer.ClassWriter
 import com.google.common.annotations.VisibleForTesting
-import com.squareup.javapoet.CodeBlock
+import com.squareup.kotlinpoet.CodeBlock
 
 /**
  * Defines a code generation scope where we can provide temporary variables, global variables etc

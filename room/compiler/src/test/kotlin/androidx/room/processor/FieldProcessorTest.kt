@@ -73,7 +73,7 @@ class FieldProcessorTest {
                             " stringIntoArray${it.name}(String input) { return null;}"
                 }}
                 ${ALL_PRIMITIVES.joinToString("\n") {
-                    val arrayDef = "${it.box()}[]"
+                    val arrayDef = "${it.asNullable()}[]"
                     "@TypeConverter public static String" +
                             " arrayIntoString($arrayDef input) { return null;}" +
                             "@TypeConverter public static $arrayDef" +
@@ -82,7 +82,7 @@ class FieldProcessorTest {
                 }
                 """)
 
-        private fun TypeKind.box(): String {
+        private fun TypeKind.asNullable(): String {
             return "java.lang." + when (this) {
                 TypeKind.INT -> "Integer"
                 TypeKind.CHAR -> "Character"
@@ -124,7 +124,7 @@ class FieldProcessorTest {
     @Test
     fun boxed() {
         ALL_PRIMITIVES.forEach { primitive ->
-            singleEntity("${primitive.box()} y;") { field, invocation ->
+            singleEntity("${primitive.asNullable()} y;") { field, invocation ->
                 assertThat(field, `is`(
                         Field(name = "y",
                                 type = primitive.box(invocation),
@@ -212,7 +212,7 @@ class FieldProcessorTest {
     fun boxedArray() {
         ALL_PRIMITIVES.forEach { primitive ->
             singleEntity("@TypeConverters(foo.bar.MyConverter.class) " +
-                    "${primitive.box()}[] arr;") { field, invocation ->
+                    "${primitive.asNullable()}[] arr;") { field, invocation ->
                 assertThat(field, `is`(
                         Field(name = "arr",
                                 type = invocation.processingEnv.typeUtils.getArrayType(

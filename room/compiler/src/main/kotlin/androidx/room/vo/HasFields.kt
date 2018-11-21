@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package foo.bar;
+package androidx.room.vo
 
-@Entity
-public class User {
-    @PrimaryKey
-    int uid;
-    String name;
-    private String lastName;
-    @ColumnInfo(name = "ageColumn")
-    public int age;
-
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+interface HasFields {
+    val fields: List<Field>
 }
+
+val HasFields.columnNames
+    get() = fields.map { it.columnName }
+
+fun HasFields.fieldByColumnName(columnName: String) = fields.find { it.columnName == columnName }

@@ -15,8 +15,9 @@
  */
 
 package foo.bar;
-import androidx.room.*;
+
 import java.util.List;
+
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;

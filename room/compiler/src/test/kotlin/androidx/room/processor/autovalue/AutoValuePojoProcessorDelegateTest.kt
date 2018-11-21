@@ -23,7 +23,7 @@ import androidx.room.testing.TestInvocation
 import androidx.room.vo.Pojo
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
-import com.squareup.javapoet.ClassName
+import com.squareup.kotlinpoet.ClassName
 import compileLibrarySources
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -39,8 +39,8 @@ import javax.tools.JavaFileObject
 class AutoValuePojoProcessorDelegateTest {
 
     companion object {
-        val MY_POJO: ClassName = ClassName.get("foo.bar", "MyPojo")
-        val AUTOVALUE_MY_POJO: ClassName = ClassName.get("foo.bar", "AutoValue_MyPojo")
+        val MY_POJO: ClassName = ClassName("foo.bar", "MyPojo")
+        val AUTOVALUE_MY_POJO: ClassName = ClassName("foo.bar", "AutoValue_MyPojo")
         val HEADER = """
             package foo.bar;
 

@@ -17,10 +17,10 @@
 package androidx.room.solver.shortcut.binder
 
 import androidx.room.solver.CodeGenScope
-import androidx.room.vo.ShortcutQueryParameter
 import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.TypeSpec
+import androidx.room.vo.ShortcutQueryParameter
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 
 /**
  * Binder that knows how to write instant (blocking) delete and update methods.
@@ -31,7 +31,7 @@ class InstantDeleteOrUpdateMethodBinder(
 
     override fun convertAndReturn(
         parameters: List<ShortcutQueryParameter>,
-        adapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        adapters: Map<String, Pair<PropertySpec, TypeSpec>>,
         scope: CodeGenScope
     ) {
         adapter?.createDeleteOrUpdateMethodBody(

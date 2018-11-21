@@ -16,18 +16,15 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomGuavaTypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -44,7 +41,7 @@ class GuavaListenableFutureQueryResultBinder(
     override fun convertAndReturn(
         roomSQLiteQueryVar: String,
         canReleaseQuery: Boolean,
-        dbField: FieldSpec,
+        dbField: PropertySpec,
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
@@ -57,7 +54,7 @@ class GuavaListenableFutureQueryResultBinder(
 
         scope.builder().apply {
             addStatement(
-                    "return $T.createListenableFuture($N, $L, $L, $L)",
+                    "return %T.createListenableFuture(%N, %L, %L, %L)",
                     RoomGuavaTypeNames.GUAVA_ROOM,
                     DaoWriter.dbField,
                     callableImpl,
@@ -74,21 +71,19 @@ class GuavaListenableFutureQueryResultBinder(
      */
     private fun createCallableOfT(
         roomSQLiteQueryVar: String,
-        dbField: FieldSpec,
+        dbField: PropertySpec,
         inTransaction: Boolean,
         scope: CodeGenScope
     ): TypeSpec {
-        return TypeSpec.anonymousClassBuilder("").apply {
+        return TypeSpec.anonymousClassBuilder().apply {
             superclass(
-                    ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
-                            typeArg.typeName()))
-            addMethod(
-                    MethodSpec.methodBuilder("call").apply {
+                    java.util.concurrent.Callable::class.typeName().parameterizedBy(
+                        typeArg.typeName()))
+            addFunction(
+                    FunSpec.builder("call").apply {
                         // public T call() throws Exception {}
                         returns(typeArg.typeName())
-                        addAnnotation(Override::class.typeName())
-                        addModifiers(Modifier.PUBLIC)
-                        addException(Exception::class.typeName())
+                        addModifiers(KModifier.OVERRIDE)
 
                         // Body.
                         createRunQueryAndReturnStatements(

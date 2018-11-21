@@ -16,7 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
 import androidx.room.ext.typeName
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.parser.SQLTypeAffinity.REAL
@@ -74,13 +73,13 @@ open class PrimitiveColumnTypeAdapter(out: PrimitiveType,
     override fun bindToStmt(stmtName: String, indexVarName: String, valueVarName: String,
                             scope: CodeGenScope) {
         scope.builder()
-                .addStatement("$L.$L($L, $L)", stmtName, stmtSetter, indexVarName, valueVarName)
+                .addStatement("%L.%L(%L, %L)", stmtName, stmtSetter, indexVarName, valueVarName)
     }
 
     override fun readFromCursor(outVarName: String, cursorVarName: String, indexVarName: String,
                                 scope: CodeGenScope) {
         scope.builder()
-                .addStatement("$L = $L$L.$L($L)", outVarName, cast, cursorVarName,
+                .addStatement("%L = %L%L.%L(%L)", outVarName, cast, cursorVarName,
                         cursorGetter, indexVarName)
     }
 }

@@ -16,7 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
 import androidx.room.solver.CodeGenScope
 import javax.lang.model.type.TypeMirror
 
@@ -32,6 +31,6 @@ class NoOpConverter(type: TypeMirror) : TypeConverter(
         type, type) {
     override fun convert(inputVarName: String, outputVarName: String, scope: CodeGenScope) {
         scope.builder()
-                .addStatement("$L = $L", outputVarName, inputVarName)
+                .addStatement("%L = %L", outputVarName, inputVarName)
     }
 }

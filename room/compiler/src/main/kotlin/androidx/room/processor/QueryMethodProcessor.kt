@@ -22,6 +22,7 @@ import androidx.room.Transaction
 import androidx.room.ext.KotlinMetadataProcessor
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.toAnnotationBox
+import androidx.room.ext.typeName
 import androidx.room.parser.ParsedQuery
 import androidx.room.parser.QueryType
 import androidx.room.parser.SqlParser
@@ -33,7 +34,9 @@ import androidx.room.vo.QueryMethod
 import androidx.room.vo.QueryParameter
 import androidx.room.vo.Warning
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.UNIT
 import me.eugeniomarletti.kotlin.metadata.KotlinClassMetadata
 import me.eugeniomarletti.kotlin.metadata.kotlinMetadata
 import javax.annotation.processing.ProcessingEnvironment
@@ -89,19 +92,19 @@ class QueryMethodProcessor(
             ParsedQuery.MISSING
         }
 
-        val returnTypeName = TypeName.get(executableType.returnType)
+        val returnTypeName = executableType.returnType.typeName()
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_QUERY_METHODS)
 
         if (query.type == QueryType.DELETE) {
             context.checker.check(
-                    returnTypeName == TypeName.VOID || returnTypeName == TypeName.INT,
+                    returnTypeName == UNIT || returnTypeName == INT,
                     executableElement,
                     ProcessorErrors.DELETION_METHODS_MUST_RETURN_VOID_OR_INT
             )
         } else if (query.type == QueryType.INSERT) {
             context.checker.check(
-                returnTypeName == TypeName.VOID || returnTypeName == TypeName.LONG,
+                returnTypeName == UNIT || returnTypeName == LONG,
                 executableElement,
                 ProcessorErrors.PREPARED_INSERT_METHOD_INVALID_RETURN_TYPE
             )

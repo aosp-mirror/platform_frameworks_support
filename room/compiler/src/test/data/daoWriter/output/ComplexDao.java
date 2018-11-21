@@ -1,6 +1,7 @@
 package foo.bar;
 
 import android.database.Cursor;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
@@ -10,14 +11,11 @@ import androidx.room.RoomSQLiteQuery;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.room.util.StringUtil;
-import java.lang.Integer;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.StringBuilder;
-import java.lang.SuppressWarnings;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")

@@ -23,8 +23,8 @@ import androidx.room.ext.ReactiveStreamsTypeNames
 import androidx.room.ext.RoomGuavaTypeNames
 import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.processor.TableEntityProcessor
 import androidx.room.processor.DatabaseViewProcessor
+import androidx.room.processor.TableEntityProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
@@ -38,7 +38,7 @@ import com.google.testing.compile.CompileTester
 import com.google.testing.compile.Compiler.javac
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.ClassName
+import com.squareup.kotlinpoet.ClassName
 import org.mockito.Mockito
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
@@ -60,7 +60,7 @@ object COMMON {
         loadJavaCode("common/input/UserSummary.java", "foo.bar.UserSummary")
     }
     val USER_TYPE_NAME by lazy {
-        ClassName.get("foo.bar", "User")
+        ClassName("foo.bar", "User")
     }
     val BOOK by lazy {
         loadJavaCode("common/input/Book.java", "foo.bar.Book")
@@ -70,7 +70,7 @@ object COMMON {
     }
 
     val NOT_AN_ENTITY_TYPE_NAME by lazy {
-        ClassName.get("foo.bar", "NotAnEntity")
+        ClassName("foo.bar", "NotAnEntity")
     }
 
     val MULTI_PKEY_ENTITY by lazy {

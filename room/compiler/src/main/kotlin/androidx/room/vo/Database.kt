@@ -19,7 +19,8 @@ package androidx.room.vo
 import androidx.room.RoomMasterTable
 import androidx.room.migration.bundle.DatabaseBundle
 import androidx.room.migration.bundle.SchemaBundle
-import com.squareup.javapoet.ClassName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.asClassName
 import org.apache.commons.codec.digest.DigestUtils
 import java.io.File
 import javax.lang.model.element.TypeElement
@@ -38,14 +39,14 @@ data class Database(
     val exportSchema: Boolean,
     val enableForeignKeys: Boolean
 ) {
-    val typeName: ClassName by lazy { ClassName.get(element) }
+    val typeName: ClassName by lazy { element.asClassName() }
 
     private val implClassName by lazy {
-        "${typeName.simpleNames().joinToString("_")}_Impl"
+        "${typeName.simpleNames.joinToString("_")}_Impl"
     }
 
     val implTypeName: ClassName by lazy {
-        ClassName.get(typeName.packageName(), implClassName)
+        ClassName(typeName.packageName, implClassName)
     }
 
     val bundle by lazy {

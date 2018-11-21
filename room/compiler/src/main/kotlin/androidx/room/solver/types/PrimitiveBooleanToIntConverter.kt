@@ -16,7 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
 import androidx.room.solver.CodeGenScope
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.type.TypeKind.BOOLEAN
@@ -33,13 +32,13 @@ object PrimitiveBooleanToIntConverter {
                 object : TypeConverter(tBoolean, tInt) {
                     override fun convert(inputVarName: String, outputVarName: String,
                                          scope: CodeGenScope) {
-                        scope.builder().addStatement("$L = $L ? 1 : 0", outputVarName, inputVarName)
+                        scope.builder().addStatement("%L = %L ? 1 : 0", outputVarName, inputVarName)
                     }
                 },
                 object : TypeConverter(tInt, tBoolean) {
                     override fun convert(inputVarName: String, outputVarName: String,
                                          scope: CodeGenScope) {
-                        scope.builder().addStatement("$L = $L != 0", outputVarName, inputVarName)
+                        scope.builder().addStatement("%L = %L != 0", outputVarName, inputVarName)
                     }
                 })
     }

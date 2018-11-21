@@ -16,14 +16,10 @@
 
 package androidx.room.writer
 
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.S
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.vo.DatabaseView
-import com.squareup.javapoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterSpec
 import stripNonJava
 
 class ViewInfoValidationWriter(val view: DatabaseView) : ValidationWriter() {
@@ -32,17 +28,17 @@ class ViewInfoValidationWriter(val view: DatabaseView) : ValidationWriter() {
         val suffix = view.viewName.stripNonJava().capitalize()
         scope.builder().apply {
             val expectedInfoVar = scope.getTmpVar("_info$suffix")
-            addStatement("final $T $L = new $T($S, $S)",
+            addStatement("final %T %L = new %T(%S, %S)",
                     RoomTypeNames.VIEW_INFO, expectedInfoVar, RoomTypeNames.VIEW_INFO,
                     view.viewName, view.createViewQuery)
 
             val existingVar = scope.getTmpVar("_existing$suffix")
-            addStatement("final $T $L = $T.read($N, $S)",
+            addStatement("final %T %L = %T.read(%N, %S)",
                     RoomTypeNames.VIEW_INFO, existingVar, RoomTypeNames.VIEW_INFO,
                     dbParam, view.viewName)
 
-            beginControlFlow("if (! $L.equals($L))", expectedInfoVar, existingVar).apply {
-                addStatement("throw new $T($S + $L + $S + $L)",
+            beginControlFlow("if (! %L.equals(%L))", expectedInfoVar, existingVar).apply {
+                addStatement("throw new %T(%S + %L + %S + %L)",
                         IllegalStateException::class.typeName(),
                         "Migration didn't properly handle ${view.viewName}" +
                                 "(${view.element.qualifiedName}).\n Expected:\n",

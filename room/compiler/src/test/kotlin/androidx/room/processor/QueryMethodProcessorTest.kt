@@ -47,11 +47,9 @@ import com.google.common.truth.Truth.assertAbout
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeVariableName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.TypeName
 import createVerifierFromEntitiesAndViews
 import mockElementAndType
 import org.hamcrest.CoreMatchers.`is`
@@ -82,7 +80,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 abstract class MyClass {
                 """
         const val DAO_SUFFIX = "}"
-        val POJO: ClassName = ClassName.get("foo.bar", "MyClass.Pojo")
+        val POJO: ClassName = ClassName("foo.bar", "MyClass.Pojo")
         @Parameterized.Parameters(name = "enableDbVerification={0}")
         @JvmStatic
         fun getParams() = arrayOf(true, false)
@@ -109,7 +107,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
             assertThat(parsedQuery.name, `is`("foo"))
             assertThat(parsedQuery.parameters.size, `is`(0))
             assertThat(parsedQuery.returnType.typeName(),
-                    `is`(ArrayTypeName.of(TypeName.INT) as TypeName))
+                    `is`(ArrayTypeName.of(INT) as TypeName))
         }.compilesWithoutError()
     }
 
@@ -121,7 +119,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 abstract public long foo(int x);
                 """) { parsedQuery, invocation ->
             assertThat(parsedQuery.name, `is`("foo"))
-            assertThat(parsedQuery.returnType.typeName(), `is`(TypeName.LONG))
+            assertThat(parsedQuery.returnType.typeName(), `is`(LONG as TypeName))
             assertThat(parsedQuery.parameters.size, `is`(1))
             val param = parsedQuery.parameters.first()
             assertThat(param.name, `is`("x"))
@@ -139,7 +137,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 abstract public long foo(int... ids);
                 """) { parsedQuery, invocation ->
             assertThat(parsedQuery.name, `is`("foo"))
-            assertThat(parsedQuery.returnType.typeName(), `is`(TypeName.LONG))
+            assertThat(parsedQuery.returnType.typeName(), `is`(LONG as TypeName))
             assertThat(parsedQuery.parameters.size, `is`(1))
             val param = parsedQuery.parameters.first()
             assertThat(param.name, `is`("ids"))
@@ -279,7 +277,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 @Query("select * from User")
                 abstract public <T> ${CommonTypeNames.LIST}<T> foo(int x);
                 """) { parsedQuery, _ ->
-            val expected: TypeName = ParameterizedTypeName.get(ClassName.get(List::class.java),
+            val expected: TypeName = ParameterizedTypeName.get(ClassName(List::class.java),
                     TypeVariableName.get("T"))
             assertThat(parsedQuery.returnType.typeName(), `is`(expected))
         }.failsToCompile()
@@ -353,7 +351,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 }
                 """) { parsedQuery, _ ->
             assertThat(parsedQuery.returnType.typeName(),
-                    `is`(ClassName.get(Integer::class.java) as TypeName))
+                    `is`(ClassName(Integer::class.java) as TypeName))
         }.compilesWithoutError()
     }
 
@@ -396,7 +394,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 """) { parsedQuery, _ ->
             assertThat(parsedQuery.name, `is`("foo"))
             assertThat(parsedQuery.parameters.size, `is`(1))
-            assertThat(parsedQuery.returnType.typeName(), `is`(TypeName.INT))
+            assertThat(parsedQuery.returnType.typeName(), `is`(INT))
         }.compilesWithoutError()
     }
 
@@ -452,7 +450,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 """) { parsedQuery, invocation ->
             assertThat(parsedQuery.name, `is`("insertUsername"))
             assertThat(parsedQuery.parameters.size, `is`(1))
-            assertThat(parsedQuery.returnType.typeName(), `is`(TypeName.LONG))
+            assertThat(parsedQuery.returnType.typeName(), `is`(LONG as TypeName))
             assertThat(parsedQuery.parameters.first().type.typeName(),
                 `is`(invocation.context.COMMON_TYPES.STRING.typeName()))
         }.compilesWithoutError()
@@ -465,7 +463,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
                 @Query("insert into user (name) values (:name)")
                 abstract public int insert(String name);
                 """) { parsedQuery, _ ->
-            assertThat(parsedQuery.returnType.typeName(), `is`(TypeName.INT))
+            assertThat(parsedQuery.returnType.typeName(), `is`(INT))
         }.failsToCompile().withErrorContaining(
             ProcessorErrors.PREPARED_INSERT_METHOD_INVALID_RETURN_TYPE
         )
@@ -601,7 +599,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
             assertThat(parsedQuery.name, `is`("foo"))
             assertThat(parsedQuery.parameters.size, `is`(0))
             assertThat(parsedQuery.returnType.typeName(),
-                    `is`(ArrayTypeName.of(TypeName.INT) as TypeName))
+                    `is`(ArrayTypeName.of(INT) as TypeName))
         }.compilesWithoutError()
     }
 
@@ -647,7 +645,7 @@ class QueryMethodProcessorTest(val enableVerification: Boolean) {
             val pojoRowAdapter = listAdapter.rowAdapter as PojoRowAdapter
             assertThat(pojoRowAdapter.relationCollectors.size, `is`(1))
             assertThat(pojoRowAdapter.relationCollectors[0].collectionTypeName, `is`(
-                ParameterizedTypeName.get(ClassName.get(ArrayList::class.java),
+                ParameterizedTypeName.get(ClassName(ArrayList::class.java),
                     COMMON.USER_TYPE_NAME)
             ))
         }.compilesWithoutError()

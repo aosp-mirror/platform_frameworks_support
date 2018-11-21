@@ -33,8 +33,8 @@ import androidx.room.vo.Field
 import androidx.room.vo.Pojo
 import androidx.room.vo.RelationCollector
 import com.google.testing.compile.CompileTester
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.TypeName
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
@@ -59,7 +59,7 @@ import javax.tools.JavaFileObject
 class PojoProcessorTest {
 
     companion object {
-        val MY_POJO: ClassName = ClassName.get("foo.bar", "MyPojo")
+        val MY_POJO: ClassName = ClassName("foo.bar", "MyPojo")
         val HEADER = """
             package foo.bar;
             import androidx.room.*;
@@ -84,7 +84,7 @@ class PojoProcessorTest {
                 """
                 package foo.bar;
                 import androidx.room.*;
-                public class ${MY_POJO.simpleName()} extends foo.bar.x.BaseClass {
+                public class ${MY_POJO.simpleName} extends foo.bar.x.BaseClass {
                     public String myField;
                 }
                 """.toJFO(MY_POJO.toString()),
@@ -187,7 +187,7 @@ class PojoProcessorTest {
             assertThat(parent.prefix, `is`(""))
             assertThat(parent.field.name, `is`("myPoint"))
             assertThat(parent.pojo.typeName,
-                    `is`(ClassName.get("foo.bar.MyPojo", "Point") as TypeName))
+                    `is`(ClassName("foo.bar.MyPojo", "Point") as TypeName))
         }.compilesWithoutError()
     }
 
@@ -274,7 +274,7 @@ class PojoProcessorTest {
                 setOf("x", "y", "normalField")))
             val pointField = pojo.embeddedFields.first { it.field.name == "genericField" }
             assertThat(pointField.pojo.typeName,
-                `is`(ClassName.get("foo.bar", "Point") as TypeName))
+                `is`(ClassName("foo.bar", "Point") as TypeName))
         }.compilesWithoutError()
     }
 
@@ -1101,7 +1101,7 @@ class PojoProcessorTest {
                 """
                 package foo.bar;
                 import androidx.room.*;
-                public class ${MY_POJO.simpleName()} {
+                public class ${MY_POJO.simpleName} {
                     public String foo;
                     public String bar;
                 }
@@ -1122,7 +1122,7 @@ class PojoProcessorTest {
                 """
                 package foo.bar;
                 import androidx.room.*;
-                public class ${MY_POJO.simpleName()} {
+                public class ${MY_POJO.simpleName} {
                     public String foo;
                     @ColumnInfo(name = "my_bar")
                     public String bar;
@@ -1144,7 +1144,7 @@ class PojoProcessorTest {
                 """
                 package foo.bar;
                 import androidx.room.*;
-                public class ${MY_POJO.simpleName()} {
+                public class ${MY_POJO.simpleName} {
                     public String foo;
                     public String bar;
                 }

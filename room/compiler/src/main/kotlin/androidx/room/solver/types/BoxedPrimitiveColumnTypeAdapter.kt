@@ -16,7 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
 import androidx.room.solver.CodeGenScope
 import com.google.auto.common.MoreTypes
 import javax.annotation.processing.ProcessingEnvironment
@@ -48,8 +47,8 @@ open class BoxedPrimitiveColumnTypeAdapter(
     override fun bindToStmt(stmtName: String, indexVarName: String, valueVarName: String,
                             scope: CodeGenScope) {
         scope.builder().apply {
-            beginControlFlow("if ($L == null)", valueVarName).apply {
-                addStatement("$L.bindNull($L)", stmtName, indexVarName)
+            beginControlFlow("if (%L == null)", valueVarName).apply {
+                addStatement("%L.bindNull(%L)", stmtName, indexVarName)
             }
             nextControlFlow("else").apply {
                 primitiveAdapter.bindToStmt(stmtName, indexVarName, valueVarName, scope)
@@ -61,8 +60,8 @@ open class BoxedPrimitiveColumnTypeAdapter(
     override fun readFromCursor(outVarName: String, cursorVarName: String, indexVarName: String,
                                 scope: CodeGenScope) {
         scope.builder().apply {
-            beginControlFlow("if ($L.isNull($L))", cursorVarName, indexVarName).apply {
-                addStatement("$L = null", outVarName)
+            beginControlFlow("if (%L.isNull(%L))", cursorVarName, indexVarName).apply {
+                addStatement("%L = null", outVarName)
             }
             nextControlFlow("else").apply {
                 primitiveAdapter.readFromCursor(outVarName, cursorVarName, indexVarName, scope)

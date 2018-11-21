@@ -16,13 +16,10 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.AndroidTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
-import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.writer.DaoWriter
-import com.squareup.javapoet.FieldSpec
+import com.squareup.kotlinpoet.PropertySpec
 
 /**
  * Instantly runs and returns the query.
@@ -31,7 +28,7 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
     override fun convertAndReturn(
         roomSQLiteQueryVar: String,
         canReleaseQuery: Boolean,
-        dbField: FieldSpec,
+        dbField: PropertySpec,
         inTransaction: Boolean,
         scope: CodeGenScope
     ) {
@@ -45,7 +42,7 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
             val shouldCopyCursor = adapter?.shouldCopyCursor() == true
             val outVar = scope.getTmpVar("_result")
             val cursorVar = scope.getTmpVar("_cursor")
-            addStatement("final $T $L = $T.query($N, $L, $L)",
+            addStatement("final %T %L = %T.query(%N, %L, %L)",
                     AndroidTypeNames.CURSOR,
                     cursorVar,
                     RoomTypeNames.DB_UTIL,
@@ -55,12 +52,12 @@ class InstantQueryResultBinder(adapter: QueryResultAdapter?) : QueryResultBinder
             beginControlFlow("try").apply {
                 adapter?.convert(outVar, cursorVar, scope)
                 transactionWrapper?.commitTransaction()
-                addStatement("return $L", outVar)
+                addStatement("return %L", outVar)
             }
             nextControlFlow("finally").apply {
-                addStatement("$L.close()", cursorVar)
+                addStatement("%L.close()", cursorVar)
                 if (canReleaseQuery) {
-                    addStatement("$L.release()", roomSQLiteQueryVar)
+                    addStatement("%L.release()", roomSQLiteQueryVar)
                 }
             }
             endControlFlow()

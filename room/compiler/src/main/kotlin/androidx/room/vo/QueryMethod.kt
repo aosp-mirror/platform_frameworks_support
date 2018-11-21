@@ -19,7 +19,7 @@ package androidx.room.vo
 import androidx.room.ext.typeName
 import androidx.room.parser.ParsedQuery
 import androidx.room.solver.query.result.QueryResultBinder
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.UNIT
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
@@ -47,6 +47,6 @@ data class QueryMethod(val element: ExecutableElement, val query: ParsedQuery, v
     }
 
     val returnsValue by lazy {
-        returnType.typeName() != TypeName.VOID
+        returnType.typeName() != UNIT
     }
 }

@@ -53,22 +53,6 @@ import androidx.room.solver.query.result.QueryResultBinder
 import androidx.room.solver.query.result.RowAdapter
 import androidx.room.solver.query.result.SingleColumnRowAdapter
 import androidx.room.solver.query.result.SingleEntityQueryResultAdapter
-import androidx.room.solver.types.BoxedBooleanToBoxedIntConverter
-import androidx.room.solver.types.BoxedPrimitiveColumnTypeAdapter
-import androidx.room.solver.types.ByteArrayColumnTypeAdapter
-import androidx.room.solver.types.ColumnTypeAdapter
-import androidx.room.solver.types.CompositeAdapter
-import androidx.room.solver.types.CompositeTypeConverter
-import androidx.room.solver.types.CursorValueReader
-import androidx.room.solver.types.NoOpConverter
-import androidx.room.solver.types.PrimitiveBooleanToIntConverter
-import androidx.room.solver.types.PrimitiveColumnTypeAdapter
-import androidx.room.solver.types.StatementValueBinder
-import androidx.room.solver.types.StringColumnTypeAdapter
-import androidx.room.solver.types.TypeConverter
-import androidx.room.vo.ShortcutQueryParameter
-import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
-import androidx.room.solver.shortcut.result.InsertMethodAdapter
 import androidx.room.solver.shortcut.binder.DeleteOrUpdateMethodBinder
 import androidx.room.solver.shortcut.binder.InsertMethodBinder
 import androidx.room.solver.shortcut.binder.InstantDeleteOrUpdateMethodBinder
@@ -83,6 +67,23 @@ import androidx.room.solver.shortcut.binderprovider.RxMaybeDeleteOrUpdateMethodB
 import androidx.room.solver.shortcut.binderprovider.RxMaybeInsertMethodBinderProvider
 import androidx.room.solver.shortcut.binderprovider.RxSingleDeleteOrUpdateMethodBinderProvider
 import androidx.room.solver.shortcut.binderprovider.RxSingleInsertMethodBinderProvider
+import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
+import androidx.room.solver.shortcut.result.InsertMethodAdapter
+import androidx.room.solver.types.BoxedBooleanToBoxedIntConverter
+import androidx.room.solver.types.BoxedPrimitiveColumnTypeAdapter
+import androidx.room.solver.types.ByteArrayColumnTypeAdapter
+import androidx.room.solver.types.ColumnTypeAdapter
+import androidx.room.solver.types.CompositeAdapter
+import androidx.room.solver.types.CompositeTypeConverter
+import androidx.room.solver.types.CursorValueReader
+import androidx.room.solver.types.NoOpConverter
+import androidx.room.solver.types.PrimitiveBooleanToIntConverter
+import androidx.room.solver.types.PrimitiveColumnTypeAdapter
+import androidx.room.solver.types.StatementValueBinder
+import androidx.room.solver.types.StringColumnTypeAdapter
+import androidx.room.solver.types.TypeConverter
+import androidx.room.vo.ShortcutQueryParameter
+import asTypeElement
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.annotations.VisibleForTesting
@@ -408,7 +409,7 @@ class TypeAdapterStore private constructor(
                 context.collectLogs { subContext ->
                     val pojo = PojoProcessor.createFor(
                             context = subContext,
-                            element = MoreTypes.asTypeElement(typeMirror),
+                            element = typeMirror.asTypeElement(),
                             bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
                             parent = null
                     ).process()
@@ -455,7 +456,7 @@ class TypeAdapterStore private constructor(
                 // try to guess user's intention and hope that their query fits the result.
                 val pojo = PojoProcessor.createFor(
                         context = context,
-                        element = MoreTypes.asTypeElement(typeMirror),
+                        element = typeMirror.asTypeElement(),
                         bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
                         parent = null
                 ).process()

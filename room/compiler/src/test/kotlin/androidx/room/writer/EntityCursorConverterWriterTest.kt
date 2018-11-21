@@ -19,12 +19,11 @@ package androidx.room.writer
 import androidx.room.processor.BaseEntityParserTest
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.TypeSpec
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import javax.lang.model.element.Modifier
 
 @RunWith(JUnit4::class)
 class EntityCursorConverterWriterTest : BaseEntityParserTest() {
@@ -92,12 +91,11 @@ class EntityCursorConverterWriterTest : BaseEntityParserTest() {
 
     fun generate(input: String, attributes: Map<String, String> = mapOf()): CompileTester {
         return singleEntity(input, attributes) { entity, invocation ->
-            val className = ClassName.get("foo.bar", "MyContainerClass")
+            val className = ClassName("foo.bar", "MyContainerClass")
             val writer = object : ClassWriter(className) {
                 override fun createTypeSpecBuilder(): TypeSpec.Builder {
                     getOrCreateMethod(EntityCursorConverterWriter(entity))
                     return TypeSpec.classBuilder(className).apply {
-                        addModifiers(Modifier.PUBLIC)
                     }
                 }
             }

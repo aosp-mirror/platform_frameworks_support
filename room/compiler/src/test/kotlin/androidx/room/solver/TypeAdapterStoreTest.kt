@@ -21,13 +21,11 @@ import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
 import androidx.room.Entity
 import androidx.room.ext.GuavaUtilConcurrentTypeNames
-import androidx.room.ext.L
 import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.PagingTypeNames
 import androidx.room.ext.ReactiveStreamsTypeNames
 import androidx.room.ext.RoomTypeNames.STRING_UTIL
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.processor.Context
@@ -54,7 +52,9 @@ import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.TypeName
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.notNullValue
@@ -99,9 +99,9 @@ class TypeAdapterStoreTest {
             assertThat(adapter, instanceOf(CompositeAdapter::class.java))
             val composite = adapter as CompositeAdapter
             assertThat(composite.intoStatementConverter?.from?.typeName(),
-                    `is`(TypeName.BOOLEAN.box()))
+                    `is`(BOOLEAN.asNullable() as TypeName))
             assertThat(composite.columnTypeAdapter.out.typeName(),
-                    `is`(TypeName.INT.box()))
+                    `is`(INT.asNullable()as TypeName))
         }.compilesWithoutError()
     }
 

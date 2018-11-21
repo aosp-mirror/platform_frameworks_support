@@ -18,9 +18,7 @@ package androidx.room.vo
 
 import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.CommonTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
-import androidx.room.ext.T
+import androidx.room.ext.arrayTypeName
 import androidx.room.ext.typeName
 import androidx.room.parser.ParsedQuery
 import androidx.room.parser.SQLTypeAffinity
@@ -36,11 +34,12 @@ import androidx.room.verifier.DatabaseVerificaitonErrors
 import androidx.room.writer.QueryWriter
 import androidx.room.writer.RelationCollectorMethodWriter
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.CodeBlock
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.TypeName
 import stripNonJava
 import java.util.ArrayList
 import java.util.HashSet
@@ -68,7 +67,7 @@ data class RelationCollector(
         varName = scope.getTmpVar(
                 "_collection${relation.field.getPath().stripNonJava().capitalize()}")
         scope.builder().apply {
-            addStatement("final $T $L = new $T()", mapTypeName, varName, mapTypeName)
+            addStatement("final %T %L = new %T()", mapTypeName, varName, mapTypeName)
         }
     }
 
@@ -85,11 +84,11 @@ data class RelationCollector(
             readKey(cursorVarName, indexVar, scope) { tmpVar ->
                 val tmpCollectionVar = scope.getTmpVar(
                         "_tmp${relation.field.name.stripNonJava().capitalize()}Collection")
-                addStatement("$T $L = $L.get($L)", collectionTypeName, tmpCollectionVar,
+                addStatement("%T %L = %L.get(%L)", collectionTypeName, tmpCollectionVar,
                         varName, tmpVar)
-                beginControlFlow("if ($L == null)", tmpCollectionVar).apply {
-                    addStatement("$L = new $T()", tmpCollectionVar, collectionTypeName)
-                    addStatement("$L.put($L, $L)", varName, tmpVar, tmpCollectionVar)
+                beginControlFlow("if (%L == null)", tmpCollectionVar).apply {
+                    addStatement("%L = new %T()", tmpCollectionVar, collectionTypeName)
+                    addStatement("%L.put(%L, %L)", varName, tmpVar, tmpCollectionVar)
                 }
                 endControlFlow()
             }
@@ -108,12 +107,12 @@ data class RelationCollector(
         val tmpCollectionVar = scope.getTmpVar(
                 "_tmp${relation.field.name.stripNonJava().capitalize()}Collection")
         scope.builder().apply {
-            addStatement("$T $L = null", collectionTypeName, tmpCollectionVar)
+            addStatement("%T %L = null", collectionTypeName, tmpCollectionVar)
             readKey(cursorVarName, indexVar, scope) { tmpVar ->
-                addStatement("$L = $L.get($L)", tmpCollectionVar, varName, tmpVar)
+                addStatement("%L = %L.get(%L)", tmpCollectionVar, varName, tmpVar)
             }
-            beginControlFlow("if ($L == null)", tmpCollectionVar).apply {
-                addStatement("$L = new $T()", tmpCollectionVar, collectionTypeName)
+            beginControlFlow("if (%L == null)", tmpCollectionVar).apply {
+                addStatement("%L = new %T()", tmpCollectionVar, collectionTypeName)
             }
             endControlFlow()
         }
@@ -124,7 +123,7 @@ data class RelationCollector(
         val method = scope.writer
                 .getOrCreateMethod(RelationCollectorMethodWriter(this))
         scope.builder().apply {
-            addStatement("$N($L)", method, varName)
+            addStatement("%N(%L)", method, varName)
         }
     }
 
@@ -145,18 +144,19 @@ data class RelationCollector(
         }
         scope.builder().apply {
             val keyType = if (mapTypeName.rawType == AndroidTypeNames.LONG_SPARSE_ARRAY) {
-                keyTypeName.unbox()
+                // TODO: shit
+                keyTypeName
             } else {
                 keyTypeName
             }
             val tmpVar = scope.getTmpVar("_tmpKey")
             if (relation.parentField.nonNull) {
-                addStatement("final $T $L = $L.$L($L)",
+                addStatement("final %T %L = %L.%L(%L)",
                         keyType, tmpVar, cursorVarName, cursorGetter, indexVar)
                 this.postRead(tmpVar)
             } else {
-                beginControlFlow("if (!$L.isNull($L))", cursorVarName, indexVar).apply {
-                    addStatement("final $T $L = $L.$L($L)",
+                beginControlFlow("if (!%L.isNull(%L))", cursorVarName, indexVar).apply {
+                    addStatement("final %T %L = %L.%L(%L)",
                             keyType, tmpVar, cursorVarName, cursorGetter, indexVar)
                     this.postRead(tmpVar)
                 }
@@ -179,11 +179,11 @@ data class RelationCollector(
             scope.builder().apply {
                 val itrIndexVar = "i"
                 val itrItemVar = scope.getTmpVar("_item")
-                beginControlFlow("for (int $L = 0; $L < $L.size(); i++)",
+                beginControlFlow("for (int %L = 0; %L < %L.size(); i++)",
                         itrIndexVar, itrIndexVar, inputVarName).apply {
-                    addStatement("long $L = $L.keyAt($L)", itrItemVar, inputVarName, itrIndexVar)
-                    addStatement("$L.bindLong($L, $L)", stmtVarName, startIndexVarName, itrItemVar)
-                    addStatement("$L ++", startIndexVarName)
+                    addStatement("long %L = %L.keyAt(%L)", itrItemVar, inputVarName, itrIndexVar)
+                    addStatement("%L.bindLong(%L, %L)", stmtVarName, startIndexVarName, itrItemVar)
+                    addStatement("%L ++", startIndexVarName)
                 }
                 endControlFlow()
             }
@@ -194,8 +194,8 @@ data class RelationCollector(
             outputVarName: String,
             scope: CodeGenScope
         ) {
-            scope.builder().addStatement("final $T $L = $L.size()",
-                    TypeName.INT, outputVarName, inputVarName)
+            scope.builder().addStatement("final %T %L = %L.size()",
+                INT, outputVarName, inputVarName)
         }
     }
 
@@ -228,18 +228,14 @@ data class RelationCollector(
                 val collectionTypeName = if (relation.field.typeName is ParameterizedTypeName) {
                     val paramType = relation.field.typeName as ParameterizedTypeName
                     if (paramType.rawType == CommonTypeNames.LIST) {
-                        ParameterizedTypeName.get(ClassName.get(ArrayList::class.java),
-                                relation.pojoTypeName)
+                        ArrayList::class.typeName().parameterizedBy(relation.pojoTypeName)
                     } else if (paramType.rawType == CommonTypeNames.SET) {
-                        ParameterizedTypeName.get(ClassName.get(HashSet::class.java),
-                                relation.pojoTypeName)
+                        HashSet::class.typeName().parameterizedBy(relation.pojoTypeName)
                     } else {
-                        ParameterizedTypeName.get(ClassName.get(ArrayList::class.java),
-                                relation.pojoTypeName)
+                        ArrayList::class.typeName().parameterizedBy(relation.pojoTypeName)
                     }
                 } else {
-                    ParameterizedTypeName.get(ClassName.get(ArrayList::class.java),
-                            relation.pojoTypeName)
+                    ArrayList::class.typeName().parameterizedBy(relation.pojoTypeName)
                 }
 
                 val canUseLongSparseArray = context.processingEnv.elementUtils
@@ -248,16 +244,14 @@ data class RelationCollector(
                         .getTypeElement(AndroidTypeNames.ARRAY_MAP.toString()) != null
                 val tmpMapType = when {
                     canUseLongSparseArray && affinity == SQLTypeAffinity.INTEGER -> {
-                        ParameterizedTypeName.get(AndroidTypeNames.LONG_SPARSE_ARRAY,
-                                collectionTypeName)
+                        AndroidTypeNames.LONG_SPARSE_ARRAY.parameterizedBy(collectionTypeName)
                     }
                     canUseArrayMap -> {
-                        ParameterizedTypeName.get(AndroidTypeNames.ARRAY_MAP,
-                                keyType, collectionTypeName)
+                        AndroidTypeNames.ARRAY_MAP.parameterizedBy(keyType, collectionTypeName)
                     }
                     else -> {
-                        ParameterizedTypeName.get(ClassName.get(java.util.HashMap::class.java),
-                                keyType, collectionTypeName)
+                       java.util.HashMap::class.typeName()
+                           .parameterizedBy(keyType, collectionTypeName)
                     }
                 }
 
@@ -360,10 +354,10 @@ data class RelationCollector(
 
         private fun keyTypeFor(context: Context, affinity: SQLTypeAffinity): TypeName {
             return when (affinity) {
-                SQLTypeAffinity.INTEGER -> TypeName.LONG.box()
-                SQLTypeAffinity.REAL -> TypeName.DOUBLE.box()
-                SQLTypeAffinity.TEXT -> TypeName.get(String::class.java)
-                SQLTypeAffinity.BLOB -> ArrayTypeName.of(TypeName.BYTE)
+                SQLTypeAffinity.INTEGER -> CommonTypeNames.INTEGER
+                SQLTypeAffinity.REAL -> ClassName("java.lang", "Double")
+                SQLTypeAffinity.TEXT -> CommonTypeNames.STRING
+                SQLTypeAffinity.BLOB -> Byte::class.arrayTypeName()
                 else -> {
                     // no affinity select from type
                     context.COMMON_TYPES.STRING.typeName()

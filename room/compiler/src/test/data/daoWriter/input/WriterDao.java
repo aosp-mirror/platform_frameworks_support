@@ -15,7 +15,7 @@
  */
 
 package foo.bar;
-import androidx.room.*;
+
 import java.util.List;
 
 @Dao

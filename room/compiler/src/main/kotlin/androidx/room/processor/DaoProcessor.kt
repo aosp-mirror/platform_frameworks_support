@@ -31,7 +31,6 @@ import androidx.room.verifier.DatabaseVerifier
 import androidx.room.vo.Dao
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.Modifier.ABSTRACT
@@ -153,7 +152,7 @@ class DaoProcessor(baseContext: Context, val element: TypeElement, val dbType: D
         context.checker.check(methods[Any::class] == null, element,
                 ProcessorErrors.ABSTRACT_METHOD_IN_DAO_MISSING_ANY_ANNOTATION)
 
-        val type = TypeName.get(declaredType)
+        val type = declaredType.typeName()
         context.checker.notUnbound(type, element,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_DAO_CLASSES)
 

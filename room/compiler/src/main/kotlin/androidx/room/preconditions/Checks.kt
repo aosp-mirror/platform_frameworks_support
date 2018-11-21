@@ -18,9 +18,9 @@ package androidx.room.preconditions
 
 import androidx.room.ext.hasAnnotation
 import androidx.room.log.RLog
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeVariableName
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeVariableName
 import javax.lang.model.element.Element
 import kotlin.reflect.KClass
 

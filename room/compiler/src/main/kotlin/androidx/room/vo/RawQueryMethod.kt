@@ -20,7 +20,8 @@ import androidx.room.ext.CommonTypeNames
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.typeName
 import androidx.room.solver.query.result.QueryResultBinder
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.UNIT
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
@@ -37,7 +38,7 @@ data class RawQueryMethod(
         val runtimeQueryParam: RuntimeQueryParameter?,
         val queryResultBinder: QueryResultBinder) {
     val returnsValue by lazy {
-        returnType.typeName() != TypeName.VOID
+        returnType.typeName() != UNIT
     }
 
     data class RuntimeQueryParameter(

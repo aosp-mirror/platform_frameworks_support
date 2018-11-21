@@ -17,16 +17,13 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.AndroidTypeNames
-import androidx.room.ext.L
-import androidx.room.ext.N
-import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.FieldSpec
+import com.squareup.kotlinpoet.PropertySpec
 
 class CursorQueryResultBinder : QueryResultBinder(NO_OP_RESULT_ADAPTER) {
     override fun convertAndReturn(roomSQLiteQueryVar: String,
                                   canReleaseQuery: Boolean,
-                                  dbField: FieldSpec,
+                                  dbField: PropertySpec,
                                   inTransaction: Boolean,
                                   scope: CodeGenScope) {
         val builder = scope.builder()
@@ -37,10 +34,10 @@ class CursorQueryResultBinder : QueryResultBinder(NO_OP_RESULT_ADAPTER) {
         }
         transactionWrapper?.beginTransactionWithControlFlow()
         val resultName = scope.getTmpVar("_tmpResult")
-        builder.addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR, resultName,
+        builder.addStatement("final %T %L = %N.query(%L)", AndroidTypeNames.CURSOR, resultName,
                 dbField, roomSQLiteQueryVar)
         transactionWrapper?.commitTransaction()
-        builder.addStatement("return $L", resultName)
+        builder.addStatement("return %L", resultName)
         transactionWrapper?.endTransactionWithControlFlow()
     }
 

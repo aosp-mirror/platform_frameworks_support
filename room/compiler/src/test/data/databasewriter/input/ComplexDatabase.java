@@ -15,9 +15,6 @@
  */
 
 package foo.bar;
-import androidx.room.*;
-import java.lang.SuppressWarnings;
-import java.util.List;
 
 @Database(entities = {User.class}, views = {UserSummary.class}, version = 1923)
 abstract class ComplexDatabase extends RoomDatabase {

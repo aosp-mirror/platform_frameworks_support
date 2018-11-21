@@ -16,11 +16,8 @@
 
 package androidx.room.writer
 
-import androidx.room.ext.L
-import androidx.room.ext.N
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.parser.QueryType
 import androidx.room.processor.OnConflictProcessor
@@ -33,21 +30,19 @@ import androidx.room.vo.RawQueryMethod
 import androidx.room.vo.ShortcutMethod
 import androidx.room.vo.TransactionMethod
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.CodeBlock
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterSpec
-import com.squareup.javapoet.TypeName
-import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 import me.eugeniomarletti.kotlin.metadata.shadow.load.java.JvmAbi
 import stripNonJava
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
-import javax.lang.model.element.Modifier.FINAL
-import javax.lang.model.element.Modifier.PRIVATE
-import javax.lang.model.element.Modifier.PUBLIC
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeKind
 
@@ -60,13 +55,13 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     companion object {
         // TODO nothing prevents this from conflicting, we should fix.
-        val dbField: FieldSpec = FieldSpec
-                .builder(RoomTypeNames.ROOM_DB, "__db", PRIVATE, FINAL)
+        val dbField: PropertySpec = PropertySpec
+                .builder( "__db", RoomTypeNames.ROOM_DB, KModifier.PRIVATE)
                 .build()
 
         private fun typeNameToFieldName(typeName: TypeName?): String {
             if (typeName is ClassName) {
-                return typeName.simpleName()
+                return typeName.simpleName
             } else {
                 return typeName.toString().replace('.', '_').stripNonJava()
             }
@@ -94,31 +89,29 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 createPreparedQueries(preparedQueries)
 
         builder.apply {
-            addModifiers(PUBLIC)
-            addModifiers(FINAL)
             if (dao.element.kind == ElementKind.INTERFACE) {
                 addSuperinterface(dao.typeName)
             } else {
                 superclass(dao.typeName)
             }
-            addField(dbField)
+            addProperty(dbField)
             val dbParam = ParameterSpec
-                    .builder(dao.constructorParamType ?: dbField.type, dbField.name).build()
+                    .builder(dbField.name,dao.constructorParamType ?: dbField.type).build()
 
-            addMethod(createConstructor(dbParam, shortcutMethods, dao.constructorParamType != null))
+            addFunction(createConstructor(dbParam, shortcutMethods, dao.constructorParamType != null))
 
             shortcutMethods.forEach {
-                addMethod(it.methodImpl)
+                addFunction(it.methodImpl)
             }
 
             dao.queryMethods.filter { it.query.type == QueryType.SELECT }.forEach { method ->
-                addMethod(createSelectMethod(method))
+                addFunction(createSelectMethod(method))
             }
             oneOffPreparedQueries.forEach {
-                addMethod(createPreparedQueryMethod(it))
+                addFunction(createPreparedQueryMethod(it))
             }
             dao.rawQueryMethods.forEach {
-                addMethod(createRawQueryMethod(it))
+                addFunction(createRawQueryMethod(it))
             }
         }
         return builder
@@ -138,42 +131,41 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createPreparedQueryMethodBody(
         method: QueryMethod,
-        preparedStmtField: FieldSpec,
+        preparedStmtField: PropertySpec,
         queryWriter: QueryWriter
-    ): MethodSpec {
+    ): FunSpec {
         val scope = CodeGenScope(this)
-        val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
+        val builder = overrideWithoutAnnotations(method.element, declaredDao).apply {
             val stmtName = scope.getTmpVar("_stmt")
             val stmtMethod = if (method.query.type == QueryType.INSERT) {
                 "executeInsert"
             } else {
                 "executeUpdateDelete"
             }
-            addStatement("final $T $L = $N.acquire()",
-                    SupportDbTypeNames.SQLITE_STMT, stmtName, preparedStmtField)
-            addStatement("$N.beginTransaction()", dbField)
+            addStatement("val %L = %N.acquire()", stmtName, preparedStmtField)
+            addStatement("%N.beginTransaction()", dbField)
             beginControlFlow("try").apply {
                 val bindScope = scope.fork()
                 queryWriter.bindArgs(stmtName, emptyList(), bindScope)
                 addCode(bindScope.builder().build())
                 if (method.returnsValue) {
                     val resultVar = scope.getTmpVar("_result")
-                    addStatement("final $L $L = $L.$L()",
-                            method.returnType.typeName(), resultVar, stmtName, stmtMethod)
-                    addStatement("$N.setTransactionSuccessful()", dbField)
-                    addStatement("return $L", resultVar)
+                    addStatement("val %L = %L.%L()",
+                            resultVar, stmtName, stmtMethod)
+                    addStatement("%N.setTransactionSuccessful()", dbField)
+                    addStatement("return %L", resultVar)
                 } else {
-                    addStatement("$L.$L()", stmtName, stmtMethod)
-                    addStatement("$N.setTransactionSuccessful()", dbField)
+                    addStatement("%L.%L()", stmtName, stmtMethod)
+                    addStatement("%N.setTransactionSuccessful()", dbField)
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
-                addStatement("$N.release($L)", preparedStmtField, stmtName)
+                addStatement("%N.endTransaction()", dbField)
+                addStatement("%N.release(%L)", preparedStmtField, stmtName)
             }
             endControlFlow()
         }
-        return methodBuilder.build()
+        return builder.build()
     }
 
     private fun createTransactionMethods(): List<PreparedStmtQuery> {
@@ -182,10 +174,10 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }
     }
 
-    private fun createTransactionMethodBody(method: TransactionMethod): MethodSpec {
+    private fun createTransactionMethodBody(method: TransactionMethod): FunSpec {
         val scope = CodeGenScope(this)
-        val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
-            addStatement("$N.beginTransaction()", dbField)
+        val builder = overrideWithoutAnnotations(method.element, declaredDao).apply {
+            addStatement("%N.beginTransaction()", dbField)
             beginControlFlow("try").apply {
                 val returnsValue = method.element.returnType.kind != TypeKind.VOID
                 val resultVar = if (returnsValue) {
@@ -194,20 +186,20 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                     null
                 }
                 addDelegateToSuperStatement(method.element, method.callType, resultVar)
-                addStatement("$N.setTransactionSuccessful()", dbField)
+                addStatement("%N.setTransactionSuccessful()", dbField)
                 if (returnsValue) {
-                    addStatement("return $N", resultVar)
+                    addStatement("return %N", resultVar!!)
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
+                addStatement("%N.endTransaction()", dbField)
             }
             endControlFlow()
         }
-        return methodBuilder.build()
+        return builder.build()
     }
 
-    private fun MethodSpec.Builder.addDelegateToSuperStatement(
+    private fun FunSpec.Builder.addDelegateToSuperStatement(
         element: ExecutableElement,
         callType: TransactionMethod.CallType,
         result: String?
@@ -215,22 +207,22 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         val params: MutableList<Any> = mutableListOf()
         val format = buildString {
             if (result != null) {
-                append("$T $L = ")
+                append("%T %L = ")
                 params.add(element.returnType)
                 params.add(result)
             }
             when (callType) {
                 TransactionMethod.CallType.CONCRETE -> {
-                    append("super.$N(")
+                    append("super.%N(")
                     params.add(element.simpleName)
                 }
                 TransactionMethod.CallType.DEFAULT_JAVA8 -> {
-                    append("$N.super.$N(")
+                    append("%N.super.%N(")
                     params.add(element.enclosingElement.simpleName)
                     params.add(element.simpleName)
                 }
                 TransactionMethod.CallType.DEFAULT_KOTLIN -> {
-                    append("$N.$N.$N(this")
+                    append("%N.%N.%N(this")
                     params.add(element.enclosingElement.simpleName)
                     params.add(JvmAbi.DEFAULT_IMPLS_CLASS_NAME)
                     params.add(element.simpleName)
@@ -243,7 +235,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 } else {
                     append(", ")
                 }
-                append(L)
+                append("%L")
                 params.add(it.simpleName)
             }
             append(")")
@@ -255,14 +247,13 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         dbParam: ParameterSpec,
         shortcutMethods: List<PreparedStmtQuery>,
         callSuper: Boolean
-    ): MethodSpec {
-        return MethodSpec.constructorBuilder().apply {
+    ): FunSpec {
+        return FunSpec.constructorBuilder().apply {
             addParameter(dbParam)
-            addModifiers(PUBLIC)
             if (callSuper) {
-                addStatement("super($N)", dbParam)
+                addStatement("super(%N)", dbParam)
             }
-            addStatement("this.$N = $N", dbField, dbParam)
+            addStatement("this.%N = %N", dbField, dbParam)
             shortcutMethods.filterNot {
                 it.fields.isEmpty()
             }.map {
@@ -272,18 +263,18 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
             }.map {
                 it.value.first()
             }.forEach {
-                addStatement("this.$N = $L", it.first, it.second)
+                addStatement("this.%N = %L", it.first, it.second)
             }
         }.build()
     }
 
-    private fun createSelectMethod(method: QueryMethod): MethodSpec {
+    private fun createSelectMethod(method: QueryMethod): FunSpec {
         return overrideWithoutAnnotations(method.element, declaredDao).apply {
             addCode(createQueryMethodBody(method))
         }.build()
     }
 
-    private fun createRawQueryMethod(method: RawQueryMethod): MethodSpec {
+    private fun createRawQueryMethod(method: RawQueryMethod): FunSpec {
         return overrideWithoutAnnotations(method.element, declaredDao).apply {
             val scope = CodeGenScope(this@DaoWriter)
             val roomSQLiteQueryVar: String
@@ -294,8 +285,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 queryParam?.isString() == true -> {
                     roomSQLiteQueryVar = scope.getTmpVar("_statement")
                     shouldReleaseQuery = true
-                    addStatement("$T $L = $T.acquire($L, 0)",
-                            RoomTypeNames.ROOM_SQL_QUERY,
+                    addStatement("val %L = %T.acquire(%L, 0)",
                             roomSQLiteQueryVar,
                             RoomTypeNames.ROOM_SQL_QUERY,
                             queryParam.paramName)
@@ -305,7 +295,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                     roomSQLiteQueryVar = scope.getTmpVar("_internalQuery")
                     // move it to a final variable so that the generated code can use it inside
                     // callback blocks in java 7
-                    addStatement("final $T $L = $N",
+                    addStatement("val %L = %N",
                             queryParam.type,
                             roomSQLiteQueryVar,
                             queryParam.paramName)
@@ -314,8 +304,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                     // try to generate compiling code. we would've already reported this error
                     roomSQLiteQueryVar = scope.getTmpVar("_statement")
                     shouldReleaseQuery = false
-                    addStatement("$T $L = $T.acquire($L, 0)",
-                            RoomTypeNames.ROOM_SQL_QUERY,
+                    addStatement("val %L = %T.acquire(%L, 0)",
                             roomSQLiteQueryVar,
                             RoomTypeNames.ROOM_SQL_QUERY,
                             "missing query parameter")
@@ -335,7 +324,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }.build()
     }
 
-    private fun createPreparedQueryMethod(method: QueryMethod): MethodSpec {
+    private fun createPreparedQueryMethod(method: QueryMethod): FunSpec {
         return overrideWithoutAnnotations(method.element, declaredDao).apply {
             addCode(createPerparedQueryMethodBody(method))
         }.build()
@@ -367,7 +356,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createInsertionMethodBody(
         method: InsertionMethod,
-        insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>
+        insertionAdapters: Map<String, Pair<PropertySpec, TypeSpec>>
     ): CodeBlock {
         if (insertionAdapters.isEmpty()) {
             return CodeBlock.builder().build()
@@ -430,7 +419,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createDeleteOrUpdateMethodBody(
         method: ShortcutMethod,
-        adapters: Map<String, Pair<FieldSpec, TypeSpec>>
+        adapters: Map<String, Pair<PropertySpec, TypeSpec>>
     ): CodeBlock {
         if (adapters.isEmpty() || method.methodBinder == null) {
             return CodeBlock.builder().build()
@@ -460,24 +449,24 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }
         val listSizeArgs = queryWriter.prepareQuery(sqlVar, scope)
         scope.builder().apply {
-            addStatement("$T $L = $N.compileStatement($L)",
+            addStatement("%T %L = %N.compileStatement(%L)",
                     SupportDbTypeNames.SQLITE_STMT, stmtVar, dbField, sqlVar)
             queryWriter.bindArgs(stmtVar, listSizeArgs, scope)
-            addStatement("$N.beginTransaction()", dbField)
+            addStatement("%N.beginTransaction()", dbField)
             beginControlFlow("try").apply {
                 if (method.returnsValue) {
                     val resultVar = scope.getTmpVar("_result")
-                    addStatement("final $L $L = $L.$L()",
+                    addStatement("final %L %L = %L.%L()",
                             method.returnType.typeName(), resultVar, stmtVar, stmtMethod)
-                    addStatement("$N.setTransactionSuccessful()", dbField)
-                    addStatement("return $L", resultVar)
+                    addStatement("%N.setTransactionSuccessful()", dbField)
+                    addStatement("return %L", resultVar)
                 } else {
-                    addStatement("$L.$L()", stmtVar, stmtMethod)
-                    addStatement("$N.setTransactionSuccessful()", dbField)
+                    addStatement("%L.%L()", stmtVar, stmtMethod)
+                    addStatement("%N.setTransactionSuccessful()", dbField)
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
+                addStatement("%N.endTransaction()", dbField)
             }
             endControlFlow()
         }
@@ -502,19 +491,18 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     private fun overrideWithoutAnnotations(
         elm: ExecutableElement,
         owner: DeclaredType
-    ): MethodSpec.Builder {
-        val baseSpec = MethodSpec.overriding(elm, owner, processingEnv.typeUtils)
+    ): FunSpec.Builder {
+        val baseSpec = FunSpec.overriding(elm, owner, processingEnv.typeUtils)
                 .build()
 
         // make all the params final
-        val params = baseSpec.parameters.map { it.toBuilder().addModifiers(FINAL).build() }
+        val params = baseSpec.parameters
 
-        return MethodSpec.methodBuilder(baseSpec.name).apply {
-            addAnnotation(Override::class.java)
+        return FunSpec.builder(baseSpec.name).apply {
+            addModifiers(KModifier.OVERRIDE)
             addModifiers(baseSpec.modifiers)
             addParameters(params)
-            varargs(baseSpec.varargs)
-            returns(baseSpec.returnType)
+            baseSpec.returnType?.let { returns(it) }
         }
     }
 
@@ -527,8 +515,8 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
      * @param methodImpl The body of the query method implementation.
      */
     data class PreparedStmtQuery(
-        val fields: Map<String, Pair<FieldSpec, TypeSpec>>,
-        val methodImpl: MethodSpec
+        val fields: Map<String, Pair<PropertySpec, TypeSpec>>,
+        val methodImpl: FunSpec
     ) {
         companion object {
             // The key to be used in `fields` where the method requires a field that is not
@@ -540,7 +528,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     private class InsertionMethodField(
         val entity: Entity,
         val onConflictText: String
-    ) : SharedFieldSpec(
+    ) : SharedPropertySpec(
             "insertionAdapterOf${Companion.typeNameToFieldName(entity.typeName)}",
             RoomTypeNames.INSERTION_ADAPTER) {
 
@@ -548,19 +536,19 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
             return "${entity.typeName} $onConflictText"
         }
 
-        override fun prepare(writer: ClassWriter, builder: FieldSpec.Builder) {
-            builder.addModifiers(FINAL, PRIVATE)
+        override fun prepare(writer: ClassWriter, builder: PropertySpec.Builder) {
+            builder.addModifiers(KModifier.PRIVATE)
         }
     }
 
     class DeleteOrUpdateAdapterField(
         val entity: Entity,
         val methodPrefix: String
-    ) : SharedFieldSpec(
+    ) : SharedPropertySpec(
             "${methodPrefix}AdapterOf${Companion.typeNameToFieldName(entity.typeName)}",
             RoomTypeNames.DELETE_OR_UPDATE_ADAPTER) {
-        override fun prepare(writer: ClassWriter, builder: FieldSpec.Builder) {
-            builder.addModifiers(PRIVATE, FINAL)
+        override fun prepare(writer: ClassWriter, builder: PropertySpec.Builder) {
+            builder.addModifiers(KModifier.PRIVATE)
         }
 
         override fun getUniqueKey(): String {
@@ -568,11 +556,11 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }
     }
 
-    class PreparedStatementField(val method: QueryMethod) : SharedFieldSpec(
+    class PreparedStatementField(val method: QueryMethod) : SharedPropertySpec(
         "preparedStmtOf${method.name.capitalize()}", RoomTypeNames.SHARED_SQLITE_STMT
     ) {
-        override fun prepare(writer: ClassWriter, builder: FieldSpec.Builder) {
-            builder.addModifiers(PRIVATE, FINAL)
+        override fun prepare(writer: ClassWriter, builder: PropertySpec.Builder) {
+            builder.addModifiers(KModifier.PRIVATE)
         }
 
         override fun getUniqueKey(): String {

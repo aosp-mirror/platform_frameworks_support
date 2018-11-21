@@ -16,8 +16,8 @@
 
 package androidx.room.solver.shortcut.binderprovider
 
-import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
 import androidx.room.solver.shortcut.binder.DeleteOrUpdateMethodBinder
+import androidx.room.solver.shortcut.result.DeleteOrUpdateMethodAdapter
 import javax.lang.model.type.DeclaredType
 
 /**

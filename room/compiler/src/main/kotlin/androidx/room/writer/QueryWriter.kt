@@ -16,11 +16,8 @@
 
 package androidx.room.writer
 
-import androidx.room.ext.L
 import androidx.room.ext.RoomTypeNames.ROOM_SQL_QUERY
 import androidx.room.ext.RoomTypeNames.STRING_UTIL
-import androidx.room.ext.S
-import androidx.room.ext.T
 import androidx.room.ext.typeName
 import androidx.room.parser.ParsedQuery
 import androidx.room.parser.Section
@@ -30,8 +27,8 @@ import androidx.room.parser.SectionType.TEXT
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.QueryMethod
 import androidx.room.vo.QueryParameter
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.asClassName
 
 /**
  * Writes the SQL query and arguments for a QueryMethod.
@@ -69,12 +66,12 @@ class QueryWriter constructor(val parameters: List<QueryParameter>,
         scope.builder().apply {
             if (varargParams.isNotEmpty()) {
                 val stringBuilderVar = scope.getTmpVar("_stringBuilder")
-                addStatement("$T $L = $T.newStringBuilder()",
-                        ClassName.get(StringBuilder::class.java), stringBuilderVar, STRING_UTIL)
+                addStatement("%T %L = %T.newStringBuilder()",
+                    StringBuilder::class.asClassName(), stringBuilderVar, STRING_UTIL)
                 query.sections.forEach {
                     when (it.type) {
-                        TEXT -> addStatement("$L.append($S)", stringBuilderVar, it.text)
-                        NEWLINE -> addStatement("$L.append($S)", stringBuilderVar, "\n")
+                        TEXT -> addStatement("%L.append(%S)", stringBuilderVar, it.text)
+                        NEWLINE -> addStatement("%L.append(%S)", stringBuilderVar, "\n")
                         BIND_VAR -> {
                             // If it is null, will be reported as error before. We just try out
                             // best to generate as much code as possible.
@@ -87,32 +84,31 @@ class QueryWriter constructor(val parameters: List<QueryParameter>,
                                     pair.second
                                             ?.queryParamAdapter
                                             ?.getArgCount(pair.second!!.name, tmpCount, scope)
-                                    addStatement("$T.appendPlaceholders($L, $L)",
+                                    addStatement("%T.appendPlaceholders(%L, %L)",
                                             STRING_UTIL, stringBuilderVar, tmpCount)
                                 } else {
-                                    addStatement("$L.append($S)", stringBuilderVar, "?")
+                                    addStatement("%L.append(%S)", stringBuilderVar, "?")
                                 }
                             }
                         }
                     }
                 }
 
-                addStatement("final $T $L = $L.toString()", String::class.typeName(),
+                addStatement("final %T %L = %L.toString()", String::class.typeName(),
                         outSqlQueryName, stringBuilderVar)
                 if (outArgsName != null) {
                     val argCount = scope.getTmpVar("_argCount")
-                    addStatement("final $T $L = $L$L", TypeName.INT, argCount, knownQueryArgsCount,
+                    addStatement("final %T %L = %L%L", INT, argCount, knownQueryArgsCount,
                             listSizeVars.joinToString("") { " + ${it.second}" })
-                    addStatement("final $T $L = $T.acquire($L, $L)",
+                    addStatement("final %T %L = %T.acquire(%L, %L)",
                             ROOM_SQL_QUERY, outArgsName, ROOM_SQL_QUERY, outSqlQueryName,
                             argCount)
                 }
             } else {
-                addStatement("final $T $L = $S", String::class.typeName(),
-                        outSqlQueryName, query.queryWithReplacedBindParams)
+                addStatement("val %L = %S", outSqlQueryName, query.queryWithReplacedBindParams)
                 if (outArgsName != null) {
-                    addStatement("final $T $L = $T.acquire($L, $L)",
-                            ROOM_SQL_QUERY, outArgsName, ROOM_SQL_QUERY, outSqlQueryName,
+                    addStatement("val %L = %T.acquire(%L, %L)",
+                            outArgsName, ROOM_SQL_QUERY, outSqlQueryName,
                             knownQueryArgsCount)
                 }
             }
@@ -130,7 +126,7 @@ class QueryWriter constructor(val parameters: List<QueryParameter>,
         }
         scope.builder().apply {
             val argIndex = scope.getTmpVar("_argIndex")
-            addStatement("$T $L = $L", TypeName.INT, argIndex, 1)
+            addStatement("var %L = %L", argIndex, 1)
             // # of bindings with 1 placeholder
             var constInputs = 0
             // variable names for size of the bindings that have multiple  args
@@ -138,7 +134,7 @@ class QueryWriter constructor(val parameters: List<QueryParameter>,
             sectionToParamMapping.forEach { pair ->
                 // reset the argIndex to the correct start index
                 if (constInputs > 0 || varInputs.isNotEmpty()) {
-                    addStatement("$L = $L$L", argIndex,
+                    addStatement("%L = %L%L", argIndex,
                             if (constInputs > 0) (1 + constInputs) else "1",
                             varInputs.joinToString("") { " + $it" })
                 }

@@ -23,7 +23,8 @@ import androidx.room.parser.Collate
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.solver.types.CursorValueReader
 import androidx.room.solver.types.StatementValueBinder
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.Element
 import javax.lang.model.type.TypeMirror
 // used in cache matching, must stay as a data class or implement equals
@@ -86,7 +87,8 @@ data class Field(val element: Element, val name: String, val type: TypeMirror,
                 result.add(name.substring(1).decapitalize())
             }
 
-            if (typeName == TypeName.BOOLEAN || typeName == TypeName.BOOLEAN.box()) {
+            //TODO: not sure
+            if (typeName == BOOLEAN) {
                 if (name.length > 2 && name.startsWith("is") && name[2].isUpperCase()) {
                     result.add(name.substring(2).decapitalize())
                 }
@@ -100,7 +102,7 @@ data class Field(val element: Element, val name: String, val type: TypeMirror,
 
     val getterNameWithVariations by lazy {
         nameWithVariations.map { "get${it.capitalize()}" } +
-                if (typeName == TypeName.BOOLEAN || typeName == TypeName.BOOLEAN.box()) {
+                if (typeName == BOOLEAN) {
                     nameWithVariations.flatMap {
                         listOf("is${it.capitalize()}", "has${it.capitalize()}")
                     }

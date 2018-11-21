@@ -20,7 +20,7 @@ import androidx.room.ext.toAnnotationBox
 import androidx.room.ext.typeName
 import androidx.room.processor.DatabaseViewProcessor
 import androidx.room.processor.EntityProcessor
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
 
@@ -30,11 +30,11 @@ import javax.lang.model.type.DeclaredType
 open class Pojo(
     val element: TypeElement,
     val type: DeclaredType,
-    val fields: List<Field>,
+    override val fields: List<Field>,
     val embeddedFields: List<EmbeddedField>,
     val relations: List<Relation>,
     val constructor: Constructor? = null
-) {
+) : HasFields {
     val typeName: TypeName by lazy { type.typeName() }
 
     /**

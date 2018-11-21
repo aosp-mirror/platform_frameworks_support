@@ -16,8 +16,6 @@
 
 package androidx.room.solver.types
 
-import androidx.room.ext.L
-import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import javax.lang.model.type.TypeMirror
 
@@ -36,7 +34,7 @@ class CompositeAdapter(out: TypeMirror, val columnTypeAdapter: ColumnTypeAdapter
         }
         scope.builder().apply {
             val tmpCursorValue = scope.getTmpVar()
-            addStatement("final $T $L", columnTypeAdapter.outTypeName, tmpCursorValue)
+            addStatement("final %T %L", columnTypeAdapter.outTypeName, tmpCursorValue)
             columnTypeAdapter.readFromCursor(tmpCursorValue, cursorVarName, indexVarName, scope)
             fromCursorConverter.convert(tmpCursorValue, outVarName, scope)
         }
@@ -49,7 +47,7 @@ class CompositeAdapter(out: TypeMirror, val columnTypeAdapter: ColumnTypeAdapter
         }
         scope.builder().apply {
             val tmpVar = scope.getTmpVar()
-            addStatement("final $T $L", columnTypeAdapter.out, tmpVar)
+            addStatement("final %T %L", columnTypeAdapter.out, tmpVar)
             intoStatementConverter.convert(valueVarName, tmpVar, scope)
             columnTypeAdapter.bindToStmt(stmtName, indexVarName, tmpVar, scope)
         }

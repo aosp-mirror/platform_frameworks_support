@@ -17,8 +17,8 @@
 package androidx.room.writer
 
 import androidx.room.solver.CodeGenScope
-import com.squareup.javapoet.CodeBlock
-import com.squareup.javapoet.ParameterSpec
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.ParameterSpec
 
 /**
  * Common interface for database validation witters.

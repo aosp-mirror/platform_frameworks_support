@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import static androidx.build.dependencies.DependenciesKt.*
+
 import androidx.build.CompilationTarget
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportConfig
 import androidx.build.SupportLibraryExtension
+
+import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
     id("SupportKotlinLibraryPlugin")
@@ -48,10 +49,11 @@ dependencies {
     compile(KOTLIN_STDLIB)
     compile(AUTO_COMMON)
     compile(AUTO_VALUE_ANNOTATIONS)
-    compile(JAVAPOET)
+    compile("com.squareup:kotlinpoet:1.0.0-RC2")
     compile(ANTLR)
     compile(XERIAL)
     compile(KOTLIN_METADATA)
+
     compile(APACHE_COMMONS_CODEC)
     testCompile(GOOGLE_COMPILE_TESTING)
     testCompile project(":paging:paging-common")
@@ -59,7 +61,7 @@ dependencies {
     testCompile(INTELLIJ_ANNOTATIONS)
     testCompile(JSR250)
     testCompile(MOCKITO_CORE)
-    testCompile fileTree(dir: "${sdkHandler.sdkFolder}/platforms/android-$SupportConfig.CURRENT_SDK_VERSION/",
+    testCompile fileTree(dir: "${sdkHandler.sdkFolder}/platforms/android-%SupportConfig.CURRENT_SDK_VERSION/",
             include : "android.jar")
     testCompile fileTree(dir: "${new File(project(":room:room-runtime").buildDir, "libJar")}",
             include : "*.jar")

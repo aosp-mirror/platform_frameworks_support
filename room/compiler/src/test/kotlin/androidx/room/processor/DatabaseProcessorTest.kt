@@ -33,7 +33,7 @@ import com.google.common.truth.Truth
 import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
-import com.squareup.javapoet.ClassName
+import com.squareup.kotlinpoet.ClassName
 import compileLibrarySource
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.equalTo
@@ -374,7 +374,7 @@ class DatabaseProcessorTest {
                 .withErrorContaining(ProcessorErrors.DAO_METHOD_CONFLICTS_WITH_OTHERS)
                 .and()
                 .withErrorContaining(ProcessorErrors.duplicateDao(
-                        ClassName.get("foo.bar", "UserDao"), listOf("userDao", "userDao2")
+                        ClassName("foo.bar", "UserDao"), listOf("userDao", "userDao2")
                 ))
     }
 

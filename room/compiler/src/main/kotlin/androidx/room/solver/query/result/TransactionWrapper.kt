@@ -16,10 +16,9 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.N
-import com.squareup.javapoet.CodeBlock
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.PropertySpec
 
 /**
  * helper class to create correct transaction code.
@@ -30,36 +29,36 @@ interface TransactionWrapper {
     fun endTransactionWithControlFlow()
 }
 
-fun MethodSpec.Builder.transactionWrapper(dbField: FieldSpec) = object : TransactionWrapper {
+fun FunSpec.Builder.transactionWrapper(dbField: PropertySpec) = object : TransactionWrapper {
     override fun beginTransactionWithControlFlow() {
-        addStatement("$N.beginTransaction()", dbField)
+        addStatement("%N.beginTransaction()", dbField)
         beginControlFlow("try")
     }
 
     override fun commitTransaction() {
-        addStatement("$N.setTransactionSuccessful()", dbField)
+        addStatement("%N.setTransactionSuccessful()", dbField)
     }
 
     override fun endTransactionWithControlFlow() {
         nextControlFlow("finally")
-        addStatement("$N.endTransaction()", dbField)
+        addStatement("%N.endTransaction()", dbField)
         endControlFlow()
     }
 }
 
-fun CodeBlock.Builder.transactionWrapper(dbField: FieldSpec) = object : TransactionWrapper {
+fun CodeBlock.Builder.transactionWrapper(dbField: PropertySpec) = object : TransactionWrapper {
     override fun beginTransactionWithControlFlow() {
-        addStatement("$N.beginTransaction()", dbField)
+        addStatement("%N.beginTransaction()", dbField)
         beginControlFlow("try")
     }
 
     override fun commitTransaction() {
-        addStatement("$N.setTransactionSuccessful()", dbField)
+        addStatement("%N.setTransactionSuccessful()", dbField)
     }
 
     override fun endTransactionWithControlFlow() {
         nextControlFlow("finally")
-        addStatement("$N.endTransaction()", dbField)
+        addStatement("%N.endTransaction()", dbField)
         endControlFlow()
     }
 }
