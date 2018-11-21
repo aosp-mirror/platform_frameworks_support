@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a40dc250_b469d430",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:43:41Z",
+      "side": 1,
+      "message": "This is not a public API. Do we need to create a new list?\nIf not, do we still need to have this method?",
+      "range": {
+        "startLine": 586,
+        "startChar": 32,
+        "endLine": 586,
+        "endChar": 47
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88bfaba8_a34388dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:43:41Z",
+      "side": 1,
+      "message": "What about getRouteType instead?\nTYPE can be ROUTE, STATIC_GROUP, or DYNAMIC_GROUP.",
+      "range": {
+        "startLine": 598,
+        "startChar": 27,
+        "endLine": 598,
+        "endChar": 41
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab9c7457_b7df1f0c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:43:41Z",
+      "side": 1,
+      "message": "What\u0027s the difference between updateViewsIfNeeded and updateRoutesView?\nCould you rename them for better readability?",
+      "range": {
+        "startLine": 1296,
+        "startChar": 12,
+        "endLine": 1296,
+        "endChar": 31
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
