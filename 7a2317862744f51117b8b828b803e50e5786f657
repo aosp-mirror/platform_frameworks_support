@@ -22,6 +22,30 @@
       "revId": "7a2317862744f51117b8b828b803e50e5786f657",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b5df27_a59219cf",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-21T07:55:16Z",
+      "side": 1,
+      "message": "Enable the user to remove route by tapping a row.",
+      "parentUuid": "95b1eb39_7b2a66bd",
+      "range": {
+        "startLine": 1148,
+        "startChar": 28,
+        "endLine": 1148,
+        "endChar": 50
+      },
+      "revId": "7a2317862744f51117b8b828b803e50e5786f657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
