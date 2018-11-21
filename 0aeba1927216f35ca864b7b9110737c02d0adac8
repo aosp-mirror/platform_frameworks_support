@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a247f55c_f9a1f816",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-21T02:39:45Z",
+      "side": 1,
+      "message": "VERSION_INIT?",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "0aeba1927216f35ca864b7b9110737c02d0adac8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
