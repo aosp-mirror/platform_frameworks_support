@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a12483c_86cc9d0e",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T01:20:18Z",
+      "side": 1,
+      "message": "Q) If version is not specified, which version does it depends on?",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
