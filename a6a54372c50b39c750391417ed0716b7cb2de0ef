@@ -68,6 +68,75 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2faee8b4_8dc7a96a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:55:31Z",
+      "side": 1,
+      "message": "Q) I feel this is a bug. Can\u0027t we make onRouteSelected be called after selected?",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 45
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb07f59_d6688a50",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:55:31Z",
+      "side": 1,
+      "message": "You don\u0027t check whether it has multiple members or not.\nWhat about isDynamicRoute or isDynamicGroupRoute?",
+      "range": {
+        "startLine": 1498,
+        "startChar": 23,
+        "endLine": 1498,
+        "endChar": 37
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2792af03_714acd04",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T06:55:31Z",
+      "side": 1,
+      "message": "The caller can\u0027t change the list, but the callee can change.\nWhat happens if the callee changes the member routes? Is it OK?",
+      "range": {
+        "startLine": 1557,
+        "startChar": 31,
+        "endLine": 1557,
+        "endChar": 47
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
