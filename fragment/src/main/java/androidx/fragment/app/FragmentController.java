@@ -19,6 +19,7 @@ package androidx.fragment.app;
 import static androidx.core.util.Preconditions.checkNotNull;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Parcelable;
@@ -308,14 +309,52 @@ public class FragmentController {
     }
 
     /**
-     * Moves all Fragments managed by the controller's FragmentManager
+     * Moves Fragments managed by the controller's FragmentManager
      * into the destroy state.
+     * <p>
+     * If the {@link FragmentHostCallback#getContext() host's Context} is an
+     * {@link Activity} and if {@link Activity#isChangingConfigurations()} returns true,
+     * retained Fragments and any other non configuration state such as any
+     * {@link androidx.lifecycle.ViewModel} attached to Fragments will
+     * <strong>not</strong> be destroyed.
      * <p>Call when Fragments should be destroyed.
      *
      * @see Fragment#onDestroy()
+     * @deprecated Prefer using {@link #dispatchDestroy(boolean)} to directly control
+     * whether retained Fragment and any other non configuration state should be destroyed.
      */
+    @Deprecated
     public void dispatchDestroy() {
-        mHost.mFragmentManager.dispatchDestroy();
+        Activity activity;
+        if (mHost.getContext() instanceof Activity) {
+            activity = (Activity) mHost.getContext();
+        } else {
+            activity = null;
+        }
+        boolean isChangingConfigurations = activity != null
+                && activity.isChangingConfigurations();
+        dispatchDestroy(isChangingConfigurations);
+    }
+
+    /**
+     * Moves Fragments managed by the controller's FragmentManager
+     * into the destroy state.
+     * <p>
+     * If this destruction is due to a configuration change, retained
+     * Fragments and any other non configuration state such as any
+     * {@link androidx.lifecycle.ViewModel} attached to Fragments will
+     * <strong>not</strong> be destroyed.
+     * <p>Call when Fragments should be destroyed.
+     *
+     * @param isChangingConfigurations Whether the FragmentManager is being destroyed
+     *                                 due to a configuration change. Non configuration
+     *                                 state, such as retained Fragments and
+     *                                 {@link androidx.lifecycle.ViewModel ViewModels}
+     *                                 are not destroyed if this is true.
+     * @see Fragment#onDestroy()
+     */
+    public void dispatchDestroy(boolean isChangingConfigurations) {
+        mHost.mFragmentManager.dispatchDestroy(isChangingConfigurations);
     }
 
     /**

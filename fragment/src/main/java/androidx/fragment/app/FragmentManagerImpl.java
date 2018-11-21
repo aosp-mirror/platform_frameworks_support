@@ -22,7 +22,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -125,6 +124,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     boolean mStateSaved;
     boolean mStopped;
     boolean mDestroyed;
+    boolean mIsChangingConfigurations;
     boolean mHavePendingDeferredStart;
 
     // Temporary vars for removing redundant operations in BackStackRecords:
@@ -1012,28 +1012,21 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             newState = Fragment.CREATED;
                         } else {
                             if (DEBUG) Log.v(TAG, "movefrom CREATED: " + f);
-                            if (mNonConfig.shouldDestroy(f)) {
-                                f.performDestroy();
-                                Activity activity;
-                                if (mHost.getContext() instanceof Activity) {
-                                    activity = (Activity) mHost.getContext();
-                                } else {
-                                    activity = null;
-                                }
-                                boolean isChangingConfigurations = activity != null
-                                        && activity.isChangingConfigurations();
-                                if (!isChangingConfigurations) {
+                            boolean beingRemoved = f.mRemoving && !f.isInBackStack();
+                            if (beingRemoved || mNonConfig.shouldDestroy(f)) {
+                                if (!mIsChangingConfigurations) {
                                     mNonConfig.clearNonConfigState(f);
                                 }
+                                f.performDestroy(mIsChangingConfigurations);
                                 dispatchOnFragmentDestroyed(f, false);
                             } else {
                                 f.mState = Fragment.INITIALIZING;
                             }
 
-                            f.performDetach();
+                            f.performDetach(mIsChangingConfigurations);
                             dispatchOnFragmentDetached(f, false);
                             if (!keepActive) {
-                                if (mNonConfig.shouldDestroy(f)) {
+                                if (beingRemoved || mNonConfig.shouldDestroy(f)) {
                                     makeInactive(f);
                                 } else {
                                     f.mHost = null;
@@ -2590,8 +2583,9 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         dispatchStateChange(Fragment.CREATED);
     }
 
-    public void dispatchDestroy() {
+    public void dispatchDestroy(boolean isChangingConfigurations) {
         mDestroyed = true;
+        mIsChangingConfigurations = isChangingConfigurations;
         execPendingActions();
         dispatchStateChange(Fragment.INITIALIZING);
         mHost = null;

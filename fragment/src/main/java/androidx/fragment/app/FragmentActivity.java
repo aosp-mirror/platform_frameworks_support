@@ -351,7 +351,7 @@ public class FragmentActivity extends ComponentActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mFragments.dispatchDestroy();
+        mFragments.dispatchDestroy(isChangingConfigurations());
     }
 
     /**

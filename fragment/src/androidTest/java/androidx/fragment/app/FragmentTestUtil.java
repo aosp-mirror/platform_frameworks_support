@@ -195,7 +195,7 @@ public class FragmentTestUtil {
                 final FragmentManagerNonConfig nonConfig =
                         fragmentController.retainNestedNonConfig();
                 fragmentController.dispatchStop();
-                fragmentController.dispatchDestroy();
+                fragmentController.dispatchDestroy(true);
                 result[0] = Pair.create(savedState, nonConfig);
             }
         });

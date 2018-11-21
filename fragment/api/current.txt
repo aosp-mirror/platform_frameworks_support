@@ -188,7 +188,8 @@ package androidx.fragment.app {
     method public boolean dispatchContextItemSelected(android.view.MenuItem);
     method public void dispatchCreate();
     method public boolean dispatchCreateOptionsMenu(android.view.Menu, android.view.MenuInflater);
-    method public void dispatchDestroy();
+    method @Deprecated public void dispatchDestroy();
+    method public void dispatchDestroy(boolean);
     method public void dispatchDestroyView();
     method public void dispatchLowMemory();
     method public void dispatchMultiWindowModeChanged(boolean);

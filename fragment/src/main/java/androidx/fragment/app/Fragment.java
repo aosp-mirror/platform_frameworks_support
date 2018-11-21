@@ -2690,10 +2690,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mPerformedCreateView = false;
     }
 
-    void performDestroy() {
+    void performDestroy(boolean isChangingConfigurations) {
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
         if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroy();
+            mChildFragmentManager.dispatchDestroy(isChangingConfigurations);
         }
         mState = INITIALIZING;
         mCalled = false;
@@ -2706,7 +2706,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mChildFragmentManager = null;
     }
 
-    void performDetach() {
+    void performDetach(boolean isChangingConfigurations) {
         mCalled = false;
         onDetach();
         mLayoutInflater = null;
@@ -2719,7 +2719,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         // This is normally done in performDestroy(), but is done here
         // specifically if the Fragment is retained.
         if (mChildFragmentManager != null) {
-            mChildFragmentManager.dispatchDestroy();
+            mChildFragmentManager.dispatchDestroy(isChangingConfigurations);
             mChildFragmentManager = null;
         }
     }
