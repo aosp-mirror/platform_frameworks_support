@@ -22,6 +22,76 @@
       "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92803549_dad1da28",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T04:26:28Z",
+      "side": 1,
+      "message": "It should depend on tot of media2 which is 1.0.0-alpha04(?).\n\nFYI, in LibraryVersions.kt\n\n    val MEDIA \u003d Version(\"1.1.0-alpha01\")\n    val MEDIA2 \u003d Version(\"1.0.0-alpha03\")\n    val MEDIA2_EXOPLAYER \u003d Version(\"1.0.0-alpha01\")\n    val MEDIAROUTER \u003d Version(\"1.1.0-alpha01\")\n    val MEDIA_WIDGET \u003d Version(\"1.0.0-alpha5\")",
+      "parentUuid": "1a12483c_86cc9d0e",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddbd07aa_0d56227b",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T04:26:28Z",
+      "side": 1,
+      "message": "ditto which is 1.1.0-alpha01(?)",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28b1f3f_e1490261",
+        "filename": "media2/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T04:26:28Z",
+      "side": 1,
+      "message": "It should depend on tot of media which is 1.1.0-alpha01(?).",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
