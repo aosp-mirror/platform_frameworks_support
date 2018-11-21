@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "480e48b3_0187154c",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2018-11-21T15:02:10Z",
+      "side": 1,
+      "message": "For classes that inherit from TypefaceCompatApi21Impl (such as TypefaceCompatApi26Impl), this will still get called and will always throw an exception as a method with this specific signature doesn\u0027t exist.",
+      "revId": "c94af4aba7093f26e23d9d3a40587ff656cbc1f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
