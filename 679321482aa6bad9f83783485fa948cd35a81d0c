@@ -22,6 +22,30 @@
       "revId": "679321482aa6bad9f83783485fa948cd35a81d0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ccfe1eb_db4ca224",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3267,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-21T06:07:01Z",
+      "side": 0,
+      "message": "Discussed offline.",
+      "parentUuid": "3416b9b6_e9eb1bb8",
+      "range": {
+        "startLine": 3261,
+        "startChar": 21,
+        "endLine": 3267,
+        "endChar": 13
+      },
+      "revId": "679321482aa6bad9f83783485fa948cd35a81d0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
