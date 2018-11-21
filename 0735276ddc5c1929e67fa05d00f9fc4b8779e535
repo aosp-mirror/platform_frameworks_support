@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2731a32a_e040c161",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-21T23:15:25Z",
+      "side": 1,
+      "message": "The changes here are the important ones, everything else supports this actually working correctly.",
+      "revId": "0735276ddc5c1929e67fa05d00f9fc4b8779e535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
