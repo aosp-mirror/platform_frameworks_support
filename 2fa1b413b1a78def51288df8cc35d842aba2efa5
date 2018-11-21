@@ -22,6 +22,30 @@
       "revId": "2fa1b413b1a78def51288df8cc35d842aba2efa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776ce906_50240dd0",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerStub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-21T02:55:48Z",
+      "side": 1,
+      "message": "Talked offline. The checks are already in onConnectedNotLocked.",
+      "parentUuid": "22fc5551_1e751253",
+      "range": {
+        "startLine": 340,
+        "startChar": 12,
+        "endLine": 346,
+        "endChar": 49
+      },
+      "revId": "2fa1b413b1a78def51288df8cc35d842aba2efa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
