@@ -22,7 +22,6 @@ import android.support.annotation.RequiresApi;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,19 +30,6 @@ import java.util.concurrent.TimeUnit;
  */
 
 public final class OneTimeWorkRequest extends WorkRequest {
-
-    /**
-     * Creates an array of {@link OneTimeWorkRequest} with defaults from an array of
-     * {@link ListenableWorker} class names.
-     *
-     * @param workerClasses An array of {@link ListenableWorker} class names
-     * @return A list of {@link OneTimeWorkRequest} constructed by using defaults in the
-     * {@link Builder}
-     */
-    @SafeVarargs public static @NonNull List<OneTimeWorkRequest> from(
-            @NonNull Class<? extends ListenableWorker>... workerClasses) {
-        return from(Arrays.asList(workerClasses));
-    }
 
     /**
      * Creates a list of {@link OneTimeWorkRequest} with defaults from an array of
