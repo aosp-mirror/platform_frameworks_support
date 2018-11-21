@@ -36,7 +36,7 @@ open class CheckExternalDependencyLicensesTask : DefaultTask() {
     fun checkDependencies() {
         val supportRoot = (project.rootProject.property("ext") as ExtraPropertiesExtension)
                 .get("supportRootFolder") as File
-        val prebuiltsRoot = File(supportRoot, "../../prebuilts").canonicalFile
+        val prebuiltsRoot = File(supportRoot, "external/prebuilts").canonicalFile
 
         val checkerConfig = project.configurations.getByName(CONFIGURATION_NAME)
 

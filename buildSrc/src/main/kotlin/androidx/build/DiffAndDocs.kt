@@ -517,7 +517,7 @@ private fun createGenerateDocsTask(
 
             coreJavadocOptions {
                 addStringOption("templatedir",
-                        "$supportRootFolder/../../external/doclava/res/assets/templates-sdk")
+                        "$supportRootFolder/external/doclava/res/assets/templates-sdk")
                 addStringOption("samplesdir", "$supportRootFolder/samples")
                 addMultilineMultiValueOption("federate").value = listOf(
                         listOf("Android", "https://developer.android.com")
