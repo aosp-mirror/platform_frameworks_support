@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31c3724c_06a906f9",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-21T10:38:02Z",
+      "side": 1,
+      "message": "copy/paste error",
+      "range": {
+        "startLine": 157,
+        "startChar": 19,
+        "endLine": 157,
+        "endChar": 34
+      },
+      "revId": "d8d81bfa2b622bf5602e6f6da944bf292718057e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e30802_215a6f82",
+        "filename": "preference/src/main/java/androidx/preference/EditTextPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-21T10:38:02Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 176,
+        "startChar": 28,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "d8d81bfa2b622bf5602e6f6da944bf292718057e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
