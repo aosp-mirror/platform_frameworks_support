@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b809594_63cb44e4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/PrimaryKey.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T16:57:22Z",
+      "side": 0,
+      "message": "ugh this looks wrong, it should\u0027ve concatenated these explicitly but now we cannot change it :/",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 64
+      },
+      "revId": "748c497081279b1ca7af55bf888efef565f74e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

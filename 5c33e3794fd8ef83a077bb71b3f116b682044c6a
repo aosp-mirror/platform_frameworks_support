@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fdd4da6_89051062",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T16:57:22Z",
+      "side": 1,
+      "message": "findFieldByColumnName.\n\nalso, this seems to be called a lot, we should make it lazy (and it was cached in some cases)",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "5c33e3794fd8ef83a077bb71b3f116b682044c6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
