@@ -46,6 +46,30 @@
       "revId": "448b860be2420471dfbb39f39c32760a00c6d299",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69982ec_98962165",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-11-21T16:10:32Z",
+      "side": 1,
+      "message": "Since CTS tests are bounded to the test data source, I\u0027d have this CL merged.\n\nThere is some alternative ways. For example, using number of total bytes read from TestDataSourceCallback. That assumes sniffers will not read that much data. To compensate that, any bytes read are counted only once. It seems an overkill though.",
+      "parentUuid": "8ef99891_4ab02af1",
+      "range": {
+        "startLine": 2526,
+        "startChar": 43,
+        "endLine": 2526,
+        "endChar": 50
+      },
+      "revId": "448b860be2420471dfbb39f39c32760a00c6d299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
