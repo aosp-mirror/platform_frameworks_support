@@ -109,6 +109,12 @@ interface BooksDao {
     @Query("SELECT * FROM book WHERE bookId = :bookId")
     fun getBook(bookId: String): Book
 
+    @Query("SELECT * FROM book WHERE bookId = :bookId")
+    suspend fun getBookSuspend(bookId: String): Book
+
+    @Query("SELECT * FROM book")
+    suspend fun getBooksSuspend(): List<Book>
+
     @Query("""SELECT * FROM book WHERE
             bookId IN(:bookIds)
             order by bookId DESC""")

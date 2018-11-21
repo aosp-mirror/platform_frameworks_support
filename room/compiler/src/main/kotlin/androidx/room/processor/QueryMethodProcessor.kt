@@ -20,6 +20,7 @@ import androidx.room.Query
 import androidx.room.SkipQueryVerification
 import androidx.room.Transaction
 import androidx.room.ext.KotlinMetadataProcessor
+import androidx.room.ext.findKotlinSuspendFunctionReturnType
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.toAnnotationBox
 import androidx.room.parser.ParsedQuery
@@ -63,7 +64,12 @@ class QueryMethodProcessor(
 
     fun process(): QueryMethod {
         val asMember = context.processingEnv.typeUtils.asMemberOf(containing, executableElement)
-        val executableType = MoreTypes.asExecutable(asMember)
+        val isSuspendFunction = classMetadata?.isSuspendFunction(executableElement) ?: false
+        val returnType = if (isSuspendFunction) {
+            executableElement.findKotlinSuspendFunctionReturnType()
+        } else {
+            MoreTypes.asExecutable(asMember).returnType
+        }
 
         val annotation = executableElement.toAnnotationBox(Query::class)?.value
         context.checker.check(annotation != null, executableElement,
@@ -81,7 +87,7 @@ class QueryMethodProcessor(
                         DatabaseVerificaitonErrors.cannotVerifyQuery(query.resultInfo!!.error!!))
             }
 
-            context.checker.check(executableType.returnType.kind != TypeKind.ERROR,
+            context.checker.check(returnType.kind != TypeKind.ERROR,
                     executableElement, ProcessorErrors.CANNOT_RESOLVE_RETURN_TYPE,
                     executableElement)
             query
@@ -89,7 +95,7 @@ class QueryMethodProcessor(
             ParsedQuery.MISSING
         }
 
-        val returnTypeName = TypeName.get(executableType.returnType)
+        val returnTypeName = TypeName.get(returnType)
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_QUERY_METHODS)
 
@@ -106,8 +112,15 @@ class QueryMethodProcessor(
                 ProcessorErrors.PREPARED_INSERT_METHOD_INVALID_RETURN_TYPE
             )
         }
-        val resultBinder = context.typeAdapterStore
-                .findQueryResultBinder(executableType.returnType, query)
+        val resultBinder = if (isSuspendFunction) {
+            context.typeAdapterStore.findCoroutineResultBinder(
+                typeMirror = returnType,
+                query = query,
+                continuationParamName = executableElement.parameters.last().simpleName.toString())
+        } else {
+            context.typeAdapterStore.findQueryResultBinder(returnType, query)
+        }
+
         context.checker.check(resultBinder.adapter != null || query.type != QueryType.SELECT,
                 executableElement, ProcessorErrors.CANNOT_FIND_QUERY_RESULT_ADAPTER)
         if (resultBinder is LiveDataQueryResultBinder) {
@@ -132,7 +145,12 @@ class QueryMethodProcessor(
         val kotlinParameterNames = classMetadata?.getParameterNames(executableElement)
 
         val parameters = executableElement.parameters
-                .mapIndexed { index, variableElement ->
+                .mapIndexedNotNull { index, variableElement ->
+                    if (isSuspendFunction && index == executableElement.parameters.size - 1) {
+                        // Last param of a suspend fun is the Continuation, don't process it.
+                        return@mapIndexedNotNull null
+                    }
+
                     QueryParameterProcessor(
                             baseContext = context,
                             containing = containing,
@@ -143,7 +161,7 @@ class QueryMethodProcessor(
                 element = executableElement,
                 query = query,
                 name = executableElement.simpleName.toString(),
-                returnType = executableType.returnType,
+                returnType = returnType,
                 parameters = parameters,
                 inTransaction = inTransaction,
                 queryResultBinder = resultBinder)

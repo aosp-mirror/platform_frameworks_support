@@ -42,6 +42,7 @@ import androidx.room.solver.query.parameter.BasicQueryParameterAdapter
 import androidx.room.solver.query.parameter.CollectionQueryParameterAdapter
 import androidx.room.solver.query.parameter.QueryParameterAdapter
 import androidx.room.solver.query.result.ArrayQueryResultAdapter
+import androidx.room.solver.query.result.CoroutineResultBinder
 import androidx.room.solver.query.result.EntityRowAdapter
 import androidx.room.solver.query.result.GuavaOptionalQueryResultAdapter
 import androidx.room.solver.query.result.InstantQueryResultBinder
@@ -333,6 +334,16 @@ class TypeAdapterStore private constructor(
             InstantQueryResultBinder(findQueryResultAdapter(typeMirror, query))
         }
     }
+
+    fun findCoroutineResultBinder(
+        typeMirror: TypeMirror,
+        query: ParsedQuery,
+        continuationParamName: String
+    ): QueryResultBinder =
+        CoroutineResultBinder(
+            typeArg = typeMirror,
+            adapter = context.typeAdapterStore.findQueryResultAdapter(typeMirror, query),
+            continuationParamName = continuationParamName)
 
     fun findDeleteOrUpdateAdapter(typeMirror: TypeMirror): DeleteOrUpdateMethodAdapter? {
         return DeleteOrUpdateMethodAdapter.create(typeMirror)
