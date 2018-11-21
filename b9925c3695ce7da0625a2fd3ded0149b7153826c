@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f926a877_fa4a2385",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2018-11-21T06:11:16Z",
+      "side": 1,
+      "message": "Oh you\u0027re right, the media2 version needs to be incremented.",
+      "parentUuid": "92803549_dad1da28",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddbd07aa_0d56227b",
         "filename": "media-widget/build.gradle",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2018-11-21T04:26:28Z",
       "side": 1,
       "message": "ditto which is 1.1.0-alpha01(?)",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "b9925c3695ce7da0625a2fd3ded0149b7153826c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef0c549_60796d56",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2018-11-21T06:11:16Z",
+      "side": 1,
+      "message": "The mediarouter version is correct",
+      "parentUuid": "ddbd07aa_0d56227b",
       "range": {
         "startLine": 27,
         "startChar": 18,
