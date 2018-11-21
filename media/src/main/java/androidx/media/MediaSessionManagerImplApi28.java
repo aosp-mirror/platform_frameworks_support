@@ -19,7 +19,6 @@ package androidx.media;
 import android.content.Context;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.util.ObjectsCompat;
 
 @RequiresApi(28)
 class MediaSessionManagerImplApi28 extends MediaSessionManagerImplApi21 {
@@ -45,49 +44,33 @@ class MediaSessionManagerImplApi28 extends MediaSessionManagerImplApi21 {
         return super.isTrustedForMediaControl(userInfo);
     }
 
-    static final class RemoteUserInfoImplApi28 implements MediaSessionManager.RemoteUserInfoImpl {
+    /**
+     * This extends {@link RemoteUserInfoImplBase} on purpose not to use frameworks' equals() and
+     * hashCode() implementation for two reasons:
+     *
+     *   1. To override PID checks when one of them are unknown.
+     *      PID can be unknown between MediaBrowserCompat / MediaBrowserServiceCompat
+     *   2. To skip checking hidden binder.
+     *      Framework's {@link android.media.session.MediaSessionManager.RemoteUserInfo} also checks
+     *      internal binder to distinguish multiple {@link android.media.session.MediaController}
+     *      and {@link android.media.browse.MediaBrowser} in a process. However, when the binders
+     *      are the same and {@link null} (i.e. event from hardware key presses), framework's equal
+     *      will return {@code false} and
+     */
+    static final class RemoteUserInfoImplApi28 extends RemoteUserInfoImplBase {
         final android.media.session.MediaSessionManager.RemoteUserInfo mObject;
 
         RemoteUserInfoImplApi28(String packageName, int pid, int uid) {
+            super(packageName, pid, uid);
             mObject = new android.media.session.MediaSessionManager.RemoteUserInfo(
                     packageName, pid, uid);
         }
 
         RemoteUserInfoImplApi28(
                 android.media.session.MediaSessionManager.RemoteUserInfo remoteUserInfo) {
+            super(remoteUserInfo.getPackageName(), remoteUserInfo.getPid(),
+                    remoteUserInfo.getUid());
             mObject = remoteUserInfo;
-        }
-
-        @Override
-        public String getPackageName() {
-            return mObject.getPackageName();
-        }
-
-        @Override
-        public int getPid() {
-            return mObject.getPid();
-        }
-
-        @Override
-        public int getUid() {
-            return mObject.getUid();
-        }
-
-        @Override
-        public int hashCode() {
-            return ObjectsCompat.hash(mObject);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof RemoteUserInfoImplApi28)) {
-                return false;
-            }
-            RemoteUserInfoImplApi28 other = (RemoteUserInfoImplApi28) obj;
-            return mObject.equals(other.mObject);
         }
     }
 }
