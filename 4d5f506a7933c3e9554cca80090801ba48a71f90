@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13c0e02e_2d245eca",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-21T17:46:10Z",
+      "side": 1,
+      "message": "The Executor where we listen for the result?",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 103
+      },
+      "revId": "4d5f506a7933c3e9554cca80090801ba48a71f90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10510a0f_7f2f69ec",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Operation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-21T17:46:10Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "4d5f506a7933c3e9554cca80090801ba48a71f90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af9fad8_049e2578",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Operation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-21T17:46:10Z",
+      "side": 1,
+      "message": "I have no idea what the actual policies regarding markup are but I would remove this closing tag (I skip them entirely) because they add blank lines where you don\u0027t want them.",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 7
+      },
+      "revId": "4d5f506a7933c3e9554cca80090801ba48a71f90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
