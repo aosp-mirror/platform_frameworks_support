@@ -1378,6 +1378,5 @@ class MediaSessionStub extends IMediaSession.Stub {
             Controller2Cb other = (Controller2Cb) obj;
             return ObjectsCompat.equals(getCallbackBinder(), other.getCallbackBinder());
         }
-
     }
 }

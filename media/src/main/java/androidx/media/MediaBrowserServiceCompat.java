@@ -42,6 +42,7 @@ import static androidx.media.MediaBrowserProtocol.DATA_RESULT_RECEIVER;
 import static androidx.media.MediaBrowserProtocol.DATA_ROOT_HINTS;
 import static androidx.media.MediaBrowserProtocol.DATA_SEARCH_EXTRAS;
 import static androidx.media.MediaBrowserProtocol.DATA_SEARCH_QUERY;
+import static androidx.media.MediaBrowserProtocol.EXTRA_CALLING_PID;
 import static androidx.media.MediaBrowserProtocol.EXTRA_CLIENT_VERSION;
 import static androidx.media.MediaBrowserProtocol.EXTRA_MESSENGER_BINDER;
 import static androidx.media.MediaBrowserProtocol.EXTRA_SERVICE_VERSION;
@@ -50,6 +51,7 @@ import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_CONNECT;
 import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_CONNECT_FAILED;
 import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_LOAD_CHILDREN;
 import static androidx.media.MediaBrowserProtocol.SERVICE_VERSION_CURRENT;
+import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_PID;
 
 import android.app.Service;
 import android.content.Context;
@@ -179,6 +181,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
     private @interface ResultFlags {
     }
 
+    final ArrayList<ConnectionRecord> mPendingConnections = new ArrayList<>();
     final ArrayMap<IBinder, ConnectionRecord> mConnections = new ArrayMap<>();
     ConnectionRecord mCurConnection;
     final ServiceHandler mHandler = new ServiceHandler();
@@ -347,6 +350,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
         public BrowserRoot onGetRoot(
                 String clientPackageName, int clientUid, Bundle rootHints) {
             Bundle rootExtras = null;
+            int clientPid = RemoteUserInfo.UNKNOWN_PID;
             if (rootHints != null && rootHints.getInt(EXTRA_CLIENT_VERSION, 0) != 0) {
                 rootHints.remove(EXTRA_CLIENT_VERSION);
                 mMessenger = new Messenger(mHandler);
@@ -360,16 +364,24 @@ public abstract class MediaBrowserServiceCompat extends Service {
                 } else {
                     mRootExtrasList.add(rootExtras);
                 }
+                clientPid = rootHints.getInt(EXTRA_CALLING_PID, RemoteUserInfo.UNKNOWN_PID);
+                rootHints.remove(EXTRA_CALLING_PID);
             }
+            ConnectionRecord connection = new ConnectionRecord(
+                    clientPackageName, clientPid, clientUid, rootHints, null);
             // We aren't sure whether this connection request would be accepted.
             // Temporarily set mCurConnection just to make getCurrentBrowserInfo() working.
-            mCurConnection = new ConnectionRecord(clientPackageName, -1, clientUid, rootHints,
-                    null);
+            mCurConnection = connection;
             BrowserRoot root = MediaBrowserServiceCompat.this.onGetRoot(
                     clientPackageName, clientUid, rootHints);
             mCurConnection = null;
             if (root == null) {
                 return null;
+            }
+            if (mMessenger != null) {
+                // Keeps the connection request from the MediaBrowserCompat to reuse the package
+                // name here.
+                mPendingConnections.add(connection);
             }
             if (rootExtras == null) {
                 rootExtras = root.getExtras();
@@ -645,7 +657,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
 
                     mServiceBinderImpl.connect(
                             data.getString(DATA_PACKAGE_NAME),
-                            data.getInt(DATA_CALLING_PID),
+                            data.getInt(DATA_CALLING_PID, UNKNOWN_PID),
                             data.getInt(DATA_CALLING_UID),
                             rootHints,
                             new ServiceCallbacksCompat(msg.replyTo));
@@ -684,7 +696,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
                     mServiceBinderImpl.registerCallbacks(
                             new ServiceCallbacksCompat(msg.replyTo),
                             data.getString(DATA_PACKAGE_NAME),
-                            data.getInt(DATA_CALLING_PID),
+                            data.getInt(DATA_CALLING_PID, UNKNOWN_PID),
                             data.getInt(DATA_CALLING_UID),
                             rootHints);
                     break;
@@ -729,7 +741,12 @@ public abstract class MediaBrowserServiceCompat extends Service {
             Bundle data = msg.getData();
             data.setClassLoader(MediaBrowserCompat.class.getClassLoader());
             data.putInt(DATA_CALLING_UID, Binder.getCallingUid());
-            data.putInt(DATA_CALLING_PID, Binder.getCallingPid());
+            int pid = Binder.getCallingPid();
+            // Binder.getCallingPid() will be 0 for oneway call from the remote process.
+            // So trust PID from the incoming data if it's the case.
+            if (pid != 0) {
+                data.putInt(DATA_CALLING_PID, pid);
+            }
             return super.sendMessageAtTime(msg, uptimeMillis);
         }
 
@@ -1064,8 +1081,27 @@ public abstract class MediaBrowserServiceCompat extends Service {
                     // Clear out the old subscriptions. We are getting new ones.
                     mConnections.remove(b);
 
-                    final ConnectionRecord connection = new ConnectionRecord(pkg, pid, uid,
-                            rootHints, callbacks);
+                    ConnectionRecord connection = null;
+                    // pkg and pid are set only when the MediaBrowserCompat has sent the
+                    // information, but we cannot expect so for MediaBrowserCompat compiled with
+                    // the older version. Do the best effort to guess.
+                    if (TextUtils.isEmpty(pkg) || pid <= 0) {
+                        // Use heuristic to pick
+                        for (ConnectionRecord pendingConnection : mPendingConnections) {
+                            if (pendingConnection.uid == uid) {
+                                // Do not assign pendingConnection directly because it doesn't have
+                                // callback information.
+                                connection = new ConnectionRecord(pendingConnection.pkg,
+                                        pendingConnection.pid, pendingConnection.uid,
+                                        rootHints, callbacks);
+                                mPendingConnections.remove(pendingConnection);
+                                break;
+                            }
+                        }
+                    }
+                    if (connection == null) {
+                        connection = new ConnectionRecord(pkg, pid, uid, rootHints, callbacks);
+                    }
                     mConnections.put(b, connection);
                     try {
                         b.linkToDeath(connection, 0);

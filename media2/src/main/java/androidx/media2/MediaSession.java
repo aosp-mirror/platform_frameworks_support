@@ -879,7 +879,7 @@ public class MediaSession implements AutoCloseable {
         @Override
         public String toString() {
             return "ControllerInfo {pkg=" + mRemoteUserInfo.getPackageName() + ", uid="
-                    + mRemoteUserInfo.getUid() + "})";
+                    + mRemoteUserInfo.getUid() + ", cb=" + mControllerCb + "})";
         }
 
         @Nullable ControllerCb getControllerCb() {
