@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cde69947_e7f1fc82",
+        "filename": "work/workmanager/src/main/java/androidx/work/PeriodicWorkRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-21T19:17:18Z",
+      "side": 1,
+      "message": "I think it\u0027s the last 10 minutes.\n\n[------15-------]\n[--5--][---10---]\n flex   can run\n\nIn code we define it as (repeatInterval - flexInterval, endOfPeriod]",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "5098171de4f2dd1e0411cb2b4d2025161bf43ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
