@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03d3b727_715f54d7",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-21T17:11:03Z",
+      "side": 1,
+      "message": "expected signature post config change:\n\nonPageSelected,4\nonPageScrolled,4,0.000000,0",
+      "revId": "c380fcfa863563b79fe844e04bc5a6db3e2a348a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8dca476_f7f22bc0",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-21T17:11:03Z",
+      "side": 1,
+      "message": "if less than 30 min, maybe use a function that checks we moved \"a bit\"",
+      "range": {
+        "startLine": 484,
+        "startChar": 0,
+        "endLine": 484,
+        "endChar": 22
+      },
+      "revId": "c380fcfa863563b79fe844e04bc5a6db3e2a348a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
