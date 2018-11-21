@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecd736f2_786c6fb1",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Don\u0027t name this compat (http://go/androidx-api-guidelines)",
+      "range": {
+        "startLine": 165,
+        "startChar": 27,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9453237e_5b2cc95d",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Don\u0027t expose the ctor",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f388350c_1ffca4b9",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Needs @NonNull or @Nullable",
+      "range": {
+        "startLine": 175,
+        "startChar": 53,
+        "endLine": 175,
+        "endChar": 64
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58e08a3_201f9706",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "1. End the first sentence of docs with a period (http://go/android-api-guidelines#heading\u003dh.teqny5h9ohqc)\n2. Can we provide more explanation in the javadoc? Might be good to show example usage too. TracingController [1] is a great example.\n\n[1] https://developer.android.com/reference/android/webkit/TracingController",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7639ce2_2fede866",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Singleton pattern would be more consistent with TracingController \u0026 SWController than static helper class. Then we could consider naming this WebViewProxyController (or, perhaps just ProxyController)",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21b009b_6cfa8103",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d21a193c_e194584d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Is it \"@Nullable final\" or \"final @Nullable\"? If androidx checkout doesn\u0027t care, then you can pick either as long as you\u0027re consistent",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0374b514_3769b05c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Callback parameter (the Runnable) needs to be last (http://go/android-api-guidelines#heading\u003dh.tv05td1f2vhx). Probably should change this above as well, but it\u0027s up to you",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 42
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9361430b_0716e78b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "nit: trailing period",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 35
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc240621_2543f2ce",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Can you add docs? Maybe mention that a new ProxyRules is equivalent to the default behavior unless you call #addRule()",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df7413e_33877603",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "{@code \"direct://\"} and {@code [scheme://]host[:port]} please. But if \"direct://\" is a magic value, it should be defined in a Java constant",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce6b41b6_ee3e16f5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Consider adding examples, such as: https://developer.android.com/reference/android/webkit/WebView.html#setSafeBrowsingWhitelist(java.util.List%3Cjava.lang.String%3E,%20android.webkit.ValueCallback%3Cjava.lang.Boolean%3E)",
+      "range": {
+        "startLine": 118,
+        "startChar": 45,
+        "endLine": 119,
+        "endChar": 70
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e7f75e_0fa1e62e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "suggestion: \"but only applies to URIs using {@code scheme}\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 68,
+        "endLine": 131,
+        "endChar": 94
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b072fd19_2257cc4d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "nit: I think we should stick with either \"URI\" or \"URL\" in the docs. I\u0027m fine with either.",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 133,
+        "endChar": 46
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3d7b99_52eb809d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Put optional parameters at end in overloads (http://go/android-api-guidelines#heading\u003dh.fw2yx064kr9m)",
+      "range": {
+        "startLine": 137,
+        "startChar": 34,
+        "endLine": 137,
+        "endChar": 69
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aee1bc99_0acf7927",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Not clear what DIRECT means. Would it make sense to define the term in the class-level docs? Also, usual format is to bold new terms instead of using all-caps.",
+      "range": {
+        "startLine": 152,
+        "startChar": 14,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb81574_0a03ed06",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-21T02:25:12Z",
+      "side": 1,
+      "message": "Not a big deal, but this might technically violate \"Avoid referring to Google, other companies, and their products\" (http://go/android-api-guidelines#heading\u003dh.hfpu5mfcexw4). To toss out an alternate suggestion: example.com and www.example.com",
+      "range": {
+        "startLine": 154,
+        "startChar": 14,
+        "endLine": 154,
+        "endChar": 39
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
