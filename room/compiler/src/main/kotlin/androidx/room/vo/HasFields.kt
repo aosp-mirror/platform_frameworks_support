@@ -16,17 +16,11 @@
 
 package androidx.room.vo
 
-import com.squareup.javapoet.TypeName
-
-/**
- * Common interface between [Entity] and [DatabaseView].
- */
-interface EntityOrView : HasFields {
-
-    /**
-     * The name of this table or view as it is stored in an SQLite database.
-     */
-    val tableName: String
-
-    val typeName: TypeName
+interface HasFields {
+    val fields: List<Field>
 }
+
+val HasFields.columnNames
+    get() = fields.map { it.columnName }
+
+fun HasFields.fieldByColumnName(columnName: String) = fields.find { it.columnName == columnName }

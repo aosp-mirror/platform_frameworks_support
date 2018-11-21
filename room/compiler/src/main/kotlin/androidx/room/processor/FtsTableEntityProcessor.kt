@@ -35,6 +35,7 @@ import androidx.room.vo.FtsEntity
 import androidx.room.vo.FtsOptions
 import androidx.room.vo.LanguageId
 import androidx.room.vo.PrimaryKey
+import androidx.room.vo.columnNames
 import com.google.auto.common.MoreTypes
 import javax.lang.model.element.Name
 import javax.lang.model.element.TypeElement
@@ -101,7 +102,7 @@ class FtsTableEntityProcessor internal constructor(
         val primaryKey = findAndValidatePrimaryKey(entityAnnotation, pojo.fields)
         val languageId = findAndValidateLanguageId(pojo.fields, ftsOptions.languageIdColumnName)
 
-        val missingNotIndexed = ftsOptions.notIndexedColumns - pojo.fields.map { it.columnName }
+        val missingNotIndexed = ftsOptions.notIndexedColumns - pojo.columnNames
         context.checker.check(missingNotIndexed.isEmpty(), element,
                 ProcessorErrors.missingNotIndexedField(missingNotIndexed))
 
