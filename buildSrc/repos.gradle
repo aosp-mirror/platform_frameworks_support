@@ -22,9 +22,9 @@ if (supportRoot == null) {
 
 apply from: "${supportRoot}/buildSrc/unbundled_check.gradle"
 
-def checkoutRoot = "${ext.supportRootFolder}/../.."
+def checkoutRoot = "${ext.supportRootFolder}"
 ext.repos = new Properties()
-ext.repos.prebuiltsRoot = "${checkoutRoot}/prebuilts"
+ext.repos.prebuiltsRoot = "${checkoutRoot}/external/prebuilts"
 
 ext.repoNames = ["${repos.prebuiltsRoot}/androidx/internal",
                  "${repos.prebuiltsRoot}/androidx/external",

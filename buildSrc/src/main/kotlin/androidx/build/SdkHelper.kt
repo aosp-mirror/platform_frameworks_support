@@ -30,7 +30,7 @@ fun setSdkInLocalPropertiesFile(supportRoot: File) {
         // So convert deliminator here.
         val gradlePath = sdkPath.getAbsolutePath().replace(File.separator, "/")
         props.printWriter().use { out ->
-            out.println("sdk.dir=${gradlePath}")
+            out.println("sdk.dir=$gradlePath")
         }
     } else {
         throw Exception("You are using non androidx-master-dev checkout. You need to check out " +
@@ -54,8 +54,8 @@ fun getSdkPath(supportRoot: File): File {
         val isMacOsX = osName.contains("mac os x") || osName.contains("darwin") ||
                 osName.contains("osx")
         val platform = if (isMacOsX) "darwin" else "linux"
-        // Making an assumption that prebuilts directory is in ../../prebuilts/
-        return File(supportRoot.parentFile.parentFile, "prebuilts/fullsdk-$platform")
+        // Making an assumption that prebuilts directory is in external/prebuilts/
+        return File(supportRoot, "external/prebuilts/fullsdk-$platform")
     }
 }
 

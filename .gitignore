@@ -29,3 +29,7 @@ studio/
 
 # Mac Desktop Services Store files.
 .DS_Store
+
+# Repos that are not part of this git project.
+/.repo
+/external
