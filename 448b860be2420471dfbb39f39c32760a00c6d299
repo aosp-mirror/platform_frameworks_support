@@ -22,6 +22,30 @@
       "revId": "448b860be2420471dfbb39f39c32760a00c6d299",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef99891_4ab02af1",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayer2Test.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-11-21T08:53:35Z",
+      "side": 1,
+      "message": "It would be risky in general, but this offset works for the particular MP4 file used by this test.\n\nCould you suggest an alternative fix that\u0027s preferable? The problem with the current version of this test is that the player may buffer the entire stream before handling the request to throwFromReadAt() (we call throwFromReadAt() after prepare(), which can buffer data). Moving throwFromReadAt() before prepare() means we\u0027d throw from readAt() during preparation. The idea here is to make sure the callback data source reliably throws after preparation completes.",
+      "parentUuid": "053e7978_2f36d17a",
+      "range": {
+        "startLine": 2526,
+        "startChar": 43,
+        "endLine": 2526,
+        "endChar": 50
+      },
+      "revId": "448b860be2420471dfbb39f39c32760a00c6d299",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
