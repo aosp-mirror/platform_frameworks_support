@@ -46,7 +46,7 @@ dependencies {
     implementation(project(":room:room-runtime"))
     implementation(ARCH_CORE_RUNTIME)
     implementation(ARCH_LIFECYCLE_EXTENSIONS)
-    kaptAndroidTest project(":room:room-compiler")
+    kaptAndroidTest project(":room:room-kotlin-compiler")
 
     androidTestImplementation(TEST_RUNNER) {
         exclude module: 'support-annotations'
