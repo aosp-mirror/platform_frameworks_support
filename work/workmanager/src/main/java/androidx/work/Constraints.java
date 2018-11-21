@@ -171,6 +171,10 @@ public final class Constraints {
         this.mContentUriTriggers = mContentUriTriggers;
     }
 
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @RequiresApi(24)
     public @NonNull ContentUriTriggers getContentUriTriggers() {
         return mContentUriTriggers;
