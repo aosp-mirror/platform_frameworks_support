@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b371d9a_1b9b73cf",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-11-21T17:36:25Z",
+      "side": 1,
+      "message": "If you could document (event a comment) if it\u0027s on par with ViewPager1 or if we\u0027re deviating here.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 0
+      },
+      "revId": "e33a55f6775322b1f6a130bf633b9aa057279e81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
