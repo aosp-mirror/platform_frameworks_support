@@ -34,6 +34,8 @@ import androidx.room.vo.Index
 import androidx.room.vo.Pojo
 import androidx.room.vo.PrimaryKey
 import androidx.room.vo.Warning
+import androidx.room.vo.columnNames
+import androidx.room.vo.fieldByColumnName
 import asTypeElement
 import com.google.auto.common.MoreTypes
 import javax.lang.model.element.Name
@@ -221,11 +223,11 @@ class TableEntityProcessor internal constructor(
             }
             val tableName = extractTableName(parentElement, parentAnnotation.value)
             val fields = it.childColumns.mapNotNull { columnName ->
-                val field = pojo.fields.find { it.columnName == columnName }
+                val field = pojo.fieldByColumnName(columnName)
                 if (field == null) {
                     context.logger.e(pojo.element,
                             ProcessorErrors.foreignKeyChildColumnDoesNotExist(columnName,
-                                    pojo.fields.map { it.columnName }))
+                                    pojo.columnNames))
                 }
                 field
             }
@@ -409,13 +411,9 @@ class TableEntityProcessor internal constructor(
             context.checker.check(input.columnNames.isNotEmpty(), element,
                     INDEX_COLUMNS_CANNOT_BE_EMPTY)
             val fields = input.columnNames.mapNotNull { columnName ->
-                val field = pojo.fields.firstOrNull {
-                    it.columnName == columnName
-                }
+                val field = pojo.fieldByColumnName(columnName)
                 context.checker.check(field != null, element,
-                        ProcessorErrors.indexColumnDoesNotExist(
-                                columnName, pojo.fields.map { it.columnName }
-                        ))
+                        ProcessorErrors.indexColumnDoesNotExist(columnName, pojo.columnNames))
                 field
             }
             if (fields.isEmpty()) {
