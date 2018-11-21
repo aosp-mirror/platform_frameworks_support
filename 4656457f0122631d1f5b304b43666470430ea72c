@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0d0623e_3646ddf8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "i dont like having a separate method but i don\u0027t have a suggestion right now.",
+      "range": {
+        "startLine": 116,
+        "startChar": 36,
+        "endLine": 116,
+        "endChar": 62
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24efac2b_51b05d12",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "use filter instead?",
+      "range": {
+        "startLine": 148,
+        "startChar": 17,
+        "endLine": 153,
+        "endChar": 0
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98c30258_f3a7794a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/RawQueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "this  looks simmilar to QueryMethodProcessor. lets dedup that code.",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd14a18_f7557c3c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/RawQueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "ditto, we should dedup. maybe we can have an isSuspendFunction parameter in the findQRBinder method?",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b43deedd_251e0bd9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/TypeAdapterStore.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "what happens when this is not found ?",
+      "range": {
+        "startLine": 345,
+        "startChar": 22,
+        "endLine": 345,
+        "endChar": 89
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d994fa_85f9616f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "we do have this in observables. We should extract and re-use",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 30
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a30afd_a5e6f320",
+        "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "we should figure out a way to avoid this object creation.",
+      "range": {
+        "startLine": 28,
+        "startChar": 31,
+        "endLine": 28,
+        "endChar": 71
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d3999c_ff7f1f49",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/BooksDaoTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-21T21:53:23Z",
+      "side": 1,
+      "message": "lets just make the whole test runBlocking.",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "4656457f0122631d1f5b304b43666470430ea72c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
