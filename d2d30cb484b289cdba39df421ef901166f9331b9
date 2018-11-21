@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a79d74c_fa68f4aa",
+        "filename": "media2/src/main/java/androidx/media2/ConnectionRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-21T04:30:23Z",
+      "side": 1,
+      "message": "mControllerVersion might be better?",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "d2d30cb484b289cdba39df421ef901166f9331b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
