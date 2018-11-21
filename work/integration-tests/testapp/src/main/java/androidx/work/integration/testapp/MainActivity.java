@@ -44,6 +44,7 @@ import androidx.work.integration.testapp.imageprocessing.ImageProcessingActivity
 import androidx.work.integration.testapp.sherlockholmes.AnalyzeSherlockHolmesActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -197,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
                             WorkManager.getInstance()
                                     .beginUniqueWork(UNIQUE_WORK_NAME,
                                             policy,
-                                            OneTimeWorkRequest.from(SleepWorker.class))
+                                            OneTimeWorkRequest.from(
+                                                    Collections.singletonList(SleepWorker.class)))
                                     .enqueue();
                         }
                     }
@@ -210,7 +212,8 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < NUM_WORKERS; i += 1) {
                             // Exceed Scheduler.MAX_SCHEDULER_LIMIT (100)
                             WorkManager.getInstance()
-                                    .beginWith(OneTimeWorkRequest.from(SleepWorker.class))
+                                    .beginWith(OneTimeWorkRequest.from(
+                                            Collections.singletonList(SleepWorker.class)))
                                     .enqueue();
                         }
                     }
@@ -263,7 +266,9 @@ public class MainActivity extends AppCompatActivity {
                                                     REPLACE_COMPLETED_WORK,
                                                     ExistingWorkPolicy.REPLACE,
                                                     OneTimeWorkRequest.from(
-                                                            TestWorker.class)).enqueue();
+                                                            Collections.singletonList(
+                                                                    TestWorker.class)))
+                                                    .enqueue();
                                             mCount += 1;
                                         }
                                     }
@@ -274,7 +279,8 @@ public class MainActivity extends AppCompatActivity {
                 workManager.beginUniqueWork(
                         REPLACE_COMPLETED_WORK,
                         ExistingWorkPolicy.REPLACE,
-                        OneTimeWorkRequest.from(TestWorker.class)).enqueue();
+                        OneTimeWorkRequest.from(Collections.singletonList(TestWorker.class)))
+                        .enqueue();
 
             }
         });

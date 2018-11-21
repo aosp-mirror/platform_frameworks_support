@@ -34,6 +34,7 @@ import androidx.work.integration.testapp.db.Image;
 import androidx.work.integration.testapp.db.TestDatabase;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -82,7 +83,8 @@ public class ImageProcessingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 WorkManager.getInstance()
-                        .enqueue(OneTimeWorkRequest.from(ImageCleanupWorker.class));
+                        .enqueue(OneTimeWorkRequest.from(
+                                Collections.singletonList(ImageCleanupWorker.class)));
             }
         });
     }
