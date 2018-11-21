@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "26cff942_81b097d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "Q) Is is description of the issue or fix?",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51ef395_b36f5adc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "What does this mean? Are you saying that route id for a route can be changed?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "522295cc_45764c16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "Prefer white spaces.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a40dc250_b469d430",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -48,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "60ad641b_913c519a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "1. L1159 already changes the visibility of this.\n2. Why do you hide?",
+      "range": {
+        "startLine": 1170,
+        "startChar": 0,
+        "endLine": 1170,
+        "endChar": 100
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab9c7457_b7df1f0c",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -64,6 +156,76 @@
         "startChar": 12,
         "endLine": 1296,
         "endChar": 31
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14376d8b_90d475dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "updateViewsIfNeeded is the super set of all update*View including\n  - updateRoutesView\n  - updateMetadataViews\n\nIf we look forward better name, what about updateViewIfNeeded -\u003e updateAllViewsIfNeeded?",
+      "parentUuid": "ab9c7457_b7df1f0c",
+      "range": {
+        "startLine": 1296,
+        "startChar": 12,
+        "endLine": 1296,
+        "endChar": 31
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ced1f5_c1a1cc0e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "add an empty line.",
+      "range": {
+        "startLine": 1329,
+        "startChar": 8,
+        "endLine": 1331,
+        "endChar": 8
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f081729_90a3107f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "Q) Why do we need to care about this?\nI thought that onRouterAdded/Removed/Changed are enough.",
+      "range": {
+        "startLine": 1332,
+        "startChar": 20,
+        "endLine": 1332,
+        "endChar": 37
       },
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -133,6 +295,52 @@
         "startChar": 31,
         "endLine": 1557,
         "endChar": 47
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43108aa8_8825004f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "else?",
+      "range": {
+        "startLine": 1690,
+        "startChar": 16,
+        "endLine": 1691,
+        "endChar": 16
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30bebf16_e50b5701",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-21T08:39:22Z",
+      "side": 1,
+      "message": "while (mRoute~",
+      "range": {
+        "startLine": 71,
+        "startChar": 14,
+        "endLine": 71,
+        "endChar": 17
       },
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
