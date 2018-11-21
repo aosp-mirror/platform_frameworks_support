@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80d7943c_85b40e56",
+        "filename": "work/workmanager-ktx/src/androidTest/java/androidx/work/ListenableFutureTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-21T16:38:40Z",
+      "side": 1,
+      "message": "FWIW, we\u0027ve been using Truth and its assertThat() in many of the other libraries specifically to avoid having to use hamcrest\u0027s matchers.",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "69bc41b86d49cc843ac452736693965372b5166c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25ad728f_db179818",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Operation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-21T16:38:40Z",
+      "side": 1,
+      "message": "This seems really weird to me. Why would a caller of await() use anything but the direct executor? Isn\u0027t that the whole point of awaiting?\n\nAlso, the default value becomes part of the api.txt file, so you\u0027re leaking a RestrictTo field here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 29,
+        "endLine": 32,
+        "endChar": 80
+      },
+      "revId": "69bc41b86d49cc843ac452736693965372b5166c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
