@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "6f52d18b_96ef3675",
+        "filename": "activity/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-21T21:19:31Z",
+      "side": 1,
+      "message": "Haha I can always put it on my todo-next.\n\nThe problem right now is a version conflict with com.google.code.findbugs:jsr305, version 1.3.9 gets upgraded to 3.0.0 but the 2.0.1 sometimes upgrades to 3.0.2 and some times doesn\u0027t upgrade at all. I think I can maybe fix by forcing one version.",
+      "parentUuid": "ea8809fb_2658ee01",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "3149235585b0a18353994c9a205815f321b3cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76686c07_50a90fe1",
         "filename": "room/guava/build.gradle",
         "patchSetId": 5
