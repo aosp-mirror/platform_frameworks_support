@@ -113,7 +113,7 @@ import java.util.concurrent.Executor;
  *
  */
 @TargetApi(Build.VERSION_CODES.P)
-@RequiresApi(21) // TODO correct minSdk API use incompatibilities and remove before release.
+@RequiresApi(19) // TODO correct minSdk API use incompatibilities and remove before release.
 public class MediaControlView extends BaseLayout {
     private static final String TAG = "MediaControlView";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
@@ -1003,7 +1003,7 @@ public class MediaControlView extends BaseLayout {
         if (mController.isPlaying()) {
             mController.pause();
             mPlayPauseButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                    mResources.getDrawable(R.drawable.ic_play_circle_filled));
             mPlayPauseButton.setContentDescription(
                     mResources.getString(R.string.mcv2_play_button_desc));
         } else {
@@ -1012,7 +1012,7 @@ public class MediaControlView extends BaseLayout {
             }
             mController.play();
             mPlayPauseButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_pause_circle_filled, null));
+                    mResources.getDrawable(R.drawable.ic_pause_circle_filled));
             mPlayPauseButton.setContentDescription(
                     mResources.getString(R.string.mcv2_pause_button_desc));
         }
@@ -1280,10 +1280,10 @@ public class MediaControlView extends BaseLayout {
             final boolean isEnteringFullScreen = !mIsFullScreen;
             if (isEnteringFullScreen) {
                 mFullScreenButton.setImageDrawable(
-                        mResources.getDrawable(R.drawable.ic_fullscreen_exit, null));
+                        mResources.getDrawable(R.drawable.ic_fullscreen_exit));
             } else {
                 mFullScreenButton.setImageDrawable(
-                        mResources.getDrawable(R.drawable.ic_fullscreen, null));
+                        mResources.getDrawable(R.drawable.ic_fullscreen));
             }
             mIsFullScreen = isEnteringFullScreen;
             mOnFullScreenListener.onFullScreen(MediaControlView.this,
@@ -1363,13 +1363,13 @@ public class MediaControlView extends BaseLayout {
                         if (position > 0) {
                             mController.showSubtitle(position - 1);
                             mSubtitleButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_subtitle_on, null));
+                                    mResources.getDrawable(R.drawable.ic_subtitle_on));
                             mSubtitleButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_cc_is_on));
                         } else {
                             mController.hideSubtitle();
                             mSubtitleButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_subtitle_off, null));
+                                    mResources.getDrawable(R.drawable.ic_subtitle_off));
                             mSubtitleButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_cc_is_off));
                         }
@@ -1631,10 +1631,10 @@ public class MediaControlView extends BaseLayout {
 
         if (mIsFullScreen) {
             mFullScreenButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_fullscreen_exit, null));
+                    mResources.getDrawable(R.drawable.ic_fullscreen_exit));
         } else {
             mFullScreenButton.setImageDrawable(
-                    mResources.getDrawable(R.drawable.ic_fullscreen, null));
+                    mResources.getDrawable(R.drawable.ic_fullscreen));
         }
     }
 
@@ -1956,7 +1956,7 @@ public class MediaControlView extends BaseLayout {
             mIsStopped = true;
             if (mPlayPauseButton != null) {
                 mPlayPauseButton.setImageDrawable(
-                        mResources.getDrawable(R.drawable.ic_replay_circle_filled, null));
+                        mResources.getDrawable(R.drawable.ic_replay_circle_filled));
                 mPlayPauseButton.setContentDescription(
                         mResources.getString(R.string.mcv2_replay_button_desc));
             }
@@ -1969,12 +1969,12 @@ public class MediaControlView extends BaseLayout {
             if (mPlayPauseButton != null) {
                 if (mController.isPlaying()) {
                     mPlayPauseButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_pause_circle_filled, null));
+                            mResources.getDrawable(R.drawable.ic_pause_circle_filled));
                     mPlayPauseButton.setContentDescription(
                             mResources.getString(R.string.mcv2_pause_button_desc));
                 } else {
                     mPlayPauseButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                            mResources.getDrawable(R.drawable.ic_play_circle_filled));
                     mPlayPauseButton.setContentDescription(
                             mResources.getString(R.string.mcv2_play_button_desc));
                 }
@@ -2059,7 +2059,7 @@ public class MediaControlView extends BaseLayout {
                 iconView.setVisibility(View.GONE);
             } else {
                 // Otherwise, set main icon.
-                iconView.setImageDrawable(mResources.getDrawable(mIconIds.get(position), null));
+                iconView.setImageDrawable(mResources.getDrawable(mIconIds.get(position)));
             }
             return row;
         }
@@ -2341,7 +2341,7 @@ public class MediaControlView extends BaseLayout {
                             break;
                         case SessionPlayer.PLAYER_STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                                    mResources.getDrawable(R.drawable.ic_play_circle_filled));
                             mPlayPauseButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
@@ -2349,7 +2349,7 @@ public class MediaControlView extends BaseLayout {
                         case SessionPlayer.PLAYER_STATE_ERROR:
                             MediaControlView.this.setEnabled(false);
                             mPlayPauseButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_play_circle_filled, null));
+                                    mResources.getDrawable(R.drawable.ic_play_circle_filled));
                             mPlayPauseButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
