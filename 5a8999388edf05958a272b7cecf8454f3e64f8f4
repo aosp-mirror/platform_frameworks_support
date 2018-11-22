@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "750288c4_cc7a3d27",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-22T03:00:09Z",
+      "side": 1,
+      "message": "(This might be out of scope of this cl)\nI think we should return \"USAGE_ASSISTANCE_ACCESSIBILITY\" for this case.",
+      "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "495f8e84_c482f5e6",
         "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
         "patchSetId": 3
