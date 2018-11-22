@@ -22,6 +22,30 @@
       "revId": "5c33e3794fd8ef83a077bb71b3f116b682044c6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8b6345_1a8d9fa6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-22T00:19:53Z",
+      "side": 1,
+      "message": "Done. Though caching makes things harder",
+      "parentUuid": "8fdd4da6_89051062",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "5c33e3794fd8ef83a077bb71b3f116b682044c6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

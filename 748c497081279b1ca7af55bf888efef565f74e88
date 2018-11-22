@@ -22,6 +22,30 @@
       "revId": "748c497081279b1ca7af55bf888efef565f74e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c111c6_dfd1270e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/PrimaryKey.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-22T00:19:53Z",
+      "side": 0,
+      "message": ":|",
+      "parentUuid": "9b809594_63cb44e4",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 64
+      },
+      "revId": "748c497081279b1ca7af55bf888efef565f74e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
