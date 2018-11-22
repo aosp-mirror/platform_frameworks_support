@@ -16,6 +16,24 @@
       "revId": "0735276ddc5c1929e67fa05d00f9fc4b8779e535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dada7526_5b134515",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-22T14:59:43Z",
+      "side": 1,
+      "message": "I\u0027m missing the point \u003d( Yeah hardcoded dependency on activity.isChangingConfigurations() is bad. But why can\u0027t we simply ask mNonConfig, which is ViewModel, if it was cleared or not? Theoretically it should already get the signal (⊙.☉)7",
+      "parentUuid": "2731a32a_e040c161",
+      "revId": "0735276ddc5c1929e67fa05d00f9fc4b8779e535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
