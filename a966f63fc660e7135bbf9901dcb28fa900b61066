@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "771e6634_2fb6b66b",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-11-22T13:05:14Z",
+      "side": 1,
+      "message": "if you don\u0027t want to recommend, should we say behavior is undefined?",
+      "range": {
+        "startLine": 280,
+        "startChar": 76,
+        "endLine": 281,
+        "endChar": 42
+      },
+      "revId": "a966f63fc660e7135bbf9901dcb28fa900b61066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
