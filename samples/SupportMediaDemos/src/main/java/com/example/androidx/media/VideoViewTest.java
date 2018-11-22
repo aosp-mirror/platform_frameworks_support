@@ -84,7 +84,7 @@ public class VideoViewTest extends FragmentActivity {
         setContentView(R.layout.video_activity);
 
         mVideoView = findViewById(R.id.video_view);
-        mVideoView.setActivity(this);
+        mVideoView.setActivity(VideoViewTest.this);
 
         String errorString = null;
         Intent intent = getIntent();
@@ -96,17 +96,17 @@ public class VideoViewTest extends FragmentActivity {
             if (mUseTextureView) {
                 mVideoView.setViewType(VideoView.VIEW_TYPE_TEXTUREVIEW);
             }
-            UriMediaItem mediaItem = new UriMediaItem.Builder(this, videoUri).build();
+            UriMediaItem mediaItem = new UriMediaItem.Builder(VideoViewTest.this, videoUri).build();
             mVideoView.setMediaItem(mediaItem);
 
-            mMediaControlView = new MediaControlView(this);
+            mMediaControlView = new MediaControlView(VideoViewTest.this);
             mVideoView.setMediaControlView(mMediaControlView, 2000);
             mMediaControlView.setOnFullScreenListener(new FullScreenListener());
             SessionToken token = mVideoView.getSessionToken();
 
-            Executor executor = ContextCompat.getMainExecutor(this);
+            Executor executor = ContextCompat.getMainExecutor(VideoViewTest.this);
             mMediaController = new MediaController(
-                    this, token, executor, new ControllerCallback());
+                    VideoViewTest.this, token, executor, new ControllerCallback());
         }
         if (errorString != null) {
             showErrorDialog(errorString);

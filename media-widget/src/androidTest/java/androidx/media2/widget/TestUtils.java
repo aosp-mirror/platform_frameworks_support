@@ -17,10 +17,13 @@ package androidx.media2.widget;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.media.MediaCodec;
+import android.media.MediaCodecInfo;
 import android.media.MediaCodecList;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.IOException;
@@ -28,7 +31,6 @@ import java.io.IOException;
 // Built on top of com.android.compatibility.common.util.MediaUtils
 class TestUtils {
     private static final String TAG = "TestUtils";
-    private static final MediaCodecList sMCL = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
 
     /**
      * Returns true iff all audio and video tracks are supported
@@ -117,10 +119,33 @@ class TestUtils {
     }
 
     static boolean canDecode(MediaFormat format) {
-        if (sMCL.findDecoderForFormat(format) == null) {
-            Log.i(TAG, "no decoder for " + format);
-            return false;
+        if (Build.VERSION.SDK_INT <= 20) {
+            // For build versions <= 20, the secure codecs may not be listed in MediaCodecList
+            // but still be available on the system. Check that the codec that is needed for
+            // decoding the test file exists by instantiating it by name and making sure that it
+            // does not throw an IOException.
+            // See https://developer.android.com/reference/android/media/MediaCodec#creation
+            String codec = "OMX.qcom.video.decoder.avc.secure";
+            try {
+                MediaCodec mediaCodec = MediaCodec.createByCodecName(codec);
+                int count = MediaCodecList.getCodecCount();
+                for (int i = 0; i < count; i++) {
+                    MediaCodecInfo info = MediaCodecList.getCodecInfoAt(i);
+                }
+                if (mediaCodec != null) {
+                    return true;
+                }
+            } catch (IOException e) {
+                // Skip to end of method.
+            }
+            return true;
+        } else {
+            final MediaCodecList sMCL = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
+            if (sMCL.findDecoderForFormat(format) != null) {
+                return true;
+            }
         }
-        return true;
+        Log.i(TAG, "no decoder for " + format);
+        return false;
     }
 }

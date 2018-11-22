@@ -79,7 +79,7 @@ import java.util.concurrent.Executor;
 /**
  * Base implementation of VideoView.
  */
-@RequiresApi(28)
+@RequiresApi(19)
 class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceListener {
     private static final String TAG = "VideoViewImplBase";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
@@ -1023,7 +1023,6 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
                                     new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
                                             null), data);
                         }
-
                         // Run extractMetadata() in another thread to prevent StrictMode violation.
                         // extractMetadata() contains file IO indirectly,
                         // via MediaMetadataRetriever.

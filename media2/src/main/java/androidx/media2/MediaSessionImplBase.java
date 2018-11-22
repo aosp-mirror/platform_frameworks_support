@@ -1413,9 +1413,9 @@ class MediaSessionImplBase implements MediaSessionImpl {
                     public void run(ControllerCb callback) throws RemoteException {
                         callback.onPlaylistChanged(
                                 player.getPlaylist(), player.getPlaylistMetadata(),
-                                session.getCurrentMediaItemIndex(),
-                                session.getPreviousMediaItemIndex(),
-                                session.getNextMediaItemIndex());
+                                player.getCurrentMediaItemIndex(),
+                                player.getPreviousMediaItemIndex(),
+                                player.getNextMediaItemIndex());
                     }
                 });
             }
