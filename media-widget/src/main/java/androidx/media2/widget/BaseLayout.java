@@ -26,8 +26,6 @@ import android.view.ViewGroup;
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.StyleRes;
 
 import java.util.ArrayList;
 
@@ -45,12 +43,6 @@ class BaseLayout extends ViewGroup {
     BaseLayout(@NonNull Context context, @Nullable AttributeSet attrs,
             @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @RequiresApi(21)
-    BaseLayout(@NonNull Context context, @Nullable AttributeSet attrs,
-            @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

@@ -18,11 +18,9 @@ package androidx.media2.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -91,7 +89,6 @@ import java.lang.annotation.RetentionPolicy;
  * @attr ref androidx.media2.widget.R.styleable#VideoView_enableControlView
  * @attr ref androidx.media2.widget.R.styleable#VideoView_viewType
  */
-@TargetApi(Build.VERSION_CODES.P)
 public class VideoView extends BaseLayout {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)
