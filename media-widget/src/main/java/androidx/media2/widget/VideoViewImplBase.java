@@ -79,7 +79,7 @@ import java.util.concurrent.Executor;
 /**
  * Base implementation of VideoView.
  */
-@RequiresApi(28)
+@RequiresApi(19)
 class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceListener {
     private static final String TAG = "VideoViewImplBase";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
