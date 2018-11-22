@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a425b7d6_81a41c07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-22T04:50:56Z",
+      "side": 1,
+      "message": "Now you should use media2/version-compat-tests/runtest.sh 1",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708b0db1_8b484de4",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-22T04:50:56Z",
+      "side": 1,
+      "message": "Let\u0027s change the order (player \u003d\u003d null || session.getPlayer() !\u003d player).\nHere and below.",
+      "range": {
+        "startLine": 1303,
+        "startChar": 35,
+        "endLine": 1303,
+        "endChar": 82
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7dfb82_6281941d",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-11-22T04:50:56Z",
+      "side": 1,
+      "message": "needs updateApi",
+      "range": {
+        "startLine": 285,
+        "startChar": 4,
+        "endLine": 285,
+        "endChar": 11
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
