@@ -1,7 +1,7 @@
 // Signature format: 2.0
 package androidx.media2.widget {
 
-  @RequiresApi(21) public class MediaControlView extends android.view.ViewGroup {
+  @RequiresApi(19) public class MediaControlView extends android.view.ViewGroup {
     ctor public MediaControlView(android.content.Context);
     ctor public MediaControlView(android.content.Context, android.util.AttributeSet?);
     ctor public MediaControlView(android.content.Context, android.util.AttributeSet?, int);
