@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f08e7c14_61340159",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-22T02:46:23Z",
+      "side": 1,
+      "message": "Can\u0027t we create a method for this and mCheckBoxClickListener?",
+      "range": {
+        "startLine": 1147,
+        "startChar": 0,
+        "endLine": 1162,
+        "endChar": 25
+      },
+      "revId": "81ccd06bd6d421b998cc7e25456d6732644c7c2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
