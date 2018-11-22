@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e60e8633_6a523306",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-22T04:36:33Z",
+      "side": 1,
+      "message": "Q) Is it OK with \u0027alpha06\u0027 instead of \u0027alpha6\u0027?",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "22d79e2db73feed3d4c0700f32fc9f6afcfb4bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
