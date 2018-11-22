@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cf7adc77_e636bfc6",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-22T05:20:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "750288c4_cc7a3d27",
+      "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "495f8e84_c482f5e6",
         "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88442de8_92fca096",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-22T05:20:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "495f8e84_c482f5e6",
+      "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f175661_ba9dec86",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-22T05:20:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56b43c1f_8267fcc0",
+      "range": {
+        "startLine": 262,
+        "startChar": 20,
+        "endLine": 262,
+        "endChar": 26
+      },
+      "revId": "5a8999388edf05958a272b7cecf8454f3e64f8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
