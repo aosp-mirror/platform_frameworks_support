@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af48d167_ab990f9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-22T08:50:13Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Done.",
+      "parentUuid": "a425b7d6_81a41c07",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "708b0db1_8b484de4",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0b57bf58_687eb05f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-22T08:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "708b0db1_8b484de4",
+      "range": {
+        "startLine": 1303,
+        "startChar": 35,
+        "endLine": 1303,
+        "endChar": 82
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "def45bbf_aa9f1bbc",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-22T05:56:30Z",
       "side": 1,
       "message": "why is the current media item changed?",
+      "range": {
+        "startLine": 1310,
+        "startChar": 29,
+        "endLine": 1310,
+        "endChar": 54
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "491dba1c_84d7042d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-22T08:50:13Z",
+      "side": 1,
+      "message": "Current media item is not changed, but the indices will be. Since we do not have a callback method for just sending the new indices, I chose to use this (instead of onPlaylistChanged() which will have a bigger size).",
+      "parentUuid": "def45bbf_aa9f1bbc",
       "range": {
         "startLine": 1310,
         "startChar": 29,
@@ -91,6 +163,30 @@
       "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b590120_61a24f17",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-22T08:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7dfb82_6281941d",
+      "range": {
+        "startLine": 285,
+        "startChar": 4,
+        "endLine": 285,
+        "endChar": 11
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
