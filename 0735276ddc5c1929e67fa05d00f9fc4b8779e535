@@ -34,6 +34,24 @@
       "revId": "0735276ddc5c1929e67fa05d00f9fc4b8779e535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e796a4_93fde2bf",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-22T17:22:21Z",
+      "side": 1,
+      "message": "FragmentManagerImpl supports two different non config worlds - the more snapshot world of yore (see mNonConfig.getSnapshot() and mNonConfig.restoreFromSnapshot(), used by Android Auto, non-FragmentActivity cases) and the ViewModel world we\u0027d like everyone to use. Unfortunately, in the snapshot case, mNonConfig doesn\u0027t ever actually get cleared since it never gets attached to a ViewModelStore so we can\u0027t rely on that signal.",
+      "parentUuid": "dada7526_5b134515",
+      "revId": "0735276ddc5c1929e67fa05d00f9fc4b8779e535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
