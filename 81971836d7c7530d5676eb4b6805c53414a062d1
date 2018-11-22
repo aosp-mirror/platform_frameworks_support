@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46860066_497d9da6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-11-22T03:00:14Z",
+      "side": 1,
+      "message": "For other reviewers information:\nI asked Hyundo in offline about if it is possible to modify the presubmit gcl to build/run the media compat tests only when some related files/dependencies are changed without using ALWAYS_BUILD. He is trying to fix it.\n\nHyundo, would you let me know after it is handled, please?\n\nI\u0027ll +2 on this CL once the presubmit tests are passed.",
+      "range": {
+        "startLine": 241,
+        "startChar": 64,
+        "endLine": 241,
+        "endChar": 98
+      },
+      "revId": "81971836d7c7530d5676eb4b6805c53414a062d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
