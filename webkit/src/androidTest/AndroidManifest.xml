@@ -20,4 +20,11 @@
          ServiceWorkerWebSettingsCompatTest#testBlockNetworkLoads -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+
+    <application android:label="@string/app_name"
+                 android:hardwareAccelerated="true">
+
+        <!-- Top-level Activity -->
+        <activity android:name=".WebViewLocalServerTest$TestActivity"/>
+    </application>
 </manifest>
