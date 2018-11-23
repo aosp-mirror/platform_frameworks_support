@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c04a9e5_44db4109",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-23T01:36:16Z",
+      "side": 1,
+      "message": "use constant",
+      "range": {
+        "startLine": 865,
+        "startChar": 61,
+        "endLine": 865,
+        "endChar": 64
+      },
+      "revId": "c7bc62aa2690de1e450a4d685b18011c5527792a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b94fc2b6_82265f99",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-23T01:36:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 940,
+        "startChar": 41,
+        "endLine": 940,
+        "endChar": 43
+      },
+      "revId": "c7bc62aa2690de1e450a4d685b18011c5527792a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0488a3b9_1e74a2c3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-23T01:36:16Z",
+      "side": 1,
+      "message": "This does the checks at L1302-L1305",
+      "range": {
+        "startLine": 1306,
+        "startChar": 12,
+        "endLine": 1306,
+        "endChar": 40
+      },
+      "revId": "c7bc62aa2690de1e450a4d685b18011c5527792a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca495f6_4c29ca18",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1324,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-23T01:36:16Z",
+      "side": 1,
+      "message": "This does the checks at L1320-L1323",
+      "range": {
+        "startLine": 1324,
+        "startChar": 12,
+        "endLine": 1324,
+        "endChar": 40
+      },
+      "revId": "c7bc62aa2690de1e450a4d685b18011c5527792a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
