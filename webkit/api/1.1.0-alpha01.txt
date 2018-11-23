@@ -161,6 +161,43 @@ package androidx.webkit {
     field public static final String WEB_VIEW_RENDERER_TERMINATE = "WEB_VIEW_RENDERER_TERMINATE";
   }
 
+  public class WebViewLocalServer {
+    ctor public WebViewLocalServer(android.content.Context);
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostAssets(String!);
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostAssets(String, String, boolean, boolean);
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostAssets(String, String, String, boolean, boolean);
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostResources();
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostResources(String, boolean, boolean);
+    method public androidx.webkit.WebViewLocalServer.AssetHostingDetails hostResources(String, String, boolean, boolean);
+    method public android.webkit.WebResourceResponse? shouldInterceptRequest(android.webkit.WebResourceRequest!);
+    method public android.webkit.WebResourceResponse? shouldInterceptRequest(String!);
+    field public static final String KNOWN_UNUSED_AUTHORITY = "androidplatform.net";
+  }
+
+  public static class WebViewLocalServer.AndroidProtocolHandler {
+    ctor public WebViewLocalServer.AndroidProtocolHandler(android.content.Context);
+    method public java.io.InputStream! openAsset(String!) throws java.io.IOException;
+    method public java.io.InputStream? openResource(android.net.Uri);
+  }
+
+  public static class WebViewLocalServer.AssetHostingDetails {
+    method public android.net.Uri getHttpPrefix();
+    method public android.net.Uri getHttpsPrefix();
+  }
+
+  public abstract static class WebViewLocalServer.PathHandler {
+    ctor public WebViewLocalServer.PathHandler();
+    ctor public WebViewLocalServer.PathHandler(String?, String?, String?, int, String?, java.util.Map<java.lang.String,java.lang.String>?);
+    method public String? getCharset();
+    method public String? getEncoding();
+    method public String? getMimeType();
+    method public String? getReasonPhrase();
+    method public java.util.Map<java.lang.String,java.lang.String>? getResponseHeaders();
+    method public int getStatusCode();
+    method public java.io.InputStream? handle(android.webkit.WebResourceRequest!);
+    method public abstract java.io.InputStream? handle(android.net.Uri!);
+  }
+
   public abstract class WebViewRenderer {
     method public abstract boolean terminate();
   }
