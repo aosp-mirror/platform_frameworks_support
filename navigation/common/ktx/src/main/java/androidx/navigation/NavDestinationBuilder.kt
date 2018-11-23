@@ -27,8 +27,8 @@ annotation class NavDestinationDsl
  */
 @NavDestinationDsl
 open class NavDestinationBuilder<out D : NavDestination>(
-        protected val navigator: Navigator<out D>,
-        @IdRes val id: Int
+    protected val navigator: Navigator<out D>,
+    @IdRes val id: Int
 ) {
     /**
      * The descriptive label of the destination
@@ -79,7 +79,8 @@ open class NavDestinationBuilder<out D : NavDestination>(
         return navigator.createDestination().also { destination ->
             destination.id = id
             destination.label = label
-            destination.setDefaultArguments(defaultArguments)
+//            TODO: support args
+//            destination.setDefaultArguments(defaultArguments)
             deepLinks.forEach { deepLink ->
                 destination.addDeepLink(deepLink)
             }

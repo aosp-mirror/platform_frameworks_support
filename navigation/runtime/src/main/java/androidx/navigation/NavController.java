@@ -517,7 +517,18 @@ public class NavController {
             Pair<NavDestination, Bundle> matchingDeepLink = mGraph.matchDeepLink(intent.getData());
             if (matchingDeepLink != null) {
                 deepLink = matchingDeepLink.first.buildDeepLinkIds();
-                bundle.putAll(matchingDeepLink.second);
+                for (String argumentName: matchingDeepLink.second.keySet()) {
+                    NavArgument argument = matchingDeepLink.first.getArguments().get(argumentName);
+                    if (argument != null) {
+                        NavType type = argument.getType();
+                        Object value = type.parseAndPut(bundle, argumentName, matchingDeepLink.second.getString(argumentName));
+                        if (value == null) {
+                            return false;
+                        }
+                    } else {
+                        bundle.putString(argumentName, matchingDeepLink.second.getString(argumentName));
+                    }
+                }
             }
         }
         if (deepLink == null || deepLink.length == 0) {
