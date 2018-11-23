@@ -1045,15 +1045,8 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
                         // Run extractMetadata() in another thread to prevent StrictMode violation.
                         // extractMetadata() contains file IO indirectly,
                         // via MediaMetadataRetriever.
-                        AsyncTask.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                MediaMetadata metadata = extractMetadata();
-                                if (metadata != null) {
-                                    mMediaItem.setMetadata(metadata);
-                                }
-                            }
-                        });
+                        MetadataExtractTask task = new MetadataExtractTask();
+                        task.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
                     }
 
                     if (mMediaControlView != null) {
@@ -1207,6 +1200,29 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
                     break;
             }
             return RESULT_CODE_SUCCESS;
+        }
+    }
+
+    private class MetadataExtractTask extends AsyncTask<Void, Void, MediaMetadata> {
+        MetadataExtractTask() {
+        }
+
+        @Override
+        protected MediaMetadata doInBackground(Void... params) {
+            return extractMetadata();
+        }
+
+        @Override
+        protected void onPostExecute(MediaMetadata metadata) {
+            if (metadata != null) {
+                mMediaItem.setMetadata(metadata);
+            }
+            if (mCurrentItemIsMusic) {
+                // Update Music View to reflect the new metadata
+                mInstance.removeView(mSurfaceView);
+                mInstance.removeView(mTextureView);
+                updateCurrentMusicView(mMusicEmbeddedView);
+            }
         }
     }
 }
