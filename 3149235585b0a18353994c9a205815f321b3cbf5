@@ -217,6 +217,30 @@
     },
     {
       "key": {
+        "uuid": "53214427_d3c9dea0",
+        "filename": "activity/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-23T13:37:29Z",
+      "side": 1,
+      "message": "Yeah I got that to work however when core moves to ToT and starts depending on listenable future and still clashes with TRUTH which depends on Guava 20. I tried forcing dependency on guava 27.0 but I got about some min api calls and what not, basically a bunch of:\nD8: Invoke-customs are only supported starting with Android O (--min-api 26)\nD8: Default interface methods are only supported starting with Android N\nD8: Static interface methods are only supported starting with Android N\n\nI assume some of our dependencies are outdated so we might want to migrate everything at the same time (i.e guava and maybe truth and whatever comes up next.) I suggest I research this when this is submitted because it would be nice to mark this as fixed. This problem would have also come up if people decided to move core to 1.1.0-alpha01 which started depending on listenablefuture and they would have to do the same (i.e exclude listenable) and I think doing a clean up and migrating all necessary dependencies after this will help.",
+      "parentUuid": "100f1ce1_77c41b02",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "3149235585b0a18353994c9a205815f321b3cbf5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76686c07_50a90fe1",
         "filename": "room/guava/build.gradle",
         "patchSetId": 5
