@@ -143,6 +143,53 @@
     },
     {
       "key": {
+        "uuid": "058d3101_f848a863",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-23T00:40:01Z",
+      "side": 1,
+      "message": "What about calling this when indices are changed only?",
+      "parentUuid": "491dba1c_84d7042d",
+      "range": {
+        "startLine": 1310,
+        "startChar": 29,
+        "endLine": 1310,
+        "endChar": 54
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19725414_47d425b4",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-23T00:40:01Z",
+      "side": 1,
+      "message": "What about calling this when indices are changed only?",
+      "range": {
+        "startLine": 1328,
+        "startChar": 30,
+        "endLine": 1328,
+        "endChar": 55
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff7dfb82_6281941d",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 4
