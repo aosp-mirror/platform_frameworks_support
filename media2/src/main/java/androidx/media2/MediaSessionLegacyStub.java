@@ -775,6 +775,9 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         @Override
         void onPlaylistChanged(List<MediaItem> playlist, MediaMetadata metadata, int currentIdx,
                 int previousIdx, int nextIdx) throws RemoteException {
+            if (playlist == null) {
+                return;
+            }
             if (Build.VERSION.SDK_INT < 21) {
                 // In order to avoid TransactionTooLargeException for below API 21,
                 // we need to cut the list so that it doesn't exceed the binder transaction limit.
