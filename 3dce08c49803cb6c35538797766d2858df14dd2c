@@ -22,6 +22,30 @@
       "revId": "3dce08c49803cb6c35538797766d2858df14dd2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0429f415_b2761ceb",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-23T22:40:02Z",
+      "side": 1,
+      "message": "Ack, I\u0027ll handle this in a follow up CL.",
+      "parentUuid": "ef0a107f_17543fd0",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 53
+      },
+      "revId": "3dce08c49803cb6c35538797766d2858df14dd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
