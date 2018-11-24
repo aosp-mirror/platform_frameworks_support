@@ -100,8 +100,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 }
             };
 
-    public FragmentNavigator(@NonNull Context context, @NonNull FragmentManager manager,
-            int containerId) {
+    public FragmentNavigator(@NonNull FragmentManager manager, int containerId) {
         mFragmentManager = manager;
         mContainerId = containerId;
     }

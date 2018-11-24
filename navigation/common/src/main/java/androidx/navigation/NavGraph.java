@@ -44,6 +44,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final SparseArrayCompat<NavDestination> mNodes = new SparseArrayCompat<>();
     private int mStartDestId;
+    private String mStartDestIdName;
 
     /**
      * Construct a new NavGraph. This NavGraph is not valid until you
@@ -78,6 +79,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
                 R.styleable.NavGraphNavigator);
         setStartDestination(
                 a.getResourceId(R.styleable.NavGraphNavigator_startDestination, 0));
+        mStartDestIdName = getDisplayName(context, mStartDestId);
         a.recycle();
     }
 
@@ -264,6 +266,12 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
         }
     }
 
+    @NonNull
+    @Override
+    String getDisplayName() {
+        return getId() != 0 ? super.getDisplayName() : "the root navigation";
+    }
+
     /**
      * Returns the starting destination for this NavGraph. When navigating to the NavGraph, this
      * destination is the one the user will initially see.
@@ -281,5 +289,13 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      */
     public void setStartDestination(@IdRes int startDestId) {
         mStartDestId = startDestId;
+    }
+
+    @NonNull
+    String getStartDestDisplayName() {
+        if (mStartDestIdName == null) {
+            mStartDestIdName = Integer.toString(mStartDestId);
+        }
+        return mStartDestIdName;
     }
 }
