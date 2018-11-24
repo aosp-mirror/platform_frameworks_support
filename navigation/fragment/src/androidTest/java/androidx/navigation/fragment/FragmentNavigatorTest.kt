@@ -57,19 +57,17 @@ class FragmentNavigatorTest {
     @get:Rule
     var activityRule = ActivityTestRule(EmptyActivity::class.java)
 
-    private lateinit var emptyActivity: EmptyActivity
     private lateinit var fragmentManager: FragmentManager
 
     @Before
     fun setup() {
-        emptyActivity = activityRule.activity
-        fragmentManager = emptyActivity.supportFragmentManager
+        fragmentManager = activityRule.activity.supportFragmentManager
     }
 
     @UiThreadTest
     @Test
     fun testNavigate() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination().apply {
             id = INITIAL_FRAGMENT
             fragmentClass = EmptyFragment::class.java
@@ -89,7 +87,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testNavigateTwice() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination().apply {
             id = INITIAL_FRAGMENT
             fragmentClass = EmptyFragment::class.java
@@ -121,7 +119,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testNavigateWithPopUpToThenPop() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination()
         destination.id = INITIAL_FRAGMENT
         destination.fragmentClass = EmptyFragment::class.java
@@ -154,7 +152,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testNavigateWithPopUpToThenPopWithFragmentManager() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -193,7 +191,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testSingleTopInitial() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination()
         destination.fragmentClass = EmptyFragment::class.java
 
@@ -221,7 +219,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testSingleTop() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination()
         destination.fragmentClass = EmptyFragment::class.java
 
@@ -255,8 +253,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testPopInitial() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination()
         destination.id = INITIAL_FRAGMENT
         destination.fragmentClass = EmptyFragment::class.java
@@ -274,7 +271,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testPop() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination()
         destination.id = INITIAL_FRAGMENT
         destination.fragmentClass = EmptyFragment::class.java
@@ -309,7 +306,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testPopWithFragmentManager() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -346,7 +343,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testDeepLinkPopWithFragmentManager() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -384,8 +381,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testDeepLinkPopWithFragmentManagerWithSaveState() {
-        var fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        var fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -414,8 +410,7 @@ class FragmentNavigatorTest {
         // Create a new FragmentNavigator, replacing the previous one
         val savedState = fragmentNavigator.onSaveState()
         fragmentNavigator.removeOnNavigatorBackPressListener(backPressListener)
-        fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         fragmentNavigator.onRestoreState(savedState)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
 
@@ -431,8 +426,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testNavigateThenPopAfterSaveState() {
-        var fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        var fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -464,8 +458,7 @@ class FragmentNavigatorTest {
         // Create a new FragmentNavigator, replacing the previous one
         val savedState = fragmentNavigator.onSaveState()
         fragmentNavigator.removeOnNavigatorBackPressListener(backPressListener)
-        fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         fragmentNavigator.onRestoreState(savedState)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
 
@@ -494,8 +487,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testMultipleNavigateFragmentTransactionsThenPopWithFragmentManager() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()
@@ -519,8 +511,7 @@ class FragmentNavigatorTest {
     @UiThreadTest
     @Test
     fun testMultiplePopFragmentTransactionsThenPopWithFragmentManager() {
-        val fragmentNavigator = FragmentNavigator(emptyActivity,
-                fragmentManager, R.id.container)
+        val fragmentNavigator = FragmentNavigator(fragmentManager, R.id.container)
         val backPressListener = mock(Navigator.OnNavigatorBackPressListener::class.java)
         fragmentNavigator.addOnNavigatorBackPressListener(backPressListener)
         val destination = fragmentNavigator.createDestination()

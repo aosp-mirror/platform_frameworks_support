@@ -266,7 +266,7 @@ public class NavHostFragment extends Fragment implements NavHost {
      */
     @NonNull
     protected Navigator<? extends FragmentNavigator.Destination> createFragmentNavigator() {
-        return new FragmentNavigator(requireContext(), getChildFragmentManager(), getId());
+        return new FragmentNavigator(getChildFragmentManager(), getId());
     }
 
     @Nullable
