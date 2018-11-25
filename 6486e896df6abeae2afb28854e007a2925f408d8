@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ad8b39c_d9365149",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ByteArrayFrame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-25T16:44:18Z",
+      "side": 1,
+      "message": "q) why Metadata.Entry extends parcelable? do we have any use case which passes Metadata.Entry instances across processes?",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "6486e896df6abeae2afb28854e007a2925f408d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
