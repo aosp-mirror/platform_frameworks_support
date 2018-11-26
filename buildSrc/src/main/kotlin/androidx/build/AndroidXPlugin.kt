@@ -20,6 +20,9 @@ import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.CURRENT_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
 import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
+import androidx.build.checkapi.APITYPE
+import androidx.build.checkapi.getLastReleasedApiFileFromDir
+import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.dokka.Dokka
 import androidx.build.gradle.getByType
@@ -41,6 +44,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.extra
@@ -48,6 +52,7 @@ import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 import java.util.concurrent.ConcurrentHashMap
+import java.io.File
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -88,6 +93,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidLibraryOptions(extension)
                     project.configureVersionFileWriter(extension)
+                    project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
                         variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
@@ -322,4 +328,57 @@ private fun isDependencyRange(version: String?): Boolean {
     return ((version!!.startsWith("[") || version.startsWith("(")) &&
             (version.endsWith("]") || version.endsWith(")")) ||
             version.endsWith("+"))
+}
+
+private fun Project.createUnpackAarTask(): Copy =
+        project.tasks.createWithConfig("unpackAar", Copy::class.java) {
+    val aarFile = File(project.buildDir, "outputs/aar/${project.name}-minDepVersions-release.aar")
+    val destinationDir = getGenerateResourceApiDir()
+    from(project.zipTree(aarFile))
+    into(destinationDir)
+}
+
+private fun Project.createCheckResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("checkResourceApi",
+            CheckResourceApiTask::class.java) {
+        newApiFile = File(getGenerateResourceApiDir(), "public.txt")
+        oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
+    }
+}
+
+private fun Project.createUpdateResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
+        newApiFile = File(getGenerateResourceApiDir(), "public.txt")
+        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
+                project.version(), true, false, APITYPE.RESOURCEAPI)
+    }
+}
+
+private fun Project.configureResourceApiChecks() {
+    project.afterEvaluate {
+        if (project.hasApiFolder()) {
+            val unpackAarTask = project.createUnpackAarTask()
+            val checkResourceApiTask = project.createCheckResourceApiTask()
+            val updateResourceApiTask = project.createUpdateResourceApiTask()
+            checkResourceApiTask.dependsOn(unpackAarTask)
+            updateResourceApiTask.dependsOn(unpackAarTask)
+            project.tasks.all { task ->
+                if (task.name == "assembleRelease") {
+                    unpackAarTask.dependsOn(task)
+                } else if (task.name == "updateApi") {
+                    task.dependsOn(updateResourceApiTask)
+                }
+            }
+            project.rootProject.tasks.all { task ->
+                if (task.name == AndroidXPlugin.BUILD_ON_SERVER_TASK) {
+                    task.dependsOn(checkResourceApiTask)
+                }
+            }
+        }
+    }
+}
+
+private fun Project.getGenerateResourceApiDir(): File {
+    return File(project.rootProject.buildDir, "unpacked/" +
+            "${project.name}/aar")
 }

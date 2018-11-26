@@ -43,6 +43,11 @@ data class CheckApiTasks(
     val generateLocalDiffs: JDiffTask
 )
 
+enum class APITYPE {
+    CLASSAPI,
+    RESOURCEAPI
+}
+
 /**
  * Sets up api tasks for the given project
  */
@@ -331,7 +336,7 @@ private fun getLastReleasedApiFile(
 ): File? {
     val apiDir = File(rootFolder, "api")
     return getLastReleasedApiFileFromDir(apiDir, refVersion, requireFinalApi,
-            requireSameMajorRevision)
+            requireSameMajorRevision, APITYPE.CLASSAPI)
 }
 
 /**
@@ -339,12 +344,15 @@ private fun getLastReleasedApiFile(
  * maxVersionExclusive or null.
  * Ignores alpha versions if requireFinalApi is true.
  * If requireSameMajorRevision is true then only considers releases having the same major revision.
+ * If apiType is RESOURCEAPI, it will return the resource api file and if it is CLASSAPI, it will
+ * return the regular api file.
  */
-private fun getLastReleasedApiFileFromDir(
+fun getLastReleasedApiFileFromDir(
     apiDir: File,
     maxVersionExclusive: Version?,
     requireFinalApi: Boolean,
-    requireSameMajorRevision: Boolean
+    requireSameMajorRevision: Boolean,
+    apiType: APITYPE
 ): File? {
     if (requireSameMajorRevision && maxVersionExclusive == null) {
         throw GradleException("Version is not specified for the current project, " +
@@ -353,14 +361,22 @@ private fun getLastReleasedApiFileFromDir(
     var lastFile: File? = null
     var lastVersion: Version? = null
     apiDir.listFiles().forEach { file ->
-        val parsed = Version.parseOrNull(file)
-        parsed?.let { version ->
-            if ((lastFile == null || lastVersion!! < version) &&
-                    (maxVersionExclusive == null || version < maxVersionExclusive) &&
-                    (!requireFinalApi || version.isFinalApi()) &&
-                    (!requireSameMajorRevision || version.major == maxVersionExclusive?.major)) {
-                lastFile = file
-                lastVersion = version
+        if ((apiType == APITYPE.RESOURCEAPI && file.name.startsWith("res")) ||
+                (apiType == APITYPE.CLASSAPI && !file.name.startsWith("res"))) {
+            var versionString = file.name.removeSuffix(".txt")
+            if (apiType == APITYPE.RESOURCEAPI) {
+                versionString = versionString.removePrefix("res-")
+            }
+            val parsed = Version.parseOrNull(versionString)
+            parsed?.let { version ->
+                if ((lastFile == null || lastVersion!! < version) &&
+                        (maxVersionExclusive == null || version < maxVersionExclusive) &&
+                        (!requireFinalApi || version.isFinalApi()) &&
+                        (!requireSameMajorRevision ||
+                                version.major == maxVersionExclusive?.major)) {
+                    lastFile = file
+                    lastVersion = version
+                }
             }
         }
     }
