@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d947e2c_9fe40de6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T23:16:00Z",
+      "side": 1,
+      "message": "*sigh* you reviewed a CL with that: \"CallableTypeSpecBuilder\". I\u0027ll self plus two next time...",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "ad063104c8b93cc06ed40e05b8c02b0d006c846f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66933aa_041f6dcf",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T23:16:00Z",
+      "side": 1,
+      "message": "(mInvalid.compareAndSet(false, true) \u0026\u0026 isActive)",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "ad063104c8b93cc06ed40e05b8c02b0d006c846f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
