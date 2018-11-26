@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77100b4f_d81ffd3c",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-11-26T19:19:14Z",
+      "side": 1,
+      "message": "I did not understand the intend for scrollTo. Ideally we should not need a scroll.",
+      "range": {
+        "startLine": 950,
+        "startChar": 49,
+        "endLine": 950,
+        "endChar": 57
+      },
+      "revId": "f64ac14f3d35e423f6252221fd3a9f7cc2a9e9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e52fd1_0fbe2bb5",
+        "filename": "core/src/main/java/androidx/core/widget/TextViewCompat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-11-26T19:19:14Z",
+      "side": 1,
+      "message": "i think it is always good to verify that the param is not null using Preconditions.checkNotNull.\nSince those annotations does not stop developer from passing null, they are dangerous. we recently had a problem in staticlayout because of that. (not verifying a non-null param is actually a non-null).",
+      "revId": "f64ac14f3d35e423f6252221fd3a9f7cc2a9e9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca014b6e_edb56bc9",
+        "filename": "core/src/main/java/androidx/core/widget/TintableCompoundDrawablesView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-11-26T19:19:14Z",
+      "side": 1,
+      "message": "This class and functions seems to be public.\nI believe you intention was to keep it private.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "f64ac14f3d35e423f6252221fd3a9f7cc2a9e9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
