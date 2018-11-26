@@ -20,6 +20,9 @@ import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.CURRENT_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
 import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
+import androidx.build.checkapi.APITYPE
+import androidx.build.checkapi.getLastReleasedApiFileFromDir
+import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.dokka.Dokka
 import androidx.build.gradle.getByType
@@ -42,11 +45,13 @@ import org.gradle.api.artifacts.ExternalDependency
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+import java.io.File
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -87,6 +92,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidLibraryOptions(extension)
                     project.configureVersionFileWriter(extension)
+                    project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
                         variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
@@ -353,4 +359,71 @@ private fun isDependencyRange(version: String?): Boolean {
 
 private fun artifactSupportsSemVer(artifactGroup: String): Boolean {
     return artifactGroup.startsWith("androidx.")
+}
+
+private fun Project.createUnpackAarTask(): Copy =
+        project.tasks.createWithConfig("unpackAar", Copy::class.java) {
+    val aarFile = File(project.buildDir, "outputs/aar/${project.name}-minDepVersions-release.aar")
+    val destinationDir = File(project.rootDir, "../../out/host/unpacked/${project.name}/aar")
+    from(project.zipTree(aarFile))
+    into(destinationDir)
+}
+
+private fun Project.createCheckResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("checkResourceApi",
+            CheckResourceApiTask::class.java) {
+        doFirst {
+            val publicApiFile = getPublicApiFile()
+            if (publicApiFile.exists()) {
+                newApiFile = publicApiFile
+            }
+            val oldFile = File(project.projectDir, "api/res-${project.version}.txt")
+            if (oldFile.exists()) {
+                oldApiFile = oldFile
+            }
+        }
+    }
+}
+
+private fun Project.createUpdateResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
+        doFirst {
+            val publicApiFile = getPublicApiFile()
+            if (publicApiFile.exists()) {
+                newApiFile = publicApiFile
+            }
+            val oldFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
+                    project.version(), true, false, APITYPE.RESOURCEAPI)
+            oldApiFile = oldFile
+        }
+    }
+}
+
+private fun Project.configureResourceApiChecks() {
+    project.afterEvaluate {
+        if (project.hasApiFolder()) {
+            val unpackAarTask = project.createUnpackAarTask()
+            val checkResourceApiTask = project.createCheckResourceApiTask()
+            val updateResourceApiTask = project.createUpdateResourceApiTask()
+            checkResourceApiTask.dependsOn(unpackAarTask)
+            updateResourceApiTask.dependsOn(unpackAarTask)
+            project.tasks.all { task ->
+                if (task.name == "assembleRelease") {
+                    unpackAarTask.dependsOn(task)
+                } else if (task.name == "updateApi") {
+                    task.dependsOn(updateResourceApiTask)
+                }
+            }
+            project.rootProject.tasks.all { task ->
+                if (task.name == "buildOnServer") {
+                    task.dependsOn(checkResourceApiTask)
+                }
+            }
+        }
+    }
+}
+
+private fun Project.getPublicApiFile(): File {
+    return File(project.rootDir, "../../out/host/unpacked/" +
+            "${project.name}/aar/public.txt")
 }
