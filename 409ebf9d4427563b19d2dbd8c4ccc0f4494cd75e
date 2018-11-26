@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2771d774_9d5c8c4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-26T04:56:00Z",
+      "side": 1,
+      "message": "Temporarily fix for NullPointerException",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "409ebf9d4427563b19d2dbd8c4ccc0f4494cd75e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcbde3d5_1a8c3fd9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-26T04:56:00Z",
+      "side": 1,
+      "message": "Add TODO for the revert",
+      "range": {
+        "startLine": 778,
+        "startChar": 0,
+        "endLine": 778,
+        "endChar": 35
+      },
+      "revId": "409ebf9d4427563b19d2dbd8c4ccc0f4494cd75e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
