@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "62fd029d_7b5db991",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-26T12:33:30Z",
+      "side": 1,
+      "message": "Thanks for pointing this out! Done",
+      "parentUuid": "1ca23330_c1dced62",
+      "revId": "23bd00bd89dc5023ea859e28c74d336d073b05cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4574d70a_9fb3d8ae",
         "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "23bd00bd89dc5023ea859e28c74d336d073b05cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0383b08b_e28cefd0",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-26T12:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4574d70a_9fb3d8ae",
+      "revId": "23bd00bd89dc5023ea859e28c74d336d073b05cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
