@@ -22,6 +22,30 @@
       "revId": "6486e896df6abeae2afb28854e007a2925f408d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f6f5d8_4344e7f6",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ByteArrayFrame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-11-26T10:37:55Z",
+      "side": 1,
+      "message": "I think this is so that apps are able to pass com.google.android.exoplayer2.Formats across processes if they want (see https://github.com/google/ExoPlayer/pull/1797). There aren\u0027t any cases where we do this within ExoPlayer.",
+      "parentUuid": "8ad8b39c_d9365149",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "6486e896df6abeae2afb28854e007a2925f408d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
