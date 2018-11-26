@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5a6d7db_35527c99",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "It\u0027s probably possibly to consolidate this with getPublicApiFile on line 426 too",
+      "range": {
+        "startLine": 367,
+        "startChar": 25,
+        "endLine": 367,
+        "endChar": 93
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88540b5_b0d02a2e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Does this (changing the input of the task inside the `doFirst` block) result in correct incrementalism (task runs when inputs change and ideally task doesn\u0027t run when inputs don\u0027t change)?\n\nI think we want to run this during project configuration",
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac37d76_51501dc2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "(same question about task incrementalism)",
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31de0ea_e25a22ea",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Hmm, it\u0027s too bad that `rootProject.tasks[BUILD_ON_SERVER_TASK]` presumably doesn\u0027t work",
+      "range": {
+        "startLine": 417,
+        "startChar": 37,
+        "endLine": 417,
+        "endChar": 41
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9eff8df3_ba46a39d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "I think you can use BUILD_ON_SERVER_TASK (in case we get around to changing the name)",
+      "range": {
+        "startLine": 418,
+        "startChar": 33,
+        "endLine": 418,
+        "endChar": 48
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9a6620_0ec7c6a2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "It\u0027d be cool to come up with a more descriptive name that mentions both the out/ dir and the resources, perhaps \"getResourcesGeneratedApiFile\"?",
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dcba2fa_28a17322",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Technically this dir might not be writable; we probably want to respect the `OUT_DIR` environment variable; probably the easiest way to do that is to make this path relative to project.rootProject.buildDir instead",
+      "range": {
+        "startLine": 427,
+        "startChar": 16,
+        "endLine": 427,
+        "endChar": 43
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ac19e7_4d7857b6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckResourceApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Probably want this task name to match the one on line 37",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdeff319_b56885af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/UpdateResourceApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "I think it would be slightly faster to read (and more interestingly to confirm the correctness of) if instead of modifying an existing variable (such as oldResourceApi) and giving it a slightly different purpose (previously oldResourceApi was the full API of all resources, and now it the resources that were removed) we were to instead make a new variable (such as removedResourceApis) and check (and print) that instead",
+      "range": {
+        "startLine": 51,
+        "startChar": 59,
+        "endLine": 51,
+        "endChar": 84
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6b4c85d_bcd4f798",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/UpdateResourceApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Suggest adding \"since ${oldResourceApi.path}\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 47,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f35d69_6a9d79fb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/UpdateResourceApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-26T21:35:46Z",
+      "side": 1,
+      "message": "Suggest adding \"since ${oldResourceApi.path}\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 55,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "e0a9335fef882536aeeef1b28c4fcde98496e102",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
