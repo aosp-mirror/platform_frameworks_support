@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ca23330_c1dced62",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-26T08:45:31Z",
+      "side": 1,
+      "message": "Thanks for doing it. BTW, why not just calling .execute()?\n\nhttps://developer.android.com/reference/android/os/AsyncTask\n\"\nStarting with Build.VERSION_CODES.HONEYCOMB, tasks are executed on a single thread to avoid common application errors caused by parallel execution.\n\"",
+      "revId": "23bd00bd89dc5023ea859e28c74d336d073b05cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4574d70a_9fb3d8ae",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-26T08:45:31Z",
+      "side": 1,
+      "message": "(Currently, it would be fine not to guard it by Lock, but it would be better to add Lock for the future code maintenance. My 2 cents.)",
+      "revId": "23bd00bd89dc5023ea859e28c74d336d073b05cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
