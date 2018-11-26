@@ -22,6 +22,30 @@
       "revId": "d8c7ee498183e03031f70fe3ab06eefeb63dcd20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35065772_488df3c6",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-11-26T16:13:40Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Let me make a separate change and get it reviewed by sungsoo@ who added this test.",
+      "parentUuid": "2f9736c0_a1a39269",
+      "range": {
+        "startLine": 1201,
+        "startChar": 4,
+        "endLine": 1203,
+        "endChar": 61
+      },
+      "revId": "d8c7ee498183e03031f70fe3ab06eefeb63dcd20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
