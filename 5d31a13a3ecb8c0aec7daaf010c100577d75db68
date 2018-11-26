@@ -114,6 +114,138 @@
       "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19870c6c_705ad38d",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "do we really want to duplicate Intent apis here?",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3f06bc_fb105d60",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "!\n\nI mean @NonNull",
+      "range": {
+        "startLine": 33,
+        "startChar": 70,
+        "endLine": 33,
+        "endChar": 71
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e93b001_74c9a612",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 35,
+        "startChar": 70,
+        "endLine": 35,
+        "endChar": 71
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70753e77_aede9db4",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "probably should be handleDeepLink. Prefix on usually means that it is callback method, that should be overriden (not the case)",
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b687da7_3a4e3178",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "(good thought in the last minute) should we provide method to extract intent instead of that key?",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 108
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760d5a61_11486e5c",
+        "filename": "navigation/runtime/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:28:06Z",
+      "side": 1,
+      "message": "// it is a bit sad to use such a good name for such boring stuff :|",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 31
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
