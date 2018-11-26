@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7006eb6_0d79c6c3",
+        "filename": "navigation/common/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:05:50Z",
+      "side": 1,
+      "message": "Ack and sigh, but I let api-council bikeshed about it :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eefab65b_e70666cc",
+        "filename": "navigation/common/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:05:50Z",
+      "side": 1,
+      "message": "same, delete maybe?",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 108
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c7b941_0e8bfc99",
+        "filename": "navigation/common/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:05:50Z",
+      "side": 1,
+      "message": "why don\u0027t you mark the whole class final?",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9e0e39_f45c52c2",
+        "filename": "navigation/common/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:05:50Z",
+      "side": 1,
+      "message": "do we really need this constructor?",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 62
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac19c77_87ab13b0",
+        "filename": "navigation/common/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:05:50Z",
+      "side": 1,
+      "message": "I\u0027d make addDestinations(java.util.Collection) -\u003e addDestinations(java.util.Iterable) and remove this one",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 66
+      },
+      "revId": "5d31a13a3ecb8c0aec7daaf010c100577d75db68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
