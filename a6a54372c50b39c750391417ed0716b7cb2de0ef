@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15553cc6_53331a08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26cff942_81b097d1",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51ef395_b36f5adc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55929dbd_297b4915",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51ef395_b36f5adc",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "322fb720_7a137d49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "522295cc_45764c16",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a40dc250_b469d430",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdbccae1_e75496b2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a40dc250_b469d430",
+      "range": {
+        "startLine": 586,
+        "startChar": 32,
+        "endLine": 586,
+        "endChar": 47
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6407f13c_680318c9",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Renamed it as isDynamicRoute.\n\nI\u0027m not sure that *dynamic* and *group* is the same class or not",
+      "parentUuid": "88bfaba8_a34388dc",
+      "range": {
+        "startLine": 598,
+        "startChar": 27,
+        "endLine": 598,
+        "endChar": 41
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60ad641b_913c519a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90777723_f67ab73d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "1. Didn\u0027t recognize it.\n2. There was an issue that user couldn\u0027t control a route which is not unselectable.\nSo I enabled all other controls but checkbox and for UX reason, I hide it.\n\nI thinks it\u0027s better to move this change to another CL.",
+      "parentUuid": "60ad641b_913c519a",
+      "range": {
+        "startLine": 1170,
+        "startChar": 0,
+        "endLine": 1170,
+        "endChar": 100
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "9b07102d_74db90b5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "14376d8b_90d475dc",
+      "range": {
+        "startLine": 1296,
+        "startChar": 12,
+        "endLine": 1296,
+        "endChar": 31
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1ced1f5_c1a1cc0e",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 5
@@ -207,6 +375,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad7ac0f9_dd85ee25",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1ced1f5_c1a1cc0e",
+      "range": {
+        "startLine": 1329,
+        "startChar": 8,
+        "endLine": 1331,
+        "endChar": 8
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "780ba8cd_1f742544",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f081729_90a3107f",
+      "range": {
+        "startLine": 1332,
+        "startChar": 20,
+        "endLine": 1332,
+        "endChar": 37
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2faee8b4_8dc7a96a",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
         "patchSetId": 5
@@ -253,6 +469,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51798dd4_88d0abb5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "onRouteSelected is called right after the route is selected in client side.\n\nI think this is for displaying MediaRouteCastDialog when the dynamic group is not created yet.\nLet\u0027s handle that in MediaRouteCastDialog.",
+      "parentUuid": "2faee8b4_8dc7a96a",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 45
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -279,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "3343ad96_520de4d3",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "it\u0027s intentional and isDynamicRoute looks good to me\n(",
+      "parentUuid": "0fb07f59_d6688a50",
+      "range": {
+        "startLine": 1498,
+        "startChar": 23,
+        "endLine": 1498,
+        "endChar": 37
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2792af03_714acd04",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 5
@@ -299,6 +563,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04752e4_8c00f80d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Currently there is no operations on mMemberRoutes so it doesn\u0027t change at all.\nRouteInfo always create a new list of members to change its members.",
+      "parentUuid": "2792af03_714acd04",
+      "range": {
+        "startLine": 1557,
+        "startChar": 31,
+        "endLine": 1557,
+        "endChar": 47
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +613,30 @@
     },
     {
       "key": {
+        "uuid": "4275f7e8_c5352ff5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "no else is needed here",
+      "parentUuid": "43108aa8_8825004f",
+      "range": {
+        "startLine": 1690,
+        "startChar": 16,
+        "endLine": 1691,
+        "endChar": 16
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30bebf16_e50b5701",
         "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
         "patchSetId": 5
@@ -345,6 +657,30 @@
       "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2cb5dc_4c984bb5",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-26T05:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30bebf16_e50b5701",
+      "range": {
+        "startLine": 71,
+        "startChar": 14,
+        "endLine": 71,
+        "endChar": 17
+      },
+      "revId": "a6a54372c50b39c750391417ed0716b7cb2de0ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
