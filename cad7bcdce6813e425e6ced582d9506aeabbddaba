@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8147be85_598a579a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-26T16:40:40Z",
+      "side": 1,
+      "message": "a comment on here would be nice on why we have this Fields class (to enable caching)",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "cad7bcdce6813e425e6ced582d9506aeabbddaba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df82e8ae_d0dfe53c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-26T16:40:40Z",
+      "side": 1,
+      "message": "lazy thread safe mode \u003d none",
+      "range": {
+        "startLine": 25,
+        "startChar": 32,
+        "endLine": 25,
+        "endChar": 36
+      },
+      "revId": "cad7bcdce6813e425e6ced582d9506aeabbddaba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
