@@ -143,6 +143,29 @@
     },
     {
       "key": {
+        "uuid": "26207bc9_a46268df",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-11-26T23:18:37Z",
+      "side": 1,
+      "message": "As I mentioned below, this field is long since this is the memory address of the native object and we are now working with 64bit process.",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 23
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f1e6184_90e54d0a",
         "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
         "patchSetId": 4
@@ -154,6 +177,30 @@
       "writtenOn": "2018-11-06T16:58:34Z",
       "side": 1,
       "message": "is 0 a valid native key?",
+      "range": {
+        "startLine": 85,
+        "startChar": 19,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29de79fa_1090de17",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-11-26T23:18:37Z",
+      "side": 1,
+      "message": "No, Typeface never expects native_instance as 0.\n\nSo, it is safe to use \"0\" as the invalid native key in your code, but I would like you to introduce constant for making this number clear for the invalid key in your code, like\nprivate static final long INVALID_NATIVE_INSTANCE \u003d 0;\n\nBy the way, I believe the native_instance is now long since we need to support 64bit process.\nPlease double check if this is working.\n\nFYI:\nThis value is the address of allocated native Typeface object.\n(See https://cs.corp.google.com/android/frameworks/base/libs/hwui/hwui/Typeface.cpp?rcl\u003dfe36fc246edcb743049b0c77d92e8f64e8ee5e7f\u0026l\u003d127)\n\nmemory address 0 means the native memory allocation is failed and native code never treat that case since basically that is unrecoverable and there is almost nothing we can do for them. Probably process immediately crashes with segmentation fault in such case.",
+      "parentUuid": "5f1e6184_90e54d0a",
       "range": {
         "startLine": 85,
         "startChar": 19,
