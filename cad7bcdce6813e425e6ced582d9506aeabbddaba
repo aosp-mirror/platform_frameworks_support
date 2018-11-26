@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d227fbcb_53123162",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T17:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8147be85_598a579a",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "cad7bcdce6813e425e6ced582d9506aeabbddaba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df82e8ae_d0dfe53c",
         "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "cad7bcdce6813e425e6ced582d9506aeabbddaba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a6e3eb3_7f28c752",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/vo/HasFields.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T17:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df82e8ae_d0dfe53c",
+      "range": {
+        "startLine": 25,
+        "startChar": 32,
+        "endLine": 25,
+        "endChar": 36
+      },
+      "revId": "cad7bcdce6813e425e6ced582d9506aeabbddaba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
