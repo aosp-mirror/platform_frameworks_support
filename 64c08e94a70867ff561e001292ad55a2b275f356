@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f9951569_dff9b7ff",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-11-26T23:42:10Z",
+      "side": 1,
+      "message": "Sorry, please ignore my comment. This is used for API19 or before so the field is declared as int.",
+      "parentUuid": "26207bc9_a46268df",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 23
+      },
+      "revId": "64c08e94a70867ff561e001292ad55a2b275f356",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f1e6184_90e54d0a",
         "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
         "patchSetId": 4
