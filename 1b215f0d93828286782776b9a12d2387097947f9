@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04fed2f2_b9662307",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/FragmentNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-26T16:45:53Z",
+      "side": 1,
+      "message": "I have doubts about args here, fragmentmanager and context can be used from fiels (subclasses can grab them in constructor), but okay",
+      "revId": "1b215f0d93828286782776b9a12d2387097947f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
