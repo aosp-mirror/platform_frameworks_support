@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a00095e_1c7814df",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-11-26T20:10:40Z",
+      "side": 1,
+      "message": "If you plan on releasing android.support artifact you should also dejetify the package from androidx.remotecallback to android.support.remotecallback.",
+      "range": {
+        "startLine": 1532,
+        "startChar": 34,
+        "endLine": 1532,
+        "endChar": 53
+      },
+      "revId": "a98894544481f93496dd0c2e4118e7e392f73050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
