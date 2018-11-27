@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "0032fe79_bada5e12",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-27T13:38:19Z",
+      "side": 1,
+      "message": "ಠ_ಠ\n\nThat DaoWriter.dbField thing spreads like cancer. You don\u0027t need it here (you have dbField). But you should remove completely DaoWriter.dbField in separate CL. Reason why we have it is RelationCollectorWriter, so to remove it you need to be creative. Possible ways: introduce DaoCodeGentScope or DaoWriter(propably not best idea)",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c85e4b3_1d75f7ae",
         "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
         "patchSetId": 2
