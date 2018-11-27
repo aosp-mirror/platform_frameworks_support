@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55f3e609_536094a7",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T00:05:03Z",
+      "side": 1,
+      "message": "well only if rebase was clever enough to understand all of this so that i don\u0027t need to rewrite the CL.",
+      "parentUuid": "0d947e2c_9fe40de6",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "ad063104c8b93cc06ed40e05b8c02b0d006c846f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c66933aa_041f6dcf",
         "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
         "patchSetId": 29
