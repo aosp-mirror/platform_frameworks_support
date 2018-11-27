@@ -16,7 +16,6 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
 
 @DslMarker
@@ -35,10 +34,14 @@ open class NavDestinationBuilder<out D : NavDestination>(
      */
     var label: CharSequence? = null
 
+    private var arguments = mutableMapOf<String, NavArgument>()
+
     /**
-     * The default arguments that should be passed to the destination
+     * Add a [NavArgument] to this destination.
      */
-    var defaultArguments: Bundle? = null
+    fun argument(name: String, block: NavArgumentBuilder.() -> Unit) {
+        arguments[name] = NavArgumentBuilder(name).apply(block).build()
+    }
 
     private var deepLinks = mutableListOf<String>()
 
@@ -79,7 +82,9 @@ open class NavDestinationBuilder<out D : NavDestination>(
         return navigator.createDestination().also { destination ->
             destination.id = id
             destination.label = label
-            destination.setDefaultArguments(defaultArguments)
+            arguments.forEach { (_, argument) ->
+                destination.addArgument(argument)
+            }
             deepLinks.forEach { deepLink ->
                 destination.addDeepLink(deepLink)
             }
@@ -110,4 +115,53 @@ class NavActionBuilder {
     }
 
     internal fun build() = NavAction(destinationId, navOptions)
+}
+
+/**
+ * DSL for constructing a new [NavArgument]
+ */
+@NavDestinationDsl
+class NavArgumentBuilder(
+    val name: String
+) {
+    private val builder = NavArgument.Builder(name)
+
+    /**
+     * Sets the NavType for this argument, parsed from a string.
+     * @param argType Uses the same format as app:argType in Navigation XML resources.
+     */
+    fun type(argType: String) {
+        builder.setType(NavType.fromArgType(argType, null))
+    }
+
+    /**
+     * Sets the NavType for this argument.
+     */
+    fun type(type: NavType<*>) {
+        builder.setType(type)
+    }
+
+    /**
+     * Sets if this argument can be null.
+     * @param nullable Argument can be null if true
+     */
+    fun nullable(nullable: Boolean) {
+        builder.setIsNullable(nullable)
+    }
+
+    /**
+     * Sets a default value for this argument.
+     * @param defaultValue Default value for this argument.
+     * Must be of class compatible with <code>type</code> if it was specified.
+     */
+    fun defaultValue(defaultValue: Any?) {
+        builder.setDefaultValue(defaultValue)
+    }
+
+    /**
+     * Build the NavArgument by calling [NavArgument.Builder.build].
+     */
+    fun build(): NavArgument {
+        return builder.build()
+    }
 }
