@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ec51b99_c6a977f9",
+        "filename": "slices/view/src/androidTest/java/androidx/slice/widget/SliceViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1110928
+      },
+      "writtenOn": "2018-11-27T21:06:08Z",
+      "side": 1,
+      "message": "s/NotShow/Hide/",
+      "range": {
+        "startLine": 392,
+        "startChar": 20,
+        "endLine": 392,
+        "endChar": 27
+      },
+      "revId": "e08af288ce6305a43010dcd890000d83005fe76e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
