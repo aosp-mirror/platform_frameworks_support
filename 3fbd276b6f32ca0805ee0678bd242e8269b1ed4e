@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fabcaca_8c46cbca",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/ApiLocation.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T13:11:12Z",
+      "side": 1,
+      "message": "Why not \"restricted_\"?",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efcffce8_b6e825c3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T13:11:12Z",
+      "side": 1,
+      "message": "Current restricted API file not set?",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7567dbc1_b6a6857c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T13:11:12Z",
+      "side": 1,
+      "message": "Does this make it so it only includes RestrictTo apis, or is it just so it includes it but still include everything else (i.e what would also be in the public one)",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
