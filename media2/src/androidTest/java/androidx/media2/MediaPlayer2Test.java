@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.hardware.Camera;
 import android.media.AudioManager;
+import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaRecorder;
 import android.media.audiofx.AudioEffect;
@@ -3121,5 +3122,51 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
 
         assertNull(mPlayer.getAudioAttributes());
         assertNull(mPlayer.getCurrentMediaItem());
+    }
+
+    @Test
+    @LargeTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    public void testSelectVttTrackAndPlayToEnd() throws Exception {
+        mPlayer.setMediaItem(new UriMediaItem.Builder(mContext, Uri.parse("...")).build());
+        MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
+            @Override
+            public void onInfo(MediaPlayer2 mp, MediaItem item, int what, int extra) {
+                if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
+                    mOnPrepareCalled.signal();
+                } else if (what == MediaPlayer2.MEDIA_INFO_DATA_SOURCE_END) {
+                    mOnCompletionCalled.signal();
+                }
+            }
+
+            @Override
+            public void onSubtitleData(
+                    MediaPlayer2 mp, MediaItem item, SubtitleData data) {
+                if (data != null) {
+                    Log.w("DEBUG", "onSubtitleData: " + new String(data.getData()));
+                    mOnSubtitleDataCalled.signal();
+                }
+            }
+        };
+        synchronized (mEventCbLock) {
+            mEventCallbacks.add(ecb);
+        }
+        mPlayer.prepare();
+        mOnPrepareCalled.waitForSignal();
+        List<MediaPlayer2.TrackInfo> trackInfos = mPlayer.getTrackInfo();
+        int firstVttTrackIndex = -1;
+        for (int i = 0; i < trackInfos.size(); i++) {
+            MediaPlayer2.TrackInfo trackInfo = trackInfos.get(i);
+            Log.w("DEBUG", "Track info: " + trackInfo);
+            if (firstVttTrackIndex == -1
+                    && trackInfo.getTrackType() == MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE
+                    && trackInfo.getFormat().getString(MediaFormat.KEY_MIME).equals("text/vtt")) {
+                firstVttTrackIndex = i;
+            }
+        }
+        mPlayer.selectTrack(firstVttTrackIndex);
+        mPlayer.play();
+        mOnSubtitleDataCalled.waitForSignal();
+        mOnCompletionCalled.waitForSignal();
     }
 }
