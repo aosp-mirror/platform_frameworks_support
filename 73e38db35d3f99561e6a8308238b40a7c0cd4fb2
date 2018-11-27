@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1727dda8_3ec643ee",
+        "filename": "remotecallback/src/main/java/androidx/remotecallback/CallbackHandlerRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1146169
+      },
+      "writtenOn": "2018-11-27T20:36:26Z",
+      "side": 1,
+      "message": "might be nice to have a clear() method here if the object changes in the future",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 205,
+        "endChar": 37
+      },
+      "revId": "73e38db35d3f99561e6a8308238b40a7c0cd4fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
