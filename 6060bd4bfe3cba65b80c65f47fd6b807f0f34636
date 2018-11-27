@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "92af95ee_94826a95",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/KotlinMetadataProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "should we update this library or is it still compatible w/ 1.3 coroutines ?",
+      "range": {
+        "startLine": 21,
+        "startChar": 42,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90be1dd3_781ebe12",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "i think we have returnType.typeName() ? (since you are updating it :) )",
+      "range": {
+        "startLine": 98,
+        "startChar": 29,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92fbe941_8121b690",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "hmm might be cleaner to check for continuation object.\nto avoid extra checks, we can create a local parameter:\n\nval queryParams \u003d if (isSuspendFunction) {\n   executableEleemnt.parameters.filter { \u003ccheck is assignable continuation\u003e }\n} else {\n   executableEleemnt.parameters\n}",
+      "range": {
+        "startLine": 142,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 83
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f58fe2_5162a9b8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "why do we care about this parameter name ?\nwe are the ones declaring the method so we can name it whatever we want?\n\nalso for other ones, we do have a mechanism to check related dependencies are in place. we need the same thing for corooutines as well.\n\ne.g. https://cs.corp.google.com/aosp-androidx/room/compiler/src/main/kotlin/androidx/room/solver/binderprovider/RxQueryResultBinderProvider.kt?q\u003dRxQueryResultBinderProvider\u0026sq\u003dpackage:android\u0026g\u003d0\u0026l\u003d67",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 37
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c85e4b3_1d75f7ae",
         "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
         "patchSetId": 2
@@ -19,6 +111,46 @@
         "endLine": 38,
         "endChar": 42
       },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c98b40f_2ee6e430",
+        "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "static variable to cache the executor ?\nseems like a bad idea as this is not per Room isntance but instaead for the whole app. \n\ninstead we should make RoomDatabase provide APIs to keep these objects. can be package private fields in RoomDatabsae if we cant find a better way .",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb5cf00_93e2c7cf",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T01:05:39Z",
+      "side": 1,
+      "message": "need a lot more testing for these.\n\n@RawQuery comes to mind first. \nwe should also have a deciison on what to do if someone returns a LiveData, Single etc. it does not even make sense but maybe there is areason to allow them ?\n\nwe also need a test for a query with @Transaction (or a couple :) )",
       "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
