@@ -34,13 +34,9 @@ import android.os.Bundle;
 public class AppWidgetProviderWithCallbacks<T extends CallbackReceiver> extends
         AppWidgetProvider implements CallbackReceiver<T> {
 
-    Context mContext;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         if (ACTION_BROADCAST_CALLBACK.equals(intent.getAction())) {
-            CallbackHandlerRegistry.sInstance.ensureInitialized(getClass());
-
             CallbackHandlerRegistry.sInstance.invokeCallback(context, this, intent);
         } else {
             super.onReceive(context, intent);
@@ -49,16 +45,16 @@ public class AppWidgetProviderWithCallbacks<T extends CallbackReceiver> extends
 
     @Override
     public T createRemoteCallback(Context context) {
-        CallbackHandlerRegistry.sInstance.ensureInitialized(getClass());
         return CallbackHandlerRegistry.sInstance.getAndResetStub(getClass(), context, null);
     }
 
     @Override
-    public RemoteCallback toRemoteCallback(Class<T> cls, Bundle args, String method) {
+    public RemoteCallback toRemoteCallback(Class<T> cls, Context context, String authority,
+            Bundle args, String method) {
         Intent intent = new Intent(ACTION_BROADCAST_CALLBACK);
-        intent.setComponent(new ComponentName(mContext.getPackageName(), cls.getName()));
+        intent.setComponent(new ComponentName(context.getPackageName(), cls.getName()));
         args.putString(EXTRA_METHOD, method);
         intent.putExtras(args);
-        return new RemoteCallback(mContext, TYPE_RECEIVER, intent, cls.getName(), args);
+        return new RemoteCallback(context, TYPE_RECEIVER, intent, cls.getName(), args);
     }
 }
