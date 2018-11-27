@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a8924bde_12e1e7d7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T14:12:44Z",
+      "side": 1,
+      "message": "Sounds good to me, I can\u0027t find any other \"@aar\"s that don\u0027t have a {transitive \u003d true} in the build file or are androidx without {transitive \u003d true}",
+      "parentUuid": "b1018ab9_1f9ef365",
+      "revId": "9c3b150b5b35e52d1ee0b3d5cfa93fefc940087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d7498bd_067b4855",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "9c3b150b5b35e52d1ee0b3d5cfa93fefc940087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b174d1cc_95fcdf07",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T14:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7498bd_067b4855",
+      "revId": "9c3b150b5b35e52d1ee0b3d5cfa93fefc940087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "9c3b150b5b35e52d1ee0b3d5cfa93fefc940087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e31071_72b74915",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-27T14:12:44Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "f04a63aa_12ac09c9",
+      "range": {
+        "startLine": 325,
+        "startChar": 43,
+        "endLine": 325,
+        "endChar": 61
+      },
+      "revId": "9c3b150b5b35e52d1ee0b3d5cfa93fefc940087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
