@@ -35,7 +35,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.remotecallback.CallbackHandlerRegistry;
+import androidx.remotecallback.ProviderRelayReceiver;
 import androidx.slice.SliceConvert;
+import androidx.slice.SliceProviderWithCallbacks;
 
 import java.util.Collection;
 import java.util.Set;
@@ -107,6 +110,12 @@ public class SliceProviderWrapperContainer {
                         checkPermissions(uri);
                     }
                 }
+            }
+            if (ProviderRelayReceiver.METHOD_PROVIDER_CALLBACK.equals(method)
+                    && (mSliceProvider instanceof SliceProviderWithCallbacks)) {
+                CallbackHandlerRegistry.sInstance.invokeCallback(getContext(),
+                        (SliceProviderWithCallbacks) mSliceProvider, extras);
+                return null;
             }
             return super.call(method, arg, extras);
         }
