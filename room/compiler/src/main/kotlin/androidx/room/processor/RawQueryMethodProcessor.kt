@@ -18,7 +18,9 @@ package androidx.room.processor
 
 import androidx.room.RawQuery
 import androidx.room.Transaction
+import androidx.room.ext.KotlinMetadataProcessor
 import androidx.room.ext.SupportDbTypeNames
+import androidx.room.ext.findKotlinSuspendFunctionReturnType
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.isEntityElement
 import androidx.room.ext.toAnnotationBox
@@ -29,6 +31,9 @@ import androidx.room.vo.RawQueryMethod
 import asTypeElement
 import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.TypeName
+import me.eugeniomarletti.kotlin.metadata.KotlinClassMetadata
+import me.eugeniomarletti.kotlin.metadata.kotlinMetadata
+import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
@@ -36,32 +41,49 @@ class RawQueryMethodProcessor(
     baseContext: Context,
     val containing: DeclaredType,
     val executableElement: ExecutableElement
-) {
+) : KotlinMetadataProcessor {
     val context = baseContext.fork(executableElement)
+
+    // for kotlin metadata
+    override val processingEnv: ProcessingEnvironment
+        get() = context.processingEnv
+
+    private val classMetadata =
+        try {
+            containing.asElement().kotlinMetadata
+        } catch (throwable: Throwable) {
+            context.logger.d(executableElement,
+                "failed to read get kotlin metadata from %s", executableElement)
+        } as? KotlinClassMetadata
+
     fun process(): RawQueryMethod {
         val types = context.processingEnv.typeUtils
         val asMember = types.asMemberOf(containing, executableElement)
-        val executableType = MoreTypes.asExecutable(asMember)
+        val isSuspendFunction = classMetadata?.isSuspendFunction(executableElement) ?: false
+        val returnType = if (isSuspendFunction) {
+            executableElement.findKotlinSuspendFunctionReturnType()
+        } else {
+            MoreTypes.asExecutable(asMember).returnType
+        }
 
         context.checker.check(executableElement.hasAnnotation(RawQuery::class), executableElement,
                 ProcessorErrors.MISSING_RAWQUERY_ANNOTATION)
 
-        val returnTypeName = TypeName.get(executableType.returnType)
+        val returnTypeName = TypeName.get(returnType)
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_QUERY_METHODS)
         val observedTableNames = processObservedTables()
         val query = SqlParser.rawQueryForTables(observedTableNames)
         // build the query but don't calculate result info since we just guessed it.
         val resultBinder = context.typeAdapterStore
-                .findQueryResultBinder(executableType.returnType, query)
-
+            .findQueryResultBinder(executableElement, isSuspendFunction, returnType, query)
         val runtimeQueryParam = findRuntimeQueryParameter()
         val inTransaction = executableElement.hasAnnotation(Transaction::class)
         val rawQueryMethod = RawQueryMethod(
                 element = executableElement,
                 name = executableElement.simpleName.toString(),
                 observedTableNames = observedTableNames,
-                returnType = executableType.returnType,
+                returnType = returnType,
                 runtimeQueryParam = runtimeQueryParam,
                 inTransaction = inTransaction,
                 queryResultBinder = resultBinder

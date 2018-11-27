@@ -18,6 +18,7 @@ package androidx.room.ext
 
 import me.eugeniomarletti.kotlin.metadata.KotlinClassMetadata
 import me.eugeniomarletti.kotlin.metadata.KotlinMetadataUtils
+import me.eugeniomarletti.kotlin.metadata.isSuspend
 import me.eugeniomarletti.kotlin.metadata.jvm.getJvmConstructorSignature
 import me.eugeniomarletti.kotlin.metadata.shadow.metadata.ProtoBuf
 import me.eugeniomarletti.kotlin.metadata.shadow.serialization.deserialization.getName
@@ -51,7 +52,7 @@ interface KotlinMetadataProcessor : KotlinMetadataUtils {
      * Finds the kotlin metadata for a constructor.
      */
     private fun KotlinClassMetadata.findConstructor(
-            executableElement: ExecutableElement
+        executableElement: ExecutableElement
     ): ProtoBuf.Constructor? {
         val (nameResolver, classProto) = data
         val jvmSignature = executableElement.jvmMethodSignature
@@ -59,5 +60,9 @@ interface KotlinMetadataProcessor : KotlinMetadataUtils {
         return classProto.constructorList.singleOrNull {
             it.getJvmConstructorSignature(nameResolver, classProto.typeTable) == jvmSignature
         }
+    }
+
+    fun KotlinClassMetadata.isSuspendFunction(method: ExecutableElement): Boolean {
+        return this.data.getFunctionOrNull(method)?.isSuspend ?: false
     }
 }

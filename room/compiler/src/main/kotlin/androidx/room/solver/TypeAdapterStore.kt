@@ -42,6 +42,7 @@ import androidx.room.solver.query.parameter.BasicQueryParameterAdapter
 import androidx.room.solver.query.parameter.CollectionQueryParameterAdapter
 import androidx.room.solver.query.parameter.QueryParameterAdapter
 import androidx.room.solver.query.result.ArrayQueryResultAdapter
+import androidx.room.solver.query.result.CoroutineResultBinder
 import androidx.room.solver.query.result.EntityRowAdapter
 import androidx.room.solver.query.result.GuavaOptionalQueryResultAdapter
 import androidx.room.solver.query.result.InstantQueryResultBinder
@@ -88,6 +89,7 @@ import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.common.annotations.VisibleForTesting
 import java.util.LinkedList
+import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.ArrayType
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
@@ -324,7 +326,25 @@ class TypeAdapterStore private constructor(
         }
     }
 
-    fun findQueryResultBinder(typeMirror: TypeMirror, query: ParsedQuery): QueryResultBinder {
+    fun findQueryResultBinder(
+        executableElement: ExecutableElement,
+        isSuspendFunction: Boolean,
+        typeMirror: TypeMirror,
+        query: ParsedQuery
+    ): QueryResultBinder =
+        if (isSuspendFunction) {
+            CoroutineResultBinder(
+                typeArg = typeMirror,
+                adapter = findQueryResultAdapter(typeMirror, query),
+                continuationParamName = executableElement.parameters.last().simpleName.toString())
+        } else {
+            findQueryResultBinder(typeMirror, query)
+        }
+
+    private fun findQueryResultBinder(
+        typeMirror: TypeMirror,
+        query: ParsedQuery
+    ): QueryResultBinder {
         return if (typeMirror.kind == TypeKind.DECLARED) {
             val declared = MoreTypes.asDeclared(typeMirror)
             return queryResultBinderProviders.first {
