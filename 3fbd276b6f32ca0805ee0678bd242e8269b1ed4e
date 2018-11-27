@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c3add67_6a207d1e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/ApiLocation.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-27T17:57:05Z",
+      "side": 1,
+      "message": "Sounds good to me",
+      "parentUuid": "3fabcaca_8c46cbca",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efcffce8_b6e825c3",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "417d02c7_e8258c02",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-27T17:57:05Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "efcffce8_b6e825c3",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7567dbc1_b6a6857c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2018-11-27T13:11:12Z",
       "side": 1,
       "message": "Does this make it so it only includes RestrictTo apis, or is it just so it includes it but still include everything else (i.e what would also be in the public one)",
+      "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59cabf68_a860f5cc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-27T17:57:05Z",
+      "side": 1,
+      "message": "It just has the APIs marked with RestrictTo",
+      "parentUuid": "7567dbc1_b6a6857c",
       "revId": "3fbd276b6f32ca0805ee0678bd242e8269b1ed4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
