@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c85e4b3_1d75f7ae",
+        "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-27T00:46:54Z",
+      "side": 1,
+      "message": "This is probably not necessary since the executor of a DB will not change once initialized (builder and configurator used), but still wanted to get your opinion on it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
