@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.StringRes;
@@ -110,8 +109,9 @@ public class CarToolbar extends ViewGroup {
             setTitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_titleTextAppearance,
                     R.style.TextAppearance_Car_Body1_Medium));
 
-            setNavigationIcon(a.getResourceId(R.styleable.CarToolbar_navigationIcon,
-                    R.drawable.ic_nav_arrow_back));
+            Icon navIcon = Icon.createWithResource(context, a.getResourceId(
+                    R.styleable.CarToolbar_navigationIcon, R.drawable.ic_nav_arrow_back));
+            setNavigationIcon(navIcon);
 
             mNavButtonContainerWidth = a.getDimensionPixelSize(
                     R.styleable.CarToolbar_navigationIconContainerWidth,
@@ -171,20 +171,6 @@ public class CarToolbar extends ViewGroup {
         if (mTitleTextView.getVisibility() != GONE) {
             layoutViewVerticallyCentered(mTitleTextView, layoutLeft, height);
         }
-    }
-
-    /**
-     * Set the icon to use for the toolbar's navigation button.
-     *
-     * <p>The navigation button appears at the start of the toolbar if present. Setting an icon
-     * will make the navigation button visible.
-     *
-     * @param resId Resource ID of drawable to set.
-     *
-     * @attr ref R.styleable#CarToolbar_navigationIcon
-     */
-    public void setNavigationIcon(@DrawableRes int resId) {
-        setNavigationIcon(Icon.createWithResource(getContext(), resId));
     }
 
     /**
