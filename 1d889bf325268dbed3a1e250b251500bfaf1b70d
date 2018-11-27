@@ -16,6 +16,24 @@
       "revId": "1d889bf325268dbed3a1e250b251500bfaf1b70d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe436b4_af31c46c",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.generated.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 1960,
+      "author": {
+        "id": 1042886
+      },
+      "writtenOn": "2018-11-27T18:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ccabe3_75f60318",
+      "revId": "1d889bf325268dbed3a1e250b251500bfaf1b70d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
