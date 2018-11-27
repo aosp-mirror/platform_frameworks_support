@@ -46,6 +46,30 @@
       "revId": "62b838e1aae190a6985edacb4037c7f4c4866d98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61eda370_5a246c74",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-27T16:37:46Z",
+      "side": 0,
+      "message": "i thought we had it :). we should have that one ready before merging this though since if someone takes a build after this gets in, their poms will be maven imcompatible ?",
+      "parentUuid": "1633c970_fa8137fe",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "62b838e1aae190a6985edacb4037c7f4c4866d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
