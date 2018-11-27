@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ba79d6b_b6bec50d",
+        "filename": "navigation/common/ktx/src/androidTest/java/androidx/navigation/NavDestinationBuilderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "So no inferred typing?",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 31
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5b685c4_a0fe3711",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavArgumentBuilder.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Is this file supposed to have anything in it?",
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa842964_70917745",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Probably need to finish the thought here or just remove the docs here",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63c86d6a_d3ef9756",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Make the class final",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e124f327_17e8791f",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "package private?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13f4fd0c_506f7370",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 21
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2ae06fe_efbf2d37",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Make the class final",
+      "range": {
+        "startLine": 101,
+        "startChar": 24,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0373a2d1_ff2cec5a",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "@return this Builder\n\nSame for the other methods.",
+      "range": {
+        "startLine": 115,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 18
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4388d50_4bb39d85",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "@NonNull for all these return types",
+      "range": {
+        "startLine": 117,
+        "startChar": 15,
+        "endLine": 117,
+        "endChar": 22
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b04506_c7ae8aa6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "We try to make anything returning a Collection/Map NonNull",
+      "range": {
+        "startLine": 144,
+        "startChar": 5,
+        "endLine": 144,
+        "endChar": 13
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2d7504a_6f5ef6a5",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure we need this method at all if we have getArguments()?",
+      "range": {
+        "startLine": 258,
+        "startChar": 27,
+        "endLine": 258,
+        "endChar": 46
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb12fb75_bace9bde",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Put this back on the previous line to match the style of the rest of the code base",
+      "range": {
+        "startLine": 258,
+        "startChar": 11,
+        "endLine": 258,
+        "endChar": 19
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f0fcea_916329e3",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "I\u0027d argue that we should delete this method entirely.",
+      "range": {
+        "startLine": 274,
+        "startChar": 16,
+        "endLine": 274,
+        "endChar": 35
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d39e3f_46ebb9c2",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Is there a particular reason for this?",
+      "range": {
+        "startLine": 431,
+        "startChar": 8,
+        "endLine": 431,
+        "endChar": 41
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfca9a04_5b53aa83",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-27T23:48:27Z",
+      "side": 1,
+      "message": "Does this type need to be public?",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
