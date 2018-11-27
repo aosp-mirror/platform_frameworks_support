@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71879dfd_356b5257",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/DirectExecutor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-27T19:33:59Z",
+      "side": 1,
+      "message": "I took this class from androidx.concurrent.concurrent-futures :)\nI can make it an object if you think that is better.",
+      "parentUuid": "96a5885d_0d53c452",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5fb1169f_74877fa2",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2018-11-27T13:30:03Z",
       "side": 1,
       "message": "yeah, we need that in LF packages  (I saw your patch there), but it is not public so OKAY",
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c41d1dc1_13d498ff",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-27T19:33:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5fb1169f_74877fa2",
       "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "717db8d2_f30e89ba",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-27T19:33:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17cbda16_d9033f43",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b7f1c8_196b1692",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
         "patchSetId": 3
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "54ca4869_02e193cf",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-27T19:33:59Z",
+      "side": 1,
+      "message": "I think you need to do that for a CancellationException as well.",
+      "parentUuid": "36b7f1c8_196b1692",
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d0099c1_c1fe746b",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
         "patchSetId": 3
@@ -93,6 +177,30 @@
       "writtenOn": "2018-11-27T13:30:03Z",
       "side": 1,
       "message": "I have mixed feelings about \"to\" function here. I\u0027d suggest to think about something like Payload.success() / Payload.success(data) etc instead of this function. It even may be java api.\nIt is not very strong suggestion, it is for you and Sumir to make a call.",
+      "range": {
+        "startLine": 25,
+        "startChar": 35,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bfafc0_ad450ceb",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-27T19:33:59Z",
+      "side": 1,
+      "message": "We already have Payload(result), Payload(result, data) constructors. This helps to go the other way (from a Result to a Payload).",
+      "parentUuid": "6d0099c1_c1fe746b",
       "range": {
         "startLine": 25,
         "startChar": 35,
