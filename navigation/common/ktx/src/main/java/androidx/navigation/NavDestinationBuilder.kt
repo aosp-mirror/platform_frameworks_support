@@ -16,7 +16,6 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
 
 @DslMarker
@@ -37,8 +36,13 @@ open class NavDestinationBuilder<out D : NavDestination>(
 
     /**
      * The default arguments that should be passed to the destination
+     * <String, >
      */
-    var defaultArguments: Bundle? = null
+    private var arguments = mutableMapOf<String, NavArgument>()
+
+    fun argument(name: String, block: NavArgumentBuilder.() -> Unit) {
+        arguments[name] = NavArgumentBuilder(name).apply(block).build()
+    }
 
     private var deepLinks = mutableListOf<String>()
 
@@ -79,7 +83,9 @@ open class NavDestinationBuilder<out D : NavDestination>(
         return navigator.createDestination().also { destination ->
             destination.id = id
             destination.label = label
-            destination.setDefaultArguments(defaultArguments)
+            arguments.forEach { (_, argument) ->
+                destination.addArgument(argument)
+            }
             deepLinks.forEach { deepLink ->
                 destination.addDeepLink(deepLink)
             }
@@ -110,4 +116,33 @@ class NavActionBuilder {
     }
 
     internal fun build() = NavAction(destinationId, navOptions)
+}
+
+/**
+ * DSL for constructing a new [NavArgument]
+ */
+@NavDestinationDsl
+class NavArgumentBuilder(
+    val name: String
+) {
+    private val builder = NavArgument.Builder(name)
+
+    fun type(type: String) {
+        builder.setType(NavType.fromArgType(type, null))
+    }
+
+    fun nullable(nullable: Boolean) {
+        builder.setIsNullable(nullable)
+    }
+
+    fun defaultValue(defaultValue: Any?) {
+        builder.setDefaultValue(defaultValue)
+    }
+
+    /**
+     * Build the NavDestination by calling [Navigator.createDestination].
+     */
+    fun build(): NavArgument {
+        return builder.build()
+    }
 }
