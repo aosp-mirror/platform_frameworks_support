@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "58283cb7_d0c6ed1d",
+        "filename": "work/workmanager-ktx/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-28T18:12:37Z",
+      "side": 1,
+      "message": "What\u0027s up here? Is it the suspend function or inline that\u0027s making the function in here not show up? Ideally we wouldn\u0027t open an empty class like this.",
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96a5885d_0d53c452",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/DirectExecutor.kt",
         "patchSetId": 3
@@ -128,6 +145,23 @@
       "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed86217b_47980388",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/ListenableFuture.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-28T18:12:37Z",
+      "side": 1,
+      "message": "Why does this variant exist, even hidden?",
+      "revId": "af0b568c68dd5d177efc8f37a324f26164db3cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
