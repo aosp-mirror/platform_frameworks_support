@@ -554,7 +554,7 @@ public class AccessibilityNodeInfoCompat {
             mId = id;
             mLabel = label;
             mCommand = command;
-            if (action == null) {
+            if (Build.VERSION.SDK_INT >= 21 && action == null) {
                 mAction = new AccessibilityNodeInfo.AccessibilityAction(id, label);
             } else {
                 mAction = action;
@@ -568,7 +568,11 @@ public class AccessibilityNodeInfoCompat {
          * @return The action id.
          */
         public int getId() {
-            return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getId();
+            if (Build.VERSION.SDK_INT >= 21) {
+                return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getId();
+            } else {
+                return 0;
+            }
         }
 
         /**
@@ -578,7 +582,11 @@ public class AccessibilityNodeInfoCompat {
          * @return The label.
          */
         public CharSequence getLabel() {
-            return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getLabel();
+            if (Build.VERSION.SDK_INT >= 21) {
+                return ((AccessibilityNodeInfo.AccessibilityAction) mAction).getLabel();
+            } else {
+                return null;
+            }
         }
 
         /**
