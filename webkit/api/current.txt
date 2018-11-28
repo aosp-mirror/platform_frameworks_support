@@ -1,6 +1,11 @@
 // Signature format: 2.0
 package androidx.webkit {
 
+  public abstract class RenderProcessGoneDetail {
+    method public abstract boolean didCrash();
+    method public abstract int rendererPriorityAtExit();
+  }
+
   public abstract class SafeBrowsingResponseCompat {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public abstract void backToSafety(boolean);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public abstract void proceed(boolean);
@@ -109,14 +114,22 @@ package androidx.webkit {
   public class WebViewCompat {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebMessagePortCompat[] createWebMessageChannel(android.webkit.WebView);
     method public static android.content.pm.PackageInfo? getCurrentWebViewPackage(android.content.Context);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static boolean getRendererPriorityWaivedWhenNotVisible(android.webkit.WebView);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static int getRendererRequestedPriority(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static android.net.Uri getSafeBrowsingPrivacyPolicyUrl();
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.GET_WEB_CHROME_CLIENT, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static android.webkit.WebChromeClient? getWebChromeClient(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.GET_WEB_VIEW_CLIENT, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static android.webkit.WebViewClient getWebViewClient(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.GET_WEB_VIEW_RENDERER, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebViewRenderer? getWebViewRenderer(android.webkit.WebView);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static androidx.webkit.WebViewRendererClient? getWebViewRendererClient(android.webkit.WebView);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.VISUAL_STATE_CALLBACK, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postVisualStateCallback(android.webkit.WebView, long, androidx.webkit.WebViewCompat.VisualStateCallback);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.POST_WEB_MESSAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void postWebMessage(android.webkit.WebView, androidx.webkit.WebMessageCompat, android.net.Uri);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setRendererPriorityPolicy(android.webkit.WebView, int, boolean);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_WHITELIST, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setSafeBrowsingWhitelist(java.util.List<java.lang.String>, android.webkit.ValueCallback<java.lang.Boolean>?);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWebViewRendererClient(android.webkit.WebView, androidx.webkit.WebViewRendererClient?);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.START_SAFE_BROWSING, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void startSafeBrowsing(android.content.Context, android.webkit.ValueCallback<java.lang.Boolean>?);
+    field public static final int RENDERER_PRIORITY_BOUND = 1; // 0x1
+    field public static final int RENDERER_PRIORITY_IMPORTANT = 2; // 0x2
+    field public static final int RENDERER_PRIORITY_WAIVED = 0; // 0x0
   }
 
   public static interface WebViewCompat.VisualStateCallback {
@@ -158,11 +171,22 @@ package androidx.webkit {
     field public static final String WEB_RESOURCE_ERROR_GET_CODE = "WEB_RESOURCE_ERROR_GET_CODE";
     field public static final String WEB_RESOURCE_ERROR_GET_DESCRIPTION = "WEB_RESOURCE_ERROR_GET_DESCRIPTION";
     field public static final String WEB_RESOURCE_REQUEST_IS_REDIRECT = "WEB_RESOURCE_REQUEST_IS_REDIRECT";
+    field public static final String WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE = "WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE";
     field public static final String WEB_VIEW_RENDERER_TERMINATE = "WEB_VIEW_RENDERER_TERMINATE";
   }
 
   public abstract class WebViewRenderer {
     method public abstract boolean terminate();
+  }
+
+  public class WebViewRendererClient {
+    ctor public WebViewRendererClient();
+    method public boolean onRenderProcessGone(android.webkit.WebView, androidx.webkit.RenderProcessGoneDetail);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final boolean onRenderProcessGone(android.webkit.WebView, java.lang.reflect.InvocationHandler);
+    method public void onRendererResponsive(android.webkit.WebView, androidx.webkit.WebViewRenderer?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void onRendererResponsive(android.webkit.WebView, java.lang.reflect.InvocationHandler?);
+    method public void onRendererUnresponsive(android.webkit.WebView, androidx.webkit.WebViewRenderer?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void onRendererUnresponsive(android.webkit.WebView, java.lang.reflect.InvocationHandler?);
   }
 
 }

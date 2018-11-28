@@ -28,6 +28,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresFeature;
@@ -40,6 +41,8 @@ import androidx.webkit.internal.WebViewProviderFactory;
 import org.chromium.support_lib_boundary.WebViewProviderBoundaryInterface;
 import org.chromium.support_lib_boundary.util.Features;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -52,6 +55,40 @@ public class WebViewCompat {
     private static final Uri EMPTY_URI = Uri.parse("");
 
     private WebViewCompat() {} // Don't allow instances of this class to be constructed.
+
+    /** @hide */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @IntDef(value = {RENDERER_PRIORITY_WAIVED, RENDERER_PRIORITY_BOUND,
+                    RENDERER_PRIORITY_IMPORTANT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface RendererPriority {}
+
+    /**
+     * The renderer associated with this WebView is bound with
+     * {@link Context#BIND_WAIVE_PRIORITY}. At this priority level
+     * {@link WebView} renderers will be strong targets for out of memory
+     * killing.
+     *
+     * Use with {@link #setRendererPriorityPolicy}.
+     */
+    public static final int RENDERER_PRIORITY_WAIVED =
+            android.webkit.WebView.RENDERER_PRIORITY_WAIVED;
+    /**
+     * The renderer associated with this WebView is bound with
+     * the default priority for services.
+     *
+     * Use with {@link #setRendererPriorityPolicy}.
+     */
+    public static final int RENDERER_PRIORITY_BOUND =
+            android.webkit.WebView.RENDERER_PRIORITY_BOUND;
+    /**
+     * The renderer associated with this WebView is bound with
+     * {@link Context#BIND_IMPORTANT}.
+     *
+     * Use with {@link #setRendererPriorityPolicy}.
+     */
+    public static final int RENDERER_PRIORITY_IMPORTANT =
+            android.webkit.WebView.RENDERER_PRIORITY_IMPORTANT;
 
     /**
      * Callback interface supplied to {@link #postVisualStateCallback} for receiving
@@ -503,11 +540,79 @@ public class WebViewCompat {
         final WebViewFeatureInternal feature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
         if (feature.isSupportedByWebView()) {
-            try {
-                return getProvider(webview).getWebViewRenderer();
-            } catch (Exception e) {
-                throw WebViewFeatureInternal.getUnsupportedOperationException();
-            }
+            return getProvider(webview).getWebViewRenderer();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @Nullable WebViewRendererClient getWebViewRendererClient(
+            @NonNull WebView webview) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            return getProvider(webview).getWebViewRendererClient();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void setRendererPriorityPolicy(@NonNull WebView webview,
+            @RendererPriority int rendererRequestedPriority, boolean waivedWhenNotVisible) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            getProvider(webview).setRendererPriorityPolicy(
+                    rendererRequestedPriority, waivedWhenNotVisible);
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static @RendererPriority int getRendererRequestedPriority(
+            @NonNull WebView webview) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            return getProvider(webview).getRendererRequestedPriority();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static boolean getRendererPriorityWaivedWhenNotVisible(
+            @NonNull WebView webview) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            return getProvider(webview).getRendererPriorityWaivedWhenNotVisible();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresFeature(name = WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static void
+    setWebViewRendererClient(
+            @NonNull WebView webview, @Nullable WebViewRendererClient webViewRendererClient) {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
+        if (feature.isSupportedByWebView()) {
+            getProvider(webview).setWebViewRendererClient(webViewRendererClient);
         } else {
             throw WebViewFeatureInternal.getUnsupportedOperationException();
         }

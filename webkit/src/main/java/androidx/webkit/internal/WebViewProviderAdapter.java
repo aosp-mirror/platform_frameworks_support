@@ -25,6 +25,7 @@ import androidx.webkit.WebMessageCompat;
 import androidx.webkit.WebMessagePortCompat;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewRenderer;
+import androidx.webkit.WebViewRendererClient;
 
 import org.chromium.support_lib_boundary.WebViewProviderBoundaryInterface;
 import org.chromium.support_lib_boundary.util.BoundaryInterfaceReflectionUtil;
@@ -91,7 +92,32 @@ public class WebViewProviderAdapter {
 
     /**
      */
-    public WebViewRenderer getWebViewRenderer() throws Exception {
+    public WebViewRenderer getWebViewRenderer() {
         return WebViewRendererImpl.forInvocationHandler(mImpl.getWebViewRenderer());
+    }
+
+    public WebViewRendererClient getWebViewRendererClient() {
+        InvocationHandler handler = mImpl.getWebViewRendererClient();
+        if (handler == null) return null;
+        return (WebViewRendererClient)
+                BoundaryInterfaceReflectionUtil.getDelegateFromInvocationHandler(handler);
+    }
+
+    public void setWebViewRendererClient(WebViewRendererClient webViewRendererClient) {
+        mImpl.setWebViewRendererClient(
+                BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(webViewRendererClient));
+    }
+
+    public void setRendererPriorityPolicy(
+            int rendererRequestedPriority, boolean waivedWhenNotVisible) {
+        mImpl.setRendererPriorityPolicy(rendererRequestedPriority, waivedWhenNotVisible);
+    }
+
+    public int getRendererRequestedPriority() {
+        return mImpl.getRendererRequestedPriority();
+    }
+
+    public boolean getRendererPriorityWaivedWhenNotVisible() {
+        return mImpl.getRendererPriorityWaivedWhenNotVisible();
     }
 }
