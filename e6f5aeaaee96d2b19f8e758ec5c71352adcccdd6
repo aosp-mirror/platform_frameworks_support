@@ -1,0 +1,596 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf8821b5_a4f2636e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Not to bikeshed too much, but I really don\u0027t like the name \"local server.\" It sounds like we\u0027re starting a local HTTP server (we aren\u0027t), which makes me (as a potential user) worry about startup/teardown/open ports, etc. (none of which really matter for this API).",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654b11f7_c9a1d187",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Usual convention is 72-column limit for the body, but I don\u0027t think android enforces this.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 187
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6708a82c_fd5ec109",
+        "filename": "settings.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Please add this as another activity in the original testapp",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 129
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c241aafb_a2e06388",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Can you @hide all the APIs? I need to write up a doc on this, but we want to @hide in-development APIs until they\u0027re fully polished (and they\u0027re ready for API review and we think they\u0027re \u003e\u003d alpha-quality)",
+      "range": {
+        "startLine": 164,
+        "startChar": 15,
+        "endLine": 164,
+        "endChar": 33
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f9560c_ba5efce2",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable in the code",
+      "range": {
+        "startLine": 166,
+        "startChar": 84,
+        "endLine": 166,
+        "endChar": 91
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96da70b5_2d6cfe58",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable in the code",
+      "range": {
+        "startLine": 173,
+        "startChar": 77,
+        "endLine": 173,
+        "endChar": 85
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f33df1d_f4241246",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable in the code (InputStream and String)",
+      "range": {
+        "startLine": 179,
+        "startChar": 26,
+        "endLine": 179,
+        "endChar": 38
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78d8a597_29f03a53",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable in the code",
+      "range": {
+        "startLine": 197,
+        "startChar": 46,
+        "endLine": 197,
+        "endChar": 80
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e074fd17_b9722704",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable in the code",
+      "range": {
+        "startLine": 198,
+        "startChar": 55,
+        "endLine": 198,
+        "endChar": 71
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffeb230_ea7f5f53",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewLocalServerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Date (also, use the Android copyright header)",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aed9ad9_308c8fd0",
+        "filename": "webkit/src/androidTest/res/raw/test_with_title.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me when to use /assets/ and when to use /res/. What\u0027s the distinction?",
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42272d72_cd9416e7",
+        "filename": "webkit/src/androidTest/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Wrong date. Also, do we use this file anywhere?",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b02ddeb_cac4d4c3",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "I think it\u0027s OK to link to just the non-deprecated API",
+      "range": {
+        "startLine": 45,
+        "startChar": 37,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31dcc7d_a4a06fcb",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "This feels a bit awkward for an API doc. It correctly describes the domain, but not how apps are supposed to use it.",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 88
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ae0a62_3afda9e8",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Can you mark visibility?",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 16
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9651e76c_49e307ab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Not clear why this is Object",
+      "range": {
+        "startLine": 129,
+        "startChar": 101,
+        "endLine": 129,
+        "endChar": 121
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e239170b_af590d1e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "{@code null}",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d5537a_df3ec00e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Are apps expected to use this, or is this an implementation detail? This either needs @hide or it needs example docs in the class-level doc.",
+      "range": {
+        "startLine": 244,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd84369_eb3a25f7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "spelling: spent",
+      "range": {
+        "startLine": 325,
+        "startChar": 37,
+        "endLine": 325,
+        "endChar": 42
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8bb337_4f9c2178",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Is this a public class apps should use, or an implementation detail?",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 328,
+        "endChar": 46
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d7cbaf_6e4454bb",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Can we use builder pattern for optional args?",
+      "range": {
+        "startLine": 340,
+        "startChar": 15,
+        "endLine": 340,
+        "endChar": 26
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9384ff_b3c5fd4f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Throwing an exception seems cleaner IMO, even if we just catch it and return null above",
+      "range": {
+        "startLine": 444,
+        "startChar": 12,
+        "endLine": 444,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ea7bfd_0d126049",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Why is this conversion safe?",
+      "range": {
+        "startLine": 468,
+        "startChar": 22,
+        "endLine": 468,
+        "endChar": 35
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bea8ae7f_52f4a5c6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "{@link Uri}",
+      "range": {
+        "startLine": 513,
+        "startChar": 22,
+        "endLine": 513,
+        "endChar": 25
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c86e7e_99cf8ff7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Don\u0027t refer to private variables in API docs (mAuthority)",
+      "range": {
+        "startLine": 513,
+        "startChar": 65,
+        "endLine": 513,
+        "endChar": 75
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f446fd64_4efbdfbf",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T00:34:57Z",
+      "side": 1,
+      "message": "Optional: @RequiresApi might work to enforce we use the correct one",
+      "range": {
+        "startLine": 783,
+        "startChar": 4,
+        "endLine": 783,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
