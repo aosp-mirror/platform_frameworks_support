@@ -56,6 +56,7 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
+import androidx.test.filters.Suppress;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.junit.Test;
@@ -632,6 +633,7 @@ public class AppCompatTextViewTest
         });
     }
 
+    @Suppress
     @Test
     public void testSetTextAsync_directionDifference() throws Throwable {
         mActivity.runOnUiThread(new Runnable() {
