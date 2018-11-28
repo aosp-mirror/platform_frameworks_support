@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "baea89dc_3997785e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-28T05:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "058d3101_f848a863",
+      "range": {
+        "startLine": 1310,
+        "startChar": 29,
+        "endLine": 1310,
+        "endChar": 54
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19725414_47d425b4",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 4
@@ -187,6 +211,30 @@
       "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ff641c_73fd451c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-28T05:19:05Z",
+      "side": 1,
+      "message": "Talked offline. The previous/next media item will be always be updated when shuffle mode is changed.",
+      "parentUuid": "19725414_47d425b4",
+      "range": {
+        "startLine": 1328,
+        "startChar": 30,
+        "endLine": 1328,
+        "endChar": 55
+      },
+      "revId": "4ebabf9d2bf3bcba178f651f45e75f1cc85a4a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
