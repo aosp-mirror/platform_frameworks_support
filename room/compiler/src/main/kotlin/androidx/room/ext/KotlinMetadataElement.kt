@@ -16,22 +16,40 @@
 
 package androidx.room.ext
 
+import androidx.room.processor.Context
 import me.eugeniomarletti.kotlin.metadata.KotlinClassMetadata
 import me.eugeniomarletti.kotlin.metadata.KotlinMetadataUtils
+import me.eugeniomarletti.kotlin.metadata.isPrimary
+import me.eugeniomarletti.kotlin.metadata.isSuspend
 import me.eugeniomarletti.kotlin.metadata.jvm.getJvmConstructorSignature
+import me.eugeniomarletti.kotlin.metadata.kotlinMetadata
 import me.eugeniomarletti.kotlin.metadata.shadow.metadata.ProtoBuf
 import me.eugeniomarletti.kotlin.metadata.shadow.serialization.deserialization.getName
+import javax.annotation.processing.ProcessingEnvironment
+import javax.lang.model.element.Element
 import javax.lang.model.element.ExecutableElement
 
 /**
- * Utility interface for processors that wants to run kotlin specific code.
+ * Utility class for processors that wants to run kotlin specific code.
  */
-interface KotlinMetadataProcessor : KotlinMetadataUtils {
+class KotlinMetadataElement(val context: Context, val element: Element) : KotlinMetadataUtils {
+
+    override val processingEnv: ProcessingEnvironment
+        get() = context.processingEnv
+
+    private val classMetadata =
+        try {
+            element.kotlinMetadata
+        } catch (throwable: Throwable) {
+            context.logger.d(element, "failed to read get kotlin metadata from %s", element)
+        } as? KotlinClassMetadata
+
     /**
      * Returns the parameter names of the function if all have names embedded in the metadata.
      */
-    fun KotlinClassMetadata.getParameterNames(method: ExecutableElement): List<String>? {
-        val valueParameterList = this.data.getFunctionOrNull(method)?.valueParameterList
+    fun getParameterNames(method: ExecutableElement): List<String>? =
+        classMetadata?.data?.let { data ->
+            val valueParameterList = data.getFunctionOrNull(method)?.valueParameterList
                 ?: findConstructor(method)?.valueParameterList
                 ?: return null
         return if (valueParameterList.all { it.hasName() }) {
@@ -50,14 +68,36 @@ interface KotlinMetadataProcessor : KotlinMetadataUtils {
     /**
      * Finds the kotlin metadata for a constructor.
      */
-    private fun KotlinClassMetadata.findConstructor(
-            executableElement: ExecutableElement
-    ): ProtoBuf.Constructor? {
-        val (nameResolver, classProto) = data
+    private fun findConstructor(
+        executableElement: ExecutableElement
+    ): ProtoBuf.Constructor? = classMetadata?.let { metadata ->
+        val (nameResolver, classProto) = metadata.data
         val jvmSignature = executableElement.jvmMethodSignature
         // find constructor
         return classProto.constructorList.singleOrNull {
             it.getJvmConstructorSignature(nameResolver, classProto.typeTable) == jvmSignature
         }
     }
+
+    /**
+     * Finds the primary constructor of the class.
+     */
+    fun findPrimaryConstructorSignature() = classMetadata?.data?.let { data ->
+        data.classProto
+            .constructorList.first { it.isPrimary }
+            .getJvmConstructorSignature(
+                data.nameResolver,
+                data.classProto.typeTable
+            )
+    }
+
+    fun getMethodSignature(executableElement: ExecutableElement) =
+        executableElement.jvmMethodSignature
+
+    /**
+     * Checks if a method is a suspend function.
+     */
+    fun isSuspendFunction(method: ExecutableElement) = classMetadata?.data?.let { data ->
+        return data.getFunctionOrNull(method)?.isSuspend == true
+    } ?: false
 }

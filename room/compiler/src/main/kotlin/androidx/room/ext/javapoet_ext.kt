@@ -153,6 +153,14 @@ object RoomRxJava2TypeNames {
             "EmptyResultSetException")
 }
 
+object RoomCoroutineTypeNames {
+    val COROUTINE_ROOM = ClassName.get("androidx.room", "CoroutineRoom")
+}
+
+object KotlinTypeNames {
+    val UNIT = ClassName.get("kotlin", "Unit")
+}
+
 fun TypeName.defaultValue(): String {
     return if (!isPrimitive) {
         "null"

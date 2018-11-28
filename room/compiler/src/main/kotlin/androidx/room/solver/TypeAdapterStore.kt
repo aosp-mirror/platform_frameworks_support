@@ -324,7 +324,10 @@ class TypeAdapterStore private constructor(
         }
     }
 
-    fun findQueryResultBinder(typeMirror: TypeMirror, query: ParsedQuery): QueryResultBinder {
+    fun findQueryResultBinder(
+        typeMirror: TypeMirror,
+        query: ParsedQuery
+    ): QueryResultBinder {
         return if (typeMirror.kind == TypeKind.DECLARED) {
             val declared = MoreTypes.asDeclared(typeMirror)
             return queryResultBinderProviders.first {
