@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c23e3c3a_aa629ae4",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "This feels weird to me. Either NavArgument shouldn\u0027t have the name and this should correctly be a Map or we should just be able to return a List\u003cNavArgument\u003e (since NavArgument already has the names)",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8afc901a_69728c72",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "It feels weird that addArgument takes a NavArgument but remove doesn\u0027t take a NavArgument. Can this also take a NavArgument for symmetry?\n\nThe other option, similar to the above comment, is that maybe NavArgument shouldn\u0027t have the name at all and it should be addArgument(String name, NavArgument argument) and removeArgument(String name).",
+      "range": {
+        "startLine": 44,
+        "startChar": 38,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51c656f_c4fd4450",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "Lots of nullability annotations needed throughout here.",
+      "range": {
+        "startLine": 102,
+        "startChar": 24,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabf5d9b_c22ac21e",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "Lots of nullability annotations needed throughout here.",
+      "range": {
+        "startLine": 122,
+        "startChar": 28,
+        "endLine": 122,
+        "endChar": 54
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9bcbe7b_207dbe01",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "Lots of nullability annotations needed throughout here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 28,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f9a9a90_568cbc32",
+        "filename": "navigation/common/ktx/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T21:41:22Z",
+      "side": 1,
+      "message": "argumentBuilder",
+      "range": {
+        "startLine": 41,
+        "startChar": 142,
+        "endLine": 41,
+        "endChar": 147
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
