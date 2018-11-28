@@ -152,7 +152,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
         }
     };
-    private RecyclerView mRecyclerView;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    RecyclerView mRecyclerView;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     RecyclerAdapter mAdapter;
     VolumeChangeListener mVolumeChangeListener;
@@ -781,7 +782,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         private final Drawable mSpeakerIcon;
         private final Drawable mSpeakerGroupIcon;
         private Item mGroupVolumeItem;
-        private boolean mShouldShowGroupVolume = false;
+        private final int mLayoutAnimationDurationMs;
+        private final Interpolator mAccelerateDecelerateInterpolator;
 
         RecyclerAdapter() {
             mItems = new ArrayList<>();
@@ -790,10 +792,16 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
+
+            Resources res = mContext.getResources();
+            mLayoutAnimationDurationMs = res.getInteger(
+                    R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
+            mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
+
             setItems();
         }
 
-        private boolean isGroupVolumeNeeded() {
+        boolean isGroupVolumeNeeded() {
             if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
                 // When selected route is a dynamic group route, group volume is needed when it has
                 // more than one member.
@@ -806,6 +814,69 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
             // When selected route is an individual route, group volume isn't needed.
             return false;
+        }
+
+        void animateLayoutHeight(final View view, int targetHeight) {
+            final int startValue = view.getLayoutParams().height;
+            final int endValue = targetHeight;
+
+            Animation anim = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    int deltaHeight = (int) ((endValue - startValue) * interpolatedTime);
+                    setLayoutHeight(view, startValue + deltaHeight);
+                }
+            };
+
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mIsAnimatingVolumeSliderLayout = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mIsAnimatingVolumeSliderLayout = false;
+                    updateViewsIfNeeded();
+                }
+            });
+            anim.setDuration(mLayoutAnimationDurationMs);
+            anim.setInterpolator(mAccelerateDecelerateInterpolator);
+            view.startAnimation(anim);
+        }
+
+        void mayUpdateGroupVolumeSlider(MediaRouter.RouteInfo route, boolean added) {
+            List<MediaRouter.RouteInfo> members = getMemberRoutes();
+            int memberCount = members.size();
+
+            if (route instanceof MediaRouter.RouteGroup) {
+                MediaRouter.RouteGroup routeGroup = (MediaRouter.RouteGroup) route;
+                for (MediaRouter.RouteInfo changedRoute : routeGroup.getMemberRoutes()) {
+                    if (members.contains(changedRoute) != added) {
+                        memberCount += added ? 1 : -1;
+                    }
+                }
+            } else {
+                memberCount += added ? 1 : -1;
+            }
+
+            boolean wasShown = isGroupVolumeNeeded();
+            boolean shouldShow = memberCount >= 2;
+
+            if (wasShown != shouldShow) {
+                RecyclerView.ViewHolder viewHolder =
+                        mRecyclerView.findViewHolderForAdapterPosition(0);
+
+                if (viewHolder instanceof GroupVolumeViewHolder) {
+                    GroupVolumeViewHolder groupVolumeHolder = (GroupVolumeViewHolder) viewHolder;
+                    animateLayoutHeight(groupVolumeHolder.itemView, shouldShow
+                            ? groupVolumeHolder.getExpandedHeight() : 0);
+                }
+            }
         }
 
         // Create a list of items with mMemberRoutes and add them to mItems
@@ -880,7 +951,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             // Get ungroupable routes which are positioning at groupable routes section.
             // This can happen when dynamically added routes can't be grouped with some of other
             // routes at groupable routes section.
-            mShouldShowGroupVolume = isGroupVolumeNeeded();
             mUngroupableRoutes.clear();
             mUngroupableRoutes.addAll(MediaRouteDialogHelper.getItemsRemoved(mGroupableRoutes,
                     getGroupableRoutes()));
@@ -953,7 +1023,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public int getItemCount() {
-            return mItems.size() + (mShouldShowGroupVolume ? 1 : 0);
+            return mItems.size() + 1;
         }
 
         Drawable getIconDrawable(MediaRouter.RouteInfo route) {
@@ -996,14 +1066,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
 
         public Item getItem(int position) {
-            if (mShouldShowGroupVolume) {
-                if (position == 0) {
-                    return mGroupVolumeItem;
-                } else {
-                    return mItems.get(position - 1);
-                }
+            if (position == 0) {
+                return mGroupVolumeItem;
             } else {
-                return mItems.get(position);
+                return mItems.get(position - 1);
             }
         }
 
@@ -1031,18 +1097,32 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         private class GroupVolumeViewHolder extends MediaRouteVolumeSliderHolder {
             private final TextView mTextView;
+            private final int mExpandedHeight;
 
             GroupVolumeViewHolder(View itemView) {
                 super(itemView, (ImageButton) itemView.findViewById(R.id.mr_cast_mute_button),
                         (MediaRouteVolumeSlider) itemView.findViewById(R.id.mr_cast_volume_slider));
                 mTextView = itemView.findViewById(R.id.mr_group_volume_route_name);
+
+                Resources res = mContext.getResources();
+                DisplayMetrics metrics = res.getDisplayMetrics();
+                TypedValue value = new TypedValue();
+                res.getValue(R.dimen.mr_dynamic_volume_group_list_item_height, value, true);
+                mExpandedHeight = (int) value.getDimension(metrics);
             }
 
             public void bindGroupVolumeViewHolder(Item item) {
+                setLayoutHeight(itemView, isGroupVolumeNeeded()
+                        ? mExpandedHeight : 0);
+
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
 
                 super.bindRouteVolumeSliderHolder(route);
                 mTextView.setText(route.getName());
+            }
+
+            public int getExpandedHeight() {
+                return mExpandedHeight;
             }
         }
 
@@ -1052,6 +1132,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             HeaderViewHolder(View itemView) {
                 super(itemView);
                 mTextView = itemView.findViewById(R.id.mr_cast_header_name);
+
             }
 
             public void bindHeaderViewHolder(Item item) {
@@ -1072,10 +1153,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final float mDisabledAlpha;
             final int mExpandedLayoutHeight;
             final int mCollapsedLayoutHeight;
-            private final int mLayoutAnimationDurationMs;
-            private Interpolator mAccelerateDecelerateInterpolator;
 
-            final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
+            final View.OnClickListener mViewClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Disable views not to be clicked twice
@@ -1086,6 +1165,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                         mCheckBox.setChecked(false);
                         mRoute.unselectFromGroup();
                         animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
+                        mayUpdateGroupVolumeSlider(mRoute, false);
+
                     } else {
                         mCheckBox.setChecked(true);
                         // show indeterminate progress
@@ -1093,41 +1174,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                         mProgressBar.setVisibility(View.VISIBLE);
                         mRoute.selectIntoGroup();
                         animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
+                        mayUpdateGroupVolumeSlider(mRoute, true);
                     }
                 }
             };
-
-            void animateLayoutHeight(final View view, int targetHeight) {
-                final int startValue = view.getLayoutParams().height;
-                final int endValue = targetHeight;
-                Animation anim = new Animation() {
-                    @Override
-                    protected void applyTransformation(float interpolatedTime, Transformation t) {
-                        int deltaHeight = (int) ((endValue - startValue) * interpolatedTime);
-                        setLayoutHeight(view, startValue + deltaHeight);
-                    }
-                };
-
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        mIsAnimatingVolumeSliderLayout = true;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mIsAnimatingVolumeSliderLayout = false;
-                        updateViewsIfNeeded();
-                    }
-                });
-                anim.setDuration(mLayoutAnimationDurationMs);
-                anim.setInterpolator(mAccelerateDecelerateInterpolator);
-                view.startAnimation(anim);
-            }
 
             RouteViewHolder(View itemView) {
                 super(itemView, (ImageButton) itemView.findViewById(R.id.mr_cast_mute_button),
@@ -1150,9 +1200,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 res.getValue(R.dimen.mr_dynamic_dialog_row_height, value, true);
                 mExpandedLayoutHeight = (int) value.getDimension(metrics);
                 mCollapsedLayoutHeight = 0;
-                mLayoutAnimationDurationMs = res.getInteger(
-                        R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
-                mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
             }
 
             boolean isSelected(MediaRouter.RouteInfo route) {
@@ -1200,8 +1247,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     mCheckBox.setEnabled(enabled);
                     mMuteButton.setEnabled(enabled);
                     mVolumeSlider.setEnabled(enabled);
-                    mItemView.setOnClickListener(mCheckBoxClickListener);
-                    mCheckBox.setOnClickListener(mCheckBoxClickListener);
+                    mItemView.setOnClickListener(mViewClickListener);
+                    mCheckBox.setOnClickListener(mViewClickListener);
                     setLayoutHeight(mVolumeSliderLayout, selected
                             ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
                     mItemView.setAlpha(enabled ? 1.0f : mDisabledAlpha);
