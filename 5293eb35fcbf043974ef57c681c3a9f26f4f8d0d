@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac2ab2be_a0e5b2e6",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-28T17:40:00Z",
+      "side": 1,
+      "message": "That\u0027s interesting - may be more intuitive to me to call this groupId and make it com.android.databinding ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 41
+      },
+      "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55baf2a1_6cd267be",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-28T17:40:00Z",
+      "side": 1,
+      "message": "That\u0027s interesting. I would think that having a separate list of artifacts here (instead of linking to a .zip and listing exclusions (are these libraries not all found in one .zip?)) would make it easier to accidentally miss some artifacts, although I guess we can tell based on the diff in this patch that no libraries are forgotten. So, I guess this seems fine to me?",
+      "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
