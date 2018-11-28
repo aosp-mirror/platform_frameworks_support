@@ -258,7 +258,8 @@ class ProGuardTypesMapperTest {
             .getsRewrittenTo("test.preference.**")
     }
 
-    @Test fun proGuard_solver_wildcard2_shouldRewrite() {
+    // Temporarily disabled due to b/120234632.
+    fun proGuard_solver_wildcard2_shouldRewrite() {
         ProGuardTester()
             .forGivenPrefixes(
                 "support/"
