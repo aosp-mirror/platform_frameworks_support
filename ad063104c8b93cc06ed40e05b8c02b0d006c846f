@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "79219e3e_e4e2e968",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/BaseObservableQueryResultBinder.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-28T20:41:30Z",
+      "side": 1,
+      "message": "resolved.",
+      "parentUuid": "55f3e609_536094a7",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "ad063104c8b93cc06ed40e05b8c02b0d006c846f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c66933aa_041f6dcf",
         "filename": "room/runtime/src/main/java/androidx/room/RoomTrackingLiveData.java",
         "patchSetId": 29
