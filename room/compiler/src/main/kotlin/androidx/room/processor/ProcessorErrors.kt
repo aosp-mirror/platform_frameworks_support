@@ -127,6 +127,9 @@ object ProcessorErrors {
     val CANNOT_FIND_QUERY_RESULT_ADAPTER = "Not sure how to convert a Cursor to this method's " +
             "return type"
 
+    fun cannotFindQueryResultAdapter(returnTypeName: String) = "Not sure how to convert a " +
+            "Cursor to this method's return type ($returnTypeName)."
+
     val INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT = "Method annotated with" +
             " @Insert but does not have any parameters to insert."
 
@@ -507,6 +510,9 @@ object ProcessorErrors {
 
     val MISSING_ROOM_RXJAVA2_ARTIFACT = "To use RxJava2 features, you must add `rxjava2`" +
             " artifact from Room as a dependency. androidx.room:rxjava2:<version>"
+
+    val MISSING_ROOM_COROUTINE_ARTIFACT = "To use Coroutine features, you must add `coroutine`" +
+            " artifact from Room as a dependency. androidx.room:coroutine:<version>"
 
     fun ambigiousConstructor(
         pojo: String,
