@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "066b1384_771665d2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-28T15:56:57Z",
+      "side": 1,
+      "message": "We don\u0027t need to unpack the entire AAR. You can reference the public.txt as a file directly from the zipTree.",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 24
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0bed603_590a7d98",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-28T15:56:57Z",
+      "side": 1,
+      "message": "The public.txt file ought to already exist as the output of another task. I don\u0027t think we need to wait for the AAR to be generated to take it as input to this task.",
+      "range": {
+        "startLine": 360,
+        "startChar": 12,
+        "endLine": 360,
+        "endChar": 61
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e621d3_96f7526c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-28T15:56:57Z",
+      "side": 1,
+      "message": "Kotlin style, enum class should be CamelCase and values should be UPPERCASE",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf427d1_7bfb6939",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-28T15:56:57Z",
+      "side": 1,
+      "message": "This can be pushed outside of the forEach to a filter on listFiles().",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 365,
+        "endChar": 80
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ade7e9_324b1bc0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-11-28T15:56:57Z",
+      "side": 1,
+      "message": "Push the optional res- prefix into the VERSION_FILE_REGEX and revert these.",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 13
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
