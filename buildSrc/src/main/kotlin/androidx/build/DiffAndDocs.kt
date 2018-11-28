@@ -477,7 +477,9 @@ private fun createGenerateSdkApiTask(project: Project, doclavaConfig: Configurat
             setDocletpath(doclavaConfig.resolve())
             destinationDir = project.docsDir()
             classpath = androidJarFile(project)
-            source(project.zipTree(androidSrcJarFile(project)))
+            // Doclava cannot generate an API file from android-Q SDK.
+            // source(project.zipTree(androidSrcJarFile(project))
+            //    .matching(PatternSet().include("**/*.java")))
             exclude("**/overview.html") // TODO https://issuetracker.google.com/issues/116699307
             apiFile = sdkApiFile(project)
             generateDocs = false
@@ -565,10 +567,10 @@ fun <T : Task> TaskContainer.createWithConfig(
 
 fun androidJarFile(project: Project): FileCollection =
         project.files(arrayOf(File(project.sdkPath(),
-                "platforms/android-${SupportConfig.CURRENT_SDK_VERSION}/android.jar")))
+                "platforms/${SupportConfig.COMPILE_SDK_VERSION}/android.jar")))
 
 private fun androidSrcJarFile(project: Project): File = File(project.sdkPath(),
-        "platforms/android-${SupportConfig.CURRENT_SDK_VERSION}/android-stubs-src.jar")
+        "platforms/${SupportConfig.COMPILE_SDK_VERSION}/android-stubs-src.jar")
 
 private fun PublishDocsRules.resolve(extension: SupportLibraryExtension): DocsRule? {
     val mavenGroup = extension.mavenGroup
