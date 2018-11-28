@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd411564_2c808f77",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-28T19:25:06Z",
+      "side": 0,
+      "message": "for instance, we wouldn\u0027t need these checks if we could declare them non-null .\n\nagain, don\u0027t need to change in this CL but i like the practice tools team is using.",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 83
+      },
+      "revId": "f93d0b749d7b0ebadc74167344d82f2b0ae62dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa7bac71_efb186de",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-28T19:25:06Z",
+      "side": 0,
+      "message": "sorry i\u0027m not familiar w/ this task but this seems to just copy instead of actually generating the signature text file (unlike what the class comment says) am i missing something ?",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "f93d0b749d7b0ebadc74167344d82f2b0ae62dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
