@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7d5d2c47_23d9fc3e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90be1dd3_781ebe12",
+      "range": {
+        "startLine": 98,
+        "startChar": 29,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fbe941_8121b690",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "writtenOn": "2018-11-27T01:05:39Z",
       "side": 1,
       "message": "hmm might be cleaner to check for continuation object.\nto avoid extra checks, we can create a local parameter:\n\nval queryParams \u003d if (isSuspendFunction) {\n   executableEleemnt.parameters.filter { \u003ccheck is assignable continuation\u003e }\n} else {\n   executableEleemnt.parameters\n}",
+      "range": {
+        "startLine": 142,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 83
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2caf5cf_3b56601c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Moved to delegate, still pending checking continuation param instead of index.",
+      "parentUuid": "92fbe941_8121b690",
       "range": {
         "startLine": 142,
         "startChar": 13,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "e7779f91_5e5b11c8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Added the check for the artifact.\n\nAs for the parameter name, we don\u0027t quite declare it, we use MethodSpec.overriding() which resolved type params, copies param names, visibility, etc, so we end up using the same name kapt used for the continuation param. I can probably grab the parameter and rename, so I\u0027ll keep it comment unresolved while I figure that out.",
+      "parentUuid": "53f58fe2_5162a9b8",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 37
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0032fe79_bada5e12",
         "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
         "patchSetId": 2
@@ -139,6 +211,30 @@
       "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c670a41_39cf61c4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Ack! Will tackle in a different CL, created issue: b/120104925",
+      "parentUuid": "0032fe79_bada5e12",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "54b7401a_a18052de",
+        "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "No loner relevant, resolving.",
+      "parentUuid": "2c85e4b3_1d75f7ae",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c98b40f_2ee6e430",
         "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
         "patchSetId": 2
@@ -188,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "e9c9babb_befda92d",
+        "filename": "room/coroutine/src/main/java/androidx/room/CoroutineRoom.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Reverted these changes, will tackle in a follow-up CL since we have the same problem for the Rx Scheduler (i.e. doesn\u0027t get cache either).",
+      "parentUuid": "9c98b40f_2ee6e430",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccb5cf00_93e2c7cf",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
         "patchSetId": 2
@@ -199,6 +343,24 @@
       "writtenOn": "2018-11-27T01:05:39Z",
       "side": 1,
       "message": "need a lot more testing for these.\n\n@RawQuery comes to mind first. \nwe should also have a deciison on what to do if someone returns a LiveData, Single etc. it does not even make sense but maybe there is areason to allow them ?\n\nwe also need a test for a query with @Transaction (or a couple :) )",
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cab64ab_256c3198",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-28T01:35:43Z",
+      "side": 1,
+      "message": "Added a few more tests, but still want to add more, leaving comment unresolved meanwhile.",
+      "parentUuid": "ccb5cf00_93e2c7cf",
       "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
