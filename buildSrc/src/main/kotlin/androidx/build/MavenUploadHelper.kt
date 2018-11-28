@@ -175,9 +175,9 @@ private fun Project.isAndroidProject(
         } else {
             var projectModules = project.rootProject.extra.get("projects")
                     as ConcurrentHashMap<String, String>
-            if (projectModules.contains("${dep.group}:${dep.name}")) {
+            if (projectModules.containsKey("$groupId:$artifactId")) {
                 val localProjectVersion = project.findProject(
-                        projectModules.get("${dep.group}:${dep.name}"))
+                        projectModules.get("$groupId:$artifactId"))
                 if (localProjectVersion != null) {
                     return localProjectVersion.plugins.hasPlugin(LibraryPlugin::class.java)
                 }
