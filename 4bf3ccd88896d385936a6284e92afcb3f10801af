@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8181ed64_23b65b93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T20:20:31Z",
+      "side": 1,
+      "message": "I would describe this as \"debuggable,\" since it also works on \"eng\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "4bf3ccd88896d385936a6284e92afcb3f10801af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63acda7e_0a340472",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T20:20:31Z",
+      "side": 1,
+      "message": "Can you also link to http://crrev/c/1349327 and maybe a bug?",
+      "revId": "4bf3ccd88896d385936a6284e92afcb3f10801af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ccaf351_03f49a25",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-28T20:20:31Z",
+      "side": 1,
+      "message": "I think lint will say this should be diamond type",
+      "range": {
+        "startLine": 348,
+        "startChar": 28,
+        "endLine": 348,
+        "endChar": 34
+      },
+      "revId": "4bf3ccd88896d385936a6284e92afcb3f10801af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
