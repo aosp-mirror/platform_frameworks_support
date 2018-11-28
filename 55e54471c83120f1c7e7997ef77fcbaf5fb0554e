@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "4297e893_79014c4e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T14:55:09Z",
+      "side": 1,
+      "message": "That\u0027s what the builder/dsl/xml is for. If you feel like developers would prefer using this constructor over the builder, why do we have a builder at all? I think I prefer that all developers go through the Builder.",
+      "parentUuid": "7df8906e_8e12afbf",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13f4fd0c_506f7370",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 3
@@ -554,6 +578,30 @@
     },
     {
       "key": {
+        "uuid": "a92d89bc_b9c4b29b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T14:55:09Z",
+      "side": 1,
+      "message": "I\u0027d prefer if there was only one way of doing things (you add arguments via addArgument()). How this is implemented right now is that devs may still think that this is how they add their own default arguments, when in fact this Bundle will *not* be used for future navigate() operations anymore.",
+      "parentUuid": "9738d99e_ba6e7608",
+      "range": {
+        "startLine": 258,
+        "startChar": 27,
+        "endLine": 258,
+        "endChar": 46
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79f0fcea_916329e3",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
         "patchSetId": 3
@@ -683,6 +731,30 @@
       "side": 1,
       "message": "Since developers can access NavArguments and some of them might have an Unspecified type, then probably yes...?",
       "parentUuid": "dfca9a04_5b53aa83",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97452f80_58001fb0",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-28T14:55:09Z",
+      "side": 1,
+      "message": "But are they expected to instanceof the type or declare the type when they are using the Builder? I suspect that they\u0027d just not call setType() if they want it to be unspecified?",
+      "parentUuid": "365b0252_16819369",
       "range": {
         "startLine": 169,
         "startChar": 4,
