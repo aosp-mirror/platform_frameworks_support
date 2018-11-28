@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "90c79cb4_992c2cff",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-28T20:25:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4297e893_79014c4e",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13f4fd0c_506f7370",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 3
@@ -602,6 +626,30 @@
     },
     {
       "key": {
+        "uuid": "bbff39a9_e631fd05",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-28T20:25:57Z",
+      "side": 1,
+      "message": "Ah, I get what you mean about adding to the bundle. Done.",
+      "parentUuid": "a92d89bc_b9c4b29b",
+      "range": {
+        "startLine": 258,
+        "startChar": 27,
+        "endLine": 258,
+        "endChar": 46
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79f0fcea_916329e3",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
         "patchSetId": 3
@@ -646,6 +694,30 @@
       "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189f10a8_c52372e6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-28T20:25:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1785f132_b013f8ef",
+      "range": {
+        "startLine": 274,
+        "startChar": 16,
+        "endLine": 274,
+        "endChar": 35
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -755,6 +827,30 @@
       "side": 1,
       "message": "But are they expected to instanceof the type or declare the type when they are using the Builder? I suspect that they\u0027d just not call setType() if they want it to be unspecified?",
       "parentUuid": "365b0252_16819369",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 10
+      },
+      "revId": "55e54471c83120f1c7e7997ef77fcbaf5fb0554e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb8721cd_587aca83",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-28T20:25:57Z",
+      "side": 1,
+      "message": "You might be right. I\u0027m actually wondering if we need unspecified at all. I\u0027ll take a look at the XML parsing and safe args again, I think there if we fail to infer the type from value, we just assume String, so I might remove this UnspecifiedType altogether. \nFor now making it non-public.",
+      "parentUuid": "97452f80_58001fb0",
       "range": {
         "startLine": 169,
         "startChar": 4,
