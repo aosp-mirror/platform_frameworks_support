@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "6588dc26_2d8ab4af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-28T19:48:00Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "dd2a4935_1d04113c",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "a9d2de7846887a5d827c8f6cc6680f6c54181a2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a51a9124_23096dc6",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
         "patchSetId": 8

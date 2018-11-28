@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1e345e4_cd53703c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-28T19:48:00Z",
+      "side": 0,
+      "message": "noted",
+      "parentUuid": "cd411564_2c808f77",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 83
+      },
+      "revId": "f93d0b749d7b0ebadc74167344d82f2b0ae62dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa7bac71_efb186de",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-28T19:25:06Z",
       "side": 0,
       "message": "sorry i\u0027m not familiar w/ this task but this seems to just copy instead of actually generating the signature text file (unlike what the class comment says) am i missing something ?",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "f93d0b749d7b0ebadc74167344d82f2b0ae62dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf201637_ac0051d5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-28T19:48:00Z",
+      "side": 0,
+      "message": "Sure; I\u0027ll update the file comment too",
+      "parentUuid": "fa7bac71_efb186de",
       "range": {
         "startLine": 44,
         "startChar": 8,
