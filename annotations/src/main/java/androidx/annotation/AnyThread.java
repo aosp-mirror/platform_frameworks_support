@@ -27,17 +27,50 @@ import java.lang.annotation.Target;
 
 /**
  * Denotes that the annotated method can be called from any thread (e.g. it is "thread safe".)
- * If the annotated element is a class, then all methods in the class can be called
- * from any thread.
  * <p>
- * The main purpose of this method is to indicate that you believe a method can be called
+ * The main purpose of this annotation is to indicate that you believe a method can be called
  * from any thread; static tools can then check that nothing you call from within this method
  * or class have more strict threading requirements.
- * <p>
- * Example:
  * <pre><code>
  *  &#64;AnyThread
  *  public void deliverResult(D data) { ... }
+ * </code></pre>
+ *
+ * <p>If the annotated element is a class, then all methods in the class can be called
+ * from any thread. </p>
+ *
+ * <pre><code>
+ *  &#64;AnyThread
+ *  public class Foo { ... }
+ * </code></pre>
+ *
+ * <p>When the class is annotated, but one of the methods has another threading annotation such as
+ * {@link MainThread}, the method annotation takes precedence. In the following example,
+ * <code>onResult()</code> should only be called on the main thread.</p>
+ *
+ * <pre><code>
+ *  &#64;AnyThread
+ *  public class Foo {
+ *      &#64;MainThread
+ *      void onResult(String result) { ... }
+ *  }
+ * </code></pre>
+ *
+ * <p>Multiple threading annotations can be combined. Following example illustrates that,
+ * <code>saveUser()</code> can be called on a worker thread or the main thread.
+ * It's safe for <code>saveUser()</code> to invoke <code>isEmpty()</code>, whereas it's not safe
+ * for <code>isEmpty()</code> to invoke <code>saveUser()</code>.
+ * </p>
+ *
+ * <pre><code>
+ *  public class Foo {
+ *      &#64;WorkerThread
+ *      &#64;MainThread
+ *      void saveUser(User user) { ... }
+ *
+ *      &#64;AnyThread
+ *      boolean isEmpty(String value) { ... }
+ *  }
  * </code></pre>
  */
 @Documented

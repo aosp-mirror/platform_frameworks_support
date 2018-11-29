@@ -27,13 +27,46 @@ import java.lang.annotation.Target;
 
 /**
  * Denotes that the annotated method should only be called on a worker thread.
- * If the annotated element is a class, then all methods in the class should be called
- * on a worker thread.
- * <p>
- * Example:
  * <pre><code>
  *  &#64;WorkerThread
- *  protected abstract FilterResults performFiltering(CharSequence constraint);
+ *  FilterResults performFiltering(CharSequence constraint);
+ * </code></pre>
+ *
+ * <p>If the annotated element is a class, then all methods in the class should be called
+ * on a worker thread. </p>
+ *
+ * <pre><code>
+ *  &#64;WorkerThread
+ *  public class Foo { ... }
+ * </code></pre>
+ *
+ * <p>When the class is annotated, but one of the methods has another threading annotation such as
+ * {@link MainThread}, the method annotation takes precedence. In the following example,
+ * <code>onResult()</code> should be called on the main thread.</p>
+ *
+ * <pre><code>
+ *  &#64;WorkerThread
+ *  public class Foo {
+ *      &#64;MainThread
+ *      void onResult(String result) { ... }
+ *  }
+ * </code></pre>
+ *
+ * <p>Multiple threading annotations can be combined. Following example illustrates that,
+ * <code>isEmpty()</code> can be called on the worker thread or the main thread.
+ * It's safe for <code>saveUser()</code> to invoke <code>isEmpty()</code>, whereas it's not safe
+ * for <code>isEmpty()</code> to invoke <code>saveUser()</code>.
+ * </p>
+ *
+ * <pre><code>
+ *  public class Foo {
+ *      &#64;WorkerThread
+ *      void saveUser(User user) { ... }
+ *
+ *      &#64;WorkerThread
+ *      &#64;UiThread
+ *      boolean isEmpty(String value) { ... }
+ *  }
  * </code></pre>
  */
 @Documented
