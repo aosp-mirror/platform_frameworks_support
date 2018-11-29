@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e1b2b17_0f63c156",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-11-29T18:45:36Z",
+      "side": 1,
+      "message": "It is directly appended to the url for maven, so I think it is quite fine as it is.",
+      "parentUuid": "ac2ab2be_a0e5b2e6",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 41
+      },
+      "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55baf2a1_6cd267be",
         "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0842c9_00637322",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-11-29T18:45:36Z",
+      "side": 1,
+      "message": "I think there is no such zip. We have top-of-tree on the build server but that does not contain design and test. And also I wanted to take something directly from production. Missing something is (as you have said) covered by looking into the diffs. I know it\u0027s not ideal to manually make such a list, but I don\u0027t know about a better source ...",
+      "parentUuid": "55baf2a1_6cd267be",
+      "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
