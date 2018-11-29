@@ -18,7 +18,9 @@ package androidx.work.impl;
 
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,6 +39,7 @@ import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 import androidx.work.WorkStatus;
 import androidx.work.impl.background.greedy.GreedyScheduler;
+import androidx.work.impl.background.systemjob.SystemJobScheduler;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.CancelWorkRunnable;
@@ -72,6 +75,8 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     private List<Scheduler> mSchedulers;
     private Processor mProcessor;
     private Preferences mPreferences;
+    private boolean mForceStopRunnableCompleted;
+    private BroadcastReceiver.PendingResult mRescheduleReceiverResult;
 
     private static WorkManagerImpl sDelegatedInstance = null;
     private static WorkManagerImpl sDefaultInstance = null;
@@ -97,7 +102,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public static WorkManagerImpl getInstance() {
+    public static @Nullable WorkManagerImpl getInstance() {
         synchronized (sLock) {
             if (sDelegatedInstance != null) {
                 return sDelegatedInstance;
@@ -172,6 +177,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
                 getSchedulers(),
                 configuration.getExecutor());
         mPreferences = new Preferences(mContext);
+        mForceStopRunnableCompleted = false;
 
         // Checks for app force stops.
         mTaskExecutor.executeOnBackgroundThread(new ForceStopRunnable(context, this));
@@ -265,12 +271,12 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work) {
+    public @NonNull WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work) {
         return new WorkContinuationImpl(this, work);
     }
 
     @Override
-    public WorkContinuation beginUniqueWork(
+    public @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work) {
@@ -370,7 +376,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public LiveData<Long> getLastCancelAllTimeMillis() {
+    public @NonNull LiveData<Long> getLastCancelAllTimeMillis() {
         return mPreferences.getLastCancelAllTimeMillisLiveData();
     }
 
@@ -392,7 +398,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public LiveData<WorkStatus> getStatusById(@NonNull UUID id) {
+    public @NonNull LiveData<WorkStatus> getStatusById(@NonNull UUID id) {
         WorkSpecDao dao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
                 dao.getWorkStatusPojoLiveDataForIds(Collections.singletonList(id.toString()));
@@ -423,7 +429,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public LiveData<List<WorkStatus>> getStatusesByTag(@NonNull String tag) {
+    public @NonNull LiveData<List<WorkStatus>> getStatusesByTag(@NonNull String tag) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
                 workSpecDao.getWorkStatusPojoLiveDataForTag(tag);
@@ -431,7 +437,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public List<WorkStatus> getStatusesByTagSync(@NonNull String tag) {
+    public @NonNull List<WorkStatus> getStatusesByTagSync(@NonNull String tag) {
         assertBackgroundThread("Cannot call getStatusesByTagSync on main thread!");
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
         List<WorkSpec.WorkStatusPojo> input = workSpecDao.getWorkStatusPojoForTag(tag);
@@ -439,7 +445,8 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public LiveData<List<WorkStatus>> getStatusesForUniqueWork(@NonNull String uniqueWorkName) {
+    public @NonNull LiveData<List<WorkStatus>> getStatusesForUniqueWork(
+            @NonNull String uniqueWorkName) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
         LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
                 workSpecDao.getWorkStatusPojoLiveDataForName(uniqueWorkName);
@@ -447,7 +454,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public List<WorkStatus> getStatusesForUniqueWorkSync(@NonNull String uniqueWorkName) {
+    public @NonNull List<WorkStatus> getStatusesForUniqueWorkSync(@NonNull String uniqueWorkName) {
         assertBackgroundThread("Cannot call getStatusesByNameBlocking on main thread!");
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
         List<WorkSpec.WorkStatusPojo> input = workSpecDao.getWorkStatusPojoForName(uniqueWorkName);
@@ -455,7 +462,7 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
     }
 
     @Override
-    public SynchronousWorkManager synchronous() {
+    public @NonNull SynchronousWorkManager synchronous() {
         return this;
     }
 
@@ -510,6 +517,11 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public void rescheduleEligibleWork() {
+        // TODO (rahulrav@) Make every scheduler do its own cancelAll().
+        if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            SystemJobScheduler.jobSchedulerCancelAll(getApplicationContext());
+        }
+
         // Reset scheduled state.
         getWorkDatabase().workSpecDao().resetScheduledState();
 
@@ -517,6 +529,42 @@ public class WorkManagerImpl extends WorkManager implements SynchronousWorkManag
         // Using getters here so we can use from a mocked instance
         // of WorkManagerImpl.
         Schedulers.schedule(getConfiguration(), getWorkDatabase(), getSchedulers());
+    }
+
+    /**
+     * A way for {@link ForceStopRunnable} to tell {@link WorkManagerImpl} that it has completed.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public void onForceStopRunnableCompleted() {
+        synchronized (sLock) {
+            mForceStopRunnableCompleted = true;
+            if (mRescheduleReceiverResult != null) {
+                mRescheduleReceiverResult.finish();
+                mRescheduleReceiverResult = null;
+            }
+        }
+    }
+
+    /**
+     * This method is invoked by
+     * {@link androidx.work.impl.background.systemalarm.RescheduleReceiver}
+     * after a call to {@link BroadcastReceiver#goAsync()}. Once {@link ForceStopRunnable} is done,
+     * we can safely call {@link BroadcastReceiver.PendingResult#finish()}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public void setReschedulePendingResult(
+            @NonNull BroadcastReceiver.PendingResult rescheduleReceiverResult) {
+        synchronized (sLock) {
+            mRescheduleReceiverResult = rescheduleReceiverResult;
+            if (mForceStopRunnableCompleted) {
+                mRescheduleReceiverResult.finish();
+                mRescheduleReceiverResult = null;
+            }
+        }
     }
 
     private void assertBackgroundThread(String errorMessage) {
