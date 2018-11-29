@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53405453_f4667170",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-29T10:34:21Z",
+      "side": 1,
+      "message": "just out of curiosity) can the result of findViewHodlerForAdapterPosition(0) be not the group volume holder? when does it happen?",
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47114981_094b21f7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-29T10:34:21Z",
+      "side": 1,
+      "message": "Remove empty line",
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ba0451_a8b3e824",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-29T10:34:21Z",
+      "side": 1,
+      "message": "Q) if it is not a group (single route is selected) then we don\u0027t expand the row for volume slider..?",
+      "range": {
+        "startLine": 1168,
+        "startChar": 21,
+        "endLine": 1169,
+        "endChar": 62
+      },
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
