@@ -157,6 +157,7 @@ public class RowView extends SliceChildView implements View.OnClickListener,
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeMinValue;
     private SliceItem mRangeItem;
+    private SliceItem mSelectionItem;
     private ArrayList<String> mSelectionOptionKeys;
     private ArrayList<CharSequence> mSelectionOptionValues;
 
@@ -394,6 +395,7 @@ public class RowView extends SliceChildView implements View.OnClickListener,
 
         final SliceItem selection = mRowContent.getSelection();
         if (selection != null) {
+            mSelectionItem = selection;
             addSelection(selection);
             return;
         }
@@ -960,6 +962,7 @@ public class RowView extends SliceChildView implements View.OnClickListener,
             removeView(mSelectionSpinner);
             mSelectionSpinner = null;
         }
+        mSelectionItem = null;
     }
 
     Runnable mRangeUpdater = new Runnable() {
