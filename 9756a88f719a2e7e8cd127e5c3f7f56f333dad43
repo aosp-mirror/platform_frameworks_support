@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "766215be_b0887ada",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Add back ticks (i.e., `app:argType`) for code formatting",
+      "range": {
+        "startLine": 129,
+        "startChar": 46,
+        "endLine": 129,
+        "endChar": 57
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f9b276_4baec18c",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Should this be value or the capital Value supposed to signify something in particular?",
+      "range": {
+        "startLine": 26,
+        "startChar": 54,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b443994_6c08df1d",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Docs or make it package private",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3042f29_551768bd",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Docs or make it package private",
+      "range": {
+        "startLine": 59,
+        "startChar": 22,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e380f9a9_8953a476",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Docs or make it package private",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 29
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf36969_801d25c7",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Docs or make it package private",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 33
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b24702ac_60214c3a",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Docs or make it package private",
+      "range": {
+        "startLine": 145,
+        "startChar": 36,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13c5ed91_3e585f28",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "This should probably mention how you create / interact with this class. I.e., explain the public static final values, in what cases extending this class is okay (never?), etc.",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "451de79e_15f1dc7d",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "isAllowsNullable() reads very oddly. isNullableAllowed() or isNullableSupported() seems better.",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "435537cf_6304f036",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Is there anything more to do here?",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 46
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4efe4a70_32169f4b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Is there anything more to do here?",
+      "range": {
+        "startLine": 322,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 46
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0206589_d0427e0e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Should this be two separate classes ParcelableType and SerializableType to make it more clear that those are the only two supported Object types?",
+      "range": {
+        "startLine": 475,
+        "startChar": 30,
+        "endLine": 475,
+        "endChar": 40
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28fc8104_c6f508db",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T21:12:13Z",
+      "side": 1,
+      "message": "Similar question for ParcelableArrayType and SerializableArrayType",
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
