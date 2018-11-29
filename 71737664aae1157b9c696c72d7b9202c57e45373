@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c9e6b256_0b3f0f65",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-29T15:15:47Z",
+      "side": 1,
+      "message": "Got rid of it altogether, following your suggestion below.",
+      "parentUuid": "066b1384_771665d2",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 24
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0bed603_590a7d98",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfde531_51efb062",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-29T15:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0bed603_590a7d98",
+      "range": {
+        "startLine": 360,
+        "startChar": 12,
+        "endLine": 360,
+        "endChar": 61
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b23e3348_6e06d91f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-29T15:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14e621d3_96f7526c",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbf427d1_7bfb6939",
         "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c12f2772_21034a31",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-11-29T15:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbf427d1_7bfb6939",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 365,
+        "endChar": 80
+      },
+      "revId": "71737664aae1157b9c696c72d7b9202c57e45373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
