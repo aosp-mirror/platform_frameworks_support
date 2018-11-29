@@ -170,6 +170,30 @@
     },
     {
       "key": {
+        "uuid": "a003fce6_f53bbbb1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/MethodProcessorDelegate.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T22:53:05Z",
+      "side": 1,
+      "message": "i was confused because i\u0027ve not seen the extractParams() method below :/",
+      "parentUuid": "aa70983a_daa95521",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 85
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "892a23e3_0e92006a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
         "patchSetId": 5
