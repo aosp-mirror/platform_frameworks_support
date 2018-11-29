@@ -52,6 +52,24 @@
       "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1da3e35_6f57a608",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-29T19:27:36Z",
+      "side": 1,
+      "message": "Yeah like that new API more. Let\u0027s not add this at all then.",
+      "parentUuid": "9ad61b61_e41be334",
+      "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
