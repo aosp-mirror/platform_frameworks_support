@@ -70,6 +70,24 @@
       "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "383410fa_50f14d4e",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-29T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1da3e35_6f57a608",
+      "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
