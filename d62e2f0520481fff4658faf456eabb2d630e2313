@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ab8dab1_141bc830",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-29T19:59:33Z",
+      "side": 1,
+      "message": "nice",
+      "range": {
+        "startLine": 47,
+        "startChar": 42,
+        "endLine": 47,
+        "endChar": 75
+      },
+      "revId": "d62e2f0520481fff4658faf456eabb2d630e2313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a05eaf88_79e4c993",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportConfig.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-29T19:59:33Z",
+      "side": 1,
+      "message": "Are we planning for COMPILE_SDK_VERSION to generally be the same number as TARGET_SDK_VERSION?\n\nMaybe replace with something like \"android-${TARGET_SDK_VERSION}\" to make it even more obvious that in practice we probably want them to stay in sync?",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "d62e2f0520481fff4658faf456eabb2d630e2313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
