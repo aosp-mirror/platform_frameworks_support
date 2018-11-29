@@ -453,7 +453,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 && slice.getUri().equals(mCurrentSlice.getUri());
         if (isUpdate) {
             // If its an update check the loading state
-            SliceMetadata oldSliceData = SliceMetadata.from(getContext(), mCurrentSlice);
+            SliceMetadata oldSliceData = mSliceMetadata;
             SliceMetadata newSliceData = SliceMetadata.from(getContext(), slice);
             if (oldSliceData.getLoadingState() == SliceMetadata.LOADED_ALL
                     && newSliceData.getLoadingState() == SliceMetadata.LOADED_NONE) {
@@ -465,11 +465,13 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             mCurrentView.resetView();
         }
         mCurrentSlice = slice;
-        mListContent = new ListContent(mCurrentSlice);
+        mSliceMetadata = mCurrentSlice != null ? SliceMetadata.from(getContext(), mCurrentSlice)
+                : null;
+        mListContent = mSliceMetadata != null ? mSliceMetadata.getListContent() : null;
         if (mShowActionDividers) {
             showActionDividers(true);
         }
-        if (!mListContent.isValid()) {
+        if (mListContent == null || !mListContent.isValid()) {
             mActions = null;
             mCurrentView.resetView();
             updateActions();
@@ -479,7 +481,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mCurrentView.setLoadingActions(null);
 
         // Check if the slice content is expired and show when it was last updated
-        mSliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
         mActions = mSliceMetadata.getSliceActions();
         mCurrentView.setLastUpdated(mSliceMetadata.getLastUpdatedTime());
         mCurrentView.setShowLastUpdated(mShowLastUpdated && mSliceMetadata.isExpired());
