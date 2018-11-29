@@ -17,6 +17,7 @@
 package androidx.room.integration.testapp.test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -637,6 +638,16 @@ public class SimpleEntityReadWriteTest {
         List<UserSummary> users = mUserDao.getNames();
         assertThat(users, hasSize(1));
         assertThat(users.get(0).getName(), is(equalTo("john")));
+    }
+
+    @Test
+    public void queryByCollection() {
+        User[] users = TestUtil.createUsersArray(3, 5, 7, 9);
+        mUserDao.insertAll(users);
+        List<Integer> ids = Arrays.asList(3, 5, 7, 9);
+        List<User> loadedUsers = mUserDao.loadByIds(ids);
+        assertThat(loadedUsers, hasSize(4));
+        assertThat(loadedUsers, hasItems(users));
     }
 
     private Set<Day> toSet(Day... days) {

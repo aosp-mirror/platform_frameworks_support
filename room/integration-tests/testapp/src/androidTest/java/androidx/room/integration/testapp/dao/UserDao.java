@@ -40,6 +40,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import org.reactivestreams.Publisher;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -69,6 +70,9 @@ public abstract class UserDao {
 
     @Query("select * from user where mId IN(:ids)")
     public abstract User[] loadByIds(int... ids);
+
+    @Query("select * from user where mId IN(:ids)")
+    public abstract List<User> loadByIds(Collection<Integer> ids);
 
     @Query("select * from user where custommm = :customField")
     public abstract List<User> findByCustomField(String customField);
