@@ -52,14 +52,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewCompatTest {
     WebViewOnUiThread mWebViewOnUiThread;
-
-    private static final long TEST_TIMEOUT = 20000L;
 
     @Before
     public void setUp() {
@@ -80,7 +77,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testVisualStateCallbackCalled() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
 
         final CountDownLatch callbackLatch = new CountDownLatch(1);
         final long kRequest = 100;
@@ -95,13 +92,13 @@ public class WebViewCompatTest {
                         }
                 });
 
-        assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(callbackLatch);
     }
 
     @Test
     public void testCheckThread() {
         // Skip this test if VisualStateCallback is not supported.
-        AssumptionUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
         try {
             WebViewCompat.postVisualStateCallback(mWebViewOnUiThread.getWebViewOnCurrentThread(), 5,
                     new WebViewCompat.VisualStateCallback() {
@@ -139,7 +136,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testStartSafeBrowsingUseApplicationContext() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
         final MockContext ctx =
                 new MockContext(InstrumentationRegistry.getTargetContext().getApplicationContext());
@@ -151,7 +148,7 @@ public class WebViewCompatTest {
                 resultLatch.countDown();
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(resultLatch);
     }
 
     /**
@@ -162,7 +159,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testStartSafeBrowsingWithNullCallbackDoesntCrash() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
         WebViewCompat.startSafeBrowsing(InstrumentationRegistry.getTargetContext(), null);
     }
@@ -174,7 +171,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testStartSafeBrowsingInvokesCallback() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
         final CountDownLatch resultLatch = new CountDownLatch(1);
         WebViewCompat.startSafeBrowsing(
@@ -186,7 +183,7 @@ public class WebViewCompatTest {
                         resultLatch.countDown();
                     }
                 });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(resultLatch);
     }
 
     /**
@@ -197,7 +194,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testSetSafeBrowsingWhitelistWithMalformedList() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
 
         List<String> whitelist = new ArrayList<>();
         // Protocols are not supported in the whitelist
@@ -210,7 +207,7 @@ public class WebViewCompatTest {
                 resultLatch.countDown();
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(resultLatch);
     }
 
     /**
@@ -221,9 +218,9 @@ public class WebViewCompatTest {
     @FlakyTest(bugId = 111690396)
     @Test
     public void testSetSafeBrowsingWhitelistWithValidList() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
         // This test relies on the onSafeBrowsingHit callback to verify correctness.
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
 
         List<String> whitelist = new ArrayList<>();
         whitelist.add("safe-browsing");
@@ -235,7 +232,7 @@ public class WebViewCompatTest {
                 resultLatch.countDown();
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(resultLatch);
 
         final CountDownLatch resultLatch2 = new CountDownLatch(1);
         mWebViewOnUiThread.setWebViewClient(new WebViewClientCompat() {
@@ -255,7 +252,7 @@ public class WebViewCompatTest {
         mWebViewOnUiThread.loadUrl("chrome://safe-browsing/match?type=malware");
 
         // Wait until page load has completed
-        assertTrue(resultLatch2.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(resultLatch);
     }
 
     /**
@@ -265,7 +262,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testGetSafeBrowsingPrivacyPolicyUrl() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL);
 
         assertNotNull(WebViewCompat.getSafeBrowsingPrivacyPolicyUrl());
         try {
@@ -282,7 +279,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testGetWebViewClient() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_CLIENT);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_CLIENT);
 
         // Create a new WebView because WebViewOnUiThread sets a WebViewClient during
         // construction.
@@ -309,7 +306,7 @@ public class WebViewCompatTest {
      */
     @Test
     public void testGetWebChromeClient() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_CHROME_CLIENT);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_CHROME_CLIENT);
 
         // Create a new WebView because WebViewOnUiThread sets a WebChromeClient during
         // construction.

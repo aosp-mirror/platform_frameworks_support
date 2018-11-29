@@ -39,14 +39,12 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewClientCompatTest {
     private WebViewOnUiThread mWebViewOnUiThread;
 
-    private static final long TEST_TIMEOUT = 20000L;
     private static final String TEST_URL = "http://www.example.com/";
     private static final String TEST_SAFE_BROWSING_URL =
             "chrome://safe-browsing/match?type=malware";
@@ -119,8 +117,8 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testShouldOverrideUrlLoading() throws InterruptedException {
-        AssumptionUtils.checkFeature(WebViewFeature.SHOULD_OVERRIDE_WITH_REDIRECTS);
-        AssumptionUtils.checkFeature(WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT);
+        WebkitUtils.checkFeature(WebViewFeature.SHOULD_OVERRIDE_WITH_REDIRECTS);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT);
 
         String data = "<html><body>"
                 + "<a href=\"" + TEST_URL + "\" id=\"link\">new page</a>"
@@ -137,7 +135,7 @@ public class WebViewClientCompatTest {
         mWebViewOnUiThread.setWebViewClient(webViewClient);
         mWebViewOnUiThread.getSettings().setJavaScriptEnabled(true);
         clickOnLinkUsingJs("link", mWebViewOnUiThread);
-        pageFinishedLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS);
+        WebkitUtils.waitForCallback(pageFinishedLatch);
         Assert.assertEquals(TEST_URL,
                 webViewClient.getLastShouldOverrideResourceRequest().getUrl().toString());
 
@@ -160,7 +158,7 @@ public class WebViewClientCompatTest {
         webViewOnUiThread.evaluateJavascript(
                 "document.getElementById('" + linkId + "').click();"
                         + "console.log('element with id [" + linkId + "] clicked');", callback);
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(callbackLatch);
     }
 
     /**
@@ -170,8 +168,8 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testOnReceivedError() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
-        AssumptionUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
+        WebkitUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
 
         final MockWebViewClient webViewClient = new MockWebViewClient();
         mWebViewOnUiThread.setWebViewClient(webViewClient);
@@ -191,7 +189,7 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testOnReceivedErrorForSubresource() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
+        WebkitUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
 
         final MockWebViewClient webViewClient = new MockWebViewClient();
         mWebViewOnUiThread.setWebViewClient(webViewClient);
@@ -216,10 +214,10 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testOnSafeBrowsingHitBackToSafety() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY);
-        AssumptionUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
 
         final SafeBrowsingBackToSafetyClient backToSafetyWebViewClient =
                 new SafeBrowsingBackToSafetyClient();
@@ -249,9 +247,9 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testOnSafeBrowsingHitProceed() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
-        AssumptionUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED);
 
         final SafeBrowsingProceedClient proceedWebViewClient = new SafeBrowsingProceedClient();
         mWebViewOnUiThread.setWebViewClient(proceedWebViewClient);
@@ -291,7 +289,7 @@ public class WebViewClientCompatTest {
      */
     @Test
     public void testOnPageCommitVisibleCalled() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
 
         final CountDownLatch callbackLatch = new CountDownLatch(1);
 
@@ -304,12 +302,12 @@ public class WebViewClientCompatTest {
         });
 
         mWebViewOnUiThread.loadUrl("about:blank");
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(callbackLatch);
     }
 
     @Test
     public void testResetClientToCompat() throws Exception {
-        AssumptionUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
 
         WebViewClient nonCompatClient = new WebViewClient() {
             @Override
@@ -329,7 +327,7 @@ public class WebViewClientCompatTest {
         };
         mWebViewOnUiThread.setWebViewClient(compatClient); // reset to the new client
         mWebViewOnUiThread.loadUrl("about:blank");
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(callbackLatch);
     }
 
     @Test
@@ -352,7 +350,7 @@ public class WebViewClientCompatTest {
         };
         mWebViewOnUiThread.setWebViewClient(nonCompatClient); // reset to the new client
         mWebViewOnUiThread.loadUrl("about:blank");
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForCallback(callbackLatch);
     }
 
     private class MockWebViewClient extends WebViewOnUiThread.WaitForLoadedClient {
