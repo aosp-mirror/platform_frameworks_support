@@ -119,7 +119,7 @@ public class WebViewRendererTest {
     @Test
     @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.N_MR1)
     public void testGetWebViewRendererPreO() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
 
         // It should not be possible to get a renderer pre-O
         WebView webView = WebViewOnUiThread.createWebView();
@@ -133,7 +133,7 @@ public class WebViewRendererTest {
     @SuppressLint("NewApi")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     public void testGetWebViewRenderer() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
         // TODO(tobiasjs) some O devices are not multiprocess, and multiprocess can also be disabled
         // manually. This test should handle those scenarios.
 

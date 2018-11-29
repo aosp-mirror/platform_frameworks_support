@@ -16,12 +16,20 @@
 
 package androidx.webkit;
 
+import org.junit.Assert;
 import org.junit.Assume;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 /**
- * Helper methods for specifying test assumptions.
+ * Helper methods for common webkit test tasks.
  */
-public final class AssumptionUtils {
+public final class WebkitUtils {
+
+    // Arbitrary timeout. Note that @SmallTest and @MediumTest are documented as both requiring
+    // execution times < 1000ms.
+    private static final long TEST_TIMEOUT_MS = 20000L; // 20s.
 
     /**
      * Throws {@link org.junit.AssumptionViolatedException} if the device does not support the
@@ -38,6 +46,17 @@ public final class AssumptionUtils {
         Assume.assumeTrue(msg, hasFeature);
     }
 
+    /**
+     * Waits for {@code latch} to be counted down. Throws an exception with a helpful error message
+     * if the callback exceeds the timeout.
+     * <p class="note"><b>Note:</b> consider using {@link androidx.test.filters.LargeTest}, since
+     * this timeout may exceed the limits on the other annotations.
+     */
+    public static void waitForCallback(CountDownLatch latch) throws InterruptedException {
+        final String msg = "Callback timed out";
+        Assert.assertTrue(msg, latch.await(TEST_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
     // Do not instantiate this class.
-    private AssumptionUtils() {}
+    private WebkitUtils() {}
 }
