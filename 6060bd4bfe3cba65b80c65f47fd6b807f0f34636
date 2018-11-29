@@ -241,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "1c0375cf_08cb93e3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "ack. we don\u0027t have to rename it, i just recommended it to make it easier to process w/o passing the executable around.",
+      "parentUuid": "46da9861_f7832d17",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 37
+      },
+      "revId": "6060bd4bfe3cba65b80c65f47fd6b807f0f34636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0032fe79_bada5e12",
         "filename": "room/compiler/src/main/kotlin/androidx/room/solver/query/result/CoroutineResultBinder.kt",
         "patchSetId": 2

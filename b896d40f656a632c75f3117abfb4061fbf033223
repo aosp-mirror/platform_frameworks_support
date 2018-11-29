@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c924f9e6_01d9ffd9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/KotlinMetadataElement.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "why does getParameterNames call findConstructor ? if this method is specific to a constructor method, we should clarify the name.\n\nI see this is moved from another file but would be nice to rename it as we touch.",
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5816b4bf_8ff72ddb",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "getSuspendFunctionReturnType",
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c461a2_378c790b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/MethodProcessorDelegate.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "i understand KotlinMetadataElement class handles missing kotlin metadata but it is weird to have a propery that is not-nullable but speciic to kotlin.\n\nmaybe we should consider changing KotlinMetadataElement to always require kotlin and be null otherwise ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 54
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a709fca_a477938b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/MethodProcessorDelegate.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "how does this work in java ?",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 85
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "892a23e3_0e92006a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "why not this?\nhttps://cs.corp.google.com/aosp-androidx/room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt?q\u003dprocessorerrors.kt\u0026sq\u003dpackage:android\u0026g\u003d0\u0026l\u003d127\n\n(or remove other one and replace with this message ?)",
+      "range": {
+        "startLine": 130,
+        "startChar": 3,
+        "endLine": 131,
+        "endChar": 68
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b6496d_1d15f6f8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "we should name it room-coroutines like others.",
+      "range": {
+        "startLine": 515,
+        "startChar": 59,
+        "endLine": 515,
+        "endChar": 73
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0fdf052_868bcc35",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-29T19:55:59Z",
+      "side": 1,
+      "message": "is there a test for this? idk if we know how to return Kotlin.Unit",
+      "range": {
+        "startLine": 85,
+        "startChar": 43,
+        "endLine": 85,
+        "endChar": 62
+      },
+      "revId": "b896d40f656a632c75f3117abfb4061fbf033223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
