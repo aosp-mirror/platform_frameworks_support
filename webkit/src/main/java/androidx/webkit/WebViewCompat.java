@@ -31,6 +31,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresFeature;
+import androidx.annotation.RestrictTo;
 import androidx.webkit.internal.WebMessagePortImpl;
 import androidx.webkit.internal.WebViewFeatureInternal;
 import androidx.webkit.internal.WebViewGlueCommunicator;
@@ -495,10 +496,14 @@ public class WebViewCompat {
      * @return the {@link WebViewRenderer} renderer handle associated
      *         with this {@link android.webkit.WebView}, or {@code null} if
      *         WebView is not runing in multiprocess mode.
+     *
+     * TODO(tobiasjs): unhide this when we're ready to expose this.
+     * @hide
      */
     @SuppressLint("NewApi")
     @RequiresFeature(name = WebViewFeature.GET_WEB_VIEW_RENDERER,
             enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static @Nullable WebViewRenderer getWebViewRenderer(@NonNull WebView webview) {
         final WebViewFeatureInternal feature =
                 WebViewFeatureInternal.getFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);

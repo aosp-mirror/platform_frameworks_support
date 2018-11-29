@@ -20,7 +20,11 @@ import androidx.annotation.RestrictTo;
 
 /**
  * WebViewRenderer provides an opaque handle to a WebView renderer.
+ *
+ * TODO(tobiasjs): unhide this when we're ready to expose this.
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class WebViewRenderer {
     /**
      * Cause this renderer to terminate.
