@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0db9fb9c_641cf08c",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "Done, changed according to comment below.",
+      "parentUuid": "c23e3c3a_aa629ae4",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8afc901a_69728c72",
         "filename": "navigation/common/api/1.0.0-alpha08.txt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ceef884_818f6d08",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "I agree, I was actually going back and forth on how to structure this. I changed it to your suggestion to only hold names in the map.",
+      "parentUuid": "8afc901a_69728c72",
+      "range": {
+        "startLine": 44,
+        "startChar": 38,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e5abd48e_f6ac1d09",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e51c656f_c4fd4450",
+      "range": {
+        "startLine": 102,
+        "startChar": 24,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fabf5d9b_c22ac21e",
         "filename": "navigation/common/api/1.0.0-alpha08.txt",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17ef82e4_af4e1502",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fabf5d9b_c22ac21e",
+      "range": {
+        "startLine": 122,
+        "startChar": 28,
+        "endLine": 122,
+        "endChar": 54
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c3802622_d4ff175e",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9bcbe7b_207dbe01",
+      "range": {
+        "startLine": 130,
+        "startChar": 28,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f9a9a90_568cbc32",
         "filename": "navigation/common/ktx/api/current.txt",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcd7be60_f1403642",
+        "filename": "navigation/common/ktx/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-29T18:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9a9a90_568cbc32",
+      "range": {
+        "startLine": 41,
+        "startChar": 142,
+        "endLine": 41,
+        "endChar": 147
+      },
+      "revId": "e062c37dabf9cf412b0d6f6c6d9bffacef033ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
