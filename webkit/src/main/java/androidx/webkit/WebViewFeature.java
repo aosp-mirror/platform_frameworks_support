@@ -353,13 +353,21 @@ public class WebViewFeature {
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers {@link WebViewCompat#getWebViewRenderer(WebView)}
+     *
+     * TODO(tobiasjs): unhide this when we're ready to expose this.
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final String GET_WEB_VIEW_RENDERER = Features.GET_WEB_VIEW_RENDERER;
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers {@link WebViewRenderer#terminate()}
+     *
+     * TODO(tobiasjs): unhide this when we're ready to expose this.
+     * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
 
     /**
