@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e93b6de_403d9c92",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2018-11-29T18:39:10Z",
+      "side": 1,
+      "message": "Sergey, are you happy with this?",
+      "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
