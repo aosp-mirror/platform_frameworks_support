@@ -245,6 +245,30 @@
       "revId": "f64ac14f3d35e423f6252221fd3a9f7cc2a9e9a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8f7c202_29b5eed9",
+        "filename": "core/src/main/java/androidx/core/widget/TintableCompoundDrawablesView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-11-29T21:46:07Z",
+      "side": 1,
+      "message": "I wouldn\u0027t make it public if there is not strong reasons, but totally up to you.",
+      "parentUuid": "0a6de59b_99d8adea",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "f64ac14f3d35e423f6252221fd3a9f7cc2a9e9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
