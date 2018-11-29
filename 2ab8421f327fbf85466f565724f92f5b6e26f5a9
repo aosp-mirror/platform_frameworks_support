@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b99b5daa_bcb31e4e",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-29T17:32:10Z",
+      "side": 1,
+      "message": "could move this above the if statement and reuse it when mSliceMetadata is assigned to save making it again",
+      "range": {
+        "startLine": 457,
+        "startChar": 12,
+        "endLine": 457,
+        "endChar": 81
+      },
+      "revId": "2ab8421f327fbf85466f565724f92f5b6e26f5a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
