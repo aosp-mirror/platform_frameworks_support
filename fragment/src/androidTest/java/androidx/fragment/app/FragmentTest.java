@@ -23,12 +23,12 @@ import static org.junit.Assert.fail;
 
 import android.app.Instrumentation;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 
+import androidx.activity.InflatesRes;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
@@ -281,27 +281,15 @@ public class FragmentTest {
         }
     }
 
+    @InflatesRes(R.layout.fragment_a)
     public static class FragmentA extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_a, container, false);
-        }
     }
 
+    @InflatesRes(R.layout.fragment_b)
     public static class FragmentB extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_b, container, false);
-        }
     }
 
+    @InflatesRes(R.layout.fragment_c)
     public static class FragmentC extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_c, container, false);
-        }
     }
 }

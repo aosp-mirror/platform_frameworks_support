@@ -31,6 +31,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.InflatesRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
 import androidx.test.InstrumentationRegistry;
@@ -947,21 +950,23 @@ public class PostponedTransitionTest {
         assertTrue(fragment.sharedElementReturn.getTargets().isEmpty());
     }
 
+    @InflatesRes(R.layout.scene1)
     public static class PostponedFragment1 extends TransitionFragment {
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                @Nullable Bundle savedInstanceState) {
             postponeEnterTransition();
-            return inflater.inflate(R.layout.scene1, container, false);
+            return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
 
+    @InflatesRes(R.layout.scene2)
     public static class PostponedFragment2 extends TransitionFragment {
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                @Nullable Bundle savedInstanceState) {
             postponeEnterTransition();
-            return inflater.inflate(R.layout.scene2, container, false);
+            return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
 
@@ -976,12 +981,12 @@ public class PostponedTransitionTest {
         }
     }
 
+    @InflatesRes(R.layout.scene2)
     public static class TransitionFragment2 extends TransitionFragment {
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            super.onCreateView(inflater, container, savedInstanceState);
-            return inflater.inflate(R.layout.scene2, container, false);
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                @Nullable Bundle savedInstanceState) {
+            return super.onCreateView(inflater, container, savedInstanceState);
         }
     }
 }

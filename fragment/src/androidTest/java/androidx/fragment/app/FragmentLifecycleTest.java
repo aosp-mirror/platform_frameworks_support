@@ -47,6 +47,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.activity.InflatesRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -1983,16 +1984,11 @@ public class FragmentLifecycleTest {
         }
     }
 
+    @InflatesRes(R.layout.nested_retained_inflated_fragment_parent)
     public static class RetainedInflatedParentFragment extends Fragment {
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.nested_retained_inflated_fragment_parent, container,
-                    false);
-        }
     }
 
+    @InflatesRes(R.layout.nested_inflated_fragment_child)
     public static class RetainedInflatedChildFragment extends Fragment {
 
         int mOnInflateCount = 0;
@@ -2008,13 +2004,6 @@ public class FragmentLifecycleTest {
                 @Nullable Bundle savedInstanceState) {
             super.onInflate(context, attrs, savedInstanceState);
             mOnInflateCount++;
-        }
-
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.nested_inflated_fragment_child, container, false);
         }
     }
 }

@@ -13,6 +13,10 @@ package androidx.activity {
     method public void removeOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
   }
 
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME) @java.lang.annotation.Target({java.lang.annotation.ElementType.TYPE}) public @interface InflatesRes {
+    method @LayoutRes public abstract int value();
+  }
+
   public interface OnBackPressedCallback {
     method public boolean handleOnBackPressed();
   }
