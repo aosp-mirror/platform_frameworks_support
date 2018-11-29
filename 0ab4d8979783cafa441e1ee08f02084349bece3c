@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e7d5ffd_d7cca766",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-29T10:55:35Z",
+      "side": 1,
+      "message": "It\u0027s not documented because Dianne didn\u0027t liked it.\n\nhttps://android-review.googlesource.com/c/platform/frameworks/base/+/544959/2/core/java/android/os/Binder.java#220\n\nBehavior seems to be not well defined, but the thread also says that it would return 0.",
+      "parentUuid": "63760e4e_f493e806",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 39
+      },
+      "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb19bd2_4bc4906d",
         "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f8911c_ef4a7acf",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-29T10:55:35Z",
+      "side": 1,
+      "message": "Changed wording.",
+      "parentUuid": "eeb19bd2_4bc4906d",
+      "range": {
+        "startLine": 203,
+        "startChar": 77,
+        "endLine": 205,
+        "endChar": 33
+      },
+      "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "69810a3e_6ffaf733",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManagerImplApi28.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-29T10:55:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db4a6163_d9c1b215",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90aa4d5_1746de66",
         "filename": "media/src/main/java/androidx/media/MediaSessionManagerImplApi28.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "28f9810b_28212cda",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManagerImplApi28.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-29T10:55:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a90aa4d5_1746de66",
+      "range": {
+        "startLine": 57,
+        "startChar": 42,
+        "endLine": 57,
+        "endChar": 45
+      },
+      "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9abc0ae_24965838",
         "filename": "media/src/main/java/androidx/media/MediaSessionManagerImplBase.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4220e3d_2eb5c5aa",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManagerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-11-29T10:55:35Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "e9abc0ae_24965838",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 13
+      },
+      "revId": "0ab4d8979783cafa441e1ee08f02084349bece3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
