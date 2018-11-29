@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04879942_fb423d61",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserDao.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-29T19:31:07Z",
+      "side": 1,
+      "message": "Add a few more methods with descendants and implementations of Collections just to be sure.\n\nSuch as Set and HashSet, or Queue or LinkedList.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "b92d2b6fc138f7310a5dd787f931d94f2362aa46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
