@@ -81,6 +81,24 @@
       "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66b57894_1183e359",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-29T20:03:13Z",
+      "side": 1,
+      "message": "Hmm my thought would be that it\u0027d be easier to read+validate the list if we were to start with the top-of-tree zip and then also list some other files and some exclusions. Although given that we can inspect the diff then if we\u0027re not planning on changing the list much then it seems probably fine to me",
+      "parentUuid": "9a0842c9_00637322",
+      "revId": "5293eb35fcbf043974ef57c681c3a9f26f4f8d0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
