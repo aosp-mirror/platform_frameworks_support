@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2eca4ff8_cd7565ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Totally agree I had the same thought too, do you suggest a better name?",
+      "parentUuid": "bf8821b5_a4f2636e",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "654b11f7_c9a1d187",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd02127_c17b6087",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "654b11f7_c9a1d187",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 187
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +280,30 @@
     },
     {
       "key": {
+        "uuid": "58752c30_ac62773c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewLocalServerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffeb230_ea7f5f53",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3aed9ad9_308c8fd0",
         "filename": "webkit/src/androidTest/res/raw/test_with_title.html",
         "patchSetId": 2
@@ -272,6 +344,30 @@
     },
     {
       "key": {
+        "uuid": "3411fa74_0dd44d20",
+        "filename": "webkit/src/androidTest/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "It\u0027s just used in the AndroidManifest. I\u0027ll delete it for simplicity.",
+      "parentUuid": "42272d72_cd9416e7",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b02ddeb_cac4d4c3",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -292,6 +388,30 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93b260d7_9ba0db6a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b02ddeb_cac4d4c3",
+      "range": {
+        "startLine": 45,
+        "startChar": 37,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -318,6 +438,30 @@
     },
     {
       "key": {
+        "uuid": "0b40f48f_b4918214",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Modified it. WDYT now?",
+      "parentUuid": "c31dcc7d_a4a06fcb",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 88
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85ae0a62_3afda9e8",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -329,6 +473,30 @@
       "writtenOn": "2018-11-28T00:34:57Z",
       "side": 1,
       "message": "Can you mark visibility?",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 16
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9617226_ec645dba",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Does /*package*/ work as a visibility mark? or do you mean using @hide?",
+      "parentUuid": "85ae0a62_3afda9e8",
       "range": {
         "startLine": 82,
         "startChar": 4,
@@ -387,6 +555,30 @@
     },
     {
       "key": {
+        "uuid": "233db705_027f32f4",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e239170b_af590d1e",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0d5537a_df3ec00e",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -398,6 +590,30 @@
       "writtenOn": "2018-11-28T00:34:57Z",
       "side": 1,
       "message": "Are apps expected to use this, or is this an implementation detail? This either needs @hide or it needs example docs in the class-level doc.",
+      "range": {
+        "startLine": 244,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370c2aff_b34dc849",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "It\u0027s an implementation detail, Is making it /*package*/ visible not public OK? or should I use @hide?",
+      "parentUuid": "f0d5537a_df3ec00e",
       "range": {
         "startLine": 244,
         "startChar": 4,
@@ -433,6 +649,30 @@
     },
     {
       "key": {
+        "uuid": "ab7c18e3_517c8c55",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbd84369_eb3a25f7",
+      "range": {
+        "startLine": 325,
+        "startChar": 37,
+        "endLine": 325,
+        "endChar": 42
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b8bb337_4f9c2178",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -453,6 +693,30 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6aa452_d602340b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "implementation detail as well.",
+      "parentUuid": "0b8bb337_4f9c2178",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 328,
+        "endChar": 46
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -568,6 +832,54 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65e77a5b_8911c270",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "My bad, I was renaming the variable and I replaced the word authority by mistake.",
+      "parentUuid": "f5c86e7e_99cf8ff7",
+      "range": {
+        "startLine": 513,
+        "startChar": 65,
+        "endLine": 513,
+        "endChar": 75
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22039e55_36c76fe0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2018-11-29T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea8ae7f_52f4a5c6",
+      "range": {
+        "startLine": 513,
+        "startChar": 22,
+        "endLine": 513,
+        "endChar": 25
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
