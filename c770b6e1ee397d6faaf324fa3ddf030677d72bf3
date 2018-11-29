@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5d4b14a_0dfeecab",
+        "filename": "fragment/testing/api/1.1.0-alpha03.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-29T22:55:38Z",
+      "side": 1,
+      "message": "Swap the FragmentFactory and theme to make it consistent with the launchFragment method that takes an instantiate lambda (since that lambda is taking the place of the FragmentFactory).",
+      "range": {
+        "startLine": 8,
+        "startChar": 155,
+        "endLine": 8,
+        "endChar": 198
+      },
+      "revId": "c770b6e1ee397d6faaf324fa3ddf030677d72bf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
