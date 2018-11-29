@@ -34,6 +34,24 @@
       "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad61b61_e41be334",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/Result.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-11-29T19:03:20Z",
+      "side": 1,
+      "message": "We changed the Payload API. \nResult is essentially, all encompassing now. Depending on what lands first, I will get rid of this.\n\nFor more info:\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/837146/3/work/workmanager/src/main/java/androidx/work/Result.java",
+      "parentUuid": "e13110bc_7161c3c2",
+      "revId": "11024ef0f1637f530548250ef453d4bba629ddc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
