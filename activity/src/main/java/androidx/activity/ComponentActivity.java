@@ -101,12 +101,25 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         });
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * If your ComponentActivity is annotated with {@link InflatesRes}, this will
+     * call {@link #setContentView(int)} for you.
+     */
     @Override
     @SuppressWarnings("RestrictedApi")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedStateRegistry.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
+        InflatesRes annotation = getClass().getAnnotation(InflatesRes.class);
+        if (annotation != null) {
+            int layoutId = annotation.value();
+            if (layoutId != 0) {
+                setContentView(layoutId);
+            }
+        }
     }
 
     @SuppressLint("RestrictedApi")
