@@ -30,8 +30,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.car.R;
@@ -47,10 +49,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Unit tests for {@link CarToolbar}. */
+/**
+ * Unit tests for {@link CarToolbar}.
+ */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class CarToolbarTest {
+
     @Rule
     public ActivityTestRule<CarToolbarTestActivity> mActivityRule =
             new ActivityTestRule<>(CarToolbarTestActivity.class);
@@ -160,7 +165,7 @@ public class CarToolbarTest {
 
     @Test
     public void testSetNavigationIconOnClickListener() throws Throwable {
-        boolean[] clicked = new boolean[] {false};
+        boolean[] clicked = new boolean[]{false};
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setNavigationIconOnClickListener(v -> clicked[0] = true));
 
@@ -168,8 +173,37 @@ public class CarToolbarTest {
         assertTrue(clicked[0]);
     }
 
+    @Test
+    public void testSetLogoNullHidesLogoView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(null));
+
+        assertEquals(getLogoView().getVisibility(), View.GONE);
+    }
+
+    @Test
+    public void testSetLogoNonNullShowsLogoView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        assertEquals(getLogoView().getVisibility(), View.VISIBLE);
+    }
+
+    @Test
+    public void testLogoHasCorrectDefaultWidth() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        Thread.sleep(100);
+        assertEquals(mActivity.getResources().getDimensionPixelSize(R.dimen.car_toolbar_logo_size),
+                getLogoView().getWidth());
+    }
+
     private ImageButton getNavigationIconView() {
         return mActivity.findViewById(R.id.nav_button);
+    }
+
+    private ImageView getLogoView() {
+        return mActivity.findViewById(R.id.logo);
     }
 
     private TextView getTitleView() {

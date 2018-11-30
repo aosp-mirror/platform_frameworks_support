@@ -100,6 +100,9 @@ limitations under the License.
     <dimen name="car_app_bar_default_elevation">8dp</dimen>
     <dimen name="car_application_icon_size">44dp</dimen>
 
+    <!-- Car Toolbar -->
+    <dimen name="car_toolbar_logo_size">72dp</dimen>
+
     <!-- Lists -->
     <dimen name="car_single_line_list_item_height">96dp</dimen>
     <dimen name="car_double_line_list_item_height">@dimen/car_single_line_list_item_height</dimen>
