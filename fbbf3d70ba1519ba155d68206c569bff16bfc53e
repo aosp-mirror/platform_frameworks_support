@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cbc9d8bd_e775ed32",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-30T18:29:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e4b3e97b_e4e0e840",
+      "range": {
+        "startLine": 356,
+        "startChar": 17,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3956cbc8_6011661c",
         "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
         "patchSetId": 2
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "d6edbb1b_bc786e92",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41b4c1b8_69c33153",
+        "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-11-30T18:29:01Z",
+      "side": 1,
+      "message": "Thank you!!",
+      "parentUuid": "fdc5fe0f_17558145",
       "range": {
         "startLine": 49,
         "startChar": 12,
