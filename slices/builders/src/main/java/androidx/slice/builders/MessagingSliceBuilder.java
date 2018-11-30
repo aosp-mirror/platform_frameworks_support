@@ -32,7 +32,7 @@ import androidx.core.util.Consumer;
 import androidx.slice.SliceSpecs;
 import androidx.slice.builders.impl.MessagingBasicImpl;
 import androidx.slice.builders.impl.MessagingBuilder;
-import androidx.slice.builders.impl.MessagingListV1Impl;
+import androidx.slice.builders.impl.MessagingListImpl;
 import androidx.slice.builders.impl.MessagingV1Impl;
 import androidx.slice.builders.impl.TemplateBuilderImpl;
 
@@ -90,9 +90,9 @@ public class MessagingSliceBuilder extends TemplateSliceBuilder {
     protected TemplateBuilderImpl selectImpl(Uri uri) {
         if (checkCompatible(SliceSpecs.MESSAGING, uri)) {
             return new MessagingV1Impl(getBuilder(), SliceSpecs.MESSAGING);
-        } else if (checkCompatible(SliceSpecs.LIST, uri)) {
-            return new MessagingListV1Impl(getBuilder(), SliceSpecs.LIST);
-        } else if (checkCompatible(SliceSpecs.BASIC, uri)) {
+        } else if (checkCompatible(SliceSpecs.LIST)) {
+            return new MessagingListImpl(getBuilder(), SliceSpecs.LIST);
+        } else if (checkCompatible(SliceSpecs.BASIC)) {
             return new MessagingBasicImpl(getBuilder(), SliceSpecs.BASIC);
         }
         return null;

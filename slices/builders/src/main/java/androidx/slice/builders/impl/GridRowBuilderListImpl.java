@@ -51,13 +51,13 @@ import java.util.List;
  */
 @RestrictTo(LIBRARY)
 @RequiresApi(19)
-public class GridRowBuilderListV1Impl extends TemplateBuilderImpl {
+public class GridRowBuilderListImpl extends TemplateBuilderImpl {
 
     private SliceAction mPrimaryAction;
 
     /**
      */
-    public GridRowBuilderListV1Impl(@NonNull ListBuilderV1Impl parent, GridRowBuilder builder) {
+    public GridRowBuilderListImpl(@NonNull ListBuilderImpl parent, GridRowBuilder builder) {
         super(parent.createChildBuilder(), null);
         if (builder.getLayoutDirection() != -1) {
             setLayoutDirection(builder.getLayoutDirection());
@@ -138,7 +138,7 @@ public class GridRowBuilderListV1Impl extends TemplateBuilderImpl {
 
         /**
          */
-        CellBuilderImpl(@NonNull GridRowBuilderListV1Impl parent) {
+        CellBuilderImpl(@NonNull GridRowBuilderListImpl parent) {
             super(parent.createChildBuilder(), null);
         }
 
