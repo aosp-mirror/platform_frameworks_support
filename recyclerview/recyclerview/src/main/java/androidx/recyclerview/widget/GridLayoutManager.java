@@ -59,6 +59,7 @@ public class GridLayoutManager extends LinearLayoutManager {
     // re-used variable to acquire decor insets from RecyclerView
     final Rect mDecorInsets = new Rect();
 
+    private boolean mUseSpansToEstimateScrollBarDimensions;
 
     /**
      * Constructor used when layout manager is set in XML by RecyclerView attribute
@@ -199,27 +200,32 @@ public class GridLayoutManager extends LinearLayoutManager {
     @Override
     public void onItemsAdded(RecyclerView recyclerView, int positionStart, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
 
     @Override
     public void onItemsChanged(RecyclerView recyclerView) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
 
     @Override
     public void onItemsRemoved(RecyclerView recyclerView, int positionStart, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
 
     @Override
     public void onItemsUpdated(RecyclerView recyclerView, int positionStart, int itemCount,
             Object payload) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
 
     @Override
     public void onItemsMoved(RecyclerView recyclerView, int from, int to, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
 
     @Override
@@ -449,7 +455,7 @@ public class GridLayoutManager extends LinearLayoutManager {
     private int getSpanGroupIndex(RecyclerView.Recycler recycler, RecyclerView.State state,
             int viewPosition) {
         if (!state.isPreLayout()) {
-            return mSpanSizeLookup.getSpanGroupIndex(viewPosition, mSpanCount);
+            return mSpanSizeLookup.getCachedSpanGroupIndex(viewPosition, mSpanCount);
         }
         final int adapterPosition = recycler.convertPreLayoutPositionToPostLayout(viewPosition);
         if (adapterPosition == -1) {
@@ -460,7 +466,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             Log.w(TAG, "Cannot find span size for pre layout position. " + viewPosition);
             return 0;
         }
-        return mSpanSizeLookup.getSpanGroupIndex(adapterPosition, mSpanCount);
+        return mSpanSizeLookup.getCachedSpanGroupIndex(adapterPosition, mSpanCount);
     }
 
     private int getSpanIndex(RecyclerView.Recycler recycler, RecyclerView.State state, int pos) {
@@ -830,8 +836,10 @@ public class GridLayoutManager extends LinearLayoutManager {
     public abstract static class SpanSizeLookup {
 
         final SparseIntArray mSpanIndexCache = new SparseIntArray();
+        final SparseIntArray mSpanGroupIndexCache = new SparseIntArray();
 
         private boolean mCacheSpanIndices = false;
+        private boolean mCacheSpanGroupIndices = false;
 
         /**
          * Returns the number of span occupied by the item at <code>position</code>.
@@ -852,6 +860,10 @@ public class GridLayoutManager extends LinearLayoutManager {
             mCacheSpanIndices = cacheSpanIndices;
         }
 
+        public void setSpanGroupIndexCacheEnabled(boolean cacheSpanGroupIndices)  {
+            mCacheSpanGroupIndices = cacheSpanGroupIndices;
+        }
+
         /**
          * Clears the span index cache. GridLayoutManager automatically calls this method when
          * adapter changes occur.
@@ -861,12 +873,24 @@ public class GridLayoutManager extends LinearLayoutManager {
         }
 
         /**
+         * Clears the span group index cache. GridLayoutManager automatically calls this method
+         * when adapter changes occur.
+         */
+        public void invalidateSpanGroupIndexCache() {
+            mSpanGroupIndexCache.clear();
+        }
+
+        /**
          * Returns whether results of {@link #getSpanIndex(int, int)} method are cached or not.
          *
          * @return True if results of {@link #getSpanIndex(int, int)} are cached.
          */
         public boolean isSpanIndexCacheEnabled() {
             return mCacheSpanIndices;
+        }
+
+        public boolean isSpanGroupIndexCacheEnabled() {
+            return mCacheSpanGroupIndices;
         }
 
         int getCachedSpanIndex(int position, int spanCount) {
@@ -879,6 +903,22 @@ public class GridLayoutManager extends LinearLayoutManager {
             }
             final int value = getSpanIndex(position, spanCount);
             mSpanIndexCache.put(position, value);
+            return value;
+        }
+
+        int getCachedSpanGroupIndex(int position, int spanCount) {
+            if (!mCacheSpanGroupIndices) {
+                return getSpanGroupIndex(position, spanCount);
+            }
+            final int existing = mSpanGroupIndexCache.get(position, -1);
+            if (existing != -1) {
+                if (existing != getSpanGroupIndex(position, spanCount)) {
+                    return getSpanGroupIndex(position, spanCount);
+                }
+                return existing;
+            }
+            final int value = getSpanGroupIndex(position, spanCount);
+            mSpanGroupIndexCache.put(position, value);
             return value;
         }
 
@@ -914,7 +954,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             int startPos = 0;
             // If caching is enabled, try to jump
             if (mCacheSpanIndices && mSpanIndexCache.size() > 0) {
-                int prevKey = findReferenceIndexFromCache(position);
+                int prevKey = findReferenceIndexFromCache(position, mSpanIndexCache);
                 if (prevKey >= 0) {
                     span = mSpanIndexCache.get(prevKey) + getSpanSize(prevKey);
                     startPos = prevKey + 1;
@@ -936,13 +976,13 @@ public class GridLayoutManager extends LinearLayoutManager {
             return 0;
         }
 
-        int findReferenceIndexFromCache(int position) {
+        static int findReferenceIndexFromCache(int position, SparseIntArray cache) {
             int lo = 0;
-            int hi = mSpanIndexCache.size() - 1;
+            int hi = cache.size() - 1;
 
             while (lo <= hi) {
                 final int mid = (lo + hi) >>> 1;
-                final int midVal = mSpanIndexCache.keyAt(mid);
+                final int midVal = cache.keyAt(mid);
                 if (midVal < position) {
                     lo = mid + 1;
                 } else {
@@ -950,8 +990,8 @@ public class GridLayoutManager extends LinearLayoutManager {
                 }
             }
             int index = lo - 1;
-            if (index >= 0 && index < mSpanIndexCache.size()) {
-                return mSpanIndexCache.keyAt(index);
+            if (index >= 0 && index < cache.size()) {
+                return cache.keyAt(index);
             }
             return -1;
         }
@@ -969,8 +1009,23 @@ public class GridLayoutManager extends LinearLayoutManager {
         public int getSpanGroupIndex(int adapterPosition, int spanCount) {
             int span = 0;
             int group = 0;
+            int start = 0;
+            if (mCacheSpanGroupIndices && mSpanGroupIndexCache.size() > 0) {
+                // This finds the first non empty cached group cache key.
+                int prevKey = findReferenceIndexFromCache(adapterPosition, mSpanGroupIndexCache);
+                if (prevKey >= 0) {
+                    // We have to go further back to the first key at this group that is non-zero.
+                    while (prevKey != 0
+                            && mSpanGroupIndexCache.get(prevKey)
+                            == mSpanGroupIndexCache.get(prevKey - 1)) {
+                        prevKey = prevKey - 1;
+                    }
+                    group = mSpanGroupIndexCache.get(prevKey);
+                    start = prevKey;
+                }
+            }
             int positionSpanSize = getSpanSize(adapterPosition);
-            for (int i = 0; i < adapterPosition; i++) {
+            for (int i = start; i < adapterPosition; i++) {
                 int size = getSpanSize(i);
                 span += size;
                 if (span == spanCount) {
@@ -1115,6 +1170,143 @@ public class GridLayoutManager extends LinearLayoutManager {
     @Override
     public boolean supportsPredictiveItemAnimations() {
         return mPendingSavedState == null && !mPendingSpanCountChange;
+    }
+
+    @Override
+    public int computeHorizontalScrollRange(RecyclerView.State state) {
+        if (mUseSpansToEstimateScrollBarDimensions) {
+            return computeScrollRange(state);
+        } else {
+            return super.computeHorizontalScrollRange(state);
+        }
+    }
+
+    @Override
+    public int computeVerticalScrollRange(RecyclerView.State state) {
+        if (mUseSpansToEstimateScrollBarDimensions) {
+            return computeScrollRange(state);
+        } else {
+            return super.computeVerticalScrollRange(state);
+        }
+    }
+
+    @Override
+    public int computeHorizontalScrollOffset(RecyclerView.State state) {
+        if (mUseSpansToEstimateScrollBarDimensions) {
+            return computeScrollOffset(state);
+        } else {
+            return super.computeHorizontalScrollOffset(state);
+        }
+    }
+
+    @Override
+    public int computeVerticalScrollOffset(RecyclerView.State state) {
+        if (mUseSpansToEstimateScrollBarDimensions) {
+            return computeScrollOffset(state);
+        } else {
+            return super.computeVerticalScrollOffset(state);
+        }
+    }
+
+    /**
+     * When this flag is set, the scroll offset and scroll range calculations will take account
+     * of span information.
+     *
+     * <p>This is will increase the accuracy of the scroll bar's size and offset but will require
+     * more calls to {@link SpanSizeLookup#getSpanGroupIndex(int, int)}".
+     *
+     * <p>This additional accuracy may or may not be needed, depending on the characteristics of
+     * your layout.  You will likely benefit from this accuracy when:
+     *
+     * <ul>
+     *   <li>The variation in item span sizes is large.
+     *   <li>The size of your data set is small (if your data set is large, the scrollbar will
+     *   likely be very small anyway, and thus the increased accuracy has less impact).
+     *   <li>Calls to {@link SpanSizeLookup#getSpanGroupIndex(int, int)} are fast.
+     * </ul>
+     *
+     * <p>If you decide to enable this feature, you should be sure that calls to
+     * {@link SpanSizeLookup#getSpanGroupIndex(int, int)} are fast and that set span group index
+     * caching to true via a call to {@link SpanSizeLookup#setSpanGroupIndexCacheEnabled(boolean)}.
+     */
+    public void setUseSpansToEstimateScrollbarDimensions(
+            boolean useSpansToEstimateScrollBarDimentsions) {
+        mUseSpansToEstimateScrollBarDimensions = useSpansToEstimateScrollBarDimentsions;
+    }
+
+    private int computeScrollRange(RecyclerView.State state) {
+        if (getChildCount() == 0 || state.getItemCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+
+        View startChild = findFirstVisibleChildClosestToStart(!isSmoothScrollbarEnabled(), true);
+        View endChild = findFirstVisibleChildClosestToEnd(!isSmoothScrollbarEnabled(), true);
+
+        if (getChildCount() == 0 || startChild == null || endChild == null) {
+            return 0;
+        }
+        if (!isSmoothScrollbarEnabled()) {
+            return getTotalRows(state);
+        }
+
+        // smooth scrollbar enabled. try to estimate better.
+        final int laidOutArea = mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild);
+
+        final int firstVisibleRow = getRow(getPosition(startChild));
+        final int lastVisibleRow = getRow(getPosition(endChild));
+        final int totalRows = getTotalRows(state);
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+
+        Log.e(TAG, laidOutArea + ", " + laidOutRows + ", " + totalRows);
+        // estimate a size for full list.
+        return (int) (((float) laidOutArea / laidOutRows) * totalRows);
+    }
+
+    private int getTotalRows(RecyclerView.State state) {
+        return getRow(state.getItemCount() - 1) + 1;
+    }
+
+    private int getRow(int position) {
+        return mSpanSizeLookup.getCachedSpanGroupIndex(position, mSpanCount);
+    }
+
+    private int computeScrollOffset(RecyclerView.State state) {
+        if (getChildCount() == 0 || state.getItemCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+
+        boolean smoothScrollEnabled = isSmoothScrollbarEnabled();
+        View startChild = findFirstVisibleChildClosestToStart(!smoothScrollEnabled, true);
+        View endChild = findFirstVisibleChildClosestToEnd(!smoothScrollEnabled, true);
+        if (getChildCount() == 0 || startChild == null || endChild == null) {
+            return 0;
+        }
+        int startChildRow = getRow(getPosition(startChild));
+        int endChildRow = getRow(getPosition(endChild));
+
+        final int minRow = Math.min(startChildRow, endChildRow);
+        final int maxRow = Math.max(startChildRow, endChildRow);
+        final int totalRows = getTotalRows(state);
+
+        final int rowsBefore = mShouldReverseLayout
+                ? Math.max(0, totalRows - maxRow - 1)
+                : Math.max(0, minRow);
+        if (!smoothScrollEnabled) {
+            return rowsBefore;
+        }
+        final int laidOutArea = Math.abs(mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild));
+
+        final int firstVisibleRow = getRow(getPosition(startChild));
+        final int lastVisibleRow = getRow(getPosition(endChild));
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+        final float avgSizePerRow = (float) laidOutArea / laidOutRows;
+
+        return Math.round(rowsBefore * avgSizePerRow + (mOrientationHelper.getStartAfterPadding()
+            - mOrientationHelper.getDecoratedStart(startChild)));
     }
 
     /**
