@@ -626,6 +626,30 @@
     },
     {
       "key": {
+        "uuid": "3a7cd24b_b3e99edb",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T17:19:12Z",
+      "side": 1,
+      "message": "👍 lets remove commented code then.\ncan we also print an error when this happens for now so peopel don\u0027t make the mistake ?",
+      "parentUuid": "64c72556_48077e22",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 49
+      },
+      "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "912aa60f_a058f4c7",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
         "patchSetId": 6
@@ -671,6 +695,30 @@
       "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d14fecc_404cd09f",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T17:19:12Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "8b3ccb13_15c717fd",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 7
+      },
+      "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
