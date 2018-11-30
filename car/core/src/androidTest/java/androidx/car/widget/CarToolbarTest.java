@@ -20,6 +20,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyRightOf;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -27,13 +28,16 @@ import static junit.framework.TestCase.assertTrue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.car.R;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
@@ -47,10 +51,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Unit tests for {@link CarToolbar}. */
+/**
+ * Unit tests for {@link CarToolbar}.
+ */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class CarToolbarTest {
+
     @Rule
     public ActivityTestRule<CarToolbarTestActivity> mActivityRule =
             new ActivityTestRule<>(CarToolbarTestActivity.class);
@@ -160,12 +167,46 @@ public class CarToolbarTest {
 
     @Test
     public void testSetNavigationIconOnClickListener() throws Throwable {
-        boolean[] clicked = new boolean[] {false};
+        boolean[] clicked = new boolean[]{false};
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setNavigationIconOnClickListener(v -> clicked[0] = true));
 
         onView(withId(R.id.nav_button)).perform(click());
         assertTrue(clicked[0]);
+    }
+
+    @Test
+    public void testSetLogoShowsAndHidesLogoView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        onView(withId(R.id.logo)).check(matches(isDisplayed()));
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(null));
+
+        onView(withId(R.id.logo)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testLogoHasCorrectDefaultWidth() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        onView(withId(R.id.logo)).check(matches(withWidth(
+                mActivity.getResources()
+                        .getDimensionPixelSize(R.dimen.car_application_icon_size))));
+    }
+
+    @Test
+    public void testSetLogoSizeSetsCorrectSize() throws Throwable {
+        int size = mActivity.getResources().getDimensionPixelSize(R.dimen.car_avatar_icon_size);
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setLogo(Icon.createWithResource(mActivity,
+                    android.R.drawable.sym_def_app_icon));
+            mToolbar.setLogoSize(size);
+        });
+
+        onView(withId(R.id.logo)).check(matches(withWidth(size)));
     }
 
     private ImageButton getNavigationIconView() {
@@ -192,6 +233,27 @@ public class CarToolbarTest {
             @Override
             public void describeTo(Description description) {
                 description.appendText("is " + expected + " pixel to its parent");
+            }
+        };
+    }
+
+    /**
+     * Returns a {@link Matcher} that matches {@link View}s that have the given width.
+     *
+     * @param width The width in pixels to match to.
+     * @return A {@link Matcher} for verification.
+     */
+    @NonNull
+    public static Matcher<View> withWidth(int width) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                return width == view.getWidth();
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has width: " + width);
             }
         };
     }
