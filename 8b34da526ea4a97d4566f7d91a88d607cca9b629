@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "82aff68a_dcc8f4fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-11-30T19:47:37Z",
+      "side": 1,
+      "message": "It\u0027s up to you, but I feel that calling this \"fix\" would be a bit misleading.  We can work around this in the support lib, but the complete fix requires Framework change (as I did).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 3
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d64f8a_ea6a11cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-11-30T19:47:37Z",
+      "side": 1,
+      "message": "Fix: 28023295\nFix: 37122102\nBug: 117521135",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5077f526_9456a3a6",
         "filename": "core/src/main/java/androidx/core/app/ComponentActivity.java",
         "patchSetId": 1
@@ -72,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "6e6f21e2_323a2821",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-11-30T19:47:37Z",
+      "side": 1,
+      "message": "It\u0027s cheap.  We should never imply that relying on peekInstance() is a good idea.  See b/115891476 for details.",
+      "parentUuid": "4afeb49f_7c38abf0",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4846bc0_31ddd707",
         "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
         "patchSetId": 1
@@ -88,6 +158,53 @@
         "startChar": 41,
         "endLine": 86,
         "endChar": 87
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c697cb48_fd5a760c",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-11-30T19:47:37Z",
+      "side": 1,
+      "message": "Just to make sure, are we calling this method from Activity#onDestroy(), right?  Since InputMethodManager is a per-process singleton object (at least for releases this CL takes care of), hence if this method gets called while any other Activity is running in the same process, then such a foreground Activity will be messed up.\n\nSo I think a better check would be whether |servedView| belongs to the Activity to be destroyed.  I don\u0027t think Window Visibility matters much.  Where does it come from?",
+      "parentUuid": "d4846bc0_31ddd707",
+      "range": {
+        "startLine": 86,
+        "startChar": 41,
+        "endLine": 86,
+        "endChar": 87
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0911a3e_257c91f0",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-11-30T19:47:37Z",
+      "side": 1,
+      "message": "(optional) Do we usually show error messages like this in the support lib?  Since what you are expecting here has never been guaranteed to exist (e.g. via CTS) so not having those fields/methods are completely OK.  So from my perspective, reaching here is also kind of expected.\n\nI\u0027m not familiar with general styles in the support lib though.",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 77
       },
       "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
