@@ -121,15 +121,35 @@ public abstract class WorkManager {
     /**
      * Retrieves the {@code default} singleton instance of {@link WorkManager}.
      *
-     * @return The singleton instance of {@link WorkManager}
+     * @return The singleton instance of {@link WorkManager}; this may be {@code null} in unusual
+     *         circumstances where you have disabled automatic initialization and have failed to
+     *         manually call {@link #initialize(Context, Configuration)}.
+     * @throws IllegalStateException If WorkManager is not initialized properly.  This is most
+     *         likely because you disabled the automatic initialization but forgot to manually
+     *         call {@link WorkManager#initialize(Context, Configuration)}.
      */
-    public static WorkManager getInstance() {
-        return WorkManagerImpl.getInstance();
+    public static @NonNull WorkManager getInstance() {
+        WorkManager workManager = WorkManagerImpl.getInstance();
+        if (workManager == null) {
+            throw new IllegalStateException("WorkManager is not initialized properly.  The most "
+                    + "likely cause is that you disabled WorkManagerInitializer in your manifest "
+                    + "but forgot to call WorkManager#initialize in your Application#onCreate or a "
+                    + "ContentProvider.");
+        } else {
+            return workManager;
+        }
     }
 
     /**
-     * Used to do a one-time initialization of the {@link WorkManager} singleton with the default
-     * configuration.
+     * Used to do a one-time initialization of the {@link WorkManager} singleton with a custom
+     * {@link Configuration}.  By default, this method should not be called because WorkManager is
+     * automatically initialized.  To initialize WorkManager yourself, please follow these steps:
+     * <p><ul>
+     * <li>Disable {@code androidx.work.impl.WorkManagerInitializer} in your manifest
+     * <li>In {@code Application#onCreate} or a {@code ContentProvider}, call this method before
+     * calling {@link WorkManager#getInstance()}
+     * </ul></p>
+     * This method has no effect if WorkManager is already initialized.
      *
      * @param context A {@link Context} object for configuration purposes. Internally, this class
      *                will call {@link Context#getApplicationContext()}, so you may safely pass in
@@ -164,7 +184,7 @@ public abstract class WorkManager {
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
      *         {@link OneTimeWorkRequest}
      */
-    public final WorkContinuation beginWith(@NonNull OneTimeWorkRequest...work) {
+    public final @NonNull WorkContinuation beginWith(@NonNull OneTimeWorkRequest...work) {
         return beginWith(Arrays.asList(work));
     }
 
@@ -176,7 +196,7 @@ public abstract class WorkManager {
      * @return A {@link WorkContinuation} that allows for further chaining of dependent
      *         {@link OneTimeWorkRequest}
      */
-    public abstract WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work);
+    public abstract @NonNull WorkContinuation beginWith(@NonNull List<OneTimeWorkRequest> work);
 
     /**
      * This method allows you to begin unique chains of work for situations where you only want one
@@ -201,7 +221,7 @@ public abstract class WorkManager {
      *             as a child of all leaf nodes labelled with {@code uniqueWorkName}.
      * @return A {@link WorkContinuation} that allows further chaining
      */
-    public final WorkContinuation beginUniqueWork(
+    public final @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull OneTimeWorkRequest... work) {
@@ -231,7 +251,7 @@ public abstract class WorkManager {
      *             as a child of all leaf nodes labelled with {@code uniqueWorkName}.
      * @return A {@link WorkContinuation} that allows further chaining
      */
-    public abstract WorkContinuation beginUniqueWork(
+    public abstract @NonNull WorkContinuation beginUniqueWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work);
@@ -307,17 +327,19 @@ public abstract class WorkManager {
      * must be updated or deleted in case someone cancels their work without their prior knowledge.
      *
      * @return A {@link LiveData} of the timestamp in milliseconds when method that cancelled all
-     *         work was last invoked
+     *         work was last invoked; this timestamp may be {@code 0L} if this never occurred.
      */
-    public abstract LiveData<Long> getLastCancelAllTimeMillis();
+    public abstract @NonNull LiveData<Long> getLastCancelAllTimeMillis();
 
     /**
      * Gets a {@link LiveData} of the {@link WorkStatus} for a given work id.
      *
      * @param id The id of the work
-     * @return A {@link LiveData} of the {@link WorkStatus} associated with {@code id}
+     * @return A {@link LiveData} of the {@link WorkStatus} associated with {@code id}; note that
+     *         this {@link WorkStatus} may be {@code null} if {@code id} is not known to
+     *         WorkManager.
      */
-    public abstract LiveData<WorkStatus> getStatusById(@NonNull UUID id);
+    public abstract @NonNull LiveData<WorkStatus> getStatusById(@NonNull UUID id);
 
     /**
      * Gets a {@link LiveData} of the {@link WorkStatus} for all work for a given tag.
@@ -325,7 +347,7 @@ public abstract class WorkManager {
      * @param tag The tag of the work
      * @return A {@link LiveData} list of {@link WorkStatus} for work tagged with {@code tag}
      */
-    public abstract LiveData<List<WorkStatus>> getStatusesByTag(@NonNull String tag);
+    public abstract @NonNull LiveData<List<WorkStatus>> getStatusesByTag(@NonNull String tag);
 
     /**
      * Gets a {@link LiveData} of the {@link WorkStatus} for all work in a work chain with a given
@@ -335,7 +357,7 @@ public abstract class WorkManager {
      * @return A {@link LiveData} of the {@link WorkStatus} for work in the chain named
      *         {@code uniqueWorkName}
      */
-    public abstract LiveData<List<WorkStatus>> getStatusesForUniqueWork(
+    public abstract @NonNull LiveData<List<WorkStatus>> getStatusesForUniqueWork(
             @NonNull String uniqueWorkName);
 
     /**
@@ -343,7 +365,7 @@ public abstract class WorkManager {
      *
      * @return A {@link SynchronousWorkManager} object, which gives access to synchronous methods
      */
-    public abstract SynchronousWorkManager synchronous();
+    public abstract @NonNull SynchronousWorkManager synchronous();
 
     /**
      * @hide
