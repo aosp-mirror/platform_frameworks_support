@@ -30,8 +30,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.car.R;
@@ -47,15 +49,38 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Unit tests for {@link CarToolbar}. */
+/**
+ * Unit tests for {@link CarToolbar}.
+ */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class CarToolbarTest {
+
     @Rule
     public ActivityTestRule<CarToolbarTestActivity> mActivityRule =
             new ActivityTestRule<>(CarToolbarTestActivity.class);
     private CarToolbarTestActivity mActivity;
     private CarToolbar mToolbar;
+
+    /**
+     * Returns a {@link Matcher} that checks the left position of a view relative to its parent.
+     *
+     * @param expected Expected left position in pixels.
+     * @return A {@link Matcher} for verification.
+     */
+    private static Matcher<View> withLeft(int expected) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                return item.getLeft() == expected;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("is " + expected + " pixel to its parent");
+            }
+        };
+    }
 
     @Before
     public void setUp() {
@@ -160,7 +185,7 @@ public class CarToolbarTest {
 
     @Test
     public void testSetNavigationIconOnClickListener() throws Throwable {
-        boolean[] clicked = new boolean[] {false};
+        boolean[] clicked = new boolean[]{false};
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setNavigationIconOnClickListener(v -> clicked[0] = true));
 
@@ -168,31 +193,40 @@ public class CarToolbarTest {
         assertTrue(clicked[0]);
     }
 
+    @Test
+    public void testSetLogoNullHidesLogoView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(null));
+
+        assertEquals(getLogoView().getVisibility(), View.GONE);
+    }
+
+    @Test
+    public void testSetLogoNonNullShowsLogoView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        assertEquals(getLogoView().getVisibility(), View.VISIBLE);
+    }
+
+    @Test
+    public void testLogoHasCorrectDefaultWidth() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setLogo(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        Thread.sleep(100);
+        assertEquals(mActivity.getResources().getDimensionPixelSize(R.dimen.car_toolbar_logo_size),
+                getLogoView().getWidth());
+    }
+
     private ImageButton getNavigationIconView() {
         return mActivity.findViewById(R.id.nav_button);
     }
 
-    private TextView getTitleView() {
-        return mActivity.findViewById(R.id.title);
+    private ImageView getLogoView() {
+        return mActivity.findViewById(R.id.logo);
     }
 
-    /**
-     * Returns a {@link Matcher} that checks the left position of a view relative to its parent.
-     *
-     * @param expected Expected left position in pixels.
-     * @return A {@link Matcher} for verification.
-     */
-    private static Matcher<View> withLeft(int expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                return item.getLeft() == expected;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("is " + expected + " pixel to its parent");
-            }
-        };
+    private TextView getTitleView() {
+        return mActivity.findViewById(R.id.title);
     }
 }
