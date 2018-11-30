@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b1bffd8_403fffe7",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-11-30T18:32:21Z",
+      "side": 1,
+      "message": "That\u0027s interesting. Do we know what the advantage is of having both some regex migration rules and also some exact classname migration rules?\n\n(I thought the migration rules (like in default.config) were mostly used to generate the exact classname rules (like in default.generated.config) at build time so we\u0027d be more sure that the migration transformation was static)",
+      "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
