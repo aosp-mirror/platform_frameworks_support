@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e18c171_fd9e199e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-30T01:15:22Z",
+      "side": 1,
+      "message": "Use a brace \u0027{}\u0027 even for one line in if-statement.",
+      "range": {
+        "startLine": 628,
+        "startChar": 40,
+        "endLine": 628,
+        "endChar": 69
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2310b66_39fbbdd8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-30T01:15:22Z",
+      "side": 1,
+      "message": "Is it only used for dynamic route?\nIf so, please add a comment in the javadoc which is currently empty.",
+      "range": {
+        "startLine": 1062,
+        "startChar": 19,
+        "endLine": 1062,
+        "endChar": 36
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f2fa6a6_8c66ff80",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-11-30T01:15:22Z",
+      "side": 1,
+      "message": "shouldn\u0027t it be 2?",
+      "range": {
+        "startLine": 1490,
+        "startChar": 47,
+        "endLine": 1490,
+        "endChar": 48
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
