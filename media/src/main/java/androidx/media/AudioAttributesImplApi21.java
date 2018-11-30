@@ -22,6 +22,7 @@ import static androidx.media.AudioAttributesCompat.AUDIO_ATTRIBUTES_LEGACY_STREA
 import static androidx.media.AudioAttributesCompat.INVALID_STREAM_TYPE;
 
 import android.media.AudioAttributes;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -69,8 +70,10 @@ public class AudioAttributesImplApi21 implements AudioAttributesImpl {
 
     @Override
     public int getVolumeControlStream() {
-        // TODO: check the change of AudioAttributes.toVolumeStreamType() after API 21.
-        return mAudioAttributes.getVolumeControlStream();
+        if (Build.VERSION.SDK_INT >= 26) {
+            return mAudioAttributes.getVolumeControlStream();
+        }
+        return AudioAttributesCompat.toVolumeStreamType(true, getFlags(), getUsage());
     }
 
     @Override
