@@ -16,6 +16,8 @@
 
 package androidx.media2.test.service.tests;
 
+import static androidx.media2.MediaMetadata.METADATA_KEY_RATING;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -26,9 +28,13 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.RatingCompat;
 
+import androidx.media2.HeartRating;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaMetadata.Builder;
+import androidx.media2.MediaUtils;
 import androidx.media2.Rating;
 import androidx.media2.ThumbRating;
 import androidx.media2.test.common.TestUtils;
@@ -175,5 +181,19 @@ public class MediaMetadataTest {
                             + "scaled down. ",
                     newWidth < originalWidth && newHeight < originalHeight);
         }
+    }
+
+    @Test
+    public void testMediaUtils_convertToMediaMetadataCompat() {
+        HeartRating testRating = new HeartRating(true);
+        MediaMetadata testMetadata = new Builder()
+                .putRating(METADATA_KEY_RATING, testRating)
+                .build();
+
+        MediaMetadataCompat compat = MediaUtils.convertToMediaMetadataCompat(testMetadata);
+        assertEquals(1, compat.keySet().size());
+        RatingCompat returnedRating = compat.getRating(MediaMetadataCompat.METADATA_KEY_RATING);
+        assertEquals(RatingCompat.RATING_HEART, returnedRating.getRatingStyle());
+        assertTrue(returnedRating.hasHeart());
     }
 }
