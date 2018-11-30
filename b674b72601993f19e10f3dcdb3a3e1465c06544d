@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68e96ca5_e306ad35",
+        "filename": "navigation/safe-args-gradle-plugin/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-30T00:15:58Z",
+      "side": 1,
+      "message": "\u0027android-28\u0027 is not a valid compileSdkVersion it should be \u002728\u0027, so change this to TARGET_SDK_VERSION and you\u0027ll fix https://buganizer.corp.google.com/issues/120234766",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 74
+      },
+      "revId": "b674b72601993f19e10f3dcdb3a3e1465c06544d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dce46c0_d0f2de1f",
+        "filename": "navigation/safe-args-gradle-plugin/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-11-30T00:15:58Z",
+      "side": 1,
+      "message": "Same as my comment above.",
+      "range": {
+        "startLine": 51,
+        "startChar": 59,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "b674b72601993f19e10f3dcdb3a3e1465c06544d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
