@@ -229,6 +229,7 @@ import java.util.Map;
     }
 
     public long getCurrentPosition() {
+        Preconditions.checkState(getState() != MediaPlayer2.PLAYER_STATE_IDLE);
         long position = mPlayer.getCurrentPosition();
         MediaItem mediaItem = mMediaItemQueue.getCurrentMediaItem();
         if (mediaItem != null) {
@@ -243,6 +244,7 @@ import java.util.Map;
     }
 
     public long getBufferedPosition() {
+        Preconditions.checkState(getState() != MediaPlayer2.PLAYER_STATE_IDLE);
         long position = mPlayer.getBufferedPosition();
         MediaItem mediaItem = mMediaItemQueue.getCurrentMediaItem();
         if (mediaItem != null) {
