@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.recyclerview.widget.RecyclerView.State;
 
 import java.util.Arrays;
 
@@ -1115,6 +1116,107 @@ public class GridLayoutManager extends LinearLayoutManager {
     @Override
     public boolean supportsPredictiveItemAnimations() {
         return mPendingSavedState == null && !mPendingSpanCountChange;
+    }
+
+    @Override
+    public int computeHorizontalScrollRange(RecyclerView.State state) {
+        return computeScrollRange(state);
+    }
+
+    @Override
+    public int computeVerticalScrollRange(RecyclerView.State state) {
+        return computeScrollRange(state);
+    }
+
+    @Override
+    public int computeHorizontalScrollOffset(RecyclerView.State state) {
+        return super.computeHorizontalScrollOffset(state);
+    }
+
+    @Override
+    public int computeVerticalScrollOffset(RecyclerView.State state) {
+        return computeScrollOffset(state);
+    }
+
+    private int computeScrollRange(RecyclerView.State state) {
+        if (getChildCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+        boolean smoothScrollbarEnabled = isSmoothScrollbarEnabled();
+        return computeScrollRange(state,
+            findFirstVisibleChildClosestToStart(!smoothScrollbarEnabled, true),
+            findFirstVisibleChildClosestToEnd(!smoothScrollbarEnabled, true)
+        );
+    }
+
+    private int computeScrollRange(State state, View startChild, View endChild) {
+        if (getChildCount() == 0 || state.getItemCount() == 0 || startChild == null
+                || endChild == null) {
+            return 0;
+        }
+        if (!isSmoothScrollbarEnabled()) {
+            return state.getItemCount();
+        }
+
+        // smooth scrollbar enabled. try to estimate better.
+        final int laidOutArea = mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild);
+
+        final int firstVisibleRow = getRow(startChild);
+        final int lastVisibleRow = getRow(endChild);
+        final int totalRows = getTotalRows(state);
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+
+        // estimate a size for full list.
+        return (int) (((float) laidOutArea / laidOutRows) * totalRows);
+    }
+
+    private int getTotalRows(State state) {
+        return mSpanSizeLookup.getSpanIndex(state.getItemCount(), Integer.MAX_VALUE) / mSpanCount;
+    }
+
+    private int getRow(View startChild) {
+        return
+            mSpanSizeLookup.getSpanIndex(getPosition(startChild), Integer.MAX_VALUE) / mSpanCount;
+    }
+
+    private int computeScrollOffset(State state) {
+        if (getChildCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+
+        boolean smoothScrollEnabled = isSmoothScrollbarEnabled();
+        View startChild = findFirstVisibleChildClosestToStart(!smoothScrollEnabled, true);
+        View endChild = findFirstVisibleChildClosestToEnd(!smoothScrollEnabled, true);
+        if (getChildCount() == 0 || state.getItemCount() == 0 || startChild == null
+                || endChild == null) {
+            return 0;
+        }
+        int startChildRow = getRow(startChild);
+        int endChildRow = getRow(endChild);
+
+        final int minRow = Math.min(startChildRow, endChildRow);
+        final int maxRow = Math.max(startChildRow, endChildRow);
+        final int totalRows = getTotalRows(state);
+
+        final int rowsBefore = mShouldReverseLayout
+                ? Math.max(0, totalRows - maxRow - 1)
+                : Math.max(0, minRow);
+        if (!smoothScrollEnabled) {
+            return rowsBefore;
+        }
+        final int laidOutArea = Math.abs(mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild));
+
+        final int firstVisibleRow = getRow(startChild);
+        final int lastVisibleRow = getRow(endChild);
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+        final float avgSizePerRow = (float) laidOutArea / laidOutRows;
+
+        return Math.round(rowsBefore * avgSizePerRow + (mOrientationHelper.getStartAfterPadding()
+            - mOrientationHelper.getDecoratedStart(startChild)));
     }
 
     /**
