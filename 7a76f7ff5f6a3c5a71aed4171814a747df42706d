@@ -22,6 +22,30 @@
       "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afbade68_5437b397",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T17:56:00Z",
+      "side": 1,
+      "message": "Ignoring the super call is still totally a valid thing to do. Just like in the test Fragments I updated, the primary pattern is to add @InflatesRes and remove your onCreateView() override entirely, moving any work you were doing on the inflated View to onViewCreated as per the new Javadoc on this method.\n\nWere you suggesting skipping onCreateView() if you had an @InflatesRes? That would certainly enforce that the annotation is not added then ignored.",
+      "parentUuid": "35ce22e7_e788ad5a",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 28
+      },
+      "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
