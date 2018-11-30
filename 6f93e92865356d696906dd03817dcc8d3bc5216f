@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "e8918d12_3011d116",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-30T05:10:03Z",
+      "side": 1,
+      "message": "Merge these two lines?",
+      "range": {
+        "startLine": 1115,
+        "startChar": 0,
+        "endLine": 1117,
+        "endChar": 0
+      },
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47114981_094b21f7",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -107,6 +130,30 @@
       "side": 1,
       "message": "The code is for the opposite.\nOnly expand the row if it\u0027s not a group.",
       "parentUuid": "c9ba0451_a8b3e824",
+      "range": {
+        "startLine": 1168,
+        "startChar": 21,
+        "endLine": 1169,
+        "endChar": 62
+      },
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84e9a92f_c9a45f79",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-11-30T05:10:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16e8d33f_7adec1dc",
       "range": {
         "startLine": 1168,
         "startChar": 21,
