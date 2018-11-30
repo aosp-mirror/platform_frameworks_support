@@ -69,8 +69,7 @@ public class AudioAttributesImplApi21 implements AudioAttributesImpl {
 
     @Override
     public int getVolumeControlStream() {
-        // TODO: check the change of AudioAttributes.toVolumeStreamType() after API 21.
-        return mAudioAttributes.getVolumeControlStream();
+        return AudioAttributesCompat.toVolumeStreamType(true, getFlags(), getUsage());
     }
 
     @Override
