@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9c408fd3_e65fc647",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-30T19:46:07Z",
+      "side": 1,
+      "message": "AssetLoader? ContentLoader? AssetResourceLoader? Just some ideas off the top of my head, but maybe there\u0027s a better idea",
+      "parentUuid": "2eca4ff8_cd7565ef",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "654b11f7_c9a1d187",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -250,6 +274,29 @@
         "startChar": 55,
         "endLine": 198,
         "endChar": 71
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acbe5f18_153ab2a0",
+        "filename": "webkit/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-30T19:46:07Z",
+      "side": 1,
+      "message": "Why are we adding an \u003capplication\u003e to the androidTest folder? Should go as an extension to the testapp, right?",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 18
       },
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -509,6 +556,30 @@
     },
     {
       "key": {
+        "uuid": "249fbb30_6b8332a0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-30T19:46:07Z",
+      "side": 1,
+      "message": "I meant \"/* package */\"",
+      "parentUuid": "b9617226_ec645dba",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 16
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9651e76c_49e307ab",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -614,6 +685,30 @@
       "side": 1,
       "message": "It\u0027s an implementation detail, Is making it /*package*/ visible not public OK? or should I use @hide?",
       "parentUuid": "f0d5537a_df3ec00e",
+      "range": {
+        "startLine": 244,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b55dd8_d0b8f03a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-11-30T19:46:07Z",
+      "side": 1,
+      "message": "Either is fine.",
+      "parentUuid": "370c2aff_b34dc849",
       "range": {
         "startLine": 244,
         "startChar": 4,
