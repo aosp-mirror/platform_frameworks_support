@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fbdbfa1d_3d55297f",
+        "filename": "core/src/main/java/androidx/core/app/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-30T19:22:09Z",
+      "side": 1,
+      "message": "yeah, it was a reason why I cc-ed you :) , because wasn\u0027t sure what is the plan for these ComponentActivities.\n\nIf the activity.ComponentActivity is THE one, I\u0027ll move it there",
+      "parentUuid": "5077f526_9456a3a6",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 10
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4afeb49f_7c38abf0",
         "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
         "patchSetId": 1
