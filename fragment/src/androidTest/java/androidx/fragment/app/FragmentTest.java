@@ -15,6 +15,8 @@
  */
 package androidx.fragment.app;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -188,6 +190,24 @@ public class FragmentTest {
     }
 
     @SmallTest
+    @UiThreadTest
+    @Test
+    public void testRequireParentFragment() {
+        StrictFragment parentFragment = new StrictFragment();
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .add(parentFragment, "parent")
+                .commitNow();
+
+        FragmentManager childFragmentManager = parentFragment.getChildFragmentManager();
+        StrictFragment childFragment = new StrictFragment();
+        childFragmentManager.beginTransaction()
+                .add(childFragment, "child")
+                .commitNow();
+        assertThat(childFragment.requireParentFragment())
+                .isSameAs(parentFragment);
+    }
+
+    @SmallTest
     @Test
     public void requireMethodsThrowsWhenNotAttached() {
         Fragment fragment = new Fragment();
@@ -203,6 +223,11 @@ public class FragmentTest {
         }
         try {
             fragment.requireHost();
+            fail();
+        } catch (IllegalStateException expected) {
+        }
+        try {
+            fragment.requireParentFragment();
             fail();
         } catch (IllegalStateException expected) {
         }
