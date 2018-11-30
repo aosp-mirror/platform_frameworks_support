@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import androidx.car.widget.CarToolbar;
 import androidx.car.widget.PagedListView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,7 +37,8 @@ import java.util.List;
  */
 public class PagedListViewActivity extends Activity {
 
-    private static final int ITEM_COUNT = 80;
+    private static final int ITEM_COUNT = 25;
+    public static final int N_COLUMNS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,17 @@ public class PagedListViewActivity extends Activity {
 
         PagedListView pagedListView = findViewById(R.id.paged_list_view);
         pagedListView.setAdapter(new DemoAdapter(ITEM_COUNT));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, N_COLUMNS);
+        gridLayoutManager.setSpanSizeLookup(new SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) {
+                    return N_COLUMNS;
+                }
+                return 1;
+            }
+        });
+        pagedListView.getRecyclerView().setLayoutManager(gridLayoutManager);
     }
 
     /**
