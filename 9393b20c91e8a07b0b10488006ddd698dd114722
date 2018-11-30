@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac3cb1e0_decbf212",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-30T00:11:34Z",
+      "side": 1,
+      "message": "Nit: remove \u0027",
+      "range": {
+        "startLine": 59,
+        "startChar": 74,
+        "endLine": 59,
+        "endChar": 75
+      },
+      "revId": "9393b20c91e8a07b0b10488006ddd698dd114722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c2ce3d_b439ea26",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-11-30T00:11:34Z",
+      "side": 1,
+      "message": "Nit: ;",
+      "range": {
+        "startLine": 67,
+        "startChar": 37,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "9393b20c91e8a07b0b10488006ddd698dd114722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
