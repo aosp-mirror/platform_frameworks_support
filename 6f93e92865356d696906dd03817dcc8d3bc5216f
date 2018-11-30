@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "51cc2fa8_e3f910e2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T02:52:06Z",
+      "side": 1,
+      "message": "It would be null if the view holder is recycled.\n\nI don\u0027t think it happens in current code but someday it would.",
+      "parentUuid": "53405453_f4667170",
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47114981_094b21f7",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5588ee_27cb1b2a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T02:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47114981_094b21f7",
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e8d33f_7adec1dc",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T02:52:06Z",
+      "side": 1,
+      "message": "The code is for the opposite.\nOnly expand the row if it\u0027s not a group.",
+      "parentUuid": "c9ba0451_a8b3e824",
+      "range": {
+        "startLine": 1168,
+        "startChar": 21,
+        "endLine": 1169,
+        "endChar": 62
+      },
+      "revId": "6f93e92865356d696906dd03817dcc8d3bc5216f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
