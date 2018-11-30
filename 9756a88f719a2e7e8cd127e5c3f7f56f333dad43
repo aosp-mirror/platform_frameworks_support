@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "83317b8e_6280677b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "I\u0027m not seeing this updated in the latest patch set?",
+      "parentUuid": "fafa31bb_355055fe",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "451de79e_15f1dc7d",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 6
@@ -422,6 +446,30 @@
       "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03bcbc14_1318a791",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "I\u0027m not seeing this updated in the latest patch set?",
+      "parentUuid": "9d157ee4_c51be3dd",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -554,6 +602,30 @@
       "side": 1,
       "message": "Does it make sense to split it up though? This is used for Parcelables, Serializables and Enums (which are serializable by default), it might even complicate the docs if we have to explain that for enums you have to use a SerializableType (as not all devs will know that\u0027s how Enums are handled)\nIf anyone tries to use anything that is unsupported, it will fail early anyway as soon as they try using it, so they don\u0027t get into a weird state.\nIf you feel strongly about this, I will change it, but I feel it will just add complexity both to navigation code and for developers using it.",
       "parentUuid": "e0206589_d0427e0e",
+      "range": {
+        "startLine": 475,
+        "startChar": 30,
+        "endLine": 475,
+        "endChar": 40
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e7d55c_bd9984d0",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "My concern is that developers using auto-complete will see ObjectType and try to pass in their custom Object, only to realize at runtime that this isn\u0027t going to work.\n\nMaking it obvious by the name what types are supported and more importantly a compile time error if their class doesn\u0027t implement Parcelable / Serializable seems like a useful thing. I\u0027d be okay with an EnumType that is just an empty extension on SerializableType with Javadoc like \"this is just an alias for SerializableType\"",
+      "parentUuid": "97d1250c_bfe2066a",
       "range": {
         "startLine": 475,
         "startChar": 30,

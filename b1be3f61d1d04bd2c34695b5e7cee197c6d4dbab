@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e0b114a_76425dbe",
+        "filename": "navigation/common/api/1.0.0-alpha08.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "You\u0027ll need to add @NonNull to each field.",
+      "range": {
+        "startLine": 109,
+        "startChar": 68,
+        "endLine": 109,
+        "endChar": 69
+      },
+      "revId": "b1be3f61d1d04bd2c34695b5e7cee197c6d4dbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32fa8af0_1d9dc3e6",
+        "filename": "navigation/common/ktx/src/androidTest/java/androidx/navigation/NavDestinationBuilderTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "Should this be using getArguments() rather than relying on the addInDefaultArgs behavior?",
+      "range": {
+        "startLine": 61,
+        "startChar": 30,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "b1be3f61d1d04bd2c34695b5e7cee197c6d4dbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad230238_cc47ede7",
+        "filename": "navigation/common/ktx/src/androidTest/java/androidx/navigation/NavDestinationBuilderTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "Same question on using getArguments() to validate",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 46
+      },
+      "revId": "b1be3f61d1d04bd2c34695b5e7cee197c6d4dbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad728cb_39645a01",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "Docs",
+      "range": {
+        "startLine": 145,
+        "startChar": 36,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "b1be3f61d1d04bd2c34695b5e7cee197c6d4dbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba202737_a7bb60d7",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T18:11:31Z",
+      "side": 1,
+      "message": "Missing docs as well",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "b1be3f61d1d04bd2c34695b5e7cee197c6d4dbab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
