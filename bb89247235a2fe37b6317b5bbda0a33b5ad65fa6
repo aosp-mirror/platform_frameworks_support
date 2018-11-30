@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb68a97a_309cde30",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e18c171_fd9e199e",
+      "range": {
+        "startLine": 628,
+        "startChar": 40,
+        "endLine": 628,
+        "endChar": 69
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2310b66_39fbbdd8",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6296d2fe_279cc4c8",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T09:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2310b66_39fbbdd8",
+      "range": {
+        "startLine": 1062,
+        "startChar": 19,
+        "endLine": 1062,
+        "endChar": 36
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f2fa6a6_8c66ff80",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658a4680_9394cf77",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-11-30T09:01:12Z",
+      "side": 1,
+      "message": "Since it is used instead of (instance of RouteGroup), 1 is proper.\nI changed comment.",
+      "parentUuid": "6f2fa6a6_8c66ff80",
+      "range": {
+        "startLine": 1490,
+        "startChar": 47,
+        "endLine": 1490,
+        "endChar": 48
+      },
+      "revId": "bb89247235a2fe37b6317b5bbda0a33b5ad65fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
