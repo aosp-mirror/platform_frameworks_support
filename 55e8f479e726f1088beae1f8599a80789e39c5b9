@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d601372_d0e996a3",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-30T08:10:10Z",
+      "side": 1,
+      "message": "Because we need to update the indices but currently there is no way to do that without calling either onCurrentMediaItemChanged or onPlaylistChanged?\n\nWhat do you mean by extra params?",
+      "parentUuid": "5576640c_4cc1afd3",
+      "range": {
+        "startLine": 1314,
+        "startChar": 37,
+        "endLine": 1314,
+        "endChar": 62
+      },
+      "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e3950f8_d1b0b44e",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-29T06:06:54Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 1331,
+        "startChar": 0,
+        "endLine": 1335,
+        "endChar": 0
+      },
+      "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea314ca2_d3b07586",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-30T08:10:10Z",
+      "side": 1,
+      "message": "ditto (Same answer/question as above)",
+      "parentUuid": "7e3950f8_d1b0b44e",
       "range": {
         "startLine": 1331,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46cc406b_420e09a5",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-11-30T08:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87323287_5be3e13b",
+      "range": {
+        "startLine": 795,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 0
+      },
+      "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
