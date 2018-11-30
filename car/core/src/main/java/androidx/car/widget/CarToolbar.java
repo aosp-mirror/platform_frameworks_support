@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -62,7 +63,9 @@ public class CarToolbar extends ViewGroup {
 
     private final ImageButton mNavButtonView;
     private final int mNavButtonIconSize;
+    private final ImageView mLogoView;
     private final int mToolbarHeight;
+    private int mLogoSize;
     // There is no actual container for nav button. This value is used to calculate a horizontal
     // space on both ends of nav button (so it's centered).
     // We use dedicated attribute over horizontal margin so that the API for setting space before
@@ -100,6 +103,7 @@ public class CarToolbar extends ViewGroup {
         MinTouchTargetHelper.ensureThat(mNavButtonView).hasMinTouchSize(minTouchSize);
 
         mTitleTextView = findViewById(R.id.title);
+        mLogoView = findViewById(R.id.logo);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarToolbar, defStyleAttr,
                 /* defStyleRes= */ 0);
@@ -109,6 +113,12 @@ public class CarToolbar extends ViewGroup {
 
             setTitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_titleTextAppearance,
                     R.style.TextAppearance_Car_Body1_Medium));
+
+            int logoResId = a.getResourceId(R.styleable.CarToolbar_logo, -1);
+            setLogo(logoResId != -1 ? Icon.createWithResource(context, logoResId) : null);
+
+            setLogoSize(a.getDimensionPixelSize(R.styleable.CarToolbar_logoSize,
+                    res.getDimensionPixelSize(R.dimen.car_application_icon_size)));
 
             setNavigationIcon(a.getResourceId(R.styleable.CarToolbar_navigationIcon,
                     R.drawable.ic_nav_arrow_back));
@@ -144,6 +154,12 @@ public class CarToolbar extends ViewGroup {
             int navWidth = Math.max(mNavButtonContainerWidth, mNavButtonView.getMeasuredWidth());
             width += navWidth + getHorizontalMargins(mNavButtonView);
         }
+        if (mLogoView.getVisibility() != GONE) {
+            int measureSpec = MeasureSpec.makeMeasureSpec(mLogoSize, MeasureSpec.EXACTLY);
+            mLogoView.measure(measureSpec, measureSpec);
+
+            width += mLogoView.getMeasuredWidth();
+        }
         if (mTitleTextView.getVisibility() != GONE) {
             measureChild(mTitleTextView, widthMeasureSpec, width, childHeightMeasureSpec, 0);
             width += mTitleTextView.getMeasuredWidth() + getHorizontalMargins(mTitleTextView);
@@ -167,7 +183,10 @@ public class CarToolbar extends ViewGroup {
             layoutViewVerticallyCentered(mNavButtonView, navButtonLeft, height);
             layoutLeft += containerWidth;
         }
-
+        if (mLogoView.getVisibility() != GONE) {
+            layoutViewVerticallyCentered(mLogoView, layoutLeft, height);
+            layoutLeft += mLogoView.getMeasuredWidth();
+        }
         if (mTitleTextView.getVisibility() != GONE) {
             layoutViewVerticallyCentered(mTitleTextView, layoutLeft, height);
         }
@@ -230,6 +249,37 @@ public class CarToolbar extends ViewGroup {
      */
     public void setNavigationIconContainerWidth(@Px int width) {
         mNavButtonContainerWidth = width;
+        requestLayout();
+    }
+
+    /**
+     * Set the icon to use for the toolbar's logo.
+     *
+     * <p>The logo is positioned between the navigation button and the title.
+     *
+     * @param icon Icon to set; {@code null} will hide the logo.
+     *
+     * @attr ref R.styleable#CarToolbar_logo
+     */
+    public void setLogo(@Nullable Icon icon) {
+        if (icon == null) {
+            mLogoView.setVisibility(GONE);
+            mLogoView.setImageDrawable(null);
+            return;
+        }
+        mLogoView.setVisibility(VISIBLE);
+        mLogoView.setImageDrawable(icon.loadDrawable(getContext()));
+    }
+
+    /**
+     * Set a new size for the logo.
+     *
+     * @param size Size of the logo dimensions in pixels.
+     *
+     * @attr ref R.styleable#CarToolbar_logoSize
+     */
+    public void setLogoSize(@Px int size) {
+        mLogoSize = size;
         requestLayout();
     }
 
