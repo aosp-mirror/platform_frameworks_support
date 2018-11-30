@@ -22,6 +22,30 @@
       "revId": "6ed4698615b86f06b2aca0cab4c827e85437254a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f12a6426_cf6de272",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T20:49:15Z",
+      "side": 1,
+      "message": "This is also useful in Java code, since Lint still complains about dereferencing @Nullable fields.",
+      "parentUuid": "8be94daa_418b52af",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "6ed4698615b86f06b2aca0cab4c827e85437254a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
