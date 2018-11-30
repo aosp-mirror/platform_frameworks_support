@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8be94daa_418b52af",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-11-30T20:44:56Z",
+      "side": 1,
+      "message": "If this is really used for kotlin, why not just make it an extension property?",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "6ed4698615b86f06b2aca0cab4c827e85437254a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
