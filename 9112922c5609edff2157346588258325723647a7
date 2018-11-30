@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1237e01f_c73cd9ce",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T00:12:09Z",
+      "side": 1,
+      "message": "If you\u0027re using named parameters, you could just leave this out since null is the default value.",
+      "range": {
+        "startLine": 121,
+        "startChar": 16,
+        "endLine": 121,
+        "endChar": 36
+      },
+      "revId": "9112922c5609edff2157346588258325723647a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc30e71_3b9dfe9b",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T00:12:09Z",
+      "side": 1,
+      "message": "Same about leaving this out",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 36
+      },
+      "revId": "9112922c5609edff2157346588258325723647a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
