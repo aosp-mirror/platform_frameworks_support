@@ -72,7 +72,7 @@ object ConfigParser {
 
     private fun loadConfigFileInternal(configPath: Path): Config? {
         if (!Files.isReadable(configPath)) {
-            Log.e(TAG, "Cannot access the config file: '%s'", configPath)
+            Log.e(TAG, "Cannot access the config file: '%s'", configPath.toString())
             return null
         }
 
