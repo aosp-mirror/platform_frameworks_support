@@ -14,17 +14,14 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<androidx.car.widget.ColumnCardView
+<TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="0dp"
+    android:id="@+id/text"
+    android:background="@drawable/car_card_ripple_background_light"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/car_card_dark">
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.Car.Body1.Light"/>
-</androidx.car.widget.ColumnCardView>
+    android:textAppearance="@style/TextAppearance.Car.Body1.Light"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/car_keyline_1"
+    android:paddingEnd="@dimen/car_keyline_1"
+    android:height="@dimen/car_single_line_list_item_height" />
