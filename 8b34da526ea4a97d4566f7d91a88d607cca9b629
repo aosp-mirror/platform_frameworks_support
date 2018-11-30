@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5077f526_9456a3a6",
+        "filename": "core/src/main/java/androidx/core/app/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-11-30T19:15:01Z",
+      "side": 1,
+      "message": "Can this be moved to androidx.activity.ComponentActivity (as a LifeycleObserver?)?\n\nI\u0027d really get rid of this hidden class at some point and would prefer if nothing be added to it.",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 10
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4afeb49f_7c38abf0",
         "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
         "patchSetId": 1
