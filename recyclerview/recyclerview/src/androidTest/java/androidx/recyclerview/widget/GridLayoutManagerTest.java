@@ -997,30 +997,55 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
             }
         };
         ssl.setSpanIndexCacheEnabled(true);
-        assertEquals("reference child non existent", -1, ssl.findReferenceIndexFromCache(2));
+        assertEquals("reference child non existent", -1,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        2, ssl.mSpanIndexCache));
         ssl.getCachedSpanIndex(4, 5);
-        assertEquals("reference child non existent", -1, ssl.findReferenceIndexFromCache(3));
+        assertEquals("reference child non existent", -1,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        3, ssl.mSpanIndexCache));
         // this should not happen and if happens, it is better to return -1
-        assertEquals("reference child itself", -1, ssl.findReferenceIndexFromCache(4));
-        assertEquals("reference child before", 4, ssl.findReferenceIndexFromCache(5));
-        assertEquals("reference child before", 4, ssl.findReferenceIndexFromCache(100));
+        assertEquals("reference child itself", -1,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        4, ssl.mSpanIndexCache));
+        assertEquals("reference child before", 4,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        5, ssl.mSpanIndexCache));
+        assertEquals("reference child before", 4,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        100, ssl.mSpanIndexCache));
         ssl.getCachedSpanIndex(6, 5);
-        assertEquals("reference child before", 6, ssl.findReferenceIndexFromCache(7));
-        assertEquals("reference child before", 4, ssl.findReferenceIndexFromCache(6));
-        assertEquals("reference child itself", -1, ssl.findReferenceIndexFromCache(4));
+        assertEquals("reference child before", 6,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        7, ssl.mSpanIndexCache));
+        assertEquals("reference child before", 4,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        6, ssl.mSpanIndexCache));
+        assertEquals("reference child itself", -1,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        4, ssl.mSpanIndexCache));
         ssl.getCachedSpanIndex(12, 5);
-        assertEquals("reference child before", 12, ssl.findReferenceIndexFromCache(13));
-        assertEquals("reference child before", 6, ssl.findReferenceIndexFromCache(12));
-        assertEquals("reference child before", 6, ssl.findReferenceIndexFromCache(7));
+        assertEquals("reference child before", 12,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        13, ssl.mSpanIndexCache));
+        assertEquals("reference child before", 6,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        12, ssl.mSpanIndexCache));
+        assertEquals("reference child before", 6,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        7, ssl.mSpanIndexCache));
         for (int i = 0; i < 6; i++) {
             ssl.getCachedSpanIndex(i, 5);
         }
 
         for (int i = 1; i < 7; i++) {
             assertEquals("reference child right before " + i, i - 1,
-                    ssl.findReferenceIndexFromCache(i));
+                    GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                            i, ssl.mSpanIndexCache));
         }
-        assertEquals("reference child before 0 ", -1, ssl.findReferenceIndexFromCache(0));
+        assertEquals("reference child before 0 ", -1,
+                GridLayoutManager.SpanSizeLookup.findReferenceIndexFromCache(
+                        0, ssl.mSpanIndexCache));
     }
 
     public void spanLookupTest(boolean enableCache) {
@@ -1308,5 +1333,28 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
         mGlm.waitForLayout(2);
         assertEquals("item index 5 should be in span 2", 0,
                 getLp(mGlm.findViewByPosition(5)).getSpanIndex());
+    }
+
+    @Test
+    public void scrollRangeAndOffsetWithMixedSpans() throws Throwable {
+        int nItems = 100;
+        final RecyclerView rv = setupBasic(new Config(2, nItems));
+        mGlm.setUseSpansToEstimateScrollbarDimensions(true);
+        mGlm.mSpanSizeLookup.setSpanGroupIndexCacheEnabled(true);
+        int[] fullSpanItems = new int[nItems / 2];
+        for (int i = 0; i < fullSpanItems.length; i++) {
+            fullSpanItems[i] = i;
+        }
+        mAdapter.setFullSpan(fullSpanItems);
+        waitForFirstLayout(rv);
+
+        int constantRange = mGlm.computeVerticalScrollRange(rv.mState);
+        assertEquals(mGlm.computeVerticalScrollOffset(rv.mState), 0);
+
+        scrollToPosition(nItems - 1);
+        mGlm.waitForLayout(2);
+        int maxOffset = mGlm.computeVerticalScrollOffset(rv.mState);
+        assertEquals(mGlm.computeVerticalScrollRange(rv.mState), constantRange);
+        assertEquals(maxOffset + mGlm.computeVerticalScrollExtent(rv.mState), constantRange);
     }
 }
