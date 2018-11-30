@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4b3e97b_e4e0e840",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-30T10:22:07Z",
+      "side": 1,
+      "message": "Yes, and it\u0027s also our use case in Settings.",
+      "parentUuid": "8ef1c5b4_7eca482d",
+      "range": {
+        "startLine": 356,
+        "startChar": 17,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3956cbc8_6011661c",
         "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3982df08_d0432b09",
+        "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-30T10:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3956cbc8_6011661c",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6edbb1b_bc786e92",
         "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc5fe0f_17558145",
+        "filename": "slices/view/src/main/res/layout/abc_slice_small_template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-11-30T10:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6edbb1b_bc786e92",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "fbbf3d70ba1519ba155d68206c569bff16bfc53e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
