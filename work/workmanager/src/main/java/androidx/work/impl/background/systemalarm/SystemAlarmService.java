@@ -62,7 +62,7 @@ public class SystemAlarmService extends LifecycleService
     @MainThread
     @Override
     public void onAllCommandsCompleted() {
-        Logger.debug(TAG, "All commands completed in dispatcher");
+        Logger.get().debug(TAG, "All commands completed in dispatcher");
         stopSelf();
     }
 }
