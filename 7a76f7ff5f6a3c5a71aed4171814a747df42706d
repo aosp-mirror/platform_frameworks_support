@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35ce22e7_e788ad5a",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-11-30T11:56:21Z",
+      "side": 1,
+      "message": "@CallSuper? Though it would be half-breaking change (from lint perspective). Maybe it is better to move it to performCreateView?",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 28
+      },
+      "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
