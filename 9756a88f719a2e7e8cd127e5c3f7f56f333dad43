@@ -354,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "fafa31bb_355055fe",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-30T13:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13c5ed91_3e585f28",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "451de79e_15f1dc7d",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 6
@@ -424,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "06c07dc9_0d14d57b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-30T13:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "435537cf_6304f036",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 46
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4efe4a70_32169f4b",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 6
@@ -444,6 +492,30 @@
       "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76292e8a_cbf05e1d",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-11-30T13:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4efe4a70_32169f4b",
+      "range": {
+        "startLine": 322,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 46
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
