@@ -157,7 +157,7 @@ public class WorkManagerImplTest {
                 new WorkManagerImpl(mContext, mConfiguration, new InstantWorkTaskExecutor());
         WorkManagerImpl.setDelegate(mWorkManagerImpl);
         mDatabase = mWorkManagerImpl.getWorkDatabase();
-        Logger.setMinimumLoggingLevel(Log.DEBUG);
+        Logger.get().setMinimumLoggingLevel(Log.DEBUG);
     }
 
     @After

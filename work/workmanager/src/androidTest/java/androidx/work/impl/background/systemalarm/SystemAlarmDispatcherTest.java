@@ -121,7 +121,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
             }
         };
 
-        Logger.setMinimumLoggingLevel(Log.VERBOSE);
+        Logger.get().setMinimumLoggingLevel(Log.VERBOSE);
         mConfiguration = new Configuration.Builder().setExecutor(new SynchronousExecutor()).build();
         when(mWorkManager.getWorkDatabase()).thenReturn(mDatabase);
         when(mWorkManager.getConfiguration()).thenReturn(mConfiguration);
