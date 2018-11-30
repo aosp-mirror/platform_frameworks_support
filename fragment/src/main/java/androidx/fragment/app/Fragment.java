@@ -520,7 +520,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     @Override
-    @SuppressLint("UnknownNullness")
+    @SuppressLint({"UnknownNullness", "RestrictedApi"})
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         DebugUtils.buildShortClassTag(this, sb);

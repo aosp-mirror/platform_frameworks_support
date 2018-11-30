@@ -20,6 +20,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.core.util.Preconditions.checkNotNull;
 import static androidx.core.util.Preconditions.checkState;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -211,6 +212,7 @@ public final class FragmentScenario<F extends Fragment> {
     }
 
     @NonNull
+    @SuppressLint("RestrictedApi")
     private static <F extends Fragment> FragmentScenario<F> internalLaunch(
             @NonNull final Class<F> fragmentClass, final @Nullable Bundle fragmentArgs,
             @Nullable final FragmentFactory factory, final int containerViewId) {
@@ -259,6 +261,7 @@ public final class FragmentScenario<F extends Fragment> {
      * This method cannot be called from the main thread.
      */
     @NonNull
+    @SuppressLint("RestrictedApi")
     public FragmentScenario<F> moveToState(@NonNull State newState) {
         if (newState == State.DESTROYED) {
             mActivityScenario.onActivity(
@@ -338,6 +341,7 @@ public final class FragmentScenario<F extends Fragment> {
      * This method cannot be called from the main thread.
      */
     @NonNull
+    @SuppressLint("RestrictedApi")
     public FragmentScenario<F> onFragment(@NonNull final FragmentAction<F> action) {
         mActivityScenario.onActivity(
                 new ActivityScenario.ActivityAction<EmptyFragmentActivity>() {
