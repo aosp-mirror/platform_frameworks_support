@@ -80,7 +80,7 @@ import java.util.Set;
  */
 @RestrictTo(LIBRARY)
 @RequiresApi(19)
-public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilder {
+public class ListBuilderImpl extends TemplateBuilderImpl implements ListBuilder {
 
     private List<Slice> mSliceActions;
     private Set<String> mKeywords;
@@ -90,13 +90,13 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     private boolean mIsFirstRowTypeValid;
     private boolean mFirstRowHasText;
 
-    public ListBuilderV1Impl(Slice.Builder b, SliceSpec spec) {
+    public ListBuilderImpl(Slice.Builder b, SliceSpec spec) {
         this(b, spec, new SystemClock());
     }
 
     /**
      */
-    public ListBuilderV1Impl(Slice.Builder b, SliceSpec spec, Clock clock) {
+    public ListBuilderImpl(Slice.Builder b, SliceSpec spec, Clock clock) {
         super(b, spec, clock);
     }
 
@@ -181,7 +181,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
     @Override
     public void addGridRow(@NonNull GridRowBuilder builder) {
         checkRow(false, false);
-        GridRowBuilderListV1Impl impl = new GridRowBuilderListV1Impl(this, builder);
+        GridRowBuilderListImpl impl = new GridRowBuilderListImpl(this, builder);
         impl.getBuilder().addHints(HINT_LIST_ITEM);
         getBuilder().addSubSlice(impl.build());
     }
@@ -225,7 +225,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
 
     @Override
     public void addSelection(SelectionBuilder builder) {
-        SelectionBuilderImpl impl = new SelectionBuilderV1Impl(createChildBuilder(), builder);
+        SelectionBuilderImpl impl = new SelectionBuilderListImpl(createChildBuilder(), builder);
         getBuilder().addSubSlice(impl.build());
     }
 
@@ -416,7 +416,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
 
         /**
          */
-        private RowBuilderImpl(@NonNull ListBuilderV1Impl parent) {
+        private RowBuilderImpl(@NonNull ListBuilderImpl parent) {
             super(parent.createChildBuilder(), null);
         }
 
@@ -674,7 +674,7 @@ public class ListBuilderV1Impl extends TemplateBuilderImpl implements ListBuilde
 
         /**
          */
-        HeaderBuilderImpl(@NonNull ListBuilderV1Impl parent) {
+        HeaderBuilderImpl(@NonNull ListBuilderImpl parent) {
             super(parent.createChildBuilder(), null);
         }
 
