@@ -16,6 +16,8 @@
 
 package androidx.core.app;
 
+import static android.os.Build.VERSION.SDK_INT;
+
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Activity;
@@ -96,6 +98,17 @@ public class ComponentActivity extends Activity
             return true;
         }
         return KeyEventDispatcher.dispatchKeyEvent(this, decor, this, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (19 <= SDK_INT && SDK_INT <= 22) {
+            ImmLeaks instance = ImmLeaks.getInstance();
+            if (instance != null) {
+                instance.clearInputMethodManagerLeak();
+            }
+        }
     }
 
     /**
