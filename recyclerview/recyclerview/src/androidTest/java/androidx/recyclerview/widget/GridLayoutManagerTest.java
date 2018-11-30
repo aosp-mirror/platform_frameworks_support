@@ -1306,4 +1306,26 @@ public class GridLayoutManagerTest extends BaseGridLayoutManagerTest {
         assertEquals("item index 5 should be in span 2", 0,
                 getLp(mGlm.findViewByPosition(5)).getSpanIndex());
     }
+
+    @Test
+    public void scrollRangeAndOffsetWithMixedSpans() throws Throwable {
+        int nItems = 100;
+        final RecyclerView rv = setupBasic(new Config(4, nItems));
+        mGlm.setScrollingAccuracyMode(GridLayoutManager.ScrollingAccuracyMode.HIGH);
+        int[] fullSpanItems = new int[nItems / 2];
+        for (int i = 0; i < fullSpanItems.length; i++) {
+            fullSpanItems[i] = i;
+        }
+        mAdapter.setFullSpan(fullSpanItems);
+        waitForFirstLayout(rv);
+
+        int constantRange = mGlm.computeVerticalScrollRange(rv.mState);
+        assertEquals(mGlm.computeVerticalScrollOffset(rv.mState), 0);
+
+        scrollToPosition(nItems - 1);
+        mGlm.waitForLayout(2);
+        int maxOffset = mGlm.computeVerticalScrollOffset(rv.mState);
+        assertEquals(mGlm.computeVerticalScrollRange(rv.mState), constantRange);
+        assertEquals(maxOffset + mGlm.computeVerticalScrollExtent(rv.mState), constantRange);
+    }
 }
