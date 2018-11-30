@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "c085e8f0_db70191b",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T22:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9582b51_0fdcdabf",
+      "range": {
+        "startLine": 432,
+        "startChar": 27,
+        "endLine": 432,
+        "endChar": 35
+      },
+      "revId": "84bd9c8365ab410fcc486a941159e0f326438435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2262b774_f5e45151",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T22:25:36Z",
+      "side": 1,
+      "message": "ugh missed that because it is internal. will add that as well.",
+      "parentUuid": "aea0b112_8840bd78",
+      "revId": "84bd9c8365ab410fcc486a941159e0f326438435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c1057cf_9d2e9995",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerLiveDataTracker.java",
         "patchSetId": 2
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "13202627_7ce9b84e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerLiveDataTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T22:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a2449fe_0fbf5694",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "84bd9c8365ab410fcc486a941159e0f326438435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7abcc31_0e2d5ccd",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerLiveDataTracker.java",
         "patchSetId": 2
@@ -99,6 +165,30 @@
       "writtenOn": "2018-11-30T21:41:35Z",
       "side": 1,
       "message": "Are these called on the main thread?  If not, we may want to externally synchronize mLiveDataSet above.",
+      "range": {
+        "startLine": 65,
+        "startChar": 23,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "84bd9c8365ab410fcc486a941159e0f326438435",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76cf26f2_f5909663",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerLiveDataTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-11-30T22:25:36Z",
+      "side": 1,
+      "message": "yes, all live data callbacks are called on the main thread.",
+      "parentUuid": "d7abcc31_0e2d5ccd",
       "range": {
         "startLine": 65,
         "startChar": 23,
