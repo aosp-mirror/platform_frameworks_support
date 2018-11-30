@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3168e417_c9fdc1f0",
+        "filename": "activity/src/main/java/androidx/activity/InflatesRes.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-11-30T21:46:31Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in androidx.annotations?",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "236ddb81_48beb301",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentFactoryTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-11-30T21:46:31Z",
+      "side": 1,
+      "message": "This is so much easier for the 80% case.",
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b03263_c230b5a0",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentViewTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-11-30T21:46:31Z",
+      "side": 1,
+      "message": "If you change where @InflateRes is being read, you\u0027re going to have to move several of these onCreateView() calls to onViewCreated()",
+      "range": {
+        "startLine": 1066,
+        "startChar": 0,
+        "endLine": 1066,
+        "endChar": 32
+      },
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
