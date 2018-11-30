@@ -22,6 +22,30 @@
       "revId": "c770b6e1ee397d6faaf324fa3ddf030677d72bf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ed7a89_6094bcd3",
+        "filename": "fragment/testing/api/1.1.0-alpha03.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2018-11-30T00:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5d4b14a_0dfeecab",
+      "range": {
+        "startLine": 8,
+        "startChar": 155,
+        "endLine": 8,
+        "endChar": 198
+      },
+      "revId": "c770b6e1ee397d6faaf324fa3ddf030677d72bf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
