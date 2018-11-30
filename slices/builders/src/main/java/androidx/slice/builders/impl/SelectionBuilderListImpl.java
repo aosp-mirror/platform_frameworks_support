@@ -38,8 +38,8 @@ import java.util.List;
  */
 @RestrictTo(LIBRARY)
 @RequiresApi(19)
-public class SelectionBuilderV1Impl extends SelectionBuilderImpl {
-    public SelectionBuilderV1Impl(Slice.Builder parentSliceBuilder,
+public class SelectionBuilderListImpl extends SelectionBuilderImpl {
+    public SelectionBuilderListImpl(Slice.Builder parentSliceBuilder,
                                   SelectionBuilder selectionBuilder) {
         super(parentSliceBuilder, selectionBuilder);
     }
