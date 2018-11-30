@@ -35,6 +35,17 @@ import java.util.Arrays;
  */
 public class GridLayoutManager extends LinearLayoutManager {
 
+    /** What mode to use to calculate scrollbar offset and range */
+    public @interface ScrollingAccuracyMode {
+        /** Low accuracy uses the position of each item to calculate the scroll range and offset. */
+        int LOW = 0;
+        /**
+         * High accuracy, calculates the row of each item for scroll range and offset, this results
+         * in calling the SpanSizeLookup for every item.
+         */
+        int HIGH = 1;
+    }
+
     private static final boolean DEBUG = false;
     private static final String TAG = "GridLayoutManager";
     public static final int DEFAULT_SPAN_COUNT = -1;
@@ -59,6 +70,11 @@ public class GridLayoutManager extends LinearLayoutManager {
     // re-used variable to acquire decor insets from RecyclerView
     final Rect mDecorInsets = new Rect();
 
+    // used to calculate the row that each item is in.
+    final SparseIntArray mRowIndexCache = new SparseIntArray();
+
+    @ScrollingAccuracyMode
+    private int mScrollingAccuracyMode;
 
     /**
      * Constructor used when layout manager is set in XML by RecyclerView attribute
@@ -199,27 +215,32 @@ public class GridLayoutManager extends LinearLayoutManager {
     @Override
     public void onItemsAdded(RecyclerView recyclerView, int positionStart, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mRowIndexCache.clear();
     }
 
     @Override
     public void onItemsChanged(RecyclerView recyclerView) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mRowIndexCache.clear();
     }
 
     @Override
     public void onItemsRemoved(RecyclerView recyclerView, int positionStart, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mRowIndexCache.clear();
     }
 
     @Override
     public void onItemsUpdated(RecyclerView recyclerView, int positionStart, int itemCount,
             Object payload) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mRowIndexCache.clear();
     }
 
     @Override
     public void onItemsMoved(RecyclerView recyclerView, int from, int to, int itemCount) {
         mSpanSizeLookup.invalidateSpanIndexCache();
+        mRowIndexCache.clear();
     }
 
     @Override
@@ -1115,6 +1136,154 @@ public class GridLayoutManager extends LinearLayoutManager {
     @Override
     public boolean supportsPredictiveItemAnimations() {
         return mPendingSavedState == null && !mPendingSpanCountChange;
+    }
+
+    @Override
+    public int computeHorizontalScrollRange(RecyclerView.State state) {
+        if (mScrollingAccuracyMode == ScrollingAccuracyMode.HIGH) {
+            return computeScrollRange(state);
+        } else {
+            return super.computeHorizontalScrollRange(state);
+        }
+    }
+
+    @Override
+    public int computeVerticalScrollRange(RecyclerView.State state) {
+        if (mScrollingAccuracyMode == ScrollingAccuracyMode.HIGH) {
+            return computeScrollRange(state);
+        } else {
+            return super.computeVerticalScrollRange(state);
+        }
+    }
+
+    @Override
+    public int computeHorizontalScrollOffset(RecyclerView.State state) {
+        if (mScrollingAccuracyMode == ScrollingAccuracyMode.HIGH) {
+            return computeScrollOffset(state);
+        } else {
+            return super.computeHorizontalScrollOffset(state);
+        }
+    }
+
+    @Override
+    public int computeVerticalScrollOffset(RecyclerView.State state) {
+        if (mScrollingAccuracyMode == ScrollingAccuracyMode.HIGH) {
+            return computeScrollOffset(state);
+        } else {
+            return super.computeVerticalScrollOffset(state);
+        }
+    }
+
+    public void setScrollingAccuracyMode(@ScrollingAccuracyMode int scrollingAccuracyMode) {
+        mScrollingAccuracyMode = scrollingAccuracyMode;
+    }
+
+    private int computeScrollRange(RecyclerView.State state) {
+        if (getChildCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+        boolean smoothScrollbarEnabled = isSmoothScrollbarEnabled();
+        return computeScrollRange(state,
+            findFirstVisibleChildClosestToStart(!smoothScrollbarEnabled, true),
+            findFirstVisibleChildClosestToEnd(!smoothScrollbarEnabled, true)
+        );
+    }
+
+    private int computeScrollRange(RecyclerView.State state, View startChild, View endChild) {
+        if (getChildCount() == 0 || state.getItemCount() == 0 || startChild == null
+                || endChild == null) {
+            return 0;
+        }
+        if (!isSmoothScrollbarEnabled()) {
+            return getTotalRows(state);
+        }
+
+        // smooth scrollbar enabled. try to estimate better.
+        final int laidOutArea = mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild);
+
+        final int firstVisibleRow = getRow(startChild);
+        final int lastVisibleRow = getRow(endChild);
+        final int totalRows = getTotalRows(state);
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+
+        // estimate a size for full list.
+        return (int) (((float) laidOutArea / laidOutRows) * totalRows);
+    }
+
+    private int getTotalRows(RecyclerView.State state) {
+        return getRow(state.getItemCount() - 1) + 1;
+    }
+
+    private int getRow(View child) {
+        return getRow(getPosition(child));
+    }
+
+    private int getRow(int position) {
+        if (position == 0) {
+            return 0;
+        }
+        int cachedRow = (mRowIndexCache.get(position));
+        if (cachedRow != 0) {
+            return cachedRow;
+        }
+        int row = 0;
+        int column = 0;
+
+        int lastKnownPosition = 0;
+        if (mRowIndexCache.size() > 0) {
+            row = mRowIndexCache.valueAt(mRowIndexCache.size() - 1);
+            lastKnownPosition = mRowIndexCache.keyAt(mRowIndexCache.size() - 1);
+        }
+        for (int i = lastKnownPosition; i <= position; i++) {
+            int spanSize = mSpanSizeLookup.getSpanSize(i);
+            column += spanSize;
+            if (column > mSpanCount) {
+                column = spanSize;
+                row++;
+            }
+            mRowIndexCache.put(i, row);
+        }
+        return row;
+    }
+
+    private int computeScrollOffset(RecyclerView.State state) {
+        if (getChildCount() == 0) {
+            return 0;
+        }
+        ensureLayoutState();
+
+        boolean smoothScrollEnabled = isSmoothScrollbarEnabled();
+        View startChild = findFirstVisibleChildClosestToStart(!smoothScrollEnabled, true);
+        View endChild = findFirstVisibleChildClosestToEnd(!smoothScrollEnabled, true);
+        if (getChildCount() == 0 || state.getItemCount() == 0 || startChild == null
+                || endChild == null) {
+            return 0;
+        }
+        int startChildRow = getRow(startChild);
+        int endChildRow = getRow(endChild);
+
+        final int minRow = Math.min(startChildRow, endChildRow);
+        final int maxRow = Math.max(startChildRow, endChildRow);
+        final int totalRows = getTotalRows(state);
+
+        final int rowsBefore = mShouldReverseLayout
+                ? Math.max(0, totalRows - maxRow - 1)
+                : Math.max(0, minRow);
+        if (!smoothScrollEnabled) {
+            return rowsBefore;
+        }
+        final int laidOutArea = Math.abs(mOrientationHelper.getDecoratedEnd(endChild)
+                - mOrientationHelper.getDecoratedStart(startChild));
+
+        final int firstVisibleRow = getRow(startChild);
+        final int lastVisibleRow = getRow(endChild);
+        final int laidOutRows = lastVisibleRow - firstVisibleRow + 1;
+        final float avgSizePerRow = (float) laidOutArea / laidOutRows;
+
+        return Math.round(rowsBefore * avgSizePerRow + (mOrientationHelper.getStartAfterPadding()
+            - mOrientationHelper.getDecoratedStart(startChild)));
     }
 
     /**
