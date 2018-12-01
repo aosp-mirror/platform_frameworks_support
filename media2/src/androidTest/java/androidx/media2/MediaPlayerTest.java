@@ -31,6 +31,7 @@ import static org.junit.Assert.fail;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.PersistableBundle;
 
@@ -91,6 +92,17 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
+    }
+
+    @Test
+    @MediumTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    public void testPlayUri() throws Exception {
+        mPlayer.setMediaItem(new UriMediaItem.Builder(mActivity,
+                Uri.parse("https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/hls/bipbop-16x9-variant/bipbop_16x9_variant.m3u8"))
+                .build());
+        mPlayer.prepare().get();
+        List<MediaPlayer.TrackInfo> list = mPlayer.getTrackInfo();
     }
 
     @Test
