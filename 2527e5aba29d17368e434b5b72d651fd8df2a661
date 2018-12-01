@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889814e2_6c9af4bd",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-01T12:28:17Z",
+      "side": 1,
+      "message": "remove this. For SDK \u003e\u003d 26, ImplApi26 will handle this.",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 9
+      },
+      "revId": "2527e5aba29d17368e434b5b72d651fd8df2a661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
