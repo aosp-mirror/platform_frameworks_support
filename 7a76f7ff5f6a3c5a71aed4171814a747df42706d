@@ -46,6 +46,30 @@
       "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36608814_f5bfafa5",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-03T16:00:03Z",
+      "side": 1,
+      "message": "Oh, I originally didn\u0027t realise that it is ok not to call it (now I do). \nI think it would be nice to have some checks that if you have @InflateRes then you should probably super.onCreate(), but it\u0027s not critical, so it is up to you\n \nI think skipping onCreateView completely is a bit too bold, because as a developer I would not expect such behavior.",
+      "parentUuid": "afbade68_5437b397",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 28
+      },
+      "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
