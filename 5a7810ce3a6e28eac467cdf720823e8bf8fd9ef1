@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afb5f22b_28cc4f92",
+        "filename": "slices/view/src/androidTest/java/androidx/slice/widget/SliceViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2018-12-03T10:47:42Z",
+      "side": 0,
+      "message": "junit.framework.Assert is deprecated",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "5a7810ce3a6e28eac467cdf720823e8bf8fd9ef1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
