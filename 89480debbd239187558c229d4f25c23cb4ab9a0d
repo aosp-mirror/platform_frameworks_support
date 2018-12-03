@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e20a8a52_2c8f20d5",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-03T22:01:10Z",
+      "side": 1,
+      "message": "I know that the bug itself calls it a logo and that the Android toolbar does the same, but I feel that \"logo\" is to specific a name for this method.\n\nAll this method does is add an image before the title. The purpose of this image should be left up to the developer and calling it a \"logo\" implies its usage.\n\nI\u0027d just make it more generic: setTitleIcon() or something similar. Maybe see if Selim has any thoughts.",
+      "range": {
+        "startLine": 235,
+        "startChar": 23,
+        "endLine": 235,
+        "endChar": 30
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9bcd982_b86401ee",
         "filename": "car/core/res/values/dimens.xml",
         "patchSetId": 5
@@ -65,6 +88,23 @@
         "endLine": 188,
         "endChar": 66
       },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fb875e_ec6f10a0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-03T22:01:10Z",
+      "side": 1,
+      "message": "No margin between the logo and the title text?",
       "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
