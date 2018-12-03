@@ -42,6 +42,9 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
         project.configureMavenArtifactUpload(supportLibraryExtension)
 
         project.afterEvaluate {
+            project.configurations.all {
+                it.resolutionStrategy.preferProjectModules()
+            }
             if (supportLibraryExtension.publish) {
                 project.extra.set("publish", true)
                 project.addToProjectMap(supportLibraryExtension.mavenGroup)
