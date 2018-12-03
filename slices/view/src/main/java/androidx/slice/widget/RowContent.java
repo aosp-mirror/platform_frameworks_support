@@ -69,6 +69,7 @@ public class RowContent extends SliceContent {
     private SliceItem mRange;
     private boolean mIsHeader;
     private int mLineCount = 0;
+    private boolean mShowTitleItems;
     private boolean mShowActionDivider;
 
     public RowContent(SliceItem rowSlice, int position) {
@@ -257,7 +258,7 @@ public class RowContent extends SliceContent {
      */
     @Nullable
     public SliceItem getStartItem() {
-        return mIsHeader ? null : mStartItem;
+        return mIsHeader && !mShowTitleItems ? null : mStartItem;
     }
 
     /**
@@ -317,10 +318,24 @@ public class RowContent extends SliceContent {
     }
 
     /**
+     * Set whether this row content needs to show the title items on the start.
+     */
+    public void showTitleItems(boolean enabled) {
+        mShowTitleItems = enabled;
+    }
+
+    /**
      * Set whether this row content needs to show the action divider.
      */
     public void showActionDivider(boolean enabled) {
         mShowActionDivider = enabled;
+    }
+
+    /**
+     * @return whether this row content needs to show the title items on the start.
+     */
+    public boolean hasTitleItems() {
+        return mShowTitleItems;
     }
 
     /**

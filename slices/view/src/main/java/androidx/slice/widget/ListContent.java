@@ -191,6 +191,15 @@ public class ListContent extends SliceContent {
     }
 
     /**
+     * Whether the header row should show title items on the start.
+     */
+    public void showTitleItems(boolean enabled) {
+        if (mHeaderContent != null) {
+            mHeaderContent.showTitleItems(enabled);
+        }
+    }
+
+    /**
      * Whether all the row contents should show action dividers.
      */
     public void showActionDividers(boolean enabled) {
