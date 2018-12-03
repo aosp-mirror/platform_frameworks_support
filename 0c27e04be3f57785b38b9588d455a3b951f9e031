@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10ae4bed_e892c166",
+        "filename": "media2/src/main/java/androidx/media2/MediaMetadata.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-03T06:29:08Z",
+      "side": 1,
+      "message": "Q) Can we assume that the constants whose values start with \"androidx.media2\" will not go to framework? If so, why RADIO_* shouldn\u0027t go to framework?",
+      "range": {
+        "startLine": 468,
+        "startChar": 13,
+        "endLine": 468,
+        "endChar": 28
+      },
+      "revId": "0c27e04be3f57785b38b9588d455a3b951f9e031",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
