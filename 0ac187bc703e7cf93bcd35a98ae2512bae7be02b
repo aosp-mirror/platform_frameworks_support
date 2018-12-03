@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0157b18_6319598f",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1060562
+      },
+      "writtenOn": "2018-12-03T20:07:44Z",
+      "side": 1,
+      "message": "can you add the no-op comment here and below?",
+      "revId": "0ac187bc703e7cf93bcd35a98ae2512bae7be02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
