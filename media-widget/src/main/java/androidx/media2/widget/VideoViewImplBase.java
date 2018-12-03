@@ -32,6 +32,7 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -333,12 +334,22 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
 
     /**
      * Sets {@link MediaItem} object to render using VideoView.
+     * <p>
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the VideoView.
+     *
      * @param mediaItem the MediaItem to play
      */
     @Override
     public void setMediaItem(@NonNull MediaItem mediaItem) {
         mSeekWhenPrepared = 0;
+        if (mMediaItem instanceof FileMediaItem) {
+            ((FileMediaItem) mMediaItem).removeParcelFileDescriptorClient(this);
+        }
         mMediaItem = mediaItem;
+        if (mMediaItem instanceof FileMediaItem) {
+            ((FileMediaItem) mMediaItem).addParcelFileDescriptorClient(this);
+        }
         openVideo();
     }
 
@@ -434,6 +445,10 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
         mMediaSession.close();
         mMediaPlayer = null;
         mMediaSession = null;
+        if (mMediaItem != null && mMediaItem instanceof FileMediaItem) {
+            ((FileMediaItem) mMediaItem).removeParcelFileDescriptorClient(this);
+        }
+        mMediaItem = null;
     }
 
     @Override
@@ -767,7 +782,7 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
             } else if (mMediaItem instanceof FileMediaItem) {
                 retriever = new MediaMetadataRetriever();
                 retriever.setDataSource(
-                        ((FileMediaItem) mMediaItem).getFileDescriptor(),
+                        ((FileMediaItem) mMediaItem).getParcelFileDescriptor().getFileDescriptor(),
                         ((FileMediaItem) mMediaItem).getFileDescriptorOffset(),
                         ((FileMediaItem) mMediaItem).getFileDescriptorLength());
             }

@@ -20,6 +20,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -391,6 +392,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
+     * when a media item in the playlist is a {@link FileMediaItem}.
      *
      * @param list A list of {@link MediaItem} objects to set as a play list.
      * @throws IllegalArgumentException if the given list is {@code null} or empty, or has
@@ -417,6 +421,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
+     * if the given media item is a {@link FileMediaItem}.
      *
      * @param item the descriptor of media item you want to play
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
@@ -437,6 +444,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
+     * if the given media item is a {@link FileMediaItem}.
      *
      * @param index the index of the item you want to add in the playlist
      * @param item the media item you want to add
@@ -467,6 +477,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
+     * if the given media item is a {@link FileMediaItem}.
      *
      * @param index the index of the item to replace in the playlist
      * @param item the new item
