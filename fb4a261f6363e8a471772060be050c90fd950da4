@@ -22,6 +22,30 @@
       "revId": "fb4a261f6363e8a471772060be050c90fd950da4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "525e5e25_488202e2",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-12-03T09:19:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow the suggestion here, as I can\u0027t do \"mAudioAttributes.getVolumeControlStream()\" on API 21. Please could you clarify what is needed?\n\nFor merging ag/4995785 where would we need to set FLAG_BEACON?\n\nThanks.",
+      "parentUuid": "488ed17a_502c0f2f",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "fb4a261f6363e8a471772060be050c90fd950da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
