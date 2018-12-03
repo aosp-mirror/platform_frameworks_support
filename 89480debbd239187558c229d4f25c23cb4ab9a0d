@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "545e9b61_ad050da2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-03T21:11:45Z",
+      "side": 1,
+      "message": "This sounds strange to me.  Normally, you don\u0027t have a developer pass in null to hide the icon. \n\nIs the default visibility \"not visible\"?  Or does a developer have to set the Logo?\nPerhaps something like\n\"If no valid icon is provided, the logo will be hidden.\"",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 64
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f0915f_f8efdbfb",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-03T21:11:45Z",
+      "side": 1,
+      "message": "Why are you adding another toolbar here?  Shouldn\u0027t we be testing car toolbar changes?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
