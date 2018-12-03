@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "a9bcd982_b86401ee",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-03T21:33:24Z",
+      "side": 1,
+      "message": "what is this value defined?\n\ndimens for toolbar are named app bar (see dimens above). perhaps rename to car_app_bar_logo_size if it needs to be provided?",
+      "range": {
+        "startLine": 104,
+        "startChar": 17,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e43d016_50adb70a",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-03T21:33:24Z",
+      "side": 1,
+      "message": "i think by default the test activity layout doesn\u0027t show a logo so it\u0027d pass anyway",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 44
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0050864a_9b712f67",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-03T21:33:24Z",
+      "side": 1,
+      "message": "you can use isDisplayed() to make sure it shows up in UI\nhttps://stackoverflow.com/a/33551256",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 66
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "545e9b61_ad050da2",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
