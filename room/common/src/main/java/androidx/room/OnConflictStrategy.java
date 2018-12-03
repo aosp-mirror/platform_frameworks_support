@@ -24,9 +24,6 @@ import java.lang.annotation.Retention;
 
 /**
  * Set of conflict handling strategies for various {@link Dao} methods.
- * <p>
- * Check <a href="https://sqlite.org/lang_conflict.html">SQLite conflict documentation</a> for
- * details.
  */
 @Retention(SOURCE)
 @IntDef({OnConflictStrategy.REPLACE, OnConflictStrategy.ROLLBACK, OnConflictStrategy.ABORT,
@@ -38,15 +35,20 @@ public @interface OnConflictStrategy {
     int REPLACE = 1;
     /**
      * OnConflict strategy constant to rollback the transaction.
+     * @deprecated This was never working properly. Use {@link #ABORT} to roll back the transaction.
      */
+    @Deprecated
     int ROLLBACK = 2;
     /**
-     * OnConflict strategy constant to abort the transaction.
+     * OnConflict strategy constant to abort the transaction. <em>The transaction is rolled
+     * back.</em>
      */
     int ABORT = 3;
     /**
      * OnConflict strategy constant to fail the transaction.
+     * @deprecated Use {@link #ABORT}.
      */
+    @Deprecated
     int FAIL = 4;
     /**
      * OnConflict strategy constant to ignore the conflict.
