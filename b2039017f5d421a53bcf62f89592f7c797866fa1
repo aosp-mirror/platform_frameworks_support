@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e9f423a_0fe10629",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-03T20:55:46Z",
+      "side": 1,
+      "message": "Seems that RV\u0027s version of suppressLayout is somewhat different than ViewGroup\u0027s version.  RV\u0027s version also includes dropping TouchEvents and GenericMotionEvents, which ViewGroup\u0027s version does not.\n\nShould we be ok with this discrepancy?  Maybe we should... I suppose RV is simply extending the functionality in a way that makes sense (and in a way that is reasonable).  \n\nAt the very least, I think the javadoc should be updated to start with the same description as ViewGroup\u0027s suppressLayout:\n\n\"\nTells this ViewGroup to suppress all layout() calls until layout\nsuppression is disabled with a later call to suppressLayout(false).\nWhen layout suppression is disabled, a requestLayout() call is sent\nif layout() was attempted while layout was being suppressed.\n\"\n\nAnd should be appended with the additional thing\u0027s that RV does.  Right?",
+      "range": {
+        "startLine": 2178,
+        "startChar": 7,
+        "endLine": 2184,
+        "endChar": 14
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
