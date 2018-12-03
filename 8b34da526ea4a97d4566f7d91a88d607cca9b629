@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fd91dc19_eca4c832",
+        "filename": "core/src/main/java/androidx/core/app/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-03T15:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9cd92ec_b5b51eee",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 10
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4afeb49f_7c38abf0",
         "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
         "patchSetId": 1
@@ -163,6 +187,30 @@
       "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1391797c_f7e01102",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-03T15:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e6f21e2_323a2821",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "afd4fa56_c1854975",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-03T15:18:11Z",
+      "side": 1,
+      "message": "Done changed to check for activity",
+      "parentUuid": "c697cb48_fd5a760c",
+      "range": {
+        "startLine": 86,
+        "startChar": 41,
+        "endLine": 86,
+        "endChar": 87
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0911a3e_257c91f0",
         "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
         "patchSetId": 1
@@ -233,6 +305,30 @@
       "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3832095_fb618062",
+        "filename": "core/src/main/java/androidx/core/app/ImmLeaks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-03T15:18:11Z",
+      "side": 1,
+      "message": "We don\u0027t have strict guidelines. I changed fix to silently swallow exceptions, because \na) developers can\u0027t do much about it\nb) app still works",
+      "parentUuid": "e0911a3e_257c91f0",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 77
+      },
+      "revId": "8b34da526ea4a97d4566f7d91a88d607cca9b629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
