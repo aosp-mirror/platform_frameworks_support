@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "488ed17a_502c0f2f",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-03T00:48:51Z",
+      "side": 1,
+      "message": "This method was introduced in API 26.\nGenerally, AudioAttibuteImplImplApi26 should use framework code.\n\n\"mAudioAttributes.getVolumeControlStream()\"\n\nMoreover, framework code is changed by ag/4995785.\nIt would be nice if you can address that change, too.",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "fb4a261f6363e8a471772060be050c90fd950da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
