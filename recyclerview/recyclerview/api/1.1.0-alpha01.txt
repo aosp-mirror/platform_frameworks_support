@@ -405,7 +405,7 @@ package androidx.recyclerview.widget {
     method public void invalidateItemDecorations();
     method public boolean isAnimating();
     method public boolean isComputingLayout();
-    method public boolean isLayoutFrozen();
+    method @Deprecated public boolean isLayoutFrozen();
     method public boolean isLayoutSuppressed();
     method public void offsetChildrenHorizontal(@Px int);
     method public void offsetChildrenVertical(@Px int);
@@ -427,7 +427,7 @@ package androidx.recyclerview.widget {
     method public void setHasFixedSize(boolean);
     method public void setItemAnimator(androidx.recyclerview.widget.RecyclerView.ItemAnimator?);
     method public void setItemViewCacheSize(int);
-    method public void setLayoutFrozen(boolean);
+    method @Deprecated public void setLayoutFrozen(boolean);
     method public void setLayoutManager(androidx.recyclerview.widget.RecyclerView.LayoutManager?);
     method public void setOnFlingListener(androidx.recyclerview.widget.RecyclerView.OnFlingListener?);
     method @Deprecated public void setOnScrollListener(androidx.recyclerview.widget.RecyclerView.OnScrollListener?);
