@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00684e67_8c9fbac2",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/TypeAdapterStore.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-12-03T04:37:51Z",
+      "side": 1,
+      "message": "Done. Cached the TypeMirror in CommonTypes.",
+      "parentUuid": "39bc3798_99aa5a45",
+      "range": {
+        "startLine": 478,
+        "startChar": 44,
+        "endLine": 479,
+        "endChar": 95
+      },
+      "revId": "b92d2b6fc138f7310a5dd787f931d94f2362aa46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04879942_fb423d61",
         "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserDao.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b92d2b6fc138f7310a5dd787f931d94f2362aa46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f8b2528_12b16817",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/dao/UserDao.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2018-12-03T04:37:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04879942_fb423d61",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "b92d2b6fc138f7310a5dd787f931d94f2362aa46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
