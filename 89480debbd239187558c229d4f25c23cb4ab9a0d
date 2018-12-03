@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bffe2b3_4e0e4e7c",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "I see where you\u0027re coming from, but in my opinion using \"logo\" is consistent with the implementation in Toolbar so it might be clearer than \"titleIcon\".\n\nI\u0027ve reached out to Selim and will see what he thinks.",
+      "parentUuid": "e20a8a52_2c8f20d5",
+      "range": {
+        "startLine": 235,
+        "startChar": 23,
+        "endLine": 235,
+        "endChar": 30
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9bcd982_b86401ee",
         "filename": "car/core/res/values/dimens.xml",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1978ca5f_883cbd13",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "Sorry the naming confused me, I\u0027ll rename it.\nThis value is the default logo size in case it wasn\u0027t specified via attribute.",
+      "parentUuid": "a9bcd982_b86401ee",
+      "range": {
+        "startLine": 104,
+        "startChar": 17,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c29aa5fb_11b4322d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "Oh yeah you\u0027re correct. I\u0027ll merge the two tests.",
+      "parentUuid": "1e43d016_50adb70a",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 44
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0050864a_9b712f67",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bafe5a59_8c7e1b6f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "Added, thanks.",
+      "parentUuid": "0050864a_9b712f67",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 66
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6fb875e_ec6f10a0",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "e00d8593_9e83b1df",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "Not yet.\n\n(b/120163646) to track other logo attributes.",
+      "parentUuid": "e6fb875e_ec6f10a0",
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "545e9b61_ad050da2",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
@@ -122,6 +236,30 @@
       "writtenOn": "2018-12-03T21:11:45Z",
       "side": 1,
       "message": "This sounds strange to me.  Normally, you don\u0027t have a developer pass in null to hide the icon. \n\nIs the default visibility \"not visible\"?  Or does a developer have to set the Logo?\nPerhaps something like\n\"If no valid icon is provided, the logo will be hidden.\"",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 64
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92199d7c_4664fd10",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "So this was written this way to be consistent with the SetNavigationIcon method.\n\nThe developer does not have to manually pass in null to hide the icon; that happens automatically in the constructor when the style attributes are read and there\u0027s no icon provided. But if there was an icon and the developer wants to hide the icon, they can pass in null to this method to do so.\n\nI can modify this but it won\u0027t be consistent with the other method in the same class.",
+      "parentUuid": "545e9b61_ad050da2",
       "range": {
         "startLine": 258,
         "startChar": 32,
@@ -154,6 +292,30 @@
       "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "376032db_bb376a57",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-03T23:05:17Z",
+      "side": 1,
+      "message": "There\u0027s a comment in the XML file regarding this, but essentially it\u0027s just for comparison purposes to make sure the CarToolbar and Toolbar have matching behavior and look.",
+      "parentUuid": "93f0915f_f8efdbfb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
