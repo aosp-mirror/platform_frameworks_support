@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a646818b_1eca354f",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-03T22:19:08Z",
+      "side": 1,
+      "message": "Can we deselect audio track also? If not, would it make sense to apply this only for subtitle tracks?",
+      "range": {
+        "startLine": 1379,
+        "startChar": 12,
+        "endLine": 1382,
+        "endChar": 13
+      },
+      "revId": "a4c4166628659f89a76de699f0970bb36e76eed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1231bc_3aeadce0",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-03T22:19:08Z",
+      "side": 1,
+      "message": "Could you include the test for this? aosp/835065",
+      "range": {
+        "startLine": 1871,
+        "startChar": 25,
+        "endLine": 1871,
+        "endChar": 41
+      },
+      "revId": "a4c4166628659f89a76de699f0970bb36e76eed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
