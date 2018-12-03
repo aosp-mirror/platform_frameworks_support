@@ -238,7 +238,11 @@ public class WorkerWrapper implements Runnable {
                 @Override
                 public void run() {
                     try {
-                        mResult = future.get();
+                        // If the ListenableWorker returns a null result treat it as a failure.
+                        Result result = future.get();
+                        if (result != null) {
+                            mResult = result;
+                        }
                     } catch (CancellationException exception) {
                         // Cancellations need to be treated with care here because innerFuture
                         // cancellations will bubble up, and we need to gracefully handle that.
