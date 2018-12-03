@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "170e18a5_91a5aeef",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-03T23:08:29Z",
+      "side": 1,
+      "message": "gotcha, well then I would keep it and the docs consistent with the setNavigationIcon method then.  Thanks for the clarification!",
+      "parentUuid": "92199d7c_4664fd10",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 64
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93f0915f_f8efdbfb",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
         "patchSetId": 5
@@ -307,6 +331,30 @@
       "side": 1,
       "message": "There\u0027s a comment in the XML file regarding this, but essentially it\u0027s just for comparison purposes to make sure the CarToolbar and Toolbar have matching behavior and look.",
       "parentUuid": "93f0915f_f8efdbfb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c32762e6_8977ae69",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-03T23:08:29Z",
+      "side": 1,
+      "message": "missed that, thanks!",
+      "parentUuid": "376032db_bb376a57",
       "range": {
         "startLine": 37,
         "startChar": 0,
