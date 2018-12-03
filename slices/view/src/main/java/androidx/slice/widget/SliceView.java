@@ -160,6 +160,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     private boolean mShowActions = false;
     private boolean mShowLastUpdated = true;
     private boolean mCurrentSliceLoggedVisible = false;
+    private boolean mShowTitleItems = false;
     private boolean mShowHeaderDivider = false;
     private boolean mShowActionDividers = false;
 
@@ -469,6 +470,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             mCurrentView.resetView();
         }
         mListContent = mSliceMetadata != null ? mSliceMetadata.getListContent() : null;
+        if (mShowTitleItems) {
+            showTitleItems(true);
+        }
         if (mShowHeaderDivider) {
             showHeaderDivider(true);
         }
@@ -631,6 +635,16 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      */
     public @SliceMode int getMode() {
         return mViewPolicy.getMode();
+    }
+
+    /**
+     * Whether this view should show title items of the first row on the start.
+     */
+    public void showTitleItems(boolean enabled) {
+        mShowTitleItems = true;
+        if (mListContent != null) {
+            mListContent.showTitleItems(enabled);
+        }
     }
 
     /**
