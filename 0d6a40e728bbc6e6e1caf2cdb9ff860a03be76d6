@@ -650,6 +650,30 @@
     },
     {
       "key": {
+        "uuid": "bd434f39_8837d7f9",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-03T16:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a7cd24b_b3e99edb",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 49
+      },
+      "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "912aa60f_a058f4c7",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
         "patchSetId": 6
@@ -722,6 +746,30 @@
     },
     {
       "key": {
+        "uuid": "e0b49e57_d4c027ff",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-03T16:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d14fecc_404cd09f",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 7
+      },
+      "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f8dd33c_d3162a98",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/BooksDaoTest.kt",
         "patchSetId": 6
@@ -742,6 +790,30 @@
       "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7707a0_410305ed",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/BooksDaoTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-03T16:39:22Z",
+      "side": 1,
+      "message": "Added a test (SuspendRoomDispatcherTest) to verify Room\u0027s executor is used.",
+      "parentUuid": "2f8dd33c_d3162a98",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "0d6a40e728bbc6e6e1caf2cdb9ff860a03be76d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
