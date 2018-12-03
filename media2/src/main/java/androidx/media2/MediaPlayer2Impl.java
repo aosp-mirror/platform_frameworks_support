@@ -465,7 +465,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         } else if (item instanceof FileMediaItem) {
             FileMediaItem fitem = (FileMediaItem) item;
             player.setDataSource(
-                    fitem.getFileDescriptor(),
+                    fitem.getParcelFileDescriptor().getFileDescriptor(),
                     fitem.getFileDescriptorOffset(),
                     fitem.getFileDescriptorLength());
         } else if (item instanceof UriMediaItem) {

@@ -907,8 +907,9 @@ import java.util.Map;
                 FileMediaItem fileMediaItem = (FileMediaItem) mediaItem;
                 // TODO(b/68398926): Remove dup'ing the file descriptor once FileMediaItem does it.
                 Object lock = mFileDescriptorRegistry.registerMediaItemAndGetLock(
-                        fileMediaItem.getFileDescriptor());
-                fileDescriptor = FileDescriptorUtil.dup(fileMediaItem.getFileDescriptor());
+                        fileMediaItem.getParcelFileDescriptor().getFileDescriptor());
+                fileDescriptor = FileDescriptorUtil.dup(
+                        fileMediaItem.getParcelFileDescriptor().getFileDescriptor());
                 long offset = fileMediaItem.getFileDescriptorOffset();
                 long length = fileMediaItem.getFileDescriptorLength();
                 dataSourceFactory =
@@ -948,7 +949,8 @@ import java.util.Map;
                     FileDescriptorUtil.close(mediaItemInfo.mFileDescriptor);
                     // TODO(b/68398926): Remove separate file descriptors once FileMediaItem dup's.
                     FileDescriptor fileDescriptor =
-                            ((FileMediaItem) mediaItem).getFileDescriptor();
+                            ((FileMediaItem) mediaItem).getParcelFileDescriptor()
+                                    .getFileDescriptor();
                     mFileDescriptorRegistry.unregisterMediaItem(fileDescriptor);
                 } else if (mediaItem instanceof CallbackMediaItem) {
                     ((CallbackMediaItem) mediaItemInfo.mMediaItem)

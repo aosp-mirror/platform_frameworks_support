@@ -16,13 +16,13 @@
 
 package androidx.media2;
 
+import android.os.ParcelFileDescriptor;
+
 import androidx.annotation.NonNull;
 import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelize;
-
-import java.io.FileDescriptor;
 
 /**
  * Structure for media item for a file.
@@ -45,7 +45,7 @@ public class FileMediaItem extends MediaItem {
 
     @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    FileDescriptor mFD;
+    ParcelFileDescriptor mPFD;
     @NonParcelField
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     long mFDOffset = 0;
@@ -62,32 +62,32 @@ public class FileMediaItem extends MediaItem {
 
     FileMediaItem(Builder builder) {
         super(builder);
-        mFD = builder.mFD;
+        mPFD = builder.mPFD;
         mFDOffset = builder.mFDOffset;
         mFDLength = builder.mFDLength;
     }
 
     /**
-     * Return the FileDescriptor of this media item.
-     * @return the FileDescriptor of this media item
+     * Return the ParcelFileDescriptor of this media item.
+     * @return the ParcelFileDescriptor of this media item
      */
-    public @NonNull FileDescriptor getFileDescriptor() {
-        return mFD;
+    public @NonNull ParcelFileDescriptor getParcelFileDescriptor() {
+        return mPFD;
     }
 
     /**
-     * Return the offset associated with the FileDescriptor of this media item.
+     * Return the offset associated with the ParcelFileDescriptor of this media item.
      * It's meaningful only when it has been set by the {@link MediaItem.Builder}.
-     * @return the offset associated with the FileDescriptor of this media item
+     * @return the offset associated with the ParcelFileDescriptor of this media item
      */
     public long getFileDescriptorOffset() {
         return mFDOffset;
     }
 
     /**
-     * Return the content length associated with the FileDescriptor of this media item.
+     * Return the content length associated with the ParcelFileDescriptor of this media item.
      * {@link #FD_LENGTH_UNKNOWN} means same as the length of source content.
-     * @return the content length associated with the FileDescriptor of this media item
+     * @return the content length associated with the ParcelFileDescriptor of this media item
      */
     public long getFileDescriptorLength() {
         return mFDLength;
@@ -99,47 +99,51 @@ public class FileMediaItem extends MediaItem {
     public static final class Builder extends BuilderBase<Builder> {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
-        FileDescriptor mFD;
+        ParcelFileDescriptor mPFD;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         long mFDOffset = 0;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         long mFDLength = FD_LENGTH_UNKNOWN;
 
         /**
-         * Creates a new Builder object with a media item (FileDescriptor) to use. The
-         * FileDescriptor must be seekable (N.B. a LocalSocket is not seekable). It is the caller's
-         * responsibility to close the file descriptor after the source has been used.
+         * Creates a new Builder object with a media item (ParcelFileDescriptor) to use. The
+         * ParcelFileDescriptor must be seekable (N.B. a LocalSocket is not seekable).
+         * <p>
+         * If {@link FileMediaItem} is passed to {@link MediaPlayer}, {@link MediaPlayer} will
+         * close the ParcelFileDescriptor.
          *
-         * @param fd the FileDescriptor for the file you want to play
+         * @param pfd the ParcelFileDescriptor for the file you want to play
          */
-        public Builder(@NonNull FileDescriptor fd) {
-            Preconditions.checkNotNull(fd);
-            mFD = fd;
+        public Builder(@NonNull ParcelFileDescriptor pfd) {
+            Preconditions.checkNotNull(pfd);
+            mPFD = pfd;
             mFDOffset = 0;
             mFDLength = FD_LENGTH_UNKNOWN;
         }
 
         /**
          * Creates a new Builder object with a media item (FileDescriptor) to use. The
-         * FileDescriptor must be seekable (N.B. a LocalSocket is not seekable). It is the caller's
-         * responsibility to close the file descriptor after the source has been used.
-         *
+         * ParcelFileDescriptor must be seekable (N.B. a LocalSocket is not seekable).
+         * <p>
+         * If {@link FileMediaItem} is passed to {@link MediaPlayer}, {@link MediaPlayer} will
+         * close the ParcelFileDescriptor.
+         * <p>
          * Any negative number for offset is treated as 0.
          * Any negative number for length is treated as maximum length of the media item.
          *
-         * @param fd the FileDescriptor for the file you want to play
+         * @param pfd the ParcelFileDescriptor for the file you want to play
          * @param offset the offset into the file where the data to be played starts, in bytes
          * @param length the length in bytes of the data to be played
          */
-        public Builder(@NonNull FileDescriptor fd, long offset, long length) {
-            Preconditions.checkNotNull(fd);
+        public Builder(@NonNull ParcelFileDescriptor pfd, long offset, long length) {
+            Preconditions.checkNotNull(pfd);
             if (offset < 0) {
                 offset = 0;
             }
             if (length < 0) {
                 length = FD_LENGTH_UNKNOWN;
             }
-            mFD = fd;
+            mPFD = pfd;
             mFDOffset = offset;
             mFDLength = length;
         }

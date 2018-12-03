@@ -767,7 +767,7 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
             } else if (mMediaItem instanceof FileMediaItem) {
                 retriever = new MediaMetadataRetriever();
                 retriever.setDataSource(
-                        ((FileMediaItem) mMediaItem).getFileDescriptor(),
+                        ((FileMediaItem) mMediaItem).getParcelFileDescriptor(),
                         ((FileMediaItem) mMediaItem).getFileDescriptorOffset(),
                         ((FileMediaItem) mMediaItem).getFileDescriptorLength());
             }

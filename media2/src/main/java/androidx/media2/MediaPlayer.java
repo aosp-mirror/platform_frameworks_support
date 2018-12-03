@@ -33,6 +33,7 @@ import android.media.MediaDrm;
 import android.media.MediaDrmException;
 import android.media.MediaFormat;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Surface;
@@ -898,6 +899,12 @@ public class MediaPlayer extends SessionPlayer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
+     */
     @Override
     @NonNull
     public ListenableFuture<PlayerResult> setMediaItem(@NonNull final MediaItem item) {
@@ -923,6 +930,12 @@ public class MediaPlayer extends SessionPlayer {
         return pendingFuture;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * If a media item in the playlist is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
+     */
     @NonNull
     @Override
     public ListenableFuture<PlayerResult> setPlaylist(
@@ -968,6 +981,12 @@ public class MediaPlayer extends SessionPlayer {
         return pendingFuture;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
+     */
     @NonNull
     @Override
     public ListenableFuture<PlayerResult> addPlaylistItem(
@@ -1079,6 +1098,12 @@ public class MediaPlayer extends SessionPlayer {
         return pendingFuture;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
+     */
     @NonNull
     @Override
     public ListenableFuture<PlayerResult> replacePlaylistItem(
