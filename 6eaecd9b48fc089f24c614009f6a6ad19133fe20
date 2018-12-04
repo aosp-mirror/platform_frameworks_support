@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d640a411_942e29be",
+        "filename": "car/core/res/layout/car_toolbar.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T00:13:11Z",
+      "side": 1,
+      "message": "Explicitly specify how you want the icon to scale:\nhttps://developer.android.com/reference/android/widget/ImageView.ScaleType",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d397857d_ecc9a364",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T00:13:11Z",
+      "side": 1,
+      "message": "Maybe add \"default\" to this: car_app_bar_default_logo_size",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 38
+      },
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccfa7590_0ced3b9d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T00:13:11Z",
+      "side": 1,
+      "message": "You should also have a test that checks setting the width",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f53b571_51dcc1d0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T00:13:11Z",
+      "side": 1,
+      "message": "You probably want a method for setting the icon size programmatically as well.",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9180af74_68c05545",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T00:13:11Z",
+      "side": 1,
+      "message": "Can you remove the \"this\"? Here and below",
+      "range": {
+        "startLine": 35,
+        "startChar": 57,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
