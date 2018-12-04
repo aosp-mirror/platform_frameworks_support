@@ -20,7 +20,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentFactory
-import androidx.fragment.testing.R
 
 /**
  * Launches a Fragment with given arguments hosted by an empty [FragmentActivity] using
@@ -29,14 +28,12 @@ import androidx.fragment.testing.R
  * This method cannot be called from the main thread.
  *
  * @param fragmentArgs a bundle to passed into fragment
- * @param themeResId a style resource id to be set to the host activity's theme
  * @param factory a fragment factory to use or null to use default factory
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     factory: FragmentFactory? = null
-) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, factory)
+) = FragmentScenario.launch(F::class.java, fragmentArgs, factory)
 
 /**
  * Launches a Fragment with given arguments hosted by an empty [FragmentActivity] using
@@ -45,14 +42,12 @@ inline fun <reified F : Fragment> launchFragment(
  * This method cannot be called from the main thread.
  *
  * @param fragmentArgs a bundle to passed into fragment
- * @param themeResId a style resource id to be set to the host activity's theme
  * @param instantiate method which will be used to instantiate the Fragment.
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     crossinline instantiate: (args: Bundle?) -> F
-) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, object : FragmentFactory() {
+) = FragmentScenario.launch(F::class.java, fragmentArgs, object : FragmentFactory() {
     override fun instantiate(
         classLoader: ClassLoader,
         className: String,
@@ -71,14 +66,12 @@ inline fun <reified F : Fragment> launchFragment(
  * This method cannot be called from the main thread.
  *
  * @param fragmentArgs a bundle to passed into fragment
- * @param themeResId a style resource id to be set to the host activity's theme
  * @param factory a fragment factory to use or null to use default factory
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     factory: FragmentFactory? = null
-) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId, factory)
+) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, factory)
 
 /**
  * Launches a Fragment in the Activity's root view container `android.R.id.content`, with
@@ -89,23 +82,20 @@ inline fun <reified F : Fragment> launchFragmentInContainer(
  * This method cannot be called from the main thread.
  *
  * @param fragmentArgs a bundle to passed into fragment
- * @param themeResId a style resource id to be set to the host activity's theme
  * @param instantiate method which will be used to instantiate the Fragment. This is a
  * simplification of the [FragmentFactory] interface for cases where only a single class
  * needs a custom constructor called.
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     crossinline instantiate: (args: Bundle?) -> F
-) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId,
-    object : FragmentFactory() {
-        override fun instantiate(
-            classLoader: ClassLoader,
-            className: String,
-            args: Bundle?
-        ) = when (className) {
-            F::class.java.name -> instantiate(args)
-            else -> super.instantiate(classLoader, className, args)
-        }
-    })
+) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, object : FragmentFactory() {
+    override fun instantiate(
+        classLoader: ClassLoader,
+        className: String,
+        args: Bundle?
+    ) = when (className) {
+        F::class.java.name -> instantiate(args)
+        else -> super.instantiate(classLoader, className, args)
+    }
+})
