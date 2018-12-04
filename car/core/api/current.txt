@@ -231,11 +231,15 @@ package androidx.car.widget {
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!, int);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!, int, int);
+    method public CharSequence! getSubTitle();
     method public CharSequence! getTitle();
     method public void setNavigationIcon(@DrawableRes int);
     method public void setNavigationIcon(android.graphics.drawable.Icon?);
     method public void setNavigationIconContainerWidth(@Px int);
     method public void setNavigationIconOnClickListener(android.view.View.OnClickListener?);
+    method public void setSubTitle(@StringRes int);
+    method public void setSubTitle(CharSequence!);
+    method public void setSubTitleTextAppearance(@StyleRes int);
     method public void setTitle(@StringRes int);
     method public void setTitle(CharSequence!);
     method public void setTitleTextAppearance(@StyleRes int);
