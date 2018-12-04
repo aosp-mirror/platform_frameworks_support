@@ -70,6 +70,30 @@
       "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc66a802_388a1cb2",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-04T05:24:49Z",
+      "side": 1,
+      "message": "I think the reason George and I liked skipping onCreateView() was that the @InflatesRes is opt in (developers need to specifically add it) and any other code in onCreateView() can and should be moved to onViewCreated() without any negative effects (and that\u0027s the behavior we want to encourage).",
+      "parentUuid": "36608814_f5bfafa5",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 28
+      },
+      "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
