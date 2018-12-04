@@ -22,6 +22,30 @@
       "revId": "facf371ca0e0956a0182b48804d830b2c8087c58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293d0978_a8c9e8b5",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-04T02:51:25Z",
+      "side": 1,
+      "message": "Information related to dynamic group route come from DynamicGroupRouteController.\nRouteInfo has a DynamicRouteDescriptor which is retrived from DynamicGroupRouteController.",
+      "parentUuid": "b0da0f68_1eab0576",
+      "range": {
+        "startLine": 588,
+        "startChar": 62,
+        "endLine": 588,
+        "endChar": 73
+      },
+      "revId": "facf371ca0e0956a0182b48804d830b2c8087c58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

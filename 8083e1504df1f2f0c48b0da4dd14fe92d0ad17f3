@@ -22,6 +22,30 @@
       "revId": "8083e1504df1f2f0c48b0da4dd14fe92d0ad17f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df6db578_f4828820",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-04T02:51:25Z",
+      "side": 0,
+      "message": "I don\u0027t want RouteInfo to have getGroupableRoutes() especially for non-dynamic route.\nAlso, I think it\u0027s better to manage groupable/transferable/unselectable routes in UI classes.",
+      "parentUuid": "6c1308ab_753951ba",
+      "range": {
+        "startLine": 1718,
+        "startChar": 16,
+        "endLine": 1723,
+        "endChar": 17
+      },
+      "revId": "8083e1504df1f2f0c48b0da4dd14fe92d0ad17f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
