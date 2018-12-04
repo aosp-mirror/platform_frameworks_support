@@ -8,6 +8,8 @@ plugins {
 
 dependencies {
     api(project(":core"))
+    api(GUAVA_LISTENABLE_FUTURE)
+    implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
 
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)

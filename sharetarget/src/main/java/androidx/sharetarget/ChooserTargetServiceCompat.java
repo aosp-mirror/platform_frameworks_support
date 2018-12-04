@@ -29,7 +29,6 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.pm.ShortcutInfoCompat;
-import androidx.core.content.pm.ShortcutInfoCompatSaver;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
@@ -73,7 +72,8 @@ public class ChooserTargetServiceCompat extends ChooserTargetService {
         }
 
         // Retrieve shortcuts
-        ShortcutInfoCompatSaver shortcutSaver = ShortcutInfoCompatSaver.getInstance(context);
+        ShortcutInfoCompatSaverImpl shortcutSaver = ShortcutInfoCompatSaverImpl.getInstance(
+                context);
         List<ShortcutInfoCompat> shortcuts;
         try {
             shortcuts = shortcutSaver.getShortcuts();

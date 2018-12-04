@@ -18,7 +18,6 @@ package androidx.core.content.pm;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -34,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +56,14 @@ public class ShortcutManagerCompat {
     public static final String EXTRA_SHORTCUT_ID = "android.intent.extra.SHORTCUT_ID";
 
     /**
-     * Will set to false and to skip the unnecessary disk I/O, if the application is not using
-     * androidx.sharetarget.ChooserTargetServiceCompat to publish share targets.
+     * If false, ShortcutManagerCompat will skip the unnecessary disk I/O for persisting shortcuts.
      */
     private static volatile Boolean sShouldPersistShortcuts = null;
+
+    /**
+     * getInstance(Context) method of the implementation for ShortcutInfoCompatSaver interface.
+     */
+    private static volatile Method sShortcutInfoSaverGetInstance = null;
 
     private ShortcutManagerCompat() {
         /* Hide constructor */
@@ -185,8 +189,9 @@ public class ShortcutManagerCompat {
             }
         }
 
-        if (shouldPersistShortcuts(context)) {
-            ShortcutInfoCompatSaver.getInstance(context).addShortcuts(shortcutInfoList);
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
+            shortcutSaver.addShortcuts(shortcutInfoList);
             return true;
         }
 
@@ -202,7 +207,8 @@ public class ShortcutManagerCompat {
             return context.getSystemService(ShortcutManager.class).getMaxShortcutCountPerActivity();
         }
 
-        if (shouldPersistShortcuts(context)) {
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
             // TODO: decide on this limit when ShortcutManager is not available.
             return 5;
         }
@@ -229,9 +235,10 @@ public class ShortcutManagerCompat {
             return compats;
         }
 
-        if (shouldPersistShortcuts(context)) {
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
             try {
-                return ShortcutInfoCompatSaver.getInstance(context).getShortcuts();
+                return shortcutSaver.getShortcuts();
             } catch (Exception e) {
                 /* Do nothing */
             }
@@ -263,8 +270,9 @@ public class ShortcutManagerCompat {
             }
         }
 
-        if (shouldPersistShortcuts(context)) {
-            ShortcutInfoCompatSaver.getInstance(context).addShortcuts(shortcutInfoList);
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
+            shortcutSaver.addShortcuts(shortcutInfoList);
             return true;
         }
 
@@ -280,8 +288,9 @@ public class ShortcutManagerCompat {
             context.getSystemService(ShortcutManager.class).removeDynamicShortcuts(shortcutIds);
         }
 
-        if (shouldPersistShortcuts(context)) {
-            ShortcutInfoCompatSaver.getInstance(context).removeShortcuts(shortcutIds);
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
+            shortcutSaver.removeShortcuts(shortcutIds);
         }
     }
 
@@ -293,16 +302,25 @@ public class ShortcutManagerCompat {
             context.getSystemService(ShortcutManager.class).removeAllDynamicShortcuts();
         }
 
-        if (shouldPersistShortcuts(context)) {
-            ShortcutInfoCompatSaver.getInstance(context).removeAllShortcuts();
+        ShortcutInfoCompatSaver shortcutSaver = getShortcutInfoSaverInstance(context);
+        if (shortcutSaver != null) {
+            shortcutSaver.removeAllShortcuts();
         }
     }
 
-    /**
-     * Returns true if the application is using the ChooserTargetService to publish share targets
-     * and we need to persist the shortcuts locally.
-     */
-    private static boolean shouldPersistShortcuts(Context context) {
+    private static ShortcutInfoCompatSaver getShortcutInfoSaverInstance(Context context) {
+        if (!shouldPersistShortcuts()) {
+            return null;
+        }
+
+        try {
+            return (ShortcutInfoCompatSaver) sShortcutInfoSaverGetInstance.invoke(null, context);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static boolean shouldPersistShortcuts() {
         if (Build.VERSION.SDK_INT < 23) {
             return false;
         }
@@ -310,10 +328,13 @@ public class ShortcutManagerCompat {
         if (sShouldPersistShortcuts == null) {
             boolean needToPersist = true;
             try {
-                ComponentName serviceName = new ComponentName(context.getPackageName(),
-                        "androidx.sharetarget.ChooserTargetServiceCompat");
-                context.getPackageManager().getServiceInfo(serviceName, 0);
-            } catch (PackageManager.NameNotFoundException e) {
+                ClassLoader loader = ShortcutManagerCompat.class.getClassLoader();
+                Class saver = loader.loadClass("androidx.sharetarget.ShortcutInfoCompatSaverImpl");
+                sShortcutInfoSaverGetInstance = saver.getMethod("getInstance", Context.class);
+                if (sShortcutInfoSaverGetInstance == null) {
+                    needToPersist = false;
+                }
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
                 needToPersist = false;
             }
             sShouldPersistShortcuts = needToPersist;

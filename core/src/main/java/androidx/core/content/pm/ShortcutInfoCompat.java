@@ -227,6 +227,14 @@ public class ShortcutInfoCompat {
     /**
      * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
+    public IconCompat getIcon() {
+        return mIcon;
+    }
+
+    /**
+     * @hide
+     */
     @RequiresApi(25)
     @RestrictTo(LIBRARY_GROUP)
     @VisibleForTesting
