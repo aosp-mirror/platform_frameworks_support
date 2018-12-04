@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cf941ffc_fa38b0b6",
+        "filename": "car/core/res/layout/car_toolbar.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d640a411_942e29be",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d397857d_ecc9a364",
         "filename": "car/core/res/values/dimens.xml",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "72655c83_50e50dec",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "This will be replaced with car_primary_icon_size instead.",
+      "parentUuid": "d397857d_ecc9a364",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 38
+      },
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccfa7590_0ced3b9d",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
         "patchSetId": 7
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a6541b62_a0d36eb0",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "This is possible now that we\u0027ve added support for setting the size programmatically.",
+      "parentUuid": "ccfa7590_0ced3b9d",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f53b571_51dcc1d0",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 7
@@ -73,6 +133,24 @@
       "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a6478a9_5d2d8a82",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "Added, thanks.",
+      "parentUuid": "5f53b571_51dcc1d0",
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -96,6 +174,30 @@
       "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6effdb_70258752",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "9180af74_68c05545",
+      "range": {
+        "startLine": 35,
+        "startChar": 57,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "6eaecd9b48fc089f24c614009f6a6ad19133fe20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

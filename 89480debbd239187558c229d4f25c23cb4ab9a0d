@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8e0e8848_e70465b9",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "Will do a rename (if necessary) in a separate CL.",
+      "parentUuid": "2bffe2b3_4e0e4e7c",
+      "range": {
+        "startLine": 235,
+        "startChar": 23,
+        "endLine": 235,
+        "endChar": 30
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9bcd982_b86401ee",
         "filename": "car/core/res/values/dimens.xml",
         "patchSetId": 5
@@ -387,6 +411,30 @@
       "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0ea62f_498c069e",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-04T02:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5488275_934c043a",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "89480debbd239187558c229d4f25c23cb4ab9a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
