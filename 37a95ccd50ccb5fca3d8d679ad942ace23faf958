@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdcbcb60_5a0e0c75",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-04T23:42:43Z",
+      "side": 1,
+      "message": "ok i\u0027m not sure what this really means but we did ship 1.1.1 of these classes.\n\nAlso, if we want to dejetify these, i would like to scope it to google3 drop and nothing else.",
+      "range": {
+        "startLine": 1738,
+        "startChar": 13,
+        "endLine": 1738,
+        "endChar": 42
+      },
+      "revId": "37a95ccd50ccb5fca3d8d679ad942ace23faf958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
