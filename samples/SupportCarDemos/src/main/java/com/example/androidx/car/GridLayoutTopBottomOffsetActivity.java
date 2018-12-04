@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,17 +25,19 @@ import android.widget.TextView;
 
 import androidx.car.widget.CarToolbar;
 import androidx.car.widget.PagedListView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Demo activity for PagedListView.
+ * Demo activity to test the methods that add a top and bottom offset to a {@link PagedListView}
+ * that has a {@link GridLayoutManager} as its LayoutManager.
  */
-public class PagedListViewActivity extends Activity {
-
-    private static final int ITEM_COUNT = 80;
+public class GridLayoutTopBottomOffsetActivity extends Activity {
+    private static final int ITEM_COUNT = 25;
+    private static final int NUM_OF_COLUMNS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +50,17 @@ public class PagedListViewActivity extends Activity {
 
         PagedListView pagedListView = findViewById(R.id.paged_list_view);
         pagedListView.setAdapter(new DemoAdapter(ITEM_COUNT));
+        pagedListView.getRecyclerView().setLayoutManager(
+                new GridLayoutManager(this, NUM_OF_COLUMNS));
+
+        pagedListView.setListContentTopOffset(50);
+        pagedListView.setListContentBottomOffset(50);
     }
 
     /**
      * Adapter that populates a number of items for demo purposes.
      */
     public static class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
-
         private final List<String> mItems = new ArrayList<>();
 
         /**
@@ -63,7 +69,6 @@ public class PagedListViewActivity extends Activity {
         public static String getItemText(int index) {
             return "Item " + index;
         }
-
 
         public DemoAdapter(int itemCount) {
             for (int i = 0; i < itemCount; i++) {
@@ -74,7 +79,7 @@ public class PagedListViewActivity extends Activity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.paged_list_item, parent, false);
+            View view = inflater.inflate(R.layout.grid_layout_item, parent, false);
             return new ViewHolder(view);
         }
 
@@ -88,9 +93,7 @@ public class PagedListViewActivity extends Activity {
             return mItems.size();
         }
 
-        /**
-         * ViewHolder for DemoAdapter.
-         */
+        /** ViewHolder for DemoAdapter. */
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private TextView mTextView;
 
