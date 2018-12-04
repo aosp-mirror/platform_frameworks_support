@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2cf036e_4a710807",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T18:48:13Z",
+      "side": 1,
+      "message": "Add some doc that specifies where the logo will be.",
+      "revId": "acf811c001ba3ab91e9c84b6b634f92fb4fd0340",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b123e70_180bd440",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T18:48:13Z",
+      "side": 1,
+      "message": "This should take the absolute value in pixels (see setNavigationIconContainerWidth). \n\nThis will make the method more flexible and more consistent with other Android APIs that take a size. A user that wants to use a value from a dimension can call getDimensionPixelSize() themselves.",
+      "range": {
+        "startLine": 280,
+        "startChar": 28,
+        "endLine": 280,
+        "endChar": 47
+      },
+      "revId": "acf811c001ba3ab91e9c84b6b634f92fb4fd0340",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
