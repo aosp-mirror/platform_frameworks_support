@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c9a7339_72e0161f",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T07:31:34Z",
+      "side": 1,
+      "message": "update mCurrentMediaItemIndex / mPreviousMediaItemIndex / mNextMediaItemIndex.",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 989,
+        "endChar": 0
+      },
+      "revId": "13dbf8378ffbd26bb4c7590bf630f93f6d6ecfbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7e9a1c_00952b65",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T07:31:34Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1005,
+        "endChar": 0
+      },
+      "revId": "13dbf8378ffbd26bb4c7590bf630f93f6d6ecfbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
