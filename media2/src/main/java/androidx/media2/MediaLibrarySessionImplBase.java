@@ -99,11 +99,11 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
     @Override
     public void notifyChildrenChanged(final String parentId, final int itemCount,
             final LibraryParams params) {
-        dispatchRemoteControllerCallbackTask(new RemoteControllerCallbackTask() {
+        dispatchRemoteControllerCallbackTask(new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 if (isSubscribed(callback, parentId)) {
-                    callback.onChildrenChanged(parentId, itemCount, params);
+                    callback.onChildrenChanged(seq, parentId, itemCount, params);
                 }
             }
         });
@@ -112,9 +112,9 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
     @Override
     public void notifyChildrenChanged(final ControllerInfo controller, final String parentId,
             final int itemCount, final LibraryParams params) {
-        dispatchRemoteControllerCallbackTask(controller, new RemoteControllerCallbackTask() {
+        dispatchRemoteControllerCallbackTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
+            public void run(ControllerCb callback, int seq) throws RemoteException {
                 if (!isSubscribed(callback, parentId)) {
                     if (DEBUG) {
                         Log.d(TAG, "Skipping notifyChildrenChanged() to " + controller
@@ -123,7 +123,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
                     }
                     return;
                 }
-                callback.onChildrenChanged(parentId, itemCount, params);
+                callback.onChildrenChanged(seq, parentId, itemCount, params);
             }
         });
     }
@@ -131,10 +131,10 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
     @Override
     public void notifySearchResultChanged(ControllerInfo controller, final String query,
             final int itemCount, final LibraryParams params) {
-        dispatchRemoteControllerCallbackTask(controller, new RemoteControllerCallbackTask() {
+        dispatchRemoteControllerCallbackTask(controller, new RemoteControllerTask() {
             @Override
-            public void run(ControllerCb callback) throws RemoteException {
-                callback.onSearchResultChanged(query, itemCount, params);
+            public void run(ControllerCb callback, int seq) throws RemoteException {
+                callback.onSearchResultChanged(seq, query, itemCount, params);
             }
         });
     }
@@ -283,7 +283,7 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
     }
 
     @Override
-    void dispatchRemoteControllerCallbackTask(RemoteControllerCallbackTask task) {
+    void dispatchRemoteControllerCallbackTask(RemoteControllerTask task) {
         super.dispatchRemoteControllerCallbackTask(task);
         MediaLibraryServiceLegacyStub legacyStub = getLegacyBrowserService();
         if (legacyStub != null) {
