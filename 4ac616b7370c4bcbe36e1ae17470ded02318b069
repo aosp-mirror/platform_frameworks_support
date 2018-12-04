@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "497b0235_43d73e1a",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Currently not happen, but added for safety to address future new oneway method.\nDo you prefer remove this for now?",
+      "parentUuid": "251ac4d6_fb4194e2",
+      "range": {
+        "startLine": 2207,
+        "startChar": 24,
+        "endLine": 2207,
+        "endChar": 32
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3ddf0381_a6e54d7f",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ef0736_fdb5f916",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ddf0381_a6e54d7f",
+      "range": {
+        "startLine": 353,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 54
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1ed324c1_8f86e3b3",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e51ac8_e58c058a",
+      "range": {
+        "startLine": 367,
+        "startChar": 64,
+        "endLine": 367,
+        "endChar": 90
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c99a8df4_cd37d749",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-12-04T01:30:43Z",
       "side": 1,
       "message": "Why is it pending connection?\nIs the connection not made yet?",
+      "range": {
+        "startLine": 384,
+        "startChar": 16,
+        "endLine": 384,
+        "endChar": 35
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9023bfb4_c0769c41",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "It\u0027s named pending connection because ConnectionRecord is added to the mConnections in the later CLIENT_MSG_CONNECT message through the extra binder, so I consider this has \u0027not fully connected yet\u0027.\n\nI cannot think of better name here.\nCould you suggest another name if it doesn\u0027t look good?",
+      "parentUuid": "c99a8df4_cd37d749",
       "range": {
         "startLine": 384,
         "startChar": 16,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "92a11d9a_ef1b5362",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eaa048c_d0ef7c4f",
+      "range": {
+        "startLine": 660,
+        "startChar": 58,
+        "endLine": 660,
+        "endChar": 69
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e6429c5_d3886d03",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "26ecf626_14b71906",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Multiple MediaBrowserCompat can be created from a process.\nIf it\u0027s the case, Map can only keep only ConnectionRecord but Array can contains multiple one.",
+      "parentUuid": "6e6429c5_d3886d03",
+      "range": {
+        "startLine": 1089,
+        "startChar": 32,
+        "endLine": 1089,
+        "endChar": 60
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48a34036_2dab5d74",
         "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
         "patchSetId": 5
@@ -151,6 +295,30 @@
       "writtenOn": "2018-12-04T01:30:43Z",
       "side": 1,
       "message": "RemoteUserInfo by comparing their package name, uid, and pid.",
+      "range": {
+        "startLine": 201,
+        "startChar": 35,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155aaa62_b5b16476",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Hyundo didn\u0027t like to mention about pid because pid check may be skipped for some cases, I agreed about his opinion.\n\nWhat do you think? Does hyundo\u0027s comment make sense?\nI\u0027ll follow your opinion.",
+      "parentUuid": "48a34036_2dab5d74",
       "range": {
         "startLine": 201,
         "startChar": 35,
@@ -183,6 +351,30 @@
       "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372c8afc_a0851a0d",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T05:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db5e408f_7e70167e",
+      "range": {
+        "startLine": 207,
+        "startChar": 74,
+        "endLine": 207,
+        "endChar": 77
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
