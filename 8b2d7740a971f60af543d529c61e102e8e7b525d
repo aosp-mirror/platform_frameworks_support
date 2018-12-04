@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bea08a52_aaf5cfdd",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-12-04T04:20:49Z",
+      "side": 1,
+      "message": "instead of this, store a static variable\nprivate static ShortcutInfoCompatSaver sShortcutInfoCompatSaver \u003d null",
+      "range": {
+        "startLine": 63,
+        "startChar": 3,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "8b2d7740a971f60af543d529c61e102e8e7b525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba28056_280d2d74",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-12-04T04:20:49Z",
+      "side": 1,
+      "message": "instead of maintaining another boolean variable, how about changing ShortcutManagerCompat into an abstract class, and if ShortcutManagerCompatImpl fails to load, set:\nsShortcutInfoCompatSaver \u003d new ShortcutInfoCompatSaver();",
+      "range": {
+        "startLine": 328,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 46
+      },
+      "revId": "8b2d7740a971f60af543d529c61e102e8e7b525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810b05f7_da32fd51",
+        "filename": "sharetarget/src/androidTest/res/drawable/bmp_test.bmp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-12-04T04:20:49Z",
+      "side": 1,
+      "message": "Does this belong in this cl? Where are the rest of the tests?",
+      "revId": "8b2d7740a971f60af543d529c61e102e8e7b525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "383d6399_a34c4f09",
+        "filename": "sharetarget/src/main/java/androidx/sharetarget/ShortcutInfoCompatSaverImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2018-12-04T04:20:49Z",
+      "side": 1,
+      "message": "nit: sInstance",
+      "range": {
+        "startLine": 76,
+        "startChar": 56,
+        "endLine": 76,
+        "endChar": 65
+      },
+      "revId": "8b2d7740a971f60af543d529c61e102e8e7b525d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
