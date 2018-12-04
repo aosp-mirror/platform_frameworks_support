@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "767a7e08_607a16c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "This is for AndroidX, but CTS uses Guava\u0027s SettableFuture. These seem functionally similar, but it\u0027s a bit disappointing the names differ.\n\nI considered writing \"class WebkitFuture extends ResolvableFuture\" (for the purpose of consistent naming), but alas ResolvableFuture is final [1] and I didn\u0027t want to reimplement it off of AbstractResolvableFuture.\n\n[1] http://cs/aosp-androidx/concurrent/futures/src/main/java/androidx/concurrent/futures/ResolvableFuture.java?l\u003d36\u0026rcl\u003d0f3a41de79d57b9a073a6e7d2f9bee6bc8d2c227",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89cf0ed_3308c2f2",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/PostMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "Might make sense to leave this as AssumptionUtils? But I didn\u0027t think we needed 2 util classes.",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58a5fef7_51f09da0",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "Needed to change this because WebkitUtils.waitForFuture() throws more than InterruptedException",
+      "range": {
+        "startLine": 121,
+        "startChar": 54,
+        "endLine": 121,
+        "endChar": 63
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df7fa3fa_901164bc",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "This doesn\u0027t offer anything over CountDownLatch, but I switched for consistency.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 84
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42dc8ad1_b9a1980a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "Left this for a possible follow-up",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 55
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59874b71_0a058bf6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-04T04:46:25Z",
+      "side": 1,
+      "message": "This might be overkill, but I couldn\u0027t think of a nice way to implement the PostMessage test without this sort of class. The only alternative I can think of would be to unroll the loop.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
