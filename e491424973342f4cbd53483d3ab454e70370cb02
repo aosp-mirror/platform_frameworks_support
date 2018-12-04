@@ -16,6 +16,24 @@
       "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9874f05_66a2660d",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-12-04T12:50:17Z",
+      "side": 1,
+      "message": "Good question. There are two reasons:\n1) I wanted the partiall dejetification to use the exactly same process as normal dejetifications\n2) We use this to map proguard rules (the general selectors). And not having these classnames before caused that dejetifier was not able to move a ProGuard entry.",
+      "parentUuid": "1b1bffd8_403fffe7",
+      "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
