@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1f2d7eb7_221cbb26",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-04T23:47:54Z",
+      "side": 1,
+      "message": "hmm this previoysly didn\u0027t include any arch library (idk why) why was it necessary to add ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 63
+      },
+      "revId": "37a95ccd50ccb5fca3d8d679ad942ace23faf958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fdcbcb60_5a0e0c75",
         "filename": "jetifier/jetifier/core/src/main/resources/default.config",
         "patchSetId": 1
