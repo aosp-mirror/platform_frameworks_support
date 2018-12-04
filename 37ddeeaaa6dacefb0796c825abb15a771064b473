@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dbfc4d3_0fecfdce",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T06:09:30Z",
+      "side": 1,
+      "message": "FYI, you can use METADATA_COMPAT_KEY_TO_METADATA_KEY.getOrDefault(key, key);",
+      "range": {
+        "startLine": 237,
+        "startChar": 33,
+        "endLine": 238,
+        "endChar": 73
+      },
+      "revId": "37ddeeaaa6dacefb0796c825abb15a771064b473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc456b34_3345accd",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T06:09:30Z",
+      "side": 1,
+      "message": "Must be fwk Rating or RatingCompat according to SDK versions.\nUse metadataCompat.getRating(key) to get a RatingCompat object.",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 79
+      },
+      "revId": "37ddeeaaa6dacefb0796c825abb15a771064b473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2f66c0_2d2a80f7",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T06:09:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 483,
+        "startChar": 14,
+        "endLine": 489,
+        "endChar": 88
+      },
+      "revId": "37ddeeaaa6dacefb0796c825abb15a771064b473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
