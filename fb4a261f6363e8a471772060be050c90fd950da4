@@ -70,6 +70,30 @@
       "revId": "fb4a261f6363e8a471772060be050c90fd950da4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4501ac8_af40b9a1",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesImplApi21.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-12-04T07:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f528197_cb0288ae",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "fb4a261f6363e8a471772060be050c90fd950da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
