@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87a8ee13_f94c9efc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportAndroidLibraryPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-04T17:14:17Z",
+      "side": 1,
+      "message": "Let\u0027s open a bug and link to it from the comment (so people with questions can more easily learn more)",
+      "revId": "996eea454c03a81c8bc8818bb1e1a384d7e02937",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
