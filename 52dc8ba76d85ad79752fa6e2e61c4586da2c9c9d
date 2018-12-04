@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70655e43_851e082f",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:31:46Z",
+      "side": 1,
+      "message": "We\u0027d better not to use this, since it is introduced in API 24.\n\nhttps://developer.android.com/reference/java/util/Map.html#getOrDefault(java.lang.Object,%20V)",
+      "range": {
+        "startLine": 469,
+        "startChar": 67,
+        "endLine": 469,
+        "endChar": 79
+      },
+      "revId": "52dc8ba76d85ad79752fa6e2e61c4586da2c9c9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
