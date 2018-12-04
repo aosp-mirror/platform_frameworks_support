@@ -1,13 +1,15 @@
 package foo.bar;
 
 import android.database.Cursor;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
+import androidx.room.InvalidationTracker.Observer;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.room.util.StringUtil;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -15,7 +17,7 @@ import java.lang.StringBuilder;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
@@ -274,9 +276,20 @@ public final class ComplexDao_Impl extends ComplexDao {
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
-        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<User>() {
+        return new ComputableLiveData<User>(__db.getQueryExecutor()) {
+            private Observer _observer;
+
             @Override
-            public User call() throws Exception {
+            protected User compute() {
+                if (_observer == null) {
+                    _observer = new Observer("user") {
+                        @Override
+                        public void onInvalidated(@NonNull Set<String> tables) {
+                            invalidate();
+                        }
+                    };
+                    __db.getInvalidationTracker().addWeakObserver(_observer);
+                }
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
                 try {
                     final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
@@ -305,7 +318,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             protected void finalize() {
                 _statement.release();
             }
-        });
+        }.getLiveData();
     }
 
     @Override
@@ -323,9 +336,20 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item);
             _argIndex ++;
         }
-        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<List<User>>() {
+        return new ComputableLiveData<List<User>>(__db.getQueryExecutor()) {
+            private Observer _observer;
+
             @Override
-            public List<User> call() throws Exception {
+            protected List<User> compute() {
+                if (_observer == null) {
+                    _observer = new Observer("user") {
+                        @Override
+                        public void onInvalidated(@NonNull Set<String> tables) {
+                            invalidate();
+                        }
+                    };
+                    __db.getInvalidationTracker().addWeakObserver(_observer);
+                }
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
                 try {
                     final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
@@ -354,12 +378,11 @@ public final class ComplexDao_Impl extends ComplexDao {
             protected void finalize() {
                 _statement.release();
             }
-        });
+        }.getLiveData();
     }
 
     @Override
-    public List<Integer> getAllAgesAsList(final List<Integer> ids1, final int[] ids2,
-            final int... ids3) {
+    public List<Integer> getAllAgesAsList(final List<Integer> ids1, final int[] ids2, final int... ids3) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids1.size();
