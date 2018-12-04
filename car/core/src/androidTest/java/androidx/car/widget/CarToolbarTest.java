@@ -30,6 +30,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 
 import android.graphics.drawable.Icon;
@@ -214,6 +215,31 @@ public class CarToolbarTest {
 
     private ImageButton getNavigationIconView() {
         return mActivity.findViewById(R.id.nav_button);
+    }
+
+    @Test
+    public void testSubtitleGetAndSetMethod() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle("this is subtitle"));
+        CharSequence subtitle = mToolbar.getSubtitle();
+        assertEquals(subtitle, "this is subtitle");
+    }
+
+    @Test
+    public void testSubtitleDoesNotShowWhenContentIsEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle(""));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testSubtitleDoesNotShowWhenContentIsNull() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle(null));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testSubtitleShowsWhenContentNotEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle("this is subtitle"));
+        onView(withId(R.id.subtitle)).check(matches(isDisplayed()));
     }
 
     private TextView getTitleView() {
