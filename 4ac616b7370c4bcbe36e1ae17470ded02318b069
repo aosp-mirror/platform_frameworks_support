@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "843163cb_5f1c99c9",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T07:21:56Z",
+      "side": 1,
+      "message": "Talked offline. Done",
+      "parentUuid": "497b0235_43d73e1a",
+      "range": {
+        "startLine": 2207,
+        "startChar": 24,
+        "endLine": 2207,
+        "endChar": 32
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ddf0381_a6e54d7f",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -379,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "36ab14d5_704b75ff",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T07:21:56Z",
+      "side": 1,
+      "message": "Talked offline. Done",
+      "parentUuid": "155aaa62_b5b16476",
+      "range": {
+        "startLine": 201,
+        "startChar": 35,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db5e408f_7e70167e",
         "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
         "patchSetId": 5
@@ -446,6 +494,30 @@
       "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ec2867_fa543788",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-04T07:21:56Z",
+      "side": 1,
+      "message": "Talked offline. Done",
+      "parentUuid": "88903e67_725ba3b2",
+      "range": {
+        "startLine": 209,
+        "startChar": 11,
+        "endLine": 209,
+        "endChar": 93
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
