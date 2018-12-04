@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99131dc9_05ee4759",
+        "filename": "media-widget/src/androidTest/java/androidx/media2/widget/TestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-04T03:05:21Z",
+      "side": 1,
+      "message": "The codec that needs to exist in the list is \"OMX.qcom.video.decoder.avc.secure\"--this was checked manually from the return value of sMCL.findDecoderForFormat(format).",
+      "parentUuid": "515a821f_9ce7749a",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 24
+      },
+      "revId": "357af610308983d1e6017cfeb8d3d329a2bfba3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d5b6dec_f6eaa209",
         "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "357af610308983d1e6017cfeb8d3d329a2bfba3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc93c70_050be7b6",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-04T03:05:21Z",
+      "side": 1,
+      "message": "Corrected.",
+      "parentUuid": "7d5b6dec_f6eaa209",
+      "range": {
+        "startLine": 1235,
+        "startChar": 20,
+        "endLine": 1235,
+        "endChar": 53
+      },
+      "revId": "357af610308983d1e6017cfeb8d3d329a2bfba3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
