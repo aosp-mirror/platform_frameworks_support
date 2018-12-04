@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "521a7ac1_1a794a09",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-04T21:45:57Z",
+      "side": 1,
+      "message": "I think you can actually omit \"dimension\" here.",
+      "range": {
+        "startLine": 275,
+        "startChar": 17,
+        "endLine": 275,
+        "endChar": 26
+      },
+      "revId": "3295276b4af56fadc8d041c0d3d675cc14fcb1a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
