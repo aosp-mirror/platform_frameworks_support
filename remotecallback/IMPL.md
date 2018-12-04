@@ -27,7 +27,7 @@ PendingIntents (or other IPC mechanisms).
  */
 public interface CallbackHandler<T extends CallbackReceiver> {
     /**
-     * Executes a callback given a Bundle of aurgements.
+     * Executes a callback given a Bundle of arguments.
      * Note: This should only be called by generated code, there is no reason to reference this
      * otherwise.
      */

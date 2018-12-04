@@ -13,7 +13,7 @@ public class MyReceiver extends BroadcastReceiver {
 
   public PendingIntent getPendingIntent(Context context, int value1, int value2) {
     Intent intent = new Intent(context, MyReceiver.class);
-    intent.setaction(ACTION_MY_CALLBACK_ACTION);
+    intent.setAction(ACTION_MY_CALLBACK_ACTION);
     intent.putExtra(EXTRA_PARAM_1, value1);
     intent.putExtra(EXTRA_PARAM_2, value2);
     intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
