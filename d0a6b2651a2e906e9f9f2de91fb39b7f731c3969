@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a23a7345_46b648ae",
+        "filename": "appcompat/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-04T23:20:54Z",
+      "side": 1,
+      "message": "I think we can leave it as `project(\":core\")`",
+      "revId": "d0a6b2651a2e906e9f9f2de91fb39b7f731c3969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
