@@ -33,8 +33,15 @@ if (androidPluginVersionOverride != null) {
     build_libs.gradle = 'com.android.tools.build:gradle:3.3.0-rc01'
 }
 
+build_libs.lint = [
+        core: "com.android.tools.lint:lint:26.2.0-beta05",
+        api: "com.android.tools.lint:lint-api:26.2.0-beta05",
+        tests: "com.android.tools.lint:lint-tests:26.2.0-beta05"
+]
+
 build_libs.error_prone_gradle = 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
 build_libs.kotlin = [
+        stdlib: "org.jetbrains.kotlin:kotlin-stdlib:${build_versions.kotlin}",
         gradle_plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${build_versions.kotlin}"
 ]
 build_libs.dokka_gradle = 'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18-SNAPSHOT'
