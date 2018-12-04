@@ -30,7 +30,6 @@ import androidx.arch.core.internal.SafeIterableMap;
 import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
 import androidx.collection.SparseArrayCompat;
-import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteStatement;
@@ -43,7 +42,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 
@@ -111,8 +109,6 @@ public class InvalidationTracker {
 
     private ObservedTableTracker mObservedTableTracker;
 
-    private final InvalidationLiveDataContainer mInvalidationLiveDataContainer;
-
     // should be accessed with synchronization only.
     @VisibleForTesting
     final SafeIterableMap<Observer, ObserverWrapper> mObserverMap = new SafeIterableMap<>();
@@ -145,7 +141,6 @@ public class InvalidationTracker {
         mTableIdLookup = new ArrayMap<>();
         mShadowTableLookup = new SparseArrayCompat<>(shadowTablesMap.size());
         mViewTables = viewTables;
-        mInvalidationLiveDataContainer = new InvalidationLiveDataContainer(mDatabase);
         final int size = tableNames.length;
         mTableNames = new String[size];
         for (int id = 0; id < size; id++) {
@@ -278,16 +273,6 @@ public class InvalidationTracker {
         if (currentObserver == null && mObservedTableTracker.onAdded(tableIds)) {
             syncTriggers();
         }
-    }
-
-    private String[] validateAndResolveTableNames(String[] tableNames) {
-        String[] resolved = resolveViews(tableNames);
-        for (String tableName : resolved) {
-            if (!mTableIdLookup.containsKey(tableName.toLowerCase(Locale.US))) {
-                throw new IllegalArgumentException("There is no table with name " + tableName);
-            }
-        }
-        return resolved;
     }
 
     /**
@@ -542,25 +527,6 @@ public class InvalidationTracker {
             return;
         }
         syncTriggers(mDatabase.getOpenHelper().getWritableDatabase());
-    }
-
-    /**
-     * Creates a LiveData that computes the given function once and for every other invalidation
-     * of the database.
-     * <p>
-     * Holds a strong reference to the created LiveData as long as it is active.
-     *
-     * @param computeFunction The function that calculates the value
-     * @param tableNames      The list of tables to observe
-     * @param <T>             The return type
-     * @return A new LiveData that computes the given function when the given list of tables
-     * invalidates.
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public <T> LiveData<T> createLiveData(String[] tableNames, Callable<T> computeFunction) {
-        return mInvalidationLiveDataContainer.create(
-                validateAndResolveTableNames(tableNames), computeFunction);
     }
 
     /**
