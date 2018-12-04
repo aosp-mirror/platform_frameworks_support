@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "40ccea2b_c7c29f00",
+        "filename": "activity/src/main/java/androidx/activity/InflatesRes.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-04T11:38:07Z",
+      "side": 1,
+      "message": "Did you intentionally miss \"@Inherited\" for some reason? It seems like a good fit here.",
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3168e417_c9fdc1f0",
         "filename": "activity/src/main/java/androidx/activity/InflatesRes.java",
         "patchSetId": 3

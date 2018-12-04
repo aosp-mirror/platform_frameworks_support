@@ -94,6 +94,30 @@
       "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8c219e1_fa5bb581",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-04T11:38:07Z",
+      "side": 1,
+      "message": "Yeah, onViewCreated is sufficient callback. My fear is that when callback is \"optional\" it is immediately complicates understanding of an api. So @InflateRes annotation doesn\u0027t immediately associate with onCreateView, so I as a dev adding this annotation wouldn\u0027t see any consequences for onCreateView. Maybe if @InflateRes is named @onCreateView, then I associate it, but I don\u0027t think that @onCreateView is a good name. That\u0027s said, I\u0027d go with the current onCreateView implementation, but if you and George feel strongly otherwise, I wouldn\u0027t mind.",
+      "parentUuid": "bc66a802_388a1cb2",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 28
+      },
+      "revId": "7a76f7ff5f6a3c5a71aed4171814a747df42706d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
