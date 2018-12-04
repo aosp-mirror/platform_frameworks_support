@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "251ac4d6_fb4194e2",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "Does it happen?\nIMediaSession is not an one-way interface.",
+      "range": {
+        "startLine": 2207,
+        "startChar": 24,
+        "endLine": 2207,
+        "endChar": 32
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ddf0381_a6e54d7f",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "UNKNOWN_PID",
+      "range": {
+        "startLine": 353,
+        "startChar": 28,
+        "endLine": 353,
+        "endChar": 54
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e51ac8_e58c058a",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "UNKNOWN_PID",
+      "range": {
+        "startLine": 367,
+        "startChar": 64,
+        "endLine": 367,
+        "endChar": 90
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c99a8df4_cd37d749",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "Why is it pending connection?\nIs the connection not made yet?",
+      "range": {
+        "startLine": 384,
+        "startChar": 16,
+        "endLine": 384,
+        "endChar": 35
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eaa048c_d0ef7c4f",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "Why don\u0027t you add UNKNOWN_PID in sendMessageAtTime?",
+      "range": {
+        "startLine": 660,
+        "startChar": 58,
+        "endLine": 660,
+        "endChar": 69
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e6429c5_d3886d03",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "If you want to check only uid, why don\u0027t you make mPendingConnections be a map using uid as a key?",
+      "range": {
+        "startLine": 1089,
+        "startChar": 32,
+        "endLine": 1089,
+        "endChar": 60
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a34036_2dab5d74",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "RemoteUserInfo by comparing their package name, uid, and pid.",
+      "range": {
+        "startLine": 201,
+        "startChar": 35,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db5e408f_7e70167e",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "both of RemoteUserInfo\u0027s PID",
+      "range": {
+        "startLine": 207,
+        "startChar": 74,
+        "endLine": 207,
+        "endChar": 77
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88903e67_725ba3b2",
+        "filename": "media/src/main/java/androidx/media/MediaSessionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T01:30:43Z",
+      "side": 1,
+      "message": "Let\u0027s describe more how to compare the equality instead of this.",
+      "range": {
+        "startLine": 209,
+        "startChar": 11,
+        "endLine": 209,
+        "endChar": 93
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
