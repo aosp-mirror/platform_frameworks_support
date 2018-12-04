@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13bee885_49db70bb",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-04T23:46:35Z",
+      "side": 1,
+      "message": "2.2 is very experimental at this poing and not even released.\nshould use 2.1-beta01 (or rc01 after this week).",
+      "range": {
+        "startLine": 1750,
+        "startChar": 33,
+        "endLine": 1750,
+        "endChar": 45
+      },
+      "revId": "e4e6af4f390c3544e4726a82d3b83d4340e4d990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
