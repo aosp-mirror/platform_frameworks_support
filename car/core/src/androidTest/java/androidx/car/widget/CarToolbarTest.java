@@ -20,6 +20,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyRightOf;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -28,6 +29,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 
 import android.view.View;
@@ -170,6 +172,20 @@ public class CarToolbarTest {
 
     private ImageButton getNavigationIconView() {
         return mActivity.findViewById(R.id.nav_button);
+    }
+
+    @Test
+    public void testSubtitleDoesNotShowWhenContentEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setSubtitle(null));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testSubtitleShowsWhenContentNotEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setSubtitle("sub title"));
+        onView(withId(R.id.subtitle)).check(matches(isDisplayed()));
     }
 
     private TextView getTitleView() {

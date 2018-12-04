@@ -72,6 +72,9 @@ public class CarToolbar extends ViewGroup {
     private final TextView mTitleTextView;
     private CharSequence mTitleText;
 
+    private final TextView mSubtitleTextView;
+    private CharSequence mSubtitleText;
+
     public CarToolbar(Context context) {
         this(context, /* attrs= */ null);
     }
@@ -100,6 +103,7 @@ public class CarToolbar extends ViewGroup {
         MinTouchTargetHelper.ensureThat(mNavButtonView).hasMinTouchSize(minTouchSize);
 
         mTitleTextView = findViewById(R.id.title);
+        mSubtitleTextView = findViewById(R.id.subtitle);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarToolbar, defStyleAttr,
                 /* defStyleRes= */ 0);
@@ -109,6 +113,12 @@ public class CarToolbar extends ViewGroup {
 
             setTitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_titleTextAppearance,
                     R.style.TextAppearance_Car_Body1_Medium));
+
+            CharSequence subtitle = a.getText(R.styleable.CarToolbar_subtitle);
+            setSubtitle(subtitle);
+
+            setSubtitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_subtitleTextAppearance,
+                    R.style.TextAppearance_Car_Body2));
 
             setNavigationIcon(a.getResourceId(R.styleable.CarToolbar_navigationIcon,
                     R.drawable.ic_nav_arrow_back));
@@ -144,10 +154,18 @@ public class CarToolbar extends ViewGroup {
             int navWidth = Math.max(mNavButtonContainerWidth, mNavButtonView.getMeasuredWidth());
             width += navWidth + getHorizontalMargins(mNavButtonView);
         }
+        int titleLength = 0;
+        int subtitleLength = 0;
         if (mTitleTextView.getVisibility() != GONE) {
             measureChild(mTitleTextView, widthMeasureSpec, width, childHeightMeasureSpec, 0);
-            width += mTitleTextView.getMeasuredWidth() + getHorizontalMargins(mTitleTextView);
+            titleLength = mTitleTextView.getMeasuredWidth() + getHorizontalMargins(mTitleTextView);
         }
+        if (mSubtitleTextView.getVisibility() != GONE) {
+            measureChild(mSubtitleTextView, widthMeasureSpec, width, childHeightMeasureSpec, 0);
+            subtitleLength = mSubtitleTextView.getMeasuredWidth()
+                    + getHorizontalMargins(mSubtitleTextView);
+        }
+        width += Math.max(titleLength, subtitleLength);
 
         setMeasuredDimension(resolveSize(width, widthMeasureSpec),
                 resolveSize(desiredHeight, heightMeasureSpec));
@@ -168,8 +186,13 @@ public class CarToolbar extends ViewGroup {
             layoutLeft += containerWidth;
         }
 
-        if (mTitleTextView.getVisibility() != GONE) {
+        if (mTitleTextView.getVisibility() != GONE && mSubtitleTextView.getVisibility() != GONE) {
+            layoutTextViewsVerticallyCentered(mTitleTextView, mSubtitleTextView, layoutLeft,
+                    height);
+        } else if (mTitleTextView.getVisibility() != GONE) {
             layoutViewVerticallyCentered(mTitleTextView, layoutLeft, height);
+        } else if (mSubtitleTextView.getVisibility() != GONE) {
+            layoutViewVerticallyCentered(mSubtitleTextView, layoutLeft, height);
         }
     }
 
@@ -269,6 +292,40 @@ public class CarToolbar extends ViewGroup {
         mTitleTextView.setText(title);
         mTitleTextView.setVisibility(TextUtils.isEmpty(title) ? GONE : VISIBLE);
     }
+    /**
+     * Returns the subtitle of this toolbar.
+     *
+     * @return The current subtitle.
+     */
+    public CharSequence getSubtitle() {
+        return mSubtitleText;
+    }
+
+    /**
+     * Set the subtitle of this toolbar.
+     *
+     * <p>Subtitles should express extended information about the current content.
+     *
+     * @param resId Resource ID of a string to set as the subtitle.
+     */
+    public void setSubtitle(@StringRes int resId) {
+        setSubtitle(getContext().getText(resId));
+    }
+
+    /**
+     * Set the subtitle of this toolbar.
+     *
+     * <p>Subtitles should express extended information about the current content.
+     *
+     * <p>{@code null} or empty string will hide the subtitle.
+     *
+     * @param subtitle Subtitle to set.
+     */
+    public void setSubtitle(CharSequence subtitle) {
+        mSubtitleText = subtitle;
+        mSubtitleTextView.setText(subtitle);
+        mSubtitleTextView.setVisibility(TextUtils.isEmpty(subtitle) ? GONE : VISIBLE);
+    }
 
     /**
      * Sets the text color, size, style, hint color, and highlight color
@@ -278,6 +335,16 @@ public class CarToolbar extends ViewGroup {
      */
     public void setTitleTextAppearance(@StyleRes int resId) {
         mTitleTextView.setTextAppearance(resId);
+    }
+
+    /**
+     * Sets the text color, size, style, hint color, and highlight color
+     * from the specified TextAppearance resource.
+     *
+     * @param resId Resource id of TextAppearance.
+     */
+    public void setSubtitleTextAppearance(@StyleRes int resId) {
+        mSubtitleTextView.setTextAppearance(resId);
     }
 
     @Override
@@ -305,6 +372,23 @@ public class CarToolbar extends ViewGroup {
         int viewWidth = view.getMeasuredWidth();
         int viewTop = (height - viewHeight) / 2;
         view.layout(left, viewTop, left + viewWidth, viewTop + viewHeight);
+    }
+
+    private void layoutTextViewsVerticallyCentered(View title, View subtitle, int left,
+            int height) {
+        int titleHeight = title.getMeasuredHeight();
+        int titleWidth = title.getMeasuredWidth();
+
+        int subtitleHeight = subtitle.getMeasuredHeight();
+        int subtitleWidth = subtitle.getMeasuredWidth();
+
+        int titleTop = (height - titleHeight - subtitleHeight
+                - getResources().getDimensionPixelSize(R.dimen.car_padding_1)) / 2;
+        title.layout(left, titleTop, left + titleWidth, titleTop + titleHeight);
+
+        int subtitleTop = height / 2
+                + getResources().getDimensionPixelSize(R.dimen.car_padding_1) / 2;
+        subtitle.layout(left, subtitleTop, left + subtitleWidth, subtitleTop + subtitleHeight);
     }
 
     private int getHorizontalMargins(View v) {
