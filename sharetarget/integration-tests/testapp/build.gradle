@@ -26,12 +26,6 @@ dependencies {
     api project(':core')
     api project(':sharetarget')
     api project(':appcompat')
-    api project(':cardview')
-    api project(':customview')
-    api project(':annotation')
-    api project(':recyclerview')
-    api project(':gridlayout')
-    api project(':preference')
     api(CONSTRAINT_LAYOUT, { transitive = true })
 }
 
