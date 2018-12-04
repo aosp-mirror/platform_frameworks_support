@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0da0f68_1eab0576",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1406019
+      },
+      "writtenOn": "2018-12-04T02:09:11Z",
+      "side": 1,
+      "message": "Just want to confirm, are groupable routes retrieved from DynamicGroupRouteController? The information is app/session specific. For example, a route may be groupable in YouTube but not in Spotify.",
+      "range": {
+        "startLine": 588,
+        "startChar": 62,
+        "endLine": 588,
+        "endChar": 73
+      },
+      "revId": "facf371ca0e0956a0182b48804d830b2c8087c58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

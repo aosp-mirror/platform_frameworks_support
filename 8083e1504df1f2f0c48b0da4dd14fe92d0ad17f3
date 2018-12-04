@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c1308ab_753951ba",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1406019
+      },
+      "writtenOn": "2018-12-04T02:09:11Z",
+      "side": 0,
+      "message": "Why do you want to delete the logic here? It seems correct to me.",
+      "range": {
+        "startLine": 1718,
+        "startChar": 16,
+        "endLine": 1723,
+        "endChar": 17
+      },
+      "revId": "8083e1504df1f2f0c48b0da4dd14fe92d0ad17f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
