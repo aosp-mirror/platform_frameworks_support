@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "90fabfd7_7da7b9d3",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T06:01:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9023bfb4_c0769c41",
+      "range": {
+        "startLine": 384,
+        "startChar": 16,
+        "endLine": 384,
+        "endChar": 35
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eaa048c_d0ef7c4f",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 5
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Multiple MediaBrowserCompat can be created from a process.\nIf it\u0027s the case, Map can only keep only ConnectionRecord but Array can contains multiple one.",
       "parentUuid": "6e6429c5_d3886d03",
+      "range": {
+        "startLine": 1089,
+        "startChar": 32,
+        "endLine": 1089,
+        "endChar": 60
+      },
+      "revId": "4ac616b7370c4bcbe36e1ae17470ded02318b069",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f5d4204_0b3dfb02",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T06:01:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26ecf626_14b71906",
       "range": {
         "startLine": 1089,
         "startChar": 32,
