@@ -117,6 +117,7 @@
 
     <!-- Strings for CarToolbarActivity Demo. -->
     <string name="car_toolbar_title">CarToolbar demo title</string>
+    <string name="car_toolbar_subtitle">CarToolbar demo subtitle</string>
 
     <!-- Spinner sample entries -->
     <string-array name="spinner_entries">
