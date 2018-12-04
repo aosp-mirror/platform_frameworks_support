@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "24b2d5b2_cf3d4a6b",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-04T05:59:44Z",
+      "side": 1,
+      "message": "I agree that this makes more sense than to call two callbacks separately. Done.",
+      "parentUuid": "a324a6af_87b5494c",
+      "range": {
+        "startLine": 1314,
+        "startChar": 37,
+        "endLine": 1314,
+        "endChar": 62
+      },
+      "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e3950f8_d1b0b44e",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 6
@@ -141,6 +165,30 @@
       "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc8e363e_89ab8c3a",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-04T05:59:44Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "e947e6b4_4b44ba82",
+      "range": {
+        "startLine": 1331,
+        "startChar": 0,
+        "endLine": 1335,
+        "endChar": 0
+      },
+      "revId": "55e8f479e726f1088beae1f8599a80789e39c5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
