@@ -16,6 +16,24 @@
       "revId": "0ac187bc703e7cf93bcd35a98ae2512bae7be02b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a773633_8f2ae7ef",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-04T22:17:20Z",
+      "side": 1,
+      "message": "sure, the comments are in Patch Set 2",
+      "parentUuid": "f0157b18_6319598f",
+      "revId": "0ac187bc703e7cf93bcd35a98ae2512bae7be02b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
