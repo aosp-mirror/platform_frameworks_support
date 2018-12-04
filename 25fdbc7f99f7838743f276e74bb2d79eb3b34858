@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad99a8f4_0848d685",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:27:26Z",
+      "side": 1,
+      "message": "This is something not right (maybe pid \u003e 0) ?",
+      "range": {
+        "startLine": 2208,
+        "startChar": 24,
+        "endLine": 2209,
+        "endChar": 59
+      },
+      "revId": "25fdbc7f99f7838743f276e74bb2d79eb3b34858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a299b8e9_361cea17",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:27:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 747,
+        "startChar": 12,
+        "endLine": 748,
+        "endChar": 51
+      },
+      "revId": "25fdbc7f99f7838743f276e74bb2d79eb3b34858",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
