@@ -22,6 +22,75 @@
       "revId": "52dc8ba76d85ad79752fa6e2e61c4586da2c9c9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "860a37bb_13c85cba",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:34:23Z",
+      "side": 1,
+      "message": "Let\u0027s check that it is an instance of Bundle. (value instanceof Bundle)",
+      "range": {
+        "startLine": 477,
+        "startChar": 23,
+        "endLine": 477,
+        "endChar": 48
+      },
+      "revId": "52dc8ba76d85ad79752fa6e2e61c4586da2c9c9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b21426_dd5240e7",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:34:23Z",
+      "side": 1,
+      "message": "Nice catch",
+      "range": {
+        "startLine": 478,
+        "startChar": 19,
+        "endLine": 478,
+        "endChar": 51
+      },
+      "revId": "52dc8ba76d85ad79752fa6e2e61c4586da2c9c9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870fe502_fd758323",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-04T11:34:23Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 479,
+        "startChar": 23,
+        "endLine": 479,
+        "endChar": 27
+      },
+      "revId": "52dc8ba76d85ad79752fa6e2e61c4586da2c9c9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
