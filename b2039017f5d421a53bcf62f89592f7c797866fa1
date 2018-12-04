@@ -22,6 +22,30 @@
       "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0565ec99_7bdb4681",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-12-04T17:50:18Z",
+      "side": 1,
+      "message": "Touch events for RecyclerView is basically scroll events. So basically RecyclerView is adding suppressing of scroll events as well. \n\nI personally more like the current javadoc we already have in RecyclerView. Are we really forced to copy the same javadoc from the superclass when override? It could be easier to read about everything the method is suppressing instead of first part describing a change for layout and then another part about that in fact we suppressing more things here",
+      "parentUuid": "4e9f423a_0fe10629",
+      "range": {
+        "startLine": 2178,
+        "startChar": 7,
+        "endLine": 2184,
+        "endChar": 14
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
