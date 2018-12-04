@@ -46,6 +46,29 @@
       "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7615de6c_a3ce7cfe",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2018-12-04T21:02:59Z",
+      "side": 1,
+      "message": "Do you want to make this final for RecyclerView? Same with isLayoutSuppressed()?",
+      "range": {
+        "startLine": 2199,
+        "startChar": 4,
+        "endLine": 2199,
+        "endChar": 30
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
