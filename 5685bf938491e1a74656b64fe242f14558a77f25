@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b6dde6c_f0cc1ecd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-04T00:47:39Z",
+      "side": 1,
+      "message": "Is it workaround? Then what will be a proper fix?",
+      "range": {
+        "startLine": 1604,
+        "startChar": 19,
+        "endLine": 1604,
+        "endChar": 29
+      },
+      "revId": "5685bf938491e1a74656b64fe242f14558a77f25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
