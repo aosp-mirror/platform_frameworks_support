@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a041c763_b7451ef2",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:38:48Z",
+      "side": 1,
+      "message": "I\u0027d like to keep all ComponentActivity code in androidx.activity and Fragment code in androidx.fragment. ViewModelProviders is not a scalable approach and lifecycle-extension remains something I want to deprecate entirely - please don\u0027t repeat the same issue again.\n\nI\u0027d prefer if we only expose constructors for SavedStateVMFactory that take:\n- an Application and BundleSavedStateRegistryOwner\n- an Application and a BundleSavedStateRegistry\n\nand the Bundle overloads.\n\nFor EAP, developers can deal less clean SavedStateVMFactory(requireActivity().application, this) calls for their Fragments and SavedStateVMFactory(application, this) for ComponentActivity.",
+      "parentUuid": "245222ac_2c3b3eba",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b23a34d0_76a10681",
         "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
         "patchSetId": 1
