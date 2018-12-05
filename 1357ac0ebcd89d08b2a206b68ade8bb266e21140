@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b42af7dc_49eaa182",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "23.\n\nAndroid M (API 23) still lacks this CL:\nhttps://android.googlesource.com/platform/frameworks/base/+/a4f52ad5318969d0000a408ae3aa2222f18f4ef8",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 42
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0b5caf_0bf0bbf6",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "final class",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d99f61_ee2a2e7d",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "My recommended version:\n\n    private static Field sHField;\n    private static Field sServedViewField;\n    private static Field sNextServedViewField;",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47bb23f3_2ddd6da3",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "Now what we need to cache is only InputMethodManager.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8cef5f_143a739f",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "My recommended version:\n\n            InputMethodManager inputMethodManager \u003d (InputMethodManager)\n                    mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);\n            final Object lock;\n            try {\n                lock \u003d sHField.get(inputMethodManager);\n            } catch (IllegalAccessException e) {\n                return;\n            }\n            if (lock \u003d\u003d null) {\n                return;\n            }\n            synchronized (lock) {\n                final View servedView;\n                try {\n                    servedView \u003d (View) sServedViewField.get(inputMethodManager);\n                } catch (IllegalAccessException e) {\n                    return;\n                } catch (ClassCastException e) {\n                    return;\n                }\n                if (servedView \u003d\u003d null) {\n                    return;\n                }\n                if (servedView.isAttachedToWindow()) {\n                    return;\n                }\n                // Here we have a detached mServedView.  Set null to mNextServedViewField so that\n                // everything will be cleared in the next InputMethodManager#checkFocus().\n                try {\n                    sNextServedViewField.set(inputMethodManager, null);\n                } catch (IllegalAccessException e) {\n                    return;\n                }\n            }\n            // Assume that InputMethodManager#isActive() internally triggers\n            // InputMethodManager#checkFocus().\n            inputMethodManager.isActive();",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0058342_05232e09",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "My recommended version:\n\n            sServedViewField \u003d InputMethodManager.class.getDeclaredField(\"mServedView\");\n            sServedViewField.setAccessible(true);\n            sNextServedViewField \u003d InputMethodManager.class.getDeclaredField(\"mNextServedView\");\n            sNextServedViewField.setAccessible(true);\n            sHField \u003d InputMethodManager.class.getDeclaredField(\"mH\");\n            sHField.setAccessible(true);",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd9e8c5_16e597fe",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "With the above code in my comments, we no longer need this method.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb633855_39f9c293",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1042793
+      },
+      "writtenOn": "2018-12-05T04:18:13Z",
+      "side": 1,
+      "message": "Unnecessary empty line.",
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
