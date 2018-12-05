@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "03aa6b4c_d400c443",
+        "filename": "media-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-05T01:57:23Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 433,
+        "startChar": 28,
+        "endLine": 433,
+        "endChar": 58
+      },
+      "revId": "00776ac5489585bc099e2103c7663a5c70a26cba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e8c26e5_c6a9f6f7",
         "filename": "media-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
