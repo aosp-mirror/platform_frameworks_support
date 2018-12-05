@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64a1c4e5_4216a375",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-05T18:22:38Z",
+      "side": 1,
+      "message": "so fragment depends on viewmodel, saved state and\nviewmodel-saved state depends on fragment. feel like we are headed for doomsday :/",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b23a34d0_76a10681",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-05T18:22:38Z",
+      "side": 1,
+      "message": "this is weird for viewmodel-savedstate module to have fragment package.",
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39bf4f66_6143e11f",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/AbstractSavedStateVMFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-05T18:22:38Z",
+      "side": 1,
+      "message": "ugh the VM in the name isn\u0027t good.\n\nit is designed to be subclasses so not sure how to fix that w/o having a huge name (api council can fix that so it is fine for this CL).\n\nFrom kotlin though, we can have something like:\n\nfun \u003creified T : ViewModel\u003e createFactory( f : (String, SavedStateHandle) -\u003e T {\n}\n\nusing operator overloading, we can probably hide all different facotry classes under 1 function ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7cec25_e74e720a",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateVMFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-05T18:22:38Z",
+      "side": 1,
+      "message": "same concern with the name but skipping for this CL since it is for EAP.",
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
