@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "8b9bec15_a60be994",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewProxyCompatTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-05T01:19:47Z",
+      "side": 1,
+      "message": "nit: consider moving this to @After and making these private variables.\n\nI noticed this while writing http://aosp/841234 and thought it would be good to have consistency.",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 13
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d58e08a3_201f9706",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
