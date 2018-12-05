@@ -22,6 +22,30 @@
       "revId": "e515b83bd606299976ffbd890c86b6b8b3395453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91eb09af_4f791b0a",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2018-12-05T19:39:14Z",
+      "side": 1,
+      "message": "Client cannot deselect audio/video explicitly. They can select a audio/video different than the current a/v track, which would implicitly deselect the current a/v track.",
+      "parentUuid": "350a1335_f47f5c30",
+      "range": {
+        "startLine": 1382,
+        "startChar": 20,
+        "endLine": 1383,
+        "endChar": 88
+      },
+      "revId": "e515b83bd606299976ffbd890c86b6b8b3395453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
