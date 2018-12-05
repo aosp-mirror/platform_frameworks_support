@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4826b4e_192740b9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T20:43:57Z",
+      "side": 1,
+      "message": "Something about the format of \"-SNAPSHOTyyyyMMddHHmmss\" seems odd to me but I\u0027m not yet sure how to describe it other than that I\u0027m curious about how Maven treats it. It\u0027d be great if one of the other reviewers could offer another opinion on the format.",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "124123f8_69ae6e1d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T20:43:57Z",
+      "side": 1,
+      "message": "I guess we should probably double check that Maven supports artifacts with a number after the \"SNAPSHOT\" (presumably it does) (I can check this if it\u0027s a pain for you to check). Normally the text \"-SNAPSHOT\" in a Maven version is at the end.",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b693385_c792cde8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T20:43:57Z",
+      "side": 1,
+      "message": "Could we add a getter and setter (which as part of their implementation set and get project.extra[\"snapshotVersion\"]) so that if we stop setting snapshotVersion (and presumably delete the getter and setter), an attempt to reference it will be a compile error? (this comment is probably optional due to the next comment)",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b822193f_053ad670",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T20:43:57Z",
+      "side": 1,
+      "message": "Could we add an \u0027else\u0027 clause to this \u0027if\u0027 that sets \"snapshotVersion\" to \"\" so that later when we try to access it, we can assume that the property is set, so that if if an ordering error occurs, it will be an exception?",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bb5bb8e_3cc9a942",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T20:43:57Z",
+      "side": 1,
+      "message": "Can we instead check \"snapshotVersion\" to decrease the number of variables used in this function by one?",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
