@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "245222ac_2c3b3eba",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T18:31:37Z",
+      "side": 1,
+      "message": "Kinda already there :D \n\nIt is the reason why ViewModelProviders are in lifecycle-extensions package: it depends on both lifecycle-viewmodel and fragments. If we decide to make this factory default than we can split contents of this module between  lifecycle-viewmodel/lifecycle-extension.",
+      "parentUuid": "64a1c4e5_4216a375",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b23a34d0_76a10681",
         "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
         "patchSetId": 1
