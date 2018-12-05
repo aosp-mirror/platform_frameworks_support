@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6f90d5e_bab9253b",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-12-05T00:38:16Z",
+      "side": 1,
+      "message": "you might also want a || mSelection !\u003d null here too",
+      "range": {
+        "startLine": 215,
+        "startChar": 17,
+        "endLine": 215,
+        "endChar": 33
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c2710f_8e90a1ae",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-12-05T00:38:16Z",
+      "side": 1,
+      "message": "what does it look like when you display a selection slice in SliceView without these changes?",
+      "range": {
+        "startLine": 401,
+        "startChar": 11,
+        "endLine": 401,
+        "endChar": 91
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "172bd7ad_84a58e49",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-12-05T00:38:16Z",
+      "side": 1,
+      "message": "can this be simplified? mRowContent !\u003d null \u0026\u0026 mRowContent.getLineCount() \u003e 0 ? 0 : mInsetTop ?",
+      "range": {
+        "startLine": 710,
+        "startChar": 30,
+        "endLine": 711,
+        "endChar": 44
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1572c1a3_b4eddcf7",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-12-05T00:38:16Z",
+      "side": 1,
+      "message": "I think before this is submitted we should do this / maybe have separate CL with those changes and have them go in at same time?\n\nI\u0027m wondering how this will work with cached slices, we might need to show the action spinner in the header or something if a selection is picked on a cached slice?",
+      "range": {
+        "startLine": 903,
+        "startChar": 8,
+        "endLine": 903,
+        "endChar": 29
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
