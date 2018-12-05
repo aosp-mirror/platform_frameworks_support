@@ -1,0 +1,360 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85526fbb_1371af64",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Let\u0027s remove this method - they can use NavType.fromArgType() if they need to  do something dynamic and I\u0027d like to make all of these properties. I\u0027m okay with forcing them to use the NavType subclasses.",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e277a0_1eda0aac",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Make this\nvar type: NavType\u003c*\u003e\n    set(value) {\n        field \u003d value\n        builder.setType(value)\n    }",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 30
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812e51ed_9e255b06",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Make this\nvar boolean: Boolean\n    set(value) {\n        field \u003d value\n        builder.setIsNullable(value)\n    }",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 35
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74341fee_a4e2a42f",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Make this\nvar defaultValue: Any?\n    set(value) {\n        field \u003d value\n        builder.setDefaultValue(value)\n    }",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 40
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afe1c41e_b78eba74",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Put on the line before to match the style of other classes.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97dbd58d_af9e2817",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Put on the line before to match the style of other classes.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7c5ddc_8946f1b5",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Put a note here that the NavType you use must also support nullable with a @see to that method.",
+      "range": {
+        "startLine": 154,
+        "startChar": 46,
+        "endLine": 154,
+        "endChar": 47
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67ac4cc9_0800a8d2",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "This should be final",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 10
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d9e1547_1a1ff834",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Still missing docs",
+      "range": {
+        "startLine": 145,
+        "startChar": 36,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c810b289_57eeaddd",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "This should be final",
+      "range": {
+        "startLine": 405,
+        "startChar": 16,
+        "endLine": 405,
+        "endChar": 27
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6be4039_5be324a4",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "This should be final",
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d4312db_57e01b4e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Since these are public fields, please add docs - same for all of these NavType instances. I\u0027d expect something like:\n\nNavType for storing integer values, corresponding with the \"integer\" type in a Navigation XML file.\n\u003cp\u003e\nNull values are not supported.\n\n(I\u0027d also expect a note around whether default values are supported in the Javadoc for the ones that are non-obvious)",
+      "range": {
+        "startLine": 236,
+        "startChar": 41,
+        "endLine": 236,
+        "endChar": 48
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc698ac_9a95d342",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Should we support null arrays at all? Null collections in general are frowned upon in Kotlin and by API council in general - we always try to use empty arrays/collections in place of null.",
+      "range": {
+        "startLine": 268,
+        "startChar": 73,
+        "endLine": 268,
+        "endChar": 77
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "393dcde9_377275b5",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "Enums handling should be specifically called out in the Javadoc, particularly the format of Enum default values. See the next comment on an EnumType.",
+      "range": {
+        "startLine": 636,
+        "startChar": 69,
+        "endLine": 636,
+        "endChar": 70
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8af2f91_02a6aeff",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "This value here (a null Enum? yuck) and the parseValue logic being unique to Enum (and subsequently needing to write Enum specific documentation) is pushing me towards making EnumType a specific subclass of SerializableType.\n\nPerhaps change this constructor to disallow Enum types (pointing devs to use EnumType) and create a package private constructor SerializableType(boolean nullableAllowed, @NonNull Class\u003cD\u003e type) that EnumType can call into to pass in false? We should be able to reuse 90% of the logic in SerializableType in EnumType.",
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f14269_51bfd3d0",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T22:14:48Z",
+      "side": 1,
+      "message": "This should throw an UnsupportedOperationException",
+      "range": {
+        "startLine": 670,
+        "startChar": 16,
+        "endLine": 670,
+        "endChar": 28
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
