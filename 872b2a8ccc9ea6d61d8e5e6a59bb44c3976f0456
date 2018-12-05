@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eec9fbfe_0a2fcc61",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T01:17:54Z",
+      "side": 1,
+      "message": "seems this is not used - should it be a boolean method to toggle high accuracy mode? or, would there be more future modes?",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "872b2a8ccc9ea6d61d8e5e6a59bb44c3976f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c94ede_2136d909",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T01:17:54Z",
+      "side": 1,
+      "message": "why not inline this method?",
+      "range": {
+        "startLine": 1219,
+        "startChar": 16,
+        "endLine": 1219,
+        "endChar": 22
+      },
+      "revId": "872b2a8ccc9ea6d61d8e5e6a59bb44c3976f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
