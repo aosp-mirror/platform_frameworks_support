@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fa8a2f_3452f84d",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T21:43:53Z",
+      "side": 1,
+      "message": "alternatively logic can be simplified with getLastIndexOnSameRow(), but that method doesn\u0027t have any tests (b/120560030). up to you :p",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 37
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89d346cd_d5ff7ea6",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T21:43:53Z",
+      "side": 1,
+      "message": "rename to \"position\"\n\nfrom recyclerview doc:\nPosition: The position of a data item within an Adapter.\nIndex: The index of an attached child view as used in a call to getChildAt(int). Contrast with Position.",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 115,
+        "endChar": 26
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c95b72_343d821e",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T21:43:53Z",
+      "side": 1,
+      "message": "Could you move ++ to its own line? (Sorry, I could follow the original --foo logic, but ++foo \u003d\u003d bar is too much for me...)",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

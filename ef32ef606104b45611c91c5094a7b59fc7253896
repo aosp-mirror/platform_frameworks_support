@@ -204,6 +204,30 @@
       "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cdeacd7_de77f5d0",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/grid_layout_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-05T21:43:53Z",
+      "side": 1,
+      "message": "I see. thanks!",
+      "parentUuid": "c9cdf8e3_014364f3",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
