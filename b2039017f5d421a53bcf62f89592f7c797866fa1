@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e4c3d229_edbe0c14",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-12-05T14:04:34Z",
+      "side": 1,
+      "message": "We can\u0027t use inhereitDoc as we actually not \u0027yet\u0027 overriding this method. now we compile with Pie, and this methods will be added in the next version of Android.\n\nAlso I found a lot of examples in RecyclerView how javadocs are written when the method is overridden. I uses almost the same text like for the super method but with fixing RecyclerView specific things in it. So I did the same, I updated javadoc to start with almost what we have in ViewGroup and correct/add new specific things.",
+      "parentUuid": "0565ec99_7bdb4681",
+      "range": {
+        "startLine": 2178,
+        "startChar": 7,
+        "endLine": 2184,
+        "endChar": 14
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7615de6c_a3ce7cfe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ea7942_c129c715",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2018-12-05T14:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55cb7e8d_6539eb1c",
+      "range": {
+        "startLine": 2199,
+        "startChar": 4,
+        "endLine": 2199,
+        "endChar": 30
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
