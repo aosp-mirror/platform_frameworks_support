@@ -50,7 +50,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * (For example, if the navigation structure of the application is determined by live data obtained'
  * from a remote server.)</p>
  */
-public final class NavController {
+public class NavController {
     private static final String TAG = "NavController";
     private static final String KEY_NAVIGATOR_STATE =
             "android-support-nav:controller:navigatorState";
@@ -198,7 +198,7 @@ public final class NavController {
      * @return The {@link NavigatorProvider} used by this NavController.
      */
     @NonNull
-    public NavigatorProvider getNavigatorProvider() {
+    public final NavigatorProvider getNavigatorProvider() {
         return mNavigatorProvider;
     }
 
@@ -210,7 +210,8 @@ public final class NavController {
      *
      * @param listener the listener to receive events
      */
-    public void addOnDestinationChangedListener(@NonNull OnDestinationChangedListener listener) {
+    public final void addOnDestinationChangedListener(
+            @NonNull OnDestinationChangedListener listener) {
         // Inform the new listener of our current state, if any
         if (!mBackStack.isEmpty()) {
             NavBackStackEntry backStackEntry = mBackStack.peekLast();
@@ -226,7 +227,7 @@ public final class NavController {
      *
      * @param listener the listener to remove
      */
-    public void removeOnDestinationChangedListener(
+    public final void removeOnDestinationChangedListener(
             @NonNull OnDestinationChangedListener listener) {
         mOnDestinationChangedListeners.remove(listener);
     }
@@ -238,7 +239,7 @@ public final class NavController {
      *
      * @return true if the stack was popped, false otherwise
      */
-    public boolean popBackStack() {
+    public final boolean popBackStack() {
         if (mBackStack.isEmpty()) {
             // Nothing to pop if the back stack is empty
             return false;
@@ -255,7 +256,7 @@ public final class NavController {
      *
      * @return true if the stack was popped at least once, false otherwise
      */
-    public boolean popBackStack(@IdRes int destinationId, boolean inclusive) {
+    public final boolean popBackStack(@IdRes int destinationId, boolean inclusive) {
         boolean popped = popBackStackInternal(destinationId, inclusive);
         if (popped) {
             dispatchOnDestinationChanged();
@@ -328,7 +329,7 @@ public final class NavController {
      *
      * @return true if navigation was successful, false otherwise
      */
-    public boolean navigateUp() {
+    public final boolean navigateUp() {
         if (mBackStack.size() == 1) {
             // If there's only one entry, then we've deep linked into a specific destination
             // on another task so we need to find the parent and start our task from there
@@ -381,7 +382,7 @@ public final class NavController {
      * @return inflater for loading navigation resources
      */
     @NonNull
-    public NavInflater getNavInflater() {
+    public final NavInflater getNavInflater() {
         if (mInflater == null) {
             mInflater = new NavInflater(mContext, mNavigatorProvider);
         }
@@ -400,7 +401,7 @@ public final class NavController {
      * @see #setGraph(NavGraph)
      * @see #getGraph
      */
-    public void setGraph(@NavigationRes int graphResId) {
+    public final void setGraph(@NavigationRes int graphResId) {
         setGraph(graphResId, null);
     }
 
@@ -417,7 +418,8 @@ public final class NavController {
      * @see #setGraph(NavGraph, Bundle)
      * @see #getGraph
      */
-    public void setGraph(@NavigationRes int graphResId, @Nullable Bundle startDestinationArgs) {
+    public final void setGraph(@NavigationRes int graphResId,
+            @Nullable Bundle startDestinationArgs) {
         mGraph = getNavInflater().inflate(graphResId);
         onGraphCreated(startDestinationArgs);
     }
@@ -432,7 +434,7 @@ public final class NavController {
      * @see #setGraph(int)
      * @see #getGraph
      */
-    public void setGraph(@NonNull NavGraph graph) {
+    public final void setGraph(@NonNull NavGraph graph) {
         setGraph(graph, null);
     }
 
@@ -446,7 +448,7 @@ public final class NavController {
      * @see #setGraph(int, Bundle)
      * @see #getGraph
      */
-    public void setGraph(@NonNull NavGraph graph, @Nullable Bundle startDestinationArgs) {
+    public final void setGraph(@NonNull NavGraph graph, @Nullable Bundle startDestinationArgs) {
         mGraph = graph;
         onGraphCreated(startDestinationArgs);
     }
@@ -509,7 +511,7 @@ public final class NavController {
      * @return True if the navigation controller found a valid deep link and navigated to it.
      * @see NavDestination#addDeepLink(String)
      */
-    public boolean handleDeepLink(@Nullable Intent intent) {
+    public final boolean handleDeepLink(@Nullable Intent intent) {
         if (intent == null) {
             return false;
         }
@@ -597,7 +599,7 @@ public final class NavController {
      * @throws IllegalStateException if called before <code>setGraph()</code>.
      */
     @NonNull
-    public NavGraph getGraph() {
+    public final NavGraph getGraph() {
         if (mGraph == null) {
             throw new IllegalStateException("You must call setGraph() before calling getGraph()");
         }
@@ -608,7 +610,7 @@ public final class NavController {
      * Gets the current destination.
      */
     @Nullable
-    public NavDestination getCurrentDestination() {
+    public final NavDestination getCurrentDestination() {
         if (mBackStack.isEmpty()) {
             return null;
         } else {
@@ -666,7 +668,8 @@ public final class NavController {
      * @param navOptions special options for this navigation operation
      */
     @SuppressWarnings("deprecation")
-    public void navigate(@IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions) {
+    public final void navigate(@IdRes int resId, @Nullable Bundle args,
+            @Nullable NavOptions navOptions) {
         navigate(resId, args, navOptions, null);
     }
 
@@ -681,8 +684,8 @@ public final class NavController {
      * @param navigatorExtras extras to pass to the Navigator
      */
     @SuppressWarnings("deprecation")
-    public void navigate(@IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions,
-            @Nullable Navigator.Extras navigatorExtras) {
+    public final void navigate(@IdRes int resId, @Nullable Bundle args,
+            @Nullable NavOptions navOptions, @Nullable Navigator.Extras navigatorExtras) {
         NavDestination currentNode = mBackStack.isEmpty()
                 ? mGraph
                 : mBackStack.getLast().getDestination();
@@ -770,7 +773,7 @@ public final class NavController {
      *
      * @param directions directions that describe this navigation operation
      */
-    public void navigate(@NonNull NavDirections directions) {
+    public final void navigate(@NonNull NavDirections directions) {
         navigate(directions.getActionId(), directions.getArguments());
     }
 
@@ -780,7 +783,8 @@ public final class NavController {
      * @param directions directions that describe this navigation operation
      * @param navOptions special options for this navigation operation
      */
-    public void navigate(@NonNull NavDirections directions, @Nullable NavOptions navOptions) {
+    public final void navigate(@NonNull NavDirections directions,
+            @Nullable NavOptions navOptions) {
         navigate(directions.getActionId(), directions.getArguments(), navOptions);
     }
 
@@ -790,7 +794,7 @@ public final class NavController {
      * @param directions directions that describe this navigation operation
      * @param navigatorExtras extras to pass to the {@link Navigator}
      */
-    public void navigate(@NonNull NavDirections directions,
+    public final void navigate(@NonNull NavDirections directions,
             @NonNull Navigator.Extras navigatorExtras) {
         navigate(directions.getActionId(), directions.getArguments(), null, navigatorExtras);
     }
@@ -801,7 +805,7 @@ public final class NavController {
      * @return a {@link NavDeepLinkBuilder} suitable for constructing a deep link
      */
     @NonNull
-    public NavDeepLinkBuilder createDeepLink() {
+    public final NavDeepLinkBuilder createDeepLink() {
         return new NavDeepLinkBuilder(this);
     }
 
@@ -815,7 +819,7 @@ public final class NavController {
      * @return saved state for this controller
      */
     @Nullable
-    public Bundle saveState() {
+    public final Bundle saveState() {
         Bundle b = null;
         ArrayList<String> navigatorNames = new ArrayList<>();
         Bundle navigatorState = new Bundle();
@@ -859,7 +863,7 @@ public final class NavController {
      *
      * @param navState state bundle to restore
      */
-    public void restoreState(@Nullable Bundle navState) {
+    public final void restoreState(@Nullable Bundle navState) {
         if (navState == null) {
             return;
         }

@@ -35,32 +35,32 @@ package androidx.navigation {
     method public androidx.navigation.ActivityNavigator.Extras.Builder setActivityOptions(android.support.v4.app.ActivityOptionsCompat);
   }
 
-  public final class NavController {
+  public class NavController {
     ctor public NavController(android.content.Context);
-    method public void addOnDestinationChangedListener(androidx.navigation.NavController.OnDestinationChangedListener);
-    method public androidx.navigation.NavDeepLinkBuilder createDeepLink();
-    method public androidx.navigation.NavDestination? getCurrentDestination();
-    method public androidx.navigation.NavGraph getGraph();
-    method public androidx.navigation.NavInflater getNavInflater();
-    method public androidx.navigation.NavigatorProvider getNavigatorProvider();
-    method public boolean handleDeepLink(android.content.Intent?);
-    method public void navigate(@IdRes int);
-    method public void navigate(@IdRes int, android.os.Bundle?);
-    method public void navigate(@IdRes int, android.os.Bundle?, androidx.navigation.NavOptions?);
-    method public void navigate(@IdRes int, android.os.Bundle?, androidx.navigation.NavOptions?, androidx.navigation.Navigator.Extras?);
-    method public void navigate(androidx.navigation.NavDirections);
-    method public void navigate(androidx.navigation.NavDirections, androidx.navigation.NavOptions?);
-    method public void navigate(androidx.navigation.NavDirections, androidx.navigation.Navigator.Extras);
-    method public boolean navigateUp();
-    method public boolean popBackStack();
-    method public boolean popBackStack(@IdRes int, boolean);
-    method public void removeOnDestinationChangedListener(androidx.navigation.NavController.OnDestinationChangedListener);
-    method public void restoreState(android.os.Bundle?);
-    method public android.os.Bundle? saveState();
-    method public void setGraph(@NavigationRes int);
-    method public void setGraph(@NavigationRes int, android.os.Bundle?);
-    method public void setGraph(androidx.navigation.NavGraph);
-    method public void setGraph(androidx.navigation.NavGraph, android.os.Bundle?);
+    method public final void addOnDestinationChangedListener(androidx.navigation.NavController.OnDestinationChangedListener);
+    method public final androidx.navigation.NavDeepLinkBuilder createDeepLink();
+    method public final androidx.navigation.NavDestination? getCurrentDestination();
+    method public final androidx.navigation.NavGraph getGraph();
+    method public final androidx.navigation.NavInflater getNavInflater();
+    method public final androidx.navigation.NavigatorProvider getNavigatorProvider();
+    method public final boolean handleDeepLink(android.content.Intent?);
+    method public final void navigate(@IdRes int);
+    method public final void navigate(@IdRes int, android.os.Bundle?);
+    method public final void navigate(@IdRes int, android.os.Bundle?, androidx.navigation.NavOptions?);
+    method public final void navigate(@IdRes int, android.os.Bundle?, androidx.navigation.NavOptions?, androidx.navigation.Navigator.Extras?);
+    method public final void navigate(androidx.navigation.NavDirections);
+    method public final void navigate(androidx.navigation.NavDirections, androidx.navigation.NavOptions?);
+    method public final void navigate(androidx.navigation.NavDirections, androidx.navigation.Navigator.Extras);
+    method public final boolean navigateUp();
+    method public final boolean popBackStack();
+    method public final boolean popBackStack(@IdRes int, boolean);
+    method public final void removeOnDestinationChangedListener(androidx.navigation.NavController.OnDestinationChangedListener);
+    method public final void restoreState(android.os.Bundle?);
+    method public final android.os.Bundle? saveState();
+    method public final void setGraph(@NavigationRes int);
+    method public final void setGraph(@NavigationRes int, android.os.Bundle?);
+    method public final void setGraph(androidx.navigation.NavGraph);
+    method public final void setGraph(androidx.navigation.NavGraph, android.os.Bundle?);
     field public static final String KEY_DEEP_LINK_INTENT = "android-support-nav:controller:deepLinkIntent";
   }
 
