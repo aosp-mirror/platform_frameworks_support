@@ -22,6 +22,30 @@
       "revId": "3d11655a186e22db50355f0ff5d30885b6384d43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0261687e_6eb68280",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-05T02:49:48Z",
+      "side": 1,
+      "message": "I think we\u0027re only going to use Icon as per b/111783473.\n\nChanging all instances of logo to title icon instead.",
+      "parentUuid": "2b888975_9892793e",
+      "range": {
+        "startLine": 264,
+        "startChar": 34,
+        "endLine": 264,
+        "endChar": 38
+      },
+      "revId": "3d11655a186e22db50355f0ff5d30885b6384d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
