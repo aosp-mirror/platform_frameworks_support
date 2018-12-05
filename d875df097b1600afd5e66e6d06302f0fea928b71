@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7cab65c_b3e567c2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-12-05T23:33:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a766e2_16e4f426",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a99e5cc_fe3e9a3b",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83a3840_51e9a4ee",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-12-05T23:33:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a99e5cc_fe3e9a3b",
+      "range": {
+        "startLine": 335,
+        "startChar": 35,
+        "endLine": 335,
+        "endChar": 61
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6f51e995_f1864b3b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-12-05T23:33:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60ce0aa4_870fbe67",
+      "range": {
+        "startLine": 337,
+        "startChar": 11,
+        "endLine": 337,
+        "endChar": 21
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "556ac955_44c9b9aa",
         "filename": "samples/SupportCarDemos/src/main/res/layout/crash_text.xml",
         "patchSetId": 8
@@ -85,6 +157,24 @@
       "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c6563b_d84a5158",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/crash_text.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1374482
+      },
+      "writtenOn": "2018-12-05T23:33:57Z",
+      "side": 1,
+      "message": "Sorry I upload this file accidentally, this is actually use to solve another nug, will move it in next patch.",
+      "parentUuid": "556ac955_44c9b9aa",
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
