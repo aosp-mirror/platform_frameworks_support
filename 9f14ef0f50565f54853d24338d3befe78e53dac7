@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36083b68_5ec3a6c9",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-05T01:14:49Z",
+      "side": 1,
+      "message": "This annotation is bad. It is suppressing lint checks. Thats why we did not catch it. Please remove and fix up any other missing SDK_INT checks.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 18
+      },
+      "revId": "9f14ef0f50565f54853d24338d3befe78e53dac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
