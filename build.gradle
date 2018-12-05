@@ -25,6 +25,7 @@ if (currentJvmVersion.getMajorVersion() != "8") {
 "If you have already installed java 8, you can instruct Gradle to use it by setting the environment variable JAVA_HOME equal to its file path.")
 }
 
+// WILL THIS WORK?!
 
 buildscript {
     ext.supportRootFolder = project.projectDir
