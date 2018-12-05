@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37260090_2f15fa1a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-05T23:48:29Z",
+      "side": 1,
+      "message": "I think ExecutionException wraps the exception from the future, so you probably want to catch ExecutionException e, and rethrow e.getCause()?",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 31
+      },
+      "revId": "4f334b6c40c8ac031d8a1209f8aae2c3ddcabae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
