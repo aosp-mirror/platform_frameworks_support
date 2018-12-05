@@ -100,7 +100,7 @@ class DrawableContainer extends Drawable implements Drawable.Callback {
                 | mDrawableContainerState.getChangingConfigurations();
     }
 
-    @SuppressLint("WrongConstant")
+    @SuppressLint({"WrongConstant", "BanTargetApiAnnotation"})
     @TargetApi(Build.VERSION_CODES.M)
     private boolean needsMirroring() {
         return isAutoMirrored() && getLayoutDirection() == LayoutDirection.RTL;

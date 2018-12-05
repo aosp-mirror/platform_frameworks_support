@@ -16,6 +16,7 @@
 
 package androidx.biometric;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -268,6 +269,7 @@ public class FingerprintDialogFragment extends DialogFragment {
     }
 
     @TargetApi(21)
+    @SuppressLint("BanTargetApiAnnotation")
     private Drawable getAnimationForTransition(int oldState, int newState) {
         int iconRes;
 

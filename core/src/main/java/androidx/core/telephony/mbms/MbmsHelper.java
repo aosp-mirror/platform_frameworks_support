@@ -16,6 +16,7 @@
 
 package androidx.core.telephony.mbms;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -48,6 +49,7 @@ public final class MbmsHelper {
      * matches.
      */
     @TargetApi(Build.VERSION_CODES.P)
+    @SuppressLint("BanTargetApiAnnotation")
     @Nullable
     public static CharSequence getBestNameForService(@NonNull Context context,
             @NonNull ServiceInfo serviceInfo) {

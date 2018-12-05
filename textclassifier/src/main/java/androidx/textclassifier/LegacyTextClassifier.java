@@ -204,6 +204,7 @@ final class LegacyTextClassifier extends TextClassifier {
         }
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+        @SuppressLint("BanTargetApiAnnotation")
         private static Bundle createUserRestrictions(Context context) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 return Bundle.EMPTY;
