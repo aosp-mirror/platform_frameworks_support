@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cff4362f_62a06174",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportLibraryExtension.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T19:23:32Z",
+      "side": 1,
+      "message": "Normally I\u0027d imagine that it\u0027d be more convenient if the individual projects set this in paging/*/build.gradle in their `supportLibrary {}` block to make it easier to notice the difference between these projects and the others\n\nAlthough if this is more convenient for preemptively avoiding merge conflicts or something like that then that\u0027s fine too.",
+      "revId": "d006e7cafc868063eb4301b938460059c54a19cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
