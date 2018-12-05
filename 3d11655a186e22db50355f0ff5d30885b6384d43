@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b888975_9892793e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-12-05T01:38:41Z",
+      "side": 1,
+      "message": "I don\u0027t know if using a resource id is better here or not. Also Anthony\u0027s argument is strong and perhaps splitting from platform is not a bad thing here?",
+      "range": {
+        "startLine": 264,
+        "startChar": 34,
+        "endLine": 264,
+        "endChar": 38
+      },
+      "revId": "3d11655a186e22db50355f0ff5d30885b6384d43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
