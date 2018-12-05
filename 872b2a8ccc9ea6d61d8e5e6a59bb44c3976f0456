@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8484480_f63c6bda",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:50:56Z",
+      "side": 1,
+      "message": "This is the default, but there may or may not be future modes, this allows us to delay that decision forever. Which is a sort of platonic ideal for architecture decisions(from Robert Martin, Clean Architecture).",
+      "parentUuid": "eec9fbfe_0a2fcc61",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "872b2a8ccc9ea6d61d8e5e6a59bb44c3976f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3c94ede_2136d909",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "872b2a8ccc9ea6d61d8e5e6a59bb44c3976f0456",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b3f81e_841e3be0",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:50:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c94ede_2136d909",
+      "range": {
+        "startLine": 1219,
+        "startChar": 16,
+        "endLine": 1219,
+        "endChar": 22
+      },
+      "revId": "872b2a8ccc9ea6d61d8e5e6a59bb44c3976f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
