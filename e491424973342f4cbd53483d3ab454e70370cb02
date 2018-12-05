@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "672889c0_37491304",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-12-05T17:34:29Z",
+      "side": 1,
+      "message": "Thanks for catching this. It\u0027s not anymore. I have removed it in my next CL. It is unfortunately manual process :(",
+      "parentUuid": "ad2dc63c_a91e945d",
+      "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b1bffd8_403fffe7",
         "filename": "jetifier/jetifier/migration.config",
         "patchSetId": 2
