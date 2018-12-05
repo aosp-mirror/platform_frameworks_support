@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf0f636e_25d9b8bd",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/TestUtilsMatchers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-12-05T13:36:17Z",
+      "side": 1,
+      "message": "whose",
+      "range": {
+        "startLine": 386,
+        "startChar": 65,
+        "endLine": 386,
+        "endChar": 70
+      },
+      "revId": "543faf76d2db993ca90a8658a21aee925410cd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4f92f2_766dfa85",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/TestUtilsMatchers.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-12-05T13:36:17Z",
+      "side": 1,
+      "message": "whose",
+      "range": {
+        "startLine": 429,
+        "startChar": 65,
+        "endLine": 429,
+        "endChar": 70
+      },
+      "revId": "543faf76d2db993ca90a8658a21aee925410cd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1249af_22b486e9",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/SwitchCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2018-12-05T13:36:17Z",
+      "side": 1,
+      "message": "What\u0027s the logical difference between before and after? How is it passing now?",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 87
+      },
+      "revId": "543faf76d2db993ca90a8658a21aee925410cd97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
