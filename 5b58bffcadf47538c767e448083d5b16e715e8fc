@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "906dd9ac_8125a517",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-05T05:55:14Z",
+      "side": 1,
+      "message": "Bundle which contains ?",
+      "range": {
+        "startLine": 482,
+        "startChar": 27,
+        "endLine": 482,
+        "endChar": 34
+      },
+      "revId": "5b58bffcadf47538c767e448083d5b16e715e8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4602e994_ce07fb02",
+        "filename": "media2/src/main/java/androidx/media2/MediaUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-05T05:55:14Z",
+      "side": 1,
+      "message": "Not done",
+      "range": {
+        "startLine": 483,
+        "startChar": 23,
+        "endLine": 483,
+        "endChar": 27
+      },
+      "revId": "5b58bffcadf47538c767e448083d5b16e715e8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
