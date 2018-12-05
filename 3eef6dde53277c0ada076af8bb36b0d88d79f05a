@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ce4df92_99537fbb",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2018-12-05T23:46:28Z",
+      "side": 1,
+      "message": "why don\u0027t we provide the getter too?",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 42
+      },
+      "revId": "3eef6dde53277c0ada076af8bb36b0d88d79f05a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
