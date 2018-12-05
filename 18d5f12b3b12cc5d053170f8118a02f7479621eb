@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3097c69e_28488f0c",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Can you make this getSubtitle()/setSubtitle instead? (No capital \"T\").\n\nThis is how Android handles its APIs for subtitle:\nhttps://developer.android.com/reference/android/app/ActionBar#setSubtitle(java.lang.CharSequence)",
+      "range": {
+        "startLine": 234,
+        "startChar": 32,
+        "endLine": 234,
+        "endChar": 43
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1903c496_65bd5c85",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Also add tests that check that the content of the subtitle matches what you set.",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b612a1_3b226d2c",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Null*\n\nBut also add back your previous test that passes in the empty string.",
+      "range": {
+        "startLine": 178,
+        "startChar": 50,
+        "endLine": 178,
+        "endChar": 55
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68043324_cfc2bd6f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Move this to fit on the previous line.",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698c5f45_d4fc8cae",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f22bec68_5c45b453",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Document that \"null\" can be returned.",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e4ce07_d174f99d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Add @Nullable annotation",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b5018b_dd50ffe7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Specify that the subtitle appears underneath the title if the title exists.",
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94cd7d65_f95c61d2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Combine this with the @param:\n\n@parma subtitle Subtitle to set. {@code null} or empty string will hide the subtitle.",
+      "range": {
+        "startLine": 320,
+        "startChar": 7,
+        "endLine": 320,
+        "endChar": 62
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2bc85b_3e626435",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Add @Nullable",
+      "range": {
+        "startLine": 324,
+        "startChar": 28,
+        "endLine": 324,
+        "endChar": 40
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea872dc_32399391",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "I know the specs in the bug say that P1 should separate the title and subtitle, but could you double-check with UX? We\u0027ve recently been removing this spacing when text is stacked on top of each other.\n\nIf we are still using it, pull it into a field variable instead and retrieve it in the constructor. We don\u0027t want to pull too many resources in the layout phase of the View, especially if it stays constant.",
+      "range": {
+        "startLine": 386,
+        "startChar": 18,
+        "endLine": 386,
+        "endChar": 77
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e67280_6a320891",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T01:05:39Z",
+      "side": 1,
+      "message": "Easier calculation if you use:\n\ntitle.getBottom() + car_padding_1",
+      "range": {
+        "startLine": 389,
+        "startChar": 25,
+        "endLine": 390,
+        "endChar": 82
+      },
+      "revId": "18d5f12b3b12cc5d053170f8118a02f7479621eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
