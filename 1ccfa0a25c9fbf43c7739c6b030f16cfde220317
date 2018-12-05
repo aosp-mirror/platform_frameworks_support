@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1744b4f_fbba01c5",
+        "filename": "buildSrc/build_dependencies.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T16:56:40Z",
+      "side": 1,
+      "message": "Suggest extracting version number into a variable",
+      "range": {
+        "startLine": 37,
+        "startChar": 43,
+        "endLine": 37,
+        "endChar": 56
+      },
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed26621d_0c9a51de",
+        "filename": "compat/src/main/java/androidx/core/os/BuildCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T16:56:40Z",
+      "side": 1,
+      "message": "(I know that you just copied this file from elsewhere but)\nFor isAtLeastO, isAtLeastOMR1, and isAtLeastP (but not for isAtLeastQ), I think it would be more accurate to update the wording to match that of isAtLeastN:\n\n  Checks if the device is running on the Android O release or newer.",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 86
+      },
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63c27c6a_abb0837a",
+        "filename": "gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T16:56:40Z",
+      "side": 1,
+      "message": "Oh interesting",
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
