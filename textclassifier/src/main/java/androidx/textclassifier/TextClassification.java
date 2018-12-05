@@ -262,6 +262,7 @@ public final class TextClassification {
      */
     @TargetApi(26)
     @SuppressWarnings("deprecation") //To support O
+    @SuppressLint("BanTargetApiAnnotation")
     @NonNull
     private static RemoteActionCompat createRemoteActionCompat(
             @NonNull Context context,

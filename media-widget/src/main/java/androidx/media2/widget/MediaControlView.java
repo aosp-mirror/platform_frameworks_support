@@ -24,6 +24,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -114,6 +115,7 @@ import java.util.concurrent.Executor;
  *
  */
 @TargetApi(Build.VERSION_CODES.P)
+@SuppressLint("BanTargetApiAnnotation")
 @RequiresApi(21) // TODO correct minSdk API use incompatibilities and remove before release.
 public class MediaControlView extends BaseLayout {
     private static final String TAG = "MediaControlView";

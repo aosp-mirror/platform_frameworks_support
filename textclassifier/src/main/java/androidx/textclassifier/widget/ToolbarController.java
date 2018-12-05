@@ -66,6 +66,7 @@ import java.util.Map;
 @RestrictTo(LIBRARY_GROUP)
 @RequiresApi(Build.VERSION_CODES.M)
 @TargetApi(Build.VERSION_CODES.M)
+@SuppressLint("BanTargetApiAnnotation")
 @UiThread
 public final class ToolbarController {
 

@@ -18,6 +18,7 @@ package androidx.media2.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioManager;
@@ -92,6 +93,7 @@ import java.lang.annotation.RetentionPolicy;
  * @attr ref androidx.media2.widget.R.styleable#VideoView_viewType
  */
 @TargetApi(Build.VERSION_CODES.P)
+@SuppressLint("BanTargetApiAnnotation")
 public class VideoView extends BaseLayout {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)
