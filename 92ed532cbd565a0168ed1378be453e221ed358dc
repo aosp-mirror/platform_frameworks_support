@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66f0c42c_71994544",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T21:56:58Z",
+      "side": 1,
+      "message": "getLastIndexOnSameRow expects its index to be the child position and not the adapter position (which is what I\u0027m using here).\n\nWe should probably rethink how that method works so we can use it here, or just keep them separate.\n\nI think we can solve that in another CL though. For now, I\u0027m going to keep the two methods separate and filed b/120562579 to track.",
+      "parentUuid": "03fa8a2f_3452f84d",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 37
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89d346cd_d5ff7ea6",
         "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ac7ca8d8_15d63016",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T21:56:58Z",
+      "side": 1,
+      "message": "Done. Also updated currentChildIndex to currentChildPosition.",
+      "parentUuid": "89d346cd_d5ff7ea6",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 115,
+        "endChar": 26
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32c95b72_343d821e",
         "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a7318f_61f7ce1f",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T21:56:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32c95b72_343d821e",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "92ed532cbd565a0168ed1378be453e221ed358dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
