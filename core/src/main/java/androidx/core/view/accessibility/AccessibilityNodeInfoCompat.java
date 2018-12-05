@@ -18,6 +18,7 @@ package androidx.core.view.accessibility;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.os.Build;
@@ -89,6 +90,7 @@ public class AccessibilityNodeInfoCompat {
      * </p>
      */
     @TargetApi(21)
+    @SuppressLint("BanTargetApiAnnotation")
     public static class AccessibilityActionCompat {
 
         private static final String TAG = "A11yActionCompat";
@@ -2529,6 +2531,7 @@ public class AccessibilityNodeInfoCompat {
     }
 
     @TargetApi(19)
+    @SuppressLint("BanTargetApiAnnotation")
     private void clearExtrasSpans() {
         mInfo.getExtras().remove(SPANS_START_KEY);
         mInfo.getExtras().remove(SPANS_END_KEY);

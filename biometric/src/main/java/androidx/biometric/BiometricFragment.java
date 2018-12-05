@@ -41,7 +41,7 @@ import java.util.concurrent.Executor;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @TargetApi(28)
-@SuppressLint("SyntheticAccessor")
+@SuppressLint({"SyntheticAccessor", "BanTargetApiAnnotation"})
 public class BiometricFragment extends Fragment {
 
     private static final String TAG = "BiometricFragment";

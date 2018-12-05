@@ -16,6 +16,7 @@
 
 package com.example.android.biometric;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -281,6 +282,7 @@ public class BiometricPromptDemo extends FragmentActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
+    @SuppressLint("BanTargetApiAnnotation")
     private boolean initCipher(Cipher cipher, String keyName) {
         try {
             mKeyStore.load(null);
@@ -296,6 +298,7 @@ public class BiometricPromptDemo extends FragmentActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
+    @SuppressLint("BanTargetApiAnnotation")
     private void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
         KeyGenerator keyGenerator;
 
