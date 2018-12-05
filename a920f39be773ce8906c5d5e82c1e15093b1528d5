@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40be0cc8_04d8ba1e",
+        "filename": "coordinatorlayout/api/res-1.1.0-alpha02.txt",
+        "patchSetId": 64
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T02:21:18Z",
+      "side": 1,
+      "message": "Should also be able to rebase past aosp/841236 to avoid needing to add this file; there was a temporary breakage that was addressed by that change",
+      "revId": "a920f39be773ce8906c5d5e82c1e15093b1528d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e160bb_292d3816",
+        "filename": "versionedparcelable/api/res-1.1.0-alpha02.txt",
+        "patchSetId": 64
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T02:21:18Z",
+      "side": 1,
+      "message": "Should also be able to rebase past aosp/841236 to avoid needing to add this file; there was a temporary breakage that was addressed by that change",
+      "revId": "a920f39be773ce8906c5d5e82c1e15093b1528d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
