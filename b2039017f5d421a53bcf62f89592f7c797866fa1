@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "05e1d2ac_1fef776d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-05T20:48:24Z",
+      "side": 1,
+      "message": "Awesome, thanks!  And yeah, whoops, didn\u0027t occur to me that you can\u0027t use @inhereitDoc! My bad.",
+      "parentUuid": "e4c3d229_edbe0c14",
+      "range": {
+        "startLine": 2178,
+        "startChar": 7,
+        "endLine": 2184,
+        "endChar": 14
+      },
+      "revId": "b2039017f5d421a53bcf62f89592f7c797866fa1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7615de6c_a3ce7cfe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
