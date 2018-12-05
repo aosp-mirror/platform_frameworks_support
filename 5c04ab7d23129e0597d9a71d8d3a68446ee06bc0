@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2c633f2_bce9da9b",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-05T16:26:17Z",
+      "side": 1,
+      "message": "Is 0 a valid id? Should we be returning something like a -1?",
+      "range": {
+        "startLine": 572,
+        "startChar": 23,
+        "endLine": 572,
+        "endChar": 24
+      },
+      "revId": "5c04ab7d23129e0597d9a71d8d3a68446ee06bc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
