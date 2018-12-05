@@ -94,9 +94,17 @@ function runStudio() {
   fi
 }
 
+function copyDotIdea() {
+  fromDir=".androidx_idea"
+  toDir=".idea"
+  mkdir -p "$toDir"
+  cp -rT "$fromDir" "$toDir"
+}
+
 function main() {
   updateStudio
   checkLicenseAgreement
+  copyDotIdea
   runStudio
 }
 
