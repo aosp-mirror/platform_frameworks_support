@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d2137e71_edc86d46",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-05T18:14:48Z",
+      "side": 1,
+      "message": "Done.\n\nI don\u0027t really know if we need @hide for package-private constants.",
+      "parentUuid": "230b936d_9acf0874",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64d0dd58_2c7a0814",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
         "patchSetId": 2
@@ -321,6 +339,24 @@
     },
     {
       "key": {
+        "uuid": "65152f69_e4779b87",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-05T18:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb75e3c_c999061e",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "745054cb_ecde9788",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -413,6 +449,30 @@
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080274a7_f6925d87",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-05T18:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31246a65_91b468c2",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -593,6 +653,24 @@
     },
     {
       "key": {
+        "uuid": "b75c50e4_29f77817",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-05T18:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2eaea4c_d3f0c121",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44b47047_bf1cefbd",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 2
@@ -607,6 +685,24 @@
       "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e86b3a_24c83700",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-05T18:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44b47047_bf1cefbd",
+      "revId": "a33d254e310481f52543491b75752dab4d45bc9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
