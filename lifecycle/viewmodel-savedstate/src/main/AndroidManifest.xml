@@ -15,5 +15,5 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="androidx.lifecycle.viewmodel.savedstate">
+          package="androidx.lifecycle.viewmodel.fragment">
 </manifest>
