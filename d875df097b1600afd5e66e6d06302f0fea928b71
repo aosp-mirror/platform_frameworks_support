@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0a766e2_16e4f426",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T23:17:37Z",
+      "side": 1,
+      "message": "Nit: call this textVerticalPadding or something similar. That way, if the actual dimen used here is changed, you don\u0027t have to update the variable name.",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a99e5cc_fe3e9a3b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T23:17:37Z",
+      "side": 1,
+      "message": "Reword to \"or {@cdoe null} if none has been set.\"",
+      "range": {
+        "startLine": 335,
+        "startChar": 35,
+        "endLine": 335,
+        "endChar": 61
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ce0aa4_870fbe67",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T23:17:37Z",
+      "side": 1,
+      "message": "This goes before \"public\":\n\n  @Nullable\n  public CharSequence...\n\nhttp://go/java-style#s4.8.5-annotations",
+      "range": {
+        "startLine": 337,
+        "startChar": 11,
+        "endLine": 337,
+        "endChar": 21
+      },
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "556ac955_44c9b9aa",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/crash_text.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T23:17:37Z",
+      "side": 1,
+      "message": "Add AOSP header",
+      "revId": "d875df097b1600afd5e66e6d06302f0fea928b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
