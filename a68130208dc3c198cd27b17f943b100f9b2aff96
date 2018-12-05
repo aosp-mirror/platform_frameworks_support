@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "058c39d7_23cc57f1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T22:02:34Z",
+      "side": 1,
+      "message": "I think that if we end up removing the string we might forget to remove the getter and setter so I don\u0027t think that approach will help in the case we fear here. However I can add a const val accessible everywhere that way if it\u0027s removed, we\u0027ll know one way or the other, and that will at least ensure we don\u0027t change the string somewhere and not the other.",
+      "parentUuid": "6b693385_c792cde8",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b822193f_053ad670",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -64,6 +82,24 @@
       "writtenOn": "2018-12-05T20:43:57Z",
       "side": 1,
       "message": "Could we add an \u0027else\u0027 clause to this \u0027if\u0027 that sets \"snapshotVersion\" to \"\" so that later when we try to access it, we can assume that the property is set, so that if if an ordering error occurs, it will be an exception?",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eae9176_4fcaed40",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T22:02:34Z",
+      "side": 1,
+      "message": "Well if we set the property to \"\" then there will just not be an extension and the project will look stable and we don\u0027t know about it until we inspect the output. If the property is not set however we\u0027ll know about it earlier because it will complain it can\u0027t find the extra property and it can\u0027t parse unspecified.",
+      "parentUuid": "b822193f_053ad670",
       "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -90,6 +126,30 @@
       "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb75f00_1b0f13ae",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T22:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bb5bb8e_3cc9a942",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
