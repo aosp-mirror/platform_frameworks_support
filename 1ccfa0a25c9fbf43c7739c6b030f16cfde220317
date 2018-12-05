@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f2fb8dde_8ecfd357",
+        "filename": "buildSrc/build_dependencies.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T17:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1744b4f_fbba01c5",
+      "range": {
+        "startLine": 37,
+        "startChar": 43,
+        "endLine": 37,
+        "endChar": 56
+      },
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed26621d_0c9a51de",
         "filename": "compat/src/main/java/androidx/core/os/BuildCompat.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a945470c_4795db94",
+        "filename": "compat/src/main/java/androidx/core/os/BuildCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T17:33:55Z",
+      "side": 1,
+      "message": "Cherry pick gone wrong LOL, nice catch, this doesn\u0027t even need to be here.",
+      "parentUuid": "ed26621d_0c9a51de",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 86
+      },
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63c27c6a_abb0837a",
         "filename": "gradlew",
         "patchSetId": 1
@@ -59,6 +107,24 @@
       "writtenOn": "2018-12-05T16:56:40Z",
       "side": 1,
       "message": "Oh interesting",
+      "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83f4b787_74a3c847",
+        "filename": "gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-05T17:33:55Z",
+      "side": 1,
+      "message": ":(",
+      "parentUuid": "63c27c6a_abb0837a",
       "revId": "1ccfa0a25c9fbf43c7739c6b030f16cfde220317",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
