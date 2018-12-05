@@ -27,9 +27,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelsWithStateFactories;
 import androidx.lifecycle.savedstate.fragment.activity.FakingSavedStateActivity;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
@@ -132,21 +132,20 @@ public class ViewModelsWithStateTests {
         });
     }
 
-
     public static class VM extends ViewModel {
         private final MutableLiveData<String> mLiveData;
 
         public VM(SavedStateHandle handle) {
-            mLiveData = handle.accessor().getLiveData("state");
+            mLiveData = handle.getLiveData("state");
         }
     }
 
     private ViewModelProvider vmProvider(FakingSavedStateActivity activity) {
         if (FRAGMENT_MODE.equals(mode)) {
             Fragment fragment = activity.getFragment();
-            return new ViewModelProvider(fragment, ViewModelsWithStateFactories.of(fragment));
+            return new ViewModelProvider(fragment, new SavedStateVMFactory(fragment));
         }
-        return new ViewModelProvider(activity, ViewModelsWithStateFactories.of(activity));
+        return new ViewModelProvider(activity, new SavedStateVMFactory(activity));
     }
 
     // copy copy copy paste
