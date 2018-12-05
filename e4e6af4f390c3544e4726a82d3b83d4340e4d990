@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d8b6a84a_6b610d69",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-12-05T12:01:37Z",
+      "side": 1,
+      "message": "Please let\u0027s use oldPagingVersion variable for this.",
+      "range": {
+        "startLine": 1576,
+        "startChar": 92,
+        "endLine": 1576,
+        "endChar": 104
+      },
+      "revId": "e4e6af4f390c3544e4726a82d3b83d4340e4d990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13bee885_49db70bb",
         "filename": "jetifier/jetifier/core/src/main/resources/default.config",
         "patchSetId": 1
@@ -18,6 +41,29 @@
         "startChar": 33,
         "endLine": 1750,
         "endChar": 45
+      },
+      "revId": "e4e6af4f390c3544e4726a82d3b83d4340e4d990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dd0105c_7cc12097",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.generated.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-12-05T12:01:37Z",
+      "side": 1,
+      "message": "Was this file properly regenerated? If we have added these mappings I\u0027m surprised that the types map is not affected. We did changes to make it happen in aosp/835924. I would recommend to rebase and re-generate the config to see if this gets updated.",
+      "range": {
+        "startLine": 1162,
+        "startChar": 4,
+        "endLine": 1165,
+        "endChar": 6
       },
       "revId": "e4e6af4f390c3544e4726a82d3b83d4340e4d990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
