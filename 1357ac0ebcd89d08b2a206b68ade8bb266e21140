@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "423576c9_043802f3",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b42af7dc_49eaa182",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 42
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b0b5caf_0bf0bbf6",
         "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c9e36d_32458493",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0b5caf_0bf0bbf6",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "075dc29f_b2f6e8ac",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5d99f61_ee2a2e7d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47bb23f3_2ddd6da3",
         "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612bc1e2_3dc2fb9e",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "I leave this as it is. This object is created in Activity\u0027s constructor, when you can\u0027t call getSystemService. This object lives as long as activity does, so it is ok to keep activity here.",
+      "parentUuid": "47bb23f3_2ddd6da3",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0ed8809f_e744eb75",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d8cef5f_143a739f",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 13
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0058342_05232e09",
         "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7d5a1e_527e6156",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0058342_05232e09",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e0a7f713_8333d642",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfd9e8c5_16e597fe",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb633855_39f9c293",
         "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
         "patchSetId": 3
@@ -177,6 +345,24 @@
       "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5278e486_7568b656",
+        "filename": "activity/src/main/java/androidx/activity/ImmLeaksCleaner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-05T12:07:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb633855_39f9c293",
+      "revId": "1357ac0ebcd89d08b2a206b68ade8bb266e21140",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
