@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "50de4a1e_42df7f23",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T20:06:29Z",
+      "side": 1,
+      "message": "Ended up modifying the logic of this method to make it simpler. \n\nAlso, realized I couldn\u0027t actually use findLastVisibleItemPosition() because the views have not all been laid out.",
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97f3014d_db8b2715",
         "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
         "patchSetId": 2
@@ -22,6 +39,30 @@
       "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d66aa82_f9b12fd4",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T20:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97f3014d_db8b2715",
+      "range": {
+        "startLine": 131,
+        "startChar": 24,
+        "endLine": 131,
+        "endChar": 46
+      },
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -48,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "393fee22_6765b498",
+        "filename": "car/core/src/main/java/androidx/car/widget/GridLayoutManagerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T20:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a68ea9a_4800662b",
+      "range": {
+        "startLine": 140,
+        "startChar": 24,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "250be185_060e4959",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 2
@@ -71,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "1572848f_687b0d56",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T20:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "250be185_060e4959",
+      "range": {
+        "startLine": 524,
+        "startChar": 47,
+        "endLine": 524,
+        "endChar": 53
+      },
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aff02d47_6ba6cbe0",
         "filename": "samples/SupportCarDemos/src/main/res/layout/grid_layout_item.xml",
         "patchSetId": 2
@@ -82,6 +171,30 @@
       "writtenOn": "2018-12-05T01:43:06Z",
       "side": 1,
       "message": "maybe i\u0027m missing something. why is it 0dp..?",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "ef32ef606104b45611c91c5094a7b59fc7253896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9cdf8e3_014364f3",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/grid_layout_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-05T20:06:29Z",
+      "side": 1,
+      "message": "It\u0027s a ColumnCardView, which calculates the width automatically. The ColumnCardView actually isn\u0027t needed though, so I changed this to a FrameLayout to make it more clear.",
+      "parentUuid": "aff02d47_6ba6cbe0",
       "range": {
         "startLine": 20,
         "startChar": 26,
