@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "62779f96_82f6e545",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T22:29:07Z",
+      "side": 1,
+      "message": "Thanks - that sounds good to me too",
+      "parentUuid": "058c39d7_23cc57f1",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b822193f_053ad670",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -100,6 +118,24 @@
       "side": 1,
       "message": "Well if we set the property to \"\" then there will just not be an extension and the project will look stable and we don\u0027t know about it until we inspect the output. If the property is not set however we\u0027ll know about it earlier because it will complain it can\u0027t find the extra property and it can\u0027t parse unspecified.",
       "parentUuid": "b822193f_053ad670",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f1783d_2ddee3f7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-05T22:29:07Z",
+      "side": 1,
+      "message": "If the SNAPSHOT_VERSION_PROPERTY property is unset, then I think that triggers the clause in Version.kt that says `if (project.rootProject.hasProperty(SNAPSHOT_VERSION_PROPERTY)` , which I think would prevent Project.setupVersion from doing its snapshot computation.\n\nI\u0027m imagining that the `else` clause in configureRootProject would say `project.extra.set(SNAPSHOT_VERSION_PROPERTY, \"\")` and then in Version.kt , the check would say `project.rootProject.extra[SNAPSHOT_VERSION_PROPERTY] !\u003d \"\"`",
+      "parentUuid": "7eae9176_4fcaed40",
       "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
