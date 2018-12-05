@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "350a1335_f47f5c30",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-12-05T16:41:31Z",
+      "side": 1,
+      "message": "Can other track types be deselected?",
+      "range": {
+        "startLine": 1382,
+        "startChar": 20,
+        "endLine": 1383,
+        "endChar": 88
+      },
+      "revId": "e515b83bd606299976ffbd890c86b6b8b3395453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
