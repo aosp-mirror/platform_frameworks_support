@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dca37b8_4655e1c0",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Should this throw if it isn\u0027t a supported Object type rather than just silently default to a String?",
+      "range": {
+        "startLine": 154,
+        "startChar": 20,
+        "endLine": 154,
+        "endChar": 21
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9fef4e_1d6af06f",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Should this throw if it isn\u0027t a supported Object type rather than just silently default to a String?",
+      "range": {
+        "startLine": 161,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 21
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d450a43_d37110f4",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Same question on throwing an exception rather than just defaulting to a String type. They clearly wanted an array of something",
+      "range": {
+        "startLine": 216,
+        "startChar": 63,
+        "endLine": 216,
+        "endChar": 65
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923359f6_f913e657",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Is this the best error message? Just wondering if something like \"Parcelables don\u0027t support default values\" would be more descriptive",
+      "range": {
+        "startLine": 539,
+        "startChar": 53,
+        "endLine": 539,
+        "endChar": 93
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c1b52f4_d71a5fcc",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Remove commented out code",
+      "range": {
+        "startLine": 575,
+        "startChar": 0,
+        "endLine": 577,
+        "endChar": 15
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ea8c13_c3f9920e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Same comment on using default values rather than string values",
+      "range": {
+        "startLine": 608,
+        "startChar": 74,
+        "endLine": 608,
+        "endChar": 87
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2906b583_8aa7ba8c",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Should this throw saying that default values are not supported for non-Enum Serializable types?",
+      "range": {
+        "startLine": 668,
+        "startChar": 16,
+        "endLine": 668,
+        "endChar": 28
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f493e691_9dd184a6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Remove commented out code",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 15
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "600f5c49_da828e39",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "Same comment on default vs string",
+      "range": {
+        "startLine": 745,
+        "startChar": 74,
+        "endLine": 745,
+        "endChar": 80
+      },
+      "revId": "c5232f08a323aef62e0cbdc798e359c3243caac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

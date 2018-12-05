@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "051c16d8_7645300e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "I\u0027m not seeing any Javadoc on the latest patch.",
+      "parentUuid": "992a9372_8b8b1c7d",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3042f29_551768bd",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 6
@@ -187,6 +211,30 @@
       "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53af3cb7_e9ca1e96",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "I\u0027m not seeing any Javadoc on the latest patch.",
+      "parentUuid": "311d721c_98f1ea77",
+      "range": {
+        "startLine": 59,
+        "startChar": 22,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "d2ec1484_68bbacfe",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "I\u0027m not seeing any Javadoc on the latest patch.",
+      "parentUuid": "b2145507_40175edd",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 29
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdf36969_801d25c7",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 6
@@ -281,6 +353,30 @@
       "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d638022f_fc2d651b",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-05T18:21:14Z",
+      "side": 1,
+      "message": "I\u0027m not seeing any Javadoc on the latest patch.",
+      "parentUuid": "8fca97d8_f8032957",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 33
+      },
+      "revId": "9756a88f719a2e7e8cd127e5c3f7f56f333dad43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
