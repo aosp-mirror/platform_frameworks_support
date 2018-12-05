@@ -22,6 +22,30 @@
       "revId": "9f14ef0f50565f54853d24338d3befe78e53dac7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a3ffa5_cda46196",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1301960
+      },
+      "writtenOn": "2018-12-05T05:35:23Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "36083b68_5ec3a6c9",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 18
+      },
+      "revId": "9f14ef0f50565f54853d24338d3befe78e53dac7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
