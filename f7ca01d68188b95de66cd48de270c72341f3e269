@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b50617db_f3bf01f7",
+        "filename": "samples/SupportCarDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9180b41_f4cb1489",
+      "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2627fc6_90842882",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/MixedColumnPagedListViewActivity.java",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c993ca_0074b7b6",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/MixedColumnPagedListViewActivity.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2627fc6_90842882",
+      "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "cb735c79_58019245",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/MixedColumnPagedListViewActivity.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac797203_4dd6aa04",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 10
+      },
+      "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4281534a_8eb27dbe",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/MixedColumnPagedListViewActivity.java",
         "patchSetId": 14
@@ -73,6 +133,24 @@
       "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74327a27_fdb7717e",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/MixedColumnPagedListViewActivity.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-05T01:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4281534a_8eb27dbe",
+      "revId": "f7ca01d68188b95de66cd48de270c72341f3e269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
