@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d099e9c2_f242e25a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-05T03:23:09Z",
+      "side": 1,
+      "message": "This assertion fails on the bot because we don\u0027t call the callback. I can repro locally on my device. This seems like a bug in the APK? I\u0027ll investigate and update this. But please review the test-as-is, since I don\u0027t think this requires a test change.\n\nAlso: I observed on one of my devices that the test crashes because we never call onLoadResource(). I\u0027m not sure if my device is in a funky state, or if something else is broken in the APK--either way, I\u0027ll try to investigate.",
+      "revId": "1c60015d0aca702df648361ab77e8252df596742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
