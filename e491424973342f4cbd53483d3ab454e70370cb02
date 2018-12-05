@@ -34,6 +34,24 @@
       "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b94357ba_2ce64c7e",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 2587,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2018-12-05T13:22:08Z",
+      "side": 1,
+      "message": "resolved",
+      "parentUuid": "b9874f05_66a2660d",
+      "revId": "e491424973342f4cbd53483d3ab454e70370cb02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
