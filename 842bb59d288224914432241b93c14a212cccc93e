@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97f6d7f8_4430566b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/graphics/drawable/DrawableContainer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 62
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3977bf65_d4008194",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587212b7_63db5221",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 272,
+        "startChar": 4,
+        "endLine": 272,
+        "endChar": 43
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c23557b_511a1534",
+        "filename": "core/src/main/java/androidx/core/telephony/mbms/MbmsHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7041b7_d9f8db76",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File bugs for all these.",
+      "range": {
+        "startLine": 139,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd9efa28_972eae9d",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 39
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "550fc6eb_58a7408e",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 39
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9144d60d_a5c31e7a",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this and the one below.",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 285,
+        "endChar": 43
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6845620d_a068f6f1",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/LegacyTextClassifier.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 54
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c3028c0_bca735a8",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "File a bug for this.",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 43
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53922ba_157ae4e5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "Remove @TargetApi from here. It does nothing here.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01b4e23_1a076cb1",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T22:23:24Z",
+      "side": 1,
+      "message": "This bug looks fixed. Try removing @TargetApi.",
+      "range": {
+        "startLine": 545,
+        "startChar": 4,
+        "endLine": 546,
+        "endChar": 43
+      },
+      "revId": "842bb59d288224914432241b93c14a212cccc93e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
