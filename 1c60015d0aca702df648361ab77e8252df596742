@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cb41a17c_67f8a03f",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-06T19:35:08Z",
+      "side": 1,
+      "message": "This deviates slightly from CTS. I can get closer to CTS behavior if I change this string to \"/assets/webkit/generate_404.html\". However, tests still fail on \u003e\u003d P (and pass on \u003c P).\n\nI think we can rule out any origin-related issues: the CTS and AndroidX URLs only differ with respect to port numbers (which change run to run anyway).\n\nTherefore, I\u0027m ruling this out as the source of the bug.",
+      "range": {
+        "startLine": 235,
+        "startChar": 37,
+        "endLine": 235,
+        "endChar": 55
+      },
+      "revId": "1c60015d0aca702df648361ab77e8252df596742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d099e9c2_f242e25a",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
         "patchSetId": 1
@@ -34,6 +57,24 @@
       "revId": "1c60015d0aca702df648361ab77e8252df596742",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48ed1ff1_0b4eb41d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-06T19:35:08Z",
+      "side": 1,
+      "message": "Well, I\u0027m embarrassed that I couldn\u0027t solve the P issue. But Laís did; I was missing the cleartext attribute.",
+      "parentUuid": "923a1867_1a4cbc1f",
+      "revId": "1c60015d0aca702df648361ab77e8252df596742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
