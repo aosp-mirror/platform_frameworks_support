@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3fc4e79b_cb7024a7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T15:57:44Z",
+      "side": 1,
+      "message": "It means I should not forget to implement this in TCImpl. :)",
+      "parentUuid": "6872348e_b1a16ab9",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1366bc51_b4662f57",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-12-06T12:17:23Z",
       "side": 1,
       "message": "This probably is not always correct?\n\nFor example, this seems irrelevant if this is the indices for an clicked event?\n\nAlso, @NonNull?",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64037c9_5cf35e4e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T15:57:44Z",
+      "side": 1,
+      "message": "\u003e Actions are \"usually\" returned...\nThis part of the comment refers to our getRemoteActions() methods in TC results. Not the event itself. It also suggests this is not \"always\" the case but is typical enough that the concept may be useful for logging events.\ne.g.\n\n- If you\u0027re logging a SHOW event, you might find it useful to log what items are being shown:\ne.g. 1, 2, 3 (assuming 4 and 5 are not shown).\n\n- If you\u0027re logging a CLICK event, you will usually only be logging on remoteAction:\ne.g. 2 (indicating the 2nd ranked remote action was the clicked one).\n\n- If you\u0027re logging a SELECT event\ne.g. 2, 4, 5 (the 2nd, 4th and 5th remote actions were selected).",
+      "parentUuid": "1366bc51_b4662f57",
       "range": {
         "startLine": 341,
         "startChar": 6,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "bb91cdc1_9e54decb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T15:57:44Z",
+      "side": 1,
+      "message": "Thanks, Actually, I should change this to (int... actionIndices).\nI was just being lazy about the Arrays.asList() method. :)",
+      "parentUuid": "feeaf250_16cdf538",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7338cb84_00e74689",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "f1623518_e56b3941",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T15:57:44Z",
+      "side": 1,
+      "message": "Ouch. Thanks. Will fix.",
+      "parentUuid": "7338cb84_00e74689",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d84eff47_936c8631",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -87,6 +165,24 @@
       "writtenOn": "2018-12-06T12:17:23Z",
       "side": 1,
       "message": "handle when mActionIndices is null?",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1cb8e92_765bfbfd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T15:57:44Z",
+      "side": 1,
+      "message": "Yeah. I should enforce these cannot be null.",
+      "parentUuid": "d84eff47_936c8631",
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
