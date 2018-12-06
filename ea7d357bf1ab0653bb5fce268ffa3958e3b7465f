@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701dd35d_35a73021",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T22:11:53Z",
+      "side": 1,
+      "message": "vars don\u0027t have a @param",
+      "range": {
+        "startLine": 143,
+        "startChar": 7,
+        "endLine": 143,
+        "endChar": 51
+      },
+      "revId": "ea7d357bf1ab0653bb5fce268ffa3958e3b7465f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420f2db8_02c75298",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T22:11:53Z",
+      "side": 1,
+      "message": "Same, no @param now that this is a property",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "ea7d357bf1ab0653bb5fce268ffa3958e3b7465f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c259c5_431c5eba",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T22:11:53Z",
+      "side": 1,
+      "message": "Do you want to mention that Navigation XML will infer a long if the value is followed by an \u0027L\u0027?",
+      "range": {
+        "startLine": 313,
+        "startChar": 36,
+        "endLine": 313,
+        "endChar": 37
+      },
+      "revId": "ea7d357bf1ab0653bb5fce268ffa3958e3b7465f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

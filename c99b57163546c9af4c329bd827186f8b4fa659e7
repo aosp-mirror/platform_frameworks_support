@@ -649,6 +649,30 @@
     },
     {
       "key": {
+        "uuid": "6e32575e_dc4bf8a6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T22:11:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8289704f_d9f6a650",
+      "range": {
+        "startLine": 268,
+        "startChar": 73,
+        "endLine": 268,
+        "endChar": 77
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "393dcde9_377275b5",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 11
