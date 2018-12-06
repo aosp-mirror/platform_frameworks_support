@@ -205,7 +205,6 @@ public class MediaUtils {
         }
         // Item is from the MediaControllerCompat, so forcefully set the playable.
         MediaMetadata metadata = new MediaMetadata.Builder(metadataCompat.getBundle())
-                .putLong(METADATA_KEY_BROWSABLE, BROWSABLE_TYPE_NONE)
                 .putLong(METADATA_KEY_PLAYABLE, 1).build();
         return new MediaItem.Builder().setMetadata(metadata).build();
     }
