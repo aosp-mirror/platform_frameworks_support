@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "74cc1687_0dc5d818",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-06T12:51:18Z",
+      "side": 1,
+      "message": "I\u0027m happy to resolve that, this case is a bit more complicated,  we\u0027re currently missing hooks and just pass application isn\u0027t enough to get rid of fragments dependency \u003d( \nSee VMSavedStateInitializer.java: everytime fragment or activity is recreated I need to register already existent ViewModel\u0027s SavedStateProvider to new instance of activity / fragment. \nActivity case is simple, all is needed is Application, then I can add ActivityLifecycleCallbacks and check if activity has ViewModelStoreOwner interface. For fragments I did the same with FragmentLifecycleCallbacks, but it obviously requires fragment dependency. I don\u0027t see any elegant way to resolve it right now. \n\nOne more thing: I *really* (really, really) want to implement this SavedStateHandle thing as a separate module that is dependent on both savedstate-bundle and viewmodel, but neither savedstate-bundle or viewmodel modules don\u0027t know about each other. \n\nSo my suggestion for now:\n1. let\u0027s explicitly pass an application in factory as Ian suggested\n2. go to eap and gather feedback on whether people like that approach\n3. while running eap figure out what is the best way to resolve fragment dependency and add missing hooks. \n\nWhat do you think?",
+      "parentUuid": "a041c763_b7451ef2",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b23a34d0_76a10681",
         "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
         "patchSetId": 1
