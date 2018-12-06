@@ -22,6 +22,30 @@
       "revId": "5c04ab7d23129e0597d9a71d8d3a68446ee06bc0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0467eed9_c8765eb5",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1301960
+      },
+      "writtenOn": "2018-12-06T01:16:49Z",
+      "side": 1,
+      "message": "No, 0 isn\u0027t a valid id. It returned 0 before. \nhttps://android.googlesource.com/platform/frameworks/support/+/8fd36792c22e02602d30ed1a5e6ed4d0e22f7ec9/core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java#497",
+      "parentUuid": "b2c633f2_bce9da9b",
+      "range": {
+        "startLine": 572,
+        "startChar": 23,
+        "endLine": 572,
+        "endChar": 24
+      },
+      "revId": "5c04ab7d23129e0597d9a71d8d3a68446ee06bc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
