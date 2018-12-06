@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87ae9916_c0c99f50",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "1. Why they aren\u0027t added to the version compat tests?\n2. This is MediaControllerTest and you aren\u0027t using MediaController at all, so this only tests MockPlayer behavior. Is it intended?",
+      "range": {
+        "startLine": 797,
+        "startChar": 4,
+        "endLine": 826,
+        "endChar": 5
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a2f686_3803f9f7",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "This should be happen when currentIdx !\u003d 0.\n\n\nI rather write this block as follows\n\n  switch (mRepeatMode) {\n    case REPEAT_MODE_NONE:\n      return ITEM_NONE;\n    case REPEAT_MODE_ONE:\n      return currentIdx;\n    case REPEAT_MODE_ALL:\n    case REPEAT_MODE_GROUP;\n      return (currentIdx + 1) % mPlaylist.size();\n  }",
+      "range": {
+        "startLine": 326,
+        "startChar": 19,
+        "endLine": 327,
+        "endChar": 34
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1adda039_989c80a0",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "This returns getCurrentMediaItemIndex() for getPreviousMediaItemIndex()",
+      "range": {
+        "startLine": 334,
+        "startChar": 15,
+        "endLine": 334,
+        "endChar": 27
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3807dc59_07c01cab",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "This should be happen when currentIdx !\u003d size - 1",
+      "range": {
+        "startLine": 346,
+        "startChar": 12,
+        "endLine": 347,
+        "endChar": 34
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4f20b0_625fbb46",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "This returns getCurrentMediaItemIndex() for getNextMediaItemIndex()",
+      "range": {
+        "startLine": 352,
+        "startChar": 15,
+        "endLine": 352,
+        "endChar": 28
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f679cb_f8e166aa",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "Could you change this code to use getPreviousMediaItemIndex()?\nThis code has bug and readability isn\u0027t good.\n\nJust FYI, the code block is only executed when \u0027currentIdx \u003d\u003d 0\u0027 and doesn\u0027t handle other cases.",
+      "range": {
+        "startLine": 400,
+        "startChar": 8,
+        "endLine": 411,
+        "endChar": 9
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13fb8517_648e2e11",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "Could you change this code to use getNextMediaItemIndex()?\nThis code has bug and readability isn\u0027t good.\n\nJust FYI, the code block is only executed when \u0027currentIdx \u003d\u003d mPlaylist.size()-1\u0027 and doesn\u0027t handle other cases.",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 0
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8294cb57_bbc6f584",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "could you also check whether currentMediaItemIndex \u003e\u003d 0, in case that session has sent index from buggy SessionPlayer?",
+      "range": {
+        "startLine": 866,
+        "startChar": 0,
+        "endLine": 866,
+        "endChar": 80
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d83de728_0a094ec8",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T04:23:50Z",
+      "side": 1,
+      "message": "could you also check whether currentMediaItemIndex \u003e\u003d 0, in case that session has sent index from buggy SessionPlayer?",
+      "range": {
+        "startLine": 941,
+        "startChar": 0,
+        "endLine": 941,
+        "endChar": 59
+      },
+      "revId": "4ad54ba06569241e66318a5e143ab41135efe5da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
