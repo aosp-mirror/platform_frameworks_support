@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c8bbdb5_5111a7a0",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/WorkTimer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-06T21:15:35Z",
+      "side": 1,
+      "message": "Argh, sorry, I totally forgot that this is not the package name in this file.  Could you actually change it one more time to \"WorkManager-WorkTimer-thread-\"?  The actual package name is really long and may change since it\u0027s an implementation detail.  Sorry about that; I should\u0027ve paid closer attention.",
+      "range": {
+        "startLine": 53,
+        "startChar": 28,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "d35b85be9b018079b04667666e48a7c877e6e493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8a507a_4bcc7460",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/taskexecutor/WorkManagerTaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-06T21:15:35Z",
+      "side": 1,
+      "message": "Same here, \"WorkManager-TaskExecutor-thread-\".",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "d35b85be9b018079b04667666e48a7c877e6e493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
