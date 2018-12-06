@@ -130,6 +130,52 @@
     },
     {
       "key": {
+        "uuid": "22ae6a67_868b53a9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1407617
+      },
+      "writtenOn": "2018-12-06T18:24:20Z",
+      "side": 1,
+      "message": "6 and 20 are reserved below.  Would this comment more accurately be 21-\u003e99?",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d0541a_cd47c032",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1407617
+      },
+      "writtenOn": "2018-12-06T18:24:20Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 105,
+        "startChar": 28,
+        "endLine": 105,
+        "endChar": 51
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1366bc51_b4662f57",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -265,6 +311,52 @@
         "startChar": 11,
         "endLine": 416,
         "endChar": 79
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b78d6124_424cfa58",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1407617
+      },
+      "writtenOn": "2018-12-06T18:24:20Z",
+      "side": 1,
+      "message": "Pretty sure the end is an exclusive index but it would be nice to be explicit about that here.",
+      "range": {
+        "startLine": 477,
+        "startChar": 9,
+        "endLine": 477,
+        "endChar": 89
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aadae019_1c29005e",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1407617
+      },
+      "writtenOn": "2018-12-06T18:24:20Z",
+      "side": 1,
+      "message": "Pretty sure the end is an exclusive index but it would be nice to be explicit about that here.",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 496,
+        "endChar": 11
       },
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
