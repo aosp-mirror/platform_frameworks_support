@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "aef954c5_0c111018",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-06T18:54:47Z",
+      "side": 1,
+      "message": "I prefer to go w/ the least path of resistence for the EAP.\nWe have a lot things to get feedback and any time we lose trying to make a decision here costs time for all of them.\n\nI\u0027d rather we go with whatever we have and iterate during EAP.",
+      "parentUuid": "74cc1687_0dc5d818",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b23a34d0_76a10681",
         "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
         "patchSetId": 1
