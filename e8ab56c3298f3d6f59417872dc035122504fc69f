@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6872348e_b1a16ab9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifier.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-12-06T12:17:23Z",
+      "side": 1,
+      "message": "What does this TODO mean? AndroidX does not need to provide any implementation here, no?",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1366bc51_b4662f57",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-12-06T12:17:23Z",
+      "side": 1,
+      "message": "This probably is not always correct?\n\nFor example, this seems irrelevant if this is the indices for an clicked event?\n\nAlso, @NonNull?",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feeaf250_16cdf538",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-12-06T12:17:23Z",
+      "side": 1,
+      "message": "nit: should be enforce all incoming indices are not null?",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7338cb84_00e74689",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-12-06T12:17:23Z",
+      "side": 1,
+      "message": "nit: Bundle.EMPTY",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84eff47_936c8631",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2018-12-06T12:17:23Z",
+      "side": 1,
+      "message": "handle when mActionIndices is null?",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
