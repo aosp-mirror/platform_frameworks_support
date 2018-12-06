@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46184de8_34d9ecda",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-06T06:39:46Z",
+      "side": 1,
+      "message": "It is an abstract method, thus we don\u0027t know whether the player will close the ParcelFileDescriptor. What about this?\n\nThe implementation must handle the close of the {@link ParcelFileDescriptor} in the {@link FileMediaItem} when a media item in the playlist is a {@link FileMediaItem}.\n\nQ) Don\u0027t we need to close it when it is used for setMediaItem?",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 65
+      },
+      "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
