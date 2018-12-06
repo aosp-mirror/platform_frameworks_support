@@ -46,6 +46,99 @@
       "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f4afd9_ac70f9e7",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-06T07:24:57Z",
+      "side": 1,
+      "message": "How about dispatchRemoteControllerTask / dispatchRemoteControllerTaskWithResult ?",
+      "parentUuid": "1256abda_9ca1f2a4",
+      "range": {
+        "startLine": 1033,
+        "startChar": 9,
+        "endLine": 1033,
+        "endChar": 45
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb294bb0_4f518406",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-06T07:24:57Z",
+      "side": 1,
+      "message": "Let\u0027s move this to L1032.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 0,
+        "endLine": 1112,
+        "endChar": 67
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc2f9f6_f273b30d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionLegacyStub.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-06T07:24:57Z",
+      "side": 1,
+      "message": "minor) adding /* seq */ might be more readable?",
+      "range": {
+        "startLine": 518,
+        "startChar": 73,
+        "endLine": 518,
+        "endChar": 75
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af35568b_43a3010d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionServiceImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-06T07:24:57Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 272,
+        "startChar": 58,
+        "endLine": 272,
+        "endChar": 59
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
