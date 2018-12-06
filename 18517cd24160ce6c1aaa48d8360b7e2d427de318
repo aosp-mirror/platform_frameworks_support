@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5de3bcf_e08e20f7",
+        "filename": "media2/src/main/java/androidx/media2/MediaBrowserImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-06T07:06:19Z",
+      "side": 1,
+      "message": "Let\u0027s move this before private methods.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 5
+      },
+      "revId": "18517cd24160ce6c1aaa48d8360b7e2d427de318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
