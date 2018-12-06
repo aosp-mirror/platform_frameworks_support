@@ -106,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "599b71f2_e4186673",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:14:06Z",
+      "side": 1,
+      "message": "Yeah. This happened for legacy reasons. ACTION (a special type of EVENT) indicated a click of an action button. We also had distinct ranges for both types so it was easy to tell from our hacked up logs back then. But I\u0027m considering just making everything EVENT now.\n\nSo what used to be ACTION_CUT could be replaced with EVENT_SELECTION_CUT_ACTION_CLICKED.\n\nWdyt?\nJan, any opinions on this?",
+      "parentUuid": "2038075a_11c00358",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1366bc51_b4662f57",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -177,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "d7171688_82769867",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:14:06Z",
+      "side": 1,
+      "message": "That was hypothetical.\nE.g. if we had mutli-select actions (i.e. checkboxes).\nWe don\u0027t currently have those but this API can support such (since we need multiple indices for the event types anyway).",
+      "parentUuid": "f905c547_c371d690",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bcc5ad6f_842aa7bc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -188,6 +236,30 @@
       "writtenOn": "2018-12-06T17:48:09Z",
       "side": 1,
       "message": "what marks the start and end of a series of events?",
+      "range": {
+        "startLine": 416,
+        "startChar": 11,
+        "endLine": 416,
+        "endChar": 79
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efeada59_1fed6132",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:14:06Z",
+      "side": 1,
+      "message": "Each log type will define the start and end of a series.\n\nE.g. A selection session starts on selection-start and ends on selection-destroyed.\n\nI imagine other types of interactions will define theirs.",
+      "parentUuid": "bcc5ad6f_842aa7bc",
       "range": {
         "startLine": 416,
         "startChar": 11,
