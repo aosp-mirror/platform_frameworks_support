@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "655c5418_e9beae10",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85526fbb_1371af64",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3e277a0_1eda0aac",
         "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-05T22:14:48Z",
       "side": 1,
       "message": "Make this\nvar type: NavType\u003c*\u003e\n    set(value) {\n        field \u003d value\n        builder.setType(value)\n    }",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 30
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b94b8f_aff3f8db",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "var needs to be initialized, so it\u0027d have to be\nvar type: NavType\u003c*\u003e? \u003d null\n    set(value) {\n        field \u003d value\n        builder.setType(value)\n    }\n\nwhich is incompatible with setType(@NonNull ...) because of the nullness, \nsetting a default type would break inference from defaultValue\n\nI could solve this by not having a backing field, but instead adding getters to the Builder (the Java one). Having getters on a builder looks weird though... wdyt?",
+      "parentUuid": "f3e277a0_1eda0aac",
       "range": {
         "startLine": 138,
         "startChar": 4,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "1644e4c7_185376c9",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe1c41e_b78eba74",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97dbd58d_af9e2817",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 11
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "6e59f011_928cfa08",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97dbd58d_af9e2817",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f7c5ddc_8946f1b5",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
         "patchSetId": 11
@@ -160,6 +256,30 @@
       "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d3de13b_ca345cd9",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavArgument.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7c5ddc_8946f1b5",
+      "range": {
+        "startLine": 154,
+        "startChar": 46,
+        "endLine": 154,
+        "endChar": 47
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +329,54 @@
     },
     {
       "key": {
+        "uuid": "5a59b4d4_7a35d1b6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d9e1547_1a1ff834",
+      "range": {
+        "startLine": 145,
+        "startChar": 36,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77ec58b7_a31e6ae0",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67ac4cc9_0800a8d2",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 10
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c810b289_57eeaddd",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
         "patchSetId": 11
@@ -232,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "22444067_2092d81c",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c810b289_57eeaddd",
+      "range": {
+        "startLine": 405,
+        "startChar": 16,
+        "endLine": 405,
+        "endChar": 27
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6be4039_5be324a4",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
         "patchSetId": 11
@@ -246,6 +438,24 @@
       "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50e166cf_0c697232",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6be4039_5be324a4",
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +482,30 @@
     },
     {
       "key": {
+        "uuid": "dcb7bc37_ebd85105",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d4312db_57e01b4e",
+      "range": {
+        "startLine": 236,
+        "startChar": 41,
+        "endLine": 236,
+        "endChar": 48
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cc698ac_9a95d342",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 11
@@ -283,6 +517,30 @@
       "writtenOn": "2018-12-05T22:14:48Z",
       "side": 1,
       "message": "Should we support null arrays at all? Null collections in general are frowned upon in Kotlin and by API council in general - we always try to use empty arrays/collections in place of null.",
+      "range": {
+        "startLine": 268,
+        "startChar": 73,
+        "endLine": 268,
+        "endChar": 77
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8289704f_d9f6a650",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "I think we should, because here we\u0027re not defining our API but rather giving developers the tools to define theirs. I would rather give them the option to decide themselves rather than have someone say \"I cannot use navigation arguments, because they don\u0027t support passing null\" if that is a use case they really want to have. Also it might have implications for deep links, where we are currently unable to parse arrays, so right now they can be treated as \"optional\" arguments if they are null.\n\nLet me know if you feel strongly about this and I\u0027ll see if I can change it without creating problems with deep linking, but like I said - I\u0027d rather leave more choice to developers.",
+      "parentUuid": "8cc698ac_9a95d342",
       "range": {
         "startLine": 268,
         "startChar": 73,
@@ -318,6 +576,30 @@
     },
     {
       "key": {
+        "uuid": "d56df36b_7d311716",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393dcde9_377275b5",
+      "range": {
+        "startLine": 636,
+        "startChar": 69,
+        "endLine": 636,
+        "endChar": 70
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8af2f91_02a6aeff",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 11
@@ -332,6 +614,24 @@
       "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04870898_54f81a03",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8af2f91_02a6aeff",
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -355,6 +655,30 @@
       "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3677ebf5_6b771ce4",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-06T12:41:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26f14269_51bfd3d0",
+      "range": {
+        "startLine": 670,
+        "startChar": 16,
+        "endLine": 670,
+        "endChar": 28
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
