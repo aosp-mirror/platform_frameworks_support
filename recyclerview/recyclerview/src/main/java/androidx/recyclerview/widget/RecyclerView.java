@@ -1748,6 +1748,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         if (mLayout == null) {
             return;
         }
+        setScrollState(SCROLL_STATE_SETTLING);
         mLayout.scrollToPosition(position);
         awakenScrollBars();
     }
