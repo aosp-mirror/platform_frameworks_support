@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3b5342b0_aec246fa",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-12-06T04:55:11Z",
+      "side": 1,
+      "message": "Q) Is it still needed? It also exists in VideoView.java",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 33
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a679761_654980f9",
         "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
         "patchSetId": 7
@@ -13,6 +36,30 @@
       "writtenOn": "2018-12-06T04:32:35Z",
       "side": 1,
       "message": "Q) why is this still 28?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06a7b188_4f5cb5cd",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-12-06T04:55:11Z",
+      "side": 1,
+      "message": "In addition to Insun\u0027s comment, what about androidx.media2.subtitle.SubtitleTrack?",
+      "parentUuid": "6a679761_654980f9",
       "range": {
         "startLine": 61,
         "startChar": 0,
