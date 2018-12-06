@@ -22,6 +22,30 @@
       "revId": "18517cd24160ce6c1aaa48d8360b7e2d427de318",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faea92bf_8a48ecbc",
+        "filename": "media2/src/main/java/androidx/media2/MediaBrowserImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T07:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5de3bcf_e08e20f7",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 5
+      },
+      "revId": "18517cd24160ce6c1aaa48d8360b7e2d427de318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
