@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "826142ba_203aace4",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T19:07:21Z",
+      "side": 1,
+      "message": "let\u0027s not use android namespace, can we use androidx instead? Or is this constant coming from platform?",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 56,
+        "endChar": 84
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858b63cc_23e6bd07",
+        "filename": "sharetarget/OWNERS",
+        "patchSetId": 65
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T19:07:21Z",
+      "side": 1,
+      "message": "Wrong owners?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f9125ef_f18ec2e4",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 65
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T19:07:21Z",
+      "side": 1,
+      "message": "Add copyright header.",
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc61c166_3b5fe4c5",
+        "filename": "sharetarget/proguard-rules.pro",
+        "patchSetId": 65
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T19:07:21Z",
+      "side": 1,
+      "message": "Can we use a conditional `if` keep rule here? https://www.guardsquare.com/en/products/proguard/manual/usage#keepoptionmodifiers\n\nWe should only keep this around if androidx.core.content.pm.ShortcutManagerCompat is kept.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
