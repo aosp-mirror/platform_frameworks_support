@@ -46,6 +46,30 @@
       "revId": "f7af79d435c33c5d9ff2b45a6aab662e01da8af9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf960c04_d17f7bb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T06:33:47Z",
+      "side": 1,
+      "message": "\"when buffering\" seems to be used pretty much. (searched from Google)\n\nResolving this comment.",
+      "parentUuid": "d910d81e_690c2748",
+      "range": {
+        "startLine": 7,
+        "startChar": 51,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "f7af79d435c33c5d9ff2b45a6aab662e01da8af9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
