@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9214beb0_b15324b2",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/BanTargetApiAnnotation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-06T22:03:15Z",
+      "side": 1,
+      "message": "Woops, removed it by mistake.",
+      "parentUuid": "42590fdb_92b66613",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "19544c85d6e37ee9404be7102914e94c8c73490e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "544c93c2_1886e12c",
         "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "19544c85d6e37ee9404be7102914e94c8c73490e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de5be2bd_bbec4a56",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-06T22:03:15Z",
+      "side": 1,
+      "message": "Nope! Bug test gone wrong...",
+      "parentUuid": "544c93c2_1886e12c",
+      "revId": "19544c85d6e37ee9404be7102914e94c8c73490e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
