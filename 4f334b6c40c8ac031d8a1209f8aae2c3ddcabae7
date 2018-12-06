@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5bc8fe74_7cdc34b6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-06T00:17:44Z",
+      "side": 1,
+      "message": "This test asserts that re-setting a client actually works. Although we\u0027re setting nonCompatClient initially, we re-set a different client over that.\n\nThis test asserts that WebView implementation understands the new thing is indeed a WebViewClient, and doesn\u0027t call the other WebViewClient. onPageStarted is the somewhat-reliable callback we\u0027re using to detect this.\n\nI guess this is a bit of a weird test to have, but it made sense at the time: we wanted confirmation that WebViewClientCompat really would be respected by the implementation.",
+      "parentUuid": "9217958c_d661626c",
+      "range": {
+        "startLine": 315,
+        "startChar": 24,
+        "endLine": 315,
+        "endChar": 37
+      },
+      "revId": "4f334b6c40c8ac031d8a1209f8aae2c3ddcabae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37260090_2f15fa1a",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "4f334b6c40c8ac031d8a1209f8aae2c3ddcabae7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27cf750b_dc64d5c7",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-06T00:17:44Z",
+      "side": 1,
+      "message": "I think this is a trade-off:\n\nPros:\n * test failure output is leaner\n\nCons:\n * e.getCause() is a Throwable, which means we must modify every test to declare \"throws Throwable\" (code churn)\n * It\u0027s a bit mysterious where the cause-Exception (e.g., IllegalStateException) comes from: the test creates it on the UI thread, yet the exception stack appears as if on the instrumentation thread. Knowing this was triggered during waitForFuture() isn\u0027t the most interesting piece of information, but it may help to know where we were at on the instrumentation thread when we hit this illegal state on the UI thread.\n\n---\n\nCurrent failure output looks like:\n\nExecutionException: IllegalStateException: \u003cmessage\u003e\n...\n... (this is the stack for ExecutionException)\n...\nCaused by: IllegalStateException: \u003cmessage\u003e\nat ...\nat ... (this is the useful stack, for where the IllegalStateException was created)\n...\n\n^ This contains all the necessary information (e.g., IllegalStateException stack), and certainly doesn\u0027t hide too much from engineers.\n\nI say we try this out as-is, and consider a follow-up with this change.",
+      "parentUuid": "37260090_2f15fa1a",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 31
+      },
+      "revId": "4f334b6c40c8ac031d8a1209f8aae2c3ddcabae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

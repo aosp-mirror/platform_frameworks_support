@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d239cae1_41ae8c7f",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/PostMessageTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-06T00:17:44Z",
+      "side": 1,
+      "message": "I agree this doesn\u0027t work if we want to also check for illegal state (e.g., setException(new IllegalStateException()) within onPageFinished). But that doesn\u0027t apply to this specific case (I don\u0027t want to over-engineer this test), and one can easily handle that case by composing WebkitUtils.waitForFuture(WebkitUtils.waitForNextQueueElement(queue)).",
+      "parentUuid": "c2aaa961_8a94f9e8",
+      "range": {
+        "startLine": 183,
+        "startChar": 14,
+        "endLine": 183,
+        "endChar": 61
+      },
+      "revId": "a8f8bbf3103ab9510a8b8254bb98107f201fd7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58a5fef7_51f09da0",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
         "patchSetId": 3
