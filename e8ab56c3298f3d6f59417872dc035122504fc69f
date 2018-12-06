@@ -37,6 +37,75 @@
     },
     {
       "key": {
+        "uuid": "70b66963_65644154",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1261443
+      },
+      "writtenOn": "2018-12-06T17:48:09Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 46,
+        "startChar": 63,
+        "endLine": 46,
+        "endChar": 86
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f5f857f_06e51276",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1261443
+      },
+      "writtenOn": "2018-12-06T17:48:09Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 63,
+        "startChar": 63,
+        "endLine": 63,
+        "endChar": 86
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2038075a_11c00358",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1261443
+      },
+      "writtenOn": "2018-12-06T17:48:09Z",
+      "side": 1,
+      "message": "whats the distinction between events and actions?  are actions supposed to be the subset that is user initiated?  why are e.g. selection_started  and selection_modified events and not actions?",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1366bc51_b4662f57",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -77,6 +146,53 @@
         "startChar": 6,
         "endLine": 343,
         "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f905c547_c371d690",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1261443
+      },
+      "writtenOn": "2018-12-06T17:48:09Z",
+      "side": 1,
+      "message": "what does it mean to SELECT an action rather than CLICK it?",
+      "parentUuid": "b64037c9_5cf35e4e",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcc5ad6f_842aa7bc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1261443
+      },
+      "writtenOn": "2018-12-06T17:48:09Z",
+      "side": 1,
+      "message": "what marks the start and end of a series of events?",
+      "range": {
+        "startLine": 416,
+        "startChar": 11,
+        "endLine": 416,
+        "endChar": 79
       },
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
