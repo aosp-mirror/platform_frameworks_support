@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a679761_654980f9",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-06T04:32:35Z",
+      "side": 1,
+      "message": "Q) why is this still 28?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa905389_03cba66a",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-06T04:32:35Z",
+      "side": 1,
+      "message": "(We can omit this condition check, since the RequiresApi is \u003e\u003d 19)",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1221,
+        "endChar": 50
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
