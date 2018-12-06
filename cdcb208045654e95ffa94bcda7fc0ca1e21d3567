@@ -22,6 +22,30 @@
       "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1256abda_9ca1f2a4",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T07:16:36Z",
+      "side": 1,
+      "message": "- dispatchRemoteControllerCalbackTask: require no return\n- dispatchRemoteControllerTask: require return\n\nWill it be better to invent new name instead of dispatchRemoteControllerCalbackTask?\nWhat about dispatchVoidRemoteControlelrTask / dispatchRemoteControllerTaskWithNoReutnr?",
+      "parentUuid": "7c246e0e_1aa817be",
+      "range": {
+        "startLine": 1033,
+        "startChar": 9,
+        "endLine": 1033,
+        "endChar": 45
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
