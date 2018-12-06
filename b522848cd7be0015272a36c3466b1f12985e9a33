@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b8277f5_18ac4ebf",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/WorkTimer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-06T20:50:13Z",
+      "side": 1,
+      "message": "Please use this prefix: \"androidx.work.WorkTimer-thread-\" (because WorkTimerThread makes it look like an actual class that doesn\u0027t exist).",
+      "range": {
+        "startLine": 53,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 57
+      },
+      "revId": "b522848cd7be0015272a36c3466b1f12985e9a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a99f3063_d7598263",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/taskexecutor/WorkManagerTaskExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-06T20:50:13Z",
+      "side": 1,
+      "message": "androidx.work.WorkManagerTaskExecutor-thread-",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 71
+      },
+      "revId": "b522848cd7be0015272a36c3466b1f12985e9a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
