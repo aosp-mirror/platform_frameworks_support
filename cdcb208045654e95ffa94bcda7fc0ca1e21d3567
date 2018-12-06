@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c246e0e_1aa817be",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-06T07:01:56Z",
+      "side": 1,
+      "message": "What is the difference between dispatchRemoteControllerCalbackTask and dispatchRemoteControllerTask?",
+      "range": {
+        "startLine": 1033,
+        "startChar": 9,
+        "endLine": 1033,
+        "endChar": 45
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
