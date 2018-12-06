@@ -153,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "8eac70c5_39ff58b0",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:31:14Z",
+      "side": 1,
+      "message": "Thanks I\u0027ll revisit this.\nBut the other events from android.view.textclassifier.SelectionEvent are in the 1 - 5 range.",
+      "parentUuid": "22ae6a67_868b53a9",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8d0541a_cd47c032",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -341,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "f259d8ea_94e01702",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:31:14Z",
+      "side": 1,
+      "message": "Thanks will do.",
+      "parentUuid": "b78d6124_424cfa58",
+      "range": {
+        "startLine": 477,
+        "startChar": 9,
+        "endLine": 477,
+        "endChar": 89
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aadae019_1c29005e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -352,6 +400,30 @@
       "writtenOn": "2018-12-06T18:24:20Z",
       "side": 1,
       "message": "Pretty sure the end is an exclusive index but it would be nice to be explicit about that here.",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 496,
+        "endChar": 11
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9434bc4_f4c3d188",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-06T18:31:14Z",
+      "side": 1,
+      "message": "Thanks will do.",
+      "parentUuid": "aadae019_1c29005e",
       "range": {
         "startLine": 494,
         "startChar": 8,
