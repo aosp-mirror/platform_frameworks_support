@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5f5f938_841997d7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-06T22:48:20Z",
+      "side": 1,
+      "message": "this seems fine though do we have a guaratee that there is some other callback that will revert this back to idle ?",
+      "range": {
+        "startLine": 1752,
+        "startChar": 8,
+        "endLine": 1754,
+        "endChar": 46
+      },
+      "revId": "262f4f9b5ff1d102eea7384cd25593dbfa130c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
