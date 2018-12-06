@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16711762_4307d9a3",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutManagerCompat.java",
+        "patchSetId": 65
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-12-06T20:58:30Z",
+      "side": 1,
+      "message": "This constant is coming from platform (we are adding it with some API update in the platform side, planned for Q and WIP)",
+      "parentUuid": "826142ba_203aace4",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 56,
+        "endChar": 84
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "858b63cc_23e6bd07",
         "filename": "sharetarget/OWNERS",
         "patchSetId": 65
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6bf6de07_32b9e863",
+        "filename": "sharetarget/OWNERS",
+        "patchSetId": 65
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-12-06T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "858b63cc_23e6bd07",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f9125ef_f18ec2e4",
         "filename": "sharetarget/build.gradle",
         "patchSetId": 65
@@ -62,6 +110,24 @@
       "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e38994b_62b11b8a",
+        "filename": "sharetarget/build.gradle",
+        "patchSetId": 65
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-12-06T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9125ef_f18ec2e4",
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c593e8_bd102bfe",
+        "filename": "sharetarget/proguard-rules.pro",
+        "patchSetId": 65
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1140244
+      },
+      "writtenOn": "2018-12-06T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc61c166_3b5fe4c5",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "196b20edb171a2e65d094f3ee6ac48ae71f52a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
