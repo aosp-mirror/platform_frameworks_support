@@ -22,6 +22,30 @@
       "revId": "e9f927f2c9e9e152a68de08428970c6b036a8e23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025f9577_994f191f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T01:10:01Z",
+      "side": 1,
+      "message": "Ack, but I don\u0027t want to wait for API+1 again.",
+      "parentUuid": "35b34ab3_53822d6f",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "e9f927f2c9e9e152a68de08428970c6b036a8e23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
