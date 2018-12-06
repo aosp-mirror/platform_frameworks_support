@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7717b1e9_2d1cd229",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/WorkTimer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1406781
+      },
+      "writtenOn": "2018-12-06T22:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c8bbdb5_5111a7a0",
+      "range": {
+        "startLine": 53,
+        "startChar": 28,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "d35b85be9b018079b04667666e48a7c877e6e493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a8a507a_4bcc7460",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/taskexecutor/WorkManagerTaskExecutor.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "d35b85be9b018079b04667666e48a7c877e6e493",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd598150_e4c3f714",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/taskexecutor/WorkManagerTaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1406781
+      },
+      "writtenOn": "2018-12-06T22:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a8a507a_4bcc7460",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "d35b85be9b018079b04667666e48a7c877e6e493",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
