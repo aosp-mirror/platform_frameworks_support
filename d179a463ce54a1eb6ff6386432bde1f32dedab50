@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3df2331e_c8309cc5",
+        "filename": "core/api/1.1.0-alpha01.txt",
+        "patchSetId": 67
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T21:17:44Z",
+      "side": 0,
+      "message": "Undo modifications to this file. It is here just because you rebased. Core is on version alpha03 now.",
+      "revId": "d179a463ce54a1eb6ff6386432bde1f32dedab50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e8aede_790860f8",
+        "filename": "core/api/1.1.0-alpha02.txt",
+        "patchSetId": 67
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-06T21:17:44Z",
+      "side": 0,
+      "message": "Undo modifications to this file. It is here just because you rebased. Core is on version alpha03 now.",
+      "revId": "d179a463ce54a1eb6ff6386432bde1f32dedab50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
