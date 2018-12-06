@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "72d3dd1a_f02c5872",
+        "filename": "lifecycle/viewmodel-savedstate/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T23:10:22Z",
+      "side": 1,
+      "message": "I think VMSavedStateInitializer needing to be a thing at all is a good sign we don\u0027t have the right entry point to this API - ideally supporting this in any Application+LifecycleOwner+BundleSavedStateRegistryOwner should a drop in thing - be it a one liner getLifecycle().addObserver(VMSavedStateInitializer(requireApplication(), getBundleSavedStateRegistry())) that EAP members can add temporarily or that ComponentActivity / Fragment does internally once we get to that stage.\n\nAck that this is something we can do during the EAP phase.",
+      "parentUuid": "aef954c5_0c111018",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b23a34d0_76a10681",
         "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
         "patchSetId": 1
@@ -132,6 +156,24 @@
       "writtenOn": "2018-12-05T18:22:38Z",
       "side": 1,
       "message": "this is weird for viewmodel-savedstate module to have fragment package.",
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d5caf5_dc8c9df1",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-06T23:10:22Z",
+      "side": 1,
+      "message": "Yeah, viewmodel.savedstate was a good name, let\u0027s keep it.",
+      "parentUuid": "b23a34d0_76a10681",
       "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
