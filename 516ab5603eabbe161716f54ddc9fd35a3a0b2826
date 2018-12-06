@@ -45,6 +45,54 @@
       "revId": "516ab5603eabbe161716f54ddc9fd35a3a0b2826",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055f3177_98181096",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T07:20:24Z",
+      "side": 1,
+      "message": "1. usage is correct.\n2. \u0027in MediaMetadata\u0027 is wrong and \u0027defined in MediaMetadata\u0027 is correct.\n\nChanged title a bit.",
+      "parentUuid": "6197fa6c_40538322",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "516ab5603eabbe161716f54ddc9fd35a3a0b2826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af7b505c_5895ff96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T07:20:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eff8c944_b972eb2c",
+      "range": {
+        "startLine": 7,
+        "startChar": 57,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "516ab5603eabbe161716f54ddc9fd35a3a0b2826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
