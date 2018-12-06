@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42590fdb_92b66613",
+        "filename": "buildSrc/lint-checks/src/main/java/androidx/build/lint/BanTargetApiAnnotation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-06T21:26:15Z",
+      "side": 1,
+      "message": "Add \"@\" to match the message from BanKeepAnnotation.kt?",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "19544c85d6e37ee9404be7102914e94c8c73490e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544c93c2_1886e12c",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-06T21:26:15Z",
+      "side": 1,
+      "message": "Is this intentional? (If so, do we know why banning the TargetApi annotation requires adding more of them? :) )",
+      "revId": "19544c85d6e37ee9404be7102914e94c8c73490e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
