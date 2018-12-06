@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "918b0051_4b06a3e0",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-06T09:24:21Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3b5342b0_aec246fa",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 33
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a679761_654980f9",
         "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
         "patchSetId": 7
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "16e86963_f1bf0e8d",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-06T09:24:21Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Changed to 19. (SubtitleTrack also)",
+      "parentUuid": "06a7b188_4f5cb5cd",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa905389_03cba66a",
         "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
         "patchSetId": 7
@@ -92,6 +140,30 @@
       "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad34ba49_62469587",
+        "filename": "media2/src/main/java/androidx/media2/subtitle/Cea708CaptionRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-06T09:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa905389_03cba66a",
+      "range": {
+        "startLine": 1221,
+        "startChar": 0,
+        "endLine": 1221,
+        "endChar": 50
+      },
+      "revId": "415b61282835dd9880faaf0203c3cb83aa01a257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
