@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7bd1fefb_be3370a7",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-06T12:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f802bfa2_d72a6923",
+      "range": {
+        "startLine": 351,
+        "startChar": 47,
+        "endLine": 351,
+        "endChar": 53
+      },
+      "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8027f9c_ba426b6a",
         "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c4cf5e9_4068bcb2",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-06T12:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8027f9c_ba426b6a",
+      "range": {
+        "startLine": 363,
+        "startChar": 54,
+        "endLine": 363,
+        "endChar": 60
+      },
+      "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "007c0178_dc7c247f",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-06T12:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6db478e7_499022b9",
+      "range": {
+        "startLine": 376,
+        "startChar": 64,
+        "endLine": 376,
+        "endChar": 70
+      },
+      "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0309631_1163e5b1",
         "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "67d8ea71_7d8c6f01",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-06T12:07:39Z",
+      "side": 1,
+      "message": "Done. I wasn\u0027t sure I can add it here, since the platform manager doesn\u0027t have those annotations.",
+      "parentUuid": "a0309631_1163e5b1",
+      "range": {
+        "startLine": 395,
+        "startChar": 11,
+        "endLine": 395,
+        "endChar": 36
+      },
+      "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f11edbf3_f36b397c",
         "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd9d620_9eeb7352",
+        "filename": "core/src/main/java/androidx/core/app/NotificationManagerCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1046514
+      },
+      "writtenOn": "2018-12-06T12:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f11edbf3_f36b397c",
+      "range": {
+        "startLine": 406,
+        "startChar": 11,
+        "endLine": 406,
+        "endChar": 41
+      },
+      "revId": "3ca4eec90837b690a7ff6d144fcb4fe147cbb6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
