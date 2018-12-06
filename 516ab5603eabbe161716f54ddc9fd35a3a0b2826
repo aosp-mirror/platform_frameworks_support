@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6197fa6c_40538322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-06T07:15:54Z",
+      "side": 1,
+      "message": "usages or used?\n\nThis CL doesn\u0027t change MediaMetadata, but you said \"in MediaMetadata\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "516ab5603eabbe161716f54ddc9fd35a3a0b2826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff8c944_b972eb2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-06T07:15:54Z",
+      "side": 1,
+      "message": "What doesn\u0027t this mean?",
+      "range": {
+        "startLine": 7,
+        "startChar": 57,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "516ab5603eabbe161716f54ddc9fd35a3a0b2826",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
