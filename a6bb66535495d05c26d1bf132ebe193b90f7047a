@@ -22,6 +22,30 @@
       "revId": "a6bb66535495d05c26d1bf132ebe193b90f7047a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977a219b_c985a597",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-06T06:31:42Z",
+      "side": 1,
+      "message": "Talked offline and turned out that he was more curious about how this CL addresses the issue.\n\nDone.",
+      "parentUuid": "e8f8cf42_57d5fc78",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "a6bb66535495d05c26d1bf132ebe193b90f7047a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
