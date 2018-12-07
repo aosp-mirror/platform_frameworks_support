@@ -15,6 +15,7 @@
  */
 import com.google.auto.common.MoreTypes
 import javax.lang.model.element.TypeElement
+import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeKind.BOOLEAN
 import javax.lang.model.type.TypeKind.BYTE
 import javax.lang.model.type.TypeKind.CHAR
@@ -34,3 +35,28 @@ fun TypeMirror.defaultValue(): String {
 }
 
 fun TypeMirror.asTypeElement(): TypeElement = MoreTypes.asTypeElement(this)
+
+fun TypeMirror.isIntPrimitiveType() = kind == TypeKind.INT
+
+fun TypeMirror.isIntBoxType() =
+    MoreTypes.isType(this) && MoreTypes.isTypeOf(java.lang.Integer::class.java, this)
+
+fun TypeMirror.isIntType() = isIntPrimitiveType() || isIntBoxType()
+
+fun TypeMirror.isLongPrimitiveType() = kind == TypeKind.LONG
+
+fun TypeMirror.isLongBoxType() =
+    MoreTypes.isType(this) && MoreTypes.isTypeOf(java.lang.Long::class.java, this)
+
+fun TypeMirror.isLongType() = isLongPrimitiveType() || isLongBoxType()
+
+fun TypeMirror.isList() =
+    MoreTypes.isType(this) && MoreTypes.isTypeOf(List::class.java, this)
+
+fun TypeMirror.isVoid() = kind == TypeKind.VOID
+
+fun TypeMirror.isVoidObject() =
+    MoreTypes.isType(this) && MoreTypes.isTypeOf(Void::class.java, this)
+
+fun TypeMirror.isKotlinUnit() =
+    MoreTypes.isType(this) && MoreTypes.isTypeOf(Unit::class.java, this)

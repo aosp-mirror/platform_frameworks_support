@@ -30,6 +30,12 @@ import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
+import isKotlinUnit
+import isList
+import isLongBoxType
+import isLongPrimitiveType
+import isLongType
+import isVoidObject
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 
@@ -82,47 +88,29 @@ class InsertMethodAdapter private constructor(private val insertionType: Inserti
         @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
         private fun getInsertionType(returnType: TypeMirror): InsertionType? {
 
-            fun isLongPrimitiveType(typeMirror: TypeMirror) = typeMirror.kind == TypeKind.LONG
-
-            fun isLongBoxType(typeMirror: TypeMirror) =
-                    MoreTypes.isType(typeMirror) &&
-                            MoreTypes.isTypeOf(java.lang.Long::class.java, typeMirror)
-
-            fun isLongType(typeMirror: TypeMirror) =
-                    isLongPrimitiveType(typeMirror) || isLongBoxType(typeMirror)
-
-            fun isList(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
-                    MoreTypes.isTypeOf(List::class.java, typeMirror)
-
-            fun isVoidObject(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
-                    MoreTypes.isTypeOf(Void::class.java, typeMirror)
-
-            fun isKotlinUnit(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
-                    MoreTypes.isTypeOf(Unit::class.java, typeMirror)
-
             return if (returnType.kind == TypeKind.VOID) {
                 InsertionType.INSERT_VOID
-            } else if (isVoidObject(returnType)) {
+            } else if (returnType.isVoidObject()) {
                 InsertionType.INSERT_VOID_OBJECT
-            } else if (isKotlinUnit(returnType)) {
+            } else if (returnType.isKotlinUnit()) {
                 InsertionType.INSERT_UNIT
             } else if (returnType.kind == TypeKind.ARRAY) {
                 val arrayType = MoreTypes.asArray(returnType)
                 val param = arrayType.componentType
                 when {
-                    isLongPrimitiveType(param) -> InsertionType.INSERT_ID_ARRAY
-                    isLongBoxType(param) -> InsertionType.INSERT_ID_ARRAY_BOX
+                    param.isLongPrimitiveType() -> InsertionType.INSERT_ID_ARRAY
+                    param.isLongBoxType() -> InsertionType.INSERT_ID_ARRAY_BOX
                     else -> null
                 }
-            } else if (isList(returnType)) {
+            } else if (returnType.isList()) {
                 val declared = MoreTypes.asDeclared(returnType)
                 val param = declared.typeArguments.first()
-                if (isLongBoxType(param)) {
+                if (param.isLongBoxType()) {
                     InsertionType.INSERT_ID_LIST
                 } else {
                     null
                 }
-            } else if (isLongType(returnType)) {
+            } else if (returnType.isLongType()) {
                 InsertionType.INSERT_SINGLE_ID
             } else {
                 null
