@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "846fe0c4_7b2ee950",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-12-07T19:19:19Z",
+      "side": 1,
+      "message": "This ctor could lead to an instance with mPFD\u003d\u003dnull. If this ctor is used by some class in the same package, that would cause NullPointerException in some member methods.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46184de8_34d9ecda",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 5
