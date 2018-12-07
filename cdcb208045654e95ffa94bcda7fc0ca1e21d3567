@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1cf61aa1_54fdb3a2",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-07T08:00:22Z",
+      "side": 1,
+      "message": "I can only think of followings\n\n  option 1) Merge two similar functions, and \u0027ListenableFuture dispatchRemoteControllerTask(ControllerInfo, RemoteControllerTask, boolean createSequencedFuture)\u0027\n\n  option 2) keep two methods \u0027dispatchRemoteControllerTask\u0027 vs \u0027dispatchRemoteControllerTaskWithoutReturn\u0027.\n\nWhich do you prefer?",
+      "parentUuid": "78f4afd9_ac70f9e7",
+      "range": {
+        "startLine": 1033,
+        "startChar": 9,
+        "endLine": 1033,
+        "endChar": 45
+      },
+      "revId": "cdcb208045654e95ffa94bcda7fc0ca1e21d3567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb294bb0_4f518406",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
         "patchSetId": 1
