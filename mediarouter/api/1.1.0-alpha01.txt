@@ -10,6 +10,7 @@ package androidx.mediarouter.app {
     method public androidx.mediarouter.app.MediaRouteButton! onCreateMediaRouteButton();
     method public void setDialogFactory(androidx.mediarouter.app.MediaRouteDialogFactory);
     method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector);
+    method public void setUseDynamicGroup(boolean);
   }
 
   public class MediaRouteButton extends android.view.View {
@@ -23,6 +24,7 @@ package androidx.mediarouter.app {
     method public void setDialogFactory(androidx.mediarouter.app.MediaRouteDialogFactory);
     method public void setRemoteIndicatorDrawable(android.graphics.drawable.Drawable!);
     method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector!);
+    method public void setUseDynamicGroup(boolean);
     method public boolean showDialog();
   }
 

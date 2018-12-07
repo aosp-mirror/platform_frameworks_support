@@ -446,7 +446,7 @@ public class MediaRouteControllerDialog extends AlertDialog {
      * Sets the width of the dialog. Also called when configuration changes.
      */
     void updateLayout() {
-        int width = MediaRouteDialogHelper.getDialogWidth(mContext);
+        int width = MediaRouteDialogHelper.getDialogWidth(mContext, false);
         getWindow().setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         View decorView = getWindow().getDecorView();

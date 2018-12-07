@@ -199,7 +199,7 @@ public class MediaRouteChooserDialog extends AppCompatDialog {
      * Sets the width of the dialog. Also called when configuration changes.
      */
     void updateLayout() {
-        getWindow().setLayout(MediaRouteDialogHelper.getDialogWidth(getContext()),
+        getWindow().setLayout(MediaRouteDialogHelper.getDialogWidth(getContext(), false),
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 

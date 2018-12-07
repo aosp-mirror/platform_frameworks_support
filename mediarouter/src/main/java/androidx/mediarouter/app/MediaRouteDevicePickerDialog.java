@@ -204,7 +204,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
      * Sets the width of the dialog. Also called when configuration changes.
      */
     void updateLayout() {
-        int width = MediaRouteDialogHelper.getDialogWidth(mContext);
+        int width = MediaRouteDialogHelper.getDialogWidth(mContext, true);
         int height = MediaRouteDialogHelper.getDialogHeight(mContext);
         getWindow().setLayout(width, height);
     }
@@ -306,10 +306,10 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             mItems = new ArrayList<>();
 
             mInflater = LayoutInflater.from(mContext);
-            mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext);
-            mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
-            mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
-            mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
+            mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext, true);
+            mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext, true);
+            mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext, true);
+            mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext, true);
             setItems();
         }
 

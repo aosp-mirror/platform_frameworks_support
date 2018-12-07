@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -38,9 +37,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 final class MediaRouterThemeHelper {
-    private static final boolean USE_SUPPORT_DYNAMIC_GROUP =
-            Log.isLoggable("UseSupportDynamicGroup", Log.DEBUG);
-
     private static final float MIN_CONTRAST = 3.0f;
 
     @IntDef({COLOR_DARK_ON_LIGHT_BACKGROUND, COLOR_WHITE_ON_DARK_BACKGROUND})
@@ -63,20 +59,20 @@ final class MediaRouterThemeHelper {
         return getIconByDrawableId(context, R.drawable.mr_cast_checkbox);
     }
 
-    static Drawable getDefaultDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteDefaultIconDrawable);
+    static Drawable getDefaultDrawableIcon(Context context, boolean useDynamicGroup) {
+        return getIconByAttrId(context, R.attr.mediaRouteDefaultIconDrawable, useDynamicGroup);
     }
 
-    static Drawable getTvDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteTvIconDrawable);
+    static Drawable getTvDrawableIcon(Context context, boolean useDynamicGroup) {
+        return getIconByAttrId(context, R.attr.mediaRouteTvIconDrawable, useDynamicGroup);
     }
 
-    static Drawable getSpeakerDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteSpeakerIconDrawable);
+    static Drawable getSpeakerDrawableIcon(Context context, boolean useDynamicGroup) {
+        return getIconByAttrId(context, R.attr.mediaRouteSpeakerIconDrawable, useDynamicGroup);
     }
 
-    static Drawable getSpeakerGroupDrawableIcon(Context context) {
-        return getIconByAttrId(context, R.attr.mediaRouteSpeakerGroupIconDrawable);
+    static Drawable getSpeakerGroupDrawableIcon(Context context, boolean useDynamicGroup) {
+        return getIconByAttrId(context, R.attr.mediaRouteSpeakerGroupIconDrawable, useDynamicGroup);
     }
 
     private static Drawable getIconByDrawableId(Context context, int drawableId) {
@@ -90,14 +86,14 @@ final class MediaRouterThemeHelper {
         return icon;
     }
 
-    private static Drawable getIconByAttrId(Context context, int attrId) {
+    private static Drawable getIconByAttrId(Context context, int attrId, boolean useDynamicGroup) {
         TypedArray styledAttributes = context.obtainStyledAttributes(new int[] { attrId });
         Drawable icon = styledAttributes.getDrawable(0);
         icon = DrawableCompat.wrap(icon);
 
         // Since Chooser(Controller)Dialog and DevicePicker(Cast)Dialog is using same shape but
         // different color icon for LightTheme, change color of the icon for the latter.
-        if (USE_SUPPORT_DYNAMIC_GROUP && isLightTheme(context)) {
+        if (useDynamicGroup && isLightTheme(context)) {
             int tintColor = ContextCompat.getColor(context, COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
             DrawableCompat.setTint(icon, tintColor);
         }

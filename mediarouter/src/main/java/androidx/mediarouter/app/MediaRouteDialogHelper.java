@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,19 +36,16 @@ import java.util.List;
 import java.util.Set;
 
 final class MediaRouteDialogHelper {
-    private static final boolean USE_SUPPORT_DYNAMIC_GROUP =
-            Log.isLoggable("UseSupportDynamicGroup", Log.DEBUG);
-
     /**
      * The framework should set the dialog width properly, but somehow it doesn't work, hence
      * duplicating a similar logic here to determine the appropriate dialog width.
      */
-    public static int getDialogWidth(Context context) {
+    public static int getDialogWidth(Context context, boolean useDynamicGroup) {
         boolean isTablet = context.getResources().getBoolean(R.bool.is_tablet);
 
         // Returns parameter MATCH_PARENT since dialogs supporting dynamic group have to be
         // full-screen for handset devices.
-        if (USE_SUPPORT_DYNAMIC_GROUP && !isTablet) {
+        if (useDynamicGroup && !isTablet) {
             return ViewGroup.LayoutParams.MATCH_PARENT;
         }
 
