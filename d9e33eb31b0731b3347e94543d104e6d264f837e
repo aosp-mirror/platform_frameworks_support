@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1d503a7_8158c6f3",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-07T23:33:39Z",
+      "side": 1,
+      "message": "Added null checkings",
+      "parentUuid": "846fe0c4_7b2ee950",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46184de8_34d9ecda",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 5
