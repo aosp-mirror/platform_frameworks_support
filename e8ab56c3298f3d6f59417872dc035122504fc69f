@@ -200,6 +200,29 @@
     },
     {
       "key": {
+        "uuid": "2c9f27f4_c87f8c29",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "I know they were in the initial logging solution to make querying easier, but I\u0027m wondering if we want to keep adding this redundant information? (afaik we\u0027ve never used these deltas in any analysis)",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 5
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1366bc51_b4662f57",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -342,6 +365,52 @@
     },
     {
       "key": {
+        "uuid": "ee8df035_85987269",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "What if something takes 0.1ms? :) These 0 non-set indicators feel a bit hacky.",
+      "range": {
+        "startLine": 444,
+        "startChar": 71,
+        "endLine": 444,
+        "endChar": 91
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fba7db1a_f5e1e179",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "nit: start and end are quite general. did you consider more specific variants like: setRelativeWordStart, setRelativeWordEnd, setRelativeSuggestedWordStart, setRelativeSuggestedWordEnd?",
+      "range": {
+        "startLine": 471,
+        "startChar": 23,
+        "endLine": 471,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b78d6124_424cfa58",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -436,6 +505,52 @@
     },
     {
       "key": {
+        "uuid": "f50eb951_41b1d330",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "IIUC the list is actually a list of action (i.e. their ID\u0027s), not indices at which actions were shown? The explanation doesn\u0027t make it clear that the word index is used for two different lists, so maybe use action identifiers instead?",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2206501_4ac64aca",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "Maybe we could also have actionProbabilities?",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 37
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feeaf250_16cdf538",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -465,6 +580,29 @@
       "side": 1,
       "message": "Thanks, Actually, I should change this to (int... actionIndices).\nI was just being lazy about the Arrays.asList() method. :)",
       "parentUuid": "feeaf250_16cdf538",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8626ec_66a8b25d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-07T20:29:49Z",
+      "side": 1,
+      "message": "Maybe add someting like languageConfidence as well?",
+      "range": {
+        "startLine": 519,
+        "startChar": 23,
+        "endLine": 519,
+        "endChar": 34
+      },
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
