@@ -22,6 +22,30 @@
       "revId": "f9bbd0cfd7b82bbd699b152905d543ea2d0a5d06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09918128_9abbfaa8",
+        "filename": "development/file-utils/diff-filterer.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-07T20:43:40Z",
+      "side": 1,
+      "message": "Yeah. There\u0027s another check for \"!\u003d 3\" below on line 409.\nThis is just to prevent an index-out-of-bound error on line 392",
+      "parentUuid": "6c352026_ea9f54f2",
+      "range": {
+        "startLine": 386,
+        "startChar": 17,
+        "endLine": 386,
+        "endChar": 18
+      },
+      "revId": "f9bbd0cfd7b82bbd699b152905d543ea2d0a5d06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
