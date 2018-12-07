@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f18fa29b_8879f31b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-07T00:29:21Z",
+      "side": 1,
+      "message": "maybe someting like WriteQueryMethod vs ReadQueryMethod ?\nnot sure but we probably need a better name.",
+      "range": {
+        "startLine": 122,
+        "startChar": 15,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "703c869bb4edbb576f04b545961d784c15cc4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d713bdd_de0ced81",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/binder/GuavaListenableFuturePreparedQueryResultBinder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-07T00:29:21Z",
+      "side": 1,
+      "message": "i was hoping to have these defined as:\n\ncreatePrepared { dbField , callableVarName -\u003e\n    addStatement(\n                \"return $T.createListenableFuture($N, $L)\",\n                RoomGuavaTypeNames.GUAVA_ROOM,\n                DaoWriter.dbField,\n                callableImpl)\n} : PreparedQUeryResultBinder",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "703c869bb4edbb576f04b545961d784c15cc4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d4c4cf_d4f40822",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/binderprovider/RxPreparedQueryResultBinderProvider.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-07T00:29:21Z",
+      "side": 1,
+      "message": "this could call the factory to create the binder since binder is dummy",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "703c869bb4edbb576f04b545961d784c15cc4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448e85ca_d25e2560",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/result/PreparedQueryResultAdapter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-07T00:29:21Z",
+      "side": 1,
+      "message": "duplicate code in each if",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 69
+      },
+      "revId": "703c869bb4edbb576f04b545961d784c15cc4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aadc70a_5407dbed",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/dao/BooksDao.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-07T00:29:21Z",
+      "side": 1,
+      "message": "we should have test execising this code.",
+      "range": {
+        "startLine": 120,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 79
+      },
+      "revId": "703c869bb4edbb576f04b545961d784c15cc4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
