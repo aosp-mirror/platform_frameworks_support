@@ -22,6 +22,30 @@
       "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34cab9ab_9b5eba6e",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-07T16:00:44Z",
+      "side": 1,
+      "message": "Updated the doc.\n\nand correct. the implementation needs to close the FD if FileMediaItem is passes with setMediaItem also. Let me know if you see any issue on that.",
+      "parentUuid": "46184de8_34d9ecda",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 65
+      },
+      "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
