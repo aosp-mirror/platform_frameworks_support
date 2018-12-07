@@ -47,6 +47,7 @@ import androidx.viewpager2.widget.swipe.FragmentAdapter
 import androidx.viewpager2.widget.swipe.PageSwiper
 import androidx.viewpager2.widget.swipe.PageSwiperEspresso
 import androidx.viewpager2.widget.swipe.PageSwiperManual
+import androidx.viewpager2.widget.swipe.WaitForMotionEventInjectCapability
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
@@ -87,6 +88,9 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
+
+        onView(allOf(isDisplayed(), isAssignableFrom(ViewPager2::class.java)))
+            .perform(WaitForMotionEventInjectCapability())
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
