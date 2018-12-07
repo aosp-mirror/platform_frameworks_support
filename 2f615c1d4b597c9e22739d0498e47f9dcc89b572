@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a846fa06_7e291733",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T08:11:44Z",
+      "side": 1,
+      "message": "Q) is this a correct javadoc syntax?",
+      "range": {
+        "startLine": 1079,
+        "startChar": 21,
+        "endLine": 1079,
+        "endChar": 97
+      },
+      "revId": "2f615c1d4b597c9e22739d0498e47f9dcc89b572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1645731_6dd5f04e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2488,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T08:11:44Z",
+      "side": 1,
+      "message": "This is not used in the code.",
+      "revId": "2f615c1d4b597c9e22739d0498e47f9dcc89b572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cb1ecc4_2b3d7b9e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2516,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T08:11:44Z",
+      "side": 1,
+      "message": "Is this comment still valid?",
+      "range": {
+        "startLine": 2515,
+        "startChar": 0,
+        "endLine": 2516,
+        "endChar": 41
+      },
+      "revId": "2f615c1d4b597c9e22739d0498e47f9dcc89b572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4662e1f7_ddacfd25",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleDynamicGroupMrp.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T08:11:44Z",
+      "side": 1,
+      "message": "remove empty line?",
+      "revId": "2f615c1d4b597c9e22739d0498e47f9dcc89b572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb6d728d_0d87c98e",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/media/SampleMediaRouteProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T08:11:44Z",
+      "side": 1,
+      "message": "Q) is it okay not to call publishRoutes()?",
+      "revId": "2f615c1d4b597c9e22739d0498e47f9dcc89b572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
