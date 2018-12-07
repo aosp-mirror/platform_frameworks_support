@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7c4a0b4_7f3d53b9",
+        "filename": "media-widget/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-07T09:26:03Z",
+      "side": 1,
+      "message": "Q) Why is this added?",
+      "revId": "0f6d43c7a550cabb552608c2b6887c8c2f4733b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
