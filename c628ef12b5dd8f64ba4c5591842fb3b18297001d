@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "144ab203_fb929b57",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd736f2_786c6fb1",
+      "range": {
+        "startLine": 165,
+        "startChar": 27,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9453237e_5b2cc95d",
         "filename": "webkit/api/1.1.0-alpha01.txt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985a4a4c_ae09db3a",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9453237e_5b2cc95d",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 36
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "41a6892d_529fdff8",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f388350c_1ffca4b9",
+      "range": {
+        "startLine": 175,
+        "startChar": 53,
+        "endLine": 175,
+        "endChar": 64
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b9bec15_a60be994",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewProxyCompatTest.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82ebb969_944b98bf",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewProxyCompatTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b9bec15_a60be994",
+      "range": {
+        "startLine": 118,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 13
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "991a9cd2_6594b123",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done, but let\u0027s discuss in the next patchset if more changes are needed.",
+      "parentUuid": "d58e08a3_201f9706",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7639ce2_2fede866",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71107d87_615c1ecf",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7639ce2_2fede866",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "181a89b0_6c3fee40",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a21b009b_6cfa8103",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d21a193c_e194584d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0857115a_6c6d0852",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "I have seen both, but will stick to \"@Nullable final\" where applicable as I think it makes more sense for annotations to come first",
+      "parentUuid": "d21a193c_e194584d",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "a20668fb_1a906b91",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done. We can discuss in later patchset if needed.",
+      "parentUuid": "0374b514_3769b05c",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 42
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9361430b_0716e78b",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -229,6 +445,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d801d1d_8bf219e4",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9361430b_0716e78b",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 35
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "52174fc9_53eb4995",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc240621_2543f2ce",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df7413e_33877603",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -275,6 +539,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffd3f78_b8efb45e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df7413e_33877603",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "395fe579_84d001d2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce6b41b6_ee3e16f5",
+      "range": {
+        "startLine": 118,
+        "startChar": 45,
+        "endLine": 119,
+        "endChar": 70
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30e7f75e_0fa1e62e",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -321,6 +633,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd7a64a_3cb58ed1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e7f75e_0fa1e62e",
+      "range": {
+        "startLine": 131,
+        "startChar": 68,
+        "endLine": 131,
+        "endChar": 94
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "67ee31c1_ec72fa89",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "I\u0027ll stick to URL.",
+      "parentUuid": "b072fd19_2257cc4d",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 133,
+        "endChar": 46
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce3d7b99_52eb809d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -367,6 +727,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53dc6a19_8f3b79c4",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce3d7b99_52eb809d",
+      "range": {
+        "startLine": 137,
+        "startChar": 34,
+        "endLine": 137,
+        "endChar": 69
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "14b3fa23_f4308d30",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "I changed the phrasing of this a bit, we can iterate on the next patchset if it\u0027s needed.",
+      "parentUuid": "aee1bc99_0acf7927",
+      "range": {
+        "startLine": 152,
+        "startChar": 14,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbb81574_0a03ed06",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
         "patchSetId": 6
@@ -413,6 +821,30 @@
       "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3979842f_57ae4ba5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewProxyCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-07T17:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb81574_0a03ed06",
+      "range": {
+        "startLine": 154,
+        "startChar": 14,
+        "endLine": 154,
+        "endChar": 39
+      },
+      "revId": "c628ef12b5dd8f64ba4c5591842fb3b18297001d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
