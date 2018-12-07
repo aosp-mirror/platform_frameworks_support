@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba859c61_a86c1bdc",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-07T07:00:51Z",
+      "side": 1,
+      "message": "Should we put DATA_CALLING_PID \u003d UNKNOWN_PID?\nIsn\u0027t it same without putting DATA_CALLING_PID?",
+      "range": {
+        "startLine": 753,
+        "startChar": 16,
+        "endLine": 753,
+        "endChar": 59
+      },
+      "revId": "67b620d6846544900ffc95ca40d63af2a84c7742",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
