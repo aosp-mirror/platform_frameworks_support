@@ -117,6 +117,87 @@ interface BooksDao {
     @Query("SELECT * FROM book")
     suspend fun getBooksSuspend(): List<Book>
 
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSales(bookId: String)
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    suspend fun increaseBookSalesSuspend(bookId: String)
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSalesSingle(bookId: String): Single<Int>
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSalesMaybe(bookId: String): Maybe<Int>
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSalesCompletable(bookId: String): Completable
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSalesFuture(bookId: String): ListenableFuture<Int>
+
+    @Query("UPDATE book SET salesCnt = salesCnt + 1 WHERE bookId = :bookId")
+    fun increaseBookSalesVoidFuture(bookId: String): ListenableFuture<Void>
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooks(): Int
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    suspend fun deleteUnsoldBooksSuspend(): Int
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooksSingle(): Single<Int>
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooksMaybe(): Maybe<Int>
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooksCompletable(): Completable
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooksFuture(): ListenableFuture<Int>
+
+    @Query("DELETE FROM book WHERE salesCnt = 0")
+    fun deleteUnsoldBooksVoidFuture(): ListenableFuture<Void>
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    fun deleteBookWithIds(vararg bookIds: Int)
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    suspend fun deleteBookWithIdsSuspend(vararg bookIds: Int)
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    fun deleteBookWithIdsSingle(vararg bookIds: Int): Single<Int>
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    fun deleteBookWithIdsMaybe(vararg bookIds: Int): Maybe<Int>
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    fun deleteBookWithIdsCompletable(vararg bookIds: Int): Completable
+
+    @Query("DELETE FROM book WHERE bookId IN (:bookIds)")
+    fun deleteBookWithIdsFuture(vararg bookIds: Int): ListenableFuture<Int>
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisherVoid(id: String, name: String)
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisher(id: String, name: String): Long
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    suspend fun insertPublisherSuspend(id: String, name: String): Long
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisherSingle(id: String, name: String): Single<Long>
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisherMaybe(id: String, name: String): Maybe<Long>
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisherCompletable(id: String, name: String): Completable
+
+    @Query("INSERT INTO publisher (publisherId, name) VALUES (:id, :name)")
+    fun insertPublisherFuture(id: String, name: String): ListenableFuture<Long>
+
     @Transaction
     @Query("SELECT * FROM book WHERE salesCnt > :count")
     suspend fun getBooksWithMinSalesCountSuspend(count: Int): List<Book>

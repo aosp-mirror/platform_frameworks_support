@@ -21,6 +21,8 @@ import androidx.room.ext.KotlinTypeNames
 import androidx.room.ext.RoomCoroutinesTypeNames
 import androidx.room.ext.getSuspendFunctionReturnType
 import androidx.room.parser.ParsedQuery
+import androidx.room.solver.prepared.binder.CoroutinePreparedQueryResultBinder
+import androidx.room.solver.prepared.binder.PreparedQueryResultBinder
 import androidx.room.solver.query.result.CoroutineResultBinder
 import androidx.room.solver.query.result.QueryResultBinder
 import androidx.room.solver.shortcut.binder.CoroutineDeleteOrUpdateMethodBinder
@@ -62,6 +64,11 @@ abstract class MethodProcessorDelegate(
     }
 
     abstract fun findResultBinder(returnType: TypeMirror, query: ParsedQuery): QueryResultBinder
+
+    abstract fun findPreparedResultBinder(
+        returnType: TypeMirror,
+        query: ParsedQuery
+    ): PreparedQueryResultBinder
 
     abstract fun findInsertMethodBinder(
         returnType: TypeMirror,
@@ -121,6 +128,11 @@ class DefaultMethodProcessorDelegate(
     override fun findResultBinder(returnType: TypeMirror, query: ParsedQuery) =
         context.typeAdapterStore.findQueryResultBinder(returnType, query)
 
+    override fun findPreparedResultBinder(
+        returnType: TypeMirror,
+        query: ParsedQuery
+    ) = context.typeAdapterStore.findPreparedQueryResultBinder(returnType, query)
+
     override fun findInsertMethodBinder(
         returnType: TypeMirror,
         params: List<ShortcutQueryParameter>
@@ -163,6 +175,15 @@ class SuspendMethodProcessorDelegate(
             adapter = context.typeAdapterStore.findQueryResultAdapter(returnType, query),
             continuationParamName = continuationParam.simpleName.toString()
         )
+
+    override fun findPreparedResultBinder(
+        returnType: TypeMirror,
+        query: ParsedQuery
+    ) = CoroutinePreparedQueryResultBinder(
+        returnType = returnType,
+        continuationParamName = continuationParam.simpleName.toString(),
+        adapter = context.typeAdapterStore.findPreparedQueryResultAdapter(returnType, query)
+    )
 
     override fun findInsertMethodBinder(
         returnType: TypeMirror,
