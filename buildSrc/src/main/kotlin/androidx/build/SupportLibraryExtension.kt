@@ -35,6 +35,13 @@ open class SupportLibraryExtension(val project: Project) {
     var failOnUncheckedWarnings = true
     var failOnDeprecationWarnings = true
 
+    /**
+     * Whether we should run the lint check for synthetic accessors.
+     *
+     * Some Kotlin projects may wish to disable this.
+     */
+    var lintSyntheticAccessors = true
+
     var compilationTarget: CompilationTarget = CompilationTarget.DEVICE
 
     var useMetalava = true

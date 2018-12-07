@@ -63,7 +63,9 @@ fun Project.configureLint(lintOptions: LintOptions, extension: SupportLibraryExt
                 fatal("NewApi")
                 fatal("ObsoleteSdkInt")
                 fatal("NoHardKeywords")
-                fatal("SyntheticAccessor")
+                if (extension.lintSyntheticAccessors) {
+                    fatal("SyntheticAccessor")
+                }
                 fatal("UnusedResources")
 
                 if (extension.mavenVersion?.isFinalApi() == true) {
