@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38d8f037_6db885d5",
+        "filename": "media-widget/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-07T05:12:22Z",
+      "side": 1,
+      "message": "FYI, aosp/839269 will address this.\n(https://android-review.googlesource.com/c/platform/frameworks/support/+/839269)",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 1
+      },
+      "revId": "a40349679a11e8b204ed300592991efbf778a0e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
