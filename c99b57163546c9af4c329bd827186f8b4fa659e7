@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "7d7cafe2_5ae7c9c4",
+        "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-07T13:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86a77a5a_d268894d",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 30
+      },
+      "revId": "c99b57163546c9af4c329bd827186f8b4fa659e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "812e51ed_9e255b06",
         "filename": "navigation/common/ktx/src/main/java/androidx/navigation/NavDestinationBuilder.kt",
         "patchSetId": 11
