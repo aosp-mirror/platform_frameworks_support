@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "269bc81e_729ea460",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/result/DeleteOrUpdateMethodAdapter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 0,
+      "message": "oh i see where these names are coming from :) sorry. but we should still rename",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "373633dc6d18a4f5a7351e305a30241b3bd506d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

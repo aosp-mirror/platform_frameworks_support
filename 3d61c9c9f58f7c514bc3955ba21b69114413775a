@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98e2b201_b19d038c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/type_mirror_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "these sound a bit reverse since when you call it, you would normally say \"primitive int\" not \"int primitive\"\n\nso maybe rename these to:\nisPrimitiveIntType\nisBoxedIntType\n(same for others).\nany maybe drop Type in the end?\n`isPrimitiveInt`\n`isBoxedInt`\n`isInt`",
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613e86e1_8aa24ee4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/QueryMethodProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "query.type.in(PREPARED_TYPES)\n\nPREPARED_TYPES \u003d [...]",
+      "range": {
+        "startLine": 81,
+        "startChar": 29,
+        "endLine": 81,
+        "endChar": 41
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143e30ab_e519cdc8",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/binder/InstantPreparedQueryResultBinder.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "named params for clarity.",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ade4f4_ef01469e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/binderprovider/InstantPreparedQueryResultBinderProvider.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "doesn\u0027t it only match INT / LONG / VOID / UNIT?\n\nif this is because we put an error later on, maybe it can match here but also log the error in the below provide method ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be46e83_658cf1e5",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/prepared/binderprovider/PreparedQueryResultBinderProvider.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "the or a ?",
+      "range": {
+        "startLine": 24,
+        "startChar": 81,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e15eaf_ca803bc1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/shortcut/result/DeleteOrUpdateMethodAdapter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "maybe we should move this to an `is` method as well ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 17,
+        "endLine": 96,
+        "endChar": 49
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239dd80f_67873dd1",
+        "filename": "room/compiler/src/test/data/daoWriter/input/DeletionDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "nit. empty line in between for all htese new ones",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f088e1_3af51a7f",
+        "filename": "room/compiler/src/test/data/daoWriter/input/UpdateDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-08T03:11:00Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3d61c9c9f58f7c514bc3955ba21b69114413775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
