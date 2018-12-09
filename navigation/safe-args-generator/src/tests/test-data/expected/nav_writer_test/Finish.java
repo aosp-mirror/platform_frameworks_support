@@ -24,14 +24,15 @@ import java.lang.Override;
 import java.lang.String;
 
 public static class Finish implements NavDirections {
+    private Bundle bundle = new Bundle();
+
     public Finish() {
     }
 
     @Override
     @NonNull
     public Bundle getArguments() {
-        Bundle __outBundle = new Bundle();
-        return __outBundle;
+        return bundle;
     }
 
     @Override

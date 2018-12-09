@@ -18,6 +18,7 @@ package androidx.navigation;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -124,7 +125,7 @@ public abstract class NavType<T> {
     @SuppressWarnings("unchecked")
     @NonNull
     public static NavType<?> fromArgType(@Nullable String type, @Nullable String packageName) {
-        if (IntType.getName().equals(type) || "reference".equals(type)) {
+        if (IntType.getName().equals(type)) {
             return IntType;
         } else if (IntArrayType.getName().equals(type)) {
             return IntArrayType;
@@ -144,6 +145,8 @@ public abstract class NavType<T> {
             return FloatType;
         } else if (FloatArrayType.getName().equals(type)) {
             return FloatArrayType;
+        } else if (ReferenceType.getName().equals(type)) {
+            return ReferenceType;
         } else if (type != null && !type.isEmpty()) {
             try {
                 String className;
@@ -287,6 +290,39 @@ public abstract class NavType<T> {
         @Override
         public String getName() {
             return "integer";
+        }
+    };
+
+    public static final NavType<Integer> ReferenceType = new NavType<Integer>(false) {
+        @Override
+        public void put(@NonNull Bundle bundle, @NonNull String key,
+                @NonNull @AnyRes Integer value) {
+            bundle.putInt(key, value);
+        }
+
+        @AnyRes
+        @Override
+        public Integer get(@NonNull Bundle bundle, @NonNull String key) {
+            return (Integer) bundle.get(key);
+        }
+
+        @Override
+        public Integer parseValue(@NonNull String value) {
+            try {
+                if (value.startsWith("0x")) {
+                    return Integer.parseInt(value.substring(2), 16);
+                } else {
+                    return Integer.parseInt(value);
+                }
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+
+        @NonNull
+        @Override
+        public String getName() {
+            return "reference";
         }
     };
 

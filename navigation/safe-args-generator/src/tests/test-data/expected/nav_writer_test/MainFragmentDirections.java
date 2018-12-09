@@ -36,21 +36,17 @@ public class MainFragmentDirections {
     }
 
     public static class Previous implements NavDirections {
-        @NonNull
-        private String arg1;
-
-        @NonNull
-        private String arg2;
+        private Bundle bundle = new Bundle();
 
         public Previous(@NonNull String arg1, @NonNull String arg2) {
-            this.arg1 = arg1;
-            if (this.arg1 == null) {
+            if (arg1 == null) {
                 throw new IllegalArgumentException("Argument \"arg1\" is marked as non-null but was passed a null value.");
             }
-            this.arg2 = arg2;
-            if (this.arg2 == null) {
+            bundle.putString("arg1", arg1);
+            if (arg2 == null) {
                 throw new IllegalArgumentException("Argument \"arg2\" is marked as non-null but was passed a null value.");
             }
+            bundle.putString("arg2", arg2);
         }
 
         @NonNull
@@ -58,7 +54,7 @@ public class MainFragmentDirections {
             if (arg1 == null) {
                 throw new IllegalArgumentException("Argument \"arg1\" is marked as non-null but was passed a null value.");
             }
-            this.arg1 = arg1;
+            this.bundle.putString("arg1", arg1);
             return this;
         }
 
@@ -67,22 +63,29 @@ public class MainFragmentDirections {
             if (arg2 == null) {
                 throw new IllegalArgumentException("Argument \"arg2\" is marked as non-null but was passed a null value.");
             }
-            this.arg2 = arg2;
+            this.bundle.putString("arg2", arg2);
             return this;
         }
 
         @Override
         @NonNull
         public Bundle getArguments() {
-            Bundle __outBundle = new Bundle();
-            __outBundle.putString("arg1", this.arg1);
-            __outBundle.putString("arg2", this.arg2);
-            return __outBundle;
+            return bundle;
         }
 
         @Override
         public int getActionId() {
             return a.b.R.id.previous;
+        }
+
+        @NonNull
+        public String getArg1() {
+            return bundle.getString("arg1");
+        }
+
+        @NonNull
+        public String getArg2() {
+            return bundle.getString("arg2");
         }
 
         @Override
@@ -94,10 +97,16 @@ public class MainFragmentDirections {
                 return false;
             }
             Previous that = (Previous) object;
-            if (arg1 != null ? !arg1.equals(that.arg1) : that.arg1 != null) {
+            if (bundle.containsKey("arg1") != that.bundle.containsKey("arg1")) {
                 return false;
             }
-            if (arg2 != null ? !arg2.equals(that.arg2) : that.arg2 != null) {
+            if (getArg1() != null ? !getArg1().equals(that.getArg1()) : that.getArg1() != null) {
+                return false;
+            }
+            if (bundle.containsKey("arg2") != that.bundle.containsKey("arg2")) {
+                return false;
+            }
+            if (getArg2() != null ? !getArg2().equals(that.getArg2()) : that.getArg2() != null) {
                 return false;
             }
             if (getActionId() != that.getActionId()) {
@@ -109,8 +118,8 @@ public class MainFragmentDirections {
         @Override
         public int hashCode() {
             int result = super.hashCode();
-            result = 31 * result + (arg1 != null ? arg1.hashCode() : 0);
-            result = 31 * result + (arg2 != null ? arg2.hashCode() : 0);
+            result = 31 * result + (getArg1() != null ? getArg1().hashCode() : 0);
+            result = 31 * result + (getArg2() != null ? getArg2().hashCode() : 0);
             result = 31 * result + getActionId();
             return result;
         }
@@ -118,24 +127,20 @@ public class MainFragmentDirections {
         @Override
         public String toString() {
             return "Previous(actionId=" + getActionId() + "){"
-                    + "arg1=" + arg1
-                    + ", arg2=" + arg2
+                    + "arg1=" + getArg1()
+                    + ", arg2=" + getArg2()
                     + "}";
         }
     }
 
     public static class Next implements NavDirections {
-        @NonNull
-        private String main;
-
-        @NonNull
-        private String optional = "bla";
+        private Bundle bundle = new Bundle();
 
         public Next(@NonNull String main) {
-            this.main = main;
-            if (this.main == null) {
+            if (main == null) {
                 throw new IllegalArgumentException("Argument \"main\" is marked as non-null but was passed a null value.");
             }
+            bundle.putString("main", main);
         }
 
         @NonNull
@@ -143,7 +148,7 @@ public class MainFragmentDirections {
             if (main == null) {
                 throw new IllegalArgumentException("Argument \"main\" is marked as non-null but was passed a null value.");
             }
-            this.main = main;
+            this.bundle.putString("main", main);
             return this;
         }
 
@@ -152,22 +157,29 @@ public class MainFragmentDirections {
             if (optional == null) {
                 throw new IllegalArgumentException("Argument \"optional\" is marked as non-null but was passed a null value.");
             }
-            this.optional = optional;
+            this.bundle.putString("optional", optional);
             return this;
         }
 
         @Override
         @NonNull
         public Bundle getArguments() {
-            Bundle __outBundle = new Bundle();
-            __outBundle.putString("main", this.main);
-            __outBundle.putString("optional", this.optional);
-            return __outBundle;
+            return bundle;
         }
 
         @Override
         public int getActionId() {
             return a.b.R.id.next;
+        }
+
+        @NonNull
+        public String getMain() {
+            return bundle.getString("main");
+        }
+
+        @NonNull
+        public String getOptional() {
+            return bundle.getString("optional");
         }
 
         @Override
@@ -179,10 +191,16 @@ public class MainFragmentDirections {
                 return false;
             }
             Next that = (Next) object;
-            if (main != null ? !main.equals(that.main) : that.main != null) {
+            if (bundle.containsKey("main") != that.bundle.containsKey("main")) {
                 return false;
             }
-            if (optional != null ? !optional.equals(that.optional) : that.optional != null) {
+            if (getMain() != null ? !getMain().equals(that.getMain()) : that.getMain() != null) {
+                return false;
+            }
+            if (bundle.containsKey("optional") != that.bundle.containsKey("optional")) {
+                return false;
+            }
+            if (getOptional() != null ? !getOptional().equals(that.getOptional()) : that.getOptional() != null) {
                 return false;
             }
             if (getActionId() != that.getActionId()) {
@@ -194,8 +212,8 @@ public class MainFragmentDirections {
         @Override
         public int hashCode() {
             int result = super.hashCode();
-            result = 31 * result + (main != null ? main.hashCode() : 0);
-            result = 31 * result + (optional != null ? optional.hashCode() : 0);
+            result = 31 * result + (getMain() != null ? getMain().hashCode() : 0);
+            result = 31 * result + (getOptional() != null ? getOptional().hashCode() : 0);
             result = 31 * result + getActionId();
             return result;
         }
@@ -203,8 +221,8 @@ public class MainFragmentDirections {
         @Override
         public String toString() {
             return "Next(actionId=" + getActionId() + "){"
-                    + "main=" + main
-                    + ", optional=" + optional
+                    + "main=" + getMain()
+                    + ", optional=" + getOptional()
                     + "}";
         }
     }

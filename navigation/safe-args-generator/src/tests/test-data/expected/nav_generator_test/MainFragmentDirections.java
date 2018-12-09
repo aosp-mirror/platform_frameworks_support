@@ -30,14 +30,15 @@ public class MainFragmentDirections {
     }
 
     public static class StartLogin implements NavDirections {
+        private Bundle bundle = new Bundle();
+
         public StartLogin() {
         }
 
         @Override
         @NonNull
         public Bundle getArguments() {
-            Bundle __outBundle = new Bundle();
-            return __outBundle;
+            return bundle;
         }
 
         @Override

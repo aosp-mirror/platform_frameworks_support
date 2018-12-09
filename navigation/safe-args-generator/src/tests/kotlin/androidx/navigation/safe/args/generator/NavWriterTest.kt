@@ -27,9 +27,6 @@ import com.google.testing.compile.JavaSourcesSubject
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.not
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -198,29 +195,6 @@ class NavWriterTest {
         val actual = generateArgsJavaFile(dest, false).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.MainFragment\$InnerFragmentArgs")
         assertCompilesWithoutError(actual)
-    }
-
-    @Test
-    fun testGeneratedDirectionEqualsImpl() {
-        val nextAction = Action(id("next"), id("destA"), listOf(Argument("main", StringType)))
-        val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(),
-                listOf(nextAction))
-
-        val actual = generateDirectionsJavaFile(dest, null, false).toJavaFileObject()
-
-        val generatedFiles = compileFiles(actual).generatedFiles()
-        val loader = InMemoryGeneratedClassLoader(generatedFiles)
-
-        fun createNextObj(mainArgValue: String) = loader.loadClass("a.b.MainFragmentDirections")
-                .getDeclaredMethod("next", String::class.java)
-                .invoke(null, mainArgValue)
-
-        val nextObjectA = createNextObj("data")
-        val nextObjectB = createNextObj("data")
-        val nextObjectC = createNextObj("different data")
-
-        assertThat(nextObjectA, `is`(nextObjectB))
-        assertThat(nextObjectA, not(`is`(nextObjectC)))
     }
 
     /**

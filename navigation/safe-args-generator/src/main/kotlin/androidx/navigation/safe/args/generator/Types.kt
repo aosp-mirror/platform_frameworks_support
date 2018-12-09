@@ -36,7 +36,7 @@ sealed class NavType {
         lValue: String,
         bundle: String
     ): MethodSpec.Builder {
-        return builder.addStatement("$N = $N.$N($S)", lValue, bundle, bundleGetMethod(), arg.name)
+        return builder.addStatement("$N $N.$N($S)", lValue, bundle, bundleGetMethod(), arg.name)
     }
 
     open fun addBundlePutStatement(
@@ -98,6 +98,8 @@ sealed class NavType {
     }
 }
 
+val navType = ClassName.get("androidx.navigation", "NavType")
+
 object IntType : NavType() {
     override fun typeName(): TypeName = TypeName.INT
     override fun bundlePutMethod() = "putInt"
@@ -107,6 +109,7 @@ object IntType : NavType() {
 }
 
 object IntArrayType : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(TypeName.INT)
     override fun bundlePutMethod() = "putIntArray"
     override fun bundleGetMethod() = "getIntArray"
@@ -115,6 +118,7 @@ object IntArrayType : NavType() {
 }
 
 object LongType : NavType() {
+
     override fun typeName(): TypeName = TypeName.LONG
     override fun bundlePutMethod() = "putLong"
     override fun bundleGetMethod() = "getLong"
@@ -123,6 +127,7 @@ object LongType : NavType() {
 }
 
 object LongArrayType : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(TypeName.LONG)
     override fun bundlePutMethod() = "putLongArray"
     override fun bundleGetMethod() = "getLongArray"
@@ -131,6 +136,7 @@ object LongArrayType : NavType() {
 }
 
 object FloatType : NavType() {
+
     override fun typeName(): TypeName = TypeName.FLOAT
     override fun bundlePutMethod() = "putFloat"
     override fun bundleGetMethod() = "getFloat"
@@ -139,6 +145,7 @@ object FloatType : NavType() {
 }
 
 object FloatArrayType : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(TypeName.FLOAT)
     override fun bundlePutMethod() = "putFloatArray"
     override fun bundleGetMethod() = "getFloatArray"
@@ -147,6 +154,7 @@ object FloatArrayType : NavType() {
 }
 
 object StringType : NavType() {
+
     override fun typeName(): TypeName = ClassName.get(String::class.java)
     override fun bundlePutMethod() = "putString"
     override fun bundleGetMethod() = "getString"
@@ -155,6 +163,7 @@ object StringType : NavType() {
 }
 
 object StringArrayType : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(ClassName.get(String::class.java))
     override fun bundlePutMethod() = "putStringArray"
     override fun bundleGetMethod() = "getStringArray"
@@ -163,6 +172,7 @@ object StringArrayType : NavType() {
 }
 
 object BoolType : NavType() {
+
     override fun typeName(): TypeName = TypeName.BOOLEAN
     override fun bundlePutMethod() = "putBoolean"
     override fun bundleGetMethod() = "getBoolean"
@@ -171,6 +181,7 @@ object BoolType : NavType() {
 }
 
 object BoolArrayType : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(TypeName.BOOLEAN)
     override fun bundlePutMethod() = "putBooleanArray"
     override fun bundleGetMethod() = "getBooleanArray"
@@ -179,6 +190,7 @@ object BoolArrayType : NavType() {
 }
 
 object ReferenceType : NavType() {
+
     // it is internally the same as INT, but we don't want to allow to
     // assignment between int and reference args
     override fun typeName(): TypeName = TypeName.INT
@@ -190,6 +202,7 @@ object ReferenceType : NavType() {
 }
 
 object ReferenceArrayType : NavType() {
+
     // it is internally the same as INT, but we don't want to allow to
     // assignment between int and reference args
     override fun typeName(): TypeName = ArrayTypeName.of(TypeName.INT)
@@ -201,6 +214,7 @@ object ReferenceArrayType : NavType() {
 }
 
 data class ObjectType(private val typeName: TypeName) : NavType() {
+
     override fun typeName(): TypeName = typeName
     override fun bundlePutMethod() =
             throw OperationNotSupportedException("Use addBundlePutStatement instead.")
@@ -223,7 +237,7 @@ data class ObjectType(private val typeName: TypeName) : NavType() {
                     serializableType, arg.type.typeName())
                     .apply {
                         addStatement(
-                                "$N = ($T) $N.$N($S)",
+                                "$N ($T) $N.$N($S)",
                                 lValue, arg.type.typeName(), bundle, "get", arg.name
                         )
                     }.nextControlFlow("else").apply {
@@ -270,6 +284,7 @@ data class ObjectType(private val typeName: TypeName) : NavType() {
 }
 
 data class ObjectArrayType(private val typeName: TypeName) : NavType() {
+
     override fun typeName(): TypeName = ArrayTypeName.of(typeName)
     override fun bundlePutMethod() = "putParcelableArray"
     override fun bundleGetMethod() = "getParcelableArray"
@@ -282,7 +297,7 @@ data class ObjectArrayType(private val typeName: TypeName) : NavType() {
         lValue: String,
         bundle: String
     ): MethodSpec.Builder {
-        return builder.addStatement("$N = ($T) $N.$N($S)",
+        return builder.addStatement("$N ($T) $N.$N($S)",
             lValue, typeName(), bundle, bundleGetMethod(), arg.name)
     }
 }

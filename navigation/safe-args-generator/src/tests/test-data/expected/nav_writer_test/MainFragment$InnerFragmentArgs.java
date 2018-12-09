@@ -24,10 +24,13 @@ import java.lang.Override;
 import java.lang.String;
 
 public class MainFragment$InnerFragmentArgs {
-    @NonNull
-    private String mainArg;
+    private Bundle bundle = new Bundle();
 
     private MainFragment$InnerFragmentArgs() {
+    }
+
+    private MainFragment$InnerFragmentArgs(Bundle bundle) {
+        this.bundle.putAll(bundle);
     }
 
     @NonNull
@@ -35,10 +38,12 @@ public class MainFragment$InnerFragmentArgs {
         MainFragment$InnerFragmentArgs result = new MainFragment$InnerFragmentArgs();
         bundle.setClassLoader(MainFragment$InnerFragmentArgs.class.getClassLoader());
         if (bundle.containsKey("mainArg")) {
-            result.mainArg = bundle.getString("mainArg");
-            if (result.mainArg == null) {
+            String mainArg;
+            mainArg = bundle.getString("mainArg");
+            if (mainArg == null) {
                 throw new IllegalArgumentException("Argument \"mainArg\" is marked as non-null but was passed a null value.");
             }
+            result.bundle.putString("mainArg", mainArg);
         } else {
             throw new IllegalArgumentException("Required argument \"mainArg\" is missing and does not have an android:defaultValue");
         }
@@ -47,14 +52,12 @@ public class MainFragment$InnerFragmentArgs {
 
     @NonNull
     public String getMainArg() {
-        return mainArg;
+        return bundle.getString("mainArg");
     }
 
     @NonNull
     public Bundle toBundle() {
-        Bundle __outBundle = new Bundle();
-        __outBundle.putString("mainArg", this.mainArg);
-        return __outBundle;
+        return bundle;
     }
 
     @Override
@@ -66,7 +69,10 @@ public class MainFragment$InnerFragmentArgs {
             return false;
         }
         MainFragment$InnerFragmentArgs that = (MainFragment$InnerFragmentArgs) object;
-        if (mainArg != null ? !mainArg.equals(that.mainArg) : that.mainArg != null) {
+        if (bundle.containsKey("mainArg") != that.bundle.containsKey("mainArg")) {
+            return false;
+        }
+        if (getMainArg() != null ? !getMainArg().equals(that.getMainArg()) : that.getMainArg() != null) {
             return false;
         }
         return true;
@@ -75,36 +81,34 @@ public class MainFragment$InnerFragmentArgs {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (mainArg != null ? mainArg.hashCode() : 0);
+        result = 31 * result + (getMainArg() != null ? getMainArg().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "MainFragment$InnerFragmentArgs{"
-                + "mainArg=" + mainArg
+                + "mainArg=" + getMainArg()
                 + "}";
     }
 
     public static class Builder {
-        @NonNull
-        private String mainArg;
+        private Bundle bundle = new Bundle();
 
         public Builder(MainFragment$InnerFragmentArgs original) {
-            this.mainArg = original.mainArg;
+            this.bundle.putAll(original.bundle);
         }
 
         public Builder(@NonNull String mainArg) {
-            this.mainArg = mainArg;
-            if (this.mainArg == null) {
+            if (mainArg == null) {
                 throw new IllegalArgumentException("Argument \"mainArg\" is marked as non-null but was passed a null value.");
             }
+            bundle.putString("mainArg", mainArg);
         }
 
         @NonNull
         public MainFragment$InnerFragmentArgs build() {
-            MainFragment$InnerFragmentArgs result = new MainFragment$InnerFragmentArgs();
-            result.mainArg = this.mainArg;
+            MainFragment$InnerFragmentArgs result = new MainFragment$InnerFragmentArgs(bundle);
             return result;
         }
 
@@ -113,13 +117,13 @@ public class MainFragment$InnerFragmentArgs {
             if (mainArg == null) {
                 throw new IllegalArgumentException("Argument \"mainArg\" is marked as non-null but was passed a null value.");
             }
-            this.mainArg = mainArg;
+            this.bundle.putString("mainArg", mainArg);
             return this;
         }
 
         @NonNull
         public String getMainArg() {
-            return mainArg;
+            return bundle.getString("mainArg");
         }
     }
 }
