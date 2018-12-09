@@ -17,4 +17,6 @@
 
 <resources>
     <dimen name="test_dimen_arg">48dp</dimen>
+    <integer name="test_integer_arg">2</integer>
+    <string name="test_string_arg">test string</string>
 </resources>
