@@ -254,7 +254,12 @@ internal class NavParser(
 internal fun inferArgument(name: String, defaultValue: String, rFilePackage: String): Argument {
     val reference = parseReference(defaultValue, rFilePackage)
     if (reference != null) {
-        return Argument(name, ReferenceType, ReferenceValue(reference))
+        return when (reference.resType) {
+            "color", "dimen", "integer" -> Argument(name, IntType, ReferenceValue(reference))
+            "bool" -> Argument(name, BoolType, ReferenceValue(reference))
+            "string" -> Argument(name, StringType, ReferenceValue(reference))
+            else -> Argument(name, ReferenceType, ReferenceValue(reference))
+        }
     }
     val longValue = parseLongValue(defaultValue)
     if (longValue != null) {
