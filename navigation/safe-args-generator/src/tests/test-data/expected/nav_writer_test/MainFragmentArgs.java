@@ -1,3 +1,19 @@
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package a.b;
 
 import android.content.pm.ActivityInfo;
@@ -7,36 +23,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.io.Serializable;
 import java.lang.IllegalArgumentException;
-import java.lang.Object;
-import java.lang.Override;
 import java.lang.String;
 import java.nio.file.AccessMode;
 
 public class MainFragmentArgs {
-    @NonNull
-    private String main;
-
-    private int optional = -1;
-
-    private int reference = a.b.R.drawable.background;
-
-    private float floatArg = 1F;
-
-    @NonNull
-    private float[] floatArrayArg;
-
-    @NonNull
-    private ActivityInfo[] objectArrayArg;
-
-    private boolean boolArg = true;
-
-    @Nullable
-    private ActivityInfo optionalParcelable = null;
-
-    @NonNull
-    private AccessMode enumArg = AccessMode.READ;
+    private Bundle bundle = new Bundle();
 
     private MainFragmentArgs() {
+    }
+
+    private MainFragmentArgs(Bundle bundle) {
+        this.bundle.putAll(bundle);
     }
 
     @NonNull
@@ -44,56 +41,86 @@ public class MainFragmentArgs {
         MainFragmentArgs result = new MainFragmentArgs();
         bundle.setClassLoader(MainFragmentArgs.class.getClassLoader());
         if (bundle.containsKey("main")) {
-            result.main = bundle.getString("main");
-            if (result.main == null) {
+            String main;
+            main = bundle.getString("main");
+            if (main == null) {
                 throw new IllegalArgumentException("Argument \"main\" is marked as non-null but was passed a null value.");
             }
+            result.bundle.putString("main", main);
         } else {
             throw new IllegalArgumentException("Required argument \"main\" is missing and does not have an android:defaultValue");
         }
         if (bundle.containsKey("optional")) {
-            result.optional = bundle.getInt("optional");
+            int optional;
+            optional = bundle.getInt("optional");
+            result.bundle.putInt("optional", optional);
         }
         if (bundle.containsKey("reference")) {
-            result.reference = bundle.getInt("reference");
+            int reference;
+            reference = bundle.getInt("reference");
+            result.bundle.putInt("reference", reference);
         }
         if (bundle.containsKey("floatArg")) {
-            result.floatArg = bundle.getFloat("floatArg");
+            float floatArg;
+            floatArg = bundle.getFloat("floatArg");
+            result.bundle.putFloat("floatArg", floatArg);
         }
         if (bundle.containsKey("floatArrayArg")) {
-            result.floatArrayArg = bundle.getFloatArray("floatArrayArg");
-            if (result.floatArrayArg == null) {
+            float[] floatArrayArg;
+            floatArrayArg = bundle.getFloatArray("floatArrayArg");
+            if (floatArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"floatArrayArg\" is marked as non-null but was passed a null value.");
             }
+            result.bundle.putFloatArray("floatArrayArg", floatArrayArg);
         } else {
             throw new IllegalArgumentException("Required argument \"floatArrayArg\" is missing and does not have an android:defaultValue");
         }
         if (bundle.containsKey("objectArrayArg")) {
-            result.objectArrayArg = (ActivityInfo[]) bundle.getParcelableArray("objectArrayArg");
-            if (result.objectArrayArg == null) {
+            ActivityInfo[] objectArrayArg;
+            objectArrayArg = (ActivityInfo[]) bundle.getParcelableArray("objectArrayArg");
+            if (objectArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.");
             }
+            result.bundle.putParcelableArray("objectArrayArg", objectArrayArg);
         } else {
             throw new IllegalArgumentException("Required argument \"objectArrayArg\" is missing and does not have an android:defaultValue");
         }
         if (bundle.containsKey("boolArg")) {
-            result.boolArg = bundle.getBoolean("boolArg");
+            boolean boolArg;
+            boolArg = bundle.getBoolean("boolArg");
+            result.bundle.putBoolean("boolArg", boolArg);
         }
         if (bundle.containsKey("optionalParcelable")) {
+            ActivityInfo optionalParcelable;
             if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || Serializable.class.isAssignableFrom(ActivityInfo.class)) {
-                result.optionalParcelable = (ActivityInfo) bundle.get("optionalParcelable");
+                optionalParcelable = (ActivityInfo) bundle.get("optionalParcelable");
+            } else {
+                throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
+            if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || optionalParcelable == null) {
+                result.bundle.putParcelable("optionalParcelable", Parcelable.class.cast(optionalParcelable));
+            } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+                result.bundle.putSerializable("optionalParcelable", Serializable.class.cast(optionalParcelable));
             } else {
                 throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
             }
         }
         if (bundle.containsKey("enumArg")) {
+            AccessMode enumArg;
             if (Parcelable.class.isAssignableFrom(AccessMode.class) || Serializable.class.isAssignableFrom(AccessMode.class)) {
-                result.enumArg = (AccessMode) bundle.get("enumArg");
+                enumArg = (AccessMode) bundle.get("enumArg");
             } else {
                 throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
             }
-            if (result.enumArg == null) {
+            if (enumArg == null) {
                 throw new IllegalArgumentException("Argument \"enumArg\" is marked as non-null but was passed a null value.");
+            }
+            if (Parcelable.class.isAssignableFrom(AccessMode.class) || enumArg == null) {
+                result.bundle.putParcelable("enumArg", Parcelable.class.cast(enumArg));
+            } else if (Serializable.class.isAssignableFrom(AccessMode.class)) {
+                result.bundle.putSerializable("enumArg", Serializable.class.cast(enumArg));
+            } else {
+                throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
             }
         }
         return result;
@@ -101,205 +128,102 @@ public class MainFragmentArgs {
 
     @NonNull
     public String getMain() {
+        String main;
+        main = bundle.getString("main");
         return main;
     }
 
     public int getOptional() {
+        int optional;
+        optional = bundle.getInt("optional");
         return optional;
     }
 
     public int getReference() {
+        int reference;
+        reference = bundle.getInt("reference");
         return reference;
     }
 
     public float getFloatArg() {
+        float floatArg;
+        floatArg = bundle.getFloat("floatArg");
         return floatArg;
     }
 
     @NonNull
     public float[] getFloatArrayArg() {
+        float[] floatArrayArg;
+        floatArrayArg = bundle.getFloatArray("floatArrayArg");
         return floatArrayArg;
     }
 
     @NonNull
     public ActivityInfo[] getObjectArrayArg() {
+        ActivityInfo[] objectArrayArg;
+        objectArrayArg = (ActivityInfo[]) bundle.getParcelableArray("objectArrayArg");
         return objectArrayArg;
     }
 
     public boolean getBoolArg() {
+        boolean boolArg;
+        boolArg = bundle.getBoolean("boolArg");
         return boolArg;
     }
 
     @Nullable
     public ActivityInfo getOptionalParcelable() {
+        ActivityInfo optionalParcelable;
+        if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+            optionalParcelable = (ActivityInfo) bundle.get("optionalParcelable");
+        } else {
+            throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+        }
         return optionalParcelable;
     }
 
     @NonNull
     public AccessMode getEnumArg() {
+        AccessMode enumArg;
+        if (Parcelable.class.isAssignableFrom(AccessMode.class) || Serializable.class.isAssignableFrom(AccessMode.class)) {
+            enumArg = (AccessMode) bundle.get("enumArg");
+        } else {
+            throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+        }
         return enumArg;
     }
 
     @NonNull
     public Bundle toBundle() {
-        Bundle __outBundle = new Bundle();
-        __outBundle.putString("main", this.main);
-        __outBundle.putInt("optional", this.optional);
-        __outBundle.putInt("reference", this.reference);
-        __outBundle.putFloat("floatArg", this.floatArg);
-        __outBundle.putFloatArray("floatArrayArg", this.floatArrayArg);
-        __outBundle.putParcelableArray("objectArrayArg", this.objectArrayArg);
-        __outBundle.putBoolean("boolArg", this.boolArg);
-        if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || this.optionalParcelable == null) {
-            __outBundle.putParcelable("optionalParcelable", Parcelable.class.cast(this.optionalParcelable));
-        } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
-            __outBundle.putSerializable("optionalParcelable", Serializable.class.cast(this.optionalParcelable));
-        } else {
-            throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
-        }
-        if (Parcelable.class.isAssignableFrom(AccessMode.class) || this.enumArg == null) {
-            __outBundle.putParcelable("enumArg", Parcelable.class.cast(this.enumArg));
-        } else if (Serializable.class.isAssignableFrom(AccessMode.class)) {
-            __outBundle.putSerializable("enumArg", Serializable.class.cast(this.enumArg));
-        } else {
-            throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
-        }
-        return __outBundle;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        MainFragmentArgs that = (MainFragmentArgs) object;
-        if (main != null ? !main.equals(that.main) : that.main != null) {
-            return false;
-        }
-        if (optional != that.optional) {
-            return false;
-        }
-        if (reference != that.reference) {
-            return false;
-        }
-        if (Float.compare(that.floatArg, floatArg) != 0) {
-            return false;
-        }
-        if (floatArrayArg != null ? !floatArrayArg.equals(that.floatArrayArg) : that.floatArrayArg != null) {
-            return false;
-        }
-        if (objectArrayArg != null ? !objectArrayArg.equals(that.objectArrayArg) : that.objectArrayArg != null) {
-            return false;
-        }
-        if (boolArg != that.boolArg) {
-            return false;
-        }
-        if (optionalParcelable != null ? !optionalParcelable.equals(that.optionalParcelable) : that.optionalParcelable != null) {
-            return false;
-        }
-        if (enumArg != null ? !enumArg.equals(that.enumArg) : that.enumArg != null) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (main != null ? main.hashCode() : 0);
-        result = 31 * result + optional;
-        result = 31 * result + reference;
-        result = 31 * result + Float.floatToIntBits(floatArg);
-        result = 31 * result + java.util.Arrays.hashCode(floatArrayArg);
-        result = 31 * result + java.util.Arrays.hashCode(objectArrayArg);
-        result = 31 * result + (boolArg ? 1 : 0);
-        result = 31 * result + (optionalParcelable != null ? optionalParcelable.hashCode() : 0);
-        result = 31 * result + (enumArg != null ? enumArg.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "MainFragmentArgs{"
-                + "main=" + main
-                + ", optional=" + optional
-                + ", reference=" + reference
-                + ", floatArg=" + floatArg
-                + ", floatArrayArg=" + floatArrayArg
-                + ", objectArrayArg=" + objectArrayArg
-                + ", boolArg=" + boolArg
-                + ", optionalParcelable=" + optionalParcelable
-                + ", enumArg=" + enumArg
-                + "}";
+        return bundle;
     }
 
     public static class Builder {
-        @NonNull
-        private String main;
-
-        private int optional = -1;
-
-        private int reference = a.b.R.drawable.background;
-
-        private float floatArg = 1F;
-
-        @NonNull
-        private float[] floatArrayArg;
-
-        @NonNull
-        private ActivityInfo[] objectArrayArg;
-
-        private boolean boolArg = true;
-
-        @Nullable
-        private ActivityInfo optionalParcelable = null;
-
-        @NonNull
-        private AccessMode enumArg = AccessMode.READ;
+        private Bundle bundle = new Bundle();
 
         public Builder(MainFragmentArgs original) {
-            this.main = original.main;
-            this.optional = original.optional;
-            this.reference = original.reference;
-            this.floatArg = original.floatArg;
-            this.floatArrayArg = original.floatArrayArg;
-            this.objectArrayArg = original.objectArrayArg;
-            this.boolArg = original.boolArg;
-            this.optionalParcelable = original.optionalParcelable;
-            this.enumArg = original.enumArg;
+            this.bundle.putAll(original.bundle);
         }
 
         public Builder(@NonNull String main, @NonNull float[] floatArrayArg,
                 @NonNull ActivityInfo[] objectArrayArg) {
-            this.main = main;
-            if (this.main == null) {
+            if (main == null) {
                 throw new IllegalArgumentException("Argument \"main\" is marked as non-null but was passed a null value.");
             }
-            this.floatArrayArg = floatArrayArg;
-            if (this.floatArrayArg == null) {
+            bundle.putString("main", main);
+            if (floatArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"floatArrayArg\" is marked as non-null but was passed a null value.");
             }
-            this.objectArrayArg = objectArrayArg;
-            if (this.objectArrayArg == null) {
+            bundle.putFloatArray("floatArrayArg", floatArrayArg);
+            if (objectArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.");
             }
+            bundle.putParcelableArray("objectArrayArg", objectArrayArg);
         }
 
         @NonNull
         public MainFragmentArgs build() {
-            MainFragmentArgs result = new MainFragmentArgs();
-            result.main = this.main;
-            result.optional = this.optional;
-            result.reference = this.reference;
-            result.floatArg = this.floatArg;
-            result.floatArrayArg = this.floatArrayArg;
-            result.objectArrayArg = this.objectArrayArg;
-            result.boolArg = this.boolArg;
-            result.optionalParcelable = this.optionalParcelable;
-            result.enumArg = this.enumArg;
+            MainFragmentArgs result = new MainFragmentArgs(bundle);
             return result;
         }
 
@@ -308,25 +232,25 @@ public class MainFragmentArgs {
             if (main == null) {
                 throw new IllegalArgumentException("Argument \"main\" is marked as non-null but was passed a null value.");
             }
-            this.main = main;
+            this.bundle.putString("main", main);
             return this;
         }
 
         @NonNull
         public Builder setOptional(int optional) {
-            this.optional = optional;
+            this.bundle.putInt("optional", optional);
             return this;
         }
 
         @NonNull
         public Builder setReference(int reference) {
-            this.reference = reference;
+            this.bundle.putInt("reference", reference);
             return this;
         }
 
         @NonNull
         public Builder setFloatArg(float floatArg) {
-            this.floatArg = floatArg;
+            this.bundle.putFloat("floatArg", floatArg);
             return this;
         }
 
@@ -335,7 +259,7 @@ public class MainFragmentArgs {
             if (floatArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"floatArrayArg\" is marked as non-null but was passed a null value.");
             }
-            this.floatArrayArg = floatArrayArg;
+            this.bundle.putFloatArray("floatArrayArg", floatArrayArg);
             return this;
         }
 
@@ -344,19 +268,25 @@ public class MainFragmentArgs {
             if (objectArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.");
             }
-            this.objectArrayArg = objectArrayArg;
+            this.bundle.putParcelableArray("objectArrayArg", objectArrayArg);
             return this;
         }
 
         @NonNull
         public Builder setBoolArg(boolean boolArg) {
-            this.boolArg = boolArg;
+            this.bundle.putBoolean("boolArg", boolArg);
             return this;
         }
 
         @NonNull
         public Builder setOptionalParcelable(@Nullable ActivityInfo optionalParcelable) {
-            this.optionalParcelable = optionalParcelable;
+            if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || optionalParcelable == null) {
+                this.bundle.putParcelable("optionalParcelable", Parcelable.class.cast(optionalParcelable));
+            } else if (Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+                this.bundle.putSerializable("optionalParcelable", Serializable.class.cast(optionalParcelable));
+            } else {
+                throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
             return this;
         }
 
@@ -365,48 +295,80 @@ public class MainFragmentArgs {
             if (enumArg == null) {
                 throw new IllegalArgumentException("Argument \"enumArg\" is marked as non-null but was passed a null value.");
             }
-            this.enumArg = enumArg;
+            if (Parcelable.class.isAssignableFrom(AccessMode.class) || enumArg == null) {
+                this.bundle.putParcelable("enumArg", Parcelable.class.cast(enumArg));
+            } else if (Serializable.class.isAssignableFrom(AccessMode.class)) {
+                this.bundle.putSerializable("enumArg", Serializable.class.cast(enumArg));
+            } else {
+                throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
             return this;
         }
 
         @NonNull
         public String getMain() {
+            String main;
+            main = bundle.getString("main");
             return main;
         }
 
         public int getOptional() {
+            int optional;
+            optional = bundle.getInt("optional");
             return optional;
         }
 
         public int getReference() {
+            int reference;
+            reference = bundle.getInt("reference");
             return reference;
         }
 
         public float getFloatArg() {
+            float floatArg;
+            floatArg = bundle.getFloat("floatArg");
             return floatArg;
         }
 
         @NonNull
         public float[] getFloatArrayArg() {
+            float[] floatArrayArg;
+            floatArrayArg = bundle.getFloatArray("floatArrayArg");
             return floatArrayArg;
         }
 
         @NonNull
         public ActivityInfo[] getObjectArrayArg() {
+            ActivityInfo[] objectArrayArg;
+            objectArrayArg = (ActivityInfo[]) bundle.getParcelableArray("objectArrayArg");
             return objectArrayArg;
         }
 
         public boolean getBoolArg() {
+            boolean boolArg;
+            boolArg = bundle.getBoolean("boolArg");
             return boolArg;
         }
 
         @Nullable
         public ActivityInfo getOptionalParcelable() {
+            ActivityInfo optionalParcelable;
+            if (Parcelable.class.isAssignableFrom(ActivityInfo.class) || Serializable.class.isAssignableFrom(ActivityInfo.class)) {
+                optionalParcelable = (ActivityInfo) bundle.get("optionalParcelable");
+            } else {
+                throw new UnsupportedOperationException(ActivityInfo.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
             return optionalParcelable;
         }
 
         @NonNull
         public AccessMode getEnumArg() {
+            AccessMode enumArg;
+            if (Parcelable.class.isAssignableFrom(AccessMode.class) || Serializable.class.isAssignableFrom(AccessMode.class)) {
+                enumArg = (AccessMode) bundle.get("enumArg");
+            } else {
+                throw new UnsupportedOperationException(AccessMode.class.getName() + " must implement Parcelable or Serializable or must be an Enum.");
+            }
             return enumArg;
         }
     }
