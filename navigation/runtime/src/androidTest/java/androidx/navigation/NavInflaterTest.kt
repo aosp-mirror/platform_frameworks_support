@@ -153,6 +153,10 @@ class NavInflaterTest {
 
         assertEquals(R.style.AppTheme, defaultArguments.get("test_reference")?.defaultValue)
         assertEquals(NavType.IntType, defaultArguments.get("test_reference")?.type)
+        assertEquals(R.dimen.test_dimen_arg, defaultArguments.get("test_reference2")?.defaultValue)
+        assertEquals(NavType.ReferenceType, defaultArguments.get("test_reference2")?.type)
+        assertEquals(2, defaultArguments.get("test_reference3")?.defaultValue)
+        assertEquals(NavType.IntType, defaultArguments.get("test_reference3")?.type)
     }
 
     @Test
