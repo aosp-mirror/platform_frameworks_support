@@ -22,16 +22,19 @@ import androidx.navigation.NavDirections;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.HashMap;
 
 public static class Finish implements NavDirections {
+    private final HashMap arguments = new HashMap();
+
     public Finish() {
     }
 
     @Override
     @NonNull
     public Bundle getArguments() {
-        Bundle __outBundle = new Bundle();
-        return __outBundle;
+        Bundle result = new Bundle();
+        return result;
     }
 
     @Override

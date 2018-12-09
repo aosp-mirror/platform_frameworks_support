@@ -22,6 +22,7 @@ import androidx.navigation.NavDirections;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.HashMap;
 
 public class MainFragmentDirections {
     @NonNull
@@ -30,14 +31,16 @@ public class MainFragmentDirections {
     }
 
     public static class StartLogin implements NavDirections {
+        private final HashMap arguments = new HashMap();
+
         public StartLogin() {
         }
 
         @Override
         @NonNull
         public Bundle getArguments() {
-            Bundle __outBundle = new Bundle();
-            return __outBundle;
+            Bundle result = new Bundle();
+            return result;
         }
 
         @Override
