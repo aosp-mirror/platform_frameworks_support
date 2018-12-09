@@ -40,7 +40,7 @@ import javax.lang.model.element.Modifier
 
 private const val NAVIGATION_PACKAGE = "androidx.navigation"
 private val NAV_DIRECTION_CLASSNAME: ClassName = ClassName.get(NAVIGATION_PACKAGE, "NavDirections")
-private val BUNDLE_CLASSNAME: ClassName = ClassName.get("android.os", "Bundle")
+internal val BUNDLE_CLASSNAME: ClassName = ClassName.get("android.os", "Bundle")
 
 internal abstract class Annotations {
     abstract val NULLABLE_CLASSNAME: ClassName
@@ -72,23 +72,29 @@ private class ClassWithArgsSpecs(
     val annotations: Annotations
 ) {
 
-    fun fieldSpecs() = args.map { arg ->
-        FieldSpec.builder(arg.type.typeName(), arg.sanitizedName)
-                .apply {
-                    addModifiers(Modifier.PRIVATE)
-                    if (arg.type.allowsNullable()) {
-                        if (arg.isNullable) {
-                            addAnnotation(annotations.NULLABLE_CLASSNAME)
-                        } else {
-                            addAnnotation(annotations.NONNULL_CLASSNAME)
-                        }
-                    }
-                    if (arg.isOptional()) {
-                        initializer(arg.defaultValue!!.write())
-                    }
-                }
-                .build()
-    }
+//    fun fieldSpecs() = args.map { arg ->
+//        FieldSpec.builder(arg.type.typeName(), arg.sanitizedName)
+//                .apply {
+//                    addModifiers(Modifier.PRIVATE)
+//                    if (arg.type.allowsNullable()) {
+//                        if (arg.isNullable) {
+//                            addAnnotation(annotations.NULLABLE_CLASSNAME)
+//                        } else {
+//                            addAnnotation(annotations.NONNULL_CLASSNAME)
+//                        }
+//                    }
+////                    if (arg.isOptional()) {
+////                        initializer(arg.defaultValue!!.write())
+////                    }
+//                }
+//                .build()
+//    }
+
+    val bundleFieldSpec = FieldSpec.builder(
+        BUNDLE_CLASSNAME,
+        "bundle",
+        Modifier.PRIVATE
+    ).initializer("new $T()", BUNDLE_CLASSNAME).build()
 
     fun setters(thisClassName: ClassName) = args.map { arg ->
         MethodSpec.methodBuilder("set${arg.sanitizedName.capitalize()}").apply {
@@ -96,7 +102,7 @@ private class ClassWithArgsSpecs(
             addModifiers(Modifier.PUBLIC)
             addParameter(generateParameterSpec(arg))
             addNullCheck(arg, arg.sanitizedName)
-            addStatement("this.$N = $N", arg.sanitizedName, arg.sanitizedName)
+            arg.type.addBundlePutStatement(this, arg, "this.bundle", arg.sanitizedName)
             addStatement("return this")
             returns(thisClassName)
         }.build()
@@ -106,8 +112,8 @@ private class ClassWithArgsSpecs(
         addModifiers(Modifier.PUBLIC)
         args.filterNot(Argument::isOptional).forEach { arg ->
             addParameter(generateParameterSpec(arg))
-            addStatement("this.$N = $N", arg.sanitizedName, arg.sanitizedName)
-            addNullCheck(arg, "this.${arg.sanitizedName}")
+            addNullCheck(arg, arg.sanitizedName)
+            arg.type.addBundlePutStatement(this, arg, "bundle", arg.sanitizedName)
         }
     }.build()
 
@@ -121,21 +127,17 @@ private class ClassWithArgsSpecs(
         addAnnotation(annotations.NONNULL_CLASSNAME)
         addModifiers(Modifier.PUBLIC)
         returns(BUNDLE_CLASSNAME)
-        val bundleName = "__outBundle"
-        addStatement("$T $N = new $T()", BUNDLE_CLASSNAME, bundleName, BUNDLE_CLASSNAME)
-        args.forEach { arg ->
-            arg.type.addBundlePutStatement(this, arg, bundleName, "this.${arg.sanitizedName}")
-        }
-        addStatement("return $N", bundleName)
+        addStatement("return $N", bundleFieldSpec.name)
     }.build()
 
-    fun copyProperties(to: String, from: String) = CodeBlock.builder()
-            .apply {
-                args.forEach { (_, _, _, _, sanitizedName) ->
-                    addStatement("$to.$sanitizedName = $from.$sanitizedName")
-                }
-            }
-            .build()
+    fun copyBundleFields(to: String, from: String) = CodeBlock.builder()
+        .addStatement(
+        "$N.$N.putAll($N.$N)",
+        to,
+        bundleFieldSpec.name,
+        from,
+        bundleFieldSpec.name
+        ).build()
 
     fun getters() = args.map { arg ->
         MethodSpec.methodBuilder("get${arg.sanitizedName.capitalize()}").apply {
@@ -147,11 +149,14 @@ private class ClassWithArgsSpecs(
                     addAnnotation(annotations.NONNULL_CLASSNAME)
                 }
             }
+            addStatement("$T $N", arg.type.typeName(), arg.sanitizedName)
+            arg.type.addBundleGetStatement(this, arg, arg.sanitizedName, bundleFieldSpec.name)
             addStatement("return $N", arg.sanitizedName)
             returns(arg.type.typeName())
         }.build()
     }
 
+    //TODO fix
     fun equalsMethod(
         className: ClassName,
         additionalCode: CodeBlock? = null
@@ -193,6 +198,7 @@ private class ClassWithArgsSpecs(
         returns(TypeName.BOOLEAN)
     }.build()
 
+    //TODO fix
     fun hashCodeMethod(
         additionalCode: CodeBlock? = null
     ) = MethodSpec.methodBuilder("hashCode").apply {
@@ -220,6 +226,7 @@ private class ClassWithArgsSpecs(
         returns(TypeName.INT)
     }.build()
 
+    //TODO fix
     fun toStringMethod(
         className: ClassName,
         toStringHeaderBlock: CodeBlock? = null
@@ -317,14 +324,14 @@ fun generateDirectionsTypeSpec(action: Action, useAndroidX: Boolean): TypeSpec {
     return TypeSpec.classBuilder(className)
             .addSuperinterface(NAV_DIRECTION_CLASSNAME)
             .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-            .addFields(specs.fieldSpecs())
+            .addField(specs.bundleFieldSpec)
             .addMethod(specs.constructor())
             .addMethods(specs.setters(className))
             .addMethod(specs.toBundleMethod("getArguments", true))
             .addMethod(getDestIdMethod)
-            .addMethod(specs.equalsMethod(className, additionalEqualsBlock))
-            .addMethod(specs.hashCodeMethod(additionalHashCodeBlock))
-            .addMethod(specs.toStringMethod(className, toStringHeaderBlock))
+//TODO            .addMethod(specs.equalsMethod(className, additionalEqualsBlock))
+//TODO            .addMethod(specs.hashCodeMethod(additionalHashCodeBlock))
+//TODO            .addMethod(specs.toStringMethod(className, toStringHeaderBlock))
             .build()
 }
 
@@ -347,8 +354,10 @@ internal fun generateArgsJavaFile(destination: Destination, useAndroidX: Boolean
         addStatement("$N.setClassLoader($T.class.getClassLoader())", bundle, className)
         args.forEach { arg ->
             beginControlFlow("if ($N.containsKey($S))", bundle, arg.name).apply {
-                arg.type.addBundleGetStatement(this, arg, "$result.${arg.sanitizedName}", bundle)
-                addNullCheck(arg, "$result.${arg.sanitizedName}")
+                addStatement("$T $N", arg.type.typeName(), arg.sanitizedName)
+                arg.type.addBundleGetStatement(this, arg, arg.sanitizedName, bundle)
+                addNullCheck(arg, arg.sanitizedName)
+                arg.type.addBundlePutStatement(this, arg, "$result.bundle", arg.sanitizedName)
             }
             if (!arg.isOptional()) {
                 nextControlFlow("else")
@@ -366,22 +375,30 @@ internal fun generateArgsJavaFile(destination: Destination, useAndroidX: Boolean
     val copyConstructor = MethodSpec.constructorBuilder()
             .addModifiers(Modifier.PUBLIC)
             .addParameter(className, "original")
-            .addCode(specs.copyProperties("this", "original"))
+            .addCode(specs.copyBundleFields("this", "original"))
             .build()
+
+    val fromBundleConstructor = MethodSpec.constructorBuilder()
+        .addModifiers(Modifier.PRIVATE)
+        .addParameter(BUNDLE_CLASSNAME, "bundle")
+        .addStatement("$N.$N.putAll($N)",
+            "this",
+            specs.bundleFieldSpec.name,
+            "bundle")
+        .build()
 
     val buildMethod = MethodSpec.methodBuilder("build")
             .addAnnotation(annotations.NONNULL_CLASSNAME)
             .addModifiers(Modifier.PUBLIC)
             .returns(className)
-            .addStatement("$T result = new $T()", className, className)
-            .addCode(specs.copyProperties("result", "this"))
+            .addStatement("$T result = new $T($N)", className, className, "bundle")
             .addStatement("return result")
             .build()
 
     val builderClassName = ClassName.get("", "Builder")
     val builderTypeSpec = TypeSpec.classBuilder("Builder")
             .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-            .addFields(specs.fieldSpecs())
+            .addField(specs.bundleFieldSpec)
             .addMethod(copyConstructor)
             .addMethod(specs.constructor())
             .addMethod(buildMethod)
@@ -391,21 +408,22 @@ internal fun generateArgsJavaFile(destination: Destination, useAndroidX: Boolean
 
     val typeSpec = TypeSpec.classBuilder(className)
             .addModifiers(Modifier.PUBLIC)
-            .addFields(specs.fieldSpecs())
+            .addField(specs.bundleFieldSpec)
             .addMethod(constructor)
+            .addMethod(fromBundleConstructor)
             .addMethod(fromBundleMethod)
             .addMethods(specs.getters())
             .addMethod(specs.toBundleMethod("toBundle"))
-            .addMethod(specs.equalsMethod(className))
-            .addMethod(specs.hashCodeMethod())
-            .addMethod(specs.toStringMethod(className))
+//TODO            .addMethod(specs.equalsMethod(className))
+//TODO            .addMethod(specs.hashCodeMethod())
+//TODO            .addMethod(specs.toStringMethod(className))
             .addType(builderTypeSpec)
             .build()
 
     return JavaFile.builder(className.packageName(), typeSpec).build()
 }
 
-private fun MethodSpec.Builder.addNullCheck(
+internal fun MethodSpec.Builder.addNullCheck(
     arg: Argument,
     variableName: String
 ) {
