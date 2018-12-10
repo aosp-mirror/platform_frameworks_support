@@ -33,6 +33,7 @@ import static android.support.mediacompat.testlib.MediaBrowserConstants.SEARCH_Q
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.mediacompat.testlib.util.IntentUtil;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
@@ -94,7 +95,12 @@ public class StubMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
 
     @Override
     public void onLoadChildren(final String parentId, final Result<List<MediaItem>> result) {
-        assertEquals(mRemoteUserInfo, getCurrentBrowserInfo());
+        // Calling getBrowserRootHints()/getCurrentBrowserInfo() should not fail.
+        getBrowserRootHints();
+        RemoteUserInfo info = getCurrentBrowserInfo();
+        if (Build.VERSION.SDK_INT >= 28) {
+            assertEquals(mRemoteUserInfo, info);
+        }
         List<MediaItem> mediaItems = new ArrayList<>();
         if (MEDIA_ID_ROOT.equals(parentId)) {
             Bundle rootHints = getBrowserRootHints();
@@ -115,7 +121,12 @@ public class StubMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
     @Override
     public void onLoadChildren(@NonNull String parentId, @NonNull Result<List<MediaItem>> result,
             @NonNull Bundle options) {
-        assertEquals(mRemoteUserInfo, getCurrentBrowserInfo());
+        // Calling getBrowserRootHints()/getCurrentBrowserInfo() should not fail.
+        getBrowserRootHints();
+        RemoteUserInfo info = getCurrentBrowserInfo();
+        if (Build.VERSION.SDK_INT >= 28) {
+            assertEquals(mRemoteUserInfo, info);
+        }
         if (MEDIA_ID_INCLUDE_METADATA.equals(parentId)) {
             // Test unparcelling the Bundle.
             MediaMetadataCompat metadata = options.getParcelable(MEDIA_METADATA);
@@ -133,7 +144,12 @@ public class StubMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
 
     @Override
     public void onLoadItem(String itemId, Result<MediaItem> result) {
-        assertEquals(mRemoteUserInfo, getCurrentBrowserInfo());
+        // Calling getBrowserRootHints()/getCurrentBrowserInfo() should not fail.
+        getBrowserRootHints();
+        RemoteUserInfo info = getCurrentBrowserInfo();
+        if (Build.VERSION.SDK_INT >= 28) {
+            assertEquals(mRemoteUserInfo, info);
+        }
         if (MEDIA_ID_CHILDREN_DELAYED.equals(itemId)) {
             mPendingLoadItemResult = result;
             mPendingRootHints = getBrowserRootHints();
@@ -159,7 +175,12 @@ public class StubMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
 
     @Override
     public void onSearch(String query, Bundle extras, Result<List<MediaItem>> result) {
-        assertEquals(mRemoteUserInfo, getCurrentBrowserInfo());
+        // Calling getBrowserRootHints()/getCurrentBrowserInfo() should not fail.
+        getBrowserRootHints();
+        RemoteUserInfo info = getCurrentBrowserInfo();
+        if (Build.VERSION.SDK_INT >= 28) {
+            assertEquals(mRemoteUserInfo, info);
+        }
         if (SEARCH_QUERY_FOR_NO_RESULT.equals(query)) {
             result.sendResult(Collections.<MediaItem>emptyList());
         } else if (SEARCH_QUERY_FOR_ERROR.equals(query)) {
@@ -177,7 +198,12 @@ public class StubMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
 
     @Override
     public void onCustomAction(String action, Bundle extras, Result<Bundle> result) {
-        assertEquals(mRemoteUserInfo, getCurrentBrowserInfo());
+        // Calling getBrowserRootHints()/getCurrentBrowserInfo() should not fail.
+        getBrowserRootHints();
+        RemoteUserInfo info = getCurrentBrowserInfo();
+        if (Build.VERSION.SDK_INT >= 28) {
+            assertEquals(mRemoteUserInfo, info);
+        }
         mCustomActionResult = result;
         mCustomActionExtras = extras;
         if (CUSTOM_ACTION_FOR_ERROR.equals(action)) {
