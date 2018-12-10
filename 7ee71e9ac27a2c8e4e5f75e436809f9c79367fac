@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb6e96e3_2f32dfe7",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerBaseConfigSetTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-10T23:39:56Z",
+      "side": 1,
+      "message": "i hate these tests i wrote :(\nshould be taught at schools on how not to write tests.",
+      "revId": "7ee71e9ac27a2c8e4e5f75e436809f9c79367fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
