@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e08f163_6262cd0c",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:15:12Z",
+      "side": 1,
+      "message": "Unlike MP1, the playback params in MP2 is more like a property and shouldn\u0027t affect the playback state. You may want to check the change for MP2Impl at aosp/735088.\n\nSo, here in Exo\u0027s impl, onMediaTimeDiscontinuity should be called only in playing state.",
+      "range": {
+        "startLine": 339,
+        "startChar": 12,
+        "endLine": 339,
+        "endChar": 56
+      },
+      "revId": "ddeeb1ccc9706102bdf6b1e50f0b9cca7bb15199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e55ad5_68a077d8",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:15:12Z",
+      "side": 1,
+      "message": "Playing state should not affect PlaybackParams.speed in MediaPlayer2. You may want to check the updated javadoc of MediaPlayer2.setPlaybackParams:\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/735088/5/media2/src/main/java/androidx/media2/MediaPlayer2.java",
+      "range": {
+        "startLine": 414,
+        "startChar": 15,
+        "endLine": 416,
+        "endChar": 66
+      },
+      "revId": "ddeeb1ccc9706102bdf6b1e50f0b9cca7bb15199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
