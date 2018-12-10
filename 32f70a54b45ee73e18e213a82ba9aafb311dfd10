@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "615c0b14_50654714",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-10T23:46:45Z",
+      "side": 1,
+      "message": "Yeah I had it there but only the title setter used it, well add it in the future if needed.",
+      "parentUuid": "fa3446db_cb5bb4cd",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fbeccc4_cdebaef0",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "027d2a03_f0e45246",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-10T23:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fbeccc4_cdebaef0",
+      "range": {
+        "startLine": 120,
+        "startChar": 27,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec3163fc_f24583ba",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
@@ -83,6 +131,30 @@
       "writtenOn": "2018-12-10T18:53:09Z",
       "side": 1,
       "message": "Why do you have more setters here?",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 10
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fab44c3d_e4b6c273",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-10T23:46:45Z",
+      "side": 1,
+      "message": "These are attributes that can be changed after the item has been built.\nDoesn\u0027t look ideal but I\u0027m not sure if there\u0027s a better way than having two setters per property.",
+      "parentUuid": "ec3163fc_f24583ba",
       "range": {
         "startLine": 203,
         "startChar": 0,
