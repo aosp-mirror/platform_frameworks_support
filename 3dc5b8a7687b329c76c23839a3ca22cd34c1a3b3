@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c32990b2_c10e89a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:50:59Z",
+      "side": 1,
+      "message": "b/117528625. commit message will be updated in the next patch set.",
+      "parentUuid": "92bde3bd_424c524d",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23f65cee_c3c75542",
         "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
         "patchSetId": 6
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "f53912ae_54359f0a",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:50:59Z",
+      "side": 1,
+      "message": "1) Good point.\n2) Basically, when FileMediaItem is used, it has two clients; one is VV and the other is MP. In MP side, it removes its reference when \"prepare\" is done. Since VV is using FileMediaItem with MediaMetadataRetriever separately from MP, it should maintain its own reference to FileMediaItem. I can remove the call, removeParcelFileDescriptorClient(), from here if mMediaItem should be reused, but it\u0027s better to remove reference explicitly rather than relying on GC. Is there any good location/method which indicates that this VV instance is no longer used?",
+      "parentUuid": "da7e90ec_c8bd0f4b",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cacf79f_cbcee2b7",
         "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
         "patchSetId": 6
@@ -82,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "b4f99d48_b6568966",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:50:59Z",
+      "side": 1,
+      "message": "If VV wants to do separate operation (MediaMetadataRetriever) against FileMediaItem, it also needs to maintain the reference.",
+      "parentUuid": "2cacf79f_cbcee2b7",
+      "range": {
+        "startLine": 788,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 17
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e21be19_c6837f55",
         "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
         "patchSetId": 6
@@ -93,6 +153,30 @@
       "writtenOn": "2018-12-10T07:25:16Z",
       "side": 1,
       "message": "Minor: AFAIK \"Adds\" is more preferred (and apply it to other methods, too)",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16370df7_9780f015",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-10T16:50:59Z",
+      "side": 1,
+      "message": "I wanted to be consistent with other part of the file. Will address with a separate change. BTW, do you have any reference/doc about that?",
+      "parentUuid": "0e21be19_c6837f55",
       "range": {
         "startLine": 111,
         "startChar": 7,
