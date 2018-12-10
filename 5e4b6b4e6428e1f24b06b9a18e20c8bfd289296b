@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4445353c_0b9a0333",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-10T20:09:25Z",
+      "side": 1,
+      "message": "Chatted with Yigit about this and we came to the conclusion that this should probably be a boolean flag that refers directly to whether or not span information is used to estimate scrollBar layout information.\n\nLet\u0027s call it useSpansToEstiamteScrollBarDimensions.\n\nThat way, in the future it would be possible to add \"useItemDimensionsToEstiamteScrollBarDimensions\" as another flag that would increase accuracy, but via an orthogonal dimension.\n\nMake sense?\n\nI\u0027m not sure if we want it to just be a boolean, or a bit... but I think that should probably be implementation behind a setter and getter.\n\nThe comment on the setter can be:\n\n\"When this flag is set, the scroll offset and scroll range calculations will take account of span information.\n\n\u003cp\u003eThis is will increase the accuracy of the scroll bar\u0027s size and offset but will require more calls to {@link SpanSizeLookup.getSpanGroupIndex(int, int)}\".\n\n\u003cp\u003eThis additional accuracy may or may not be needed, depending on the characteristics of your layout.  You will likely benefit from this accuracy when:\n\u003cul\u003e \n\u003cli\u003eThe variation in item span sizes is large.\n\u003cli\u003eThe size of your data set is small (if your data set is large, the scrollbar will likely be very small anyway, and thus the increased accuracy has less impact).\n\u003cli\u003eCalls to {@link SpanSizeLookup.getSpanGroupIndex(int, int)} are fast.\n\u003c/ul\u003e\n\n\u003cp\u003eIf you decide to enable this feature, you should be sure that calls to {@link SpanSizeLookup.getSpanGroupIndex(int, int)} are fast and that set span group index caching to true via a call to {@link SpanSizeLookup.setSpanGroupIndexCacheEnabled(boolean)}.",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a43a65_8a5f85f5",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-10T20:09:25Z",
+      "side": 1,
+      "message": "This should be \"setUseSpansToEstimateScrollBarDimensions(boolean useSpansToEstimateScrollBarDimensions)\"",
+      "range": {
+        "startLine": 1177,
+        "startChar": 16,
+        "endLine": 1177,
+        "endChar": 40
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fa7844_a2191554",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-10T20:09:25Z",
+      "side": 1,
+      "message": "Seems like this check would be better placed towards the top of the computeScrollRange(RecyclerView.State) method to avoid calling findFirstVisibleChildClosestToStart and findFirstVisibleChildClosestToEnd unnecessarily?\n\nMaybe do that and consider collapsing the rest of this method into computeScrollRange(RecyclerView.State) to avoid the unnecessary differentiation?  I understand the desire to keep methods small, so up to you.",
+      "range": {
+        "startLine": 1198,
+        "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "224c1aed_ae4e86b0",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-10T20:09:25Z",
+      "side": 1,
+      "message": "This is essentially already implemented by getSpanGroupIndex(int adapterPosition, int spanCount), but without the caching.  A SpanGroup is the set of ViewHolders that occupy the row/column.  \n\nCan you reuse getSpanGroupIndex, and add a getCachedSpanGroupIndex that is implemented similarly to getCachedSpanIndex.  Then all of the special caching logic can be maintained in the same place (within SpanSizeLookup).  It will also likely make sense to add parallel methods to setSpanIndexCacheEnabled, invalidateSpanIndexCache, and isSpanIndexCacheEnabled (with \"SpanGroupIndex\" in the place of \"SpanIndex\").\n\nThat make sense?",
+      "range": {
+        "startLine": 1219,
+        "startChar": 4,
+        "endLine": 1245,
+        "endChar": 5
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
