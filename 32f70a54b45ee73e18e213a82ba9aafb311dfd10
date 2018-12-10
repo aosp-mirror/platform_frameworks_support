@@ -164,6 +164,30 @@
       "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bf6764e_4495461a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-10T23:55:55Z",
+      "side": 1,
+      "message": "ok talked to anthony and we do have use cases where we would want to change things after it has been built.  So this makes sense.",
+      "parentUuid": "fab44c3d_e4b6c273",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 10
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
