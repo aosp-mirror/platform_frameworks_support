@@ -22,6 +22,30 @@
       "revId": "9e7abdc0a582a0c38f43e2f77fc790ad1f91d6c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f551707_a338161b",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-10T19:13:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e50cb4f3_3151da85",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "9e7abdc0a582a0c38f43e2f77fc790ad1f91d6c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
