@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef381b70_5ef813da",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-12-10T18:53:27Z",
+      "side": 1,
+      "message": "Remove this ?",
+      "revId": "4bf1ac57e8ca24282227fc8d480619638a677d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3ff6932_e34ba559",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-12-10T18:53:27Z",
+      "side": 1,
+      "message": "Remove from CL.",
+      "range": {
+        "startLine": 234,
+        "startChar": 32,
+        "endLine": 234,
+        "endChar": 43
+      },
+      "revId": "4bf1ac57e8ca24282227fc8d480619638a677d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
