@@ -466,6 +466,7 @@ import java.util.Map;
             mPlayer.release();
             mPlayer = null;
             mMediaItemQueue.clear();
+            mHasAudioAttributes = false;
         }
     }
 
