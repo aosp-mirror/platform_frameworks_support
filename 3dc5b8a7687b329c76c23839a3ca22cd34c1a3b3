@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92bde3bd_424c524d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "Q) Do you have a related issue on buganizer? I wonder the background of this CL to fully understand why the ownership should be transferred to the callee.",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23f65cee_c3c75542",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "You can omit this, since instanceof checks nullity.",
+      "range": {
+        "startLine": 345,
+        "startChar": 12,
+        "endLine": 345,
+        "endChar": 34
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7e90ec_c8bd0f4b",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "1) This shouldn\u0027t be null here, since the view can be attached to the window later.\n2) Is there a way to reuse the mMediaItem() in onAttachedToWindowImpl()? If not, we shouldn\u0027t close the FileMediaItem here. It will be closed inside of MediaPlayer anyways.",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cacf79f_cbcee2b7",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "Q-1) Why are you doing this here? Should not call removeParcelFileDescriptorClient here..?\nQ-2) You can omit the nullity check (mMediaItem !\u003d null).",
+      "range": {
+        "startLine": 788,
+        "startChar": 0,
+        "endLine": 790,
+        "endChar": 17
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e21be19_c6837f55",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "Minor: AFAIK \"Adds\" is more preferred (and apply it to other methods, too)",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33727056_a2ee953a",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "Could you provide the description of this method so that other developers use it properly?",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb10d1ab_0d9a9281",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-10T07:25:16Z",
+      "side": 1,
+      "message": "ParcelFileDescriptor",
+      "range": {
+        "startLine": 197,
+        "startChar": 59,
+        "endLine": 197,
+        "endChar": 73
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
