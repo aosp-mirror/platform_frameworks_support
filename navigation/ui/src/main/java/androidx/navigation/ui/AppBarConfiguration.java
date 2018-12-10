@@ -35,16 +35,44 @@ import java.util.Set;
  * {@link android.support.v7.app.ActionBar}.
  */
 public final class AppBarConfiguration {
+    /**
+     * Interface for providing custom 'up' behavior beyond what is provided by
+     * {@link androidx.navigation.NavController#navigateUp()}.
+     *
+     * @see Builder#setFallbackOnNavigateUpListener(OnNavigateUpListener)
+     * @see NavigationUI#navigateUp(androidx.navigation.NavController, AppBarConfiguration)
+     */
+    public interface OnNavigateUpListener {
+        /**
+         * Callback for handling the Up button.
+         *
+         * @return true if the listener successfully navigated 'up'
+         */
+        boolean onNavigateUp();
+    }
 
     @NonNull
     private final Set<Integer> mTopLevelDestinations;
     @Nullable
     private final DrawerLayout mDrawerLayout;
+    @NonNull
+    private final OnNavigateUpListener mFallbackOnNavigateUpListener;
 
     private AppBarConfiguration(@NonNull Set<Integer> topLevelDestinations,
-            @Nullable DrawerLayout drawerLayout) {
+            @Nullable DrawerLayout drawerLayout,
+            @Nullable OnNavigateUpListener fallbackOnNavigateUpListener) {
         mTopLevelDestinations = topLevelDestinations;
         mDrawerLayout = drawerLayout;
+        if (fallbackOnNavigateUpListener != null) {
+            mFallbackOnNavigateUpListener = fallbackOnNavigateUpListener;
+        } else {
+            mFallbackOnNavigateUpListener = new OnNavigateUpListener() {
+                @Override
+                public boolean onNavigateUp() {
+                    return false;
+                }
+            };
+        }
     }
 
     /**
@@ -69,6 +97,16 @@ public final class AppBarConfiguration {
     }
 
     /**
+     * The {@link OnNavigateUpListener} that should be invoked if
+     * {@link androidx.navigation.NavController#navigateUp} returns <code>false</code>.
+     * @return a {@link OnNavigateUpListener} for providing custom up navigation logic
+     */
+    @NonNull
+    public OnNavigateUpListener getFallbackOnNavigateUpListener() {
+        return mFallbackOnNavigateUpListener;
+    }
+
+    /**
      * The Builder class for constructing new {@link AppBarConfiguration} instances.
      */
     public static final class Builder {
@@ -77,6 +115,9 @@ public final class AppBarConfiguration {
 
         @Nullable
         private DrawerLayout mDrawerLayout;
+
+        @Nullable
+        private OnNavigateUpListener mFallbackOnNavigateUpListener;
 
         /**
          * Create a new Builder whose only top level destination is the start destination
@@ -148,6 +189,23 @@ public final class AppBarConfiguration {
         }
 
         /**
+         * Adds a {@link OnNavigateUpListener} that will be called as a fallback if the default
+         * behavior of {@link androidx.navigation.NavController#navigateUp}
+         * returns <code>false</code>.
+         *
+         * @param fallbackOnNavigateUpListener Listener that will be invoked if
+         *                                     {@link androidx.navigation.NavController#navigateUp}
+         *                                     returns <code>false</code>.
+         * @return this {@link Builder}
+         */
+        @NonNull
+        public Builder setFallbackOnNavigateUpListener(
+                @Nullable OnNavigateUpListener fallbackOnNavigateUpListener) {
+            mFallbackOnNavigateUpListener = fallbackOnNavigateUpListener;
+            return this;
+        }
+
+        /**
          * Construct the {@link AppBarConfiguration} instance.
          *
          * @return a valid {@link AppBarConfiguration}
@@ -156,7 +214,8 @@ public final class AppBarConfiguration {
                                               conflicting with the public AppBarConfiguration.kt */
         @NonNull
         public AppBarConfiguration build() {
-            return new AppBarConfiguration(mTopLevelDestinations, mDrawerLayout);
+            return new AppBarConfiguration(mTopLevelDestinations, mDrawerLayout,
+                    mFallbackOnNavigateUpListener);
         }
     }
 }

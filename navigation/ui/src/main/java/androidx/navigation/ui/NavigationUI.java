@@ -116,6 +116,10 @@ public final class NavigationUI {
      * an alternative to using {@link NavController#navigateUp()} directly when the given
      * {@link AppBarConfiguration} needs to be considered when determining what should happen
      * when the Up button is pressed.
+     * <p>
+     * In cases where no Up action is available, the
+     * {@link AppBarConfiguration#getFallbackOnNavigateUpListener()} will be called to provide
+     * additional control.
      *
      * @param navController The NavController that hosts your content.
      * @param configuration Additional configuration options for determining what should happen
@@ -132,7 +136,8 @@ public final class NavigationUI {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         } else {
-            return navController.navigateUp();
+            return navController.navigateUp()
+                    || configuration.getFallbackOnNavigateUpListener().onNavigateUp();
         }
     }
 
