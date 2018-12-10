@@ -46,6 +46,7 @@ open class GenerateApiTask : MetalavaTask() {
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
+        // generate public API txt
         runWithArgs(
             "--classpath",
             (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
@@ -61,6 +62,8 @@ open class GenerateApiTask : MetalavaTask() {
             "--output-kotlin-nulls=yes"
         )
 
+        // generate restricted API txt
+        val metalavaRestrictedOutputFile = File(restrictedApiFile.path + ".tmp")
         runWithArgs(
             "--classpath",
             (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
@@ -69,7 +72,7 @@ open class GenerateApiTask : MetalavaTask() {
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
 
             "--api",
-            restrictedApiFile.toString(),
+            metalavaRestrictedOutputFile.toString(),
 
             "--show-annotation",
             "androidx.annotation.RestrictTo",
@@ -78,5 +81,20 @@ open class GenerateApiTask : MetalavaTask() {
             "--omit-common-packages=yes",
             "--output-kotlin-nulls=yes"
         )
+
+        removeRestrictToLibraryLines(metalavaRestrictedOutputFile, restrictedApiFile)
+    }
+
+    // until b/119617147 is done, remove lines containing "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
+    fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
+        val outputBuilder = StringBuilder()
+        val lines = inputFile.readLines()
+        for (line in lines) {
+            if (!line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")) {
+                outputBuilder.append(line)
+                outputBuilder.append("\n")
+            }
+        }
+        outputFile.writeText(outputBuilder.toString())
     }
 }

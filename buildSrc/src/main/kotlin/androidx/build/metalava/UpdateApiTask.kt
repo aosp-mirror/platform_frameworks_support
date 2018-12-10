@@ -40,6 +40,9 @@ open class UpdateApiTask : DefaultTask() {
     /** Text files to which API signatures will be written. */
     var outputApiLocations: List<ApiLocation> = listOf()
 
+    /** Whether to update restricted API files too */
+    var updateRestrictedAPIs = false
+
     @InputFiles
     fun getTaskInputs(): List<File>? {
         return inputApiLocation?.files()
@@ -56,9 +59,9 @@ open class UpdateApiTask : DefaultTask() {
         val inputRestrictedApi = checkNotNull(inputApiLocation?.restrictedApiFile) { "inputRestrictedApi not set" }
         for (outputApi in outputApiLocations) {
             copy(inputPublicApi, outputApi.publicApiFile, project.logger)
-
-            // TODO(jeffrygaston) enable this once validation is fully ready (b/87457009)
-            // copy(inputRestrictedApi, outputApi.restrictedApiFile, project.logger)
+            if (updateRestrictedAPIs) {
+                copy(inputRestrictedApi, outputApi.restrictedApiFile, project.logger)
+            }
         }
     }
 

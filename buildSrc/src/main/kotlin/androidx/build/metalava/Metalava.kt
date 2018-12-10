@@ -126,6 +126,7 @@ object Metalava {
                  task.configuration = metalavaConfiguration
                  task.apiLocation = lastReleasedApiFile
                  task.dependsOn(metalavaConfiguration)
+                 task.checkReleasedRestrictedAPIs = extension.trackRestrictedAPIs
              }
              applyInputs(javaCompileInputs, checkApiRelease)
              checkApi.dependsOn(checkApiRelease)
@@ -134,6 +135,7 @@ object Metalava {
         project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
             task.inputApiLocation = generateApi.apiLocation
             task.outputApiLocations = checkApi.checkedInApis
+            task.updateRestrictedAPIs = extension.trackRestrictedAPIs
             task.dependsOn(generateApi)
         }
 
