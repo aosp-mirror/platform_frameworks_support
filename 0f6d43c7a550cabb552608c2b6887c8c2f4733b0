@@ -16,6 +16,24 @@
       "revId": "0f6d43c7a550cabb552608c2b6887c8c2f4733b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b58d6f_71f906aa",
+        "filename": "media-widget/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2018-12-10T01:58:53Z",
+      "side": 1,
+      "message": "When creating MediaSession for API level \u003c\u003d 19, this needs to be set to avoid throwing an IllegalArgumentException. But since VideoViewTest does not function right now, removed for now.",
+      "parentUuid": "d7c4a0b4_7f3d53b9",
+      "revId": "0f6d43c7a550cabb552608c2b6887c8c2f4733b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
