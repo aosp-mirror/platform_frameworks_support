@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bda6a867_49189945",
+        "filename": "car/core/api/1.0.0-alpha6.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-10T18:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef381b70_5ef813da",
+      "revId": "4bf1ac57e8ca24282227fc8d480619638a677d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3ff6932_e34ba559",
         "filename": "car/core/api/current.txt",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "4bf1ac57e8ca24282227fc8d480619638a677d46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32541721_8b7984b5",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-10T18:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3ff6932_e34ba559",
+      "range": {
+        "startLine": 234,
+        "startChar": 32,
+        "endLine": 234,
+        "endChar": 43
+      },
+      "revId": "4bf1ac57e8ca24282227fc8d480619638a677d46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
