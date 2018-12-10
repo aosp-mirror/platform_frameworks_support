@@ -16,10 +16,10 @@
 
 package androidx.media2;
 
-import static androidx.media2.SessionPlayer.PlayerResult.RESULT_CODE_BAD_VALUE;
-import static androidx.media2.SessionPlayer.PlayerResult.RESULT_CODE_INVALID_STATE;
-import static androidx.media2.SessionPlayer.PlayerResult.RESULT_CODE_SKIPPED;
-import static androidx.media2.SessionPlayer.PlayerResult.RESULT_CODE_SUCCESS;
+import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
+import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
+import static androidx.media2.SessionPlayer.PlayerResult.RESULT_INFO_SKIPPED;
+import static androidx.media2.SessionPlayer.PlayerResult.RESULT_SUCCESS;
 
 import static junit.framework.TestCase.assertFalse;
 
@@ -136,11 +136,11 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mPlayer.setAudioAttributes(attributes);
 
         ListenableFuture<PlayerResult> future = mPlayer.prepare();
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
 
         assertFalse(mPlayer.getPlayerState() == MediaPlayer.PLAYER_STATE_PLAYING);
         future = mPlayer.play();
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
         assertTrue(mPlayer.getPlayerState() == MediaPlayer.PLAYER_STATE_PLAYING);
 
         assertEquals(mp3Duration, mPlayer.getDuration(), tolerance);
@@ -149,14 +149,14 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(pos < mp3Duration - seekDuration);
 
         future = mPlayer.seekTo(pos + seekDuration, MediaPlayer2.SEEK_PREVIOUS_SYNC);
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
         assertEquals(pos + seekDuration, mPlayer.getCurrentPosition(), tolerance);
 
         future = mPlayer.pause();
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
         assertFalse(mPlayer.getPlayerState() == MediaPlayer.PLAYER_STATE_PLAYING);
         future = mPlayer.play();
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
         assertTrue(mPlayer.getPlayerState() == MediaPlayer.PLAYER_STATE_PLAYING);
 
         // waiting to complete
@@ -273,7 +273,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertEquals(MediaPlayer.UNKNOWN_TIME, mPlayer.getDuration());
 
         ListenableFuture<PlayerResult> future = mPlayer.prepare();
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
 
         assertEquals(MediaPlayer.PLAYER_STATE_PAUSED, mPlayer.getPlayerState());
         assertEquals(expectedDuration, mPlayer.getDuration(), tolerance);
@@ -507,7 +507,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     private void selectSubtitleTrack(int index) throws Exception {
         int trackIndex = mSubtitleTrackIndex.get(index);
         ListenableFuture<PlayerResult> future = mPlayer.selectTrack(trackIndex);
-        assertEquals(RESULT_CODE_SUCCESS, future.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, future.get().getResultCode());
         mSelectedSubtitleIndex = index;
     }
 
@@ -568,13 +568,13 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             assertTrue(mOnSubtitleDataCalled.waitForSignal(2500));
 
             // Try deselecting track.
-            assertEquals(RESULT_CODE_SUCCESS, deselectSubtitleTrack(i));
+            assertEquals(RESULT_SUCCESS, deselectSubtitleTrack(i));
             mOnSubtitleDataCalled.reset();
             assertFalse(mOnSubtitleDataCalled.waitForSignal(1500));
         }
 
         // Deselecting unselected track: expected error status
-        assertNotEquals(RESULT_CODE_SUCCESS, deselectSubtitleTrack(0));
+        assertNotEquals(RESULT_SUCCESS, deselectSubtitleTrack(0));
         mPlayer.reset();
     }
 
@@ -695,7 +695,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         // Timestamp needs to be reported when seeking is done.
         mOnMediaTimeDiscontinuityCalled.reset();
-        assertEquals(RESULT_CODE_SUCCESS, mPlayer.seekTo(3000).get().getResultCode());
+        assertEquals(RESULT_SUCCESS, mPlayer.seekTo(3000).get().getResultCode());
         do {
             assertTrue(mOnMediaTimeDiscontinuityCalled.waitForSignal(1000));
         } while (Math.abs(timestamps.getLast().getMediaClockRate() - 1.0f) > 0.01f);
@@ -776,7 +776,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testMedia2DataSourceIsClosedOnReset() throws Exception {
         TestDataSourceCallback dataSource = new TestDataSourceCallback(new byte[0]);
-        assertEquals(RESULT_CODE_SUCCESS,
+        assertEquals(RESULT_SUCCESS,
                 mPlayer.setMediaItem(new CallbackMediaItem.Builder(dataSource).build()).get()
                         .getResultCode());
         mPlayer.reset();
@@ -960,9 +960,9 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         readAllowed.signal();
 
-        assertEquals(RESULT_CODE_SKIPPED, seekFuture1.get().getResultCode());
-        assertEquals(RESULT_CODE_SKIPPED, seekFuture2.get().getResultCode());
-        assertEquals(RESULT_CODE_SUCCESS, seekFuture3.get().getResultCode());
+        assertEquals(RESULT_INFO_SKIPPED, seekFuture1.get().getResultCode());
+        assertEquals(RESULT_INFO_SKIPPED, seekFuture2.get().getResultCode());
+        assertEquals(RESULT_SUCCESS, seekFuture3.get().getResultCode());
         assertFalse(mOnErrorCalled.isSignalled());
     }
 
@@ -1205,7 +1205,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             assertTrue(onShuffleModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
             result = future.get();
             assertEquals(mPlayer, mPlayerCbArg1);
-            assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+            assertEquals(RESULT_SUCCESS, result.getResultCode());
             assertEquals(SessionPlayer.SHUFFLE_MODE_NONE, ((Integer) mPlayerCbArg2).intValue());
             assertEquals(SessionPlayer.SHUFFLE_MODE_NONE, mPlayer.getShuffleMode());
         }
@@ -1215,7 +1215,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(onShuffleModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(SessionPlayer.SHUFFLE_MODE_ALL, ((Integer) mPlayerCbArg2).intValue());
         assertEquals(SessionPlayer.SHUFFLE_MODE_ALL, mPlayer.getShuffleMode());
 
@@ -1224,7 +1224,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(onShuffleModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(SessionPlayer.SHUFFLE_MODE_GROUP, ((Integer) mPlayerCbArg2).intValue());
         assertEquals(SessionPlayer.SHUFFLE_MODE_GROUP, mPlayer.getShuffleMode());
 
@@ -1234,7 +1234,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertFalse(onShuffleModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_BAD_VALUE, result.getResultCode());
+        assertEquals(RESULT_ERROR_BAD_VALUE, result.getResultCode());
         assertEquals(SessionPlayer.SHUFFLE_MODE_GROUP, mPlayer.getShuffleMode());
     }
 
@@ -1262,7 +1262,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             assertTrue(onRepeatModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
             result = future.get();
             assertEquals(mPlayer, mPlayerCbArg1);
-            assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+            assertEquals(RESULT_SUCCESS, result.getResultCode());
             assertEquals(SessionPlayer.REPEAT_MODE_NONE, ((Integer) mPlayerCbArg2).intValue());
             assertEquals(SessionPlayer.REPEAT_MODE_NONE, mPlayer.getRepeatMode());
         }
@@ -1272,7 +1272,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(onRepeatModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(SessionPlayer.REPEAT_MODE_ALL, ((Integer) mPlayerCbArg2).intValue());
         assertEquals(SessionPlayer.REPEAT_MODE_ALL, mPlayer.getRepeatMode());
 
@@ -1281,7 +1281,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(onRepeatModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(SessionPlayer.REPEAT_MODE_GROUP, ((Integer) mPlayerCbArg2).intValue());
         assertEquals(SessionPlayer.REPEAT_MODE_GROUP, mPlayer.getRepeatMode());
 
@@ -1291,7 +1291,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertFalse(onRepeatModeChangedMonitor.waitForSignal(WAIT_TIME_MS));
         result = future.get();
         assertEquals(mPlayer, mPlayerCbArg1);
-        assertEquals(RESULT_CODE_BAD_VALUE, result.getResultCode());
+        assertEquals(RESULT_ERROR_BAD_VALUE, result.getResultCode());
         assertEquals(SessionPlayer.REPEAT_MODE_GROUP, mPlayer.getRepeatMode());
     }
 
@@ -1316,7 +1316,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         }
         ListenableFuture<PlayerResult> future = mPlayer.setPlaylist(playlist, null);
         PlayerResult result = future.get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(playlist.size(), mPlayer.getPlaylist().size());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
     }
@@ -1328,14 +1328,14 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 5;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_NONE).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
 
         // Test skipToPlaylistItem
         for (int i = listSize - 1; i >= 0; --i) {
             result = mPlayer.skipToPlaylistItem(i).get();
-            assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+            assertEquals(RESULT_SUCCESS, result.getResultCode());
             assertEquals(i, mPlayer.getCurrentMediaItemIndex());
             assertEquals(playlist.get(i), mPlayer.getCurrentMediaItem());
         }
@@ -1348,20 +1348,20 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 5;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_NONE).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
 
         // Test skipToNextPlaylistItem
         // curPlayPos = 0
         for (int curPlayPos = 0; curPlayPos < listSize - 1; ++curPlayPos) {
             result = mPlayer.skipToNextPlaylistItem().get();
-            assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+            assertEquals(RESULT_SUCCESS, result.getResultCode());
             assertEquals(curPlayPos + 1, mPlayer.getCurrentMediaItemIndex());
             assertEquals(playlist.get(curPlayPos + 1), mPlayer.getCurrentMediaItem());
         }
         result = mPlayer.skipToNextPlaylistItem().get();
-        assertEquals(RESULT_CODE_INVALID_STATE, result.getResultCode());
+        assertEquals(RESULT_ERROR_INVALID_STATE, result.getResultCode());
         assertEquals(listSize - 1, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(listSize - 1), mPlayer.getCurrentMediaItem());
     }
@@ -1373,22 +1373,22 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 5;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_NONE).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         result = mPlayer.skipToPlaylistItem(listSize - 1).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
 
         // Test skipToPrevious
         // curPlayPos = listSize - 1
         for (int curPlayPos = listSize - 1; curPlayPos > 0; --curPlayPos) {
             result = mPlayer.skipToPreviousPlaylistItem().get();
-            assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+            assertEquals(RESULT_SUCCESS, result.getResultCode());
             assertEquals(curPlayPos - 1, mPlayer.getCurrentMediaItemIndex());
             assertEquals(playlist.get(curPlayPos - 1), mPlayer.getCurrentMediaItem());
         }
         result = mPlayer.skipToPreviousPlaylistItem().get();
-        assertEquals(RESULT_CODE_INVALID_STATE, result.getResultCode());
+        assertEquals(RESULT_ERROR_INVALID_STATE, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
     }
@@ -1400,19 +1400,19 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 5;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         result = mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_ALL).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
 
         assertEquals(listSize - 1, mPlayer.getPreviousMediaItemIndex());
         result = mPlayer.skipToPreviousPlaylistItem().get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(listSize - 1, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(listSize - 1), mPlayer.getCurrentMediaItem());
 
         assertEquals(0, mPlayer.getNextMediaItemIndex());
         result = mPlayer.skipToNextPlaylistItem().get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
     }
@@ -1424,25 +1424,25 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 2;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
 
         result = mPlayer.skipToNextPlaylistItem().get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(1, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(1), mPlayer.getCurrentMediaItem());
 
         // Will not go to the next if the next is end of the playlist
         result = mPlayer.skipToNextPlaylistItem().get();
-        assertEquals(RESULT_CODE_INVALID_STATE, result.getResultCode());
+        assertEquals(RESULT_ERROR_INVALID_STATE, result.getResultCode());
         assertEquals(1, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(1), mPlayer.getCurrentMediaItem());
 
         result = mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_ALL).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         result = mPlayer.skipToNextPlaylistItem().get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
     }
@@ -1454,20 +1454,20 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         int listSize = 2;
         List<MediaItem> playlist = createPlaylist(listSize);
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
 
         // Will not go to the previous if the current is the first one
         result = mPlayer.skipToPreviousPlaylistItem().get();
-        assertEquals(RESULT_CODE_INVALID_STATE, result.getResultCode());
+        assertEquals(RESULT_ERROR_INVALID_STATE, result.getResultCode());
         assertEquals(0, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(0), mPlayer.getCurrentMediaItem());
 
         result = mPlayer.setRepeatMode(SessionPlayer.REPEAT_MODE_ALL).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         result = mPlayer.skipToPreviousPlaylistItem().get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertEquals(1, mPlayer.getCurrentMediaItemIndex());
         assertEquals(playlist.get(1), mPlayer.getCurrentMediaItem());
     }
@@ -1490,7 +1490,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mPlayer.registerPlayerCallback(mExecutor, callback);
 
         PlayerResult result = mPlayer.setMediaItem(item).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
     }
 
@@ -1513,7 +1513,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         mPlayer.registerPlayerCallback(mExecutor, callback);
 
         PlayerResult result = mPlayer.setPlaylist(playlist, null).get();
-        assertEquals(RESULT_CODE_SUCCESS, result.getResultCode());
+        assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertTrue(onCurrentMediaItemChangedMonitor.waitForSignal(WAIT_TIME_MS));
     }
 
