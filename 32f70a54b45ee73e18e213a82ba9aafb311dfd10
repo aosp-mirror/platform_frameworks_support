@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce812420_5f255fb8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-10T18:53:09Z",
+      "side": 1,
+      "message": "Would it make more sense to pass in the context to the Builder?  Since the context is used in setting multiple attributes.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fbeccc4_cdebaef0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-10T18:53:09Z",
+      "side": 1,
+      "message": "OnClick",
+      "range": {
+        "startLine": 120,
+        "startChar": 27,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec3163fc_f24583ba",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-10T18:53:09Z",
+      "side": 1,
+      "message": "Why do you have more setters here?",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 10
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
