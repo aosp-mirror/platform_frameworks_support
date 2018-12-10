@@ -23,7 +23,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("BanParcelableUsage")
 final class BackStackState implements Parcelable {
     final int[] mOps;
     final ArrayList<String> mFragmentWhos;
