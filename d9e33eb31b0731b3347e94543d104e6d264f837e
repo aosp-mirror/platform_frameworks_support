@@ -93,6 +93,30 @@
       "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd0f497_19c8d7f7",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-10T01:17:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "34cab9ab_9b5eba6e",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 65
+      },
+      "revId": "d9e33eb31b0731b3347e94543d104e6d264f837e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
