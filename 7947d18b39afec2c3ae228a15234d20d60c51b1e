@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c082b8b0_298a612a",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-10T19:37:52Z",
+      "side": 1,
+      "message": "ComponentActivity and fully qualified?",
+      "range": {
+        "startLine": 32,
+        "startChar": 66,
+        "endLine": 32,
+        "endChar": 74
+      },
+      "revId": "7947d18b39afec2c3ae228a15234d20d60c51b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fca876a_50d0674b",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-10T19:37:52Z",
+      "side": 1,
+      "message": "This needs to be fully qualified since you aren\u0027t importing a Fragment class here right?",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "7947d18b39afec2c3ae228a15234d20d60c51b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
