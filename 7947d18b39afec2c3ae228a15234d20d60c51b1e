@@ -45,6 +45,54 @@
       "revId": "7947d18b39afec2c3ae228a15234d20d60c51b1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f10e95_f0bd8e0e",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-10T19:51:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c082b8b0_298a612a",
+      "range": {
+        "startLine": 32,
+        "startChar": 66,
+        "endLine": 32,
+        "endChar": 74
+      },
+      "revId": "7947d18b39afec2c3ae228a15234d20d60c51b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c0ae6e8_9d7acd3b",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-10T19:51:29Z",
+      "side": 1,
+      "message": "I don\u0027t know if it works for Kotlin in the same way, but added fully qualified names",
+      "parentUuid": "5fca876a_50d0674b",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "7947d18b39afec2c3ae228a15234d20d60c51b1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
