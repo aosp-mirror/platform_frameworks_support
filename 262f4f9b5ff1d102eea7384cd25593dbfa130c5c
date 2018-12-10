@@ -22,6 +22,30 @@
       "revId": "262f4f9b5ff1d102eea7384cd25593dbfa130c5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92663340_e9d4a958",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-10T20:51:40Z",
+      "side": 1,
+      "message": "Part of my larger change (that likely also caused this bug) guarantees exactly that. At the end of the run method of ViewFlinger, the ViewFlinger either get\u0027s scheduled to run again, or the state is set to Idle.  So, Idle will always be reached.\n\nI also added a bit to the tests to verify this.  :)",
+      "parentUuid": "c5f5f938_841997d7",
+      "range": {
+        "startLine": 1752,
+        "startChar": 8,
+        "endLine": 1754,
+        "endChar": 46
+      },
+      "revId": "262f4f9b5ff1d102eea7384cd25593dbfa130c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
