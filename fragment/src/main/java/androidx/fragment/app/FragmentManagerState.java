@@ -21,7 +21,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("BanParcelableUsage")
 final class FragmentManagerState implements Parcelable {
     ArrayList<FragmentState> mActive;
     ArrayList<String> mAdded;
