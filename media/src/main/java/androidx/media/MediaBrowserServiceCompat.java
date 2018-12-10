@@ -52,6 +52,7 @@ import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_CONNECT_FAILED;
 import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_LOAD_CHILDREN;
 import static androidx.media.MediaBrowserProtocol.SERVICE_VERSION_CURRENT;
 import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_PID;
+import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_UID;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -152,6 +153,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
      */
     @RestrictTo(LIBRARY)
     public static final String KEY_SEARCH_RESULTS = "search_results";
+
+    static final String UNKNOWN_PACKAGE_NAME = "";
 
     static final int RESULT_FLAG_OPTION_NOT_HANDLED = 1 << 0;
     static final int RESULT_FLAG_ON_LOAD_ITEM_NOT_IMPLEMENTED = 1 << 1;
@@ -417,7 +420,10 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+            mCurConnection = new ConnectionRecord(
+                    UNKNOWN_PACKAGE_NAME, UNKNOWN_PID, UNKNOWN_UID, null, null);
             MediaBrowserServiceCompat.this.onLoadChildren(parentId, result);
+            mCurConnection = null;
         }
 
         void notifyChildrenChangedForFramework(final String parentId, final Bundle options) {
@@ -539,7 +545,10 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+            mCurConnection = new ConnectionRecord(
+                    UNKNOWN_PACKAGE_NAME, UNKNOWN_PID, UNKNOWN_UID, null, null);
             MediaBrowserServiceCompat.this.onLoadItem(itemId, result);
+            mCurConnection = null;
         }
 
         class MediaBrowserServiceApi23 extends MediaBrowserServiceApi21 {
@@ -557,6 +566,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
 
     @RequiresApi(26)
     class MediaBrowserServiceImplApi26 extends MediaBrowserServiceImplApi23 {
+        boolean mIsFromFwkCallback;
+
         @Override
         public void onCreate() {
             mServiceFwk = new MediaBrowserServiceApi26(MediaBrowserServiceCompat.this);
@@ -594,17 +605,23 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+
+            // TODO: Create a common method for this !!!!!!!!!!!!!!!!!!!!!!!!!!1
+            mIsFromFwkCallback = true;
+            mCurConnection = new ConnectionRecord(
+                    UNKNOWN_PACKAGE_NAME, UNKNOWN_PID, UNKNOWN_UID, null, null);
             MediaBrowserServiceCompat.this.onLoadChildren(parentId, result, options);
+            mCurConnection = null;
+            mIsFromFwkCallback = false;
         }
 
         @Override
         public Bundle getBrowserRootHints() {
-            // mCurConnection is not null when EXTRA_MESSENGER_BINDER is used.
-            if (mCurConnection != null) {
-                return mCurConnection.rootHints == null ? null
-                        : new Bundle(mCurConnection.rootHints);
+            if (mIsFromFwkCallback) {
+                return mServiceFwk.getBrowserRootHints();
             }
-            return mServiceFwk.getBrowserRootHints();
+            // mCurConnection is always not null.
+            return mCurConnection.rootHints == null ? null : new Bundle(mCurConnection.rootHints);
         }
 
         @Override
@@ -625,8 +642,14 @@ public abstract class MediaBrowserServiceCompat extends Service {
             public void onLoadChildren(String parentId, Result<List<MediaBrowser.MediaItem>> result,
                     Bundle options) {
                 MediaSessionCompat.ensureClassLoader(options);
+
+                mIsFromFwkCallback = true;
+                mCurConnection = new ConnectionRecord(
+                        UNKNOWN_PACKAGE_NAME, UNKNOWN_PID, UNKNOWN_UID, null, null);
                 MediaBrowserServiceImplApi26.this.onLoadChildren(parentId,
                         new ResultWrapper<List<Parcel>>(result), options);
+                mCurConnection = null;
+                mIsFromFwkCallback = false;
             }
         }
     }
@@ -635,13 +658,13 @@ public abstract class MediaBrowserServiceCompat extends Service {
     class MediaBrowserServiceImplApi28 extends MediaBrowserServiceImplApi26 {
         @Override
         public RemoteUserInfo getCurrentBrowserInfo() {
-            // mCurConnection is not null when EXTRA_MESSENGER_BINDER is used.
-            if (mCurConnection != null) {
-                return mCurConnection.browserInfo;
+            if (mIsFromFwkCallback) {
+                android.media.session.MediaSessionManager.RemoteUserInfo userInfoFwk =
+                        mServiceFwk.getCurrentBrowserInfo();
+                return new RemoteUserInfo(userInfoFwk);
             }
-            android.media.session.MediaSessionManager.RemoteUserInfo userInfoFwk =
-                    mServiceFwk.getCurrentBrowserInfo();
-            return new RemoteUserInfo(userInfoFwk);
+            // mCurConnection is always not null.
+            return mCurConnection.browserInfo;
         }
     }
 
