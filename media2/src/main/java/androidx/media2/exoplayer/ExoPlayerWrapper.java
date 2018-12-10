@@ -336,7 +336,9 @@ import java.util.Map;
         // TODO(b/80232248): Decide how to handle fallback modes, which ExoPlayer doesn't support.
         mPlaybackParams = playbackParams2;
         mPlayer.setPlaybackParameters(ExoPlayerUtils.getPlaybackParameters(mPlaybackParams));
-        mListener.onMediaTimeDiscontinuity(getCurrentMediaItem(), getTimestamp());
+        if (getState() != MediaPlayer2.PLAYER_STATE_IDLE) {
+            mListener.onMediaTimeDiscontinuity(getCurrentMediaItem(), getTimestamp());
+        }
     }
 
     public PlaybackParams getPlaybackParams() {
