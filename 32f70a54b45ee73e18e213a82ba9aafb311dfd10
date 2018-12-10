@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa3446db_cb5bb4cd",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-10T18:53:59Z",
+      "side": 1,
+      "message": "I guess it\u0027s not used in other attributes but perhaps if we add any in the future.",
+      "parentUuid": "ce812420_5f255fb8",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2fbeccc4_cdebaef0",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
