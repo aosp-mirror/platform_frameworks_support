@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f821918_35b3d75b",
+        "filename": "customerrorprone/src/main/java/androidx/customerrorprone/BanUnlistedSDKVersionComparison.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-10T21:25:08Z",
+      "side": 0,
+      "message": "Just double-checking: we don\u0027t need this anymore?\n(Don\u0027t have an opinion myself but maybe someone else does)",
+      "revId": "77ee5fcad84f5ac02eca04cbcaa0cf5b7412710d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
