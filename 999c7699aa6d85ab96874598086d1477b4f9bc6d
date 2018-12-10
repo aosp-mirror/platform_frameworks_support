@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4f5466_8331d647",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "I think this would be easier to follow if some of the static inner classes were moved into their own files (especially utility things like the forked url matcher). This is pretty long. I think they were inlined originally to make it easier to just drop the source file into a developer\u0027s project, but that\u0027s not how the androidx library gets used (it\u0027s precompiled by google) so the same consideration doesn\u0027t exist.",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69762516_b6fce006",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "Should probably match the class name :)",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f35912_befcb5a8",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "a different",
+      "range": {
+        "startLine": 78,
+        "startChar": 49,
+        "endLine": 78,
+        "endChar": 58
+      },
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7282e11_c4927206",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "Do you know why it was necessary to fork android.content.UriMatcher here? Do we actually use all the functionality implemented? We probably should cut it down to only the bits that are actually useful if we can\u0027t avoid having a separate copy.",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e27125a_6485d627",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "The test suite\u0027s context should probably just be made to have getApplicationContext return itself, to avoid this check. Real contexts do that if they are already app contexts I believe.",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27150732_9cb3a874",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "The version of this in Chromium has been updated since this library was written and now tries stripping components off the class name to deal with some modern styles of building apps that don\u0027t guarantee the R class is named the same thing as the package name - we might want to port that logic over (and in fact, you might want to look at what else has changed in the Chromium version of AndroidProtocolHandler to see if there\u0027s any other interesting fixes/etc that happened since this was all written).\n\nAlso, I\u0027m not sure why this code *does* rely on looking up the R class via reflection instead of using Resources.getIdentifier() - while I don\u0027t think we should switch to that right now, we might want to follow up in future and see if that might be a better approach?",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f7f3f2_34188248",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "invoked",
+      "range": {
+        "startLine": 332,
+        "startChar": 87,
+        "endLine": 332,
+        "endChar": 93
+      },
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd929b60_865ee39e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be hidden, it\u0027s the return type of a public method and used in the example code :)",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb1e432_8922cabb",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "This is just separate for the test code\u0027s benefit, right? It\u0027s nice to mark things that would be private if they weren\u0027t needed for unit tests as @VisibleForTesting, to make it clear what the \"real\" API surface of the class actually is.",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fddac18_12ead94f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "I think we should use a default domain that\u0027s consistent for a given application, instead of a random UUID. This would make it easier for developers to write content that might have absolute URLs in it, or to respond with CORS headers from servers.\n\nOne option would be to use the application package name as the subdomain here, but it might not be valid(?) and might be too long? Maybe we could use a hash of it?",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a581fc8_00514d43",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "Nate, is this at risk of causing validation failures on older versions by referencing a new class? I\u0027m still not sure when that applies :)",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c19ed4e2_05ee02ea",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "I don\u0027t think these two need to be separate. The handler always just unwraps the WebResourceRequest into a URL anyway, so we can just do that higher up in shouldInterceptRequest instead and combine these codepaths together.",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e4e0fb2a_cd171451",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "Yeah, I think WebViewAssetLoader would be good I think (i\u0027m fairly sure most of the usage of the magic file URLs is assets, not resources).",
+      "parentUuid": "9c408fd3_e65fc647",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "654b11f7_c9a1d187",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "654b11f7_c9a1d187",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 187
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0ce7dfa_e18d1983",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-10T22:14:12Z",
+      "side": 1,
+      "message": "https://chris.beams.io/posts/git-commit/ is a great reference for what git commit messages should look like in general.",
+      "parentUuid": "0cd02127_c17b6087",
       "range": {
         "startLine": 10,
         "startChar": 0,
