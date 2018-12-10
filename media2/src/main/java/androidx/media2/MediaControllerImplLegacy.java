@@ -26,12 +26,12 @@ import static androidx.media2.MediaConstants.ARGUMENT_PACKAGE_NAME;
 import static androidx.media2.MediaConstants.ARGUMENT_PID;
 import static androidx.media2.MediaConstants.ARGUMENT_UID;
 import static androidx.media2.MediaConstants.CONTROLLER_COMMAND_BY_COMMAND_CODE;
-import static androidx.media2.MediaController.ControllerResult.RESULT_CODE_DISCONNECTED;
-import static androidx.media2.MediaController.ControllerResult.RESULT_CODE_NOT_SUPPORTED;
-import static androidx.media2.MediaController.ControllerResult.RESULT_CODE_SUCCESS;
 import static androidx.media2.SessionPlayer.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.SessionPlayer.PLAYER_STATE_IDLE;
 import static androidx.media2.SessionPlayer.UNKNOWN_TIME;
+import static androidx.media2.SessionResult.RESULT_CODE_DISCONNECTED;
+import static androidx.media2.SessionResult.RESULT_CODE_NOT_SUPPORTED;
+import static androidx.media2.SessionResult.RESULT_CODE_SUCCESS;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -59,7 +59,6 @@ import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.app.BundleCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.media2.MediaController.ControllerCallback;
-import androidx.media2.MediaController.ControllerResult;
 import androidx.media2.MediaController.PlaybackInfo;
 import androidx.media2.MediaController.VolumeDirection;
 import androidx.media2.MediaController.VolumeFlags;
@@ -245,13 +244,13 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
         }
     }
 
-    private ListenableFuture<ControllerResult> createFutureWithResult(int resultCode) {
+    private ListenableFuture<SessionResult> createFutureWithResult(int resultCode) {
         final MediaItem item;
         synchronized (mLock) {
             item = mCurrentMediaItem;
         }
-        ResolvableFuture<ControllerResult> result = ResolvableFuture.create();
-        result.set(new ControllerResult(resultCode, null, item));
+        ResolvableFuture<SessionResult> result = ResolvableFuture.create();
+        result.set(new SessionResult(resultCode, null, item));
         return result;
     }
 
@@ -263,7 +262,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> play() {
+    public ListenableFuture<SessionResult> play() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -275,7 +274,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> pause() {
+    public ListenableFuture<SessionResult> pause() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -287,7 +286,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prepare() {
+    public ListenableFuture<SessionResult> prepare() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -299,7 +298,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> fastForward() {
+    public ListenableFuture<SessionResult> fastForward() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -311,7 +310,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> rewind() {
+    public ListenableFuture<SessionResult> rewind() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -323,19 +322,19 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> skipForward() {
+    public ListenableFuture<SessionResult> skipForward() {
         // Unsupported action
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
 
     @Override
-    public ListenableFuture<ControllerResult> skipBackward() {
+    public ListenableFuture<SessionResult> skipBackward() {
         // Unsupported action
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
 
     @Override
-    public ListenableFuture<ControllerResult> seekTo(long pos) {
+    public ListenableFuture<SessionResult> seekTo(long pos) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -347,7 +346,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> playFromMediaId(@NonNull String mediaId,
+    public ListenableFuture<SessionResult> playFromMediaId(@NonNull String mediaId,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -360,7 +359,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> playFromSearch(@NonNull String query,
+    public ListenableFuture<SessionResult> playFromSearch(@NonNull String query,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -373,7 +372,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> playFromUri(@NonNull Uri uri,
+    public ListenableFuture<SessionResult> playFromUri(@NonNull Uri uri,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -386,7 +385,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prepareFromMediaId(@NonNull String mediaId,
+    public ListenableFuture<SessionResult> prepareFromMediaId(@NonNull String mediaId,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -399,7 +398,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prepareFromSearch(@NonNull String query,
+    public ListenableFuture<SessionResult> prepareFromSearch(@NonNull String query,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -412,7 +411,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> prepareFromUri(@NonNull Uri uri,
+    public ListenableFuture<SessionResult> prepareFromUri(@NonNull Uri uri,
             @Nullable Bundle extras) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -425,7 +424,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setVolumeTo(int value, @VolumeFlags int flags) {
+    public ListenableFuture<SessionResult> setVolumeTo(int value, @VolumeFlags int flags) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -437,7 +436,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> adjustVolume(@VolumeDirection int direction,
+    public ListenableFuture<SessionResult> adjustVolume(@VolumeDirection int direction,
             @VolumeFlags int flags) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -512,7 +511,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setPlaybackSpeed(float speed) {
+    public ListenableFuture<SessionResult> setPlaybackSpeed(float speed) {
         // Unsupported action
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
@@ -553,7 +552,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setRating(@NonNull String mediaId,
+    public ListenableFuture<SessionResult> setRating(@NonNull String mediaId,
             @NonNull Rating rating) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -569,7 +568,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> sendCustomCommand(@NonNull SessionCommand command,
+    public ListenableFuture<SessionResult> sendCustomCommand(@NonNull SessionCommand command,
             @Nullable Bundle args) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -581,11 +580,11 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                         command.getCustomCommand(), args);
                 return createFutureWithResult(RESULT_CODE_SUCCESS);
             }
-            final ResolvableFuture<ControllerResult> result = ResolvableFuture.create();
+            final ResolvableFuture<SessionResult> result = ResolvableFuture.create();
             ResultReceiver cb = new ResultReceiver(mHandler) {
                 @Override
                 protected void onReceiveResult(int resultCode, Bundle resultData) {
-                    result.set(new ControllerResult(resultCode, resultData));
+                    result.set(new SessionResult(resultCode, resultData));
                 }
             };
             mControllerCompat.sendCommand(command.getCustomCommand(), args, cb);
@@ -605,18 +604,18 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setPlaylist(@NonNull List<String> list,
+    public ListenableFuture<SessionResult> setPlaylist(@NonNull List<String> list,
             @Nullable MediaMetadata metadata) {
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setMediaItem(String mediaId) {
+    public ListenableFuture<SessionResult> setMediaItem(String mediaId) {
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
 
     @Override
-    public ListenableFuture<ControllerResult> updatePlaylistMetadata(
+    public ListenableFuture<SessionResult> updatePlaylistMetadata(
             @Nullable MediaMetadata metadata) {
         return createFutureWithResult(RESULT_CODE_NOT_SUPPORTED);
     }
@@ -633,7 +632,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> addPlaylistItem(int index, @NonNull String mediaId) {
+    public ListenableFuture<SessionResult> addPlaylistItem(int index, @NonNull String mediaId) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -646,7 +645,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> removePlaylistItem(@NonNull int index) {
+    public ListenableFuture<SessionResult> removePlaylistItem(@NonNull int index) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -661,7 +660,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> replacePlaylistItem(int index,
+    public ListenableFuture<SessionResult> replacePlaylistItem(int index,
             @NonNull String mediaId) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -704,7 +703,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> skipToPreviousItem() {
+    public ListenableFuture<SessionResult> skipToPreviousItem() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -716,7 +715,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> skipToNextItem() {
+    public ListenableFuture<SessionResult> skipToNextItem() {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -728,7 +727,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> skipToPlaylistItem(@NonNull int index) {
+    public ListenableFuture<SessionResult> skipToPlaylistItem(@NonNull int index) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -753,7 +752,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setRepeatMode(@RepeatMode int repeatMode) {
+    public ListenableFuture<SessionResult> setRepeatMode(@RepeatMode int repeatMode) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
@@ -778,7 +777,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<ControllerResult> setShuffleMode(@ShuffleMode int shuffleMode) {
+    public ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode) {
         synchronized (mLock) {
             if (!mConnected) {
                 Log.w(TAG, "Session isn't active", new IllegalStateException());
