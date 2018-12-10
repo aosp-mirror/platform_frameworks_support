@@ -52,6 +52,7 @@ import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_CONNECT_FAILED;
 import static androidx.media.MediaBrowserProtocol.SERVICE_MSG_ON_LOAD_CHILDREN;
 import static androidx.media.MediaBrowserProtocol.SERVICE_VERSION_CURRENT;
 import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_PID;
+import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_UID;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -152,6 +153,8 @@ public abstract class MediaBrowserServiceCompat extends Service {
      */
     @RestrictTo(LIBRARY)
     public static final String KEY_SEARCH_RESULTS = "search_results";
+
+    static final String UNKNOWN_PACKAGE_NAME = "";
 
     static final int RESULT_FLAG_OPTION_NOT_HANDLED = 1 << 0;
     static final int RESULT_FLAG_ON_LOAD_ITEM_NOT_IMPLEMENTED = 1 << 1;
@@ -303,6 +306,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
         final List<Bundle> mRootExtrasList = new ArrayList<>();
         MediaBrowserService mServiceFwk;
         Messenger mMessenger;
+        boolean mIsFrameworkCallbackCalled;
 
         @Override
         public void onCreate() {
@@ -417,7 +421,20 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+
+            setFrameworkCallbackCalled(true);
             MediaBrowserServiceCompat.this.onLoadChildren(parentId, result);
+            setFrameworkCallbackCalled(false);
+        }
+
+        void setFrameworkCallbackCalled(boolean isFrameworkCallbackCalled) {
+            mIsFrameworkCallbackCalled = isFrameworkCallbackCalled;
+            if (isFrameworkCallbackCalled) {
+                mCurConnection = new ConnectionRecord(
+                        UNKNOWN_PACKAGE_NAME, UNKNOWN_PID, UNKNOWN_UID, null, null);
+            } else {
+                mCurConnection = null;
+            }
         }
 
         void notifyChildrenChangedForFramework(final String parentId, final Bundle options) {
@@ -539,7 +556,9 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+            setFrameworkCallbackCalled(true);
             MediaBrowserServiceCompat.this.onLoadItem(itemId, result);
+            setFrameworkCallbackCalled(false);
         }
 
         class MediaBrowserServiceApi23 extends MediaBrowserServiceApi21 {
@@ -594,17 +613,22 @@ public abstract class MediaBrowserServiceCompat extends Service {
                             resultWrapper.detach();
                         }
                     };
+
+            setFrameworkCallbackCalled(true);
             MediaBrowserServiceCompat.this.onLoadChildren(parentId, result, options);
+            setFrameworkCallbackCalled(false);
         }
 
         @Override
         public Bundle getBrowserRootHints() {
-            // mCurConnection is not null when EXTRA_MESSENGER_BINDER is used.
-            if (mCurConnection != null) {
-                return mCurConnection.rootHints == null ? null
-                        : new Bundle(mCurConnection.rootHints);
+            if (mIsFrameworkCallbackCalled) {
+                return mServiceFwk.getBrowserRootHints();
             }
-            return mServiceFwk.getBrowserRootHints();
+            if (mCurConnection == null) {
+                throw new IllegalStateException("This should be called inside of onGetRoot,"
+                        + " onLoadChildren, onLoadItem, onSearch, or onCustomAction methods");
+            }
+            return mCurConnection.rootHints == null ? null : new Bundle(mCurConnection.rootHints);
         }
 
         @Override
@@ -625,8 +649,11 @@ public abstract class MediaBrowserServiceCompat extends Service {
             public void onLoadChildren(String parentId, Result<List<MediaBrowser.MediaItem>> result,
                     Bundle options) {
                 MediaSessionCompat.ensureClassLoader(options);
+
+                setFrameworkCallbackCalled(true);
                 MediaBrowserServiceImplApi26.this.onLoadChildren(parentId,
                         new ResultWrapper<List<Parcel>>(result), options);
+                setFrameworkCallbackCalled(false);
             }
         }
     }
@@ -635,13 +662,16 @@ public abstract class MediaBrowserServiceCompat extends Service {
     class MediaBrowserServiceImplApi28 extends MediaBrowserServiceImplApi26 {
         @Override
         public RemoteUserInfo getCurrentBrowserInfo() {
-            // mCurConnection is not null when EXTRA_MESSENGER_BINDER is used.
-            if (mCurConnection != null) {
-                return mCurConnection.browserInfo;
+            if (mIsFrameworkCallbackCalled) {
+                android.media.session.MediaSessionManager.RemoteUserInfo userInfoFwk =
+                        mServiceFwk.getCurrentBrowserInfo();
+                return new RemoteUserInfo(userInfoFwk);
             }
-            android.media.session.MediaSessionManager.RemoteUserInfo userInfoFwk =
-                    mServiceFwk.getCurrentBrowserInfo();
-            return new RemoteUserInfo(userInfoFwk);
+            if (mCurConnection == null) {
+                throw new IllegalStateException("This should be called inside of onGetRoot,"
+                        + " onLoadChildren, onLoadItem, onSearch, or onCustomAction methods");
+            }
+            return mCurConnection.browserInfo;
         }
     }
 
