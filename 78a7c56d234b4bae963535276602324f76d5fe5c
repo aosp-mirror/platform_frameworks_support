@@ -1,0 +1,283 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79e44170_958ca87b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Remove this",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb433cec_580354fe",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Remove the new extra new lines here",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 2
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612705e1_23020174",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Use {@link}s for the enum and link to the appropriate entries in the DisplayBehavior class.",
+      "range": {
+        "startLine": 50,
+        "startChar": 57,
+        "endLine": 50,
+        "endChar": 63
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b779e51_79f937c7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "{@code CarMenuItem}s. And use a period instead of the comma.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 41
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d201b9a_c806527d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Reword so the positive comes first:\n\nThe item is always displayed in the overflow menu, never in the toolbar.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 83
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3573f85_cb80e9bc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Add @StyleRes annotation",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390aa470_9c57f05e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Move this to the end of the class",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5ae08f2_a4d10959",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "If we want this to be non-null, then I think we should make the title \"null\" by default. Throw an error if it\u0027s still null during build()",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cce20486_63311ea4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "You can leave off this constructor because it doesn\u0027t have any parameters. It should be defined by default.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2ca827_15b03689",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "You\u0027re only using the context to get the string resource id. Basically, it doesn\u0027t save the caller much. Remove this method and require developers to use the setTitle(CharSequence) method instead.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35ee7669_bceb851a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Hmm do we have mocks for what it looks like if a CarMenuItem looks like if it\u0027s checkable and in the toolbar (not in the overflow)? \n\nI think we should follow up with UX to see if we need to support this use-case, and present any apps that need this right now. \n\nTo get this CL rolling, I say just leave off checkable for now.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "231a0461_07e693f4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Assert the internal state of the builder before construction of CarMenuItem. Basically, anything you expect to be non-null should be checked. Throw an error if it\u0027s null.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f15736e_4ad68639",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Same here about removing this method.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "217b7b5a_3006c43f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Add @StyleRes annotation",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b5ff07_a96faea8",
+        "filename": "core/api/1.1.0-alpha03.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-11T22:11:51Z",
+      "side": 1,
+      "message": "Can you revert this?",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
