@@ -22,6 +22,30 @@
       "revId": "fee939ad9fae77ad20aee271ce7a256a13cab182",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04e87cfc_a48c5976",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewClientCompatTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2018-12-11T22:23:02Z",
+      "side": 1,
+      "message": "I think that would be reasonable, even though CTS doesn\u0027t do it, as long as we comment that it\u0027s different intentionally. If we have ways to improve the tests that aren\u0027t practical to implement in CTS then including them seems better than not.",
+      "parentUuid": "c6e4a180_fa3aee87",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 60
+      },
+      "revId": "fee939ad9fae77ad20aee271ce7a256a13cab182",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
