@@ -390,6 +390,8 @@
             android:layout_height="wrap_content"
             app:fontVariationSettings="'wdth' 30"
             android:textAppearance="@style/TextView_FontVariation"/>
+
+
     </LinearLayout>
 
 </ScrollView>
