@@ -24,7 +24,8 @@ import org.junit.Test
 
 @SmallTest
 class ShaderTest {
-    @Test
+    // Temporarily disabled due to b/119039857
+    // @Test
     fun testTransform() {
         @Suppress("DEPRECATION")
         val shader = Shader()
