@@ -150,6 +150,24 @@
     },
     {
       "key": {
+        "uuid": "d3e1f38b_7009765a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-11T04:36:29Z",
+      "side": 1,
+      "message": "Related (but not to contradict Torne\u0027s point): @hide should be accompanied by @RestrictTo(), when used. You can find examples under androidx.webkit.",
+      "parentUuid": "dd929b60_865ee39e",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9cb1e432_8922cabb",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -184,6 +202,24 @@
     },
     {
       "key": {
+        "uuid": "402841b3_cf5211c7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-11T04:36:29Z",
+      "side": 1,
+      "message": "I\u0027d encourage a design doc comparing alternative approaches, and weighing pros/cons.",
+      "parentUuid": "0fddac18_12ead94f",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a581fc8_00514d43",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -195,6 +231,24 @@
       "writtenOn": "2018-12-10T22:14:12Z",
       "side": 1,
       "message": "Nate, is this at risk of causing validation failures on older versions by referencing a new class? I\u0027m still not sure when that applies :)",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3deeb768_214d8ea3",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-11T04:36:29Z",
+      "side": 1,
+      "message": "Yes. This method body calls WebResourceRequest#getUrl, which is new in 21. I\u0027m hesitant to ask for verification fixes because (1) literally every class in androidx.webkit fails verification and (2) it\u0027s hard to prevent regressions.\n\nAlso, because this method calls #getUrl unconditionally, this method should be marked @RequiresApi(21).",
+      "parentUuid": "9a581fc8_00514d43",
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
