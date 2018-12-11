@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "101fba97_94d22442",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-11T23:16:20Z",
+      "side": 1,
+      "message": "Done, you mentioned a getter. I didn\u0027t add one, do we need one?",
+      "parentUuid": "4445353c_0b9a0333",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98a43a65_8a5f85f5",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "330d10d8_682fd409",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-11T23:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98a43a65_8a5f85f5",
+      "range": {
+        "startLine": 1177,
+        "startChar": 16,
+        "endLine": 1177,
+        "endChar": 40
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6d3daf43_91006493",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-11T23:16:20Z",
+      "side": 1,
+      "message": "I copied this from LinearLayoutManager and ScrollBarHelper since it was using this already(super). \nIf startChild or endChild is null then we return 0, so we still need this, but I moved state.getItemCount up earlier and short circuited that as well as collapsing the methods.",
+      "parentUuid": "73fa7844_a2191554",
+      "range": {
+        "startLine": 1198,
+        "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "224c1aed_ae4e86b0",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 19
@@ -91,6 +163,30 @@
       "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03246ec3_55d0a83a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-11T23:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "224c1aed_ae4e86b0",
+      "range": {
+        "startLine": 1219,
+        "startChar": 4,
+        "endLine": 1245,
+        "endChar": 5
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
