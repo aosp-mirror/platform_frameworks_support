@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b575d13a_187e3b39",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDestination.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-11T14:40:42Z",
+      "side": 1,
+      "message": "addArgument can\u0027t check anything, as it\u0027s only used to define what the valid types for parameters are.\nIt\u0027s only later when navigating that we can check the final bundle of actual argument values against the NavArgument definitions (that were added earlier using addArgument when creating this destination).",
+      "parentUuid": "d5e25655_2b3fcb52",
+      "range": {
+        "startLine": 453,
+        "startChar": 18,
+        "endLine": 457,
+        "endChar": 98
+      },
+      "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a6d60fb_e2a034f0",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64550ad4_916765b6",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-11T14:40:42Z",
+      "side": 1,
+      "message": "I changed the javadoc to say \"you should only use one of the static...\"\nTechnically someone could implement their own NavType that puts and gets something from a bundle to use at runtime (but not from XML), but I don\u0027t think we want to be allowing that, at least not in this release. The constructor will remain package-private in that case.",
+      "parentUuid": "6a6d60fb_e2a034f0",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 34,
+        "endChar": 72
+      },
+      "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0fa58084_85bc2bb1",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-11T14:40:42Z",
+      "side": 1,
+      "message": "Done. \nI actually changed this to throw a runtime exception in case a value cannot be parsed. \nCatching the exceptions and returning null in the parseValue implementations didn\u0027t seem right. This makes more sense.\nAlso, this is actually always @NonNull now.",
+      "parentUuid": "7cdc1216_41cb79e6",
+      "range": {
+        "startLine": 78,
+        "startChar": 3,
+        "endLine": 78,
+        "endChar": 56
+      },
+      "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fc9d08_2b0c6d72",
         "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
         "patchSetId": 15
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7988af06_84c5b97a",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-11T14:40:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92fc9d08_2b0c6d72",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 36
+      },
+      "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12d7ee33_04a8e1da",
         "filename": "navigation/runtime/src/main/java/androidx/navigation/NavInflater.java",
         "patchSetId": 15
@@ -114,6 +210,30 @@
       "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fd37e5_1b8b8416",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavInflater.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-11T14:40:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d7ee33_04a8e1da",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 187,
+        "endChar": 29
+      },
+      "revId": "ff2c36d43426d3cb2b859d1171250aebcbe62f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
