@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -212,12 +213,14 @@ public class CarDrawerActivity extends AppCompatActivity {
     }
 
     /**
-     * Returns the color that has been set as {@code colorPrimary} on the current Theme of this
-     * Activity.
+     * Returns the color id that has been set as {@code colorPrimary} on the current Theme of this
+     * Activity. If a primary color has not been set, then black is returned.
      */
+    @ColorRes
     private int getThemeColorPrimary() {
         TypedValue value = new TypedValue();
-        getTheme().resolveAttribute(android.R.attr.colorPrimary, value, true);
-        return value.data;
+        boolean hasColorPrimary =
+                getTheme().resolveAttribute(android.R.attr.colorPrimary, value, true);
+        return hasColorPrimary ? value.data : android.R.color.black;
     }
 }
