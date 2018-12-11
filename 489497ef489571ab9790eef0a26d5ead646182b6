@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0741eec0_14077189",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-11T18:27:11Z",
+      "side": 1,
+      "message": "It turns out that in the latest patch to change this ( https://android-review.googlesource.com/c/platform/frameworks/support/+/825802/9/buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt#118 ), I only tested that changing one of the API files would cause I failure; I didn\u0027t test that changing both of the API files in the same way would also cause a failure :(",
+      "revId": "489497ef489571ab9790eef0a26d5ead646182b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
