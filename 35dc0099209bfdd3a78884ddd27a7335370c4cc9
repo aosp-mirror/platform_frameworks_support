@@ -216,6 +216,24 @@
     },
     {
       "key": {
+        "uuid": "51126444_de59e982",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-11T14:13:03Z",
+      "side": 1,
+      "message": ":facepalm switched to proper thing (hopefully)",
+      "parentUuid": "5d0be83f_f38f8ad7",
+      "revId": "35dc0099209bfdd3a78884ddd27a7335370c4cc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39bf4f66_6143e11f",
         "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/AbstractSavedStateVMFactory.java",
         "patchSetId": 1
