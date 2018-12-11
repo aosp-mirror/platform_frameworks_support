@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60a9d8fc_927d915a",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-11T20:57:25Z",
+      "side": 1,
+      "message": "Javadoc for public types. Also make this @NonNull and make sure to call ./gradlew updateApi --rerun-tasks",
+      "range": {
+        "startLine": 296,
+        "startChar": 41,
+        "endLine": 296,
+        "endChar": 54
+      },
+      "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aab55ef_a547d75d",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-11T20:57:25Z",
+      "side": 1,
+      "message": "Is there a reason for these newlines? Please remove.",
+      "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b08624e_9acbf678",
+        "filename": "navigation/safe-args-generator/src/tests/kotlin/androidx/navigation/safe/args/generator/NavWriterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-11T20:57:25Z",
+      "side": 0,
+      "message": "This test needs to be re-added and should pass.",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
