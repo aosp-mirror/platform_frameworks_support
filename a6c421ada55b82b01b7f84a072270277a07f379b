@@ -39,6 +39,29 @@
       "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68c75c5_87053561",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_generator_test/LoginDirections.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-11T21:31:33Z",
+      "side": 1,
+      "message": "Could be final?",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
