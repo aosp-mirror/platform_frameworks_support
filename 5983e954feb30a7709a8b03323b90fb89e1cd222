@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82095534_0ea3c129",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-11T16:11:14Z",
+      "side": 1,
+      "message": "There is no need to delete this tmp file right? I\u0027m assuming this restrictedApiFile is not the one in /api?",
+      "revId": "5983e954feb30a7709a8b03323b90fb89e1cd222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9eb3401_ccbfde54",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-11T16:11:14Z",
+      "side": 1,
+      "message": "This is sad.",
+      "revId": "5983e954feb30a7709a8b03323b90fb89e1cd222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
