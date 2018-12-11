@@ -16,6 +16,24 @@
       "revId": "b7ade100c863597b6cce35ed72e1d14a668b2beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255d0a30_bf729c0d",
+        "filename": "core/ktx/src/androidTest/java/androidx/core/graphics/ShaderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-12-11T22:16:28Z",
+      "side": 1,
+      "message": "Test team is disabling our tests based on actual (as opposed to reported) failures. If the test runs at all and fails, they will disable our entire suite of tests.",
+      "parentUuid": "81e38d1b_fc71b280",
+      "revId": "b7ade100c863597b6cce35ed72e1d14a668b2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
