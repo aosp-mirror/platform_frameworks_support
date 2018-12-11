@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f833765_ab2ad62d",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-11T17:33:54Z",
+      "side": 1,
+      "message": "A change in the Chromium side has enabled rules with and without scheme filter to be combined. So these 2 classes will not exist and all addProxyUrl() methods will be in ProxyRulesBuilder.",
+      "range": {
+        "startLine": 266,
+        "startChar": 28,
+        "endLine": 266,
+        "endChar": 51
+      },
+      "revId": "1211e011dc9f92e643abb9e53df33d07d827d69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
