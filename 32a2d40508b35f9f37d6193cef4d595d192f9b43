@@ -22,6 +22,30 @@
       "revId": "32a2d40508b35f9f37d6193cef4d595d192f9b43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb82a4aa_1f28bfff",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-12-12T20:18:27Z",
+      "side": 1,
+      "message": "As mentioned in the email, talkback has already addressed this. Your version might be out of date. If not, it\u0027s a bug in talkback.",
+      "parentUuid": "32d1261a_45a3f3f6",
+      "range": {
+        "startLine": 119,
+        "startChar": 24,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "32a2d40508b35f9f37d6193cef4d595d192f9b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
