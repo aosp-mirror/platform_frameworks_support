@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95c2273a_7caa87f1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T22:24:49Z",
+      "side": 1,
+      "message": "Reword this differently. Something like:\n\nThis method will only have an effect if this {@code CarMenuItem} was build with {@link CarMenuItem.Builder#setCheckable(boolean)} set to {@code true}.",
+      "range": {
+        "startLine": 111,
+        "startChar": 42,
+        "endLine": 111,
+        "endChar": 93
+      },
+      "revId": "753343c7bc2933af1b40d93138455aacd22b0c7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3c5922_c3fad20a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T22:24:49Z",
+      "side": 1,
+      "message": "Reference the method here: {@link #setCheckable(boolean)}",
+      "range": {
+        "startLine": 280,
+        "startChar": 68,
+        "endLine": 280,
+        "endChar": 79
+      },
+      "revId": "753343c7bc2933af1b40d93138455aacd22b0c7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
