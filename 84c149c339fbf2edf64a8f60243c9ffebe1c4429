@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "229f4b41_e003a5b5",
+        "filename": "appcompat/src/androidTest/assets/fonts/ascii_a3em_weight100_upright.ttx",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-12-12T02:04:41Z",
+      "side": 1,
+      "message": "I have mixed feelings about the ttx files in code base. we had to do the same, and right now I am not sure if we can make sure that the ttf and ttx never gets out of sync. It might be dangerous.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cce2c884_a1a25d33",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-12-12T02:04:41Z",
+      "side": 1,
+      "message": "I recently had to do the exact same thing. :) (in a Matcher format)",
+      "range": {
+        "startLine": 975,
+        "startChar": 33,
+        "endLine": 975,
+        "endChar": 44
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "882dfa67_7ec1b68a",
+        "filename": "appcompat/src/androidTest/res/layout/appcompat_textview_activity.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-12-12T02:04:41Z",
+      "side": 1,
+      "message": "did you add two additional lines here? if so lets revert this change.",
+      "range": {
+        "startLine": 392,
+        "startChar": 42,
+        "endLine": 392,
+        "endChar": 43
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
