@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "747b5ed4_dd4a76a6",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-12-12T08:32:48Z",
+      "side": 1,
+      "message": "Nona I just saw this. We use the regular int instead of the platform code in general afaik. this should be 28.",
+      "range": {
+        "startLine": 342,
+        "startChar": 72,
+        "endLine": 342,
+        "endChar": 74
+      },
+      "revId": "6b6ffde2f0c11f3a80a76ba77fccc696f7248136",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
