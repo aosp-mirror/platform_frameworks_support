@@ -46,6 +46,30 @@
       "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472499b9_e097f0f6",
+        "filename": "navigation/safe-args-generator/src/tests/kotlin/androidx/navigation/safe/args/generator/NavWriterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-12T18:10:00Z",
+      "side": 0,
+      "message": "Actually, I don\u0027t know why I decided to use Bundle. I switched to HashMap instead and solved my problem, also probably less parceling/unparceling at runtime happening now.",
+      "parentUuid": "a752cc1c_8aabd613",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d735e836_a8621347",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-12T18:10:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60a9d8fc_927d915a",
+      "range": {
+        "startLine": 296,
+        "startChar": 41,
+        "endLine": 296,
+        "endChar": 54
+      },
+      "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6aab55ef_a547d75d",
         "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baaf38e0_caadc8f1",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-12T18:10:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aab55ef_a547d75d",
+      "revId": "a6c421ada55b82b01b7f84a072270277a07f379b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
