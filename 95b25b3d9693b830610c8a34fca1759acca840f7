@@ -1502,6 +1502,30 @@
     },
     {
       "key": {
+        "uuid": "f2f2abed_a76f9db2",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-12T17:59:14Z",
+      "side": 1,
+      "message": "For 1. is it enough to just add the @RequiresFeature line before getInstance()? In other classes I didn\u0027t see an Exception being thrown if the feature is not there.",
+      "parentUuid": "c6da8820_2536f62d",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb0eba94_86e65d18",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
