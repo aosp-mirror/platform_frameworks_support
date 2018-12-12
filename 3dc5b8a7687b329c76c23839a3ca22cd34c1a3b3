@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "a7105ee2_a084d941",
+        "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-12T00:34:42Z",
+      "side": 1,
+      "message": "Well, please ignore my previous comment for this. Okay, now I think it would be better to call removeParcelFileDescriptorClient and make mMediaItem null here. It would be Activity\u0027s responsibility to call setMediaItem again when the view is about to comeback. \n\n1) Let\u0027s keep this\n2) Let\u0027s remove 788-790",
+      "parentUuid": "f53912ae_54359f0a",
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cacf79f_cbcee2b7",
         "filename": "media-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
         "patchSetId": 6
@@ -177,6 +195,30 @@
       "side": 1,
       "message": "I wanted to be consistent with other part of the file. Will address with a separate change. BTW, do you have any reference/doc about that?",
       "parentUuid": "0e21be19_c6837f55",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5688b75_feb319c6",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-12T00:34:42Z",
+      "side": 1,
+      "message": "This is a general javadoc guide in Google. \nhttps://engdoc.corp.google.com/eng/doc/devguide/java/practices/javadoc.md?cl\u003dhead#summary_methods\n\n(I remember there were the similar one for Android specific and it followed this javadoc regarding method description, but I cannot find it right now.)",
+      "parentUuid": "16370df7_9780f015",
       "range": {
         "startLine": 111,
         "startChar": 7,
