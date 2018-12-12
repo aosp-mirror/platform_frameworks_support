@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "54ed24b2_7925227a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:34:51Z",
+      "side": 1,
+      "message": "\u003c-loopback\u003e is required because by default loopback connections don\u0027t go to a proxy at all. So the interpretation of this is: don\u0027t special case loopback connections, and always apply the proxy resolution rules.\n\nI think this special value should be hidden by a builder method like .applyRulesToLoopbackURIs()\n\nIs it generally the case that you can specify -pattern (which I\u0027m assuming \u003c-loopback\u003e might be a special case of) to early out, applying the matching proxy rule? If so that should be part of the API.",
+      "parentUuid": "27584bc6_affebd87",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9beca25b_a04c9b6a",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -634,6 +658,30 @@
       "writtenOn": "2018-12-12T00:07:42Z",
       "side": 1,
       "message": "Some comments:\n\n * Does this actually add anything over runOnMainSync()? (how does the latter handle exceptions?)\n * What if we rewrite this as \"private \u003cT\u003e T onMainThreadSync(Runnable)\"?\n * Assuming we do want this, can we move to WebkitUtils?",
+      "range": {
+        "startLine": 240,
+        "startChar": 36,
+        "endLine": 240,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7cb00c_1c03c4a4",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:34:51Z",
+      "side": 1,
+      "message": "This should be moved to WebkitUtils (and the bug that I fixed recently also applies here). I\u0027ll send a CL to move this appropriately tonight, and then you can use it from there after rebasing.",
+      "parentUuid": "be48a653_9e0a3437",
       "range": {
         "startLine": 240,
         "startChar": 36,
