@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dbe647c_fcd3d6b4",
+        "filename": "navigation/ui/src/main/java/androidx/navigation/ui/AppBarConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2018-12-12T15:41:24Z",
+      "side": 1,
+      "message": "I\u0027d make simply nullable instead",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 41
+      },
+      "revId": "163eed1b96010d1be636a9902b5c334cfb7040df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
