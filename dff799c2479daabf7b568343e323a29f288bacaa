@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "50e64d5a_ec860343",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-12T20:49:10Z",
+      "side": 0,
+      "message": "In one of the previous versions of this CL I needed to use this method not only for assignments but also for returning values, but it seems like with the latest changes I\u0027m not using it anymore. I\u0027ll revert this change for now.",
+      "parentUuid": "ee27dec1_b6af4f7b",
+      "range": {
+        "startLine": 39,
+        "startChar": 36,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b08624e_9acbf678",
         "filename": "navigation/safe-args-generator/src/tests/kotlin/androidx/navigation/safe/args/generator/NavWriterTest.kt",
         "patchSetId": 4
