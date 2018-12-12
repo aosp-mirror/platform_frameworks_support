@@ -715,6 +715,30 @@
     },
     {
       "key": {
+        "uuid": "1e67e42a_e047fed5",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:19:27Z",
+      "side": 1,
+      "message": "How about this?:\n\n\"Manages setting and clearing a process-specific override for the Android system-wide proxy settings that govern network requests made by WebView.\n\nWebView may make network requests in order to fetch content that is not otherwise read from the file system or provided directly by application code. In this case by default the system-wide Android network proxy settings are used to redirect requests to appropriate proxy servers.\n\nIn the rare case that it is necessary for an application to explicitly specify its proxy configuration, this API may be used to explicitly specify the proxy rules that govern WebView initiated network requests.\"",
+      "parentUuid": "7a9d846c_634d8acc",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b192cfa_024ec813",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
