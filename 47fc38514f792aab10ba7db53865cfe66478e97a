@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6af1917_41cd523e",
+        "filename": "coordinatorlayout/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-12T16:36:21Z",
+      "side": 1,
+      "message": "Do we need to update (delete) this comment?",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 102
+      },
+      "revId": "47fc38514f792aab10ba7db53865cfe66478e97a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
