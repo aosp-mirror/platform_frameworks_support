@@ -88,6 +88,52 @@
     },
     {
       "key": {
+        "uuid": "9246557b_92b4010e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "There aren\u0027t many instances of using enum in androidx so I\u0027m unsure how well it\u0027ll go in API review, especially we are only using it as constants\nhttps://cs.corp.google.com/search/?q\u003d%22public+enum%22+package:%5Eaosp-androidx$+lang:java\u0026type\u003dcs\n\nhttps://stackoverflow.com/a/29972028\nhttps://android.jlelse.eu/android-performance-avoid-using-enum-on-android-326be0794dc3",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5393de0c_2cbc508d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "Can you leave off these display behavior and add them later when they are supported through UI?",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d201b9a_c806527d",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -122,6 +168,29 @@
       "writtenOn": "2018-12-11T22:11:51Z",
       "side": 1,
       "message": "Add @StyleRes annotation",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c994ac_768e1b8d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "reorder the final vars",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 17
+      },
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -207,6 +276,24 @@
       "writtenOn": "2018-12-11T22:11:51Z",
       "side": 1,
       "message": "Hmm do we have mocks for what it looks like if a CarMenuItem looks like if it\u0027s checkable and in the toolbar (not in the overflow)? \n\nI think we should follow up with UX to see if we need to support this use-case, and present any apps that need this right now. \n\nTo get this CL rolling, I say just leave off checkable for now.",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa1cebf_d2914ac8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "WiFi/BT in Settings need a checkable to enable/disable the entire segment. I think it should be displayed as a switch. wdyt?",
+      "parentUuid": "35ee7669_bceb851a",
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

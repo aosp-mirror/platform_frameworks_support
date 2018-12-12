@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d62f410_7bc25684",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "The comment about how items are displayed should be shown on CarToolbar class. This class only knows about data, it doesn\u0027t decide how it\u0027ll be displayed.",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b5cd3d_846670cb",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "MenuItem also supports isChecked()\nhttps://developer.android.com/reference/android/view/MenuItem.html#isChecked()\n\n...though it could get tricky when the checkbox is toggled through UI. Can you do a quick experiment to see what the behavior is?",
+      "range": {
+        "startLine": 58,
+        "startChar": 26,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10b2a6c_6403ec5c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "What\u0027s the reason null is not supported? ListItem subclasses accepts null to clear content. I think we should be consistent with API. \n\nText view replaces null with empty string so I don\u0027t think we need to worry about it here.\nhttps://cs.corp.google.com/android/frameworks/base/core/java/android/widget/TextView.java?l\u003d5970",
+      "range": {
+        "startLine": 76,
+        "startChar": 21,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce812420_5f255fb8",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
@@ -117,6 +186,52 @@
       "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "800ca8eb_66aef1b4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "Support clearing with null",
+      "range": {
+        "startLine": 124,
+        "startChar": 42,
+        "endLine": 124,
+        "endChar": 50
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd62d79_4f16f6b4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-12T01:06:53Z",
+      "side": 1,
+      "message": "Support null to clear icon",
+      "range": {
+        "startLine": 148,
+        "startChar": 32,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
