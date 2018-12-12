@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7720e051_292feb48",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2018-12-12T03:52:19Z",
+      "side": 1,
+      "message": "you might want a mSelection !\u003d null in here too",
+      "revId": "9f518fed508cd11f8d86cf361b5f9ecccee2f4c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
