@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbaafba3_d6ae3b22",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T21:54:53Z",
+      "side": 1,
+      "message": "IllegalArgumentException instead",
+      "range": {
+        "startLine": 231,
+        "startChar": 26,
+        "endLine": 231,
+        "endChar": 47
+      },
+      "revId": "ccea537f223f054d0e64e0d149651fd99948d005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340113ee_7cedd2aa",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T21:54:53Z",
+      "side": 1,
+      "message": "We should probably note somewhere in the doc that this method only does something if setCheckable() is set to true.",
+      "revId": "ccea537f223f054d0e64e0d149651fd99948d005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

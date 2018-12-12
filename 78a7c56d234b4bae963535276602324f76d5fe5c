@@ -779,6 +779,24 @@
     },
     {
       "key": {
+        "uuid": "69ad16cf_d70a7e2d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T21:54:53Z",
+      "side": 1,
+      "message": "Create a bug to track the creation of a default style.",
+      "parentUuid": "402582a5_ed8e90ae",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f15736e_4ad68639",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
