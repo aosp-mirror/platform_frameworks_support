@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28a20156_429b742a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-12T22:18:44Z",
+      "side": 1,
+      "message": "Do we know why the indentation is changing?\n\nI think the style guide says to use 8 spaces (which I think is also what you\u0027re adding at https://android-review.googlesource.com/c/platform/frameworks/support/+/849189/2/buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt#79 )\n\nFrom https://developer.android.com/kotlin/style-guide :\n\n\"Continuation indent\nWhen line-wrapping, each line after the first (each continuation line) is indented at least +8 from the original line.\"\n\n\nAnd they (later) give an example of\n\n\"private val defaultCharset: Charset? \u003d\n        EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)\"",
+      "revId": "bff89b323fd367cd0ffee8728d5032573425d1e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
