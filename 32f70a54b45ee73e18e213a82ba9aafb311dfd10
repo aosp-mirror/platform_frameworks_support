@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "057111ad_9d11986c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T21:46:19Z",
+      "side": 1,
+      "message": "The behavior is normal, setChecked() and isChecked() work as intended whether the switch was checked programmatically or through the UI.",
+      "parentUuid": "34b5cd3d_846670cb",
+      "range": {
+        "startLine": 58,
+        "startChar": 26,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f10b2a6c_6403ec5c",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4

@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "34a834cd_ad40ece6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T21:46:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "395e2e6c_fdbd63b8",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5393de0c_2cbc508d",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -317,6 +341,30 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba6dc7f_82b25396",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T21:46:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2015c1ca_29c296f6",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -710,6 +758,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402582a5_ed8e90ae",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T21:46:19Z",
+      "side": 1,
+      "message": "Once we have a default style, we can check if the style id is -1 and set it to default on build().",
+      "parentUuid": "79ea321a_d2086e26",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
