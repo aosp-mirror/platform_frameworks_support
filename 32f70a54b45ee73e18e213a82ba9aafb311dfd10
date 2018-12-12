@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee80ede8_6f7bfdc9",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d62f410_7bc25684",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34b5cd3d_846670cb",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
@@ -68,6 +92,30 @@
       "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cba398d_2e13c17a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Title can be null now.",
+      "parentUuid": "f10b2a6c_6403ec5c",
+      "range": {
+        "startLine": 76,
+        "startChar": 21,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -212,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9f669ded_c21da708",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "That wouldn\u0027t make sense to do in the builder though right?",
+      "parentUuid": "800ca8eb_66aef1b4",
+      "range": {
+        "startLine": 124,
+        "startChar": 42,
+        "endLine": 124,
+        "endChar": 50
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cd62d79_4f16f6b4",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 4
@@ -223,6 +295,30 @@
       "writtenOn": "2018-12-12T01:06:53Z",
       "side": 1,
       "message": "Support null to clear icon",
+      "range": {
+        "startLine": 148,
+        "startChar": 32,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "32f70a54b45ee73e18e213a82ba9aafb311dfd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fd6c18d_7d1cf825",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Same as prev comment.",
+      "parentUuid": "7cd62d79_4f16f6b4",
       "range": {
         "startLine": 148,
         "startChar": 32,

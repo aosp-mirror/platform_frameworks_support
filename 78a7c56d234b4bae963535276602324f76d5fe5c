@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e11572d_aaa73be9",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79e44170_958ca87b",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb433cec_580354fe",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -39,6 +57,30 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a71380_e42f36b3",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb433cec_580354fe",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 2
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b731d64b_3bc2fec0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "I\u0027ll just remove this whole paragraph and add it in the CarToolbar as Yao suggested.",
+      "parentUuid": "612705e1_23020174",
+      "range": {
+        "startLine": 50,
+        "startChar": 57,
+        "endLine": 50,
+        "endChar": 63
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b779e51_79f937c7",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "463cd82f_710530a5",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b779e51_79f937c7",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 41
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9246557b_92b4010e",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -99,6 +189,30 @@
       "writtenOn": "2018-12-12T01:06:53Z",
       "side": 1,
       "message": "There aren\u0027t many instances of using enum in androidx so I\u0027m unsure how well it\u0027ll go in API review, especially we are only using it as constants\nhttps://cs.corp.google.com/search/?q\u003d%22public+enum%22+package:%5Eaosp-androidx$+lang:java\u0026type\u003dcs\n\nhttps://stackoverflow.com/a/29972028\nhttps://android.jlelse.eu/android-performance-avoid-using-enum-on-android-326be0794dc3",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cdcf40b_45e0f502",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Selim said enums are fine and I think Anthony was fine with it too?",
+      "parentUuid": "9246557b_92b4010e",
       "range": {
         "startLine": 62,
         "startChar": 4,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "9688e10e_75af92bc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Should I just leave an enum with NEVER in it then?",
+      "parentUuid": "5393de0c_2cbc508d",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d201b9a_c806527d",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "d3dafce2_6c9c6a97",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "0d201b9a_c806527d",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 83
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3573f85_cb80e9bc",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -171,6 +333,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86e80d1_2bb6f06e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3573f85_cb80e9bc",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e1df0b7d_bc501e1b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c994ac_768e1b8d",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 17
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "390aa470_9c57f05e",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -211,6 +415,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def8b5fe_4958c16b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390aa470_9c57f05e",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "0a7a46c8_6da199a9",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "I guess the title can be null.",
+      "parentUuid": "b5ae08f2_a4d10959",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cce20486_63311ea4",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -248,6 +488,24 @@
     },
     {
       "key": {
+        "uuid": "5a830cc2_34b6b294",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cce20486_63311ea4",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e2ca827_15b03689",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -262,6 +520,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3bbe18_86fc0bc8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e2ca827_15b03689",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -300,6 +576,24 @@
     },
     {
       "key": {
+        "uuid": "ae3a40f9_af47e6ca",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Yeah like the next line suggests, it\u0027ll be a switch widget (maybe what the Wifi/Location Settings pages look like)?\n\nIf you mean what it\u0027ll look like in the overflow menu and not the toolbar, then I\u0027m not sure yet.",
+      "parentUuid": "35ee7669_bceb851a",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "231a0461_07e693f4",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -314,6 +608,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99350f90_0e389f52",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Everything can be null now.",
+      "parentUuid": "231a0461_07e693f4",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -334,6 +646,24 @@
     },
     {
       "key": {
+        "uuid": "c4c75216_2628a4a7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f15736e_4ad68639",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "217b7b5a_3006c43f",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -351,6 +681,24 @@
     },
     {
       "key": {
+        "uuid": "6743c399_0fe3cae4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "217b7b5a_3006c43f",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71b5ff07_a96faea8",
         "filename": "core/api/1.1.0-alpha03.txt",
         "patchSetId": 6
@@ -365,6 +713,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbdec2c4_6fdbb731",
+        "filename": "core/api/1.1.0-alpha03.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-12T02:27:48Z",
+      "side": 1,
+      "message": "Oh yeah.",
+      "parentUuid": "71b5ff07_a96faea8",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
