@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "85d5b753_276922ed",
+        "filename": "appcompat/src/androidTest/assets/fonts/ascii_a3em_weight100_upright.ttx",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-12-12T02:20:27Z",
+      "side": 1,
+      "message": "Ideally we can generate ttf file from ttx during build time, but I don\u0027t have enough time of trying this.\nMaybe good to ask build infra team?",
+      "parentUuid": "229f4b41_e003a5b5",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cce2c884_a1a25d33",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-12T02:04:41Z",
       "side": 1,
       "message": "I recently had to do the exact same thing. :) (in a Matcher format)",
+      "range": {
+        "startLine": 975,
+        "startChar": 33,
+        "endLine": 975,
+        "endChar": 44
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a116b2fe_5e629fb6",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-12-12T02:20:27Z",
+      "side": 1,
+      "message": "This looks ugly but unfortunately this is the only way of testing font selection :/\nWe may be able to extract these logic as font test utils.",
+      "parentUuid": "cce2c884_a1a25d33",
       "range": {
         "startLine": 975,
         "startChar": 33,
@@ -68,6 +116,30 @@
       "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf43f191_992ec4a9",
+        "filename": "appcompat/src/androidTest/res/layout/appcompat_textview_activity.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2018-12-12T02:20:27Z",
+      "side": 1,
+      "message": "Ah, yes, reverted. Thanks!",
+      "parentUuid": "882dfa67_7ec1b68a",
+      "range": {
+        "startLine": 392,
+        "startChar": 42,
+        "endLine": 392,
+        "endChar": 43
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
