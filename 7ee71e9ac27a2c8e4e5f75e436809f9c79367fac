@@ -16,6 +16,24 @@
       "revId": "7ee71e9ac27a2c8e4e5f75e436809f9c79367fac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3e0de76_e76d2399",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerBaseConfigSetTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T00:53:22Z",
+      "side": 1,
+      "message": "Want to help fix some of the ones that have become flaky or started failing recently? :)\n\nAnd... haha... you just left this unresolved comment with +2... :)",
+      "parentUuid": "bb6e96e3_2f32dfe7",
+      "revId": "7ee71e9ac27a2c8e4e5f75e436809f9c79367fac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
