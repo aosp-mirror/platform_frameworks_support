@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1151c0a8_d6ba2f7e",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2018-12-12T16:49:36Z",
+      "side": 1,
+      "message": "Two things:\n1) You are effectively changing the behavior of a public API. Objects that were not equal before will now be equal. That seems like something to avoid if possible.\n\n2) You must override hashcode when you override equals:\nhttps://dzone.com/articles/java-hashcode-and-equals-deep-dive",
+      "revId": "8caf72d435752305960d13c20baa97c25ca8b994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
