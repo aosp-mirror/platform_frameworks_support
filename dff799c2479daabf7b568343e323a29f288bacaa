@@ -22,6 +22,30 @@
       "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a752cc1c_8aabd613",
+        "filename": "navigation/safe-args-generator/src/tests/kotlin/androidx/navigation/safe/args/generator/NavWriterTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1081304
+      },
+      "writtenOn": "2018-12-12T09:42:50Z",
+      "side": 0,
+      "message": "I\u0027m having problems testing this now that I use a Bundle inside those classes. I tried mocking it but since this project has a weird setup (it is not using the Android gradle plugin and so I don\u0027t get the mockable JAR), I can\u0027t mock a Bundle because it\u0027s final. Any ideas where/how I can test this? \nI could maybe use :navigation:navigation-integration-tests, but I don\u0027t seem to be able to find a task that actually runs the tests that are in there?",
+      "parentUuid": "2b08624e_9acbf678",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 9
+      },
+      "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
