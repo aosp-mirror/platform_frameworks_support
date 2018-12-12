@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ee27dec1_b6af4f7b",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-12T19:11:35Z",
+      "side": 0,
+      "message": "Any reason to move the \u0027\u003d\u0027 from here to the NavWriter?",
+      "range": {
+        "startLine": 39,
+        "startChar": 36,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "dff799c2479daabf7b568343e323a29f288bacaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b08624e_9acbf678",
         "filename": "navigation/safe-args-generator/src/tests/kotlin/androidx/navigation/safe/args/generator/NavWriterTest.kt",
         "patchSetId": 4

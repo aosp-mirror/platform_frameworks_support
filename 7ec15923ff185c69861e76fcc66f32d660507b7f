@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b526ee9a_5f4d1db2",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_writer_test/MainFragment$InnerFragmentArgs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-12T19:11:35Z",
+      "side": 1,
+      "message": "Your going to need to suppress the unsafe cast or else all this generated code will create a few warnings and there will be users that will complain.",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "7ec15923ff185c69861e76fcc66f32d660507b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0cbe5ed_cca113be",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_writer_test/MainFragmentArgs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-12T19:11:35Z",
+      "side": 1,
+      "message": "I would still add double underscore prefix just in case, to not conflict with any other user variable name. For example, they could have an argument named \u0027result\u0027 to.",
+      "range": {
+        "startLine": 163,
+        "startChar": 15,
+        "endLine": 163,
+        "endChar": 21
+      },
+      "revId": "7ec15923ff185c69861e76fcc66f32d660507b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
