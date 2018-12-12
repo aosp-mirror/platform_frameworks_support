@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32d1261a_45a3f3f6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-12T15:32:10Z",
+      "side": 1,
+      "message": "TalkBack doesn\u0027t yet recognize the androidx package name. Should be \"android.support.v4.view.ViewPager\" for backwards compatibility.",
+      "range": {
+        "startLine": 119,
+        "startChar": 24,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "32a2d40508b35f9f37d6193cef4d595d192f9b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
