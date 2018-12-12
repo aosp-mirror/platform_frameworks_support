@@ -807,6 +807,29 @@
     },
     {
       "key": {
+        "uuid": "c6da8820_2536f62d",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:12:22Z",
+      "side": 1,
+      "message": "2 comments I forgot:\n\n 1. This claims it\u0027s guarded by a Featue; that means you need to annotate it as such, and also enforce this throwing an exception if the Feature is in fact not present. You can omit all the @RequiresFeature on the methods, since it\u0027s redundant.\n 2. This is not thread-safe. Please use the Lazy-holder pattern (see ServiceWorkerControllerCompat)",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71d3d8b8_eb0a654a",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
