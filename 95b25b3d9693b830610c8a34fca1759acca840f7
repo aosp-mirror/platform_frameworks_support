@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f823f0c0_722b355f",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "I did so in a separate CL, feel free to use it.",
+      "parentUuid": "6c66d4df_e2162fea",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac5a32c5_19070075",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -1174,6 +1198,30 @@
     },
     {
       "key": {
+        "uuid": "862488f9_642d4b20",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "That\u0027s unfortunate that runOnMainSync doesn\u0027t re-throw exceptions. We should consider re-writing runOnMainSync() in webkitutils, with this feature. It should be easy to build once we have runOnMain-with-Futures",
+      "parentUuid": "38d8f4bb_1466e025",
+      "range": {
+        "startLine": 240,
+        "startChar": 36,
+        "endLine": 240,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a4a80f7_e91b095a",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1526,6 +1574,30 @@
     },
     {
       "key": {
+        "uuid": "a2f0e3cc_14bb6f35",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "Yes, use @RequiresFeature here. And I recommend throwing the exception here, otherwise methods will crash in unreliable ways later.",
+      "parentUuid": "f2f2abed_a76f9db2",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb0eba94_86e65d18",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1584,6 +1656,30 @@
       "side": 1,
       "message": "/will not be directed to any proxy. Instead, the request will be made directly to the origin specified by the URL.",
       "parentUuid": "71d3d8b8_eb0a654a",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586e0699_e21d6746",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "I guess I\"m also confused: what if there\u0027s a system-wide proxy and the app overrides with DIRECT? Does it go to the system proxy or directly to the content server? If the latter, then this sounds like a valuable part of the API",
+      "parentUuid": "7b2ad355_30c4764f",
       "range": {
         "startLine": 78,
         "startChar": 31,
@@ -1666,6 +1762,30 @@
     },
     {
       "key": {
+        "uuid": "adbec6b2_c24be0d1",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "The native crashes are a bit confusing, so I\u0027m in support of aggressively null-checking in that case. But, I think it makes more sense to do such chromium-side (to protect against random reflection-callers), WDYT?",
+      "parentUuid": "dfb050f1_cce9e577",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 72
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4a7bd26_f7e49d9b",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1736,6 +1856,30 @@
     },
     {
       "key": {
+        "uuid": "e3577a56_4259a7aa",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "Maybe something like \"if a proxy fails (e.g., the proxy server is down), this falls back to the next ProxyRule\"? But we should only say that if we think that\u0027s one of the actual mechanisms. Not too much detail is necessary, but I think it\u0027s important to state that a Proxy would fail because of external factors, and should not fail because of bad app code.",
+      "parentUuid": "dfefc176_67ba0ed8",
+      "range": {
+        "startLine": 166,
+        "startChar": 71,
+        "endLine": 167,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6882511_7f230e2e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1780,6 +1924,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557d0b4b_20e7a1bf",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T19:41:15Z",
+      "side": 1,
+      "message": "Got it, thanks",
+      "parentUuid": "3c6fd5c9_1c03c82b",
+      "range": {
+        "startLine": 175,
+        "startChar": 71,
+        "endLine": 175,
+        "endChar": 97
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
