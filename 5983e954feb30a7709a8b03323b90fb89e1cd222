@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6e8d9ef8_1b570127",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-12T19:01:14Z",
+      "side": 1,
+      "message": "Yeah - this is in out/",
+      "parentUuid": "82095534_0ea3c129",
+      "revId": "5983e954feb30a7709a8b03323b90fb89e1cd222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9eb3401_ccbfde54",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
         "patchSetId": 1
