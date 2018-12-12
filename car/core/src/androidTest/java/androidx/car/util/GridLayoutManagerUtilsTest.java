@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.car.test.R;
+import androidx.car.util.GridLayoutManagerUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.InstrumentationRegistry;
