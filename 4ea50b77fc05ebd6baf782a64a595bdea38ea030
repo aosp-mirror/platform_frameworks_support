@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5e419fa_4350aeb6",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Add a similar comment to the one that setSpanIndexCacheEnabled has?",
+      "range": {
+        "startLine": 863,
+        "startChar": 20,
+        "endLine": 863,
+        "endChar": 49
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e275ce86_cdc585c4",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Add similar comment to the above.",
+      "range": {
+        "startLine": 892,
+        "startChar": 23,
+        "endLine": 892,
+        "endChar": 51
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a755a826_41db5fd9",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Seems like you are checking for the validity of what was returned from the cache by recalculating.  Why is this necessary?",
+      "range": {
+        "startLine": 914,
+        "startChar": 12,
+        "endLine": 917,
+        "endChar": 17
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a838dfa_2d9e10ca",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Do me a favor and change a couple of things for me.\n\n1. Call this method \"findFirstKeyLessThan(int key, SparseIntArray map)\"\n2. Add a JavaDoc comment that says \"Executes a binary search to find the first key less than the \u0027key\u0027 parameter.\"\n\nI had to decipher this algorithm to figure out what it did... thanks.",
+      "range": {
+        "startLine": 979,
+        "startChar": 19,
+        "endLine": 979,
+        "endChar": 46
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08d1ac84_37291465",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Please do me a favor and change this to \"/ 2\".",
+      "range": {
+        "startLine": 984,
+        "startChar": 42,
+        "endLine": 984,
+        "endChar": 47
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6844e3_b1fcef4f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "This seems dangerous because it is assuming that this is in the cache.  If this is not in the cache, this will return -1, and we will think that this is the right key to start from.\n\nSeems like it might be more accurate to use the prevKey, get it\u0027s span index, and get it\u0027s span size, and then update span accordingly,  Then you are starting with the known span at the correct group and at the correct start.  Make sense?\n\nI suppose the span index lookup should pull from cache if it exists in cache...",
+      "range": {
+        "startLine": 1020,
+        "startChar": 31,
+        "endLine": 1020,
+        "endChar": 68
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3114dae5_a918fa88",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Change to computeScrollRangeWithSpanInfo",
+      "range": {
+        "startLine": 1237,
+        "startChar": 16,
+        "endLine": 1237,
+        "endChar": 34
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7432ba_128cfc6d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Redundant",
+      "range": {
+        "startLine": 1246,
+        "startChar": 12,
+        "endLine": 1246,
+        "endChar": 35
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f37c734_1afe7492",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Remove.  :)",
+      "range": {
+        "startLine": 1262,
+        "startChar": 8,
+        "endLine": 1262,
+        "endChar": 72
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b31ae2d_6858e065",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "I think these two methods are now pretty redundant... and also misleading given that we are sometimes talking about columns and not rows... and thus decide to talk about \"span groups\" instead.",
+      "range": {
+        "startLine": 1267,
+        "startChar": 4,
+        "endLine": 1273,
+        "endChar": 5
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de9056c2_2abb505b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Change to computeScrollOffsetWithSpanInfo",
+      "range": {
+        "startLine": 1275,
+        "startChar": 16,
+        "endLine": 1275,
+        "endChar": 35
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

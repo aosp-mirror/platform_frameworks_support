@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4ef607e4_90ab94eb",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-12T21:54:30Z",
+      "side": 1,
+      "message": "Hmm, seems like it wouldn\u0027t hurt.  When does anyone need a getter for something that they themselves set?  Any reason is the same reason here?",
+      "parentUuid": "101fba97_94d22442",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "5e4b6b4e6428e1f24b06b9a18e20c8bfd289296b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98a43a65_8a5f85f5",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 19
