@@ -624,6 +624,12 @@ public class AccessibilityNodeInfoCompat {
             return new AccessibilityActionCompat(null, mId, label, command,
                     mViewCommandArgumentClass);
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            return mAction != null && getClass() == obj.getClass()
+                    && mAction.equals(((AccessibilityActionCompat) obj).mAction);
+        }
     }
 
     /**
