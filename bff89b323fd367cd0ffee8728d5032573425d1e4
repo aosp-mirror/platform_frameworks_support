@@ -16,6 +16,24 @@
       "revId": "bff89b323fd367cd0ffee8728d5032573425d1e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d5a077_44541b2a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-12T22:25:12Z",
+      "side": 1,
+      "message": "i honestly don\u0027t know.\njust checked my ide settings, it does show cont intent as 8. so i\u0027m clueless why it formats different and also why ktlint does not complain.\n\ni\u0027ll try to figure out",
+      "parentUuid": "28a20156_429b742a",
+      "revId": "bff89b323fd367cd0ffee8728d5032573425d1e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
