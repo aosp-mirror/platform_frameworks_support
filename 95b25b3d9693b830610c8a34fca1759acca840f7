@@ -1,0 +1,1039 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7498c75c_189e1541",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Can you provide more context in the CL description? E.g., what is \"proxy override?\", link to design doc, link to \"Bug: 111909539\", mention you\u0027re importing okhttp as a test dependency, etc.\n\nAlso, I recently learned about https://chris.beams.io/posts/git-commit/, which I would generally recommend.",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1794d11f_d450eaad",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 57
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67dce161_926e1753",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable (here and below)",
+      "range": {
+        "startLine": 20,
+        "startChar": 61,
+        "endLine": 20,
+        "endChar": 79
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddd2be8_cd48de9e",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Please @hide+@RestrictTo all public APIs, and put a TODO to note that this should be un-hid when ready for release. You can follow http://aosp/837151 as an example.\n\nThe basic justification: adding not-quite-ready APIs to our API surface blocks AndroidX releases. We should postpone adding these APIs until we\u0027re fairly confident the API is in a ready-to-use state.",
+      "range": {
+        "startLine": 157,
+        "startChar": 54,
+        "endLine": 157,
+        "endChar": 73
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4b6647_c681ac21",
+        "filename": "webkit/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Please add a comment (you can copy mine from http://aosp/841234)",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 55
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46d7e2d_e387bf9d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: I recommend putting \"_MS\" as a suffix\n\nOptionally, consider using the TEST_TIMEOUT_MS from WebkitUtils, or adding a helper method for #takeRequest() to WebkitUtils.",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5a32c5_19070075",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "This needs to be loadUrlAndWaitForCompletion, right?",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 34
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b57c603e_0ea239da",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: assert the request count is 1 (it should be, right?)",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508f3416_8a1ffc8b",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: just name this class \"Builder\"",
+      "range": {
+        "startLine": 103,
+        "startChar": 60,
+        "endLine": 103,
+        "endChar": 77
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bad1083_1dd5eed6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Can we improve these names? How about \"mContentServer\" and \"mProxyServer\"? It\u0027s quite confusing why we\u0027re loading server1\u0027s URL, yet asserting that server2 received a request.",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27584bc6_affebd87",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "This test seems wrong? Here\u0027s how I understand it:\n\n * Configure server2 to be our Proxy\n * Also configure it such that we *skip* the Proxy for server1\u0027s domain\n * load a server1 URL and assert that we used the Proxy\n\n^ it seems bullet 3 should be \"load a server1 URL and assert that we *did not use* the Proxy, because we configured it to skip\"",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0527b772_be13080a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "\"\u003c-loopback\u003e\" seems like an undocumented magic value. No magic values, and please document this.\n\nI\u0027m not sure if \"\u003c-loopback\u003e\" is a value in itself, or if the \"-\" means \"opposite of \u0027\u003cloopback\u003e\u0027\" or something similar.",
+      "range": {
+        "startLine": 105,
+        "startChar": 32,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9beca25b_a04c9b6a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Can you break this into its own test?",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6104bc65_783281a1",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Can you break this into its own test? IMO it\u0027s OK to copy some logic from above, but it\u0027s more helpful if we see something like \"testProxyBasicUsage passes but testSetProxyTwice fails\"",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 70
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f31b19_96fc3330",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: consider a comment, like \"enumerate all valid patterns to check these are supported\"",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332a1430_de4714bf",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Can we make this more specific?",
+      "range": {
+        "startLine": 158,
+        "startChar": 17,
+        "endLine": 158,
+        "endChar": 26
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b09fb31_10461bee",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Don\u0027t catch and fail(), just add a comment at the end such as \"// setProxyOverrideSync should succeed without throwing\"",
+      "range": {
+        "startLine": 159,
+        "startChar": 11,
+        "endLine": 159,
+        "endChar": 67
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c54ae27_76adeec3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: invalidProxyUrls or malformedProxyUrls",
+      "range": {
+        "startLine": 169,
+        "startChar": 17,
+        "endLine": 169,
+        "endChar": 26
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b8a9b04_816b5a9d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: move to new line",
+      "range": {
+        "startLine": 173,
+        "startChar": 34,
+        "endLine": 173,
+        "endChar": 36
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b42785_db90f281",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "for",
+      "range": {
+        "startLine": 179,
+        "startChar": 35,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f161eb83_76a0eef9",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: invalidBypassRules",
+      "range": {
+        "startLine": 185,
+        "startChar": 17,
+        "endLine": 185,
+        "endChar": 28
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8ed461_8f565e8e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "What\u0027s the difference between these two?",
+      "range": {
+        "startLine": 189,
+        "startChar": 15,
+        "endLine": 190,
+        "endChar": 35
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfd86fa_9362051d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Is this wrong because it has a scheme, or because it\u0027s *only* a scheme? Consider changing this or adding a comment, as you see fit.\n\nSimilar recommendation for all invalid rules: consider adding comments explaining why each is bad.",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 26
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d43eb6a_d298a168",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: can you move this as an in-line declaration within the call()?",
+      "range": {
+        "startLine": 208,
+        "startChar": 23,
+        "endLine": 208,
+        "endChar": 31
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84376064_b9a6cef3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think you need this get()?",
+      "range": {
+        "startLine": 219,
+        "startChar": 15,
+        "endLine": 219,
+        "endChar": 22
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9480fae3_41c06ae6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Don\u0027t double-up curly braces on the same line, please",
+      "range": {
+        "startLine": 236,
+        "startChar": 12,
+        "endLine": 236,
+        "endChar": 14
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "844d9f27_5e777724",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Please use (the newly added) WebkitUtils to get the value, since that has a nicer timeout. I just sent a doc to webview-core explaining this.",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 21
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be48a653_9e0a3437",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Some comments:\n\n * Does this actually add anything over runOnMainSync()? (how does the latter handle exceptions?)\n * What if we rewrite this as \"private \u003cT\u003e T onMainThreadSync(Runnable)\"?\n * Assuming we do want this, can we move to WebkitUtils?",
+      "range": {
+        "startLine": 240,
+        "startChar": 36,
+        "endLine": 240,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4a80f7_e91b095a",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "@link",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "331868a8_dcddfb25",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Grammar is a bit off here. Consider something like \"Manages the network proxy configuration for all of the application\u0027s WebViews\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a9d846c_634d8acc",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "@link to ProxyRules.\n\nOverall comment: What is a \"proxy?\" You and I know, but I think it\u0027s worth clarifying we\u0027re talking about network proxies, and how this actually affects WebView (e.g., only affects loads which go over the network, not data:/file: URLs). We don\u0027t have to be overly specific, but keep in mind that Android developers come from a variety of backgrounds, and may easily confusing this for:\n\n * java.lang.reflect.Proxy (https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Proxy.html)\n * JS Proxy type (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)\n * etc.",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b192cfa_024ec813",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: ProxyRules is an inner class right now, so you need to write example code which uses it that way. Example code should be copy-pastable (and still compile) (ignoring the \"...\" lines, of course)",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e5440e_42f4e330",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Doesn\u0027t exist anymore?",
+      "range": {
+        "startLine": 38,
+        "startChar": 42,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91de0619_ed4bb8d2",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: no need to save this as a local variable, right?",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41fcd721_c163a682",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Change this to \"{}\" to be concise. Also, put a comment such as \"this class should not be instantiated\"",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d3d8b8_eb0a654a",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Direct connection to the proxy, or direct connection to the content\u0027s server? I think this term should be defined at the class level.",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6609d5f_ca32b854",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Consider moving this to an inner class instead of defining inline twice.\n\nAlso: you should document this Executor\u0027s behavior. Should it always run on the UI thread? Should it always run on the thread the app called setProxyOverride from? Recall that apps may use ProxyController from any thread, because it\u0027s not a View method.",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 40
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b8a0c5_f7778ece",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Writing this in AndroidX seems overly paranoid: it suggests that we don\u0027t trust @NonNull to do its job.\n\nWhat happens if we just let NPE happen naturally when we use the Executor in chromium? Unless it crashes in a very opaque manner, I think that\u0027s a better option.\n\nAlso, if we\u0027re paranoid enough to not trust @NonNull, we should be paranoid enough to assume apps are reflecting directly into boundary interfaces, which would entirely skip this check (and this check should be in chromium).",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 72
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4a7bd26_f7e49d9b",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "Please reserve getStatics() for static WebView methods, not for singletons. Look to TracingController and ServiceWorkerController for better ways of implementing this.",
+      "range": {
+        "startLine": 115,
+        "startChar": 25,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46800f22_d4191464",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "This is confusing. You need to clarify why a proxy might not respond, or what this means. For example, what if a proxy is really slow to respond--is there some internal timeout?\n\nFurthermore, it\u0027s not clear how an app can realistically choose alternate proxies. Can you explain justification?",
+      "range": {
+        "startLine": 166,
+        "startChar": 71,
+        "endLine": 167,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6882511_7f230e2e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "If DIRECT is the fallback, then why show this at all?\n\nAlso, \"direct://\" is a magic value. If apps can legitimately use this, please move this to a Java string constant.",
+      "range": {
+        "startLine": 175,
+        "startChar": 71,
+        "endLine": 175,
+        "endChar": 97
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be77a281_a3290743",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "No magic values, move to a named constant. Consider publicly exposing this constant, so that apps can write readable code such as:\n\nProxyController.getInstance().setProxyOverride(new ProxyController.ProxyRules.Builder()\n    .addProxyRule(OUR_APPS_PROXY_SERVER_URL, MATCH_ALL_SCHEMES)\n    .build());",
+      "range": {
+        "startLine": 254,
+        "startChar": 54,
+        "endLine": 254,
+        "endChar": 56
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20727927_dbb2eac6",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "You violate this requirement in \"#addProxyRule(String)\". Another reason to add an constant for ALL_SCHEMES.\n\nYou could also consider turning this into a flag IntDef, which means apps can write code like:\n\n#addProxyRule(url, HTTP | HTTPS | SOME_SCHEME_WE_ADD_LATER)",
+      "range": {
+        "startLine": 260,
+        "startChar": 15,
+        "endLine": 260,
+        "endChar": 76
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4609319_c1278683",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: wrap this with quotes because this is a Java String",
+      "range": {
+        "startLine": 283,
+        "startChar": 22,
+        "endLine": 283,
+        "endChar": 34
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c18227_6d8c483e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-12T00:07:42Z",
+      "side": 1,
+      "message": "nit: \"DIRECT\" isn\u0027t clearly defined",
+      "range": {
+        "startLine": 284,
+        "startChar": 15,
+        "endLine": 284,
+        "endChar": 22
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
