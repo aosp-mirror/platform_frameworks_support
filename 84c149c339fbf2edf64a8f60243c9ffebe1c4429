@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "60923e34_21d25e79",
+        "filename": "appcompat/src/androidTest/assets/fonts/ascii_a3em_weight100_upright.ttx",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2018-12-12T02:30:19Z",
+      "side": 1,
+      "message": "we dont have to keep the ttx file in here and we can just delete right?\nthe good part is to see what the ttx changes are and makes the review or checking what was done at a later time easy. However if they get out of sync it can also be very deceiving.",
+      "parentUuid": "85d5b753_276922ed",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "84c149c339fbf2edf64a8f60243c9ffebe1c4429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cce2c884_a1a25d33",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatTextViewTest.java",
         "patchSetId": 2
