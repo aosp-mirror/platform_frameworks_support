@@ -286,6 +286,28 @@ public class AccessibilityDelegateCompatTest extends
         }
     }
 
+
+
+    @Test
+    public void testReplaceActionPerformIsCalledWithTwoReplacements() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
+            final AccessibilityViewCommand action2 = mock(AccessibilityViewCommand.class);
+
+            ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+                    "Focus title", action);
+
+            String expectedLabel = "Focus title 2";
+            ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+                    expectedLabel, action2);
+
+            ViewCompat.performAccessibilityAction(mView,
+                    AccessibilityNodeInfoCompat.ACTION_FOCUS, null);
+            verify(action2).perform(mView, null);
+            verify(action, never()).perform(mView, null);
+        }
+    }
+
     @Test
     public void testReplaceActionPerformIsCalledWithArguments() {
         if (Build.VERSION.SDK_INT >= 21) {
