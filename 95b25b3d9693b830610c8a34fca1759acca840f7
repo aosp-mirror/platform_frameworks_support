@@ -854,6 +854,29 @@
     },
     {
       "key": {
+        "uuid": "fb0eba94_86e65d18",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:28:38Z",
+      "side": 1,
+      "message": "patterns?",
+      "range": {
+        "startLine": 77,
+        "startChar": 83,
+        "endLine": 77,
+        "endChar": 88
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71d3d8b8_eb0a654a",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -865,6 +888,30 @@
       "writtenOn": "2018-12-12T00:07:42Z",
       "side": 1,
       "message": "Direct connection to the proxy, or direct connection to the content\u0027s server? I think this term should be defined at the class level.",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2ad355_30c4764f",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:28:38Z",
+      "side": 1,
+      "message": "/will not be directed to any proxy. Instead, the request will be made directly to the origin specified by the URL.",
+      "parentUuid": "71d3d8b8_eb0a654a",
       "range": {
         "startLine": 78,
         "startChar": 31,
@@ -911,6 +958,30 @@
       "writtenOn": "2018-12-12T00:07:42Z",
       "side": 1,
       "message": "Writing this in AndroidX seems overly paranoid: it suggests that we don\u0027t trust @NonNull to do its job.\n\nWhat happens if we just let NPE happen naturally when we use the Executor in chromium? Unless it crashes in a very opaque manner, I think that\u0027s a better option.\n\nAlso, if we\u0027re paranoid enough to not trust @NonNull, we should be paranoid enough to assume apps are reflecting directly into boundary interfaces, which would entirely skip this check (and this check should be in chromium).",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 72
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb050f1_cce9e577",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T16:28:38Z",
+      "side": 1,
+      "message": "The crash will be pretty opaque (the NPE happens in a call from native, so it will be caught by the CheckException and turned into a native crash. But on the other hand, this is also true if the Runnable throws, which seems much more likely.",
+      "parentUuid": "e1b8a0c5_f7778ece",
       "range": {
         "startLine": 110,
         "startChar": 12,
