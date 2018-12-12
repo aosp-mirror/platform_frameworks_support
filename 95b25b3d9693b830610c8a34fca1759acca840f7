@@ -236,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "6c66d4df_e2162fea",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-12T17:48:35Z",
+      "side": 1,
+      "message": "TEST_TIMEOUT_MS in WebkitUtils is currently private. Do you suggest I make it public and use it instead?",
+      "parentUuid": "d46d7e2d_e387bf9d",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac5a32c5_19070075",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -488,6 +512,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7f430d_d157cfc7",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-12T17:48:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1f31b19_96fc3330",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1640,6 +1688,30 @@
     },
     {
       "key": {
+        "uuid": "dfefc176_67ba0ed8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-12T17:48:35Z",
+      "side": 1,
+      "message": "The main use case I can think of for proxy override is corp apps that have to go through an internal network. Could be the case that there are 2 proxies so developers can set both of them, so if the first fails, the app will still use the second one and be able to function properly.\n\nI don\u0027t know the exact mechanisms for the fallback - how long it takes to consider if a proxy is not responding for instance. Do you think this level of detail is needed here?",
+      "parentUuid": "46800f22_d4191464",
+      "range": {
+        "startLine": 166,
+        "startChar": 71,
+        "endLine": 167,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6882511_7f230e2e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1839,6 +1911,30 @@
       "writtenOn": "2018-12-12T00:07:42Z",
       "side": 1,
       "message": "nit: \"DIRECT\" isn\u0027t clearly defined",
+      "range": {
+        "startLine": 284,
+        "startChar": 15,
+        "endLine": 284,
+        "endChar": 22
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef80550_61aa3b4f",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-12T17:48:35Z",
+      "side": 1,
+      "message": "I think rephrasing to match Toby\u0027s suggestion in line 78 would be enough",
+      "parentUuid": "f9c18227_6d8c483e",
       "range": {
         "startLine": 284,
         "startChar": 15,
