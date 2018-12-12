@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "395e2e6c_fdbd63b8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "If Selim is fine with it, then should be ok. There is a performance concern, but I think it\u0027s a micro-optimization at this point.\n\nI\u0027m also fine if you want to switch these to just ints.",
+      "parentUuid": "3cdcf40b_45e0f502",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5393de0c_2cbc508d",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -260,6 +284,30 @@
       "side": 1,
       "message": "Should I just leave an enum with NEVER in it then?",
       "parentUuid": "5393de0c_2cbc508d",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2015c1ca_29c296f6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to have the display behavior since we know these are the ones we want to support. We can still tweak them come implementation time.",
+      "parentUuid": "9688e10e_75af92bc",
       "range": {
         "startLine": 70,
         "startChar": 8,
@@ -594,6 +642,24 @@
     },
     {
       "key": {
+        "uuid": "cb7d9805_90c4dbde",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ae3a40f9_af47e6ca",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "231a0461_07e693f4",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 6
@@ -626,6 +692,24 @@
       "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ea321a_d2086e26",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "Hmm I think we might want to enforce a valid style res is passed at least. Alternatively, we should detect if the resource is -1 and use a default style that we defined internally.\n\nThe reason is that I would prefer the getStyleResId() method to not return an invalid style resource id.\n\nAlso, if everything can be null now, then you need to update the annotations on the getter methods.",
+      "parentUuid": "99350f90_0e389f52",
+      "revId": "78a7c56d234b4bae963535276602324f76d5fe5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {

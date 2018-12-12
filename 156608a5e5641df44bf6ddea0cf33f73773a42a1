@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93ef4a40_94f3a42b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "Assuming this can be null? Add a @Nullable annotation",
+      "range": {
+        "startLine": 90,
+        "startChar": 25,
+        "endLine": 90,
+        "endChar": 37
+      },
+      "revId": "156608a5e5641df44bf6ddea0cf33f73773a42a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e705c8d_6ef4d4ed",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "Let\u0027s remove this method actually. I think it\u0027s better if the style is something that is only settable by the Builder/during construction.\n\nThe reasoning is that to apply a new style on a View, that view has to be recreated. That is analogous to just re-creating a CarMenuItem.",
+      "revId": "156608a5e5641df44bf6ddea0cf33f73773a42a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef5bba36_e130b8a9",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-12T19:39:26Z",
+      "side": 1,
+      "message": "Not non-null anymore",
+      "range": {
+        "startLine": 125,
+        "startChar": 5,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "156608a5e5641df44bf6ddea0cf33f73773a42a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
