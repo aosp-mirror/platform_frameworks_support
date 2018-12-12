@@ -22,6 +22,30 @@
       "revId": "4233c81bd134baefa6a236de0498ef7c6b3f36f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca6d75b5_754ce64c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-12T23:18:39Z",
+      "side": 1,
+      "message": "*whistles* what\u0027s no longer correct? (you\u0027re right, cleaned up)",
+      "parentUuid": "da76a12e_ff24b3dd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "4233c81bd134baefa6a236de0498ef7c6b3f36f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
