@@ -22,6 +22,30 @@
       "revId": "47fc38514f792aab10ba7db53865cfe66478e97a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a1bc22_128b056f",
+        "filename": "coordinatorlayout/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2018-12-12T17:30:39Z",
+      "side": 1,
+      "message": "It was there where I copied it from... But yeah I agree maybe this should not be there.",
+      "parentUuid": "e6af1917_41cd523e",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 102
+      },
+      "revId": "47fc38514f792aab10ba7db53865cfe66478e97a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
