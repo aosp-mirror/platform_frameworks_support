@@ -21,6 +21,7 @@ import androidx.room.RoomDatabase
 import androidx.room.integration.kotlintestapp.dao.BooksDao
 import androidx.room.integration.kotlintestapp.dao.DependencyDao
 import androidx.room.integration.kotlintestapp.dao.DerivedDao
+import androidx.room.integration.kotlintestapp.dao.JavaDao
 import androidx.room.integration.kotlintestapp.vo.Author
 import androidx.room.integration.kotlintestapp.vo.Book
 import androidx.room.integration.kotlintestapp.vo.BookAuthor
@@ -44,4 +45,6 @@ abstract class TestDatabase : RoomDatabase() {
     abstract fun derivedDao(): DerivedDao
 
     abstract fun dependencyDao(): DependencyDao
+
+    abstract fun javaDao(): JavaDao
 }
