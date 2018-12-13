@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0caacca_1d1b5c2d",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-12-13T11:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e08f163_6262cd0c",
+      "range": {
+        "startLine": 339,
+        "startChar": 12,
+        "endLine": 339,
+        "endChar": 56
+      },
+      "revId": "ddeeb1ccc9706102bdf6b1e50f0b9cca7bb15199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6e55ad5_68a077d8",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ddeeb1ccc9706102bdf6b1e50f0b9cca7bb15199",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d02ae2b6_d6f1a920",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-12-13T11:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e55ad5_68a077d8",
+      "range": {
+        "startLine": 414,
+        "startChar": 15,
+        "endLine": 416,
+        "endChar": 66
+      },
+      "revId": "ddeeb1ccc9706102bdf6b1e50f0b9cca7bb15199",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
