@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "6507f7d2_5b90c10c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f823f0c0_722b355f",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac5a32c5_19070075",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -307,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "55178a4c_1ed3c232",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "We don\u0027t really have to wait for completion here since we are already waiting for the server below",
+      "parentUuid": "ac5a32c5_19070075",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 34
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b57c603e_0ea239da",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -327,6 +375,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48505866_61ec7ca2",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "That is true for the moment, although since I split a part of this test, we can\u0027t guarantee the order and we could be in a state where this is more than 1.\n\nThe point of having this here is to make sure the request count doesn\u0027t increase below.",
+      "parentUuid": "b57c603e_0ea239da",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -400,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "a14e78df_49d757a3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bad1083_1dd5eed6",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27584bc6_affebd87",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -470,6 +566,54 @@
     },
     {
       "key": {
+        "uuid": "32191d7f_4d3f1e20",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "The only special strings accepted are \"\u003clocal\u003e\" and \"\u003c-loopback\u003e\" (there is no way of specifying \"negative\" rules). I\u0027ll change the way this is called and we can discuss later if needed.",
+      "parentUuid": "54ed24b2_7925227a",
+      "range": {
+        "startLine": 105,
+        "startChar": 16,
+        "endLine": 105,
+        "endChar": 45
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a79c9e12_b43d7f1b",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "I\u0027ll change the way this is called and we can discuss later if needed.",
+      "parentUuid": "0527b772_be13080a",
+      "range": {
+        "startLine": 105,
+        "startChar": 32,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9beca25b_a04c9b6a",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -493,6 +637,30 @@
     },
     {
       "key": {
+        "uuid": "80d689bb_ad8a13f5",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9beca25b_a04c9b6a",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6104bc65_783281a1",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 8
@@ -513,6 +681,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccbba47d_e79e3a29",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense to remove this block from this test since the objective here is to\nA) make sure that content server is used when no proxy override was set\nB) make sure proxy server is used when proxy override is set\nC) make sure content server is used again when we clear proxy override\n\nI can remove the block ending in line 118.",
+      "parentUuid": "6104bc65_783281a1",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 70
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1222,6 +1414,30 @@
     },
     {
       "key": {
+        "uuid": "37532a2d_bac04451",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "862488f9_642d4b20",
+      "range": {
+        "startLine": 240,
+        "startChar": 36,
+        "endLine": 240,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a4a80f7_e91b095a",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1292,6 +1508,30 @@
     },
     {
       "key": {
+        "uuid": "55b7e4fd_8b845d4a",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Resolving as I changed this to Toby\u0027s suggestion below.",
+      "parentUuid": "331868a8_dcddfb25",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a9d846c_634d8acc",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1336,6 +1576,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "514f68fd_cc4278d0",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Changed to Toby\u0027s suggestion.",
+      "parentUuid": "1e67e42a_e047fed5",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1598,6 +1862,30 @@
     },
     {
       "key": {
+        "uuid": "6396f02e_9439fe9f",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2f0e3cc_14bb6f35",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb0eba94_86e65d18",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1618,6 +1906,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2eba7eb_fa88e121",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0eba94_86e65d18",
+      "range": {
+        "startLine": 77,
+        "startChar": 83,
+        "endLine": 77,
+        "endChar": 88
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1692,6 +2004,30 @@
     },
     {
       "key": {
+        "uuid": "8d9e4d7e_82b0fcc9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "If setProxyOverride is called, whatever is in the system default will be ignored. URLs are going to use the proxy rules, unless they match a pattern in the bypass rule, in which case they are connected directly (i.e. without using any proxy)",
+      "parentUuid": "586e0699_e21d6746",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6609d5f_ca32b854",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
         "patchSetId": 8
@@ -1712,6 +2048,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1792130_03aec745",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6609d5f_ca32b854",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 40
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1783,6 +2143,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "843a90df_cbd5f0a8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "adbec6b2_c24be0d1",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 72
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1877,6 +2261,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e459630f_d1c757c7",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Rephrased, closing this and we can discuss in the next patchset if needed.",
+      "parentUuid": "e3577a56_4259a7aa",
+      "range": {
+        "startLine": 166,
+        "startChar": 71,
+        "endLine": 167,
+        "endChar": 43
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -2136,6 +2544,30 @@
       "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b600d6_ecfb32dd",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-13T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef80550_61aa3b4f",
+      "range": {
+        "startLine": 284,
+        "startChar": 15,
+        "endLine": 284,
+        "endChar": 22
+      },
+      "revId": "95b25b3d9693b830610c8a34fca1759acca840f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
