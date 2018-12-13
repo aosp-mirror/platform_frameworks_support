@@ -339,6 +339,30 @@
     },
     {
       "key": {
+        "uuid": "e456a6bd_32497f23",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-13T05:47:56Z",
+      "side": 1,
+      "message": "FYI, https://source.android.com/setup/contribute/code-style#use-javadoc-standard-comments",
+      "parentUuid": "adbe41a3_27946ce9",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "3dc5b8a7687b329c76c23839a3ca22cd34c1a3b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33727056_a2ee953a",
         "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
         "patchSetId": 6
