@@ -22,6 +22,30 @@
       "revId": "07a584eeaa85f9af3d57ca78d1be2c52c49650fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f878d22_9c545338",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 8089,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-12-13T00:56:51Z",
+      "side": 1,
+      "message": "Yea exactly, when the adapter get\u0027s detached, it shouldn\u0027t still be acted on.",
+      "parentUuid": "2dc6ce71_4f8e0f17",
+      "range": {
+        "startLine": 8086,
+        "startChar": 12,
+        "endLine": 8089,
+        "endChar": 82
+      },
+      "revId": "07a584eeaa85f9af3d57ca78d1be2c52c49650fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
