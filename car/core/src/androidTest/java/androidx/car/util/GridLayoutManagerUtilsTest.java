@@ -20,6 +20,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -167,6 +168,197 @@ public final class GridLayoutManagerUtilsTest {
             assertTrue(GridLayoutManagerUtils.isOnLastRow(child, recyclerView));
         }
     }
+
+    @Test
+    public void testGetFirstRowItemCount_singleItem() {
+        int itemCount = 1;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertEquals(itemCount, GridLayoutManagerUtils.getFirstRowItemCount(recyclerView));
+    }
+
+    @Test
+    public void testGetFirstRowItemCount_singleItemFullSpan() throws Throwable {
+        int itemCount = 1;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        mActivityRule.runOnUiThread(() -> {
+            ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(
+                    new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            return SPAN_COUNT;
+                        }
+                    });
+        });
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertEquals(itemCount, GridLayoutManagerUtils.getFirstRowItemCount(recyclerView));
+    }
+
+    @Test
+    public void testGetFirstRowItemCount_nonFullFirstRow() {
+        int itemCount = SPAN_COUNT - 1;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertEquals(itemCount, GridLayoutManagerUtils.getFirstRowItemCount(recyclerView));
+    }
+
+    @Test
+    public void testGetFirstRowItemCount_fullRow() {
+        int itemCount = SPAN_COUNT + 1;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertEquals(SPAN_COUNT, GridLayoutManagerUtils.getFirstRowItemCount(recyclerView));
+    }
+
+    @Test
+    public void testGetFirstRowItemCount_ItemsOfMultiSpan() throws Throwable {
+        int itemCount = SPAN_COUNT * 20;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        mActivityRule.runOnUiThread(() -> {
+            ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(
+                    new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            return position % 2 + 1;
+                        }
+                    });
+        });
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        // Every 2 items take up 3 span. If there's extra span it can fit one more item.
+        int expected = (SPAN_COUNT / 3) * 2 + (SPAN_COUNT % 3 > 0 ? 1 : 0);
+        assertEquals(expected, GridLayoutManagerUtils.getFirstRowItemCount(recyclerView));
+    }
+
+    @Test
+    public void testGetLastViewOnSameRow_singleItem() {
+        int itemCount = 1;
+
+        setUpPagedListView(itemCount);
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        View first = recyclerView.getLayoutManager().findViewByPosition(0);
+
+        assertTrue(first == GridLayoutManagerUtils.getLastViewOnSameRow(
+                first, recyclerView));
+    }
+
+    @Test
+    public void testGetLastViewOnSameRow() {
+        // Ensure there are at least 2 rows of items.
+        int itemCount = SPAN_COUNT * 2;
+
+        setUpPagedListView(itemCount);
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        View last = recyclerView.getLayoutManager().findViewByPosition(SPAN_COUNT - 1);
+
+        for (int i = 0; i < SPAN_COUNT; i++) {
+            View current = recyclerView.getLayoutManager().findViewByPosition(i);
+            assertTrue(last == GridLayoutManagerUtils.getLastViewOnSameRow(
+                    current, recyclerView));
+        }
+    }
+
+    @Test
+    public void testGetLastViewOnSameRow_LastRowNotFull() {
+        int lastRowFirstItem = SPAN_COUNT * 20;
+        int lastRowLastItem = lastRowFirstItem + SPAN_COUNT - 1;
+        int itemCount = lastRowLastItem + 1;
+
+        setUpPagedListView(itemCount);
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(lastRowLastItem));
+
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        View last = recyclerView.getLayoutManager().findViewByPosition(lastRowLastItem);
+
+        for (int i = lastRowFirstItem; i < itemCount; i++) {
+            View current = recyclerView.getLayoutManager().findViewByPosition(i);
+            assertTrue(last == GridLayoutManagerUtils.getLastViewOnSameRow(
+                    current, recyclerView));
+        }
+    }
+
+    @Test
+    public void testGetLastViewOnSameRow_ItemsOfMultiSpan() throws Throwable {
+        int itemCount = SPAN_COUNT * 20;
+
+        setUpPagedListView(itemCount);
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        mActivityRule.runOnUiThread(() -> {
+            ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(
+                    new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            return position % 2 + 1;
+                        }
+                    });
+        });
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        // Every 2 items take up 3 span. If there's extra span it can fit one more item.
+        int lastItem = (SPAN_COUNT / 3) * 2 + (SPAN_COUNT % 3 > 0 ? 1 : 0);
+        View last = recyclerView.getLayoutManager().findViewByPosition(lastItem);
+
+        for (int i = 0; i < lastItem; i++) {
+            View current = recyclerView.getLayoutManager().findViewByPosition(i);
+            assertTrue(last == GridLayoutManagerUtils.getLastViewOnSameRow(
+                    current, recyclerView));
+        }
+    }
+
+    @Test
+    public void testGetLastViewOnSameRow_fullRow() {
+        int itemCount = 1;
+
+        setUpPagedListView(itemCount);
+
+        // Wait for the UI to lay itself out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        RecyclerView recyclerView = mPagedListView.getRecyclerView();
+        View firstItem = recyclerView.getLayoutManager().findViewByPosition(0);
+
+        assertTrue(firstItem == GridLayoutManagerUtils.getLastViewOnSameRow(
+                firstItem, recyclerView));
+    }
+
 
     /** Sets up {@link #mPagedListView} with the given number of items. */
     private void setUpPagedListView(int itemCount) {

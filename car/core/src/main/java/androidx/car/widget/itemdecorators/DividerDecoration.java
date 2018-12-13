@@ -109,8 +109,8 @@ public class DividerDecoration extends RecyclerView.ItemDecoration {
             View nextVerticalContainer;
             if (usesGridLayoutManager) {
                 // Find an item in next row to calculate vertical space.
-                int lastItem = GridLayoutManagerUtils.getLastIndexOnSameRow(i, parent);
-                nextVerticalContainer = parent.getChildAt(lastItem + 1);
+                nextVerticalContainer = GridLayoutManagerUtils.getLastViewOnSameRow(
+                        container, parent);
             } else {
                 nextVerticalContainer = parent.getChildAt(i + 1);
             }

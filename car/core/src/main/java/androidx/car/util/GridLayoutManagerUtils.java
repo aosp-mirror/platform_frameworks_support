@@ -77,28 +77,36 @@ public class GridLayoutManagerUtils {
     }
 
     /**
-     * Returns the index of the last item that is on the same row as {@code index}.
+     * Returns the child view of the last item that is on the same row as input {@code view}.
      *
-     * @param index index of child {@code View} in {@code parent}.
-     * @param parent {@link RecyclerView} that contains the View {@code index} points to.
+     * @param view The view to inspect.
+     * @param parent {@link RecyclerView} that contains the given view.
      */
-    public static int getLastIndexOnSameRow(int index, RecyclerView parent) {
-        int spanCount = ((GridLayoutManager) parent.getLayoutManager()).getSpanCount();
-        int spanSum = GridLayoutManagerUtils.getSpanIndex(parent.getChildAt(index));
-        for (int i = index; i < parent.getChildCount(); i++) {
-            spanSum += GridLayoutManagerUtils.getSpanSize(parent.getChildAt(i));
-            if (spanSum > spanCount) {
-                // We have reached next row.
+    public static View getLastViewOnSameRow(View view, RecyclerView parent) {
+        GridLayoutManager glm =  ((GridLayoutManager) parent.getLayoutManager());
+        int spanCount = glm.getSpanCount();
 
-                // Implicit constraint by grid layout manager:
-                // Initial spanSum + spanSize would not exceed spanCount, so it's safe to
-                // subtract 1.
-                return i - 1;
+        int spanSum = getSpanIndex(view) + getSpanSize(view);
+
+        int position = parent.getChildAdapterPosition(view);
+        int itemCount = parent.getAdapter().getItemCount();
+        while (position < itemCount) {
+            View current = glm.findViewByPosition(position);
+            View next = glm.findViewByPosition(position + 1);
+            if (next == null) {
+                // Assuming views in the same row are all laid out.
+                // Next row is not laid out yet. We are at the last view.
+                return current;
             }
+
+            int spanSize = getSpanSize(next);
+            if (spanSum + spanSize > spanCount) {
+                return current;
+            }
+            spanSum += spanSize;
+            position++;
         }
-        // Still have not reached row end. Assuming the list only scrolls vertically, we are at
-        // the last row.
-        return parent.getChildCount() - 1;
+        return glm.findViewByPosition(itemCount - 1);
     }
 
     /**
@@ -110,33 +118,8 @@ public class GridLayoutManagerUtils {
      * @return {@code true} if the given view is on the last row of the {@code RecyclerView}.
      */
     public static boolean isOnLastRow(View view, RecyclerView parent) {
-        GridLayoutManager layoutManager = ((GridLayoutManager) parent.getLayoutManager());
-
-        int lastChildPosition = parent.getAdapter().getItemCount() - 1;
-        int currentChildPosition = parent.getChildAdapterPosition(view);
-
-        // The last view is automatically on the last row.
-        if (currentChildPosition == lastChildPosition) {
-            return true;
-        }
-
-        GridLayoutManager.SpanSizeLookup spanSizeLookup = layoutManager.getSpanSizeLookup();
-        int spanSum = getSpanIndex(view) + spanSizeLookup.getSpanSize(currentChildPosition);
-        int spanCount = layoutManager.getSpanCount();
-
-        // Iterate to the end of the row starting from the current child position.
-        while (spanSum < spanCount) {
-            currentChildPosition++;
-
-            // Encountered the last child on the row, meaning the given View is on the last row.
-            if (currentChildPosition == lastChildPosition) {
-                return true;
-            }
-
-            spanSum += spanSizeLookup.getSpanSize(currentChildPosition);
-        }
-
-        // Last child is not on the current row, meaning the current row is not the last row.
-        return false;
+        View lastViewOnSameRow = getLastViewOnSameRow(view, parent);
+        int lastViewOnSameRowPosition = parent.getChildAdapterPosition(lastViewOnSameRow);
+        return lastViewOnSameRowPosition == parent.getAdapter().getItemCount() - 1;
     }
 }
