@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f3bb895_2f2bb95c",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2Impl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-13T23:50:48Z",
+      "side": 1,
+      "message": "Just for headsup, there is a possibility we might not throw an exception in framework implementation. Once it\u0027s finalized in framework side, I\u0027ll update the implementations in androidx side. Thanks,",
+      "range": {
+        "startLine": 1872,
+        "startChar": 12,
+        "endLine": 1872,
+        "endChar": 80
+      },
+      "revId": "266a8ea103d861af85e6f14d5566f2cc2d232ba1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
