@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b54fe7d_ca5a2ede",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-13T02:57:29Z",
+      "side": 1,
+      "message": "Would it work well with playlist? For instance, what will happen if SessionPlayer wants to play the previous song? Wouldn\u0027t it be already closed by removeParcel...Client()?",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 70
+      },
+      "revId": "6e38333af9bf12b7e3e6632133d40c8523be1f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f8ddd5d_6586824b",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-13T02:57:29Z",
+      "side": 1,
+      "message": "Closes",
+      "range": {
+        "startLine": 158,
+        "startChar": 7,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "6e38333af9bf12b7e3e6632133d40c8523be1f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
