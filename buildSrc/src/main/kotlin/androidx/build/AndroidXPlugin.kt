@@ -96,7 +96,8 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                        variant -> verifyDependencyVersionsTask
+                                        .dependsOn(variant.javaCompileProvider)
                     }
                 }
                 is AppPlugin -> {
@@ -120,6 +121,7 @@ class AndroidXPlugin : Plugin<Project> {
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
+
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
@@ -235,7 +237,9 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Disable generating BuildConfig.java
         extension.variants.all {
-            it.generateBuildConfig.enabled = false
+            it.generateBuildConfigProvider.configure {
+                it.enabled = false
+            }
         }
 
         configureErrorProneForAndroid(extension.variants)
