@@ -22,6 +22,30 @@
       "revId": "b24ede9f8ac3247bd3ce8ace5f1e219f6855591c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b22674c_a1b2e415",
+        "filename": "media2/src/main/java/androidx/media2/DataSourceCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2018-12-13T22:49:29Z",
+      "side": 1,
+      "message": "I think this change resolves the ambiguity, and it seems preferable to have just one way for apps to signal an error (throwing) rather than allowing both throwing and returning a value \u003c -1 for this. If there\u0027s a reason to have both please let me know and I\u0027ll update this accordingly.",
+      "parentUuid": "bcdcea2e_1deb3bea",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "b24ede9f8ac3247bd3ce8ace5f1e219f6855591c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
