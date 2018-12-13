@@ -34,6 +34,24 @@
       "revId": "bff89b323fd367cd0ffee8728d5032573425d1e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4817be0f_99d8e5eb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-13T00:50:19Z",
+      "side": 1,
+      "message": "I\u0027ve created a followup CL for styling. seems like things have changed so actually we may need more.\n\naosp/849192\n\ni\u0027ll try to merge this one after i verify outputs.",
+      "parentUuid": "74d5a077_44541b2a",
+      "revId": "bff89b323fd367cd0ffee8728d5032573425d1e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
