@@ -27,12 +27,15 @@ import androidx.build.java.JavaCompileInputs
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getPlugin
 import org.jetbrains.dokka.gradle.DokkaPlugin
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.DokkaVersion
 import org.jetbrains.dokka.gradle.PackageOptions
+import java.io.File
 
 object Dokka {
     private val RUNNER_TASK_NAME = "dokka"
@@ -56,34 +59,41 @@ object Dokka {
         "androidx.work.impl.utils.taskexecutor"
     )
 
-    fun getDocsTask(project: Project): DokkaTask {
+    fun getDocsTask(project: Project): TaskProvider<DokkaTask> {
         return project.rootProject.getOrCreateDocsTask()
     }
 
     @Synchronized
-    fun Project.getOrCreateDocsTask(): DokkaTask {
+    fun Project.getOrCreateDocsTask(): TaskProvider<DokkaTask> {
         val runnerProject = this
         if (runnerProject.tasks.findByName(Dokka.RUNNER_TASK_NAME) == null) {
-            project.apply<DokkaPlugin>()
-            val docsTask = project.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
-            docsTask.outputFormat = "dac"
-            for (hiddenPackage in hiddenPackages) {
-                val opts = PackageOptions()
-                opts.prefix = hiddenPackage
-                opts.suppress = true
-                docsTask.perPackageOptions.add(opts)
+            //project.apply<DokkaPlugin>()
+            DokkaVersion.loadFrom(DokkaPlugin::class.java.getResourceAsStream("/META-INF/gradle-plugins/org.jetbrains.dokka.properties"))
+            project.tasks.register("dokka", DokkaTask::class.java) {
+                it.moduleName = project.name
+                it.outputDirectory = File(project.buildDir, "dokka").absolutePath
+                val docsTask = project.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
+                docsTask.outputFormat = "dac"
+                for (hiddenPackage in hiddenPackages) {
+                    val opts = PackageOptions()
+                    opts.prefix = hiddenPackage
+                    opts.suppress = true
+                    docsTask.perPackageOptions.add(opts)
+                }
+                project.tasks.create(ARCHIVE_TASK_NAME, Zip::class.java) { task ->
+                    task.dependsOn(docsTask)
+                    task.description =
+                            "Generates documentation artifact for pushing to developer.android.com"
+                    task.from(docsTask.outputDirectory)
+                    task.baseName = "android-support-dokka-docs"
+                    task.version = getBuildId()
+                    task.destinationDir = project.getDistributionDirectory()
+                }
             }
-            project.tasks.create(ARCHIVE_TASK_NAME, Zip::class.java) { task ->
-                task.dependsOn(docsTask)
-                task.description =
-                        "Generates documentation artifact for pushing to developer.android.com"
-                task.from(docsTask.outputDirectory)
-                task.baseName = "android-support-dokka-docs"
-                task.version = getBuildId()
-                task.destinationDir = project.getDistributionDirectory()
-            }
+
         }
-        return runnerProject.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
+        @Suppress("UNCHECKED_CAST")
+        return runnerProject.tasks.named(Dokka.RUNNER_TASK_NAME) as TaskProvider<DokkaTask>
     }
 
     fun registerAndroidProject(
@@ -97,10 +107,10 @@ object Dokka {
         }
         library.libraryVariants.all { variant ->
             if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
-                project.afterEvaluate({
+                project.afterEvaluate {
                     val inputs = JavaCompileInputs.fromLibraryVariant(library, variant)
                     registerInputs(inputs, project)
-                })
+                }
             }
         }
         DiffAndDocs.get(project).registerPrebuilts(extension)
@@ -116,18 +126,19 @@ object Dokka {
         }
         val javaPluginConvention = project.convention.getPlugin<JavaPluginConvention>()
         val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
-        project.afterEvaluate({
+        project.afterEvaluate {
             val inputs = JavaCompileInputs.fromSourceSet(mainSourceSet, project)
             registerInputs(inputs, project)
-        })
+        }
         DiffAndDocs.get(project).registerPrebuilts(extension)
     }
 
     fun registerInputs(inputs: JavaCompileInputs, project: Project) {
-        val docsTask = getDocsTask(project)
-        docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath =
-                docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
-        docsTask.dependsOn(inputs.dependencyClasspath)
+        getDocsTask(project).configure {
+            it.sourceDirs += inputs.sourcePaths
+            it.classpath =
+                    it.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
+            it.dependsOn(inputs.dependencyClasspath)
+        }
     }
 }

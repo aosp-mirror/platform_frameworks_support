@@ -51,9 +51,11 @@ dependencies {
 android.libraryVariants.all { variant ->
     def name = variant.name
     def suffix = name.capitalize()
-    project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
+    project.tasks.register("jar${suffix}", Jar){
+        it.dependsOn variant.javaCompileProvider
+        from variant.javaCompileProvider.map {
+            it.destinationDir
+        }
         destinationDir new File(project.buildDir, "libJar")
     }
 }
