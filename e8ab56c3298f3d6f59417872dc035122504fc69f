@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "80968596_e34bccf5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70b66963_65644154",
+      "range": {
+        "startLine": 46,
+        "startChar": 63,
+        "endLine": 46,
+        "endChar": 86
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f5f857f_06e51276",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -80,6 +104,30 @@
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9bc84c_3af93fc9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f5f857f_06e51276",
+      "range": {
+        "startLine": 63,
+        "startChar": 63,
+        "endLine": 63,
+        "endChar": 86
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "19fb0dde_ae37f8e5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "599b71f2_e4186673",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22ae6a67_868b53a9",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -177,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "16708212_3afa9756",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eac70c5_39ff58b0",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8d0541a_cd47c032",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -200,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "87118e96_45f9853d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d0541a_cd47c032",
+      "range": {
+        "startLine": 105,
+        "startChar": 28,
+        "endLine": 105,
+        "endChar": 51
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c9f27f4_c87f8c29",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -211,6 +331,30 @@
       "writtenOn": "2018-12-07T20:29:49Z",
       "side": 1,
       "message": "I know they were in the initial logging solution to make querying easier, but I\u0027m wondering if we want to keep adding this redundant information? (afaik we\u0027ve never used these deltas in any analysis)",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 5
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68aebb1c_ce58a30b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Will remove.",
+      "parentUuid": "2c9f27f4_c87f8c29",
       "range": {
         "startLine": 282,
         "startChar": 4,
@@ -318,6 +462,30 @@
     },
     {
       "key": {
+        "uuid": "d125f371_d86858cb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7171688_82769867",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcc5ad6f_842aa7bc",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -365,6 +533,30 @@
     },
     {
       "key": {
+        "uuid": "7d2aa5f7_e42f2eaa",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efeada59_1fed6132",
+      "range": {
+        "startLine": 416,
+        "startChar": 11,
+        "endLine": 416,
+        "endChar": 79
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee8df035_85987269",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -388,6 +580,30 @@
     },
     {
       "key": {
+        "uuid": "cae87f29_2827518c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "These are going away.",
+      "parentUuid": "ee8df035_85987269",
+      "range": {
+        "startLine": 444,
+        "startChar": 71,
+        "endLine": 444,
+        "endChar": 91
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fba7db1a_f5e1e179",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -399,6 +615,30 @@
       "writtenOn": "2018-12-07T20:29:49Z",
       "side": 1,
       "message": "nit: start and end are quite general. did you consider more specific variants like: setRelativeWordStart, setRelativeWordEnd, setRelativeSuggestedWordStart, setRelativeSuggestedWordEnd?",
+      "range": {
+        "startLine": 471,
+        "startChar": 23,
+        "endLine": 471,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "160234ad_3574dc98",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Yeah. Those sound much better.",
+      "parentUuid": "fba7db1a_f5e1e179",
       "range": {
         "startLine": 471,
         "startChar": 23,
@@ -458,6 +698,30 @@
     },
     {
       "key": {
+        "uuid": "7ad50a0c_a097f9e3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f259d8ea_94e01702",
+      "range": {
+        "startLine": 477,
+        "startChar": 9,
+        "endLine": 477,
+        "endChar": 89
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aadae019_1c29005e",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -505,6 +769,30 @@
     },
     {
       "key": {
+        "uuid": "7b2399b2_2b314398",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9434bc4_f4c3d188",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 496,
+        "endChar": 11
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f50eb951_41b1d330",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -528,6 +816,30 @@
     },
     {
       "key": {
+        "uuid": "105fb2ec_ed206701",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "This is not a list of Ids. The actions don\u0027t have Ids.\nThis is a list of indices. i.e. action at index a, action at index b, etc.",
+      "parentUuid": "f50eb951_41b1d330",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2206501_4ac64aca",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -539,6 +851,30 @@
       "writtenOn": "2018-12-07T20:29:49Z",
       "side": 1,
       "message": "Maybe we could also have actionProbabilities?",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 37
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d605f2b_ab2cb37b",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Not clear to me what that is needed for.\nI can add them when its use is clear.",
+      "parentUuid": "b2206501_4ac64aca",
       "range": {
         "startLine": 509,
         "startChar": 23,
@@ -586,6 +922,24 @@
     },
     {
       "key": {
+        "uuid": "0bc2b461_43ac074d",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb91cdc1_9e54decb",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f8626ec_66a8b25d",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -597,6 +951,30 @@
       "writtenOn": "2018-12-07T20:29:49Z",
       "side": 1,
       "message": "Maybe add someting like languageConfidence as well?",
+      "range": {
+        "startLine": 519,
+        "startChar": 23,
+        "endLine": 519,
+        "endChar": 34
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9215cdc2_d06c7762",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "I still didn\u0027t understand from the thread what the use case of this will be.\nI can add it once its clear what this will be used for.",
+      "parentUuid": "7f8626ec_66a8b25d",
       "range": {
         "startLine": 519,
         "startChar": 23,
@@ -644,6 +1022,24 @@
     },
     {
       "key": {
+        "uuid": "7a1c3598_71aded11",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1623518_e56b3941",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d84eff47_936c8631",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -676,6 +1072,24 @@
       "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027ea60c_cf2676b6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-13T03:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1cb8e92_765bfbfd",
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
