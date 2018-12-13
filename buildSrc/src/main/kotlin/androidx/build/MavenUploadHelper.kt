@@ -21,6 +21,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.maven.MavenDeployer
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.Upload
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.withGroovyBuilder
@@ -28,40 +29,20 @@ import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
 fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
-    afterEvaluate {
-        if (extension.publish) {
-            val mavenGroup = extension.mavenGroup
-            if (mavenGroup == null) {
-                throw Exception("You must specify mavenGroup for $name project")
-            }
-            if (extension.mavenVersion == null) {
-                throw Exception("You must specify mavenVersion for $name project")
-            }
-            val strippedGroupId = mavenGroup.substringAfterLast(".")
-            if (mavenGroup.startsWith("androidx") && !name.startsWith(strippedGroupId)) {
-                throw Exception("Your artifactId must start with $strippedGroupId")
-            }
-            group = mavenGroup
-        }
-    }
-
     apply(mapOf("plugin" to "maven"))
-
-    // Set uploadArchives options.
-    val uploadTask = tasks.getByName("uploadArchives") as Upload
 
     val repo = uri(rootProject.property("supportRepoOut") as File)
             ?: throw Exception("supportRepoOut not set")
-
-    uploadTask.repositories {
-        it.withGroovyBuilder {
-            "mavenDeployer" {
-                "repository"(mapOf("url" to repo))
+    // Set uploadArchives options.
+    (tasks.named("uploadArchives") as TaskProvider<Upload>).configure { uploadTask ->
+        uploadTask.repositories {
+            it.withGroovyBuilder {
+                "mavenDeployer" {
+                    "repository"(mapOf("url" to repo))
+                }
             }
         }
-    }
 
-    afterEvaluate {
         if (extension.publish) {
             uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
                 mavenDeployer.getPom().project {
@@ -114,7 +95,7 @@ fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
                             }
 
                             val getScopeMethod =
-                                    dep::class.java.getDeclaredMethod("getScope")
+                                dep::class.java.getDeclaredMethod("getScope")
                             getScopeMethod.invoke(dep) as String == "test"
                         }
                         it.dependencies.forEach { dep ->
@@ -123,15 +104,15 @@ fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
                             }
 
                             val getGroupIdMethod =
-                                    dep::class.java.getDeclaredMethod("getGroupId")
+                                dep::class.java.getDeclaredMethod("getGroupId")
                             val groupId: String = getGroupIdMethod.invoke(dep) as String
                             val getArtifactIdMethod =
-                                    dep::class.java.getDeclaredMethod("getArtifactId")
+                                dep::class.java.getDeclaredMethod("getArtifactId")
                             val artifactId: String = getArtifactIdMethod.invoke(dep) as String
 
                             if (isAndroidProject(groupId, artifactId, allDeps)) {
                                 val setTypeMethod = dep::class.java.getDeclaredMethod("setType",
-                                        java.lang.String::class.java)
+                                    java.lang.String::class.java)
                                 setTypeMethod.invoke(dep, "aar")
                             }
                         }

@@ -15,6 +15,7 @@
  */
 
 
+import androidx.build.jacoco.Jacoco
 import androidx.build.BuildServerConfigurationKt
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.gmaven.GMavenVersionChecker
@@ -76,19 +77,24 @@ def setupSubprojectsForBuildServer() {
                     // and test coverage is enabled
                     if (v.buildType.testCoverageEnabled
                             && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
-                        def jarifyTask = project.tasks.create(
-                                name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
-                                type: Jar) {
-                            from v.testedVariant.javaCompile.destinationDir
+                        def jarifyTask = project.tasks.register(
+                                "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                                Jar) {
+                            from v.testedVariant.javaCompileProvider.map {
+                                it.destinationDir
+                            }
                             exclude "**/R.class"
                             exclude "**/R\$*.class"
                             exclude "**/BuildConfig.class"
                             destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
                         }
+                        Jacoco.registerSubTask(project, jarifyTask)
 
-                        jarifyTask.dependsOn v.getJavaCompileProvider()
-                        v.assemble.dependsOn jarifyTask
+                        jarifyTask.get().dependsOn v.getJavaCompileProvider()
+                        v.assembleProvider.configure {
+                            it.dependsOn jarifyTask
+                        }
                     }
                 }
             }

@@ -16,6 +16,7 @@
 package androidx.build.license
 
 import androidx.build.gradle.isRoot
+import androidx.build.lazyDependsOn
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -107,11 +108,13 @@ fun Project.configureExternalDependencyLicenseCheck() {
     if (isRoot) {
         // Create an empty task in the root which will depend on all the per-project child tasks.
         // TODO have the normal license check run here so it catches the buildscript classpath.
-        tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME)
+        tasks.register(CheckExternalDependencyLicensesTask.TASK_NAME)
     } else {
-        val task = tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME,
-                CheckExternalDependencyLicensesTask::class.java)
-        configurations.create(CheckExternalDependencyLicensesTask.CONFIGURATION_NAME)
-        rootProject.tasks.getByName(CheckExternalDependencyLicensesTask.TASK_NAME).dependsOn(task)
+        val task = tasks.register(CheckExternalDependencyLicensesTask.TASK_NAME,
+                CheckExternalDependencyLicensesTask::class.java) {
+            configurations.create(CheckExternalDependencyLicensesTask.CONFIGURATION_NAME)
+        }
+
+        rootProject.tasks.named(CheckExternalDependencyLicensesTask.TASK_NAME).lazyDependsOn(task)
     }
 }

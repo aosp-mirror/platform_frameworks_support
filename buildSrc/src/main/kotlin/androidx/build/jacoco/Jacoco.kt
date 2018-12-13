@@ -17,8 +17,10 @@
 package androidx.build.jacoco
 
 import androidx.build.getDistributionDirectory
+import androidx.build.lazyDependsOn
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
 
@@ -48,19 +50,21 @@ object Jacoco {
         return task
     }
 
-    fun createCoverageJarTask(project: Project): Task {
+    @JvmStatic
+    fun registerSubTask(project : Project, provider : TaskProvider<Task>) {
+        getRootCoverageTask(project).lazyDependsOn(provider)
+    }
+
+    fun getRootCoverageTask(project : Project) : TaskProvider<Jar> {
+        return project.rootProject.tasks.named("packageAllClassFilesForCoverageReport") as TaskProvider<Jar>
+    }
+
+    fun createCoverageJarTask(project: Project): TaskProvider<Jar> {
         // Package the individual *-allclasses.jar files together to generate code coverage reports
-        val packageAllClassFiles = project.tasks.create("packageAllClassFilesForCoverageReport",
-                Jar::class.java) {
-            it.destinationDir = project.getDistributionDirectory()
-            it.archiveName = "jacoco-report-classes-all.jar"
-        }
-        project.subprojects { subproject ->
-            subproject.tasks.whenTaskAdded { task ->
-                if (task.name.endsWith("ClassFilesForCoverageReport")) {
-                    packageAllClassFiles.from(task)
-                }
-            }
+        val packageAllClassFiles = project.tasks.register("packageAllClassFilesForCoverageReport",
+                Jar::class.java) { packageAllTask ->
+            packageAllTask.destinationDir = project.getDistributionDirectory()
+            packageAllTask.archiveName = "jacoco-report-classes-all.jar"
         }
         return packageAllClassFiles
     }
