@@ -30,7 +30,7 @@ import org.junit.Before;
 import org.junit.Rule;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class TestDatabaseTest {
+public abstract class TestTestDatabaseTest {
 
     @Rule
     public CountingTaskExecutorRule mExecutorRule = new CountingTaskExecutorRule();
