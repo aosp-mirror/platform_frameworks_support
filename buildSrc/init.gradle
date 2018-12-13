@@ -76,10 +76,12 @@ def setupSubprojectsForBuildServer() {
                     // and test coverage is enabled
                     if (v.buildType.testCoverageEnabled
                             && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
-                        def jarifyTask = project.tasks.create(
-                                name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
-                                type: Jar) {
-                            from v.testedVariant.javaCompile.destinationDir
+                        def jarifyTask = project.tasks.register(
+                                "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                                Jar) {
+                            from v.testedVariant.javaCompileProvider.map {
+                                it.destinationDir
+                            }
                             exclude "**/R.class"
                             exclude "**/R\$*.class"
                             exclude "**/BuildConfig.class"
@@ -87,8 +89,10 @@ def setupSubprojectsForBuildServer() {
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
                         }
 
-                        jarifyTask.dependsOn v.getJavaCompileProvider()
-                        v.assemble.dependsOn jarifyTask
+                        jarifyTask.get().dependsOn v.getJavaCompileProvider()
+                        v.assembleProvider.configure {
+                            it.dependsOn jarifyTask
+                        }
                     }
                 }
             }

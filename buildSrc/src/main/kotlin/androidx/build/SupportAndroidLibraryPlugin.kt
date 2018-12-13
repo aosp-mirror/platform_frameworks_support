@@ -81,18 +81,19 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
             library.libraryVariants.all { libraryVariant ->
                 if (libraryVariant.getBuildType().getName().equals("debug")) {
                     @Suppress("DEPRECATION")
-                    val javaCompile = libraryVariant.javaCompile
-                    if (supportLibraryExtension.failOnUncheckedWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:unchecked")
-                    }
-                    if (supportLibraryExtension.failOnDeprecationWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:deprecation")
-                    }
-                    // We don't want maxDepVersions to fail when it finds a warning because
-                    // if we introduce warnings to new libraries that were okay to use before,
-                    // we'd like to only display a warning and fix later.
-                    if (libraryVariant.flavorName != "maxDepVersions") {
-                        javaCompile.options.compilerArgs.add("-Werror")
+                    libraryVariant.javaCompileProvider.configure { javaCompile ->
+                        if (supportLibraryExtension.failOnUncheckedWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:unchecked")
+                        }
+                        if (supportLibraryExtension.failOnDeprecationWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:deprecation")
+                        }
+                        // We don't want maxDepVersions to fail when it finds a warning because
+                        // if we introduce warnings to new libraries that were okay to use before,
+                        // we'd like to only display a warning and fix later.
+                        if (libraryVariant.flavorName != "maxDepVersions") {
+                            javaCompile.options.compilerArgs.add("-Werror")
+                        }
                     }
                 }
             }

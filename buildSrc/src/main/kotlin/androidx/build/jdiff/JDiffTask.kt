@@ -16,6 +16,7 @@
 
 package androidx.build.jdiff
 
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
@@ -50,10 +51,10 @@ open class JDiffTask : Javadoc() {
         }
 
     @get:InputFile
-    lateinit var oldApiXmlFile: File
+    lateinit var oldApiXmlFile: Provider<File>
 
     @get:InputFile
-    lateinit var newApiXmlFile: File
+    lateinit var newApiXmlFile: Provider<File>
 
     /**
      * Relative path to the Javadoc corresponding to the old API, relative to
@@ -94,8 +95,8 @@ open class JDiffTask : Javadoc() {
             options.addStringOption("stats")
         }
 
-        val oldApiXmlFileDir = oldApiXmlFile.parentFile
-        val newApiXmlFileDir = newApiXmlFile.parentFile
+        val oldApiXmlFileDir = oldApiXmlFile.get().parentFile
+        val newApiXmlFileDir = newApiXmlFile.get().parentFile
 
         if (oldApiXmlFileDir.exists()) {
             options.addStringOption("oldapidir", oldApiXmlFileDir.absolutePath)
@@ -103,12 +104,12 @@ open class JDiffTask : Javadoc() {
         // For whatever reason, jdiff appends .xml to the file name on its own.
         // Strip the .xml off the end of the file name
         options.addStringOption("oldapi",
-                oldApiXmlFile.name.substring(0, oldApiXmlFile.name.length - 4))
+                oldApiXmlFile.get().name.substring(0, oldApiXmlFile.get().name.length - 4))
         if (newApiXmlFileDir.exists()) {
             options.addStringOption("newapidir", newApiXmlFileDir.absolutePath)
         }
         options.addStringOption("newapi",
-                newApiXmlFile.name.substring(0, newApiXmlFile.name.length - 4))
+                newApiXmlFile.get().name.substring(0, newApiXmlFile.get().name.length - 4))
 
         if (oldJavadocPrefix != null) {
             options.addStringOption("javadocold", oldJavadocPrefix)

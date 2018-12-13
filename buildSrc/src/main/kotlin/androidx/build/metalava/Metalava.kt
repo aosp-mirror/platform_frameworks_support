@@ -16,9 +16,9 @@
 
 package androidx.build.metalava
 
-import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
+import androidx.build.AndroidXPlugin
+import androidx.build.Release
 import androidx.build.SupportLibraryExtension
-import androidx.build.androidJarFile
 import androidx.build.checkapi.ApiLocation
 import androidx.build.checkapi.getCurrentApiLocation
 import androidx.build.checkapi.getRequiredCompatibilityApiLocation
@@ -26,11 +26,12 @@ import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
 import androidx.build.docsDir
 import androidx.build.java.JavaCompileInputs
-import androidx.build.Release
+import androidx.build.lazyDependsOn
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.getPlugin
 import java.io.File
 
@@ -84,10 +85,12 @@ object Metalava {
         setupProject(project, javaInputs, extension)
     }
 
-    fun applyInputs(inputs: JavaCompileInputs, task: MetalavaTask) {
-        task.sourcePaths = inputs.sourcePaths
-        task.dependencyClasspath = inputs.dependencyClasspath
-        task.bootClasspath = inputs.bootClasspath
+    fun applyInputs(inputs: JavaCompileInputs, task: TaskProvider<out MetalavaTask>) {
+        task.configure {
+            it.sourcePaths = inputs.sourcePaths
+            it.dependencyClasspath = inputs.dependencyClasspath
+            it.bootClasspath = inputs.bootClasspath
+        }
     }
 
     fun setupProject(project: Project, javaCompileInputs: JavaCompileInputs, extension: SupportLibraryExtension) {
@@ -107,37 +110,37 @@ object Metalava {
 
         val builtApiLocation = ApiLocation.fromPublicApiFile(File(project.docsDir(), "release/${project.name}/current.txt"))
 
-        var generateApi = project.tasks.create("generateApi", GenerateApiTask::class.java) { task ->
+        var generateApi = project.tasks.register("generateApi", GenerateApiTask::class.java) { task ->
             task.apiLocation = builtApiLocation
             task.configuration = metalavaConfiguration
             task.dependsOn(metalavaConfiguration)
         }
         applyInputs(javaCompileInputs, generateApi)
 
-        val checkApi = project.tasks.create("checkApi", CheckApiEquivalenceTask::class.java) { task ->
-            task.builtApi = generateApi.apiLocation
+        val checkApi = project.tasks.register("checkApi", CheckApiEquivalenceTask::class.java) { task ->
+            task.builtApi = generateApi.get().apiLocation
             task.checkedInApis = outputApiLocations
             task.dependsOn(generateApi)
         }
 
         val lastReleasedApiFile = project.getRequiredCompatibilityApiLocation()
         if (lastReleasedApiFile != null) {
-            val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
+            val checkApiRelease = project.tasks.register("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
                  task.configuration = metalavaConfiguration
                  task.apiLocation = lastReleasedApiFile
                  task.dependsOn(metalavaConfiguration)
              }
              applyInputs(javaCompileInputs, checkApiRelease)
-             checkApi.dependsOn(checkApiRelease)
+             checkApi.lazyDependsOn(checkApiRelease)
         }
 
-        project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
-            task.inputApiLocation = generateApi.apiLocation
-            task.outputApiLocations = checkApi.checkedInApis
+        project.tasks.register("updateApi", UpdateApiTask::class.java) { task ->
+            task.inputApiLocation = generateApi.get().apiLocation
+            task.outputApiLocations = checkApi.get().checkedInApis
             task.dependsOn(generateApi)
         }
 
         project.tasks.getByName("check").dependsOn(checkApi)
-        project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
+        AndroidXPlugin.getBuildOnServerTask(project).lazyDependsOn(checkApi)
     }
 }

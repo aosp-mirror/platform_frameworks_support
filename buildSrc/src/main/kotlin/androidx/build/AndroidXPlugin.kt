@@ -41,10 +41,12 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.extra
@@ -96,7 +98,8 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                        variant -> verifyDependencyVersionsTask
+                                        .dependsOn(variant.javaCompileProvider)
                     }
                 }
                 is AppPlugin -> {
@@ -116,20 +119,16 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        val buildOnServerTask = tasks.register(BUILD_ON_SERVER_TASK)
+        val buildTestApksTask = tasks.register(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
-        tasks.all { task ->
-            if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
-                    Dokka.ARCHIVE_TASK_NAME == task.name ||
-                    "partiallyDejetifyArchive" == task.name ||
-                    "dejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
-                buildOnServerTask.dependsOn(task)
-            }
-        }
+        buildOnServerTask.lazyDependsOn("distDocs")
+        buildOnServerTask.lazyDependsOn(Dokka.ARCHIVE_TASK_NAME)
+        buildOnServerTask.lazyDependsOn("partiallyDejetifyArchive")
+        buildOnServerTask.lazyDependsOn("dejetifyArchive")
+        buildOnServerTask.lazyDependsOn(CheckExternalDependencyLicensesTask.TASK_NAME)
+
         subprojects { project ->
             if (project.path == ":docs-fake") {
                 return@subprojects
@@ -141,27 +140,27 @@ class AndroidXPlugin : Plugin<Project> {
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
                         "lintMinDepVersionsDebug" == task.name) {
-                    buildOnServerTask.dependsOn(task)
+                    buildOnServerTask.lazyDependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
+                    buildTestApksTask.lazyDependsOn(task)
                 }
             }
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
-        buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
+        buildOnServerTask.lazyDependsOn(createCoverageJarTask)
+        buildTestApksTask.lazyDependsOn(createCoverageJarTask)
 
         Release.createGlobalArchiveTask(this)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
+        buildOnServerTask.lazyDependsOn(allDocsTask)
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
-        buildOnServerTask.dependsOn(jacocoUberJar)
+        buildOnServerTask.lazyDependsOn(jacocoUberJar)
 
         project.createClockLockTasks()
 
@@ -235,7 +234,9 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Disable generating BuildConfig.java
         extension.variants.all {
-            it.generateBuildConfig.enabled = false
+            it.generateBuildConfigProvider.configure {
+                it.enabled = false
+            }
         }
 
         configureErrorProneForAndroid(extension.variants)
@@ -299,8 +300,12 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     companion object {
-        const val BUILD_ON_SERVER_TASK = "buildOnServer"
-        const val BUILD_TEST_APKS = "buildTestApks"
+        private const val BUILD_ON_SERVER_TASK = "buildOnServer"
+        private const val BUILD_TEST_APKS = "buildTestApks"
+
+        fun getBuildOnServerTask(project : Project) : TaskProvider<Task> {
+            return project.rootProject.tasks.named(BUILD_ON_SERVER_TASK)
+        }
     }
 }
 
@@ -325,18 +330,18 @@ private fun isDependencyRange(version: String?): Boolean {
             version.endsWith("+"))
 }
 
-private fun Project.createCheckResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("checkResourceApi",
+private fun Project.createCheckResourceApiTask(): TaskProvider<CheckResourceApiTask> {
+    return project.tasks.register("checkResourceApi",
             CheckResourceApiTask::class.java) {
-        newApiFile = getGenerateResourceApiFile()
-        oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
+        it.newApiFile = getGenerateResourceApiFile()
+        it.oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
     }
 }
 
-private fun Project.createUpdateResourceApiTask(): DefaultTask {
-    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
-        newApiFile = getGenerateResourceApiFile()
-        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
+private fun Project.createUpdateResourceApiTask(): TaskProvider<UpdateResourceApiTask> {
+    return project.tasks.register("updateResourceApi", UpdateResourceApiTask::class.java) {
+        it.newApiFile = getGenerateResourceApiFile()
+        it.oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
                 project.version(), true, false, ApiType.RESOURCEAPI)
     }
 }
@@ -346,19 +351,17 @@ private fun Project.configureResourceApiChecks() {
         if (project.hasApiFolder()) {
             val checkResourceApiTask = project.createCheckResourceApiTask()
             val updateResourceApiTask = project.createUpdateResourceApiTask()
+            checkResourceApiTask.lazyDependsOn("assembleRelease")
+            updateResourceApiTask.lazyDependsOn("assembleRelease")
             project.tasks.all { task ->
                 if (task.name == "assembleRelease") {
-                    checkResourceApiTask.dependsOn(task)
-                    updateResourceApiTask.dependsOn(task)
+                    checkResourceApiTask.lazyDependsOn(task)
+                    updateResourceApiTask.lazyDependsOn(task)
                 } else if (task.name == "updateApi") {
                     task.dependsOn(updateResourceApiTask)
                 }
             }
-            project.rootProject.tasks.all { task ->
-                if (task.name == AndroidXPlugin.BUILD_ON_SERVER_TASK) {
-                    task.dependsOn(checkResourceApiTask)
-                }
-            }
+            AndroidXPlugin.getBuildOnServerTask(project).lazyDependsOn(checkResourceApiTask)
         }
     }
 }

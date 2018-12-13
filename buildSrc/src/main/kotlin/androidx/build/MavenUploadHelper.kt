@@ -28,23 +28,6 @@ import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
 fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
-    afterEvaluate {
-        if (extension.publish) {
-            val mavenGroup = extension.mavenGroup
-            if (mavenGroup == null) {
-                throw Exception("You must specify mavenGroup for $name project")
-            }
-            if (extension.mavenVersion == null) {
-                throw Exception("You must specify mavenVersion for $name project")
-            }
-            val strippedGroupId = mavenGroup.substringAfterLast(".")
-            if (mavenGroup.startsWith("androidx") && !name.startsWith(strippedGroupId)) {
-                throw Exception("Your artifactId must start with $strippedGroupId")
-            }
-            group = mavenGroup
-        }
-    }
-
     apply(mapOf("plugin" to "maven"))
 
     // Set uploadArchives options.
@@ -61,89 +44,87 @@ fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
         }
     }
 
-    afterEvaluate {
-        if (extension.publish) {
-            uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
-                mavenDeployer.getPom().project {
-                    it.withGroovyBuilder {
-                        "name"(extension.name)
-                        "description"(extension.description)
-                        "url"(extension.url)
-                        "inceptionYear"(extension.inceptionYear)
+    if (extension.publish) {
+        uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
+            mavenDeployer.getPom().project {
+                it.withGroovyBuilder {
+                    "name"(extension.name)
+                    "description"(extension.description)
+                    "url"(extension.url)
+                    "inceptionYear"(extension.inceptionYear)
 
-                        "licenses" {
+                    "licenses" {
+                        "license" {
+                            "name"("The Apache Software License, Version 2.0")
+                            "url"("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                            "distribution"("repo")
+                        }
+                        for (license in extension.getLicenses()) {
                             "license" {
-                                "name"("The Apache Software License, Version 2.0")
-                                "url"("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                                "name"(license.name)
+                                "url"(license.url)
                                 "distribution"("repo")
-                            }
-                            for (license in extension.getLicenses()) {
-                                "license" {
-                                    "name"(license.name)
-                                    "url"(license.url)
-                                    "distribution"("repo")
-                                }
-                            }
-                        }
-
-                        "scm" {
-                            "url"("http://source.android.com")
-                            "connection"(ANDROID_GIT_URL)
-                        }
-
-                        "developers" {
-                            "developer" {
-                                "name"("The Android Open Source Project")
                             }
                         }
                     }
-                }
 
-                // TODO(aurimas): remove this when Gradle bug is fixed.
-                // https://github.com/gradle/gradle/issues/3170
-                uploadTask.doFirst {
-                    val allDeps = HashSet<Dependency>()
-                    collectDependenciesForConfiguration(allDeps, this, "api")
-                    collectDependenciesForConfiguration(allDeps, this, "implementation")
-                    collectDependenciesForConfiguration(allDeps, this, "compile")
+                    "scm" {
+                        "url"("http://source.android.com")
+                        "connection"(ANDROID_GIT_URL)
+                    }
 
-                    mavenDeployer.getPom().whenConfigured {
-                        it.dependencies.removeAll { dep ->
-                            if (dep == null) {
-                                return@removeAll false
-                            }
-
-                            val getScopeMethod =
-                                    dep::class.java.getDeclaredMethod("getScope")
-                            getScopeMethod.invoke(dep) as String == "test"
-                        }
-                        it.dependencies.forEach { dep ->
-                            if (dep == null) {
-                                return@forEach
-                            }
-
-                            val getGroupIdMethod =
-                                    dep::class.java.getDeclaredMethod("getGroupId")
-                            val groupId: String = getGroupIdMethod.invoke(dep) as String
-                            val getArtifactIdMethod =
-                                    dep::class.java.getDeclaredMethod("getArtifactId")
-                            val artifactId: String = getArtifactIdMethod.invoke(dep) as String
-
-                            if (isAndroidProject(groupId, artifactId, allDeps)) {
-                                val setTypeMethod = dep::class.java.getDeclaredMethod("setType",
-                                        java.lang.String::class.java)
-                                setTypeMethod.invoke(dep, "aar")
-                            }
+                    "developers" {
+                        "developer" {
+                            "name"("The Android Open Source Project")
                         }
                     }
                 }
             }
 
-            // Register it as part of release so that we create a Zip file for it
-            Release.register(this, extension)
-        } else {
-            uploadTask.enabled = false
+            // TODO(aurimas): remove this when Gradle bug is fixed.
+            // https://github.com/gradle/gradle/issues/3170
+            uploadTask.doFirst {
+                val allDeps = HashSet<Dependency>()
+                collectDependenciesForConfiguration(allDeps, this, "api")
+                collectDependenciesForConfiguration(allDeps, this, "implementation")
+                collectDependenciesForConfiguration(allDeps, this, "compile")
+
+                mavenDeployer.getPom().whenConfigured {
+                    it.dependencies.removeAll { dep ->
+                        if (dep == null) {
+                            return@removeAll false
+                        }
+
+                        val getScopeMethod =
+                            dep::class.java.getDeclaredMethod("getScope")
+                        getScopeMethod.invoke(dep) as String == "test"
+                    }
+                    it.dependencies.forEach { dep ->
+                        if (dep == null) {
+                            return@forEach
+                        }
+
+                        val getGroupIdMethod =
+                            dep::class.java.getDeclaredMethod("getGroupId")
+                        val groupId: String = getGroupIdMethod.invoke(dep) as String
+                        val getArtifactIdMethod =
+                            dep::class.java.getDeclaredMethod("getArtifactId")
+                        val artifactId: String = getArtifactIdMethod.invoke(dep) as String
+
+                        if (isAndroidProject(groupId, artifactId, allDeps)) {
+                            val setTypeMethod = dep::class.java.getDeclaredMethod("setType",
+                                java.lang.String::class.java)
+                            setTypeMethod.invoke(dep, "aar")
+                        }
+                    }
+                }
+            }
         }
+
+        // Register it as part of release so that we create a Zip file for it
+        Release.register(this, extension)
+    } else {
+        uploadTask.enabled = false
     }
 }
 
