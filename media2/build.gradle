@@ -31,7 +31,7 @@ android {
     lintOptions {
         // Lint bug causes the BanTargetApiAnnotation lint check to crash in this project.
         // remove when b/120615476 is fixed.
-        disable("BanTargetApiAnnotation")
+        //disable("BanTargetApiAnnotation")
     }
     defaultConfig {
         minSdkVersion 19
