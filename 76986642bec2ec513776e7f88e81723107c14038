@@ -22,6 +22,30 @@
       "revId": "76986642bec2ec513776e7f88e81723107c14038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099e430e_81b01ca1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-12-13T08:11:08Z",
+      "side": 1,
+      "message": "AFAIK, PublishDocsRules.kt deals with which version of document should be published to public? So, it should be updated after releasing alpha06.",
+      "parentUuid": "3d238c5e_4c4d8a11",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 66
+      },
+      "revId": "76986642bec2ec513776e7f88e81723107c14038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
