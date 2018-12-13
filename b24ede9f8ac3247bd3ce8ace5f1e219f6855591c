@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcdcea2e_1deb3bea",
+        "filename": "media2/src/main/java/androidx/media2/DataSourceCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-12-13T21:23:23Z",
+      "side": 1,
+      "message": "In framework, all negative numbers except -1 are treated as fatal error. Would this case be explicitly mentioned here? Note that this is a callback eventually defined by the app. A well defined API can avoid ambiguity. I will fix the doc in framework as well.",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "b24ede9f8ac3247bd3ce8ace5f1e219f6855591c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
