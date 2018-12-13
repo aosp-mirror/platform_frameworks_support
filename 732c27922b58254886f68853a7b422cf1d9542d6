@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6033450e_9ef1d15a",
+        "filename": "core/src/androidTest/java/androidx/core/view/AccessibilityDelegateCompatTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-13T22:01:56Z",
+      "side": 1,
+      "message": "Use @SdkSuppress(minSdkVersion \u003d 21) instead of the if check.",
+      "range": {
+        "startLine": 292,
+        "startChar": 16,
+        "endLine": 292,
+        "endChar": 67
+      },
+      "revId": "732c27922b58254886f68853a7b422cf1d9542d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
