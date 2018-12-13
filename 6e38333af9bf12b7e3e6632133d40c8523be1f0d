@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e53771a2_9e5009d0",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-13T03:13:30Z",
+      "side": 1,
+      "message": "Maybe androidx.media2.MediaPlayer should be changed to handle it.",
+      "parentUuid": "5b54fe7d_ca5a2ede",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 70
+      },
+      "revId": "6e38333af9bf12b7e3e6632133d40c8523be1f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f8ddd5d_6586824b",
         "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
         "patchSetId": 7
