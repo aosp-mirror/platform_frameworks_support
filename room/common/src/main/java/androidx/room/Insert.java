@@ -24,11 +24,27 @@ import java.lang.annotation.Target;
 /**
  * Marks a method in a {@link Dao} annotated class as an insert method.
  * <p>
- * The implementation of the method will insert its parameters into the database.
+ * The method implementation generated will insert its parameter entities into the database.
  * <p>
- * All of the parameters of the Insert method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * The declared method may have one or more parameters. Each parameter must be either a class
+ * annotated with {@link Entity}, a {@link java.util.Collection} of that {@code Entity}, or
+ * an array of that {@code Entity}. A varargs parameter of the {@code Entity} is also accepted.
  * <p>
+ * All of the method's parameters will be inserted into the database.
+ * <p>
+ * The method may be declared to return any of:
+ * <ul
+ *   <li>{@code void}
+ *   <li>{@code long}, the primary key of the newly inserted single entity parameter
+ *   <li>{@code Long}, boxed version of above
+ *   <li>{@code long[]}, the ordered array of newly inserted entities' primary keys
+ *   <li>{@code List<Long>}, the ordered list of newly inserted entities' primary keys
+ * </ul>
+ * <p>
+ * When using the Guava plugin, the method may also be declared to return a
+ * {@link com.google.common.util.concurrent.ListenableFuture} containing {@code Long}, {@link Void},
+ * or {@code List<Long>}.
+ *
  * Example:
  * <pre>
  * {@literal @}Dao
@@ -36,14 +52,15 @@ import java.lang.annotation.Target;
  *     {@literal @}Insert(onConflict = OnConflictStrategy.REPLACE)
  *     public void insertUsers(User... users);
  *     {@literal @}Insert
- *     public void insertBoth(User user1, User user2);
+ *     public List&lt;Long&gt; insertBoth(User user1, User user2);
  *     {@literal @}Insert
- *     public void insertWithFriends(User user, List&lt;User&gt; friends);
+ *     public ListenableFuture&lt;Void&gt; insertWithFriends(User user, List&lt;User&gt; friends);
  * }
  * </pre>
  *
- * @see Update
  * @see Delete
+ * @see Query
+ * @see Update
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)

@@ -24,11 +24,27 @@ import java.lang.annotation.Target;
 /**
  * Marks a method in a {@link Dao} annotated class as a delete method.
  * <p>
- * The implementation of the method will delete its parameters from the database.
+ * The method implementation generated will delete its parameter entities from the database.
  * <p>
- * All of the parameters of the Delete method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * The declared method may have one or more parameters. Each parameter must be either a class
+ * annotated with {@link Entity}, a {@link java.util.Collection} of that {@code Entity}, or
+ * an array of that {@code Entity}. A varargs parameter of the {@code Entity} is also accepted.
  * <p>
+ * The implementation of the method will delete all parameters from the database, by primary key.
+ * <p>
+ * The method may be declared to return any of:
+ * <ul
+ *   <li>{@code void}
+ *   <li>{@code long}, the primary key of the deleted single entity parameter
+ *   <li>{@code Long}, boxed version of above
+ *   <li>{@code long[]}, the ordered array of deleted entities' primary keys
+ *   <li>{@code List<Long>}, the ordered list of deleted entities' primary keys
+ * </ul>
+ * <p>
+ * When using the Guava plugin, the method may also be declared to return a
+ * {@link com.google.common.util.concurrent.ListenableFuture} containing {@code Long}, {@link Void},
+ * or {@code List<Long>}.
+ *
  * Example:
  * <pre>
  * {@literal @}Dao
@@ -36,14 +52,15 @@ import java.lang.annotation.Target;
  *     {@literal @}Delete
  *     public void deleteUsers(User... users);
  *     {@literal @}Delete
- *     public void deleteAll(User user1, User user2);
+ *     public List&lt;Long&gt; deleteAll(User user1, User user2);
  *     {@literal @}Delete
- *     public void deleteWithFriends(User user, List&lt;User&gt; friends);
+ *     public ListenableFuture&lt;Void&gt; deleteWithFriends(User user, List&lt;User&gt; friends);
  * }
  * </pre>
  *
  * @see Insert
  * @see Query
+ * @see Update
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
