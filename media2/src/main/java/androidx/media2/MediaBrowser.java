@@ -19,6 +19,7 @@ package androidx.media2;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -282,6 +283,7 @@ public class MediaBrowser extends MediaController {
      */
     // Specify full name to workaround build error 'cannot find symbol'
     @androidx.versionedparcelable.VersionedParcelize(isCustom = true)
+    @SuppressLint("RestrictedApi")
     public static class BrowserResult extends androidx.versionedparcelable.CustomVersionedParcelable
             implements RemoteResult {
         /**

@@ -644,6 +644,7 @@ public abstract class MediaLibraryService extends MediaSessionService {
      */
     // Specify full class name to workaround build error 'cannot find symbol'.
     @androidx.versionedparcelable.VersionedParcelize(isCustom = true)
+    @android.annotation.SuppressLint("RestrictedApi")
     public static class LibraryResult extends androidx.versionedparcelable.CustomVersionedParcelable
             implements RemoteResult {
         /**
