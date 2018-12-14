@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acd8768e_2a5a3c52",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-14T01:35:35Z",
+      "side": 1,
+      "message": "Can this assertion can be at the end of the above runBlocking block?",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 81
+      },
+      "revId": "aed7a3b5ffa307933c3c3c07dfbee2a49594e692",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
