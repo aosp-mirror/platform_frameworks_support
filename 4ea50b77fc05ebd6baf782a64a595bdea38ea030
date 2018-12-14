@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "327ba47d_c14b7cfe",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "Ah, I see!\n\nThanks for checking and standing your ground!",
+      "parentUuid": "6adf72fe_1293f82f",
+      "range": {
+        "startLine": 984,
+        "startChar": 42,
+        "endLine": 984,
+        "endChar": 47
+      },
+      "revId": "4ea50b77fc05ebd6baf782a64a595bdea38ea030",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc6844e3_b1fcef4f",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 24

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8444fd1_d8bc2259",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "I think the following correctness tests are also good idea.\n\n1. computeVerticalScrollRange_spansUsedForEstimate_isCorrect\n2. computeVerticalScrollScrollOffset_spansUsedForEstimate_isCorrect (this can test a few different items for different bounds)\n3. setSpanGroupIndexCacheEnabled_trueAnd2callsForSameItem_onlyCalledOnce\n\n4. getSpanGroupIndex_spansUsed_isCorrect\n5. getSpanGroupIndex_spansUsedAndCacheSpanIndex_isCorrect\n6. getSpanGroupIndex_spansUsedAndCacheSpanGroupIndex_isCorrect\n7. getSpanGroupIndex_spansUsedAndCacheAll_isCorrect\n\n8. getSpanGroupIndex_spansNotUsed_isCorrect\n9. getSpanGroupIndex_spansNotUsedAndCacheSpanIndex_isCorrect\n10. getSpanGroupIndex_spansNotUsedAndCacheSpanGroupIndex_isCorrect\n11. getSpanGroupIndex_spansNotUsedAndCacheAll_isCorrect\n\nI think that basically covers all of the changes to public functionality you\u0027ve made.  I think these tests also cover what you were testing, so you don\u0027t need to keep your test along side these.\n\nWhen writing these tests, please keep the RV size constant, and the size of the the Views it contains constant as well, and then check for dimension information based on those constants.  There have been too many tests that start failing because these were not constant.",
+      "range": {
+        "startLine": 1338,
+        "startChar": 4,
+        "endLine": 1338,
+        "endChar": 9
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc36478_103cf494",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "Could you use the form \"thingBeingTested_(unique configuration if any)_thingBeingVerified\" like computeVerticalScrollRange_mixedItemSpanSizesAndScroll_rangeIsConstant.",
+      "range": {
+        "startLine": 1339,
+        "startChar": 16,
+        "endLine": 1339,
+        "endChar": 50
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48cc3dac_31d11b06",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "The testing infrastructure is not very clear.  It looks to me like this method doesn\u0027t do anything without a call to mAdapter.assignSpanSizeLookup... which in turn would make your previous call to mSpanSizeLookup.setSpanGroupIndexCacheEnabled unused (that call could be moved to be afterwards the assignSpanSizeLookup call, but verifying the correctness of things with setSpanGroupIndexCacheEnabled should probably be its own test).",
+      "range": {
+        "startLine": 1348,
+        "startChar": 17,
+        "endLine": 1348,
+        "endChar": 28
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b318790e_60740d9c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "Hmm, I think I\u0027d prefer that mCacheSpanGroupIndicies is here... and in fact \"mSpanGroupIndexCache.size() \u003e 0\" really doesn\u0027t need to be.  \n\nSorry, but please make this \"if(setSpanIndexCacheEnabled) { \"...\n\nLastly, it is probably best for mSpanGroupIndexCache to be cleared if setSpanGroupIndexCacheEnabled is called with false.",
+      "range": {
+        "startLine": 1026,
+        "startChar": 15,
+        "endLine": 1026,
+        "endChar": 16
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c24b02e5_414b7d1c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be prevKey?",
+      "range": {
+        "startLine": 1031,
+        "startChar": 42,
+        "endLine": 1031,
+        "endChar": 57
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d827c3_d8a2ec75",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "replace with \",\"",
+      "range": {
+        "startLine": 1239,
+        "startChar": 66,
+        "endLine": 1239,
+        "endChar": 70
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9adb79_ab4fc9c3",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "replace with \"and that span index caching is also enabled via a call to\"",
+      "range": {
+        "startLine": 1241,
+        "startChar": 11,
+        "endLine": 1241,
+        "endChar": 43
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

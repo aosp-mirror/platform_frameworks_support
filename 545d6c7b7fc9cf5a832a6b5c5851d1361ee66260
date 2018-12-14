@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a31af26_3e1a742e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "append \" with with something highly performant\" (thanks)",
+      "range": {
+        "startLine": 855,
+        "startChar": 11,
+        "endLine": 855,
+        "endChar": 42
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f65a257_d86be31d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:50:49Z",
+      "side": 1,
+      "message": "append \" with with something highly performant\"",
+      "range": {
+        "startLine": 865,
+        "startChar": 59,
+        "endLine": 866,
+        "endChar": 47
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7edd2605_98944dbe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 25
