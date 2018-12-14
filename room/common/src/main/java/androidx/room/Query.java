@@ -101,6 +101,10 @@ import java.lang.annotation.Target;
  * {@code UserName} object. If there is a mismatch between the query result and the fields of the
  * POJO, as long as there is at least 1 field match, Room prints a
  * {@link RoomWarnings#CURSOR_MISMATCH} warning and sets as many fields as it can.
+ *
+ * @see Delete
+ * @see Insert
+ * @see Update
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
