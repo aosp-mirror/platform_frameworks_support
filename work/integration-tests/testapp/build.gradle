@@ -30,6 +30,10 @@ android {
             minifyEnabled = true
         }
     }
+    // Remove this as soon as b/122737117 is fixed.
+    lintOptions {
+        disable("GradleCompatible")
+    }
     defaultConfig.vectorDrawables.useSupportLibrary = true
 }
 
