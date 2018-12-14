@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "84c7cd71_1ed543bc",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-14T22:18:30Z",
+      "side": 1,
+      "message": "can you split it into 2 tests? display overflow button for NEVER item, and no overflow button without NEVER item.",
+      "range": {
+        "startLine": 247,
+        "startChar": 16,
+        "endLine": 247,
+        "endChar": 62
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "749c38d0_ed021b43",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -113,6 +136,75 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4521582d_23558d58",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-14T22:18:30Z",
+      "side": 1,
+      "message": "this has no practical impact but can you keep the same order for measure and layout? lay out the overflow button after nav button if it\u0027s measured after.",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 55
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6800d4e7_88c27a4e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-14T22:18:30Z",
+      "side": 1,
+      "message": "do similar thing as how nav button is laid out, max(containerWidth, measuredWidth), in case containerWidth is less than measuredWidth",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 94
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13658410_895111e6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-14T22:18:30Z",
+      "side": 1,
+      "message": "Thanks!",
+      "range": {
+        "startLine": 272,
+        "startChar": 10,
+        "endLine": 272,
+        "endChar": 11
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +340,29 @@
         "startChar": 92,
         "endLine": 448,
         "endChar": 96
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11407e86_4c61bd58",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-14T22:18:30Z",
+      "side": 1,
+      "message": "how about rename to \"offset\"?",
+      "range": {
+        "startLine": 480,
+        "startChar": 14,
+        "endLine": 480,
+        "endChar": 16
       },
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
