@@ -38,17 +38,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.car.R;
 import androidx.core.view.MarginLayoutParamsCompat;
 
+import java.util.List;
+
 /**
  * A toolbar for building car applications.
  *
  * <p>CarToolbar provides a subset of features of {@link Toolbar} through a driving safe UI. From
  * start to end, a CarToolbar provides the following elements:
  * <ul>
- * <li><em>A navigation button.</em> Similar to that in Toolbar, navigation button should always
- * provide access to other navigational destinations. If navigation button is to be used as
- * Up Button, its <code>OnClickListener</code> needs to explicitly invoke
- * {@link AppCompatActivity#onSupportNavigateUp()}
- * <li><em>A title.</em> A single line text that ellipsizes at end.
+     * <li><em>A navigation button.</em> Similar to that in Toolbar, navigation button should
+     * always provide access to other navigational destinations. If navigation button is to
+     * be used as Up Button, its {@code OnClickListener} needs to explicitly invoke
+     * {@link AppCompatActivity#onSupportNavigateUp()}
+     * <li><em>A title.</em> A single line text that ellipsizes at the end.
  * </ul>
  *
  * <p>One distinction between CarToolbar and Toolbar is that CarToolbar cannot be used as action bar
@@ -63,20 +65,24 @@ public class CarToolbar extends ViewGroup {
     private final ImageButton mNavButtonView;
     private final int mNavButtonIconSize;
     private final ImageView mTitleIconView;
+    private final ImageButton mOverflowButtonView;
     private final int mToolbarHeight;
-    private int mTitleIconSize;
     private final int mTextVerticalPadding;
-    // There is no actual container for nav button. This value is used to calculate a horizontal
-    // space on both ends of nav button (so it's centered).
+    private int mTitleIconSize;
+    // There is no actual container for edge buttons (Navigation / Overflow). This value is used
+    // to calculate a horizontal margin on both ends of the edge buttons so that they're centered.
     // We use dedicated attribute over horizontal margin so that the API for setting space before
     // title (i.e. @dimen/car_margin) is simpler.
-    private int mNavButtonContainerWidth;
+    private int mEdgeButtonContainerWidth;
 
     private final TextView mTitleTextView;
     private CharSequence mTitleText;
 
     private final TextView mSubtitleTextView;
     private CharSequence mSubtitleText;
+
+    @Nullable
+    private List<CarMenuItem> mMenuItems;
 
     public CarToolbar(Context context) {
         this(context, /* attrs= */ null);
@@ -109,6 +115,7 @@ public class CarToolbar extends ViewGroup {
         mTitleTextView = findViewById(R.id.title);
         mTitleIconView = findViewById(R.id.title_icon);
         mSubtitleTextView = findViewById(R.id.subtitle);
+        mOverflowButtonView = findViewById(R.id.overflow_menu);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarToolbar, defStyleAttr,
                 /* defStyleRes= */ 0);
@@ -129,13 +136,17 @@ public class CarToolbar extends ViewGroup {
 
             setTitleIconSize(a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconSize,
                     res.getDimensionPixelSize(R.dimen.car_application_icon_size)));
+
             CharSequence subtitle = a.getText(R.styleable.CarToolbar_subtitle);
             setSubtitle(subtitle);
 
             setSubtitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_subtitleTextAppearance,
                     R.style.TextAppearance_Car_Body2));
 
-            mNavButtonContainerWidth = a.getDimensionPixelSize(
+            setOverflowIcon(Icon.createWithResource(getContext(),
+                    a.getResourceId(R.styleable.CarToolbar_overflowIcon, R.drawable.ic_more_vert)));
+
+            mEdgeButtonContainerWidth = a.getDimensionPixelSize(
                     R.styleable.CarToolbar_navigationIconContainerWidth,
                     res.getDimensionPixelSize(R.dimen.car_margin));
         } finally {
@@ -157,21 +168,31 @@ public class CarToolbar extends ViewGroup {
                 desiredHeight, MeasureSpec.AT_MOST);
 
         int width = 0;
+        // Measure the two edge buttons first because they have a higher
+        // display priority than the title, subtitle, or the titleIcon.
         if (mNavButtonView.getVisibility() != GONE) {
             // Size of nav button is fixed.
             int measureSpec = MeasureSpec.makeMeasureSpec(mNavButtonIconSize, MeasureSpec.EXACTLY);
             mNavButtonView.measure(measureSpec, measureSpec);
 
             // Nav button width includes its container.
-            int navWidth = Math.max(mNavButtonContainerWidth, mNavButtonView.getMeasuredWidth());
+            int navWidth = Math.max(mEdgeButtonContainerWidth, mNavButtonView.getMeasuredWidth());
             width += navWidth + getHorizontalMargins(mNavButtonView);
         }
+
+        if (mOverflowButtonView.getVisibility() != GONE) {
+            int measureSpec = MeasureSpec.makeMeasureSpec(mNavButtonIconSize, MeasureSpec.EXACTLY);
+            mOverflowButtonView.measure(measureSpec, measureSpec);
+            width += Math.max(mEdgeButtonContainerWidth, mOverflowButtonView.getMeasuredWidth());
+        }
+
         if (mTitleIconView.getVisibility() != GONE) {
             int measureSpec = MeasureSpec.makeMeasureSpec(mTitleIconSize, MeasureSpec.EXACTLY);
             mTitleIconView.measure(measureSpec, measureSpec);
 
             width += mTitleIconView.getMeasuredWidth();
         }
+
         int titleLength = 0;
         int subtitleLength = 0;
         if (mTitleTextView.getVisibility() != GONE) {
@@ -193,18 +214,27 @@ public class CarToolbar extends ViewGroup {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         int height = bottom - top;
         int layoutLeft = getPaddingLeft();
+        int layoutRight = getPaddingRight();
+
+        if (mOverflowButtonView.getVisibility() != GONE) {
+            int hMargin = (mEdgeButtonContainerWidth - mOverflowButtonView.getMeasuredWidth()) / 2;
+            layoutViewVerticallyCentered(mOverflowButtonView, /* rtl= */ true,
+                    right - hMargin, height);
+            layoutRight += mEdgeButtonContainerWidth;
+        }
 
         if (mNavButtonView.getVisibility() != GONE) {
             // Nav button is centered in container.
             int navButtonWidth = mNavButtonView.getMeasuredWidth();
-            int containerWidth = Math.max(mNavButtonContainerWidth, navButtonWidth);
+            int containerWidth = Math.max(mEdgeButtonContainerWidth, navButtonWidth);
             int navButtonLeft = (containerWidth - navButtonWidth) / 2;
 
-            layoutViewVerticallyCentered(mNavButtonView, navButtonLeft, height);
+            layoutViewVerticallyCentered(mNavButtonView, /* rtl= */ false, navButtonLeft, height);
             layoutLeft += containerWidth;
         }
+
         if (mTitleIconView.getVisibility() != GONE) {
-            layoutViewVerticallyCentered(mTitleIconView, layoutLeft, height);
+            layoutViewVerticallyCentered(mTitleIconView, /* rtl= */ false, layoutLeft, height);
             layoutLeft += mTitleIconView.getMeasuredWidth();
         }
 
@@ -212,9 +242,9 @@ public class CarToolbar extends ViewGroup {
             layoutTextViewsVerticallyCentered(mTitleTextView, mSubtitleTextView, layoutLeft,
                     height);
         } else if (mTitleTextView.getVisibility() != GONE) {
-            layoutViewVerticallyCentered(mTitleTextView, layoutLeft, height);
+            layoutViewVerticallyCentered(mTitleTextView, /* rtl= */ false, layoutLeft, height);
         } else if (mSubtitleTextView.getVisibility() != GONE) {
-            layoutViewVerticallyCentered(mSubtitleTextView, layoutLeft, height);
+            layoutViewVerticallyCentered(mSubtitleTextView, /* rtl= */ false, layoutLeft, height);
         }
     }
 
@@ -239,7 +269,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set a listener to respond to navigation events.
+     * Sets a listener to respond to navigation events.
      *
      * <p>This listener will be called whenever the user clicks the navigation button
      * at the start of the toolbar. An icon must be set for the navigation button to appear.
@@ -252,7 +282,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set the width of container for navigation icon.
+     * Sets the width of container for navigation icon.
      *
      * <p>Navigation icon will be horizontally centered in its container. If the width of container
      * is less than that of navigation icon, there will be no space on both ends of navigation icon.
@@ -260,12 +290,12 @@ public class CarToolbar extends ViewGroup {
      * @param width Width of container in pixels.
      */
     public void setNavigationIconContainerWidth(@Px int width) {
-        mNavButtonContainerWidth = width;
+        mEdgeButtonContainerWidth = width;
         requestLayout();
     }
 
     /**
-     * Set the title icon to use in the toolbar.
+     * Sets the title icon to use in the toolbar.
      *
      * <p>The title icon is positioned between the navigation button and the title.
      *
@@ -283,7 +313,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set a new size for the title icon.
+     * Sets a new size for the title icon.
      *
      * @param size Size of the title icon dimensions in pixels.
      * @attr ref R.styleable#CarToolbar_titleIconSize
@@ -303,7 +333,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set the title of this toolbar.
+     * Sets the title of this toolbar.
      *
      * <p>A title should be used as the anchor for a section of content. It should
      * describe or name the content being viewed.
@@ -315,7 +345,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set the title of this toolbar.
+     * Sets the title of this toolbar.
      *
      * <p>A title should be used as the anchor for a section of content. It should
      * describe or name the content being viewed.
@@ -340,7 +370,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set the subtitle of this toolbar.
+     * Sets the subtitle of this toolbar.
      *
      * <p>Subtitles should express extended information about the current content.
      * Subtitle will appear underneath the title if the title exists.
@@ -351,7 +381,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Set the subtitle of this toolbar.
+     * Sets the subtitle of this toolbar.
      *
      * <p>Subtitle should express extended information about the current content.
      * Subtitle will appear underneath the title if the title exists.
@@ -384,6 +414,44 @@ public class CarToolbar extends ViewGroup {
         mSubtitleTextView.setTextAppearance(resId);
     }
 
+    /**
+     * Sets the icon of the overflow menu button.
+     *
+     * @param icon Icon to set.
+     * @attr ref R.styleable#CarToolbar_overflowIcon
+     */
+    public void setOverflowIcon(Icon icon) {
+        mOverflowButtonView.setImageDrawable(icon.loadDrawable(getContext()));
+    }
+
+    /**
+     * Sets the list of {@link CarMenuItem}s that will be displayed on this {@code CarToolbar}.
+     *
+     * @param items List of {@link CarMenuItem}s to display, {@code null} to remove all items.
+     */
+    public void setMenuItems(@Nullable List<CarMenuItem> items) {
+        mMenuItems = items;
+
+        // If there are items to be displayed in the overflow menu, show the overflow icon.
+        boolean containsOverflowItems = false;
+        for (CarMenuItem item: items) {
+            if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
+                containsOverflowItems = true;
+                break;
+            }
+        }
+        mOverflowButtonView.setVisibility(containsOverflowItems ? View.VISIBLE : View.GONE);
+        requestLayout();
+    }
+
+    /**
+     * Returns a list of the {@link CarMenuItem}s in this {@code CarToolbar}, {@code null} if none.
+     */
+    @Nullable
+    public List<CarMenuItem> getMenuItems() {
+        return mMenuItems;
+    }
+
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
@@ -404,12 +472,32 @@ public class CarToolbar extends ViewGroup {
         return p instanceof MarginLayoutParams;
     }
 
-    private void layoutViewVerticallyCentered(View view, int left, int height) {
-        int viewHeight = view.getMeasuredHeight();
-        int viewWidth = view.getMeasuredWidth();
-        int viewTop = (height - viewHeight) / 2;
-        view.layout(left, viewTop, left + viewWidth, viewTop + viewHeight);
+    /**
+     * Lays out a view so that it's vertically centered in its parent.
+     *
+     * @param view The view to layout.
+     * @param rtl {@code true} if laying out from right-to-left.
+     * @param rl Position from the right if rtl is {@code true}, left otherwise.
+     * @param height Height of the parent view.
+     */
+    private void layoutViewVerticallyCentered(View view, boolean rtl, int rl, int height) {
+        int vw = view.getMeasuredWidth();
+        int vh = view.getMeasuredHeight();
+        int top = (height - vh) / 2;
+        int bottom = top + vh;
+        int left;
+        int right;
+
+        if (rtl) {
+            right = rl;
+            left = rl - vw;
+        } else {
+            right = rl + vw;
+            left = rl;
+        }
+        view.layout(left, top, right, bottom);
     }
+
 
     private void layoutTextViewsVerticallyCentered(View title, View subtitle, int left,
             int height) {
