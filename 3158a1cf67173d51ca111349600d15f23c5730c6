@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "c1e928e3_80aee2fd",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3c6d6a2_61aebd4a",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 62
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "361ca17f_9b40bd60",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererClientTest.java",
         "patchSetId": 2
@@ -91,6 +115,30 @@
       "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d95ba2_87c73ee6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewRendererClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "await doesn\u0027t have a return value, and is guaranteed to wait indefinitely (unless the thread is interrupted). Added a comment.",
+      "parentUuid": "361ca17f_9b40bd60",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +326,30 @@
     },
     {
       "key": {
+        "uuid": "275625f2_1f9b19f7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewFeature.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95af5805_6e96a382",
+      "range": {
+        "startLine": 368,
+        "startChar": 27,
+        "endLine": 368,
+        "endChar": 41
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "769cdc81_bfabcc53",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
         "patchSetId": 2
@@ -347,6 +419,30 @@
     },
     {
       "key": {
+        "uuid": "89ad8073_5e05c477",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "933105e5_52e23b33",
+      "range": {
+        "startLine": 72,
+        "startChar": 5,
+        "endLine": 72,
+        "endChar": 6
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ede3d591_28833c15",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
         "patchSetId": 2
@@ -358,6 +454,30 @@
       "writtenOn": "2018-12-14T05:14:44Z",
       "side": 1,
       "message": "Have you considered making these abstract (and forcing the app to make a decision about how to handle these)?",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373c3303_c317aeb1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "I didn\u0027t initially because it seems like an app might generally choose not to care about the responsive signal, and it would be weird to make one abstract and one not. What do you think?",
+      "parentUuid": "ede3d591_28833c15",
       "range": {
         "startLine": 76,
         "startChar": 4,
@@ -393,6 +513,30 @@
     },
     {
       "key": {
+        "uuid": "fe2b3825_52d398f6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Elaborated.",
+      "parentUuid": "0adbcb94_922878ca",
+      "range": {
+        "startLine": 109,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 6
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ecaf756_f7d6e1b2",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
         "patchSetId": 2
@@ -404,6 +548,30 @@
       "writtenOn": "2018-12-14T05:14:44Z",
       "side": 1,
       "message": "Is this actually nullable? I think we decided this couldn\u0027t be?",
+      "range": {
+        "startLine": 116,
+        "startChar": 35,
+        "endLine": 116,
+        "endChar": 84
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fd9a5d_af162f54",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Ack. Changed to @NonNull. Non-final methods remain nullable. I wonder if it\u0027s a better pattern to pass null invocation handlers...",
+      "parentUuid": "6ecaf756_f7d6e1b2",
       "range": {
         "startLine": 116,
         "startChar": 35,
@@ -439,6 +607,30 @@
     },
     {
       "key": {
+        "uuid": "c7b9b70e_22a83e32",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "Turns out a trailing comma is allowed in an enum body. So, sure. Also completed the javadoc below.",
+      "parentUuid": "93110f94_e95931e9",
+      "range": {
+        "startLine": 285,
+        "startChar": 55,
+        "endLine": 285,
+        "endChar": 58
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "501a4e9a_6ddc8934",
         "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewProviderAdapter.java",
         "patchSetId": 2
@@ -450,6 +642,30 @@
       "writtenOn": "2018-12-14T05:14:44Z",
       "side": 1,
       "message": "Does this not handle null already? Seems like it should?",
+      "range": {
+        "startLine": 107,
+        "startChar": 48,
+        "endLine": 107,
+        "endChar": 80
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bd2b9e3_6572eda6",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewProviderAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-14T17:15:57Z",
+      "side": 1,
+      "message": "No it does not. I\u0027d be happy to go either way on this; tradeoff seems to be less boilerplate, vs. potentially allowing nulls to not be picked up early.\n\nDo @NonNull and @Nullable cause Java build errors if their constraints can be inferred to be broken? I\u0027m just wondering whether we\u0027re annotating largely for Kotlin, or whether there\u0027s utility to spreading that more widely.",
+      "parentUuid": "501a4e9a_6ddc8934",
       "range": {
         "startLine": 107,
         "startChar": 48,
