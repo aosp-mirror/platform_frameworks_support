@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18468ef4_0518db48",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteControllerDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-14T09:11:26Z",
+      "side": 1,
+      "message": "minor) how about adding more meaningful doc?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 7
+      },
+      "revId": "ac32b5efa4722f21c8168f924abe5d3a91e3c687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fef067_1694247a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteControllerDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-14T09:11:26Z",
+      "side": 1,
+      "message": "Q) in onStop() you used instanceof rather than using two if statements. Is it intentional? What do you prefer?",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 34
+      },
+      "revId": "ac32b5efa4722f21c8168f924abe5d3a91e3c687",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
