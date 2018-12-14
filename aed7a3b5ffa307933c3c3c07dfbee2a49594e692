@@ -46,6 +46,30 @@
       "revId": "aed7a3b5ffa307933c3c3c07dfbee2a49594e692",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dc15e11_7dd3bdac",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-14T19:50:58Z",
+      "side": 1,
+      "message": "Not missing anything, thats fine, wasn\u0027t sure why u had it in another blocking block.",
+      "parentUuid": "4995d84e_36b3118d",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 81
+      },
+      "revId": "aed7a3b5ffa307933c3c3c07dfbee2a49594e692",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
