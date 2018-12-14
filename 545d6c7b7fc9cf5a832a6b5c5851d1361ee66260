@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7edd2605_98944dbe",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-14T17:43:56Z",
+      "side": 1,
+      "message": "this should be the first parameter since index is found in it.",
+      "range": {
+        "startLine": 990,
+        "startChar": 54,
+        "endLine": 990,
+        "endChar": 74
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756e94ee_6086e724",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-14T17:43:56Z",
+      "side": 1,
+      "message": "why do we check for cache again here? seems weird since there is a cached version.",
+      "range": {
+        "startLine": 1026,
+        "startChar": 12,
+        "endLine": 1026,
+        "endChar": 39
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
