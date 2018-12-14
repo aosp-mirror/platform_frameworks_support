@@ -16,6 +16,7 @@
 
 package androidx.work;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.util.Log;
 
@@ -80,6 +81,10 @@ public abstract class Logger {
      */
     public static class LogcatLogger extends Logger {
 
+        private static final String TAG_PREFIX = "WM-";
+        private static final int MAX_TAG_LENGTH = 23;
+        private static final int MAX_PREFIXED_TAG_LENGTH = MAX_TAG_LENGTH - TAG_PREFIX.length();
+
         private int mLoggingLevel;
 
         public LogcatLogger(int loggingLevel) {
@@ -91,9 +96,9 @@ public abstract class Logger {
         public void verbose(String tag, String message, Throwable... throwables) {
             if (mLoggingLevel <= Log.VERBOSE) {
                 if (throwables != null && throwables.length >= 1) {
-                    Log.v(tag, message, throwables[0]);
+                    Log.v(tagWithPrefix(tag), message, throwables[0]);
                 } else {
-                    Log.v(tag, message);
+                    Log.v(tagWithPrefix(tag), message);
                 }
             }
         }
@@ -102,9 +107,9 @@ public abstract class Logger {
         public void debug(String tag, String message, Throwable... throwables) {
             if (mLoggingLevel <= Log.DEBUG) {
                 if (throwables != null && throwables.length >= 1) {
-                    Log.d(tag, message, throwables[0]);
+                    Log.d(tagWithPrefix(tag), message, throwables[0]);
                 } else {
-                    Log.d(tag, message);
+                    Log.d(tagWithPrefix(tag), message);
                 }
             }
         }
@@ -113,9 +118,9 @@ public abstract class Logger {
         public void info(String tag, String message, Throwable... throwables) {
             if (mLoggingLevel <= Log.INFO) {
                 if (throwables != null && throwables.length >= 1) {
-                    Log.i(tag, message, throwables[0]);
+                    Log.i(tagWithPrefix(tag), message, throwables[0]);
                 } else {
-                    Log.i(tag, message);
+                    Log.i(tagWithPrefix(tag), message);
                 }
             }
         }
@@ -124,9 +129,9 @@ public abstract class Logger {
         public void warning(String tag, String message, Throwable... throwables) {
             if (mLoggingLevel <= Log.WARN) {
                 if (throwables != null && throwables.length >= 1) {
-                    Log.w(tag, message, throwables[0]);
+                    Log.w(tagWithPrefix(tag), message, throwables[0]);
                 } else {
-                    Log.w(tag, message);
+                    Log.w(tagWithPrefix(tag), message);
                 }
             }
         }
@@ -135,11 +140,24 @@ public abstract class Logger {
         public void error(String tag, String message, Throwable... throwables) {
             if (mLoggingLevel <= Log.ERROR) {
                 if (throwables != null && throwables.length >= 1) {
-                    Log.e(tag, message, throwables[0]);
+                    Log.e(tagWithPrefix(tag), message, throwables[0]);
                 } else {
-                    Log.e(tag, message);
+                    Log.e(tagWithPrefix(tag), message);
                 }
             }
+        }
+
+        private String tagWithPrefix(@NonNull String tag) {
+            int length = tag.length();
+            StringBuilder withPrefix = new StringBuilder(MAX_TAG_LENGTH);
+            withPrefix.append(TAG_PREFIX);
+            if (length >= MAX_PREFIXED_TAG_LENGTH) {
+                // truncate
+                withPrefix.append(tag.substring(0, MAX_PREFIXED_TAG_LENGTH));
+            } else {
+                withPrefix.append(tag);
+            }
+            return withPrefix.toString();
         }
     }
 }
