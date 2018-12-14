@@ -24,10 +24,13 @@ import java.lang.annotation.Target;
 /**
  * Marks a method in a {@link Dao} annotated class as an insert method.
  * <p>
- * The implementation of the method will insert its parameters into the database.
+ * The method implementation generated will insert its parameter entities into the database.
  * <p>
- * All of the parameters of the Insert method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * The declared method may have one or more parameters. Each parameter must be either a class
+ * annotated with {@link Entity}, a {@link java.util.Collection} of that {@code Entity}, or
+ * an array of that {@code Entity}. A varargs parameter of the {@code Entity} is also accepted.
+ * <p>
+ * All of the method's parameters will be inserted into the database.
  * <p>
  * Example:
  * <pre>
@@ -42,8 +45,9 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  *
- * @see Update
  * @see Delete
+ * @see Query
+ * @see Update
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)

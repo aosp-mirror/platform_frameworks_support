@@ -18,15 +18,29 @@ package androidx.room;
 /**
  * Marks a method in a {@link Dao} annotated class as an update method.
  * <p>
- * The implementation of the method will update its parameters in the database if they already
- * exists (checked by primary keys). If they don't already exists, this option will not change the
- * database.
+ * The method implementation generated will update parameter entities in the database if they
+ * already exist. In an entity has a primary key that isn't already present in the database,
+ * the method won't insert it.
  * <p>
  * All of the parameters of the Update method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * or a {@link java.util.Collection} or {@code array} containing them.
+ * <p>
+ * The method may be declared to return any of:
+ * <ul
+ *   <li>{@code void}
+ *   <li>{@code long}, the primary key of the newly inserted single entity parameter
+ *   <li>{@code Long}, boxed version of above
+ *   <li>{@code long[]}, the ordered array of newly inserted entities' primary keys
+ *   <li>{@code List<Long>}, the ordered list of newly inserted entities' primary keys
+ * </ul>
+ * <p>
+ * When using the Guava plugin, the method may also be declared to return a
+ * {@link com.google.common.util.concurrent.ListenableFuture} containing {@code Long}, {@link Void},
+ * or {@code List<Long>}.
  *
- * @see Insert
  * @see Delete
+ * @see Insert
+ * @see Query
  */
 public @interface Update {
     /**

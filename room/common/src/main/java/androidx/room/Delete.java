@@ -24,10 +24,13 @@ import java.lang.annotation.Target;
 /**
  * Marks a method in a {@link Dao} annotated class as a delete method.
  * <p>
- * The implementation of the method will delete its parameters from the database.
+ * The method implementation generated will delete its parameter entities from the database.
  * <p>
- * All of the parameters of the Delete method must either be classes annotated with {@link Entity}
- * or collections/array of it.
+ * The declared method may have one or more parameters. Each parameter must be either a class
+ * annotated with {@link Entity}, a {@link java.util.Collection} of that {@code Entity}, or
+ * an array of that {@code Entity}. A varargs parameter of the {@code Entity} is also accepted.
+ * <p>
+ * The implementation of the method will delete all parameters from the database, by primary key.
  * <p>
  * Example:
  * <pre>
@@ -44,6 +47,7 @@ import java.lang.annotation.Target;
  *
  * @see Insert
  * @see Query
+ * @see Update
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
