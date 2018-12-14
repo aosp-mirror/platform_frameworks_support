@@ -18,12 +18,21 @@ package com.example.androidx.car;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.car.app.CarListDialog;
 import androidx.car.widget.ActionListItem;
 import androidx.car.widget.CarToolbar;
 import androidx.car.widget.ListItem;
@@ -127,6 +136,40 @@ public class TextListItemActivity extends Activity {
 
             TextListItem item;
             ActionListItem actionItem;
+
+            item = new TextListItem(mContext);
+            SpannableStringBuilder foobar = new SpannableStringBuilder("Click me to open list dialog ");
+            int startIndex = foobar.length();
+            foobar.append("OPEN");
+            int endIndex = foobar.length();
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(@NonNull View widget) {
+                    Log.i("yaoyx", "stop it tickles");
+                    new CarListDialog.Builder(mContext)
+                            .setTitle("Test Title")
+                            .setItems(new CharSequence[] {"first option", "second option"}, null)
+                            .create().show();
+                }
+                @Override
+                public void updateDrawState(TextPaint textPaint) {
+                    super.updateDrawState(textPaint);
+                    textPaint.setUnderlineText(false);
+                    TypedValue typedValue = new TypedValue();
+
+                    TypedArray a =
+                            mContext.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorAccent });
+                    int color = a.getColor(0, 0);
+
+                    a.recycle();
+                    textPaint.setColor(color);
+                }
+            };
+            foobar.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            item.setTitle(foobar);
+            item.addViewBinder(
+                    vh -> vh.getTitle().setMovementMethod(LinkMovementMethod.getInstance()));
+            mItems.add(item);
 
             item = new TextListItem(mContext);
             item.setPrimaryActionIcon(mContext.getDrawable(R.drawable.pressed_icon),
