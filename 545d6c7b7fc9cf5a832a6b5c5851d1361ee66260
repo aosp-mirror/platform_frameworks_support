@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fde14072_9b9c00c0",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-14T18:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7edd2605_98944dbe",
+      "range": {
+        "startLine": 990,
+        "startChar": 54,
+        "endLine": 990,
+        "endChar": 74
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "756e94ee_6086e724",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 25
@@ -45,6 +69,30 @@
       "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be97d798_5fabeab9",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-14T18:15:33Z",
+      "side": 1,
+      "message": "done also removed the check in getSpanIndex",
+      "parentUuid": "756e94ee_6086e724",
+      "range": {
+        "startLine": 1026,
+        "startChar": 12,
+        "endLine": 1026,
+        "endChar": 39
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
