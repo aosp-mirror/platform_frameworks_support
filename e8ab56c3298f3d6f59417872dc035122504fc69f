@@ -840,6 +840,30 @@
     },
     {
       "key": {
+        "uuid": "8aa0de36_0d5f1ffc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-14T15:17:26Z",
+      "side": 1,
+      "message": "Which action? How can one action be at multiple positions?",
+      "parentUuid": "105fb2ec_ed206701",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2206501_4ac64aca",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -875,6 +899,30 @@
       "side": 1,
       "message": "Not clear to me what that is needed for.\nI can add them when its use is clear.",
       "parentUuid": "b2206501_4ac64aca",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 37
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b47c3f38_b6729e13",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-14T15:17:26Z",
+      "side": 1,
+      "message": "It is useful to know how confident our classifiers are.",
+      "parentUuid": "8d605f2b_ab2cb37b",
       "range": {
         "startLine": 509,
         "startChar": 23,
@@ -975,6 +1023,30 @@
       "side": 1,
       "message": "I still didn\u0027t understand from the thread what the use case of this will be.\nI can add it once its clear what this will be used for.",
       "parentUuid": "7f8626ec_66a8b25d",
+      "range": {
+        "startLine": 519,
+        "startChar": 23,
+        "endLine": 519,
+        "endChar": 34
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb3f7751_fd19f4fe",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1130919
+      },
+      "writtenOn": "2018-12-14T15:17:26Z",
+      "side": 1,
+      "message": "Ditto, e.g. if you see some language mostly recognized with low probability it will inform us that we should get more training data for the language, or that it might be confused with some other one.",
+      "parentUuid": "9215cdc2_d06c7762",
       "range": {
         "startLine": 519,
         "startChar": 23,
