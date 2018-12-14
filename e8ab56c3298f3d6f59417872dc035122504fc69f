@@ -651,6 +651,30 @@
     },
     {
       "key": {
+        "uuid": "7157dc20_c1da8e77",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-14T16:55:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "160234ad_3574dc98",
+      "range": {
+        "startLine": 471,
+        "startChar": 23,
+        "endLine": 471,
+        "endChar": 31
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b78d6124_424cfa58",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -864,6 +888,30 @@
     },
     {
       "key": {
+        "uuid": "e430a1bb_cbdeb595",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-14T16:55:20Z",
+      "side": 1,
+      "message": "\u003e Which action? \n\n1. convactions(id, convaction1, convaction2, convaction3):\n\n// Smart notification action 3 was clicked.\ntcevent.setEventType(EVENT_SMART_ACTION)\n       .setResultId(convactions.getId())\n       .setActionIndices(2);\n\n2. textclassification(id, remoteaction1, remoteaction2, remoteaction3):\n\n// Smart selection action 1 was clicked.\ntcevent.setEventType(EVENT_SMART_ACTION)\n       .setResultId(textclassification.getId())\n       .setActionIndices(0);\n\nA ConversationAction does not have an Id. ConversationActions does.\nA RemoteAction does not have an Id. TextClassification does.\n\n\u003e How can one action be at multiple positions?\n\nOne action cannot be at multiple positions but we can report that an event applies to multiple actions contained in a single result if need be. e.g:\n\n3. convactions(id, convaction1, convaction2, convaction3):\n\n// Only smart notification actions 1 and 3 were shown to the user.\n// Action 2 was filtered out.\ntcevent.setEventType(EVENT_ACTIONS_SHOWN)\n       .setResultId(convactions.getId())\n       .setActionIndices(0, 2);\n\n4. textclassification(id, remoteaction1, remoteaction2, remoteaction3):\n\n// Overflow opened. User can now see actions 2 and 3.\ntcevent.setEventType(EVENT_ACTIONS_SHOWN)\n       .setResultId(textclassification.getId())\n       .setActionIndices(1, 2);",
+      "parentUuid": "8aa0de36_0d5f1ffc",
+      "range": {
+        "startLine": 504,
+        "startChar": 11,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2206501_4ac64aca",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
         "patchSetId": 4
@@ -923,6 +971,30 @@
       "side": 1,
       "message": "It is useful to know how confident our classifiers are.",
       "parentUuid": "8d605f2b_ab2cb37b",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 37
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17259eba_a5b815cb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-14T16:55:20Z",
+      "side": 1,
+      "message": "It\u0027ll help if I see some metrics documented in our metrics document.\n\nWe\u0027ve just pulled some fields (durationSince) from our API. My preference will be to add fields when we\u0027re clear about exactly how we\u0027re going to use them and if they\u0027re helpful.\n\nI guess we can move this conversation offline.",
+      "parentUuid": "b47c3f38_b6729e13",
       "range": {
         "startLine": 509,
         "startChar": 23,
@@ -1047,6 +1119,30 @@
       "side": 1,
       "message": "Ditto, e.g. if you see some language mostly recognized with low probability it will inform us that we should get more training data for the language, or that it might be confused with some other one.",
       "parentUuid": "9215cdc2_d06c7762",
+      "range": {
+        "startLine": 519,
+        "startChar": 23,
+        "endLine": 519,
+        "endChar": 34
+      },
+      "revId": "e8ab56c3298f3d6f59417872dc035122504fc69f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d82d7b1_9d090020",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassifierEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2018-12-14T16:55:20Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "fb3f7751_fd19f4fe",
       "range": {
         "startLine": 519,
         "startChar": 23,
