@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6574bfca_d1661454",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-14T00:51:23Z",
+      "side": 1,
+      "message": "That\u0027s a good point. I\u0027ll fix it in the next change.",
+      "parentUuid": "e53771a2_9e5009d0",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 70
+      },
+      "revId": "6e38333af9bf12b7e3e6632133d40c8523be1f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f8ddd5d_6586824b",
         "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
         "patchSetId": 7
