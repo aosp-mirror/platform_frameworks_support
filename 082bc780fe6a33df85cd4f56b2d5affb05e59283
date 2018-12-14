@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83173fe9_c3a8d95c",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-14T04:58:49Z",
+      "side": 1,
+      "message": "Created a method for getDialogWidth().\nOther usages are only from the dynamic-group-related dialogs.",
+      "parentUuid": "a20a9b1d_5e8184ff",
+      "range": {
+        "startLine": 771,
+        "startChar": 83,
+        "endLine": 771,
+        "endChar": 87
+      },
+      "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6b9208e_ac320954",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc73a398_130fe9de",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-14T04:58:49Z",
+      "side": 1,
+      "message": "Creating a new interface for them doesn\u0027t look good to me because they only shares a few methods.\nI just cleaned up code for good readability.",
+      "parentUuid": "b6b9208e_ac320954",
+      "range": {
+        "startLine": 113,
+        "startChar": 56,
+        "endLine": 113,
+        "endChar": 72
+      },
+      "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "250adfa6_82271e0f",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-14T04:58:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ef0a4690_5d5d3abc",
+      "range": {
+        "startLine": 143,
+        "startChar": 53,
+        "endLine": 143,
+        "endChar": 69
+      },
+      "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d582ecbe_c1371769",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "6f2bdde1_8fc55812",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-14T04:58:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d582ecbe_c1371769",
+      "range": {
+        "startLine": 158,
+        "startChar": 53,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8db08248_274958ee",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteControllerDialogFragment.java",
         "patchSetId": 1
@@ -108,6 +204,24 @@
       "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d8b6123_274b39e0",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteControllerDialogFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-14T04:58:49Z",
+      "side": 1,
+      "message": "MediaRouteControllerDialog doesn\u0027t have setRouteSelector because it only shows the selected route and doesn\u0027t interact with other routes.",
+      "parentUuid": "8db08248_274958ee",
+      "revId": "082bc780fe6a33df85cd4f56b2d5affb05e59283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
