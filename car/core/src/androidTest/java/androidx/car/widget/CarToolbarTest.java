@@ -51,6 +51,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Collections;
+
 /**
  * Unit tests for {@link CarToolbar}.
  */
@@ -239,6 +241,32 @@ public class CarToolbarTest {
     public void testSubtitleShowsWhenContentNotEmpty() throws Throwable {
         mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle("this is subtitle"));
         onView(withId(R.id.subtitle)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testOverflowButtonDisplayedOnlyIfOverflowItems() throws Throwable {
+        CarMenuItem item1 = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
+                .setStyle(1) // Style is required for now until b/120920382
+                .build();
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(Collections.singletonList(item1)));
+
+        onView(withId(R.id.overflow_menu)).check(matches(isDisplayed()));
+
+        CarMenuItem item2 = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
+                .setStyle(1) // Style is required for now until b/120920382
+                .build();
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(Collections.emptyList()));
+
+        onView(withId(R.id.overflow_menu)).check(matches(not(isDisplayed())));
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(Collections.singletonList(item2)));
+
+        onView(withId(R.id.overflow_menu)).check(matches(not(isDisplayed())));
     }
 
     private TextView getTitleView() {
