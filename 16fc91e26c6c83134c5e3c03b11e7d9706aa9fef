@@ -22,6 +22,30 @@
       "revId": "16fc91e26c6c83134c5e3c03b11e7d9706aa9fef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c62d76_335ddb72",
+        "filename": "car/core/src/androidTest/java/androidx/car/drawer/CarDrawerTestActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T23:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "850b1bc4_2163b258",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "16fc91e26c6c83134c5e3c03b11e7d9706aa9fef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
