@@ -47,7 +47,7 @@ import androidx.work.impl.constraints.NetworkState;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class NetworkStateTracker extends ConstraintTracker<NetworkState> {
-    private static final String TAG = "NetworkStateTracker";
+    private static final String TAG = Logger.tagWithPrefix("NetworkStateTracker");
 
     private final ConnectivityManager mConnectivityManager;
 
