@@ -2,6 +2,143 @@
   "comments": [
     {
       "key": {
+        "uuid": "b67f2d57_0d39ae13",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Also add the new attribute to public_attrs.xml:\n\nhttp://cs/aosp-androidx/car/core/res-public/values/public_attrs.xml",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e50d4b1_f13782b3",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Missed this last time, but could you add comments for each attribute and what it\u0027s intended usage is? \n\nYou can just update your overflowIcon one in this CL if you prefer.",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749c38d0_ed021b43",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Move the \"*\" back to line up with the other ones.",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9814be94_51e0415e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Seems like you want to add bullet points for the new attributes as well.",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ec4efc_ed638991",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "You use the same size for the overflow menu, so maybe rename this. Or create a new variable that is used as the size for the overflow icon.",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02086bc4_ee7ecba1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "The nav button has some margins. Do you need the same for the overflow button?",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4656b4b9_b50e6bec",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "@Nullable or @NonNull?",
+      "range": {
+        "startLine": 423,
+        "startChar": 31,
+        "endLine": 423,
+        "endChar": 41
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6643cea4_a6bed954",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -18,6 +155,29 @@
         "startChar": 8,
         "endLine": 424,
         "endChar": 78
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d92de0_89118c14",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Add a space after \"item\"",
+      "range": {
+        "startLine": 437,
+        "startChar": 25,
+        "endLine": 437,
+        "endChar": 29
       },
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -42,6 +202,70 @@
         "endLine": 443,
         "endChar": 92
       },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc629f99_f85c6917",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Looks like handling IF_ROOM is being tracked in b/119686836 and this is just to get the menu item to show.\n\nIf so, I do think we should at least add a comment about the functionality being implemented later and maybe add the tracking bug.",
+      "parentUuid": "6e907672_04f8f9fe",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 92
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b4f8bf_a2487e6a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "none were set*",
+      "range": {
+        "startLine": 448,
+        "startChar": 92,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc768cc3_c7d9e21a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-14T19:28:29Z",
+      "side": 1,
+      "message": "Prefer if you just define another method that layouts out right to left rather than introducing a parameter. It makes the method more complicated to read. \n\nAlso, now the variable \"rl\" has overloaded meaning.",
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
