@@ -759,6 +759,7 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
     }
 
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
+    @SuppressLint("RestrictedApi")
     MediaMetadata extractMetadata(MediaItem mediaItem) {
         MediaMetadataRetriever retriever = null;
         String path = "";
