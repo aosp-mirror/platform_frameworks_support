@@ -25,11 +25,9 @@ import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getLastReleasedApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
-import androidx.build.dokka.Dokka
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
-import androidx.build.license.CheckExternalDependencyLicensesTask
 import androidx.build.license.configureExternalDependencyLicenseCheck
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
@@ -116,52 +114,44 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        val buildOnServerTask = tasks.register(BUILD_ON_SERVER_TASK) {
+            println("why init ?")
+        }
+        val buildTestApksTask = tasks.register(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
-        tasks.all { task ->
-            if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
-                    Dokka.ARCHIVE_TASK_NAME == task.name ||
-                    "partiallyDejetifyArchive" == task.name ||
-                    "dejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
-                buildOnServerTask.dependsOn(task)
-            }
-        }
         subprojects { project ->
             if (project.path == ":docs-fake") {
                 return@subprojects
             }
-            project.tasks.all { task ->
+            project.tasks.configureEach { task ->
                 // TODO remove androidTest from buildOnServer once test runners do not
                 // expect them anymore. (wait for master)
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
                         "lintMinDepVersionsDebug" == task.name) {
-                    buildOnServerTask.dependsOn(task)
+                    buildOnServerTask.lazyDependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
+                    buildTestApksTask.lazyDependsOn(task)
                 }
             }
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
-        buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
+        buildOnServerTask.lazyDependsOn(createCoverageJarTask)
+        buildTestApksTask.lazyDependsOn(createCoverageJarTask)
 
         Release.createGlobalArchiveTask(this)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
+        buildOnServerTask.lazyDependsOn(allDocsTask)
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
-        buildOnServerTask.dependsOn(jacocoUberJar)
+        buildOnServerTask.lazyDependsOn(jacocoUberJar)
 
         project.createClockLockTasks()
 
@@ -346,7 +336,7 @@ private fun Project.configureResourceApiChecks() {
         if (project.hasApiFolder()) {
             val checkResourceApiTask = project.createCheckResourceApiTask()
             val updateResourceApiTask = project.createUpdateResourceApiTask()
-            project.tasks.all { task ->
+            project.tasks.configureEach { task ->
                 if (task.name == "assembleRelease") {
                     checkResourceApiTask.dependsOn(task)
                     updateResourceApiTask.dependsOn(task)
@@ -354,10 +344,8 @@ private fun Project.configureResourceApiChecks() {
                     task.dependsOn(updateResourceApiTask)
                 }
             }
-            project.rootProject.tasks.all { task ->
-                if (task.name == AndroidXPlugin.BUILD_ON_SERVER_TASK) {
-                    task.dependsOn(checkResourceApiTask)
-                }
+            project.rootProject.tasks.named(AndroidXPlugin.BUILD_ON_SERVER_TASK).configure {
+                it.dependsOn(checkResourceApiTask)
             }
         }
     }
