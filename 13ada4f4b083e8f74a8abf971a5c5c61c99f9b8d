@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a24365d_33ff3358",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-14T02:04:23Z",
+      "side": 1,
+      "message": "Rerun updateApi and fixed automatically.",
+      "parentUuid": "59c1440b_27e0f38c",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 96
+      },
+      "revId": "13ada4f4b083e8f74a8abf971a5c5c61c99f9b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8bcc9f2_3a19ef57",
         "filename": "media2/src/main/java/androidx/media2/LibraryResult.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "55e09846_250efe47",
+        "filename": "media2/src/main/java/androidx/media2/LibraryResult.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-14T02:04:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8bcc9f2_3a19ef57",
+      "range": {
+        "startLine": 184,
+        "startChar": 6,
+        "endLine": 184,
+        "endChar": 7
+      },
+      "revId": "13ada4f4b083e8f74a8abf971a5c5c61c99f9b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f09d6e40_49336632",
         "filename": "media2/src/main/java/androidx/media2/LibraryResult.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "13ada4f4b083e8f74a8abf971a5c5c61c99f9b8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d7ca639_8f3245cc",
+        "filename": "media2/src/main/java/androidx/media2/LibraryResult.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-14T02:04:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09d6e40_49336632",
+      "range": {
+        "startLine": 200,
+        "startChar": 6,
+        "endLine": 200,
+        "endChar": 7
+      },
+      "revId": "13ada4f4b083e8f74a8abf971a5c5c61c99f9b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
