@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6643cea4_a6bed954",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-14T19:22:03Z",
+      "side": 1,
+      "message": "Just curious, do we limit the space the overflow icon takes up?  Or allow it to be configurable?",
+      "range": {
+        "startLine": 424,
+        "startChar": 8,
+        "endLine": 424,
+        "endChar": 78
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e907672_04f8f9fe",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2018-12-14T19:22:03Z",
+      "side": 1,
+      "message": "It seems like we\u0027re just checking NEVER to determine if the overflow menu should be visible.  What about the use case of many if-rooms and they don\u0027t all fit so they need to be pushed into an overflow menu?  This check doesn\u0027t seem to cover all the possible use cases.",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 92
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
