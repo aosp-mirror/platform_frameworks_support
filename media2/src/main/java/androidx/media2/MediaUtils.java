@@ -865,6 +865,7 @@ public class MediaUtils {
         return ParcelUtils.<T>fromParcelable(p);
     }
 
+    @SuppressLint("RestrictedApi")
     private static class MediaItemParcelImpl extends ParcelImpl {
         private final MediaItem mItem;
         @SuppressLint("RestrictedApi")
