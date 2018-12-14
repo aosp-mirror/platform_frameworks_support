@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a674ba5b_5bfa8e8a",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b67f2d57_0d39ae13",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e50d4b1_f13782b3",
         "filename": "car/core/res/values/attrs.xml",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bce3c648_0e98d1a9",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e50d4b1_f13782b3",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "492fadab_1f566b2f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c7cd71_1ed543bc",
+      "range": {
+        "startLine": 247,
+        "startChar": 16,
+        "endLine": 247,
+        "endChar": 62
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "749c38d0_ed021b43",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "91e1a9e4_355b0f63",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "749c38d0_ed021b43",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9814be94_51e0415e",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5029fec7_d18cb087",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9814be94_51e0415e",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "210723da_ee2ff615",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95ec4efc_ed638991",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02086bc4_ee7ecba1",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -136,6 +262,24 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0524b1ac_343f5327",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "I skipped it because margins are 0, but I guess it wouldn\u0027t hurt in case we add horizontal margins in the future.",
+      "parentUuid": "02086bc4_ee7ecba1",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "30979a72_3e7e6cbd",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "You\u0027re right, I just put it before to separate the items based on the direction they\u0027re laid from.",
+      "parentUuid": "4521582d_23558d58",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 55
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6800d4e7_88c27a4e",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -182,6 +350,30 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239456d7_9c5cfd39",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6800d4e7_88c27a4e",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 94
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "384c652f_0440f703",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "The Javadocs said that no notation implies @NonNull, but I think we usually add @NonNull for AndroidX.",
+      "parentUuid": "4656b4b9_b50e6bec",
+      "range": {
+        "startLine": 423,
+        "startChar": 31,
+        "endLine": 423,
+        "endChar": 41
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6643cea4_a6bed954",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -254,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "184bf162_90a7b3c8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "The space is the same as the navigation icon space, if the navigation icon space is set, the overflow menu will also change based on that.",
+      "parentUuid": "6643cea4_a6bed954",
+      "range": {
+        "startLine": 424,
+        "startChar": 8,
+        "endLine": 424,
+        "endChar": 78
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29d92de0_89118c14",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -274,6 +514,30 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a7052e_73ae408a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29d92de0_89118c14",
+      "range": {
+        "startLine": 437,
+        "startChar": 25,
+        "endLine": 437,
+        "endChar": 29
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -324,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "585f61f1_d11a73ab",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Yeah, for now, I\u0027m only defining the behavior based on the items explicitly marked to be in the overflow menu. Once we start implementing b/119686836, I\u0027ll add that logic.",
+      "parentUuid": "fc629f99_f85c6917",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 92
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75b4f8bf_a2487e6a",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -344,6 +632,30 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6911e94_f065f612",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75b4f8bf_a2487e6a",
+      "range": {
+        "startLine": 448,
+        "startChar": 92,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -370,6 +682,30 @@
     },
     {
       "key": {
+        "uuid": "d4ccdcdb_41d1ae49",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "I\u0027ll just split it into two methods like Anthony suggested.",
+      "parentUuid": "11407e86_4c61bd58",
+      "range": {
+        "startLine": 480,
+        "startChar": 14,
+        "endLine": 480,
+        "endChar": 16
+      },
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc768cc3_c7d9e21a",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -384,6 +720,24 @@
       "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e542e2_e80a61d0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-14T23:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc768cc3_c7d9e21a",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
