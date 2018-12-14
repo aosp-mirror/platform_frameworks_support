@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ed486da_d843727c",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/GridLayoutManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "There is also one of these in StaggeredGridLayoutManager",
+      "range": {
+        "startLine": 3704,
+        "startChar": 16,
+        "endLine": 3704,
+        "endChar": 56
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea123a7_7a0af2b3",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "Could you also add the following tests:\n\n1. Add an action, remove the LayoutManager, verify that the ViewCompat.performAccessibilityAction no longer works (which verifies that ViewCompat no longer has reference to the View.\n\n2. Same as 1, but remove the RV from it\u0027s tree and verify the same thing.",
+      "range": {
+        "startLine": 307,
+        "startChar": 16,
+        "endLine": 307,
+        "endChar": 31
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2447575d_a6cb37f5",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "I know we have been over this, but this method results in the storing of a reference to holder.itemView in some \"static\" location right?  When is the developer supposed to remove that reference?\n\nOr does it automatically get removed by the View itself when it is detached?",
+      "range": {
+        "startLine": 320,
+        "startChar": 27,
+        "endLine": 320,
+        "endChar": 49
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0bd02c_7ce06079",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 8085,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "Likewise, it seems that we might want to call the calls you\u0027ve added next to the places where Layout.onDetachedFromWindow is called, instead of within it... so devs don\u0027t accidentally forget to CallSuper?",
+      "range": {
+        "startLine": 8085,
+        "startChar": 20,
+        "endLine": 8085,
+        "endChar": 40
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43096cff_4f3201de",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 8169,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "If we want to guarantee that this is called, it would be best to put this call next to where onLayoutCompleted is called (RV.dispatchLayoutStep3), given that onLayoutCompleted may be overridden without a call to super.onLayoutCompleted.",
+      "range": {
+        "startLine": 8169,
+        "startChar": 12,
+        "endLine": 8169,
+        "endChar": 47
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "171e9de9_b0a71f85",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 8182,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "Note: I think it\u0027s possible for a LayoutManager to allow for both scrolling vertically and horizontally, and I think its possible for that to work with A11Y, but the API isn\u0027t flushed out enough to allow that to work.  Nothing to do... just wanted to bring it up.",
+      "range": {
+        "startLine": 8179,
+        "startChar": 12,
+        "endLine": 8182,
+        "endChar": 13
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca479aee_ebdaf463",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 10245,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-14T21:17:21Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 10245,
+        "startChar": 12,
+        "endLine": 10245,
+        "endChar": 47
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
