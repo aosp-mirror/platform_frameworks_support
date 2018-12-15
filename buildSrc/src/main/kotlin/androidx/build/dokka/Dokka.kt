@@ -97,10 +97,10 @@ object Dokka {
         }
         library.libraryVariants.all { variant ->
             if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
-                project.afterEvaluate({
+                project.afterEvaluate {
                     val inputs = JavaCompileInputs.fromLibraryVariant(library, variant)
                     registerInputs(inputs, project)
-                })
+                }
             }
         }
         DiffAndDocs.get(project).registerPrebuilts(extension)
@@ -126,8 +126,10 @@ object Dokka {
     fun registerInputs(inputs: JavaCompileInputs, project: Project) {
         val docsTask = getDocsTask(project)
         docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath =
-                docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
+        docsTask.doFirst {
+            docsTask.classpath =
+                    docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
+        }
         docsTask.dependsOn(inputs.dependencyClasspath)
     }
 }

@@ -89,9 +89,4 @@ data class Version(
     }
 }
 
-fun Project.setupVersion(extension: SupportLibraryExtension) = afterEvaluate {
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    version = extension.mavenVersion?.toString()
-}
-
 fun Project.version() = Version(project.version as String)
