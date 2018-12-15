@@ -34,13 +34,12 @@ class SupportJavaLibraryPlugin : Plugin<Project> {
 
         val supportLibraryExtension = project.extensions.create("supportLibrary",
                 SupportLibraryExtension::class.java, project)
-        project.setupVersion(supportLibraryExtension)
         project.configureMavenArtifactUpload(supportLibraryExtension)
 
         project.apply(mapOf("plugin" to "java"))
         project.afterEvaluate {
             // workaround for b/120487939
-            project.configurations.all {
+            project.configurations.configureEach {
                 it.resolutionStrategy.preferProjectModules()
             }
             if (supportLibraryExtension.publish) {

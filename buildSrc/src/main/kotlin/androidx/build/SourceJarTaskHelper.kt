@@ -28,12 +28,12 @@ import org.gradle.kotlin.dsl.getPlugin
  * Sets up a source jar task for an Android library project.
  */
 fun Project.configureSourceJarForAndroid(extension: LibraryExtension) {
-    extension.libraryVariants.all { variant ->
+    extension.libraryVariants.configureEach { variant ->
         if (variant.buildType.name != BuilderConstants.RELEASE) {
-            return@all // Skip non-release builds.
+            return@configureEach // Skip non-release builds.
         }
 
-        val sourceJar = tasks.create("sourceJar${variant.name.capitalize()}", Jar::class.java) {
+        val sourceJar = tasks.register("sourceJar${variant.name.capitalize()}", Jar::class.java) {
             it.classifier = "sources"
             it.from(extension.sourceSets.getByName("main").java.srcDirs)
         }
@@ -45,7 +45,7 @@ fun Project.configureSourceJarForAndroid(extension: LibraryExtension) {
  * Sets up a source jar task for a Java library project.
  */
 fun Project.configureSourceJarForJava() {
-    val sourceJar = tasks.create("sourceJar", Jar::class.java) {
+    val sourceJar = tasks.register("sourceJar", Jar::class.java) {
         it.classifier = "sources"
 
         val convention = convention.getPlugin<JavaPluginConvention>()
