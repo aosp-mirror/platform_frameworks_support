@@ -95,8 +95,8 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                    extension.libraryVariants.configureEach { variant ->
+                        verifyDependencyVersionsTask.dependsOn(variant.javaCompileProvider)
                     }
                 }
                 is AppPlugin -> {
@@ -234,8 +234,10 @@ class AndroidXPlugin : Plugin<Project> {
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
 
         // Disable generating BuildConfig.java
-        extension.variants.all {
-            it.generateBuildConfig.enabled = false
+        extension.variants.configureEach {
+            it.generateBuildConfigProvider.configure {
+                it.enabled = false
+            }
         }
 
         configureErrorProneForAndroid(extension.variants)
