@@ -408,11 +408,14 @@ public class PagedListView extends FrameLayout {
     public void setGutter(@Gutter int gutter) {
         mGutter = gutter;
 
-        int startMargin = mScrollBarView.getLayoutParams().width;
+        // Default starting margin is either the width of the scroll bar if it's enabled or just
+        // flush to the edge.
+        int startMargin = mScrollBarEnabled ? mScrollBarView.getLayoutParams().width : 0;
         int endMargin = 0;
+
         if ((mGutter & Gutter.START) != 0) {
             // Ensure that the gutter value is large enough so that the RecyclerView does not
-            // overlap the scroll bar.
+            // overlap the scroll bar, if it's enabled.
             startMargin = Math.max(mGutterSize, startMargin);
         }
         if ((mGutter & Gutter.END) != 0) {
