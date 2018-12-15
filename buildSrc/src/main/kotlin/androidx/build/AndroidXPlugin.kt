@@ -45,8 +45,8 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
@@ -84,8 +84,9 @@ class AndroidXPlugin : Plugin<Project> {
                         targetCompatibility = VERSION_1_7
                     }
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val compileJavaTask = project.properties["compileJava"] as JavaCompile
-                    verifyDependencyVersionsTask.dependsOn(compileJavaTask)
+                    verifyDependencyVersionsTask.configure {
+                        it.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
+                    }
                 }
                 is LibraryPlugin -> {
                     val extension = project.extensions.getByType<LibraryExtension>()
@@ -95,8 +96,10 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                    extension.libraryVariants.configureEach { variant ->
+                        verifyDependencyVersionsTask.configure {
+                            variant.javaCompileProvider
+                        }
                     }
                 }
                 is AppPlugin -> {
@@ -170,7 +173,7 @@ class AndroidXPlugin : Plugin<Project> {
         // Iterate through all the project and substitute any artifact dependency of a
         // maxdepversions future configuration with the corresponding tip of tree project.
         subprojects { project ->
-            project.configurations.all { configuration ->
+            project.configurations.configureEach { configuration ->
                 if (configuration.name.toLowerCase().contains("maxdepversions") &&
                         project.extra.has("publish")) {
                     configuration.resolutionStrategy.dependencySubstitution.apply {
@@ -199,7 +202,7 @@ class AndroidXPlugin : Plugin<Project> {
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
             }
-            project.configurations.all { configuration ->
+            project.configurations.configureEach { configuration ->
                 configuration.resolutionStrategy.eachDependency { dep ->
                     val target = dep.target
                     // Enforce the ban on declaring dependencies with version ranges.
@@ -234,8 +237,10 @@ class AndroidXPlugin : Plugin<Project> {
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
 
         // Disable generating BuildConfig.java
-        extension.variants.all {
-            it.generateBuildConfig.enabled = false
+        extension.variants.configureEach {
+            it.generateBuildConfigProvider.configure {
+                it.enabled = false
+            }
         }
 
         configureErrorProneForAndroid(extension.variants)
@@ -293,8 +298,9 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
-    private fun Project.createVerifyDependencyVersionsTask(): DefaultTask {
-        return project.tasks.create("verifyDependencyVersions",
+    private fun Project.createVerifyDependencyVersionsTask():
+            TaskProvider<VerifyDependencyVersionsTask> {
+        return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
     }
 
