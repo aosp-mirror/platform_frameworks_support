@@ -54,12 +54,14 @@ dependencies {
 }
 
 // Used by testCompile in room-compiler
-android.libraryVariants.all { variant ->
+android.libraryVariants.configureEach { variant ->
     def name = variant.name
     def suffix = name.capitalize()
-    project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
+    project.tasks.register("jar${suffix}", Jar){
+        dependsOn variant.javaCompileProvider
+        from variant.javaCompileProvider.map {
+            it.destinationDir
+        }
         destinationDir new File(project.buildDir, "libJar")
     }
 }

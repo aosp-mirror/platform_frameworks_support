@@ -39,7 +39,6 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
 
         val supportLibraryExtension = project.extensions.create("supportLibrary",
                 SupportLibraryExtension::class.java, project)
-        project.setupVersion(supportLibraryExtension)
         project.configureMavenArtifactUpload(supportLibraryExtension)
 
         // Workaround for concurrentfuture
@@ -50,7 +49,7 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
 
         project.afterEvaluate {
             // workaround for b/120487939
-            project.configurations.all {
+            project.configurations.configureEach {
                 // Gradle seems to crash an androidtest configurations preferring project modules...
                 if (!it.name.toLowerCase().contains("androidtest")) {
                     it.resolutionStrategy.preferProjectModules()
@@ -78,21 +77,21 @@ class SupportAndroidLibraryPlugin : Plugin<Project> {
                         "Android libraries must use a compilation target of DEVICE")
             }
 
-            library.libraryVariants.all { libraryVariant ->
+            library.libraryVariants.configureEach { libraryVariant ->
                 if (libraryVariant.getBuildType().getName().equals("debug")) {
-                    @Suppress("DEPRECATION")
-                    val javaCompile = libraryVariant.javaCompile
-                    if (supportLibraryExtension.failOnUncheckedWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:unchecked")
-                    }
-                    if (supportLibraryExtension.failOnDeprecationWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:deprecation")
-                    }
-                    // We don't want maxDepVersions to fail when it finds a warning because
-                    // if we introduce warnings to new libraries that were okay to use before,
-                    // we'd like to only display a warning and fix later.
-                    if (libraryVariant.flavorName != "maxDepVersions") {
-                        javaCompile.options.compilerArgs.add("-Werror")
+                    libraryVariant.javaCompileProvider.configure { javaCompile ->
+                        if (supportLibraryExtension.failOnUncheckedWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:unchecked")
+                        }
+                        if (supportLibraryExtension.failOnDeprecationWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:deprecation")
+                        }
+                        // We don't want maxDepVersions to fail when it finds a warning because
+                        // if we introduce warnings to new libraries that were okay to use before,
+                        // we'd like to only display a warning and fix later.
+                        if (libraryVariant.flavorName != "maxDepVersions") {
+                            javaCompile.options.compilerArgs.add("-Werror")
+                        }
                     }
                 }
             }
