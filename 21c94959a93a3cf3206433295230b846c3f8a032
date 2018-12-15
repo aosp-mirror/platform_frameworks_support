@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca80be99_fed7a6c0",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-15T01:11:38Z",
+      "side": 1,
+      "message": "Could you somehow fold this into the setupPagedListView method? Maybe define a new method that sets the SpanSizeLookup.\n\nThe reasoning is that we already wait for idle after the setupPagedListView() method. And then we\u0027ll wait again for this. Makes the test slower.",
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d8bb8c_afce25a8",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-15T01:11:38Z",
+      "side": 1,
+      "message": "Better to hard-code this value than have logic in the test. Makes it easier to debug if it fails.\n\ngo/tott-510",
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d261cc98_1616dbfa",
+        "filename": "car/core/src/main/java/androidx/car/util/GridLayoutManagerUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-15T01:11:38Z",
+      "side": 1,
+      "message": "If you instead call this lastItemPositions and subtract 1 here, does that save you from having to subtract 1 from the final return?\n\nI think it reads clearer not to have a \"- 1\" on the last return.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d528c7_e65fb138",
+        "filename": "car/core/src/main/java/androidx/car/util/GridLayoutManagerUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-15T01:11:38Z",
+      "side": 1,
+      "message": "If you just add this to spanSum here, you don\u0027t have to do it in two places later on.",
+      "range": {
+        "startLine": 99,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
