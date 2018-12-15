@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-
+import androidx.build.jacoco.Jacoco
 import androidx.build.BuildServerConfigurationKt
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.gmaven.GMavenVersionChecker
 import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
+import com.android.build.gradle.tasks.PackageApplication
 
 def supportRoot = ext.supportRootFolder
 if (supportRoot == null) {
@@ -67,24 +68,29 @@ def setupSubprojectsForBuildServer() {
 
             if (isAndroidLibrary || isAndroidApp) {
                 // Copy the class files in a jar to be later used to generate code coverage report
-                project.android.testVariants.all { v ->
+                project.android.testVariants.configureEach { v ->
                     // check if the variant has any source files
                     // and test coverage is enabled
                     if (v.buildType.testCoverageEnabled
                             && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
-                        def jarifyTask = project.tasks.create(
-                                name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
-                                type: Jar) {
-                            from v.testedVariant.javaCompile.destinationDir
+                        def jarifyTask = project.tasks.register(
+                                "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                                Jar) {
+                            from v.testedVariant.javaCompileProvider.map {
+                                destinationDir
+                            }
                             exclude "**/R.class"
                             exclude "**/R\$*.class"
                             exclude "**/BuildConfig.class"
                             destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
+                            dependsOn v.getJavaCompileProvider()
                         }
+                        Jacoco.registerClassFilesTask(project, jarifyTask)
 
-                        jarifyTask.dependsOn v.getJavaCompileProvider()
-                        v.assemble.dependsOn jarifyTask
+                        v.assembleProvider.configure {
+                            it.dependsOn jarifyTask
+                        }
                     }
                 }
             }
@@ -95,7 +101,7 @@ def setupSubprojectsForBuildServer() {
         // For regular app apks, they are uploaded only if they have java sources.
         // Copy only the minDepVersions debug version since that is the publish
         // flavor.
-        project.tasks.whenTaskAdded { task ->
+        project.tasks.withType(PackageApplication).configureEach { task ->
             if (task.name.startsWith("packageMinDepVersionsDebug")) {
                 // run this task only if we should run it
                 def testApk = task.name.contains("AndroidTest")
@@ -147,22 +153,20 @@ def setupSubprojectsForBuildServer() {
         }
 
         // copy host side test results to DIST
-        project.tasks.whenTaskAdded { task ->
-            if (task instanceof org.gradle.api.tasks.testing.Test) {
-                def junitReport = task.reports.junitXml
-                if (junitReport.enabled) {
-                    def zipTask = project.tasks.create(name : "zipResultsOf${task.name.capitalize()}", type : Zip) {
-                        destinationDir(BuildServerConfigurationKt.getHostTestResultDirectory(project))
-                        // first one is always :, drop it.
-                        archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
-                    }
-                    if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
-                        task.ignoreFailures = true
-                    }
-                    task.finalizedBy zipTask
-                    task.doFirst {
-                        zipTask.from(junitReport.destination)
-                    }
+        project.tasks.withType(Test) { task ->
+            def junitReport = task.reports.junitXml
+            if (junitReport.enabled) {
+                def zipTask = project.tasks.create(name : "zipResultsOf${task.name.capitalize()}", type : Zip) {
+                    destinationDir(BuildServerConfigurationKt.getHostTestResultDirectory(project))
+                    // first one is always :, drop it.
+                    archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
+                }
+                if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
+                    task.ignoreFailures = true
+                }
+                task.finalizedBy zipTask
+                task.doFirst {
+                    zipTask.from(junitReport.destination)
                 }
             }
         }
