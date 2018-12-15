@@ -51,12 +51,12 @@ object Metalava {
             return
         }
 
-        library.libraryVariants.all { variant ->
+        library.libraryVariants.configureEach { variant ->
             if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
                 if (!project.hasApiFolder()) {
                     project.logger.info(
                         "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
-                    return@all
+                    return@configureEach
                 }
 
                 val javaInputs = JavaCompileInputs.fromLibraryVariant(library, variant)
