@@ -43,6 +43,8 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(CardViewActivity::class.java.name)))
         myData.add(hashMapOf("title" to "ViewPager with Fragments",
                 "intent" to activityToIntent(CardFragmentActivity::class.java.name)))
+        myData.add(hashMapOf("title" to "ViewPager and TabLayout, with Views",
+            "intent" to activityToIntent(CardViewTabLayoutActivity::class.java.name)))
 
         return myData
     }
