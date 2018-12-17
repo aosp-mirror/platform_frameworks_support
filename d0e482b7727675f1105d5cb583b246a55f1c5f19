@@ -22,6 +22,30 @@
       "revId": "d0e482b7727675f1105d5cb583b246a55f1c5f19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363c4198_32ee6125",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-17T07:48:12Z",
+      "side": 1,
+      "message": "A1) It is true that mIsFrameworkCallbackCalled is not used in API 21. However, the dummy ConnectionRecord is used in API 21~27 (See L499).\n\nAnyway, as you suggested in Q3, it turned out that mIsFrameworkCallbackCalled is no longer needed.\n\nA2) Good idea. Done.\n\nA3) Thanks for the suggestion. It would be nice if you check whether this patch set is same as what you said or not.",
+      "parentUuid": "106aa1a7_b0ea7b11",
+      "range": {
+        "startLine": 430,
+        "startChar": 13,
+        "endLine": 430,
+        "endChar": 39
+      },
+      "revId": "d0e482b7727675f1105d5cb583b246a55f1c5f19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
