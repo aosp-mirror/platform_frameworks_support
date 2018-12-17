@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3156b2e_56af3dad",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-17T22:26:19Z",
+      "side": 1,
+      "message": "Move this class to the end of the test and rename to \"AlternatingSpanSizeLookup\"",
+      "revId": "0e85fbc37c79a4f38153c081f2e69ca99de27da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

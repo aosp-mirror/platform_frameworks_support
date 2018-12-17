@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6e8d7ba4_00223d4b",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-17T22:26:19Z",
+      "side": 1,
+      "message": "Oh you\u0027re right. I was thinking of the PagedListViewTest where I added the waiting.\n\nI think it\u0027s ok to add the waiting in this test. I feel we want the setup to be blocking.",
+      "parentUuid": "3b7e61a6_d37f3396",
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76d8bb8c_afce25a8",
         "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
         "patchSetId": 4
