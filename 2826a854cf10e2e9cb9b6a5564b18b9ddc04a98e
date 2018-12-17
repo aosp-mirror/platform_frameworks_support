@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f122b3ac_047208fd",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T20:14:43Z",
+      "side": 1,
+      "message": "spell it out as horizontalMargin",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "2826a854cf10e2e9cb9b6a5564b18b9ddc04a98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833dd191_0eb36527",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T20:14:43Z",
+      "side": 1,
+      "message": "how about rename it to parentHeight and rename vh to height?",
+      "range": {
+        "startLine": 489,
+        "startChar": 79,
+        "endLine": 489,
+        "endChar": 85
+      },
+      "revId": "2826a854cf10e2e9cb9b6a5564b18b9ddc04a98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
