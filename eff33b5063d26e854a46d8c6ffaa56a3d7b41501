@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a7272ba_3746f1a4",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-17T08:03:24Z",
+      "side": 1,
+      "message": "static final?",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 9
+      },
+      "revId": "eff33b5063d26e854a46d8c6ffaa56a3d7b41501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0db022_871323a2",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-17T08:03:24Z",
+      "side": 1,
+      "message": "What about UNKNOWN_CONNECTION?",
+      "range": {
+        "startLine": 188,
+        "startChar": 27,
+        "endLine": 188,
+        "endChar": 52
+      },
+      "revId": "eff33b5063d26e854a46d8c6ffaa56a3d7b41501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
