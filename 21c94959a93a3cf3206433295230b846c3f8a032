@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3b7e61a6_d37f3396",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T22:14:13Z",
+      "side": 1,
+      "message": "Moved to setUpPagedListView(), but IIUC setUpPagedListView() doesn\u0027t work for layout to finish.\n\nI didn\u0027t add a waiting in the method in case we want to do more set up in the tests.",
+      "parentUuid": "ca80be99_fed7a6c0",
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76d8bb8c_afce25a8",
         "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47b15bd2_7a2db3af",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T22:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76d8bb8c_afce25a8",
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "622569ea_6ab8c18c",
+        "filename": "car/core/src/main/java/androidx/car/util/GridLayoutManagerUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T22:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d261cc98_1616dbfa",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8d528c7_e65fb138",
         "filename": "car/core/src/main/java/androidx/car/util/GridLayoutManagerUtils.java",
         "patchSetId": 4
@@ -79,6 +139,30 @@
       "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e035f0_99f0baf3",
+        "filename": "car/core/src/main/java/androidx/car/util/GridLayoutManagerUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-17T22:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d528c7_e65fb138",
+      "range": {
+        "startLine": 99,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "21c94959a93a3cf3206433295230b846c3f8a032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
