@@ -301,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "94620d55_c7af890e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-17T22:51:52Z",
+      "side": 1,
+      "message": "I\u0027ve changed it to sum up the horizontal margins as well for now. Will check with UX to make sure things are up to spec.",
+      "parentUuid": "28c6fa6a_f0f7f02e",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4521582d_23558d58",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
