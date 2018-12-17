@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106aa1a7_b0ea7b11",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-17T05:01:52Z",
+      "side": 1,
+      "message": "I\u0027m curious why you implement this in this way. Here\u0027s my questions.\n\nQ1) mIsFrameworkCallbackCalled isn\u0027t used in API21 and setting mCurConnection with dummy ConnectionRecord isn\u0027t used in API26/28. Why do you need both?\n\nQ2) Why do you instantiate dummy ConnectionRecord everytime? What about creating \u0027static final ConnectionRecord\u0027?\n\nQ3) What about followings as we\u0027re doing for incoming extra binder calls?\n\nL425:    mCurConnection \u003d UNKNOWN_CONNECTION_RECORD;\nL426:    MediaBrowserServiceCompat.this.onLoadChildren(parentId, result);\nL427:    mCurConnection \u003d null;\n\nNote: For this approach, we need an API to create ConnectionRecord from framework RemoteUserInfo.",
+      "range": {
+        "startLine": 430,
+        "startChar": 13,
+        "endLine": 430,
+        "endChar": 39
+      },
+      "revId": "d0e482b7727675f1105d5cb583b246a55f1c5f19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
