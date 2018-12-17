@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bddd4b9_76f895fa",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-17T21:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f122b3ac_047208fd",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "2826a854cf10e2e9cb9b6a5564b18b9ddc04a98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "833dd191_0eb36527",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "2826a854cf10e2e9cb9b6a5564b18b9ddc04a98e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e2e9335_f6d76eb4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-17T21:27:07Z",
+      "side": 1,
+      "message": "Why not.",
+      "parentUuid": "833dd191_0eb36527",
+      "range": {
+        "startLine": 489,
+        "startChar": 79,
+        "endLine": 489,
+        "endChar": 85
+      },
+      "revId": "2826a854cf10e2e9cb9b6a5564b18b9ddc04a98e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
