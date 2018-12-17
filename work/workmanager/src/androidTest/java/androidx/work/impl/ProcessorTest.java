@@ -29,6 +29,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.DatabaseTest;
+import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.worker.InfiniteTestWorker;
@@ -49,6 +50,7 @@ public class ProcessorTest extends DatabaseTest {
     public void setUp() {
         Context appContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
         Configuration configuration = new Configuration.Builder().build();
+        Logger.setLogger(new Logger.LogcatLogger(configuration.getMinimumLoggingLevel()));
         mMockScheduler = mock(Scheduler.class);
         mProcessor = new Processor(
                 appContext,

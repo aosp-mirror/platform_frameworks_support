@@ -18,11 +18,14 @@ package androidx.work;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import android.util.Log;
+
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.worker.TestWorker;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -36,6 +39,11 @@ public class PeriodicWorkTest extends WorkManagerTest {
 
     @Rule
     public ExpectedException mThrown = ExpectedException.none();
+
+    @Before
+    public void setUp() {
+        Logger.setLogger(new Logger.LogcatLogger(Log.DEBUG));
+    }
 
     @Test
     @SmallTest

@@ -21,6 +21,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import android.util.Log;
+
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.work.impl.model.WorkSpec;
@@ -44,6 +46,7 @@ public class WorkTest extends WorkManagerTest {
 
     @Before
     public void setUp() {
+        Logger.setLogger(new Logger.LogcatLogger(Log.DEBUG));
         mBuilder = new OneTimeWorkRequest.Builder(TestWorker.class);
     }
 

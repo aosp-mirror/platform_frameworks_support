@@ -25,11 +25,13 @@ import static org.mockito.Mockito.mock;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+import androidx.work.Logger;
 import androidx.work.impl.background.systemalarm.SystemAlarmScheduler;
 import androidx.work.impl.background.systemalarm.SystemAlarmService;
 import androidx.work.impl.background.systemjob.SystemJobScheduler;
@@ -50,6 +52,7 @@ public class SchedulersTest {
     public void setUp() {
         mWorkManager = mock(WorkManagerImpl.class);
         mAppContext = InstrumentationRegistry.getTargetContext();
+        Logger.setLogger(new Logger.LogcatLogger(Log.DEBUG));
     }
 
     @Test

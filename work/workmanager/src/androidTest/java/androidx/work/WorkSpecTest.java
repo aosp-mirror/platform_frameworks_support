@@ -20,10 +20,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
+import android.util.Log;
+
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.work.worker.InfiniteTestWorker;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,6 +41,11 @@ public class WorkSpecTest extends WorkManagerTest {
             PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS + 5000L;
     private static final long DEFAULT_INTERVAL_TIME_MS =
             PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + 5000L;
+
+    @Before
+    public void setUp() {
+        Logger.setLogger(new Logger.LogcatLogger(Log.DEBUG));
+    }
 
     @Test
     @SmallTest
