@@ -93,6 +93,54 @@
       "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5a0137_c09b8cbf",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-17T20:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0436bcbd_8e9f043a",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07f297f9_49d7fa6c",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-17T20:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e7a43b4_3445062f",
+      "range": {
+        "startLine": 54,
+        "startChar": 57,
+        "endLine": 54,
+        "endChar": 68
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
