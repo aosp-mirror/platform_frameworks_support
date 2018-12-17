@@ -410,10 +410,13 @@ import java.util.Map;
     }
 
     public MediaTimestamp getTimestamp() {
+        boolean isPlaying =
+                mPlayer.getPlaybackState() == Player.STATE_READY && mPlayer.getPlayWhenReady();
+        float speed = isPlaying ? mPlaybackParams.getSpeed() : 0f;
         return new MediaTimestamp(
                 C.msToUs(getCurrentPosition()),
                 System.nanoTime(),
-                mPlaybackParams.getSpeed());
+                speed);
     }
 
     public void reset() {
