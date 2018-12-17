@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1597bf72_c0a07382",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteChooserDialogFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-17T05:37:15Z",
+      "side": 1,
+      "message": "Using hidden API in AndroidX is not recommended anymore.\nCan\u0027t we make a package private method instead?",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 10
+      },
+      "revId": "329f5f2a6be3e992af75f1b6e4731c0bf23dd71e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
