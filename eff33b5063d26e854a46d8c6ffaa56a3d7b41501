@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9d34fcea_6a563eb0",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-17T11:46:44Z",
+      "side": 1,
+      "message": "Talked offline and recommended to pick Option 1.\n\nDuring the discussion, If found two strange things in the constant name\n  1) why its name is LEGACY_CONTROLLER? MediaBrowser isn\u0027t controller\n  2) why its value is android.media.session.MediaController? It\u0027s class name and not package name.",
+      "parentUuid": "415345e8_e776c6a4",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 50
+      },
+      "revId": "eff33b5063d26e854a46d8c6ffaa56a3d7b41501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a7272ba_3746f1a4",
         "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
         "patchSetId": 4
