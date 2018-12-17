@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73414ab4_740ba52c",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-12-17T19:58:13Z",
+      "side": 1,
+      "message": "Why do you need this? I don\u0027t think you override it anywhere.",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eada3aee_40ba875e",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2018-12-17T19:58:13Z",
+      "side": 1,
+      "message": "nit: underscores to separate words?",
+      "range": {
+        "startLine": 54,
+        "startChar": 57,
+        "endLine": 54,
+        "endChar": 68
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
