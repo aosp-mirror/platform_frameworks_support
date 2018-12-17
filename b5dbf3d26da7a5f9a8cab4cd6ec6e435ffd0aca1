@@ -45,6 +45,54 @@
       "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0436bcbd_8e9f043a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-17T20:02:05Z",
+      "side": 1,
+      "message": "That\u0027s going to happen in a future commit. Happy to make it final for now.",
+      "parentUuid": "73414ab4_740ba52c",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e7a43b4_3445062f",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-17T20:02:05Z",
+      "side": 1,
+      "message": "With the future commit it will look nicer:\n- activity_tablayout\n- activity_notablayout",
+      "parentUuid": "eada3aee_40ba875e",
+      "range": {
+        "startLine": 54,
+        "startChar": 57,
+        "endLine": 54,
+        "endChar": 68
+      },
+      "revId": "b5dbf3d26da7a5f9a8cab4cd6ec6e435ffd0aca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
