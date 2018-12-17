@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "28c6fa6a_f0f7f02e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-17T22:21:33Z",
+      "side": 1,
+      "message": "I meant you should clarify with UX to figure out what the margins are. If it\u0027s truly 0, then you can retain your logic. Otherwise, I feel there\u0027s usually some padding.",
+      "parentUuid": "0524b1ac_343f5327",
+      "revId": "2ea65a211d88fcb002fd51facefff8a6ede49aa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4521582d_23558d58",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
