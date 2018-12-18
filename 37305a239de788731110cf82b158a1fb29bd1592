@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfecb714_75f8c141",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2018-12-18T21:29:48Z",
+      "side": 1,
+      "message": "While we are here, add a TODO to remove this once https://issuetracker.google.com/72050365 is fixed",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
