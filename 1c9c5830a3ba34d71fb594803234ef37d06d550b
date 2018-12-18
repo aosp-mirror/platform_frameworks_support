@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98975f33_06e5fc95",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-18T13:50:28Z",
+      "side": 1,
+      "message": "The comment suggests that it could also be possible that RV decides to keep the container attached to the window _and_ to the view hierarchy, yet the if statements suggest that this is the only possibility.\n\nMaybe add something like \"Note that views are never attached to both the window and the view hierarchy when they are bound.\"",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 13
+      },
+      "revId": "1c9c5830a3ba34d71fb594803234ef37d06d550b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
