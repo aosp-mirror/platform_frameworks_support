@@ -22,6 +22,30 @@
       "revId": "e5bf1b1acc4942529b9971ce37d4bd601be3f4ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed598be_616777e7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-18T22:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e854d43_46345e49",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "e5bf1b1acc4942529b9971ce37d4bd601be3f4ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
