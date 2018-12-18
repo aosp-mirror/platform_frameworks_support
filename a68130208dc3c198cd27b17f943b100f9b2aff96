@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7b3922d9_1fe6a89b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-12-18T15:42:50Z",
+      "side": 1,
+      "message": "Apache names the actual artifacts using X.Y-yyyyMMdd.HHmmss-A where A is an increasing integer that seems to be incremented by one every time they do a new snapshot push. I\u0027m not sure how that would be ordered against X.Y.Z or X.Y.Z-alphaRR, but I\u0027d take Apache as the golden standard.\n\nhttps://repository.apache.org/content/repositories/snapshots/commons-cli/commons-cli/1.5-SNAPSHOT/",
+      "parentUuid": "f4826b4e_192740b9",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "124123f8_69ae6e1d",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-05T20:43:57Z",
       "side": 1,
       "message": "I guess we should probably double check that Maven supports artifacts with a number after the \"SNAPSHOT\" (presumably it does) (I can check this if it\u0027s a pain for you to check). Normally the text \"-SNAPSHOT\" in a Maven version is at the end.",
+      "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9e73a3d_c42dc44c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-12-18T15:42:50Z",
+      "side": 1,
+      "message": "It looks like snapshots are handled differently than normal versions, in that the artifact version is X.Y-SNAPSHOT and the metadata inside that version explicitly lists every snapshot:\nhttps://repository.apache.org/content/repositories/snapshots/commons-cli/commons-cli/1.5-SNAPSHOT/maven-metadata.xml\n\nSo I\u0027d guess the Maven plugin has some special handling for snapshots and we\u0027ll need to use that.",
+      "parentUuid": "124123f8_69ae6e1d",
       "revId": "a68130208dc3c198cd27b17f943b100f9b2aff96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
