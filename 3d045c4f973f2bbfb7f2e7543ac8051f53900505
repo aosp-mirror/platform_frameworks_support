@@ -22,6 +22,30 @@
       "revId": "3d045c4f973f2bbfb7f2e7543ac8051f53900505",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb7799cd_74c6f325",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityLifecycleTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2018-12-18T22:38:13Z",
+      "side": 1,
+      "message": "Happy to do this if there\u0027s a reasonable command-line tool for batching it. \"Optimize imports\" in Studio removes necessary imports, so I can\u0027t use that.",
+      "parentUuid": "83e62332_d0726c6e",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "3d045c4f973f2bbfb7f2e7543ac8051f53900505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
