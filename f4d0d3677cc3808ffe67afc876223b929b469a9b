@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c663210d_6f24475e",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:32:34Z",
+      "side": 1,
+      "message": "Two options\nOpt1) mUnknownConnectionFromFwk -\u003e mConnectionFromFwk\n  - pros: min line of changes\n  - cons: mConnectionFromFwk is invalid for SDK28\n\n\nOpt2)\nImpBase : setCurrentConnection(boolean fromFwk) {\n  if (fromFwk) {\n     mCurConnection \u003d mUnknownConnectionFromFwk;\n  } else {\n     mCurConnection \u003d null;\n  }\n}\n\nApi28 : @Override setCurrentConnection(boolean fromFwk) {\n   if (fromFwk) {\n     mCurConnection \u003d new XXX()\n     browserInfo \u003d new RemoteUserInfo(mServiceFwk.getCurrentBrowserInfo());\n   }\n}\n\n  - pros: mCurConnection is correct\n  - cons: longer line.\n\n\n---\u003e Picked opt 2 during the offline discussion.",
+      "range": {
+        "startLine": 656,
+        "startChar": 34,
+        "endLine": 656,
+        "endChar": 59
+      },
+      "revId": "f4d0d3677cc3808ffe67afc876223b929b469a9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
