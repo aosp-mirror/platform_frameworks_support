@@ -14,12 +14,23 @@
  * limitations under the License.
  */
 
-package androidx.navigation.safe.args.generator
+package androidx.navigation.safe.args.generator.kotlin
 
-data class GeneratorOutput(val files: List<CodeFile>, val errors: List<ErrorMessage>) {
-    val fileNames = files.map { it -> it.getFileName() }
+import androidx.navigation.safe.args.generator.CodeFile
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FileSpec
+import java.io.File
+
+data class KotlinCodeFile(internal val wrapped: FileSpec) : CodeFile {
+    override fun writeTo(directory: File) {
+        wrapped.writeTo(directory)
+    }
+
+    override fun getFileName() = "${wrapped.packageName}.${wrapped.name}"
+
+    fun toClassName() = ClassName.bestGuess(getFileName())
+
+    override fun toString() = wrapped.toString()
 }
 
-data class ErrorMessage(val path: String, val line: Int, val column: Int, val message: String) {
-    override fun toString() = "Error at $path:$line:$column $message"
-}
+fun FileSpec.toCodeFile() = KotlinCodeFile(this)

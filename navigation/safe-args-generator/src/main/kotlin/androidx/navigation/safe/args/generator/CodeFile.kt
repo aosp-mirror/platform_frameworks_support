@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-package androidx.navigation.safe.args.generator.ext
+package androidx.navigation.safe.args.generator
 
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.JavaFile
+import java.io.File
 
-const val L = "\$L"
-const val N = "\$N"
-const val T = "\$T"
-const val S = "\$S"
-const val BEGIN_STMT = "\$["
-const val END_STMT = "\$]"
-
-fun JavaFile.toClassName(): ClassName = ClassName.get(this.packageName, this.typeSpec.name)
+interface CodeFile {
+    fun writeTo(directory: File)
+    fun getFileName(): String
+}

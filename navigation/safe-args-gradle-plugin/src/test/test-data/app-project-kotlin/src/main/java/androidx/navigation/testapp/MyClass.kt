@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package androidx.navigation.safe.args.generator
+package androidx.navigation.testapp
 
-data class GeneratorOutput(val files: List<CodeFile>, val errors: List<ErrorMessage>) {
-    val fileNames = files.map { it -> it.getFileName() }
-}
+import java.io.Serializable
 
-data class ErrorMessage(val path: String, val line: Int, val column: Int, val message: String) {
-    override fun toString() = "Error at $path:$line:$column $message"
-}
+class MyClass : Serializable

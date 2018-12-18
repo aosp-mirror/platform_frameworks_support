@@ -16,46 +16,86 @@
 
 package androidx.navigation.safe.args.generator
 
-import androidx.navigation.safe.args.generator.ext.toClassName
+import androidx.navigation.safe.args.generator.java.JavaCodeFile
+import androidx.navigation.safe.args.generator.java.JavaNavWriter
+import androidx.navigation.safe.args.generator.kotlin.KotlinCodeFile
+import androidx.navigation.safe.args.generator.kotlin.KotlinNavWriter
 import androidx.navigation.safe.args.generator.models.Destination
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.JavaFile
 import java.io.File
 
-fun generateSafeArgs(
+fun SafeArgsGenerator(
     rFilePackage: String,
     applicationId: String,
     navigationXml: File,
     outputDir: File,
-    useAndroidX: Boolean = false
-): GeneratorOutput {
-    val context = Context()
-    val rawDestination = NavParser.parseNavigationFile(navigationXml, rFilePackage, applicationId,
-            context)
-    val resolvedDestination = resolveArguments(rawDestination)
-    val javaFiles = mutableSetOf<JavaFile>()
-    fun writeJavaFiles(
-        destination: Destination,
-        parentDirectionName: ClassName?
-    ) {
-        val directionsJavaFile = if (destination.actions.isNotEmpty() ||
-                parentDirectionName != null) {
-            generateDirectionsJavaFile(destination, parentDirectionName, useAndroidX)
-        } else {
-            null
+    useAndroidX: Boolean,
+    generateKotlin: Boolean
+): NavSafeArgsGenerator<*> {
+    return if (generateKotlin) {
+        object : NavSafeArgsGenerator<KotlinCodeFile>(
+            rFilePackage,
+            applicationId,
+            navigationXml,
+            outputDir
+        ) {
+            override val writer =
+                KotlinNavWriter(useAndroidX)
         }
-        val argsJavaFile = if (destination.args.isNotEmpty()) {
-            generateArgsJavaFile(destination, useAndroidX)
-        } else {
-            null
-        }
-        directionsJavaFile?.let { javaFiles.add(it) }
-        argsJavaFile?.let { javaFiles.add(it) }
-        destination.nested.forEach { it ->
-            writeJavaFiles(it, directionsJavaFile?.toClassName())
+    } else {
+        object : NavSafeArgsGenerator<JavaCodeFile>(
+            rFilePackage,
+            applicationId,
+            navigationXml,
+            outputDir
+        ) {
+            override val writer =
+                JavaNavWriter(useAndroidX)
         }
     }
-    writeJavaFiles(resolvedDestination, null)
-    javaFiles.forEach { javaFile -> javaFile.writeTo(outputDir) }
-    return GeneratorOutput(javaFiles.toList(), context.logger.allMessages())
+}
+
+abstract class NavSafeArgsGenerator<T : CodeFile> protected constructor(
+    val rFilePackage: String,
+    val applicationId: String,
+    val navigationXml: File,
+    val outputDir: File
+) {
+    abstract val writer: NavWriter<T>
+
+    fun generate(): GeneratorOutput {
+        val context = Context()
+        val rawDestination = NavParser.parseNavigationFile(
+            navigationXml,
+            rFilePackage,
+            applicationId,
+            context
+        )
+        val resolvedDestination = resolveArguments(rawDestination)
+        val codeFiles = mutableSetOf<T>()
+        fun writeCodeFiles(
+            destination: Destination,
+            parentDirection: T?
+        ) {
+            val directionsCodeFile = if (destination.actions.isNotEmpty() ||
+                parentDirection != null
+            ) {
+                writer.generateDirectionsCodeFile(destination, parentDirection)
+            } else {
+                null
+            }
+            val argsCodeFile = if (destination.args.isNotEmpty()) {
+                writer.generateArgsCodeFile(destination)
+            } else {
+                null
+            }
+            directionsCodeFile?.let { codeFiles.add(it) }
+            argsCodeFile?.let { codeFiles.add(it) }
+            destination.nested.forEach { it ->
+                writeCodeFiles(it, directionsCodeFile)
+            }
+        }
+        writeCodeFiles(resolvedDestination, null)
+        codeFiles.forEach { it.writeTo(outputDir) }
+        return GeneratorOutput(codeFiles.toList(), context.logger.allMessages())
+    }
 }

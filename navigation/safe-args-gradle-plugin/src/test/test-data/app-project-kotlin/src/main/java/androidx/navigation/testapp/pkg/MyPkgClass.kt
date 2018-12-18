@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-package androidx.navigation.safe.args.generator
+package androidx.navigation.testapp.pkg
 
-data class GeneratorOutput(val files: List<CodeFile>, val errors: List<ErrorMessage>) {
-    val fileNames = files.map { it -> it.getFileName() }
-}
+import android.os.Parcel
+import android.os.Parcelable
 
-data class ErrorMessage(val path: String, val line: Int, val column: Int, val message: String) {
-    override fun toString() = "Error at $path:$line:$column $message"
+class MyPkgClass() : Parcelable {
+    constructor(parcel: Parcel) : this()
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {}
+
+    override fun describeContents() = 0
+
+    companion object CREATOR : Parcelable.Creator<MyPkgClass> {
+        override fun createFromParcel(parcel: Parcel) = MyPkgClass(parcel)
+
+        override fun newArray(size: Int): Array<MyPkgClass?> = arrayOfNulls(size)
+    }
 }
