@@ -17,7 +17,6 @@
 package androidx.car.widget;
 
 import android.graphics.drawable.Icon;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +28,8 @@ import androidx.annotation.StyleRes;
  * <p>The following properties can be specified:
  * <ul>
  *     <li>Title - Primary text that is shown on the item.
- *     <li>{@link View.OnClickListener} - Listener that handles the clicks on the item.
- *     <li>Icon - An {@link Icon} shown before the title.
+ *     <li>{@link CarMenuItem.OnClickListener} - Listener that handles the clicks on the item.
+ *     <li>Icon - An {@link Icon} shown before the title. Not supported for overflow items yet.
  *     <li>Style - A Resource Id that specifies the style of the item, must be specified.
  *     <li>Enabled - A boolean that specifies whether the item is enabled or disabled.
  *     <li>Checkable - A boolean that specifies whether the item is checkable (a switch) or not.
@@ -43,6 +42,18 @@ import androidx.annotation.StyleRes;
  *
  */
 public class CarMenuItem {
+    /**
+     * Interface definition for a callback to be invoked when a {@code CarMenuItem} is clicked.
+     */
+    public interface OnClickListener {
+        /**
+         * Called when a {@code CarMenuItem} has been clicked.
+         *
+         * @param index The index of the CarMenuItem that was clicked.
+         */
+        void onClick(int index);
+    }
+
     /**
      * Display behaviors for {@code CarMenuItem}s. describes whether the items
      * will be displayed on the toolbar or in the overflow menu.
@@ -68,7 +79,7 @@ public class CarMenuItem {
     @StyleRes
     private final int mStyleResId;
     @Nullable
-    private final View.OnClickListener mOnClickListener;
+    private final CarMenuItem.OnClickListener mOnClickListener;
     @Nullable
     private final Icon mIcon;
     private final boolean mIsCheckable;
@@ -171,10 +182,10 @@ public class CarMenuItem {
     }
 
     /**
-     * Returns the {@link View.OnClickListener} of the {@code CarMenuItem}.
+     * Returns the {@link CarMenuItem.OnClickListener} of the {@code CarMenuItem}.
      */
     @Nullable
-    public View.OnClickListener getOnClickListener() {
+    public CarMenuItem.OnClickListener getOnClickListener() {
         return mOnClickListener;
     }
 
@@ -184,7 +195,7 @@ public class CarMenuItem {
     public static final class Builder {
         CharSequence mTitle;
         @Nullable
-        View.OnClickListener mOnClickListener;
+        CarMenuItem.OnClickListener mOnClickListener;
         @Nullable
         Icon mIcon;
         int mStyleResId;
@@ -207,13 +218,13 @@ public class CarMenuItem {
         }
 
         /**
-         * Sets {@link View.OnClickListener} of the {@code CarMenuItem}.
+         * Sets {@link CarMenuItem.OnClickListener} of the {@code CarMenuItem}.
          *
          * @param listener OnClick listener of the {@code CarMenuItem}.
          * @return This {@code Builder} object to allow call chaining.
          */
         @NonNull
-        public Builder setOnClickListener(@NonNull View.OnClickListener listener) {
+        public Builder setOnClickListener(@NonNull CarMenuItem.OnClickListener listener) {
             mOnClickListener = listener;
             return this;
         }
@@ -232,6 +243,8 @@ public class CarMenuItem {
 
         /**
          * Sets the icon of the {@code CarMenuItem}.
+         *
+         * <p>Overflow items do not currently support showing icons.
          *
          * @param icon Icon of the {@code CarMenuItem}.
          * @return This {@code Builder} object to allow call chaining.

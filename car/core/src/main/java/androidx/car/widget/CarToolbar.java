@@ -17,6 +17,7 @@
 package androidx.car.widget;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Icon;
@@ -37,8 +38,10 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.car.R;
+import androidx.car.app.CarListDialog;
 import androidx.core.view.MarginLayoutParamsCompat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,6 +90,22 @@ public class CarToolbar extends ViewGroup {
 
     @Nullable
     private List<CarMenuItem> mMenuItems;
+    @Nullable
+    private CarListDialog mOverflowDialog;
+    private final List<CarMenuItem.OnClickListener>
+            mOverflowItemsClickListeners = new ArrayList<>();
+    // Keeps track of indices of items in the overflow menu to pass through to the OnClickListener.
+    private final List<Integer> mOverflowItemIndices = new ArrayList<>();
+    /**
+     * OnClickListener that handles the overflow dialog clicks by calling the appropriate
+     * {@link CarMenuItem.OnClickListener} of the overflow {@link CarMenuItem}s.
+     */
+    private DialogInterface.OnClickListener mOverflowDialogClickListener = (dialog, which) -> {
+        if (mOverflowItemsClickListeners.get(which) != null) {
+            mOverflowItemsClickListeners.get(which).onClick(mOverflowItemIndices.get(which));
+        }
+    };
+
 
     public CarToolbar(Context context) {
         this(context, /* attrs= */ null);
@@ -149,6 +168,12 @@ public class CarToolbar extends ViewGroup {
 
             setOverflowIcon(Icon.createWithResource(getContext(),
                     a.getResourceId(R.styleable.CarToolbar_overflowIcon, R.drawable.ic_more_vert)));
+
+            mOverflowButtonView.setOnClickListener(v -> {
+                if (mOverflowDialog != null) {
+                    mOverflowDialog.show();
+                }
+            });
 
             mEdgeButtonContainerWidth = a.getDimensionPixelSize(
                     R.styleable.CarToolbar_navigationIconContainerWidth,
@@ -438,22 +463,49 @@ public class CarToolbar extends ViewGroup {
      */
     public void setMenuItems(@Nullable List<CarMenuItem> items) {
         mMenuItems = items;
-
-        // If there are items to be displayed in the overflow menu, show the overflow icon.
-        boolean containsOverflowItems = false;
-        for (CarMenuItem item : items) {
-            if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
-                containsOverflowItems = true;
-                break;
-            }
-        }
-        mOverflowButtonView.setVisibility(containsOverflowItems ? View.VISIBLE : View.GONE);
+        setupOverflowMenu();
         requestLayout();
     }
 
     /**
-     * Returns a list of this {@code CarToolbar}'s {@link CarMenuItem}s, or {@code null} if
-     * none were set.
+     * Creates an overflow menu if there are any overflow menu items.
+     */
+    private void setupOverflowMenu() {
+        if (mMenuItems == null || mMenuItems.isEmpty()) {
+            mOverflowDialog = null;
+            mOverflowButtonView.setVisibility(View.GONE);
+            return;
+        }
+
+        int overflowItemCount = 0;
+        List<CharSequence> overflowItemsList = new ArrayList<>();
+        mOverflowItemIndices.clear();
+        mOverflowItemsClickListeners.clear();
+
+        for (int i = 0; i < mMenuItems.size(); i++) {
+            CarMenuItem item = mMenuItems.get(i);
+            if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
+                overflowItemCount++;
+                overflowItemsList.add(item.getTitle());
+                mOverflowItemIndices.add(i);
+                mOverflowItemsClickListeners.add(item.getOnClickListener());
+            }
+        }
+        if (overflowItemCount == 0) {
+            mOverflowButtonView.setVisibility(View.GONE);
+            return;
+        }
+        mOverflowButtonView.setVisibility(View.VISIBLE);
+
+        mOverflowDialog = new CarListDialog.Builder(getContext())
+                .setItems(overflowItemsList.toArray(new CharSequence[overflowItemCount]),
+                        mOverflowDialogClickListener)
+                .create();
+    }
+
+    /**
+     * Returns a list of this {@code CarToolbar}'s {@link CarMenuItem}s, or
+     * {@code null} if none were set.
      */
     @Nullable
     public List<CarMenuItem> getMenuItems() {
