@@ -1,0 +1,249 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "324940d3_f0404d28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Add more information here. What does \"finishing\" entail?",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e4fd4c_ace64f38",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Maybe pass position of item as well in case a developer wants to have a single OnClickListener handle all the clicks.\n\nAlternatively, define an id in the CarMenuItem (that is required) and then pass that to the onClick instead.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "001612f2_0ea17005",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "final",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626b4c4f_18e876e1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Add javadoc",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18bb4b65_d7a12bc2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Maybe dismiss the dialog if it\u0027s showing.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ead455_b5e22fa6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Leave this spelled out.",
+      "range": {
+        "startLine": 253,
+        "startChar": 16,
+        "endLine": 253,
+        "endChar": 23
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732ef127_f05ac885",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Set a setOnDismissListener on the dialog and null out the reference there as well.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb364ecb_3e528876",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "If you\u0027re returning, then make this a guard instead and remove the \"else\":\n\n  if (overflowItemCount\u003d\u003d 0) {\n     ..\n     return;\n  }\n\n  // rest of code.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba227b79_88c4e5c8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Why this copy? I\u0027m assuming it\u0027s the array size? I say just define the original items as List and call toArray() instead. Reads better.\n\nI\u0027ll create a feature bug to track maybe supporting passing a List rather than an array.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabf2b08_aa2f7df0",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem the right style to be passing here. It doesn\u0027t do anything for now, but just pass the borderless button style instead.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9c22f2_0c09e196",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Pass items here instead as a test.",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d0cdc67_e0e96256",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Making this a RelativeLayout might work better than FrameLayout since you\u0027re making the contents more complicated.",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "728eacff_976b9eca",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T22:56:54Z",
+      "side": 1,
+      "message": "Move the hard-coded dimens to a dimens.xml instead.",
+      "range": {
+        "startLine": 41,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
