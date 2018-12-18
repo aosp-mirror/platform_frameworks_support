@@ -32,6 +32,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageButton;
@@ -46,6 +47,7 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,8 +68,15 @@ public class CarToolbarTest {
     private CarToolbarTestActivity mActivity;
     private CarToolbar mToolbar;
 
+    /** Returns {@code true} if the testing device has the automotive feature flag. */
+    private boolean isAutoDevice() {
+        PackageManager packageManager = mActivityRule.getActivity().getPackageManager();
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
+    }
+
     @Before
     public void setUp() {
+        Assume.assumeTrue(isAutoDevice());
         mActivity = mActivityRule.getActivity();
         mToolbar = mActivity.findViewById(R.id.car_toolbar);
     }
