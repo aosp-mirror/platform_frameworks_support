@@ -22,7 +22,8 @@ import android.os.Looper
 import android.os.SystemClock
 import android.os.TestLooperManager
 import androidx.annotation.RequiresApi
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import org.junit.After

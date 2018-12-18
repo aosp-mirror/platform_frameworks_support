@@ -16,7 +16,8 @@
 
 package androidx.navigation
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SmallTest
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
@@ -25,7 +26,7 @@ import org.junit.Test
 
 @SmallTest
 class NavHostTest {
-    private val navController = NavController(InstrumentationRegistry.getTargetContext()).apply {
+    private val navController = NavController(ApplicationProvider.getApplicationContext() as android.content.Context).apply {
         navigatorProvider += TestNavigator()
     }
     private val navHost = NavHost { this@NavHostTest.navController }

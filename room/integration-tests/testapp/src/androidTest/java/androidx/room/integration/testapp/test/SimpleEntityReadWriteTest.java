@@ -48,9 +48,10 @@ import androidx.room.integration.testapp.vo.Product;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
 import androidx.room.integration.testapp.vo.UserSummary;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.common.base.Charsets;
 
@@ -79,7 +80,7 @@ public class SimpleEntityReadWriteTest {
 
     @Before
     public void createDb() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         TestDatabase db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         mUserDao = db.getUserDao();
         mPetDao = db.getPetDao();

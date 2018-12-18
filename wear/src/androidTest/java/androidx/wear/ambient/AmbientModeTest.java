@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.wear.widget.util.WakeLockRule;
 
 import com.google.android.wearable.compat.WearableActivityController;

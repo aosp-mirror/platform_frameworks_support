@@ -65,7 +65,7 @@ import androidx.test.espresso.action.Tap;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.textclassifier.R;
 import androidx.textclassifier.TestUtils;
 

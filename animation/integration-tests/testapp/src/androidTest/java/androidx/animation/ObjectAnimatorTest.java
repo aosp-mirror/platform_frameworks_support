@@ -27,7 +27,7 @@ import android.util.Property;
 
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;

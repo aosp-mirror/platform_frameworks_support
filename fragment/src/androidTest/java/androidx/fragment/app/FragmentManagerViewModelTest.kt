@@ -18,7 +18,7 @@ package androidx.fragment.app
 
 import androidx.lifecycle.ViewModelStore
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

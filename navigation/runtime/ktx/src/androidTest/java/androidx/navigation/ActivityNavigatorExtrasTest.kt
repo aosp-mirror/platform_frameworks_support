@@ -19,7 +19,7 @@ package androidx.navigation
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test

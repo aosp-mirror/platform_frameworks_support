@@ -26,9 +26,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class ChildHelperTest {
 
     @Before
     public void setup() throws Exception {
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mLoggingCallback = new LoggingCallback();
         mChildHelper = new ChildHelper(mLoggingCallback);
     }

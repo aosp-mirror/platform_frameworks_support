@@ -45,7 +45,7 @@ import androidx.media2.test.client.RemoteMediaSession;
 import androidx.media2.test.common.PollingCheck;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;

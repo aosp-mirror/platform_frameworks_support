@@ -24,7 +24,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
@@ -54,7 +55,7 @@ public class TextClassificationManagerTest {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mPlatformTextClassificationMgr =
-                    InstrumentationRegistry.getTargetContext().getSystemService(
+                    ApplicationProvider.getApplicationContext().getSystemService(
                             android.view.textclassifier.TextClassificationManager.class);
             when(mContext.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE))
                     .thenReturn(mPlatformTextClassificationMgr);

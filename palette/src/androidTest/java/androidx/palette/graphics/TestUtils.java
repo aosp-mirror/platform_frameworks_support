@@ -23,13 +23,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import androidx.palette.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 class TestUtils {
 
     static Bitmap loadSampleBitmap() {
         return BitmapFactory.decodeResource(
-                InstrumentationRegistry.getContext().getResources(),
+                ApplicationProvider.getApplicationContext().getResources(),
                 R.drawable.photo);
     }
 

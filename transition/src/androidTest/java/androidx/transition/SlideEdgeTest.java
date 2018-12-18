@@ -36,6 +36,7 @@ import android.view.View;
 import androidx.core.util.Pair;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;

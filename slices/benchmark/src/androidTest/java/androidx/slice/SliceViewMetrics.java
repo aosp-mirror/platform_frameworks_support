@@ -24,7 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.benchmark.BenchmarkRule;
 import androidx.benchmark.BenchmarkState;
 import androidx.slice.widget.SliceView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
@@ -79,7 +80,7 @@ public class SliceViewMetrics {
         }
     };
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
 
     @Test
     public void testCreate() {

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.webkit.internal.WebViewFeatureInternal;
 
 import org.junit.Test;

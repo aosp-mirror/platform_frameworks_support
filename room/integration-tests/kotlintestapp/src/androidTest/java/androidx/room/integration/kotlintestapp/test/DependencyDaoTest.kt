@@ -21,7 +21,7 @@ import androidx.room.integration.kotlintestapp.vo.DataClassFromDependency
 import androidx.room.integration.kotlintestapp.vo.EmbeddedFromDependency
 import androidx.room.integration.kotlintestapp.vo.PojoFromDependency
 import androidx.test.filters.SdkSuppress
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before

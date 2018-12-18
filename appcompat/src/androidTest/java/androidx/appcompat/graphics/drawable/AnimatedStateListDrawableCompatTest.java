@@ -32,9 +32,10 @@ import android.graphics.drawable.Drawable;
 import android.util.StateSet;
 
 import androidx.appcompat.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import org.junit.Before;
@@ -56,7 +57,7 @@ public class AnimatedStateListDrawableCompatTest {
 
     @Before
     public void setup() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
     }
 
     @Test

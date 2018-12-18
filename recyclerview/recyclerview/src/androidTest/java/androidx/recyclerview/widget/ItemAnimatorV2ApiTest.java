@@ -32,7 +32,7 @@ import static org.junit.Assert.fail;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;

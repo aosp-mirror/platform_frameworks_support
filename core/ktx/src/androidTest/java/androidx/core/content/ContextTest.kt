@@ -17,7 +17,8 @@
 package androidx.core.content
 
 import android.content.ContextWrapper
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
 import androidx.core.ktx.test.R
 import androidx.core.getAttributeSet
@@ -27,7 +28,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ContextTest {
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
 
     @SdkSuppress(minSdkVersion = 23)
     @Test fun systemService() {
