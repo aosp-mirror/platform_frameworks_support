@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83e62332_d0726c6e",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityLifecycleTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2018-12-18T22:35:42Z",
+      "side": 1,
+      "message": "Organize imports so they\u0027re in alphabetical order?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "3d045c4f973f2bbfb7f2e7543ac8051f53900505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
