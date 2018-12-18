@@ -26,7 +26,8 @@ plugins {
 dependencies {
     api(project(":annotation"))
 
-    implementation(TEST_RUNNER)
+    implementation(TEST_EXT_JUNIT)
+    implementation(TEST_CORE)
 
     androidTestImplementation(JUNIT)
     androidTestImplementation(KOTLIN_STDLIB)

@@ -27,7 +27,8 @@ import android.text.Spanned;
 
 import androidx.core.graphics.PaintCompat;
 import androidx.emoji.util.TestString;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
@@ -74,7 +75,7 @@ public class AllEmojisTest {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws IOException {
-        final Context context = InstrumentationRegistry.getTargetContext();
+        final Context context = ApplicationProvider.getApplicationContext();
         final InputStream inputStream = context.getAssets().open("emojis.txt");
         try {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

@@ -29,9 +29,10 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 
 import androidx.core.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +50,7 @@ public class ComplexColorCompatTest {
 
     @Before
     public void setup() {
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mResources = mContext.getResources();
     }
 

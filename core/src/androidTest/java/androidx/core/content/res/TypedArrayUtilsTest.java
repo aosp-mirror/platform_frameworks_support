@@ -29,7 +29,8 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 import androidx.core.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
@@ -55,7 +56,7 @@ public class TypedArrayUtilsTest {
 
     @Before
     public void setup() {
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mResources = mContext.getResources();
     }
 

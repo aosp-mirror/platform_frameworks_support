@@ -20,7 +20,8 @@ import android.os.SystemClock.sleep
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.LargeTest
 import androidx.testutils.PollingCheck
 import androidx.viewpager.widget.ViewPager
@@ -701,7 +702,7 @@ class PageChangeListenerTest(private val config: TestConfig) : BaseTest() {
     @Test
     fun test_setCurrentItemBeforeRender() {
         // given
-        val viewPager = ViewPager2(InstrumentationRegistry.getContext())
+        val viewPager = ViewPager2(ApplicationProvider.getApplicationContext())
         val noOpAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, type: Int): RecyclerView.ViewHolder {
                 return object : RecyclerView.ViewHolder(View(parent.context)) {}

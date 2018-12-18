@@ -28,7 +28,7 @@ import android.view.MotionEvent;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.wear.widget.util.WakeLockRule;
 
 import org.junit.Before;

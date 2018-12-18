@@ -23,9 +23,10 @@ import static org.mockito.Mockito.spy;
 import android.content.Context;
 import android.content.ContextWrapper;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class ShareTargetXmlParserTest {
 
     @Before
     public void setup() {
-        mContext = spy(new ContextWrapper(InstrumentationRegistry.getContext()));
+        mContext = spy(new ContextWrapper(ApplicationProvider.getApplicationContext()));
         initExpectedValues();
     }
 

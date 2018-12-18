@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.android.wearable.compat.WearableActivityController;
 

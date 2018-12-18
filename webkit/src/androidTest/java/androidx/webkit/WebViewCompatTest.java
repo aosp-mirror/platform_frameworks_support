@@ -37,10 +37,11 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.concurrent.futures.ResolvableFuture;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -138,7 +139,7 @@ public class WebViewCompatTest {
         WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
         final MockContext ctx =
-                new MockContext(InstrumentationRegistry.getTargetContext().getApplicationContext());
+                new MockContext(ApplicationProvider.getApplicationContext().getApplicationContext());
         final ResolvableFuture<Boolean> startSafeBrowsingFuture = ResolvableFuture.create();
         WebViewCompat.startSafeBrowsing(ctx, new ValueCallback<Boolean>() {
             @Override
@@ -159,7 +160,7 @@ public class WebViewCompatTest {
     public void testStartSafeBrowsingWithNullCallbackDoesntCrash() throws Exception {
         WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
-        WebViewCompat.startSafeBrowsing(InstrumentationRegistry.getTargetContext(), null);
+        WebViewCompat.startSafeBrowsing(ApplicationProvider.getApplicationContext(), null);
     }
 
     /**
@@ -173,7 +174,7 @@ public class WebViewCompatTest {
 
         final ResolvableFuture<Boolean> startSafeBrowsingFuture = ResolvableFuture.create();
         WebViewCompat.startSafeBrowsing(
-                InstrumentationRegistry.getTargetContext().getApplicationContext(),
+                ApplicationProvider.getApplicationContext().getApplicationContext(),
                 new ValueCallback<Boolean>() {
                     @Override
                     public void onReceiveValue(Boolean value) {
@@ -331,11 +332,11 @@ public class WebViewCompatTest {
     public void testGetCurrentWebViewPackage() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             assertNull(WebViewCompat.getCurrentWebViewPackage(
-                    InstrumentationRegistry.getTargetContext()));
+                    ApplicationProvider.getApplicationContext()));
         } else {
             assertNotNull(
                     WebViewCompat.getCurrentWebViewPackage(
-                            InstrumentationRegistry.getTargetContext()));
+                            ApplicationProvider.getApplicationContext()));
         }
     }
 }

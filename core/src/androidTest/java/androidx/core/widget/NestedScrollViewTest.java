@@ -26,9 +26,10 @@ import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.View;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -304,7 +305,7 @@ public class NestedScrollViewTest {
     }
 
     private void setup(int childHeight) {
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
 
         mChild = new View(context);
         mChild.setMinimumWidth(100);

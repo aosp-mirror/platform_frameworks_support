@@ -22,7 +22,7 @@ import android.media.session.MediaSessionManager;
 import androidx.media2.MediaSession.ControllerInfo;
 import androidx.media2.MediaSession.SessionCallback;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;

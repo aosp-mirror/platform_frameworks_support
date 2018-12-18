@@ -42,7 +42,8 @@ import androidx.room.RoomDatabase;
 import androidx.room.RoomWarnings;
 import androidx.room.Transaction;
 import androidx.room.paging.LimitOffsetDataSource;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
@@ -95,7 +96,7 @@ public class QueryTransactionTest {
                 () -> mLifecycleOwner.handleEvent(Lifecycle.Event.ON_START));
 
         resetTransactionCount();
-        mDb = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getTargetContext(),
+        mDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
                 TransactionDb.class).build();
         mDao = mUseTransactionDao ? mDb.transactionDao() : mDb.dao();
         drain();

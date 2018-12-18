@@ -40,10 +40,11 @@ import android.os.Parcel;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.versionedparcelable.ParcelUtils;
 
 import org.junit.Test;
@@ -62,7 +63,7 @@ import java.util.Arrays;
 @SmallTest
 public class IconCompatTest {
 
-    private Context mContext = InstrumentationRegistry.getContext();
+    private Context mContext = ApplicationProvider.getApplicationContext();
 
     private static void verifyClippedCircle(Bitmap bitmap, int fillColor, int size) {
         assertEquals(size, bitmap.getHeight());
@@ -108,7 +109,7 @@ public class IconCompatTest {
 
     @Test
     public void testAddBitmapToShortcutIntent_badged() {
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
         Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         bitmap.eraseColor(Color.RED);
         Intent intent = new Intent();
@@ -122,7 +123,7 @@ public class IconCompatTest {
 
     @Test
     public void testAddResourceToShortcutIntent_badged() {
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
         Intent intent = new Intent();
 
         // No badge
@@ -147,7 +148,7 @@ public class IconCompatTest {
         Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         bitmap.eraseColor(Color.RED);
         IconCompat compat = IconCompat.createWithBitmap(bitmap);
-        Drawable d = compat.toIcon().loadDrawable(InstrumentationRegistry.getContext());
+        Drawable d = compat.toIcon().loadDrawable(ApplicationProvider.getApplicationContext());
         assertTrue(d instanceof BitmapDrawable);
         assertEquals(bitmap, ((BitmapDrawable) d).getBitmap());
     }
@@ -169,7 +170,7 @@ public class IconCompatTest {
         Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         bitmap.eraseColor(Color.GREEN);
         IconCompat compat = IconCompat.createWithAdaptiveBitmap(bitmap);
-        Drawable d = compat.toIcon().loadDrawable(InstrumentationRegistry.getContext());
+        Drawable d = compat.toIcon().loadDrawable(ApplicationProvider.getApplicationContext());
         if (Build.VERSION.SDK_INT >= 26) {
             assertTrue(d instanceof AdaptiveIconDrawable);
         } else {
@@ -196,7 +197,7 @@ public class IconCompatTest {
         }
 
         IconCompat compat = IconCompat.createWithData(resultCopy, 20, bytes.length);
-        Drawable d = compat.toIcon().loadDrawable(InstrumentationRegistry.getContext());
+        Drawable d = compat.toIcon().loadDrawable(ApplicationProvider.getApplicationContext());
         assertTrue(d instanceof BitmapDrawable);
         assertTrue(bitmap.sameAs(((BitmapDrawable) d).getBitmap()));
     }
@@ -204,11 +205,11 @@ public class IconCompatTest {
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.M)
     public void testCreateWithResource() {
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
         Drawable original = context.getDrawable(R.drawable.test_drawable_red);
 
         IconCompat compat = IconCompat.createWithResource(context, R.drawable.test_drawable_red);
-        Drawable d = compat.toIcon().loadDrawable(InstrumentationRegistry.getContext());
+        Drawable d = compat.toIcon().loadDrawable(ApplicationProvider.getApplicationContext());
 
         // Drawables are same classes
         assertEquals(original.getClass(), d.getClass());

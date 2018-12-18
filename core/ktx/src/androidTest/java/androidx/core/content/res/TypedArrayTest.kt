@@ -17,7 +17,8 @@
 package androidx.core.content.res
 
 import android.graphics.Color
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
 import androidx.core.ktx.test.R
 import androidx.testutils.assertThrows
@@ -28,7 +29,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TypedArrayTest {
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext()
 
     @Test fun boolean() {
         val attrs = context.getAttributeSet(R.layout.typed_array)

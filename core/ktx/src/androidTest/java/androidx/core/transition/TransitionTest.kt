@@ -16,7 +16,8 @@
 
 package androidx.core.transition
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
 import androidx.test.rule.ActivityTestRule
 import android.transition.Fade

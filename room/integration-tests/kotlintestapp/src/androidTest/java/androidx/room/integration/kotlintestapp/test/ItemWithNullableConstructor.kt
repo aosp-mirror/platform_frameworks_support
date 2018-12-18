@@ -16,8 +16,9 @@
 package androidx.room.integration.kotlintestapp.test
 
 import androidx.room.*
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
@@ -30,7 +31,7 @@ class ItemWithNullableConstructor {
     lateinit var db: Db
     @Before
     fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getTargetContext(),
+        db = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
                 Db::class.java).build()
     }
 

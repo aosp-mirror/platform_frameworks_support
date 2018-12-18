@@ -25,6 +25,7 @@ import android.os.Debug;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import java.io.File;

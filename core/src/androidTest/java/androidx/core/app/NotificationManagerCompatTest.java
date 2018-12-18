@@ -30,10 +30,11 @@ import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,6 +61,7 @@ public class NotificationManagerCompatTest {
 
     /**
      * Generate unique ID for Channels and Groups to prevent conflicts between tests
+     *
      * @param type Type of ID. Channel, group or any string
      * @return Unique ID
      */
@@ -70,7 +72,7 @@ public class NotificationManagerCompatTest {
 
     @Before
     public void setup() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mPlatformNotificationManager = (NotificationManager) mContext.getSystemService(
                 Context.NOTIFICATION_SERVICE);
     }
@@ -81,8 +83,9 @@ public class NotificationManagerCompatTest {
 
         if (Build.VERSION.SDK_INT < 26) return;
 
-        NotificationManager notificationManager = (NotificationManager) InstrumentationRegistry
-                .getTargetContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) ApplicationProvider.getApplicationContext().getSystemService(
+                        Context.NOTIFICATION_SERVICE);
         if (notificationManager == null) return;
 
         List<NotificationChannel> channels = notificationManager.getNotificationChannels();

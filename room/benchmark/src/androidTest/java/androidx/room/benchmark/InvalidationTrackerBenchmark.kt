@@ -26,7 +26,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.LargeTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -43,7 +44,7 @@ class InvalidationTrackerBenchmark(private val sampleSize: Int, private val mode
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    val context = InstrumentationRegistry.getTargetContext()
+    val context = ApplicationProvider.getApplicationContext()
 
     @Before
     fun setup() {

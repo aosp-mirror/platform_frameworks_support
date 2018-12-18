@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 import android.support.annotation.NonNull;
 
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.work.impl.constraints.controllers.ConstraintController;
 import androidx.work.impl.model.WorkSpec;
 

@@ -21,7 +21,8 @@ import android.app.KeyguardManager;
 import android.os.Build;
 import android.view.WindowManager;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 public final class TestUtils {

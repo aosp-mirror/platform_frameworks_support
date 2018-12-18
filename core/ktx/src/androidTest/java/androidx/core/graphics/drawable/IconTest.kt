@@ -23,7 +23,8 @@ import android.graphics.Color
 import android.graphics.drawable.Icon
 import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
@@ -33,7 +34,7 @@ import java.io.File
 @SdkSuppress(minSdkVersion = 26)
 @SmallTest
 class IconTest {
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext()
 
     @Test fun fromBitmapAdaptive() {
         val density = context.resources.displayMetrics.density

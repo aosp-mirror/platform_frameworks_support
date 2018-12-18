@@ -27,9 +27,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ public final class BrowserActionsIntentTest {
     private static final String TEST_URL = "http://www.example.com";
     private static final String CUSTOM_ITEM_TITLE = "Share url";
     private Uri mUri = Uri.parse(TEST_URL);
-    private Context mContext = InstrumentationRegistry.getTargetContext();
+    private Context mContext = ApplicationProvider.getApplicationContext();
 
     /**
      * Test whether default {@link BrowserActionsIntent} is populated correctly.
@@ -101,7 +102,7 @@ public final class BrowserActionsIntentTest {
     }
 
     static PendingIntent createCustomItemAction(String url) {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         Intent customIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         return PendingIntent.getActivity(context, 0, customIntent, 0);
     }
