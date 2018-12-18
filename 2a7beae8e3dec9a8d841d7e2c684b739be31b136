@@ -22,6 +22,30 @@
       "revId": "2a7beae8e3dec9a8d841d7e2c684b739be31b136",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d532ac42_0b9e03ac",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2018-12-18T20:34:34Z",
+      "side": 1,
+      "message": "I thought the same thing and implemented it as \".toArray(new String[mBypassRules.size()])\". But then AS complained about it and the tooltip stated:\n\nThere are two styles to convert a collection to an array: either using a pre-sized array (like c.toArray(new String[c.size()])) or using an empty array (like c.toArray(new String[0]).\nIn older Java versions using pre-sized array was recommended, as the reflection call which is necessary to create an array of proper size was quite slow. However since late updates of OpenJDK 6 this call was intrinsified, making the performance of the empty array version the same and sometimes even better, compared to the pre-sized version. Also passing pre-sized array is dangerous for a concurrent or synchronized collection as a data race is possible between the size and toArray call which may result in extra nulls at the end of the array, if the collection was concurrently shrunk during the operation.\nThis inspection allows to follow the uniform style: either using an empty array (which is recommended in modern Java) or using a pre-sized array (which might be faster in older Java versions or non-HotSpot based JVMs)\n\n\nWhat do you think?",
+      "parentUuid": "66b3c4bd_8e49f52e",
+      "range": {
+        "startLine": 218,
+        "startChar": 40,
+        "endLine": 218,
+        "endChar": 53
+      },
+      "revId": "2a7beae8e3dec9a8d841d7e2c684b739be31b136",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
