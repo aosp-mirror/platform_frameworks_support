@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d562e85_a170b7f6",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "also define constants for these indices, here and belows.",
+      "range": {
+        "startLine": 817,
+        "startChar": 38,
+        "endLine": 817,
+        "endChar": 40
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f3b9b29_cfebbe29",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 824,
+        "startChar": 38,
+        "endLine": 824,
+        "endChar": 39
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b42588_e9fff6f5",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "remove empty line",
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6e076f_8960c8c1",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "ditto, and check whether the index is sent to the controller as you\u0027ve done in testUpdatedIndicesInRepeatMode",
+      "range": {
+        "startLine": 854,
+        "startChar": 38,
+        "endLine": 854,
+        "endChar": 40
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d0b9054_3859596f",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaControllerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 859,
+        "startChar": 38,
+        "endLine": 859,
+        "endChar": 39
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ae4e68e_e6fa60bf",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "this change doesn\u0027t look necessary for new tests here,\nbecause you\u0027re not calling setRepeatMode() but calling notifyRepeatModeChanged() directly.",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 34
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1dddad0_3e58891b",
+        "filename": "media2/src/androidTest/java/androidx/media2/MockPlayer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 35
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333c95b7_58455903",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-18T07:39:09Z",
+      "side": 1,
+      "message": "Plus, current media item may not be in the playlist.\n\nFor YouTube case, current media item can be removed from the playlist, but playback doesn\u0027t stop.",
+      "range": {
+        "startLine": 619,
+        "startChar": 83,
+        "endLine": 620,
+        "endChar": 62
+      },
+      "revId": "f5f5a2339b6e8a3b61d4e6b10078be6105702699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
