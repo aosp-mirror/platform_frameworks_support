@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccd359e4_8df3bd84",
+        "filename": "core/src/androidTest/java/androidx/core/view/AccessibilityDelegateCompatTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1301960
+      },
+      "writtenOn": "2018-12-18T00:26:03Z",
+      "side": 1,
+      "message": "Should it be 25 since the original condition is SDK \u003c 26 (pre-O)?",
+      "range": {
+        "startLine": 180,
+        "startChar": 53,
+        "endLine": 180,
+        "endChar": 55
+      },
+      "revId": "1caafc6df6e93ae6a883aa6cc10848e6a347aa83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
