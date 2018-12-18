@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dedf0cd8_5106abf5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T22:45:42Z",
+      "side": 1,
+      "message": "Don\u0027t need fully qualified name",
+      "range": {
+        "startLine": 32,
+        "startChar": 39,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "c77764b26e0cdfa382526a5d19109e604709fccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
