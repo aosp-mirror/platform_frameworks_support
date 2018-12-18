@@ -25,8 +25,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleIcon="@android:drawable/sym_def_app_icon"
+        app:titleIconSize="@dimen/car_avatar_icon_size"
         app:title="@string/car_toolbar_title"
         app:subtitle="@string/car_toolbar_subtitle"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/add_action"
+                android:text="@string/button_add_action"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="70dp"
+                android:layout_marginEnd="180dp"/>
+        <Button
+                android:id="@+id/add_overflow"
+                android:text="@string/button_add_overflow"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="70dp"
+                android:layout_marginEnd="180dp"/>
+        <Button
+                android:id="@+id/clear_menu"
+                android:text="@string/button_clear_menu"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="70dp"/>
+    </LinearLayout>
     <!-- A second toolbar for comparison purposes -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
