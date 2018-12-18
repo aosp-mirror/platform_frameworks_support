@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed72ca8_32b7fd38",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/SupportJavaLibraryPlugin.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-18T05:31:16Z",
+      "side": 0,
+      "message": "moved to observable property to avoid afterEvaluate blocks. It causes issues when don\u0027t lazily inside a task configuration.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "543041f4a7f198709080d88848e47ec983fa5935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
