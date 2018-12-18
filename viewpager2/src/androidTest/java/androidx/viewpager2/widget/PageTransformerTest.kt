@@ -20,7 +20,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.filters.LargeTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.viewpager2.widget.BaseTest.SortOrder.ASC
 import androidx.viewpager2.widget.BaseTest.SortOrder.DESC
 import androidx.viewpager2.widget.PageTransformerTest.Event.OnPageScrolledEvent

@@ -30,10 +30,11 @@ import androidx.media2.MediaMetadata;
 import androidx.media2.MediaUtils;
 import androidx.media2.UriMediaItem;
 import androidx.media2.test.service.MediaTestUtils;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 
@@ -52,7 +53,7 @@ public class MediaItemTest {
 
     @Before
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
     }
 
     @Test

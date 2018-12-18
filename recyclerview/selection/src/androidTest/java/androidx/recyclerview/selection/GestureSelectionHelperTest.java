@@ -28,7 +28,7 @@ import androidx.recyclerview.selection.testing.TestEvents;
 import androidx.recyclerview.selection.testing.TestItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;

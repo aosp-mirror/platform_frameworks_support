@@ -37,10 +37,12 @@ dependencies {
     api(KOTLIN_COROUTINES)
 
     testImplementation(JUNIT)
-    testImplementation(TEST_RUNNER)
+    testImplementation(TEST_EXT_JUNIT)
     testImplementation(TRUTH)
 
     androidTestImplementation(TRUTH)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
 }
 

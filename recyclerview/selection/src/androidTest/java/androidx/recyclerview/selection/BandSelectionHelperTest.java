@@ -30,7 +30,7 @@ import androidx.recyclerview.selection.testing.TestEvents.Builder;
 import androidx.recyclerview.selection.testing.TestItemKeyProvider;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -23,7 +23,8 @@ import android.view.KeyEvent;
 import android.view.Window;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;

@@ -34,7 +34,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.leanback.R;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;

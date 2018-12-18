@@ -18,6 +18,7 @@ package androidx.activity
 
 import android.app.Activity
 import android.app.Instrumentation
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 

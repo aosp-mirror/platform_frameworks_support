@@ -32,7 +32,7 @@ import android.graphics.RectF;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;

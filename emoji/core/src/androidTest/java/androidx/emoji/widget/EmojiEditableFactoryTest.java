@@ -32,7 +32,7 @@ import androidx.emoji.text.EmojiMetadata;
 import androidx.emoji.text.EmojiSpan;
 import androidx.emoji.text.TypefaceEmojiSpan;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

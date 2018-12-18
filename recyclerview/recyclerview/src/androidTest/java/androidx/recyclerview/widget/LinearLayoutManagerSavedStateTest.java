@@ -23,7 +23,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Test;

@@ -16,6 +16,7 @@
 
 package androidx.navigation
 
+import android.content.Context
 import org.junit.Assert.fail
 
 import android.os.Bundle
@@ -24,9 +25,9 @@ import android.os.Parcel
 import androidx.navigation.test.R
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -155,7 +156,7 @@ class NavControllerTest {
 
     @Test
     fun testSaveRestoreStateXml() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
         val navigator = SaveStateTestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
@@ -180,7 +181,7 @@ class NavControllerTest {
 
     @Test
     fun testSaveRestoreStateProgrammatic() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
@@ -552,7 +553,7 @@ class NavControllerTest {
     }
 
     private fun createNavController(): NavController {
-        val navController = NavController(InstrumentationRegistry.getTargetContext())
+        val navController = NavController(ApplicationProvider.getApplicationContext() as android.content.Context)
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
         return navController

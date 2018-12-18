@@ -16,7 +16,7 @@
 
 package androidx.coordinatorlayout.widget;
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -58,7 +58,7 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;

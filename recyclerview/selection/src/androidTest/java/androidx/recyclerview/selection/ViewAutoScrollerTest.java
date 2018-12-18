@@ -25,7 +25,7 @@ import android.graphics.Point;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ViewAutoScroller.ScrollHost;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;

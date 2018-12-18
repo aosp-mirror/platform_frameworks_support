@@ -21,6 +21,7 @@ import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
 import android.app.Instrumentation;
 import android.view.View;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.viewpager2.widget.ViewPager2;
 

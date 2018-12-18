@@ -39,7 +39,7 @@ dependencies {
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(TRUTH)
-    testImplementation(TEST_RUNNER)
+    testImplementation(TEST_EXT_JUNIT)
     testImplementation(TEST_RULES)
 }
 

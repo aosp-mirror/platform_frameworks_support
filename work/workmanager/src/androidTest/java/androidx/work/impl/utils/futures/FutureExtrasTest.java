@@ -23,7 +23,7 @@ import android.arch.core.util.Function;
 import android.support.annotation.NonNull;
 
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.common.util.concurrent.ListenableFuture;
 

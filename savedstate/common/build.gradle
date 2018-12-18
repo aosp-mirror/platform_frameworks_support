@@ -29,7 +29,7 @@ dependencies {
     implementation(ARCH_CORE_COMMON)
 
     testImplementation(JUNIT)
-    testImplementation(TEST_RUNNER)
+    testImplementation(TEST_EXT_JUNIT)
     testImplementation(KOTLIN_STDLIB)
 }
 

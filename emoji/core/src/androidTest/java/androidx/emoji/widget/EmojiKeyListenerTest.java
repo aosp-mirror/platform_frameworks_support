@@ -50,7 +50,7 @@ import androidx.emoji.text.TestConfigBuilder;
 import androidx.emoji.util.TestString;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

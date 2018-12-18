@@ -27,6 +27,7 @@ import static org.mockito.Mockito.verify;
 import android.widget.TextView;
 
 import androidx.test.filters.MediumTest;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.transition.test.R;
 
