@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57e3f07e_fb948530",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Same @hide comment applies to these classes, and the Feature below",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6b09f8_bd14e784",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "I assume the Proxy state carries over from test to test, so we should write code in tearDown to clear the state. I\u0027m not sure what the best way to do so would be, however (ah, the joys of testing global state...).",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf47ad0_a1f1e4da",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Not clear why you\u0027re calling this twice in a row, or what this is really testing.",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55f922b6_f412e6c4",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Seems like this should add an assertion that we *don\u0027t* send any requests to mProxyServer, which this doesn\u0027t actually assert.",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 59
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5de66ff8_254454e8",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "I think Runnable is clearer",
+      "range": {
+        "startLine": 228,
+        "startChar": 19,
+        "endLine": 228,
+        "endChar": 30
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb7ac7f_9d6d3db3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Redundant",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 21
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09100126_74b2984c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Redundant",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 21
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e3885b_c7de0c9c",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Use the named constant",
+      "range": {
+        "startLine": 38,
+        "startChar": 68,
+        "endLine": 38,
+        "endChar": 79
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be97389e_f68059f8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Constants need javadoc",
+      "range": {
+        "startLine": 43,
+        "startChar": 31,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8133e24f_b480bd8d",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "WebView doesn\u0027t support quic https://chromium-review.googlesource.com/c/chromium/src/+/1322357",
+      "range": {
+        "startLine": 114,
+        "startChar": 45,
+        "endLine": 114,
+        "endChar": 57
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4adb4adf_b7e81e58",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "Would ArrayList#toArray() work (either overload)?",
+      "range": {
+        "startLine": 208,
+        "startChar": 12,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf82701_88e9891e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "\"\u003cp\u003e\" here and next paragraph",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1e66d5_43eae50a",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:12:01Z",
+      "side": 1,
+      "message": "This is probably a good candidate for \"does everything the other setProxyOverride() does except...\" Same comment for the clearProxyOverride overloads",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
