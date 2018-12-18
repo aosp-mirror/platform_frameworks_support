@@ -27,12 +27,11 @@ import android.support.v4.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.test.R
 import androidx.navigation.get
 import androidx.navigation.plusAssign
 import androidx.navigation.testing.TestNavigator
-import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SmallTest
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

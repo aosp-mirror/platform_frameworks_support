@@ -23,7 +23,7 @@ import android.view.View.OVER_SCROLL_NEVER
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
@@ -40,7 +40,6 @@ import androidx.test.rule.ActivityTestRule
 import androidx.testutils.FragmentActivityUtils
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
 import androidx.viewpager2.widget.swipe.FragmentAdapter
@@ -71,7 +70,7 @@ open class BaseTest {
 
     @Before
     open fun setUp() {
-        localeUtil = LocaleTestUtils(InstrumentationRegistry.getTargetContext())
+        localeUtil = LocaleTestUtils(ApplicationProvider.getApplicationContext() as android.content.Context)
         // Ensure a predictable test environment by explicitly setting a locale
         localeUtil.setLocale(LocaleTestUtils.DEFAULT_TEST_LANGUAGE)
     }

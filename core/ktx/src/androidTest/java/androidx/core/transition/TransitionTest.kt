@@ -16,9 +16,6 @@
 
 package androidx.core.transition
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.filters.SdkSuppress
-import androidx.test.rule.ActivityTestRule
 import android.transition.Fade
 import android.transition.Transition
 import android.transition.TransitionManager
@@ -26,7 +23,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.TestActivity
-import androidx.core.ktx.test.R
+import androidx.test.filters.SdkSuppress
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.ActivityTestRule
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
