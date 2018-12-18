@@ -490,6 +490,30 @@
     },
     {
       "key": {
+        "uuid": "d70add11_7e53af19",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:21:16Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion.",
+      "parentUuid": "373c3303_c317aeb1",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0adbcb94_922878ca",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewRendererClient.java",
         "patchSetId": 2
@@ -666,6 +690,30 @@
       "side": 1,
       "message": "No it does not. I\u0027d be happy to go either way on this; tradeoff seems to be less boilerplate, vs. potentially allowing nulls to not be picked up early.\n\nDo @NonNull and @Nullable cause Java build errors if their constraints can be inferred to be broken? I\u0027m just wondering whether we\u0027re annotating largely for Kotlin, or whether there\u0027s utility to spreading that more widely.",
       "parentUuid": "501a4e9a_6ddc8934",
+      "range": {
+        "startLine": 107,
+        "startChar": 48,
+        "endLine": 107,
+        "endChar": 80
+      },
+      "revId": "3158a1cf67173d51ca111349600d15f23c5730c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "475f9c7b_4817b67c",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewProviderAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T01:21:16Z",
+      "side": 1,
+      "message": "@NonNull/@Nullable are handled by lint. I don\u0027t think most teams (inside or outside google) use lint as a presubmit blocker or a build breaker. But rest assured that the annotations are generally helpful to Java programmers as well, and static analysis tools surface the information to Java programmers who care to listen.\n\nI\u0027m not sure if there\u0027s utility to using these annotations within the AndroidX codebase (aside from API rules).",
+      "parentUuid": "5bd2b9e3_6572eda6",
       "range": {
         "startLine": 107,
         "startChar": 48,
