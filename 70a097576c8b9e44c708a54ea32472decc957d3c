@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "184a0ce7_309949d3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T20:19:19Z",
+      "side": 1,
+      "message": "Not obvious from the test; can you clarify this in comments? Also, not sure why we need to first 2 lines (clear and set) if this is just testing that it\u0027s OK to call clear twice.",
+      "parentUuid": "5f2d1525_8a4022f7",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55f922b6_f412e6c4",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 11
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "8083f8f9_322da14e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T20:19:19Z",
+      "side": 1,
+      "message": "Ah. Is that something we can fix in WebkitUtils?",
+      "parentUuid": "68e80893_7acb0de9",
+      "range": {
+        "startLine": 228,
+        "startChar": 19,
+        "endLine": 228,
+        "endChar": 30
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bfb7ac7f_9d6d3db3",
         "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
         "patchSetId": 11
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "I don\u0027t think that it is. If this isn\u0027t here we aren\u0027t actually waiting for set(clear)ProxyOverride\u0027s listener to be called, right?",
       "parentUuid": "bfb7ac7f_9d6d3db3",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 21
+      },
+      "revId": "70a097576c8b9e44c708a54ea32472decc957d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86a2bfb_42e519c9",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T20:19:19Z",
+      "side": 1,
+      "message": "Ah, gotcha. Can you add a comment explaining why we use waitForFuture, yet also wait for another Future?\n\nAlso, should probably use waitForFuture() on |future| in this line.",
+      "parentUuid": "7280bdb7_a2c9365d",
       "range": {
         "startLine": 238,
         "startChar": 8,

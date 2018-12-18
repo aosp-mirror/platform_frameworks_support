@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66b3c4bd_8e49f52e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T20:19:19Z",
+      "side": 1,
+      "message": "I believe it\u0027s more efficient (fewer allocations) to check the arraylist length and construct an array of that size:\n\n\u003e If the list fits in the specified array, it is returned therein...\n\nhttps://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html#toArray(T[])",
+      "range": {
+        "startLine": 218,
+        "startChar": 40,
+        "endLine": 218,
+        "endChar": 53
+      },
+      "revId": "2a7beae8e3dec9a8d841d7e2c684b739be31b136",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
