@@ -46,6 +46,30 @@
       "revId": "2a7beae8e3dec9a8d841d7e2c684b739be31b136",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9ee60f2_ebae5ae9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-18T20:55:26Z",
+      "side": 1,
+      "message": "Oh, sounds good! Thanks for explaining.",
+      "parentUuid": "d532ac42_0b9e03ac",
+      "range": {
+        "startLine": 218,
+        "startChar": 40,
+        "endLine": 218,
+        "endChar": 53
+      },
+      "revId": "2a7beae8e3dec9a8d841d7e2c684b739be31b136",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
