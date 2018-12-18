@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67ae1ed9_62896550",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewNoScrollBarActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T01:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c73938e_f1b630c8",
+      "range": {
+        "startLine": 26,
+        "startChar": 56,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "280c741f_2298f3d9",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewNoScrollBarTest.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eae9df5_4bf87ca9",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewNoScrollBarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T01:21:37Z",
+      "side": 1,
+      "message": "I\u0027m assuming you mean the new line for the \"actual value does not matter\" part?\n\nI removed that part.",
+      "parentUuid": "280c741f_2298f3d9",
+      "range": {
+        "startLine": 65,
+        "startChar": 25,
+        "endLine": 65,
+        "endChar": 39
+      },
+      "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e4e794af_cd98877c",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewNoScrollBarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T01:21:37Z",
+      "side": 1,
+      "message": "No, it\u0027s not needed. I just put it here so someone could easily see that the values are different. \n\nBut I inlined it now.",
+      "parentUuid": "c3864899_64be66f3",
+      "range": {
+        "startLine": 259,
+        "startChar": 12,
+        "endLine": 259,
+        "endChar": 35
+      },
+      "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c91513c9_70b27d99",
         "filename": "car/core/src/androidTest/res/layout/activity_paged_list_view_no_scrollbar.xml",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144d2692_bb6c7cf9",
+        "filename": "car/core/src/androidTest/res/layout/activity_paged_list_view_no_scrollbar.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-18T01:21:37Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "c91513c9_70b27d99",
+      "range": {
+        "startLine": 20,
+        "startChar": 21,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "b46b7fd012cab670ba9fde76722a102085ccc27c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
