@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0e49e7a_9e7f6d63",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-19T10:54:24Z",
+      "side": 1,
+      "message": "Are we ever going to be able to write these as lambdas?",
+      "range": {
+        "startLine": 88,
+        "startChar": 37,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1025af0_d0f31863",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-19T10:54:24Z",
+      "side": 1,
+      "message": "Should this maybe be throwAsUncheckedException, and handle Error as well as RuntimeException specially?\n\nBut looking below at the usage (and the extra return null that\u0027s needed) I\u0027d be more in favour of not having this method and being explicit about the rethrowing.\n\nI\u0027m also not sure that interruption state is something that should be propagated. It might cause odd behaviour changes in other random methods in the framework.",
+      "range": {
+        "startLine": 116,
+        "startChar": 24,
+        "endLine": 116,
+        "endChar": 47
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f334b7e_7f8d929b",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-19T10:54:24Z",
+      "side": 1,
+      "message": "exceptionPropagatingFuture?",
+      "range": {
+        "startLine": 142,
+        "startChar": 37,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae3e5c7_471a564c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2018-12-19T10:54:24Z",
+      "side": 1,
+      "message": "If you agree with the above, then I guess this simplifies to throw new RuntimeException(e.getCause()) (and below)",
+      "range": {
+        "startLine": 182,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 35
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
