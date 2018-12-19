@@ -16,6 +16,24 @@
       "revId": "0e85fbc37c79a4f38153c081f2e69ca99de27da0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9fbcccb_36d4a02a",
+        "filename": "car/core/src/androidTest/java/androidx/car/util/GridLayoutManagerUtilsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T21:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3156b2e_56af3dad",
+      "revId": "0e85fbc37c79a4f38153c081f2e69ca99de27da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
