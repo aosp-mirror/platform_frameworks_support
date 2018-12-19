@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b5cff4b_02c9ecd8",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-19T00:46:48Z",
+      "side": 1,
+      "message": "Kind of disappointed, but I don\u0027t think javac is smart enough to realize this unconditionally throws. I could probably change \"throwAsRuntimeException(e)\" to \"throw convertToRuntimeException(e)\"",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 40
+      },
+      "revId": "14a7ea9637b934ea64f0f3540fb8e0a9d78533c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
