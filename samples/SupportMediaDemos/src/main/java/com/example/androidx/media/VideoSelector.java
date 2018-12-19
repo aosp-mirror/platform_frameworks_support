@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -126,8 +127,7 @@ public class VideoSelector extends Activity {
     }
 
     private void setUpInitialItemList() {
-        mSelectItems = createVil(TEST_VID_STASH);
-        mSelectList.setAdapter(mSelectItems);
+        new VideoItemListTask(TEST_VID_STASH).execute();
         mSelectList.setOnItemClickListener(mSelectHandler);
     }
 
@@ -203,11 +203,7 @@ public class VideoSelector extends Activity {
             if ((position >= 0) && (position < mSelectItems.getCount())) {
                 VideoItem item = mSelectItems.getItem(position);
                 if (item.getIsDir()) {
-                    VideoItemList new_list = createVil(item.getUrl());
-                    if (null != new_list) {
-                        mSelectItems = new_list;
-                        mSelectList.setAdapter(mSelectItems);
-                    }
+                    new VideoItemListTask(item.getUrl()).execute();
                 } else {
                     Intent launch = createLaunchIntent(
                             VideoSelector.this,
@@ -304,5 +300,26 @@ public class VideoSelector extends Activity {
         }
 
         return retVal;
+    }
+
+    private final class VideoItemListTask extends AsyncTask<Void, Void, VideoItemList> {
+        private String mPath;
+
+        VideoItemListTask(String path) {
+            mPath = path;
+        }
+
+        @Override
+        protected VideoItemList doInBackground(Void... params) {
+            return createVil(mPath);
+        }
+
+        @Override
+        protected void onPostExecute(VideoItemList items) {
+            if (items != null) {
+                mSelectItems = items;
+                mSelectList.setAdapter(mSelectItems);
+            }
+        }
     }
 }
