@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec8268a7_7741efb7",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/Next.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2018-12-19T18:52:23Z",
+      "side": 1,
+      "message": "Dany, remember to change this cast to Parcelable? since optionalParcelable can be null",
+      "range": {
+        "startLine": 31,
+        "startChar": 76,
+        "endLine": 31,
+        "endChar": 89
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
