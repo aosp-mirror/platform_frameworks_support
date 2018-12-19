@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3318d2f2_9f41d5cd",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T22:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60ed74b3_8210cf8e",
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93f0c996_6ec4f2d1",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
         "patchSetId": 9
@@ -39,6 +57,30 @@
       "revId": "58d199f520677faaf6ec3175301670a559281507",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34015fcf_8dedf1f6",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T22:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f0c996_6ec4f2d1",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 10
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9f44bf77_277fa24b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T22:26:13Z",
+      "side": 1,
+      "message": "Done\n\nAlso removed the comment in CarMenuItem.Builder#setIcon",
+      "parentUuid": "cd46eade_241cbebc",
+      "range": {
+        "startLine": 32,
+        "startChar": 58,
+        "endLine": 32,
+        "endChar": 95
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1685bf12_749b80bd",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 9
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a3310b09_370ecc73",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T22:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1685bf12_749b80bd",
+      "range": {
+        "startLine": 478,
+        "startChar": 27,
+        "endLine": 478,
+        "endChar": 44
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ecbbc6f_114cdbde",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
         "patchSetId": 9
@@ -102,6 +192,24 @@
       "revId": "58d199f520677faaf6ec3175301670a559281507",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22dc6630_7d6019fe",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T22:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ecbbc6f_114cdbde",
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
