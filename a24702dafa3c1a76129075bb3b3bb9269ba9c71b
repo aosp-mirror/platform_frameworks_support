@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d9549379_e04796fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "324940d3_f0404d28",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8e4fd4c_ace64f38",
         "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-18T22:56:54Z",
       "side": 1,
       "message": "Maybe pass position of item as well in case a developer wants to have a single OnClickListener handle all the clicks.\n\nAlternatively, define an id in the CarMenuItem (that is required) and then pass that to the onClick instead.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54f6779c_29b7c820",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Ok I implemented this using the simplest way, let me know if you think it\u0027s hack-y.",
+      "parentUuid": "b8e4fd4c_ace64f38",
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "14813850_993748c8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001612f2_0ea17005",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "626b4c4f_18e876e1",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "87897aad_2ac7064f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "626b4c4f_18e876e1",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18bb4b65_d7a12bc2",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -84,6 +156,24 @@
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0655653_fc08f85c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Clicking anywhere outside the dialog will dismiss it, the overflow button cannot be clicked if the dialog is showing.",
+      "parentUuid": "18bb4b65_d7a12bc2",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "38520706_e9c9477a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Sorry, this was due to a merge issue.",
+      "parentUuid": "f5ead455_b5e22fa6",
+      "range": {
+        "startLine": 253,
+        "startChar": 16,
+        "endLine": 253,
+        "endChar": 23
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732ef127_f05ac885",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -121,6 +235,24 @@
       "writtenOn": "2018-12-18T22:56:54Z",
       "side": 1,
       "message": "Set a setOnDismissListener on the dialog and null out the reference there as well.",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4080c4_2836fed2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "But the dialog is only created on SetMenuItem(), if it\u0027s nulled out on dismiss it won\u0027t get reassigned.",
+      "parentUuid": "732ef127_f05ac885",
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "b6cb4dd2_d01396be",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb364ecb_3e528876",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba227b79_88c4e5c8",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -158,6 +308,24 @@
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9afe89de_3ce2d23d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba227b79_88c4e5c8",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "9bb20f6a_8402abf2",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fabf2b08_aa2f7df0",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f9c22f2_0c09e196",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
         "patchSetId": 3
@@ -189,6 +375,30 @@
       "writtenOn": "2018-12-18T22:56:54Z",
       "side": 1,
       "message": "Pass items here instead as a test.",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af562a3_72f59ee1",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "I\u0027ve tested it and it works well. But I\u0027m passing null explicitly since that\u0027s the right way to clear the menu as I\u0027ve written in the javadoc of the function.",
+      "parentUuid": "3f9c22f2_0c09e196",
       "range": {
         "startLine": 76,
         "startChar": 36,
@@ -224,6 +434,30 @@
     },
     {
       "key": {
+        "uuid": "343ba85d_dadc22f1",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "I was pretty much done adding stuff but might as well.",
+      "parentUuid": "5d0cdc67_e0e96256",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "728eacff_976b9eca",
         "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
         "patchSetId": 3
@@ -244,6 +478,30 @@
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6ea4b5_27b4f891",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2018-12-19T00:09:52Z",
+      "side": 1,
+      "message": "I should probably just reuse similar dimens.",
+      "parentUuid": "728eacff_976b9eca",
+      "range": {
+        "startLine": 41,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
