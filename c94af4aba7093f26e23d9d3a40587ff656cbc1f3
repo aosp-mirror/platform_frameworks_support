@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "f58f9e7b_558f3ecd",
+        "filename": "core/src/androidTest/java/androidx/core/graphics/TypefaceCompatTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-12-19T13:49:46Z",
+      "side": 1,
+      "message": "nit: just pass in null here instead of declaring a null, also you are missing the first context parameter so here you\u0027re testing the framework version",
+      "range": {
+        "startLine": 498,
+        "startChar": 57,
+        "endLine": 498,
+        "endChar": 67
+      },
+      "revId": "c94af4aba7093f26e23d9d3a40587ff656cbc1f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4953915a_13fde600",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-12-19T13:49:46Z",
+      "side": 1,
+      "message": "nit: could get this from the context in here instead of making create do it for you",
+      "range": {
+        "startLine": 169,
+        "startChar": 73,
+        "endLine": 169,
+        "endChar": 98
+      },
+      "revId": "c94af4aba7093f26e23d9d3a40587ff656cbc1f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "480e48b3_0187154c",
         "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
         "patchSetId": 5

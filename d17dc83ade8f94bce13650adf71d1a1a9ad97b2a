@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80223c0c_0eacb8cf",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompat.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2018-12-19T13:49:46Z",
+      "side": 1,
+      "message": "nit: this is method is private so doesn\u0027t need @hide/restrictto",
+      "range": {
+        "startLine": 165,
+        "startChar": 7,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "d17dc83ade8f94bce13650adf71d1a1a9ad97b2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
