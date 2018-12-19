@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60ed74b3_8210cf8e",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-19T19:39:34Z",
+      "side": 1,
+      "message": "I know we used to define this at the start of the test, but can we move it to the bottom with the other private methods?",
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f0c996_6ec4f2d1",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-19T19:39:34Z",
+      "side": 1,
+      "message": "Not related to this CL, but can you change this to private?",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 10
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd46eade_241cbebc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-19T19:39:34Z",
+      "side": 1,
+      "message": "This should be put on the javadoc for CarToolbar instead. The CarMenuItem shouldn\u0027t concern itself with the implementation; it should just be a data object.",
+      "range": {
+        "startLine": 32,
+        "startChar": 58,
+        "endLine": 32,
+        "endChar": 95
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1685bf12_749b80bd",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-19T19:39:34Z",
+      "side": 1,
+      "message": "Maybe overflowItemsTitleList instead",
+      "range": {
+        "startLine": 478,
+        "startChar": 27,
+        "endLine": 478,
+        "endChar": 44
+      },
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ecbbc6f_114cdbde",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/activity_car_toolbar.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2018-12-19T19:39:34Z",
+      "side": 1,
+      "message": "You can remove this now",
+      "revId": "58d199f520677faaf6ec3175301670a559281507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
