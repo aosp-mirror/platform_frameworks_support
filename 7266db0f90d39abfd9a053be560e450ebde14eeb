@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72ec8ec1_bc6eb48e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-19T00:56:45Z",
+      "side": 1,
+      "message": "IIUC, the point of adding an API for click listener is to keep track of their position in the menu item list, and bridge the callback from dialog into menu item.\n\nalternatively how about adding a separate list to track menu items in overflow menu? this way you don\u0027t need to add a separate interface, which IMO is unnecessary.\n\nor consider what anthony suggested. traditionally menu item click listener is handled by one click listener with switch statement (though personally I prefer individual listeners)",
+      "range": {
+        "startLine": 491,
+        "startChar": 16,
+        "endLine": 491,
+        "endChar": 44
+      },
+      "revId": "7266db0f90d39abfd9a053be560e450ebde14eeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
