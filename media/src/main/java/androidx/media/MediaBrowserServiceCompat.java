@@ -662,7 +662,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
             if (set) {
                 RemoteUserInfo info = new RemoteUserInfo(mServiceFwk.getCurrentBrowserInfo());
                 mCurConnection = new ConnectionRecord(info.getPackageName(), info.getPid(),
-                        info.getUid(), getBrowserRootHints(), null);
+                        info.getUid(), mServiceFwk.getBrowserRootHints(), null);
             } else {
                 mCurConnection = null;
             }
