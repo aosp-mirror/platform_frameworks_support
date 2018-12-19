@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84eaf24_0a1264a2",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "So, When I read this test, I\u0027d say that it is testing that when:\n\n1. Span information is being used to estimate the scroll bar size\n2. Span group index information is being cached\n\nThat,\n\n1. The scroll range is the same when the RV is scroll to its start and end\n2. That the max scrolled value + the extent is equal to the range.\n\nChange to \"computeVerticalScrollRange_spansUsedAndGroupIndexesCached_rangeIsConstant\"",
+      "range": {
+        "startLine": 1348,
+        "startChar": 16,
+        "endLine": 1348,
+        "endChar": 86
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb08490_97985c20",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "change to \"noCaching\"",
+      "range": {
+        "startLine": 1373,
+        "startChar": 34,
+        "endLine": 1373,
+        "endChar": 43
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d66866_1a8c3c9f",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 1379,
+        "startChar": 34,
+        "endLine": 1379,
+        "endChar": 46
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95bbc53c_415ed02d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 1385,
+        "startChar": 34,
+        "endLine": 1385,
+        "endChar": 46
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb2e145_6b822069",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "Change to \"cacheSpanIndexAndSpanGroupIndex\"",
+      "range": {
+        "startLine": 1391,
+        "startChar": 34,
+        "endLine": 1391,
+        "endChar": 54
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd691503_fa91a2ba",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "This is a bad name, sorry.  Should be \"getSpanGroupIndex_calledTwiceForSameItemAndCachingOn_internalCalledOnce\".\n\nAnd what this should test is that when GridLayoutManager.getSpanGroupIndex is called while caching is on, that SpanSizeLookup\u0027s getSpanGroupIndex is only called once.",
+      "range": {
+        "startLine": 1398,
+        "startChar": 16,
+        "endLine": 1398,
+        "endChar": 85
+      },
+      "revId": "9c73e2093ad558667a3c1f3f3ac891ce4f097103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

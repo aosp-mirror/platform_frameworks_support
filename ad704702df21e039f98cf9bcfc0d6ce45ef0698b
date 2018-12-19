@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "dea59dcf_e5919b1e",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "Ah, so, I believe that\n\n1. computeVerticalScrollRange_spansUsedForEstimate_isCorrect\n2. computeVerticalScrollScrollOffset_spansUsedForEstimate_isCorrect (this can test a few different items for different bounds)\n\nAre consistently testable by hard coding the dimension of the child not affected by spans (height for vertical scrolling, width for horizontal scrolling) and hardcoding the size of the RV, both in pixels.  That way, it doesn\u0027t matter what device the tests are running on.  Also, both of these things seem fundamentally important to make sure they are correct... those two things are the primary things you\u0027ve defined the behavior for.  Right?\n\nAlso, _isCorrect is supposed to be shorthand for \"the thing we are testing is that the value returned by the method being called is correct\".  As opposed to \"the thing we are testing is that the mutated value of X is 23 when we call scrollToItem(4)\".  I don\u0027t mean _isCorrect in the sense that the test is passing... that would be redundant.\n\nAlso, my whoops, my bad... I don\u0027t know why I mixed \"getSpanGroupIndex\" and \"spansUsed\".  The value returned by getSpanGroupIndex is not affected by whether or not GridLayoutManager is using spans to estimate scroll bar dimensions.  I\u0027ve commented appropriately on the tests below.",
+      "parentUuid": "2a2a47d6_1093d27f",
+      "range": {
+        "startLine": 1338,
+        "startChar": 4,
+        "endLine": 1338,
+        "endChar": 9
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cc36478_103cf494",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
         "patchSetId": 26
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "dbfafa9d_6e91fe57",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "Ah you are right... the testing infrastructure confused me.",
+      "parentUuid": "3e33a412_574dbbbe",
+      "range": {
+        "startLine": 1348,
+        "startChar": 17,
+        "endLine": 1348,
+        "endChar": 28
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b318790e_60740d9c",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 26
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b318790e_60740d9c",
+      "range": {
+        "startLine": 1026,
+        "startChar": 15,
+        "endLine": 1026,
+        "endChar": 16
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8f5759a_b966a2fb",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:54:05Z",
+      "side": 1,
+      "message": "Sorry for the back and forth.  Thanks for following through!",
+      "parentUuid": "afc569a0_a109677e",
       "range": {
         "startLine": 1026,
         "startChar": 15,
