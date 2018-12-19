@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9938aaf9_4883845c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a31af26_3e1a742e",
+      "range": {
+        "startLine": 855,
+        "startChar": 11,
+        "endLine": 855,
+        "endChar": 42
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f65a257_d86be31d",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 25
@@ -45,6 +69,30 @@
       "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "366b241e_c5688d05",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f65a257_d86be31d",
+      "range": {
+        "startLine": 865,
+        "startChar": 59,
+        "endLine": 866,
+        "endChar": 47
+      },
+      "revId": "545d6c7b7fc9cf5a832a6b5c5851d1361ee66260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

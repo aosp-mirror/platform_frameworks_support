@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a2a47d6_1093d27f",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "1. computeVerticalScrollRange_spansUsedForEstimate_isCorrect\n2. computeVerticalScrollScrollOffset_spansUsedForEstimate_isCorrect (this can test a few different items for different bounds)\n\nThese tests are never written in other contexts, as you can see in LinearLayoutManager tests where the original behavior was, the value depends on pixels which would make this tests tightly coupled to whatever device was being used for testing. To properly run this test I would need to have the same device that is being used for the presubmit. So would anyone else that ever ran these tests. I don\u0027t think it\u0027s a good idea to write this. The test that I wrote does cover this. offset should be 0 at the top, something else at the bottom, but then that plus the range should cover the entire extent. This is already more testing then before. \n\n_isCorrect. That\u0027s just redundant, you could go around adding that to all the tests. \n\nhow do you mean for spans not used? It sounds like you mean that  span size \u003d 1. The span tests that I do have test this with the first few items, and I believe this is covered adequately. \n\nFeel free to disagree on any of the above, I\u0027ll write more.",
+      "parentUuid": "d8444fd1_d8bc2259",
+      "range": {
+        "startLine": 1338,
+        "startChar": 4,
+        "endLine": 1338,
+        "endChar": 9
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cc36478_103cf494",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
         "patchSetId": 26
@@ -45,6 +69,30 @@
       "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7794cd37_7d58475e",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc36478_103cf494",
+      "range": {
+        "startLine": 1339,
+        "startChar": 16,
+        "endLine": 1339,
+        "endChar": 50
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3e33a412_574dbbbe",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "it alters the array that is used for the calculation, this works fine and other tests relly on doing it just like this.",
+      "parentUuid": "48cc3dac_31d11b06",
+      "range": {
+        "startLine": 1348,
+        "startChar": 17,
+        "endLine": 1348,
+        "endChar": 28
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b318790e_60740d9c",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 26
@@ -91,6 +163,30 @@
       "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc569a0_a109677e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b318790e_60740d9c",
+      "range": {
+        "startLine": 1026,
+        "startChar": 15,
+        "endLine": 1026,
+        "endChar": 16
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "584c7767_5c839e10",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "great catch!",
+      "parentUuid": "c24b02e5_414b7d1c",
+      "range": {
+        "startLine": 1031,
+        "startChar": 42,
+        "endLine": 1031,
+        "endChar": 57
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62d827c3_d8a2ec75",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 26
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "6c4a9ad8_b7e7c49c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62d827c3_d8a2ec75",
+      "range": {
+        "startLine": 1239,
+        "startChar": 66,
+        "endLine": 1239,
+        "endChar": 70
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd9adb79_ab4fc9c3",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
         "patchSetId": 26
@@ -160,6 +304,30 @@
       "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07af529_dff367eb",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2018-12-19T01:53:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd9adb79_ab4fc9c3",
+      "range": {
+        "startLine": 1241,
+        "startChar": 11,
+        "endLine": 1241,
+        "endChar": 43
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
