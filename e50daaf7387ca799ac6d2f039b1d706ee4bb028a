@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06dc9d4e_638ad8d1",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-19T01:51:04Z",
+      "side": 1,
+      "message": "INVALID_ITEM_INDEX",
+      "range": {
+        "startLine": 611,
+        "startChar": 34,
+        "endLine": 611,
+        "endChar": 52
+      },
+      "revId": "e50daaf7387ca799ac6d2f039b1d706ee4bb028a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
