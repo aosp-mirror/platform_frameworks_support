@@ -22,6 +22,30 @@
       "revId": "53fcc40b4b2d671f554bc0423207f374bb90aea3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd26635_460f4096",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-19T14:25:00Z",
+      "side": 1,
+      "message": "Ah, indeed. I split the commit in two, but forgot to remove this from the original commit. Will fix this asap",
+      "parentUuid": "d41b4887_955981b6",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 63
+      },
+      "revId": "53fcc40b4b2d671f554bc0423207f374bb90aea3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
