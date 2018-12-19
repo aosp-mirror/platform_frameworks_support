@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abdb7f57_af38f3f8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2018-12-19T22:07:56Z",
+      "side": 1,
+      "message": "I find that these nested \"apply\" functions make this code hard to follow.  As the reader, when I see \"scrollMethod\", I have to go looking for what that is related to.  Seeing \"config.scrollMethod\" feels easier to read?  Basically nesting apply calls feels like it is obfuscating a too heavily.\n\nConsider avoiding nesting \"apply\".",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 20
+      },
+      "revId": "fac718eaa917a6a20c3400fa4a2db23906b344a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
