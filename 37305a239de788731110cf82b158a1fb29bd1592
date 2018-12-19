@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8ec2a80_d9a06e1b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-19T18:52:19Z",
+      "side": 1,
+      "message": "ugh i missed that, thanks. I\u0027ll revert all usages of configureEach",
+      "parentUuid": "e0598b51_849d08cb",
+      "range": {
+        "startLine": 99,
+        "startChar": 46,
+        "endLine": 99,
+        "endChar": 59
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "117f6b0a_b442ceec",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "37305a239de788731110cf82b158a1fb29bd1592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72936f96_b2391a5a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-19T18:52:19Z",
+      "side": 1,
+      "message": ":facepalm:",
+      "parentUuid": "117f6b0a_b442ceec",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eb217b8a_b898437c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-19T18:52:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd0acf7b_98b1ab71",
+      "range": {
+        "startLine": 176,
+        "startChar": 35,
+        "endLine": 176,
+        "endChar": 48
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32218366_9f11b12a",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "37305a239de788731110cf82b158a1fb29bd1592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a647a41c_90185caf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-19T18:52:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "32218366_9f11b12a",
+      "range": {
+        "startLine": 205,
+        "startChar": 35,
+        "endLine": 205,
+        "endChar": 48
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -137,6 +233,30 @@
       "revId": "37305a239de788731110cf82b158a1fb29bd1592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a44162e_7e8c6749",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2018-12-19T18:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcc5f154_764bcc00",
+      "range": {
+        "startLine": 240,
+        "startChar": 27,
+        "endLine": 240,
+        "endChar": 40
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
