@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "e0598b51_849d08cb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2018-12-19T18:00:08Z",
+      "side": 1,
+      "message": "Reading the javadoc, configureEach is not the same as all and will not configure future objects in the collection with the given action so this is a breaking change here.\nThis is a case where the objects are not lazy but they are added later so you really want to use .all()\n\nhttps://docs.gradle.org/current/javadoc/org/gradle/api/DomainObjectCollection.html#configureEach-org.gradle.api.Action-",
+      "range": {
+        "startLine": 99,
+        "startChar": 46,
+        "endLine": 99,
+        "endChar": 59
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117f6b0a_b442ceec",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2018-12-19T18:00:08Z",
+      "side": 1,
+      "message": "you dropped the call to dependsOn here.",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0acf7b_98b1ab71",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2018-12-19T18:00:08Z",
+      "side": 1,
+      "message": "Again you want to use .all() here. Configurations are not lazy and you do want to configure the future ones.",
+      "range": {
+        "startLine": 176,
+        "startChar": 35,
+        "endLine": 176,
+        "endChar": 48
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32218366_9f11b12a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2018-12-19T18:00:08Z",
+      "side": 1,
+      "message": "same as above, use .all()",
+      "range": {
+        "startLine": 205,
+        "startChar": 35,
+        "endLine": 205,
+        "endChar": 48
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfecb714_75f8c141",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 14
@@ -18,6 +110,29 @@
         "startChar": 8,
         "endLine": 239,
         "endChar": 46
+      },
+      "revId": "37305a239de788731110cf82b158a1fb29bd1592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc5f154_764bcc00",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2018-12-19T18:00:08Z",
+      "side": 1,
+      "message": "same as above, use .all()",
+      "range": {
+        "startLine": 240,
+        "startChar": 27,
+        "endLine": 240,
+        "endChar": 40
       },
       "revId": "37305a239de788731110cf82b158a1fb29bd1592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
