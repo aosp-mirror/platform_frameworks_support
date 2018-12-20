@@ -22,6 +22,30 @@
       "revId": "a1ac55cf8f286fff95e2c8cf4c5bff835b292b2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8da43b_48cd673f",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-12-20T22:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5a24ab0_e16a9d41",
+      "range": {
+        "startLine": 390,
+        "startChar": 23,
+        "endLine": 390,
+        "endChar": 38
+      },
+      "revId": "a1ac55cf8f286fff95e2c8cf4c5bff835b292b2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
