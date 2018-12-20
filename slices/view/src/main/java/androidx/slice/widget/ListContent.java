@@ -43,7 +43,6 @@ import androidx.slice.SliceMetadata;
 import androidx.slice.core.SliceAction;
 import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
-import androidx.slice.view.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,21 +61,20 @@ public class ListContent extends SliceContent {
     private RowContent mSeeMoreContent;
     private ArrayList<SliceContent> mRowItems = new ArrayList<>();
     private List<SliceAction> mSliceActions;
-    private int mMinScrollHeight;
-    private int mLargeHeight;
-    private Context mContext;
 
-    public ListContent(Context context, @NonNull Slice slice) {
+    public ListContent(@NonNull Slice slice) {
         super(slice);
         if (mSliceItem == null) {
             return;
         }
-        mContext = context;
-        if (context != null) {
-            mMinScrollHeight = context.getResources()
-                    .getDimensionPixelSize(R.dimen.abc_slice_row_min_height);
-            mLargeHeight = context.getResources()
-                    .getDimensionPixelSize(R.dimen.abc_slice_large_height);
+        populate(slice);
+    }
+
+    @Deprecated
+    public ListContent(Context context, @NonNull Slice slice) {
+        super(slice);
+        if (mSliceItem == null) {
+            return;
         }
         populate(slice);
     }
@@ -86,12 +84,12 @@ public class ListContent extends SliceContent {
         mSliceActions = SliceMetadata.getSliceActions(slice);
         final SliceItem headerItem = findHeaderItem(slice);
         if (headerItem != null) {
-            mHeaderContent = new RowContent(mContext, headerItem, 0);
+            mHeaderContent = new RowContent(headerItem, 0);
             mRowItems.add(mHeaderContent);
         }
         final SliceItem seeMoreItem = getSeeMoreItem(slice);
         if (seeMoreItem != null) {
-            mSeeMoreContent = new RowContent(mContext, seeMoreItem, -1);
+            mSeeMoreContent = new RowContent(seeMoreItem, -1);
         }
 
         // Filter + create row items
@@ -103,13 +101,13 @@ public class ListContent extends SliceContent {
                     HINT_TTL, HINT_LAST_UPDATED);
             if (!isNonRowContent && (FORMAT_ACTION.equals(format) || FORMAT_SLICE.equals(format))) {
                 if (mHeaderContent == null && !child.hasHint(HINT_LIST_ITEM)) {
-                    mHeaderContent = new RowContent(mContext, child, 0);
+                    mHeaderContent = new RowContent(child, 0);
                     mRowItems.add(0, mHeaderContent);
                 } else if (child.hasHint(HINT_LIST_ITEM)) {
                     if (child.hasHint(HINT_HORIZONTAL)) {
-                        mRowItems.add(new GridContent(mContext, child, i));
+                        mRowItems.add(new GridContent(child, i));
                     } else {
-                        mRowItems.add(new RowContent(mContext, child, i));
+                        mRowItems.add(new RowContent(child, i));
                     }
                 }
             }
@@ -130,33 +128,7 @@ public class ListContent extends SliceContent {
 
     @Override
     public int getHeight(SliceStyle style, SliceViewPolicy policy) {
-        if (policy.getMode() == MODE_SMALL) {
-            return mHeaderContent.getHeight(style, policy);
-        }
-        int maxHeight = policy.getMaxHeight();
-        boolean scrollable = policy.isScrollable();
-
-        int desiredHeight = getListHeight(mRowItems, style, policy);
-        if (maxHeight > 0) {
-            // Always ensure we're at least the height of our small version.
-            int smallHeight = mHeaderContent.getHeight(style, policy);
-            maxHeight = Math.max(smallHeight, maxHeight);
-        }
-        int maxLargeHeight = maxHeight > 0
-                ? maxHeight
-                : mLargeHeight;
-        // Do we have enough content to reasonably scroll in our max?
-        boolean bigEnoughToScroll = desiredHeight - maxLargeHeight >= mMinScrollHeight;
-
-        // Adjust for scrolling
-        int height = bigEnoughToScroll ? maxLargeHeight
-                : maxHeight <= 0 ? desiredHeight
-                : Math.min(maxLargeHeight, desiredHeight);
-        if (!scrollable) {
-            height = getListHeight(getItemsForNonScrollingList(height, style, policy),
-                    style, policy);
-        }
-        return height;
+        return style.getListHeight(this, policy);
     }
 
     /**
@@ -173,54 +145,9 @@ public class ListContent extends SliceContent {
         if (policy.getMode() == MODE_SMALL) {
             return new ArrayList(Arrays.asList(getHeader()));
         } else if (!policy.isScrollable() && availableHeight > 0) {
-            return getItemsForNonScrollingList(availableHeight, style, policy);
+            return style.getListItemsForNonScrollingList(this, availableHeight, policy);
         }
         return getRowItems();
-    }
-
-    /**
-     * Returns a list of items that can fit in the provided height. If this list
-     * has a see more item this will be displayed in the list if appropriate.
-     *
-     * @param availableHeight to use to determine the row items to return.
-     * @param style the style info to use when determining row items to return.
-     * @param policy the policy info (scrolling, mode) to use when determining row items to return.
-     *
-     * @return the list of items that can be displayed in the provided height.
-     */
-    @NonNull
-    private ArrayList<SliceContent> getItemsForNonScrollingList(int availableHeight,
-            SliceStyle style, SliceViewPolicy policy) {
-        ArrayList<SliceContent> visibleItems = new ArrayList<>();
-        if (mRowItems == null || mRowItems.size() == 0) {
-            return visibleItems;
-        }
-        final int minItemCountForSeeMore = mHeaderContent != null ? 2 : 1;
-        int visibleHeight = 0;
-        // Need to show see more
-        if (mSeeMoreContent != null) {
-            visibleHeight += mSeeMoreContent.getHeight(style, policy);
-        }
-        int rowCount = mRowItems.size();
-        for (int i = 0; i < rowCount; i++) {
-            int itemHeight = mRowItems.get(i).getHeight(style, policy);
-            if (availableHeight > 0 && visibleHeight + itemHeight > availableHeight) {
-                break;
-            } else {
-                visibleHeight += itemHeight;
-                visibleItems.add(mRowItems.get(i));
-            }
-        }
-        if (mSeeMoreContent != null && visibleItems.size() >= minItemCountForSeeMore
-                && visibleItems.size() != rowCount) {
-            // Only add see more if we're at least showing one item and it's not the header
-            visibleItems.add(mSeeMoreContent);
-        }
-        if (visibleItems.size() == 0) {
-            // Didn't have enough space to show anything; should still show something
-            visibleItems.add(mRowItems.get(0));
-        }
-        return visibleItems;
     }
 
     /**
@@ -246,6 +173,10 @@ public class ListContent extends SliceContent {
         return mRowItems;
     }
 
+    public SliceContent getSeeMoreItem() {
+        return mSeeMoreContent;
+    }
+
     /**
      * @return the type of template that the header represents.
      */
@@ -257,6 +188,35 @@ public class ListContent extends SliceContent {
     @Nullable
     public SliceAction getShortcut(@Nullable Context context) {
         return mPrimaryAction != null ? mPrimaryAction : super.getShortcut(context);
+    }
+
+    /**
+     * Whether the first row should show title items on the start.
+     */
+    public void showTitleItems(boolean enabled) {
+        if (mHeaderContent != null) {
+            mHeaderContent.showTitleItems(enabled);
+        }
+    }
+
+    /**
+     * Whether the header row should show the bottom divider.
+     */
+    public void showHeaderDivider(boolean enabled) {
+        if (mHeaderContent != null && mRowItems.size() > 1) {
+            mHeaderContent.showBottomDivider(enabled);
+        }
+    }
+
+    /**
+     * Whether all the row contents should show action dividers.
+     */
+    public void showActionDividers(boolean enabled) {
+        for (SliceContent item : mRowItems) {
+            if (item instanceof RowContent) {
+                ((RowContent) item).showActionDivider(enabled);
+            }
+        }
     }
 
     /**
@@ -302,6 +262,8 @@ public class ListContent extends SliceContent {
                     return FORMAT_ACTION.equals(rc.getRange().getFormat())
                             ? EventInfo.ROW_TYPE_SLIDER
                             : EventInfo.ROW_TYPE_PROGRESS;
+                } else if (rc.getSelection() != null) {
+                    return EventInfo.ROW_TYPE_SELECTION;
                 } else if (primaryAction != null && primaryAction.isToggle()) {
                     return EventInfo.ROW_TYPE_TOGGLE;
                 } else if (isHeader && actions != null) {

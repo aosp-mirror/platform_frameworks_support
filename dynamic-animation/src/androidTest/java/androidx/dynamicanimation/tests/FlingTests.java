@@ -97,12 +97,12 @@ public class FlingTests {
                 anim.setStartValue(100).setStartVelocity(2000).start();
             }
         });
-        verify(listener, timeout(1000)).onAnimationEnd(eq(anim), eq(false), floatThat(
+        verify(listener, timeout(2000)).onAnimationEnd(eq(anim), eq(false), floatThat(
                 new GreaterThan(110f)), eq(0f));
     }
 
     /**
-     * Test that spring animation can work with a single property without an object.
+     * Test that fling animation can work with a single property without an object.
      */
     @Test
     public void testFloatValueHolder() {
@@ -120,7 +120,7 @@ public class FlingTests {
                 anim.start();
             }
         });
-        verify(listener, timeout(1000)).onAnimationEnd(eq(anim), eq(false), floatThat(
+        verify(listener, timeout(2000)).onAnimationEnd(eq(anim), eq(false), floatThat(
                 new LessThan(-50f)), eq(0f));
     }
 

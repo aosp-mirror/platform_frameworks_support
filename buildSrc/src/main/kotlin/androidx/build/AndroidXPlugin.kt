@@ -17,10 +17,15 @@
 package androidx.build
 
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
-import androidx.build.SupportConfig.CURRENT_SDK_VERSION
+import androidx.build.SupportConfig.COMPILE_SDK_VERSION
+import androidx.build.SupportConfig.TARGET_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
 import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
+import androidx.build.checkapi.ApiType
+import androidx.build.checkapi.getLastReleasedApiFileFromDir
+import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
+import androidx.build.dokka.Dokka
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
@@ -36,15 +41,18 @@ import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ConfigurationContainer
+
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+import java.util.concurrent.ConcurrentHashMap
+import java.io.File
 
 /**
  * A plugin which enables all of the Gradle customizations for AndroidX.
@@ -85,6 +93,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidLibraryOptions(extension)
                     project.configureVersionFileWriter(extension)
+                    project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     extension.libraryVariants.all {
                         variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
@@ -109,9 +118,13 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        var projectModules = ConcurrentHashMap<String, String>()
+        project.extra.set("projects", projectModules)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
+                    Dokka.ARCHIVE_TASK_NAME == task.name ||
+                    "partiallyDejetifyArchive" == task.name ||
                     "dejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
@@ -127,7 +140,7 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
-                        "lintDebug" == task.name) {
+                        "lintMinDepVersionsDebug" == task.name) {
                     buildOnServerTask.dependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
@@ -142,7 +155,6 @@ class AndroidXPlugin : Plugin<Project> {
         buildTestApksTask.dependsOn(createCoverageJarTask)
 
         Release.createGlobalArchiveTask(this)
-
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
@@ -154,14 +166,29 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
+
+        // Iterate through all the project and substitute any artifact dependency of a
+        // maxdepversions future configuration with the corresponding tip of tree project.
+        subprojects { project ->
+            project.configurations.all { configuration ->
+                if (configuration.name.toLowerCase().contains("maxdepversions") &&
+                        project.extra.has("publish")) {
+                    configuration.resolutionStrategy.dependencySubstitution.apply {
+                        for (e in projectModules) {
+                            substitute(module(e.key)).with(project(e.value))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
-        extension.compileSdkVersion(CURRENT_SDK_VERSION)
+        extension.compileSdkVersion(COMPILE_SDK_VERSION)
         extension.buildToolsVersion = BUILD_TOOLS_VERSION
         // Expose the compilation SDK for use as the target SDK in test manifests.
         extension.defaultConfig.addManifestPlaceholders(
-                mapOf("target-sdk-version" to CURRENT_SDK_VERSION))
+                mapOf("target-sdk-version" to TARGET_SDK_VERSION))
 
         extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
         extension.testOptions.unitTests.isReturnDefaultValues = true
@@ -171,12 +198,6 @@ class AndroidXPlugin : Plugin<Project> {
             val minSdkVersion = extension.defaultConfig.minSdkVersion.apiLevel
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
-            }
-            // Add our custom error-prone project as an annotation processor which causes our custom
-            // rules to run as error-prone checks.
-            if (project.name != "docs-fake" && !project.name.contains("demos")) {
-                project.dependencies.add("annotationProcessor",
-                        project.project(":customerrorprone"))
             }
             project.configurations.all { configuration ->
                 configuration.resolutionStrategy.eachDependency { dep ->
@@ -225,12 +246,6 @@ class AndroidXPlugin : Plugin<Project> {
                 !hasProperty("android.injected.invoked.from.ide") &&
                 !isBenchmark()
 
-        extension.variants.all { variant ->
-            if (variant.flavorName.toLowerCase().contains(
-                            "maxdepversions")) {
-                useMaxiumumDependencyVersions(project.configurations)
-            }
-        }
         // Set the officially published version to be the release version with minimum dependency
         // versions.
         extension.defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
@@ -257,7 +272,7 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
-            targetSdkVersion(CURRENT_SDK_VERSION)
+            targetSdkVersion(TARGET_SDK_VERSION)
 
             versionCode = 1
             versionName = "1.0"
@@ -294,40 +309,13 @@ fun Project.isBenchmark(): Boolean {
     return name.endsWith("-benchmark")
 }
 
-/**
- * Goes through all the dependencies in the passed in configurations and finds each dependency
- * depending on an androidx library, then each of these dependencies is substituted with its
- * equivalent in the current development project (e.g module("androidx.collection:collection:x.y.z")
- * becomes project(":collection".) Throws an error if there is a major release conflict between
- * the two dependency versions.
- */
-private fun Project.useMaxiumumDependencyVersions(configurations: ConfigurationContainer) {
-    configurations.all { configuration ->
-        configuration.resolutionStrategy.eachDependency { dep ->
-            if (artifactSupportsSemVer(dep.target.group)) {
-                // TODO: support projects having two ':' chars in the name
-                val localDependencyProject = findProject(":${dep.target.name}")
-                if (localDependencyProject != null &&
-                        localDependencyProject.version.toString() != "unspecified") {
-                    if (localDependencyProject.version().major ==
-                            Version(dep.target.version!!).major) {
-                        configuration.resolutionStrategy.dependencySubstitution.apply {
-                            substitute(module("${dep.target}"))
-                                    .with(project(":${localDependencyProject.name}"))
-                        }
-                    } else {
-                        throw IllegalArgumentException("The local version for dependency" +
-                                " ${localDependencyProject.name} is in major release" +
-                                " ${localDependencyProject.version().major}, but the " +
-                                "specified dependency's major release is " +
-                                "${Version(dep.target.version!!).major}" +
-                                ", please update the dependency's version to match " +
-                                "that major release as it is required that all libraries at HEAD " +
-                                "are compatible with each other at all times")
-                    }
-                }
-            }
-        }
+fun Project.addToProjectMap(group: String?) {
+    if (group != null) {
+        val module = "$group:${project.name}"
+        val projectName = "${project.path}"
+        var projectModules = project.rootProject.extra.get("projects")
+                as ConcurrentHashMap<String, String>
+        projectModules.put(module, projectName)
     }
 }
 
@@ -337,6 +325,45 @@ private fun isDependencyRange(version: String?): Boolean {
             version.endsWith("+"))
 }
 
-private fun artifactSupportsSemVer(artifactGroup: String): Boolean {
-    return artifactGroup.startsWith("androidx.")
+private fun Project.createCheckResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("checkResourceApi",
+            CheckResourceApiTask::class.java) {
+        newApiFile = getGenerateResourceApiFile()
+        oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
+    }
+}
+
+private fun Project.createUpdateResourceApiTask(): DefaultTask {
+    return project.tasks.createWithConfig("updateResourceApi", UpdateResourceApiTask::class.java) {
+        newApiFile = getGenerateResourceApiFile()
+        oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
+                project.version(), true, false, ApiType.RESOURCEAPI)
+    }
+}
+
+private fun Project.configureResourceApiChecks() {
+    project.afterEvaluate {
+        if (project.hasApiFolder()) {
+            val checkResourceApiTask = project.createCheckResourceApiTask()
+            val updateResourceApiTask = project.createUpdateResourceApiTask()
+            project.tasks.all { task ->
+                if (task.name == "assembleRelease") {
+                    checkResourceApiTask.dependsOn(task)
+                    updateResourceApiTask.dependsOn(task)
+                } else if (task.name == "updateApi") {
+                    task.dependsOn(updateResourceApiTask)
+                }
+            }
+            project.rootProject.tasks.all { task ->
+                if (task.name == AndroidXPlugin.BUILD_ON_SERVER_TASK) {
+                    task.dependsOn(checkResourceApiTask)
+                }
+            }
+        }
+    }
+}
+
+private fun Project.getGenerateResourceApiFile(): File {
+    return File(project.buildDir, "intermediates/public_res/minDepVersionsRelease" +
+            "/packageMinDepVersionsReleaseResources/public.txt")
 }

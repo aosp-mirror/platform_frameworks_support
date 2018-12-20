@@ -29,7 +29,6 @@ if (supportRoot == null) {
 def init = new Properties()
 ext.init = init
 rootProject.ext.versionChecker = new GMavenVersionChecker(rootProject.logger)
-
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
 
 def setupRepoOutAndBuildNumber() {
@@ -56,7 +55,11 @@ def setupRepoOutAndBuildNumber() {
 def configureSubProjects() {
     subprojects {
         repos.addMavenRepositories(repositories)
-
+    }
+    setupSubprojectsForBuildServer()
+}
+def setupSubprojectsForBuildServer() {
+    subprojects {
         project.plugins.whenPluginAdded { plugin ->
             def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
                     .equals(plugin.class.name)
@@ -80,7 +83,7 @@ def configureSubProjects() {
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
                         }
 
-                        jarifyTask.dependsOn v.getJavaCompiler()
+                        jarifyTask.dependsOn v.getJavaCompileProvider()
                         v.assemble.dependsOn jarifyTask
                     }
                 }
@@ -121,9 +124,10 @@ def configureSubProjects() {
                             include '*.apk'
                             into(BuildServerConfigurationKt.getDistributionDirectory(rootProject))
                             rename { String fileName ->
-                                // Exclude media-compat-test-* modules from existing support library
-                                // presubmit tests.
-                                if (fileName.contains("media-compat-test")) {
+                                // Exclude media-compat-test-* and media2-test-* modules from
+                                // existing support library presubmit tests.
+                                if (fileName.contains("media-compat-test")
+                                        || fileName.contains("media2-test")) {
                                     fileName
                                             .replace(fileName,
                                             "minDepVersions-${fileName}")

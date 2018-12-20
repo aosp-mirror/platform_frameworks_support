@@ -70,7 +70,7 @@ public class TextReducingWorker extends Worker {
                     mWordCount.put(word, count);
                 }
             } catch (IOException e) {
-                return Result.FAILURE;
+                return Result.failure();
             } finally {
                 if (dataInputStream != null) {
                     try {
@@ -107,6 +107,6 @@ public class TextReducingWorker extends Worker {
             db.endTransaction();
         }
 
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

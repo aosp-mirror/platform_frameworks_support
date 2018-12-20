@@ -44,7 +44,7 @@ import androidx.work.impl.model.WorkSpec;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @RequiresApi(api = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 class SystemJobInfoConverter {
-    private static final String TAG = "SystemJobInfoConverter";
+    private static final String TAG = Logger.tagWithPrefix("SystemJobInfoConverter");
 
     static final String EXTRA_WORK_SPEC_ID = "EXTRA_WORK_SPEC_ID";
     static final String EXTRA_IS_PERIODIC = "EXTRA_IS_PERIODIC";
@@ -90,7 +90,7 @@ class SystemJobInfoConverter {
             if (Build.VERSION.SDK_INT >= 24) {
                 builder.setPeriodic(workSpec.intervalDuration, workSpec.flexDuration);
             } else {
-                Logger.debug(TAG,
+                Logger.get().debug(TAG,
                         "Flex duration is currently not supported before API 24. Ignoring.");
                 builder.setPeriodic(workSpec.intervalDuration);
             }
@@ -106,6 +106,8 @@ class SystemJobInfoConverter {
             for (ContentUriTriggers.Trigger trigger : contentUriTriggers.getTriggers()) {
                 builder.addTriggerContentUri(convertContentUriTrigger(trigger));
             }
+            builder.setTriggerContentUpdateDelay(constraints.getTriggerContentUpdateDelay());
+            builder.setTriggerContentMaxDelay(constraints.getTriggerMaxContentDelay());
         }
 
         // We don't want to persist these jobs because we reschedule these jobs on BOOT_COMPLETED.
@@ -151,7 +153,7 @@ class SystemJobInfoConverter {
                 }
                 break;
         }
-        Logger.debug(TAG, String.format(
+        Logger.get().debug(TAG, String.format(
                 "API version too low. Cannot convert network type value %s", networkType));
         return JobInfo.NETWORK_TYPE_ANY;
     }

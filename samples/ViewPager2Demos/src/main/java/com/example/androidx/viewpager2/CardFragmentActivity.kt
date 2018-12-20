@@ -35,16 +35,16 @@ import com.example.androidx.viewpager2.cards.CardView
  */
 class CardFragmentActivity : BaseCardActivity() {
 
-    override fun onCreate(bundle: Bundle?) {
-        super.onCreate(bundle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         viewPager.adapter = object : FragmentStateAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
-                return CardFragment.create(BaseCardActivity.cards[position])
+                return CardFragment.create(cards[position])
             }
 
             override fun getItemCount(): Int {
-                return BaseCardActivity.cards.size
+                return cards.size
             }
         }
     }

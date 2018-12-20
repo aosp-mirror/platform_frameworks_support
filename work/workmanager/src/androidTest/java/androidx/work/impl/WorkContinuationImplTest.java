@@ -16,6 +16,7 @@
 
 package androidx.work.impl;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -41,11 +42,10 @@ import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
 import androidx.work.TestLifecycleOwner;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManagerTest;
-import androidx.work.WorkStatus;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.SynchronousExecutor;
@@ -116,7 +116,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void tearDown() throws ExecutionException, InterruptedException {
         List<String> ids = mDatabase.workSpecDao().getAllWorkSpecIds();
         for (String id : ids) {
-            mWorkManagerImpl.cancelWorkByIdInternal(UUID.fromString(id)).get();
+            mWorkManagerImpl.cancelWorkById(UUID.fromString(id))
+                    .getResult()
+                    .get();
         }
         WorkManagerImpl.setDelegate(null);
         ArchTaskExecutor.getInstance().setDelegate(null);
@@ -157,7 +159,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuationImpl continuation = new WorkContinuationImpl(mWorkManagerImpl,
                 createTestWorkerList());
         assertThat(continuation.isEnqueued(), is(false));
-        continuation.enqueue().get();
+        continuation.enqueue().getResult().get();
         verifyEnqueued(continuation);
         verifyScheduled(mScheduler, continuation);
     }
@@ -167,8 +169,9 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuationImpl continuation =
                 new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
         WorkContinuationImpl chain = (WorkContinuationImpl) (
-                continuation.then(createTestWorker()).then(createTestWorker(), createTestWorker()));
-        chain.enqueue().get();
+                continuation.then(createTestWorker())
+                        .then(Arrays.asList(createTestWorker(), createTestWorker())));
+        chain.enqueue().getResult().get();
         verifyEnqueued(continuation);
         verifyScheduled(mScheduler, continuation);
     }
@@ -180,64 +183,44 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuationImpl continuation =
                 new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
         WorkContinuationImpl chain = (WorkContinuationImpl) (
-                continuation.then(createTestWorker()).then(createTestWorker(), createTestWorker()));
-        chain.enqueue().get();
+                continuation.then(createTestWorker())
+                        .then(Arrays.asList(createTestWorker(), createTestWorker())));
+        chain.enqueue().getResult().get();
         verifyEnqueued(continuation);
         verifyScheduled(mScheduler, continuation);
         WorkContinuationImpl spy = spy(chain);
-        spy.enqueue().get();
+        spy.enqueue().getResult().get();
         // Verify no more calls to markEnqueued().
         verify(spy, times(0)).markEnqueued();
     }
 
     @Test
     public void testContinuation_join() {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuation first = new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+        WorkContinuation second = new WorkContinuationImpl(mWorkManagerImpl,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-
-        WorkContinuationImpl dependent = (WorkContinuationImpl) WorkContinuation.combine(first,
-                second);
-        assertThat(dependent.getParents(), is(notNullValue()));
-        assertThat(dependent.getParents(), containsInAnyOrder(first, second));
-    }
-
-    public void testContinuation_withWorkJoin() {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-
-        OneTimeWorkRequest work = createTestWorker();
 
         WorkContinuationImpl dependent = (WorkContinuationImpl) WorkContinuation.combine(
-                work, first, second);
-
-        assertThat(dependent.getIds(), containsInAnyOrder(work.getStringId()));
+                Arrays.asList(first, second));
         assertThat(dependent.getParents(), is(notNullValue()));
         assertThat(dependent.getParents(), containsInAnyOrder(first, second));
     }
 
     @Test
     public void testContinuation_joinAndEnqueue() throws ExecutionException, InterruptedException {
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-
-        WorkContinuationImpl third = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-        WorkContinuationImpl fourth = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuation first = new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+        WorkContinuation second = new WorkContinuationImpl(mWorkManagerImpl,
                 createTestWorkerList());
 
-        WorkContinuationImpl firstDependent = (WorkContinuationImpl) WorkContinuation.combine(
-                first, second);
-        WorkContinuationImpl secondDependent = (WorkContinuationImpl) WorkContinuation.combine(
-                third, fourth);
+        WorkContinuation third = new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+        WorkContinuation fourth = new WorkContinuationImpl(mWorkManagerImpl,
+                createTestWorkerList());
+
+        WorkContinuation firstDependent = WorkContinuation.combine(Arrays.asList(first, second));
+        WorkContinuation secondDependent = WorkContinuation.combine(Arrays.asList(third, fourth));
         WorkContinuationImpl dependent = (WorkContinuationImpl) WorkContinuation.combine(
-                firstDependent, secondDependent);
-        dependent.enqueue().get();
+                Arrays.asList(firstDependent, secondDependent));
+        dependent.enqueue().getResult().get();
         verifyEnqueued(dependent);
         verifyScheduled(mScheduler, dependent);
     }
@@ -246,19 +229,15 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     public void testContinuation_joinAndEnqueueWithOverlaps()
             throws ExecutionException, InterruptedException {
 
-        WorkContinuationImpl first = new WorkContinuationImpl(mWorkManagerImpl,
+        WorkContinuation first = new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+        WorkContinuation second = new WorkContinuationImpl(mWorkManagerImpl,
                 createTestWorkerList());
-        WorkContinuationImpl second = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-        WorkContinuationImpl third = new WorkContinuationImpl(mWorkManagerImpl,
-                createTestWorkerList());
-        WorkContinuationImpl firstDependent = (WorkContinuationImpl) WorkContinuation.combine(
-                first, second);
-        WorkContinuationImpl secondDependent = (WorkContinuationImpl) WorkContinuation.combine(
-                first, third);
+        WorkContinuation third = new WorkContinuationImpl(mWorkManagerImpl, createTestWorkerList());
+        WorkContinuation firstDependent = WorkContinuation.combine(Arrays.asList(first, second));
+        WorkContinuation secondDependent = WorkContinuation.combine(Arrays.asList(first, third));
         WorkContinuationImpl dependent = (WorkContinuationImpl) WorkContinuation.combine(
-                firstDependent, secondDependent);
-        dependent.enqueue().get();
+                Arrays.asList(firstDependent, secondDependent));
+        dependent.enqueue().getResult().get();
         verifyEnqueued(dependent);
         verifyScheduled(mScheduler, dependent);
     }
@@ -273,10 +252,10 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         final String stringTag = "mystring";
 
         OneTimeWorkRequest firstWork = new OneTimeWorkRequest.Builder(TestWorker.class)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
         OneTimeWorkRequest secondWork = new OneTimeWorkRequest.Builder(TestWorker.class)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
@@ -290,14 +269,14 @@ public class WorkContinuationImplTest extends WorkManagerTest {
                 secondWork.getStringId(),
                 new Data.Builder().putInt(intTag, 1).putString(stringTag, "hello").build());
 
-        WorkContinuationImpl firstContinuation =
+        WorkContinuation firstContinuation =
                 new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(firstWork));
-        WorkContinuationImpl secondContinuation =
+        WorkContinuation secondContinuation =
                 new WorkContinuationImpl(mWorkManagerImpl, Collections.singletonList(secondWork));
         WorkContinuationImpl dependentContinuation =
                 (WorkContinuationImpl) WorkContinuation.combine(
-                        firstContinuation, secondContinuation);
-        dependentContinuation.enqueue().get();
+                        Arrays.asList(firstContinuation, secondContinuation));
+        dependentContinuation.enqueue().getResult().get();
 
         String joinId = null;
         for (String id : dependentContinuation.getAllIds()) {
@@ -324,7 +303,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         assertThat(joinId, is(not(nullValue())));
         WorkSpec joinWorkSpec = mDatabase.workSpecDao().getWorkSpec(joinId);
         assertThat(joinWorkSpec, is(not(nullValue())));
-        assertThat(joinWorkSpec.state, is(State.SUCCEEDED));
+        assertThat(joinWorkSpec.state, is(WorkInfo.State.SUCCEEDED));
 
         Data output = joinWorkSpec.output;
         int[] intArray = output.getIntArray(intTag);
@@ -355,7 +334,8 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuation continuationBC = continuationB.then(cWork);
 
         // combine -> A, C
-        WorkContinuation join = WorkContinuation.combine(continuationA, continuationBC);
+        WorkContinuation join = WorkContinuation.combine(
+                Arrays.asList(continuationA, continuationBC));
 
         // withCycles -> B
         WorkContinuationImpl withCycles = (WorkContinuationImpl) join.then(bWork);
@@ -389,7 +369,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         //  A A
         //   A
         WorkContinuationImpl joined = (WorkContinuationImpl) WorkContinuation.combine(
-                first, second);
+                Arrays.asList(first, second));
         assertThat(joined.hasCycles(), is(true));
     }
 
@@ -404,7 +384,8 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
         // A   A
         //   B
-        WorkContinuation continuationB = WorkContinuation.combine(continuationA, continuationA);
+        WorkContinuation continuationB = WorkContinuation.combine(
+                Arrays.asList(continuationA, continuationA));
         // A   A
         //   B
         //   C
@@ -430,8 +411,8 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuation continuationBC = new WorkContinuationImpl(
                 mWorkManagerImpl, Arrays.asList(bWork, cWork));
 
-        WorkContinuationImpl joined =
-                (WorkContinuationImpl) WorkContinuation.combine(continuationAB, continuationBC);
+        WorkContinuationImpl joined = (WorkContinuationImpl) WorkContinuation.combine(
+                Arrays.asList(continuationAB, continuationBC));
 
         assertThat(joined.hasCycles(), is(false));
     }
@@ -462,7 +443,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         //  B   C  B   C
         //       D
         WorkContinuationImpl joined = (WorkContinuationImpl) WorkContinuation.combine(
-                continuationB, continuationC, continuationB2, continuationC2);
+                Arrays.asList(continuationB, continuationC, continuationB2, continuationC2));
 
         assertThat(joined.hasCycles(), is(false));
     }
@@ -483,17 +464,19 @@ public class WorkContinuationImplTest extends WorkManagerTest {
         WorkContinuation continuationC = new WorkContinuationImpl(
                 mWorkManagerImpl, Collections.singletonList(cWork));
 
-        WorkContinuation first = WorkContinuation.combine(continuationA, continuationB);
-        WorkContinuation second = WorkContinuation.combine(continuationA, continuationC);
+        WorkContinuation first = WorkContinuation.combine(
+                Arrays.asList(continuationA, continuationB));
+        WorkContinuation second = WorkContinuation.combine(
+                Arrays.asList(continuationA, continuationC));
 
         WorkContinuationImpl joined = (WorkContinuationImpl) WorkContinuation.combine(
-                first, second);
+                Arrays.asList(first, second));
         assertThat(joined.hasCycles(), is(false));
     }
 
     @Test
     @SmallTest
-    public void testGetStatusesSync() throws ExecutionException, InterruptedException {
+    public void testGetWorkInfosSync() throws ExecutionException, InterruptedException {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B
         OneTimeWorkRequest cWork = createTestWorker(); // C
@@ -501,17 +484,17 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
         WorkContinuation firstChain = mWorkManagerImpl.beginWith(aWork).then(bWork);
         WorkContinuation secondChain = mWorkManagerImpl.beginWith(cWork);
-        WorkContinuation combined = WorkContinuation.combine(dWork, firstChain, secondChain);
+        WorkContinuation combined =
+                WorkContinuation.combine(Arrays.asList(firstChain, secondChain)).then(dWork);
 
-        combined.enqueue().get();
-        List<WorkStatus> statuses = combined.getStatuses().get();
+        combined.enqueue().getResult().get();
+        List<WorkInfo> statuses = combined.getWorkInfos().get();
         assertThat(statuses, is(notNullValue()));
         List<UUID> ids = new ArrayList<>(statuses.size());
-        for (WorkStatus status : statuses) {
+        for (WorkInfo status : statuses) {
             ids.add(status.getId());
         }
-        assertThat(ids, containsInAnyOrder(
-                aWork.getId(), bWork.getId(), cWork.getId(), dWork.getId()));
+        assertThat(ids, hasItems(aWork.getId(), bWork.getId(), cWork.getId(), dWork.getId()));
     }
 
     private static void verifyEnqueued(WorkContinuationImpl continuation) {

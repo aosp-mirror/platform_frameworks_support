@@ -16,6 +16,7 @@
 
 package androidx.work;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Network;
 import android.net.Uri;
@@ -26,6 +27,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
+
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
@@ -35,43 +38,29 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The basic object that performs work.  Worker classes are instantiated at runtime by the
- * {@link WorkerFactory} specified in the {@link Configuration}.  The {@link #startWork()} method
- * is called on the main thread.  In case the work is preempted and later restarted for any
- * reason, a new instance of {@link ListenableWorker} is created. This means that
- * {@code startWork} is called exactly once per {@link ListenableWorker} instance.
+ * A class that can perform work asynchronously in {@link WorkManager}.  For most cases, we
+ * recommend using {@link Worker}, which offers a simple synchronous API that is executed on a
+ * pre-specified background thread.
+ * <p>
+ * ListenableWorker classes are instantiated at runtime by the {@link WorkerFactory} specified in
+ * the {@link Configuration}.  The {@link #startWork()} method is called on the main thread.
+ * <p>
+ * In case the work is preempted and later restarted for any reason, a new instance of
+ * ListenableWorker is created. This means that {@code startWork} is called exactly once per
+ * ListenableWorker instance.  A new ListenableWorker is created if a unit of work needs to be
+ * rerun.
+ * <p>
+ * A ListenableWorker is given a maximum of ten minutes to finish its execution and return a
+ * {@link Result}.  After this time has expired, the worker will be signalled to stop and its
+ * {@link ListenableFuture} will be cancelled.
  */
+
 public abstract class ListenableWorker {
-
-    /**
-     * The result of the Worker's computation.
-     */
-    public enum Result {
-        /**
-         * Used to indicate that the work completed successfully.  Any work that depends on this
-         * can be executed as long as all of its other dependencies and constraints are met.
-         */
-        SUCCESS,
-
-        /**
-         * Used to indicate that the work completed with a permanent failure.  Any work that depends
-         * on this will also be marked as failed and will not be run.
-         */
-        FAILURE,
-
-        /**
-         * Used to indicate that the work encountered a transient failure and should be retried with
-         * backoff specified in
-         * {@link WorkRequest.Builder#setBackoffCriteria(BackoffPolicy, long, TimeUnit)}.
-         */
-        RETRY
-    }
 
     private @NonNull Context mAppContext;
     private @NonNull WorkerParameters mWorkerParams;
 
     private volatile boolean mStopped;
-    private volatile boolean mCancelled;
 
     private boolean mUsed;
 
@@ -80,6 +69,7 @@ public abstract class ListenableWorker {
      * @param workerParams Parameters to setup the internal state of this worker
      */
     @Keep
+    @SuppressLint("BanKeepAnnotation")
     public ListenableWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
         // Actually make sure we don't get nulls.
         if (appContext == null) {
@@ -134,29 +124,32 @@ public abstract class ListenableWorker {
     }
 
     /**
-     * Gets the list of content {@link android.net.Uri}s that caused this Worker to execute
+     * Gets the list of content {@link android.net.Uri}s that caused this Worker to execute.  See
+     * {@code JobParameters#getTriggeredContentUris()} for relevant {@code JobScheduler} code.
      *
      * @return The list of content {@link android.net.Uri}s that caused this Worker to execute
      * @see Constraints.Builder#addContentUriTrigger(android.net.Uri, boolean)
      */
     @RequiresApi(24)
-    public final @Nullable List<Uri> getTriggeredContentUris() {
+    public final @NonNull List<Uri> getTriggeredContentUris() {
         return mWorkerParams.getTriggeredContentUris();
     }
 
     /**
-     * Gets the list of content authorities that caused this Worker to execute
+     * Gets the list of content authorities that caused this Worker to execute.  See
+     * {@code JobParameters#getTriggeredContentAuthorities()} for relevant {@code JobScheduler}
+     * code.
      *
      * @return The list of content authorities that caused this Worker to execute
      */
     @RequiresApi(24)
-    public final @Nullable List<String> getTriggeredContentAuthorities() {
+    public final @NonNull List<String> getTriggeredContentAuthorities() {
         return mWorkerParams.getTriggeredContentAuthorities();
     }
 
     /**
-     * Gets the {@link android.net.Network} to use for this Worker.
-     * This method returns {@code null} if there is no network needed for this work request.
+     * Gets the {@link android.net.Network} to use for this Worker.  This method returns
+     * {@code null} if there is no network needed for this work request.
      *
      * @return The {@link android.net.Network} specified by the OS to be used with this Worker
      */
@@ -166,7 +159,8 @@ public abstract class ListenableWorker {
     }
 
     /**
-     * Gets the current run attempt count for this work.
+     * Gets the current run attempt count for this work.  Note that for periodic work, this value
+     * gets reset between periods.
      *
      * @return The current run attempt count for this work.
      */
@@ -177,18 +171,22 @@ public abstract class ListenableWorker {
     /**
      * Override this method to start your actual background processing. This method is called on
      * the main thread.
+     * <p>
+     * A ListenableWorker is given a maximum of ten minutes to finish its execution and return a
+     * {@link Result}.  After this time has expired, the worker will be signalled to stop and its
+     * {@link ListenableFuture} will be cancelled.
      *
-     * @return A {@link ListenableFuture} with the {@link Payload} of the computation.  If you
+     * @return A {@link ListenableFuture} with the {@link Result} of the computation.  If you
      *         cancel this Future, WorkManager will treat this unit of work as failed.
      */
     @MainThread
-    public abstract @NonNull ListenableFuture<Payload> startWork();
+    public abstract @NonNull ListenableFuture<Result> startWork();
 
     /**
      * Returns {@code true} if this Worker has been told to stop.  This could be because of an
      * explicit cancellation signal by the user, or because the system has decided to preempt the
      * task. In these cases, the results of the work will be ignored by WorkManager and it is safe
-     * to stop the computation.
+     * to stop the computation.  WorkManager will retry the work at a later time if necessary.
      *
      * @return {@code true} if the work operation has been interrupted
      */
@@ -197,27 +195,12 @@ public abstract class ListenableWorker {
     }
 
     /**
-     * Returns {@code true} if this Worker has been told to stop and explicitly informed that it is
-     * cancelled and will never execute again.  If {@link #isStopped()} returns {@code true} but
-     * this method returns {@code false}, that means the system has decided to preempt the task.
-     * <p>
-     * Note that it is almost never sufficient to check only this method; its value is only
-     * meaningful when {@link #isStopped()} returns {@code true}.
-     *
-     * @return {@code true} if this work operation has been cancelled
-     */
-    public final boolean isCancelled() {
-        return mCancelled;
-    }
-
-    /**
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public final void stop(boolean cancelled) {
+    public final void stop() {
         mStopped = true;
-        mCancelled = cancelled;
-        onStopped(cancelled);
+        onStopped();
     }
 
     /**
@@ -227,10 +210,8 @@ public abstract class ListenableWorker {
      * processing in this method should be lightweight - there are no contractual guarantees about
      * which thread will invoke this call, so this should not be a long-running or blocking
      * operation.
-     *
-     * @param cancelled If {@code true}, the work has been explicitly cancelled
      */
-    public void onStopped(boolean cancelled) {
+    public void onStopped() {
         // Do nothing by default.
     }
 
@@ -267,53 +248,179 @@ public abstract class ListenableWorker {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull TaskExecutor getTaskExecutor() {
+        return mWorkerParams.getTaskExecutor();
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public @NonNull WorkerFactory getWorkerFactory() {
         return mWorkerParams.getWorkerFactory();
     }
 
-
-
     /**
-     * The payload of an {@link #startWork()} computation that contains both the result and the
-     * output data.
+     * The result of a {@link ListenableWorker}'s computation. Call {@link #success()},
+     * {@link #failure()}, or {@link #retry()} or one of their variants to generate an object
+     * indicating what happened in your background work.
      */
-    public static final class Payload {
-
-        @NonNull Result mResult;
-        @NonNull Data mOutput;
-
+    public abstract static class Result {
         /**
-         * Constructs a Payload with the given {@link Result} and an empty output.
+         * Returns an instance of {@link Result} that can be used to indicate that the work
+         * completed successfully. Any work that depends on this can be executed as long as all of
+         * its other dependencies and constraints are met.
          *
-         * @param result The result of the {@link #startWork()} computation
+         * @return An instance of {@link Result} indicating successful execution of work
          */
-        public Payload(@NonNull Result result) {
-            this(result, Data.EMPTY);
+        @NonNull
+        public static Result success() {
+            return new Success();
         }
 
         /**
-         * Constructs a Payload with the given {@link Result} and output.
+         * Returns an instance of {@link Result} that can be used to indicate that the work
+         * completed successfully. Any work that depends on this can be executed as long as all of
+         * its other dependencies and constraints are met.
          *
-         * @param result The result of the {@link #startWork()} computation
-         * @param output The output {@link Data} of the {@link #startWork()} computation
+         * @param outputData A {@link Data} object that will be merged into the input Data of any
+         *                   OneTimeWorkRequest that is dependent on this work
+         * @return An instance of {@link Result} indicating successful execution of work
          */
-        public Payload(@NonNull Result result, @NonNull Data output) {
-            mResult = result;
-            mOutput = output;
+        @NonNull
+        public static Result success(@NonNull Data outputData) {
+            return new Success(outputData);
         }
 
         /**
-         * @return The {@link Result} of this {@link ListenableWorker}
+         * Returns an instance of {@link Result} that can be used to indicate that the work
+         * encountered a transient failure and should be retried with backoff specified in
+         * {@link WorkRequest.Builder#setBackoffCriteria(BackoffPolicy, long, TimeUnit)}.
+         *
+         * @return An instance of {@link Result} indicating that the work needs to be retried
          */
-        public @NonNull Result getResult() {
-            return mResult;
+        @NonNull
+        public static Result retry() {
+            return new Retry();
         }
 
         /**
-         * @return The output {@link Data} of this {@link ListenableWorker}
+         * Returns an instance of {@link Result} that can be used to indicate that the work
+         * completed with a permanent failure. Any work that depends on this will also be marked as
+         * failed and will not be run. <b>If you need child workers to run, you need to use
+         * {@link #success()} or {@link #success(Data)}</b>; failure indicates a permanent stoppage
+         * of the chain of work.
+         *
+         * @return An instance of {@link Result} indicating failure when executing work
          */
-        public @NonNull Data getOutputData() {
-            return mOutput;
+        @NonNull
+        public static Result failure() {
+            return new Failure();
+        }
+
+        /**
+         * Returns an instance of {@link Result} that can be used to indicate that the work
+         * completed with a permanent failure. Any work that depends on this will also be marked as
+         * failed and will not be run. <b>If you need child workers to run, you need to use
+         * {@link #success()} or {@link #success(Data)}</b>; failure indicates a permanent stoppage
+         * of the chain of work.
+         *
+         * @param outputData A {@link Data} object that can be used to keep track of why the work
+         *                   failed
+         * @return An instance of {@link Result} indicating failure when executing work
+         */
+        @NonNull
+        public static Result failure(@NonNull Data outputData) {
+            return new Failure(outputData);
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        Result() {
+            // Restricting access to the constructor, to give Result a sealed class
+            // like behavior.
+        }
+
+        /**
+         * Used to indicate that the work completed successfully.  Any work that depends on this
+         * can be executed as long as all of its other dependencies and constraints are met.
+         *
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        public static final class Success extends Result {
+            private final Data mOutputData;
+
+            public Success() {
+                this(Data.EMPTY);
+            }
+
+            /**
+             * @param outputData A {@link Data} object that will be merged into the input Data of
+             *                   any OneTimeWorkRequest that is dependent on this work
+             */
+            public Success(@NonNull Data outputData) {
+                super();
+                mOutputData = outputData;
+            }
+
+            /**
+             * @hide
+             */
+            @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+            public Data getOutputData() {
+                return mOutputData;
+            }
+        }
+
+        /**
+         * Used to indicate that the work completed with a permanent failure.  Any work that depends
+         * on this will also be marked as failed and will not be run. <b>If you need child workers
+         * to run, you need to return {@link Result.Success}</b>; failure indicates a permanent
+         * stoppage of the chain of work.
+         *
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        public static final class Failure extends Result {
+            private final Data mOutputData;
+
+            public Failure() {
+                this(Data.EMPTY);
+            }
+
+            /**
+             * @param outputData A {@link Data} object that can be used to keep track of why the
+             *                   work failed
+             */
+            public Failure(@NonNull Data outputData) {
+                super();
+                mOutputData = outputData;
+            }
+
+            /**
+             * @hide
+             */
+            @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+            public Data getOutputData() {
+                return mOutputData;
+            }
+        }
+
+        /**
+         * Used to indicate that the work encountered a transient failure and should be retried with
+         * backoff specified in
+         * {@link WorkRequest.Builder#setBackoffCriteria(BackoffPolicy, long, TimeUnit)}.
+         *
+         * @hide
+         */
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        public static final class Retry extends Result {
+            public Retry() {
+                super();
+            }
         }
     }
 }

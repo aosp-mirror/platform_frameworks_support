@@ -19,24 +19,27 @@ package androidx.textclassifier;
 import static androidx.textclassifier.ConvertUtils.toPlatformEntityConfig;
 import static androidx.textclassifier.ConvertUtils.unwrapLocalListCompat;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.RemoteActionCompat;
 import androidx.core.os.LocaleListCompat;
@@ -47,6 +50,7 @@ import androidx.textclassifier.widget.ToolbarController;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -65,9 +69,11 @@ public final class TextLinks {
     private static final String LOG_TAG = "TextLinks";
     private static final String EXTRA_FULL_TEXT = "text";
     private static final String EXTRA_LINKS = "links";
+    private static final String EXTRA_EXTRAS = "extras";
 
     private final CharSequence mFullText;
     private final List<TextLink> mLinks;
+    private final Bundle mExtras;
 
     static final Executor sWorkerExecutor = Executors.newFixedThreadPool(1);
     static final MainThreadExecutor sMainThreadExecutor = new MainThreadExecutor();
@@ -108,9 +114,10 @@ public final class TextLinks {
     @IntDef({APPLY_STRATEGY_IGNORE, APPLY_STRATEGY_REPLACE})
     public @interface ApplyStrategy {}
 
-    TextLinks(CharSequence fullText, List<TextLink> links) {
+    TextLinks(CharSequence fullText, List<TextLink> links, Bundle extras) {
         mFullText = fullText;
         mLinks = Collections.unmodifiableList(links);
+        mExtras = extras;
     }
 
     /**
@@ -131,6 +138,19 @@ public final class TextLinks {
         return mLinks;
     }
 
+    /**
+     * Returns the extended, vendor specific data.
+     *
+     * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
+     * prefer to hold a reference to the returned bundle rather than frequently calling this
+     * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
+     * Bundle are not deep copied.
+     */
+    @NonNull
+    public Bundle getExtras() {
+        return BundleUtils.deepCopy(mExtras);
+    }
+
     @Override
     @NonNull
     public String toString() {
@@ -146,17 +166,22 @@ public final class TextLinks {
         final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_FULL_TEXT, mFullText.toString());
         BundleUtils.putTextLinkList(bundle, EXTRA_LINKS, mLinks);
+        bundle.putBundle(EXTRA_EXTRAS, mExtras);
         return bundle;
     }
 
     /**
      * Extracts an TextLinks object from a bundle that was added using {@link #toBundle()}.
+     *
+     * @throws IllegalArgumentException if the bundle is malformed.
      */
     @NonNull
     public static TextLinks createFromBundle(@NonNull Bundle bundle) {
+        Bundle extras = bundle.getBundle(EXTRA_EXTRAS);
         return new TextLinks(
                 bundle.getString(EXTRA_FULL_TEXT),
-                BundleUtils.getTextLinkListOrThrow(bundle, EXTRA_LINKS));
+                BundleUtils.getTextLinkListOrThrow(bundle, EXTRA_LINKS),
+                extras == null ? Bundle.EMPTY : extras);
     }
 
     /**
@@ -173,6 +198,7 @@ public final class TextLinks {
      * @return the status code which indicates the operation is success or not.
      */
     @Status
+    @SuppressLint("RestrictedApi")
     public int apply(
             @NonNull Spannable text,
             @NonNull TextClassifier textClassifier,
@@ -196,8 +222,6 @@ public final class TextLinks {
         private final EntityConfidence mEntityScores;
         private final int mStart;
         private final int mEnd;
-        // Allows us to fallback to legacy Linkify if necessary. Not parcelled.
-        @Nullable private final URLSpan mUrlSpan;
 
         /**
          * Create a new TextLink.
@@ -207,16 +231,14 @@ public final class TextLinks {
          */
         @VisibleForTesting
         @RestrictTo(RestrictTo.Scope.LIBRARY)
-        TextLink(
-                int start, int end,
-                @NonNull Map<String, Float> entityScores, @Nullable URLSpan urlSpan) {
+        @SuppressLint("RestrictedApi")
+        TextLink(int start, int end, @NonNull Map<String, Float> entityScores) {
             Preconditions.checkNotNull(entityScores);
             Preconditions.checkArgument(!entityScores.isEmpty());
             Preconditions.checkArgument(start <= end);
             mStart = start;
             mEnd = end;
             mEntityScores = new EntityConfidence(entityScores);
-            mUrlSpan = urlSpan;
         }
 
         /**
@@ -265,21 +287,12 @@ public final class TextLinks {
             return mEntityScores.getConfidenceScore(entityType);
         }
 
-        /**
-         * @hide
-         */
-        @Nullable
-        @RestrictTo(RestrictTo.Scope.LIBRARY)
-        public URLSpan getUrlSpan() {
-            return mUrlSpan;
-        }
-
         @Override
         @NonNull
         public String toString() {
             return String.format(Locale.US,
-                    "TextLink{start=%s, end=%s, entityScores=%s, urlSpan=%s}",
-                    mStart, mEnd, mEntityScores, mUrlSpan);
+                    "TextLink{start=%s, end=%s, entityScores=%s}",
+                    mStart, mEnd, mEntityScores);
         }
 
         /**
@@ -303,8 +316,7 @@ public final class TextLinks {
             return new TextLink(
                     bundle.getInt(EXTRA_START),
                     bundle.getInt(EXTRA_END),
-                    BundleUtils.getFloatStringMapOrThrow(bundle, EXTRA_ENTITY_SCORES),
-                    null /* urlSpan */);
+                    BundleUtils.getFloatStringMapOrThrow(bundle, EXTRA_ENTITY_SCORES));
         }
     }
 
@@ -322,18 +334,21 @@ public final class TextLinks {
         @Nullable private final LocaleListCompat mDefaultLocales;
         @NonNull private final EntityConfig mEntityConfig;
         @Nullable private Long mReferenceTime = null;
+        @NonNull private final Bundle mExtras;
 
         Request(
                 @NonNull CharSequence text,
                 @Nullable LocaleListCompat defaultLocales,
                 @Nullable EntityConfig entityConfig,
-                @Nullable Long referenceTime) {
+                @Nullable Long referenceTime,
+                @NonNull Bundle extras) {
             mText = text;
             mDefaultLocales = defaultLocales;
             mEntityConfig = entityConfig == null
                     ? new TextClassifier.EntityConfig.Builder().build()
                     : entityConfig;
             mReferenceTime = referenceTime;
+            mExtras = extras;
         }
 
         /**
@@ -373,6 +388,19 @@ public final class TextLinks {
         }
 
         /**
+         * Returns the extended, vendor specific data.
+         *
+         * <p><b>NOTE: </b>Each call to this method returns a new bundle copy so clients should
+         * prefer to hold a reference to the returned bundle rather than frequently calling this
+         * method. Avoid updating the content of this bundle. On pre-O devices, the values in the
+         * Bundle are not deep copied.
+         */
+        @NonNull
+        public Bundle getExtras() {
+            return BundleUtils.deepCopy(mExtras);
+        }
+
+        /**
          * A builder for building TextLinks requests.
          */
         public static final class Builder {
@@ -382,7 +410,9 @@ public final class TextLinks {
             @Nullable private LocaleListCompat mDefaultLocales;
             @Nullable private EntityConfig mEntityConfig;
             @Nullable private Long mReferenceTime = null;
+            @Nullable private Bundle mExtras;
 
+            @SuppressLint("RestrictedApi")
             public Builder(@NonNull CharSequence text) {
                 mText = Preconditions.checkNotNull(text);
             }
@@ -430,12 +460,23 @@ public final class TextLinks {
                 mReferenceTime = referenceTime;
                 return this;
             }
+
+            /**
+             * Sets the extended, vendor specific data.
+             */
+            @NonNull
+            public Builder setExtras(@Nullable Bundle extras) {
+                mExtras = extras;
+                return this;
+            }
+
             /**
              * Builds and returns the request object.
              */
             @NonNull
             public Request build() {
-                return new Request(mText, mDefaultLocales, mEntityConfig, mReferenceTime);
+                return new Request(mText, mDefaultLocales, mEntityConfig, mReferenceTime,
+                        mExtras == null ? Bundle.EMPTY : mExtras);
             }
 
         }
@@ -451,6 +492,7 @@ public final class TextLinks {
             bundle.putBundle(EXTRA_ENTITY_CONFIG, mEntityConfig.toBundle());
             BundleUtils.putLocaleList(bundle, EXTRA_DEFAULT_LOCALES, mDefaultLocales);
             BundleUtils.putLong(bundle, EXTRA_REFERENCE_TIME, mReferenceTime);
+            bundle.putBundle(EXTRA_EXTRAS, mExtras);
             return bundle;
         }
 
@@ -464,6 +506,7 @@ public final class TextLinks {
                     .setEntityConfig(
                             EntityConfig.createFromBundle(bundle.getBundle(EXTRA_ENTITY_CONFIG)))
                     .setReferenceTime(BundleUtils.getLong(bundle, EXTRA_REFERENCE_TIME))
+                    .setExtras(bundle.getBundle(EXTRA_EXTRAS))
                     .build();
         }
 
@@ -480,13 +523,8 @@ public final class TextLinks {
     }
 
     /**
-     * A function to create spans from TextLinks.
-     *
-     * Hidden until we convinced we want it to be part of the public API.
-     *
-     * @hide
+     * A factory to create spans from TextLinks.
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public interface SpanFactory {
 
         /** Creates a span from a text link. */
@@ -508,6 +546,7 @@ public final class TextLinks {
          * @hide
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY)
+        @SuppressLint("RestrictedApi")
         TextLinkSpanData(
                 @NonNull TextLink textLink,
                 @NonNull TextClassifier textClassifier,
@@ -543,18 +582,56 @@ public final class TextLinks {
 
     /**
      * A ClickableSpan for a TextLink.
+     * <p>
+     * You can implement the {@link #onClick(View)} function to specify the on click behavior of
+     * the span.
      */
-    public static class TextLinkSpan extends ClickableSpan {
+    public abstract static class TextLinkSpan extends ClickableSpan {
+        private TextLinkSpanData mTextLinkSpanData;
 
-        @NonNull
-        private final TextLinkSpanData mTextLinkSpanData;
-
+        @SuppressLint("RestrictedApi")
         public TextLinkSpan(@NonNull TextLinkSpanData textLinkSpanData) {
             mTextLinkSpanData = Preconditions.checkNotNull(textLinkSpanData);
         }
 
+        /**
+         * Returns the data that is relevant to this span.
+         */
+        @NonNull
+        public final TextLinkSpanData getTextLinkSpanData() {
+            return mTextLinkSpanData;
+        }
+    }
+
+    /**
+     * The default implementation of {@link TextLinkSpan}.
+     * <p>
+     * When this span is clicked, text classifier will be used to classify the text in the span and
+     * suggest possible actions. The suggested actions will be presented to users eventually.
+     * You can change the way how the suggested actions are presented to user by overriding
+     * {@link #onTextClassificationResult(TextView, TextClassification)}.
+     */
+    public static class DefaultTextLinkSpan extends TextLinkSpan {
+
+        /**
+         * Constructs a DefaultTextLinkSpan.
+         *
+         * @param textLinkSpanData The data object that contains data of this span, like the text
+         *                         link.
+         */
+        public DefaultTextLinkSpan(@NonNull TextLinkSpanData textLinkSpanData) {
+            super(textLinkSpanData);
+        }
+
+        /**
+         * Performs the click action associated with this span.
+         * <p>
+         * Subclass implementations should always call through to the superclass implementation.
+         */
         @Override
-        public void onClick(View widget) {
+        @CallSuper
+        @SuppressLint("SyntheticAccessor")
+        public void onClick(@NonNull View widget) {
             if (!(widget instanceof TextView)) {
                 return;
             }
@@ -576,38 +653,86 @@ public final class TextLinks {
 
             final TextClassification.Request request =
                     new TextClassification.Request.Builder(text, start, end)
-                            .setReferenceTime(mTextLinkSpanData.getReferenceTime())
+                            .setReferenceTime(getTextLinkSpanData().getReferenceTime())
                             .setDefaultLocales(getLocales(textView))
                             .build();
-            final TextClassifier classifier = mTextLinkSpanData.getTextClassifier();
             // TODO: Truncate the text.
-            sWorkerExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    final List<RemoteActionCompat> actions =
-                            classifier.classifyText(request).getActions();
-                    sMainThreadExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                ToolbarController.getInstance(textView).show(actions, start, end);
-                                return;
-                            }
+            sWorkerExecutor.execute(new ClassifyTextRunnable(textView, this, request, spanned));
+        }
 
-                            if (!actions.isEmpty()) {
-                                try {
-                                    actions.get(0).getActionIntent().send();
-                                } catch (PendingIntent.CanceledException e) {
-                                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
-                                }
-                                return;
-                            }
+        private static class ClassifyTextRunnable implements Runnable {
+            private WeakReference<TextView> mTextView;
+            private DefaultTextLinkSpan mTextLinkSpan;
+            private TextClassification.Request mRequest;
+            private Spanned mClassifiedSpan;
 
-                            Log.d(LOG_TAG, "Cannot trigger link. No actions found.");
+            private ClassifyTextRunnable(
+                    TextView textView,
+                    DefaultTextLinkSpan textLinkSpan,
+                    TextClassification.Request request, Spanned classifiedSpan) {
+                mTextView = new WeakReference<>(textView);
+                mTextLinkSpan = textLinkSpan;
+                mRequest = request;
+                mClassifiedSpan = classifiedSpan;
+            }
+
+            @Override
+            @SuppressLint("SyntheticAccessor")
+            public void run() {
+                final TextClassifier classifier =
+                        mTextLinkSpan.getTextLinkSpanData().getTextClassifier();
+                final TextClassification textClassification = classifier.classifyText(mRequest);
+                sMainThreadExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView textView = mTextView.get();
+                        if (textView == null) {
+                            return;
                         }
-                    });
+                        if (textView.getText() != mClassifiedSpan) {
+                            Log.d(LOG_TAG, "Text has changed from the classified text. "
+                                    + "Ignoring.");
+                            return;
+                        }
+                        mTextLinkSpan.onTextClassificationResult(textView, textClassification);
+                    }
+                });
+            }
+        }
+
+        /**
+         * Invoked when the classification of the text of this span is available.
+         * <p>
+         * When user clicks on this span, text classifier will be used to classify the text of
+         * this span. Once text classifier has the result, this callback will be invoked. If the
+         * text in the textview is changed during the text classification, this won't be invoked.
+         * <p>
+         * You can change the way how the suggested actions are presented to user by overriding
+         * this function.
+         *
+         * @param textView the textview that this span is attached to
+         * @param textClassification the text classification result of the text in this span.
+         */
+        @UiThread
+        public void onTextClassificationResult(
+                @NonNull TextView textView, @NonNull TextClassification textClassification) {
+            List<RemoteActionCompat> actions = textClassification.getActions();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                final Spanned spanned = SpannableString.valueOf(textView.getText());
+                final int start = spanned.getSpanStart(this);
+                final int end = spanned.getSpanEnd(this);
+                ToolbarController.getInstance(textView).show(actions, start, end);
+                return;
+            }
+
+            if (!actions.isEmpty()) {
+                try {
+                    actions.get(0).getActionIntent().send();
+                } catch (PendingIntent.CanceledException e) {
+                    Log.e(LOG_TAG, "Error handling TextLinkSpan click", e);
                 }
-            });
+                return;
+            }
         }
 
         private LocaleListCompat getLocales(TextView textView) {
@@ -618,11 +743,6 @@ public final class TextLinks {
             }
             return LocaleListCompat.create(Locale.getDefault());
         }
-
-        @NonNull
-        public final TextLinkSpanData getTextLinkSpanData() {
-            return mTextLinkSpanData;
-        }
     }
 
     /**
@@ -631,12 +751,14 @@ public final class TextLinks {
     public static final class Builder {
         private final CharSequence mFullText;
         private final ArrayList<TextLink> mLinks;
+        @Nullable private Bundle mExtras;
 
         /**
          * Create a new TextLinks.Builder.
          *
          * @param fullText The full text to annotate with links.
          */
+        @SuppressLint("RestrictedApi")
         public Builder(@NonNull CharSequence fullText) {
             mFullText = Preconditions.checkNotNull(fullText);
             mLinks = new ArrayList<>();
@@ -650,8 +772,9 @@ public final class TextLinks {
          * @throws IllegalArgumentException if entityScores is null or empty.
          */
         @NonNull
+        @SuppressLint("RestrictedApi")
         public Builder addLink(int start, int end, @NonNull Map<String, Float> entityScores) {
-            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores), null));
+            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores)));
             return this;
         }
 
@@ -659,17 +782,18 @@ public final class TextLinks {
          * @hide
          */
         @NonNull
-        @RestrictTo(RestrictTo.Scope.LIBRARY)
-        public Builder addLink(
-                int start, int end, @NonNull Map<String, Float> entityScores,
-                @Nullable URLSpan urlSpan) {
-            mLinks.add(new TextLink(start, end, Preconditions.checkNotNull(entityScores), urlSpan));
+        @SuppressLint("RestrictedApi")
+        Builder addLink(TextLink link) {
+            mLinks.add(Preconditions.checkNotNull(link));
             return this;
         }
 
+        /**
+         * Sets the extended, vendor specific data.
+         */
         @NonNull
-        Builder addLink(TextLink link) {
-            mLinks.add(Preconditions.checkNotNull(link));
+        public Builder setExtras(@Nullable Bundle extras) {
+            mExtras = extras;
             return this;
         }
 
@@ -690,7 +814,8 @@ public final class TextLinks {
          */
         @NonNull
         public TextLinks build() {
-            return new TextLinks(mFullText, mLinks);
+            return new TextLinks(mFullText, mLinks,
+                    mExtras == null ? Bundle.EMPTY : BundleUtils.deepCopy(mExtras));
         }
     }
 
@@ -698,6 +823,7 @@ public final class TextLinks {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @RequiresApi(28)
     @NonNull
+    @SuppressLint("RestrictedApi")
     // TODO: In Q, we should make getText public and use it here.
     static TextLinks fromPlatform(
             @NonNull android.view.textclassifier.TextLinks textLinks,

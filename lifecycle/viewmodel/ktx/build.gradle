@@ -38,6 +38,7 @@ dependencies {
 
     testImplementation(JUNIT)
     testImplementation(TEST_RUNNER)
+    testImplementation(TRUTH)
 
     androidTestImplementation(TRUTH)
     androidTestImplementation(TEST_RUNNER)
@@ -51,10 +52,4 @@ supportLibrary {
     inceptionYear = "2018"
     description = "Kotlin extensions for 'viewmodel' artifact"
     useMetalava = true
-}
-
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
 }

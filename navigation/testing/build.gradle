@@ -48,8 +48,8 @@ dependencies {
 
 supportLibrary {
     name = "Android Navigation Testing"
-    publish = true
-    mavenVersion = LibraryVersions.NAVIGATION
+    publish = false
+    mavenVersion = LibraryVersions.NAVIGATION_TESTING
     mavenGroup = LibraryGroups.NAVIGATION
     inceptionYear = "2017"
     description = "Android Navigation-Testing"

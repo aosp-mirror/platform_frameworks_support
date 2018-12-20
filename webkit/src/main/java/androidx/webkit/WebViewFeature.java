@@ -32,11 +32,13 @@ import androidx.webkit.internal.WebViewFeatureInternal;
 
 import org.chromium.support_lib_boundary.util.Features;
 
+import java.io.OutputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Utility class for checking which WebView Support Library features are supported on the device.
@@ -67,6 +69,7 @@ public class WebViewFeature {
             RECEIVE_HTTP_ERROR,
             SHOULD_OVERRIDE_WITH_REDIRECTS,
             SAFE_BROWSING_HIT,
+            TRACING_CONTROLLER_BASIC_USAGE,
             WEB_RESOURCE_REQUEST_IS_REDIRECT,
             WEB_RESOURCE_ERROR_GET_DESCRIPTION,
             WEB_RESOURCE_ERROR_GET_CODE,
@@ -83,6 +86,7 @@ public class WebViewFeature {
             GET_WEB_CHROME_CLIENT,
             GET_WEB_VIEW_RENDERER,
             WEB_VIEW_RENDERER_TERMINATE,
+            WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -230,6 +234,17 @@ public class WebViewFeature {
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
+     * {@link TracingController#getInstance()},
+     * {@link TracingController#isTracing()},
+     * {@link TracingController#start(TracingConfig)},
+     * {@link TracingController#stop(OutputStream, Executor)}.
+     */
+    public static final String TRACING_CONTROLLER_BASIC_USAGE =
+            Features.TRACING_CONTROLLER_BASIC_USAGE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
      * {@link WebResourceRequestCompat#isRedirect(WebResourceRequest)}.
      */
     public static final String WEB_RESOURCE_REQUEST_IS_REDIRECT =
@@ -347,6 +362,17 @@ public class WebViewFeature {
      * This feature covers {@link WebViewRenderer#terminate()}
      */
     public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebViewCompat#getWebViewRendererClient()},
+     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
+     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
+     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     */
+    public static final String WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE =
+            Features.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE;
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

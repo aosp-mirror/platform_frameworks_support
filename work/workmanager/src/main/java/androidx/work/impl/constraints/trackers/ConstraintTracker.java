@@ -35,7 +35,7 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class ConstraintTracker<T> {
 
-    private static final String TAG = "ConstraintTracker";
+    private static final String TAG = Logger.tagWithPrefix("ConstraintTracker");
 
     protected final Context mAppContext;
     private final Object mLock = new Object();
@@ -58,7 +58,7 @@ public abstract class ConstraintTracker<T> {
             if (mListeners.add(listener)) {
                 if (mListeners.size() == 1) {
                     mCurrentState = getInitialState();
-                    Logger.debug(TAG, String.format("%s: initial state = %s",
+                    Logger.get().debug(TAG, String.format("%s: initial state = %s",
                             getClass().getSimpleName(),
                             mCurrentState));
                     startTracking();

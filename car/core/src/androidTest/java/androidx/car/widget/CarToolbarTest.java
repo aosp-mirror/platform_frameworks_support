@@ -20,6 +20,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyRightOf;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -27,14 +28,17 @@ import static junit.framework.TestCase.assertTrue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.car.R;
+import androidx.annotation.NonNull;
+import androidx.car.test.R;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -47,10 +51,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Unit tests for {@link CarToolbar}. */
+import java.util.Collections;
+
+/**
+ * Unit tests for {@link CarToolbar}.
+ */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class CarToolbarTest {
+
     @Rule
     public ActivityTestRule<CarToolbarTestActivity> mActivityRule =
             new ActivityTestRule<>(CarToolbarTestActivity.class);
@@ -120,13 +129,15 @@ public class CarToolbarTest {
         // Since there is no easy way to compare drawable, here we are testing that calling the
         // relevant APIs doesn't crash.
         mActivityRule.runOnUiThread(() ->
-                mToolbar.setNavigationIcon(android.R.drawable.sym_def_app_icon));
+                mToolbar.setNavigationIcon(
+                        Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
     }
 
     @Test
     public void testSetNavigationIconContainerWidth() throws Throwable {
         mActivityRule.runOnUiThread(() -> {
-            mToolbar.setNavigationIcon(R.drawable.ic_nav_arrow_back);
+            mToolbar.setNavigationIcon(
+                    Icon.createWithResource(mActivity, R.drawable.ic_nav_arrow_back));
             // Set title to verify icon space on right.
             mToolbar.setTitle("title");
         });
@@ -145,7 +156,8 @@ public class CarToolbarTest {
     public void testSetNavigationIconContainerWidth_NoContainerKeepsIconCompletelyVisible()
             throws Throwable {
         mActivityRule.runOnUiThread(() -> {
-            mToolbar.setNavigationIcon(R.drawable.ic_nav_arrow_back);
+            mToolbar.setNavigationIcon(
+                    Icon.createWithResource(mActivity, (R.drawable.ic_nav_arrow_back)));
             // Set title to verify icon space on right.
             mToolbar.setTitle("title");
         });
@@ -160,7 +172,7 @@ public class CarToolbarTest {
 
     @Test
     public void testSetNavigationIconOnClickListener() throws Throwable {
-        boolean[] clicked = new boolean[] {false};
+        boolean[] clicked = new boolean[]{false};
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setNavigationIconOnClickListener(v -> clicked[0] = true));
 
@@ -168,8 +180,94 @@ public class CarToolbarTest {
         assertTrue(clicked[0]);
     }
 
+    @Test
+    public void testSetTitleIconShowsAndHidesTitleIconView() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        onView(withId(R.id.title_icon)).check(matches(isDisplayed()));
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(null));
+
+        onView(withId(R.id.title_icon)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testTitleIconHasCorrectDefaultWidth() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(
+                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+
+        onView(withId(R.id.title_icon)).check(matches(withWidth(
+                mActivity.getResources()
+                        .getDimensionPixelSize(R.dimen.car_application_icon_size))));
+    }
+
+    @Test
+    public void testSetTitleIconSizeSetsCorrectSize() throws Throwable {
+        int size = mActivity.getResources().getDimensionPixelSize(R.dimen.car_avatar_icon_size);
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setTitleIcon(Icon.createWithResource(mActivity,
+                    android.R.drawable.sym_def_app_icon));
+            mToolbar.setTitleIconSize(size);
+        });
+
+        onView(withId(R.id.title_icon)).check(matches(withWidth(size)));
+    }
+
     private ImageButton getNavigationIconView() {
         return mActivity.findViewById(R.id.nav_button);
+    }
+
+    @Test
+    public void testSubtitleGetAndSetMethod() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle("this is subtitle"));
+        CharSequence subtitle = mToolbar.getSubtitle();
+        assertEquals(subtitle, "this is subtitle");
+    }
+
+    @Test
+    public void testSubtitleDoesNotShowWhenContentIsEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle(""));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testSubtitleDoesNotShowWhenContentIsNull() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle(null));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testSubtitleShowsWhenContentNotEmpty() throws Throwable {
+        mActivityRule.runOnUiThread(() -> mToolbar.setSubtitle("this is subtitle"));
+        onView(withId(R.id.subtitle)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testOverflowButtonShownIfOverflowItems() throws Throwable {
+        CarMenuItem overflowItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
+                .setStyle(1) // Style is required for now until b/120920382
+                .build();
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(overflowItem)));
+
+        onView(withId(R.id.overflow_menu)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testOverflowButtonHiddenIfNoOverflowItems() throws Throwable {
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
+                .setStyle(1) // Style is required for now until b/120920382
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(withId(R.id.overflow_menu)).check(matches(not(isDisplayed())));
     }
 
     private TextView getTitleView() {
@@ -192,6 +290,27 @@ public class CarToolbarTest {
             @Override
             public void describeTo(Description description) {
                 description.appendText("is " + expected + " pixel to its parent");
+            }
+        };
+    }
+
+    /**
+     * Returns a {@link Matcher} that matches {@link View}s that have the given width.
+     *
+     * @param width The width in pixels to match to.
+     * @return A {@link Matcher} for verification.
+     */
+    @NonNull
+    public static Matcher<View> withWidth(int width) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                return width == view.getWidth();
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has width: " + width);
             }
         };
     }

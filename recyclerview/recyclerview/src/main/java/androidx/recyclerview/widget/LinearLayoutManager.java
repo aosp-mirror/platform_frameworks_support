@@ -18,6 +18,7 @@ package androidx.recyclerview.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.os.Parcel;
@@ -2304,7 +2305,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     public static class SavedState implements Parcelable {
 
         int mAnchorPosition;

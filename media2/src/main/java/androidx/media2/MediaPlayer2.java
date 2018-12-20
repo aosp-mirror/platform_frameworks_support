@@ -27,6 +27,7 @@ import android.media.MediaDrm;
 import android.media.MediaDrmException;
 import android.media.MediaFormat;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 import android.view.Surface;
 
@@ -69,7 +70,7 @@ import java.util.concurrent.Executor;
  *         {@link #create(Context)}, or after calling {@link #reset()}.</p>
  *
  *         <p>While in this state, you should call
- *         {@link #setMediaItem(MediaItem2) setMediaItem()}. It is a good
+ *         {@link #setMediaItem(MediaItem) setMediaItem()}. It is a good
  *         programming practice to register an {@link EventCallback#onCallCompleted onCallCompleted}
  *         <a href="#callback">callback</a> and watch for {@link #CALL_STATUS_BAD_VALUE} and
  *         {@link #CALL_STATUS_ERROR_IO}, which might be caused by <code>setMediaItem</code>.
@@ -127,7 +128,7 @@ import java.util.concurrent.Executor;
  *
  *          <p>If you register an {@link EventCallback#onError}} <a href="#callback">callback</a>
  *          the callback will be performed when entering the state. When programming errors happen,
- *          such as calling {@link #prepare()} and {@link #setMediaItem(MediaItem2)} methods
+ *          such as calling {@link #prepare()} and {@link #setMediaItem(MediaItem)} methods
  *          from an <a href="#invalid_state">invalid state</a>, The callback is called with
  *          {@link #CALL_STATUS_INVALID_OPERATION} . The MediaPlayer2 object enters the
  *          <strong>Error</strong> whether or not a callback exists. </p>
@@ -386,39 +387,48 @@ public abstract class MediaPlayer2 {
     public abstract @Nullable AudioAttributesCompat getAudioAttributes();
 
     /**
-     * Sets the media item as described by a MediaItem2.
+     * Sets the media item as described by a MediaItem.
+     * <p>
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
      * @param item the descriptor of media item you want to play
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract Object setMediaItem(@NonNull MediaItem2 item);
+    public abstract Object setMediaItem(@NonNull MediaItem item);
 
     /**
-     * Sets a single media item as described by a MediaItem2 which will be played
+     * Sets a single media item as described by a MediaItem which will be played
      * after current media item is finished.
+     * <p>
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
      * @param item the descriptor of media item you want to play after current one
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract Object setNextMediaItem(@NonNull MediaItem2 item);
+    public abstract Object setNextMediaItem(@NonNull MediaItem item);
 
     /**
      * Sets a list of media items to be played sequentially after current media item is done.
+     * <p>
+     * If a media item in the list is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
      * @param items the list of media items you want to play after current one
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract Object setNextMediaItems(@NonNull List<MediaItem2> items);
+    public abstract Object setNextMediaItems(@NonNull List<MediaItem> items);
 
     /**
-     * Gets the current media item as described by a MediaItem2.
+     * Gets the current media item as described by a MediaItem.
      *
-     * @return the current MediaItem2
+     * @return the current MediaItem
      */
-    public abstract @Nullable MediaItem2 getCurrentMediaItem();
+    public abstract @Nullable MediaItem getCurrentMediaItem();
 
     /**
      * Configures the player to loop on the current media item.
@@ -491,7 +501,7 @@ public abstract class MediaPlayer2 {
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract Object setSurface(Surface surface);
+    public abstract Object setSurface(@Nullable Surface surface);
 
     /* Do not change these video scaling mode values below without updating
      * their counterparts in system/window.h! Please do not forget to update
@@ -551,8 +561,8 @@ public abstract class MediaPlayer2 {
     public abstract PersistableBundle getMetrics();
 
     /**
-     * Sets playback rate using {@link PlaybackParams2}. The player sets its internal
-     * PlaybackParams2 to the given input. This does not change the player state. For example,
+     * Sets playback rate using {@link PlaybackParams}. The player sets its internal
+     * PlaybackParams to the given input. This does not change the player state. For example,
      * if this is called with the speed of 2.0f in {@link #PLAYER_STATE_PAUSED}, the player will
      * just update internal property and stay paused. Once the client calls {@link #play()}
      * afterwards, the player will start playback with the given speed. Calling this with zero
@@ -562,7 +572,7 @@ public abstract class MediaPlayer2 {
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract Object setPlaybackParams(@NonNull PlaybackParams2 params);
+    public abstract Object setPlaybackParams(@NonNull PlaybackParams params);
 
     /**
      * Gets the playback params, containing the current playback rate.
@@ -570,7 +580,7 @@ public abstract class MediaPlayer2 {
      * @return the playback params.
      */
     @NonNull
-    public abstract PlaybackParams2 getPlaybackParams();
+    public abstract PlaybackParams getPlaybackParams();
 
     /**
      * Seek modes used in method seekTo(long, int) to move media position
@@ -646,9 +656,9 @@ public abstract class MediaPlayer2 {
     public abstract Object seekTo(long msec, @SeekMode int mode);
 
     /**
-     * Gets current playback position as a {@link MediaTimestamp2}.
+     * Gets current playback position as a {@link MediaTimestamp}.
      * <p>
-     * The MediaTimestamp2 represents how the media time correlates to the system time in
+     * The MediaTimestamp represents how the media time correlates to the system time in
      * a linear fashion using an anchor and a clock rate. During regular playback, the media
      * time moves fairly constantly (though the anchor frame may be rebased to a current
      * system time, the linear correlation stays steady). Therefore, this method does not
@@ -656,15 +666,15 @@ public abstract class MediaPlayer2 {
      * <p>
      * To help users get current playback position, this method always anchors the timestamp
      * to the current {@link System#nanoTime system time}, so
-     * {@link MediaTimestamp2#getAnchorMediaTimeUs} can be used as current playback position.
+     * {@link MediaTimestamp#getAnchorMediaTimeUs} can be used as current playback position.
      *
-     * @return a MediaTimestamp2 object if a timestamp is available, or {@code null} if no timestamp
+     * @return a MediaTimestamp object if a timestamp is available, or {@code null} if no timestamp
      *         is available, e.g. because the media player has not been initialized.
      *
-     * @see MediaTimestamp2
+     * @see MediaTimestamp
      */
     @Nullable
-    public abstract MediaTimestamp2 getTimestamp();
+    public abstract MediaTimestamp getTimestamp();
 
     /**
      * Resets the MediaPlayer2 to its uninitialized state. After calling
@@ -865,12 +875,12 @@ public abstract class MediaPlayer2 {
          * no display surface was set, or the value was not determined yet.
          *
          * @param mp the MediaPlayer2 associated with this callback
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param width the width of the video
          * @param height the height of the video
          */
         public void onVideoSizeChanged(
-                MediaPlayer2 mp, MediaItem2 item, int width, int height) { }
+                MediaPlayer2 mp, MediaItem item, int width, int height) { }
 
         /**
          * Called to indicate available timed metadata
@@ -880,51 +890,51 @@ public abstract class MediaPlayer2 {
          * not controlled by the associated timestamp.
          * <p>
          * Currently only HTTP live streaming data URI's embedded with timed ID3 tags generates
-         * {@link TimedMetaData2}.
+         * {@link TimedMetaData}.
          *
          * @see MediaPlayer2#selectTrack(int)
-         * @see TimedMetaData2
+         * @see TimedMetaData
          *
          * @param mp the MediaPlayer2 associated with this callback
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param data the timed metadata sample associated with this event
          */
         public void onTimedMetaDataAvailable(
-                MediaPlayer2 mp, MediaItem2 item, TimedMetaData2 data) { }
+                MediaPlayer2 mp, MediaItem item, TimedMetaData data) { }
 
         /**
          * Called to indicate an error.
          *
          * @param mp the MediaPlayer2 the error pertains to
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param what the type of error that has occurred.
          * @param extra an extra code, specific to the error. Typically
          * implementation dependent.
          */
         public void onError(
-                MediaPlayer2 mp, MediaItem2 item, @MediaError int what, int extra) { }
+                MediaPlayer2 mp, MediaItem item, @MediaError int what, int extra) { }
 
         /**
          * Called to indicate an info or a warning.
          *
          * @param mp the MediaPlayer2 the info pertains to.
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param what the type of info or warning.
          * @param extra an extra code, specific to the info. Typically
          * implementation dependent.
          */
-        public void onInfo(MediaPlayer2 mp, MediaItem2 item, @MediaInfo int what, int extra) { }
+        public void onInfo(MediaPlayer2 mp, MediaItem item, @MediaInfo int what, int extra) { }
 
         /**
          * Called to acknowledge an API call.
          *
          * @param mp the MediaPlayer2 the call was made on.
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param what the enum for the API call.
          * @param status the returned status code for the call.
          */
         public void onCallCompleted(
-                MediaPlayer2 mp, MediaItem2 item, @CallCompleted int what,
+                MediaPlayer2 mp, MediaItem item, @CallCompleted int what,
                 @CallStatus int status) { }
 
         /**
@@ -943,12 +953,12 @@ public abstract class MediaPlayer2 {
          * </ul>
          *
          * @param mp the MediaPlayer2 the media time pertains to.
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param timestamp the timestamp that correlates media time, system time and clock rate,
-         *     or {@link MediaTimestamp2#TIMESTAMP_UNKNOWN} in an error case.
+         *     or {@link MediaTimestamp#TIMESTAMP_UNKNOWN} in an error case.
          */
         public void onMediaTimeDiscontinuity(
-                MediaPlayer2 mp, MediaItem2 item, MediaTimestamp2 timestamp) { }
+                MediaPlayer2 mp, MediaItem item, MediaTimestamp timestamp) { }
 
         /**
          * Called to indicate {@link #notifyWhenCommandLabelReached(Object)} has been processed.
@@ -962,11 +972,11 @@ public abstract class MediaPlayer2 {
         /**
          * Called when when a player subtitle track has new subtitle data available.
          * @param mp the player that reports the new subtitle data
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param data the subtitle data
          */
         public void onSubtitleData(
-                MediaPlayer2 mp, MediaItem2 item, @NonNull SubtitleData2 data) { }
+                MediaPlayer2 mp, MediaItem item, @NonNull SubtitleData data) { }
     }
 
     /**
@@ -1453,9 +1463,9 @@ public abstract class MediaPlayer2 {
          * Called to give the app the opportunity to configure DRM before the session is created
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          */
-        void onDrmConfig(MediaPlayer2 mp, MediaItem2 item);
+        void onDrmConfig(MediaPlayer2 mp, MediaItem item);
     }
 
     /**
@@ -1478,22 +1488,22 @@ public abstract class MediaPlayer2 {
          * Called to indicate DRM info is available
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param drmInfo DRM info of the source including PSSH, and subset
          *                of crypto schemes supported by this device
          */
-        public void onDrmInfo(MediaPlayer2 mp, MediaItem2 item, DrmInfo drmInfo) { }
+        public void onDrmInfo(MediaPlayer2 mp, MediaItem item, DrmInfo drmInfo) { }
 
         /**
          * Called to notify the client that {@link #prepareDrm} is finished and ready for
          * key request/response.
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param item the MediaItem2 of this media item
+         * @param item the MediaItem of this media item
          * @param status the result of DRM preparation.
          */
         public void onDrmPrepared(
-                MediaPlayer2 mp, MediaItem2 item, @PrepareDrmStatusCode int status) { }
+                MediaPlayer2 mp, MediaItem item, @PrepareDrmStatusCode int status) { }
     }
 
     /**

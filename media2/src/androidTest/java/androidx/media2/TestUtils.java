@@ -16,7 +16,14 @@
 
 package androidx.media2;
 
+import static androidx.media2.MediaMetadata.BROWSABLE_TYPE_NONE;
+import static androidx.media2.MediaMetadata.METADATA_KEY_BROWSABLE;
+import static androidx.media2.MediaMetadata.METADATA_KEY_DURATION;
+import static androidx.media2.MediaMetadata.METADATA_KEY_MEDIA_ID;
+import static androidx.media2.MediaMetadata.METADATA_KEY_PLAYABLE;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -25,12 +32,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.ParcelFileDescriptor;
 
 import androidx.core.util.ObjectsCompat;
+import androidx.media2.MediaLibraryService.LibraryParams;
 
-import java.io.FileDescriptor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -47,14 +56,14 @@ public final class TestUtils {
      * @param id
      * @return
      */
-    public static SessionToken2 getServiceToken(Context context, String id) {
+    public static SessionToken getServiceToken(Context context, String id) {
         switch (id) {
-            case MockMediaSessionService2.ID:
-                return new SessionToken2(context, new ComponentName(
-                        context.getPackageName(), MockMediaSessionService2.class.getName()));
-            case MockMediaLibraryService2.ID:
-                return new SessionToken2(context, new ComponentName(
-                        context.getPackageName(), MockMediaLibraryService2.class.getName()));
+            case MockMediaSessionService.ID:
+                return new SessionToken(context, new ComponentName(
+                        context.getPackageName(), MockMediaSessionService.class.getName()));
+            case MockMediaLibraryService.ID:
+                return new SessionToken(context, new ComponentName(
+                        context.getPackageName(), MockMediaLibraryService.class.getName()));
         }
         fail("Unknown id=" + id);
         return null;
@@ -99,21 +108,42 @@ public final class TestUtils {
     }
 
     /**
-     * Create a playlist for testing purpose
+     * Create a list of media items for testing purpose
      * <p>
      * Caller's method name will be used for prefix of each media item's media id.
      *
      * @param size list size
-     * @return the newly created playlist
+     * @return the newly created media item list
      */
-    public static List<MediaItem2> createPlaylist(int size) {
-        final List<MediaItem2> list = new ArrayList<>();
+    public static List<MediaItem> createMediaItems(int size) {
+        final List<MediaItem> list = new ArrayList<>();
         String caller = Thread.currentThread().getStackTrace()[3].getMethodName();
         for (int i = 0; i < size; i++) {
-            MediaItem2 item = new FileMediaItem2.Builder(new FileDescriptor())
-                    .setMediaId(caller + "_item_" + (size + 1))
+            MediaItem item = new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+                    .setMetadata(new MediaMetadata.Builder()
+                            .putString(METADATA_KEY_MEDIA_ID, caller + "_item_" + (i + 1))
+                            .putLong(METADATA_KEY_BROWSABLE, BROWSABLE_TYPE_NONE)
+                            .putLong(METADATA_KEY_PLAYABLE, 1)
+                            .build())
                     .build();
             list.add(item);
+        }
+        return list;
+    }
+
+    /**
+     * Create a list of media ids for testing purpose
+     * <p>
+     * Caller's method name will be used for prefix of media id.
+     *
+     * @param size list size
+     * @return the newly created ids
+     */
+    public static List<String> createMediaIds(int size) {
+        final List<String> list = new ArrayList<>();
+        String caller = Thread.currentThread().getStackTrace()[3].getMethodName();
+        for (int i = 0; i < size; i++) {
+            list.add(caller + "_item_" + (size + 1));
         }
         return list;
     }
@@ -124,8 +154,8 @@ public final class TestUtils {
      * @return the newly created media item
      * @see #createMetadata()
      */
-    public static MediaItem2 createMediaItemWithMetadata() {
-        return new FileMediaItem2.Builder(new FileDescriptor())
+    public static MediaItem createMediaItemWithMetadata() {
+        return new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
                 .setMetadata(createMetadata()).build();
     }
 
@@ -136,21 +166,44 @@ public final class TestUtils {
      *
      * @return the newly created media item
      */
-    public static MediaMetadata2 createMetadata() {
+    public static MediaMetadata createMetadata() {
         String mediaId = Thread.currentThread().getStackTrace()[3].getMethodName();
-        return new MediaMetadata2.Builder()
-                .putString(MediaMetadata2.METADATA_KEY_MEDIA_ID, mediaId).build();
+        return new MediaMetadata.Builder()
+                .putString(METADATA_KEY_MEDIA_ID, mediaId)
+                .putLong(METADATA_KEY_BROWSABLE, BROWSABLE_TYPE_NONE)
+                .putLong(METADATA_KEY_PLAYABLE, 1)
+                .build();
     }
 
     /**
-     * Create a bundle for testing purpose.
+     * Create a media metadata for testing purpose.
      *
-     * @return the newly created bundle.
+     * @return the newly created media item
      */
-    public static Bundle createTestBundle() {
-        Bundle bundle = new Bundle();
-        bundle.putString("test_key", "test_value");
-        return bundle;
+    public static MediaMetadata createMetadata(String mediaId, long duration) {
+        return new MediaMetadata.Builder()
+                .putString(METADATA_KEY_MEDIA_ID, mediaId)
+                .putLong(METADATA_KEY_DURATION, duration)
+                .putLong(METADATA_KEY_BROWSABLE, BROWSABLE_TYPE_NONE)
+                .putLong(METADATA_KEY_PLAYABLE, 1)
+                .build();
+    }
+
+    /**
+     * Create a {@link MediaItem} with the id.
+     *
+     * @return the newly created media item.
+     */
+    public static MediaItem createMediaItem(String mediaId) {
+        return new MediaItem.Builder().setMetadata(createMetadata(mediaId, 0)).build();
+    }
+
+    public static LibraryParams createLibraryParams() {
+        String callingTestName = Thread.currentThread().getStackTrace()[3].getMethodName();
+
+        Bundle extras = new Bundle();
+        extras.putString(callingTestName, callingTestName);
+        return new LibraryParams.Builder().setExtras(extras).build();
     }
 
     /**
@@ -159,15 +212,15 @@ public final class TestUtils {
      * @param a a list
      * @param b another list
      */
-    public static void assertMediaItemListEquals(List<MediaItem2> a, List<MediaItem2> b) {
+    public static void assertMediaItemListEquals(List<MediaItem> a, List<MediaItem> b) {
         if (a == null || b == null) {
             assertEquals(a, b);
         }
         assertEquals(a.size(), b.size());
 
         for (int i = 0; i < a.size(); i++) {
-            MediaItem2 aItem = a.get(i);
-            MediaItem2 bItem = b.get(i);
+            MediaItem aItem = a.get(i);
+            MediaItem bItem = b.get(i);
 
             if (aItem == null || bItem == null) {
                 assertEquals(aItem, bItem);
@@ -175,19 +228,61 @@ public final class TestUtils {
             }
 
             assertEquals(aItem.getMediaId(), bItem.getMediaId());
-            assertEquals(aItem.getFlags(), bItem.getFlags());
             TestUtils.assertMetadataEquals(aItem.getMetadata(), bItem.getMetadata());
 
-            // Note: Here it does not check whether MediaItem2 are equal,
+            // Note: Here it does not check whether MediaItem are equal,
             // since there DataSourceDec is not comparable.
         }
     }
 
-    public static void assertMetadataEquals(MediaMetadata2 a, MediaMetadata2 b) {
+    public static void assertPaginatedListEquals(List<MediaItem> fullList, int page, int pageSize,
+            List<MediaItem> paginatedList) {
+        int fromIndex = page * pageSize;
+        int toIndex = Math.min((page + 1) * pageSize, fullList.size());
+        // Compare the given results with originals.
+        for (int originalIndex = fromIndex; originalIndex < toIndex; originalIndex++) {
+            int relativeIndex = originalIndex - fromIndex;
+            assertMediaItemEquals(fullList.get(originalIndex), paginatedList.get(relativeIndex));
+        }
+    }
+
+    public static void assertMetadataEquals(MediaMetadata expected, MediaMetadata actual) {
+        if (expected == null || actual == null) {
+            assertEquals(expected, actual);
+        } else {
+            Set<String> expectedKeySet = expected.keySet();
+            Set<String> actualKeySet = actual.keySet();
+
+            assertEquals(expectedKeySet, actualKeySet);
+            for (String key : expectedKeySet) {
+                assertEquals(expected.getObject(key), actual.getObject(key));
+            }
+        }
+    }
+
+    public static void assertMediaItemWithId(String expectedId, MediaItem item) {
+        assertNotNull(item);
+        assertNotNull(item.getMetadata());
+        assertEquals(expectedId, item.getMetadata().getString(
+                METADATA_KEY_MEDIA_ID));
+    }
+
+    public static void assertMediaItemEquals(MediaItem a, MediaItem b) {
         if (a == null || b == null) {
             assertEquals(a, b);
         } else {
-            assertTrue(TestUtils.equals(a.toBundle(), b.toBundle()));
+            assertMetadataEquals(a.getMetadata(), b.getMetadata());
+        }
+    }
+
+    public static void assertLibraryParamsEquals(LibraryParams a, LibraryParams b) {
+        if (a == null || b == null) {
+            assertEquals(a, b);
+        } else {
+            assertEquals(a.isSuggested(), b.isSuggested());
+            assertEquals(a.isOffline(), b.isOffline());
+            assertEquals(a.isRecent(), b.isRecent());
+            assertTrue(TestUtils.equals(a.getExtras(), b.getExtras()));
         }
     }
 

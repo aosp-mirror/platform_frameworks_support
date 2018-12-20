@@ -879,17 +879,11 @@ public final class TextViewCompat {
     public static void setPrecomputedText(@NonNull TextView textView,
                                           @NonNull PrecomputedTextCompat precomputed) {
 
-        if (Build.VERSION.SDK_INT >= 28) {
-            // Framework can not understand PrecomptedTextCompat. Pass underlying PrecomputedText.
-            // Parameter check is also done by framework.
-            textView.setText(precomputed.getPrecomputedText());
-        } else {
-            PrecomputedTextCompat.Params param = TextViewCompat.getTextMetricsParams(textView);
-            if (!param.equals(precomputed.getParams())) {
-                throw new IllegalArgumentException("Given text can not be applied to TextView.");
-            }
-            textView.setText(precomputed);
+        PrecomputedTextCompat.Params param = TextViewCompat.getTextMetricsParams(textView);
+        if (!param.equalsWithoutTextDirection(precomputed.getParams())) {
+            throw new IllegalArgumentException("Given text can not be applied to TextView.");
         }
+        textView.setText(precomputed);
     }
 
     /**

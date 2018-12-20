@@ -19,16 +19,20 @@ package androidx.build.metalava
 import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.SupportLibraryExtension
 import androidx.build.androidJarFile
-import androidx.build.checkapi.getCurrentApiFile
-import androidx.build.checkapi.getRequiredCompatibilityApiFile
+import androidx.build.checkapi.ApiLocation
+import androidx.build.checkapi.getCurrentApiLocation
+import androidx.build.checkapi.getRequiredCompatibilityApiLocation
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
+import androidx.build.docsDir
 import androidx.build.java.JavaCompileInputs
+import androidx.build.Release
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.kotlin.dsl.getPlugin
+import java.io.File
 
 object Metalava {
     private fun Project.createMetalavaConfiguration(): Configuration {
@@ -47,36 +51,16 @@ object Metalava {
             return
         }
 
-        val metalavaConfiguration = project.createMetalavaConfiguration()
-
         library.libraryVariants.all { variant ->
-            if (variant.name == "minDepVersionsRelease") {
+            if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
                 if (!project.hasApiFolder()) {
                     project.logger.info(
                         "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
                     return@all
                 }
 
-                val apiTxt = project.getCurrentApiFile()
-
                 val javaInputs = JavaCompileInputs.fromLibraryVariant(library, variant)
-
-                val checkApi = project.tasks.create("checkApi", CheckApiTask::class.java) { task ->
-                    task.configuration = metalavaConfiguration
-                    task.apiTxtFile = apiTxt
-                    task.dependsOn(metalavaConfiguration)
-                }
-                applyInputs(javaInputs, checkApi)
-
-                project.tasks.getByName("check").dependsOn(checkApi)
-                project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
-
-                val updateApi = project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
-                    task.configuration = metalavaConfiguration
-                    task.apiTxtFile = apiTxt
-                    task.dependsOn(metalavaConfiguration)
-                }
-                applyInputs(javaInputs, updateApi)
+                setupProject(project, javaInputs, extension)
             }
         }
     }
@@ -94,48 +78,69 @@ object Metalava {
             return
         }
 
-        val metalavaConfiguration = project.createMetalavaConfiguration()
-
         val javaPluginConvention = project.convention.getPlugin<JavaPluginConvention>()
         val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
-
-        val currentApiFile = project.getCurrentApiFile()
-
         val javaInputs = JavaCompileInputs.fromSourceSet(mainSourceSet, project)
-
-        val checkApi = project.tasks.create("checkApi", CheckApiTask::class.java) { task ->
-            task.configuration = metalavaConfiguration
-            task.apiTxtFile = currentApiFile
-            task.dependsOn(metalavaConfiguration)
-        }
-        applyInputs(javaInputs, checkApi)
-
-        val lastReleasedApiFile = project.getRequiredCompatibilityApiFile()
-        if (lastReleasedApiFile != null) {
-            val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiTask::class.java) { task ->
-                 task.configuration = metalavaConfiguration
-                 task.apiTxtFile = lastReleasedApiFile
-                 task.allowApiAdditions = true
-                 task.dependsOn(metalavaConfiguration)
-             }
-             applyInputs(javaInputs, checkApiRelease)
-             checkApi.dependsOn(checkApiRelease)
-        }
-
-        val updateApi = project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
-            task.configuration = metalavaConfiguration
-            task.apiTxtFile = currentApiFile
-            task.dependsOn(metalavaConfiguration)
-        }
-        applyInputs(javaInputs, updateApi)
-
-        project.tasks.getByName("check").dependsOn(checkApi)
-        project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
+        setupProject(project, javaInputs, extension)
     }
 
     fun applyInputs(inputs: JavaCompileInputs, task: MetalavaTask) {
         task.sourcePaths = inputs.sourcePaths
         task.dependencyClasspath = inputs.dependencyClasspath
         task.bootClasspath = inputs.bootClasspath
+    }
+
+    fun setupProject(project: Project, javaCompileInputs: JavaCompileInputs, extension: SupportLibraryExtension) {
+        val metalavaConfiguration = project.createMetalavaConfiguration()
+
+        // the api files whose file names contain the version of the library
+        val libraryVersionApi = project.getCurrentApiLocation()
+        // the api files whose file names contain "current.txt"
+        val currentTxtApi = ApiLocation.fromPublicApiFile(File(libraryVersionApi.publicApiFile.parentFile, "current.txt"))
+
+        // make sure to update current.txt if it wasn't previously planned to be updated
+        val outputApiLocations: List<ApiLocation> = if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
+            listOf(libraryVersionApi)
+        } else {
+            listOf(libraryVersionApi, currentTxtApi)
+        }
+
+        val builtApiLocation = ApiLocation.fromPublicApiFile(File(project.docsDir(), "release/${project.name}/current.txt"))
+
+        var generateApi = project.tasks.create("generateApi", GenerateApiTask::class.java) { task ->
+            task.apiLocation = builtApiLocation
+            task.configuration = metalavaConfiguration
+            task.dependsOn(metalavaConfiguration)
+        }
+        applyInputs(javaCompileInputs, generateApi)
+
+        val checkApi = project.tasks.create("checkApi", CheckApiEquivalenceTask::class.java) { task ->
+            task.builtApi = generateApi.apiLocation
+            task.checkedInApis = outputApiLocations
+            task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+            task.dependsOn(generateApi)
+        }
+
+        val lastReleasedApiFile = project.getRequiredCompatibilityApiLocation()
+        if (lastReleasedApiFile != null) {
+            val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
+                 task.configuration = metalavaConfiguration
+                 task.apiLocation = lastReleasedApiFile
+                 task.dependsOn(metalavaConfiguration)
+                 task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+             }
+             applyInputs(javaCompileInputs, checkApiRelease)
+             checkApi.dependsOn(checkApiRelease)
+        }
+
+        project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
+            task.inputApiLocation = generateApi.apiLocation
+            task.outputApiLocations = checkApi.checkedInApis
+            task.updateRestrictedAPIs = extension.trackRestrictedAPIs
+            task.dependsOn(generateApi)
+        }
+
+        project.tasks.getByName("check").dependsOn(checkApi)
+        project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
     }
 }

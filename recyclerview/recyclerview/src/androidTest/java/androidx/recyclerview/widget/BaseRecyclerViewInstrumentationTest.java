@@ -509,11 +509,11 @@ abstract public class BaseRecyclerViewInstrumentationTest {
         getInstrumentation().waitForIdleSync();
     }
 
-    void freezeLayout(final boolean freeze) throws Throwable {
+    void suppressLayout(final boolean suppress) throws Throwable {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRecyclerView.setLayoutFrozen(freeze);
+                mRecyclerView.suppressLayout(suppress);
             }
         });
     }
@@ -788,6 +788,10 @@ abstract public class BaseRecyclerViewInstrumentationTest {
             this.mFocusable = mFocusable;
         }
 
+        public String getDisplayText() {
+            return mText + "(" + mId + ")";
+        }
+
         @Override
         public String toString() {
             return "Item{" +
@@ -897,7 +901,7 @@ abstract public class BaseRecyclerViewInstrumentationTest {
             assertNotNull(holder.mOwnerRecyclerView);
             assertEquals(position, holder.getAdapterPosition());
             final Item item = mItems.get(position);
-            ((TextView) (holder.itemView)).setText(item.mText + "(" + item.mId + ")");
+            ((TextView) (holder.itemView)).setText(item.getDisplayText());
             holder.itemView.setBackgroundColor(position % 2 == 0 ? 0xFFFF0000 : 0xFF0000FF);
             holder.mBoundItem = item;
             if (mLayoutParams != null) {

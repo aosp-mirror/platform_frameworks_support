@@ -24,9 +24,11 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Mock implementation of {@link RemoteSessionPlayer2}.
+ * Mock implementation of {@link RemoteSessionPlayer}.
  */
-public class MockRemotePlayer extends RemoteSessionPlayer2 {
+public class MockRemotePlayer extends RemoteSessionPlayer {
+    private static final int ITEM_NONE = -1;
+
     public final CountDownLatch mLatch = new CountDownLatch(1);
     public boolean mSetVolumeToCalled;
     public boolean mAdjustVolumeCalled;
@@ -133,8 +135,8 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<PlayerResult> setPlaylist(List<MediaItem2> list,
-            MediaMetadata2 metadata) {
+    public ListenableFuture<PlayerResult> setPlaylist(List<MediaItem> list,
+            MediaMetadata metadata) {
         return null;
     }
 
@@ -144,22 +146,22 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<PlayerResult> setMediaItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult> setMediaItem(MediaItem item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item) {
         return null;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> removePlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult> removePlaylistItem(int index) {
         return null;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem2 item) {
+    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem item) {
         return null;
     }
 
@@ -174,12 +176,12 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public ListenableFuture<PlayerResult> skipToPlaylistItem(MediaItem2 item) {
+    public ListenableFuture<PlayerResult> skipToPlaylistItem(int index) {
         return null;
     }
 
     @Override
-    public ListenableFuture<PlayerResult> updatePlaylistMetadata(MediaMetadata2 metadata) {
+    public ListenableFuture<PlayerResult> updatePlaylistMetadata(MediaMetadata metadata) {
         return null;
     }
 
@@ -194,12 +196,12 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public List<MediaItem2> getPlaylist() {
+    public List<MediaItem> getPlaylist() {
         return null;
     }
 
     @Override
-    public MediaMetadata2 getPlaylistMetadata() {
+    public MediaMetadata getPlaylistMetadata() {
         return null;
     }
 
@@ -214,8 +216,23 @@ public class MockRemotePlayer extends RemoteSessionPlayer2 {
     }
 
     @Override
-    public MediaItem2 getCurrentMediaItem() {
+    public MediaItem getCurrentMediaItem() {
         return null;
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        return ITEM_NONE;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return ITEM_NONE;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return ITEM_NONE;
     }
 
     @Override

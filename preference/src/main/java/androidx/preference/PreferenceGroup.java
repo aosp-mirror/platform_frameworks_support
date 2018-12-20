@@ -18,6 +18,7 @@ package androidx.preference;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.collection.SimpleArrayMap;
@@ -39,14 +41,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A container for multiple {@link Preference} objects. It is a base class for preference
+ * A container for multiple {@link Preference}s. It is a base class for preference
  * objects that are parents, such as {@link PreferenceCategory} and {@link PreferenceScreen}.
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
- * <p>For information about building a settings UI with Preferences,
- * read the <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>
- * guide.</p>
+ * <p>For information about building a settings screen using the AndroidX Preference library, see
+ * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
  * </div>
  *
  * @attr name android:orderingFromXml
@@ -77,6 +78,7 @@ public abstract class PreferenceGroup extends Preference {
         }
     };
 
+    @SuppressLint("RestrictedApi")
     public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
@@ -277,13 +279,14 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Recursively finds and removes a {@link Preference} from this group or a nested group lower
-     * down in the hierarchy.
+     * down in the hierarchy. If two {@link Preference}s share the same key (not recommended),
+     * the first to appear will be removed.
      *
      * @param key The key of the preference to remove
      * @return Whether the preference was found and removed
      * @see #findPreference(CharSequence)
      */
-    public boolean removePreferenceRecursively(CharSequence key) {
+    public boolean removePreferenceRecursively(@NonNull CharSequence key) {
         final Preference preference = findPreference(key);
         if (preference == null) {
             return false;
@@ -361,22 +364,22 @@ public abstract class PreferenceGroup extends Preference {
      * @param key The key of the preference to retrieve
      * @return The {@link Preference} with the key, or null
      */
-    public Preference findPreference(CharSequence key) {
+    @SuppressWarnings("TypeParameterUnusedInFormals")
+    public <T extends Preference> T findPreference(CharSequence key) {
         if (TextUtils.equals(getKey(), key)) {
-            return this;
+            return (T) this;
         }
         final int preferenceCount = getPreferenceCount();
         for (int i = 0; i < preferenceCount; i++) {
             final Preference preference = getPreference(i);
             final String curKey = preference.getKey();
 
-            if (curKey != null && curKey.equals(key)) {
-                return preference;
+            if (curKey != null && curKey.contentEquals(key)) {
+                return (T) preference;
             }
 
             if (preference instanceof PreferenceGroup) {
-                final Preference returnedPreference = ((PreferenceGroup) preference)
-                        .findPreference(key);
+                final T returnedPreference = ((PreferenceGroup) preference).findPreference(key);
                 if (returnedPreference != null) {
                     return returnedPreference;
                 }
@@ -413,7 +416,6 @@ public abstract class PreferenceGroup extends Preference {
      * @param onExpandButtonClickListener The callback to be invoked
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
-     * @pending
      */
     @RestrictTo(LIBRARY_GROUP)
     public void setOnExpandButtonClickListener(
@@ -426,7 +428,6 @@ public abstract class PreferenceGroup extends Preference {
      *
      * @return The callback to be invoked when the expand button is clicked.
      * @hide
-     * @pending
      */
     @RestrictTo(LIBRARY_GROUP)
     @Nullable
@@ -552,7 +553,6 @@ public abstract class PreferenceGroup extends Preference {
      * Definition for a callback to be invoked when the expand button is clicked.
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
-     * @pending
      */
     @RestrictTo(LIBRARY_GROUP)
     public interface OnExpandButtonClickListener {

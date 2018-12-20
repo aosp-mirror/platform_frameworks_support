@@ -32,14 +32,15 @@ import static org.junit.Assert.fail;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.os.LocaleList;
 import android.text.Layout;
-import android.text.PrecomputedText;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.textclassifier.TextClassificationManager;
 import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
@@ -570,9 +571,6 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
     }
@@ -590,9 +588,6 @@ public class AppCompatTextViewTest
                 tv.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
                 assertNotEquals(0.0f, tv.getMeasuredWidth());
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
         executor.doExecution(0);
@@ -622,9 +617,6 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
         executor.doExecution(0);  // Do execution of 1st runnable.
@@ -637,9 +629,38 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_directionDifference() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+                final AppCompatTextView tv = mActivity.findViewById(R.id.text_view_rtl);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_createAndAttach() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+
+                final AppCompatTextView tv = new AppCompatTextView(mActivity);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.addView(tv);
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
             }
         });
     }
@@ -878,4 +899,112 @@ public class AppCompatTextViewTest
     }
 
     private static class DummyTextClassifier implements TextClassifier {}
+
+    class TestCase {
+        public final int id;
+        public final char expected3EMChar;
+
+        TestCase(int id, char expected3EMChar) {
+            this.id = id;
+            this.expected3EMChar = expected3EMChar;
+        }
+    }
+
+    /**
+     * Find a character which has 3em width.
+     *
+     * The search range is from 'a' to 'r'.
+     * @param p a paint
+     * @return the character which has 3em width.
+     */
+    private static char find3EmChar(Paint p) {
+        char threeEmChar = '\0';
+        p.setTextSize(100.0f);  // Make 1EM = 100px
+        for (char c = 'a'; c <= 'r'; c++) {
+            final float charWidth = p.measureText(new char[] { c }, 0, 1);
+            if (charWidth != 100.0f && charWidth != 300.0f) {
+                throw new RuntimeException("Char width must be 1em or 3em. Test setup error?");
+            }
+
+            if (charWidth == 300.0f) {
+                if (threeEmChar != '\0') {
+                    throw new RuntimeException(
+                            "two or more 3em character found. Test setup error?");
+                }
+                threeEmChar = c;
+            }
+        }
+        if (threeEmChar == '\0') {
+            throw new RuntimeException("No 3em character found. Test setup error?");
+        }
+        return threeEmChar;
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight() {
+        // For the details of the font files, see comments in multiweight_family.xml
+        TestCase[] testCases = {
+                new TestCase(R.id.textview_family_selection_weight_100_upright, 'a'),
+                new TestCase(R.id.textview_family_selection_weight_100_italic, 'b'),
+                new TestCase(R.id.textview_family_selection_weight_200_upright, 'c'),
+                new TestCase(R.id.textview_family_selection_weight_200_italic, 'd'),
+                new TestCase(R.id.textview_family_selection_weight_300_upright, 'e'),
+                new TestCase(R.id.textview_family_selection_weight_300_italic, 'f'),
+                new TestCase(R.id.textview_family_selection_weight_400_upright, 'g'),
+                new TestCase(R.id.textview_family_selection_weight_400_italic, 'h'),
+                new TestCase(R.id.textview_family_selection_weight_500_upright, 'i'),
+                new TestCase(R.id.textview_family_selection_weight_500_italic, 'j'),
+                new TestCase(R.id.textview_family_selection_weight_600_upright, 'k'),
+                new TestCase(R.id.textview_family_selection_weight_600_italic, 'l'),
+                new TestCase(R.id.textview_family_selection_weight_700_upright, 'm'),
+                new TestCase(R.id.textview_family_selection_weight_700_italic, 'n'),
+                new TestCase(R.id.textview_family_selection_weight_800_upright, 'o'),
+                new TestCase(R.id.textview_family_selection_weight_800_italic, 'p'),
+                new TestCase(R.id.textview_family_selection_weight_900_upright, 'q'),
+                new TestCase(R.id.textview_family_selection_weight_900_italic, 'r'),
+        };
+
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+
+        for (TestCase testCase : testCases) {
+            final AppCompatTextView tv = mActivity.findViewById(testCase.id);
+
+            final Paint p = tv.getPaint();
+            char actual3EMChar = find3EmChar(p);
+
+            final String msg = "Expected 3em character is " + testCase.expected3EMChar
+                    + " but actual 3em character is " + actual3EMChar;
+            assertEquals(msg, testCase.expected3EMChar, actual3EMChar);
+        }
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight_styleConflict() {
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+        final AppCompatTextView tv = mActivity.findViewById(
+                R.id.textview_family_selection_style_conflict);
+        // The layout has both textFontWeight=400 and textStyle=bold. The textFontWeight is used if
+        // these two attributes are conflict.
+        final char actual = find3EmChar(tv.getPaint());
+        final String msg = "Expected 3em character is 'g' but actual 3em character is " + actual;
+        assertEquals(msg, 'g', find3EmChar(tv.getPaint()));
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight_styleConflict_italic_preserve() {
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+        final AppCompatTextView tv = mActivity.findViewById(
+                R.id.textview_family_selection_style_conflict_italic_preserve);
+        // The layout has both textFontWeight=400 and textStyle=bold|italic. The textFontWeight is
+        // used if these two attributes are conflict, but italic information should be preserved.
+        final char actual = find3EmChar(tv.getPaint());
+        final String msg = "Expected 3em character is 'h' but actual 3em character is " + actual;
+        assertEquals(msg, 'h', find3EmChar(tv.getPaint()));
+    }
 }

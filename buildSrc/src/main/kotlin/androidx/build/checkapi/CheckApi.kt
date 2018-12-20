@@ -43,6 +43,11 @@ data class CheckApiTasks(
     val generateLocalDiffs: JDiffTask
 )
 
+enum class ApiType {
+    CLASSAPI,
+    RESOURCEAPI
+}
+
 /**
  * Sets up api tasks for the given project
  */
@@ -287,12 +292,28 @@ private fun createUpdateApiTask(project: Project, checkApiRelease: CheckApiTask)
 fun Project.getCurrentApiFile() = getApiFile(project.projectDir, project.version())
 
 /**
+ * Same as getCurrentApiFile but also contains a restricted API file too
+ */
+fun Project.getCurrentApiLocation() = ApiLocation.fromPublicApiFile(project.getCurrentApiFile())
+
+/**
  * Returns the API file containing the public API that this library promises to support
  * This is API file that checkApiRelease validates against
  * @return the API file
  */
 fun Project.getRequiredCompatibilityApiFile() =
         getLastReleasedApiFile(project.projectDir, project.version(), true, true)
+
+/*
+ * Same as getRequiredCompatibilityApiFile but also contains a restricted API file
+ */
+fun Project.getRequiredCompatibilityApiLocation(): ApiLocation? {
+    val publicFile = project.getRequiredCompatibilityApiFile()
+    if (publicFile == null) {
+        return null
+    }
+    return ApiLocation.fromPublicApiFile(publicFile)
+}
 
 /**
  * Returns the API file for the API of the specified version.
@@ -331,7 +352,7 @@ private fun getLastReleasedApiFile(
 ): File? {
     val apiDir = File(rootFolder, "api")
     return getLastReleasedApiFileFromDir(apiDir, refVersion, requireFinalApi,
-            requireSameMajorRevision)
+            requireSameMajorRevision, ApiType.CLASSAPI)
 }
 
 /**
@@ -339,12 +360,15 @@ private fun getLastReleasedApiFile(
  * maxVersionExclusive or null.
  * Ignores alpha versions if requireFinalApi is true.
  * If requireSameMajorRevision is true then only considers releases having the same major revision.
+ * If apiType is RESOURCEAPI, it will return the resource api file and if it is CLASSAPI, it will
+ * return the regular api file.
  */
-private fun getLastReleasedApiFileFromDir(
+fun getLastReleasedApiFileFromDir(
     apiDir: File,
     maxVersionExclusive: Version?,
     requireFinalApi: Boolean,
-    requireSameMajorRevision: Boolean
+    requireSameMajorRevision: Boolean,
+    apiType: ApiType
 ): File? {
     if (requireSameMajorRevision && maxVersionExclusive == null) {
         throw GradleException("Version is not specified for the current project, " +
@@ -352,7 +376,10 @@ private fun getLastReleasedApiFileFromDir(
     }
     var lastFile: File? = null
     var lastVersion: Version? = null
-    apiDir.listFiles().forEach { file ->
+    var apiFiles = apiDir.listFiles().toList()
+    apiFiles = apiFiles.filter { (apiType == ApiType.RESOURCEAPI && it.name.startsWith("res")) ||
+            (apiType == ApiType.CLASSAPI && !it.name.startsWith("res")) }
+    apiFiles.forEach { file ->
         val parsed = Version.parseOrNull(file)
         parsed?.let { version ->
             if ((lastFile == null || lastVersion!! < version) &&

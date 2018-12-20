@@ -49,13 +49,31 @@ class NavParserTest {
                         Argument("intArgument", IntType, IntValue("261")),
                         Argument(
                                 "activityInfo",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo"))
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo"))
                         ),
                         Argument(
                                 "activityInfoNull",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                                 NullValue,
                                 true
+                        ),
+                        Argument("intArrayArg", IntArrayType),
+                        Argument("stringArrayArg", StringArrayType),
+                        Argument("objectArrayArg", ObjectArrayType(
+                            ClassName.get("android.content.pm", "ActivityInfo"))),
+                        Argument(
+                            "enumArg",
+                            ObjectType(ClassName.get("java.nio.file", "AccessMode")),
+                            EnumValue(ClassName.get("java.nio.file", "AccessMode"), "READ"),
+                            false
+                        ),
+                        Argument(
+                            "objectRelativeArg",
+                            ObjectType(ClassName.get("a.b.pkg", "ClassName"))
+                        ),
+                        Argument(
+                            "objectRelativeArg2",
+                            ObjectType(ClassName.get("a.b", "ClassName"))
                         )
                 ))))
 
@@ -178,6 +196,9 @@ class NavParserTest {
         val referenceArg = { pName: String, type: String, value: String ->
             Argument("foo", ReferenceType, ReferenceValue(ResReference(pName, type, value)))
         }
+        val resolvedReferenceArg = { pName: String, argType: NavType, type: String, value: String ->
+            Argument("foo", argType, ReferenceValue(ResReference(pName, type, value)))
+        }
 
         assertThat(infer("spb"), `is`(stringArg("spb")))
         assertThat(infer("10"), `is`(intArg("10")))
@@ -195,6 +216,17 @@ class NavParserTest {
         assertThat(infer("false"), `is`(boolArg("false")))
         assertThat(infer("123L"), `is`(longArg("123L")))
         assertThat(infer("1234123412341234L"), `is`(longArg("1234123412341234L")))
+
+        assertThat(infer("@integer/test_integer_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "integer", "test_integer_arg")))
+        assertThat(infer("@dimen/test_dimen_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "dimen", "test_dimen_arg")))
+        assertThat(infer("@style/AppTheme"),
+            `is`(resolvedReferenceArg("a.b", ReferenceType, "style", "AppTheme")))
+        assertThat(infer("@string/test_string_arg"),
+            `is`(resolvedReferenceArg("a.b", StringType, "string", "test_string_arg")))
+        assertThat(infer("@color/test_color_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "color", "test_color_arg")))
     }
 
     @Test

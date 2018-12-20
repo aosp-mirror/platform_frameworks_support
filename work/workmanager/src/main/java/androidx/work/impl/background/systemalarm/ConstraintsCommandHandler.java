@@ -38,7 +38,7 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class ConstraintsCommandHandler {
 
-    private static final String TAG = "ConstraintsCmdHandler";
+    private static final String TAG = Logger.tagWithPrefix("ConstraintsCmdHandler");
 
     private final Context mContext;
     private final int mStartId;
@@ -89,7 +89,7 @@ class ConstraintsCommandHandler {
         for (WorkSpec workSpec : eligibleWorkSpecs) {
             String workSpecId = workSpec.id;
             Intent intent = CommandHandler.createDelayMetIntent(mContext, workSpecId);
-            Logger.debug(TAG, String.format(
+            Logger.get().debug(TAG, String.format(
                     "Creating a delay_met command for workSpec with id (%s)", workSpecId));
             mDispatcher.postOnMainThread(
                     new SystemAlarmDispatcher.AddRunnable(mDispatcher, intent, mStartId));

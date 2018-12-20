@@ -148,7 +148,7 @@ internal class NavParser(
             return inferArgument(name, defaultValue, rFilePackage)
         }
 
-        val type = NavType.from(typeString)
+        val type = NavType.from(typeString, rFilePackage)
         if (nullable && !type.allowsNullable()) {
             context.logger.error(NavParserErrors.typeIsNotNullable(typeString), xmlPosition)
             return context.createStubArg()
@@ -173,15 +173,23 @@ internal class NavParser(
                     StringValue(defaultValue)
                 }
             }
-            is ParcelableType -> {
+            IntArrayType, LongArrayType, FloatArrayType, StringArrayType,
+            BoolArrayType, ReferenceArrayType, is ObjectArrayType -> {
                 if (defaultValue == VALUE_NULL) {
                     NullValue
                 } else {
                     context.logger.error(
-                            NavParserErrors.defaultValueParcelable(typeString),
+                            NavParserErrors.defaultValueObjectType(typeString),
                             xmlPosition
                     )
                     return context.createStubArg()
+                }
+            }
+            is ObjectType -> {
+                if (defaultValue == VALUE_NULL) {
+                    NullValue
+                } else {
+                    EnumValue(type.typeName(), defaultValue)
                 }
             }
         }
@@ -246,7 +254,13 @@ internal class NavParser(
 internal fun inferArgument(name: String, defaultValue: String, rFilePackage: String): Argument {
     val reference = parseReference(defaultValue, rFilePackage)
     if (reference != null) {
-        return Argument(name, ReferenceType, ReferenceValue(reference))
+        val type = when (reference.resType) {
+            "color", "dimen", "integer" -> IntType
+            "bool" -> BoolType
+            "string" -> StringType
+            else -> ReferenceType
+        }
+        return Argument(name, type, ReferenceValue(reference))
     }
     val longValue = parseLongValue(defaultValue)
     if (longValue != null) {

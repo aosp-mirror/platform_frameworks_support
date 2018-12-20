@@ -86,9 +86,12 @@ limitations under the License.
         <!-- An optional vertical spacing between items in the list. In GridLayoutManager items in
              the last row would still have spacing at bottom. -->
         <attr name="itemSpacing" format="dimension" />
-        <!-- The amount of space before the first item in the list view. This space is
-             scrollable with the contents of the list. -->
+        <!-- The amount of space before the first item in the list view. This space is scrollable
+             with the contents of the list. -->
         <attr name="listContentTopOffset" format="reference" />
+        <!-- The amount of space after the last item in the list view. This space is scrollable with
+             the contents of the list. -->
+        <attr name="listContentBottomOffset" format="reference" />
         <!-- Vertically center the list contents when the number of items in the list does not take
              up the full height of the PagedListView. This value is "false" by default. -->
         <attr name="verticallyCenterListContent" format="boolean" />
@@ -154,19 +157,26 @@ limitations under the License.
         <attr name="carMenuBarThickness" format="dimension"/>
     </declare-styleable>
 
-    <!-- Attributes for the ActionBar. -->
-    <declare-styleable name="ActionBar">
-        <!-- The number of horizontal slots. The minimum number is 3. -->
-        <attr name="columns" format="integer" />
-    </declare-styleable>
-
+    <!-- Attributes for the CarToolbar. -->
     <declare-styleable name="CarToolbar">
         <!-- Drawable to use for the navigation button located at the start of the toolbar. -->
-        <attr name="navigationIcon" format="reference" />
+        <attr name="navigationIcon" format="reference"/>
         <!-- The width of space in which navigation icon will be centered. -->
-        <attr name="navigationIconContainerWidth" format="dimension" />
-        <attr name="title" formant="string" />
-        <attr name="titleTextAppearance" format="reference" />
+        <attr name="navigationIconContainerWidth" format="dimension"/>
+        <!-- Drawable to use for the toolbar title icon. -->
+        <attr name="titleIcon" format="reference"/>
+        <!-- The dimension size of the title icon. -->
+        <attr name="titleIconSize" format="dimension"/>
+        <!-- Primary text shown on the CarToolbar. -->
+        <attr name="title" format="string"/>
+        <!-- Secondary text shown on the CarToolbar. -->
+        <attr name="subtitle" format="string"/>
+        <!-- TextAppearance of the title. -->
+        <attr name="titleTextAppearance" format="reference"/>
+        <!-- TextAppearance of the subtitle. -->
+        <attr name="subtitleTextAppearance" format="reference"/>
+        <!-- Icon to use for the overflow menu button. -->
+        <attr name="overflowIcon" format="reference"/>
     </declare-styleable>
 
     <!-- Attributes specifically related to modifying car themes. -->
