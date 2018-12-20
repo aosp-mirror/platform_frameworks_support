@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.savedstate.SavedStateRegistry;
 
 /**
  * A handle to saved state passed down to {@link ViewModel}
@@ -45,7 +46,7 @@ public class SavedStateHandle {
         return mHolder.savedStateAccessor();
     }
 
-    SavedState.Callback savedStateComponent() {
+    SavedStateRegistry.SavedStateProvider<Bundle> savedStateComponent() {
         return mHolder;
     }
 

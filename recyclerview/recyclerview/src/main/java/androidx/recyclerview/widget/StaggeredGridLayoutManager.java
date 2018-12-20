@@ -19,6 +19,7 @@ package androidx.recyclerview.widget;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -3071,7 +3072,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         /**
          * We keep information about full span items because they may create gaps in the UI.
          */
-        @SuppressWarnings("BanParcelableUsage")
+        @SuppressLint("BanParcelableUsage")
         static class FullSpanItem implements Parcelable {
 
             int mPosition;
@@ -3147,7 +3148,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     public static class SavedState implements Parcelable {
 
         int mAnchorPosition;

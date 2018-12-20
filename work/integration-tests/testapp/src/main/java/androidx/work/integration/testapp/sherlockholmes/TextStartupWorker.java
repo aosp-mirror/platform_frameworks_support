@@ -38,6 +38,6 @@ public class TextStartupWorker extends Worker {
         TestDatabase db = TestDatabase.getInstance(getApplicationContext());
         db.getWordCountDao().clear();
         Log.d("Startup", "Database cleared");
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

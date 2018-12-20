@@ -22,6 +22,6 @@ import androidx.work.WorkerParameters
 
 class TestWorker(appContext: Context, params: WorkerParameters) : Worker(appContext, params) {
     override fun doWork(): Result {
-        return Result.SUCCESS
+        return Result.success()
     }
 }

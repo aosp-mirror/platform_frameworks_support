@@ -19,6 +19,7 @@ package androidx.navigation.fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,16 +45,17 @@ import java.util.Map;
 /**
  * Navigator that navigates through {@link FragmentTransaction fragment transactions}. Every
  * destination using this Navigator must set a valid Fragment class name with
- * <code>android:name</code> or {@link Destination#setFragmentClass}.
+ * <code>android:name</code> or {@link Destination#setClassName(String)}.
  */
 @Navigator.Name("fragment")
 public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> {
     private static final String TAG = "FragmentNavigator";
     private static final String KEY_BACK_STACK_IDS = "androidx-nav-fragment:navigator:backStackIds";
 
+    private final Context mContext;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    FragmentManager mFragmentManager;
-    private int mContainerId;
+    final FragmentManager mFragmentManager;
+    private final int mContainerId;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     ArrayDeque<Integer> mBackStack = new ArrayDeque<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -95,25 +97,25 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                         while (mBackStack.size() > newCount) {
                             mBackStack.removeLast();
                         }
-                        int destId = mBackStack.isEmpty() ? 0 : mBackStack.peekLast();
-                        dispatchOnNavigatorNavigated(destId, BACK_STACK_DESTINATION_POPPED);
+                        dispatchOnNavigatorBackPress();
                     }
                 }
             };
 
     public FragmentNavigator(@NonNull Context context, @NonNull FragmentManager manager,
             int containerId) {
+        mContext = context;
         mFragmentManager = manager;
         mContainerId = containerId;
     }
 
     @Override
-    public void onActive() {
+    protected void onBackPressAdded() {
         mFragmentManager.addOnBackStackChangedListener(mOnBackStackChangedListener);
     }
 
     @Override
-    public void onInactive() {
+    protected void onBackPressRemoved() {
         mFragmentManager.removeOnBackStackChangedListener(mOnBackStackChangedListener);
     }
 
@@ -134,8 +136,6 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
             popped = true;
         }
         mBackStack.removeLast();
-        int destId = mBackStack.isEmpty() ? 0 : mBackStack.peekLast();
-        dispatchOnNavigatorNavigated(destId, BACK_STACK_DESTINATION_POPPED);
         return popped;
     }
 
@@ -145,16 +145,41 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         return new Destination(this);
     }
 
-    @SuppressWarnings("deprecation")
+    /**
+     * Instantiates the Fragment.
+     *
+     * Note that this method is <strong>not</strong> responsible for calling
+     * {@link Fragment#setArguments(Bundle)} on the returned Fragment instance.
+     *
+     * @param context Context providing the correct {@link ClassLoader}
+     * @param fragmentManager FragmentManager the Fragment will be added to
+     * @param className The Fragment to instantiate
+     * @param args The Fragment's arguments, if any
+     * @return A new fragment instance.
+     */
+    @NonNull
+    public Fragment instantiateFragment(@NonNull Context context,
+            @SuppressWarnings("unused") @NonNull FragmentManager fragmentManager,
+            @NonNull String className, @Nullable Bundle args) {
+        return Fragment.instantiate(context, className, args);
+    }
+
+    @Nullable
     @Override
-    public void navigate(@NonNull Destination destination, @Nullable Bundle args,
+    public NavDestination navigate(@NonNull Destination destination, @Nullable Bundle args,
             @Nullable NavOptions navOptions, @Nullable Navigator.Extras navigatorExtras) {
         if (mFragmentManager.isStateSaved()) {
             Log.i(TAG, "Ignoring navigate() call: FragmentManager has already"
                     + " saved its state");
-            return;
+            return null;
         }
-        final Fragment frag = destination.createFragment(args);
+        String className = destination.getClassName();
+        if (className.charAt(0) == '.') {
+            className = mContext.getPackageName() + className;
+        }
+        final Fragment frag = instantiateFragment(mContext, mFragmentManager,
+                className, args);
+        frag.setArguments(args);
         final FragmentTransaction ft = mFragmentManager.beginTransaction();
 
         int enterAnim = navOptions != null ? navOptions.getEnterAnim() : -1;
@@ -174,15 +199,14 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
 
         final @IdRes int destId = destination.getId();
         final boolean initialNavigation = mBackStack.isEmpty();
-        final boolean isClearTask = navOptions != null && navOptions.shouldClearTask();
         // TODO Build first class singleTop behavior for fragments
         final boolean isSingleTopReplacement = navOptions != null && !initialNavigation
                 && navOptions.shouldLaunchSingleTop()
                 && mBackStack.peekLast() == destId;
 
-        int backStackEffect;
-        if (initialNavigation || isClearTask) {
-            backStackEffect = BACK_STACK_DESTINATION_ADDED;
+        boolean isAdded;
+        if (initialNavigation) {
+            isAdded = true;
         } else if (isSingleTopReplacement) {
             // Single Top means we only want one instance on the back stack
             if (mBackStack.size() > 1) {
@@ -194,11 +218,11 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 ft.addToBackStack(Integer.toString(destId));
                 mIsPendingBackStackOperation = true;
             }
-            backStackEffect = BACK_STACK_UNCHANGED;
+            isAdded = false;
         } else {
             ft.addToBackStack(Integer.toString(destId));
             mIsPendingBackStackOperation = true;
-            backStackEffect = BACK_STACK_DESTINATION_ADDED;
+            isAdded = true;
         }
         if (navigatorExtras instanceof Extras) {
             Extras extras = (Extras) navigatorExtras;
@@ -209,10 +233,12 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         ft.setReorderingAllowed(true);
         ft.commit();
         // The commit succeeded, update our view of the world
-        if (backStackEffect == BACK_STACK_DESTINATION_ADDED) {
+        if (isAdded) {
             mBackStack.add(destId);
+            return destination;
+        } else {
+            return null;
         }
-        dispatchOnNavigatorNavigated(destId, backStackEffect);
     }
 
     @Override
@@ -274,11 +300,11 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
     @NavDestination.ClassType(Fragment.class)
     public static class Destination extends NavDestination {
 
-        private Class<? extends Fragment> mFragmentClass;
+        private String mClassName;
 
         /**
          * Construct a new fragment destination. This destination is not valid until you set the
-         * Fragment via {@link #setFragmentClass(Class)}.
+         * Fragment via {@link #setClassName(String)}.
          *
          * @param navigatorProvider The {@link NavController} which this destination
          *                          will be associated with.
@@ -289,7 +315,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
 
         /**
          * Construct a new fragment destination. This destination is not valid until you set the
-         * Fragment via {@link #setFragmentClass(Class)}.
+         * Fragment via {@link #setClassName(String)}.
          *
          * @param fragmentNavigator The {@link FragmentNavigator} which this destination
          *                          will be associated with. Generally retrieved via a
@@ -300,6 +326,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
             super(fragmentNavigator);
         }
 
+        @CallSuper
         @Override
         public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs) {
             super.onInflate(context, attrs);
@@ -307,65 +334,43 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                     R.styleable.FragmentNavigator);
             String className = a.getString(R.styleable.FragmentNavigator_android_name);
             if (className != null) {
-                setFragmentClass(parseClassFromName(context, className, Fragment.class));
+                setClassName(className);
             }
             a.recycle();
         }
 
         /**
-         * Set the Fragment associated with this destination
-         * @param clazz The class name of the Fragment to show when you navigate to this
-         *              destination
+         * Set the Fragment class name associated with this destination
+         * @param className The class name of the Fragment to show when you navigate to this
+         *                  destination
          * @return this {@link Destination}
+         * @see #instantiateFragment(Context, FragmentManager, String, Bundle)
          */
         @NonNull
-        public Destination setFragmentClass(@NonNull Class<? extends Fragment> clazz) {
-            mFragmentClass = clazz;
+        public final Destination setClassName(@NonNull String className) {
+            mClassName = className;
             return this;
         }
 
         /**
-         * Gets the Fragment associated with this destination
+         * Gets the Fragment's class name associated with this destination
          *
-         * @throws IllegalStateException when no fragment class was set.
+         * @throws IllegalStateException when no Fragment class was set.
+         * @see #instantiateFragment(Context, FragmentManager, String, Bundle)
          */
         @NonNull
-        public Class<? extends Fragment> getFragmentClass() {
-            if (mFragmentClass == null) {
-                throw new IllegalStateException("fragment class not set");
+        public final String getClassName() {
+            if (mClassName == null) {
+                throw new IllegalStateException("Fragment class was not set");
             }
-            return mFragmentClass;
-        }
-
-        /**
-         * Create a new instance of the {@link Fragment} associated with this destination.
-         * @param args optional args to set on the new Fragment
-         * @return an instance of the {@link #getFragmentClass() Fragment class} associated
-         * with this destination
-         */
-        @SuppressWarnings("ClassNewInstance")
-        @NonNull
-        public Fragment createFragment(@Nullable Bundle args) {
-            Class<? extends Fragment> clazz = getFragmentClass();
-
-            Fragment f;
-            try {
-                f = clazz.newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            if (args != null) {
-                f.setArguments(args);
-            }
-            return f;
+            return mClassName;
         }
     }
 
     /**
      * Extras that can be passed to FragmentNavigator to enable Fragment specific behavior
      */
-    public static class Extras implements Navigator.Extras {
+    public static final class Extras implements Navigator.Extras {
         private final LinkedHashMap<View, String> mSharedElements = new LinkedHashMap<>();
 
         Extras(Map<View, String> sharedElements) {
@@ -386,7 +391,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
          * Builder for constructing new {@link Extras} instances. The resulting instances are
          * immutable.
          */
-        public static class Builder {
+        public static final class Builder {
             private final LinkedHashMap<View, String> mSharedElements = new LinkedHashMap<>();
 
             /**

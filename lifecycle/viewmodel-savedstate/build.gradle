@@ -25,7 +25,7 @@ plugins {
 
 dependencies {
     api(SUPPORT_ANNOTATIONS)
-    api(project(":lifecycle:lifecycle-savedstate-core"))
+    api(project(":savedstate:savedstate-common"))
     api(project(":lifecycle:lifecycle-livedata-core"))
     api(project(":lifecycle:lifecycle-viewmodel"))
 

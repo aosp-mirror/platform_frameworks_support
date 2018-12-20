@@ -18,6 +18,7 @@ package androidx.preference;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -82,8 +83,8 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
- * <p>For information about using {@code PreferenceFragment}, read the
- * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a> guide.</p>
+ * <p>For information about building a settings screen using the AndroidX Preference library, see
+ * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
  * </div>
  *
  * @see Preference
@@ -182,6 +183,7 @@ public abstract class PreferenceFragment extends Fragment implements
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
+    @SuppressLint("RestrictedApi")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
@@ -476,7 +478,8 @@ public abstract class PreferenceFragment extends Fragment implements
      */
     @Deprecated
     @Override
-    public Preference findPreference(CharSequence key) {
+    @SuppressWarnings("TypeParameterUnusedInFormals")
+    public <T extends Preference> T findPreference(CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }

@@ -42,9 +42,8 @@ import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.DatabaseTest;
-import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkManagerImpl;
@@ -56,6 +55,7 @@ import androidx.work.impl.constraints.trackers.Trackers;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.RepeatRule;
+import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 import androidx.work.worker.SleepTestWorker;
@@ -119,9 +119,10 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                 mLatch.countDown();
             }
         };
-
-        Logger.setMinimumLoggingLevel(Log.VERBOSE);
-        mConfiguration = new Configuration.Builder().build();
+        mConfiguration = new Configuration.Builder()
+                .setExecutor(new SynchronousExecutor())
+                .setMinimumLoggingLevel(Log.VERBOSE)
+                .build();
         when(mWorkManager.getWorkDatabase()).thenReturn(mDatabase);
         when(mWorkManager.getConfiguration()).thenReturn(mConfiguration);
         TaskExecutor instantTaskExecutor = new InstantWorkTaskExecutor();
@@ -194,6 +195,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     }
 
     @Test
+    @RepeatRule.Repeat(times = 1)
     public void testDelayMet_success() throws InterruptedException {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -380,7 +382,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                         CommandHandler.ACTION_EXECUTION_COMPLETED,
                         CommandHandler.ACTION_CONSTRAINTS_CHANGED));
 
-        assertThat(workSpec.state, is(State.ENQUEUED));
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -430,7 +432,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                         CommandHandler.ACTION_EXECUTION_COMPLETED,
                         CommandHandler.ACTION_CONSTRAINTS_CHANGED));
 
-        assertThat(workSpec.state, is(State.SUCCEEDED));
+        assertThat(workSpec.state, is(WorkInfo.State.SUCCEEDED));
     }
 
     @Test
@@ -443,12 +445,12 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         OneTimeWorkRequest failed = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.FAILED)
+                .setInitialState(WorkInfo.State.FAILED)
                 .build();
 
         OneTimeWorkRequest succeeded = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
 
         OneTimeWorkRequest noConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
@@ -501,12 +503,12 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         OneTimeWorkRequest failed = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.FAILED)
+                .setInitialState(WorkInfo.State.FAILED)
                 .build();
 
         OneTimeWorkRequest succeeded = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setInitialState(State.SUCCEEDED)
+                .setInitialState(WorkInfo.State.SUCCEEDED)
                 .build();
 
         OneTimeWorkRequest noConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)

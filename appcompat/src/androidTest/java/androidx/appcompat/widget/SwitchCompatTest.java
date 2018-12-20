@@ -16,6 +16,12 @@
 
 package androidx.appcompat.widget;
 
+import static androidx.appcompat.testutils.TestUtilsMatchers.thumbColor;
+import static androidx.appcompat.testutils.TestUtilsMatchers.trackColor;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 import static org.junit.Assert.assertEquals;
 
 import android.graphics.Typeface;
@@ -57,5 +63,16 @@ public class SwitchCompatTest {
         Typeface expected = ResourcesCompat.getFont(mActivity, R.font.samplefont);
 
         assertEquals(expected, switchButton.getTypeface());
+    }
+
+    @Test
+    public void testTint() {
+        // Given a switch with tints set for the track and thumb
+        final int expectedThumbTint = 0xffff00ff;
+        final int expectedTrackTint = 0xff00ffff;
+
+        // Then the tints should be applied
+        onView(withId(R.id.switch_tint)).check(matches(thumbColor(expectedThumbTint)));
+        onView(withId(R.id.switch_tint)).check(matches(trackColor(expectedTrackTint)));
     }
 }

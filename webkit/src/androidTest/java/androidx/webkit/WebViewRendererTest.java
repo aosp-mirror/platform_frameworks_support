@@ -23,7 +23,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.concurrent.futures.ResolvableFuture;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.runner.AndroidJUnit4;
@@ -39,24 +39,9 @@ import java.util.concurrent.Callable;
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewRendererTest {
-    private <T> ListenableFuture<T> onMainThread(final Callable<T> callable)  {
-        final ResolvableFuture<T> future = ResolvableFuture.create();
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    future.set(callable.call());
-                } catch (Throwable t) {
-                    future.setException(t);
-                }
-            }
-        });
-        return future;
-    }
-
-    private ListenableFuture<Boolean> terminateRendererOnUiThread(
+    private boolean terminateRendererOnUiThread(
             final WebViewRenderer renderer) {
-        return onMainThread(new Callable<Boolean>() {
+        return WebkitUtils.onMainThreadSync(new Callable<Boolean>() {
             @Override
             public Boolean call() {
                 return renderer.terminate();
@@ -64,8 +49,8 @@ public class WebViewRendererTest {
         });
     }
 
-    ListenableFuture<WebViewRenderer> getRendererOnUiThread(final WebView webView) {
-        return onMainThread(new Callable<WebViewRenderer>() {
+    WebViewRenderer getRendererOnUiThread(final WebView webView) {
+        return WebkitUtils.onMainThreadSync(new Callable<WebViewRenderer>() {
             @Override
             public WebViewRenderer call() {
                 return WebViewCompat.getWebViewRenderer(webView);
@@ -77,7 +62,7 @@ public class WebViewRendererTest {
             final WebView webView) throws Throwable {
         final ResolvableFuture<WebViewRenderer> future = ResolvableFuture.create();
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThread(new Runnable() {
             @Override
             public void run() {
                 webView.setWebViewClient(new WebViewClient() {
@@ -97,7 +82,7 @@ public class WebViewRendererTest {
     ListenableFuture<Boolean> catchRendererTermination(final WebView webView) {
         final ResolvableFuture<Boolean> future = ResolvableFuture.create();
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThread(new Runnable() {
             @Override
             public void run() {
                 webView.setWebViewClient(new WebViewClient() {
@@ -119,7 +104,7 @@ public class WebViewRendererTest {
     @Test
     @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.N_MR1)
     public void testGetWebViewRendererPreO() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
 
         // It should not be possible to get a renderer pre-O
         WebView webView = WebViewOnUiThread.createWebView();
@@ -129,23 +114,24 @@ public class WebViewRendererTest {
         WebViewOnUiThread.destroy(webView);
     }
 
+    @LargeTest
     @Test
     @SuppressLint("NewApi")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     public void testGetWebViewRenderer() throws Throwable {
-        AssumptionUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_RENDERER);
         // TODO(tobiasjs) some O devices are not multiprocess, and multiprocess can also be disabled
         // manually. This test should handle those scenarios.
 
         final WebView webView = WebViewOnUiThread.createWebView();
 
-        final WebViewRenderer preStartRenderer = getRendererOnUiThread(webView).get();
+        final WebViewRenderer preStartRenderer = getRendererOnUiThread(webView);
         Assert.assertNotNull(
                 "Should be possible to obtain a renderer handle before the renderer has started.",
                 preStartRenderer);
         Assert.assertFalse(
                 "Should not be able to terminate an unstarted renderer.",
-                terminateRendererOnUiThread(preStartRenderer).get());
+                terminateRendererOnUiThread(preStartRenderer));
 
         final WebViewRenderer renderer = startAndGetRenderer(webView).get();
         Assert.assertSame(
@@ -159,14 +145,14 @@ public class WebViewRendererTest {
         ListenableFuture<Boolean> terminationFuture = catchRendererTermination(webView);
         Assert.assertTrue(
                 "A started renderer should be able to be terminated.",
-                terminateRendererOnUiThread(renderer).get());
+                terminateRendererOnUiThread(renderer));
         Assert.assertTrue(
                 "Terminating a renderer should result in onRenderProcessGone being called.",
                 terminationFuture.get());
 
         Assert.assertFalse(
                 "It should not be possible to terminate a renderer that has already terminated.",
-                terminateRendererOnUiThread(renderer).get());
+                terminateRendererOnUiThread(renderer));
 
         final WebView webView2 = WebViewOnUiThread.createWebView();
         Assert.assertNotSame(

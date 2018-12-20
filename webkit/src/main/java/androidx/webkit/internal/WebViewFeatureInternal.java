@@ -28,6 +28,8 @@ import android.webkit.WebView;
 
 import androidx.webkit.SafeBrowsingResponseCompat;
 import androidx.webkit.ServiceWorkerClientCompat;
+import androidx.webkit.TracingConfig;
+import androidx.webkit.TracingController;
 import androidx.webkit.WebMessageCompat;
 import androidx.webkit.WebMessagePortCompat;
 import androidx.webkit.WebResourceErrorCompat;
@@ -36,9 +38,14 @@ import androidx.webkit.WebViewClientCompat;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
 
+import org.chromium.support_lib_boundary.util.BoundaryInterfaceReflectionUtil;
 import org.chromium.support_lib_boundary.util.Features;
 
-import java.util.List;
+import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Executor;
 
 /**
  * Enum representing a WebView feature, this provides functionality for determining whether a
@@ -265,10 +272,30 @@ public enum WebViewFeatureInternal {
     GET_WEB_CHROME_CLIENT(WebViewFeature.GET_WEB_CHROME_CLIENT, Build.VERSION_CODES.O),
 
     GET_WEB_VIEW_RENDERER(WebViewFeature.GET_WEB_VIEW_RENDERER),
-    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE);
+    WEB_VIEW_RENDERER_TERMINATE(WebViewFeature.WEB_VIEW_RENDERER_TERMINATE),
+
+    /**
+     * This feature covers
+     * {@link TracingController#getInstance()},
+     * {@link TracingController#isTracing()},
+     * {@link TracingController#start(TracingConfig)},
+     * {@link TracingController#stop(OutputStream, Executor)}.
+     */
+    TRACING_CONTROLLER_BASIC_USAGE(WebViewFeature.TRACING_CONTROLLER_BASIC_USAGE,
+                                   Build.VERSION_CODES.P),
+
+    /**
+     * This feature covers
+     * {@link WebViewCompat#getWebViewRendererClient()},
+     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
+     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
+     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     */
+    WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE(WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE),
+
+    ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
-
     private final String mFeatureValue;
     private final int mOsVersion;
 
@@ -292,6 +319,7 @@ public enum WebViewFeatureInternal {
      *                     framework.
      */
     WebViewFeatureInternal(String featureValue, int osVersion) {
+        assert !featureValue.endsWith(Features.DEV_SUFFIX);
         mFeatureValue = featureValue;
         mOsVersion = osVersion;
     }
@@ -310,7 +338,6 @@ public enum WebViewFeatureInternal {
      * Return whether this {@link WebViewFeatureInternal} is supported by the framework of the
      * current device.
      */
-    @SuppressWarnings("BanUnlistedSDKVersionComparison")
     public boolean isSupportedByFramework() {
         if (mOsVersion == NOT_SUPPORTED_BY_FRAMEWORK) {
             return false;
@@ -322,20 +349,17 @@ public enum WebViewFeatureInternal {
      * Return whether this {@link WebViewFeatureInternal} is supported by the current WebView APK.
      */
     public boolean isSupportedByWebView() {
-        String[] webviewFeatures = LAZY_HOLDER.WEBVIEW_APK_FEATURES;
-        for (String webviewFeature : webviewFeatures) {
-            if (webviewFeature.equals(mFeatureValue)) return true;
-        }
-        return false;
+        return BoundaryInterfaceReflectionUtil.containsFeature(
+                LAZY_HOLDER.WEBVIEW_APK_FEATURES, mFeatureValue);
     }
 
     private static class LAZY_HOLDER {
-        static final String[] WEBVIEW_APK_FEATURES =
-                WebViewGlueCommunicator.getFactory().getWebViewFeatures();
+        static final Set<String> WEBVIEW_APK_FEATURES =
+                new HashSet<>(
+                        Arrays.asList(WebViewGlueCommunicator.getFactory().getWebViewFeatures()));
     }
 
-
-    public static String[] getWebViewApkFeaturesForTesting() {
+    public static Set<String> getWebViewApkFeaturesForTesting() {
         return LAZY_HOLDER.WEBVIEW_APK_FEATURES;
     }
 

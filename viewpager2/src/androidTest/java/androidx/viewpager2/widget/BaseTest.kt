@@ -16,11 +16,14 @@
 
 package androidx.viewpager2.widget
 
+import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
@@ -35,11 +38,15 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.FragmentActivityUtils
+import androidx.viewpager2.LocaleTestUtils
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
 import androidx.viewpager2.widget.swipe.FragmentAdapter
 import androidx.viewpager2.widget.swipe.PageSwiper
+import androidx.viewpager2.widget.swipe.PageSwiperEspresso
+import androidx.viewpager2.widget.swipe.PageSwiperManual
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
@@ -48,15 +55,38 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
+import org.junit.After
 import org.junit.Assert.assertThat
+import org.junit.Before
+import org.junit.Rule
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 open class BaseTest {
+    lateinit var localeUtil: LocaleTestUtils
+
+    @get:Rule
+    val activityTestRule = ActivityTestRule<TestActivity>(TestActivity::class.java, false, false)
+
+    @Before
+    open fun setUp() {
+        localeUtil = LocaleTestUtils(InstrumentationRegistry.getTargetContext())
+        // Ensure a predictable test environment by explicitly setting a locale
+        localeUtil.setLocale(LocaleTestUtils.DEFAULT_TEST_LANGUAGE)
+    }
+
+    @After
+    open fun tearDown() {
+        localeUtil.resetLocale()
+    }
+
     fun setUpTest(@ViewPager2.Orientation orientation: Int): Context {
-        val activityTestRule = ActivityTestRule<TestActivity>(TestActivity::class.java)
-        activityTestRule.launchActivity(null)
+        val intent = Intent()
+        if (localeUtil.isLocaleChangedAndLock()) {
+            intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
+        }
+        activityTestRule.launchActivity(intent)
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
@@ -72,10 +102,17 @@ open class BaseTest {
     }
 
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
-        fun recreateActivity(adapterProvider: AdapterProvider) {
-            TestActivity.adapterProvider = adapterProvider
+        fun recreateActivity(
+            adapterProvider: AdapterProvider,
+            onCreateCallback: ((ViewPager2) -> Unit) = { }
+        ) {
+            TestActivity.onCreateCallback = { activity ->
+                val viewPager = activity.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.adapter = adapterProvider(activity)
+                onCreateCallback(viewPager)
+            }
             activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
-            TestActivity.adapterProvider = null
+            TestActivity.onCreateCallback = { }
         }
 
         var activity: TestActivity = activityTestRule.activity
@@ -87,31 +124,98 @@ open class BaseTest {
 
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
-        val swiper: PageSwiper
-            get() = PageSwiper(viewPager.adapter.itemCount, viewPager.orientation)
-    }
+        val isRtl
+            get() = ViewCompat.getLayoutDirection(viewPager) ==
+                    ViewCompat.LAYOUT_DIRECTION_RTL
 
-    fun peekForward(@ViewPager2.Orientation orientation: Int) {
-        peek(orientation, -50f)
-    }
+        fun peekForward() {
+            peek(adjustForRtl(-50f))
+        }
 
-    fun peekBackward(@ViewPager2.Orientation orientation: Int) {
-        peek(orientation, 50f)
-    }
+        fun peekBackward() {
+            peek(adjustForRtl(50f))
+        }
 
-    private fun peek(@ViewPager2.Orientation orientation: Int, offset: Float) {
-        onView(allOf(isDisplayed(), isAssignableFrom(ViewPager2::class.java)))
-            .perform(actionWithAssertions(
-                GeneralSwipeAction(Swipe.SLOW, GeneralLocation.CENTER,
-                    CoordinatesProvider { view ->
-                        val coordinates = GeneralLocation.CENTER.calculateCoordinates(view)
-                        if (orientation == ORIENTATION_HORIZONTAL) {
-                            coordinates[0] += offset
-                        } else {
-                            coordinates[1] += offset
-                        }
-                        coordinates
-                    }, Press.FINGER)))
+        enum class SwipeMethod {
+            ESPRESSO,
+            MANUAL
+        }
+
+        fun swipe(currentPageIx: Int, nextPageIx: Int, method: SwipeMethod = SwipeMethod.ESPRESSO) {
+            val lastPageIx = viewPager.adapter.itemCount - 1
+
+            if (nextPageIx > lastPageIx) {
+                throw IllegalArgumentException("Invalid next page: beyond last page.")
+            }
+
+            if (currentPageIx == nextPageIx) { // dedicated for testing edge behaviour
+                if (nextPageIx == 0) {
+                    swipeBackward(method) // bounce off the "left" edge
+                    return
+                }
+                if (nextPageIx == lastPageIx) { // bounce off the "right" edge
+                    swipeForward(method)
+                    return
+                }
+                throw IllegalArgumentException(
+                    "Invalid sequence. Not on an edge, and current page = next page."
+                )
+            }
+
+            if (Math.abs(nextPageIx - currentPageIx) > 1) {
+                throw IllegalArgumentException(
+                    "Specified next page not adjacent to the current page."
+                )
+            }
+
+            if (nextPageIx > currentPageIx) {
+                swipeForward(method)
+            } else {
+                swipeBackward(method)
+            }
+        }
+
+        fun swipeForward(method: SwipeMethod = SwipeMethod.ESPRESSO) {
+            swiper(method).swipeNext()
+        }
+
+        fun swipeBackward(method: SwipeMethod = SwipeMethod.ESPRESSO) {
+            swiper(method).swipePrevious()
+        }
+
+        private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
+            return when (method) {
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(
+                    viewPager.orientation,
+                    isRtl
+                )
+                SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+            }
+        }
+
+        private fun adjustForRtl(offset: Float): Float {
+            return if (viewPager.orientation == ORIENTATION_HORIZONTAL && isRtl) -offset else offset
+        }
+
+        private fun peek(offset: Float) {
+            onView(allOf(isDisplayed(), isAssignableFrom(ViewPager2::class.java)))
+                .perform(
+                    actionWithAssertions(
+                        GeneralSwipeAction(
+                            Swipe.SLOW, GeneralLocation.CENTER,
+                            CoordinatesProvider { view ->
+                                val coordinates = GeneralLocation.CENTER.calculateCoordinates(view)
+                                if (viewPager.orientation == ORIENTATION_HORIZONTAL) {
+                                    coordinates[0] += offset
+                                } else {
+                                    coordinates[1] += offset
+                                }
+                                coordinates
+                            }, Press.FINGER
+                        )
+                    )
+                )
+        }
     }
 
     /**
@@ -152,17 +256,25 @@ open class BaseTest {
     }
 
     fun Context.setAdapterSync(adapterProvider: AdapterProvider) {
-        val waitForRenderLatch = CountDownLatch(1)
-
-        viewPager.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            waitForRenderLatch.countDown()
-        }
+        val waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
 
         runOnUiThread {
             viewPager.adapter = adapterProvider(activity)
         }
 
         waitForRenderLatch.await(5, TimeUnit.SECONDS)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            // Give slow devices some time to warm up,
+            // to prevent severe frame drops in the smooth scroll
+            Thread.sleep(1000)
+        }
+    }
+
+    fun ViewPager2.addWaitForLayoutChangeLatch(): CountDownLatch {
+        return CountDownLatch(1).also {
+            addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> it.countDown() }
+        }
     }
 
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
@@ -238,14 +350,22 @@ open class BaseTest {
      * 3. Internal activity state is valid (as per activity self-test)
      */
     fun Context.assertBasicState(pageIx: Int, value: String) {
-        assertThat<Int>(viewPager.currentItem, equalTo(pageIx))
+        assertThat<Int>(
+            "viewPager.getCurrentItem() should return $pageIx",
+            viewPager.currentItem, equalTo(pageIx)
+        )
         onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
-                matches(withText(value)))
+            matches(withText(value))
+        )
 
         // FIXME: too tight coupling
         if (viewPager.adapter is FragmentAdapter) {
             val adapter = viewPager.adapter as FragmentAdapter
-            assertThat(adapter.attachCount.get() - adapter.destroyCount.get(), isBetweenInIn(1, 4))
+            assertThat(
+                "Number of fragment attaches minus fragment destroys must be " +
+                        "between 1 and 4 (inclusive)",
+                adapter.attachCount.get() - adapter.destroyCount.get(), isBetweenInIn(1, 4)
+            )
         }
     }
 
@@ -255,23 +375,10 @@ open class BaseTest {
         timeout: Long,
         unit: TimeUnit
     ) {
-        val latch = addWaitForScrolledLatch(targetPage, false)
-
-        // temporary hack to stop the tests from failing
-        // this most likely shows a bug in PageChangeListener - communicating IDLE before
-        // RecyclerView is ready; TODO: investigate further and fix
-        val latchRV = CountDownLatch(1)
-        val rv = getChildAt(0) as RecyclerView
-        rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == 0) {
-                    latchRV.countDown()
-                }
-            }
-        })
+        if (currentItem == targetPage) return
+        val latch = addWaitForScrolledLatch(targetPage, smoothScroll)
         post { setCurrentItem(targetPage, smoothScroll) }
         latch.await(timeout, unit)
-        latchRV.await(timeout, unit)
     }
 
     enum class SortOrder(val sign: Int) {
@@ -317,6 +424,65 @@ typealias AdapterProviderForItems = (items: List<String>) -> AdapterProvider
 
 val fragmentAdapterProvider: AdapterProviderForItems = { items ->
     { activity: TestActivity -> FragmentAdapter(activity.supportFragmentManager, items) }
+}
+
+/**
+ * Same as [fragmentAdapterProvider] but with a custom implementation of
+ * [FragmentStateAdapter.getItemId] and [FragmentStateAdapter.containsItem].
+ * Not suitable for testing [RecyclerView.Adapter.notifyDataSetChanged].
+ */
+val fragmentAdapterProviderCustomIds: AdapterProviderForItems = { items ->
+    { activity ->
+        fragmentAdapterProvider(items)(activity).also {
+            // more than position can represent, so a good test if ids are used consistently
+            val offset = 3L * Int.MAX_VALUE
+            val adapter = it as FragmentAdapter
+            adapter.positionToItemId = { position -> position + offset }
+            adapter.itemIdToContains = { itemId ->
+                val position = itemId - offset
+                position in (0 until adapter.itemCount)
+            }
+        }
+    }
+}
+
+/**
+ * Same as [fragmentAdapterProvider] but with a custom implementation of
+ * [FragmentStateAdapter.getItemId] and [FragmentStateAdapter.containsItem].
+ * Suitable for testing [RecyclerView.Adapter.notifyDataSetChanged].
+ */
+val fragmentAdapterProviderValueId: AdapterProviderForItems = { items ->
+    { activity ->
+        fragmentAdapterProvider(items)(activity).also {
+            val adapter = it as FragmentAdapter
+            adapter.positionToItemId = { position -> items[position].getId() }
+            adapter.itemIdToContains = { itemId -> items.any { item -> item.getId() == itemId } }
+        }
+    }
+}
+
+/** Extracts the sole number from a [String] and converts it to a [Long] */
+private fun (String).getId(): Long {
+    val matches = Regex("[0-9]+").findAll(this).toList()
+    if (matches.size != 1) {
+        throw IllegalStateException("There should be exactly one number in the input string")
+    }
+    return matches.first().value.toLong()
+}
+
+/**
+ * Same as [viewAdapterProvider] but with a custom implementation of
+ * [RecyclerView.Adapter.getItemId].
+ * Suitable for testing [RecyclerView.Adapter.notifyDataSetChanged].mu
+ */
+val viewAdapterProviderValueId: AdapterProviderForItems = { items ->
+    { activity ->
+        viewAdapterProvider(items)(activity).also {
+            val adapter = it as ViewAdapter
+            adapter.positionToItemId = { position -> items[position].getId() }
+            adapter.setHasStableIds(true)
+        }
+    }
 }
 
 val viewAdapterProvider: AdapterProviderForItems = { items -> { ViewAdapter(items) } }

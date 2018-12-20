@@ -33,15 +33,21 @@ import androidx.room.integration.testapp.vo.AvgWeightByAge;
 import androidx.room.integration.testapp.vo.Day;
 import androidx.room.integration.testapp.vo.NameAndLastName;
 import androidx.room.integration.testapp.vo.User;
+import androidx.room.integration.testapp.vo.UserSummary;
 import androidx.sqlite.db.SupportSQLiteQuery;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import org.reactivestreams.Publisher;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -66,6 +72,15 @@ public abstract class UserDao {
     @Query("select * from user where mId IN(:ids)")
     public abstract User[] loadByIds(int... ids);
 
+    @Query("select * from user where mId IN(:ids)")
+    public abstract List<User> loadByIdCollection(Collection<Integer> ids);
+
+    @Query("select * from user where mId IN(:ids)")
+    public abstract List<User> loadByIdSet(Set<Integer> ids);
+
+    @Query("select * from user where mId IN(:ids)")
+    public abstract List<User> loadByIdQueue(Queue<Integer> ids);
+
     @Query("select * from user where custommm = :customField")
     public abstract List<User> findByCustomField(String customField);
 
@@ -86,6 +101,15 @@ public abstract class UserDao {
 
     @Update
     public abstract int update(User user);
+
+    @Update
+    public abstract Completable updateCompletable(User user);
+
+    @Update
+    public abstract Single<Integer> updateSingle(User user);
+
+    @Update
+    public abstract Single<Integer> updateSingleUsers(User user1, User user2);
 
     @Update
     public abstract int updateAll(List<User> users);
@@ -248,4 +272,32 @@ public abstract class UserDao {
             + "OR mName LIKE '%' || 'video' || '%' "
             + "OR mName LIKE '%' || 'games' || '%' ")
     public abstract List<User> getUserWithCoolNames();
+
+    // The subquery is intentional (b/118398616)
+    @Query("SELECT `mId`, `mName` FROM (SELECT * FROM User)")
+    public abstract List<UserSummary> getNames();
+
+    @Insert
+    public abstract ListenableFuture<List<Long>> insertWithLongListFuture(List<User> users);
+
+    @Insert
+    public abstract ListenableFuture<Long[]> insertWithLongArrayFuture(User... users);
+
+    @Insert
+    public abstract ListenableFuture<Long> insertWithLongFuture(User user);
+
+    @Insert
+    public abstract ListenableFuture<Void> insertWithVoidFuture(User user);
+
+    @Delete
+    public abstract ListenableFuture<Integer> deleteWithIntFuture(User user);
+
+    @Delete
+    public abstract ListenableFuture<Void> deleteWithVoidFuture(User user);
+
+    @Update
+    public abstract ListenableFuture<Integer> updateWithIntFuture(User user);
+
+    @Update
+    public abstract ListenableFuture<Void> updateWithVoidFuture(User user);
 }

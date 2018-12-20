@@ -57,6 +57,6 @@ public class ImageCleanupWorker extends Worker {
         }
         TestDatabase.getInstance(getApplicationContext()).getImageDao().clear();
         Log.d(TAG, "Cleanup Complete!");
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

@@ -16,7 +16,6 @@
 
 package androidx.biometric;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,6 +34,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -267,7 +267,7 @@ public class FingerprintDialogFragment extends DialogFragment {
         return false;
     }
 
-    @TargetApi(21)
+    @RequiresApi(21)
     private Drawable getAnimationForTransition(int oldState, int newState) {
         int iconRes;
 

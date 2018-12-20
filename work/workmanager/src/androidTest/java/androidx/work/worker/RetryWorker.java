@@ -36,6 +36,6 @@ public class RetryWorker extends Worker {
     @Override
     public @NonNull Result doWork() {
         Log.d("RetryWorker", "Returning RETRY");
-        return Result.RETRY;
+        return Result.retry();
     }
 }

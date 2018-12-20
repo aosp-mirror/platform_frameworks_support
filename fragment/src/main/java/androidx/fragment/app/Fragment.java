@@ -55,8 +55,8 @@ import androidx.annotation.StringRes;
 import androidx.core.app.SharedElementCallback;
 import androidx.core.util.DebugUtils;
 import androidx.core.view.LayoutInflaterCompat;
-import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
@@ -64,6 +64,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
+import androidx.savedstate.SavedStateRegistry;
+import androidx.savedstate.bundle.BundleSavedStateRegistry;
+import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -86,7 +89,7 @@ import java.util.UUID;
  *
  */
 public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener, LifecycleOwner,
-        ViewModelStoreOwner {
+        ViewModelStoreOwner, BundleSavedStateRegistryOwner {
 
     static final Object USE_DEFAULT_TRANSITION = new Object();
 
@@ -236,14 +239,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // track it separately.
     boolean mIsCreated;
 
-    final LifecycleRegistry mLifecycleRegistry;
+    LifecycleRegistry mLifecycleRegistry;
 
-    // These are initialized in performCreateView and unavailable outside of the
+    // This is initialized in performCreateView and unavailable outside of the
     // onCreateView/onDestroyView lifecycle
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    LifecycleRegistry mViewLifecycleRegistry;
-    LifecycleOwner mViewLifecycleOwner;
+    @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
+
+    BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
 
     @Override
     @NonNull
@@ -323,12 +326,18 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         return mFragmentManager.getViewModelStore(this);
     }
 
+    @NonNull
+    @Override
+    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
+        return mSavedStateRegistry;
+    }
+
     /**
      * State information that has been retrieved from a fragment instance
      * through {@link FragmentManager#saveFragmentInstanceState(Fragment)
      * FragmentManager.saveFragmentInstanceState}.
      */
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     public static class SavedState implements Parcelable {
         final Bundle mState;
 
@@ -400,11 +409,16 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * attributes from a layout resource, although note this happens when the fragment is attached.
      */
     public Fragment() {
+        initLifecycle();
+    }
+
+    private void initLifecycle() {
         mLifecycleRegistry = new LifecycleRegistry(this);
         if (Build.VERSION.SDK_INT >= 19) {
-            mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
+            mLifecycleRegistry.addObserver(new LifecycleEventObserver() {
                 @Override
-                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         if (mView != null) {
                             mView.cancelPendingInputEvents();
@@ -488,7 +502,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                     + " did not call through to super.onViewStateRestored()");
         }
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
         }
     }
 
@@ -511,7 +525,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     @Override
-    @SuppressLint("UnknownNullness")
+    @SuppressLint({"UnknownNullness", "RestrictedApi"})
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         DebugUtils.buildShortClassTag(this, sb);
@@ -632,7 +646,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                         + this + " would create a target cycle");
             }
         }
-        if (fragment != null && fragment.mFragmentManager != null) {
+        if (fragment == null) {
+            mTargetWho = null;
+            mTarget = null;
+        } else if (fragment.mFragmentManager != null) {
             // Just save the reference to the Fragment
             mTargetWho = fragment.mWho;
         } else {
@@ -867,6 +884,29 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Returns the parent Fragment containing this Fragment.
+     *
+     * @throws IllegalStateException if this Fragment is attached directly to an Activity or
+     * other Fragment host.
+     * @see #getParentFragment()
+     */
+    @NonNull
+    public final Fragment requireParentFragment() {
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment == null) {
+            Context context = getContext();
+            if (context == null) {
+                throw new IllegalStateException("Fragment " + this + " is not attached to"
+                        + " any Fragment or host");
+            } else {
+                throw new IllegalStateException("Fragment " + this + " is not a child Fragment, it"
+                        + " is directly attached to " + getContext());
+            }
+        }
+        return parentFragment;
+    }
+
+    /**
      * Return true if the fragment is currently added to its activity.
      */
     final public boolean isAdded() {
@@ -954,8 +994,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     /**
      * Control whether a fragment instance is retained across Activity
-     * re-creation (such as from a configuration change).  This can only
-     * be used with fragments not in the back stack.  If set, the fragment
+     * re-creation (such as from a configuration change). If set, the fragment
      * lifecycle will be slightly different when an activity is recreated:
      * <ul>
      * <li> {@link #onDestroy()} will not be called (but {@link #onDetach()} still
@@ -1504,6 +1543,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
+        mSavedStateRegistry.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
         if (mChildFragmentManager != null
                 && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
@@ -1584,6 +1624,22 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable
     public View getView() {
         return mView;
+    }
+
+    /**
+     * Get the root view for the fragment's layout (the one returned by {@link #onCreateView}).
+     *
+     * @throws IllegalStateException if no view was returned by {@link #onCreateView}.
+     * @see #getView()
+     */
+    @NonNull
+    public final View requireView() {
+        View view = getView();
+        if (view == null) {
+            throw new IllegalStateException("Fragment " + this + " did not return a View from"
+                    + " onCreateView() or this was called before onCreateView().");
+        }
+        return view;
     }
 
     /**
@@ -1744,6 +1800,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * internally manages, not things the application sets.
      */
     void initState() {
+        initLifecycle();
+        mSavedStateRegistry = new BundleSavedStateRegistry();
         mWho = UUID.randomUUID().toString();
         mAdded = false;
         mRemoving = false;
@@ -2426,25 +2484,15 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             mChildFragmentManager.noteStateNotSaved();
         }
         mPerformedCreateView = true;
-        mViewLifecycleOwner = new LifecycleOwner() {
-            @NonNull
-            @Override
-            public Lifecycle getLifecycle() {
-                if (mViewLifecycleRegistry == null) {
-                    mViewLifecycleRegistry = new LifecycleRegistry(mViewLifecycleOwner);
-                }
-                return mViewLifecycleRegistry;
-            }
-        };
-        mViewLifecycleRegistry = null;
+        mViewLifecycleOwner = new FragmentViewLifecycleOwner();
         mView = onCreateView(inflater, container, savedInstanceState);
         if (mView != null) {
-            // Initialize the LifecycleRegistry if needed
-            mViewLifecycleOwner.getLifecycle();
+            // Initialize the view lifecycle
+            mViewLifecycleOwner.initialize();
             // Then inform any Observers of the new LifecycleOwner
             mViewLifecycleOwnerLiveData.setValue(mViewLifecycleOwner);
         } else {
-            if (mViewLifecycleRegistry != null) {
+            if (mViewLifecycleOwner.isInitialized()) {
                 throw new IllegalStateException("Called getViewLifecycleOwner() but "
                         + "onCreateView() returned null");
             }
@@ -2485,7 +2533,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START);
         }
     }
 
@@ -2507,7 +2555,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         }
     }
 
@@ -2625,6 +2673,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
+        mSavedStateRegistry.performSave(outState);
         if (mChildFragmentManager != null) {
             Parcelable p = mChildFragmentManager.saveAllState();
             if (p != null) {
@@ -2635,7 +2684,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performPause() {
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
         if (mChildFragmentManager != null) {
@@ -2652,7 +2701,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performStop() {
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         }
         mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         if (mChildFragmentManager != null) {
@@ -2669,7 +2718,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performDestroyView() {
         if (mView != null) {
-            mViewLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
+            mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
         }
         if (mChildFragmentManager != null) {
             mChildFragmentManager.dispatchDestroyView();

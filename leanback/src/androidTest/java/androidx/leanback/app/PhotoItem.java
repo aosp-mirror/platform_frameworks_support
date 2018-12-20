@@ -15,13 +15,14 @@
  */
 package androidx.leanback.app;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
  * PhotoItem.
  */
-@SuppressWarnings("BanParcelableUsage")
+@SuppressLint("BanParcelableUsage")
 public class PhotoItem implements Parcelable {
     private String mTitle;
     private String mContent;

@@ -30,7 +30,7 @@ import androidx.work.Logger;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class StorageNotLowTracker extends BroadcastReceiverConstraintTracker<Boolean> {
 
-    private static final String TAG = "StorageNotLowTracker";
+    private static final String TAG = Logger.tagWithPrefix("StorageNotLowTracker");
 
     /**
      * Create an instance of {@link StorageNotLowTracker}.
@@ -81,7 +81,7 @@ public class StorageNotLowTracker extends BroadcastReceiverConstraintTracker<Boo
             return; // Should never happen since the IntentFilter was configured.
         }
 
-        Logger.debug(TAG, String.format("Received %s", intent.getAction()));
+        Logger.get().debug(TAG, String.format("Received %s", intent.getAction()));
 
         switch (intent.getAction()) {
             case Intent.ACTION_DEVICE_STORAGE_OK:

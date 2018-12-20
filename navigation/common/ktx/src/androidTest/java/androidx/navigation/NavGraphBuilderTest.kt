@@ -17,7 +17,6 @@
 package androidx.navigation
 
 import android.support.annotation.IdRes
-import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import com.google.common.truth.Truth.assertWithMessage
@@ -28,8 +27,8 @@ import org.junit.runner.RunWith
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 class NavGraphBuilderTest {
-    private val provider = SimpleNavigatorProvider().apply {
-        addNavigator(NavGraphNavigator(InstrumentationRegistry.getTargetContext()))
+    private val provider = NavigatorProvider().apply {
+        addNavigator(NavGraphNavigator(this))
         addNavigator(NoOpNavigator())
     }
 
@@ -46,7 +45,7 @@ class NavGraphBuilderTest {
     @Test
     fun navigationUnaryPlus() {
         val graph = provider.navigation(startDestination = DESTINATION_ID) {
-            +NavDestination(provider[NoOpNavigator::class]).apply {
+            +provider[NoOpNavigator::class].createDestination().apply {
                 id = DESTINATION_ID
             }
         }
@@ -58,7 +57,7 @@ class NavGraphBuilderTest {
     @Test
     fun navigationAddDestination() {
         val graph = provider.navigation(startDestination = DESTINATION_ID) {
-            val destination = NavDestination(provider[NoOpNavigator::class]).apply {
+            val destination = provider[NoOpNavigator::class].createDestination().apply {
                 id = DESTINATION_ID
             }
             addDestination(destination)
@@ -98,5 +97,5 @@ private const val SECOND_DESTINATION_ID = 2
  */
 fun NavGraphBuilder.navDestination(
     @IdRes id: Int,
-    block: NavDestinationBuilder<NavDestination>.() -> Unit
-) = destination(NavDestinationBuilder(provider[NoOpNavigator::class], id).apply(block))
+    builder: NavDestinationBuilder<NavDestination>.() -> Unit
+) = destination(NavDestinationBuilder(provider[NoOpNavigator::class], id).apply(builder))

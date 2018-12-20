@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.Observer;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
@@ -159,6 +160,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     private boolean mShowActions = false;
     private boolean mShowLastUpdated = true;
     private boolean mCurrentSliceLoggedVisible = false;
+    private boolean mShowTitleItems = false;
+    private boolean mShowHeaderDivider = false;
+    private boolean mShowActionDividers = false;
 
     private int mShortcutSize;
     private int mMinTemplateHeight;
@@ -228,6 +232,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         setClipToPadding(false);
 
         super.setOnClickListener(this);
+    }
+
+    @VisibleForTesting
+    void setSliceViewPolicy(SliceViewPolicy policy) {
+        mViewPolicy = policy;
     }
 
     /**
@@ -344,9 +353,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         if (mode == MODE_SHORTCUT) {
             return mShortcutSize;
         }
-        if (maxHeight > 0 && maxHeight <= mMinTemplateHeight) {
-            maxHeight = mMinTemplateHeight;
-            mViewPolicy.setMaxSmallHeight(mMinTemplateHeight);
+        if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
+            if (maxHeight <= mMinTemplateHeight) {
+                maxHeight = mMinTemplateHeight;
+            }
+            mViewPolicy.setMaxSmallHeight(maxHeight);
         } else {
             mViewPolicy.setMaxSmallHeight(0);
         }
@@ -442,10 +453,13 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         initSliceMetrics(slice);
         boolean isUpdate = slice != null && mCurrentSlice != null
                 && slice.getUri().equals(mCurrentSlice.getUri());
+        SliceMetadata oldSliceData = mSliceMetadata;
+        mCurrentSlice = slice;
+        mSliceMetadata = mCurrentSlice != null ? SliceMetadata.from(getContext(), mCurrentSlice)
+                : null;
         if (isUpdate) {
             // If its an update check the loading state
-            SliceMetadata oldSliceData = SliceMetadata.from(getContext(), mCurrentSlice);
-            SliceMetadata newSliceData = SliceMetadata.from(getContext(), slice);
+            SliceMetadata newSliceData = mSliceMetadata;
             if (oldSliceData.getLoadingState() == SliceMetadata.LOADED_ALL
                     && newSliceData.getLoadingState() == SliceMetadata.LOADED_NONE) {
                 // If it's the same slice going from "loaded all" to "loaded none"... let's
@@ -455,9 +469,17 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         } else {
             mCurrentView.resetView();
         }
-        mCurrentSlice = slice;
-        mListContent = new ListContent(getContext(), mCurrentSlice);
-        if (!mListContent.isValid()) {
+        mListContent = mSliceMetadata != null ? mSliceMetadata.getListContent() : null;
+        if (mShowTitleItems) {
+            showTitleItems(true);
+        }
+        if (mShowHeaderDivider) {
+            showHeaderDivider(true);
+        }
+        if (mShowActionDividers) {
+            showActionDividers(true);
+        }
+        if (mListContent == null || !mListContent.isValid()) {
             mActions = null;
             mCurrentView.resetView();
             updateActions();
@@ -467,7 +489,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mCurrentView.setLoadingActions(null);
 
         // Check if the slice content is expired and show when it was last updated
-        mSliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
         mActions = mSliceMetadata.getSliceActions();
         mCurrentView.setLastUpdated(mSliceMetadata.getLastUpdatedTime());
         mCurrentView.setShowLastUpdated(mShowLastUpdated && mSliceMetadata.isExpired());
@@ -614,6 +635,37 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      */
     public @SliceMode int getMode() {
         return mViewPolicy.getMode();
+    }
+
+    /**
+     * Whether this view should show title items on the first row of the slice.
+     * Title items appear at the start of the row.
+     */
+    public void showTitleItems(boolean enabled) {
+        mShowTitleItems = enabled;
+        if (mListContent != null) {
+            mListContent.showTitleItems(enabled);
+        }
+    }
+
+    /**
+     * Whether this view should show the header divider.
+     */
+    public void showHeaderDivider(boolean enabled) {
+        mShowHeaderDivider = enabled;
+        if (mListContent != null) {
+            mListContent.showHeaderDivider(enabled);
+        }
+    }
+
+    /**
+     * Whether this view should show action dividers for rows.
+     */
+    public void showActionDividers(boolean enabled) {
+        mShowActionDividers = enabled;
+        if (mListContent != null) {
+            mListContent.showActionDividers(enabled);
+        }
     }
 
     /**

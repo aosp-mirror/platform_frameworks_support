@@ -15,6 +15,8 @@
  */
 package androidx.fragment.app;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -27,12 +29,14 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -67,6 +71,31 @@ public class FragmentTest {
     @SmallTest
     @UiThreadTest
     @Test
+    public void testRequireView() {
+        StrictViewFragment fragment1 = new StrictViewFragment();
+        mActivity.getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.content, fragment1)
+                .commitNow();
+        assertThat(fragment1.requireView())
+                .isNotNull();
+    }
+
+    @SmallTest
+    @UiThreadTest
+    @Test(expected = IllegalStateException.class)
+    public void testRequireViewWithoutView() {
+        StrictFragment fragment1 = new StrictFragment();
+        mActivity.getSupportFragmentManager()
+                .beginTransaction()
+                .add(fragment1, "fragment")
+                .commitNow();
+        fragment1.requireView();
+    }
+
+    @SmallTest
+    @UiThreadTest
+    @Test
     public void testOnCreateOrder() throws Throwable {
         OrderFragment fragment1 = new OrderFragment();
         OrderFragment fragment2 = new OrderFragment();
@@ -81,6 +110,7 @@ public class FragmentTest {
 
     @LargeTest
     @Test
+    @SdkSuppress(minSdkVersion = 16) // waitForHalfFadeIn requires API 16
     public void testChildFragmentManagerGone() throws Throwable {
         final FragmentA fragmentA = new FragmentA();
         final FragmentB fragmentB = new FragmentB();
@@ -127,11 +157,12 @@ public class FragmentTest {
         FragmentTestUtil.popBackStackImmediate(mActivityRule);
     }
 
+    @RequiresApi(16) // ViewTreeObserver.OnDrawListener was added in API 16
     private void waitForHalfFadeIn(Fragment fragment) throws Throwable {
         if (fragment.getView() == null) {
             FragmentTestUtil.waitForExecution(mActivityRule);
         }
-        final View view = fragment.getView();
+        final View view = fragment.requireView();
         final Animation animation = view.getAnimation();
         if (animation == null || animation.hasEnded()) {
             // animation has already completed
@@ -184,6 +215,24 @@ public class FragmentTest {
     }
 
     @SmallTest
+    @UiThreadTest
+    @Test
+    public void testRequireParentFragment() {
+        StrictFragment parentFragment = new StrictFragment();
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .add(parentFragment, "parent")
+                .commitNow();
+
+        FragmentManager childFragmentManager = parentFragment.getChildFragmentManager();
+        StrictFragment childFragment = new StrictFragment();
+        childFragmentManager.beginTransaction()
+                .add(childFragment, "child")
+                .commitNow();
+        assertThat(childFragment.requireParentFragment())
+                .isSameAs(parentFragment);
+    }
+
+    @SmallTest
     @Test
     public void requireMethodsThrowsWhenNotAttached() {
         Fragment fragment = new Fragment();
@@ -199,6 +248,16 @@ public class FragmentTest {
         }
         try {
             fragment.requireHost();
+            fail();
+        } catch (IllegalStateException expected) {
+        }
+        try {
+            fragment.requireParentFragment();
+            fail();
+        } catch (IllegalStateException expected) {
+        }
+        try {
+            fragment.requireView();
             fail();
         } catch (IllegalStateException expected) {
         }

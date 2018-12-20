@@ -17,6 +17,9 @@
 
 package androidx.fragment.app;
 
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -51,6 +54,9 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.test.EmptyFragmentTestActivity;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.MediumTest;
@@ -88,6 +94,9 @@ public class FragmentLifecycleTest {
         assertTrue("fragment is not added", strictFragment.isAdded());
         assertFalse("fragment is detached", strictFragment.isDetached());
         assertTrue("fragment is not resumed", strictFragment.isResumed());
+        Lifecycle lifecycle = strictFragment.getLifecycle();
+        assertThat(lifecycle.getCurrentState())
+                .isEqualTo(Lifecycle.State.RESUMED);
 
         // Test removal as well; StrictFragment will throw here too.
         fm.beginTransaction().remove(strictFragment).commit();
@@ -95,6 +104,12 @@ public class FragmentLifecycleTest {
 
         assertFalse("fragment is added", strictFragment.isAdded());
         assertFalse("fragment is resumed", strictFragment.isResumed());
+        assertThat(lifecycle.getCurrentState())
+                .isEqualTo(Lifecycle.State.DESTROYED);
+        // Once removed, a new Lifecycle should be created just in case
+        // the developer reuses the same Fragment
+        assertThat(strictFragment.getLifecycle().getCurrentState())
+                .isEqualTo(Lifecycle.State.INITIALIZED);
 
         // This one is perhaps counterintuitive; "detached" means specifically detached
         // but still managed by a FragmentManager. The .remove call above
@@ -324,12 +339,136 @@ public class FragmentLifecycleTest {
 
     @Test
     @UiThreadTest
+    public void testSavedInstanceStateAfterRestore() {
+
+        final ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc1 = startupFragmentController(null, viewModelStore);
+        final FragmentManager fm1 = fc1.getSupportFragmentManager();
+
+        // Add the initial state
+        final StrictFragment parentFragment = new StrictFragment();
+        parentFragment.setRetainInstance(true);
+        final StrictFragment childFragment = new StrictFragment();
+        fm1.beginTransaction().add(parentFragment, "parent").commitNow();
+        final FragmentManager childFragmentManager = parentFragment.getChildFragmentManager();
+        childFragmentManager.beginTransaction().add(childFragment, "child").commitNow();
+
+        // Confirm the initial state
+        assertWithMessage("Initial parent saved instance state should be null")
+                .that(parentFragment.mSavedInstanceState)
+                .isNull();
+        assertWithMessage("Initial child saved instance state should be null")
+                .that(childFragment.mSavedInstanceState)
+                .isNull();
+
+        // Bring the state back down to destroyed, simulating an activity restart
+        fc1.dispatchPause();
+        final Parcelable savedState = fc1.saveAllState();
+        fc1.dispatchStop();
+        fc1.dispatchDestroy();
+
+        // Create the new controller and restore state
+        final FragmentController fc2 = startupFragmentController(savedState, viewModelStore);
+        final FragmentManager fm2 = fc2.getSupportFragmentManager();
+
+        final StrictFragment restoredParentFragment = (StrictFragment) fm2
+                .findFragmentByTag("parent");
+        assertNotNull("Parent fragment was not restored", restoredParentFragment);
+        final StrictFragment restoredChildFragment = (StrictFragment) restoredParentFragment
+                .getChildFragmentManager().findFragmentByTag("child");
+        assertNotNull("Child fragment was not restored", restoredChildFragment);
+
+        assertWithMessage("Parent fragment saved instance state should still be null "
+                + "since it is a retained Fragment")
+                .that(restoredParentFragment.mSavedInstanceState)
+                .isNull();
+        assertWithMessage("Child fragment saved instance state should be non-null")
+                .that(restoredChildFragment.mSavedInstanceState)
+                .isNotNull();
+
+        // Bring the state back down to destroyed before we finish the test
+        shutdownFragmentController(fc2, viewModelStore);
+    }
+
+    @Test
+    @UiThreadTest
+    public void restoreNestedFragmentsOnBackStack() {
+
+        final ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc1 = FragmentController.createController(
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
+
+        final FragmentManager fm1 = fc1.getSupportFragmentManager();
+
+        fc1.attachHost(null);
+        fc1.dispatchCreate();
+
+        // Add the initial state
+        final StrictFragment parentFragment = new StrictFragment();
+        final StrictFragment childFragment = new StrictFragment();
+        fm1.beginTransaction().add(parentFragment, "parent").commitNow();
+        final FragmentManager childFragmentManager = parentFragment.getChildFragmentManager();
+        childFragmentManager.beginTransaction().add(childFragment, "child").commitNow();
+
+        // Now add a Fragment to the back stack
+        final StrictFragment replacementChildFragment = new StrictFragment();
+        childFragmentManager.beginTransaction()
+                .remove(childFragment)
+                .add(replacementChildFragment, "child")
+                .addToBackStack("back_stack").commit();
+        childFragmentManager.executePendingTransactions();
+
+        // Move the activity to resumed
+        fc1.dispatchActivityCreated();
+        fc1.noteStateNotSaved();
+        fc1.execPendingActions();
+        fc1.dispatchStart();
+        fc1.dispatchResume();
+        fc1.execPendingActions();
+
+        // Now bring the state back down
+        fc1.dispatchPause();
+        final Parcelable savedState = fc1.saveAllState();
+        fc1.dispatchStop();
+        fc1.dispatchDestroy();
+
+        // Create the new controller and restore state
+        final FragmentController fc2 = FragmentController.createController(
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
+
+        final FragmentManager fm2 = fc2.getSupportFragmentManager();
+
+        fc2.attachHost(null);
+        fc2.restoreSaveState(savedState);
+        fc2.dispatchCreate();
+
+        final StrictFragment restoredParentFragment = (StrictFragment) fm2
+                .findFragmentByTag("parent");
+        assertNotNull("Parent fragment was not restored", restoredParentFragment);
+        final StrictFragment restoredChildFragment = (StrictFragment) restoredParentFragment
+                .getChildFragmentManager().findFragmentByTag("child");
+        assertNotNull("Child fragment was not restored", restoredChildFragment);
+
+        fc2.dispatchActivityCreated();
+        fc2.noteStateNotSaved();
+        fc2.execPendingActions();
+        fc2.dispatchStart();
+        fc2.dispatchResume();
+        fc2.execPendingActions();
+
+        // Bring the state back down to destroyed before we finish the test
+        shutdownFragmentController(fc2, viewModelStore);
+    }
+
+    @Test
+    @UiThreadTest
     public void restoreRetainedInstanceFragments() throws Throwable {
         // Create a new FragmentManager in isolation, nest some assorted fragments
         // and then restore them to a second new FragmentManager.
 
+        final ViewModelStore viewModelStore = new ViewModelStore();
         final FragmentController fc1 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm1 = fc1.getSupportFragmentManager();
 
@@ -399,18 +538,17 @@ public class FragmentLifecycleTest {
         // Bring the state back down to destroyed, simulating an activity restart
         fc1.dispatchPause();
         final Parcelable savedState = fc1.saveAllState();
-        final FragmentManagerNonConfig nonconf = fc1.retainNestedNonConfig();
         fc1.dispatchStop();
         fc1.dispatchDestroy();
 
         // Create the new controller and restore state
         final FragmentController fc2 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm2 = fc2.getSupportFragmentManager();
 
         fc2.attachHost(null);
-        fc2.restoreAllState(savedState, nonconf);
+        fc2.restoreSaveState(savedState);
         fc2.dispatchCreate();
 
         // Confirm that the restored fragments are available and in the expected states
@@ -466,10 +604,7 @@ public class FragmentLifecycleTest {
         // Test that the fragments are in the configuration we expect
 
         // Bring the state back down to destroyed before we finish the test
-        fc2.dispatchPause();
-        fc2.saveAllState();
-        fc2.dispatchStop();
-        fc2.dispatchDestroy();
+        shutdownFragmentController(fc2, viewModelStore);
 
         assertTrue("grandparent not destroyed", restoredGrandparent.mCalledOnDestroy);
         assertTrue("parent not destroyed", restoredParent.mCalledOnDestroy);
@@ -488,8 +623,9 @@ public class FragmentLifecycleTest {
         // 5. Finish Activity C
         // 6. Finish Activity B
 
+        final ViewModelStore viewModelStore = new ViewModelStore();
         final FragmentController fc1 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm1 = fc1.getSupportFragmentManager();
 
@@ -524,17 +660,16 @@ public class FragmentLifecycleTest {
 
         // Finish the transparent activity, causing a config change
         fc1.dispatchStop();
-        final FragmentManagerNonConfig nonconf = fc1.retainNestedNonConfig();
         fc1.dispatchDestroy();
 
         // Create the new controller and restore state
         final FragmentController fc2 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm2 = fc2.getSupportFragmentManager();
 
         fc2.attachHost(null);
-        fc2.restoreAllState(savedState, nonconf);
+        fc2.restoreSaveState(savedState);
         fc2.dispatchCreate();
 
         final StateSaveFragment restoredFragment = (StateSaveFragment) fm2
@@ -551,16 +686,14 @@ public class FragmentLifecycleTest {
         fc2.execPendingActions();
 
         // Bring the state back down to destroyed before we finish the test
-        fc2.dispatchPause();
-        fc2.saveAllState();
-        fc2.dispatchStop();
-        fc2.dispatchDestroy();
+        shutdownFragmentController(fc2, viewModelStore);
     }
 
     @Test
     @UiThreadTest
     public void saveAnimationState() throws Throwable {
-        FragmentController fc = startupFragmentController(null);
+        ViewModelStore viewModelStore = new ViewModelStore();
+        FragmentController fc = startupFragmentController(null, viewModelStore);
         FragmentManager fm = fc.getSupportFragmentManager();
 
         fm.beginTransaction()
@@ -573,7 +706,7 @@ public class FragmentLifecycleTest {
         assertAnimationsMatch(fm, 0, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         // Causes save and restore of fragments and back stack
-        fc = restartFragmentController(fc);
+        fc = restartFragmentController(fc, viewModelStore);
         fm = fc.getSupportFragmentManager();
 
         assertAnimationsMatch(fm, 0, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
@@ -588,7 +721,7 @@ public class FragmentLifecycleTest {
         assertAnimationsMatch(fm, R.anim.fade_in, R.anim.fade_out, 0, 0);
 
         // Causes save and restore of fragments and back stack
-        fc = restartFragmentController(fc);
+        fc = restartFragmentController(fc, viewModelStore);
         fm = fc.getSupportFragmentManager();
 
         assertAnimationsMatch(fm, R.anim.fade_in, R.anim.fade_out, 0, 0);
@@ -597,7 +730,7 @@ public class FragmentLifecycleTest {
 
         assertAnimationsMatch(fm, 0, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
-        shutdownFragmentController(fc);
+        shutdownFragmentController(fc, viewModelStore);
     }
 
     /**
@@ -609,8 +742,9 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void childFragmentManagerAttach() throws Throwable {
-        FragmentController fc = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+        final ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = FragmentController.createController(
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
         fc.attachHost(null);
         fc.dispatchCreate();
 
@@ -660,6 +794,7 @@ public class FragmentLifecycleTest {
         verify(mockRecursiveLc, times(1)).onFragmentStopped(fm, fragment);
         verify(mockRecursiveLc, times(1)).onFragmentStopped(fm, childFragment);
 
+        viewModelStore.clear();
         fc.dispatchDestroy();
 
         verify(mockLc, times(1)).onFragmentDestroyed(fm, fragment);
@@ -673,8 +808,9 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void fragmentLifecycleCallbacks() throws Throwable {
-        FragmentController fc = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+        final ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = FragmentController.createController(
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
         fc.attachHost(null);
         fc.dispatchCreate();
 
@@ -694,8 +830,7 @@ public class FragmentLifecycleTest {
         assertTrue("parent fragment did not receive onAttachFragment",
                 fragment.mCalledOnAttachFragment);
 
-        fc.dispatchStop();
-        fc.dispatchDestroy();
+        shutdownFragmentController(fc, viewModelStore);
     }
 
     /**
@@ -704,7 +839,8 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void fragmentDestroyedOnFinish() throws Throwable {
-        FragmentController fc = startupFragmentController(null);
+        ViewModelStore viewModelStore = new ViewModelStore();
+        FragmentController fc = startupFragmentController(null, viewModelStore);
         FragmentManager fm = fc.getSupportFragmentManager();
 
         StrictViewFragment fragmentA = StrictViewFragment.create(R.layout.fragment_a);
@@ -718,7 +854,7 @@ public class FragmentLifecycleTest {
                 .addToBackStack(null)
                 .commit();
         fm.executePendingTransactions();
-        shutdownFragmentController(fc);
+        shutdownFragmentController(fc, viewModelStore);
         assertTrue(fragmentB.mCalledOnDestroy);
         assertTrue(fragmentA.mCalledOnDestroy);
     }
@@ -743,9 +879,9 @@ public class FragmentLifecycleTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final FragmentController fc1 = FragmentController.createController(
-                        new HostCallbacks(mActivityRule.getActivity()));
-                FragmentTestUtil.resume(mActivityRule, fc1, null);
+                final ViewModelStore viewModelStore = new ViewModelStore();
+                final FragmentController fc1 = startupFragmentController(
+                        null, viewModelStore);
 
                 final FragmentManager fm1 = fc1.getSupportFragmentManager();
 
@@ -762,9 +898,12 @@ public class FragmentLifecycleTest {
 
                 // Now shut down the fragment controller. When fromState > toState, this should
                 // result in an exception
-                Pair<Parcelable, FragmentManagerNonConfig> savedState = null;
+                Parcelable savedState;
                 try {
-                    savedState = FragmentTestUtil.destroy(mActivityRule, fc1);
+                    fc1.dispatchPause();
+                    savedState = fc1.saveAllState();
+                    fc1.dispatchStop();
+                    fc1.dispatchDestroy();
                     if (fromState > toState) {
                         fail("Expected IllegalStateException when moving from "
                                 + StrictFragment.stateToString(fromState) + " to "
@@ -783,10 +922,8 @@ public class FragmentLifecycleTest {
                 // fromState < toState. We want to catch the fragment while it
                 // is being restored as the fragment controller state is being brought up.
 
-                final FragmentController fc2 = FragmentController.createController(
-                        new HostCallbacks(mActivityRule.getActivity()));
                 try {
-                    FragmentTestUtil.resume(mActivityRule, fc2, savedState);
+                    startupFragmentController(savedState, viewModelStore);
 
                     fail("Expected IllegalStateException when moving from "
                             + StrictFragment.stateToString(fromState) + " to "
@@ -805,37 +942,35 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void noPrematureStateChange() throws Throwable {
-        FragmentController fc = startupFragmentController(null);
+        ViewModelStore viewModelStore = new ViewModelStore();
+        FragmentController fc = startupFragmentController(null, viewModelStore);
         FragmentManager fm = fc.getSupportFragmentManager();
 
         fm.beginTransaction()
                 .add(new StrictFragment(), "1")
                 .commitNow();
 
-        Parcelable savedState = shutdownFragmentController(fc);
-        fc = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+        fc = restartFragmentController(fc, viewModelStore);
 
-        fc.attachHost(null);
-        fc.dispatchCreate();
-        fc.dispatchActivityCreated();
-        fc.noteStateNotSaved();
-        fc.execPendingActions();
-        fc.dispatchStart();
-        fc.dispatchResume();
-        fc.restoreAllState(savedState, (FragmentManagerNonConfig) null);
-        fc.dispatchResume();
         fm = fc.getSupportFragmentManager();
 
         StrictFragment fragment1 = (StrictFragment) fm.findFragmentByTag("1");
+        assertWithMessage("Fragment should be resumed after restart")
+                .that(fragment1.mCalledOnResume)
+                .isTrue();
+        fragment1.mCalledOnResume = false;
+        fc.dispatchResume();
 
-        assertFalse(fragment1.mCalledOnResume);
+        assertWithMessage("Fragment should not get onResume() after second dispatchResume()")
+                .that(fragment1.mCalledOnResume)
+                .isFalse();
     }
 
     @Test
     @UiThreadTest
     public void testIsStateSaved() throws Throwable {
-        FragmentController fc = startupFragmentController(null);
+        ViewModelStore viewModelStore = new ViewModelStore();
+        FragmentController fc = startupFragmentController(null, viewModelStore);
         FragmentManager fm = fc.getSupportFragmentManager();
 
         Fragment f = new StrictFragment();
@@ -854,6 +989,7 @@ public class FragmentLifecycleTest {
 
         assertTrue("fragment reported state not saved after stop", f.isStateSaved());
 
+        viewModelStore.clear();
         fc.dispatchDestroy();
 
         assertFalse("fragment reported state saved after destroy", f.isStateSaved());
@@ -862,7 +998,8 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void testSetArgumentsLifecycle() throws Throwable {
-        FragmentController fc = startupFragmentController(null);
+        ViewModelStore viewModelStore = new ViewModelStore();
+        FragmentController fc = startupFragmentController(null, viewModelStore);
         FragmentManager fm = fc.getSupportFragmentManager();
 
         Fragment f = new StrictFragment();
@@ -895,6 +1032,7 @@ public class FragmentLifecycleTest {
         }
         assertTrue("fragment allowed setArguments after stop", threw);
 
+        viewModelStore.clear();
         fc.dispatchDestroy();
 
         // Fully destroyed, so fragments have been removed.
@@ -909,8 +1047,9 @@ public class FragmentLifecycleTest {
     @Test
     @UiThreadTest
     public void targetFragmentRestoreLifecycleStateBackStack() throws Throwable {
+        ViewModelStore viewModelStore = new ViewModelStore();
         final FragmentController fc1 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm1 = fc1.getSupportFragmentManager();
 
@@ -936,40 +1075,19 @@ public class FragmentLifecycleTest {
         fc1.dispatchResume();
         fc1.execPendingActions();
 
-        // Bring the state back down to destroyed, simulating an activity restart
-        fc1.dispatchPause();
-        final Parcelable savedState = fc1.saveAllState();
-        final FragmentManagerNonConfig nonconf = fc1.retainNestedNonConfig();
-        fc1.dispatchStop();
-        fc1.dispatchDestroy();
-
-        final FragmentController fc2 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
-        final FragmentManager fm2 = fc2.getSupportFragmentManager();
-
-        fc2.attachHost(null);
-        fc2.restoreAllState(savedState, nonconf);
-        fc2.dispatchCreate();
-
-        fc2.dispatchActivityCreated();
-        fc2.noteStateNotSaved();
-        fc2.execPendingActions();
-        fc2.dispatchStart();
-        fc2.dispatchResume();
-        fc2.execPendingActions();
+        // Simulate an activity restart
+        final FragmentController fc2 = restartFragmentController(fc1, viewModelStore);
 
         // Bring the state back down to destroyed before we finish the test
-        fc2.dispatchPause();
-        fc2.saveAllState();
-        fc2.dispatchStop();
-        fc2.dispatchDestroy();
+        shutdownFragmentController(fc2, viewModelStore);
     }
 
     @Test
     @UiThreadTest
     public void targetFragmentRestoreLifecycleStateManagerOrder() throws Throwable {
+        ViewModelStore viewModelStore = new ViewModelStore();
         final FragmentController fc1 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
 
         final FragmentManager fm1 = fc1.getSupportFragmentManager();
 
@@ -996,33 +1114,204 @@ public class FragmentLifecycleTest {
         fc1.dispatchResume();
         fc1.execPendingActions();
 
-        // Bring the state back down to destroyed, simulating an activity restart
-        fc1.dispatchPause();
-        final Parcelable savedState = fc1.saveAllState();
-        final FragmentManagerNonConfig nonconf = fc1.retainNestedNonConfig();
-        fc1.dispatchStop();
-        fc1.dispatchDestroy();
-
-        final FragmentController fc2 = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
-        final FragmentManager fm2 = fc2.getSupportFragmentManager();
-
-        fc2.attachHost(null);
-        fc2.restoreAllState(savedState, nonconf);
-        fc2.dispatchCreate();
-
-        fc2.dispatchActivityCreated();
-        fc2.noteStateNotSaved();
-        fc2.execPendingActions();
-        fc2.dispatchStart();
-        fc2.dispatchResume();
-        fc2.execPendingActions();
+        // Simulate an activity restart
+        final FragmentController fc2 = restartFragmentController(fc1, viewModelStore);
 
         // Bring the state back down to destroyed before we finish the test
-        fc2.dispatchPause();
-        fc2.saveAllState();
-        fc2.dispatchStop();
-        fc2.dispatchDestroy();
+        shutdownFragmentController(fc2, viewModelStore);
+    }
+
+    @Test
+    @UiThreadTest
+    public void targetFragmentClearedWhenSetToNull() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setTargetFragment(target, 0);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(target, "target").add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        referrer.setTargetFragment(null, 0);
+
+        assertWithMessage("Target Fragment should cleared after setTargetFragment with null")
+                .that(referrer.getTargetFragment())
+                .isNull();
+
+        fm.beginTransaction()
+                .remove(referrer)
+                .commitNow();
+
+        assertWithMessage("Target Fragment should still be cleared after being removed")
+                .that(referrer.getTargetFragment())
+                .isNull();
+
+        shutdownFragmentController(fc, viewModelStore);
+    }
+
+
+    /**
+     * Test the availability of getTargetFragment() when the target fragment is
+     * not retained and the referrer fragment is not retained.
+     */
+    @Test
+    @UiThreadTest
+    public void targetFragmentNonRetainedNonRetained() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setTargetFragment(target, 0);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(target, "target").add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction()
+                .remove(referrer)
+                .commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being removed")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        shutdownFragmentController(fc, viewModelStore);
+    }
+
+    /**
+     * Test the availability of getTargetFragment() when the target fragment is
+     * retained and the referrer fragment is not retained.
+     */
+    @Test
+    @UiThreadTest
+    public void targetFragmentRetainedNonRetained() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        target.setRetainInstance(true);
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setTargetFragment(target, 0);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(target, "target").add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction()
+                .remove(referrer)
+                .commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being removed")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        shutdownFragmentController(fc, viewModelStore);
+    }
+
+    /**
+     * Test the availability of getTargetFragment() when the target fragment is
+     * not retained and the referrer fragment is retained.
+     */
+    @Test
+    @UiThreadTest
+    public void targetFragmentNonRetainedRetained() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setTargetFragment(target, 0);
+        referrer.setRetainInstance(true);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(target, "target").add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        // Save the state
+        fc.dispatchPause();
+        fc.saveAllState();
+        fc.dispatchStop();
+        fc.dispatchDestroy();
+
+
+        assertWithMessage("Target Fragment should be null after target Fragment destruction")
+                .that(referrer.getTargetFragment())
+                .isNull();
+    }
+
+    /**
+     * Test the availability of getTargetFragment() when the target fragment is
+     * retained and the referrer fragment is also retained.
+     */
+    @Test
+    @UiThreadTest
+    public void targetFragmentRetainedRetained() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        target.setRetainInstance(true);
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setRetainInstance(true);
+        referrer.setTargetFragment(target, 0);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(target, "target").add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        // Save the state
+        fc.dispatchPause();
+        fc.saveAllState();
+        fc.dispatchStop();
+        fc.dispatchDestroy();
+
+        assertWithMessage("Target Fragment should be accessible after FragmentManager destruction")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
     }
 
     @Test
@@ -1424,16 +1713,18 @@ public class FragmentLifecycleTest {
         Assert.assertEquals(popExit, record.mPopExitAnim);
     }
 
-    private FragmentController restartFragmentController(FragmentController fc) {
-        Parcelable savedState = shutdownFragmentController(fc);
-        return startupFragmentController(savedState);
+    private FragmentController restartFragmentController(FragmentController fc,
+            ViewModelStore viewModelStore) {
+        Parcelable savedState = shutdownFragmentController(fc, viewModelStore);
+        return startupFragmentController(savedState, viewModelStore);
     }
 
-    private FragmentController startupFragmentController(Parcelable savedState) {
+    private FragmentController startupFragmentController(Parcelable savedState,
+            ViewModelStore viewModelStore) {
         final FragmentController fc = FragmentController.createController(
-                new HostCallbacks(mActivityRule.getActivity()));
+                new HostCallbacks(mActivityRule.getActivity(), viewModelStore));
         fc.attachHost(null);
-        fc.restoreAllState(savedState, (FragmentManagerNonConfig) null);
+        fc.restoreSaveState(savedState);
         fc.dispatchCreate();
         fc.dispatchActivityCreated();
         fc.noteStateNotSaved();
@@ -1444,10 +1735,12 @@ public class FragmentLifecycleTest {
         return fc;
     }
 
-    private Parcelable shutdownFragmentController(FragmentController fc) {
+    private Parcelable shutdownFragmentController(FragmentController fc,
+            ViewModelStore viewModelStore) {
         fc.dispatchPause();
         final Parcelable savedState = fc.saveAllState();
         fc.dispatchStop();
+        viewModelStore.clear();
         fc.dispatchDestroy();
         return savedState;
     }
@@ -1562,12 +1855,21 @@ public class FragmentLifecycleTest {
         }
     }
 
-    static class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
+    static class HostCallbacks extends FragmentHostCallback<FragmentActivity>
+            implements ViewModelStoreOwner {
         private final FragmentActivity mActivity;
+        private final ViewModelStore mViewModelStore;
 
-        public HostCallbacks(FragmentActivity activity) {
+        HostCallbacks(FragmentActivity activity, ViewModelStore viewModelStore) {
             super(activity);
             mActivity = activity;
+            mViewModelStore = viewModelStore;
+        }
+
+        @NonNull
+        @Override
+        public ViewModelStore getViewModelStore() {
+            return mViewModelStore;
         }
 
         @Override

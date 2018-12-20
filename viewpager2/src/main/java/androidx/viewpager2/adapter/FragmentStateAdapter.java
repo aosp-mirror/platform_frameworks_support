@@ -16,11 +16,14 @@
 
 package androidx.viewpager2.adapter;
 
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.collection.LongSparseArray;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -47,16 +50,41 @@ import java.util.List;
  * {@link Fragment}.
  * </ul>
  */
-public abstract class FragmentStateAdapter extends RecyclerView.Adapter<FragmentViewHolder> {
-    private final List<Fragment> mFragments = new ArrayList<>();
+public abstract class FragmentStateAdapter extends
+        RecyclerView.Adapter<FragmentViewHolder> implements StatefulAdapter {
+    private static final String STATE_ARG_KEYS = "keys";
+    private static final String STATE_ARG_VALUES = "values";
 
-    private final List<Fragment.SavedState> mSavedStates = new ArrayList<>();
-    // TODO: handle current item's menuVisibility userVisibleHint as FragmentStatePagerAdapter
+    private final LongSparseArray<Fragment> mFragments = new LongSparseArray<>();
+    private final LongSparseArray<Fragment.SavedState> mSavedStates = new LongSparseArray<>();
+
+    private final RecyclerView.AdapterDataObserver mDataObserver =
+            new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    // TODO: implement more efficiently
+                    /** Below effectively removes all Fragments and state of no longer used items.
+                     * See {@link FragmentStateAdapter#containsItem(long)} */
+                    Parcelable state = FragmentStateAdapter.this.saveState();
+                    FragmentStateAdapter.this.restoreState(state);
+                }
+            };
 
     private final FragmentManager mFragmentManager;
 
     public FragmentStateAdapter(FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
+        super.setHasStableIds(true);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        registerAdapterDataObserver(mDataObserver);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        unregisterAdapterDataObserver(mDataObserver);
     }
 
     /**
@@ -71,30 +99,34 @@ public abstract class FragmentStateAdapter extends RecyclerView.Adapter<Fragment
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FragmentViewHolder holder, int position) {
-        if (ViewCompat.isAttachedToWindow(holder.getContainer())) {
-            // this should never happen; if it does, it breaks our assumption that attaching
-            // a Fragment can reliably happen inside onViewAttachedToWindow
-            throw new IllegalStateException(
-                    String.format("View %s unexpectedly attached to a window.",
-                            holder.getContainer()));
-        }
-
+    public void onBindViewHolder(final @NonNull FragmentViewHolder holder, int position) {
         holder.mFragment = getFragment(position);
+
+        /** Special case when {@link RecyclerView} decides to keep the {@link container}
+         * attached to the window, but not to the view hierarchy (i.e. parent is null) */
+        final FrameLayout container = holder.getContainer();
+        if (ViewCompat.isAttachedToWindow(container)) {
+            if (container.getParent() != null) {
+                throw new IllegalStateException("Design assumption violated.");
+            }
+            container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    if (container.getParent() != null) {
+                        container.removeOnLayoutChangeListener(this);
+                        onViewAttachedToWindow(holder);
+                    }
+                }
+            });
+        }
     }
 
     private Fragment getFragment(int position) {
         Fragment fragment = getItem(position);
-        if (mSavedStates.size() > position) {
-            Fragment.SavedState savedState = mSavedStates.get(position);
-            if (savedState != null) {
-                fragment.setInitialSavedState(savedState);
-            }
-        }
-        while (mFragments.size() <= position) {
-            mFragments.add(null);
-        }
-        mFragments.set(position, fragment);
+        long itemId = getItemId(position);
+        fragment.setInitialSavedState(mSavedStates.get(itemId));
+        mFragments.put(itemId, fragment);
         return fragment;
     }
 
@@ -104,7 +136,7 @@ public abstract class FragmentStateAdapter extends RecyclerView.Adapter<Fragment
             return;
         }
         mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
-                holder.mFragment).commitNowAllowingStateLoss();
+                holder.mFragment).commitNow();
     }
 
     @Override
@@ -123,57 +155,125 @@ public abstract class FragmentStateAdapter extends RecyclerView.Adapter<Fragment
     }
 
     private void removeFragment(@NonNull FragmentViewHolder holder) {
-        removeFragment(holder.mFragment, holder.getAdapterPosition());
+        removeFragment(holder.mFragment, holder.getItemId());
         holder.mFragment = null;
     }
 
     /**
      * Removes a Fragment and commits the operation.
      */
-    private void removeFragment(Fragment fragment, int position) {
+    private void removeFragment(Fragment fragment, long itemId) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        removeFragment(fragment, position, fragmentTransaction);
-        fragmentTransaction.commitNowAllowingStateLoss();
+        removeFragment(fragment, itemId, fragmentTransaction);
+        fragmentTransaction.commitNow();
     }
 
     /**
      * Adds a remove operation to the transaction, but does not commit.
      */
-    private void removeFragment(Fragment fragment, int position,
+    private void removeFragment(Fragment fragment, long itemId,
             @NonNull FragmentTransaction fragmentTransaction) {
         if (fragment == null) {
             return;
         }
 
-        if (fragment.isAdded()) {
-            while (mSavedStates.size() <= position) {
-                mSavedStates.add(null);
-            }
-            mSavedStates.set(position, mFragmentManager.saveFragmentInstanceState(fragment));
+        if (fragment.isAdded() && containsItem(itemId)) {
+            mSavedStates.put(itemId, mFragmentManager.saveFragmentInstanceState(fragment));
         }
 
-        mFragments.set(position, null);
+        mFragments.remove(itemId);
         fragmentTransaction.remove(fragment);
     }
 
     /**
-     * Saves adapter state.
+     * Default implementation works for collections that don't add, move, remove items.
+     * <p>
+     * TODO: add lint rule
+     * When overriding, also override {@link #containsItem(long)}.
+     * <p>
+     * If the item is not a part of the collection, return {@link RecyclerView#NO_ID}.
+     *
+     * @param position Adapter position
+     * @return stable item id {@link RecyclerView.Adapter#hasStableIds()}
      */
-    public Parcelable[] saveState() {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        for (int i = 0; i < mFragments.size(); i++) {
-            removeFragment(mFragments.get(i), i, fragmentTransaction);
-        }
-        fragmentTransaction.commitNowAllowingStateLoss();
-        return mSavedStates.toArray(new Fragment.SavedState[mSavedStates.size()]);
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     /**
-     * Restores adapter state.
+     * Default implementation works for collections that don't add, move, remove items.
+     * <p>
+     * TODO: add lint rule
+     * When overriding, also override {@link #getItemId(int)}
      */
-    public void restoreState(@NonNull Parcelable[] savedStates) {
-        for (Parcelable savedState : savedStates) {
-            mSavedStates.add((Fragment.SavedState) savedState);
+    public boolean containsItem(long itemId) {
+        return itemId >= 0 && itemId < getItemCount();
+    }
+
+    @Override
+    public final void setHasStableIds(boolean hasStableIds) {
+        throw new UnsupportedOperationException(
+                "Stable Ids are required for the adapter to function properly, and the adapter "
+                        + "takes care of setting the flag.");
+    }
+
+    @Override
+    public @NonNull Parcelable saveState() {
+        /** remove active fragments saving their state in {@link mSavedStates) */
+        List<Long> toRemove = new ArrayList<>();
+        for (int ix = 0; ix < mFragments.size(); ix++) {
+            toRemove.add(mFragments.keyAt(ix));
+        }
+        if (!toRemove.isEmpty()) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            for (Long itemId : toRemove) {
+                removeFragment(mFragments.get(itemId), itemId, fragmentTransaction);
+            }
+            // TODO: add a recovery step / handle in a more graceful manner
+            fragmentTransaction.commitNowAllowingStateLoss();
+        }
+
+        /** Write {@link mSavedStates) into a {@link Parcelable} */
+        final int length = mSavedStates.size();
+        long[] keys = new long[length];
+        Fragment.SavedState[] values = new Fragment.SavedState[length];
+        for (int ix = 0; ix < length; ix++) {
+            long itemId = mSavedStates.keyAt(ix);
+            if (containsItem(itemId)) {
+                keys[ix] = itemId;
+                values[ix] = mSavedStates.get(keys[ix]);
+            }
+        }
+
+        /** TODO: use custom {@link Parcelable} instead of {@link Bundle} to save space */
+        Bundle savedState = new Bundle(2);
+        savedState.putLongArray(STATE_ARG_KEYS, keys);
+        savedState.putParcelableArray(STATE_ARG_VALUES, values);
+        return savedState;
+    }
+
+    @Override
+    public void restoreState(@NonNull Parcelable savedState) {
+        try {
+            Bundle bundle = (Bundle) savedState;
+            long[] keys = bundle.getLongArray(STATE_ARG_KEYS);
+            Fragment.SavedState[] values =
+                    (Fragment.SavedState[]) bundle.getParcelableArray(STATE_ARG_VALUES);
+            //noinspection ConstantConditions
+            if (keys.length != values.length) {
+                throw new IllegalStateException();
+            }
+
+            mSavedStates.clear();
+            for (int ix = 0; ix < keys.length; ix++) {
+                long itemId = keys[ix];
+                if (containsItem(itemId)) {
+                    mSavedStates.put(itemId, values[ix]);
+                }
+            }
+        } catch (Exception ex) {
+            throw new IllegalStateException("Invalid savedState passed to the adapter.", ex);
         }
     }
 }

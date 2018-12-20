@@ -14,13 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <resources>
-    <!-- NOTE: Although these strings won't really be used for accessibility
-         in an auto context, integration tests will use them to open/close
-         drawer. See:
-         google_testing/integration/libraries/app-helpers/first-party/auto/
-         -->
-    <string name="car_drawer_open" translatable="false">Open drawer</string>
-    <string name="car_drawer_close" translatable="false">Close drawer</string>
     <string name="ellipsis" translatable="false">&#8230;</string>
 
     <!-- Placeholder text that appears within the button that activates AlphaJump. -->
@@ -31,10 +24,6 @@ limitations under the License.
          task of driving. When this message is displayed, the user is also locked out from
          interacting with the current application. [CHAR_LIMIT=30] -->
     <string name="speed_bump_lockout_message">Focus on the road</string>
-
-    <!-- Action Bar -->
-    <!-- Content description for the 'Expand/Collapse' button [CHAR_LIMIT=50] -->
-    <string name="action_bar_expand_collapse_button">Expand/collapse button</string>
 
     <!-- Scroll bar -->
     <!-- Content description for the page up button on the scrollbar [CHAR_LIMIT=20]. -->

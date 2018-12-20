@@ -3,6 +3,7 @@ package androidx.mediarouter.app {
 
   public class MediaRouteActionProvider extends androidx.core.view.ActionProvider {
     ctor public MediaRouteActionProvider(android.content.Context!);
+    method public void enableDynamicGroup();
     method public androidx.mediarouter.app.MediaRouteDialogFactory getDialogFactory();
     method public androidx.mediarouter.app.MediaRouteButton? getMediaRouteButton();
     method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
@@ -16,6 +17,7 @@ package androidx.mediarouter.app {
     ctor public MediaRouteButton(android.content.Context!);
     ctor public MediaRouteButton(android.content.Context!, android.util.AttributeSet!);
     ctor public MediaRouteButton(android.content.Context!, android.util.AttributeSet!, int);
+    method public void enableDynamicGroup();
     method public androidx.mediarouter.app.MediaRouteDialogFactory getDialogFactory();
     method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
     method public void onAttachedToWindow();
@@ -240,7 +242,6 @@ package androidx.mediarouter.media {
 
   public abstract static class MediaRouteProvider.DynamicGroupRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController {
     ctor public MediaRouteProvider.DynamicGroupRouteController();
-    method public abstract String getDynamicGroupRouteId();
     method public String? getGroupableSelectionTitle();
     method public String? getTransferableSectionTitle();
     method public abstract void onAddMemberRoute(String);

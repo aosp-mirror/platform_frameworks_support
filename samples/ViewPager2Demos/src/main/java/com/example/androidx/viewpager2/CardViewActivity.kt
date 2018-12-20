@@ -31,8 +31,8 @@ import com.example.androidx.viewpager2.cards.CardView
  */
 class CardViewActivity : BaseCardActivity() {
 
-    override fun onCreate(bundle: Bundle?) {
-        super.onCreate(bundle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         viewPager.adapter = object : RecyclerView.Adapter<CardViewHolder>() {
             override fun onCreateViewHolder(
@@ -43,11 +43,11 @@ class CardViewActivity : BaseCardActivity() {
             }
 
             override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-                holder.bind(BaseCardActivity.cards[position])
+                holder.bind(cards[position])
             }
 
             override fun getItemCount(): Int {
-                return BaseCardActivity.cards.size
+                return cards.size
             }
         }
     }

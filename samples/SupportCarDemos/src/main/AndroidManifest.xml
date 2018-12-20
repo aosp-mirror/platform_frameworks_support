@@ -30,9 +30,21 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".PagedListViewShrinkActivity"
+                  android:windowSoftInputMode="adjustResize"
+                  android:label="@string/paged_list_view_shrink_title"
+                  android:parentActivityName=".SupportCarDemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".SupportCarDemoActivity" />
+        </activity>
+
         <activity android:name=".PagedListViewActivity"
                   android:label="@string/paged_list_view_title"
-                  android:parentActivityName=".SupportCarDemoActivity">
+                  android:parentActivityName=".SupportCarDemoActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.SAMPLE_CODE" />
@@ -87,18 +99,6 @@
 
         <activity android:name=".AlphaJumpActivity"
                   android:label="@string/alpha_jump_title"
-                  android:parentActivityName=".SupportCarDemoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.SAMPLE_CODE" />
-            </intent-filter>
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".SupportCarDemoActivity" />
-        </activity>
-
-        <activity android:name=".DrawerDemoActivity"
-                  android:label="@string/drawer_demo_activity_title"
-                  android:theme="@style/CarDrawerTheme"
                   android:parentActivityName=".SupportCarDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -202,6 +202,20 @@
         <activity
             android:name=".TextInputDemoActivity"
             android:label="Text Input Demo"
+            android:parentActivityName=".SupportCarDemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SupportCarDemoActivity"/>
+        </activity>
+        <activity
+            android:name=".GridLayoutTopBottomOffsetActivity"
+            android:label="Grid Layout Top/Bottom Offset Demo"
             android:parentActivityName=".SupportCarDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

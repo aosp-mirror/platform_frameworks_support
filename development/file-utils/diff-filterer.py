@@ -16,17 +16,23 @@
 #
 
 
-import datetime, os, shutil, subprocess, sys
+import datetime, filecmp, os, shutil, subprocess, sys
 from collections import OrderedDict
 
 def usage():
-  print("""Usage: diff-filterer.py [--assume-no-side-effects] <passingPath> <failingPath> <shellCommand>
+  print("""Usage: diff-filterer.py [--assume-no-side-effects] [--try-fail] [--work-path <workpath>] <passingPath> <failingPath> <shellCommand>
 
 diff-filterer.py attempts to transform (a copy of) the contents of <passingPath> into the contents of <failingPath> subject to the constraint that when <shellCommand> is run in that directory, it returns 0
 
 OPTIONS
   --assume-no-side-effects
     Assume that the given shell command does not make any (relevant) changes to the given directory, and therefore don't wipe and repopulate the directory before each invocation of the command
+  --try-fail
+    Invert the success/fail status of <shellCommand> and swap <passingPath> and <failingPath>
+    That is, instead of trying to transform <passingPath> into <failingPath>, try to transform <failingPath> into <passingPath>
+  --work-path <filepath>
+    File path to use as the work directory for testing the shell command
+    This file path will be overwritten and modified as needed for testing purposes, and will also be the working directory of the shell command when it is run
 """)
   sys.exit(1)
 
@@ -91,7 +97,9 @@ class FileBacked_FileContent(FileContent):
   def equals(self, other):
     if not isinstance(other, FileBacked_FileContent):
       return False
-    return self.referencePath == other.referencePath
+    if self.referencePath == other.referencePath:
+      return True
+    return filecmp.cmp(self.referencePath, other.referencePath)
 
   def __str__(self):
     return self.referencePath
@@ -253,15 +261,17 @@ def filesStateFromTree(rootPath):
 
 # Runner class that determines which diffs between two directories cause the given shell command to fail
 class DiffRunner(object):
-  def __init__(self, failingPath, passingPath, shellCommand, tempPath, assumeNoSideEffects):
+  def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, tryFail):
     # some simple params
-    self.tempPath = tempPath
-    self.workPath = fileIo.join(tempPath, "work")
+    self.workPath = os.path.abspath(workPath)
+    if self.workPath is None:
+      self.workPath = fileIo.join(tempPath, "work")
     self.bestState_path = fileIo.join(tempPath, "bestResults")
     self.shellCommand = shellCommand
     self.originalPassingPath = os.path.abspath(passingPath)
     self.originalFailingPath = os.path.abspath(failingPath)
     self.assumeNoSideEffects = assumeNoSideEffects
+    self.tryFail = tryFail
 
     # lists of all the files under the two dirs
     print("Finding files in " + passingPath)
@@ -275,6 +285,7 @@ class DiffRunner(object):
     # minimal description of only the files that are supposed to need to be reset after each test
     self.resetTo_state = self.originalPassingState.expandedWithEmptyEntriesFor(self.originalFailingState).withoutDuplicatesFrom(self.originalFailingState)
     self.originalNumDifferences = self.resetTo_state.size()
+    print("Processing " + str(self.originalNumDifferences) + " file differences")
     # state we're trying to reach
     self.targetState = self.resetTo_state.withConflictsFrom(self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state))
     self.windowSize = self.resetTo_state.size()
@@ -282,7 +293,8 @@ class DiffRunner(object):
   def test(self, filesState):
     #print("Applying state: " + str(filesState) + " to " + self.workPath)
     filesState.apply(self.workPath)
-    return (self.shellCommand.process(self.workPath) == 0)
+    commandSucceeded = (self.shellCommand.process(self.workPath) == 0)
+    return (commandSucceeded != self.tryFail)
 
   def run(self):
     print("Testing that given failing state actually fails")
@@ -360,26 +372,44 @@ class DiffRunner(object):
 
     print("double-checking results")
     fileIo.removePath(self.workPath)
+    wasSuccessful = True
     if not self.test(filesStateFromTree(self.bestState_path)):
       message = "Error: expected best state at " + self.bestState_path + " did not pass the second time. Could the test be non-deterministic?"
       if self.assumeNoSideEffects:
         message += " (it may help to remove the --assume-no-side-effects flag)"
       print(message)
-      return False
+      wasSuccessful = False
 
     print("")
     print("Done trying to transform the contents of passing path:\n " + self.originalPassingPath + "\ninto the contents of failing path:\n " + self.originalFailingPath)
     print("Of " + str(self.originalNumDifferences) + " differences, could not accept: " + str(self.targetState))
     print("The final accepted state can be seen at " + self.bestState_path)
-    return True
+    return wasSuccessful
 
 def main(args):
-  if len(args) < 3:
-    usage()
   assumeNoSideEffects = False
-  if args[0] == "--assume-no-side-effects":
-    assumeNoSideEffects = True
-    args = args[1:]
+  tryFail = False
+  workPath = None
+  while len(args) > 0:
+    arg = args[0]
+    if arg == "--assume-no-side-effects":
+      assumeNoSideEffects = True
+      args = args[1:]
+      continue
+    if arg == "--try-fail":
+      tryFail = True
+      args = args[1:]
+      continue
+    if arg == "--work-path":
+      if len(args) < 2:
+        usage()
+      workPath = args[1]
+      args = args[2:]
+      continue
+    if len(arg) > 0 and arg[0] == "-":
+      print("Unrecognized argument: '" + arg + "'")
+      usage()
+    break
   if len(args) != 3:
     usage()
   passingPath = args[0]
@@ -387,7 +417,11 @@ def main(args):
   shellCommand = ShellScript(args[2])
   tempPath = "/tmp/diff-filterer"
   startTime = datetime.datetime.now()
-  success = DiffRunner(failingPath, passingPath, shellCommand, tempPath, assumeNoSideEffects).run()
+  if tryFail:
+    temp = passingPath
+    passingPath = failingPath
+    failingPath = temp
+  success = DiffRunner(failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, tryFail).run()
   endTime = datetime.datetime.now()
   duration = endTime - startTime
   if success:
