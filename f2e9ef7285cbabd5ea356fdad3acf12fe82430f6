@@ -46,6 +46,30 @@
       "revId": "f2e9ef7285cbabd5ea356fdad3acf12fe82430f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "595e6087_2990f120",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-20T20:32:58Z",
+      "side": 1,
+      "message": "Yes, I think so.  You\u0027re already doing this as part of Retry.",
+      "parentUuid": "79d5a7f0_653b4d2a",
+      "range": {
+        "startLine": 389,
+        "startChar": 23,
+        "endLine": 389,
+        "endChar": 45
+      },
+      "revId": "f2e9ef7285cbabd5ea356fdad3acf12fe82430f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
