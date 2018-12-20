@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e0046af_082df066",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-20T02:11:07Z",
+      "side": 1,
+      "message": "SupportMediaDemos: (since this is a sample app bug)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "b3de15361efbd1e01a3a21355c3b6414834989a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2735694_ba4c61bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-20T02:11:07Z",
+      "side": 1,
+      "message": "This CL doesn\u0027t contain media2-widget code.",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "b3de15361efbd1e01a3a21355c3b6414834989a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
