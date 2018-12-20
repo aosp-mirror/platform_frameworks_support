@@ -16,6 +16,24 @@
       "revId": "8caf72d435752305960d13c20baa97c25ca8b994",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cc9217_2d0c2d22",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2018-12-20T01:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1151c0a8_d6ba2f7e",
+      "revId": "8caf72d435752305960d13c20baa97c25ca8b994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
