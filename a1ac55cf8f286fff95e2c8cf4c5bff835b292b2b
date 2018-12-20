@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5a24ab0_e16a9d41",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2018-12-20T21:42:52Z",
+      "side": 1,
+      "message": "31 *",
+      "range": {
+        "startLine": 390,
+        "startChar": 23,
+        "endLine": 390,
+        "endChar": 38
+      },
+      "revId": "a1ac55cf8f286fff95e2c8cf4c5bff835b292b2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
