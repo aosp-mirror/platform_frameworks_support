@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "578c98c4_71f943d1",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-12-20T02:07:37Z",
+      "side": 1,
+      "message": "In case there is something wrong with one of the MediaItem, all MediaItems in playlist should be closed to avoid leaking FD. This can be addressed with a follow up patch.",
+      "range": {
+        "startLine": 943,
+        "startChar": 11,
+        "endLine": 947,
+        "endChar": 13
+      },
+      "revId": "0f3a8d9a951ba28e3cfe9a018700e49de4b46ca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
