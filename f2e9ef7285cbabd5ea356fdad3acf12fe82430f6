@@ -22,6 +22,30 @@
       "revId": "f2e9ef7285cbabd5ea356fdad3acf12fe82430f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d5a7f0_653b4d2a",
+        "filename": "work/workmanager/src/main/java/androidx/work/ListenableWorker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2018-12-20T19:32:40Z",
+      "side": 1,
+      "message": "I think the contract is that if you are equal() then you should  have the same hashCode. We could add the name of the class to the hashCode, but given these objects are rarely going to be used as keys inside a HashMap, I am not too worried. Would you prefer the name to be a part of the hashCode() ?",
+      "parentUuid": "0be21a7e_bf422c05",
+      "range": {
+        "startLine": 389,
+        "startChar": 23,
+        "endLine": 389,
+        "endChar": 45
+      },
+      "revId": "f2e9ef7285cbabd5ea356fdad3acf12fe82430f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
