@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0cff9ed_ca82b51e",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoSelector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-12-20T03:51:30Z",
+      "side": 1,
+      "message": "In my opinion, it would be better to turn on StrictMode here (not in VideoViewTest activity) because VideoSelector activity is the main entry point. Could you move the code `StrictMode.setThreadPolicy...` from VideoViewTest activity to VideoSelector activity?",
+      "range": {
+        "startLine": 73,
+        "startChar": 52,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "71aab3ca56532b37230e0b1ef24a6561f2adb2ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
