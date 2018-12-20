@@ -22,6 +22,30 @@
       "revId": "0f3a8d9a951ba28e3cfe9a018700e49de4b46ca6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b438514_462e7cc4",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2018-12-20T02:12:26Z",
+      "side": 1,
+      "message": "Thanks for pointing out that. I\u0027d like to address that with a separate change since this change took a while to get here and it was a bit painful to handle merge conflicts since this change touches many files.",
+      "parentUuid": "578c98c4_71f943d1",
+      "range": {
+        "startLine": 943,
+        "startChar": 11,
+        "endLine": 947,
+        "endChar": 13
+      },
+      "revId": "0f3a8d9a951ba28e3cfe9a018700e49de4b46ca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
