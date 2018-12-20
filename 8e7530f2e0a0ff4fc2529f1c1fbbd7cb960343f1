@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acf4fbb3_1153239b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2018-12-20T22:33:11Z",
+      "side": 1,
+      "message": "It didn\u0027t seem to me that Dokka yet supports moving the classes.html , packages.html, and _toc.yaml and adjusting any contained links, so for now I\u0027ve told `sed` to do string replacement while investigating adding support into Dokka\n\nIf it turns out that I have made a mistake in the contents of the output then I think this is one of the more likely causes",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "8e7530f2e0a0ff4fc2529f1c1fbbd7cb960343f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
