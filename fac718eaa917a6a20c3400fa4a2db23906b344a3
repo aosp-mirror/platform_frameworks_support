@@ -22,6 +22,30 @@
       "revId": "fac718eaa917a6a20c3400fa4a2db23906b344a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42346557_30da95d3",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2018-12-20T10:36:59Z",
+      "side": 1,
+      "message": "Fair point. I never gave it much thought, but I consulted with someone with Kotlin readability and she agreed with you. I\u0027ll remove the two top level apply\u0027s.",
+      "parentUuid": "abdb7f57_af38f3f8",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 20
+      },
+      "revId": "fac718eaa917a6a20c3400fa4a2db23906b344a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
