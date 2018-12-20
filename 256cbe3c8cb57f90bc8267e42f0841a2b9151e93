@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ee14a6d_9bde4f1f",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-20T00:10:03Z",
+      "side": 1,
+      "message": "Whenever AndroidX supports lambdas :) I don\u0027t think it currently does, however.",
+      "parentUuid": "c0e49e7a_9e7f6d63",
+      "range": {
+        "startLine": 88,
+        "startChar": 37,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1025af0_d0f31863",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500e30e2_780f5c29",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-20T00:10:03Z",
+      "side": 1,
+      "message": "\u003e I\u0027d be more in favour of not having this method and being explicit about the rethrowing.\n\nAgreed about rethrowing. I abandoned the helper entirely and inlined it: this let me trim out some conditions since I\u0027m only actually handling checked exceptions.\n\n\u003e I\u0027m also not sure that interruption state is something that should be propagated. It might cause odd behaviour changes in other random methods in the framework.\n\nAdded a comment for this. But I guess it\u0027s fine to do nothing for now, since it\u0027s not clear what else we should do.",
+      "parentUuid": "f1025af0_d0f31863",
+      "range": {
+        "startLine": 116,
+        "startChar": 24,
+        "endLine": 116,
+        "endChar": 47
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "200cf7ad_844f950e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-20T00:10:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f334b7e_7f8d929b",
+      "range": {
+        "startLine": 142,
+        "startChar": 37,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eae3e5c7_471a564c",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a81c0a02_895e5f96",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebkitUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2018-12-20T00:10:03Z",
+      "side": 1,
+      "message": "Done with some changes.\n\nI broke ExecutionException into its own branch. If we just write \"new RuntimeException(e.getCause())\" then we\u0027re rewrapping the real Exception with something less obvious than ExecutionException. I\u0027m still wrapping with RuntimeException to un-check it when required.",
+      "parentUuid": "eae3e5c7_471a564c",
+      "range": {
+        "startLine": 182,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 35
+      },
+      "revId": "256cbe3c8cb57f90bc8267e42f0841a2b9151e93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
