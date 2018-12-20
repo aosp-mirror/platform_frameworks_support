@@ -22,6 +22,30 @@
       "revId": "71aab3ca56532b37230e0b1ef24a6561f2adb2ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd3f337b_de388407",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoSelector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2018-12-20T03:59:39Z",
+      "side": 1,
+      "message": "Thank you for pointing out.",
+      "parentUuid": "c0cff9ed_ca82b51e",
+      "range": {
+        "startLine": 73,
+        "startChar": 52,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "71aab3ca56532b37230e0b1ef24a6561f2adb2ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
