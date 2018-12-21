@@ -37,6 +37,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.UiThread;
+import androidx.core.os.BuildCompat;
 import androidx.core.os.TraceCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
@@ -193,7 +194,12 @@ public class PrecomputedTextCompat implements Spannable {
 
         Params(@NonNull TextPaint paint, @NonNull TextDirectionHeuristic textDir,
                 int strategy, int frequency) {
-            mWrapped = null;
+            if (BuildCompat.isAtLeastQ()) {
+                mWrapped = new PrecomputedText.Params.Builder(paint).setBreakStrategy(strategy)
+                        .setHyphenationFrequency(frequency).setTextDirection(textDir).build();
+            } else {
+                mWrapped = null;
+            }
             mPaint = paint;
             mTextDir = textDir;
             mBreakStrategy = strategy;
@@ -206,7 +212,7 @@ public class PrecomputedTextCompat implements Spannable {
             mTextDir = wrapped.getTextDirection();
             mBreakStrategy = wrapped.getBreakStrategy();
             mHyphenationFrequency = wrapped.getHyphenationFrequency();
-            mWrapped = null;
+            mWrapped = (BuildCompat.isAtLeastQ()) ? wrapped : null;
         }
 
         /**
@@ -429,6 +435,11 @@ public class PrecomputedTextCompat implements Spannable {
         try {
             TraceCompat.beginSection("PrecomputedText");
 
+            if (BuildCompat.isAtLeastQ() && params.mWrapped != null) {
+                return new PrecomputedTextCompat(
+                        PrecomputedText.create(text, params.mWrapped), params);
+            }
+
             ArrayList<Integer> ends = new ArrayList<>();
 
             int paraEnd = 0;
@@ -488,7 +499,7 @@ public class PrecomputedTextCompat implements Spannable {
         mText = precomputed;
         mParams = params;
         mParagraphEnds = null;
-        mWrapped = null;
+        mWrapped = (BuildCompat.isAtLeastQ()) ? precomputed : null;
     }
 
     /**
@@ -516,7 +527,11 @@ public class PrecomputedTextCompat implements Spannable {
      * Returns the count of paragraphs.
      */
     public @IntRange(from = 0) int getParagraphCount() {
-        return mParagraphEnds.length;
+        if (BuildCompat.isAtLeastQ()) {
+            return mWrapped.getParagraphCount();
+        } else {
+            return mParagraphEnds.length;
+        }
     }
 
     /**
@@ -524,7 +539,11 @@ public class PrecomputedTextCompat implements Spannable {
      */
     public @IntRange(from = 0) int getParagraphStart(@IntRange(from = 0) int paraIndex) {
         Preconditions.checkArgumentInRange(paraIndex, 0, getParagraphCount(), "paraIndex");
-        return paraIndex == 0 ? 0 : mParagraphEnds[paraIndex - 1];
+        if (BuildCompat.isAtLeastQ()) {
+            return mWrapped.getParagraphStart(paraIndex);
+        } else {
+            return paraIndex == 0 ? 0 : mParagraphEnds[paraIndex - 1];
+        }
     }
 
     /**
@@ -532,7 +551,11 @@ public class PrecomputedTextCompat implements Spannable {
      */
     public @IntRange(from = 0) int getParagraphEnd(@IntRange(from = 0) int paraIndex) {
         Preconditions.checkArgumentInRange(paraIndex, 0, getParagraphCount(), "paraIndex");
-        return mParagraphEnds[paraIndex];
+        if (BuildCompat.isAtLeastQ()) {
+            return mWrapped.getParagraphEnd(paraIndex);
+        } else {
+            return mParagraphEnds[paraIndex];
+        }
     }
 
     /**
@@ -652,7 +675,11 @@ public class PrecomputedTextCompat implements Spannable {
             throw new IllegalArgumentException(
                     "MetricAffectingSpan can not be set to PrecomputedText.");
         }
-        mText.setSpan(what, start, end, flags);
+        if (BuildCompat.isAtLeastQ()) {
+            mWrapped.setSpan(what, start, end, flags);
+        } else {
+            mText.setSpan(what, start, end, flags);
+        }
     }
 
     /**
@@ -664,7 +691,11 @@ public class PrecomputedTextCompat implements Spannable {
             throw new IllegalArgumentException(
                     "MetricAffectingSpan can not be removed from PrecomputedText.");
         }
-        mText.removeSpan(what);
+        if (BuildCompat.isAtLeastQ()) {
+            mWrapped.removeSpan(what);
+        } else {
+            mText.removeSpan(what);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -674,7 +705,12 @@ public class PrecomputedTextCompat implements Spannable {
 
     @Override
     public <T> T[] getSpans(int start, int end, Class<T> type) {
-        return mText.getSpans(start, end, type);
+        if (BuildCompat.isAtLeastQ()) {
+            return mWrapped.getSpans(start, end, type);
+        } else {
+            return mText.getSpans(start, end, type);
+        }
+
     }
 
     @Override
