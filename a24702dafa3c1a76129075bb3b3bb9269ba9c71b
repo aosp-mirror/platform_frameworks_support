@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "5efac457_2371db5c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-21T21:30:22Z",
+      "side": 1,
+      "message": "individual OnClickListener receives the CarMenuItem that was clicked",
+      "parentUuid": "54f6779c_29b7c820",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "001612f2_0ea17005",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -259,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "6e2bc138_87ef66b6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-21T21:30:22Z",
+      "side": 1,
+      "message": "Chatted offline. Follow up in b/121383742",
+      "parentUuid": "4d4080c4_2836fed2",
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb364ecb_3e528876",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -408,6 +444,30 @@
       "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de78e629_a27130f7",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2018-12-21T21:30:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1af562a3_72f59ee1",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 40
+      },
+      "revId": "a24702dafa3c1a76129075bb3b3bb9269ba9c71b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
