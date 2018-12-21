@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a314f300_a0d87875",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1060405
+      },
+      "writtenOn": "2018-12-21T19:11:21Z",
+      "side": 1,
+      "message": "Does FileMediaItem have usage count of MediaPlayer? If not, even playlist passes this new error checking, some of the FileMediaItem could be closed since the real task (dupping FD) is done later and that FileMediaItem could be closed during this period.",
+      "range": {
+        "startLine": 946,
+        "startChar": 32,
+        "endLine": 946,
+        "endChar": 45
+      },
+      "revId": "d1df0f870fd0c84f054b1b28cd63b51d5dd9e7f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
