@@ -52,6 +52,7 @@ import androidx.media.AudioAttributesCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayDeque;
@@ -936,15 +937,31 @@ public class MediaPlayer extends SessionPlayer {
         if (playlist == null || playlist.isEmpty()) {
             throw new IllegalArgumentException("playlist shouldn't be null or empty");
         }
+        String errorString = null;
         for (MediaItem item : playlist) {
             if (item == null) {
-                throw new IllegalArgumentException("playlist shouldn't contain null item");
+                errorString = "playlist shouldn't contain null item";
+                break;
             }
             if (item instanceof FileMediaItem) {
                 if (((FileMediaItem) item).isClosed()) {
-                    throw new IllegalArgumentException("File descriptor is closed. " + item);
+                    errorString = "File descriptor is closed. " + item;
+                    break;
                 }
             }
+        }
+        if (errorString != null) {
+            // Close all the given FileMediaItems on error case.
+            for (MediaItem item : playlist) {
+                if (item instanceof FileMediaItem) {
+                    try {
+                        ((FileMediaItem) item).close();
+                    } catch (IOException e) {
+                        Log.w(TAG, "failed to close " + item);
+                    }
+                }
+            }
+            throw new IllegalArgumentException(errorString);
         }
 
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
