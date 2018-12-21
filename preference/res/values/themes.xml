@@ -31,6 +31,7 @@
         <item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference.Material</item>
         <item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat.Material</item>
         <item name="switchPreferenceStyle">@style/Preference.SwitchPreference.Material</item>
+        <item name="textAppearanceSubhead">@style/Preference_TextAppearanceMaterialSubhead</item>
     </style>
 
     <!-- Deprecated. Use PreferenceThemeOverlay instead. -->

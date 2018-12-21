@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textAppearance="@style/Preference_TextAppearanceMaterialSubhead"
+            android:textAppearance="?attr/textAppearanceSubhead"
             android:ellipsize="marquee"/>
 
         <TextView
