@@ -22,6 +22,30 @@
       "revId": "1792767c1e7bbe3d5905148acbf732bf6ca5cde9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ebbdc4_43c5e29f",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-26T04:21:23Z",
+      "side": 1,
+      "message": "Since the session with the ID is not created yet.",
+      "parentUuid": "7750f006_eb25723e",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1200,
+        "endChar": 13
+      },
+      "revId": "1792767c1e7bbe3d5905148acbf732bf6ca5cde9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
