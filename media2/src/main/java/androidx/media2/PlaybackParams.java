@@ -181,6 +181,16 @@ public final class PlaybackParams {
             mPlaybackParams = playbackParams;
         }
 
+        public Builder(@NonNull PlaybackParams playbackParams) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mPlaybackParams = playbackParams.getPlaybackParams();
+            } else {
+                mAudioFallbackMode = playbackParams.getAudioFallbackMode();
+                mPitch = playbackParams.getPitch();
+                mSpeed = playbackParams.getSpeed();
+            }
+        }
+
         /**
          * Sets the audio fallback mode.
          *
