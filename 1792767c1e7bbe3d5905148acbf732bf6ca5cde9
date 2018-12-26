@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7750f006_eb25723e",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-26T04:20:04Z",
+      "side": 1,
+      "message": "I think we should check the ID when build() is called.",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1200,
+        "endChar": 13
+      },
+      "revId": "1792767c1e7bbe3d5905148acbf732bf6ca5cde9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
