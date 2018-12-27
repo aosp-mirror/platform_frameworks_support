@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bbdc2d33_92711dd9",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-27T07:23:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e208b141_58c541ba",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 186,
+        "endChar": 69
+      },
+      "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c00000e9_683a5739",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 2
