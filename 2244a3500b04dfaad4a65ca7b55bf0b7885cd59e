@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9090c07_b6fc46f9",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-27T02:48:50Z",
+      "side": 1,
+      "message": "this(playbackParams.getPlaybackParams())",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 186,
+        "endChar": 69
+      },
+      "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c00000e9_683a5739",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-27T02:48:50Z",
+      "side": 1,
+      "message": "Let\u0027s be consistent.\nPlease use only number or only Build.VERSION_CODES.XXX.",
+      "range": {
+        "startLine": 395,
+        "startChar": 17,
+        "endLine": 395,
+        "endChar": 45
+      },
+      "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
