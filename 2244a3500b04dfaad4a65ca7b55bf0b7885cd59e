@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e208b141_58c541ba",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-27T04:10:28Z",
+      "side": 1,
+      "message": "Can\u0027t apply your suggestion. :\n\n/usr/local/google/home/insun/repos/androidx-dev/frameworks/support/media2/src/main/java/androidx/media2/PlaybackParams.java:186: error: call to this must be first statement in constructor\n                this(playbackParams.getPlaybackParams());",
+      "parentUuid": "f9090c07_b6fc46f9",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 186,
+        "endChar": 69
+      },
+      "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c00000e9_683a5739",
         "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0df4935_b313307b",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-27T04:10:28Z",
+      "side": 1,
+      "message": "Done. Changed Build.VERSION_CODES.* to numbers. PTAL.",
+      "parentUuid": "c00000e9_683a5739",
+      "range": {
+        "startLine": 395,
+        "startChar": 17,
+        "endLine": 395,
+        "endChar": 45
+      },
+      "revId": "2244a3500b04dfaad4a65ca7b55bf0b7885cd59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
