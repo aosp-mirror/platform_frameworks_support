@@ -46,6 +46,30 @@
       "revId": "1792767c1e7bbe3d5905148acbf732bf6ca5cde9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "629ba956_f2d59f97",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-27T00:59:47Z",
+      "side": 1,
+      "message": "To me, createImpl() looks better. LIST is better to be maintained in one place, but this CL adds \n from the Builder class and removes from the MediaSession.",
+      "parentUuid": "66ebbdc4_43c5e29f",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1200,
+        "endChar": 13
+      },
+      "revId": "1792767c1e7bbe3d5905148acbf732bf6ca5cde9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
