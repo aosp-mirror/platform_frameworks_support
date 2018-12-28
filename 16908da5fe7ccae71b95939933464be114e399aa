@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4901bfd8_3ddbc458",
+        "filename": "leanback/src/androidTest/java/androidx/leanback/widget/GridWidgetTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1419560
+      },
+      "writtenOn": "2018-12-28T18:07:21Z",
+      "side": 1,
+      "message": "just a nit: maybe add focusOnGridViewTrue instead of use of number in method name",
+      "range": {
+        "startLine": 2584,
+        "startChar": 16,
+        "endLine": 2584,
+        "endChar": 63
+      },
+      "revId": "16908da5fe7ccae71b95939933464be114e399aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
