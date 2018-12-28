@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "154c8b02_d1426a57",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-28T08:05:31Z",
+      "side": 1,
+      "message": "according to the type of the token as follows:",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "616232d1d53123d05722092bb238716cc95f5875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1265ca3b_decf976b",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-28T08:05:31Z",
+      "side": 1,
+      "message": "Let\u0027s just list up without links.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 57
+      },
+      "revId": "616232d1d53123d05722092bb238716cc95f5875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d433286_bd92a1a9",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-28T08:05:31Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we update the javadoc for MediaBrowser as well?",
+      "range": {
+        "startLine": 163,
+        "startChar": 11,
+        "endLine": 163,
+        "endChar": 26
+      },
+      "revId": "616232d1d53123d05722092bb238716cc95f5875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c98ff29d_571d9c0c",
         "filename": "media2/src/main/java/androidx/media2/MediaSessionService.java",
         "patchSetId": 1
