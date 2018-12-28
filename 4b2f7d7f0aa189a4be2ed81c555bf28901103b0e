@@ -16,6 +16,24 @@
       "revId": "4b2f7d7f0aa189a4be2ed81c555bf28901103b0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fff161d_81484569",
+        "filename": "media2/api/1.0.0-alpha04.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2018-12-28T12:42:09Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ad48b526_1f001dfe",
+      "revId": "4b2f7d7f0aa189a4be2ed81c555bf28901103b0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
