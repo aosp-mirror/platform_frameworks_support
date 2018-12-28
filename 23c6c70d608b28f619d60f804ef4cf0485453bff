@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4b20081_74d0b40b",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2018-12-28T02:18:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure that it is flaky because it seems that it always fails (it\u0027s deterministic). Are there some benefits of marking it as flaky test?",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "23c6c70d608b28f619d60f804ef4cf0485453bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
