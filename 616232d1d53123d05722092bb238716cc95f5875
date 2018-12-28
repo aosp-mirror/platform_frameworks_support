@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c98ff29d_571d9c0c",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2018-12-28T07:46:39Z",
+      "side": 1,
+      "message": "e.",
+      "range": {
+        "startLine": 150,
+        "startChar": 74,
+        "endLine": 150,
+        "endChar": 75
+      },
+      "revId": "616232d1d53123d05722092bb238716cc95f5875",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
