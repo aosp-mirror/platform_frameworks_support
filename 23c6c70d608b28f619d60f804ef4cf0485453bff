@@ -22,6 +22,30 @@
       "revId": "23c6c70d608b28f619d60f804ef4cf0485453bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32c91e2_07b369a4",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2018-12-28T04:11:35Z",
+      "side": 1,
+      "message": "AFAIK, marking FlakyTest avoids blocking presubmit.",
+      "parentUuid": "b4b20081_74d0b40b",
+      "range": {
+        "startLine": 267,
+        "startChar": 5,
+        "endLine": 267,
+        "endChar": 14
+      },
+      "revId": "23c6c70d608b28f619d60f804ef4cf0485453bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
