@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad48b526_1f001dfe",
+        "filename": "media2/api/1.0.0-alpha04.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2018-12-28T07:59:46Z",
+      "side": 0,
+      "message": "Could you increase the version?\nFYI, see https://android-review.googlesource.com/c/platform/frameworks/support/+/858077",
+      "revId": "4b2f7d7f0aa189a4be2ed81c555bf28901103b0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
