@@ -377,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e50e8d2f_cf9adb39",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T22:34:27Z",
+      "side": 1,
+      "message": "Added a better way to do this in latest patchset",
+      "parentUuid": "983cb358_e99a8476",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f17c40f7_f9964213",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
