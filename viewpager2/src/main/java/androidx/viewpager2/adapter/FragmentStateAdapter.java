@@ -134,9 +134,10 @@ public abstract class FragmentStateAdapter extends
     public void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
         if (holder.mFragment.isAdded()) {
             return;
+
         }
         mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
-                holder.mFragment).commitNow();
+                holder.mFragment).commit(); // TODO: review transaction commit type usage
     }
 
     @Override
