@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "238c8738_58c111de",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/LiveDataUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-02T23:03:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure this change will do what we want, Yigit.  I think the problem is this line - we really want to do this on the background thread, but I\u0027ve been told getValue is not safe there.  WDYT?",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 69
+      },
+      "revId": "bab9cc751f6a2c50ef66ed3ec771262204a36680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
