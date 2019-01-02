@@ -25,7 +25,8 @@ import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getLastReleasedApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
-import androidx.build.dokka.Dokka
+import androidx.build.dokka.DokkaPublicDocs
+import androidx.build.dokka.DokkaSourceDocs
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
@@ -144,7 +145,8 @@ class AndroidXPlugin : Plugin<Project> {
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
-                    Dokka.ARCHIVE_TASK_NAME == task.name ||
+                    DokkaPublicDocs.ARCHIVE_TASK_NAME == task.name ||
+                    DokkaSourceDocs.ARCHIVE_TASK_NAME == task.name ||
                     "partiallyDejetifyArchive" == task.name ||
                     "dejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
@@ -390,3 +392,4 @@ private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
 }
+
