@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5b168d2_c3bb795f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/WakeLocks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-02T18:43:37Z",
+      "side": 1,
+      "message": "Not sure what this part means?",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 65
+      },
+      "revId": "8a442713fde8d8f1ac90006134a356785f130c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
