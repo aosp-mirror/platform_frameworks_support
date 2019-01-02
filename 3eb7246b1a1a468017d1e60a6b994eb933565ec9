@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21ad5127_5a595a7e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-02T19:46:47Z",
+      "side": 1,
+      "message": "Should use http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html",
+      "revId": "3eb7246b1a1a468017d1e60a6b994eb933565ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14fb3e29_e0a830a6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-02T19:46:47Z",
+      "side": 1,
+      "message": "Should use http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html",
+      "revId": "3eb7246b1a1a468017d1e60a6b994eb933565ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
