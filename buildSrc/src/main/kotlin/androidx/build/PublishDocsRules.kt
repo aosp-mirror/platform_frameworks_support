@@ -100,7 +100,6 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-fragment")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-ktx")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-core-ktx")
-    ignore(LibraryGroups.LIFECYCLE, "lifecycle-compiler")
     prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha01")
     prebuilts(LibraryGroups.ARCH_CORE, "2.0.0")
     prebuilts(LibraryGroups.PAGING, "2.1.0")
@@ -240,10 +239,18 @@ sealed class Strategy {
         }
 
         override fun toString() = "Prebuilts(\"$version\")"
+        fun dependency(extension: SupportLibraryExtension): String {
+            return "${extension.mavenGroup}:${extension.project.name}:$version"
+        }
     }
 }
 
 class PublishDocsRules(val name: String, val offline: Boolean, private val rules: List<DocsRule>) {
+    fun resolve(extension: SupportLibraryExtension): DocsRule? {
+        val mavenGroup = extension.mavenGroup
+        return if (mavenGroup == null) null else resolve(mavenGroup, extension.project.name)
+    }
+
     fun resolve(groupName: String, moduleName: String): DocsRule {
         return rules.find { it.predicate.apply(groupName, moduleName) } ?: throw Error()
     }
