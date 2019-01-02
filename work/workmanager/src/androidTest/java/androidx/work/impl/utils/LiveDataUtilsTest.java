@@ -32,10 +32,14 @@ import androidx.test.filters.SmallTest;
 import androidx.work.TestLifecycleOwner;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
+import androidx.work.impl.utils.taskexecutor.WorkManagerTaskExecutor;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @SmallTest
 @RunWith(AndroidJUnit4.class)
@@ -120,6 +124,39 @@ public class LiveDataUtilsTest {
         mappedLiveData.removeObservers(testLifecycleOwner);
     }
 
+    @Test
+    public void testDedupedMappedLiveData_updatesLatestVersionOnly() throws InterruptedException {
+        Function<Integer, String> slowIntToStringMapping = new Function<Integer, String>() {
+            @Override
+            public String apply(Integer input) {
+                try {
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    // Do nothing.
+                }
+                return (input == null) ? "" : input.toString();
+            }
+        };
+
+        MutableLiveData<Integer> originalLiveData = new MutableLiveData<>();
+        LiveData<String> mappedLiveData = LiveDataUtils.dedupedMappedLiveDataFor(
+                originalLiveData,
+                slowIntToStringMapping,
+                new WorkManagerTaskExecutor());
+        assertThat(mappedLiveData.getValue(), is(nullValue()));
+
+        TestLifecycleOwner testLifecycleOwner = new TestLifecycleOwner();
+        CountdownLatchObserver<String> observer = new CountdownLatchObserver<>();
+        mappedLiveData.observe(testLifecycleOwner, observer);
+
+        Integer value = 1337;
+        for (int i = 0; i < 10; ++i) {
+            originalLiveData.setValue(++value);
+        }
+        observer.mLatch.await(1100L, TimeUnit.MILLISECONDS);
+        assertThat(mappedLiveData.getValue(), is(value.toString()));
+    }
+
     private static class CountingObserver<T> implements Observer<T> {
 
         int mTimesUpdated;
@@ -127,6 +164,16 @@ public class LiveDataUtilsTest {
         @Override
         public void onChanged(@Nullable T t) {
             ++mTimesUpdated;
+        }
+    }
+
+    private static class CountdownLatchObserver<T> implements Observer<T> {
+
+        CountDownLatch mLatch = new CountDownLatch(1);
+
+        @Override
+        public void onChanged(@Nullable T t) {
+            mLatch.countDown();
         }
     }
 }

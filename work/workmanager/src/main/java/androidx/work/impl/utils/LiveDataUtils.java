@@ -53,19 +53,27 @@ public class LiveDataUtils {
             @NonNull final Function<In, Out> mappingMethod,
             @NonNull final TaskExecutor workTaskExecutor) {
         final MediatorLiveData<Out> outputLiveData = new MediatorLiveData<>();
+
         outputLiveData.addSource(inputLiveData, new Observer<In>() {
+
+            int mLatestDataVersion = 0;
+
             @Override
             public void onChanged(@Nullable final In input) {
+                final int currentVersion = ++mLatestDataVersion;
                 final Out previousOutput = outputLiveData.getValue();
                 workTaskExecutor.executeOnBackgroundThread(new Runnable() {
                     @Override
                     public void run() {
                         synchronized (outputLiveData) {
                             Out newOutput = mappingMethod.apply(input);
-                            if (previousOutput == null && newOutput != null) {
+                            if (previousOutput == null
+                                    && newOutput != null
+                                    && currentVersion == mLatestDataVersion) {
                                 outputLiveData.postValue(newOutput);
-                            } else if (
-                                    previousOutput != null && !previousOutput.equals(newOutput)) {
+                            } else if (previousOutput != null
+                                    && !previousOutput.equals(newOutput)
+                                    && currentVersion == mLatestDataVersion) {
                                 outputLiveData.postValue(newOutput);
                             }
                         }
