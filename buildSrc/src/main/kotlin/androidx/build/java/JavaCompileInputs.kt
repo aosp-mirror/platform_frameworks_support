@@ -19,6 +19,7 @@ package androidx.build.java
 import androidx.build.androidJarFile
 import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.LibraryExtension
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.FileCollection
 import org.gradle.api.Project
@@ -26,10 +27,8 @@ import org.gradle.api.Task
 import org.gradle.api.tasks.SourceSet
 import java.io.File
 
-/**
- * JavaCompileInputs contains the information required to compile Java/Kotlin code
- * This can be helpful for creating Metalava and Dokka tasks with the same settings
- */
+// JavaCompileInputs contains the information required to compile Java/Kotlin code
+// This can be helpful for creating Metalava and Dokka tasks with the same settings
 data class JavaCompileInputs(
     // Source files to process
     val sourcePaths: Collection<File>,
@@ -41,7 +40,7 @@ data class JavaCompileInputs(
     val bootClasspath: Collection<File>
 ) {
     companion object {
-        /** Constructs a JavaCompileInputs from a library and its variant */
+        // Constructs a JavaCompileInputs from a library and its variant
         fun fromLibraryVariant(library: LibraryExtension, variant: BaseVariant): JavaCompileInputs {
             var sourcePaths: Collection<File> = variant.sourceSets.find({ it -> it.name == "main" })!!.javaDirectories
             var dependencyClasspath: FileCollection = variant.compileConfiguration.incoming.artifactView { config ->
@@ -54,12 +53,16 @@ data class JavaCompileInputs(
             return JavaCompileInputs(sourcePaths, dependencyClasspath, bootClasspath)
         }
 
-        /** Constructs a JavaCompileInputs from a sourceset */
+        // Constructs a JavaCompileInputs from a sourceset
         fun fromSourceSet(sourceSet: SourceSet, project: Project): JavaCompileInputs {
             val sourcePaths: Collection<File> = sourceSet.allSource.srcDirs
             val dependencyClasspath = sourceSet.compileClasspath
             val bootClasspath: Collection<File> = androidJarFile(project).files
             return JavaCompileInputs(sourcePaths, dependencyClasspath, bootClasspath)
+        }
+
+        fun fromSource(sourceDir: File, dependencies: Configuration, containingProject: Project): JavaCompileInputs {
+            return JavaCompileInputs(listOf(sourceDir), dependencies, androidJarFile(containingProject).files)
         }
     }
 }
