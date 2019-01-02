@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "602c2ed5_2be9da56",
+        "filename": "development/androidx-release-history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:10:02Z",
+      "side": 1,
+      "message": "Does this refer to line 10? If so, could we rename \"commit-list\" into something that sounds less like \"git commit\" and/or move line 10 into here (becoming \"\u003cSHA:artifactId:version\u003e\")?",
+      "range": {
+        "startLine": 8,
+        "startChar": 43,
+        "endLine": 8,
+        "endChar": 56
+      },
+      "revId": "5e9a15e81bff05605f1edde33e37961870834086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de9bbb64_7cfa3f72",
+        "filename": "development/androidx-release-history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:10:02Z",
+      "side": 1,
+      "message": "I think it\u0027d be easier for people to be sure this isn\u0027t missed if it\u0027s made into a different argument",
+      "range": {
+        "startLine": 9,
+        "startChar": 79,
+        "endLine": 9,
+        "endChar": 142
+      },
+      "revId": "5e9a15e81bff05605f1edde33e37961870834086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
