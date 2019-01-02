@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "6f3efb75_0edd741c",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Added comments to the top.  Probably makes sense to keep top level execution together, separated from function definition.",
+      "parentUuid": "85ab5daf_dcd1a7c3",
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0bc22a9_a68d6f9c",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -62,6 +80,30 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b411578_53c2e854",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0bc22a9_a68d6f9c",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "8230a224_bf62b631",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c3c0930_44961501",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "258b4b22_019b6553",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "2b05bcdc_f46509aa",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "258b4b22_019b6553",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17a806d4_af11a6a8",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -125,6 +215,24 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7506714c_399cf0d6",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17a806d4_af11a6a8",
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "00fb432e_acaa2c0e",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d3fbbf7_9e84fca9",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de4a4f5f_401ff238",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -174,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "c6af3363_e8f37798",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de4a4f5f_401ff238",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e3be677_8a50f30e",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -185,6 +341,30 @@
       "writtenOn": "2019-01-02T16:48:42Z",
       "side": 1,
       "message": "It\u0027d be good to clarify why we want different handling for keys that start with numbers.\n\nA start could be to extract this iteration into a named function like \"def getLibraryVersions(versionsMap)\"\n\nI suspect that an easier-to-understand solution would be to make a composite data structure with one map for versions and another map for groupIds but that if that\u0027s a bunch of trouble then avoiding doing that now seems reasonable to me",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "983cb358_e99a8476",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "This is needed because version MACROs can be a copy another version MACRO.  For example:\n    val ARCH_CORE \u003d Version(\"2.0.0\")\n    val ARCH_CORE_TESTING \u003d ARCH_CORE",
+      "parentUuid": "0e3be677_8a50f30e",
       "range": {
         "startLine": 72,
         "startChar": 0,
@@ -220,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "6c52f3f8_3454396a",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f17c40f7_f9964213",
+      "range": {
+        "startLine": 88,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 88
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36d88e53_ee0d1186",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -231,6 +435,30 @@
       "writtenOn": "2019-01-02T16:48:42Z",
       "side": 1,
       "message": "Does this mean that there exist AndroidX artifacts that use \"_\" in their artifact Ids or that inside this python script sometimes \"_\" is used instead of \"-\"?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80502fbc_b7f59317",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Macros use an \u0027_\u0027 instead of a \u0027-\u0027.  So sometimes, sometimes inside this script, artifacts may use \"_\" in their artifact Ids because the artifactId was generated from the MACRO.",
+      "parentUuid": "36d88e53_ee0d1186",
       "range": {
         "startLine": 99,
         "startChar": 0,
@@ -266,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "9db76e0e_8b092f5d",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941c1c27_cad1b35c",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f0c191f_ee55bb7e",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -289,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "7f090ef2_ef21fdf9",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Uh oh, very good point.  Fixing.",
+      "parentUuid": "1f0c191f_ee55bb7e",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 49
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dd9f3bb_bb434735",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -300,6 +576,30 @@
       "writtenOn": "2019-01-02T16:48:42Z",
       "side": 1,
       "message": "Recommend consolidating with lines 60-69",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6605d32d_410b726b",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Oof, yeah this flow isn\u0027t great.  It actually requires opening LibraryVersions.kt many times... I\u0027ll fix this up.",
+      "parentUuid": "0dd9f3bb_bb434735",
       "range": {
         "startLine": 117,
         "startChar": 0,
@@ -332,6 +632,30 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a627e65_5eb2fed8",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T21:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dfdfe61_fc03ba2c",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
