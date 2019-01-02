@@ -2,6 +2,201 @@
   "comments": [
     {
       "key": {
+        "uuid": "e4d549a3_d6d68cac",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "Hmm looking at this here makes me think that it\u0027d be easier to recognize the data type of $LIBRARYVERSIONS_REL (that it\u0027s a filepath) if one of:\n\na) the variable were renamed to \"LIBRARYVERSIONS_REL_PATH\"\nb) \"$LIBRARYVERSIONS_REL\" were replaced by \"the file at $LIBRARYVERSIONS_REL\"\nc) this comment were moved below the variable definition\nd) \"$LIBRARYVERSIONS_REL\" were replaced by \"LibraryVersions.kt\"\ne) the value were expanded inline in the comment",
+      "range": {
+        "startLine": 8,
+        "startChar": 23,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5dab310_1093778d",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "I think this function is only called once (line 167). In the case where it\u0027s called, is there an advantage to continuing if the file doesn\u0027t exist?\n\nI think it\u0027d be slightly clearer and slightly simpler to fail immediately if the file doesn\u0027t exist\n\nIf so, then I think this function simplifies down to lines 45-46, which I think is short enough to inline at the callsite again",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c80b814_c38d1644",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "I think we want this to fail if the file doesn\u0027t exist",
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fe86fc_24948772",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "thanks",
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2792f6c_aab5af57",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "I would name \"version_needs_resolving_map\" something more like \"specified_versions\" since that describes where the values came from and I think it specifies as much about what will be done with the values (they still need to be resolved)\n\nI\u0027d also rename \"tot_version_map\" to \"resolved_versions\" to more clearly disambiguate it from version_needs_resolving_map (the \"tot\" I think is implied by the \"tot\" in the function name) but I think that doing that rename is optional",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98ef6f63_43c52fa1",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "I think it\u0027d be more robust (and therefore clearer) if instead of the check being to look for a digit as the first character, the check were to look for quotes around the value (this would require modifying get_version_from_libraryVersions_line\n\nThat might also increase the probability of catching the error if it encountered a line that looked like:\n\nval ARCH_CORE_TESTING \u003d \"testing-\" + ARCH_CORE",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3170854f_5c83d62d",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "I think that each instance of \"MACRO\" would be more accurate as \"variable reference\"\n\nIn this case I\u0027d say something more like \"Artifact version specification is a reference to another artifact\u0027s version\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 34
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26309695_83925104",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "Suggest shortening this to \"Resolve variable references.\"",
+      "range": {
+        "startLine": 85,
+        "startChar": 1,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4dd591_f0b0849d",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T23:27:00Z",
+      "side": 1,
+      "message": "What\u0027s an example of an artifactId we want to split on \"_\"?\nWhen we generate these identifiers, can we choose a constant separator for easier parsing? For example, \"#\" ?\n\nEven better would be to declare a class called something like MavenCoordinates having a groupId field and an artifactId field",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "832639dc_df06a228",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
