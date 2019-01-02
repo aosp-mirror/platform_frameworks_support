@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "832639dc_df06a228",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T22:04:14Z",
+      "side": 1,
+      "message": "Only read once",
+      "range": {
+        "startLine": 167,
+        "startChar": 1,
+        "endLine": 167,
+        "endChar": 68
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f7ff86_f1dbea53",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-02T22:04:14Z",
+      "side": 1,
+      "message": "Only write once, if we need to",
+      "range": {
+        "startLine": 180,
+        "startChar": 2,
+        "endLine": 180,
+        "endChar": 64
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
