@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47f83a54_0dd7485a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-02T16:34:34Z",
+      "side": 1,
+      "message": "Why not use ALTERNATE_ARCHIVE_TASK_NAME",
+      "revId": "68c9b815368b8614010c925aacad1b8b66b61cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
