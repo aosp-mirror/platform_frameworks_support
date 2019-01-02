@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae1ef241_8138693c",
+        "filename": "concurrent/futures/src/test/java/androidx/concurrent/futures/CallbackToFutureAdapterTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-02T19:49:54Z",
+      "side": 1,
+      "message": "You can use `@Ignore` which accepts a string value for comment to ensure the test is still reported to runners but marked as ignored.",
+      "revId": "033f65978071d72164b3707a61d342844c9f2811",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
