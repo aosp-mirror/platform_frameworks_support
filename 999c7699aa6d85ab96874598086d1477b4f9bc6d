@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "e56b6770_54a8fbc7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-02T12:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69762516_b6fce006",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10f35912_befcb5a8",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -56,6 +74,30 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd085fa_bff84fd7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-02T12:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f35912_befcb5a8",
+      "range": {
+        "startLine": 78,
+        "startChar": 49,
+        "endLine": 78,
+        "endChar": 58
+      },
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +152,24 @@
     },
     {
       "key": {
+        "uuid": "37986a9f_dd4263b5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-02T12:05:23Z",
+      "side": 1,
+      "message": "I did a quick try to port the code but it is calling some native methods and didn\u0027t know how to resolve these imports here so I ended up keeping the old version.\n\nWill look into this.",
+      "parentUuid": "27150732_9cb3a874",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10f7f3f2_34188248",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -130,6 +190,30 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd873d3f_7ccf6ecc",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-02T12:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f7f3f2_34188248",
+      "range": {
+        "startLine": 332,
+        "startChar": 87,
+        "endLine": 332,
+        "endChar": 93
+      },
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +249,24 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58526f14_0fa908c1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-02T12:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3e1f38b_7009765a",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
