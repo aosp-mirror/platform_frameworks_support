@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b3e5ec7_c9e5f72a",
+        "filename": "testutils/src/main/java/androidx/testutils/FragmentActivityUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-02T18:07:12Z",
+      "side": 1,
+      "message": "Our regular use of this annotation drops the name of the parameter given it is implied.\n\n@RequiresApi(VERSION_CODES.JELLY_BEAN)\n\nSame with other places.",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "63e616fd48bdd3c7874866b90b92be1351830b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
