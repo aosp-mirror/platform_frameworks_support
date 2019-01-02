@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a17088e_eb68921d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "\"library\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ab5daf_dcd1a7c3",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "It\u0027d be nice to have more details at the top of this script describing what it does.\n\nFor example, \"Updates $LIBRARYVERSIONS_REL based on the artifacts in $GMAVEN_BASE_URL\"\n\nOne option would be to move line 163 (\"parser \u003d argparse.ArgumentParser\") closer to the top of the file",
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0bc22a9_a68d6f9c",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "Probably meant to remove this comment?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c3c0930_44961501",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "I think it\u0027d be more helpful for the comment to describe the meaning of the return value and possibly the meaning of the inputs than to describe the logic in the function (since the logic in the function can be determined by reading the function).\n\nI\u0027d make the comment more like \"Tells whether to update the given artifact based on the command-line arguments\"\n\nOr even better, if the signature of the function were\n\n  def should_update_artifact(args, groupId, artifactId):\n\nI think the comment would probably be optional because it could be guessed from the inputs",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258b4b22_019b6553",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "I think a lower-case \"d\" would more closely match the other instances in this file",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a806d4_af11a6a8",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "It\u0027d be good to have an example of expected input to make it faster to recognize what this is for\n\nFor example, \"Sample input: \u0027val ACTIVITY \u003d Version(\"1.0.0-alpha04\")\u0027 \"",
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3fbbf7_9e84fca9",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "In cases where the index \"i\" isn\u0027t used there\u0027s also \"for i in f.readlines():\"",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4a4f5f_401ff238",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "I think it\u0027d be more helpful to move this comment (about the format of the line) to the function definition (which is where the expected format is relied upon)\n\n(this would address the comment I put there too)",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e3be677_8a50f30e",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "It\u0027d be good to clarify why we want different handling for keys that start with numbers.\n\nA start could be to extract this iteration into a named function like \"def getLibraryVersions(versionsMap)\"\n\nI suspect that an easier-to-understand solution would be to make a composite data structure with one map for versions and another map for groupIds but that if that\u0027s a bunch of trouble then avoiding doing that now seems reasonable to me",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17c40f7_f9964213",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "I suggest removing this comment since since I think the concept of \"supposed to exist\" is external to the function of \"does_exist_on_gmaven\" and that the logic of \"if result is 404 then exists is false\" is straightforward enough to be more clear without a comment",
+      "range": {
+        "startLine": 88,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 88
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36d88e53_ee0d1186",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "Does this mean that there exist AndroidX artifacts that use \"_\" in their artifact Ids or that inside this python script sometimes \"_\" is used instead of \"-\"?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941c1c27_cad1b35c",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "In that case could we find a more accurate function name - perhaps \"increment_prerelease_version\" (or hopefully even more accurate than that based on where the function is used)",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f0c191f_ee55bb7e",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "What does this function return when given \"alpha09\" as an input?",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 49
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd9f3bb_bb434735",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "Recommend consolidating with lines 60-69",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfdfe61_fc03ba2c",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-02T16:48:42Z",
+      "side": 1,
+      "message": "Was this intended to be removed?",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
