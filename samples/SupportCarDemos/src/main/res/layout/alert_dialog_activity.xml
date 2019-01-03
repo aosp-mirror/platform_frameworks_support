@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/car_padding_4"
         android:checked="true"
-        android:text="@string/alert_dialog_checkbox_title" />
+        android:text="@string/alert_dialog_checkbox_title"/>
 
     <CheckBox
         android:id="@+id/has_image"

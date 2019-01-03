@@ -61,4 +61,7 @@
     <!-- Alpha Jump Picker colors-->
     <color name="alpha_picker_bg">@color/alpha_picker_bg_dark</color>
     <color name="alpha_picker_unavailable_bg">@color/alpha_picker_unavailable_bg_dark</color>
+
+    <!-- Dialog -->
+    <color name="car_dialog_scrim">#d6000000</color>
 </resources>

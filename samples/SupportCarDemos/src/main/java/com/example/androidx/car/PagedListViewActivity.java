@@ -16,15 +16,18 @@
 
 package com.example.androidx.car;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.car.app.CarListDialog;
 import androidx.car.widget.CarToolbar;
 import androidx.car.widget.PagedListView;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +37,8 @@ import java.util.List;
 /**
  * Demo activity for PagedListView.
  */
-public class PagedListViewActivity extends Activity {
-
+public class PagedListViewActivity extends FragmentActivity {
+    private static final String DIALOG_TAG = "list_dialog_tag";
     private static final int ITEM_COUNT = 80;
 
     @Override
@@ -61,13 +64,13 @@ public class PagedListViewActivity extends Activity {
     /**
      * Adapter that populates a number of items for demo purposes.
      */
-    private static class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
+    private class DemoAdapter extends RecyclerView.Adapter<PagedListViewActivity.ViewHolder> {
         private final List<String> mItems = new ArrayList<>();
 
         /**
          * Generates a string for item text.
          */
-        public static String getItemText(int index) {
+        public String getItemText(int index) {
             return "Item " + index;
         }
 
@@ -88,6 +91,8 @@ public class PagedListViewActivity extends Activity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.mTextView.setText(mItems.get(position));
+            holder.itemView.setOnClickListener(
+                    v -> new ListDialogFragment().show(getSupportFragmentManager(), DIALOG_TAG));
         }
 
         @Override
@@ -99,17 +104,17 @@ public class PagedListViewActivity extends Activity {
             mItems.remove(position);
             notifyItemRemoved(position);
         }
+    }
 
-        /**
-         * ViewHolder for DemoAdapter.
-         */
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            private TextView mTextView;
+    /**
+     * ViewHolder for DemoAdapter.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTextView;
 
-            public ViewHolder(View itemView) {
-                super(itemView);
-                mTextView = itemView.findViewById(R.id.text);
-            }
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mTextView = itemView.findViewById(R.id.text);
         }
     }
 
@@ -134,6 +139,26 @@ public class PagedListViewActivity extends Activity {
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
             mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+        }
+    }
+
+    /** A {@link DialogFragment} that will inflate a {@link CarListDialog}. */
+    public static class ListDialogFragment extends DialogFragment {
+        private static final int NUM_OF_ITEMS = 55;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return new CarListDialog.Builder(getContext())
+                    .setItems(createItems(), null)
+                    .create();
+        }
+
+        private String[] createItems() {
+            String[] items = new String[NUM_OF_ITEMS];
+            for (int i = 0; i < NUM_OF_ITEMS; i++) {
+                items[i] = "Item " + (i + 1);
+            }
+            return items;
         }
     }
 }

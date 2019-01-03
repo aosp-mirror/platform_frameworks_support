@@ -17,7 +17,9 @@
 package androidx.car.app;
 
 import android.app.Dialog;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -144,6 +146,23 @@ public class CarListDialog extends Dialog {
         // Need to set this elevation listener last because the title and list need to be
         // initialized first.
         initializeTitleElevationListener();
+
+        window.setDimAmount(0f);
+
+        // Animate the dimming of the scrim when the dialog appears.
+        // TypedValue outValue = new TypedValue();
+        // Resources res = getContext().getResources();
+        // res.getValue(R.dimen.car_dialog_background_dim, outValue, true);
+
+        // float dimAmount = outValue.getFloat();
+
+        // ValueAnimator backgroundDimAnimator = ValueAnimator.ofFloat(0f, dimAmount);
+        // backgroundDimAnimator.addUpdateListener(
+        //         animation -> window.setDimAmount((float) animation.getAnimatedValue()));
+
+        // backgroundDimAnimator
+        //         .setDuration(res.getInteger(R.integer.car_dialog_enter_duration_ms))
+        //         .start();
     }
 
     private void initializeTitle() {
