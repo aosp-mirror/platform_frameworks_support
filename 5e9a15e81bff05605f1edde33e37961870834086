@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2fa595c_467ab6cf",
+        "filename": "development/androidx-release-history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:29:26Z",
+      "side": 1,
+      "message": "I think I understand - are you saying an argument should be the \u003cSHA:artifactId:version\u003e, and therefore remove each release list?",
+      "parentUuid": "602c2ed5_2be9da56",
+      "range": {
+        "startLine": 8,
+        "startChar": 43,
+        "endLine": 8,
+        "endChar": 56
+      },
+      "revId": "5e9a15e81bff05605f1edde33e37961870834086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de9bbb64_7cfa3f72",
         "filename": "development/androidx-release-history/add_release_commit_tags.sh",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "5e9a15e81bff05605f1edde33e37961870834086",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6fab529_39f4807b",
+        "filename": "development/androidx-release-history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de9bbb64_7cfa3f72",
+      "range": {
+        "startLine": 9,
+        "startChar": 79,
+        "endLine": 9,
+        "endChar": 142
+      },
+      "revId": "5e9a15e81bff05605f1edde33e37961870834086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
