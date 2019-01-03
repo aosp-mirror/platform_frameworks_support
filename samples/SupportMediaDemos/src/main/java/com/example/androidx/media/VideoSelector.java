@@ -59,14 +59,14 @@ public class VideoSelector extends Activity {
     private static final int EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 100;
 
     private Intent createLaunchIntent(Context ctx, String url) {
-        Intent ret_val = new Intent(ctx, VideoViewTest.class);
+        Intent ret_val = new Intent(ctx, VideoPlayer.class);
         ret_val.setData(Uri.parse(url));
         ret_val.putExtra(
-                VideoViewTest.LOOPING_EXTRA_NAME, mLoopingCheckbox.isChecked());
+                VideoPlayer.LOOPING_EXTRA_NAME, mLoopingCheckbox.isChecked());
         ret_val.putExtra(
-                VideoViewTest.USE_TEXTURE_VIEW_EXTRA_NAME, mTextureViewCheckbox.isChecked());
+                VideoPlayer.USE_TEXTURE_VIEW_EXTRA_NAME, mTextureViewCheckbox.isChecked());
         ret_val.putExtra(
-                VideoViewTest.MEDIA_TYPE_ADVERTISEMENT, mAdvertisementCheckBox.isChecked());
+                VideoPlayer.MEDIA_TYPE_ADVERTISEMENT, mAdvertisementCheckBox.isChecked());
         return ret_val;
     }
 

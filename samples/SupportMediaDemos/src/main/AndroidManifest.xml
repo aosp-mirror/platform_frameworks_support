@@ -24,7 +24,7 @@
                  android:supportsRtl="true">
 
         <!-- Video Selection Activity -->
-        <activity android:name="VideoSelector"
+        <activity android:name=".VideoSelector"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -34,7 +34,7 @@
         </activity>
 
         <!-- Video playback activity -->
-        <activity android:name="VideoViewTest"
+        <activity android:name=".VideoPlayer"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
