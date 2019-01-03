@@ -103,6 +103,13 @@ class AndroidXPlugin : Plugin<Project> {
                     val extension = project.extensions.getByType<AppExtension>()
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidApplicationOptions(extension)
+                    project.configurations.all {
+                        // Gradle seems to crash an androidtest configurations
+                        // preferring project modules...
+                        if (!it.name.toLowerCase().contains("androidtest")) {
+                            it.resolutionStrategy.preferProjectModules()
+                        }
+                    }
                 }
             }
         }
