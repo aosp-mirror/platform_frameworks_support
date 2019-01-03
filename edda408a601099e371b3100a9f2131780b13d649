@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ff22adc_8fe01a16",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T22:39:36Z",
+      "side": 1,
+      "message": "I\u0027d add the text \"file\" into this name somewhere to clarify that this is a file containing items to release. Maybe release-list-file",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "edda408a601099e371b3100a9f2131780b13d649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff299d5_7f26f046",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T22:39:36Z",
+      "side": 1,
+      "message": "Suggest \"\u003crelease-list-file\u003e\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 48,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "edda408a601099e371b3100a9f2131780b13d649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
