@@ -262,6 +262,8 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         }
         MediaItem item = mPlayer.getCurrentMediaItem();
         mPlayer.close();
+        // Set the player to null so we don't try to close it again in tearDown().
+        mPlayer = null;
         assertTrue(((FileMediaItem) item).isClosed());
     }
 
