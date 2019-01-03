@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df7aefb3_0bd8be09",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T18:03:50Z",
+      "side": 1,
+      "message": "\"on\"?",
+      "range": {
+        "startLine": 107,
+        "startChar": 49,
+        "endLine": 107,
+        "endChar": 50
+      },
+      "revId": "847143b2d019c596fa53f6a326defe3d94205615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10708db9_a857dbad",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T18:03:50Z",
+      "side": 1,
+      "message": "Could we add some comment here too like in the other cases that looks something like \"workaround for b/120487939\"?",
+      "revId": "847143b2d019c596fa53f6a326defe3d94205615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
