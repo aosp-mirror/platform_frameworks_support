@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d8c838dc_afeb1917",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d549a3_d6d68cac",
+      "range": {
+        "startLine": 8,
+        "startChar": 23,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5dab310_1093778d",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-02T23:27:00Z",
       "side": 1,
       "message": "I think this function is only called once (line 167). In the case where it\u0027s called, is there an advantage to continuing if the file doesn\u0027t exist?\n\nI think it\u0027d be slightly clearer and slightly simpler to fail immediately if the file doesn\u0027t exist\n\nIf so, then I think this function simplifies down to lines 45-46, which I think is short enough to inline at the callsite again",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d62c5eed_c5d6c14c",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Yup, it should fail it doesn\u0027t exist.\n\nI am of the opinion that read and write functions come in pairs.  So, I would expect that if there was a write function, there would be a read function.",
+      "parentUuid": "b5dab310_1093778d",
       "range": {
         "startLine": 42,
         "startChar": 1,
@@ -62,6 +110,24 @@
       "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c947d3f0_69d12010",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c80b814_c38d1644",
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "0669880f_79bd4f6b",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2792f6c_aab5af57",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98ef6f63_43c52fa1",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -116,6 +206,30 @@
       "writtenOn": "2019-01-02T23:27:00Z",
       "side": 1,
       "message": "I think it\u0027d be more robust (and therefore clearer) if instead of the check being to look for a digit as the first character, the check were to look for quotes around the value (this would require modifying get_version_from_libraryVersions_line\n\nThat might also increase the probability of catching the error if it encountered a line that looked like:\n\nval ARCH_CORE_TESTING \u003d \"testing-\" + ARCH_CORE",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121adfa6_935292c2",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "When would someone do something like \u0027val ARCH_CORE_TESTING \u003d \"testing-\" + ARCH_CORE\u0027?\n\nI didn\u0027t think this kind of edge case was possible.\n\nRegardless, I moved the logic to get_version_from_libraryVersions_line",
+      "parentUuid": "98ef6f63_43c52fa1",
       "range": {
         "startLine": 79,
         "startChar": 2,
@@ -151,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "b43568d8_76d46516",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3170854f_5c83d62d",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 34
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26309695_83925104",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -174,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "b350cb53_e09dfb65",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26309695_83925104",
+      "range": {
+        "startLine": 85,
+        "startChar": 1,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec4dd591_f0b0849d",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -185,6 +347,30 @@
       "writtenOn": "2019-01-02T23:27:00Z",
       "side": 1,
       "message": "What\u0027s an example of an artifactId we want to split on \"_\"?\nWhen we generate these identifiers, can we choose a constant separator for easier parsing? For example, \"#\" ?\n\nEven better would be to declare a class called something like MavenCoordinates having a groupId field and an artifactId field",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c2912e_483b1c0d",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Actually, this was a problem until line 61 of get_artifactId_from_LibraryVersions_line() that replaces \u0027_\u0027 with \u0027-\u0027.  So it\u0027s not an issue.  Double checked with:\nif \u0027_\u0027 in artifactId: print(\"Underscore in %s\" % artifactId)\n\nThe point about a MavenCoordinates class for groupId and artifactId is a good one.  Do you think it\u0027s worth the changes it requires?",
+      "parentUuid": "ec4dd591_f0b0849d",
       "range": {
         "startLine": 116,
         "startChar": 3,
@@ -220,6 +406,30 @@
     },
     {
       "key": {
+        "uuid": "911f4122_606f0ce5",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "832639dc_df06a228",
+      "range": {
+        "startLine": 167,
+        "startChar": 1,
+        "endLine": 167,
+        "endChar": 68
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24f7ff86_f1dbea53",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -240,6 +450,30 @@
       "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecbe18a5_d7800d53",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-03T21:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f7ff86_f1dbea53",
+      "range": {
+        "startLine": 180,
+        "startChar": 2,
+        "endLine": 180,
+        "endChar": 64
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
