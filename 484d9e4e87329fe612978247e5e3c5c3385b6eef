@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "341c3974_672f1888",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T19:16:28Z",
+      "side": 1,
+      "message": "What\u0027s the \"// \" signify?\nI\u0027d assume that it would mean that this comment is not descriptive of what\u0027s immediately below it but instead of a larger section of code, but I think that what it describes is the if statement on 111 (so I\u0027d remove the \"// \")",
+      "revId": "484d9e4e87329fe612978247e5e3c5c3385b6eef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
