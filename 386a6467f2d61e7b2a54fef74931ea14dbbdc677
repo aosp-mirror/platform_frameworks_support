@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d6dd16_85a254c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-03T11:52:28Z",
+      "side": 1,
+      "message": "constructors",
+      "range": {
+        "startLine": 11,
+        "startChar": 57,
+        "endLine": 11,
+        "endChar": 68
+      },
+      "revId": "386a6467f2d61e7b2a54fef74931ea14dbbdc677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91dd7c92_cce82d51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-03T11:52:28Z",
+      "side": 1,
+      "message": "two",
+      "range": {
+        "startLine": 11,
+        "startChar": 48,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "386a6467f2d61e7b2a54fef74931ea14dbbdc677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0af1d8a_ab0897ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-03T11:52:28Z",
+      "side": 1,
+      "message": "don\u0027t take any executor or callback?",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "386a6467f2d61e7b2a54fef74931ea14dbbdc677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
