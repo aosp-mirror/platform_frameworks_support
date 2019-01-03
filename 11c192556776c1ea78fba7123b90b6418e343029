@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63f22098_e1ca864a",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/LiveDataUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-03T03:10:14Z",
+      "side": 1,
+      "message": "this never posts null, is it desired ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "11c192556776c1ea78fba7123b90b6418e343029",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
