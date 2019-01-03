@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f210e0_380af138",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-01-03T01:44:23Z",
+      "side": 1,
+      "message": "Could you add another constructor with no executor and callback instead of changing NonNull to Nullable?\n\nThat\u0027s to follow the API guideline. The guideline says two things (see: http://shortn/_nfF7qTCvKf)\n\n1. Note that developers must provide a valid Executor.\n2. As an exception to our usual guidelines about optional parameters, it is ok to provide an overload omitting the Executor",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 78
+      },
+      "revId": "0c38f15724db54c9ee778e47e34a726cb856a4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
