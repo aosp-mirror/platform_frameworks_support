@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05d18fd3_7e242f77",
+        "filename": "media2/api/1.0.0-alpha04.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-03T07:55:17Z",
+      "side": 1,
+      "message": "Done. FYI, ./gradlew updateApi doesn\u0027t remove previously modified changes.",
+      "parentUuid": "45d4b365_d77c17d0",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 87
+      },
+      "revId": "4a00f292cb57ad904d6f1dc8653ac1579d59e9fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afb78c2d_84e11084",
         "filename": "media2/src/main/java/androidx/media2/MediaController.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "4a00f292cb57ad904d6f1dc8653ac1579d59e9fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02eab2c1_ecdd9d1d",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-03T07:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb78c2d_84e11084",
+      "range": {
+        "startLine": 230,
+        "startChar": 38,
+        "endLine": 230,
+        "endChar": 58
+      },
+      "revId": "4a00f292cb57ad904d6f1dc8653ac1579d59e9fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
