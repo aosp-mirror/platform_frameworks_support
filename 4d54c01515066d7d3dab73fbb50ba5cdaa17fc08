@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "420d8d65_49a8d0bb",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T22:52:12Z",
+      "side": 1,
+      "message": "Sounds good to me\n\nPreviously I was imagining deleting both functions but now there\u0027s a little bit of extra code in them so keeping them around seems reasonable to me now",
+      "parentUuid": "d62c5eed_c5d6c14c",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c80b814_c38d1644",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -242,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "36c5dbd4_fb6be550",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T22:52:12Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t imagine this kind of edge case being something that will actually happen either, just that that would make it easier to recognize at a glance what this is doing.\n\nAnyway, it looks like you\u0027ve got this covered now; thanks",
+      "parentUuid": "121adfa6_935292c2",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3170854f_5c83d62d",
         "filename": "development/update_library_versions.py",
         "patchSetId": 6
@@ -380,6 +428,30 @@
       "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14958f4f_03fadc5a",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-03T22:52:12Z",
+      "side": 1,
+      "message": "If I were coding it I would create a MavenCoordinates class. If you don\u0027t though then I think that\u0027s acceptable too for a small project like this",
+      "parentUuid": "d0c2912e_483b1c0d",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "4d54c01515066d7d3dab73fbb50ba5cdaa17fc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
