@@ -39,6 +39,48 @@
       "revId": "847143b2d019c596fa53f6a326defe3d94205615",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9d3caa_d6145c09",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-03T18:27:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df7aefb3_0bd8be09",
+      "range": {
+        "startLine": 107,
+        "startChar": 49,
+        "endLine": 107,
+        "endChar": 50
+      },
+      "revId": "847143b2d019c596fa53f6a326defe3d94205615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b3159f_ac5d95d5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-03T18:27:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10708db9_a857dbad",
+      "revId": "847143b2d019c596fa53f6a326defe3d94205615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
