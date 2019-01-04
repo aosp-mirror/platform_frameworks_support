@@ -149,6 +149,16 @@ public class WorkerWrapper implements Runnable {
                 return;
             }
 
+            // On API 23, we double scheduler Workers because JobScheduler prefers batching.
+            // So is the Work is periodic, we only need to execute it once per interval.
+            if (Build.VERSION.SDK_INT == 23 && mWorkSpec.isPeriodic()) {
+                long now = System.currentTimeMillis();
+                if (now < mWorkSpec.calculateNextRunTime()) {
+                    resolve(false);
+                    return;
+                }
+            }
+
             // Needed for nested transactions, such as when we're in a dependent work request when
             // using a SynchronousExecutor.
             mWorkDatabase.setTransactionSuccessful();
