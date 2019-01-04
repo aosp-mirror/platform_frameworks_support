@@ -16,6 +16,7 @@
 
 package androidx.navigation.ui;
 
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ import java.util.Set;
  * Class which hooks up elements typically in the 'chrome' of your application such as global
  * navigation patterns like a navigation drawer or bottom nav bar with your {@link NavController}.
  */
-public class NavigationUI {
+public final class NavigationUI {
 
     // No instances. Static utilities only.
     private NavigationUI() {
@@ -59,6 +60,10 @@ public class NavigationUI {
      * <p>Importantly, it assumes the {@link MenuItem#getItemId() menu item id} matches a valid
      * {@link NavDestination#getAction(int) action id} or
      * {@link NavDestination#getId() destination id} to be navigated to.</p>
+     * <p>
+     * By default, the back stack will be popped back to the navigation graph's start destination.
+     * Menu items that have <code>android:menuCategory="secondary"</code> will not pop the back
+     * stack.
      *
      * @param item The selected MenuItem.
      * @param navController The NavController that hosts the destination.
@@ -67,19 +72,13 @@ public class NavigationUI {
      */
     public static boolean onNavDestinationSelected(@NonNull MenuItem item,
             @NonNull NavController navController) {
-        return onNavDestinationSelected(item, navController, false);
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static boolean onNavDestinationSelected(@NonNull MenuItem item,
-            @NonNull NavController navController, boolean popUp) {
         NavOptions.Builder builder = new NavOptions.Builder()
                 .setLaunchSingleTop(true)
                 .setEnterAnim(R.anim.nav_default_enter_anim)
                 .setExitAnim(R.anim.nav_default_exit_anim)
                 .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
                 .setPopExitAnim(R.anim.nav_default_pop_exit_anim);
-        if (popUp) {
+        if ((item.getOrder() & Menu.CATEGORY_SECONDARY) == 0) {
             builder.setPopUpTo(findStartDestination(navController.getGraph()).getId(), false);
         }
         NavOptions options = builder.build();
@@ -90,27 +89,6 @@ public class NavigationUI {
         } catch (IllegalArgumentException e) {
             return false;
         }
-    }
-
-    /**
-     * Handles the Up button by delegating its behavior to the given NavController. This should
-     * generally be called from {@link AppCompatActivity#onSupportNavigateUp()}.
-     * <p>If you do not have a {@link DrawerLayout}, you should call
-     * {@link NavController#navigateUp()} directly.
-     *
-     * @param drawerLayout The DrawerLayout that should be opened if you are on the topmost level
-     *                     of the app.
-     * @param navController The NavController that hosts your content.
-     * @return True if the {@link NavController} was able to navigate up.
-     * @deprecated Use {@link #navigateUp(NavController, DrawerLayout)} or
-     * {@link #navigateUp(NavController, AppBarConfiguration)}.
-     */
-    @Deprecated
-    public static boolean navigateUp(@Nullable DrawerLayout drawerLayout,
-            @NonNull NavController navController) {
-        return navigateUp(navController, new AppBarConfiguration.Builder(navController.getGraph())
-                .setDrawerLayout(drawerLayout)
-                .build());
     }
 
     /**
@@ -136,6 +114,10 @@ public class NavigationUI {
      * an alternative to using {@link NavController#navigateUp()} directly when the given
      * {@link AppBarConfiguration} needs to be considered when determining what should happen
      * when the Up button is pressed.
+     * <p>
+     * In cases where no Up action is available, the
+     * {@link AppBarConfiguration#getFallbackOnNavigateUpListener()} will be called to provide
+     * additional control.
      *
      * @param navController The NavController that hosts your content.
      * @param configuration Additional configuration options for determining what should happen
@@ -152,7 +134,13 @@ public class NavigationUI {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         } else {
-            return navController.navigateUp();
+            if (navController.navigateUp()) {
+                return true;
+            } else if (configuration.getFallbackOnNavigateUpListener() != null) {
+                return configuration.getFallbackOnNavigateUpListener().onNavigateUp();
+            } else {
+                return false;
+            }
         }
     }
 
@@ -202,11 +190,10 @@ public class NavigationUI {
     public static void setupActionBarWithNavController(@NonNull AppCompatActivity activity,
             @NonNull NavController navController,
             @Nullable DrawerLayout drawerLayout) {
-        navController.addOnNavigatedListener(
-                new ActionBarOnNavigatedListener(activity,
-                        new AppBarConfiguration.Builder(navController.getGraph())
-                                .setDrawerLayout(drawerLayout)
-                                .build()));
+        setupActionBarWithNavController(activity, navController,
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .setDrawerLayout(drawerLayout)
+                        .build());
     }
 
     /**
@@ -229,8 +216,8 @@ public class NavigationUI {
     public static void setupActionBarWithNavController(@NonNull AppCompatActivity activity,
             @NonNull NavController navController,
             @NonNull AppBarConfiguration configuration) {
-        navController.addOnNavigatedListener(
-                new ActionBarOnNavigatedListener(activity, configuration));
+        navController.addOnDestinationChangedListener(
+                new ActionBarOnDestinationChangedListener(activity, configuration));
     }
 
     /**
@@ -302,8 +289,8 @@ public class NavigationUI {
     public static void setupWithNavController(@NonNull Toolbar toolbar,
             @NonNull final NavController navController,
             @NonNull final AppBarConfiguration configuration) {
-        navController.addOnNavigatedListener(
-                new ToolbarOnNavigatedListener(toolbar, configuration));
+        navController.addOnDestinationChangedListener(
+                new ToolbarOnDestinationChangedListener(toolbar, configuration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -397,8 +384,9 @@ public class NavigationUI {
             @NonNull Toolbar toolbar,
             @NonNull final NavController navController,
             @NonNull final AppBarConfiguration configuration) {
-        navController.addOnNavigatedListener(new CollapsingToolbarOnNavigatedListener(
-                collapsingToolbarLayout, toolbar, configuration));
+        navController.addOnDestinationChangedListener(
+                new CollapsingToolbarOnDestinationChangedListener(
+                        collapsingToolbarLayout, toolbar, configuration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -432,7 +420,7 @@ public class NavigationUI {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        boolean handled = onNavDestinationSelected(item, navController, true);
+                        boolean handled = onNavDestinationSelected(item, navController);
                         if (handled) {
                             ViewParent parent = navigationView.getParent();
                             if (parent instanceof DrawerLayout) {
@@ -449,22 +437,23 @@ public class NavigationUI {
                     }
                 });
         final WeakReference<NavigationView> weakReference = new WeakReference<>(navigationView);
-        navController.addOnNavigatedListener(new NavController.OnNavigatedListener() {
-            @Override
-            public void onNavigated(@NonNull NavController controller,
-                    @NonNull NavDestination destination) {
-                NavigationView view = weakReference.get();
-                if (view == null) {
-                    controller.removeOnNavigatedListener(this);
-                    return;
-                }
-                Menu menu = view.getMenu();
-                for (int h = 0, size = menu.size(); h < size; h++) {
-                    MenuItem item = menu.getItem(h);
-                    item.setChecked(matchDestination(destination, item.getItemId()));
-                }
-            }
-        });
+        navController.addOnDestinationChangedListener(
+                new NavController.OnDestinationChangedListener() {
+                    @Override
+                    public void onDestinationChanged(@NonNull NavController controller,
+                            @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                        NavigationView view = weakReference.get();
+                        if (view == null) {
+                            navController.removeOnDestinationChangedListener(this);
+                            return;
+                        }
+                        Menu menu = view.getMenu();
+                        for (int h = 0, size = menu.size(); h < size; h++) {
+                            MenuItem item = menu.getItem(h);
+                            item.setChecked(matchDestination(destination, item.getItemId()));
+                        }
+                    }
+                });
     }
 
     /**
@@ -509,29 +498,30 @@ public class NavigationUI {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        return onNavDestinationSelected(item, navController, true);
+                        return onNavDestinationSelected(item, navController);
                     }
                 });
         final WeakReference<BottomNavigationView> weakReference =
                 new WeakReference<>(bottomNavigationView);
-        navController.addOnNavigatedListener(new NavController.OnNavigatedListener() {
-            @Override
-            public void onNavigated(@NonNull NavController controller,
-                    @NonNull NavDestination destination) {
-                BottomNavigationView view = weakReference.get();
-                if (view == null) {
-                    controller.removeOnNavigatedListener(this);
-                    return;
-                }
-                Menu menu = view.getMenu();
-                for (int h = 0, size = menu.size(); h < size; h++) {
-                    MenuItem item = menu.getItem(h);
-                    if (matchDestination(destination, item.getItemId())) {
-                        item.setChecked(true);
+        navController.addOnDestinationChangedListener(
+                new NavController.OnDestinationChangedListener() {
+                    @Override
+                    public void onDestinationChanged(@NonNull NavController controller,
+                            @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                        BottomNavigationView view = weakReference.get();
+                        if (view == null) {
+                            navController.removeOnDestinationChangedListener(this);
+                            return;
+                        }
+                        Menu menu = view.getMenu();
+                        for (int h = 0, size = menu.size(); h < size; h++) {
+                            MenuItem item = menu.getItem(h);
+                            if (matchDestination(destination, item.getItemId())) {
+                                item.setChecked(true);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     /**

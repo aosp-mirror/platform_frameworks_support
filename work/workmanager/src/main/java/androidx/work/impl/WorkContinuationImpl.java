@@ -26,9 +26,10 @@ import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.Operation;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
-import androidx.work.WorkStatus;
 import androidx.work.impl.utils.EnqueueRunnable;
 import androidx.work.impl.utils.StatusRunnable;
 import androidx.work.impl.workers.CombineContinuationsWorker;
@@ -49,7 +50,7 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WorkContinuationImpl extends WorkContinuation {
 
-    private static final String TAG = "WorkContinuationImpl";
+    private static final String TAG = Logger.tagWithPrefix("WorkContinuationImpl");
 
     private final WorkManagerImpl mWorkManagerImpl;
     private final String mName;
@@ -60,7 +61,7 @@ public class WorkContinuationImpl extends WorkContinuation {
     private final List<WorkContinuationImpl> mParents;
 
     private boolean mEnqueued;
-    private ListenableFuture<Void> mFuture;
+    private Operation mOperation;
 
     @NonNull
     public WorkManagerImpl getWorkManagerImpl() {
@@ -160,14 +161,14 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     @Override
-    public @NonNull LiveData<List<WorkStatus>> getStatusesLiveData() {
-        return mWorkManagerImpl.getStatusesById(mAllIds);
+    public @NonNull LiveData<List<WorkInfo>> getWorkInfosLiveData() {
+        return mWorkManagerImpl.getWorkInfosById(mAllIds);
     }
 
     @NonNull
     @Override
-    public ListenableFuture<List<WorkStatus>> getStatuses() {
-        StatusRunnable<List<WorkStatus>> runnable =
+    public ListenableFuture<List<WorkInfo>> getWorkInfos() {
+        StatusRunnable<List<WorkInfo>> runnable =
                 StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds);
 
         mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
@@ -175,31 +176,28 @@ public class WorkContinuationImpl extends WorkContinuation {
     }
 
     @Override
-    public ListenableFuture<Void> enqueue() {
+    public @NonNull Operation enqueue() {
         // Only enqueue if not already enqueued.
         if (!mEnqueued) {
             // The runnable walks the hierarchy of the continuations
             // and marks them enqueued using the markEnqueued() method, parent first.
             EnqueueRunnable runnable = new EnqueueRunnable(this);
             mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
-            mFuture = runnable.getFuture();
+            mOperation = runnable.getOperation();
         } else {
-            Logger.warning(TAG,
+            Logger.get().warning(TAG,
                     String.format("Already enqueued work ids (%s)", TextUtils.join(", ", mIds)));
         }
-        return mFuture;
+        return mOperation;
     }
 
     @Override
     protected @NonNull WorkContinuation combineInternal(
-            @Nullable OneTimeWorkRequest work,
             @NonNull List<WorkContinuation> continuations) {
-
-        if (work == null) {
-            work = new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
-                    .setInputMerger(ArrayCreatingInputMerger.class)
-                    .build();
-        }
+        OneTimeWorkRequest combinedWork =
+                new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
+                        .setInputMerger(ArrayCreatingInputMerger.class)
+                        .build();
 
         List<WorkContinuationImpl> parents = new ArrayList<>(continuations.size());
         for (WorkContinuation continuation : continuations) {
@@ -209,7 +207,7 @@ public class WorkContinuationImpl extends WorkContinuation {
         return new WorkContinuationImpl(mWorkManagerImpl,
                 null,
                 ExistingWorkPolicy.KEEP,
-                Collections.singletonList(work),
+                Collections.singletonList(combinedWork),
                 parents);
     }
 

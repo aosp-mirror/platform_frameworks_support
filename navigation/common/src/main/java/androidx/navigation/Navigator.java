@@ -18,15 +18,13 @@ package androidx.navigation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -68,36 +66,7 @@ public abstract class Navigator<D extends NavDestination> {
         String value();
     }
 
-    @Retention(SOURCE)
-    @IntDef({BACK_STACK_UNCHANGED, BACK_STACK_DESTINATION_ADDED, BACK_STACK_DESTINATION_POPPED})
-    @interface BackStackEffect {}
-
-    /**
-     * Indicator that the navigation event should not change the {@link NavController}'s back stack.
-     *
-     * <p>For example, a {@link NavOptions#shouldLaunchSingleTop() single top} navigation event may
-     * not result in a back stack change if the existing destination is on the top of the stack.</p>
-     *
-     * @see #dispatchOnNavigatorNavigated
-     */
-    public static final int BACK_STACK_UNCHANGED = 0;
-
-    /**
-     * Indicator that the navigation event has added a new entry to the back stack. Only
-     * destinations added with this flag will be handled by {@link NavController#navigateUp()}.
-     *
-     * @see #dispatchOnNavigatorNavigated
-     */
-    public static final int BACK_STACK_DESTINATION_ADDED = 1;
-
-    /**
-     * Indicator that the navigation event has popped an entry off the back stack.
-     *
-     * @see #dispatchOnNavigatorNavigated
-     */
-    public static final int BACK_STACK_DESTINATION_POPPED = 2;
-
-    private final CopyOnWriteArrayList<OnNavigatorNavigatedListener> mOnNavigatedListeners =
+    private final CopyOnWriteArrayList<OnNavigatorBackPressListener> mOnBackPressListeners =
             new CopyOnWriteArrayList<>();
 
     /**
@@ -117,22 +86,22 @@ public abstract class Navigator<D extends NavDestination> {
      * the navigation graph. This method generally should not be called directly;
      * {@link NavController} will delegate to it when appropriate.</p>
      *
-     * <p>Implementations should {@link #dispatchOnNavigatorNavigated} to notify
-     * listeners of the resulting navigation destination.</p>
-     *
      * @param destination destination node to navigate to
      * @param args arguments to use for navigation
      * @param navOptions additional options for navigation
      * @param navigatorExtras extras unique to your Navigator.
+     * @return The NavDestination that should be added to the back stack or null if
+     * no change was made to the back stack (i.e., in cases of single top operations
+     * where the destination is already on top of the back stack).
      */
-    public abstract void navigate(@NonNull D destination, @Nullable Bundle args,
+    @Nullable
+    public abstract NavDestination navigate(@NonNull D destination, @Nullable Bundle args,
             @Nullable NavOptions navOptions, @Nullable Extras navigatorExtras);
 
     /**
      * Attempt to pop this navigator's back stack, performing the appropriate navigation.
      *
-     * <p>Implementations should {@link #dispatchOnNavigatorNavigated} to notify
-     * listeners of the resulting navigation destination and return {@code true} if navigation
+     * <p>Implementations should return {@code true} if navigation
      * was successful. Implementations should return {@code false} if navigation could not
      * be performed, for example if the navigator's back stack was empty.</p>
      *
@@ -163,76 +132,64 @@ public abstract class Navigator<D extends NavDestination> {
     }
 
     /**
-     * Called when the number of {@link OnNavigatorNavigatedListener listeners} change from 0 to 1
+     * @hide
      */
-    public void onActive() {
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    protected void onBackPressAdded() {
     }
 
     /**
-     * Called when the number of {@link OnNavigatorNavigatedListener listeners} change from 1 to 0
+     * @hide
      */
-    public void onInactive() {
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    protected void onBackPressRemoved() {
     }
 
     /**
-     * Add a listener to be notified when this navigator changes navigation destinations.
-     *
-     * <p>Most application code should use
-     * {@link NavController#addOnNavigatedListener(NavController.OnNavigatedListener)} instead.
-     * </p>
-     *
-     * @param listener listener to add
+     * @hide
      */
-    public final void addOnNavigatorNavigatedListener(
-            @NonNull OnNavigatorNavigatedListener listener) {
-        boolean added = mOnNavigatedListeners.add(listener);
-        if (added && mOnNavigatedListeners.size() == 1) {
-            onActive();
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public final void addOnNavigatorBackPressListener(
+            @NonNull OnNavigatorBackPressListener listener) {
+        boolean added = mOnBackPressListeners.add(listener);
+        if (added && mOnBackPressListeners.size() == 1) {
+            onBackPressAdded();
         }
     }
 
     /**
-     * Remove a listener so that it will no longer be notified when this navigator changes
-     * navigation destinations.
-     *
-     * @param listener listener to remove
+     * @hide
      */
-    public final void removeOnNavigatorNavigatedListener(
-            @NonNull OnNavigatorNavigatedListener listener) {
-        boolean removed = mOnNavigatedListeners.remove(listener);
-        if (removed && mOnNavigatedListeners.isEmpty()) {
-            onInactive();
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public final void removeOnNavigatorBackPressListener(
+            @NonNull OnNavigatorBackPressListener listener) {
+        boolean removed = mOnBackPressListeners.remove(listener);
+        if (removed && mOnBackPressListeners.isEmpty()) {
+            onBackPressRemoved();
         }
     }
 
     /**
-     * Dispatch a navigated event to all registered {@link OnNavigatorNavigatedListener listeners}.
-     * Utility for navigator implementations.
-     *
-     * @param destId id of the new destination
-     * @param backStackEffect how the navigation event affects the back stack
+     * @hide
      */
-    public final void dispatchOnNavigatorNavigated(@IdRes int destId,
-            @BackStackEffect int backStackEffect) {
-        for (OnNavigatorNavigatedListener listener : mOnNavigatedListeners) {
-            listener.onNavigatorNavigated(this, destId, backStackEffect);
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public final void dispatchOnNavigatorBackPress() {
+        for (OnNavigatorBackPressListener listener : mOnBackPressListeners) {
+            listener.onPopBackStack(this);
         }
     }
 
     /**
-     * Listener for observing navigation events for this specific navigator. Most app code
-     * should use {@link NavController.OnNavigatedListener} instead.
+     * @hide
      */
-    public interface OnNavigatorNavigatedListener {
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public interface OnNavigatorBackPressListener {
         /**
          * This method is called after the Navigator navigates to a new destination.
          *
          * @param navigator
-         * @param destId
-         * @param backStackEffect
          */
-        void onNavigatorNavigated(@NonNull Navigator navigator, @IdRes int destId,
-                @BackStackEffect int backStackEffect);
+        void onPopBackStack(@NonNull Navigator navigator);
     }
 
     /**

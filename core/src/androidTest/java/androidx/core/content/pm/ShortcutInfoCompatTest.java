@@ -39,10 +39,10 @@ import androidx.core.app.TestActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +65,7 @@ public class ShortcutInfoCompatTest {
 
     @Before
     public void setup() {
-        mContext = spy(new ContextWrapper(InstrumentationRegistry.getContext()));
+        mContext = spy(new ContextWrapper(ApplicationProvider.getApplicationContext()));
         mAction = new Intent(Intent.ACTION_VIEW).setPackage(mContext.getPackageName());
 
         mBuilder = new ShortcutInfoCompat.Builder(mContext, TEST_SHORTCUT_ID)
@@ -130,6 +130,61 @@ public class ShortcutInfoCompatTest {
         assertNull(compat.getDisabledMessage());
         assertNull(compat.getActivity());
         assertNull(compat.getCategories());
+    }
+
+    @Test
+    public void testBuilder_copyConstructor() {
+        String longLabel = "Test long label";
+        ComponentName activity = new ComponentName("Package name", "Class name");
+        String disabledMessage = "Test disabled message";
+        Set<String> categories = new HashSet<>();
+        categories.add("cat1");
+        categories.add("cat2");
+        ShortcutInfoCompat compat = mBuilder
+                .setActivity(activity)
+                .setCategories(categories)
+                .setDisabledMessage(disabledMessage)
+                .setLongLabel(longLabel)
+                .build();
+
+        ShortcutInfoCompat copyCompat = new ShortcutInfoCompat.Builder(compat).build();
+        assertEquals(TEST_SHORTCUT_ID, copyCompat.getId());
+        assertEquals(TEST_SHORTCUT_SHORT_LABEL, copyCompat.getShortLabel());
+        assertEquals(mAction, copyCompat.getIntent());
+        assertEquals(longLabel, copyCompat.getLongLabel());
+        assertEquals(disabledMessage, copyCompat.getDisabledMessage());
+        assertEquals(activity, copyCompat.getActivity());
+        assertEquals(categories, copyCompat.getCategories());
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 26)
+    public void testBuilder_fromShortcutInfo() {
+        String longLabel = "Test long label";
+        ComponentName activity = new ComponentName("Package name", "Class name");
+        String disabledMessage = "Test disabled message";
+        Set<String> categories = new HashSet<>();
+        categories.add("cat1");
+        categories.add("cat2");
+
+        ShortcutInfo.Builder builder = new ShortcutInfo.Builder(mContext, TEST_SHORTCUT_ID);
+        ShortcutInfo shortcut = builder.setIntent(mAction)
+                .setShortLabel(TEST_SHORTCUT_SHORT_LABEL)
+                .setActivity(activity)
+                .setCategories(categories)
+                .setDisabledMessage(disabledMessage)
+                .setLongLabel(longLabel)
+                .build();
+
+        ShortcutInfoCompat compat = new ShortcutInfoCompat.Builder(mContext, shortcut).build();
+        assertEquals(TEST_SHORTCUT_ID, compat.getId());
+        assertEquals(TEST_SHORTCUT_SHORT_LABEL, compat.getShortLabel());
+        assertEquals(mAction.getPackage(), compat.getIntent().getPackage());
+        assertEquals(mAction.getAction(), compat.getIntent().getAction());
+        assertEquals(longLabel, compat.getLongLabel());
+        assertEquals(disabledMessage, compat.getDisabledMessage());
+        assertEquals(activity, compat.getActivity());
+        assertEquals(categories, compat.getCategories());
     }
 
     @Test

@@ -18,11 +18,16 @@
 // TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from Dokka to just Docs
 package androidx.build.dokka
 
-import androidx.build.java.JavaCompileInputs
+import androidx.build.DiffAndDocs
+import androidx.build.Release
 import androidx.build.SupportLibraryExtension
+import androidx.build.getBuildId
+import androidx.build.getDistributionDirectory
+import androidx.build.java.JavaCompileInputs
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getPlugin
 import org.jetbrains.dokka.gradle.DokkaPlugin
@@ -31,6 +36,8 @@ import org.jetbrains.dokka.gradle.PackageOptions
 
 object Dokka {
     private val RUNNER_TASK_NAME = "dokka"
+    public val ARCHIVE_TASK_NAME: String = "distDokkaDocs" // TODO(b/72330103) make "generateDocs" be the only archive task once Doclava is fully removed
+    private val ALTERNATE_ARCHIVE_TASK_NAME: String = "generateDocs"
 
     private val hiddenPackages = listOf(
         "androidx.core.internal",
@@ -47,24 +54,39 @@ object Dokka {
         "androidx.work.impl.model",
         "androidx.work.impl.utils",
         "androidx.work.impl.utils.futures",
-        "androidx.work.impl.utils.taskexecutor")
+        "androidx.work.impl.utils.taskexecutor"
+    )
 
     fun getDocsTask(project: Project): DokkaTask {
         return project.rootProject.getOrCreateDocsTask()
     }
 
-    @Synchronized fun Project.getOrCreateDocsTask(): DokkaTask {
+    @Synchronized
+    fun Project.getOrCreateDocsTask(): DokkaTask {
         val runnerProject = this
         if (runnerProject.tasks.findByName(Dokka.RUNNER_TASK_NAME) == null) {
             project.apply<DokkaPlugin>()
             val docsTask = project.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
-            docsTask.outputFormat = "dac-as-java"
+            docsTask.outputFormat = "dac"
             for (hiddenPackage in hiddenPackages) {
                 val opts = PackageOptions()
                 opts.prefix = hiddenPackage
                 opts.suppress = true
                 docsTask.perPackageOptions.add(opts)
             }
+            val archiveTask = project.tasks.create(ARCHIVE_TASK_NAME, Zip::class.java) { task ->
+                task.dependsOn(docsTask)
+                task.description =
+                        "Generates documentation artifact for pushing to developer.android.com"
+                task.from(docsTask.outputDirectory)
+                task.baseName = "android-support-dokka-docs"
+                task.version = getBuildId()
+                task.destinationDir = project.getDistributionDirectory()
+            }
+            if (project.tasks.findByName(ALTERNATE_ARCHIVE_TASK_NAME) == null) {
+                project.tasks.create(ALTERNATE_ARCHIVE_TASK_NAME)
+            }
+            project.tasks.getByName(ALTERNATE_ARCHIVE_TASK_NAME).dependsOn(archiveTask)
         }
         return runnerProject.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
     }
@@ -79,13 +101,14 @@ object Dokka {
             return
         }
         library.libraryVariants.all { variant ->
-            if (variant.name == "release") {
+            if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
                 project.afterEvaluate({
                     val inputs = JavaCompileInputs.fromLibraryVariant(library, variant)
                     registerInputs(inputs, project)
                 })
             }
         }
+        DiffAndDocs.get(project).registerPrebuilts(extension)
     }
 
     fun registerJavaProject(
@@ -102,12 +125,14 @@ object Dokka {
             val inputs = JavaCompileInputs.fromSourceSet(mainSourceSet, project)
             registerInputs(inputs, project)
         })
+        DiffAndDocs.get(project).registerPrebuilts(extension)
     }
 
     fun registerInputs(inputs: JavaCompileInputs, project: Project) {
         val docsTask = getDocsTask(project)
         docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath = docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
+        docsTask.classpath =
+                docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
         docsTask.dependsOn(inputs.dependencyClasspath)
     }
 }

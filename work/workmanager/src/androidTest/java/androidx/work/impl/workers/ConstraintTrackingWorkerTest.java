@@ -28,17 +28,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.DatabaseTest;
 import androidx.work.ListenableWorker;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.WorkerFactory;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.Scheduler;
@@ -93,7 +93,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
     @Before
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
+        mContext = ApplicationProvider.getApplicationContext().getApplicationContext();
         mHandler = new Handler(Looper.getMainLooper());
         mConfiguration = new Configuration.Builder()
                 .setExecutor(new SynchronousExecutor())
@@ -134,7 +134,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkTaskExecutor.getBackgroundExecutor().execute(mWorkerWrapper);
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(State.SUCCEEDED));
+        assertThat(workSpec.state, is(WorkInfo.State.SUCCEEDED));
         Data output = workSpec.output;
         assertThat(output.getBoolean(TEST_ARGUMENT_NAME, false), is(true));
     }
@@ -151,7 +151,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkTaskExecutor.getBackgroundExecutor().execute(mWorkerWrapper);
 
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(State.ENQUEUED));
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -174,7 +174,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
         Thread.sleep(TEST_TIMEOUT_IN_MS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(State.ENQUEUED));
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -207,7 +207,7 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
 
         Thread.sleep(TEST_TIMEOUT_IN_MS);
         WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(mWork.getStringId());
-        assertThat(workSpec.state, is(State.ENQUEUED));
+        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -227,11 +227,8 @@ public class ConstraintTrackingWorkerTest extends DatabaseTest {
         mWorkerWrapper.interrupt(true);
 
         assertThat(mWorker.isStopped(), is(true));
-        assertThat(mWorker.isCancelled(), is(true));
         assertThat(mWorker.getDelegate(), is(notNullValue()));
         assertThat(mWorker.getDelegate().isStopped(), is(true));
-        assertThat(mWorker.getDelegate().isCancelled(), is(true));
-
     }
 
     private void setupDelegateForExecution(@NonNull String delegateName, Executor executor) {

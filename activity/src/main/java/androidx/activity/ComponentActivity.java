@@ -16,6 +16,8 @@
 
 package androidx.activity;
 
+import static android.os.Build.VERSION.SDK_INT;
+
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,13 +27,16 @@ import android.view.Window;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.ReportFragment;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.savedstate.SavedStateRegistry;
+import androidx.savedstate.bundle.BundleSavedStateRegistry;
+import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
 
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,14 +50,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ComponentActivity extends androidx.core.app.ComponentActivity implements
         LifecycleOwner,
-        ViewModelStoreOwner {
+        ViewModelStoreOwner,
+        BundleSavedStateRegistryOwner {
 
     static final class NonConfigurationInstances {
         Object custom;
         ViewModelStore viewModelStore;
     }
 
-    private final LifecycleRegistry mLifecycleRegistry;
+    private final LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
+    private final BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
 
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
@@ -62,11 +69,19 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
             new CopyOnWriteArrayList<>();
 
     public ComponentActivity() {
-        mLifecycleRegistry = new LifecycleRegistry(this);
+        Lifecycle lifecycle = getLifecycle();
+        //noinspection ConstantConditions
+        if (lifecycle == null) {
+            throw new IllegalStateException("getLifecycle() returned null in ComponentActivity's "
+                    + "constructor. Please make sure you are lazily constructing your Lifecycle "
+                    + "in the first call to getLifecycle() rather than relying on field "
+                    + "initialization.");
+        }
         if (Build.VERSION.SDK_INT >= 19) {
-            mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
+            getLifecycle().addObserver(new LifecycleEventObserver() {
                 @Override
-                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         Window window = getWindow();
                         final View decor = window != null ? window.peekDecorView() : null;
@@ -77,9 +92,10 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
                 }
             });
         }
-        mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
+        getLifecycle().addObserver(new LifecycleEventObserver() {
             @Override
-            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
                 if (event == Lifecycle.Event.ON_DESTROY) {
                     if (!isChangingConfigurations()) {
                         getViewModelStore().clear();
@@ -87,12 +103,17 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
                 }
             }
         });
+
+        if (19 <= SDK_INT && SDK_INT <= 23) {
+            getLifecycle().addObserver(new ImmLeaksCleaner(this));
+        }
     }
 
     @Override
     @SuppressWarnings("RestrictedApi")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSavedStateRegistry.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
     }
 
@@ -100,8 +121,12 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     @CallSuper
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        mLifecycleRegistry.markState(Lifecycle.State.CREATED);
+        Lifecycle lifecycle = getLifecycle();
+        if (lifecycle instanceof LifecycleRegistry) {
+            ((LifecycleRegistry) lifecycle).markState(Lifecycle.State.CREATED);
+        }
         super.onSaveInstanceState(outState);
+        mSavedStateRegistry.performSave(outState);
     }
 
     /**
@@ -161,6 +186,19 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         return nc != null ? nc.custom : null;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of ComponentActivity. If you do override
+     * this method, you <code>must</code>:
+     * <ol>
+     *     <li>Return an instance of {@link LifecycleRegistry}</li>
+     *     <li>Lazily initialize your LifecycleRegistry object when this is first called.
+     *     Note that this method will be called in the super classes' constructor, before any
+     *     field initialization or object state creation is complete.</li>
+     * </ol>
+     */
     @NonNull
     @Override
     public Lifecycle getLifecycle() {
@@ -261,14 +299,15 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      */
     public void addOnBackPressedCallback(@NonNull LifecycleOwner owner,
             @NonNull OnBackPressedCallback onBackPressedCallback) {
-        if (owner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED) {
+        Lifecycle lifecycle = owner.getLifecycle();
+        if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
             // Already destroyed, nothing to do
             return;
         }
         // Add new callbacks to the front of the list so that
         // the most recently added callbacks get priority
         mOnBackPressedCallbacks.add(0, new LifecycleAwareOnBackPressedCallback(
-                owner.getLifecycle(), onBackPressedCallback));
+                lifecycle, onBackPressedCallback));
     }
 
     /**
@@ -301,9 +340,15 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         }
     }
 
+    @NonNull
+    @Override
+    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
+        return mSavedStateRegistry;
+    }
+
     private class LifecycleAwareOnBackPressedCallback implements
             OnBackPressedCallback,
-            GenericLifecycleObserver {
+            LifecycleEventObserver {
         private final Lifecycle mLifecycle;
         private final OnBackPressedCallback mOnBackPressedCallback;
 
@@ -331,7 +376,8 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         }
 
         @Override
-        public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+        public void onStateChanged(@NonNull LifecycleOwner source,
+                @NonNull Lifecycle.Event event) {
             if (event == Lifecycle.Event.ON_DESTROY) {
                 synchronized (mOnBackPressedCallbacks) {
                     mLifecycle.removeObserver(this);

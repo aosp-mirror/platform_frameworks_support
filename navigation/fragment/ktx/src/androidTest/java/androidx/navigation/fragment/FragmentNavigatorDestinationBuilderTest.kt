@@ -21,9 +21,9 @@ import androidx.navigation.contains
 import androidx.navigation.createGraph
 import androidx.navigation.get
 import androidx.test.annotation.UiThreadTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -49,8 +49,8 @@ class TestNavigatorDestinationBuilderTest {
         assertTrue("Destination should be added to the graph",
                 DESTINATION_ID in graph)
         assertEquals("Fragment class should be set to BuilderTestFragment",
-                BuilderTestFragment::class.java,
-                (graph[DESTINATION_ID] as FragmentNavigator.Destination).fragmentClass)
+                BuilderTestFragment::class.java.name,
+                (graph[DESTINATION_ID] as FragmentNavigator.Destination).className)
     }
 
     @UiThreadTest
@@ -67,8 +67,8 @@ class TestNavigatorDestinationBuilderTest {
         assertTrue("Destination should be added to the graph",
                 DESTINATION_ID in graph)
         assertEquals("Fragment class should be set to BuilderTestFragment",
-                BuilderTestFragment::class.java,
-                (graph[DESTINATION_ID] as FragmentNavigator.Destination).fragmentClass)
+                BuilderTestFragment::class.java.name,
+                (graph[DESTINATION_ID] as FragmentNavigator.Destination).className)
         assertEquals("Fragment should have label set",
                 LABEL, graph[DESTINATION_ID].label)
     }

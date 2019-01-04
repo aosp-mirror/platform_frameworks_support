@@ -16,15 +16,17 @@
 
 package androidx.work.impl.utils;
 
-import static androidx.work.State.CANCELLED;
-import static androidx.work.State.FAILED;
-import static androidx.work.State.SUCCEEDED;
+import static androidx.work.WorkInfo.State.CANCELLED;
+import static androidx.work.WorkInfo.State.FAILED;
+import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
-import androidx.work.State;
+import androidx.work.Operation;
+import androidx.work.WorkInfo;
+import androidx.work.impl.OperationImpl;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.Schedulers;
@@ -32,9 +34,6 @@ import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkSpecDao;
-import androidx.work.impl.utils.futures.SettableFuture;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.UUID;
@@ -47,22 +46,22 @@ import java.util.UUID;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class CancelWorkRunnable implements Runnable {
 
-    private final SettableFuture<Void> mFuture = SettableFuture.create();
+    private final OperationImpl mOperation = new OperationImpl();
 
     /**
-     * @return A {@link ListenableFuture} that completes when the cancel operation is completed
+     * @return The {@link Operation} that encapsulates the state of the {@link CancelWorkRunnable}.
      */
-    public ListenableFuture<Void> getFuture() {
-        return mFuture;
+    public Operation getOperation() {
+        return mOperation;
     }
 
     @Override
     public void run() {
         try {
             runInternal();
-            mFuture.set(null);
+            mOperation.setState(Operation.SUCCESS);
         } catch (Throwable throwable) {
-            mFuture.setException(throwable);
+            mOperation.setState(new Operation.State.FAILURE(throwable));
         }
     }
 
@@ -95,7 +94,7 @@ public abstract class CancelWorkRunnable implements Runnable {
             recursivelyCancelWorkAndDependents(workDatabase, id);
         }
 
-        State state = workSpecDao.getState(workSpecId);
+        WorkInfo.State state = workSpecDao.getState(workSpecId);
         if (state != SUCCEEDED && state != FAILED) {
             workSpecDao.setState(CANCELLED, workSpecId);
         }

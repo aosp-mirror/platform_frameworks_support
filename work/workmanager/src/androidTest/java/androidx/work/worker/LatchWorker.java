@@ -38,8 +38,8 @@ public class LatchWorker extends Worker {
         try {
             mLatch.await();
         } catch (InterruptedException e) {
-            return Result.FAILURE;
+            return Result.failure();
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

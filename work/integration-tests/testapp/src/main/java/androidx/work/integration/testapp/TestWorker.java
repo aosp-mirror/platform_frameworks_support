@@ -32,6 +32,6 @@ public class TestWorker extends Worker {
 
     @Override
     public @NonNull Result doWork() {
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

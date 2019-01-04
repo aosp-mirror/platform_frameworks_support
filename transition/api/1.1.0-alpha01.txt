@@ -98,6 +98,7 @@ package androidx.transition {
     ctor public Scene(android.view.ViewGroup, android.view.View);
     method public void enter();
     method public void exit();
+    method public static androidx.transition.Scene? getCurrentScene(android.view.View);
     method public static androidx.transition.Scene getSceneForLayout(android.view.ViewGroup, @LayoutRes int, android.content.Context);
     method public android.view.ViewGroup getSceneRoot();
     method public void setEnterAction(Runnable?);
@@ -230,7 +231,7 @@ package androidx.transition {
     method public void captureEndValues(androidx.transition.TransitionValues);
     method public void captureStartValues(androidx.transition.TransitionValues);
     method public int getOrdering();
-    method public androidx.transition.Transition! getTransitionAt(int);
+    method public androidx.transition.Transition? getTransitionAt(int);
     method public int getTransitionCount();
     method public androidx.transition.TransitionSet removeListener(androidx.transition.Transition.TransitionListener);
     method public androidx.transition.TransitionSet removeTarget(@IdRes int);
@@ -250,7 +251,7 @@ package androidx.transition {
     ctor @Deprecated public TransitionValues();
     ctor public TransitionValues(android.view.View);
     field public final java.util.Map<java.lang.String,java.lang.Object>! values;
-    field public android.view.View view;
+    field public android.view.View! view;
   }
 
   public abstract class Visibility extends androidx.transition.Transition {

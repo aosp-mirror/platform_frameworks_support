@@ -16,11 +16,17 @@
 
 package androidx.biometric;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CancellationSignal;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.fragment.app.Fragment;
 
@@ -34,7 +40,8 @@ import java.util.concurrent.Executor;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-@TargetApi(28)
+@RequiresApi(28)
+@SuppressLint("SyntheticAccessor")
 public class BiometricFragment extends Fragment {
 
     private static final String TAG = "BiometricFragment";
@@ -49,8 +56,17 @@ public class BiometricFragment extends Fragment {
     private CharSequence mNegativeButtonText;
 
     // Created once and retained.
+    private boolean mShowing;
     private android.hardware.biometrics.BiometricPrompt mBiometricPrompt;
     private CancellationSignal mCancellationSignal;
+    // Do not rely on the application's executor when calling into the framework's code.
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Executor mExecutor = new Executor() {
+        @Override
+        public void execute(Runnable runnable) {
+            mHandler.post(runnable);
+        }
+    };
 
     // Also created once and retained.
     private final android.hardware.biometrics.BiometricPrompt.AuthenticationCallback
@@ -158,8 +174,10 @@ public class BiometricFragment extends Fragment {
      * Remove the fragment so that resources can be freed.
      */
     void cleanup() {
+        mShowing = false;
         if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().detach(this)
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -183,15 +201,24 @@ public class BiometricFragment extends Fragment {
                 .setNegativeButton(bundle.getCharSequence(BiometricPrompt.KEY_NEGATIVE_TEXT),
                         mClientExecutor, mNegativeButtonListener)
                 .build();
+    }
 
-        mCancellationSignal = new CancellationSignal();
-        if (mCryptoObject == null) {
-            mBiometricPrompt.authenticate(mCancellationSignal, mClientExecutor,
-                    mAuthenticationCallback);
-        } else {
-            mBiometricPrompt.authenticate(wrapCryptoObject(mCryptoObject), mCancellationSignal,
-                    mClientExecutor, mAuthenticationCallback);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        // Start the actual authentication when the fragment is attached.
+        if (!mShowing) {
+            mCancellationSignal = new CancellationSignal();
+            if (mCryptoObject == null) {
+                mBiometricPrompt.authenticate(mCancellationSignal, mExecutor,
+                        mAuthenticationCallback);
+            } else {
+                mBiometricPrompt.authenticate(wrapCryptoObject(mCryptoObject), mCancellationSignal,
+                        mExecutor, mAuthenticationCallback);
+            }
         }
+        mShowing = true;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     static BiometricPrompt.CryptoObject unwrapCryptoObject(

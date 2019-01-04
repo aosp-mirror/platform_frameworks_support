@@ -26,9 +26,8 @@ import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.media2.SubtitleData2;
+import androidx.media2.SubtitleData;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,7 +42,6 @@ import java.util.TreeMap;
  *
  * @hide
  */
-@RequiresApi(28)
 @RestrictTo(LIBRARY_GROUP)
 public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeListener {
     private static final String TAG = "SubtitleTrack";
@@ -83,7 +81,7 @@ public abstract class SubtitleTrack implements MediaTimeProvider.OnMediaTimeList
     /**
      * Called when there is input data for the subtitle track.
      */
-    public void onData(SubtitleData2 data) {
+    public void onData(SubtitleData data) {
         long runID = data.getStartTimeUs() + 1;
         onData(data.getData(), true /* eos */, runID);
         setRunDiscardTimeMs(

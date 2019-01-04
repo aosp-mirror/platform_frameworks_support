@@ -28,6 +28,8 @@ dependencies {
     androidTestImplementation(project(":slice-builders"))
     androidTestImplementation(project(":benchmark"))
     androidTestImplementation(JUNIT)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -38,7 +40,7 @@ dependencies {
 supportLibrary {
     name = "Slices Benchmarks"
     publish = false
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.SLICE_BENCHMARK
     mavenGroup = LibraryGroups.SLICE
     inceptionYear = "2018"
     description = "RecyclerView Benchmarks"

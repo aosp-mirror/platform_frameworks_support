@@ -38,8 +38,12 @@ android {
 dependencies {
     api project(':work:work-runtime')
     api(KOTLIN_STDLIB)
+    api(KOTLIN_COROUTINES)
 
+    androidTestImplementation project(':concurrent:concurrent-futures')
     androidTestImplementation project(':work:work-testing')
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     testImplementation(JUNIT)

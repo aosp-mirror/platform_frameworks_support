@@ -33,15 +33,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
-import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -168,7 +168,7 @@ public class FragmentViewLifecycleTest {
 
         final StrictViewFragment fragment = new StrictViewFragment();
         fragment.setLayoutId(R.layout.fragment_a);
-        final GenericLifecycleObserver lifecycleObserver = mock(GenericLifecycleObserver.class);
+        final LifecycleEventObserver lifecycleObserver = mock(LifecycleEventObserver.class);
         final LifecycleOwner[] viewLifecycleOwner = new LifecycleOwner[1];
         mActivityRule.runOnUiThread(new Runnable() {
             @Override

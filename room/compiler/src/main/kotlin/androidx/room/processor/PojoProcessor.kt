@@ -20,7 +20,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Ignore
 import androidx.room.Relation
-import androidx.room.ext.KotlinMetadataProcessor
+import androidx.room.ext.KotlinMetadataElement
 import androidx.room.ext.extendsBoundOrSelf
 import androidx.room.ext.getAllFieldsIncludingPrivateSupers
 import androidx.room.ext.hasAnnotation
@@ -37,23 +37,20 @@ import androidx.room.processor.autovalue.AutoValuePojoProcessorDelegate
 import androidx.room.processor.cache.Cache
 import androidx.room.vo.CallType
 import androidx.room.vo.Constructor
-import androidx.room.vo.EntityOrView
 import androidx.room.vo.EmbeddedField
+import androidx.room.vo.EntityOrView
 import androidx.room.vo.Field
 import androidx.room.vo.FieldGetter
 import androidx.room.vo.FieldSetter
 import androidx.room.vo.Pojo
 import androidx.room.vo.PojoMethod
 import androidx.room.vo.Warning
+import androidx.room.vo.columnNames
+import androidx.room.vo.findFieldByColumnName
+import asTypeElement
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
 import com.google.auto.value.AutoValue
-import me.eugeniomarletti.kotlin.metadata.KotlinClassMetadata
-import me.eugeniomarletti.kotlin.metadata.isDataClass
-import me.eugeniomarletti.kotlin.metadata.isPrimary
-import me.eugeniomarletti.kotlin.metadata.jvm.getJvmConstructorSignature
-import me.eugeniomarletti.kotlin.metadata.kotlinMetadata
-import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.Modifier.ABSTRACT
 import javax.lang.model.element.Modifier.PRIVATE
@@ -80,21 +77,10 @@ class PojoProcessor private constructor(
     val referenceStack: LinkedHashSet<Name> = LinkedHashSet(),
     val ignoredColumns: Set<String>,
     private val delegate: Delegate
-) : KotlinMetadataProcessor {
+) {
     val context = baseContext.fork(element)
 
-    // for KotlinMetadataUtils
-    override val processingEnv: ProcessingEnvironment
-        get() = context.processingEnv
-
-    // opportunistic kotlin metadata
-    private val kotlinMetadata by lazy {
-        try {
-            element.kotlinMetadata
-        } catch (throwable: Throwable) {
-            context.logger.d(element, "failed to read get kotlin metadata from %s", element)
-        } as? KotlinClassMetadata
-    }
+    private val kotlinMetadata = KotlinMetadataElement.createFor(context, element)
 
     companion object {
         val PROCESSED_ANNOTATIONS = listOf(ColumnInfo::class, Embedded::class,
@@ -169,7 +155,7 @@ class PojoProcessor private constructor(
                     }
                 }
 
-        val myFields = allFields[null]
+        val unfilteredMyFields = allFields[null]
                 ?.map {
                     FieldProcessor(
                             baseContext = context,
@@ -178,19 +164,24 @@ class PojoProcessor private constructor(
                             bindingScope = bindingScope,
                             fieldParent = parent).process()
                 } ?: emptyList()
+        val myFields = unfilteredMyFields.filterNot { ignoredColumns.contains(it.columnName) }
 
-        val embeddedFields =
+        val unfilteredEmbeddedFields =
                 allFields[Embedded::class]
                         ?.mapNotNull {
                             processEmbeddedField(declaredType, it)
                         }
                         ?: emptyList()
+        val embeddedFields =
+            unfilteredEmbeddedFields.filterNot { ignoredColumns.contains(it.field.columnName) }
 
         val subFields = embeddedFields.flatMap { it.pojo.fields }
-        val combinedFields = myFields + subFields
-        val fields = combinedFields.filterNot { ignoredColumns.contains(it.columnName) }
+        val fields = myFields + subFields
+
+        val unfilteredCombinedFields =
+            unfilteredMyFields + unfilteredEmbeddedFields.map { it.field }
         val missingIgnoredColumns = ignoredColumns.filterNot { ignoredColumn ->
-            combinedFields.any { it.columnName == ignoredColumn }
+            unfilteredCombinedFields.any { it.columnName == ignoredColumn }
         }
         context.checker.check(
                 missingIgnoredColumns.isEmpty(), element,
@@ -381,18 +372,10 @@ class PojoProcessor private constructor(
                 // if the Pojo is a Kotlin data class then pick its primary constructor. This is
                 // better than picking the no-arg constructor and forcing users to define fields as
                 // vars.
-                val primaryConstructor = kotlinMetadata?.data?.let { kotlinData ->
-                    if (kotlinData.classProto.isDataClass) {
-                        val primaryConstructorSignature = kotlinData.classProto
-                                .constructorList.first { it.isPrimary }
-                                .getJvmConstructorSignature(
-                                        kotlinData.nameResolver,
-                                        kotlinData.classProto.typeTable)
+                val primaryConstructor =
+                    kotlinMetadata?.findPrimaryConstructorSignature()?.let { signature ->
                         goodConstructors.firstOrNull {
-                            it.element.jvmMethodSignature == primaryConstructorSignature
-                        }
-                    } else {
-                        null
+                            kotlinMetadata.getMethodSignature(it.element) == signature
                     }
                 }
                 if (primaryConstructor != null) {
@@ -421,7 +404,7 @@ class PojoProcessor private constructor(
     ): EmbeddedField? {
         val asMemberType = MoreTypes.asMemberOf(
             context.processingEnv.typeUtils, declaredType, variableElement)
-        val asTypeElement = MoreTypes.asTypeElement(asMemberType)
+        val asTypeElement = asMemberType.asTypeElement()
 
         if (detectReferenceRecursion(asTypeElement)) {
             return null
@@ -480,10 +463,10 @@ class PojoProcessor private constructor(
         }
         val typeArg = declared.typeArguments.first().extendsBoundOrSelf()
         if (typeArg.kind == TypeKind.ERROR) {
-            context.logger.e(MoreTypes.asTypeElement(typeArg), CANNOT_FIND_TYPE)
+            context.logger.e(typeArg.asTypeElement(), CANNOT_FIND_TYPE)
             return null
         }
-        val typeArgElement = MoreTypes.asTypeElement(typeArg)
+        val typeArgElement = typeArg.asTypeElement()
         val entityClassInput = annotation.getAsTypeMirror("entity")
 
         // do we need to decide on the entity?
@@ -492,7 +475,7 @@ class PojoProcessor private constructor(
         val entityElement = if (inferEntity) {
             typeArgElement
         } else {
-            MoreTypes.asTypeElement(entityClassInput)
+            entityClassInput!!.asTypeElement()
         }
 
         if (detectReferenceRecursion(entityElement)) {
@@ -502,16 +485,14 @@ class PojoProcessor private constructor(
         val entity = EntityOrViewProcessor(context, entityElement, referenceStack).process()
 
         // now find the field in the entity.
-        val entityField = entity.fields.firstOrNull {
-            it.columnName == annotation.value.entityColumn
-        }
+        val entityField = entity.findFieldByColumnName(annotation.value.entityColumn)
 
         if (entityField == null) {
             context.logger.e(relationElement,
                     ProcessorErrors.relationCannotFindEntityField(
                             entityName = entity.typeName.toString(),
                             columnName = annotation.value.entityColumn,
-                            availableColumns = entity.fields.map { it.columnName }))
+                            availableColumns = entity.columnNames))
             return null
         }
 
@@ -546,13 +527,11 @@ class PojoProcessor private constructor(
         entity: EntityOrView,
         relationElement: VariableElement
     ) {
-        val missingColumns = projectionInput.filterNot { columnName ->
-            entity.fields.any { columnName == it.columnName }
-        }
+        val missingColumns = projectionInput.toList() - entity.columnNames
         if (missingColumns.isNotEmpty()) {
             context.logger.e(relationElement,
                     ProcessorErrors.relationBadProject(entity.typeName.toString(),
-                            missingColumns, entity.fields.map { it.columnName }))
+                            missingColumns, entity.columnNames))
         }
     }
 
@@ -573,7 +552,7 @@ class PojoProcessor private constructor(
         typeArgElement: TypeElement
     ): List<String> {
         return if (inferEntity || typeArg.typeName() == entity.typeName) {
-            entity.fields.map { it.columnName }
+            entity.columnNames
         } else {
             val columnAdapter = context.typeAdapterStore.findCursorValueReader(typeArg, null)
             if (columnAdapter != null) {
@@ -587,7 +566,7 @@ class PojoProcessor private constructor(
                         bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
                         parent = parent,
                         referenceStack = referenceStack).process()
-                pojo.fields.map { it.columnName }
+                pojo.columnNames
             }
         }
     }

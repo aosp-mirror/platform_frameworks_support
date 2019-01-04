@@ -7,10 +7,12 @@ plugins {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.0.0")
     api(project(":core"))
     compileOnly project(':fragment')
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)

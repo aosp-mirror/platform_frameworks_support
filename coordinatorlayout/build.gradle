@@ -7,14 +7,17 @@ plugins {
 }
 
 dependencies {
-    api(project(":annotation"))
-    api(project(":core"))
-    api(project(":customview"))
+    api("androidx.annotation:annotation:1.0.0")
+    api("androidx.core:core:1.1.0-alpha01")
+    api("androidx.customview:customview:1.0.0")
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(ESPRESSO_CONTRIB, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.coordinatorlayout', module: 'coordinatorlayout'

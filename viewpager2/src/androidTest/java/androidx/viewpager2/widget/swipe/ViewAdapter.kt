@@ -26,7 +26,12 @@ class ViewAdapter(private val items: List<String>) : RecyclerView.Adapter<ViewHo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         PageView.setPageText(holder.itemView, items[position])
+        PageView.setPageColor(holder.itemView, position)
     }
 
     override fun getItemCount(): Int = items.size
+
+    /** easy way of dynamically overriding [getItemId] */
+    var positionToItemId: (Int) -> Long = { position -> super.getItemId(position) }
+    override fun getItemId(position: Int): Long = positionToItemId(position)
 }

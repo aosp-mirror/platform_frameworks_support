@@ -19,9 +19,9 @@ package androidx.webkit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.webkit.internal.WebViewFeatureInternal;
 
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class IncompatibilityTest {
     @Test
     @SdkSuppress(maxSdkVersion = 20)
     public void testPreLDeviceHasNoWebViewFeatures() {
-        assertEquals(0, WebViewFeatureInternal.getWebViewApkFeaturesForTesting().length);
+        assertEquals(0, WebViewFeatureInternal.getWebViewApkFeaturesForTesting().size());
     }
 
     @Test

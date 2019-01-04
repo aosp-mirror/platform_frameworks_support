@@ -16,7 +16,6 @@
 
 package com.example.android.biometric;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,12 +24,14 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
 
@@ -94,6 +95,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         @Override
         public void onAuthenticationError(int err, @NonNull CharSequence message) {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            Log.v(TAG, "Error " + err + ": " + message);
             mNumberFailedAttempts = 0;
         }
 
@@ -120,6 +122,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         @Override
         public void onAuthenticationFailed() {
             Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            Log.v(TAG, "onAuthenticationFailed");
             mNumberFailedAttempts++;
 
             // Cancel authentication after 3 failed attempts to test the cancel() method.
@@ -161,7 +164,9 @@ public class BiometricPromptDemo extends FragmentActivity {
             buttonCreateKeys.setVisibility(View.VISIBLE);
         }
 
-        buttonCreateKeys.setOnClickListener(v -> enableBiometricWithCrypto());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            buttonCreateKeys.setOnClickListener(v -> enableBiometricWithCrypto());
+        }
         buttonAuthenticate.setOnClickListener(v -> startAuthentication());
     }
 
@@ -222,6 +227,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private void enableBiometricWithCrypto() {
         // Create the key, this is usually done when the user allows Biometric
         // authentication in the app. This key is invalidated by new biometric enrollment
@@ -250,7 +256,7 @@ public class BiometricPromptDemo extends FragmentActivity {
                         .setNegativeButtonText("Negative Button")
                         .build();
 
-        if (mUseCrypto) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && mUseCrypto) {
             try {
                 // Initialize the cipher. The cipher will be unlocked by KeyStore after the user has
                 // authenticated via biometrics.
@@ -278,7 +284,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.M)
     private boolean initCipher(Cipher cipher, String keyName) {
         try {
             mKeyStore.load(null);
@@ -293,7 +299,7 @@ public class BiometricPromptDemo extends FragmentActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.M)
     private void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
         KeyGenerator keyGenerator;
 

@@ -16,17 +16,19 @@
 
 package androidx.room.solver.shortcut.result
 
+import androidx.room.ext.KotlinTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.ShortcutQueryParameter
-import androidx.room.writer.DaoWriter
-import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
-import javax.lang.model.type.TypeKind
+import isInt
+import isKotlinUnit
+import isVoid
+import isVoidObject
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -41,28 +43,18 @@ class DeleteOrUpdateMethodAdapter private constructor(private val returnType: Ty
             return null
         }
 
-        private fun isIntPrimitiveType(typeMirror: TypeMirror) = typeMirror.kind == TypeKind.INT
-
-        private fun isIntBoxType(typeMirror: TypeMirror) =
-                MoreTypes.isType(typeMirror) &&
-                        MoreTypes.isTypeOf(java.lang.Integer::class.java, typeMirror)
-
-        private fun isIntType(typeMirror: TypeMirror) =
-                isIntPrimitiveType(typeMirror) || isIntBoxType(typeMirror)
-
-        private fun isVoidObject(typeMirror: TypeMirror) = MoreTypes.isType(typeMirror) &&
-                MoreTypes.isTypeOf(Void::class.java, typeMirror)
-
         private fun isDeleteOrUpdateValid(returnType: TypeMirror): Boolean {
-            return returnType.kind == TypeKind.VOID ||
-                    isIntType(returnType) ||
-                    isVoidObject(returnType)
+            return returnType.isVoid() ||
+                    returnType.isInt() ||
+                    returnType.isVoidObject() ||
+                    returnType.isKotlinUnit()
         }
     }
 
     fun createDeleteOrUpdateMethodBody(
         parameters: List<ShortcutQueryParameter>,
         adapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        dbField: FieldSpec,
         scope: CodeGenScope
     ) {
         val resultVar = if (hasResultValue(returnType)) {
@@ -74,7 +66,7 @@ class DeleteOrUpdateMethodAdapter private constructor(private val returnType: Ty
             if (resultVar != null) {
                 addStatement("$T $L = 0", TypeName.INT, resultVar)
             }
-            addStatement("$N.beginTransaction()", DaoWriter.dbField)
+            addStatement("$N.beginTransaction()", dbField)
             beginControlFlow("try").apply {
                 parameters.forEach { param ->
                     val adapter = adapters[param.name]?.first
@@ -82,25 +74,29 @@ class DeleteOrUpdateMethodAdapter private constructor(private val returnType: Ty
                             if (resultVar == null) "" else "$resultVar +=",
                             adapter, param.handleMethodName(), param.name)
                 }
-                addStatement("$N.setTransactionSuccessful()",
-                        DaoWriter.dbField)
+                addStatement("$N.setTransactionSuccessful()", dbField)
                 if (resultVar != null) {
                     addStatement("return $L", resultVar)
                 } else if (hasNullReturn(returnType)) {
                     addStatement("return null")
+                } else if (hasUnitReturn(returnType)) {
+                    addStatement("return $T.INSTANCE", KotlinTypeNames.UNIT)
                 }
             }
             nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()",
-                        DaoWriter.dbField)
+                addStatement("$N.endTransaction()", dbField)
             }
             endControlFlow()
         }
     }
 
     private fun hasResultValue(returnType: TypeMirror): Boolean {
-        return !(returnType.kind == TypeKind.VOID || isVoidObject(returnType))
+        return !(returnType.isVoid() ||
+                returnType.isVoidObject() ||
+                returnType.isKotlinUnit())
     }
 
-    private fun hasNullReturn(returnType: TypeMirror) = isVoidObject(returnType)
+    private fun hasNullReturn(returnType: TypeMirror) = returnType.isVoidObject()
+
+    private fun hasUnitReturn(returnType: TypeMirror) = returnType.isKotlinUnit()
 }

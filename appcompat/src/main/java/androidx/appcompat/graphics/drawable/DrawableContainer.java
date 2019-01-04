@@ -100,7 +100,8 @@ class DrawableContainer extends Drawable implements Drawable.Callback {
                 | mDrawableContainerState.getChangingConfigurations();
     }
 
-    @SuppressLint("WrongConstant")
+    // Remove BanTargetApiAnnotation suppression once b/120623677 is addressed.
+    @SuppressLint({"WrongConstant", "BanTargetApiAnnotation"})
     @TargetApi(Build.VERSION_CODES.M)
     private boolean needsMirroring() {
         return isAutoMirrored() && getLayoutDirection() == LayoutDirection.RTL;
@@ -1151,7 +1152,7 @@ class DrawableContainer extends Drawable implements Drawable.Callback {
         }
     }
 
-    protected void setConstantState(DrawableContainerState state) {
+    void setConstantState(DrawableContainerState state) {
         mDrawableContainerState = state;
         // The locally cached drawables may have changed.
         if (mCurIndex >= 0) {

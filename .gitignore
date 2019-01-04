@@ -20,11 +20,16 @@ local.properties
 *.iml
 **/out
 buildSrc/build
+buildSrc/lint-checks/build
 lifecycle/common/build
 jacoco.exec
+/studio
 
 # When Gradle configuration fails with the --profile option enabled it creates this folder.
 /reports
 
 # Mac Desktop Services Store files.
 .DS_Store
+
+# Layout Inspector creates it.
+captures/

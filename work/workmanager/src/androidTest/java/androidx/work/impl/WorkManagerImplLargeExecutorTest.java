@@ -32,15 +32,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.TestLifecycleOwner;
 import androidx.work.WorkContinuation;
-import androidx.work.WorkStatus;
+import androidx.work.WorkInfo;
 import androidx.work.impl.background.greedy.GreedyScheduler;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
@@ -101,7 +101,7 @@ public class WorkManagerImplLargeExecutorTest {
             }
         });
 
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
         Executor executor = new ThreadPoolExecutor(
                 MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIME, SECONDS, queue);
@@ -150,18 +150,18 @@ public class WorkManagerImplLargeExecutorTest {
         final CountDownLatch latch = new CountDownLatch(NUM_WORKERS);
         WorkContinuation continuation = mWorkManagerImplSpy.beginWith(workRequests);
 
-        continuation.getStatusesLiveData()
-                .observe(mLifecycleOwner, new Observer<List<WorkStatus>>() {
+        continuation.getWorkInfosLiveData()
+                .observe(mLifecycleOwner, new Observer<List<WorkInfo>>() {
                     @Override
-                    public void onChanged(@Nullable List<WorkStatus> workStatuses) {
-                        if (workStatuses == null || workStatuses.isEmpty()) {
+                    public void onChanged(@Nullable List<WorkInfo> workInfos) {
+                        if (workInfos == null || workInfos.isEmpty()) {
                             return;
                         }
 
-                        for (WorkStatus workStatus: workStatuses) {
-                            if (workStatus.getState().isFinished()) {
-                                if (!completed.contains(workStatus.getId())) {
-                                    completed.add(workStatus.getId());
+                        for (WorkInfo workInfo : workInfos) {
+                            if (workInfo.getState().isFinished()) {
+                                if (!completed.contains(workInfo.getId())) {
+                                    completed.add(workInfo.getId());
                                     latch.countDown();
                                 }
                             }

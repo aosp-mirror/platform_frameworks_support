@@ -31,10 +31,10 @@ import androidx.dynamicanimation.animation.FlingAnimation;
 import androidx.dynamicanimation.animation.FloatPropertyCompat;
 import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -97,12 +97,12 @@ public class FlingTests {
                 anim.setStartValue(100).setStartVelocity(2000).start();
             }
         });
-        verify(listener, timeout(1000)).onAnimationEnd(eq(anim), eq(false), floatThat(
+        verify(listener, timeout(2000)).onAnimationEnd(eq(anim), eq(false), floatThat(
                 new GreaterThan(110f)), eq(0f));
     }
 
     /**
-     * Test that spring animation can work with a single property without an object.
+     * Test that fling animation can work with a single property without an object.
      */
     @Test
     public void testFloatValueHolder() {
@@ -120,7 +120,7 @@ public class FlingTests {
                 anim.start();
             }
         });
-        verify(listener, timeout(1000)).onAnimationEnd(eq(anim), eq(false), floatThat(
+        verify(listener, timeout(2000)).onAnimationEnd(eq(anim), eq(false), floatThat(
                 new LessThan(-50f)), eq(0f));
     }
 

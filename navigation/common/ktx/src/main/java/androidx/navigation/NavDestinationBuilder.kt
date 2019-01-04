@@ -16,8 +16,8 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
+import java.lang.IllegalStateException
 
 @DslMarker
 annotation class NavDestinationDsl
@@ -27,18 +27,22 @@ annotation class NavDestinationDsl
  */
 @NavDestinationDsl
 open class NavDestinationBuilder<out D : NavDestination>(
-        protected val navigator: Navigator<out D>,
-        @IdRes val id: Int
+    protected val navigator: Navigator<out D>,
+    @IdRes val id: Int
 ) {
     /**
      * The descriptive label of the destination
      */
     var label: CharSequence? = null
 
+    private var arguments = mutableMapOf<String, NavArgument>()
+
     /**
-     * The default arguments that should be passed to the destination
+     * Add a [NavArgument] to this destination.
      */
-    var defaultArguments: Bundle? = null
+    fun argument(name: String, argumentBuilder: NavArgumentBuilder.() -> Unit) {
+        arguments[name] = NavArgumentBuilder().apply(argumentBuilder).build()
+    }
 
     private var deepLinks = mutableListOf<String>()
 
@@ -68,8 +72,8 @@ open class NavDestinationBuilder<out D : NavDestination>(
     /**
      * Adds a new [NavAction] to the destination
      */
-    fun action(actionId: Int, block: NavActionBuilder.() -> Unit) {
-        actions[actionId] = NavActionBuilder().apply(block).build()
+    fun action(actionId: Int, actionBuilder: NavActionBuilder.() -> Unit) {
+        actions[actionId] = NavActionBuilder().apply(actionBuilder).build()
     }
 
     /**
@@ -79,7 +83,9 @@ open class NavDestinationBuilder<out D : NavDestination>(
         return navigator.createDestination().also { destination ->
             destination.id = id
             destination.label = label
-            destination.setDefaultArguments(defaultArguments)
+            arguments.forEach { (name, argument) ->
+                destination.addArgument(name, argument)
+            }
             deepLinks.forEach { deepLink ->
                 destination.addDeepLink(deepLink)
             }
@@ -105,9 +111,60 @@ class NavActionBuilder {
     /**
      * Sets the [NavOptions] for this action that should be used by default
      */
-    fun navOptions(block: NavOptionsBuilder.() -> Unit) {
-        navOptions = NavOptionsBuilder().apply(block).build()
+    fun navOptions(optionsBuilder: NavOptionsBuilder.() -> Unit) {
+        navOptions = NavOptionsBuilder().apply(optionsBuilder).build()
     }
 
     internal fun build() = NavAction(destinationId, navOptions)
+}
+
+/**
+ * DSL for constructing a new [NavArgument]
+ */
+@NavDestinationDsl
+class NavArgumentBuilder {
+    private val builder = NavArgument.Builder()
+    private var _type: NavType<*>? = null
+
+    /**
+     * Sets the NavType for this argument.
+     *
+     * If you don't set a type explicitly, it will be inferred
+     * from the default value of this argument.
+     */
+    var type: NavType<*>
+        set(value) {
+            _type = value
+            builder.setType(value)
+        }
+        get() {
+            return _type ?: throw IllegalStateException("NavType has not been set on this builder.")
+        }
+
+    /**
+     * Controls if this argument allows null values.
+     */
+    var nullable: Boolean = false
+        set(value) {
+            field = value
+            builder.setIsNullable(value)
+        }
+
+    /**
+     * An optional default value for this argument.
+     *
+     * Any object that you set here must be compatible with [type], if it was specified.
+     */
+    var defaultValue: Any? = null
+        set(value) {
+            field = value
+            builder.setDefaultValue(value)
+        }
+
+    /**
+     * Builds the NavArgument by calling [NavArgument.Builder.build].
+     */
+    fun build(): NavArgument {
+        return builder.build()
+    }
 }

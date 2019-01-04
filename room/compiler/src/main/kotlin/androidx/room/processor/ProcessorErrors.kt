@@ -23,10 +23,12 @@ import androidx.room.RawQuery
 import androidx.room.Update
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
+import androidx.room.parser.QueryType
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.CustomTypeConverter
 import androidx.room.vo.Field
 import com.squareup.javapoet.TypeName
+import java.lang.StringBuilder
 import javax.lang.model.element.ElementKind
 
 object ProcessorErrors {
@@ -124,8 +126,8 @@ object ProcessorErrors {
     val QUERY_PARAMETERS_CANNOT_START_WITH_UNDERSCORE = "Query/Insert method parameters cannot " +
             "start with underscore (_)."
 
-    val CANNOT_FIND_QUERY_RESULT_ADAPTER = "Not sure how to convert a Cursor to this method's " +
-            "return type"
+    fun cannotFindQueryResultAdapter(returnTypeName: String) = "Not sure how to convert a " +
+            "Cursor to this method's return type ($returnTypeName)."
 
     val INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT = "Method annotated with" +
             " @Insert but does not have any parameters to insert."
@@ -158,9 +160,6 @@ object ProcessorErrors {
 
     val DB_MUST_EXTEND_ROOM_DB = "Classes annotated with @Database should extend " +
             RoomTypeNames.ROOM_DB
-
-    val LIVE_DATA_QUERY_WITHOUT_SELECT = "LiveData return type can only be used with SELECT" +
-            " queries."
 
     val OBSERVABLE_QUERY_NOTHING_TO_OBSERVE = "Observable query return type (LiveData, Flowable" +
             ", DataSource, DataSourceFactory etc) can only be used with SELECT queries that" +
@@ -212,9 +211,6 @@ object ProcessorErrors {
         return DUPLICATE_TABLES_OR_VIEWS.format(tableName, entityNames.joinToString(", "))
     }
 
-    val DELETION_METHODS_MUST_RETURN_VOID_OR_INT = "Deletion methods must either return void or" +
-            " return int (the number of deleted rows)."
-
     val DAO_METHOD_CONFLICTS_WITH_OTHERS = "Dao method has conflicts."
 
     fun duplicateDao(dao: TypeName, methodNames: List<String>): String {
@@ -251,7 +247,7 @@ object ProcessorErrors {
         val unusedColumnsWarning = if (unusedColumns.isNotEmpty()) {
             """
                 The query returns some columns [${unusedColumns.joinToString(", ")}] which are not
-                use by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
+                used by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
                 the mapping.
             """.trim()
         } else {
@@ -503,10 +499,13 @@ object ProcessorErrors {
     }
 
     val MISSING_ROOM_GUAVA_ARTIFACT = "To use Guava features, you must add `guava`" +
-            " artifact from Room as a dependency. androidx.room:guava:<version>"
+            " artifact from Room as a dependency. androidx.room:room-guava:<version>"
 
     val MISSING_ROOM_RXJAVA2_ARTIFACT = "To use RxJava2 features, you must add `rxjava2`" +
-            " artifact from Room as a dependency. androidx.room:rxjava2:<version>"
+            " artifact from Room as a dependency. androidx.room:room-rxjava2:<version>"
+
+    val MISSING_ROOM_COROUTINE_ARTIFACT = "To use Coroutine features, you must add `coroutine`" +
+            " artifact from Room as a dependency. androidx.room:room-coroutines:<version>"
 
     fun ambigiousConstructor(
         pojo: String,
@@ -567,9 +566,6 @@ object ProcessorErrors {
     val RAW_QUERY_STRING_PARAMETER_REMOVED = "RawQuery does not allow passing a string anymore." +
             " Please use ${SupportDbTypeNames.QUERY}."
 
-    val PREPARED_INSERT_METHOD_INVALID_RETURN_TYPE = "Insert methods must either return void or " +
-            "long (the rowid of the inserted row)."
-
     val MISSING_COPY_ANNOTATIONS = "Annotated property getter is missing " +
             "@AutoValue.CopyAnnotations."
 
@@ -620,4 +616,21 @@ object ProcessorErrors {
             "External Content FTS Entity '$ftsClassName' has a declared content entity " +
                     "'$contentClassName' that is not present in the same @Database. Maybe you " +
                     "forgot to add it to the entities section of the @Database?"
+
+    fun cannotFindPreparedQueryResultAdapter(
+        returnType: String,
+        type: QueryType
+    ) = StringBuilder().apply {
+        append("Not sure how to handle query method's return type ($returnType). ")
+        if (type == QueryType.INSERT) {
+            append("INSERT query methods must either return void " +
+                    "or long (the rowid of the inserted row).")
+        } else if (type == QueryType.UPDATE) {
+            append("UPDATE query methods must either return void " +
+                    "or int (the number of updated rows).")
+        } else if (type == QueryType.DELETE) {
+            append("DELETE query methods must either return void " +
+                    "or int (the number of deleted rows).")
+        }
+    }.toString()
 }

@@ -42,6 +42,6 @@ public class SleepWorker extends Worker {
         } catch (InterruptedException ignore) {
             Log.v(TAG, "Interrupted.");
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

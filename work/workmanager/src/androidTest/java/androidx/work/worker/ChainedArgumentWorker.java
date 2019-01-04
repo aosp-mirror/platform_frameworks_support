@@ -37,8 +37,7 @@ public class ChainedArgumentWorker extends Worker {
 
     @Override
     public @NonNull Result doWork() {
-        setOutputData(getChainedArguments());
-        return Result.SUCCESS;
+        return Result.success(getChainedArguments());
     }
 
     public static Data getChainedArguments() {

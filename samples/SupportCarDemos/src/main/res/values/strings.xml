@@ -19,6 +19,7 @@
 
     <!-- Demo titles -->
     <string name="paged_list_view_title">PagedListView</string>
+    <string name="paged_list_view_shrink_title">PagedListViewShrinkDemo</string>
     <string name="text_list_item_title">TextListItem</string>
     <string name="seekbar_list_item_title">SeekbarListItem</string>
     <string name="sub_header_list_item_title">SubheaderListItem</string>
@@ -79,6 +80,9 @@
     </string>
 
     <!-- String for the drawer demo -->
+    <string name="car_drawer_open" translatable="false">Open drawer</string>
+    <string name="car_drawer_close" translatable="false">Close drawer</string>
+
     <string name="drawer_demo_activity_title">Drawer Demo</string>
     <string name="drawer_demo_activity_drawer_title">Drawer</string>
     <string name="drawer_demo_activity_drawer_sub_title">Sub Drawer</string>
@@ -115,7 +119,14 @@
     <string name="test_link">Click to visit <a href="https://www.google.com">Google</a>.</string>
 
     <!-- Strings for CarToolbarActivity Demo. -->
-    <string name="car_toolbar_title">CarToolbar demo title</string>
+    <string name="car_toolbar_title">Why is this title unnecessarily long? Could it be for layout testing purposes?</string>
+    <string name="car_toolbar_subtitle">Well if that is the case, then why is the subtitle also pretty long? This is nonsensical!</string>
+    <string name="toolbar_title">Toolbar demo title</string>
+    <string name="toolbar_subtitle">Toolbar demo subtitle</string>
+    <string name="button_add_action">Add action item</string>
+    <string name="button_add_if_room">Add if_room item</string>
+    <string name="button_add_overflow">Add overflow item</string>
+    <string name="button_clear_menu">Clear menu items</string>
 
     <!-- Spinner sample entries -->
     <string-array name="spinner_entries">
@@ -129,5 +140,11 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+
+    <!-- String for PagedListViewShrink Demo -->
+    <string name="text_description">Please choose the height of PagedListView below</string>
+    <string name="show_nothing">Show nothing</string>
+    <string name="show_buttons">Only show buttons</string>
+    <string name="show_everything">Show everything</string>
 </resources>
 

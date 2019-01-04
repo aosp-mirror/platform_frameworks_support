@@ -19,6 +19,7 @@ package androidx.core.app;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import android.annotation.SuppressLint;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
@@ -31,9 +32,9 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,10 +66,10 @@ public class JobIntentServiceTest {
 
     @Before
     public void setup() {
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
     }
 
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     public static final class TestIntentItem implements Parcelable {
         public static final int FLAG_WAIT = 1 << 0;
         public static final int FLAG_STOPPED_AFTER_WAIT = 1 << 1;

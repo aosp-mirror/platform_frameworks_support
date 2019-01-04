@@ -33,7 +33,7 @@ import androidx.work.impl.model.WorkSpec;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SystemAlarmScheduler implements Scheduler {
 
-    private static final String TAG = "SystemAlarmScheduler";
+    private static final String TAG = Logger.tagWithPrefix("SystemAlarmScheduler");
 
     private final Context mContext;
 
@@ -59,7 +59,7 @@ public class SystemAlarmScheduler implements Scheduler {
      * times to drift to guarantee that the interval duration always elapses between alarms.
      */
     private void scheduleWorkSpec(@NonNull WorkSpec workSpec) {
-        Logger.debug(TAG, String.format("Scheduling work with workSpecId %s", workSpec.id));
+        Logger.get().debug(TAG, String.format("Scheduling work with workSpecId %s", workSpec.id));
         Intent scheduleIntent = CommandHandler.createScheduleWorkIntent(mContext, workSpec.id);
         mContext.startService(scheduleIntent);
     }

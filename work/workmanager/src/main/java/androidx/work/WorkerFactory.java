@@ -24,11 +24,15 @@ import android.support.annotation.RestrictTo;
 import java.lang.reflect.Constructor;
 
 /**
- * A factory object that creates {@link ListenableWorker} instances.
+ * A factory object that creates {@link ListenableWorker} instances.  The factory is invoked every
+ * time a work runs.  You can override the default implementation of this factory by manually
+ * initializing {@link WorkManager} (see {@link WorkManager#initialize(Context, Configuration)} and
+ * specifying a new WorkerFactory in {@link Configuration.Builder#setWorkerFactory(WorkerFactory)}.
  */
+
 public abstract class WorkerFactory {
 
-    private static final String TAG = "WorkerFactory";
+    private static final String TAG = Logger.tagWithPrefix("WorkerFactory");
 
     /**
      * Override this method to implement your custom worker-creation logic.  Use
@@ -78,7 +82,7 @@ public abstract class WorkerFactory {
         try {
             clazz = Class.forName(workerClassName).asSubclass(ListenableWorker.class);
         } catch (ClassNotFoundException e) {
-            Logger.error(TAG, "Class not found: " + workerClassName);
+            Logger.get().error(TAG, "Class not found: " + workerClassName);
             return null;
         }
 
@@ -90,7 +94,7 @@ public abstract class WorkerFactory {
                     workerParameters);
             return worker;
         } catch (Exception e) {
-            Logger.error(TAG, "Could not instantiate " + workerClassName, e);
+            Logger.get().error(TAG, "Could not instantiate " + workerClassName, e);
         }
         return null;
     }

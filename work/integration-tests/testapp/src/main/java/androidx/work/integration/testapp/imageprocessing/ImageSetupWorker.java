@@ -46,14 +46,14 @@ public class ImageSetupWorker extends Worker {
         String uriString = getInputData().getString(URI_KEY);
         if (TextUtils.isEmpty(uriString)) {
             Log.e(TAG, "Invalid URI!");
-            return Result.FAILURE;
+            return Result.failure();
         }
 
         Image image = new Image();
         image.mOriginalAssetName = uriString;
         image.mIsProcessed = false;
         TestDatabase.getInstance(getApplicationContext()).getImageDao().insert(image);
-        return Result.SUCCESS;
+        return Result.success();
     }
 
     static OneTimeWorkRequest createWork(String uriString) {
