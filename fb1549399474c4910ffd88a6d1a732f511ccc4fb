@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1efb357d_80694950",
+        "filename": "navigation/ui/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-04T15:15:23Z",
+      "side": 1,
+      "message": "how do we get translations for those?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 75
+      },
+      "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
