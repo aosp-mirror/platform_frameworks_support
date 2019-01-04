@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e78b0d2e_474d8001",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-04T15:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4f5466_8331d647",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69762516_b6fce006",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -135,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "4f59d728_1e646c7d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-04T15:26:13Z",
+      "side": 1,
+      "message": "Well, I am kind of confused about what you mean here. I didn\u0027t find anything in documentation about getApplicationContext returning itself and I don\u0027t know how to make it do so.\n\nI kept the condition for now but moved it to the constructor.",
+      "parentUuid": "0e27125a_6485d627",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27150732_9cb3a874",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -164,6 +200,24 @@
       "side": 1,
       "message": "I did a quick try to port the code but it is calling some native methods and didn\u0027t know how to resolve these imports here so I ended up keeping the old version.\n\nWill look into this.",
       "parentUuid": "27150732_9cb3a874",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f34091c_0070fa08",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-04T15:26:13Z",
+      "side": 1,
+      "message": "I Ported the recent Version of AndroidProtocolHandler. I removed the native methods calls and unused/unnecessary code.\n\nI also converted the methods to non static to use the Context passed in the constructor instead of ContextUtils.getApplicationContext().\n\nI found that the recent version of AndroidProtocolHandler still uses reflection to lookup R class. I agree with you to investigate using Resources.getIdentifier() in the future.\n\nDo you think I should port AndroidProtocolHandler tests as well from the chromium code? Since I modified a little in the class.\n\nAlso I wonder how to write about porting the code from chromium code in docs? and if this should affect the open source license at the top of the file?",
+      "parentUuid": "37986a9f_dd4263b5",
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -287,6 +341,24 @@
     },
     {
       "key": {
+        "uuid": "bdb34fad_feed7d95",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-04T15:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb1e432_8922cabb",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fddac18_12ead94f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -354,6 +426,24 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c9803d_7a095f69",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-04T15:26:13Z",
+      "side": 1,
+      "message": "Done\n\nI\u0027m interested to get more context this.",
+      "parentUuid": "3deeb768_214d8ea3",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
