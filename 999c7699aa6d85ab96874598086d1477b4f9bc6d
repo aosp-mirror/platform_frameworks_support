@@ -171,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "343ec41b_fb9af031",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-04T15:31:01Z",
+      "side": 1,
+      "message": "Whatever context object that is being passed into this test is broken if getApplicationContext can return null; it should always return a valid context. If the context is already an application context, then getApplicationContext should return \"this\". So, rather than have this check here with a comment explaining why it\u0027s doing the weird thing, we should track down where the context object comes from and fix it at the source. You\u0027ll have to find the actual class that\u0027s being passed in here (the thing that implements Context) and change the definition of the getApplicationContext method.",
+      "parentUuid": "4f59d728_1e646c7d",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27150732_9cb3a874",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
