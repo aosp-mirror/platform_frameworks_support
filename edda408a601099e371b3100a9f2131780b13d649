@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e7281e6_cabe888a",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-04T17:57:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff22adc_8fe01a16",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "edda408a601099e371b3100a9f2131780b13d649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eff299d5_7f26f046",
         "filename": "development/history/add_release_commit_tags.sh",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "edda408a601099e371b3100a9f2131780b13d649",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7a218d_7a5e8744",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-04T17:57:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eff299d5_7f26f046",
+      "range": {
+        "startLine": 11,
+        "startChar": 48,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "edda408a601099e371b3100a9f2131780b13d649",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
