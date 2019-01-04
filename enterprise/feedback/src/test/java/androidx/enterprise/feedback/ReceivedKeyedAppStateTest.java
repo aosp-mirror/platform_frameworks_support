@@ -1,0 +1,138 @@
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package androidx.enterprise.feedback;
+
+import static androidx.enterprise.feedback.KeyedAppState.SEVERITY_INFO;
+import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_DATA;
+import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_KEY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_MESSAGE;
+import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_SEVERITY;
+import static androidx.enterprise.feedback.utils.Assertions.assertThrows;
+
+import static com.google.common.truth.Truth.assertThat;
+
+import android.os.Bundle;
+
+import androidx.enterprise.feedback.ReceivedKeyedAppState.ReceivedKeyedAppStateBuilder;
+import androidx.test.filters.SmallTest;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.internal.DoNotInstrument;
+
+/** Tests {@link ReceivedKeyedAppState}. */
+@RunWith(RobolectricTestRunner.class)
+@DoNotInstrument
+public class ReceivedKeyedAppStateTest {
+
+    private static final String KEY = "key";
+    private static final String MESSAGE = "message";
+    private static final int SEVERITY = SEVERITY_INFO;
+    private static final String DATA = "data";
+    private static final String PACKAGE_NAME = "com.package";
+    private static final long TIMESTAMP = 12345;
+
+    @Test
+    @SmallTest
+    public void fromBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putString(APP_STATE_KEY, KEY);
+        bundle.putString(APP_STATE_MESSAGE, MESSAGE);
+        bundle.putInt(APP_STATE_SEVERITY, SEVERITY);
+        bundle.putString(APP_STATE_DATA, DATA);
+
+        ReceivedKeyedAppState state = ReceivedKeyedAppState.fromBundle(bundle, PACKAGE_NAME,
+                TIMESTAMP);
+
+        assertThat(state.key()).isEqualTo(KEY);
+        assertThat(state.message()).isEqualTo(MESSAGE);
+        assertThat(state.severity()).isEqualTo(SEVERITY);
+        assertThat(state.data()).isEqualTo(DATA);
+        assertThat(state.packageName()).isEqualTo(PACKAGE_NAME);
+        assertThat(state.timestamp()).isEqualTo(TIMESTAMP);
+    }
+
+    @Test
+    @SmallTest
+    public void fromBundle_invalidBundle_throwsIllegalArgumentException() {
+        Bundle bundle = new Bundle();
+        bundle.putString(APP_STATE_KEY, KEY);
+        bundle.putString(APP_STATE_MESSAGE, MESSAGE);
+        bundle.putString(APP_STATE_DATA, DATA);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ReceivedKeyedAppState.fromBundle(bundle, PACKAGE_NAME, TIMESTAMP));
+    }
+
+    @Test
+    @SmallTest
+    public void keyIsRequired() {
+        ReceivedKeyedAppStateBuilder builder =
+                ReceivedKeyedAppState.builder()
+                        .setPackageName(PACKAGE_NAME)
+                        .setTimestamp(TIMESTAMP)
+                        .setSeverity(SEVERITY_INFO)
+                        .setMessage(MESSAGE)
+                        .setData(DATA);
+
+        assertThrows(IllegalStateException.class, builder::build);
+    }
+
+    @Test
+    @SmallTest
+    public void severityIsRequired() {
+        ReceivedKeyedAppStateBuilder builder =
+                ReceivedKeyedAppState.builder()
+                        .setPackageName(PACKAGE_NAME)
+                        .setTimestamp(TIMESTAMP)
+                        .setKey(KEY)
+                        .setMessage(MESSAGE)
+                        .setData(DATA);
+
+        assertThrows(IllegalStateException.class, builder::build);
+    }
+
+    @Test
+    @SmallTest
+    public void packageNameIsRequired() {
+        ReceivedKeyedAppStateBuilder builder =
+                ReceivedKeyedAppState.builder()
+                        .setTimestamp(TIMESTAMP)
+                        .setKey(KEY)
+                        .setSeverity(SEVERITY)
+                        .setMessage(MESSAGE)
+                        .setData(DATA);
+
+        assertThrows(IllegalStateException.class, builder::build);
+    }
+
+    @Test
+    @SmallTest
+    public void timestampIsRequired() {
+        ReceivedKeyedAppStateBuilder builder =
+                ReceivedKeyedAppState.builder()
+                        .setPackageName(PACKAGE_NAME)
+                        .setKey(KEY)
+                        .setSeverity(SEVERITY)
+                        .setMessage(MESSAGE)
+                        .setData(DATA);
+
+        assertThrows(IllegalStateException.class, builder::build);
+    }
+}
