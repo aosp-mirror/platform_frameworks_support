@@ -118,6 +118,23 @@
     },
     {
       "key": {
+        "uuid": "63998f88_05e4728b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1370655
+      },
+      "writtenOn": "2019-01-04T23:50:30Z",
+      "side": 1,
+      "message": "Does this also need to be addressed by b/121270092?",
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8382c7b_0c826c6c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
         "patchSetId": 8
