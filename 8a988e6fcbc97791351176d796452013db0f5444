@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6804cc2_c92fa64a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb84a1df_7edb7058",
+      "range": {
+        "startLine": 90,
+        "startChar": 3,
+        "endLine": 90,
+        "endChar": 41
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b190ddd9_44959b65",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8a988e6fcbc97791351176d796452013db0f5444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53a6365_34180a9a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b190ddd9_44959b65",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 85
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fcd02d74_fc94ffb9",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6621ae4_8ea94a21",
+      "range": {
+        "startLine": 61,
+        "startChar": 33,
+        "endLine": 61,
+        "endChar": 71
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8aa9bb5a_c16ead05",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "8a988e6fcbc97791351176d796452013db0f5444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87d28d7c_75d0fc53",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8aa9bb5a_c16ead05",
+      "range": {
+        "startLine": 65,
+        "startChar": 49,
+        "endLine": 65,
+        "endChar": 96
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "882100f3_ad8ec8d4",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "857dfc6a_916cbe9d",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7648c6a_8d028e4e",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "6c1b0ed1_f1cae5ea",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7648c6a_8d028e4e",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 52,
+        "endChar": 80
+      },
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32146084_482212a8",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
@@ -154,6 +298,24 @@
       "revId": "8a988e6fcbc97791351176d796452013db0f5444",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e29c47_ccc3bbe7",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T20:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32146084_482212a8",
+      "revId": "8a988e6fcbc97791351176d796452013db0f5444",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
