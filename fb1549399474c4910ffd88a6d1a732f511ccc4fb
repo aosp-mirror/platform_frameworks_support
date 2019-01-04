@@ -46,6 +46,30 @@
       "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "553bcfb9_a3954619",
+        "filename": "navigation/ui/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-04T17:44:30Z",
+      "side": 1,
+      "message": "Localization CL at ag/5938406, waiting for this to be submitted before going through review there.",
+      "parentUuid": "13109759_ce5e31f7",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 75
+      },
+      "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
