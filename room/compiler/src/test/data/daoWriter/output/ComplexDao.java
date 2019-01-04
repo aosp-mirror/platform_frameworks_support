@@ -1,14 +1,13 @@
 package foo.bar;
 
 import android.database.Cursor;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
-import androidx.room.InvalidationTracker.Observer;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.room.util.StringUtil;
+import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -16,7 +15,7 @@ import java.lang.StringBuilder;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
@@ -30,7 +29,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public boolean transactionMethod(int i, String s, long l) {
+    public boolean transactionMethod(final int i, final String s, final long l) {
         __db.beginTransaction();
         try {
             boolean _result = super.transactionMethod(i, s, l);
@@ -42,15 +41,15 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public List<ComplexDao.FullName> fullNames(int id) {
+    public List<ComplexDao.FullName> fullNames(final int id) {
         final String _sql = "SELECT name || lastName as fullName, uid as id FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
-            final int _cursorIndexOfFullName = _cursor.getColumnIndexOrThrow("fullName");
-            final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+            final int _cursorIndexOfFullName = CursorUtil.getColumnIndexOrThrow(_cursor, "fullName");
+            final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
             final List<ComplexDao.FullName> _result = new ArrayList<ComplexDao.FullName>(_cursor.getCount());
             while(_cursor.moveToNext()) {
                 final ComplexDao.FullName _item;
@@ -67,17 +66,17 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(final int id) {
         final String _sql = "SELECT * FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
-            final int _cursorIndexOfUid = _cursor.getColumnIndexOrThrow("uid");
-            final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
-            final int _cursorIndexOfLastName = _cursor.getColumnIndexOrThrow("lastName");
-            final int _cursorIndexOfAge = _cursor.getColumnIndexOrThrow("ageColumn");
+            final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
+            final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
+            final int _cursorIndexOfLastName = CursorUtil.getColumnIndexOrThrow(_cursor, "lastName");
+            final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "ageColumn");
             final User _result;
             if(_cursor.moveToFirst()) {
                 _result = new User();
@@ -98,7 +97,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public User findByName(String name, String lastName) {
+    public User findByName(final String name, final String lastName) {
         final String _sql = "SELECT * FROM user where name LIKE ? AND lastName LIKE ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
         int _argIndex = 1;
@@ -115,10 +114,10 @@ public final class ComplexDao_Impl extends ComplexDao {
         }
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
-            final int _cursorIndexOfUid = _cursor.getColumnIndexOrThrow("uid");
-            final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
-            final int _cursorIndexOfLastName = _cursor.getColumnIndexOrThrow("lastName");
-            final int _cursorIndexOfAge = _cursor.getColumnIndexOrThrow("ageColumn");
+            final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
+            final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
+            final int _cursorIndexOfLastName = CursorUtil.getColumnIndexOrThrow(_cursor, "lastName");
+            final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "ageColumn");
             final User _result;
             if(_cursor.moveToFirst()) {
                 _result = new User();
@@ -139,7 +138,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public List<User> loadAllByIds(int... ids) {
+    public List<User> loadAllByIds(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT * FROM user where uid IN (");
         final int _inputSize = ids.length;
@@ -155,10 +154,10 @@ public final class ComplexDao_Impl extends ComplexDao {
         }
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
-            final int _cursorIndexOfUid = _cursor.getColumnIndexOrThrow("uid");
-            final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
-            final int _cursorIndexOfLastName = _cursor.getColumnIndexOrThrow("lastName");
-            final int _cursorIndexOfAge = _cursor.getColumnIndexOrThrow("ageColumn");
+            final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
+            final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
+            final int _cursorIndexOfLastName = CursorUtil.getColumnIndexOrThrow(_cursor, "lastName");
+            final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "ageColumn");
             final List<User> _result = new ArrayList<User>(_cursor.getCount());
             while(_cursor.moveToNext()) {
                 final User _item_1;
@@ -179,7 +178,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    int getAge(int id) {
+    int getAge(final int id) {
         final String _sql = "SELECT ageColumn FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
@@ -200,7 +199,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public int[] getAllAges(int... ids) {
+    public int[] getAllAges(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids.length;
@@ -232,7 +231,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public List<Integer> getAllAgesAsList(List<Integer> ids) {
+    public List<Integer> getAllAgesAsList(final List<Integer> ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids.size();
@@ -270,31 +269,20 @@ public final class ComplexDao_Impl extends ComplexDao {
     }
 
     @Override
-    public LiveData<User> getByIdLive(int id) {
+    public LiveData<User> getByIdLive(final int id) {
         final String _sql = "SELECT * FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
-        return new ComputableLiveData<User>(__db.getQueryExecutor()) {
-            private Observer _observer;
-
+        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<User>() {
             @Override
-            protected User compute() {
-                if (_observer == null) {
-                    _observer = new Observer("user") {
-                        @Override
-                        public void onInvalidated(@NonNull Set<String> tables) {
-                            invalidate();
-                        }
-                    };
-                    __db.getInvalidationTracker().addWeakObserver(_observer);
-                }
+            public User call() throws Exception {
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
                 try {
-                    final int _cursorIndexOfUid = _cursor.getColumnIndexOrThrow("uid");
-                    final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
-                    final int _cursorIndexOfLastName = _cursor.getColumnIndexOrThrow("lastName");
-                    final int _cursorIndexOfAge = _cursor.getColumnIndexOrThrow("ageColumn");
+                    final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
+                    final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
+                    final int _cursorIndexOfLastName = CursorUtil.getColumnIndexOrThrow(_cursor, "lastName");
+                    final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "ageColumn");
                     final User _result;
                     if(_cursor.moveToFirst()) {
                         _result = new User();
@@ -317,11 +305,11 @@ public final class ComplexDao_Impl extends ComplexDao {
             protected void finalize() {
                 _statement.release();
             }
-        }.getLiveData();
+        });
     }
 
     @Override
-    public LiveData<List<User>> loadUsersByIdsLive(int... ids) {
+    public LiveData<List<User>> loadUsersByIdsLive(final int... ids) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT * FROM user where uid IN (");
         final int _inputSize = ids.length;
@@ -335,26 +323,15 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item);
             _argIndex ++;
         }
-        return new ComputableLiveData<List<User>>(__db.getQueryExecutor()) {
-            private Observer _observer;
-
+        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<List<User>>() {
             @Override
-            protected List<User> compute() {
-                if (_observer == null) {
-                    _observer = new Observer("user") {
-                        @Override
-                        public void onInvalidated(@NonNull Set<String> tables) {
-                            invalidate();
-                        }
-                    };
-                    __db.getInvalidationTracker().addWeakObserver(_observer);
-                }
+            public List<User> call() throws Exception {
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
                 try {
-                    final int _cursorIndexOfUid = _cursor.getColumnIndexOrThrow("uid");
-                    final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
-                    final int _cursorIndexOfLastName = _cursor.getColumnIndexOrThrow("lastName");
-                    final int _cursorIndexOfAge = _cursor.getColumnIndexOrThrow("ageColumn");
+                    final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
+                    final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
+                    final int _cursorIndexOfLastName = CursorUtil.getColumnIndexOrThrow(_cursor, "lastName");
+                    final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "ageColumn");
                     final List<User> _result = new ArrayList<User>(_cursor.getCount());
                     while(_cursor.moveToNext()) {
                         final User _item_1;
@@ -377,11 +354,12 @@ public final class ComplexDao_Impl extends ComplexDao {
             protected void finalize() {
                 _statement.release();
             }
-        }.getLiveData();
+        });
     }
 
     @Override
-    public List<Integer> getAllAgesAsList(List<Integer> ids1, int[] ids2, int... ids3) {
+    public List<Integer> getAllAgesAsList(final List<Integer> ids1, final int[] ids2,
+            final int... ids3) {
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids1.size();

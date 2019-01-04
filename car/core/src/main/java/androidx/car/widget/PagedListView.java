@@ -20,10 +20,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,14 +35,17 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.ColorRes;
-import androidx.annotation.IdRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Px;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.car.R;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
+import androidx.car.widget.itemdecorators.DividerDecoration;
+import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
+import androidx.car.widget.itemdecorators.TopOffsetDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -96,7 +96,6 @@ public class PagedListView extends FrameLayout {
     private static final int SNAP_SCROLL_OFFSET_POSITION = 2;
 
     private static final String TAG = "PagedListView";
-    private static final int INVALID_RESOURCE_ID = -1;
 
     private final RecyclerView mRecyclerView;
     private final PagedSnapHelper mSnapHelper;
@@ -184,17 +183,12 @@ public class PagedListView extends FrameLayout {
      * The possible values for @{link #setGutter}. The default value is actually
      * {@link Gutter#BOTH}.
      */
-    @IntDef({
-            Gutter.NONE,
-            Gutter.START,
-            Gutter.END,
-            Gutter.BOTH,
-    })
+    @IntDef({Gutter.NONE, Gutter.START, Gutter.END, Gutter.BOTH})
     @Retention(SOURCE)
     public @interface Gutter {
         /**
          * No gutter on either side of the list items. The items will span the full width of the
-         * {@link PagedListView}.
+         * {@link PagedListView}, but will not overlap the scroll bar.
          */
         int NONE = 0;
 
@@ -209,7 +203,7 @@ public class PagedListView extends FrameLayout {
         int END = 2;
 
         /**
-         * Include a gutter on both sides of the list items. This is the default behaviour.
+         * Include a gutter on both sides of the list items. This is the default behavior.
          */
         int BOTH = 3;
     }
@@ -266,32 +260,15 @@ public class PagedListView extends FrameLayout {
             mRecyclerView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
         }
 
-        int defaultGutterSize = getResources().getDimensionPixelSize(R.dimen.car_margin);
-        mGutterSize = a.getDimensionPixelSize(R.styleable.PagedListView_gutterSize,
-                defaultGutterSize);
-
-        if (a.hasValue(R.styleable.PagedListView_gutter)) {
-            int gutter = a.getInt(R.styleable.PagedListView_gutter, Gutter.BOTH);
-            setGutter(gutter);
-        } else if (a.hasValue(R.styleable.PagedListView_offsetScrollBar)) {
-            boolean offsetScrollBar =
-                    a.getBoolean(R.styleable.PagedListView_offsetScrollBar, false);
-            if (offsetScrollBar) {
-                setGutter(Gutter.START);
-            }
-        } else {
-            setGutter(Gutter.BOTH);
-        }
-
         if (a.getBoolean(R.styleable.PagedListView_showPagedListViewDivider, true)) {
             int dividerStartMargin = a.getDimensionPixelSize(
                     R.styleable.PagedListView_dividerStartMargin, 0);
             int dividerEndMargin = a.getDimensionPixelSize(
                     R.styleable.PagedListView_dividerEndMargin, 0);
-            int dividerStartId = a.getResourceId(
-                    R.styleable.PagedListView_alignDividerStartTo, INVALID_RESOURCE_ID);
-            int dividerEndId = a.getResourceId(
-                    R.styleable.PagedListView_alignDividerEndTo, INVALID_RESOURCE_ID);
+            int dividerStartId = a.getResourceId(R.styleable.PagedListView_alignDividerStartTo,
+                    DividerDecoration.INVALID_RESOURCE_ID);
+            int dividerEndId = a.getResourceId(R.styleable.PagedListView_alignDividerEndTo,
+                    DividerDecoration.INVALID_RESOURCE_ID);
 
             int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
@@ -305,10 +282,16 @@ public class PagedListView extends FrameLayout {
             mRecyclerView.addItemDecoration(new ItemSpacingDecoration(itemSpacing));
         }
 
-        int listContentTopMargin =
+        int listContentTopOffset =
                 a.getDimensionPixelSize(R.styleable.PagedListView_listContentTopOffset, 0);
-        if (listContentTopMargin > 0) {
-            mRecyclerView.addItemDecoration(new TopOffsetDecoration(listContentTopMargin));
+        if (listContentTopOffset > 0) {
+            mRecyclerView.addItemDecoration(new TopOffsetDecoration(listContentTopOffset));
+        }
+
+        int listContentBottomOffset =
+                a.getDimensionPixelSize(R.styleable.PagedListView_listContentTopOffset, 0);
+        if (listContentBottomOffset > 0) {
+            mRecyclerView.addItemDecoration(new BottomOffsetDecoration(listContentBottomOffset));
         }
 
         // Set focusable false explicitly to handle the behavior change in Android O where
@@ -371,6 +354,25 @@ public class PagedListView extends FrameLayout {
             setScrollBarContainerWidth(scrollBarContainerWidth);
         }
 
+        int defaultGutterSize = getResources().getDimensionPixelSize(R.dimen.car_margin);
+        mGutterSize = a.getDimensionPixelSize(R.styleable.PagedListView_gutterSize,
+                defaultGutterSize);
+
+        // Initialization of the gutter has to come after the scroll bar container width has been
+        // set to prevent the internal RecyclerView from overlapping the scroll bar.
+        if (a.hasValue(R.styleable.PagedListView_gutter)) {
+            int gutter = a.getInt(R.styleable.PagedListView_gutter, Gutter.BOTH);
+            setGutter(gutter);
+        } else if (a.hasValue(R.styleable.PagedListView_offsetScrollBar)) {
+            boolean offsetScrollBar =
+                    a.getBoolean(R.styleable.PagedListView_offsetScrollBar, false);
+            if (offsetScrollBar) {
+                setGutter(Gutter.START);
+            }
+        } else {
+            setGutter(Gutter.BOTH);
+        }
+
         a.recycle();
     }
 
@@ -406,29 +408,39 @@ public class PagedListView extends FrameLayout {
     public void setGutter(@Gutter int gutter) {
         mGutter = gutter;
 
-        int startMargin = 0;
-        int endMargin = 0;
+        // Default starting margin is either the width of the scroll bar if it's enabled or just
+        // flush to the edge.
+        int startMargin = mScrollBarEnabled ? mScrollBarView.getLayoutParams().width : 0;
         if ((mGutter & Gutter.START) != 0) {
-            startMargin = mGutterSize;
+            // Ensure that the gutter value is large enough so that the RecyclerView does not
+            // overlap the scroll bar, if it's enabled.
+            startMargin = Math.max(mGutterSize, startMargin);
         }
+
+        int endMargin = 0;
         if ((mGutter & Gutter.END) != 0) {
             endMargin = mGutterSize;
         }
+
         MarginLayoutParams layoutParams = (MarginLayoutParams) mRecyclerView.getLayoutParams();
         layoutParams.setMarginStart(startMargin);
         layoutParams.setMarginEnd(endMargin);
+
         // requestLayout() isn't sufficient because we also need to resolveLayoutParams().
         mRecyclerView.setLayoutParams(layoutParams);
 
         // If there's a gutter, set ClipToPadding to false so that CardView's shadow will still
         // appear outside of the padding.
         mRecyclerView.setClipToPadding(startMargin == 0 && endMargin == 0);
-
     }
 
     /**
      * Sets the size of the gutter that appears at the start, end or both sizes of the items in
      * the {@code PagedListView}.
+     *
+     * <p>Note, that if the gutter size given is smaller than the width of the scroll bar container
+     * set via {@link #setScrollBarContainerWidth(int)}, then the container width will be used as
+     * the gutter at the start. This ensures the scroll bar is never overlapped.
      *
      * @param gutterSize The size of the gutter in pixels.
      * @see #setGutter(int)
@@ -450,6 +462,10 @@ public class PagedListView extends FrameLayout {
         ViewGroup.LayoutParams layoutParams = mScrollBarView.getLayoutParams();
         layoutParams.width = width;
         mScrollBarView.requestLayout();
+
+        // Ensure that the gutter is updated so that the RecyclerView does not overlap the scroll
+        // bar.
+        setGutter(mGutter);
     }
 
     /**
@@ -483,9 +499,11 @@ public class PagedListView extends FrameLayout {
      * Sets an offset above the first item in the {@code PagedListView}. This offset is scrollable
      * with the contents of the list.
      *
-     * @param offset The top offset to add.
+     * @param offset The top offset to add in pixels.
+     *
+     * @attr ref R.styleable#PagedListView_listContentTopOffset
      */
-    public void setListContentTopOffset(int offset) {
+    public void setListContentTopOffset(@Px int offset) {
         TopOffsetDecoration existing = null;
         for (int i = 0, count = mRecyclerView.getItemDecorationCount(); i < count; i++) {
             RecyclerView.ItemDecoration itemDecoration = mRecyclerView.getItemDecorationAt(i);
@@ -495,14 +513,80 @@ public class PagedListView extends FrameLayout {
             }
         }
 
-        if (offset == 0 && existing != null) {
-            mRecyclerView.removeItemDecoration(existing);
+        if (offset == 0) {
+            if (existing != null) {
+                mRecyclerView.removeItemDecoration(existing);
+            }
         } else if (existing == null) {
             mRecyclerView.addItemDecoration(new TopOffsetDecoration(offset));
         } else {
             existing.setTopOffset(offset);
         }
         mRecyclerView.invalidateItemDecorations();
+    }
+
+    /**
+     * Returns the top offset of the list that was set by {@link #setListContentTopOffset(int)}. If
+     * no top offset was set, 0 is returned.
+     *
+     * @return The top offset that was set or 0 if none was set.
+     */
+    public int getListContentTopOffset() {
+        for (int i = 0, count = mRecyclerView.getItemDecorationCount(); i < count; i++) {
+            RecyclerView.ItemDecoration itemDecoration = mRecyclerView.getItemDecorationAt(i);
+            if (itemDecoration instanceof TopOffsetDecoration) {
+                return ((TopOffsetDecoration) itemDecoration).getTopOffset();
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Sets an offset after the last item in the {@code PagedListView}. This offset is scrollable
+     * with the contents of the list.
+     *
+     * @param offset The bottom offset to add in pixels
+     *
+     * @attr ref R.styleable#PagedListView_listContentBottomOffset
+     */
+    public void setListContentBottomOffset(@Px int offset) {
+        BottomOffsetDecoration existing = null;
+        for (int i = 0, count = mRecyclerView.getItemDecorationCount(); i < count; i++) {
+            RecyclerView.ItemDecoration itemDecoration = mRecyclerView.getItemDecorationAt(i);
+            if (itemDecoration instanceof BottomOffsetDecoration) {
+                existing = (BottomOffsetDecoration) itemDecoration;
+                break;
+            }
+        }
+
+        if (offset == 0) {
+            if (existing != null) {
+                mRecyclerView.removeItemDecoration(existing);
+            }
+        } else if (existing == null) {
+            mRecyclerView.addItemDecoration(new BottomOffsetDecoration(offset));
+        } else {
+            existing.setBottomOffset(offset);
+        }
+        mRecyclerView.invalidateItemDecorations();
+    }
+
+    /**
+     * Returns the bottom offset of the list that was set by
+     * {@link #setListContentBottomOffset(int)}. If no top offset was set, 0 is returned.
+     *
+     * @return The bottom offset that was set or 0 if none was set.
+     */
+    public int getListContentBottomOffset() {
+        for (int i = 0, count = mRecyclerView.getItemDecorationCount(); i < count; i++) {
+            RecyclerView.ItemDecoration itemDecoration = mRecyclerView.getItemDecorationAt(i);
+            if (itemDecoration instanceof BottomOffsetDecoration) {
+                return ((BottomOffsetDecoration) itemDecoration).getBottomOffset();
+            }
+        }
+
+        return 0;
     }
 
     @NonNull
@@ -982,7 +1066,7 @@ public class PagedListView extends FrameLayout {
             return;
         }
 
-        mScrollBarView.setVisibility(View.VISIBLE);
+        mScrollBarView.setVisibility(VISIBLE);
         mScrollBarView.setUpEnabled(!isAtStart);
         mScrollBarView.setDownEnabled(!isAtEnd);
 
@@ -1022,7 +1106,7 @@ public class PagedListView extends FrameLayout {
         if ((isAtStart && isAtEnd) || layoutManager == null || layoutManager.getItemCount() == 0) {
             mScrollBarView.setVisibility(View.INVISIBLE);
         } else {
-            mScrollBarView.setVisibility(View.VISIBLE);
+            mScrollBarView.setVisibility(VISIBLE);
         }
         mScrollBarView.setUpEnabled(!isAtStart);
         mScrollBarView.setDownEnabled(!isAtEnd);
@@ -1250,233 +1334,5 @@ public class PagedListView extends FrameLayout {
 
         /** See RecyclerView.OnScrollListener */
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {}
-    }
-
-    /**
-     * A {@link RecyclerView.ItemDecoration} that will add spacing
-     * between each item in the RecyclerView that it is added to.
-     */
-    private static class ItemSpacingDecoration extends RecyclerView.ItemDecoration {
-        private int mItemSpacing;
-
-        ItemSpacingDecoration(int itemSpacing) {
-            mItemSpacing = itemSpacing;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int position = parent.getChildAdapterPosition(view);
-
-            // Skip offset for last item except for GridLayoutManager.
-            if (position == state.getItemCount() - 1
-                    && !(parent.getLayoutManager() instanceof GridLayoutManager)) {
-                return;
-            }
-
-            outRect.bottom = mItemSpacing;
-        }
-
-        /**
-         * @param itemSpacing sets spacing between each item.
-         */
-        public void setItemSpacing(int itemSpacing) {
-            mItemSpacing = itemSpacing;
-        }
-    }
-
-    /**
-     * A {@link RecyclerView.ItemDecoration} that will draw a dividing
-     * line between each item in the RecyclerView that it is added to.
-     */
-    private static class DividerDecoration extends RecyclerView.ItemDecoration {
-        private final Context mContext;
-        private final Paint mPaint;
-        private final int mDividerHeight;
-        private final int mDividerStartMargin;
-        private final int mDividerEndMargin;
-        @IdRes private final int mDividerStartId;
-        @IdRes private final int mDividerEndId;
-        @ColorRes private int mListDividerColor;
-        private DividerVisibilityManager mVisibilityManager;
-
-        /**
-         * @param dividerStartMargin The start offset of the dividing line. This offset will be
-         *     relative to {@code dividerStartId} if that value is given.
-         * @param dividerStartId A child view id whose starting edge will be used as the starting
-         *     edge of the dividing line. If this value is {@link #INVALID_RESOURCE_ID}, the top
-         *     container of each child view will be used.
-         * @param dividerEndId A child view id whose ending edge will be used as the starting edge
-         *     of the dividing lin.e If this value is {@link #INVALID_RESOURCE_ID}, then the top
-         *     container view of each child will be used.
-         */
-        DividerDecoration(Context context, int dividerStartMargin,
-                int dividerEndMargin, @IdRes int dividerStartId, @IdRes int dividerEndId,
-                @ColorRes int listDividerColor) {
-            mContext = context;
-            mDividerStartMargin = dividerStartMargin;
-            mDividerEndMargin = dividerEndMargin;
-            mDividerStartId = dividerStartId;
-            mDividerEndId = dividerEndId;
-            mListDividerColor = listDividerColor;
-
-            mPaint = new Paint();
-            mPaint.setColor(mContext.getColor(listDividerColor));
-            mDividerHeight = mContext.getResources().getDimensionPixelSize(
-                    R.dimen.car_list_divider_height);
-        }
-
-        /** Sets the color for the dividers. */
-        public void setDividerColor(@ColorRes int dividerColor) {
-            mListDividerColor = dividerColor;
-            updateDividerColor();
-        }
-
-        /** Updates the list divider color which may have changed due to a day night transition. */
-        public void updateDividerColor() {
-            mPaint.setColor(mContext.getColor(mListDividerColor));
-        }
-
-        /** Sets {@link DividerVisibilityManager} on the DividerDecoration.*/
-        public void setVisibilityManager(DividerVisibilityManager dvm) {
-            mVisibilityManager = dvm;
-        }
-
-        @Override
-        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-            boolean usesGridLayoutManager = parent.getLayoutManager() instanceof GridLayoutManager;
-            for (int i = 0; i < parent.getChildCount(); i++) {
-                View container = parent.getChildAt(i);
-                int itemPosition = parent.getChildAdapterPosition(container);
-
-                if (!showDividerForAdapterPosition(itemPosition)) {
-                    continue;
-                }
-
-                View nextVerticalContainer;
-                if (usesGridLayoutManager) {
-                    // Find an item in next row to calculate vertical space.
-                    int lastItem = GridLayoutManagerUtils.getLastIndexOnSameRow(i, parent);
-                    nextVerticalContainer = parent.getChildAt(lastItem + 1);
-                } else {
-                    nextVerticalContainer = parent.getChildAt(i + 1);
-                }
-
-                if (nextVerticalContainer == null) {
-                    // Skip drawing divider for the last row in GridLayoutManager, or the last
-                    // item (presumably in LinearLayoutManager).
-                    continue;
-                }
-
-                int spacing = nextVerticalContainer.getTop() - container.getBottom();
-
-                // Sometimes during refresh, the nextVerticalContainer can still exist, but is
-                // not positioned in its corresponding position in the list (i.e. it has been pushed
-                // off-screen). This will result in a negative value for spacing. Do not draw a
-                // divider in this case to avoid the divider appearing in the wrong position.
-                if (spacing >= 0) {
-                    drawDivider(c, container, spacing);
-                }
-            }
-        }
-
-        /**
-         * Draws a divider under {@code container}.
-         *
-         * @param spacing between {@code container} and next view.
-         */
-        private void drawDivider(Canvas c, View container, int spacing) {
-            View startChild =
-                    mDividerStartId != INVALID_RESOURCE_ID
-                            ? container.findViewById(mDividerStartId)
-                            : container;
-
-            View endChild =
-                    mDividerEndId != INVALID_RESOURCE_ID
-                            ? container.findViewById(mDividerEndId)
-                            : container;
-
-            if (startChild == null || endChild == null) {
-                return;
-            }
-
-            Rect containerRect = new Rect();
-            container.getGlobalVisibleRect(containerRect);
-
-            Rect startRect = new Rect();
-            startChild.getGlobalVisibleRect(startRect);
-
-            Rect endRect = new Rect();
-            endChild.getGlobalVisibleRect(endRect);
-
-            int left = container.getLeft() + mDividerStartMargin
-                    + (startRect.left - containerRect.left);
-            int right = container.getRight()  - mDividerEndMargin
-                    - (endRect.right - containerRect.right);
-            // "(spacing + divider height) / 2" aligns the center of divider to that of spacing
-            // between two items.
-            // When spacing is an odd value (e.g. created by other decoration), space under divider
-            // is greater by 1dp.
-            int bottom = container.getBottom() + (spacing + mDividerHeight) / 2;
-            int top = bottom - mDividerHeight;
-
-            c.drawRect(left, top, right, bottom, mPaint);
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int pos = parent.getChildAdapterPosition(view);
-            if (!showDividerForAdapterPosition(pos)) {
-                return;
-            }
-            // Add an bottom offset to all items that should have divider, even when divider is not
-            // drawn for the bottom item(s).
-            // With GridLayoutManager it's difficult to tell whether a view is in the last row.
-            // This is to keep expected behavior consistent.
-            outRect.bottom = mDividerHeight;
-        }
-
-        private boolean showDividerForAdapterPosition(int position) {
-            // If visibility manager is not set, default to show dividers.
-            return mVisibilityManager == null || mVisibilityManager.getShowDivider(position);
-        }
-    }
-
-    /**
-     * A {@link RecyclerView.ItemDecoration} that will add a top offset
-     * to the first item in the RecyclerView it is added to.
-     */
-    private static class TopOffsetDecoration extends RecyclerView.ItemDecoration {
-        private int mTopOffset;
-
-        TopOffsetDecoration(int topOffset) {
-            mTopOffset = topOffset;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int position = parent.getChildAdapterPosition(view);
-            if (parent.getLayoutManager() instanceof GridLayoutManager
-                    && position < GridLayoutManagerUtils.getFirstRowItemCount(parent)) {
-                // For GridLayoutManager, top offset should be set for all items in the first row.
-                // Otherwise the top items will be visually uneven.
-                outRect.top = mTopOffset;
-            } else if (position == 0) {
-                // Only set the offset for the first item.
-                outRect.top = mTopOffset;
-            }
-        }
-
-        /**
-         * @param topOffset sets spacing between each item.
-         */
-        public void setTopOffset(int topOffset) {
-            mTopOffset = topOffset;
-        }
     }
 }

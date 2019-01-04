@@ -63,6 +63,6 @@ public class ToastWorker extends Worker {
                 Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show();
             }
         });
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

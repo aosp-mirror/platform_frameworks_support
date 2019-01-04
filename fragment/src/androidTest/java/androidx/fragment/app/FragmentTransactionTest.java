@@ -36,11 +36,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.app.test.NewIntentActivity;
 import androidx.fragment.test.R;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -265,19 +265,6 @@ public class FragmentTransactionTest {
         assertTrue("runOnCommit was allowed to be called for back stack transaction",
                 threw);
         assertFalse("runOnCommit runnable for back stack transaction was run", ran[0]);
-    }
-
-    /**
-     * Test to ensure that when onBackPressed() is received that there is no crash.
-     */
-    @Test
-    @UiThreadTest
-    public void crashOnBackPressed() {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        Bundle outState = new Bundle();
-        FragmentTestActivity activity = mActivityRule.getActivity();
-        instrumentation.callActivityOnSaveInstanceState(activity, outState);
-        activity.onBackPressed();
     }
 
     // Ensure that getFragments() works during transactions, even if it is run off thread

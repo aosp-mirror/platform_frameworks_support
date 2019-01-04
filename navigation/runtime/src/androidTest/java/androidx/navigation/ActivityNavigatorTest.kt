@@ -26,10 +26,10 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import androidx.test.annotation.UiThreadTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.filters.SdkSuppress
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -40,6 +40,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.argThat
 import org.mockito.ArgumentMatchers.refEq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
@@ -57,19 +58,17 @@ class ActivityNavigatorTest {
         const val TARGET_ARGUMENT_NAME = "test"
         const val TARGET_DATA_PATTERN = "http://www.example.com/{$TARGET_ARGUMENT_NAME}"
         const val TARGET_ARGUMENT_VALUE = "data_pattern"
+        const val TARGET_ARGUMENT_INT_VALUE = 1
     }
 
     @get:Rule
     val activityRule = ActivityTestRule(ActivityNavigatorActivity::class.java)
 
     private lateinit var activityNavigator: ActivityNavigator
-    private lateinit var onNavigatedListener: Navigator.OnNavigatorNavigatedListener
 
     @Before
     fun setup() {
         activityNavigator = ActivityNavigator(activityRule.activity)
-        onNavigatedListener = mock(Navigator.OnNavigatorNavigatedListener::class.java)
-        activityNavigator.addOnNavigatorNavigatedListener(onNavigatedListener)
         TargetActivity.instances = spy(ArrayList())
     }
 
@@ -93,9 +92,6 @@ class ActivityNavigatorTest {
             setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
         }
         activityNavigator.navigate(targetDestination, null, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -108,17 +104,12 @@ class ActivityNavigatorTest {
     fun navigateFromNonActivityContext() {
         // Create using the applicationContext
         val activityNavigator = ActivityNavigator(activityRule.activity.applicationContext)
-        val onNavigatedListener = mock(Navigator.OnNavigatorNavigatedListener::class.java)
-        activityNavigator.addOnNavigatorNavigatedListener(onNavigatedListener)
 
         val targetDestination = activityNavigator.createDestination().apply {
             id = TARGET_ID
             setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
         }
         activityNavigator.navigate(targetDestination, null, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -136,9 +127,6 @@ class ActivityNavigatorTest {
         activityNavigator.navigate(targetDestination, null, navOptions {
             launchSingleTop = true
         }, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -158,9 +146,6 @@ class ActivityNavigatorTest {
             putString(TARGET_ARGUMENT_NAME, TARGET_ARGUMENT_VALUE)
         }
         activityNavigator.navigate(targetDestination, args, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -177,9 +162,6 @@ class ActivityNavigatorTest {
             setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
         }
         activityNavigator.navigate(targetDestination, null, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -196,9 +178,6 @@ class ActivityNavigatorTest {
             setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
         }
         activityNavigator.navigate(targetDestination, null, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -218,9 +197,6 @@ class ActivityNavigatorTest {
             putString(TARGET_ARGUMENT_NAME, TARGET_ARGUMENT_VALUE)
         }
         activityNavigator.navigate(targetDestination, args, null, null)
-        verify(onNavigatedListener).onNavigatorNavigated(activityNavigator, TARGET_ID,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(onNavigatedListener)
 
         val targetActivity = waitForActivity()
         val intent = targetActivity.intent
@@ -230,6 +206,29 @@ class ActivityNavigatorTest {
                 intent.data?.toString())
         assertEquals("Intent should have its arguments in its extras",
                 TARGET_ARGUMENT_VALUE, intent.getStringExtra(TARGET_ARGUMENT_NAME))
+    }
+
+    @Test
+    fun navigateDataPatternInt() {
+        val targetDestination = activityNavigator.createDestination().apply {
+            id = TARGET_ID
+            dataPattern = TARGET_DATA_PATTERN
+            setComponentName(ComponentName(activityRule.activity, TargetActivity::class.java))
+        }
+        val args = Bundle().apply {
+            putInt(TARGET_ARGUMENT_NAME, TARGET_ARGUMENT_INT_VALUE)
+        }
+        activityNavigator.navigate(targetDestination, args, null, null)
+
+        val targetActivity = waitForActivity()
+        val intent = targetActivity.intent
+        assertNotNull(intent)
+        assertEquals("Intent should have data set with argument filled in",
+            TARGET_DATA_PATTERN.replace("{$TARGET_ARGUMENT_NAME}",
+                TARGET_ARGUMENT_INT_VALUE.toString()),
+            intent.data?.toString())
+        assertEquals("Intent should have its arguments in its extras",
+            TARGET_ARGUMENT_INT_VALUE, intent.getIntExtra(TARGET_ARGUMENT_NAME, -1))
     }
 
     @Test
@@ -246,7 +245,6 @@ class ActivityNavigatorTest {
         } catch (e: IllegalArgumentException) {
             // Expected
         }
-        verifyNoMoreInteractions(onNavigatedListener)
     }
 
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
@@ -260,7 +258,11 @@ class ActivityNavigatorTest {
                 activityRule.activity,
                 view,
                 "test")
-        val extras = ActivityNavigator.Extras(activityOptions)
+        val flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val extras = ActivityNavigator.Extras.Builder()
+            .setActivityOptions(activityOptions)
+            .addFlags(flags)
+            .build()
 
         val targetDestination = activityNavigator.createDestination().apply {
             id = TARGET_ID
@@ -269,7 +271,9 @@ class ActivityNavigatorTest {
         activityNavigator.navigate(targetDestination, null, null, extras)
         // Just verify that the ActivityOptions got passed through, there's
         // CTS tests to ensure that the ActivityOptions do the right thing
-        verify(context).startActivity(any(), refEq(activityOptions.toBundle()))
+        verify(context).startActivity(argThat { intent ->
+            intent.flags and flags != 0
+        }, refEq(activityOptions.toBundle()))
     }
 
     private fun waitForActivity(): TargetActivity {

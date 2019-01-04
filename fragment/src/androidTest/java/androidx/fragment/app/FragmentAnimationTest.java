@@ -42,10 +42,10 @@ import androidx.annotation.AnimRes;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -450,7 +450,7 @@ public class FragmentAnimationTest {
                 .commit();
         FragmentTestUtil.waitForExecution(mActivityRule);
 
-        final View fragmentView = fragment1.getView();
+        final View fragmentView = fragment1.requireView();
 
         final TranslateAnimation xAnimation = new TranslateAnimation(0, 1000, 0, 0);
         mActivityRule.runOnUiThread(new Runnable() {
@@ -569,8 +569,8 @@ public class FragmentAnimationTest {
     private void assertPostponed(AnimatorFragment fragment, int expectedAnimators)
             throws InterruptedException {
         assertTrue(fragment.mOnCreateViewCalled);
-        assertEquals(View.VISIBLE, fragment.getView().getVisibility());
-        assertEquals(0f, fragment.getView().getAlpha(), 0f);
+        assertEquals(View.VISIBLE, fragment.requireView().getVisibility());
+        assertEquals(0f, fragment.requireView().getAlpha(), 0f);
         assertEquals(expectedAnimators, fragment.numAnimators);
     }
 

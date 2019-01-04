@@ -16,8 +16,8 @@
 
 package androidx.navigation
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,28 +33,6 @@ class NavOptionsTest {
         }
         assertWithMessage("NavOptions should have launchSingleTop set")
             .that(navOptions.shouldLaunchSingleTop())
-            .isTrue()
-    }
-
-    @Suppress("DEPRECATION")
-    @Test
-    fun launchDocument() {
-        val navOptions = navOptions {
-            launchDocument = true
-        }
-        assertWithMessage("NavOptions should have launchDocument set")
-            .that(navOptions.shouldLaunchDocument())
-            .isTrue()
-    }
-
-    @Suppress("DEPRECATION")
-    @Test
-    fun clearTask() {
-        val navOptions = navOptions {
-            clearTask = true
-        }
-        assertWithMessage("NavOptions should have clearTask set")
-            .that(navOptions.shouldClearTask())
             .isTrue()
     }
 

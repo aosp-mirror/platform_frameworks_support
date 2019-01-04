@@ -39,6 +39,6 @@ public class StopAwareWorker extends Worker {
         while (!isStopped()) {
             x++;
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

@@ -49,12 +49,13 @@ import java.util.ArrayDeque;
  * You can construct an instance directly with {@link #NavDeepLinkBuilder(Context)} or build one
  * using an existing {@link NavController} via {@link NavController#createDeepLink()}.
  */
-public class NavDeepLinkBuilder {
+public final class NavDeepLinkBuilder {
     private final Context mContext;
     private final Intent mIntent;
 
     private NavGraph mGraph;
     private int mDestId;
+    private Bundle mArgs;
 
     /**
      * Construct a new NavDeepLinkBuilder.
@@ -121,12 +122,16 @@ public class NavDeepLinkBuilder {
      */
     @NonNull
     public NavDeepLinkBuilder setGraph(@NavigationRes int navGraphId) {
-        return setGraph(new NavInflater(mContext, new PermissiveNavigatorProvider(mContext))
+        return setGraph(new NavInflater(mContext, new PermissiveNavigatorProvider())
                 .inflate(navGraphId));
     }
 
     /**
      * Sets the graph that contains the {@link #setDestination(int) deep link destination}.
+     * <p>
+     * If you do not have access to a {@link NavController}, you can create a
+     * {@link NavigatorProvider} and use that to programmatically construct a navigation
+     * graph or use {@link NavInflater#NavInflater(Context, NavigatorProvider) NavInflater}.
      *
      * @param navGraph The {@link NavGraph} containing the deep link destination
      * @return this object for chaining
@@ -184,6 +189,7 @@ public class NavDeepLinkBuilder {
      */
     @NonNull
     public NavDeepLinkBuilder setArguments(@Nullable Bundle args) {
+        mArgs = args;
         mIntent.putExtra(NavController.KEY_DEEP_LINK_EXTRAS, args);
         return this;
     }
@@ -241,8 +247,16 @@ public class NavDeepLinkBuilder {
      */
     @NonNull
     public PendingIntent createPendingIntent() {
+        int requestCode = 0;
+        if (mArgs != null) {
+            for (String key: mArgs.keySet()) {
+                Object value = mArgs.get(key);
+                requestCode = 31 * requestCode + (value != null ? value.hashCode() : 0);
+            }
+        }
+        requestCode = 31 * requestCode + mDestId;
         return createTaskStackBuilder()
-                .getPendingIntent(mDestId, PendingIntent.FLAG_UPDATE_CURRENT);
+                .getPendingIntent(requestCode, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /**
@@ -251,7 +265,7 @@ public class NavDeepLinkBuilder {
      * information.
      */
     @SuppressWarnings("unchecked")
-    private static class PermissiveNavigatorProvider extends SimpleNavigatorProvider {
+    private static class PermissiveNavigatorProvider extends NavigatorProvider {
         /**
          * A Navigator that only parses the {@link NavDestination} attributes.
          */
@@ -259,12 +273,14 @@ public class NavDeepLinkBuilder {
             @NonNull
             @Override
             public NavDestination createDestination() {
-                return new NavDestination(this);
+                return new NavDestination("permissive");
             }
 
+            @Nullable
             @Override
-            public void navigate(@NonNull NavDestination destination, @Nullable Bundle args,
-                    @Nullable NavOptions navOptions, @Nullable Extras navigatorExtras) {
+            public NavDestination navigate(@NonNull NavDestination destination,
+                    @Nullable Bundle args, @Nullable NavOptions navOptions,
+                    @Nullable Extras navigatorExtras) {
                 throw new IllegalStateException("navigate is not supported");
             }
 
@@ -274,8 +290,8 @@ public class NavDeepLinkBuilder {
             }
         };
 
-        PermissiveNavigatorProvider(Context context) {
-            addNavigator(new NavGraphNavigator(context));
+        PermissiveNavigatorProvider() {
+            addNavigator(new NavGraphNavigator(this));
         }
 
         @NonNull

@@ -38,6 +38,6 @@ public class InterruptionAwareWorker extends Worker {
         } catch (InterruptedException e) {
             // Do nothing.
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

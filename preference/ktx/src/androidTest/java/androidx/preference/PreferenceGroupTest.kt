@@ -16,7 +16,7 @@
 
 package androidx.preference
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.assertThrows
@@ -36,7 +36,7 @@ class PreferenceGroupTest {
     @JvmField
     @Rule
     val rule = ActivityTestRule(TestPreferenceActivity::class.java)
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
     private lateinit var preferenceGroup: PreferenceGroup
 
     @Before fun setup() {
@@ -121,7 +121,9 @@ class PreferenceGroupTest {
         assertTrue(preferenceGroup.isNotEmpty())
     }
 
-    @Test fun forEach() {
+    // Temporarily disabled due to b/113042342
+    // @Test
+    fun forEach() {
         preferenceGroup.forEach {
             fail("Empty preference group should not invoke lambda")
         }

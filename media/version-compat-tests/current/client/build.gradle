@@ -21,8 +21,16 @@ plugins {
 }
 
 dependencies {
-    androidTestImplementation(project(":media2"))
+    androidTestImplementation(project(":media"))
     androidTestImplementation(project(":support-media-compat-test-lib"))
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
+}
+
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
 }

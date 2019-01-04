@@ -13,6 +13,8 @@ dependencies {
     api(project(":fragment"))
     api(project(":recyclerview"))
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -43,5 +45,4 @@ supportLibrary {
     description = "Android Support Leanback v17"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
-    useMetalava = false
 }

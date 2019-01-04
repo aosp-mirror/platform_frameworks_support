@@ -80,13 +80,13 @@ class NavWriterTest {
                         Argument("optionalInt", IntType, IntValue("239")),
                         Argument(
                                 "optionalParcelable",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                                 NullValue,
                                 true
                         ),
                         Argument(
                                 "parcelable",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo"))
+                                ObjectType(ClassName.get("android.content.pm", "ActivityInfo"))
                         ))), false)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Next")
@@ -151,12 +151,21 @@ class NavWriterTest {
                 Argument("reference", ReferenceType, ReferenceValue(ResReference("a.b", "drawable",
                         "background"))),
                 Argument("floatArg", FloatType, FloatValue("1")),
+                Argument("floatArrayArg", FloatArrayType),
+                Argument("objectArrayArg", ObjectArrayType(
+                    ClassName.get("android.content.pm", "ActivityInfo"))),
                 Argument("boolArg", BoolType, BooleanValue("true")),
                 Argument(
                         "optionalParcelable",
-                        ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                        ObjectType(ClassName.get("android.content.pm", "ActivityInfo")),
                         NullValue,
                         true
+                ),
+                Argument(
+                    "enumArg",
+                    ObjectType(ClassName.get("java.nio.file", "AccessMode")),
+                    EnumValue(ClassName.get("java.nio.file", "AccessMode"), "READ"),
+                    false
                 )),
                 listOf())
 
@@ -195,7 +204,7 @@ class NavWriterTest {
     fun testGeneratedDirectionEqualsImpl() {
         val nextAction = Action(id("next"), id("destA"), listOf(Argument("main", StringType)))
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(),
-                listOf(nextAction))
+            listOf(nextAction))
 
         val actual = generateDirectionsJavaFile(dest, null, false).toJavaFileObject()
 
@@ -203,8 +212,8 @@ class NavWriterTest {
         val loader = InMemoryGeneratedClassLoader(generatedFiles)
 
         fun createNextObj(mainArgValue: String) = loader.loadClass("a.b.MainFragmentDirections")
-                .getDeclaredMethod("next", String::class.java)
-                .invoke(null, mainArgValue)
+            .getDeclaredMethod("next", String::class.java)
+            .invoke(null, mainArgValue)
 
         val nextObjectA = createNextObj("data")
         val nextObjectB = createNextObj("data")

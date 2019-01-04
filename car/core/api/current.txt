@@ -49,18 +49,6 @@ package androidx.car.app {
 
 package androidx.car.drawer {
 
-  public class CarDrawerActivity extends androidx.appcompat.app.AppCompatActivity {
-    ctor public CarDrawerActivity();
-    method protected int getContentContainerId();
-    method protected androidx.car.drawer.CarDrawerController? getDrawerController();
-    method public void setMainContent(android.view.View!);
-    method public void setMainContent(@LayoutRes int);
-    method public void setToolbarAlwaysShow();
-    method public void setToolbarCollapsible();
-    method public void setToolbarElevation(float);
-    method public void setToolbarElevationWithAnimation(float);
-  }
-
   public abstract class CarDrawerAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.car.drawer.DrawerItemViewHolder> implements androidx.car.widget.PagedListView.ItemCap {
     ctor protected CarDrawerAdapter(android.content.Context!, boolean);
     method public void cleanup();
@@ -156,23 +144,6 @@ package androidx.car.uxrestrictions {
 
 package androidx.car.widget {
 
-  public class ActionBar extends android.widget.RelativeLayout {
-    ctor public ActionBar(android.content.Context!);
-    ctor public ActionBar(android.content.Context!, android.util.AttributeSet!);
-    ctor public ActionBar(android.content.Context!, android.util.AttributeSet!, int);
-    ctor public ActionBar(android.content.Context!, android.util.AttributeSet!, int, int);
-    method public void setExpandCollapseView(android.view.View);
-    method public void setView(android.view.View?, @androidx.car.widget.ActionBar.SlotPosition int);
-    method public void setViews(android.view.View[]?);
-    field public static final int SLOT_EXPAND_COLLAPSE = 3; // 0x3
-    field public static final int SLOT_LEFT = 1; // 0x1
-    field public static final int SLOT_MAIN = 0; // 0x0
-    field public static final int SLOT_RIGHT = 2; // 0x2
-  }
-
-  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.car.widget.ActionBar.SLOT_MAIN, androidx.car.widget.ActionBar.SLOT_LEFT, androidx.car.widget.ActionBar.SLOT_RIGHT, androidx.car.widget.ActionBar.SLOT_EXPAND_COLLAPSE}) public static @interface ActionBar.SlotPosition {
-  }
-
   public final class ActionListItem extends androidx.car.widget.ListItem<androidx.car.widget.ActionListItem.ViewHolder> {
     ctor public ActionListItem(android.content.Context);
     method public static androidx.car.widget.ActionListItem.ViewHolder createViewHolder(android.view.View!);
@@ -243,18 +214,63 @@ package androidx.car.widget {
     method public void show();
   }
 
+  public class CarMenuItem {
+    method public androidx.car.widget.CarMenuItem.DisplayBehavior getDisplayBehavior();
+    method public android.graphics.drawable.Icon? getIcon();
+    method public androidx.car.widget.CarMenuItem.OnClickListener? getOnClickListener();
+    method @StyleRes public int getStyleResId();
+    method public CharSequence? getTitle();
+    method public boolean isCheckable();
+    method public boolean isChecked();
+    method public boolean isEnabled();
+    method public void setChecked(boolean);
+    method public void setEnabled(boolean);
+    method public void setTitle(CharSequence?);
+  }
+
+  public static final class CarMenuItem.Builder {
+    ctor public CarMenuItem.Builder();
+    method public androidx.car.widget.CarMenuItem build();
+    method public androidx.car.widget.CarMenuItem.Builder setCheckable(boolean);
+    method public androidx.car.widget.CarMenuItem.Builder setChecked(boolean);
+    method public androidx.car.widget.CarMenuItem.Builder setDisplayBehavior(androidx.car.widget.CarMenuItem.DisplayBehavior);
+    method public androidx.car.widget.CarMenuItem.Builder setEnabled(boolean);
+    method public androidx.car.widget.CarMenuItem.Builder setIcon(android.graphics.drawable.Icon);
+    method public androidx.car.widget.CarMenuItem.Builder setOnClickListener(androidx.car.widget.CarMenuItem.OnClickListener);
+    method public androidx.car.widget.CarMenuItem.Builder setStyle(@StyleRes int);
+    method public androidx.car.widget.CarMenuItem.Builder setTitle(CharSequence);
+  }
+
+  public static enum CarMenuItem.DisplayBehavior {
+    enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior ALWAYS;
+    enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior IF_ROOM;
+    enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior NEVER;
+  }
+
+  public static interface CarMenuItem.OnClickListener {
+    method public void onClick(androidx.car.widget.CarMenuItem!);
+  }
+
   public class CarToolbar extends android.view.ViewGroup {
     ctor public CarToolbar(android.content.Context!);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!, int);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!, int, int);
+    method public java.util.List<androidx.car.widget.CarMenuItem>? getMenuItems();
+    method public CharSequence? getSubtitle();
     method public CharSequence! getTitle();
-    method public void setNavigationIcon(@DrawableRes int);
+    method public void setMenuItems(java.util.List<androidx.car.widget.CarMenuItem>?);
     method public void setNavigationIcon(android.graphics.drawable.Icon?);
     method public void setNavigationIconContainerWidth(@Px int);
     method public void setNavigationIconOnClickListener(android.view.View.OnClickListener?);
+    method public void setOverflowIcon(android.graphics.drawable.Icon);
+    method public void setSubtitle(@StringRes int);
+    method public void setSubtitle(CharSequence?);
+    method public void setSubtitleTextAppearance(@StyleRes int);
     method public void setTitle(@StringRes int);
     method public void setTitle(CharSequence!);
+    method public void setTitleIcon(android.graphics.drawable.Icon?);
+    method public void setTitleIconSize(@Px int);
     method public void setTitleTextAppearance(@StyleRes int);
   }
 
@@ -334,6 +350,8 @@ package androidx.car.widget {
     method public void addItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void addOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
     method public androidx.recyclerview.widget.RecyclerView.Adapter<? extends androidx.recyclerview.widget.RecyclerView.ViewHolder>? getAdapter();
+    method public int getListContentBottomOffset();
+    method public int getListContentTopOffset();
     method public int getMaxPages();
     method public int getPage(int);
     method public androidx.recyclerview.widget.RecyclerView getRecyclerView();
@@ -360,7 +378,8 @@ package androidx.car.widget {
     method public void setGutter(@androidx.car.widget.PagedListView.Gutter int);
     method public void setGutterSize(int);
     method public void setItemSpacing(int);
-    method public void setListContentTopOffset(int);
+    method public void setListContentBottomOffset(@Px int);
+    method public void setListContentTopOffset(@Px int);
     method public void setMaxPages(int);
     method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
     method public void setScrollBarContainerWidth(int);

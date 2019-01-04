@@ -16,6 +16,7 @@
 
 package androidx.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -45,6 +46,7 @@ public abstract class DialogPreference extends Preference {
     private CharSequence mNegativeButtonText;
     private int mDialogLayoutResId;
 
+    @SuppressLint("RestrictedApi")
     public DialogPreference(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -85,6 +87,7 @@ public abstract class DialogPreference extends Preference {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    @SuppressLint("RestrictedApi")
     public DialogPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));
@@ -267,6 +270,7 @@ public abstract class DialogPreference extends Preference {
          * @return The {@link Preference} with the key, or {@code null}
          * @see PreferenceGroup#findPreference(CharSequence)
          */
-        Preference findPreference(CharSequence key);
+        @SuppressWarnings("TypeParameterUnusedInFormals")
+        <T extends Preference> T findPreference(CharSequence key);
     }
 }

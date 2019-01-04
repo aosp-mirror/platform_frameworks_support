@@ -69,7 +69,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 @RunWith(Parameterized.class)
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
 public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final String LOG_TAG = "MediaPlayer2StateTest";
 
@@ -81,8 +81,8 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     // Used for testing case that operation is called before setDataSourceDesc().
     private static final int MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE = 400001;
 
-    private static final MediaItem2 sDummyDataSource = new CallbackMediaItem2.Builder(
-            new DataSourceCallback2() {
+    private static final MediaItem sDummyDataSource = new CallbackMediaItem.Builder(
+            new DataSourceCallback() {
                 @Override
                 public int readAt(long position, byte[] buffer, int offset, int size)
                         throws IOException {
@@ -505,7 +505,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sSetPlaybackParamsOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.setPlaybackParams(new PlaybackParams2.Builder().setSpeed(1.0f).build());
+            player.setPlaybackParams(new PlaybackParams.Builder().setSpeed(1.0f).build());
         }
 
         @Override
@@ -665,7 +665,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sSelectTrackOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.selectTrack(0);
+            player.selectTrack(1);
         }
 
         @Override
@@ -729,7 +729,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     };
 
     private @MediaPlayer2State int mTestState;
-    private PlayerOperation mTestOpertation;
+    private PlayerOperation mTestOperation;
     private boolean mIsValidOperation;
 
     @Parameterized.Parameters(name = "{index}: operation={0} state={1} valid={2}")
@@ -918,8 +918,8 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sGetPlaybackParamsOperation, PLAYER_STATE_PLAYING, true },
                 { sGetPlaybackParamsOperation, PLAYER_STATE_ERROR, false },
 
-                { sGetTimestampOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
-                { sGetTimestampOperation, PLAYER_STATE_IDLE, true },
+                { sGetTimestampOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, false },
+                { sGetTimestampOperation, PLAYER_STATE_IDLE, false },
                 { sGetTimestampOperation, PLAYER_STATE_PREPARED, true },
                 { sGetTimestampOperation, PLAYER_STATE_PAUSED, true },
                 { sGetTimestampOperation, PLAYER_STATE_PLAYING, true },
@@ -1006,7 +1006,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
     public MediaPlayer2StateTest(
             PlayerOperation operation, int testState, boolean isValid) {
-        mTestOpertation = operation;
+        mTestOperation = operation;
         mTestState = testState;
         mIsValidOperation = isValid;
     }
@@ -1016,7 +1016,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, MediaItem2 item, int what, int status) {
+                    MediaPlayer2 mp, MediaItem item, int what, int status) {
                 if (what == MediaPlayer2.CALL_COMPLETED_PAUSE) {
                     onPauseCalled.signal();
                 } else if (what == MediaPlayer2.CALL_COMPLETED_PREPARE) {
@@ -1027,7 +1027,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             }
 
             @Override
-            public void onError(MediaPlayer2 mp, MediaItem2 item, int what, int extra) {
+            public void onError(MediaPlayer2 mp, MediaItem item, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
@@ -1036,7 +1036,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         }
 
         if (mTestState == PLAYER_STATE_ERROR) {
-            DataSourceCallback2 invalidDataSource = new DataSourceCallback2() {
+            DataSourceCallback invalidDataSource = new DataSourceCallback() {
                 @Override
                 public int readAt(long position, byte[] buffer, int offset, int size)
                         throws IOException {
@@ -1052,7 +1052,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 public void close() throws IOException {}
             };
             mOnErrorCalled.reset();
-            mPlayer.setMediaItem(new CallbackMediaItem2.Builder(invalidDataSource)
+            mPlayer.setMediaItem(new CallbackMediaItem.Builder(invalidDataSource)
                     .build());
             mPlayer.prepare();
             mOnErrorCalled.waitForSignal(1000);
@@ -1067,8 +1067,8 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         if (!checkLoadResource(R.raw.testvideo_with_2_subtitle_tracks)) {
             fail();
         }
-        if (mTestOpertation == sSkipToNextOperation) {
-            MediaItem2 item = createDataSourceDesc(R.raw.testvideo);
+        if (mTestOperation == sSkipToNextOperation) {
+            MediaItem item = createDataSourceDesc(R.raw.testvideo);
             mPlayer.setNextMediaItem(item);
         }
         assertEquals(PLAYER_STATE_IDLE, mPlayer.getState());
@@ -1077,9 +1077,12 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         }
 
         mPlayer.prepare();
-        mOnPrepareCalled.waitForSignal(1000);
+        // TODO(b/80232248): The first time one of the tests reads from the resource preparation can
+        // take ~ 1.5 seconds to complete with the pre-P implementation. Later calls take ~ 100 ms.
+        // Find out why the first preparation is slow and reduce this timeout back to one second.
+        mOnPrepareCalled.waitForSignal(2000);
         assertEquals(PLAYER_STATE_PREPARED, mPlayer.getState());
-        if (mTestOpertation == sDeselectTrackOperation) {
+        if (mTestOperation == sDeselectTrackOperation) {
             mPlayer.selectTrack(1);
         }
         if (mTestState == PLAYER_STATE_PREPARED) {
@@ -1116,7 +1119,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, MediaItem2 item, int what, int status) {
+                    MediaPlayer2 mp, MediaItem item, int what, int status) {
                 callCompletes.add(new Pair<Integer, Integer>(what, status));
                 callCompleteCalled.signal();
             }
@@ -1141,16 +1144,16 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         callCompletes.clear();
         callCompleteCalled.reset();
         try {
-            mTestOpertation.doOperation(mPlayer);
+            mTestOperation.doOperation(mPlayer);
         } catch (IllegalStateException e) {
-            if (mTestOpertation.getCallCompleteCode() != null || mIsValidOperation) {
+            if (mTestOperation.getCallCompleteCode() != null || mIsValidOperation) {
                 fail();
             }
         }
-        if (mTestOpertation.getCallCompleteCode() != null) {
+        if (mTestOperation.getCallCompleteCode() != null) {
             // asynchronous operation. Need to check call complete notification.
             callCompleteCalled.waitForSignal();
-            assertEquals(mTestOpertation.getCallCompleteCode(), callCompletes.get(0).first);
+            assertEquals(mTestOperation.getCallCompleteCode(), callCompletes.get(0).first);
             if (mIsValidOperation) {
                 assertEquals(CALL_STATUS_NO_ERROR, (int) callCompletes.get(0).second);
             } else {
@@ -1158,6 +1161,13 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             }
         } else if (!mIsValidOperation) {
             fail();
+        }
+        if (mTestOperation == sCloseOperation) {
+            // The player has already been closed so prevent a second call to close in tearDown.
+            mPlayer = null;
+        } else {
+            // Clear the resource for resource leak checking in tearDown.
+            mPlayer.reset();
         }
     }
 

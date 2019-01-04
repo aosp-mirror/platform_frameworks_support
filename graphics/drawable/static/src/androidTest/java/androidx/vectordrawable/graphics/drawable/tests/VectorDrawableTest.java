@@ -42,9 +42,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.vectordrawable.test.R;
 
@@ -92,6 +92,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_five_bars,
             R.drawable.vector_icon_filltype_evenodd,
             R.drawable.vector_icon_filltype_nonzero,
+            R.drawable.vector_icon_clip_filltype_evenodd,
+            R.drawable.vector_icon_clip_filltype_nonzero,
     };
 
     private static final int[] GOLDEN_IMAGES = new int[]{
@@ -123,6 +125,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_five_bars_golden,
             R.drawable.vector_icon_filltype_evenodd_golden,
             R.drawable.vector_icon_filltype_nonzero_golden,
+            R.drawable.vector_icon_clip_filltype_evenodd_golden,
+            R.drawable.vector_icon_clip_filltype_nonzero_golden,
     };
 
     private static final int[] EDGES = new int[]{
@@ -152,6 +156,8 @@ public class VectorDrawableTest {
             -1,
             -1,
             R.drawable.vector_icon_five_bars_edge,
+            -1,
+            -1,
             -1,
             -1,
     };
@@ -233,7 +239,7 @@ public class VectorDrawableTest {
         mBitmap = Bitmap.createBitmap(IMAGE_WIDTH, IMAGE_HEIGHT, ARGB_8888);
         mCanvas = new Canvas(mBitmap);
 
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mResources = mContext.getResources();
         mTheme = mContext.getTheme();
         mTheme.applyStyle(R.style.VectorDrawableTestTheme, true);

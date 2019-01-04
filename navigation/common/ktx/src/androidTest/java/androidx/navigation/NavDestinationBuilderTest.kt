@@ -16,11 +16,9 @@
 
 package androidx.navigation
 
-import android.os.Bundle
 import android.support.annotation.IdRes
-import androidx.test.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,8 +26,8 @@ import org.junit.runner.RunWith
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 class NavDestinationTest {
-    private val provider = SimpleNavigatorProvider().apply {
-        addNavigator(NavGraphNavigator(InstrumentationRegistry.getTargetContext()))
+    private val provider = NavigatorProvider().apply {
+        addNavigator(NavGraphNavigator(this))
         addNavigator(NoOpNavigator())
     }
 
@@ -53,13 +51,33 @@ class NavDestinationTest {
 
     @Test
     fun navDestinationDefaultArguments() {
-        val arguments = Bundle()
         val destination = provider.navDestination(DESTINATION_ID) {
-            defaultArguments = arguments
+            argument("testArg") {
+                defaultValue = "123"
+                type = NavType.StringType
+            }
+            argument("testArg2") {
+                type = NavType.StringType
+            }
         }
         assertWithMessage("NavDestination should have default arguments set")
-            .that(destination.defaultArguments)
-            .isEqualTo(arguments)
+            .that(destination.arguments.get("testArg")?.defaultValue)
+            .isEqualTo("123")
+        assertWithMessage("NavArgument shouldn't have a default value")
+                .that(destination.arguments.get("testArg2")?.isDefaultValuePresent)
+                .isFalse()
+    }
+
+    @Test
+    fun navDestinationDefaultArgumentsInferred() {
+        val destination = provider.navDestination(DESTINATION_ID) {
+            argument("testArg") {
+                defaultValue = 123
+            }
+        }
+        assertWithMessage("NavDestination should have default arguments set")
+            .that(destination.arguments.get("testArg")?.defaultValue)
+            .isEqualTo(123)
     }
 
     @Test
@@ -93,5 +111,5 @@ private const val ACTION_ID = 1
  */
 fun NavigatorProvider.navDestination(
     @IdRes id: Int,
-    block: NavDestinationBuilder<NavDestination>.() -> Unit
-): NavDestination = NavDestinationBuilder(this[NoOpNavigator::class], id).apply(block).build()
+    builder: NavDestinationBuilder<NavDestination>.() -> Unit
+): NavDestination = NavDestinationBuilder(this[NoOpNavigator::class], id).apply(builder).build()

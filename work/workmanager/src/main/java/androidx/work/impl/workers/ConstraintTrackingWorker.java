@@ -16,9 +16,6 @@
 
 package androidx.work.impl.workers;
 
-import static androidx.work.ListenableWorker.Result.FAILURE;
-import static androidx.work.ListenableWorker.Result.RETRY;
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +23,6 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
-import androidx.work.Data;
 import androidx.work.ListenableWorker;
 import androidx.work.Logger;
 import androidx.work.Worker;
@@ -52,7 +48,7 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ConstraintTrackingWorker extends ListenableWorker implements WorkConstraintsCallback {
 
-    private static final String TAG = "ConstraintTrkngWrkr";
+    private static final String TAG = Logger.tagWithPrefix("ConstraintTrkngWrkr");
 
     /**
      * The {@code className} of the {@link Worker} to delegate to.
@@ -66,7 +62,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
     final Object mLock;
     // Marking this volatile as the delegated workers could switch threads.
     volatile boolean mAreConstraintsUnmet;
-    SettableFuture<Payload> mFuture;
+    SettableFuture<Result> mFuture;
 
     @Nullable private ListenableWorker mDelegate;
 
@@ -81,7 +77,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
 
     @NonNull
     @Override
-    public ListenableFuture<Payload> startWork() {
+    public ListenableFuture<Result> startWork() {
         getBackgroundExecutor().execute(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +91,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
     void setupAndRunConstraintTrackingWork() {
         String className = getInputData().getString(ARGUMENT_CLASS_NAME);
         if (TextUtils.isEmpty(className)) {
-            Logger.error(TAG, "No worker to delegate to.");
+            Logger.get().error(TAG, "No worker to delegate to.");
             setFutureFailed();
             return;
         }
@@ -106,7 +102,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
                 mWorkerParameters);
 
         if (mDelegate == null) {
-            Logger.debug(TAG, "No worker to delegate to.");
+            Logger.get().debug(TAG, "No worker to delegate to.");
             setFutureFailed();
             return;
         }
@@ -126,13 +122,13 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
         workConstraintsTracker.replace(Collections.singletonList(workSpec));
 
         if (workConstraintsTracker.areAllConstraintsMet(getId().toString())) {
-            Logger.debug(TAG, String.format("Constraints met for delegate %s", className));
+            Logger.get().debug(TAG, String.format("Constraints met for delegate %s", className));
 
             // Wrapping the call to mDelegate#doWork() in a try catch, because
             // changes in constraints can cause the worker to throw RuntimeExceptions, and
             // that should cause a retry.
             try {
-                final ListenableFuture<Payload> innerFuture = mDelegate.startWork();
+                final ListenableFuture<Result> innerFuture = mDelegate.startWork();
                 innerFuture.addListener(new Runnable() {
                     @Override
                     public void run() {
@@ -146,12 +142,12 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
                     }
                 }, getBackgroundExecutor());
             } catch (Throwable exception) {
-                Logger.debug(TAG, String.format(
+                Logger.get().debug(TAG, String.format(
                         "Delegated worker %s threw exception in startWork.", className),
                         exception);
                 synchronized (mLock) {
                     if (mAreConstraintsUnmet) {
-                        Logger.debug(TAG, "Constraints were unmet, Retrying.");
+                        Logger.get().debug(TAG, "Constraints were unmet, Retrying.");
                         setFutureRetry();
                     } else {
                         setFutureFailed();
@@ -159,7 +155,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
                 }
             }
         } else {
-            Logger.debug(TAG, String.format(
+            Logger.get().debug(TAG, String.format(
                     "Constraints not met for delegate %s. Requesting retry.", className));
             setFutureRetry();
         }
@@ -168,20 +164,20 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
 
     // Package-private to avoid synthetic accessor.
     void setFutureFailed() {
-        mFuture.set(new Payload(FAILURE, Data.EMPTY));
+        mFuture.set(Result.failure());
     }
 
     // Package-private to avoid synthetic accessor.
     void setFutureRetry() {
-        mFuture.set(new Payload(RETRY, Data.EMPTY));
+        mFuture.set(Result.retry());
     }
 
     @Override
-    public void onStopped(boolean cancelled) {
-        super.onStopped(cancelled);
+    public void onStopped() {
+        super.onStopped();
         if (mDelegate != null) {
             // Stop is the method that sets the stopped and cancelled bits and invokes onStopped.
-            mDelegate.stop(cancelled);
+            mDelegate.stop();
         }
     }
 
@@ -214,7 +210,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
     @Override
     public void onAllConstraintsNotMet(@NonNull List<String> workSpecIds) {
         // If at any point, constraints are not met mark it so we can retry the work.
-        Logger.debug(TAG, String.format("Constraints changed for %s", workSpecIds));
+        Logger.get().debug(TAG, String.format("Constraints changed for %s", workSpecIds));
         synchronized (mLock) {
             mAreConstraintsUnmet = true;
         }

@@ -20,16 +20,16 @@ import android.os.SystemClock.sleep
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
-import androidx.test.runner.AndroidJUnit4
 import androidx.testutils.PollingCheck
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.MarkerEvent
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageScrollStateChangedEvent
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageScrolledEvent
 import androidx.viewpager2.widget.PageChangeListenerTest.Event.OnPageSelectedEvent
-import androidx.viewpager2.widget.ViewPager2.Orientation
+import androidx.viewpager2.widget.PageChangeListenerTest.TestConfig
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING
@@ -38,17 +38,37 @@ import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.junit.Assert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToInt
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(Parameterized::class)
 @LargeTest
-class PageChangeListenerTest : BaseTest() {
+class PageChangeListenerTest(private val config: TestConfig) : BaseTest() {
+    data class TestConfig(
+        @ViewPager2.Orientation val orientation: Int,
+        val rtl: Boolean
+    )
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun spec(): List<TestConfig> = createTestSet()
+    }
+
+    override fun setUp() {
+        super.setUp()
+        if (config.rtl) {
+            localeUtil.resetLocale()
+            localeUtil.setLocale(LocaleTestUtils.RTL_LANGUAGE)
+        }
+    }
 
     /*
     Sample log to guide the test
@@ -80,8 +100,9 @@ class PageChangeListenerTest : BaseTest() {
     onPageScrolled,1,0.000000,0
     onPageScrollStateChanged,0
      */
-    private fun test_swipeBetweenPages(@Orientation orientation: Int) {
-        setUpTest(orientation).apply {
+    @Test
+    fun test_swipeBetweenPages() {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(4)))
             listOf(1, 2, 3, 2, 1, 0).forEach { targetPage ->
                 // given
@@ -93,7 +114,7 @@ class PageChangeListenerTest : BaseTest() {
                 val latch = viewPager.addWaitForScrolledLatch(targetPage)
 
                 // when
-                swiper.swipe(initialPage, targetPage)
+                swipe(initialPage, targetPage)
                 latch.await(1, SECONDS)
 
                 // then
@@ -121,16 +142,6 @@ class PageChangeListenerTest : BaseTest() {
         }
     }
 
-    @Test
-    fun test_swipeBetweenPages_horizontal() {
-        test_swipeBetweenPages(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_swipeBetweenPages_vertical() {
-        test_swipeBetweenPages(ORIENTATION_VERTICAL)
-    }
-
     /*
     Before page 0
     onPageScrollStateChanged,1
@@ -147,11 +158,12 @@ class PageChangeListenerTest : BaseTest() {
     onPageScrolled,2,0.000000,0
     onPageScrollStateChanged,0
      */
-    private fun test_swipeBeyondEdgePages(@Orientation orientation: Int) {
+    @Test
+    fun test_swipeBeyondEdgePages() {
         val totalPages = 3
         val edgePages = setOf(0, totalPages - 1)
 
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
 
             setAdapterSync(viewAdapterProvider(stringSequence(totalPages)))
             listOf(0, 0, 1, 2, 2, 2, 1, 2, 2, 2, 1, 0, 0, 0).forEach { targetPage ->
@@ -162,8 +174,8 @@ class PageChangeListenerTest : BaseTest() {
                 val latch = viewPager.addWaitForScrolledLatch(targetPage)
 
                 // when
-                swiper.swipe(initialPage, targetPage)
-                latch.await(1, SECONDS)
+                swipe(initialPage, targetPage)
+                latch.await(2, SECONDS)
 
                 // then
                 assertBasicState(targetPage, "$targetPage")
@@ -171,30 +183,27 @@ class PageChangeListenerTest : BaseTest() {
                 if (targetPage == initialPage && edgePages.contains(targetPage)) {
                     listener.apply {
                         // verify all events
-                        assertThat(draggingIx, equalTo(0))
-                        assertThat(idleIx, equalTo(lastIx))
-                        assertThat(scrollEventCount, equalTo(eventCount - 2))
+                        assertThat("Events should start with a state change to DRAGGING",
+                            draggingIx, equalTo(0))
+                        assertThat("Last event should be a state change to IDLE",
+                            idleIx, equalTo(lastIx))
+                        assertThat("All events but the state changes to DRAGGING and IDLE" +
+                                " should be scroll events",
+                            scrollEventCount, equalTo(eventCount - 2))
 
                         // dive into scroll events
                         scrollEvents.forEach {
-                            assertThat(it.position, equalTo(targetPage))
-                            assertThat(it.positionOffset, equalTo(0f))
-                            assertThat(it.positionOffsetPixels, equalTo(0))
+                            assertThat("All scroll events should report page $targetPage",
+                                it.position, equalTo(targetPage))
+                            assertThat("All scroll events should report an offset of 0f",
+                                it.positionOffset, equalTo(0f))
+                            assertThat("All scroll events should report an offset of 0px",
+                                it.positionOffsetPixels, equalTo(0))
                         }
                     }
                 }
             }
         }
-    }
-
-    @Test
-    fun test_swipeBeyondEdgePages_horizontal() {
-        test_swipeBeyondEdgePages(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_swipeBeyondEdgePages_vertical() {
-        test_swipeBeyondEdgePages(ORIENTATION_VERTICAL)
     }
 
     /*
@@ -214,24 +223,36 @@ class PageChangeListenerTest : BaseTest() {
     onPageScrolled,0,0.000000,0
     onPageScrollStateChanged,0
      */
-    private fun test_peekOnAdjacentPage_next(@Orientation orientation: Int) {
+    @Test
+    fun test_peekOnAdjacentPage_next() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(3)))
             val listener = viewPager.addNewRecordingListener()
             val latch = viewPager.addWaitForScrolledLatch(0)
 
             // when
-            peekForward(orientation)
+            peekForward()
             latch.await(1, SECONDS)
 
             // then
             listener.apply {
                 // verify all events
-                assertThat(draggingIx, equalTo(0))
-                assertThat(settlingIx, isBetweenInEx(firstScrolledIx + 1, lastScrolledIx))
-                assertThat(idleIx, equalTo(lastIx))
-                assertThat(scrollEventCount, equalTo(eventCount - 3))
+                assertThat("There should be exactly 1 dragging event",
+                    stateEvents(SCROLL_STATE_DRAGGING).size, equalTo(1))
+                assertThat("There should be exactly 1 settling event",
+                    stateEvents(SCROLL_STATE_SETTLING).size, equalTo(1))
+                assertThat("There should be exactly 1 idle event",
+                    stateEvents(SCROLL_STATE_IDLE).size, equalTo(1))
+                assertThat("Events should start with a state change to DRAGGING",
+                    draggingIx, equalTo(0))
+                assertThat("The settling event should be fired between the first and the last" +
+                        " scroll event",
+                    settlingIx, isBetweenInEx(firstScrolledIx + 1, lastScrolledIx))
+                assertThat("The idle event should be the last global event",
+                    idleIx, equalTo(lastIx))
+                assertThat("All events other then the state changes should be scroll events",
+                    scrollEventCount, equalTo(eventCount - 3))
 
                 // dive into scroll events
                 scrollEvents.assertPositionSorted(SortOrder.DESC)
@@ -242,16 +263,6 @@ class PageChangeListenerTest : BaseTest() {
                 scrollEvents.assertLastCorrect(0)
             }
         }
-    }
-
-    @Test
-    fun test_peekOnAdjacentPage_horizontal_next() {
-        test_peekOnAdjacentPage_next(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_peekOnAdjacentPage_vertical_next() {
-        test_peekOnAdjacentPage_next(ORIENTATION_VERTICAL)
     }
 
     /*
@@ -269,9 +280,10 @@ class PageChangeListenerTest : BaseTest() {
     onPageScrolled,1,0.000000,0
     onPageScrollStateChanged,0
      */
-    private fun test_peekOnAdjacentPage_previous(@Orientation orientation: Int) {
+    @Test
+    fun test_peekOnAdjacentPage_previous() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(3)))
 
             viewPager.setCurrentItemSync(2, false, 200, MILLISECONDS)
@@ -282,16 +294,27 @@ class PageChangeListenerTest : BaseTest() {
             val latch1 = viewPager.addWaitForScrolledLatch(2)
 
             // when
-            peekBackward(orientation)
+            peekBackward()
             latch1.await(10, SECONDS)
 
             // then
             listener.apply {
                 // verify all events
-                assertThat(draggingIx, equalTo(0))
-                assertThat(settlingIx, isBetweenInEx(firstScrolledIx + 1, lastScrolledIx))
-                assertThat(idleIx, equalTo(lastIx))
-                assertThat(scrollEventCount, equalTo(eventCount - 3))
+                assertThat("There should be exactly 1 dragging event",
+                    stateEvents(SCROLL_STATE_DRAGGING).size, equalTo(1))
+                assertThat("There should be exactly 1 settling event",
+                    stateEvents(SCROLL_STATE_SETTLING).size, equalTo(1))
+                assertThat("There should be exactly 1 idle event",
+                    stateEvents(SCROLL_STATE_IDLE).size, equalTo(1))
+                assertThat("Events should start with a state change to DRAGGING",
+                    draggingIx, equalTo(0))
+                assertThat("The settling event should be fired between the first and the last " +
+                        "scroll event",
+                    settlingIx, isBetweenInEx(firstScrolledIx + 1, lastScrolledIx))
+                assertThat("The idle event should be the last global event",
+                    idleIx, equalTo(lastIx))
+                assertThat("All events other then the state changes should be scroll events",
+                    scrollEventCount, equalTo(eventCount - 3))
 
                 // dive into scroll events
                 scrollEvents.assertPositionSorted(SortOrder.ASC)
@@ -304,16 +327,6 @@ class PageChangeListenerTest : BaseTest() {
                 scrollEvents.assertLastCorrect(2)
             }
         }
-    }
-
-    @Test
-    fun test_peekOnAdjacentPage_horizontal_previous() {
-        test_peekOnAdjacentPage_previous(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_peekOnAdjacentPage_vertical_previous() {
-        test_peekOnAdjacentPage_previous(ORIENTATION_VERTICAL)
     }
 
     /*
@@ -343,9 +356,10 @@ class PageChangeListenerTest : BaseTest() {
     onPageScrolled,0,0.000000,0
     onPageScrollStateChanged,0
      */
-    private fun test_selectItemProgrammatically_smoothScroll(@Orientation orientation: Int) {
+    @Test
+    fun test_selectItemProgrammatically_smoothScroll() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(1000)))
 
             // when
@@ -384,18 +398,9 @@ class PageChangeListenerTest : BaseTest() {
     }
 
     @Test
-    fun test_selectItemProgrammatically_smoothScroll_horizontal() {
-        test_selectItemProgrammatically_smoothScroll(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_selectItemProgrammatically_smoothScroll_vertical() {
-        test_selectItemProgrammatically_smoothScroll(ORIENTATION_VERTICAL)
-    }
-
-    private fun test_multiplePageChanges(@Orientation orientation: Int) {
+    fun test_multiplePageChanges() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(10)))
             val targetPages = listOf(4, 9)
             val listener = viewPager.addNewRecordingListener()
@@ -421,16 +426,6 @@ class PageChangeListenerTest : BaseTest() {
         }
     }
 
-    @Test
-    fun test_multiplePageChanges_horizontal() {
-        test_multiplePageChanges(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_multiplePageChanges_vertical() {
-        test_multiplePageChanges(ORIENTATION_VERTICAL)
-    }
-
     /**
      * Tests the case where setCurrentItem(x, false) is called while the smooth scroll from
      * setCurrentItem(x, true) is not yet finished.
@@ -450,9 +445,10 @@ class PageChangeListenerTest : BaseTest() {
      * onPageScrolled(4, 0.000000, 0)
      * onPageScrollStateChanged(0)
      */
-    private fun test_noSmoothScroll_after_smoothScroll(@Orientation orientation: Int) {
+    @Test
+    fun test_noSmoothScroll_after_smoothScroll() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(6)))
             val targetPage = 4
             val marker = 1
@@ -479,65 +475,135 @@ class PageChangeListenerTest : BaseTest() {
         }
     }
 
+    /**
+     * Example trace:
+     *
+     * 0 -> 4 (smooth)
+     * >> viewPager.setCurrentItem(4, true)
+     * onPageScrollStateChanged(2)
+     * onPageSelected(4)
+     * onPageScrolled(1, 0.000000, 0)
+     * >> config change
+     * onPageScrolled(4, 0.000000, 0)
+     */
     @Test
-    fun test_noSmoothScroll_after_smoothScroll_horizontal() {
-        test_noSmoothScroll_after_smoothScroll(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_noSmoothScroll_after_smoothScroll_vertical() {
-        test_noSmoothScroll_after_smoothScroll(ORIENTATION_VERTICAL)
+    fun test_configChangeDuringStartOfFarSmoothScroll() {
+        test_configChangeDuringFarSmoothScroll(4) {
+            // no delay
+        }
     }
 
     /**
-     * Tests a very specific case that can theoretically happen when a config change happens right
-     * after an invocation to setCurrentItem. Due to a workaround for b/114019007, a smooth scroll
-     * to a 'far away' page is split over two frames: first an instant scroll is done to a page
-     * 'close by' and in the next frame a smooth scroll is started to the actual page.
+     * Example trace:
      *
-     * Now, if the config change occurs between these two frames, the second part is never executed,
-     * and ViewPager2 will correct this after the config change. This test makes sure that this
-     * correction has no side effects.
-     *
-     * Note that this test can be removed if we remove our workaround.
+     * 0 -> 4 (smooth)
+     * >> viewPager.setCurrentItem(4, true)
+     * onPageScrollStateChanged(2)
+     * onPageSelected(4)
+     * onPageScrolled(1, 0.000000, 0)
+     * onPageScrolled(1, 0.254016, 253)
+     * onPageScrolled(1, 0.641566, 639)
+     * onPageScrolled(2, 0.315261, 314)
+     * >> config change
+     * onPageScrolled(4, 0.000000, 0)
      */
-    private fun test_configChangeDuringFarSmoothScroll(@Orientation orientation: Int) {
+    @Test
+    fun test_configChangeDuringMiddleOfFarSmoothScroll() {
+        val targetPage = 4
+        test_configChangeDuringFarSmoothScroll(targetPage) { viewPager ->
+            // let it scroll until we're 2 pages away from the target
+            viewPager.addWaitForDistanceToTarget(targetPage, 2f).await(2, SECONDS)
+        }
+    }
+
+    /**
+     * Example trace:
+     *
+     * 0 -> 4 (smooth)
+     * >> viewPager.setCurrentItem(4, true)
+     * onPageScrollStateChanged(2)
+     * onPageSelected(4)
+     * onPageScrolled(1, 0.000000, 0)
+     * onPageScrolled(1, 0.371486, 370)
+     * onPageScrolled(1, 0.557229, 555)
+     * onPageScrolled(2, 0.180723, 180)
+     * onPageScrolled(2, 0.574297, 572)
+     * onPageScrolled(2, 0.903614, 900)
+     * onPageScrolled(3, 0.218875, 218)
+     * onPageScrolled(3, 0.437751, 436)
+     * onPageScrolled(3, 0.655622, 653)
+     * onPageScrolled(3, 0.803213, 800)
+     * onPageScrolled(3, 0.911647, 908)
+     * onPageScrolled(3, 0.978916, 975)
+     * onPageScrolled(4, 0.000000, 0)
+     * onPageScrollStateChanged(0)
+     * >> config change
+     * onPageScrolled(4, 0.000000, 0)
+     */
+    @Test
+    fun test_configChangeAfterFarSmoothScroll() {
+        test_configChangeDuringFarSmoothScroll(4) { viewPager ->
+            // wait until it is finished
+            viewPager.addWaitForIdleLatch().await(2, SECONDS)
+        }
+    }
+
+    /**
+     * Tests what happens when a config change happens during a smooth scroll to any page more then
+     * 3 pages further. After the config change, the smooth scroll should be interrupted and the
+     * view pager should instantly skip to the target page instead.
+     *
+     * The configuration change is triggered after the delay callback has executed. Thus, the delay
+     * callback controls when the config change happens by the time it takes to execute.
+     *
+     * @param delayCallback The callback that determines when the configuration change is triggered
+     */
+    fun test_configChangeDuringFarSmoothScroll(
+        targetPage: Int,
+        delayCallback: (ViewPager2) -> Unit
+    ) {
         // given
-        setUpTest(orientation).apply {
+        assertThat(targetPage, greaterThanOrEqualTo(4))
+        setUpTest(config.orientation).apply {
             val adapterProvider = viewAdapterProvider(stringSequence(5))
             setAdapterSync(adapterProvider)
-            val targetPage = 4
             val marker = 1
             val listener = viewPager.addNewRecordingListener()
 
             // when
             runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
-            recreateActivity(adapterProvider)
-            // mark the config change in the listener
-            listener.markEvent(marker)
-            // viewPager is recreated, so need to reattach listener
-            viewPager.addOnPageChangeListener(listener)
+            delayCallback(viewPager)
+
+            recreateActivity(adapterProvider) { newViewPager ->
+                // mark the config change in the listener
+                listener.markEvent(marker)
+                // viewPager is recreated, so need to reattach listener
+                newViewPager.addOnPageChangeListener(listener)
+            }
+
+            // wait until we're at the target page. can take a while on stuttering devices.
+            // viewPager may have fired all events already, so poll the visible page instead
+            viewPager.waitUntilSnappedOnTargetByPolling(targetPage)
 
             // then
             listener.apply {
-                assertThat(viewPager.currentItem, equalTo(targetPage))
-                assertThat(viewPager.currentCompletelyVisibleItem, equalTo(targetPage))
-                assertThat(settlingIx, equalTo(0))
-                assertThat(selectEvents.count(), equalTo(1))
-                assertThat(pageSelectedIx(targetPage), equalTo(1))
-                assertThat(markIx(marker), equalTo(lastIx))
+                assertThat("viewPager.getCurrentItem() does not return the target page",
+                    viewPager.currentItem, equalTo(targetPage))
+                assertThat("Currently shown page is not the target page",
+                    viewPager.currentCompletelyVisibleItem, equalTo(targetPage))
+                assertThat("First overall event is not a SETTLING event",
+                    settlingIx, equalTo(0))
+                assertThat("Number of onPageSelected events is not 2",
+                    selectEvents.count(), equalTo(2))
+                assertThat("First onPageSelected event is not the second overall event",
+                    pageSelectedIx(targetPage), equalTo(1))
+                assertThat("Unexpected events were fired after the config change",
+                    eventsAfter(marker), equalTo(listOf(
+                        OnPageSelectedEvent(targetPage),
+                        OnPageScrolledEvent(targetPage, 0f, 0)
+                    )))
             }
         }
-    }
-
-    @Test
-    fun test_configChangeDuringFarSmoothScroll_horizontal() {
-        test_configChangeDuringFarSmoothScroll(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_configChangeDuringFarSmoothScroll_vertical() {
-        test_configChangeDuringFarSmoothScroll(ORIENTATION_VERTICAL)
     }
 
     /*
@@ -555,9 +621,10 @@ class PageChangeListenerTest : BaseTest() {
     onPageSelected,0
     onPageScrolled,0,0.000000,0
      */
-    private fun test_selectItemProgrammatically_noSmoothScroll(@Orientation orientation: Int) {
+    @Test
+    fun test_selectItemProgrammatically_noSmoothScroll() {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(3)))
 
             // when
@@ -585,26 +652,13 @@ class PageChangeListenerTest : BaseTest() {
         }
     }
 
-    @Test
-    fun test_selectItemProgrammatically_noSmoothScroll_horizontal() {
-        test_selectItemProgrammatically_noSmoothScroll(ORIENTATION_HORIZONTAL)
-    }
-
-    @Test
-    fun test_selectItemProgrammatically_noSmoothScroll_vertical() {
-        test_selectItemProgrammatically_noSmoothScroll(ORIENTATION_VERTICAL)
-    }
-
     /**
      * Test behavior when no OnPageChangeListeners are attached.
      * Introduced after finding a regression.
      */
-    private fun test_selectItemProgrammatically_noListener(
-        @Orientation orientation: Int,
-        smoothScroll: Boolean
-    ) {
+    private fun test_selectItemProgrammatically_noListener(smoothScroll: Boolean) {
         // given
-        setUpTest(orientation).apply {
+        setUpTest(config.orientation).apply {
             setAdapterSync(viewAdapterProvider(stringSequence(3)))
 
             // when
@@ -612,13 +666,7 @@ class PageChangeListenerTest : BaseTest() {
                 runOnUiThread { viewPager.setCurrentItem(targetPage, smoothScroll) }
 
                 // poll the viewpager on the ui thread
-                val targetReached = AtomicBoolean(false)
-                PollingCheck.waitFor(2000) {
-                    runOnUiThread {
-                        targetReached.set(targetPage == viewPager.currentCompletelyVisibleItem)
-                    }
-                    targetReached.get()
-                }
+                viewPager.waitUntilSnappedOnTargetByPolling(targetPage)
 
                 // wait until scroll events have propagated in the system
                 sleep(100)
@@ -631,23 +679,13 @@ class PageChangeListenerTest : BaseTest() {
     }
 
     @Test
-    fun test_selectItemProgrammatically_noSmoothScroll_noListener_horizontal() {
-        test_selectItemProgrammatically_noListener(ORIENTATION_HORIZONTAL, false)
+    fun test_selectItemProgrammatically_noSmoothScroll_noListener() {
+        test_selectItemProgrammatically_noListener(false)
     }
 
     @Test
-    fun test_selectItemProgrammatically_noSmoothScroll_noListener_vertical() {
-        test_selectItemProgrammatically_noListener(ORIENTATION_VERTICAL, false)
-    }
-
-    @Test
-    fun test_selectItemProgrammatically_smoothScroll_noListener_horizontal() {
-        test_selectItemProgrammatically_noListener(ORIENTATION_HORIZONTAL, true)
-    }
-
-    @Test
-    fun test_selectItemProgrammatically_smoothScroll_noListener_vertical() {
-        test_selectItemProgrammatically_noListener(ORIENTATION_VERTICAL, true)
+    fun test_selectItemProgrammatically_smoothScroll_noListener() {
+        test_selectItemProgrammatically_noListener(true)
     }
 
     @Test
@@ -663,7 +701,8 @@ class PageChangeListenerTest : BaseTest() {
     @Test
     fun test_setCurrentItemBeforeRender() {
         // given
-        val viewPager = ViewPager2(InstrumentationRegistry.getContext())
+        val viewPager =
+            ViewPager2(ApplicationProvider.getApplicationContext() as android.content.Context)
         val noOpAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, type: Int): RecyclerView.ViewHolder {
                 return object : RecyclerView.ViewHolder(View(parent.context)) {}
@@ -689,6 +728,16 @@ class PageChangeListenerTest : BaseTest() {
 
     private fun ViewPager2.addNewRecordingListener(): RecordingListener {
         return RecordingListener().also { addOnPageChangeListener(it) }
+    }
+
+    private fun ViewPager2.waitUntilSnappedOnTargetByPolling(targetPage: Int) {
+        val targetReached = AtomicBoolean(false)
+        PollingCheck.waitFor(2000) {
+            post {
+                targetReached.set(targetPage == currentCompletelyVisibleItem)
+            }
+            targetReached.get()
+        }
     }
 
     private sealed class Event {
@@ -729,6 +778,10 @@ class PageChangeListenerTest : BaseTest() {
         val idleIx get() = events.indexOf(OnPageScrollStateChangedEvent(SCROLL_STATE_IDLE))
         val pageSelectedIx: (page: Int) -> Int = { events.indexOf(OnPageSelectedEvent(it)) }
         val markIx: (id: Int) -> Int = { events.indexOf(MarkerEvent(it)) }
+
+        fun stateEvents(state: Int): List<OnPageScrollStateChangedEvent> {
+            return stateEvents.filter { it.state == state }
+        }
 
         override fun onPageScrolled(
             position: Int,
@@ -813,3 +866,15 @@ class PageChangeListenerTest : BaseTest() {
         assertThat(map { it.position }.distinct().size, isBetweenInIn(0, 4))
     }
 }
+
+// region Test Suite creation
+
+private fun createTestSet(): List<TestConfig> {
+    return listOf(ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL).flatMap { orientation ->
+        listOf(true, false).map { rtl ->
+            TestConfig(orientation, rtl)
+        }
+    }
+}
+
+// endregion

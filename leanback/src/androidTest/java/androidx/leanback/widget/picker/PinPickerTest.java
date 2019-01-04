@@ -17,13 +17,10 @@
 package androidx.leanback.widget.picker;
 
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.pressKey;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,9 +29,9 @@ import androidx.annotation.NonNull;
 import androidx.leanback.test.R;
 import androidx.leanback.testutils.PollingCheck;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -78,6 +75,15 @@ public class PinPickerTest {
         });
     }
 
+    private void waitPin(final String pin) {
+        PollingCheck.waitFor(5000, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return pin.equals(mPinPicker.getPin());
+            }
+        });
+    }
+
     @Test
     @LargeTest
     public void keyInputTest() throws Exception {
@@ -99,7 +105,7 @@ public class PinPickerTest {
         onView(withId(R.id.test_picker)).perform(pressKey(KeyEvent.KEYCODE_3));
         onView(withId(R.id.test_picker)).perform(pressKey(KeyEvent.KEYCODE_4));
 
-        assertThat("keyboard input should set pin", futurePin.get(5, TimeUnit.SECONDS), is("1234"));
+        waitPin("1234");
 
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -107,7 +113,7 @@ public class PinPickerTest {
                 mPinPicker.resetPin();
             }
         });
-        assertThat("resetPin should reset pin", mPinPicker.getPin(), is("0000"));
+        waitPin("0000");
     }
 
     @Test
@@ -131,7 +137,7 @@ public class PinPickerTest {
         onView(withId(R.id.test_picker)).perform(pressKey(KeyEvent.KEYCODE_DPAD_DOWN));
         waitStable();
         onView(withId(R.id.test_picker)).perform(pressKey(KeyEvent.KEYCODE_DPAD_CENTER));
-        assertThat("dpad input should set pin", mPinPicker.getPin(), is("1234"));
+        waitPin("1234");
     }
 
     private static class CompletableFuture<V> implements Future<V> {

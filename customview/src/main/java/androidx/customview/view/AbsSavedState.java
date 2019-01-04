@@ -16,6 +16,7 @@
 
 package androidx.customview.view;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -26,7 +27,7 @@ import androidx.annotation.Nullable;
  * A {@link Parcelable} implementation that should be used by inheritance
  * hierarchies to ensure the state of all classes along the chain is saved.
  */
-@SuppressWarnings("BanParcelableUsage")
+@SuppressLint("BanParcelableUsage")
 public abstract class AbsSavedState implements Parcelable {
     public static final AbsSavedState EMPTY_STATE = new AbsSavedState() {};
 

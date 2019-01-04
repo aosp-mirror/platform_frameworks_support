@@ -16,22 +16,21 @@
 
 package androidx.navigation
 
-import org.junit.Assert.fail
-
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcel
-
 import androidx.navigation.test.R
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
-
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -43,7 +42,9 @@ class NavControllerTest {
         private const val UNKNOWN_DESTINATION_ID = -1
         private const val TEST_ARG = "test"
         private const val TEST_ARG_VALUE = "value"
+        private const val TEST_ARG_VALUE_INT = 123
         private const val TEST_OVERRIDDEN_VALUE_ARG = "test_overriden_value"
+        private const val TEST_ACTION_OVERRIDDEN_VALUE_ARG = "test_action_overriden_value"
         private const val TEST_OVERRIDDEN_VALUE_ARG_VALUE = "override"
     }
 
@@ -67,6 +68,15 @@ class NavControllerTest {
         val foundArgs = navigator.current.second
         assertNotNull(foundArgs)
         assertEquals(TEST_ARG_VALUE, foundArgs?.getString(TEST_ARG))
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun testStartDestinationWithWrongArgs() {
+        val navController = createNavController()
+        val args = Bundle().apply {
+            putInt(TEST_ARG, TEST_ARG_VALUE_INT)
+        }
+        navController.setGraph(R.navigation.nav_start_destination, args)
     }
 
     @Test
@@ -143,7 +153,7 @@ class NavControllerTest {
 
     @Test
     fun testSaveRestoreStateXml() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
         val navigator = SaveStateTestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
@@ -168,7 +178,7 @@ class NavControllerTest {
 
     @Test
     fun testSaveRestoreStateProgrammatic() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
@@ -249,7 +259,10 @@ class NavControllerTest {
         assertEquals(R.id.start_test, navController.currentDestination?.id ?: 0)
         assertEquals(1, navigator.backStack.size)
 
-        navController.popBackStack()
+        val success = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping the root")
+                .that(success)
+                .isTrue()
         assertNull(navController.currentDestination)
         assertEquals(0, navigator.backStack.size)
     }
@@ -262,7 +275,10 @@ class NavControllerTest {
         assertEquals(R.id.start_test, navController.currentDestination?.id ?: 0)
         assertEquals(1, navigator.backStack.size)
 
-        navController.popBackStack()
+        val success = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping the root")
+                .that(success)
+                .isTrue()
         assertNull(navController.currentDestination)
         assertEquals(0, navigator.backStack.size)
 
@@ -322,10 +338,33 @@ class NavControllerTest {
         navigator.backStack.removeLast()
         val newDestination = navigator.current.first
         assertNotNull(newDestination)
-        navigator.dispatchOnNavigatorNavigated(newDestination.id,
-                Navigator.BACK_STACK_DESTINATION_POPPED)
+        navigator.dispatchOnNavigatorBackPress()
         assertEquals(R.id.nested_test, navController.currentDestination?.id ?: 0)
         assertEquals(1, navigator.backStack.size)
+    }
+
+    @Test
+    fun testNavigateNestedPopUpToThenNavigatorInstigatedPop() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_nested_start_destination)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertEquals(R.id.nested_test, navController.currentDestination?.id ?: 0)
+        assertEquals(1, navigator.backStack.size)
+
+        navController.navigate(R.id.pop_forward)
+        assertEquals(R.id.nested_second_test, navController.currentDestination?.id ?: 0)
+        assertEquals(1, navigator.backStack.size)
+
+        // A Navigator can pop a destination off its own back stack
+        // then inform the NavController via dispatchOnNavigatorNavigated
+        navigator.backStack.removeLast()
+        navigator.dispatchOnNavigatorBackPress()
+        assertWithMessage("The last destination should be popped off the stack")
+            .that(navController.currentDestination)
+            .isNull()
+        assertWithMessage("TestNavigator should not nothing on its back stack")
+            .that(navigator.backStack.size)
+            .isEqualTo(0)
     }
 
     @Test
@@ -471,6 +510,10 @@ class NavControllerTest {
         // Test that default values can be overridden by programmatic values
         assertEquals(TEST_OVERRIDDEN_VALUE_ARG_VALUE,
                 returnedArgs.getString(TEST_OVERRIDDEN_VALUE_ARG))
+        // Test that default values can be overridden by action default values
+        assertEquals(
+            TEST_OVERRIDDEN_VALUE_ARG_VALUE,
+            returnedArgs.getString(TEST_ACTION_OVERRIDDEN_VALUE_ARG))
     }
 
     @Test
@@ -499,7 +542,7 @@ class NavControllerTest {
 
         val intent = taskStackBuilder.editIntentAt(0)
         assertNotNull(intent)
-        navController.onHandleDeepLink(intent)
+        navController.handleDeepLink(intent)
 
         // The original Intent should be untouched and safely writable to a Parcel
         val p = Parcel.obtain()
@@ -507,7 +550,8 @@ class NavControllerTest {
     }
 
     private fun createNavController(): NavController {
-        val navController = NavController(InstrumentationRegistry.getTargetContext())
+        val navController =
+            NavController(ApplicationProvider.getApplicationContext() as android.content.Context)
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
         return navController

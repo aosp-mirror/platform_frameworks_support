@@ -30,11 +30,13 @@ class InstantInsertMethodBinder(adapter: InsertMethodAdapter?) : InsertMethodBin
     override fun convertAndReturn(
         parameters: List<ShortcutQueryParameter>,
         insertionAdapters: Map<String, Pair<FieldSpec, TypeSpec>>,
+        dbField: FieldSpec,
         scope: CodeGenScope
     ) {
         adapter?.createInsertionMethodBody(
                 parameters = parameters,
                 insertionAdapters = insertionAdapters,
+                dbField = dbField,
                 scope = scope
         )
     }

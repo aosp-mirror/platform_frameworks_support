@@ -21,17 +21,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
-import androidx.work.WorkStatus;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.testing.workers.CountingTestWorker;
 import androidx.work.testing.workers.TestWorker;
@@ -52,7 +52,7 @@ public class TestSchedulerTest {
 
     @Before
     public void setUp() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         WorkManagerTestInitHelper.initializeTestWorkManager(context);
         mTestDriver = WorkManagerTestInitHelper.getTestDriver();
         CountingTestWorker.COUNT.set(0);
@@ -65,8 +65,8 @@ public class TestSchedulerTest {
         WorkRequest request = createWorkRequest();
         // TestWorkManagerImpl is a subtype of WorkManagerImpl.
         WorkManagerImpl workManagerImpl = WorkManagerImpl.getInstance();
-        workManagerImpl.enqueueInternal(Collections.singletonList(request)).get();
-        WorkStatus status = workManagerImpl.getStatusById(request.getId()).get();
+        workManagerImpl.enqueue(Collections.singletonList(request)).getResult().get();
+        WorkInfo status = workManagerImpl.getWorkInfoById(request.getId()).get();
         assertThat(status.getState().isFinished(), is(true));
     }
 
@@ -79,10 +79,10 @@ public class TestSchedulerTest {
         WorkManager workManager = WorkManager.getInstance();
         WorkContinuation continuation = workManager.beginWith(request)
                 .then(dependentRequest);
-        continuation.enqueue().get();
-        WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
-        WorkStatus dependentStatus = workManager
-                .getStatusById(dependentRequest.getId()).get();
+        continuation.enqueue().getResult().get();
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
+        WorkInfo dependentStatus = workManager
+                .getWorkInfoById(dependentRequest.getId()).get();
 
         assertThat(requestStatus.getState().isFinished(), is(true));
         assertThat(dependentStatus.getState().isFinished(), is(true));
@@ -95,7 +95,7 @@ public class TestSchedulerTest {
         OneTimeWorkRequest request = createWorkRequestWithNetworkConstraints();
         WorkManager workManager = WorkManager.getInstance();
         workManager.enqueue(request);
-        WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(false));
     }
 
@@ -106,10 +106,10 @@ public class TestSchedulerTest {
         OneTimeWorkRequest request = createWorkRequestWithNetworkConstraints();
         WorkManager workManager = WorkManager.getInstance();
         workManager.enqueue(request);
-        WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(false));
         mTestDriver.setAllConstraintsMet(request.getId());
-        requestStatus = workManager.getStatusById(request.getId()).get();
+        requestStatus = workManager.getWorkInfoById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(true));
     }
 
@@ -120,7 +120,7 @@ public class TestSchedulerTest {
         OneTimeWorkRequest request = createWorkRequestWithInitialDelay();
         WorkManager workManager = WorkManager.getInstance();
         workManager.enqueue(request);
-        WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(false));
     }
 
@@ -132,7 +132,7 @@ public class TestSchedulerTest {
         WorkManager workManager = WorkManager.getInstance();
         workManager.enqueue(request);
         mTestDriver.setInitialDelayMet(request.getId());
-        WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
         assertThat(requestStatus.getState().isFinished(), is(true));
     }
 
@@ -155,7 +155,7 @@ public class TestSchedulerTest {
         for (int i = 0; i < 5; ++i) {
             mTestDriver.setPeriodDelayMet(request.getId());
             assertThat(CountingTestWorker.COUNT.get(), is(i + 2));
-            WorkStatus requestStatus = workManager.getStatusById(request.getId()).get();
+            WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
             assertThat(requestStatus.getState().isFinished(), is(false));
         }
     }

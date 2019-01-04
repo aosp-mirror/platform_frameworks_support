@@ -37,14 +37,14 @@ import android.os.Build;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManagerTest;
 import androidx.work.WorkRequest;
 import androidx.work.Worker;
@@ -100,7 +100,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
             }
         });
 
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         mDatabase = WorkDatabase.create(context, true);
         InstantWorkTaskExecutor taskExecutor = new InstantWorkTaskExecutor();
         Configuration configuration = new Configuration.Builder()
@@ -153,12 +153,12 @@ public class SystemJobServiceTest extends WorkManagerTest {
         Thread.sleep(5000L);
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
-        assertThat(workSpecDao.getState(work.getStringId()), is(State.RUNNING));
+        assertThat(workSpecDao.getState(work.getStringId()), is(WorkInfo.State.RUNNING));
 
         mSystemJobServiceSpy.onStopJob(mockParams);
         // TODO(rahulrav): Figure out why this test is flaky.
         Thread.sleep(5000L);
-        assertThat(workSpecDao.getState(work.getStringId()), is(State.ENQUEUED));
+        assertThat(workSpecDao.getState(work.getStringId()), is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
@@ -302,7 +302,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
                 sTriggeredContentAuthorities = getTriggeredContentAuthorities();
                 sTriggeredContentUris = getTriggeredContentUris();
             }
-            return Result.SUCCESS;
+            return Result.success();
         }
     }
 
@@ -322,7 +322,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
                 ++sTimesUpdated;
                 sNetwork = getNetwork();
             }
-            return Result.SUCCESS;
+            return Result.success();
         }
     }
 }

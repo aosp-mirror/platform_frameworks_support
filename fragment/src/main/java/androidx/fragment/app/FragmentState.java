@@ -16,7 +16,7 @@
 
 package androidx.fragment.app;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -24,7 +24,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-@SuppressWarnings("BanParcelableUsage")
+@SuppressLint("BanParcelableUsage")
 final class FragmentState implements Parcelable {
     final String mClassName;
     final String mWho;
@@ -68,10 +68,9 @@ final class FragmentState implements Parcelable {
         mSavedFragmentState = in.readBundle();
     }
 
-    public Fragment instantiate(FragmentHostCallback host, @NonNull FragmentFactory factory) {
+    public Fragment instantiate(@NonNull ClassLoader classLoader,
+            @NonNull FragmentFactory factory) {
         if (mInstance == null) {
-            final Context context = host.getContext();
-            final ClassLoader classLoader = context.getClassLoader();
             if (mArguments != null) {
                 mArguments.setClassLoader(classLoader);
             }
@@ -82,6 +81,11 @@ final class FragmentState implements Parcelable {
             if (mSavedFragmentState != null) {
                 mSavedFragmentState.setClassLoader(classLoader);
                 mInstance.mSavedFragmentState = mSavedFragmentState;
+            } else {
+                // When restoring a Fragment, always ensure we have a
+                // non-null Bundle so that developers have a signal for
+                // when the Fragment is being restored
+                mInstance.mSavedFragmentState = new Bundle();
             }
             mInstance.mWho = mWho;
             mInstance.mFromLayout = mFromLayout;
@@ -92,7 +96,6 @@ final class FragmentState implements Parcelable {
             mInstance.mRetainInstance = mRetainInstance;
             mInstance.mDetached = mDetached;
             mInstance.mHidden = mHidden;
-            mInstance.mFragmentManager = host.mFragmentManager;
 
             if (FragmentManagerImpl.DEBUG) {
                 Log.v(FragmentManagerImpl.TAG, "Instantiated fragment " + mInstance);

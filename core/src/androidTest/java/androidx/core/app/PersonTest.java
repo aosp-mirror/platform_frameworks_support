@@ -25,9 +25,9 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,7 +81,7 @@ public class PersonTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 21)
+    @SdkSuppress(minSdkVersion = 22)
     public void persistableBundle() {
         Person person = new Person.Builder()
                 .setImportant(TEST_IS_IMPORTANT)
@@ -104,7 +104,7 @@ public class PersonTest {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = 21)
+    @SdkSuppress(minSdkVersion = 22)
     public void persistableBundle_defaultValues() {
         Person person = new Person.Builder().build();
 

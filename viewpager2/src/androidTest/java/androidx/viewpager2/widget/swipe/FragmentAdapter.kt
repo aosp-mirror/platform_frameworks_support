@@ -42,6 +42,12 @@ class FragmentAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    /** easy way of dynamically overriding [getItemCount] and [containsItem] */
+    var positionToItemId: (Int) -> Long = { position -> super.getItemId(position) }
+    var itemIdToContains: (Long) -> Boolean = { itemId -> super.containsItem(itemId) }
+    override fun getItemId(position: Int): Long = positionToItemId(position)
+    override fun containsItem(itemId: Long): Boolean = itemIdToContains(itemId)
 }
 
 class PageFragment : Fragment() {

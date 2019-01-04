@@ -27,20 +27,20 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.testing.CountingTaskExecutorRule;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.room.integration.testapp.test.TestDatabaseTest;
+import androidx.room.integration.testapp.test.TestLifecycleOwner;
 import androidx.room.integration.testapp.test.TestUtil;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
 import androidx.sqlite.db.SimpleSQLiteQuery;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -199,24 +199,6 @@ public class DataSourceFactoryTest extends TestDatabaseTest {
         final UserAndAllPets withPets = observer.get().get(0);
         assertThat(withPets.user, is(user));
         assertThat(withPets.pets, is(Arrays.asList(pets)));
-    }
-
-    static class TestLifecycleOwner implements LifecycleOwner {
-
-        private LifecycleRegistry mLifecycle;
-
-        TestLifecycleOwner() {
-            mLifecycle = new LifecycleRegistry(this);
-        }
-
-        @Override
-        public Lifecycle getLifecycle() {
-            return mLifecycle;
-        }
-
-        void handleEvent(Lifecycle.Event event) {
-            mLifecycle.handleLifecycleEvent(event);
-        }
     }
 
     private static class PagedListObserver<T> implements Observer<PagedList<T>> {

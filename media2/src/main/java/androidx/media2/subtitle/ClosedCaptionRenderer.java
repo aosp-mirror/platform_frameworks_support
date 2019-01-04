@@ -38,7 +38,6 @@ import android.view.accessibility.CaptioningManager.CaptionStyle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.media2.R;
 
@@ -48,7 +47,6 @@ import java.util.ArrayList;
 /**
  * @hide
  */
-@RequiresApi(28)
 @RestrictTo(LIBRARY_GROUP)
 public class ClosedCaptionRenderer extends SubtitleController.Renderer {
     private static final String TAG = "ClosedCaptionRenderer";
@@ -123,11 +121,7 @@ public class ClosedCaptionRenderer extends SubtitleController.Renderer {
         }
 
         Cea608CCWidget(Context context, AttributeSet attrs, int defStyle) {
-            this(context, attrs, defStyle, 0);
-        }
-
-        Cea608CCWidget(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
+            super(context, attrs, defStyle);
         }
 
         @Override

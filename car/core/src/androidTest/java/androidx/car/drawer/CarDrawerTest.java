@@ -29,13 +29,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.car.test.R;
-import androidx.car.utils.CarUxRestrictionsTestUtils;
+import androidx.car.util.CarUxRestrictionsTestUtils;
 import androidx.car.widget.PagedListView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assume;
@@ -47,8 +47,8 @@ import org.junit.runner.RunWith;
 /**
  * Unit tests for classes under {@link androidx.car.drawer}.
  *
- * <p>{@code mActivity} is a subclass of {@link CarDrawerActivity}. To set content of drawer, use
- * {@link CarDrawerController#setRootAdapter(CarDrawerAdapter)}.
+ * <p>{@code mActivity} sets up a drawer using the common car drawer components. To set content of
+ * drawer, use {@link CarDrawerTestActivity#getDrawerController()}.
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -67,7 +67,8 @@ public final class CarDrawerTest {
 
     /** Returns {@code true} if the testing device has the automotive feature flag. */
     private boolean isAutoDevice() {
-        PackageManager packageManager = InstrumentationRegistry.getContext().getPackageManager();
+        PackageManager packageManager =
+                ApplicationProvider.getApplicationContext().getPackageManager();
         return packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
     }
 

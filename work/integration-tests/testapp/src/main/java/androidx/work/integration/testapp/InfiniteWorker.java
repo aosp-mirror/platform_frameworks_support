@@ -34,7 +34,7 @@ public class InfiniteWorker extends Worker {
             try {
                 Thread.sleep(5000L);
             } catch (InterruptedException e) {
-                return Result.RETRY;
+                return Result.retry();
             } finally {
                 Log.e("InfiniteWorker", "work work");
             }

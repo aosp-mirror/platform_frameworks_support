@@ -16,7 +16,7 @@
 
 package androidx.textclassifier;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -74,6 +74,7 @@ final class LegacyTextClassifier extends TextClassifier {
     private final MatchMaker mMatchMaker;
 
     @VisibleForTesting()
+    @SuppressLint("RestrictedApi")
     LegacyTextClassifier(MatchMaker matchMaker) {
         mMatchMaker = Preconditions.checkNotNull(matchMaker);
     }
@@ -144,8 +145,7 @@ final class LegacyTextClassifier extends TextClassifier {
                 builder.addLink(
                         spannable.getSpanStart(urlSpan),
                         spannable.getSpanEnd(urlSpan),
-                        Collections.singletonMap(entityType, 1.0f),
-                        urlSpan);
+                        Collections.singletonMap(entityType, 1.0f));
             }
         }
     }
@@ -190,6 +190,7 @@ final class LegacyTextClassifier extends TextClassifier {
                     createPermissionsChecker(context));
         }
 
+        @SuppressLint("RestrictedApi")
         MatchMakerImpl(
                 Context context,
                 PackageManager packageManager,
@@ -201,7 +202,6 @@ final class LegacyTextClassifier extends TextClassifier {
             mPermissionsChecker = Preconditions.checkNotNull(permissionsChecker);
         }
 
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
         private static Bundle createUserRestrictions(Context context) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 return Bundle.EMPTY;
@@ -332,6 +332,7 @@ final class LegacyTextClassifier extends TextClassifier {
         }
 
         @Nullable
+        @SuppressLint("RestrictedApi")
         private RemoteActionCompat createRemoteAction(
                 Intent intent, String title, String description, int requestCode) {
             final ResolveInfo resolveInfo = mPackageManager.resolveActivity(intent, 0);

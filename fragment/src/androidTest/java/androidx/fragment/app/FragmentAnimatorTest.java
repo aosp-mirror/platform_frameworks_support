@@ -35,9 +35,9 @@ import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -126,7 +126,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.GONE, fragment.getView().getVisibility());
+                assertEquals(View.GONE, fragment.requireView().getVisibility());
 
             }
         });
@@ -141,7 +141,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.VISIBLE, fragment.getView().getVisibility());
+                assertEquals(View.VISIBLE, fragment.requireView().getVisibility());
             }
         });
 
@@ -150,7 +150,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.GONE, fragment.getView().getVisibility());
+                assertEquals(View.GONE, fragment.requireView().getVisibility());
             }
         });
     }
@@ -173,7 +173,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.GONE, fragment.getView().getVisibility());
+                assertEquals(View.GONE, fragment.requireView().getVisibility());
 
             }
         });
@@ -189,7 +189,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.VISIBLE, fragment.getView().getVisibility());
+                assertEquals(View.VISIBLE, fragment.requireView().getVisibility());
             }
         });
 
@@ -198,7 +198,7 @@ public class FragmentAnimatorTest {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assertEquals(View.GONE, fragment.getView().getVisibility());
+                assertEquals(View.GONE, fragment.requireView().getVisibility());
             }
         });
     }
@@ -547,8 +547,8 @@ public class FragmentAnimatorTest {
     private void assertPostponed(AnimatorFragment fragment, int expectedAnimators)
             throws InterruptedException {
         assertTrue(fragment.mOnCreateViewCalled);
-        assertEquals(View.VISIBLE, fragment.getView().getVisibility());
-        assertEquals(0f, fragment.getView().getAlpha(), 0f);
+        assertEquals(View.VISIBLE, fragment.requireView().getVisibility());
+        assertEquals(0f, fragment.requireView().getAlpha(), 0f);
         assertEquals(expectedAnimators, fragment.numAnimators);
     }
 

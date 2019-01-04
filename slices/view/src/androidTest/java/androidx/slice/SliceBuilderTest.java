@@ -34,13 +34,14 @@ import android.net.Uri;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.builders.GridRowBuilder;
 import androidx.slice.builders.ListBuilder;
+import androidx.slice.builders.SelectionBuilder;
 import androidx.slice.builders.SliceAction;
 import androidx.slice.render.SliceRenderActivity;
 import androidx.slice.widget.SliceLiveData;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ import org.junit.runner.RunWith;
 @SdkSuppress(minSdkVersion = 19)
 public class SliceBuilderTest {
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
     private final Uri mUri = Uri.parse("content://androidx.slice.view.test/slice");
 
     @Before
@@ -190,6 +191,37 @@ public class SliceBuilderTest {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("Title"));
+        lb.build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testThrowSelectionNoPrimaryAction() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setInputAction(getIntent("")));
+        lb.build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testThrowSelectionNoInputAction() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setPrimaryAction(getAction("action")));
+        lb.build();
+    }
+
+    @Test
+    public void testNoThrowSelection() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setPrimaryAction(getAction("action"))
+                .setInputAction(getIntent("")));
         lb.build();
     }
 

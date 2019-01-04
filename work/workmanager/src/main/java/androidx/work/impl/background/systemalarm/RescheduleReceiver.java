@@ -29,7 +29,7 @@ import androidx.work.impl.WorkManagerImpl;
  */
 public class RescheduleReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "RescheduleReceiver";
+    private static final String TAG = Logger.tagWithPrefix("RescheduleReceiver");
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,7 +37,7 @@ public class RescheduleReceiver extends BroadcastReceiver {
             WorkManagerImpl workManager = WorkManagerImpl.getInstance();
             if (workManager == null) {
                 // WorkManager has not already been initialized.
-                Logger.error(TAG,
+                Logger.get().error(TAG,
                         "Cannot reschedule jobs. WorkManager needs to be initialized via a "
                                 + "ContentProvider#onCreate() or an Application#onCreate().");
             } else {

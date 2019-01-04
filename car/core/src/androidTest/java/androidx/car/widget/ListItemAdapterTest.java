@@ -27,9 +27,9 @@ import android.widget.FrameLayout;
 
 import androidx.car.test.R;
 import androidx.car.uxrestrictions.CarUxRestrictions;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -106,7 +106,7 @@ public final class ListItemAdapterTest {
         int viewType = 1;
 
         // Using a random layout. The actual values does not matter.
-        int layoutRes = R.layout.activity_action_bar;
+        int layoutRes = R.layout.activity_column_card_view;
 
         adapter.registerListItemViewType(
                 viewType, layoutRes, CustomListItem::createViewHolder);
@@ -117,7 +117,7 @@ public final class ListItemAdapterTest {
         ListItemAdapter adapter = new ListItemAdapter(mContext, /* itemProvider= */ null);
 
         // Using a random layout. The actual values does not matter.
-        int layoutRes = R.layout.activity_action_bar;
+        int layoutRes = R.layout.activity_column_card_view;
 
         adapter.registerListItemViewType(
                 CustomListItem.LIST_ITEM_ID, layoutRes, CustomListItem::createViewHolder);

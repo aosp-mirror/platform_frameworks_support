@@ -35,6 +35,7 @@ import androidx.core.app.Person;
 import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -226,12 +227,20 @@ public class ShortcutInfoCompat {
     /**
      * @hide
      */
+    @RestrictTo(LIBRARY_GROUP)
+    public IconCompat getIcon() {
+        return mIcon;
+    }
+
+    /**
+     * @hide
+     */
     @RequiresApi(25)
     @RestrictTo(LIBRARY_GROUP)
     @VisibleForTesting
     @Nullable
     static Person[] getPersonsFromExtra(@NonNull PersistableBundle bundle) {
-        if (bundle == null && !bundle.containsKey(EXTRA_PERSON_COUNT)) {
+        if (bundle == null || !bundle.containsKey(EXTRA_PERSON_COUNT)) {
             return null;
         }
 
@@ -252,7 +261,7 @@ public class ShortcutInfoCompat {
     @VisibleForTesting
     @Nullable
     static boolean getLongLivedFromExtra(@NonNull PersistableBundle bundle) {
-        if (bundle == null && !bundle.containsKey(EXTRA_LONG_LIVED)) {
+        if (bundle == null || !bundle.containsKey(EXTRA_LONG_LIVED)) {
             return false;
         }
         return bundle.getBoolean(EXTRA_LONG_LIVED);
@@ -269,6 +278,49 @@ public class ShortcutInfoCompat {
             mInfo = new ShortcutInfoCompat();
             mInfo.mContext = context;
             mInfo.mId = id;
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public Builder(@NonNull ShortcutInfoCompat shortcutInfo) {
+            mInfo = new ShortcutInfoCompat();
+            mInfo.mContext = shortcutInfo.mContext;
+            mInfo.mId = shortcutInfo.mId;
+            mInfo.mIntents = Arrays.copyOf(shortcutInfo.mIntents, shortcutInfo.mIntents.length);
+            mInfo.mActivity = shortcutInfo.mActivity;
+            mInfo.mLabel = shortcutInfo.mLabel;
+            mInfo.mLongLabel = shortcutInfo.mLongLabel;
+            mInfo.mDisabledMessage = shortcutInfo.mDisabledMessage;
+            mInfo.mIcon = shortcutInfo.mIcon;
+            mInfo.mIsAlwaysBadged = shortcutInfo.mIsAlwaysBadged;
+            mInfo.mIsLongLived = shortcutInfo.mIsLongLived;
+            if (shortcutInfo.mPersons != null) {
+                mInfo.mPersons = Arrays.copyOf(shortcutInfo.mPersons, shortcutInfo.mPersons.length);
+            }
+            if (shortcutInfo.mCategories != null) {
+                mInfo.mCategories = new HashSet<>(shortcutInfo.mCategories);
+            }
+        }
+
+        /**
+         * @hide
+         */
+        @RequiresApi(25)
+        @RestrictTo(LIBRARY_GROUP)
+        public Builder(@NonNull Context context, @NonNull ShortcutInfo shortcutInfo) {
+            mInfo = new ShortcutInfoCompat();
+            mInfo.mContext = context;
+            mInfo.mId = shortcutInfo.getId();
+            Intent[] intents = shortcutInfo.getIntents();
+            mInfo.mIntents = Arrays.copyOf(intents, intents.length);
+            mInfo.mActivity = shortcutInfo.getActivity();
+            mInfo.mLabel = shortcutInfo.getShortLabel();
+            mInfo.mLongLabel = shortcutInfo.getLongLabel();
+            mInfo.mDisabledMessage = shortcutInfo.getDisabledMessage();
+            mInfo.mCategories = shortcutInfo.getCategories();
+            mInfo.mPersons = ShortcutInfoCompat.getPersonsFromExtra(shortcutInfo.getExtras());
         }
 
         /**
