@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "258b4313_6e3b5197",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T16:58:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e336c3dd_4c4f04d2",
+      "range": {
+        "startLine": 43,
+        "startChar": 89,
+        "endLine": 43,
+        "endChar": 90
+      },
+      "revId": "2a1dee0b25829daef4bbaf1a856a7fe6c60a86eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa333f59_cfb06532",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
         "patchSetId": 1
@@ -516,6 +540,30 @@
       "revId": "2a1dee0b25829daef4bbaf1a856a7fe6c60a86eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6af970e_70e58101",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-04T16:58:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36bc8823_20496ac6",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 87
+      },
+      "revId": "2a1dee0b25829daef4bbaf1a856a7fe6c60a86eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
