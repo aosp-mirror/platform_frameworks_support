@@ -93,6 +93,30 @@
       "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fba7ed_60a0381b",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-04T18:08:00Z",
+      "side": 1,
+      "message": "If the function `increment_alpha_beta_version(version)` returns the value \u0027ARCH\u0027 then will the resultant line say \u0027val ARCH_TESTING \u003d \"ARCH\"\u0027 (with one extra set of quotes)?",
+      "parentUuid": "1ce64960_f8c7d1e3",
+      "range": {
+        "startLine": 154,
+        "startChar": 54,
+        "endLine": 154,
+        "endChar": 111
+      },
+      "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
