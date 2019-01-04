@@ -1262,6 +1262,30 @@
     },
     {
       "key": {
+        "uuid": "e49c049c_1e9bac79",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-04T23:45:59Z",
+      "side": 1,
+      "message": "The original code is super confusing (and I think it must be cleaned before committing):\n\n * UriMatcher could be easily confused for android.content.UriMatcher, which hurts readability\n * UriMatcher#match() returns Object, which is not generally safe to down-cast to PathHandler\n * UriMatcher\u0027s mCode is type Object, but it only ever holds PathHandler. It should just be PathHandler.\n   * If UriMatcher needs to be more general, it should be a Generic (template) class instead\n\nA lot has diffed since PS#2, so I haven\u0027t checked if you\u0027ve already addressed some of this.",
+      "parentUuid": "07dd3303_c759ed9a",
+      "range": {
+        "startLine": 468,
+        "startChar": 22,
+        "endLine": 468,
+        "endChar": 35
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bea8ae7f_52f4a5c6",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
