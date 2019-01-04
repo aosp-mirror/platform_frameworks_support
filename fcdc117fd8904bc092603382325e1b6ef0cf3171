@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96df2745_ba530ad5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T20:07:16Z",
+      "side": 1,
+      "message": "For a later CL, but is there any chance this approach is causing us to evaluate projects too early? I had originally set it up like this because it wasn\u0027t clear at the time how to aggregate all of the projects to a single parent task, but that feels... wrong... now.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 75
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ebf28b_6eb2382f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T20:07:16Z",
+      "side": 1,
+      "message": "Is this due to Dokka not supporting @hide at the package-info level?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cc3db89_d3a0d59d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T20:07:16Z",
+      "side": 1,
+      "message": "Can we synchronize on the tasks object here instead of at the method level?",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 17
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd1293a8_b7fd460a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T20:07:16Z",
+      "side": 1,
+      "message": "remove debug output",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 82
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8382c7b_0c826c6c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T20:07:16Z",
+      "side": 1,
+      "message": "ditto re: synchronize on object being accessed",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
