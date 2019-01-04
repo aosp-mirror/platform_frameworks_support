@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d5b0143_b3a66b2b",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-04T00:39:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f1afa9b_1dac8c55",
+      "range": {
+        "startLine": 79,
+        "startChar": 17,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98170aeb_3cf53081",
         "filename": "development/update_library_versions.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-03T22:52:12Z",
       "side": 1,
       "message": "Does this support the case where one variable is assigned to another one (\u0027val ARCH_TESTING \u003d ARCH\u0027)?",
+      "range": {
+        "startLine": 154,
+        "startChar": 54,
+        "endLine": 154,
+        "endChar": 111
+      },
+      "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ce64960_f8c7d1e3",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-04T00:39:04Z",
+      "side": 1,
+      "message": "Because \u0027ARCH\u0027 does not contain either \u0027alpha\u0027 or \u0027beta\u0027, increment_alpha_beta_version() will just return \u0027ARCH\u0027.  This is intended behavior.\n\nIn theory, ARCH will have been updated because ARCH_TESTING could not have been out of date if ARCH was not out of date.\n\nShould I special case this to make it more clear that we\u0027re doing so?",
+      "parentUuid": "98170aeb_3cf53081",
       "range": {
         "startLine": 154,
         "startChar": 54,
