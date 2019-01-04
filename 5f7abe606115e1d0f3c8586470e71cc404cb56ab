@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03bca0b4_8e119fd3",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "use prop name instead of getter?",
+      "range": {
+        "startLine": 87,
+        "startChar": 40,
+        "endLine": 87,
+        "endChar": 62
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cea48d3_f2108c20",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 15
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "for tasks you want configureEach.\nwithType is a live collection already that will contain all items present and future, so you don\u0027t need that feature from all().\n\nHowever calling .all() on the collection will eagerly configure its items (as they are added to the live collection.)\n\nconfigureEach instead adds a new config action to the list items (as they are added) so that the action is called when the item is configured. And since the collection itself is live it\u0027ll work on all items.",
+      "range": {
+        "startLine": 104,
+        "startChar": 51,
+        "endLine": 104,
+        "endChar": 54
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b3ab9ba_b440e2db",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "you should use configureEach here too or you are eagerly configuring all Test tasks.",
+      "range": {
+        "startLine": 156,
+        "startChar": 31,
+        "endLine": 156,
+        "endChar": 35
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d07af0e_3248144c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "the call to prebuiltSources is delayed until configuration but it\u0027s doing quite a bit. Are you sure it\u0027s safe to fully delay it? Does nothing else use the configuration object created in the method?",
+      "range": {
+        "startLine": 291,
+        "startChar": 30,
+        "endLine": 291,
+        "endChar": 45
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c16b9ccb_895947e4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "you don\u0027t need to do this here since you are inside a configure which will force javacompileTask to be configured. You can just call javaCompileTask.get().source.\nEspecially since you are calling .get() on it twice below :)\n\nSame in other places.",
+      "range": {
+        "startLine": 434,
+        "startChar": 34,
+        "endLine": 434,
+        "endChar": 37
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d770ba54_ea1895bf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "Provider carry task dependency information so doing:\n\nit.inputs.file(newApiTxtProvider.file)\n\nshould be enough to also add the task as a dependency.\n\nThis is mainly the case if you created the provider as an output of the task with DefaultTask.newOutputFile().\nCheck with jedo@, he has played with this a lot.",
+      "range": {
+        "startLine": 132,
+        "startChar": 15,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b37d2369_fcf32f8a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "why is this in afterEvaluate? This is already guaranteed to happen in after Evaluate since the call back for the variant collection is done there.",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a11833d_e23bc34f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be configure?\ndoing it in doFirst does not include it in the task inputs for up-to-date checks.",
+      "range": {
+        "startLine": 129,
+        "startChar": 17,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975c5a50_bd25645c",
+        "filename": "navigation/common/build.gradle",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-01-04T00:32:39Z",
+      "side": 1,
+      "message": "don\u0027t need to use map here.",
+      "range": {
+        "startLine": 56,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 44
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
