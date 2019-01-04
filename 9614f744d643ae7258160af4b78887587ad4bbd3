@@ -16,6 +16,24 @@
       "revId": "9614f744d643ae7258160af4b78887587ad4bbd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18680aa2_aba00a90",
+        "filename": "development/history/AndroidX-Release-2018-12-03.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-04T21:37:20Z",
+      "side": 1,
+      "message": "No, created by hand, but worth having a tool to create them.  This is the first attempt to move release history from our google sheets into the git history.  Until we have something better, that tool would probably have to live as a Google Sheets script.",
+      "parentUuid": "bd9d0223_1f1200aa",
+      "revId": "9614f744d643ae7258160af4b78887587ad4bbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
