@@ -36,6 +36,6 @@ public class TestWorker extends Worker {
     @Override
     public @NonNull Result doWork() {
         Log.d("TestWorker", "TestWorker Ran!");
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

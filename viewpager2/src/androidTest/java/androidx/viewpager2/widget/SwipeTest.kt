@@ -35,7 +35,6 @@ private const val RANDOM_TESTS_PER_CONFIG = 0 // increase to have random tests g
 @RunWith(Parameterized::class)
 @LargeTest
 class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
-
     @Test
     fun test() {
         testConfig.apply {
@@ -66,7 +65,7 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
 
                     // page swipe
                     val latch = viewPager.addWaitForScrolledLatch(targetPage)
-                    swiper.swipe(currentPage, targetPage)
+                    swipe(currentPage, targetPage)
                     latch.await(1, TimeUnit.SECONDS)
                     assertBasicState(targetPage, expectedValues[targetPage])
                 }
@@ -99,6 +98,8 @@ private fun createTestSet(): List<TestConfig> {
     return listOf(
             fragmentAdapterProvider to ORIENTATION_HORIZONTAL,
             fragmentAdapterProvider to ORIENTATION_VERTICAL,
+            fragmentAdapterProviderCustomIds to ORIENTATION_HORIZONTAL,
+            fragmentAdapterProviderCustomIds to ORIENTATION_VERTICAL,
             viewAdapterProvider to ORIENTATION_HORIZONTAL,
             viewAdapterProvider to ORIENTATION_VERTICAL)
             .flatMap { (activity, orientation) -> createTestSet(activity, orientation) }

@@ -16,12 +16,12 @@
 
 package androidx.work.impl;
 
-import static androidx.work.State.BLOCKED;
-import static androidx.work.State.CANCELLED;
-import static androidx.work.State.ENQUEUED;
-import static androidx.work.State.FAILED;
-import static androidx.work.State.RUNNING;
-import static androidx.work.State.SUCCEEDED;
+import static androidx.work.WorkInfo.State.BLOCKED;
+import static androidx.work.WorkInfo.State.CANCELLED;
+import static androidx.work.WorkInfo.State.ENQUEUED;
+import static androidx.work.WorkInfo.State.FAILED;
+import static androidx.work.WorkInfo.State.RUNNING;
+import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -30,6 +30,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.isOneOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
@@ -43,10 +44,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.Configuration;
 import androidx.work.Data;
@@ -70,6 +71,7 @@ import androidx.work.worker.InfiniteTestWorker;
 import androidx.work.worker.InterruptionAwareWorker;
 import androidx.work.worker.LatchWorker;
 import androidx.work.worker.RetryWorker;
+import androidx.work.worker.ReturnNullResultWorker;
 import androidx.work.worker.SleepTestWorker;
 import androidx.work.worker.TestWorker;
 import androidx.work.worker.UsedWorker;
@@ -102,7 +104,7 @@ public class WorkerWrapperTest extends DatabaseTest {
 
     @Before
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mConfiguration = new Configuration.Builder()
                 .setExecutor(new SynchronousExecutor())
                 .setMinimumLoggingLevel(Log.VERBOSE)
@@ -447,6 +449,43 @@ public class WorkerWrapperTest extends DatabaseTest {
 
         WorkSpec workSpec = mWorkSpecDao.getWorkSpec(work.getStringId());
         assertThat(workSpec.periodStartTime, is(greaterThan(beforeUnblockedTime)));
+    }
+
+    @Test
+    @SmallTest
+    public void testDependencies_enqueuesBlockedDependentsOnSuccess() {
+        OneTimeWorkRequest prerequisiteWork =
+                new OneTimeWorkRequest.Builder(TestWorker.class).build();
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setInitialState(BLOCKED)
+                .build();
+        OneTimeWorkRequest cancelledWork = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setInitialState(CANCELLED)
+                .build();
+        Dependency dependency1 = new Dependency(work.getStringId(), prerequisiteWork.getStringId());
+        Dependency dependency2 =
+                new Dependency(cancelledWork.getStringId(), prerequisiteWork.getStringId());
+
+        mDatabase.beginTransaction();
+        try {
+            insertWork(prerequisiteWork);
+            insertWork(work);
+            insertWork(cancelledWork);
+            mDependencyDao.insertDependency(dependency1);
+            mDependencyDao.insertDependency(dependency2);
+            mDatabase.setTransactionSuccessful();
+        } finally {
+            mDatabase.endTransaction();
+        }
+
+        createBuilder(prerequisiteWork.getStringId())
+                .build()
+                .run();
+
+        assertThat(mWorkSpecDao.getState(prerequisiteWork.getStringId()), is(SUCCEEDED));
+        assertThat(mWorkSpecDao.getState(work.getStringId()),
+                isOneOf(ENQUEUED, RUNNING, SUCCEEDED));
+        assertThat(mWorkSpecDao.getState(cancelledWork.getStringId()), is(CANCELLED));
     }
 
     @Test
@@ -879,7 +918,6 @@ public class WorkerWrapperTest extends DatabaseTest {
         Executors.newSingleThreadExecutor().submit(workerWrapper);
         workerWrapper.interrupt(false);
         assertThat(worker.isStopped(), is(true));
-        assertThat(worker.isCancelled(), is(false));
     }
 
     @Test
@@ -912,7 +950,6 @@ public class WorkerWrapperTest extends DatabaseTest {
         Executors.newSingleThreadExecutor().submit(workerWrapper);
         workerWrapper.interrupt(true);
         assertThat(worker.isStopped(), is(true));
-        assertThat(worker.isCancelled(), is(true));
     }
 
     @Test
@@ -962,6 +999,19 @@ public class WorkerWrapperTest extends DatabaseTest {
         Executors.newSingleThreadExecutor().submit(workerWrapper);
         Thread.sleep(1000L);
         assertThat(workerWrapper.mWorker.getRunAttemptCount(), is(10));
+    }
+
+    @Test
+    @SmallTest
+    public void testWorkerThatReturnsNullResult() {
+        OneTimeWorkRequest work =
+                new OneTimeWorkRequest.Builder(ReturnNullResultWorker.class).build();
+        insertWork(work);
+        WorkerWrapper workerWrapper = createBuilder(work.getStringId()).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        assertThat(listener.mResult, is(false));
+        assertThat(mWorkSpecDao.getState(work.getStringId()), is(FAILED));
     }
 
     private WorkerWrapper.Builder createBuilder(String workSpecId) {

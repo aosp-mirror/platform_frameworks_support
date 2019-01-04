@@ -16,15 +16,9 @@
 
 package androidx.navigation
 
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
-
 import android.support.annotation.IdRes
-
-import androidx.test.InstrumentationRegistry
 import androidx.test.filters.SmallTest
-
+import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -36,38 +30,38 @@ class NavGraphNavigatorStateTest {
         private const val FIRST_DESTINATION_ID = 1
     }
 
+    private lateinit var provider: NavigatorProvider
+    private lateinit var noOpNavigator: NoOpNavigator
     private lateinit var navGraphNavigator: NavGraphNavigator
-    private lateinit var listener: Navigator.OnNavigatorNavigatedListener
 
     @Before
     fun setup() {
-        navGraphNavigator = NavGraphNavigator(InstrumentationRegistry.getTargetContext())
-        listener = mock(Navigator.OnNavigatorNavigatedListener::class.java)
-        navGraphNavigator.addOnNavigatorNavigatedListener(listener)
+        provider = NavigatorProvider().apply {
+            addNavigator(NoOpNavigator().also { noOpNavigator = it })
+            addNavigator(NavGraphNavigator(this).also {
+                navGraphNavigator = it
+            })
+        }
     }
 
     @Test
     fun navigateSingleTopSaveState() {
-        val destination = NavDestination(mock(Navigator::class.java)).apply {
+        val destination = noOpNavigator.createDestination().apply {
             id = FIRST_DESTINATION_ID
         }
         val graph = navGraphNavigator.createDestination().apply {
             addDestination(destination)
             startDestination = FIRST_DESTINATION_ID
         }
-        graph.navigate(null, null, null)
-        verify(listener).onNavigatorNavigated(navGraphNavigator,
-                graph.id,
-                Navigator.BACK_STACK_DESTINATION_ADDED)
+        assertThat(navGraphNavigator.navigate(graph, null, null, null))
+            .isEqualTo(destination)
 
         // Save and restore the state, effectively resetting the NavGraphNavigator
         val saveState = navGraphNavigator.onSaveState()
         navGraphNavigator.onRestoreState(saveState)
 
-        graph.navigate(null, NavOptions.Builder().setLaunchSingleTop(true).build(), null)
-        verify(listener).onNavigatorNavigated(navGraphNavigator,
-                graph.id,
-                Navigator.BACK_STACK_UNCHANGED)
-        verifyNoMoreInteractions(listener)
+        assertThat(navGraphNavigator.navigate(graph, null,
+            NavOptions.Builder().setLaunchSingleTop(true).build(), null))
+            .isEqualTo(destination)
     }
 }

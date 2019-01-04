@@ -24,6 +24,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.MediaFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Layout.Alignment;
@@ -46,7 +47,6 @@ import android.view.accessibility.CaptioningManager.CaptionStyle;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 
 import java.nio.charset.Charset;
@@ -57,7 +57,6 @@ import java.util.List;
 
 // Note: This is forked from android.media.Cea708CaptionRenderer since P
 /** @hide */
-@RequiresApi(28)
 @RestrictTo(LIBRARY_GROUP)
 public class Cea708CaptionRenderer extends SubtitleController.Renderer {
     private final Context mContext;
@@ -130,12 +129,7 @@ public class Cea708CaptionRenderer extends SubtitleController.Renderer {
         }
 
         Cea708CCWidget(Context context, AttributeSet attrs, int defStyleAttr) {
-            this(context, attrs, defStyleAttr, 0);
-        }
-
-        Cea708CCWidget(Context context, AttributeSet attrs, int defStyleAttr,
-                int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
+            super(context, attrs, defStyleAttr);
 
             mCCHandler = new CCHandler((CCLayout) mClosedCaptionLayout);
         }
@@ -788,12 +782,7 @@ public class Cea708CaptionRenderer extends SubtitleController.Renderer {
             }
 
             CCWindowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-                this(context, attrs, defStyleAttr, 0);
-            }
-
-            CCWindowLayout(Context context, AttributeSet attrs, int defStyleAttr,
-                    int defStyleRes) {
-                super(context, attrs, defStyleAttr, defStyleRes);
+                super(context, attrs, defStyleAttr);
 
                 // Add a subtitle view to the layout.
                 mCCView = new CCView(context);
@@ -1223,26 +1212,23 @@ public class Cea708CaptionRenderer extends SubtitleController.Renderer {
             }
 
             CCView(Context context, AttributeSet attrs, int defStyleAttr) {
-                this(context, attrs, defStyleAttr, 0);
-            }
-
-            CCView(Context context, AttributeSet attrs, int defStyleAttr,
-                    int defStyleRes) {
-                super(context, attrs, defStyleAttr, defStyleRes);
+                super(context, attrs, defStyleAttr);
             }
 
             void setCaptionStyle(CaptionStyle style) {
-                if (style.hasForegroundColor()) {
-                    setForegroundColor(style.foregroundColor);
-                }
-                if (style.hasBackgroundColor()) {
-                    setBackgroundColor(style.backgroundColor);
-                }
-                if (style.hasEdgeType()) {
-                    setEdgeType(style.edgeType);
-                }
-                if (style.hasEdgeColor()) {
-                    setEdgeColor(style.edgeColor);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    if (style.hasForegroundColor()) {
+                        setForegroundColor(style.foregroundColor);
+                    }
+                    if (style.hasBackgroundColor()) {
+                        setBackgroundColor(style.backgroundColor);
+                    }
+                    if (style.hasEdgeType()) {
+                        setEdgeType(style.edgeType);
+                    }
+                    if (style.hasEdgeColor()) {
+                        setEdgeColor(style.edgeColor);
+                    }
                 }
                 setTypeface(style.getTypeface());
             }

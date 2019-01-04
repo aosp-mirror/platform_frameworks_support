@@ -45,6 +45,6 @@ public class RandomSleepTestWorker extends Worker {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

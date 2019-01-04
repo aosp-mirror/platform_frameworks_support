@@ -25,14 +25,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider.KeyedFactory;
+import androidx.savedstate.SavedStateRegistry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-// TODO: make "KeyedFactory" link, once it will be public (current it is hidden)
 /**
- * Utility methods that provides ViewModelProvider.KeyedFactory that can create ViewModels
+ * Utility methods that provides {@link ViewModelProvider.KeyedFactory} that can create ViewModels
  * that receive {@link SavedStateHandle} in constructor
  */
 public class ViewModelsWithStateFactories {
@@ -74,7 +74,7 @@ public class ViewModelsWithStateFactories {
         if (factory == null) {
             factory = new DefaultViewModelWithStateFactory(app);
         }
-        return new FragmentVmFactory(app, SavedStateRegistries.of(activity), factory,
+        return new FragmentVmFactory(app, activity.getBundleSavedStateRegistry(), factory,
                 activityBundle(activity));
     }
 
@@ -112,7 +112,7 @@ public class ViewModelsWithStateFactories {
         if (factory == null) {
             factory = new DefaultViewModelWithStateFactory(app);
         }
-        return new FragmentVmFactory(app, SavedStateRegistries.of(fragment), factory,
+        return new FragmentVmFactory(app, fragment.getBundleSavedStateRegistry(), factory,
                 fragment.getArguments());
     }
 
@@ -136,7 +136,7 @@ public class ViewModelsWithStateFactories {
 
 
     static class FragmentVmFactory extends SavedStateVMFactory {
-        FragmentVmFactory(Application app, SavedStateRegistry savedStateStore,
+        FragmentVmFactory(Application app, SavedStateRegistry<Bundle> savedStateStore,
                 ViewModelWithStateFactory factory, Bundle initialArgs) {
             super(savedStateStore, initialArgs, factory);
             VMSavedStateInitializer.initializeIfNeeded(app);

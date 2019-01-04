@@ -38,7 +38,6 @@ public class CombineContinuationsWorker extends Worker {
 
     @Override
     public @NonNull Result doWork() {
-        setOutputData(getInputData());
-        return Result.SUCCESS;
+        return Result.success(getInputData());
     }
 }

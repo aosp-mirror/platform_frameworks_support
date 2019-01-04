@@ -22,25 +22,26 @@ import static androidx.media2.MediaPlayer2.MEDIA_ERROR_MALFORMED;
 import static androidx.media2.MediaPlayer2.MEDIA_ERROR_TIMED_OUT;
 import static androidx.media2.MediaPlayer2.MEDIA_ERROR_UNKNOWN;
 import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_AUDIO;
+import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_METADATA;
 import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
+import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT;
 import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN;
 import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_VIDEO;
+import static androidx.media2.SubtitleData.MIMETYPE_TEXT_CEA_608;
+import static androidx.media2.SubtitleData.MIMETYPE_TEXT_CEA_708;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.media.MediaFormat;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.annotation.RestrictTo;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.CallbackMediaItem2;
-import androidx.media2.FileMediaItem2;
-import androidx.media2.MediaItem2;
+import androidx.media2.CallbackMediaItem;
+import androidx.media2.FileMediaItem;
+import androidx.media2.MediaItem;
 import androidx.media2.MediaPlayer2;
-import androidx.media2.PlaybackParams2;
-import androidx.media2.UriMediaItem2;
-import androidx.media2.common.TrackInfoImpl;
+import androidx.media2.PlaybackParams;
+import androidx.media2.UriMediaItem;
 import androidx.media2.exoplayer.external.C;
 import androidx.media2.exoplayer.external.ExoPlaybackException;
 import androidx.media2.exoplayer.external.Format;
@@ -54,8 +55,6 @@ import androidx.media2.exoplayer.external.extractor.ts.AdtsExtractor;
 import androidx.media2.exoplayer.external.mediacodec.MediaFormatUtil;
 import androidx.media2.exoplayer.external.source.ExtractorMediaSource;
 import androidx.media2.exoplayer.external.source.MediaSource;
-import androidx.media2.exoplayer.external.source.TrackGroup;
-import androidx.media2.exoplayer.external.source.TrackGroupArray;
 import androidx.media2.exoplayer.external.source.hls.HlsMediaSource;
 import androidx.media2.exoplayer.external.upstream.DataSource;
 import androidx.media2.exoplayer.external.upstream.HttpDataSource;
@@ -64,8 +63,6 @@ import androidx.media2.exoplayer.external.util.Util;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Utility methods for translating between the MediaPlayer2 and ExoPlayer APIs.
@@ -73,7 +70,6 @@ import java.util.List;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-@TargetApi(Build.VERSION_CODES.KITKAT)
 @SuppressLint("RestrictedApi") // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
 /* package */ class ExoPlayerUtils {
 
@@ -81,35 +77,35 @@ import java.util.List;
             .setAdtsExtractorFlags(AdtsExtractor.FLAG_ENABLE_CONSTANT_BITRATE_SEEKING);
 
     /**
-     * Returns an ExoPlayer media source for the given media item. The given {@link MediaItem2} is
+     * Returns an ExoPlayer media source for the given media item. The given {@link MediaItem} is
      * set as the tag of the source.
      */
     public static MediaSource createUnclippedMediaSource(
-            DataSource.Factory dataSourceFactory, MediaItem2 mediaItem2) {
-        if (mediaItem2 instanceof UriMediaItem2) {
-            Uri uri = ((UriMediaItem2) mediaItem2).getUri();
+            DataSource.Factory dataSourceFactory, MediaItem mediaItem) {
+        if (mediaItem instanceof UriMediaItem) {
+            Uri uri = ((UriMediaItem) mediaItem).getUri();
             if (Util.inferContentType(uri) == C.TYPE_HLS) {
                 return new HlsMediaSource.Factory(dataSourceFactory)
-                        .setTag(mediaItem2)
+                        .setTag(mediaItem)
                         .createMediaSource(uri);
             } else {
                 return new ExtractorMediaSource.Factory(dataSourceFactory)
                         .setExtractorsFactory(sExtractorsFactory)
-                        .setTag(mediaItem2)
+                        .setTag(mediaItem)
                         .createMediaSource(uri);
             }
-        } else if (mediaItem2 instanceof FileMediaItem2) {
+        } else if (mediaItem instanceof FileMediaItem) {
             return new ExtractorMediaSource.Factory(dataSourceFactory)
                     .setExtractorsFactory(sExtractorsFactory)
-                    .setTag(mediaItem2)
+                    .setTag(mediaItem)
                     .createMediaSource(Uri.EMPTY);
-        } else if (mediaItem2 instanceof CallbackMediaItem2) {
-            CallbackMediaItem2 callbackMediaItem2 = (CallbackMediaItem2) mediaItem2;
-            dataSourceFactory = DataSourceCallback2DataSource.getFactory(
-                    callbackMediaItem2.getDataSourceCallback2());
+        } else if (mediaItem instanceof CallbackMediaItem) {
+            CallbackMediaItem callbackMediaItem = (CallbackMediaItem) mediaItem;
+            dataSourceFactory = DataSourceCallbackDataSource.getFactory(
+                    callbackMediaItem.getDataSourceCallback());
             return new ExtractorMediaSource.Factory(dataSourceFactory)
                     .setExtractorsFactory(sExtractorsFactory)
-                    .setTag(mediaItem2)
+                    .setTag(mediaItem)
                     .createMediaSource(Uri.EMPTY);
         } else {
             throw new IllegalStateException();
@@ -135,7 +131,7 @@ import java.util.List;
     }
 
     /** Returns ExoPlayer playback parameters for the given playback params. */
-    public static PlaybackParameters getPlaybackParameters(PlaybackParams2 playbackParams2) {
+    public static PlaybackParameters getPlaybackParameters(PlaybackParams playbackParams2) {
         Float speed = playbackParams2.getSpeed();
         Float pitch = playbackParams2.getPitch();
         return new PlaybackParameters(speed != null ? speed : 1f, pitch != null ? pitch : 1f);
@@ -174,54 +170,83 @@ import java.util.List;
         return MEDIA_ERROR_UNKNOWN;
     }
 
-    /** Returns the track info list corresponding to an ExoPlayer track group array. */
-    public static List<MediaPlayer2.TrackInfo> getTrackInfo(TrackGroupArray trackGroupArray) {
-        ArrayList<MediaPlayer2.TrackInfo> trackInfos = new ArrayList<>();
-        for (int i = 0; i < trackGroupArray.length; i++) {
-            TrackGroup trackGroup = trackGroupArray.get(i);
-            Format format = trackGroup.getFormat(0);
-            MediaFormat mediaFormat = getMediaFormat(format);
-            String mimeType = format.sampleMimeType;
-            int trackType = getTrackType(mimeType);
-            trackInfos.add(new TrackInfoImpl(trackType, mediaFormat));
+    /** Returns the ExoPlayer track type for the given MediaPlayer2 track type. */
+    public static int getExoPlayerTrackType(int trackType) {
+        switch (trackType) {
+            case MEDIA_TRACK_TYPE_AUDIO:
+                return C.TRACK_TYPE_AUDIO;
+            case MEDIA_TRACK_TYPE_VIDEO:
+                return C.TRACK_TYPE_VIDEO;
+            case MEDIA_TRACK_TYPE_SUBTITLE:
+                return C.TRACK_TYPE_TEXT;
+            case MEDIA_TRACK_TYPE_METADATA:
+                return C.TRACK_TYPE_METADATA;
+            case MEDIA_TRACK_TYPE_UNKNOWN:
+            case MEDIA_TRACK_TYPE_TIMEDTEXT: // Unexpected
+            default:
+                return C.TRACK_TYPE_UNKNOWN;
         }
-        // Note: the list returned by MediaPlayer2Impl is modifiable so we do the same here.
-        return trackInfos;
     }
 
-    /** Returns the track type corresponding to the given MIME type. */
-    private static int getTrackType(String mimeType) {
-        return MimeTypes.isAudio(mimeType) ? MEDIA_TRACK_TYPE_AUDIO
-                : MimeTypes.isVideo(mimeType) ? MEDIA_TRACK_TYPE_VIDEO
-                        : MimeTypes.isText(mimeType) ? MEDIA_TRACK_TYPE_SUBTITLE
-                                : MEDIA_TRACK_TYPE_UNKNOWN;
+    /** Returns the track type corresponding to the given ExoPlayer track type. */
+    public static int getTrackType(int exoPlayerTrackType) {
+        switch (exoPlayerTrackType) {
+            case C.TRACK_TYPE_AUDIO:
+                return MEDIA_TRACK_TYPE_AUDIO;
+            case C.TRACK_TYPE_VIDEO:
+                return MEDIA_TRACK_TYPE_VIDEO;
+            case C.TRACK_TYPE_TEXT:
+                return MEDIA_TRACK_TYPE_SUBTITLE;
+            case C.TRACK_TYPE_METADATA:
+                return MEDIA_TRACK_TYPE_METADATA;
+            case C.TRACK_TYPE_NONE:
+            case C.TRACK_TYPE_CAMERA_MOTION:
+            case C.TRACK_TYPE_DEFAULT:
+            case C.TRACK_TYPE_UNKNOWN:
+            default:
+                return MEDIA_TRACK_TYPE_UNKNOWN;
+        }
     }
 
     /** Returns the media format corresponding to an ExoPlayer format. */
     @SuppressLint("InlinedApi")
-    private static MediaFormat getMediaFormat(Format format) {
-        String mimeType = format.sampleMimeType;
+    public static MediaFormat getMediaFormat(Format format) {
         MediaFormat mediaFormat = new MediaFormat();
-        // Set format parameters that should always be set.
+        String mimeType = format.sampleMimeType;
         mediaFormat.setString(MediaFormat.KEY_MIME, mimeType);
-        if (MimeTypes.isAudio(mimeType)) {
+        int trackType = MimeTypes.getTrackType(mimeType);
+        if (trackType == C.TRACK_TYPE_AUDIO) {
             mediaFormat.setInteger(MediaFormat.KEY_CHANNEL_COUNT, format.channelCount);
             mediaFormat.setInteger(MediaFormat.KEY_SAMPLE_RATE, format.sampleRate);
-            MediaFormatUtil.setCsdBuffers(mediaFormat, format.initializationData);
-        } else if (MimeTypes.isVideo(mimeType)) {
-            mediaFormat.setString(MediaFormat.KEY_MIME, format.sampleMimeType);
-            mediaFormat.setInteger(MediaFormat.KEY_WIDTH, format.width);
-            mediaFormat.setInteger(MediaFormat.KEY_HEIGHT, format.height);
-            MediaFormatUtil.setCsdBuffers(mediaFormat, format.initializationData);
-            // Set format parameters that may be unset.
+            if (format.language != null) {
+                mediaFormat.setString(MediaFormat.KEY_LANGUAGE, format.language);
+            }
+        } else if (trackType == C.TRACK_TYPE_VIDEO) {
+            MediaFormatUtil.maybeSetInteger(mediaFormat, MediaFormat.KEY_WIDTH, format.width);
+            MediaFormatUtil.maybeSetInteger(mediaFormat, MediaFormat.KEY_HEIGHT, format.height);
             MediaFormatUtil.maybeSetFloat(
                     mediaFormat, MediaFormat.KEY_FRAME_RATE, format.frameRate);
             MediaFormatUtil.maybeSetInteger(
                     mediaFormat, MediaFormat.KEY_ROTATION, format.rotationDegrees);
             MediaFormatUtil.maybeSetColorInfo(mediaFormat, format.colorInfo);
-        } else {
-            // TODO(b/111150876): Configure timed text/subtitle formats.
-            mediaFormat.setInteger(MediaFormat.KEY_LANGUAGE, format.channelCount);
+        } else if (trackType == C.TRACK_TYPE_TEXT) {
+            boolean isAutoselect = format.selectionFlags == C.SELECTION_FLAG_AUTOSELECT;
+            boolean isDefault = format.selectionFlags == C.SELECTION_FLAG_DEFAULT;
+            boolean isForced = format.selectionFlags == C.SELECTION_FLAG_FORCED;
+            mediaFormat.setInteger(MediaFormat.KEY_IS_AUTOSELECT, isAutoselect ? 1 : 0);
+            mediaFormat.setInteger(MediaFormat.KEY_IS_DEFAULT, isDefault ? 1 : 0);
+            mediaFormat.setInteger(MediaFormat.KEY_IS_FORCED_SUBTITLE, isForced ? 1 : 0);
+            if (format.language == null) {
+                mediaFormat.setString(MediaFormat.KEY_LANGUAGE, C.LANGUAGE_UNDETERMINED);
+            } else {
+                mediaFormat.setString(MediaFormat.KEY_LANGUAGE, format.language);
+            }
+            // MediaPlayer2 uses text/* instead of application/* MIME types.
+            if (MimeTypes.APPLICATION_CEA608.equals(mimeType)) {
+                mediaFormat.setString(MediaFormat.KEY_MIME, MIMETYPE_TEXT_CEA_608);
+            } else if (MimeTypes.APPLICATION_CEA708.equals(mimeType)) {
+                mediaFormat.setString(MediaFormat.KEY_MIME, MIMETYPE_TEXT_CEA_708);
+            }
         }
         return mediaFormat;
     }

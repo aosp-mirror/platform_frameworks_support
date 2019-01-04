@@ -36,6 +36,6 @@ public class FailureWorker extends Worker {
     @Override
     public @NonNull Result doWork() {
         Log.d("FailureWorker", "Returning FAILURE");
-        return Result.FAILURE;
+        return Result.failure();
     }
 }

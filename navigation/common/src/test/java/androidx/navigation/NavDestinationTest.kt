@@ -130,11 +130,11 @@ class NavDestinationTest {
 
     @Test
     fun buildDeepLinkIds() {
-        val destination = NavDestination(mock(Navigator::class.java))
+        val destination = NoOpNavigator().createDestination()
         destination.id = DESTINATION_ID
         val parentId = 2
-        @Suppress("UNCHECKED_CAST")
-        val parent = NavGraph(mock(Navigator::class.java) as Navigator<NavGraph>).apply {
+        val navGraphNavigator = NavGraphNavigator(mock(NavigatorProvider::class.java))
+        val parent = navGraphNavigator.createDestination().apply {
             id = parentId
         }
         destination.parent = parent
@@ -145,7 +145,7 @@ class NavDestinationTest {
 
     @Test
     fun putActionByDestinationId() {
-        val destination = NavDestination(mock(Navigator::class.java))
+        val destination = NoOpNavigator().createDestination()
         destination.putAction(ACTION_ID, DESTINATION_ID)
 
         val action = destination.getAction(ACTION_ID)
@@ -155,13 +155,13 @@ class NavDestinationTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun putActionWithInvalidDestinationId() {
-        val destination = NavDestination(mock(Navigator::class.java))
+        val destination = NoOpNavigator().createDestination()
         destination.putAction(INVALID_ACTION_ID, DESTINATION_ID)
     }
 
     @Test
     fun putAction() {
-        val destination = NavDestination(mock(Navigator::class.java))
+        val destination = NoOpNavigator().createDestination()
         val action = NavAction(DESTINATION_ID)
         destination.putAction(ACTION_ID, action)
 
@@ -170,7 +170,7 @@ class NavDestinationTest {
 
     @Test
     fun removeAction() {
-        val destination = NavDestination(mock(Navigator::class.java))
+        val destination = NoOpNavigator().createDestination()
         val action = NavAction(DESTINATION_ID)
         destination.putAction(ACTION_ID, action)
 
@@ -179,5 +179,31 @@ class NavDestinationTest {
         destination.removeAction(ACTION_ID)
 
         assertThat(destination.getAction(ACTION_ID)).isNull()
+    }
+
+    @Test
+    fun addArgument() {
+        val destination = NoOpNavigator().createDestination()
+        val stringArgument = NavArgument.Builder()
+            .setType(NavType.StringType)
+            .build()
+        destination.addArgument("stringArg", stringArgument)
+        assertThat(destination.arguments.size).isEqualTo(1)
+        assertThat(destination.arguments.get("stringArg")).isEqualTo(stringArgument)
+    }
+
+    @Test
+    fun removeArgument() {
+        val destination = NoOpNavigator().createDestination()
+        val stringArgument = NavArgument.Builder()
+            .setType(NavType.StringType)
+            .build()
+        destination.addArgument("stringArg", stringArgument)
+        assertThat(destination.arguments.size).isEqualTo(1)
+        assertThat(destination.arguments.get("stringArg")).isEqualTo(stringArgument)
+
+        destination.removeArgument("stringArg")
+        assertThat(destination.arguments.size).isEqualTo(0)
+        assertThat(destination.arguments.get("stringArg")).isNull()
     }
 }

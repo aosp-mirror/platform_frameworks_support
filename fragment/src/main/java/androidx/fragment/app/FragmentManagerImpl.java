@@ -22,6 +22,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -197,6 +198,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 && modifiesAlpha(anim);
     }
 
+    @SuppressLint("RestrictedApi")
     private void throwException(RuntimeException ex) {
         Log.e(TAG, ex.getMessage());
         Log.e(TAG, "Activity state:");
@@ -424,6 +426,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         sb.append("FragmentManager{");
@@ -1012,19 +1015,21 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             newState = Fragment.CREATED;
                         } else {
                             if (DEBUG) Log.v(TAG, "movefrom CREATED: " + f);
-                            if (mNonConfig.shouldDestroy(f)) {
-                                f.performDestroy();
-                                Activity activity;
-                                if (mHost.getContext() instanceof Activity) {
-                                    activity = (Activity) mHost.getContext();
+                            boolean beingRemoved = f.mRemoving && !f.isInBackStack();
+                            if (beingRemoved || mNonConfig.shouldDestroy(f)) {
+                                boolean shouldClear;
+                                if (mHost instanceof ViewModelStoreOwner) {
+                                    shouldClear = mNonConfig.isCleared();
+                                } else if (mHost.getContext() instanceof Activity) {
+                                    Activity activity = (Activity) mHost.getContext();
+                                    shouldClear = !activity.isChangingConfigurations();
                                 } else {
-                                    activity = null;
+                                    shouldClear = true;
                                 }
-                                boolean isChangingConfigurations = activity != null
-                                        && activity.isChangingConfigurations();
-                                if (!isChangingConfigurations) {
+                                if (beingRemoved || shouldClear) {
                                     mNonConfig.clearNonConfigState(f);
                                 }
+                                f.performDestroy();
                                 dispatchOnFragmentDestroyed(f, false);
                             } else {
                                 f.mState = Fragment.INITIALIZING;
@@ -1033,12 +1038,21 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             f.performDetach();
                             dispatchOnFragmentDetached(f, false);
                             if (!keepActive) {
-                                if (mNonConfig.shouldDestroy(f)) {
+                                if (beingRemoved || mNonConfig.shouldDestroy(f)) {
                                     makeInactive(f);
                                 } else {
                                     f.mHost = null;
                                     f.mParentFragment = null;
                                     f.mFragmentManager = null;
+                                    if (f.mTargetWho != null) {
+                                        Fragment target = mActive.get(f.mTargetWho);
+                                        if (target != null && target.getRetainInstance()) {
+                                            // Only keep references to other retained Fragments
+                                            // to avoid developers accessing Fragments that
+                                            // are never coming back
+                                            f.mTarget = target;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1338,6 +1352,11 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         mActive.put(f.mWho, null);
         removeRetainedFragment(f);
 
+        if (f.mTargetWho != null) {
+            // Restore the target Fragment so that it can be accessed
+            // even after the Fragment is removed.
+            f.mTarget = mActive.get(f.mTargetWho);
+        }
         f.initState();
     }
 
@@ -1874,7 +1893,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         for (int i = 0; i < numAdded; i++) {
             final Fragment fragment = fragments.valueAt(i);
             if (!fragment.mAdded) {
-                final View view = fragment.getView();
+                final View view = fragment.requireView();
                 fragment.mPostponedAlpha = view.getAlpha();
                 view.setAlpha(0f);
             }
@@ -2399,6 +2418,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         restoreSaveState(state);
     }
 
+    @SuppressLint("RestrictedApi")
     void restoreSaveState(Parcelable state) {
         // If there is no saved state at all, then there's nothing else to do
         if (state == null) return;
@@ -2439,7 +2459,9 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         mActive.clear();
         for (FragmentState fs : fms.mActive) {
             if (fs != null) {
-                Fragment f = fs.instantiate(mHost, getFragmentFactory());
+                Fragment f = fs.instantiate(mHost.getContext().getClassLoader(),
+                        getFragmentFactory());
+                f.mFragmentManager = this;
                 if (DEBUG) Log.v(TAG, "restoreAllState: active (" + f.mWho + "): " + f);
                 mActive.put(f.mWho, f);
                 // Now that the fragment is instantiated (or came from being

@@ -152,7 +152,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
         }
     };
-    private RecyclerView mRecyclerView;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    RecyclerView mRecyclerView;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     RecyclerAdapter mAdapter;
     VolumeChangeListener mVolumeChangeListener;
@@ -369,7 +370,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
      * Sets the width of the dialog. Also called when configuration changes.
      */
     void updateLayout() {
-        int width = MediaRouteDialogHelper.getDialogWidth(mContext);
+        int width = MediaRouteDialogHelper.getDialogWidthForDynamicGroup(mContext);
         int height = MediaRouteDialogHelper.getDialogHeight(mContext);
         getWindow().setLayout(width, height);
 
@@ -578,44 +579,17 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     /**
-     * Returns a list of member routes of selected route.
-     * If selected route is neither dynamic group nor static group, returns empty list.
-     */
-    List<MediaRouter.RouteInfo> getMemberRoutes() {
-        List<MediaRouter.RouteInfo> memberRoutes = new ArrayList<>();
-        if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-            memberRoutes.addAll(((MediaRouter.DynamicGroupInfo) mSelectedRoute).getMemberRoutes());
-        } else if (mSelectedRoute instanceof MediaRouter.RouteGroup) {
-            memberRoutes.addAll(((MediaRouter.RouteGroup) mSelectedRoute).getMemberRoutes());
-        }
-        return memberRoutes;
-    }
-
-    /**
      * Returns a list of groupable routes of selected route.
      * If selected route is not dynamic group, returns empty list.
      */
     List<MediaRouter.RouteInfo> getGroupableRoutes() {
         List<MediaRouter.RouteInfo> groupableRoutes = new ArrayList<>();
-        if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-            MediaRouter.DynamicGroupInfo groupInfo = (MediaRouter.DynamicGroupInfo) mSelectedRoute;
-            groupableRoutes.addAll(groupInfo.getGroupableRoutes());
+        if (mSelectedRoute.isDynamicRoute()) {
+            for (MediaRouter.RouteInfo route : mSelectedRoute.getProvider().getRoutes()) {
+                if (route.isGroupable()) groupableRoutes.add(route);
+            }
         }
         return groupableRoutes;
-    }
-
-    /**
-     * Returns a list of transferable routes of selected route.
-     */
-    List<MediaRouter.RouteInfo> getTransferableRoutes() {
-        List<MediaRouter.RouteInfo> transferableRoutes = new ArrayList<>();
-        if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-            MediaRouter.DynamicGroupInfo groupInfo = (MediaRouter.DynamicGroupInfo) mSelectedRoute;
-            transferableRoutes.addAll(groupInfo.getTransferableRoutes());
-        } else {
-            transferableRoutes.addAll(mSelectedRoute.getProvider().getRoutes());
-        }
-        return transferableRoutes;
     }
 
     /**
@@ -649,18 +623,26 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mGroupableRoutes.clear();
         mTransferableRoutes.clear();
 
-        mMemberRoutes.addAll(getMemberRoutes());
-        mGroupableRoutes.addAll(getGroupableRoutes());
-        mTransferableRoutes.addAll(getTransferableRoutes());
+        mMemberRoutes.addAll(mSelectedRoute.getMemberRoutes());
+        if (mSelectedRoute.isDynamicRoute()) {
+            for (MediaRouter.RouteInfo route : mSelectedRoute.getProvider().getRoutes()) {
+                if (route.isGroupable()) {
+                    mGroupableRoutes.add(route);
+                }
+                if (route.isTransferable()) {
+                    mTransferableRoutes.add(route);
+                }
+            }
+        }
+
+        // Filter routes.
+        onFilterRoutes(mGroupableRoutes);
+        onFilterRoutes(mTransferableRoutes);
 
         // Sort routes.
         Collections.sort(mMemberRoutes, RouteComparator.sInstance);
         Collections.sort(mGroupableRoutes, RouteComparator.sInstance);
         Collections.sort(mTransferableRoutes, RouteComparator.sInstance);
-
-        // Filter routes.
-        onFilterRoutes(mGroupableRoutes);
-        onFilterRoutes(mTransferableRoutes);
 
         mAdapter.setItems();
     }
@@ -768,7 +750,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     private final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final String TAG = "RecyclerAdapter";
         private static final int ITEM_TYPE_GROUP_VOLUME = 1;
         private static final int ITEM_TYPE_HEADER = 2;
         private static final int ITEM_TYPE_ROUTE = 3;
@@ -780,6 +761,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         private final Drawable mTvIcon;
         private final Drawable mSpeakerIcon;
         private final Drawable mSpeakerGroupIcon;
+        private Item mGroupVolumeItem;
+        private final int mLayoutAnimationDurationMs;
+        private final Interpolator mAccelerateDecelerateInterpolator;
 
         RecyclerAdapter() {
             mItems = new ArrayList<>();
@@ -788,37 +772,88 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
+
+            Resources res = mContext.getResources();
+            mLayoutAnimationDurationMs = res.getInteger(
+                    R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
+            mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
+
             setItems();
         }
 
-        private boolean isGroupVolumeNeeded() {
-            if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-                // When selected route is a dynamic group route, group volume is needed when it has
-                // more than one member.
-                MediaRouter.DynamicGroupInfo groupInfo =
-                        (MediaRouter.DynamicGroupInfo) mSelectedRoute;
-                return groupInfo.getMemberRoutes().size() > 1;
-            } else if (mSelectedRoute instanceof MediaRouter.RouteGroup) {
-                // When selected route is a static group route, group volume is always needed.
-                return true;
+        boolean isGroupVolumeNeeded() {
+            return mSelectedRoute.getMemberRoutes().size() > 1;
+        }
+
+        void animateLayoutHeight(final View view, int targetHeight) {
+            final int startValue = view.getLayoutParams().height;
+            final int endValue = targetHeight;
+
+            Animation anim = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    int deltaHeight = (int) ((endValue - startValue) * interpolatedTime);
+                    setLayoutHeight(view, startValue + deltaHeight);
+                }
+            };
+
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mIsAnimatingVolumeSliderLayout = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mIsAnimatingVolumeSliderLayout = false;
+                    updateViewsIfNeeded();
+                }
+            });
+            anim.setDuration(mLayoutAnimationDurationMs);
+            anim.setInterpolator(mAccelerateDecelerateInterpolator);
+            view.startAnimation(anim);
+        }
+
+        void mayUpdateGroupVolume(MediaRouter.RouteInfo route, boolean selected) {
+            List<MediaRouter.RouteInfo> members = mSelectedRoute.getMemberRoutes();
+            // Assume we have at least one member route(itself)
+            int memberCount = Math.max(1, members.size());
+
+            if (route.isGroup()) {
+                for (MediaRouter.RouteInfo changedRoute : route.getMemberRoutes()) {
+                    if (members.contains(changedRoute) != selected) {
+                        memberCount += selected ? 1 : -1;
+                    }
+                }
+            } else {
+                memberCount += selected ? 1 : -1;
             }
-            // When selected route is an individual route, group volume isn't needed.
-            return false;
+
+            boolean wasShown = isGroupVolumeNeeded();
+            boolean shouldShow = memberCount >= 2;
+
+            if (wasShown != shouldShow) {
+                RecyclerView.ViewHolder viewHolder =
+                        mRecyclerView.findViewHolderForAdapterPosition(0);
+
+                if (viewHolder instanceof GroupVolumeViewHolder) {
+                    GroupVolumeViewHolder groupVolumeHolder = (GroupVolumeViewHolder) viewHolder;
+                    animateLayoutHeight(groupVolumeHolder.itemView, shouldShow
+                            ? groupVolumeHolder.getExpandedHeight() : 0);
+                }
+            }
         }
 
         // Create a list of items with mMemberRoutes and add them to mItems
         void setItems() {
             mItems.clear();
 
-            MediaRouter.DynamicGroupInfo groupInfo = null;
-            if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-                groupInfo = (MediaRouter.DynamicGroupInfo) mSelectedRoute;
-            }
-
+            mGroupVolumeItem = new Item(mSelectedRoute, ITEM_TYPE_GROUP_VOLUME);
             if (!mMemberRoutes.isEmpty()) {
-                if (isGroupVolumeNeeded()) {
-                    mItems.add(new Item(mSelectedRoute, ITEM_TYPE_GROUP_VOLUME));
-                }
                 for (MediaRouter.RouteInfo memberRoute : mMemberRoutes) {
                     mItems.add(new Item(memberRoute, ITEM_TYPE_ROUTE));
                 }
@@ -827,45 +862,40 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
 
             if (!mGroupableRoutes.isEmpty()) {
-                // Check if there's any route exists who is groupable but not member route.
-                boolean exists = false;
+                boolean headerAdded = false;
                 for (MediaRouter.RouteInfo groupableRoute : mGroupableRoutes) {
                     if (!mMemberRoutes.contains(groupableRoute)) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (exists) {
-                    String title = groupInfo == null
-                            ? mContext.getString(R.string.mr_dialog_groupable_header)
-                            : groupInfo.getController().getGroupableSelectionTitle();
-                    mItems.add(new Item(title, ITEM_TYPE_HEADER));
-                    for (MediaRouter.RouteInfo groupableRoute : mGroupableRoutes) {
-                        if (!mMemberRoutes.contains(groupableRoute)) {
-                            mItems.add(new Item(groupableRoute, ITEM_TYPE_ROUTE));
+                        if (!headerAdded) {
+                            String title = mSelectedRoute.isDynamicRoute()
+                                    ? mSelectedRoute.getDynamicGroupController()
+                                    .getGroupableSelectionTitle() : null;
+                            if (TextUtils.isEmpty(title)) {
+                                title = mContext.getString(R.string.mr_dialog_groupable_header);
+                            }
+                            mItems.add(new Item(title, ITEM_TYPE_HEADER));
+                            headerAdded = true;
                         }
+                        mItems.add(new Item(groupableRoute, ITEM_TYPE_ROUTE));
                     }
                 }
             }
 
             if (!mTransferableRoutes.isEmpty()) {
-                // Check if there's any route exists who is transferable but not selected route.
-                boolean exists = false;
+                boolean headerAdded = false;
                 for (MediaRouter.RouteInfo transferableRoute : mTransferableRoutes) {
                     if (mSelectedRoute != transferableRoute) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (exists) {
-                    String title = groupInfo == null
-                            ? mContext.getString(R.string.mr_dialog_transferable_header)
-                            : groupInfo.getController().getTransferableSectionTitle();
-                    mItems.add(new Item(title, ITEM_TYPE_HEADER));
-                    for (MediaRouter.RouteInfo transferableRoute : mTransferableRoutes) {
-                        if (mSelectedRoute != transferableRoute) {
-                            mItems.add(new Item(transferableRoute, ITEM_TYPE_GROUP));
+                        if (!headerAdded) {
+                            headerAdded = true;
+                            String title = mSelectedRoute.isDynamicRoute()
+                                    ? mSelectedRoute.getDynamicGroupController()
+                                    .getTransferableSectionTitle()
+                                    : null;
+                            if (TextUtils.isEmpty(title)) {
+                                title = mContext.getString(R.string.mr_dialog_transferable_header);
+                            }
+                            mItems.add(new Item(title, ITEM_TYPE_HEADER));
                         }
+                        mItems.add(new Item(transferableRoute, ITEM_TYPE_GROUP));
                     }
                 }
             }
@@ -952,7 +982,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public int getItemCount() {
-            return mItems.size();
+            return mItems.size() + 1;
         }
 
         Drawable getIconDrawable(MediaRouter.RouteInfo route) {
@@ -982,7 +1012,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
 
             // Otherwise, make the best guess based on other route information.
-            if (route instanceof MediaRouter.RouteGroup) {
+            if (route.isGroup()) {
                 // Only speakers can be grouped for now.
                 return mSpeakerGroupIcon;
             }
@@ -991,11 +1021,15 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public int getItemViewType(int position) {
-            return mItems.get(position).getType();
+            return getItem(position).getType();
         }
 
         public Item getItem(int position) {
-            return mItems.get(position);
+            if (position == 0) {
+                return mGroupVolumeItem;
+            } else {
+                return mItems.get(position - 1);
+            }
         }
 
         /**
@@ -1022,18 +1056,31 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         private class GroupVolumeViewHolder extends MediaRouteVolumeSliderHolder {
             private final TextView mTextView;
+            private final int mExpandedHeight;
 
             GroupVolumeViewHolder(View itemView) {
                 super(itemView, (ImageButton) itemView.findViewById(R.id.mr_cast_mute_button),
                         (MediaRouteVolumeSlider) itemView.findViewById(R.id.mr_cast_volume_slider));
                 mTextView = itemView.findViewById(R.id.mr_group_volume_route_name);
+
+                Resources res = mContext.getResources();
+                DisplayMetrics metrics = res.getDisplayMetrics();
+                TypedValue value = new TypedValue();
+                res.getValue(R.dimen.mr_dynamic_volume_group_list_item_height, value, true);
+                mExpandedHeight = (int) value.getDimension(metrics);
             }
 
             public void bindGroupVolumeViewHolder(Item item) {
+                setLayoutHeight(itemView, isGroupVolumeNeeded() ? mExpandedHeight : 0);
+
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
 
                 super.bindRouteVolumeSliderHolder(route);
                 mTextView.setText(route.getName());
+            }
+
+            public int getExpandedHeight() {
+                return mExpandedHeight;
             }
         }
 
@@ -1063,59 +1110,38 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             final float mDisabledAlpha;
             final int mExpandedLayoutHeight;
             final int mCollapsedLayoutHeight;
-            private final int mLayoutAnimationDurationMs;
-            private Interpolator mAccelerateDecelerateInterpolator;
 
-            final View.OnClickListener mCheckBoxClickListener = new View.OnClickListener() {
+            final View.OnClickListener mViewClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // If user clicked unchecked checkbox, isChecked returns true.
-                    if (((CheckBox) v).isChecked()) {
-                        mCheckBox.setEnabled(false);
-                        mImageView.setVisibility(View.INVISIBLE);
-                        mProgressBar.setVisibility(View.VISIBLE);
-                        mRoute.selectIntoGroup();
-                        animateLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
+                    // Toggle it's state
+                    boolean selected = !isSelected(mRoute);
+                    boolean isGroup = mRoute.isGroup();
+
+                    if (selected) {
+                        mRouter.addMemberToSelectedRoute(mRoute);
                     } else {
-                        // If user clicked checked checkbox, isChecked returns false.
-                        mCheckBox.setEnabled(false);
-                        mRoute.unselectFromGroup();
-                        animateLayoutHeight(mVolumeSliderLayout, mCollapsedLayoutHeight);
+                        mRouter.removeMemberFromSelectedRoute(mRoute);
                     }
+                    showSelectingProgress(selected, !isGroup);
+                    if (isGroup) {
+                        List<MediaRouter.RouteInfo> selectedRoutes =
+                                mSelectedRoute.getMemberRoutes();
+                        for (MediaRouter.RouteInfo route : mRoute.getMemberRoutes()) {
+                            if (selectedRoutes.contains(route) != selected) {
+                                MediaRouteVolumeSliderHolder volumeSliderHolder =
+                                        mVolumeSliderHolderMap.get(route.getId());
+                                if (volumeSliderHolder instanceof RouteViewHolder) {
+                                    RouteViewHolder routeViewHolder =
+                                            (RouteViewHolder) volumeSliderHolder;
+                                    routeViewHolder.showSelectingProgress(selected, true);
+                                }
+                            }
+                        }
+                    }
+                    mayUpdateGroupVolume(mRoute, selected);
                 }
             };
-
-            void animateLayoutHeight(final View view, int targetHeight) {
-                final int startValue = view.getLayoutParams().height;
-                final int endValue = targetHeight;
-                Animation anim = new Animation() {
-                    @Override
-                    protected void applyTransformation(float interpolatedTime, Transformation t) {
-                        int deltaHeight = (int) ((endValue - startValue) * interpolatedTime);
-                        setLayoutHeight(view, startValue + deltaHeight);
-                    }
-                };
-
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        mIsAnimatingVolumeSliderLayout = true;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mIsAnimatingVolumeSliderLayout = false;
-                        updateViewsIfNeeded();
-                    }
-                });
-                anim.setDuration(mLayoutAnimationDurationMs);
-                anim.setInterpolator(mAccelerateDecelerateInterpolator);
-                view.startAnimation(anim);
-            }
 
             RouteViewHolder(View itemView) {
                 super(itemView, (ImageButton) itemView.findViewById(R.id.mr_cast_mute_button),
@@ -1138,9 +1164,6 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 res.getValue(R.dimen.mr_dynamic_dialog_row_height, value, true);
                 mExpandedLayoutHeight = (int) value.getDimension(metrics);
                 mCollapsedLayoutHeight = 0;
-                mLayoutAnimationDurationMs = res.getInteger(
-                        R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
-                mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
             }
 
             boolean isSelected(MediaRouter.RouteInfo route) {
@@ -1157,22 +1180,30 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     return false;
                 }
                 // Selected route that can't be unselected has to be disabled.
-                if (isSelected(route) && mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-                    MediaRouter.DynamicGroupInfo groupInfo =
-                            (MediaRouter.DynamicGroupInfo) mSelectedRoute;
-                    return groupInfo.getUnselectableRoutes().contains(route);
+                if (isSelected(route) && mSelectedRoute.isDynamicRoute()) {
+                    return route.isUnselectable();
                 }
                 return true;
             }
 
             public void bindRouteViewHolder(Item item) {
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
+
+                // This is required to sync volume and the name of the route
+                if (route == mSelectedRoute && route.getMemberRoutes().size() > 0) {
+                    for (MediaRouter.RouteInfo memberRoute : route.getMemberRoutes()) {
+                        if (!mGroupableRoutes.contains(memberRoute)) {
+                            route = memberRoute;
+                            break;
+                        }
+                    }
+                }
                 bindRouteVolumeSliderHolder(route);
 
                 // Get icons for route and checkbox.
                 mImageView.setImageDrawable(getIconDrawable(route));
                 mTextView.setText(route.getName());
-                if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
+                if (mSelectedRoute.isDynamicRoute()) {
                     mCheckBox.setVisibility(View.VISIBLE);
                     boolean selected = isSelected(route);
                     boolean enabled = isEnabled(route);
@@ -1184,19 +1215,42 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
                     // Set enabled states of views, height of volume slider layout and alpha value
                     // of itemView.
+                    mItemView.setEnabled(enabled);
                     mCheckBox.setEnabled(enabled);
-                    mMuteButton.setEnabled(enabled);
-                    mVolumeSlider.setEnabled(enabled);
-                    mCheckBox.setOnClickListener(mCheckBoxClickListener);
+                    mMuteButton.setEnabled(enabled || selected);
+                    mVolumeSlider.setEnabled(enabled || selected);
+                    mItemView.setOnClickListener(mViewClickListener);
+                    mCheckBox.setOnClickListener(mViewClickListener);
+
+                    // Do not show the volume slider of a group in this row
                     setLayoutHeight(mVolumeSliderLayout, selected
+                            && !mRoute.isGroup()
                             ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
-                    mItemView.setAlpha(enabled ? 1.0f : mDisabledAlpha);
+
+                    mItemView.setAlpha(enabled || selected ? 1.0f : mDisabledAlpha);
+                    mCheckBox.setAlpha(enabled || !selected ? 1.0f : mDisabledAlpha);
                 } else {
                     mCheckBox.setVisibility(View.GONE);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mImageView.setVisibility(View.VISIBLE);
                     setLayoutHeight(mVolumeSliderLayout, mExpandedLayoutHeight);
                     mItemView.setAlpha(1.0f);
+                }
+            }
+
+            void showSelectingProgress(boolean selected, boolean shouldChangeHeight) {
+                // Disable views not to be clicked twice
+                // They will be enabled when the view is refreshed
+                mCheckBox.setEnabled(false);
+                mItemView.setEnabled(false);
+                mCheckBox.setChecked(selected);
+                if (selected) {
+                    mImageView.setVisibility(View.INVISIBLE);
+                    mProgressBar.setVisibility(View.VISIBLE);
+                }
+                if (shouldChangeHeight) {
+                    animateLayoutHeight(mVolumeSliderLayout, selected
+                            ? mExpandedLayoutHeight : mCollapsedLayoutHeight);
                 }
             }
         }
@@ -1221,8 +1275,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
 
             private boolean isEnabled(MediaRouter.RouteInfo route) {
-                if (mSelectedRoute instanceof MediaRouter.DynamicGroupInfo) {
-                    List<MediaRouter.RouteInfo> currentMemberRoutes = getMemberRoutes();
+                if (mSelectedRoute.isDynamicRoute()) {
+                    List<MediaRouter.RouteInfo> currentMemberRoutes =
+                            mSelectedRoute.getMemberRoutes();
                     // Disable individual route if the only member of dynamic group is that route.
                     if (currentMemberRoutes.size() == 1 && currentMemberRoutes.get(0) == route) {
                         return false;
@@ -1283,17 +1338,13 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             // Because MediaRouteCastDialog shows routes with same provider, we can check if the
             // provider of selecting route supports dynamic group or not by checking instance of
             // mSelectedRoute.
-            return mIsSelectingRoute && mSelectedRoute instanceof MediaRouter.DynamicGroupInfo;
+            return mIsSelectingRoute && mSelectedRoute.isDynamicRoute();
         }
 
         @Override
         public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
             // Defer updating because member/groupable/transferable routes of selecting route isn't
             // initialized yet.
-            if (isSelectingDynamicRoute() && mRouter.getSelectedRoute() == info) {
-                mSelectedRoute = info;
-                return;
-            }
             updateRoutesView();
         }
 
@@ -1304,11 +1355,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo route) {
-            // Defer updating because dynamic group route of selecting route isn't published yet.
-            if (isSelectingDynamicRoute()) {
-                return;
-            }
             mSelectedRoute = route;
+
             mIsSelectingRoute = false;
             // Since updates of views are deferred when selecting the route,
             // call updateViewsIfNeeded to ensure that views are updated properly.
@@ -1323,10 +1371,19 @@ public class MediaRouteCastDialog extends AppCompatDialog {
 
         @Override
         public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-            if (mIsSelectingRoute && mSelectedRoute == route) {
-                // Not only dynamic group route of selecting route is published but also its
-                // member/groupable/transferable routes are initialized at this point.
-                mIsSelectingRoute = false;
+            boolean shouldRefreshRoute = false;
+            if (route == mSelectedRoute && route.isDynamicRoute()) {
+                for (MediaRouter.RouteInfo memberRoute : route.getProvider().getRoutes()) {
+                    if (mSelectedRoute.getMemberRoutes().contains(memberRoute)) {
+                        continue;
+                    }
+                    if (memberRoute.isGroupable() && !mGroupableRoutes.contains(memberRoute)) {
+                        shouldRefreshRoute = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldRefreshRoute) {
                 updateViewsIfNeeded();
                 updateRoutes();
             } else {

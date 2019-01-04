@@ -26,6 +26,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
@@ -45,9 +46,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class RecyclerViewBasicTest {
     }
 
     private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
+        return ApplicationProvider.getApplicationContext();
     }
 
     @Test
@@ -695,7 +696,7 @@ public class RecyclerViewBasicTest {
         }
     }
 
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     static class LayoutManagerSavedState implements Parcelable {
 
         String mUuid;

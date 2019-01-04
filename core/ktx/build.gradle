@@ -21,6 +21,8 @@ dependencies {
     api(project(":core"))
 
     androidTestImplementation(JUNIT)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(TRUTH)
@@ -30,7 +32,7 @@ dependencies {
 supportLibrary {
     name = "Core Kotlin Extensions"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.CORE
     mavenGroup = LibraryGroups.CORE
     inceptionYear = "2018"
     description = "Kotlin extensions for 'core' artifact"

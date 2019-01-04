@@ -16,7 +16,6 @@
 
 package androidx.navigation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,16 +30,18 @@ import java.util.ArrayDeque;
 public class NavGraphNavigator extends Navigator<NavGraph> {
     private static final String KEY_BACK_STACK_IDS = "androidx-nav-graph:navigator:backStackIds";
 
-    private Context mContext;
+    private final NavigatorProvider mNavigatorProvider;
     private ArrayDeque<Integer> mBackStack = new ArrayDeque<>();
 
     /**
      * Construct a Navigator capable of routing incoming navigation requests to the proper
      * destination within a {@link NavGraph}.
-     * @param context
+     *
+     * @param navigatorProvider NavigatorProvider used to retrieve the correct
+     *                          {@link Navigator} to navigate to the start destination
      */
-    public NavGraphNavigator(@NonNull Context context) {
-        mContext = context;
+    public NavGraphNavigator(@NonNull NavigatorProvider navigatorProvider) {
+        mNavigatorProvider = navigatorProvider;
     }
 
     /**
@@ -53,31 +54,30 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
         return new NavGraph(this);
     }
 
+    @Nullable
     @Override
-    public void navigate(@NonNull NavGraph destination, @Nullable Bundle args,
+    public NavDestination navigate(@NonNull NavGraph destination, @Nullable Bundle args,
             @Nullable NavOptions navOptions, @Nullable Extras navigatorExtras) {
         int startId = destination.getStartDestination();
         if (startId == 0) {
             throw new IllegalStateException("no start destination defined via"
                     + " app:startDestination for "
-                    + (destination.getId() != 0
-                            ? NavDestination.getDisplayName(mContext, destination.getId())
-                            : "the root navigation"));
+                    + destination.getDisplayName());
         }
         NavDestination startDestination = destination.findNode(startId, false);
         if (startDestination == null) {
-            final String dest = NavDestination.getDisplayName(mContext, startId);
+            final String dest = destination.getStartDestDisplayName();
             throw new IllegalArgumentException("navigation destination " + dest
                     + " is not a direct child of this NavGraph");
         }
-        if (navOptions != null && navOptions.shouldLaunchSingleTop()
-                && isAlreadyTop(destination)) {
-            dispatchOnNavigatorNavigated(destination.getId(), BACK_STACK_UNCHANGED);
-        } else {
+        if (navOptions == null || !(navOptions.shouldLaunchSingleTop()
+                && isAlreadyTop(destination))) {
             mBackStack.add(destination.getId());
-            dispatchOnNavigatorNavigated(destination.getId(), BACK_STACK_DESTINATION_ADDED);
         }
-        startDestination.navigate(args, navOptions, navigatorExtras);
+        Navigator<NavDestination> navigator = mNavigatorProvider.getNavigator(
+                startDestination.getNavigatorName());
+        return navigator.navigate(startDestination, startDestination.addInDefaultArgs(args),
+                navOptions, navigatorExtras);
     }
 
     /**
@@ -108,13 +108,7 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
 
     @Override
     public boolean popBackStack() {
-        if (mBackStack.isEmpty()) {
-            return false;
-        }
-        mBackStack.removeLast();
-        int destId = mBackStack.isEmpty() ? 0 : mBackStack.peekLast();
-        dispatchOnNavigatorNavigated(destId, BACK_STACK_DESTINATION_POPPED);
-        return true;
+        return mBackStack.pollLast() != null;
     }
 
     @Override

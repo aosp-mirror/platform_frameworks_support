@@ -31,6 +31,7 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ import androidx.viewpager2.CompositeOnPageChangeListener;
 import androidx.viewpager2.PageTransformerAdapter;
 import androidx.viewpager2.R;
 import androidx.viewpager2.ScrollEventAdapter;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.adapter.StatefulAdapter;
 
 import java.lang.annotation.Retention;
 
@@ -82,11 +83,12 @@ public class ViewPager2 extends ViewGroup {
     private CompositeOnPageChangeListener mExternalPageChangeListeners =
             new CompositeOnPageChangeListener(3);
 
+    int mCurrentItem;
     RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private ScrollEventAdapter mScrollEventAdapter;
     private PageTransformerAdapter mPageTransformerAdapter;
-    int mCurrentItem;
+    private CompositeOnPageChangeListener mPageChangeEventDispatcher;
 
     public ViewPager2(Context context) {
         super(context);
@@ -111,7 +113,19 @@ public class ViewPager2 extends ViewGroup {
     }
 
     private void initialize(Context context, AttributeSet attrs) {
-        mRecyclerView = new RecyclerView(context);
+        mRecyclerView = new RecyclerView(context) {
+            @Override
+            public CharSequence getAccessibilityClassName() {
+                return "androidx.viewpager.widget.ViewPager";
+            }
+
+            @Override
+            public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+                super.onInitializeAccessibilityEvent(event);
+                event.setFromIndex(mCurrentItem);
+                event.setToIndex(mCurrentItem);
+            }
+        };
         mRecyclerView.setId(ViewCompat.generateViewId());
 
         mLayoutManager = new LinearLayoutManager(context);
@@ -126,8 +140,8 @@ public class ViewPager2 extends ViewGroup {
         mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
         mRecyclerView.addOnScrollListener(mScrollEventAdapter);
 
-        CompositeOnPageChangeListener dispatcher = new CompositeOnPageChangeListener(3);
-        mScrollEventAdapter.setOnPageChangeListener(dispatcher);
+        mPageChangeEventDispatcher = new CompositeOnPageChangeListener(3);
+        mScrollEventAdapter.setOnPageChangeListener(mPageChangeEventDispatcher);
 
         // Listener that updates mCurrentItem after swipes. Also triggered in other cases, but in
         // all those cases mCurrentItem will only be overwritten with the same value.
@@ -148,13 +162,13 @@ public class ViewPager2 extends ViewGroup {
 
         // Add currentItemUpdater before mExternalPageChangeListeners, because we need to update
         // internal state first
-        dispatcher.addOnPageChangeListener(currentItemUpdater);
-        dispatcher.addOnPageChangeListener(mExternalPageChangeListeners);
+        mPageChangeEventDispatcher.addOnPageChangeListener(currentItemUpdater);
+        mPageChangeEventDispatcher.addOnPageChangeListener(mExternalPageChangeListeners);
 
         // Add mPageTransformerAdapter after mExternalPageChangeListeners, because page transform
         // events must be fired after scroll events
         mPageTransformerAdapter = new PageTransformerAdapter(mLayoutManager);
-        dispatcher.addOnPageChangeListener(mPageTransformerAdapter);
+        mPageChangeEventDispatcher.addOnPageChangeListener(mPageTransformerAdapter);
 
         attachViewToParent(mRecyclerView, 0, mRecyclerView.getLayoutParams());
     }
@@ -208,8 +222,8 @@ public class ViewPager2 extends ViewGroup {
                 mLayoutManager.findFirstCompletelyVisibleItemPosition() != mCurrentItem;
 
         Adapter adapter = mRecyclerView.getAdapter();
-        if (adapter instanceof FragmentStateAdapter) {
-            ss.mAdapterState = ((FragmentStateAdapter) adapter).saveState();
+        if (adapter instanceof StatefulAdapter) {
+            ss.mAdapterState = ((StatefulAdapter) adapter).saveState();
         }
 
         return ss;
@@ -227,18 +241,30 @@ public class ViewPager2 extends ViewGroup {
         setOrientation(ss.mOrientation);
         mCurrentItem = ss.mCurrentItem;
         if (ss.mScrollInProgress) {
+            // A scroll was in progress, so the RecyclerView is not at mCurrentItem right now. Move
+            // it to mCurrentItem instantly in the _next_ frame, as RecyclerView is not yet fired up
+            // at this moment. Remove the event dispatcher during this time, as it will fire a
+            // scroll event for the current position, which has already been fired before the config
+            // change.
+            final ScrollEventAdapter scrollEventAdapter = mScrollEventAdapter;
+            final OnPageChangeListener eventDispatcher = mPageChangeEventDispatcher;
+            scrollEventAdapter.setOnPageChangeListener(null);
             mRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
+                    scrollEventAdapter.setOnPageChangeListener(eventDispatcher);
+                    scrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
                     mRecyclerView.scrollToPosition(mCurrentItem);
                 }
             });
+        } else {
+            mScrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
         }
 
         if (ss.mAdapterState != null) {
             Adapter adapter = mRecyclerView.getAdapter();
-            if (adapter instanceof FragmentStateAdapter) {
-                ((FragmentStateAdapter) adapter).restoreState(ss.mAdapterState);
+            if (adapter instanceof StatefulAdapter) {
+                ((StatefulAdapter) adapter).restoreState(ss.mAdapterState);
             }
         }
     }
@@ -262,7 +288,7 @@ public class ViewPager2 extends ViewGroup {
         @Orientation int mOrientation;
         int mCurrentItem;
         boolean mScrollInProgress;
-        Parcelable[] mAdapterState;
+        Parcelable mAdapterState;
 
         @RequiresApi(24)
         SavedState(Parcel source, ClassLoader loader) {
@@ -284,7 +310,7 @@ public class ViewPager2 extends ViewGroup {
             mOrientation = source.readInt();
             mCurrentItem = source.readInt();
             mScrollInProgress = source.readByte() != 0;
-            mAdapterState = source.readParcelableArray(loader);
+            mAdapterState = source.readParcelable(loader);
         }
 
         @Override
@@ -294,7 +320,7 @@ public class ViewPager2 extends ViewGroup {
             out.writeInt(mOrientation);
             out.writeInt(mCurrentItem);
             out.writeByte((byte) (mScrollInProgress ? 1 : 0));
-            out.writeParcelableArray(mAdapterState, flags);
+            out.writeParcelable(mAdapterState, flags);
         }
 
         static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
@@ -318,8 +344,6 @@ public class ViewPager2 extends ViewGroup {
     }
 
     /**
-     * TODO(b/70663708): decide on an Adapter class. Here supporting subclasses of {@link Adapter}.
-     *
      * @see androidx.viewpager2.adapter.FragmentStateAdapter
      * @see RecyclerView#setAdapter(Adapter)
      */

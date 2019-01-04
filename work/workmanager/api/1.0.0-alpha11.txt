@@ -78,7 +78,6 @@ package androidx.work {
     method public long[]? getLongArray(String);
     method public String? getString(String);
     method public String[]? getStringArray(String);
-    method @VisibleForTesting public int size();
     field public static final androidx.work.Data! EMPTY;
     field public static final int MAX_DATA_BYTES = 10240; // 0x2800
   }
@@ -89,17 +88,17 @@ package androidx.work {
     method public androidx.work.Data.Builder putAll(androidx.work.Data);
     method public androidx.work.Data.Builder putAll(java.util.Map<java.lang.String,java.lang.Object>);
     method public androidx.work.Data.Builder putBoolean(String, boolean);
-    method public androidx.work.Data.Builder putBooleanArray(String, boolean[]!);
+    method public androidx.work.Data.Builder putBooleanArray(String, boolean[]);
     method public androidx.work.Data.Builder putDouble(String, double);
-    method public androidx.work.Data.Builder putDoubleArray(String, double[]!);
+    method public androidx.work.Data.Builder putDoubleArray(String, double[]);
     method public androidx.work.Data.Builder putFloat(String, float);
-    method public androidx.work.Data.Builder putFloatArray(String!, float[]!);
+    method public androidx.work.Data.Builder putFloatArray(String, float[]);
     method public androidx.work.Data.Builder putInt(String, int);
-    method public androidx.work.Data.Builder putIntArray(String, int[]!);
+    method public androidx.work.Data.Builder putIntArray(String, int[]);
     method public androidx.work.Data.Builder putLong(String, long);
-    method public androidx.work.Data.Builder putLongArray(String, long[]!);
-    method public androidx.work.Data.Builder putString(String, String!);
-    method public androidx.work.Data.Builder putStringArray(String, String[]!);
+    method public androidx.work.Data.Builder putLongArray(String, long[]);
+    method public androidx.work.Data.Builder putString(String, String?);
+    method public androidx.work.Data.Builder putStringArray(String, String[]);
   }
 
   public enum ExistingPeriodicWorkPolicy {
@@ -128,9 +127,8 @@ package androidx.work {
     method public final java.util.Set<java.lang.String> getTags();
     method @RequiresApi(24) public final java.util.List<java.lang.String>? getTriggeredContentAuthorities();
     method @RequiresApi(24) public final java.util.List<android.net.Uri>? getTriggeredContentUris();
-    method public final boolean isCancelled();
     method public final boolean isStopped();
-    method public void onStopped(boolean);
+    method public void onStopped();
     method @MainThread public abstract com.google.common.util.concurrent.ListenableFuture<androidx.work.ListenableWorker.Payload> startWork();
   }
 
@@ -167,6 +165,25 @@ package androidx.work {
     method public androidx.work.OneTimeWorkRequest.Builder setInputMerger(Class<? extends androidx.work.InputMerger>);
   }
 
+  public interface Operation {
+    method public com.google.common.util.concurrent.ListenableFuture<androidx.work.Operation.State.SUCCESS> getResult();
+    method public android.arch.lifecycle.LiveData<androidx.work.Operation.State> getState();
+  }
+
+  public abstract static class Operation.State {
+  }
+
+  public static final class Operation.State.FAILURE extends androidx.work.Operation.State {
+    ctor public Operation.State.FAILURE(Throwable);
+    method public Throwable getException();
+  }
+
+  public static final class Operation.State.IN_PROGRESS extends androidx.work.Operation.State {
+  }
+
+  public static final class Operation.State.SUCCESS extends androidx.work.Operation.State {
+  }
+
   public final class OverwritingInputMerger extends androidx.work.InputMerger {
     ctor public OverwritingInputMerger();
     method public androidx.work.Data merge(java.util.List<androidx.work.Data>);
@@ -184,54 +201,61 @@ package androidx.work {
     ctor @RequiresApi(26) public PeriodicWorkRequest.Builder(Class<? extends androidx.work.ListenableWorker>, java.time.Duration, java.time.Duration);
   }
 
-  public enum State {
-    method public boolean isFinished();
-    enum_constant public static final androidx.work.State BLOCKED;
-    enum_constant public static final androidx.work.State CANCELLED;
-    enum_constant public static final androidx.work.State ENQUEUED;
-    enum_constant public static final androidx.work.State FAILED;
-    enum_constant public static final androidx.work.State RUNNING;
-    enum_constant public static final androidx.work.State SUCCEEDED;
-  }
-
   public abstract class WorkContinuation {
     ctor public WorkContinuation();
     method public static androidx.work.WorkContinuation combine(androidx.work.WorkContinuation...);
     method public static androidx.work.WorkContinuation combine(java.util.List<androidx.work.WorkContinuation>);
     method public static androidx.work.WorkContinuation combine(androidx.work.OneTimeWorkRequest, androidx.work.WorkContinuation...);
     method public static androidx.work.WorkContinuation combine(androidx.work.OneTimeWorkRequest, java.util.List<androidx.work.WorkContinuation>);
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.lang.Void> enqueue();
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatuses();
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesLiveData();
-    method public final androidx.work.WorkContinuation then(androidx.work.OneTimeWorkRequest...);
+    method public abstract androidx.work.Operation enqueue();
+    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfos();
+    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosLiveData();
+    method public final androidx.work.WorkContinuation then(androidx.work.OneTimeWorkRequest);
     method public abstract androidx.work.WorkContinuation then(java.util.List<androidx.work.OneTimeWorkRequest>);
+  }
+
+  public final class WorkInfo {
+    method public java.util.UUID getId();
+    method public androidx.work.Data getOutputData();
+    method public androidx.work.WorkInfo.State getState();
+    method public java.util.Set<java.lang.String> getTags();
+  }
+
+  public static enum WorkInfo.State {
+    method public boolean isFinished();
+    enum_constant public static final androidx.work.WorkInfo.State BLOCKED;
+    enum_constant public static final androidx.work.WorkInfo.State CANCELLED;
+    enum_constant public static final androidx.work.WorkInfo.State ENQUEUED;
+    enum_constant public static final androidx.work.WorkInfo.State FAILED;
+    enum_constant public static final androidx.work.WorkInfo.State RUNNING;
+    enum_constant public static final androidx.work.WorkInfo.State SUCCEEDED;
   }
 
   public abstract class WorkManager {
     method public final androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
     method public abstract androidx.work.WorkContinuation beginUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
-    method public final androidx.work.WorkContinuation beginWith(androidx.work.OneTimeWorkRequest...);
+    method public final androidx.work.WorkContinuation beginWith(androidx.work.OneTimeWorkRequest);
     method public abstract androidx.work.WorkContinuation beginWith(java.util.List<androidx.work.OneTimeWorkRequest>);
-    method public void cancelAllWork();
-    method public void cancelAllWorkByTag(String);
-    method public void cancelUniqueWork(String);
-    method public void cancelWorkById(java.util.UUID);
-    method public final void enqueue(androidx.work.WorkRequest...);
-    method public void enqueue(java.util.List<? extends androidx.work.WorkRequest>);
-    method public void enqueueUniquePeriodicWork(String, androidx.work.ExistingPeriodicWorkPolicy, androidx.work.PeriodicWorkRequest);
-    method public void enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
-    method public void enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
+    method public abstract androidx.work.Operation cancelAllWork();
+    method public abstract androidx.work.Operation cancelAllWorkByTag(String);
+    method public abstract androidx.work.Operation cancelUniqueWork(String);
+    method public abstract androidx.work.Operation cancelWorkById(java.util.UUID);
+    method public final androidx.work.Operation enqueue(androidx.work.WorkRequest);
+    method public abstract androidx.work.Operation enqueue(java.util.List<? extends androidx.work.WorkRequest>);
+    method public abstract androidx.work.Operation enqueueUniquePeriodicWork(String, androidx.work.ExistingPeriodicWorkPolicy, androidx.work.PeriodicWorkRequest);
+    method public androidx.work.Operation enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest...);
+    method public abstract androidx.work.Operation enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
     method public static androidx.work.WorkManager getInstance();
     method public abstract com.google.common.util.concurrent.ListenableFuture<java.lang.Long> getLastCancelAllTimeMillis();
     method public abstract android.arch.lifecycle.LiveData<java.lang.Long> getLastCancelAllTimeMillisLiveData();
-    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.work.WorkStatus> getStatusById(java.util.UUID);
-    method public abstract android.arch.lifecycle.LiveData<androidx.work.WorkStatus> getStatusByIdLiveData(java.util.UUID);
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesByTag(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesByTagLiveData(String);
-    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWork(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkStatus>> getStatusesForUniqueWorkLiveData(String);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.work.WorkInfo> getWorkInfoById(java.util.UUID);
+    method public abstract android.arch.lifecycle.LiveData<androidx.work.WorkInfo> getWorkInfoByIdLiveData(java.util.UUID);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfosByTag(String);
+    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosByTagLiveData(String);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfosForUniqueWork(String);
+    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosForUniqueWorkLiveData(String);
     method public static void initialize(android.content.Context, androidx.work.Configuration);
-    method public void pruneWork();
+    method public abstract androidx.work.Operation pruneWork();
   }
 
   public abstract class WorkRequest {
@@ -249,13 +273,6 @@ package androidx.work {
     method public final B setBackoffCriteria(androidx.work.BackoffPolicy, long, java.util.concurrent.TimeUnit);
     method public final B setConstraints(androidx.work.Constraints);
     method public final B setInputData(androidx.work.Data);
-  }
-
-  public final class WorkStatus {
-    method public java.util.UUID getId();
-    method public androidx.work.Data getOutputData();
-    method public androidx.work.State getState();
-    method public java.util.Set<java.lang.String> getTags();
   }
 
   public abstract class Worker extends androidx.work.ListenableWorker {

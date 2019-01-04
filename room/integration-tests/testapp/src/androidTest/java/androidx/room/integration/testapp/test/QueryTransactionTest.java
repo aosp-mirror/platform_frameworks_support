@@ -42,8 +42,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.RoomWarnings;
 import androidx.room.Transaction;
 import androidx.room.paging.LimitOffsetDataSource;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -77,8 +78,7 @@ public class QueryTransactionTest {
     private TransactionDb mDb;
     private final boolean mUseTransactionDao;
     private Entity1Dao mDao;
-    private final LiveDataQueryTest.TestLifecycleOwner mLifecycleOwner = new LiveDataQueryTest
-            .TestLifecycleOwner();
+    private final TestLifecycleOwner mLifecycleOwner = new TestLifecycleOwner();
 
     @NonNull
     @Parameterized.Parameters(name = "useTransaction_{0}")
@@ -96,7 +96,7 @@ public class QueryTransactionTest {
                 () -> mLifecycleOwner.handleEvent(Lifecycle.Event.ON_START));
 
         resetTransactionCount();
-        mDb = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getTargetContext(),
+        mDb = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
                 TransactionDb.class).build();
         mDao = mUseTransactionDao ? mDb.transactionDao() : mDb.dao();
         drain();

@@ -39,7 +39,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * NavDestination represents one node within an overall navigation graph.
@@ -52,9 +54,9 @@ import java.util.HashMap;
  * on different destinations that fill similar roles allow application code to navigate based
  * on semantic intent.</p>
  *
- * <p>Each destination has a set of {@link #getDefaultArguments() default arguments} that will
+ * <p>Each destination has a set of {@link #getArguments() arguments} that will
  * be applied when {@link NavController#navigate(int, Bundle) navigating} to that destination.
- * These arguments can be overridden at the time of navigation.</p>
+ * Any default values for those arguments can be overridden at the time of navigation.</p>
  */
 public class NavDestination {
     /**
@@ -130,19 +132,44 @@ public class NavDestination {
         }
     }
 
-    private final Navigator mNavigator;
+    private final String mNavigatorName;
     private NavGraph mParent;
     private int mId;
+    private String mIdName;
     private CharSequence mLabel;
-    private Bundle mDefaultArgs;
     private ArrayList<NavDeepLink> mDeepLinks;
     private SparseArrayCompat<NavAction> mActions;
+    private HashMap<String, NavArgument> mArguments;
+
+    /**
+     * Get the arguments supported by this destination. Returns a read-only map of argument names
+     * to {@link NavArgument} objects that can be used to check the type, default value
+     * and nullability of the argument.
+     * <p>
+     * To add and remove arguments for this NavDestination
+     * use {@link #addArgument(String, NavArgument)} and {@link #removeArgument(String)}.
+     * @return Read-only map of argument names to arguments.
+     */
+    @NonNull
+    public final Map<String, NavArgument> getArguments() {
+        return mArguments == null ? Collections.<String, NavArgument>emptyMap()
+                : Collections.unmodifiableMap(mArguments);
+    }
+
+    /**
+     * NavDestinations should be created via {@link Navigator#createDestination}.
+     * <p>
+     * This constructor requires that the given Navigator has a {@link Navigator.Name} annotation.
+     */
+    public NavDestination(@NonNull Navigator<? extends NavDestination> navigator) {
+        this(NavigatorProvider.getNameForNavigator(navigator.getClass()));
+    }
 
     /**
      * NavDestinations should be created via {@link Navigator#createDestination}.
      */
-    public NavDestination(@NonNull Navigator<? extends NavDestination> navigator) {
-        mNavigator = navigator;
+    public NavDestination(@NonNull String navigatorName) {
+        mNavigatorName = navigatorName;
     }
 
     /**
@@ -156,11 +183,12 @@ public class NavDestination {
         final TypedArray a = context.getResources().obtainAttributes(attrs,
                 R.styleable.Navigator);
         setId(a.getResourceId(R.styleable.Navigator_android_id, 0));
+        mIdName = getDisplayName(context, mId);
         setLabel(a.getText(R.styleable.Navigator_android_label));
         a.recycle();
     }
 
-    void setParent(NavGraph parent) {
+    final void setParent(NavGraph parent) {
         mParent = parent;
     }
 
@@ -170,7 +198,7 @@ public class NavDestination {
      * @return
      */
     @Nullable
-    public NavGraph getParent() {
+    public final NavGraph getParent() {
         return mParent;
     }
 
@@ -181,7 +209,7 @@ public class NavDestination {
      * @return this destination's ID
      */
     @IdRes
-    public int getId() {
+    public final int getId() {
         return mId;
     }
 
@@ -191,8 +219,17 @@ public class NavDestination {
      *
      * @param id this destination's new ID
      */
-    public void setId(@IdRes int id) {
+    public final void setId(@IdRes int id) {
         mId = id;
+        mIdName = null;
+    }
+
+    @NonNull
+    String getDisplayName() {
+        if (mIdName == null) {
+            mIdName = Integer.toString(mId);
+        }
+        return mIdName;
     }
 
     /**
@@ -200,7 +237,7 @@ public class NavDestination {
      *
      * @param label A descriptive label of this destination.
      */
-    public void setLabel(@Nullable CharSequence label) {
+    public final void setLabel(@Nullable CharSequence label) {
         mLabel = label;
     }
 
@@ -208,54 +245,23 @@ public class NavDestination {
      * Gets the descriptive label of this destination.
      */
     @Nullable
-    public CharSequence getLabel() {
+    public final CharSequence getLabel() {
         return mLabel;
     }
 
     /**
-     * Returns the destination's {@link Navigator}.
+     * Returns the name associated with this destination's {@link Navigator}.
      *
-     * @return this destination's navigator
+     * @return the name associated with this destination's navigator
      */
     @NonNull
-    public Navigator getNavigator() {
-        return mNavigator;
-    }
-
-    /**
-     * Returns the destination's default arguments bundle.
-     *
-     * @return the default arguments bundle
-     */
-    public @NonNull Bundle getDefaultArguments() {
-        if (mDefaultArgs == null) {
-            mDefaultArgs = new Bundle();
-        }
-        return mDefaultArgs;
-    }
-
-    /**
-     * Sets the destination's default arguments bundle.
-     *
-     * @param args the new bundle to set
-     */
-    public void setDefaultArguments(@Nullable Bundle args) {
-        mDefaultArgs = args;
-    }
-
-    /**
-     * Merges a bundle of arguments into the current default arguments for this destination.
-     * New values with the same keys will replace old values with those keys.
-     *
-     * @param args arguments to add
-     */
-    public void addDefaultArguments(@NonNull Bundle args) {
-        getDefaultArguments().putAll(args);
+    public final String getNavigatorName() {
+        return mNavigatorName;
     }
 
     /**
      * Add a deep link to this destination. Matching Uris sent to
-     * {@link NavController#onHandleDeepLink(Intent)} will trigger navigating to this destination.
+     * {@link NavController#handleDeepLink(Intent)} will trigger navigating to this destination.
      * <p>
      * In addition to a direct Uri match, the following features are supported:
      * <ul>
@@ -278,9 +284,9 @@ public class NavDestination {
      * Programmatically added deep links should use {@link Context#getPackageName()} directly
      * when constructing the uriPattern.
      * @param uriPattern The uri pattern to add as a deep link
-     * @see NavController#onHandleDeepLink(Intent)
+     * @see NavController#handleDeepLink(Intent)
      */
-    public void addDeepLink(@NonNull String uriPattern) {
+    public final void addDeepLink(@NonNull String uriPattern) {
         if (mDeepLinks == null) {
             mDeepLinks = new ArrayList<>();
         }
@@ -332,6 +338,14 @@ public class NavDestination {
     }
 
     /**
+     * @return Whether this NavDestination supports outgoing actions
+     * @see #putAction(int, NavAction)
+     */
+    boolean supportsActions() {
+        return true;
+    }
+
+    /**
      * Returns the destination ID for a given action. This will recursively check the
      * {@link #getParent() parent} of this destination if the action destination is not found in
      * this destination.
@@ -340,7 +354,7 @@ public class NavDestination {
      * @return destination ID mapped to the given action id, or 0 if none
      */
     @Nullable
-    public NavAction getAction(@IdRes int id) {
+    public final NavAction getAction(@IdRes int id) {
         NavAction destination = mActions == null ? null : mActions.get(id);
         // Search the parent for the given action if it is not found in this destination
         return destination != null
@@ -354,7 +368,7 @@ public class NavDestination {
      * @param actionId action ID to bind
      * @param destId destination ID for the given action
      */
-    public void putAction(@IdRes int actionId, @IdRes int destId) {
+    public final void putAction(@IdRes int actionId, @IdRes int destId) {
         putAction(actionId, new NavAction(destId));
     }
 
@@ -364,7 +378,13 @@ public class NavDestination {
      * @param actionId action ID to bind
      * @param action action to associate with this action ID
      */
-    public void putAction(@IdRes int actionId, @NonNull NavAction action) {
+    public final void putAction(@IdRes int actionId, @NonNull NavAction action) {
+        if (!supportsActions()) {
+            throw new UnsupportedOperationException("Cannot add action " + actionId + " to "
+                    + this + " as it does not support actions, indicating that it is a "
+                    + "terminal destination in your navigation graph and will never trigger "
+                    + "actions.");
+        }
         if (actionId == 0) {
             throw new IllegalArgumentException("Cannot have an action with actionId 0");
         }
@@ -379,7 +399,7 @@ public class NavDestination {
      *
      * @param actionId action ID to remove
      */
-    public void removeAction(@IdRes int actionId) {
+    public final void removeAction(@IdRes int actionId) {
         if (mActions == null) {
             return;
         }
@@ -387,24 +407,58 @@ public class NavDestination {
     }
 
     /**
-     * Navigates to this destination.
+     * Sets an argument type for an argument name
      *
-     * <p>Uses the {@link #getNavigator() configured navigator} to navigate to this destination.
-     * Apps should not call this directly, instead use {@link NavController}'s navigation methods
-     * to ensure consistent back stack tracking and behavior.</p>
-     *  @param args arguments to the new destination
-     * @param navOptions options for navigation
-     * @param navigatorExtras extras to pass to the Navigator
+     * @param argumentName argument object to associate with destination
      */
-    @SuppressWarnings("unchecked")
-    public void navigate(@Nullable Bundle args, @Nullable NavOptions navOptions,
-            @Nullable Navigator.Extras navigatorExtras) {
-        Bundle defaultArgs = getDefaultArguments();
-        Bundle finalArgs = new Bundle();
-        finalArgs.putAll(defaultArgs);
-        if (args != null) {
-            finalArgs.putAll(args);
+    public final void addArgument(@NonNull String argumentName, @NonNull NavArgument argument) {
+        if (mArguments == null) {
+            mArguments = new HashMap<>();
         }
-        mNavigator.navigate(this, finalArgs, navOptions, navigatorExtras);
+        mArguments.put(argumentName, argument);
+    }
+
+    /**
+     * Unsets the argument type for an argument name.
+     *
+     * @param argumentName argument to remove
+     */
+    public final void removeArgument(@NonNull String argumentName) {
+        if (mArguments == null) {
+            return;
+        }
+        mArguments.remove(argumentName);
+    }
+
+    /**
+     * Combines the default arguments for this destination with the arguments provided
+     * to construct the final set of arguments that should be used to navigate
+     * to this destination.
+     */
+    @Nullable
+    Bundle addInDefaultArgs(@Nullable Bundle args) {
+        Bundle defaultArgs = new Bundle();
+        if (mArguments != null) {
+            for (Map.Entry<String, NavArgument> argument : mArguments.entrySet()) {
+                argument.getValue().putDefaultValue(argument.getKey(), defaultArgs);
+            }
+        }
+        if (args == null && defaultArgs.isEmpty()) {
+            return null;
+        }
+        if (args != null) {
+            defaultArgs.putAll(args);
+            if (mArguments != null) {
+                for (Map.Entry<String, NavArgument> argument : mArguments.entrySet()) {
+                    if (!argument.getValue().verify(argument.getKey(), args)) {
+                        throw new IllegalArgumentException(
+                                "Wrong argument type for '" + argument.getKey()
+                                        + "' in argument bundle. "
+                                        + argument.getValue().getType().getName() + " expected.");
+                    }
+                }
+            }
+        }
+        return defaultArgs;
     }
 }

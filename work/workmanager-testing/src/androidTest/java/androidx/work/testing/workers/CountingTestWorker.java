@@ -39,6 +39,6 @@ public class CountingTestWorker extends Worker {
     @Override
     public Result doWork() {
         COUNT.incrementAndGet();
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

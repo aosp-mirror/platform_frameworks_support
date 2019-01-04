@@ -21,13 +21,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.savedstate.SavedStateRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-class SavedStateAccessorHolder implements SavedState.Callback {
+class SavedStateAccessorHolder implements SavedStateRegistry.SavedStateProvider<Bundle> {
     private static final String VALUES = "values";
     private static final String KEYS = "keys";
 

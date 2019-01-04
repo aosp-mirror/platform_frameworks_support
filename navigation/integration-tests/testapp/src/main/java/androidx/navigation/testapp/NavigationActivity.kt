@@ -26,7 +26,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Toast
-import androidx.navigation.ActivityNavigator
+import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -46,7 +46,8 @@ class NavigationActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         toolbar.setupWithNavController(navController,
-            AppBarConfiguration(setOf(R.id.main, R.id.android), drawerLayout))
+            AppBarConfiguration(setOf(R.id.main, R.id.android), drawerLayout,
+                ::onSupportNavigateUp))
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         if (navigationView != null) {
@@ -59,7 +60,7 @@ class NavigationActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.help_activity -> {
                         navController.navigate(R.id.help_activity, null, null,
-                                ActivityNavigator.Extras(ActivityOptionsCompat
+                                ActivityNavigatorExtras(ActivityOptionsCompat
                                         .makeSceneTransitionAnimation(this,
                                                 toolbar, "toolbar")))
                         true
@@ -71,7 +72,7 @@ class NavigationActivity : AppCompatActivity() {
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavView?.setupWithNavController(navController)
 
-        navController.addOnNavigatedListener { _, destination ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             val dest: String = try {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {

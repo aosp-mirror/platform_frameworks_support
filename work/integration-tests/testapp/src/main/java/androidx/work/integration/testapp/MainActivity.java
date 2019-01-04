@@ -38,8 +38,8 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import androidx.work.WorkStatus;
 import androidx.work.integration.testapp.imageprocessing.ImageProcessingActivity;
 import androidx.work.integration.testapp.sherlockholmes.AnalyzeSherlockHolmesActivity;
 
@@ -148,6 +148,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.coroutine_sleep).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String delayString = delayInMs.getText().toString();
+                long delay = Long.parseLong(delayString);
+                Log.d(TAG, "Enqueuing job with delay of " + delay + " ms");
+
+                Data inputData = new Data.Builder()
+                        .put("sleep_time", delay)
+                        .build();
+                WorkManager.getInstance().enqueue(
+                        new OneTimeWorkRequest.Builder(CoroutineSleepWorker.class)
+                                .setInputData(inputData)
+                                .addTag("coroutine_sleep")
+                                .build());
+            }
+        });
+
+        findViewById(R.id.coroutine_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WorkManager.getInstance().cancelAllWorkByTag("coroutine_sleep");
+            }
+        });
+
         findViewById(R.id.enqueue_periodic_work).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,17 +245,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WorkManager workManager = WorkManager.getInstance();
-                workManager.getStatusesForUniqueWorkLiveData(REPLACE_COMPLETED_WORK)
-                        .observe(MainActivity.this, new Observer<List<WorkStatus>>() {
+                workManager.getWorkInfosForUniqueWorkLiveData(REPLACE_COMPLETED_WORK)
+                        .observe(MainActivity.this, new Observer<List<WorkInfo>>() {
                             private int mCount;
 
                             @Override
-                            public void onChanged(@Nullable List<WorkStatus> workStatuses) {
-                                if (workStatuses == null) {
+                            public void onChanged(@Nullable List<WorkInfo> workInfos) {
+                                if (workInfos == null) {
                                     return;
                                 }
-                                if (!workStatuses.isEmpty()) {
-                                    WorkStatus status = workStatuses.get(0);
+                                if (!workInfos.isEmpty()) {
+                                    WorkInfo status = workInfos.get(0);
                                     if (status.getState().isFinished()) {
                                         if (mCount < NUM_WORKERS) {
                                             // Enqueue another worker.

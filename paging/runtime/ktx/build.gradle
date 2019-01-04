@@ -37,9 +37,11 @@ dependencies {
     // Ensure that the -ktx dependency graph mirrors the Java dependency graph
     api(project(":paging:paging-common-ktx"))
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
-    androidTestImplementation("androidx.arch.core:core-testing:2.0.0")
+    androidTestImplementation(ARCH_CORE_TESTING)
 }
 
 supportLibrary {

@@ -16,14 +16,14 @@
 
 package androidx.activity
 
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.test.annotation.UiThreadTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Rule
 import org.junit.Test
@@ -201,7 +201,7 @@ class CountingOnBackPressedCallback(val returnValue: Boolean = true) :
 
 class OnBackPressedComponentActivity : ComponentActivity() {
     val activityCallbackLifecycleOwner: LifecycleOwner = mock(LifecycleOwner::class.java)
-    val lifecycleObserver: GenericLifecycleObserver = mock(GenericLifecycleObserver::class.java)
+    val lifecycleObserver: LifecycleEventObserver = mock(LifecycleEventObserver::class.java)
     val destroyCountDownLatch = CountDownLatch(1)
 
     init {

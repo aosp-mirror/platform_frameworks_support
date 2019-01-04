@@ -17,6 +17,7 @@
 package androidx.viewpager2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
 import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
@@ -36,6 +37,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeListener;
 
 import java.lang.annotation.Retention;
+import java.util.Locale;
 
 /**
  * Translates {@link RecyclerView.OnScrollListener} events to {@link OnPageChangeListener} events
@@ -130,9 +132,24 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             return;
         }
 
-        // Drag has settled (dragging && settling -> idle)
+        // Drag is finished (dragging || settling -> idle)
         if (mAdapterState == STATE_IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_IDLE) {
+            if (mScrollState == SCROLL_STATE_DRAGGING && mScrollValues.mOffsetPx == 0) {
+                // When going from dragging to idle, we skipped the settling phase.
+                // Depending on whether mOffsetPx is 0 or not, PagerSnapHelper will kick in or not.
+                // If it won't, do the necessary bookkeeping before going to idle.
+                if (!mScrollHappened) {
+                    dispatchScrolled(getPosition(), 0f, 0);
+                } else {
+                    // Don't dispatch settling event
+                    mDispatchSelected = true;
+                    mScrollHappened = false;
+                }
+            } else if (mScrollState == SCROLL_STATE_SETTLING && !mScrollHappened) {
+                throw new IllegalStateException("RecyclerView sent SCROLL_STATE_SETTLING event "
+                        + "without scrolling any further before going to SCROLL_STATE_IDLE");
+            }
             if (!mScrollHappened) {
                 // Special case if we were snapped at a page when going from dragging to settling
                 // Happens if there was no velocity or if it was the first or last page
@@ -164,7 +181,12 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (mDispatchSelected) {
             // Drag started settling, need to calculate target page and dispatch onPageSelected now
             mDispatchSelected = false;
-            mTarget = (dx + dy > 0) ? values.mPosition + 1 : values.mPosition;
+            boolean scrollingForward = dy > 0 || (dy == 0 && dx < 0 == isLayoutRTL());
+
+            // "&& values.mOffsetPx != 0": filters special case where we're scrolling forward and
+            // the first scroll event after settling already got us at the target
+            mTarget = scrollingForward && values.mOffsetPx != 0
+                    ? values.mPosition + 1 : values.mPosition;
             if (mDragStartPosition != mTarget) {
                 dispatchSelected(mTarget);
             }
@@ -204,17 +226,21 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         boolean isHorizontal = mLayoutManager.getOrientation() == ORIENTATION_HORIZONTAL;
         int start, sizePx;
         if (isHorizontal) {
-            start = firstVisibleView.getLeft();
             sizePx = firstVisibleView.getWidth();
+            if (!isLayoutRTL()) {
+                start = firstVisibleView.getLeft();
+            } else {
+                start = sizePx - firstVisibleView.getRight();
+            }
         } else {
-            start = firstVisibleView.getTop();
             sizePx = firstVisibleView.getHeight();
+            start = firstVisibleView.getTop();
         }
 
         values.mOffsetPx = -start;
         if (values.mOffsetPx < 0) {
-            throw new IllegalStateException(String.format("Page can only be offset by a positive "
-                    + "amount, not by %d", values.mOffsetPx));
+            throw new IllegalStateException(String.format(Locale.US, "Page can only be offset by a "
+                    + "positive amount, not by %d", values.mOffsetPx));
         }
         values.mOffset = sizePx == 0 ? 0 : (float) values.mOffsetPx / sizePx;
         return values;
@@ -233,6 +259,20 @@ public class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (hasNewTarget) {
             dispatchSelected(target);
         }
+    }
+
+    /**
+     * Let the adapter know that mCurrentItem was restored in onRestoreInstanceState
+     */
+    public void notifyRestoreCurrentItem(int currentItem) {
+        // Don't send page selected event for page 0 for consistency with ViewPager
+        if (currentItem != 0) {
+            dispatchSelected(currentItem);
+        }
+    }
+
+    private boolean isLayoutRTL() {
+        return mLayoutManager.getLayoutDirection() == LAYOUT_DIRECTION_RTL;
     }
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {

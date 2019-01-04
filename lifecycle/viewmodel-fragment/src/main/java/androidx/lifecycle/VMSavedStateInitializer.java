@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.savedstate.SavedStateRegistry;
 
 class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks {
 
@@ -49,7 +50,7 @@ class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks 
                 public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
                     // next event is going to be created....
                     if (!fragmentActivity.getViewModelStore().keys().isEmpty()) {
-                        attach(SavedStateRegistries.of(fragmentActivity), fragmentActivity);
+                        attach(fragmentActivity.getBundleSavedStateRegistry(), fragmentActivity);
                     }
                     source.getLifecycle().removeObserver(this);
                 }
@@ -89,14 +90,14 @@ class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks 
     }
 
     @SuppressWarnings("WeakerAccess")
-    static void attach(SavedStateRegistry savedStateStore, ViewModelStoreOwner store) {
+    static void attach(SavedStateRegistry<Bundle> savedStateStore, ViewModelStoreOwner store) {
         ViewModelStore viewModelStore = store.getViewModelStore();
         for (String key : viewModelStore.keys()) {
             ViewModel viewModel = viewModelStore.get(key);
             SavedStateHandle handle = viewModel
                     .getTag(SavedStateVMFactory.TAG_SAVED_STATE_HANDLE);
             if (handle != null) {
-                savedStateStore.registerSaveStateCallback(key, handle.savedStateComponent());
+                savedStateStore.registerSavedStateProvider(key, handle.savedStateComponent());
             }
         }
     }
@@ -106,7 +107,7 @@ class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks 
         public void onFragmentAttached(@NonNull FragmentManager fm,
                 @NonNull Fragment fragment, @NonNull Context context) {
             if (!fragment.getViewModelStore().keys().isEmpty()) {
-                attach(SavedStateRegistries.of(fragment), fragment);
+                attach(fragment.getBundleSavedStateRegistry(), fragment);
             }
         }
     }

@@ -17,6 +17,7 @@
 package androidx.work.impl.background.systemalarm;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
@@ -32,7 +33,7 @@ import androidx.work.impl.utils.PackageManagerHelper;
  * The {@link BroadcastReceiver} responsible for updating constraint proxies.
  */
 public class ConstraintProxyUpdateReceiver extends BroadcastReceiver {
-    private static final String TAG = "ConstrntProxyUpdtRecvr";
+    private static final String TAG = Logger.tagWithPrefix("ConstrntProxyUpdtRecvr");
 
     static final String ACTION = "androidx.work.impl.background.systemalarm.UpdateProxies";
 
@@ -54,12 +55,17 @@ public class ConstraintProxyUpdateReceiver extends BroadcastReceiver {
      * enabled.
      */
     public static Intent newConstraintProxyUpdateIntent(
+            Context context,
             boolean batteryNotLowProxyEnabled,
             boolean batteryChargingProxyEnabled,
             boolean storageNotLowProxyEnabled,
             boolean networkStateProxyEnabled) {
 
         Intent intent = new Intent(ACTION);
+        // Specify the component name as this is a targeted broadcast to
+        // ConstraintProxyUpdateReceiver
+        ComponentName name = new ComponentName(context, ConstraintProxyUpdateReceiver.class);
+        intent.setComponent(name);
         intent.putExtra(KEY_BATTERY_NOT_LOW_PROXY_ENABLED, batteryNotLowProxyEnabled)
                 .putExtra(KEY_BATTERY_CHARGING_PROXY_ENABLED, batteryChargingProxyEnabled)
                 .putExtra(KEY_STORAGE_NOT_LOW_PROXY_ENABLED, storageNotLowProxyEnabled)
@@ -72,7 +78,7 @@ public class ConstraintProxyUpdateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent != null ? intent.getAction() : null;
         if (!ACTION.equals(action)) {
-            Logger.debug(TAG, String.format("Ignoring unknown action %s", action));
+            Logger.get().debug(TAG, String.format("Ignoring unknown action %s", action));
         } else {
             boolean batteryNotLowProxyEnabled = intent.getBooleanExtra(
                     KEY_BATTERY_NOT_LOW_PROXY_ENABLED, false);
@@ -83,12 +89,16 @@ public class ConstraintProxyUpdateReceiver extends BroadcastReceiver {
             boolean networkStateProxyEnabled = intent.getBooleanExtra(
                     KEY_NETWORK_STATE_PROXY_ENABLED, false);
 
-            Logger.debug(TAG, String.format("Updating proxies: BatteryNotLowProxy enabled (%s), "
-                            + "BatteryChargingProxy enabled (%s), "
-                            + "StorageNotLowProxy (%s), "
-                            + "NetworkStateProxy enabled (%s)", batteryNotLowProxyEnabled,
-                    batteryChargingProxyEnabled, storageNotLowProxyEnabled,
-                    networkStateProxyEnabled));
+            Logger.get().debug(
+                    TAG,
+                    String.format("Updating proxies: BatteryNotLowProxy enabled (%s), "
+                                    + "BatteryChargingProxy enabled (%s), "
+                                    + "StorageNotLowProxy (%s), "
+                                    + "NetworkStateProxy enabled (%s)",
+                            batteryNotLowProxyEnabled,
+                            batteryChargingProxyEnabled,
+                            storageNotLowProxyEnabled,
+                            networkStateProxyEnabled));
 
             PackageManagerHelper.setComponentEnabled(context, BatteryNotLowProxy.class,
                     batteryNotLowProxyEnabled);

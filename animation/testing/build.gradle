@@ -26,13 +26,14 @@ dependencies {
     implementation(project(":annotation"))
     implementation(project(":core"))
     implementation(project(":animation"))
-    implementation(TEST_RUNNER)
+    implementation(TEST_EXT_JUNIT)
+    implementation(TEST_CORE)
 }
 
 supportLibrary {
     name = "Android Support Animation Testing"
     publish = false
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.ANIMATION_TESTING
     mavenGroup = LibraryGroups.ANIMATION
     inceptionYear = "2018"
     description = "This library provides functionalities for testing animations for API 14 and above."

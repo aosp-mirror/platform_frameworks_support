@@ -17,13 +17,17 @@
 package androidx.mediarouter.app;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -36,9 +40,13 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The media route button allows the user to select routes and to control the
@@ -83,6 +91,8 @@ public class MediaRouteButton extends View {
             "android.support.v7.mediarouter:MediaRouteChooserDialogFragment";
     private static final String CONTROLLER_FRAGMENT_TAG =
             "android.support.v7.mediarouter:MediaRouteControllerDialogFragment";
+    // Used to check connectivity and hide the button
+    private static ConnectivityReceiver sConnectivityReceiver;
 
     private final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
@@ -92,6 +102,8 @@ public class MediaRouteButton extends View {
 
     private boolean mAttachedToWindow;
 
+    private int mVisibility = VISIBLE;
+
     static final SparseArray<Drawable.ConstantState> sRemoteIndicatorCache =
             new SparseArray<>(2);
     RemoteIndicatorLoader mRemoteIndicatorLoader;
@@ -100,17 +112,19 @@ public class MediaRouteButton extends View {
     private int mRemoteIndicatorResIdToLoad;
 
     private static final int CONNECTION_STATE_DISCONNECTED =
-            MediaRouter.RouteGroup.CONNECTION_STATE_DISCONNECTED;
+            MediaRouter.RouteInfo.CONNECTION_STATE_DISCONNECTED;
     private static final int CONNECTION_STATE_CONNECTING =
-            MediaRouter.RouteGroup.CONNECTION_STATE_CONNECTING;
+            MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING;
     private static final int CONNECTION_STATE_CONNECTED =
-            MediaRouter.RouteGroup.CONNECTION_STATE_CONNECTED;
+            MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTED;
 
     private int mConnectionState;
 
     private ColorStateList mButtonTint;
     private int mMinWidth;
     private int mMinHeight;
+
+    private boolean mUseDynamicGroup;
 
     // The checked state is used when connected to a remote route.
     private static final int[] CHECKED_STATE_SET = {
@@ -136,6 +150,10 @@ public class MediaRouteButton extends View {
 
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback();
+
+        if (sConnectivityReceiver == null) {
+            sConnectivityReceiver = new ConnectivityReceiver(context.getApplicationContext());
+        }
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MediaRouteButton, defStyleAttr, 0);
@@ -235,6 +253,13 @@ public class MediaRouteButton extends View {
     }
 
     /**
+     * Enables dynamic group feature.
+     */
+    public void enableDynamicGroup() {
+        mUseDynamicGroup = true;
+    }
+
+    /**
      * Show the route chooser or controller dialog.
      * <p>
      * If the default route is selected or if the currently selected route does
@@ -271,7 +296,11 @@ public class MediaRouteButton extends View {
             MediaRouteChooserDialogFragment f =
                     mDialogFactory.onCreateChooserDialogFragment();
             f.setRouteSelector(mSelector);
-            f.show(fm, CHOOSER_FRAGMENT_TAG);
+            f.setUseDynamicGroup(mUseDynamicGroup);
+
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.add(f, CHOOSER_FRAGMENT_TAG);
+            transaction.commitAllowingStateLoss();
         } else {
             if (fm.findFragmentByTag(CONTROLLER_FRAGMENT_TAG) != null) {
                 Log.w(TAG, "showDialog(): Route controller dialog already showing!");
@@ -280,7 +309,11 @@ public class MediaRouteButton extends View {
             MediaRouteControllerDialogFragment f =
                     mDialogFactory.onCreateControllerDialogFragment();
             f.setRouteSelector(mSelector);
-            f.show(fm, CONTROLLER_FRAGMENT_TAG);
+            f.setUseDynamicGroup(mUseDynamicGroup);
+
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.add(f, CONTROLLER_FRAGMENT_TAG);
+            transaction.commitAllowingStateLoss();
         }
         return true;
     }
@@ -385,11 +418,8 @@ public class MediaRouteButton extends View {
 
     @Override
     public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-
-        if (mRemoteIndicator != null) {
-            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
-        }
+        mVisibility = visibility;
+        refreshVisibility();
     }
 
     @Override
@@ -401,6 +431,8 @@ public class MediaRouteButton extends View {
             mRouter.addCallback(mSelector, mCallback);
         }
         refreshRoute();
+
+        sConnectivityReceiver.registerReceiver(this);
     }
 
     @Override
@@ -409,6 +441,8 @@ public class MediaRouteButton extends View {
         if (!mSelector.isEmpty()) {
             mRouter.removeCallback(mCallback);
         }
+
+        sConnectivityReceiver.unregisterReceiver(this);
 
         super.onDetachedFromWindow();
     }
@@ -522,6 +556,14 @@ public class MediaRouteButton extends View {
                 }
                 curDrawable.selectDrawable(curDrawable.getNumberOfFrames() - 1);
             }
+        }
+    }
+
+    void refreshVisibility() {
+        super.setVisibility(mVisibility == VISIBLE && !sConnectivityReceiver.isConnected()
+                ? INVISIBLE : mVisibility);
+        if (mRemoteIndicator != null) {
+            mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
         }
     }
 
@@ -673,6 +715,54 @@ public class MediaRouteButton extends View {
                 sRemoteIndicatorCache.put(mResId, remoteIndicator.getConstantState());
             }
             mRemoteIndicatorLoader = null;
+        }
+    }
+
+    private static final class ConnectivityReceiver extends BroadcastReceiver {
+        private final Context mContext;
+        // If we have no information, assume that the device is connected
+        private boolean mIsConnected = true;
+        private List<MediaRouteButton> mButtons;
+
+        ConnectivityReceiver(Context context) {
+            mContext = context;
+            mButtons = new ArrayList<MediaRouteButton>();
+        }
+
+        public void registerReceiver(MediaRouteButton button) {
+            if (mButtons.size() == 0) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                mContext.registerReceiver(this, intentFilter);
+            }
+            mButtons.add(button);
+        }
+
+        public void unregisterReceiver(MediaRouteButton button) {
+            mButtons.remove(button);
+
+            if (mButtons.size() == 0) {
+                mContext.unregisterReceiver(this);
+            }
+        }
+
+        public boolean isConnected() {
+            return mIsConnected;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+                boolean isConnected = !intent.getBooleanExtra(
+                        ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                if (mIsConnected != isConnected) {
+                    mIsConnected = isConnected;
+                    for (MediaRouteButton button: mButtons) {
+                        button.refreshVisibility();
+                    }
+                }
+            }
         }
     }
 }

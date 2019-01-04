@@ -16,7 +16,6 @@
 
 package androidx.work.impl;
 
-import android.annotation.TargetApi;
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.content.BroadcastReceiver;
@@ -31,12 +30,13 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.Operation;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.R;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
-import androidx.work.WorkStatus;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.background.greedy.GreedyScheduler;
 import androidx.work.impl.background.systemjob.SystemJobScheduler;
@@ -81,6 +81,8 @@ public class WorkManagerImpl extends WorkManager {
     private Preferences mPreferences;
     private boolean mForceStopRunnableCompleted;
     private BroadcastReceiver.PendingResult mRescheduleReceiverResult;
+    // TODO remove after moving to X: b/74477406
+    private final WorkManagerLiveDataTracker mLiveDataTracker = new WorkManagerLiveDataTracker();
 
     private static WorkManagerImpl sDelegatedInstance = null;
     private static WorkManagerImpl sDefaultInstance = null;
@@ -117,7 +119,9 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
-     * Initializes the singleton instance of {@link WorkManagerImpl}.
+     * Initializes the singleton instance of {@link WorkManagerImpl}.  You should only do this if
+     * you want to use a custom {@link Configuration} object and have disabled
+     * WorkManagerInitializer.
      *
      * @param context A {@link Context} object for configuration purposes. Internally, this class
      *                will call {@link Context#getApplicationContext()}, so you may safely pass in
@@ -129,6 +133,14 @@ public class WorkManagerImpl extends WorkManager {
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static void initialize(@NonNull Context context, @NonNull Configuration configuration) {
         synchronized (sLock) {
+            if (sDelegatedInstance != null && sDefaultInstance != null) {
+                throw new IllegalStateException("WorkManager is already initialized.  Did you "
+                        + "try to initialize it manually without disabling "
+                        + "WorkManagerInitializer? See "
+                        + "WorkManager#initialize(Context, Configuration) or the class level"
+                        + "Javadoc for more information.");
+            }
+
             if (sDelegatedInstance == null) {
                 context = context.getApplicationContext();
                 if (sDefaultInstance == null) {
@@ -181,7 +193,8 @@ public class WorkManagerImpl extends WorkManager {
 
         Context applicationContext = context.getApplicationContext();
         WorkDatabase database = WorkDatabase.create(applicationContext, useTestDatabase);
-        List<Scheduler> schedulers = createSchedulers(applicationContext, this);
+        Logger.setLogger(new Logger.LogcatLogger(configuration.getMinimumLoggingLevel()));
+        List<Scheduler> schedulers = createSchedulers(applicationContext);
         Processor processor = new Processor(
                 context,
                 configuration,
@@ -280,10 +293,10 @@ public class WorkManagerImpl extends WorkManager {
 
     @Override
     @NonNull
-    public ListenableFuture<Void> enqueueInternal(
+    public Operation enqueue(
             @NonNull List<? extends WorkRequest> workRequests) {
 
-        // This error is not being propagated as part of the ListenableFuture, as we want the
+        // This error is not being propagated as part of the Operation, as we want the
         // app to crash during development. Having no workRequests is always a developer error.
         if (workRequests.isEmpty()) {
             throw new IllegalArgumentException(
@@ -315,7 +328,7 @@ public class WorkManagerImpl extends WorkManager {
 
     @NonNull
     @Override
-    public ListenableFuture<Void> enqueueUniqueWorkInternal(@NonNull String uniqueWorkName,
+    public Operation enqueueUniqueWork(@NonNull String uniqueWorkName,
             @NonNull ExistingWorkPolicy existingWorkPolicy,
             @NonNull List<OneTimeWorkRequest> work) {
         return new WorkContinuationImpl(this, uniqueWorkName, existingWorkPolicy, work).enqueue();
@@ -323,7 +336,7 @@ public class WorkManagerImpl extends WorkManager {
 
     @Override
     @NonNull
-    public ListenableFuture<Void> enqueueUniquePeriodicWorkInternal(
+    public Operation enqueueUniquePeriodicWork(
             @NonNull String uniqueWorkName,
             @NonNull ExistingPeriodicWorkPolicy existingPeriodicWorkPolicy,
             @NonNull PeriodicWorkRequest periodicWork) {
@@ -353,32 +366,32 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     @Override
-    public @NonNull ListenableFuture<Void> cancelWorkByIdInternal(@NonNull UUID id) {
+    public @NonNull Operation cancelWorkById(@NonNull UUID id) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forId(id, this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return runnable.getOperation();
     }
 
     @Override
-    public @NonNull ListenableFuture<Void> cancelAllWorkByTagInternal(@NonNull final String tag) {
+    public @NonNull Operation cancelAllWorkByTag(@NonNull final String tag) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forTag(tag, this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return runnable.getOperation();
     }
 
     @Override
     @NonNull
-    public ListenableFuture<Void> cancelUniqueWorkInternal(@NonNull String uniqueWorkName) {
+    public Operation cancelUniqueWork(@NonNull String uniqueWorkName) {
         CancelWorkRunnable runnable = CancelWorkRunnable.forName(uniqueWorkName, this, true);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return runnable.getOperation();
     }
 
     @Override
-    public @NonNull ListenableFuture<Void> cancelAllWorkInternal() {
+    public @NonNull Operation cancelAllWork() {
         CancelWorkRunnable runnable = CancelWorkRunnable.forAll(this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return runnable.getOperation();
     }
 
     @Override
@@ -405,85 +418,89 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     @Override
-    public @NonNull ListenableFuture<Void> pruneWorkInternal() {
+    public @NonNull Operation pruneWork() {
         PruneWorkRunnable runnable = new PruneWorkRunnable(this);
         mWorkTaskExecutor.executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return runnable.getOperation();
     }
 
     @Override
-    public @NonNull LiveData<WorkStatus> getStatusByIdLiveData(@NonNull UUID id) {
+    public @NonNull LiveData<WorkInfo> getWorkInfoByIdLiveData(@NonNull UUID id) {
         WorkSpecDao dao = mWorkDatabase.workSpecDao();
-        LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
+        LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
                 dao.getWorkStatusPojoLiveDataForIds(Collections.singletonList(id.toString()));
-        return LiveDataUtils.dedupedMappedLiveDataFor(inputLiveData,
-                new Function<List<WorkSpec.WorkStatusPojo>, WorkStatus>() {
+        LiveData<WorkInfo> deduped = LiveDataUtils.dedupedMappedLiveDataFor(inputLiveData,
+                new Function<List<WorkSpec.WorkInfoPojo>, WorkInfo>() {
                     @Override
-                    public WorkStatus apply(List<WorkSpec.WorkStatusPojo> input) {
-                        WorkStatus workStatus = null;
+                    public WorkInfo apply(List<WorkSpec.WorkInfoPojo> input) {
+                        WorkInfo workInfo = null;
                         if (input != null && input.size() > 0) {
-                            workStatus = input.get(0).toWorkStatus();
+                            workInfo = input.get(0).toWorkInfo();
                         }
-                        return workStatus;
+                        return workInfo;
                     }
                 },
                 mWorkTaskExecutor);
+        return mLiveDataTracker.track(deduped);
     }
 
     @Override
-    public @NonNull ListenableFuture<WorkStatus> getStatusById(@NonNull UUID id) {
-        StatusRunnable<WorkStatus> runnable = StatusRunnable.forUUID(this, id);
+    public @NonNull ListenableFuture<WorkInfo> getWorkInfoById(@NonNull UUID id) {
+        StatusRunnable<WorkInfo> runnable = StatusRunnable.forUUID(this, id);
         mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
     @Override
-    public @NonNull LiveData<List<WorkStatus>> getStatusesByTagLiveData(@NonNull String tag) {
+    public @NonNull LiveData<List<WorkInfo>> getWorkInfosByTagLiveData(@NonNull String tag) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
-        LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
+        LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
                 workSpecDao.getWorkStatusPojoLiveDataForTag(tag);
-        return LiveDataUtils.dedupedMappedLiveDataFor(
+        LiveData<List<WorkInfo>> deduped = LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
-                WorkSpec.WORK_STATUS_MAPPER,
+                WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
+        return mLiveDataTracker.track(deduped);
     }
 
     @Override
-    public @NonNull ListenableFuture<List<WorkStatus>> getStatusesByTag(@NonNull String tag) {
-        StatusRunnable<List<WorkStatus>> runnable = StatusRunnable.forTag(this, tag);
+    public @NonNull ListenableFuture<List<WorkInfo>> getWorkInfosByTag(@NonNull String tag) {
+        StatusRunnable<List<WorkInfo>> runnable = StatusRunnable.forTag(this, tag);
         mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
     @Override
-    public @NonNull LiveData<List<WorkStatus>> getStatusesForUniqueWorkLiveData(
-            @NonNull String name) {
+    @NonNull
+    public LiveData<List<WorkInfo>> getWorkInfosForUniqueWorkLiveData(@NonNull String name) {
         WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
-        LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
+        LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
                 workSpecDao.getWorkStatusPojoLiveDataForName(name);
-        return LiveDataUtils.dedupedMappedLiveDataFor(
+        LiveData<List<WorkInfo>> deduped = LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
-                WorkSpec.WORK_STATUS_MAPPER,
+                WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
+        return mLiveDataTracker.track(deduped);
     }
 
     @Override
-    public @NonNull ListenableFuture<List<WorkStatus>> getStatusesForUniqueWork(
-            @NonNull String name) {
-        StatusRunnable<List<WorkStatus>> runnable =
+    @NonNull
+    public ListenableFuture<List<WorkInfo>> getWorkInfosForUniqueWork(@NonNull String name) {
+        StatusRunnable<List<WorkInfo>> runnable =
                 StatusRunnable.forUniqueWork(this, name);
         mWorkTaskExecutor.getBackgroundExecutor().execute(runnable);
         return runnable.getFuture();
     }
 
-    LiveData<List<WorkStatus>> getStatusesById(@NonNull List<String> workSpecIds) {
+    LiveData<List<WorkInfo>> getWorkInfosById(@NonNull List<String> workSpecIds) {
         WorkSpecDao dao = mWorkDatabase.workSpecDao();
-        LiveData<List<WorkSpec.WorkStatusPojo>> inputLiveData =
+        LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
                 dao.getWorkStatusPojoLiveDataForIds(workSpecIds);
-        return LiveDataUtils.dedupedMappedLiveDataFor(
+        LiveData<List<WorkInfo>> deduped = LiveDataUtils.dedupedMappedLiveDataFor(
                 inputLiveData,
-                WorkSpec.WORK_STATUS_MAPPER,
+                WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
+        return mLiveDataTracker.track(deduped);
     }
 
     /**
@@ -522,8 +539,6 @@ public class WorkManagerImpl extends WorkManager {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    @TargetApi(23) // https://issuetracker.google.com/issues/110576968
     public void rescheduleEligibleWork() {
         // TODO (rahulrav@) Make every scheduler do its own cancelAll().
         if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
@@ -579,10 +594,10 @@ public class WorkManagerImpl extends WorkManager {
      * Initializes an instance of {@link WorkManagerImpl}.
      *
      * @param context The application {@link Context}
-     * @param configuration The {@link Configuration} configuration.
-     * @param workDatabase The {@link WorkDatabase} instance.
-     * @param schedulers The {@link List} of {@link Scheduler}s to use.
-     * @param processor The {@link Processor} instance.
+     * @param configuration The {@link Configuration} configuration
+     * @param workDatabase The {@link WorkDatabase} instance
+     * @param schedulers The {@link List} of {@link Scheduler}s to use
+     * @param processor The {@link Processor} instance
      */
     private void internalInit(@NonNull Context context,
             @NonNull Configuration configuration,
@@ -601,15 +616,17 @@ public class WorkManagerImpl extends WorkManager {
         mPreferences = new Preferences(mContext);
         mForceStopRunnableCompleted = false;
 
-        Logger.setMinimumLoggingLevel(mConfiguration.getMinimumLoggingLevel());
-
         // Checks for app force stops.
         mWorkTaskExecutor.executeOnBackgroundThread(new ForceStopRunnable(context, this));
     }
 
-    private static List<Scheduler> createSchedulers(Context context, WorkManagerImpl workManager) {
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull List<Scheduler> createSchedulers(Context context) {
         return Arrays.asList(
-                Schedulers.createBestAvailableBackgroundScheduler(context, workManager),
-                new GreedyScheduler(context, workManager));
+                Schedulers.createBestAvailableBackgroundScheduler(context, this),
+                new GreedyScheduler(context, this));
     }
 }

@@ -21,6 +21,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
 import static androidx.core.view.ViewCompat.TYPE_TOUCH;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -401,7 +402,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 // if we are not attached yet, mark us as requiring layout and skip
                 return;
             }
-            if (mLayoutFrozen) {
+            if (mLayoutSuppressed) {
                 mLayoutWasDefered = true;
                 return; //we'll process updates when ice age ends.
             }
@@ -439,7 +440,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      */
     boolean mLayoutWasDefered;
 
-    boolean mLayoutFrozen;
+    boolean mLayoutSuppressed;
     private boolean mIgnoreMotionEventTillDown;
 
     // binary OR of change events that were eaten during a layout or scroll.
@@ -1730,7 +1731,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * @see RecyclerView.LayoutManager#scrollToPosition(int)
      */
     public void scrollToPosition(int position) {
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return;
         }
         stopScroll();
@@ -1747,6 +1748,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         if (mLayout == null) {
             return;
         }
+
+        // If we are jumping to a position, we are in fact scrolling the contents of the RV, so
+        // we should be sure that we are in the settling state.
+        setScrollState(SCROLL_STATE_SETTLING);
         mLayout.scrollToPosition(position);
         awakenScrollBars();
     }
@@ -1767,7 +1772,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * @see LayoutManager#smoothScrollToPosition(RecyclerView, State, int)
      */
     public void smoothScrollToPosition(int position) {
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return;
         }
         if (mLayout == null) {
@@ -1791,7 +1796,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     + "Call setLayoutManager with a non-null argument.");
             return;
         }
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return;
         }
         final boolean canScrollHorizontal = mLayout.canScrollHorizontally();
@@ -2125,7 +2130,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      */
     void startInterceptRequestLayout() {
         mInterceptRequestLayoutDepth++;
-        if (mInterceptRequestLayoutDepth == 1 && !mLayoutFrozen) {
+        if (mInterceptRequestLayoutDepth == 1 && !mLayoutSuppressed) {
             mLayoutWasDefered = false;
         }
     }
@@ -2150,7 +2155,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             }
             mInterceptRequestLayoutDepth = 1;
         }
-        if (!performLayoutChildren && !mLayoutFrozen) {
+        if (!performLayoutChildren && !mLayoutSuppressed) {
             // Reset the layout request eaten counter.
             // This is necessary since eatRequest calls can be nested in which case the other
             // call will override the inner one.
@@ -2163,15 +2168,71 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         }
         if (mInterceptRequestLayoutDepth == 1) {
             // when layout is frozen we should delay dispatchLayout()
-            if (performLayoutChildren && mLayoutWasDefered && !mLayoutFrozen
+            if (performLayoutChildren && mLayoutWasDefered && !mLayoutSuppressed
                     && mLayout != null && mAdapter != null) {
                 dispatchLayout();
             }
-            if (!mLayoutFrozen) {
+            if (!mLayoutSuppressed) {
                 mLayoutWasDefered = false;
             }
         }
         mInterceptRequestLayoutDepth--;
+    }
+
+    /**
+     * Tells this RecyclerView to suppress all layout and scroll calls until layout
+     * suppression is disabled with a later call to suppressLayout(false).
+     * When layout suppression is disabled, a requestLayout() call is sent
+     * if requestLayout() was attempted while layout was being suppressed.
+     * <p>
+     * In addition to the layout suppression {@link #smoothScrollBy(int, int)},
+     * {@link #scrollBy(int, int)}, {@link #scrollToPosition(int)} and
+     * {@link #smoothScrollToPosition(int)} are dropped; TouchEvents and GenericMotionEvents are
+     * dropped; {@link LayoutManager#onFocusSearchFailed(View, int, Recycler, State)} will not be
+     * called.
+     *
+     * <p>
+     * <code>suppressLayout(true)</code> does not prevent app from directly calling {@link
+     * LayoutManager#scrollToPosition(int)}, {@link LayoutManager#smoothScrollToPosition(
+     * RecyclerView, State, int)}.
+     * <p>
+     * {@link #setAdapter(Adapter)} and {@link #swapAdapter(Adapter, boolean)} will automatically
+     * stop suppressing.
+     * <p>
+     * Note: Running ItemAnimator is not stopped automatically,  it's caller's
+     * responsibility to call ItemAnimator.end().
+     *
+     * @param suppress true to suppress layout and scroll, false to re-enable.
+     */
+    public final void suppressLayout(boolean suppress) {
+        if (suppress != mLayoutSuppressed) {
+            assertNotInLayoutOrScroll("Do not suppressLayout in layout or scroll");
+            if (!suppress) {
+                mLayoutSuppressed = false;
+                if (mLayoutWasDefered && mLayout != null && mAdapter != null) {
+                    requestLayout();
+                }
+                mLayoutWasDefered = false;
+            } else {
+                final long now = SystemClock.uptimeMillis();
+                MotionEvent cancelEvent = MotionEvent.obtain(now, now,
+                        MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+                onTouchEvent(cancelEvent);
+                mLayoutSuppressed = true;
+                mIgnoreMotionEventTillDown = true;
+                stopScroll();
+            }
+        }
+    }
+
+    /**
+     * Returns whether layout and scroll calls on this container are currently being
+     * suppressed, due to an earlier call to {@link #suppressLayout(boolean)}.
+     *
+     * @return true if layout and scroll are currently suppressed, false otherwise.
+     */
+    public final boolean isLayoutSuppressed() {
+        return mLayoutSuppressed;
     }
 
     /**
@@ -2195,64 +2256,37 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * responsibility to call ItemAnimator.end().
      *
      * @param frozen   true to freeze layout and scroll, false to re-enable.
+     *
+     * @deprecated Use {@link #suppressLayout(boolean)}.
      */
+    @Deprecated
     public void setLayoutFrozen(boolean frozen) {
-        if (frozen != mLayoutFrozen) {
-            assertNotInLayoutOrScroll("Do not setLayoutFrozen in layout or scroll");
-            if (!frozen) {
-                mLayoutFrozen = false;
-                if (mLayoutWasDefered && mLayout != null && mAdapter != null) {
-                    requestLayout();
-                }
-                mLayoutWasDefered = false;
-            } else {
-                final long now = SystemClock.uptimeMillis();
-                MotionEvent cancelEvent = MotionEvent.obtain(now, now,
-                        MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
-                onTouchEvent(cancelEvent);
-                mLayoutFrozen = true;
-                mIgnoreMotionEventTillDown = true;
-                stopScroll();
-            }
-        }
+        suppressLayout(frozen);
     }
 
     /**
-     * Returns true if layout and scroll are frozen.
-     *
      * @return true if layout and scroll are frozen
-     * @see #setLayoutFrozen(boolean)
+     *
+     * @deprecated Use {@link #isLayoutSuppressed()}.
      */
+    @Deprecated
     public boolean isLayoutFrozen() {
-        return mLayoutFrozen;
+        return isLayoutSuppressed();
     }
 
     /**
-     * Tells this RecyclerView to suppress all layout() calls until layout
-     * suppression is disabled with a later call to suppressLayout(false).
-     * When layout suppression is disabled, a requestLayout() call is sent
-     * if layout() was attempted while layout was being suppressed.
-     *
-     * Intentionally overrides hidden method in ViewGroup.
-     * Use {@link #setLayoutFrozen(boolean)} instead with RecyclerView.
-     *
-     * @param suppress true to freeze layout and scroll, false to re-enable.
+     * @deprecated Use {@link #setItemAnimator(ItemAnimator)} ()}.
      */
-    public void suppressLayout(boolean suppress) {
-        setLayoutFrozen(suppress);
-    }
-
-    /**
-     * Returns whether layout calls on this container are currently being
-     * suppressed, due to an earlier call to {@link #suppressLayout(boolean)}.
-     *
-     * Intentionally overrides hidden method in ViewGroup.
-     * Use {@link #isLayoutFrozen()} instead with RecyclerView.
-     *
-     * @return true if layout and scroll are currently frozen, false otherwise.
-     */
-    public boolean isLayoutSuppressed() {
-        return isLayoutFrozen();
+    @Deprecated
+    @Override
+    public void setLayoutTransition(LayoutTransition transition) {
+        if (transition == null) {
+            super.setLayoutTransition(null);
+        } else {
+            throw new IllegalArgumentException("Providing a LayoutTransition into RecyclerView is "
+                    + "not supported. Please use setItemAnimator() instead for animating changes "
+                    + "to the items in this RecyclerView");
+        }
     }
 
     /**
@@ -2279,7 +2313,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     + "Call setLayoutManager with a non-null argument.");
             return;
         }
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return;
         }
         if (!mLayout.canScrollHorizontally()) {
@@ -2312,7 +2346,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     + "Call setLayoutManager with a non-null argument.");
             return false;
         }
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return false;
         }
 
@@ -2622,7 +2656,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             return result;
         }
         final boolean canRunFocusFailure = mAdapter != null && mLayout != null
-                && !isComputingLayout() && !mLayoutFrozen;
+                && !isComputingLayout() && !mLayoutSuppressed;
 
         final FocusFinder ff = FocusFinder.getInstance();
         if (canRunFocusFailure
@@ -3029,8 +3063,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        if (mLayoutFrozen) {
-            // When layout is frozen,  RV does not intercept the motion event.
+        if (mLayoutSuppressed) {
+            // When layout is suppressed,  RV does not intercept the motion event.
             // A child view e.g. a button may still get the click.
             return false;
         }
@@ -3148,7 +3182,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        if (mLayoutFrozen || mIgnoreMotionEventTillDown) {
+        if (mLayoutSuppressed || mIgnoreMotionEventTillDown) {
             return false;
         }
         if (dispatchToOnItemTouchListeners(e)) {
@@ -3322,7 +3356,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         if (mLayout == null) {
             return false;
         }
-        if (mLayoutFrozen) {
+        if (mLayoutSuppressed) {
             return false;
         }
         if (event.getAction() == MotionEvent.ACTION_SCROLL) {
@@ -4264,7 +4298,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
     @Override
     public void requestLayout() {
-        if (mInterceptRequestLayoutDepth == 0 && !mLayoutFrozen) {
+        if (mInterceptRequestLayoutDepth == 0 && !mLayoutSuppressed) {
             super.requestLayout();
         } else {
             mLayoutWasDefered = true;
@@ -5106,7 +5140,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 stop();
                 return; // no layout, cannot scroll.
             }
-            disableRunOnAnimationRequests();
+
+            mReSchedulePostAnimationCallback = false;
+            mEatRunOnAnimationRequest = true;
+
             consumePendingUpdateOperations();
 
             // TODO(72745539): After reviewing the code, it seems to me we may actually want to
@@ -5201,7 +5238,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 boolean scrollerFinishedY = scroller.getCurrY() == scroller.getFinalY();
                 final boolean doneScrolling = scroller.isFinished()
                         || ((scrollerFinishedX || unconsumedX != 0)
-                            && (scrollerFinishedY || unconsumedY != 0));
+                        && (scrollerFinishedY || unconsumedY != 0));
 
                 // Get the current smoothScroller. It may have changed by this point and we need to
                 // make sure we don't stop scrolling if it has changed and it's pending an initial
@@ -5212,7 +5249,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
                 if (!smoothScrollerPending && doneScrolling) {
                     // If we are done scrolling and the layout's SmoothScroller is not pending,
-                    // stop the scroll.
+                    // do the things we do at the end of a scroll and don't postOnAnimation.
 
                     if (getOverScrollMode() != View.OVER_SCROLL_NEVER) {
                         final int vel = (int) scroller.getCurrVelocity();
@@ -5221,12 +5258,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         absorbGlows(velX, velY);
                     }
 
-                    // setting state to idle will stop this.
-                    setScrollState(SCROLL_STATE_IDLE);
                     if (ALLOW_THREAD_GAP_WORK) {
                         mPrefetchRegistry.clearPrefetchPositions();
                     }
-                    stopNestedScroll(TYPE_NON_TOUCH);
                 } else {
                     // Otherwise continue the scroll.
 
@@ -5239,30 +5273,16 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
             SmoothScroller smoothScroller = mLayout.mSmoothScroller;
             // call this after the onAnimation is complete not to have inconsistent callbacks etc.
-            if (smoothScroller != null) {
-                if (smoothScroller.isPendingInitialRun()) {
-                    smoothScroller.onAnimation(0, 0);
-                }
-                // if mReSchedulePostAnimationCallback is false, disableRunOnAnimationRequests() was
-                // called at the start of this method and postOnAnimation() was not called before
-                // this point, which means that we aren't going to scroll anymore so we need to
-                // call stop on smoothScroller.
-                if (!mReSchedulePostAnimationCallback) {
-                    smoothScroller.stop(); //stop if it does not trigger any scroll
-                }
+            if (smoothScroller != null && smoothScroller.isPendingInitialRun()) {
+                smoothScroller.onAnimation(0, 0);
             }
-            enableRunOnAnimationRequests();
-        }
 
-        private void disableRunOnAnimationRequests() {
-            mReSchedulePostAnimationCallback = false;
-            mEatRunOnAnimationRequest = true;
-        }
-
-        private void enableRunOnAnimationRequests() {
             mEatRunOnAnimationRequest = false;
             if (mReSchedulePostAnimationCallback) {
-                postOnAnimation();
+                internalPostOnAnimation();
+            } else {
+                setScrollState(SCROLL_STATE_IDLE);
+                stopNestedScroll(TYPE_NON_TOUCH);
             }
         }
 
@@ -5270,9 +5290,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             if (mEatRunOnAnimationRequest) {
                 mReSchedulePostAnimationCallback = true;
             } else {
-                removeCallbacks(this);
-                ViewCompat.postOnAnimation(RecyclerView.this, this);
+                internalPostOnAnimation();
             }
+        }
+
+        private void internalPostOnAnimation() {
+            removeCallbacks(this);
+            ViewCompat.postOnAnimation(RecyclerView.this, this);
         }
 
         public void fling(int velocityX, int velocityY) {

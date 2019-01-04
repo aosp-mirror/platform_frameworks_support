@@ -22,6 +22,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.provider.Provider
+import org.gradle.api.resources.TextResource
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -33,10 +35,11 @@ private const val MAPPING_FILE = "file_mappings.json"
 
 open class ArgumentsGenerationTask : DefaultTask() {
     @get:Input
-    lateinit var rFilePackage: String
+    lateinit var rFilePackage: Provider<String>
 
-    @get:Input
-    lateinit var applicationId: String
+    var applicationIdResource: TextResource? = null // null on AGP 3.2.1 and below
+
+    var applicationId: String? = null // null on AGP 3.3.0 and above
 
     @get:Input
     var useAndroidX: Boolean = false
@@ -45,13 +48,27 @@ open class ArgumentsGenerationTask : DefaultTask() {
     lateinit var outputDir: File
 
     @get:InputFiles
-    var navigationFiles: List<File> = emptyList()
+    lateinit var navigationFiles: Provider<List<File>>
 
     @get:OutputDirectory
     lateinit var incrementalFolder: File
 
+    /**
+     * Gets the app id from either the [applicationIdResource] if available or [applicationId].
+     * The availability from which the app id string is retrieved from is based on the Android
+     * Gradle Plugin version of the project.
+     */
+    @Input
+    fun getApplicationIdResourceString() = applicationIdResource?.asString() ?: applicationId
+
     private fun generateArgs(navFiles: Collection<File>, out: File) = navFiles.map { file ->
-        val output = generateSafeArgs(rFilePackage, applicationId, file, out, useAndroidX)
+        val output =
+            generateSafeArgs(
+                rFilePackage = rFilePackage.get(),
+                applicationId = getApplicationIdResourceString() ?: "",
+                navigationXml = file,
+                outputDir = out,
+                useAndroidX = useAndroidX)
         Mapping(file.relativeTo(project.projectDir).path, output.fileNames) to output.errors
     }.unzip().let { (mappings, errorLists) -> mappings to errorLists.flatten() }
 
@@ -87,7 +104,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
         if (!outputDir.exists() && !outputDir.mkdirs()) {
             throw GradleException("Failed to create directory for navigation arguments")
         }
-        val (mappings, errors) = generateArgs(navigationFiles, outputDir)
+        val (mappings, errors) = generateArgs(navigationFiles.get(), outputDir)
         writeMappings(mappings)
         failIfErrors(errors)
     }

@@ -16,6 +16,7 @@
 
 package androidx.appcompat.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -601,7 +602,7 @@ class ActionMenuPresenter extends BaseMenuPresenter
         menuView.initialize(mMenu);
     }
 
-    @SuppressWarnings("BanParcelableUsage")
+    @SuppressLint("BanParcelableUsage")
     private static class SavedState implements Parcelable {
         public int openSubMenuId;
 

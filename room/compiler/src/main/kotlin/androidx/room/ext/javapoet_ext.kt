@@ -18,7 +18,12 @@ package androidx.room.ext
 
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ClassName
+import com.squareup.javapoet.MethodSpec
+import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
+import com.squareup.javapoet.TypeSpec
+import java.util.concurrent.Callable
+import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror
 import kotlin.reflect.KClass
 
@@ -82,6 +87,8 @@ object RoomTypeNames {
             ClassName.get("androidx.room.paging", "LimitOffsetDataSource")
     val DB_UTIL: ClassName =
             ClassName.get("androidx.room.util", "DBUtil")
+    val CURSOR_UTIL: ClassName =
+            ClassName.get("androidx.room.util", "CursorUtil")
 }
 
 object PagingTypeNames {
@@ -146,6 +153,15 @@ object RoomRxJava2TypeNames {
             "EmptyResultSetException")
 }
 
+object RoomCoroutinesTypeNames {
+    val COROUTINES_ROOM = ClassName.get("androidx.room", "CoroutinesRoom")
+}
+
+object KotlinTypeNames {
+    val UNIT = ClassName.get("kotlin", "Unit")
+    val CONTINUATION = ClassName.get("kotlin.coroutines", "Continuation")
+}
+
 fun TypeName.defaultValue(): String {
     return if (!isPrimitive) {
         "null"
@@ -154,4 +170,18 @@ fun TypeName.defaultValue(): String {
     } else {
         "0"
     }
+}
+
+fun CallableTypeSpecBuilder(
+    parameterTypeName: TypeName,
+    callBody: MethodSpec.Builder.() -> Unit
+) = TypeSpec.anonymousClassBuilder("").apply {
+    superclass(ParameterizedTypeName.get(Callable::class.typeName(), parameterTypeName))
+    addMethod(MethodSpec.methodBuilder("call").apply {
+        returns(parameterTypeName)
+        addException(Exception::class.typeName())
+        addModifiers(Modifier.PUBLIC)
+        addAnnotation(Override::class.java)
+        callBody()
+    }.build())
 }

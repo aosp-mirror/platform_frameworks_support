@@ -26,7 +26,7 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 
 import androidx.work.Logger;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
@@ -45,7 +45,7 @@ import java.util.List;
 @RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobScheduler implements Scheduler {
 
-    private static final String TAG = "SystemJobScheduler";
+    private static final String TAG = Logger.tagWithPrefix("SystemJobScheduler");
 
     private final JobScheduler mJobScheduler;
     private final WorkManagerImpl mWorkManager;
@@ -87,13 +87,13 @@ public class SystemJobScheduler implements Scheduler {
                 // See b/114705286.
                 WorkSpec currentDbWorkSpec = workDatabase.workSpecDao().getWorkSpec(workSpec.id);
                 if (currentDbWorkSpec == null) {
-                    Logger.warning(
+                    Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it's no longer in the DB");
                     continue;
-                } else if (currentDbWorkSpec.state != State.ENQUEUED) {
-                    Logger.warning(
+                } else if (currentDbWorkSpec.state != WorkInfo.State.ENQUEUED) {
+                    Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it is no longer enqueued");
@@ -144,7 +144,9 @@ public class SystemJobScheduler implements Scheduler {
     @VisibleForTesting
     public void scheduleInternal(WorkSpec workSpec, int jobId) {
         JobInfo jobInfo = mSystemJobInfoConverter.convert(workSpec, jobId);
-        Logger.debug(TAG, String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
+        Logger.get().debug(
+                TAG,
+                String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
         mJobScheduler.schedule(jobInfo);
     }
 
