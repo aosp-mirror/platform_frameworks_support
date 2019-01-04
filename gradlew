@@ -81,6 +81,9 @@ DEFAULT_JVM_OPTS="-DLINT_API_DATABASE=$APP_HOME/../../prebuilts/fullsdk-$plat/pl
 # Temporary solution for custom, private lint rules https://issuetracker.google.com/issues/65248347
 # Gradle automatically invokes 'jar' task on 'buildSrc/' projects so this will always be available.
 export ANDROID_LINT_JARS="$APP_HOME/buildSrc/lint-checks/build/libs/lint-checks.jar"
+if [ -z "$JAVA_HOME"] ; then
+    export JAVA_HOME="$APP_HOME/../../prebuilts/jdk/jdk8/$plat-x86"
+fi
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
