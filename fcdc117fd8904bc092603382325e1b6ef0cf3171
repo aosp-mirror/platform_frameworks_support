@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "4c00406e_ced21b98",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1370655
+      },
+      "writtenOn": "2019-01-04T21:52:38Z",
+      "side": 1,
+      "message": "There\u0027s a suppress package option: https://github.com/Kotlin/dokka/pull/222\n\nSide note - for Kotlin files, use @suppress (native to KDoc) instead of @hide.  @hide should only be used for Java files.",
+      "parentUuid": "18ebf28b_6eb2382f",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cc3db89_d3a0d59d",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
         "patchSetId": 8
