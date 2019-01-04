@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81bc04db_d6f16c3e",
+        "filename": "preference/res/values/themes.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-01-04T18:09:16Z",
+      "side": 1,
+      "message": "When using an AppCompat theme this attribute should (currently it doesn\u0027t work, but I will fix that in a follow up cl) already be overridden with the correct style - so no need to specify it here",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 106
+      },
+      "revId": "1d2b8f0e9303e67d4b92cfbe600056703aa1f242",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

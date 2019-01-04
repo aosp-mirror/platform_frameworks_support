@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f49c054_88d3fa03",
+        "filename": "preference/res/values/styles.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-01-04T18:09:16Z",
+      "side": 0,
+      "message": "You can delete this, the correct text style for this is defined in AppCompat under textAppearanceListItem.",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 12
+      },
+      "revId": "1e3a0799647a202e7f8ee0db76eb77117d66dfc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
