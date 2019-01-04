@@ -19,6 +19,7 @@ import androidx.build.SdkHelperKt
 import androidx.build.jacoco.Jacoco
 
 def currentJvmVersion = org.gradle.api.JavaVersion.current()
+println "!!!!!!!!!!!!!!! JDK !!!!!!!!!!!!!!!!!!!!!!!! ${org.gradle.internal.jvm.Jvm.current()}"
 if (currentJvmVersion.getMajorVersion() != "8") {
   throw new Exception("Unsupported java version '" + currentJvmVersion.toString() + "'. Please install java 8.\n" +
 "\n" +
