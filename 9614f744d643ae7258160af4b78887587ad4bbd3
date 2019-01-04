@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd9d0223_1f1200aa",
+        "filename": "development/history/AndroidX-Release-2018-12-03.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-04T21:22:31Z",
+      "side": 1,
+      "message": "Is this file manually generated or output from another tool?",
+      "revId": "9614f744d643ae7258160af4b78887587ad4bbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
