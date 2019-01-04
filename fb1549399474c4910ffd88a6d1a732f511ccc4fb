@@ -22,6 +22,30 @@
       "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13109759_ce5e31f7",
+        "filename": "navigation/ui/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-04T17:15:18Z",
+      "side": 1,
+      "message": "I\u0027m working with Alan already to get these into the translation pipeline. That can\u0027t be done until it is checked in though :)",
+      "parentUuid": "1efb357d_80694950",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 75
+      },
+      "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
