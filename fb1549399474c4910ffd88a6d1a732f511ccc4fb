@@ -70,6 +70,30 @@
       "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "397c23c4_d284e0c4",
+        "filename": "navigation/ui/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-04T17:49:56Z",
+      "side": 1,
+      "message": "awesome!",
+      "parentUuid": "553bcfb9_a3954619",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 75
+      },
+      "revId": "fb1549399474c4910ffd88a6d1a732f511ccc4fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
