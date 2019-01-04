@@ -1,0 +1,37 @@
+import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+
+plugins {
+    id("SupportAndroidLibraryPlugin")
+}
+dependencies {
+    api(ANDROIDX_CORE)
+    api(AUTO_VALUE_ANNOTATIONS)
+    annotationProcessor(AUTO_VALUE)
+    testImplementation(TEST_CORE)
+    testImplementation(JUNIT)
+    testImplementation(TEST_RUNNER)
+    testImplementation(TRUTH)
+    testImplementation(ROBOLECTRIC)
+}
+android {
+    defaultConfig {
+        minSdkVersion 26
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+}
+supportLibrary {
+    name = "Enterprise"
+    publish = false
+    mavenVersion = LibraryVersions.ENTERPRISE
+    mavenGroup = LibraryGroups.ENTERPRISE
+    inceptionYear = "2019"
+    description = "Enterprise support library."
+}
