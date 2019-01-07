@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3cf827c_7a1d214e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavDeepLink.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T11:00:05Z",
+      "side": 1,
+      "message": "nit: could fit in one line",
+      "range": {
+        "startLine": 89,
+        "startChar": 18,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "770e9465424c01aca29b965e3e639128db50a129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
