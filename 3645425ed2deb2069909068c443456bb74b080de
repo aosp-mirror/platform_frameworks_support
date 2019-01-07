@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c68e4dc_c8910f5c",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/CodeFile.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "don\u0027t use \"get\" prefix for fun in kotlin should be either val fileName: String or fun fileName(): String",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75b2cf9_46cd8d85",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/NavSafeArgsGenerator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "does everything actually public?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba4e8a7d_e3c52c90",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/NavSafeArgsGenerator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "pass simply as a param?",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e73d64_a5118530",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/NavWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "parentDirectionFile?\n\nactually it should be possible to actually pass Direction here and later in generation call toTypeName()",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e32468a_0b068105",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/Types.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "looks like it should be open data class with params",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b8c59f_0974073c",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/kotlin/KotlinTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-07T19:45:16Z",
+      "side": 1,
+      "message": "I would use usual kotlin string templates for simple stuff:  \naddStatement(\"$bundle.putParcelable(%S, %L as %T)\", arg.name, argValue, PARCELABLE_CLASSNAME)\n\nLooks more readable in my opinion",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 35
+      },
+      "revId": "3645425ed2deb2069909068c443456bb74b080de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec8268a7_7741efb7",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/Next.kt",
         "patchSetId": 1
