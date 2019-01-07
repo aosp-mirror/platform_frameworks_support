@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f17b761c_acf43d16",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-01-07T20:43:05Z",
+      "side": 1,
+      "message": "Just a dumb question -- isEqualTo() does it use .equals? Bundle doesn\u0027t implement that. We\u0027d otherwise use assertSame()",
+      "range": {
+        "startLine": 285,
+        "startChar": 17,
+        "endLine": 285,
+        "endChar": 26
+      },
+      "revId": "16654eeb660cedbdcd80c6bac20e01f54a7a8496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
