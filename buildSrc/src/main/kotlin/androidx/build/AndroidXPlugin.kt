@@ -25,6 +25,7 @@ import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getLastReleasedApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
+import androidx.build.dependencyTracker.AffectedModuleDetectorImpl
 import androidx.build.dokka.Dokka
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
@@ -36,6 +37,7 @@ import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
@@ -174,7 +176,6 @@ class AndroidXPlugin : Plugin<Project> {
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
-
         // Iterate through all the project and substitute any artifact dependency of a
         // maxdepversions future configuration with the corresponding tip of tree project.
         subprojects { project ->
@@ -185,6 +186,71 @@ class AndroidXPlugin : Plugin<Project> {
                         for (e in projectModules) {
                             substitute(module(e.key)).with(project(e.value))
                         }
+                    }
+                }
+            }
+        }
+
+        // Create presubmit tasks only when it's needed since its evaluation
+        // depends on all subprojects and adds some overhead.
+        val tasksInvoked = project.gradle.startParameter.taskNames
+        if (tasksInvoked.contains(PRESUBMIT_TASK) || tasksInvoked.contains(PRESUBMIT_TEST_TASK)) {
+            val presubmitTask = tasks.create(PRESUBMIT_TASK)
+            val presubmitTestTask = tasks.create(PRESUBMIT_TEST_TASK)
+
+            evaluationDependsOnChildren()
+            val changedProjects = AffectedModuleDetectorImpl(
+                rootProject = rootProject,
+                logger = null,
+                ignoreUnknownProjects = false
+            ).findLocallyAffectedProjects(true)
+
+            val changedProjectsLocalNames = changedProjects.map { it -> it.name }.toSet()
+            val changedProjectsModuleNames = changedProjects
+                .filter { it.group != null }
+                .map { it -> "${it.group}:${it.name}" }.toSet()
+
+            val directlyAffectedProjects = HashSet<Project>(changedProjects +
+                    findDependents(project, changedProjectsLocalNames, true))
+            for (directAffectedProject in directlyAffectedProjects) {
+                println("Including project ${directAffectedProject.name} in presubmits" +
+                        " because there was a change in it or its dependencies")
+            }
+
+            val partiallyAffectedProjects = HashSet<Project>(findDependents(project,
+                    changedProjectsModuleNames, false))
+            partiallyAffectedProjects.removeAll(directlyAffectedProjects)
+            for (partiallyAffectedProject in partiallyAffectedProjects) {
+                println("Including project ${partiallyAffectedProject.name} in presubmits" +
+                        " because it depends on a released artifact of a locally changed project")
+            }
+
+            project.tasks.forEach {
+                if (ROOT_PRESUBMIT_TASKS.contains(it.name)) {
+                    presubmitTask.dependsOn(it)
+                }
+            }
+            presubmitTask.dependsOn(allDocsTask)
+            presubmitTask.dependsOn(jacocoUberJar)
+            presubmitTask.dependsOn(createCoverageJarTask)
+            directlyAffectedProjects.forEach { project ->
+                project.tasks.forEach {
+                    if (PER_PROJECT_PRESUBMIT_TASKS.contains(it.name)) {
+                        presubmitTask.dependsOn(it)
+                    }
+                    if (it.name == "test") {
+                        presubmitTestTask.dependsOn(it)
+                    }
+                }
+            }
+
+            partiallyAffectedProjects.forEach { project ->
+                project.tasks.forEach {
+                    if (PER_PARTIALLY_AFFECTED_PROJECT_PRESUBMIT_TASKS.contains(it.name)) {
+                        presubmitTask.dependsOn(it)
+                    }
+                    if (PER_PARTIALLY_AFFECTED_PROJECT_PRESUBMIT_TEST_TASKS.contains(it.name)) {
+                        presubmitTestTask.dependsOn(it)
                     }
                 }
             }
@@ -240,7 +306,6 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Use a local debug keystore to avoid build server issues.
         extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
-
         // Disable generating BuildConfig.java
         extension.variants.all {
             it.generateBuildConfig.enabled = false
@@ -309,6 +374,18 @@ class AndroidXPlugin : Plugin<Project> {
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
+        const val PRESUBMIT_TASK = "presubmit"
+        const val PRESUBMIT_TEST_TASK = "presubmitTest"
+        private val PER_PROJECT_PRESUBMIT_TASKS = arrayOf(ERROR_PRONE_TASK, "assembleAndroidTest",
+            "assembleDebug", "lintMinDepVersionsDebug",
+            CheckExternalDependencyLicensesTask.TASK_NAME, "checkApi")
+        private val ROOT_PRESUBMIT_TASKS = arrayOf(Dokka.ARCHIVE_TASK_NAME, "distDocs",
+            "partiallyDejetifyArchive", "dejetifyArchive")
+        // Presubmit tasks for projects depending on a released artifact of a changed local project
+        private val PER_PARTIALLY_AFFECTED_PROJECT_PRESUBMIT_TASKS =
+            arrayOf("assembleMaxDepVersions", "compileMaxDepVersionsDebugAndroidTestSources")
+        private val PER_PARTIALLY_AFFECTED_PROJECT_PRESUBMIT_TEST_TASKS =
+            arrayOf("testMaxDepVersionsDebugUnitTest", "testMaxDepVersionsReleaseUnitTest")
     }
 }
 
@@ -374,4 +451,38 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/minDepVersionsRelease" +
             "/packageMinDepVersionsReleaseResources/public.txt")
+}
+
+// This function returns all local dependents on any dependency in
+// a given set.
+// If the dependencies are local projects then we will try to match the
+// name. If the dependencies are external modules then we try to match
+// the module group and name separated by a ":".
+private fun findDependents(
+    rootProject: Project,
+    dependencies: Set<String>,
+    dependencyIsLocalProject: Boolean
+): Set<Project> {
+    var resultSet = HashSet<Project>()
+    rootProject.subprojects.forEach projectIteration@{ project ->
+        project.configurations.forEach { config ->
+            if (dependencyIsLocalProject) {
+                for (dep in config.allDependencies) {
+                    if (dep is ProjectDependency && dependencies.contains(dep.name)) {
+                        resultSet.add(project)
+                        return@projectIteration
+                    }
+                }
+            } else {
+                for (dep in config.dependencies) {
+                    if (!(dep is ProjectDependency) && dep.group != null &&
+                            dependencies.contains("${dep.group}:${dep.name}")) {
+                        resultSet.add(project)
+                        return@projectIteration
+                    }
+                }
+            }
+        }
+    }
+    return resultSet as Set<Project>
 }
