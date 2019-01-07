@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "320fbaff_6fcae6cd",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-07T17:54:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we look at mWorkSpec.periodStartTime?",
+      "range": {
+        "startLine": 156,
+        "startChar": 36,
+        "endLine": 156,
+        "endChar": 56
+      },
+      "revId": "bc4453f1da4919f2ae49dcba7c97a3c5e5e99a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "568748b0_f600df47",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-07T17:54:17Z",
+      "side": 1,
+      "message": "Why don\u0027t we always do this?",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "bc4453f1da4919f2ae49dcba7c97a3c5e5e99a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
