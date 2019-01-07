@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28a40056_8dad6083",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-01-07T18:24:16Z",
+      "side": 1,
+      "message": "calculateNextRuntime() is based on periodStartTime. So that will automatically account for it.",
+      "parentUuid": "320fbaff_6fcae6cd",
+      "range": {
+        "startLine": 156,
+        "startChar": 36,
+        "endLine": 156,
+        "endChar": 56
+      },
+      "revId": "bc4453f1da4919f2ae49dcba7c97a3c5e5e99a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "568748b0_f600df47",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-07T17:54:17Z",
       "side": 1,
       "message": "Why don\u0027t we always do this?",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "bc4453f1da4919f2ae49dcba7c97a3c5e5e99a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da10825_582d54b7",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-01-07T18:24:16Z",
+      "side": 1,
+      "message": "Yes, that is what I was considering too. I wanted to run that by you, before I made the change.",
+      "parentUuid": "568748b0_f600df47",
       "range": {
         "startLine": 152,
         "startChar": 12,
