@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a07b0053_f26e274e",
+        "filename": "appcompat/res/values/themes_base.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-07T16:43:35Z",
+      "side": 1,
+      "message": "Please extract to abc_ values like we have for padding.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 69
+      },
+      "revId": "9c1504bf11510f3ab8cd1c3a3ca13ac6cf8776b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f015bbcf_2f8c6445",
+        "filename": "appcompat/res/values/themes_base.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-07T16:43:35Z",
+      "side": 1,
+      "message": "Reuse extracted values here.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 69
+      },
+      "revId": "9c1504bf11510f3ab8cd1c3a3ca13ac6cf8776b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
