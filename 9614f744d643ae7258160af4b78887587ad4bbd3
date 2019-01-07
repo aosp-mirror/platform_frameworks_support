@@ -34,6 +34,24 @@
       "revId": "9614f744d643ae7258160af4b78887587ad4bbd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39102766_f3b503d4",
+        "filename": "development/history/AndroidX-Release-2018-12-03.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-07T16:19:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18680aa2_aba00a90",
+      "revId": "9614f744d643ae7258160af4b78887587ad4bbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
