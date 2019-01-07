@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9b4dccac_3fa5551e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-07T21:55:32Z",
+      "side": 1,
+      "message": "Okay, I\u0027ll do that, that should also help with tests in general",
+      "parentUuid": "377256dc_4e67f3bf",
+      "revId": "c69fe2a388f111497bd2bb3c119a2f3a1b7071db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "834d8417_21e87b9e",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
