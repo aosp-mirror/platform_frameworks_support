@@ -172,7 +172,7 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     val affectedProjects by lazy {
-        findLocallyAffectedProjects()
+        findLocallyAffectedProjects(false)
     }
 
     override fun shouldInclude(project: Project): Boolean {
@@ -187,7 +187,7 @@ internal class AffectedModuleDetectorImpl constructor(
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
      */
-    private fun findLocallyAffectedProjects(): Set<Project> {
+    fun findLocallyAffectedProjects(onlyChangedProjects: Boolean): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
@@ -220,8 +220,12 @@ internal class AffectedModuleDetectorImpl constructor(
                 project.name.contains(it)
             }
         }
-        // expand the list to all of their dependants
-        return expandToDependants(containingProjects + alwaysBuild)
+        if (onlyChangedProjects) {
+            return HashSet<Project>(containingProjects) as Set<Project>
+        } else {
+            // expand the list to all of their dependants
+            return expandToDependants(containingProjects + alwaysBuild)
+        }
     }
 
     private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
