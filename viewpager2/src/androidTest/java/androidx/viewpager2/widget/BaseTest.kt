@@ -233,15 +233,11 @@ open class BaseTest {
         val latch = CountDownLatch(if (waitForIdle) 2 else 1)
         var lastScrollFired = false
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (lastScrollFired && state == SCROLL_STATE_IDLE) {
                     latch.countDown()
                 }
-            }
-
-            override fun onPageSelected(position: Int) {
-                // nothing
             }
 
             override fun onPageScrolled(
@@ -284,21 +280,11 @@ open class BaseTest {
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
         val latch = CountDownLatch(1)
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-            }
-
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == SCROLL_STATE_IDLE) {
                     latch.countDown()
-                    post { removeOnPageChangeListener(this) }
+                    post { unregisterOnPageChangeCallback(this) }
                 }
             }
         })
@@ -309,7 +295,7 @@ open class BaseTest {
     fun ViewPager2.addWaitForDistanceToTarget(target: Int, distance: Float): CountDownLatch {
         val latch = CountDownLatch(1)
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -317,7 +303,7 @@ open class BaseTest {
             ) {
                 if (abs(target - position - positionOffset) <= distance) {
                     latch.countDown()
-                    post { removeOnPageChangeListener(this) }
+                    post { unregisterOnPageChangeCallback(this) }
                 }
             }
 
