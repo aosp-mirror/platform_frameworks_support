@@ -22,6 +22,30 @@
       "revId": "5d78c8ada87129476b74fa4b235ea281b138d933",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeffc1bf_be205551",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-07T15:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7cd8961_04669385",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 17
+      },
+      "revId": "5d78c8ada87129476b74fa4b235ea281b138d933",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
