@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a1cf57af_86b96430",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-07T18:36:36Z",
+      "side": 1,
+      "message": "Sorry, was confusing periodStartTime with when it should execute.",
+      "parentUuid": "28a40056_8dad6083",
+      "range": {
+        "startLine": 156,
+        "startChar": 36,
+        "endLine": 156,
+        "endChar": 56
+      },
+      "revId": "bc4453f1da4919f2ae49dcba7c97a3c5e5e99a12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "568748b0_f600df47",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
         "patchSetId": 3
