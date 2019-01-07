@@ -557,7 +557,7 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
         if (DEBUG) {
             Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
         }
-        if (mCurrentState != STATE_PLAYING) {
+        if (mCurrentState != STATE_PLAYING && mMediaSession != null) {
             mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
         }
         if (view != mCurrentView) {
@@ -610,7 +610,8 @@ class VideoViewImplBase implements VideoViewImpl, VideoViewInterface.SurfaceList
     }
 
     boolean needToStart() {
-        return (mMediaPlayer != null || mRoutePlayer != null) && isWaitingPlayback();
+        return mMediaSession != null
+                && (mMediaPlayer != null || mRoutePlayer != null) && isWaitingPlayback();
     }
 
     private boolean isWaitingPlayback() {
