@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "834d8417_21e87b9e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-07T19:40:19Z",
+      "side": 1,
+      "message": "think we already have this logic in AffectedModuleDetector, can we re-use it instead? (or modify it to work for this)",
+      "revId": "c69fe2a388f111497bd2bb3c119a2f3a1b7071db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
