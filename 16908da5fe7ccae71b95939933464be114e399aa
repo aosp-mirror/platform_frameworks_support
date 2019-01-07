@@ -22,6 +22,30 @@
       "revId": "16908da5fe7ccae71b95939933464be114e399aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f61d26_ade67466",
+        "filename": "leanback/src/androidTest/java/androidx/leanback/widget/GridWidgetTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2584,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-07T20:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4901bfd8_3ddbc458",
+      "range": {
+        "startLine": 2584,
+        "startChar": 16,
+        "endLine": 2584,
+        "endChar": 63
+      },
+      "revId": "16908da5fe7ccae71b95939933464be114e399aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
