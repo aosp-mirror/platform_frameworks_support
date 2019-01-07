@@ -19,6 +19,9 @@ package androidx.lifecycle;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,4 +69,11 @@ public class ViewModelTest {
         assertThat(vm.setTagIfAbsent("key", "second"), is("first"));
     }
 
+    @Test
+    public void testClearWithMockViewModel() {
+        ViewModel vm = mock(ViewModel.class);
+        vm.clear();
+        verify(vm).onCleared();
+        verifyNoMoreInteractions(vm);
+    }
 }
