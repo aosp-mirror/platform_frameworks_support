@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c1f5f5c_caaf3a8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-08T20:35:24Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c6eaa6d_2d6cf31c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-08T20:35:24Z",
+      "side": 1,
+      "message": "Does this really only happen in one place? Maybe we should fix that place too?",
+      "range": {
+        "startLine": 10,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daae9a04_0b8cd6fc",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-08T20:35:24Z",
+      "side": 1,
+      "message": "Does this part actually need to be sync? |mLoaded| doesn\u0027t seem connected to the loadUrl() call itself.",
+      "range": {
+        "startLine": 435,
+        "startChar": 24,
+        "endLine": 435,
+        "endChar": 40
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f93e3ce5_baaf678e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-08T20:35:24Z",
+      "side": 1,
+      "message": "Maybe just use runOnMainThreadAsync()? I had to think for a second that MainLooper is always the right thing--if this class entirely uses WebkitUtils, then consistency might make this easier to reason about",
+      "range": {
+        "startLine": 497,
+        "startChar": 7,
+        "endLine": 497,
+        "endChar": 43
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
