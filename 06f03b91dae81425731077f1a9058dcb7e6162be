@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d56a251c_2a8f715f",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-08T00:23:21Z",
+      "side": 1,
+      "message": "Can you add @NonNull to this?",
+      "range": {
+        "startLine": 49,
+        "startChar": 52,
+        "endLine": 49,
+        "endChar": 92
+      },
+      "revId": "06f03b91dae81425731077f1a9058dcb7e6162be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
