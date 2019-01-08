@@ -22,6 +22,30 @@
       "revId": "afdd4d97c134563d250278e87db57a6fa2572def",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d3ad11_beb35c36",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-01-08T01:28:11Z",
+      "side": 1,
+      "message": "Thanks. Done. Added comment about start() can be called again.",
+      "parentUuid": "b8a9d6e5_28e026ca",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 65
+      },
+      "revId": "afdd4d97c134563d250278e87db57a6fa2572def",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
