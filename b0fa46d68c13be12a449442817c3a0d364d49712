@@ -16,6 +16,23 @@
       "revId": "b0fa46d68c13be12a449442817c3a0d364d49712",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f7db31_ca2c64da",
+        "filename": "media2/src/androidTest/java/androidx/media2/MediaPlayerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-01-08T16:04:18Z",
+      "side": 1,
+      "message": "Should there be a call to get() here to make sure we are actually in PLAYER_STATE_PLAYING when entering the loop below?",
+      "revId": "b0fa46d68c13be12a449442817c3a0d364d49712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
