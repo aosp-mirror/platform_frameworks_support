@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e21a8a5a_e1548ad8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-08T21:51:59Z",
+      "side": 1,
+      "message": "Because we only have one place where we call loadUrlAndWaitForCompletion on the UI thread.",
+      "parentUuid": "6700e634_5800a031",
+      "range": {
+        "startLine": 10,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "daae9a04_0b8cd6fc",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 1
