@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -30,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
@@ -154,6 +156,11 @@ public class CarToolbar extends ViewGroup {
             setNavigationIcon(Icon.createWithResource(getContext(),
                     a.getResourceId(R.styleable.CarToolbar_navigationIcon,
                             R.drawable.ic_nav_arrow_back)));
+
+            int navIconTint = a.getResourceId(R.styleable.CarToolbar_navigationIconTint, -1);
+            if (navIconTint != -1) {
+                setNavigationIconTint(navIconTint);
+            }
 
             int titleIconResId = a.getResourceId(R.styleable.CarToolbar_titleIcon, -1);
             setTitleIcon(titleIconResId != -1 ? Icon.createWithResource(context, titleIconResId)
@@ -282,7 +289,6 @@ public class CarToolbar extends ViewGroup {
         }
     }
 
-
     /**
      * Set the icon to use for the toolbar's navigation button.
      *
@@ -300,6 +306,16 @@ public class CarToolbar extends ViewGroup {
         }
         mNavButtonView.setVisibility(VISIBLE);
         mNavButtonView.setImageDrawable(icon.loadDrawable(getContext()));
+    }
+
+     /**
+     * Sets the tint of the toolbar's navigation button.
+     *
+     * @param colorResId Resource Id of the color used to tint the navigation icon.
+     * @attr ref R.styleable#CarToolbar_navigationIconTint
+     */
+    public void setNavigationIconTint(@ColorRes int colorResId) {
+        mNavButtonView.setColorFilter(getContext().getColor(colorResId), PorterDuff.Mode.SRC_ATOP);
     }
 
     /**

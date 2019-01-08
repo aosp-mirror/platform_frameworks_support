@@ -23,6 +23,7 @@
         android:id="@+id/car_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationIconTint="@color/car_body1"
         app:titleIcon="@android:drawable/sym_def_app_icon"
         app:titleIconSize="@dimen/car_avatar_icon_size"
         app:title="@string/car_toolbar_title"
