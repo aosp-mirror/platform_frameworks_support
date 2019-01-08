@@ -1241,21 +1241,21 @@ public class ViewCompat {
     }
 
     /**
-     * Replaces an action. This can be used to change the default behavior or label of the action
+     * Changes an action. This can be used to change the default behavior or label of the action
      * specified.
      *
      * @param view The view.
      * @param replacedAction The action to be replaced.
      * @param label The user facing description of the action or {@code null}.
      * @param command The command performed when the service requests the action.
-     *
+     *                If this is null, the frameworks default behavior is assumed.
      * <p>
      * Compatibility:
      * <ul>
      *     <li>API &lt; 21: No-op</li>
      * </ul>
      */
-    public static void replaceAccessibilityAction(@NonNull View view, @NonNull
+    public static void changeAccessibilityAction(@NonNull View view, @NonNull
             AccessibilityActionCompat replacedAction,  @Nullable CharSequence label,
             @Nullable AccessibilityViewCommand command) {
         addAccessibilityAction(view, replacedAction.createReplacementAction(label, command));

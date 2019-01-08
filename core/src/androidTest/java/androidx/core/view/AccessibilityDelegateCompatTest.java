@@ -271,10 +271,10 @@ public class AccessibilityDelegateCompatTest extends
 
     @Test
     @SdkSuppress(minSdkVersion = 21)
-    public void testReplaceActionPerformIsCalled() {
+    public void testChangeActionPerformIsCalled() {
         final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
 
-        ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+        ViewCompat.changeAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
                 "Focus title", action);
 
         ViewCompat.performAccessibilityAction(mView,
@@ -286,15 +286,15 @@ public class AccessibilityDelegateCompatTest extends
 
     @Test
     @SdkSuppress(minSdkVersion = 21)
-    public void testReplaceActionPerformIsCalledWithTwoReplacements() {
+    public void testChangeActionPerformIsCalledWithTwoReplacements() {
         final AccessibilityViewCommand action = mock(AccessibilityViewCommand.class);
         final AccessibilityViewCommand action2 = mock(AccessibilityViewCommand.class);
 
-        ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+        ViewCompat.changeAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
                 "Focus title", action);
 
         String expectedLabel = "Focus title 2";
-        ViewCompat.replaceAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
+        ViewCompat.changeAccessibilityAction(mView, AccessibilityActionCompat.ACTION_FOCUS,
                 expectedLabel, action2);
 
         ViewCompat.performAccessibilityAction(mView,
@@ -305,12 +305,12 @@ public class AccessibilityDelegateCompatTest extends
 
     @Test
     @SdkSuppress(minSdkVersion = 21)
-    public void testReplaceActionPerformIsCalledWithArguments() {
+    public void testChangeActionPerformIsCalledWithArguments() {
         final AccessibilityViewCommand action =
                 (AccessibilityViewCommand) mock(
                         AccessibilityViewCommand.class);
 
-        ViewCompat.replaceAccessibilityAction(mView,
+        ViewCompat.changeAccessibilityAction(mView,
                 AccessibilityActionCompat.ACTION_NEXT_AT_MOVEMENT_GRANULARITY, "Move title",
                 action);
 

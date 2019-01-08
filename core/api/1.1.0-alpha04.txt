@@ -1905,6 +1905,7 @@ package androidx.core.view {
     method @Deprecated public static boolean canScrollHorizontally(android.view.View!, int);
     method @Deprecated public static boolean canScrollVertically(android.view.View!, int);
     method public static void cancelDragAndDrop(android.view.View);
+    method public static void changeAccessibilityAction(android.view.View, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat, CharSequence?, androidx.core.view.accessibility.AccessibilityViewCommand?);
     method @Deprecated public static int combineMeasuredStates(int, int);
     method public static androidx.core.view.WindowInsetsCompat! dispatchApplyWindowInsets(android.view.View, androidx.core.view.WindowInsetsCompat!);
     method public static void dispatchFinishTemporaryDetach(android.view.View);
@@ -1996,7 +1997,6 @@ package androidx.core.view {
     method public static void postOnAnimationDelayed(android.view.View, Runnable!, long);
     method public static void removeAccessibilityAction(android.view.View, int);
     method public static void removeOnUnhandledKeyEventListener(android.view.View, androidx.core.view.ViewCompat.OnUnhandledKeyEventListenerCompat);
-    method public static void replaceAccessibilityAction(android.view.View, androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat, CharSequence?, androidx.core.view.accessibility.AccessibilityViewCommand?);
     method public static void requestApplyInsets(android.view.View);
     method public static <T extends android.view.View> T requireViewById(android.view.View, @IdRes int);
     method @Deprecated public static int resolveSizeAndState(int, int, int);
