@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36043f08_2101f29a",
+        "filename": "development/history/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-08T16:22:19Z",
+      "side": 1,
+      "message": "Probably want a second copy of this line or otherwise make it more obvious that it\u0027s supposed to repeat",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7531d83e_69726586",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-08T16:22:19Z",
+      "side": 1,
+      "message": "Do we need to have \u003crelease-date\u003e on the command line and in the file?\n\nIf it\u0027s easy to generate the file correctly in some automated manner then having the date in the file seems reasonable to me (in which case I\u0027d vote for removing it from the command-line).\n\nIf it\u0027s inconvenient to generate the file then having the release date as a command line argument seems reasonable to me since it simplifies the format of the file (wouldn\u0027t be needed as the first line in the file anymore)",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
