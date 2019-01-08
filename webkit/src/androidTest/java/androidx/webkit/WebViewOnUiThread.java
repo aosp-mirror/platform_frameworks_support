@@ -433,8 +433,8 @@ class WebViewOnUiThread {
             call.run();
         } else {
             WebkitUtils.onMainThreadSync(call);
-            waitForLoadCompletion();
         }
+        waitForLoadCompletion();
     }
 
     /**
@@ -494,7 +494,7 @@ class WebViewOnUiThread {
 
         // Force loop to exit when processing this. Loop.quit() doesn't
         // work because this is the main Loop.
-        mWebView.getHandler().post(new Runnable() {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 throw new ExitLoopException(); // exit loop!
