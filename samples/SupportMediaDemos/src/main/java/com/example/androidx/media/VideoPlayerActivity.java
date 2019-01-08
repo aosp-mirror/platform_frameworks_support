@@ -71,6 +71,7 @@ public class VideoPlayerActivity extends FragmentActivity {
         setContentView(R.layout.activity_video_player);
 
         mVideoView = findViewById(R.id.video_view);
+        mVideoView.setResizeHandleView(findViewById(R.id.resize_handle));
 
         CheckBox useTextureView = findViewById(R.id.use_textureview_checkbox);
         useTextureView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -206,6 +207,10 @@ public class VideoPlayerActivity extends FragmentActivity {
         private int mDX;
         private int mDY;
 
+        private View mResizeHandleView;
+        private int mResizeHandleDX;
+        private int mResizeHandleDY;
+
         public MyVideoView(Context context) {
             super(context);
         }
@@ -218,8 +223,23 @@ public class VideoPlayerActivity extends FragmentActivity {
             super(context, attrs, defStyle);
         }
 
+        public void setResizeHandleView(View resizeHandleView) {
+            mResizeHandleView = resizeHandleView;
+            mResizeHandleView.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return onTouchResizeHandleView(event);
+                }
+            });
+        }
+
         public void setTransformable(boolean transformable) {
             mTransformable = transformable;
+            if (transformable) {
+                mResizeHandleView.setVisibility(View.VISIBLE);
+            } else {
+                mResizeHandleView.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -235,18 +255,50 @@ public class VideoPlayerActivity extends FragmentActivity {
             int rawX = (int) ev.getRawX();
             int rawY = (int) ev.getRawY();
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getLayoutParams();
+            ViewGroup.MarginLayoutParams resizeHandleParams = (ViewGroup.MarginLayoutParams)
+                    mResizeHandleView.getLayoutParams();
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mDX = rawX - params.leftMargin;
                     mDY = rawY - params.topMargin;
+                    mResizeHandleDX = rawX - resizeHandleParams.leftMargin;
+                    mResizeHandleDY = rawY - resizeHandleParams.topMargin;
                     return true;
                 case MotionEvent.ACTION_MOVE:
                     params.leftMargin = rawX - mDX;
                     params.topMargin = rawY - mDY;
                     setLayoutParams(params);
+                    resizeHandleParams.leftMargin = rawX - mResizeHandleDX;
+                    resizeHandleParams.topMargin = rawY - mResizeHandleDY;
+                    mResizeHandleView.setLayoutParams(resizeHandleParams);
                     return true;
             }
             return super.onTouchEvent(ev);
+        }
+
+        boolean onTouchResizeHandleView(MotionEvent ev) {
+            int rawX = (int) ev.getRawX();
+            int rawY = (int) ev.getRawY();
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getLayoutParams();
+            ViewGroup.MarginLayoutParams resizeHandleParams = (ViewGroup.MarginLayoutParams)
+                    mResizeHandleView.getLayoutParams();
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mDX = rawX - params.width;
+                    mDY = rawY - params.height;
+                    mResizeHandleDX = rawX - resizeHandleParams.leftMargin;
+                    mResizeHandleDY = rawY - resizeHandleParams.topMargin;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    params.width = rawX - mDX;
+                    params.height = rawY - mDY;
+                    setLayoutParams(params);
+                    resizeHandleParams.leftMargin = rawX - mResizeHandleDX;
+                    resizeHandleParams.topMargin = rawY - mResizeHandleDY;
+                    mResizeHandleView.setLayoutParams(resizeHandleParams);
+                    break;
+            }
+            return true;
         }
     }
 
