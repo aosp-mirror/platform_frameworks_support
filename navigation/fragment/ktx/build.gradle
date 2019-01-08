@@ -30,6 +30,10 @@ android {
             testCoverageEnabled = false // Breaks Kotlin compiler.
         }
     }
+
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
 }
 
 dependencies {
@@ -42,6 +46,7 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
+    androidTestImplementation(TRUTH)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
 }
