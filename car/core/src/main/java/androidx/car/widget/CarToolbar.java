@@ -582,6 +582,33 @@ public class CarToolbar extends ViewGroup {
         return mMenuItems;
     }
 
+
+
+    /**
+     * Returns {@code true} if the Overflow menu is showing.
+     */
+    public boolean isOverflowMenuShowing() {
+        return (mOverflowDialog != null && mOverflowDialog.isShowing());
+    }
+
+    /**
+     * Shows the overflow menu.
+     */
+    public void showOverflowMenu() {
+        if (mOverflowDialog != null) {
+            mOverflowDialog.show();
+        }
+    }
+
+    /**
+     * Hides the overflow menu.
+     */
+    public void hideOverflowMenu() {
+        if (mOverflowDialog != null) {
+            mOverflowDialog.dismiss();
+        }
+    }
+
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);

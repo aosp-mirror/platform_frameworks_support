@@ -45,21 +45,24 @@ public class CarToolbarActivity extends AppCompatActivity {
         List<CarMenuItem> items = new ArrayList<>();
 
         findViewById(R.id.add_action).setOnClickListener(v -> {
-            items.add(new CarMenuItem.Builder()
-                        .setTitle("Action item")
-                        .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
-                        .setStyle(R.style.Widget_Car_Button_Borderless_Colored)
-                        .build());
-            carToolbar.setMenuItems(items);
+//            items.add(new CarMenuItem.Builder()
+//                        .setTitle("Action item")
+//                        .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+//                        .setStyle(R.style.Widget_Car_Button_Borderless_Colored)
+//                        .build());
+//            carToolbar.setMenuItems(items);
+            carToolbar.showOverflowMenu();
         });
 
         findViewById(R.id.add_if_room).setOnClickListener(v -> {
-            items.add(new CarMenuItem.Builder()
-                        .setTitle("If_Room item")
-                        .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
-                        .setStyle(R.style.Widget_Car_Button_Borderless_Colored)
-                        .build());
-            carToolbar.setMenuItems(items);
+//            items.add(new CarMenuItem.Builder()
+//                        .setTitle("If_Room item")
+//                        .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+//                        .setStyle(R.style.Widget_Car_Button_Borderless_Colored)
+//                        .build());
+//            carToolbar.setMenuItems(items);
+
+            carToolbar.showOverflowMenu();
         });
 
         findViewById(R.id.add_overflow).setOnClickListener(v -> {
