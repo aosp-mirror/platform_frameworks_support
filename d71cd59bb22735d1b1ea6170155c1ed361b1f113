@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1993af86_526fa116",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-08T23:15:02Z",
+      "side": 1,
+      "message": "Why do we still need it if we removed the dependency?",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 46
+      },
+      "revId": "d71cd59bb22735d1b1ea6170155c1ed361b1f113",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
