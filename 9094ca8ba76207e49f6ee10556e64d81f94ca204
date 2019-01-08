@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "74ca46db_36814e82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-08T22:03:20Z",
+      "side": 1,
+      "message": "Oh, and we also only call getHandler() when on UI thread. Got it.",
+      "parentUuid": "e21a8a5a_e1548ad8",
+      "range": {
+        "startLine": 10,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "daae9a04_0b8cd6fc",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 1
