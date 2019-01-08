@@ -93,6 +93,30 @@
       "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "520c9f63_43d37104",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T23:19:04Z",
+      "side": 1,
+      "message": "Actually, it was pretty easy to do.  I still need to clean the script up, but it will live along with out Google Sheets release tracking sheet.",
+      "parentUuid": "7f075409_93200add",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
