@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc28816c_5c397f39",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-08T20:22:40Z",
+      "side": 1,
+      "message": "How about using ContentResolver.SCHEME_ANDROID_RESOURCE?",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 95,
+        "endChar": 38
+      },
+      "revId": "8a7edcfb137eabb23c1d4b4924718a9cc5e56d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df135af_317a0554",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-08T20:22:40Z",
+      "side": 1,
+      "message": "According to https://developer.android.com/reference/android/content/ContentResolver , there are two URI formats for android resource scheme.\n\n1) android.resource://package_name/id_number\n2) android.resource://package_name/type/name\n\nThis doesn\u0027t seem to work with the first one, I guess.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 90
+      },
+      "revId": "8a7edcfb137eabb23c1d4b4924718a9cc5e56d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
