@@ -22,6 +22,7 @@ import androidx.build.checkapi.ApiXmlConversionTask
 import androidx.build.checkapi.CheckApiTasks
 import androidx.build.checkapi.hasApiTasks
 import androidx.build.checkapi.initializeApiChecksForProject
+import androidx.build.dependencies.CHECKER_FRAMEWORK
 import androidx.build.doclava.ChecksConfig
 import androidx.build.doclava.DEFAULT_DOCLAVA_CONFIG
 import androidx.build.doclava.DoclavaTask
@@ -86,6 +87,10 @@ class DiffAndDocs private constructor(
         doclavaConfiguration.dependencies.add(root.dependencies.create(root.files(
                 (ToolProvider.getSystemToolClassLoader() as URLClassLoader).urLs)))
 
+        val checkerConfiguration = root.configurations.create("checkerframework")
+        checkerConfiguration.dependencies.add(root.dependencies.create(CHECKER_FRAMEWORK))
+        val checkerClasspath = root.files(checkerConfiguration.resolve())
+
         rules = additionalRules + TIP_OF_TREE
         docsProject = root.findProject(":docs-fake")
         anchorTask = root.tasks.create("anchorDocsTask")
@@ -111,6 +116,8 @@ class DiffAndDocs private constructor(
                 destDir = File(root.docsDir(), it.name),
                 taskName = "${it.name}DocsTask",
                 offline = offline)
+            // Workaround for b/122531257 where Doclava attempts to link unnecessary annotations.
+            task.classpath += checkerClasspath
             docsTasks[it.name] = task
             anchorTask.dependsOn(createDistDocsTask(root, task, it.name))
         }
