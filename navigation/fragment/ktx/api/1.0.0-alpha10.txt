@@ -20,5 +20,16 @@ package androidx.navigation.fragment {
     method public static androidx.navigation.fragment.FragmentNavigator.Extras FragmentNavigatorExtras(kotlin.Pair<? extends android.view.View,java.lang.String>... sharedElements);
   }
 
+  public final class NavArgsLazy<Args extends androidx.navigation.NavArgs> implements kotlin.Lazy<Args> {
+    ctor public NavArgsLazy(android.support.v4.app.Fragment fragment, kotlin.reflect.KClass<Args> argsClass);
+    method public Args getValue();
+    method public boolean isInitialized();
+    property public Args value;
+  }
+
+  public final class NavArgsLazyKt {
+    ctor public NavArgsLazyKt();
+  }
+
 }
 
