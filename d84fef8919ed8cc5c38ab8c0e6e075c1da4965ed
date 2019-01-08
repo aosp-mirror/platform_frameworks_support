@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21812abc_c8e6b6a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T22:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a17088e_eb68921d",
+      "range": {
+        "startLine": 11,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85ab5daf_dcd1a7c3",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -57,6 +81,24 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cf793da_985a3a25",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T22:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f3efb75_0edd741c",
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -401,6 +443,30 @@
     },
     {
       "key": {
+        "uuid": "15e39340_bd0b5790",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T22:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e50e8d2f_cf9adb39",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f17c40f7_f9964213",
         "filename": "development/update_library_versions.py",
         "patchSetId": 3
@@ -492,6 +558,30 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b2b529_81c10a05",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T22:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80502fbc_b7f59317",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -633,6 +723,30 @@
       "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f997d3d9_c03b00e5",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T22:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6605d32d_410b726b",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "d84fef8919ed8cc5c38ab8c0e6e075c1da4965ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
