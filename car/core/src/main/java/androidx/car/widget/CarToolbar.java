@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -30,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
@@ -118,7 +120,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     public CarToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, /* defStyleRes= */ 0);
+        this(context, attrs, defStyleAttr, R.style.Widget_Car_CarToolbar);
     }
 
     public CarToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -151,9 +153,15 @@ public class CarToolbar extends ViewGroup {
             setTitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_titleTextAppearance,
                     R.style.TextAppearance_Car_Body1_Medium));
 
-            setNavigationIcon(Icon.createWithResource(getContext(),
+            setNavigationIcon(Icon.createWithResource(context,
                     a.getResourceId(R.styleable.CarToolbar_navigationIcon,
                             R.drawable.ic_nav_arrow_back)));
+
+            int navigationIconTintResId =
+                    a.getResourceId(R.styleable.CarToolbar_navigationIconTint, -1);
+            if (navigationIconTintResId != -1) {
+                setNavigationIconTint(context.getColor(navigationIconTintResId));
+            }
 
             int titleIconResId = a.getResourceId(R.styleable.CarToolbar_titleIcon, -1);
             setTitleIcon(titleIconResId != -1 ? Icon.createWithResource(context, titleIconResId)
@@ -168,7 +176,7 @@ public class CarToolbar extends ViewGroup {
             setSubtitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_subtitleTextAppearance,
                     R.style.TextAppearance_Car_Body2));
 
-            setOverflowIcon(Icon.createWithResource(getContext(),
+            setOverflowIcon(Icon.createWithResource(context,
                     a.getResourceId(R.styleable.CarToolbar_overflowIcon, R.drawable.ic_more_vert)));
 
             mOverflowButtonView.setOnClickListener(v -> {
@@ -282,7 +290,6 @@ public class CarToolbar extends ViewGroup {
         }
     }
 
-
     /**
      * Set the icon to use for the toolbar's navigation button.
      *
@@ -300,6 +307,29 @@ public class CarToolbar extends ViewGroup {
         }
         mNavButtonView.setVisibility(VISIBLE);
         mNavButtonView.setImageDrawable(icon.loadDrawable(getContext()));
+    }
+
+    /**
+     * Sets the tint color for the navigation icon.
+     *
+     * @param tint Color tint to apply.
+     *
+     * @attr ref R.styleable#CarToolbar_navigationIconTint
+     */
+    public void setNavigationIconTint(@ColorInt int tint) {
+        mNavButtonView.setColorFilter(tint);
+    }
+
+    /**
+     * Sets the given {@link ColorFilter} as the tint for the navigation icon. A {@code null}
+     * {@code ColorFilter} will clear any set color filters.
+     *
+     * @param colorFilter Color filter to apply for the tint.
+     *
+     * @attr ref R.styleable#CarToolbar_navigationIconTint
+     */
+    public void setNavigationIconTint(@Nullable ColorFilter colorFilter) {
+        mNavButtonView.setColorFilter(colorFilter);
     }
 
     /**
