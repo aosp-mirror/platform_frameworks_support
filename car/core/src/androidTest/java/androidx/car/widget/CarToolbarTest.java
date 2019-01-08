@@ -254,7 +254,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .build();
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setMenuItems(Collections.singletonList(overflowItem)));
@@ -267,7 +266,6 @@ public class CarToolbarTest {
         CarMenuItem actionItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .build();
 
         mActivityRule.runOnUiThread(() ->
@@ -282,7 +280,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .build();
         mActivityRule.runOnUiThread(() ->
@@ -299,7 +296,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .build();
 
@@ -307,7 +303,6 @@ public class CarToolbarTest {
         CarMenuItem alwaysItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(alwaysItemText)
                 .build();
         mActivityRule.runOnUiThread(() ->
@@ -326,7 +321,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .setOnClickListener(item -> clicked[0] = true)
                 .build();
