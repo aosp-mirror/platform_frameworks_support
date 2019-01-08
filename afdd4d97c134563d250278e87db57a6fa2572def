@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8a9d6e5_28e026ca",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-01-08T00:49:52Z",
+      "side": 1,
+      "message": "I think we should document if apps can call start again after calling stop.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 65
+      },
+      "revId": "afdd4d97c134563d250278e87db57a6fa2572def",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
