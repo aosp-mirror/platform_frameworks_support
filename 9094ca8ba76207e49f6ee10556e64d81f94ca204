@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "87d92945_cc7d0b63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-08T21:24:40Z",
+      "side": 1,
+      "message": "mWebView is not attached to the view hierarchy ever, AFAIK.",
+      "parentUuid": "0c6eaa6d_2d6cf31c",
+      "range": {
+        "startLine": 10,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "daae9a04_0b8cd6fc",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2019-01-08T20:35:24Z",
       "side": 1,
       "message": "Does this part actually need to be sync? |mLoaded| doesn\u0027t seem connected to the loadUrl() call itself.",
+      "range": {
+        "startLine": 435,
+        "startChar": 24,
+        "endLine": 435,
+        "endChar": 40
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7eaa3d0_ef824d15",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-08T21:24:40Z",
+      "side": 1,
+      "message": "It doesn\u0027t, but it mirrors the call.run() in its sync behaviour, so I think it\u0027s worth keeping. WDYT?",
+      "parentUuid": "daae9a04_0b8cd6fc",
       "range": {
         "startLine": 435,
         "startChar": 24,
@@ -91,6 +139,30 @@
       "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de027e7_09ad9a6d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-08T21:24:40Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "f93e3ce5_baaf678e",
+      "range": {
+        "startLine": 497,
+        "startChar": 7,
+        "endLine": 497,
+        "endChar": 43
+      },
+      "revId": "9094ca8ba76207e49f6ee10556e64d81f94ca204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
