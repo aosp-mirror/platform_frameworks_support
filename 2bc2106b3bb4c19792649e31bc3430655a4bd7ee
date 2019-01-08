@@ -117,6 +117,30 @@
       "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5255f364_83557825",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-08T16:44:48Z",
+      "side": 1,
+      "message": "Added a did-change return value to increment_alpha_beta_version",
+      "parentUuid": "86fba7ed_60a0381b",
+      "range": {
+        "startLine": 154,
+        "startChar": 54,
+        "endLine": 154,
+        "endChar": 111
+      },
+      "revId": "2bc2106b3bb4c19792649e31bc3430655a4bd7ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
