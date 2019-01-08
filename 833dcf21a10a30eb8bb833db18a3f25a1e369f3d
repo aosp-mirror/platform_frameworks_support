@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ff40789_bc88e128",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-08T20:37:58Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "833dcf21a10a30eb8bb833db18a3f25a1e369f3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
