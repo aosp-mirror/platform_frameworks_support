@@ -167,4 +167,14 @@ public class TextLinksParamsTest {
         assertThat(spans).hasLength(1);
         assertThat(links.getLinks()).contains(spans[0].getTextLinkSpanData().getTextLink());
     }
+
+    @Test
+    public void testApplyTextWithUnsupportedCharacters() {
+        SpannableString text = new SpannableString("\u202Emoc.diordna.com");
+        TextLinks links = new TextLinks.Builder(text).addLink(
+                1, text.length(), mDummyEntityScores).build();
+        TextLinksParams textLinksParams = new TextLinksParams.Builder().build();
+        assertThat(textLinksParams.apply(text, links, mTextClassifier))
+                .isEqualTo(TextLinks.STATUS_UNSUPPORTED_CHARACTER);
+    }
 }
