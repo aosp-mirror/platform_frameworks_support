@@ -22,6 +22,30 @@
       "revId": "a0576c30507139f5f7e36cda9d1a6181189f68b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2daff9_b51a3751",
+        "filename": "buildSrc/lint-checks/src/test/java/androidx/build/lint/ObsoleteBuildCompatUsageDetectorTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-09T17:07:54Z",
+      "side": 1,
+      "message": "None of the other checks have tests so I figured tests that exist but don\u0027t run are better than no tests at all.\n\nANDROID_HOME should point at our prebuilt SDK on CI. If you look at patchset 5 you can see the ridiculous way I was able to get it to work before. Ideally it just exists in the environment prior to running Gradle though.",
+      "parentUuid": "04d497cd_e3a8b3a3",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "a0576c30507139f5f7e36cda9d1a6181189f68b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
