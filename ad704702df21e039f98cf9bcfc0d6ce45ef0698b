@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d379b5d2_91688c8c",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2019-01-09T22:21:54Z",
+      "side": 1,
+      "message": "added test.",
+      "parentUuid": "dea59dcf_e5919b1e",
+      "range": {
+        "startLine": 1338,
+        "startChar": 4,
+        "endLine": 1338,
+        "endChar": 9
+      },
+      "revId": "ad704702df21e039f98cf9bcfc0d6ce45ef0698b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cc36478_103cf494",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
         "patchSetId": 26
