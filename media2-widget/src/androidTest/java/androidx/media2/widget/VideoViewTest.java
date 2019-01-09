@@ -79,10 +79,8 @@ import java.util.concurrent.Executor;
 
 /**
  * Test {@link VideoView}.
- *
- * TODO: Lower minSdkVersion to Kitkat.
  */
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class VideoViewTest {
