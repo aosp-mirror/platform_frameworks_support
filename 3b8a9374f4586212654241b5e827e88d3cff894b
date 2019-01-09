@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "495fdd9f_86b04089",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "I think you need to add an idle wait check after this runOnUiThread() call:\n\n  InstrumentationRegistry.getInstrumentation().waitForIdleSync();\n\nThis way, we won\u0027t run into flaky tests. It\u0027s possible that it might run the assert before the views have finished laying themselves out.\n\nThe reason you don\u0027t need it for the testIsOverflowMenuShowing() is because the onView() calls will implicitly wait for this under the hood.\n\nYou also need to update testHideOverflowMenu().",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5750c51b_5d8a49d8",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "Can you test if the dialog is actually being displayed instead?",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4b4eb6_8cd4c272",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "And here, check if the dialog is being hidden instead",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d8deb4_67478b2b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "Remove these two extra new lines",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b30440_2ca6e278",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "No need to capitalize this.",
+      "range": {
+        "startLine": 588,
+        "startChar": 35,
+        "endLine": 588,
+        "endChar": 43
+      },
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d0755f_da920d5e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-09T23:13:53Z",
+      "side": 1,
+      "message": "Don\u0027t need these surrounding parenthesis.\n\nhttp://go/java-style#s4.7-grouping-parentheses\n\nI don\u0027t really think they help with readability",
+      "range": {
+        "startLine": 591,
+        "startChar": 15,
+        "endLine": 591,
+        "endChar": 16
+      },
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
