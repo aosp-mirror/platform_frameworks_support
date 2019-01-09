@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04d497cd_e3a8b3a3",
+        "filename": "buildSrc/lint-checks/src/test/java/androidx/build/lint/ObsoleteBuildCompatUsageDetectorTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:55:50Z",
+      "side": 1,
+      "message": "We can set it. Where should it be pointing to? It seems silly to add a test that we\u0027ll not run.",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "a0576c30507139f5f7e36cda9d1a6181189f68b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
