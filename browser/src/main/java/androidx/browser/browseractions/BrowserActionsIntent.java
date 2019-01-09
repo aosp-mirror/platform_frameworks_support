@@ -40,12 +40,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 /**
  * Class holding the {@link Intent} and start bundle for a Browser Actions Activity.
  *
  * <p>
  * <strong>Note:</strong> The constants below are public for the browser implementation's benefit.
- * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.</p>
+ * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.
  */
 public class BrowserActionsIntent {
     private static final String TAG = "BrowserActions";
@@ -55,6 +56,10 @@ public class BrowserActionsIntent {
     /**
      * Extra that specifies {@link PendingIntent} indicating which Application sends the {@link
      * BrowserActionsIntent}.
+     * <p>
+     * <strong>Note:</strong> The PendingIntent is self-reported and untrusted, sending application
+     * can modify it to use PendingIntent from other apps. This would return the package name from
+     * the app who creates the PendintIntent.
      */
     public static final String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
 
@@ -68,6 +73,12 @@ public class BrowserActionsIntent {
      * Extra resource id that specifies the icon of a custom item shown in the Browser Actions menu.
      */
     public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
+
+    /**
+     * Extra {@link Uri} that specifies location of file for the icon of a custom item shown in the
+     * Browser Actions menu.
+     */
+    public static final String KEY_ICON_URI = "androidx.browser.browseractions.ICON_URI";
 
     /**
      * Extra string that specifies the title of a custom item shown in the Browser Actions menu.
@@ -174,6 +185,7 @@ public class BrowserActionsIntent {
         private int mType;
         private ArrayList<Bundle> mMenuItems = null;
         private PendingIntent mOnItemSelectedPendingIntent = null;
+        private List<Uri> mImageUris = null;
 
         /**
          * Constructs a {@link BrowserActionsIntent.Builder} object associated with default setting
@@ -186,6 +198,7 @@ public class BrowserActionsIntent {
             mUri = uri;
             mType = URL_TYPE_NONE;
             mMenuItems = new ArrayList<>();
+            mImageUris = new ArrayList<>();
         }
 
         /**
@@ -215,6 +228,9 @@ public class BrowserActionsIntent {
                             "Custom item should contain a non-empty title and non-null intent.");
                 } else {
                     mMenuItems.add(getBundleFromItem(items.get(i)));
+                    if (items.get(i).getIconUri() != null) {
+                        mImageUris.add(items.get(i).getIconUri());
+                    }
                 }
             }
             return this;
@@ -249,6 +265,7 @@ public class BrowserActionsIntent {
             bundle.putString(KEY_TITLE, item.getTitle());
             bundle.putParcelable(KEY_ACTION, item.getAction());
             if (item.getIconId() != 0) bundle.putInt(KEY_ICON_ID, item.getIconId());
+            if (item.getIconUri() != null) bundle.putParcelable(KEY_ICON_URI, item.getIconUri());
             return bundle;
         }
 
@@ -266,6 +283,7 @@ public class BrowserActionsIntent {
                 mIntent.putExtra(
                         EXTRA_SELECTED_ACTION_PENDING_INTENT, mOnItemSelectedPendingIntent);
             }
+            BrowserServiceFileProvider.grantReadPermission(mIntent, mImageUris, mContext);
             return new BrowserActionsIntent(mIntent);
         }
     }
@@ -348,7 +366,8 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @return List of Browser Actions providers available to handle the intent.
      */
-    private static List<ResolveInfo> getBrowserActionsIntentHandlers(Context context) {
+    public static @NonNull List<ResolveInfo> getBrowserActionsIntentHandlers(
+            @NonNull Context context) {
         Intent intent =
                 new Intent(BrowserActionsIntent.ACTION_BROWSER_ACTIONS_OPEN, Uri.parse(TEST_URL));
         PackageManager pm = context.getPackageManager();
@@ -375,7 +394,7 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      * @param type The type of the url for context menu to be opened.
-     * @param menuItems List of custom items to add to Browser Actions menu.
+     * @param menuItems List of {@link BrowserActionItem} to add to the fallback menu.
      */
     private static void openFallbackBrowserActionsMenu(
             Context context, Uri uri, int type, List<BrowserActionItem> menuItems) {
@@ -396,16 +415,22 @@ public class BrowserActionsIntent {
         List<BrowserActionItem> mActions = new ArrayList<>();
         for (int i = 0; i < bundles.size(); i++) {
             Bundle bundle = bundles.get(i);
-            String title = bundle.getString(BrowserActionsIntent.KEY_TITLE);
-            PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
+            String title = bundle.getString(KEY_TITLE);
+            PendingIntent action = bundle.getParcelable(KEY_ACTION);
             @DrawableRes
-            int iconId = bundle.getInt(BrowserActionsIntent.KEY_ICON_ID);
-            if (TextUtils.isEmpty(title) || action == null) {
+            int iconId = bundle.getInt(KEY_ICON_ID);
+            Uri iconUri = bundle.getParcelable(KEY_ICON_URI);
+            if (!TextUtils.isEmpty(title) && action != null) {
+                BrowserActionItem item;
+                if (iconId != 0) {
+                    item = new BrowserActionItem(title, action, iconId);
+                } else {
+                    item = new BrowserActionItem(title, action, iconUri);
+                }
+                mActions.add(item);
+            } else {
                 throw new IllegalArgumentException(
                         "Custom item should contain a non-empty title and non-null intent.");
-            } else {
-                BrowserActionItem item = new BrowserActionItem(title, action, iconId);
-                mActions.add(item);
             }
         }
         return mActions;
@@ -413,11 +438,15 @@ public class BrowserActionsIntent {
 
     /**
      * Get the package name of the creator application.
+     * <p>
+     * <strong> Note:</strong> This is self-reported and could be untrusted. Intent sender can
+     * modify it to return the package name from a different application.
+     *
      * @param intent The {@link BrowserActionsIntent}.
      * @return The creator package name.
      */
     @SuppressWarnings("deprecation")
-    public static String getCreatorPackageName(Intent intent) {
+    public static String getUntrustedCreatorPackageName(Intent intent) {
         PendingIntent pendingIntent = intent.getParcelableExtra(BrowserActionsIntent.EXTRA_APP_ID);
         if (pendingIntent != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
