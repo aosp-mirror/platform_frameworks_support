@@ -29,6 +29,7 @@ import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.text.util.Linkify.MatchFilter;
 import android.text.util.Linkify.TransformFilter;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -54,6 +55,9 @@ import java.util.regex.Pattern;
  * levels.
  */
 public final class LinkifyCompat {
+
+    private static final String LOG_TAG = "LinkifyCompat";
+
     private static final String[] EMPTY_STRING = new String[0];
 
     private static final Comparator<LinkSpec>  COMPARATOR = new Comparator<LinkSpec>() {
@@ -102,6 +106,11 @@ public final class LinkifyCompat {
         if (shouldAddLinksFallbackToFramework()) {
             return Linkify.addLinks(text, mask);
         }
+
+        if (text != null && containsUnsupportedCharacters(text.toString())) {
+            return false;
+        }
+
         if (mask == 0) {
             return false;
         }
@@ -336,6 +345,11 @@ public final class LinkifyCompat {
             return Linkify.addLinks(spannable, pattern, defaultScheme, schemes, matchFilter,
                     transformFilter);
         }
+
+        if (spannable != null && containsUnsupportedCharacters(spannable.toString())) {
+            return false;
+        }
+
         final String[] schemesCopy;
         if (defaultScheme == null) defaultScheme = "";
         if (schemes == null || schemes.length < 1) {
@@ -370,6 +384,30 @@ public final class LinkifyCompat {
         }
 
         return hasMatches;
+    }
+
+    /**
+     * Returns true if the specified text contains at least one unsupported character for applying
+     * links. Also logs the error.
+     *
+     * @param text the text to apply links to
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static boolean containsUnsupportedCharacters(String text) {
+        if (text.contains("\u202C")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202C");
+            return true;
+        }
+        if (text.contains("\u202D")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202D");
+            return true;
+        }
+        if (text.contains("\u202E")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202E");
+            return true;
+        }
+        return false;
     }
 
     private static boolean shouldAddLinksFallbackToFramework() {
