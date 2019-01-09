@@ -22,6 +22,30 @@
       "revId": "529f757b3b85d684268f6f588c8b0156a6a37b1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7a17a02_024bd265",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoPlayerActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-09T07:17:25Z",
+      "side": 1,
+      "message": "That\u0027s better. I uploaded new patch set.",
+      "parentUuid": "0452c8a2_eb6c3987",
+      "range": {
+        "startLine": 210,
+        "startChar": 21,
+        "endLine": 210,
+        "endChar": 38
+      },
+      "revId": "529f757b3b85d684268f6f588c8b0156a6a37b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
