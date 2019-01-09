@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdfb4dfa_64bbea21",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 0,
+      "message": "You should keep this package scoped, mMenuUiListener is being acceessed from a private inner class, if you make it private we get an extra unnecessary method created to make this accessible.",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "3752dd1026dbb2d630c05eb2a80cbad9d94db175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

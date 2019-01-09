@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a60fef5_7f8e458f",
+        "filename": "browser/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "Work with nickanthony@ and alanv@ to make sure we add this to release notes. We need to communicate this bump clearly.",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d7085ac_e0ae3858",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@NonNull?\n\nAlso you added a new api so you need to run ./gradlew updateApi",
+      "range": {
+        "startLine": 115,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 14
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcf66190_42024c32",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 12
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35af8f94_23a7199e",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "keep it package protected, it is used from a private inner class.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 11
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2a0104_172da487",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@NonNull? @Nullable?",
+      "range": {
+        "startLine": 369,
+        "startChar": 18,
+        "endLine": 369,
+        "endChar": 35
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b109fef5_83cdfdad",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 369,
+        "startChar": 68,
+        "endLine": 369,
+        "endChar": 75
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c1f7e9_6b97f232",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "Is this meant to be a generic or specific to browser service and browser client?",
+      "range": {
+        "startLine": 53,
+        "startChar": 51,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2bb26a_f62ae7d9",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "Please add nullability annotations in this class",
+      "range": {
+        "startLine": 43,
+        "startChar": 39,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed3bc2b_8186af78",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 100,
+        "startChar": 18,
+        "endLine": 100,
+        "endChar": 24
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43482c35_eb03f3c6",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T16:21:41Z",
+      "side": 1,
+      "message": "@NonNull?",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 101,
+        "endChar": 27
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
