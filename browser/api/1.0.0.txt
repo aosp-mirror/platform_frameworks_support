@@ -4,14 +4,17 @@ package androidx.browser.browseractions {
   public class BrowserActionItem {
     ctor public BrowserActionItem(String, android.app.PendingIntent, @DrawableRes int);
     ctor public BrowserActionItem(String, android.app.PendingIntent);
-    method public android.app.PendingIntent! getAction();
+    method public android.app.PendingIntent getAction();
     method public int getIconId();
-    method public String! getTitle();
+    method public android.net.Uri? getIconUri();
+    method public String getTitle();
   }
 
   public class BrowserActionsIntent {
-    method public static String! getCreatorPackageName(android.content.Intent!);
+    method public static java.util.List<android.content.pm.ResolveInfo> getBrowserActionsIntentHandlers(android.content.Context);
+    method @Deprecated public static String? getCreatorPackageName(android.content.Intent);
     method public android.content.Intent getIntent();
+    method public static String? getUntrustedCreatorPackageName(android.content.Intent);
     method public static void launchIntent(android.content.Context!, android.content.Intent!);
     method public static void openBrowserAction(android.content.Context!, android.net.Uri!);
     method public static void openBrowserAction(android.content.Context!, android.net.Uri!, int, java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem>!, android.app.PendingIntent!);
@@ -29,6 +32,7 @@ package androidx.browser.browseractions {
     field public static final int ITEM_SHARE = 4; // 0x4
     field public static final String KEY_ACTION = "androidx.browser.browseractions.ACTION";
     field public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
+    field public static final String KEY_ICON_URI = "androidx.browser.browseractions.ICON_URI";
     field public static final String KEY_TITLE = "androidx.browser.browseractions.TITLE";
     field public static final int MAX_CUSTOM_ITEMS = 5; // 0x5
     field public static final int URL_TYPE_AUDIO = 3; // 0x3
@@ -46,6 +50,13 @@ package androidx.browser.browseractions {
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(androidx.browser.browseractions.BrowserActionItem...!);
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setOnItemSelectedAction(android.app.PendingIntent!);
     method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setUrlType(int);
+  }
+
+  public class BrowserServiceFileProvider extends androidx.core.content.FileProvider {
+    ctor public BrowserServiceFileProvider();
+    method @UiThread public static android.net.Uri generateUri(android.content.Context, android.graphics.Bitmap, String, int);
+    method public static void grantReadPermission(android.content.Intent, java.util.List<android.net.Uri>?, android.content.Context);
+    method public static com.google.common.util.concurrent.ListenableFuture<android.graphics.Bitmap> readImage(android.content.ContentResolver, android.net.Uri);
   }
 
 }
@@ -72,7 +83,7 @@ package androidx.browser.customtabs {
     method public static boolean connectAndInitialize(android.content.Context!, String!);
     method public android.os.Bundle! extraCommand(String!, android.os.Bundle!);
     method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String>?);
-    method public static String! getPackageName(android.content.Context!, java.util.List<java.lang.String>?, boolean);
+    method public static String? getPackageName(android.content.Context, java.util.List<java.lang.String>?, boolean);
     method public androidx.browser.customtabs.CustomTabsSession! newSession(androidx.browser.customtabs.CustomTabsCallback!);
     method public boolean warmup(long);
   }
