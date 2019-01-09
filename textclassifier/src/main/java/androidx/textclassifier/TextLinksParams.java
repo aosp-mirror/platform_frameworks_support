@@ -19,6 +19,7 @@ package androidx.textclassifier;
 import android.annotation.SuppressLint;
 import android.text.Spannable;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ import androidx.textclassifier.TextLinks.TextLinkSpan;
  * {@link TextLinks#apply(Spannable, TextClassifier, TextLinksParams)} APIs.
  */
 public final class TextLinksParams {
+
+    private static final String LOG_TAG = "TextLinksParams";
 
     /**
      * A factory to create spans from TextLinks.
@@ -110,6 +113,10 @@ public final class TextLinksParams {
         Preconditions.checkNotNull(textLinks);
         Preconditions.checkNotNull(textClassifier);
 
+        if (containsUnsupportedCharacters(text.toString())) {
+            // Do not apply links to text containing unsupported characters.
+            return TextLinks.STATUS_UNSUPPORTED_CHARACTER;
+        }
         if (!canApply(text, textLinks)) {
             return TextLinks.STATUS_DIFFERENT_TEXT;
         }
@@ -266,5 +273,25 @@ public final class TextLinksParams {
                     "Invalid apply strategy. See TextLinksParams.ApplyStrategy for options.");
         }
         return applyStrategy;
+    }
+
+    /**
+     * Local copy of LinkifyCompat.containsUnsupportedCharacters(String)
+     */
+    // TODO: Replace with LinkifyCompat.containsUnsupportedCharacters(String) ASAP.
+    private static boolean containsUnsupportedCharacters(String text) {
+        if (text.contains("\u202C")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202C");
+            return true;
+        }
+        if (text.contains("\u202D")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202D");
+            return true;
+        }
+        if (text.contains("\u202E")) {
+            Log.e(LOG_TAG, "Unsupported character for applying links: u202E");
+            return true;
+        }
+        return false;
     }
 }

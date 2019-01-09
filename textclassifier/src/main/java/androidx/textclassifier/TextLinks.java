@@ -88,6 +88,8 @@ public final class TextLinks {
     public static final int STATUS_NO_LINKS_APPLIED = 2;
     /** The specified text does not match the text used to generate the links. */
     public static final int STATUS_DIFFERENT_TEXT = 3;
+    /** The specified text contains unsupported characters. */
+    public static final int STATUS_UNSUPPORTED_CHARACTER = 4;
 
     /** @hide */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -97,7 +99,8 @@ public final class TextLinks {
             STATUS_LINKS_APPLIED,
             STATUS_NO_LINKS_FOUND,
             STATUS_NO_LINKS_APPLIED,
-            STATUS_DIFFERENT_TEXT
+            STATUS_DIFFERENT_TEXT,
+            STATUS_UNSUPPORTED_CHARACTER
     })
     public @interface Status {}
 
