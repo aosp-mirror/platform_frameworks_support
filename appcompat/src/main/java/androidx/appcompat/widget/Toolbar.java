@@ -19,6 +19,7 @@ package androidx.appcompat.widget;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -47,6 +48,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -143,8 +145,10 @@ public class Toolbar extends ViewGroup {
     private static final String TAG = "Toolbar";
 
     private ActionMenuView mMenuView;
-    private TextView mTitleTextView;
-    private TextView mSubtitleTextView;
+    @VisibleForTesting
+    TextView mTitleTextView;
+    @VisibleForTesting
+    TextView mSubtitleTextView;
     private ImageButton mNavButtonView;
     private ImageView mLogoView;
 
@@ -180,8 +184,8 @@ public class Toolbar extends ViewGroup {
     private CharSequence mTitleText;
     private CharSequence mSubtitleText;
 
-    private int mTitleTextColor;
-    private int mSubtitleTextColor;
+    private ColorStateList mTitleTextColor;
+    private ColorStateList mSubtitleTextColor;
 
     private boolean mEatingTouch;
     private boolean mEatingHover;
@@ -333,11 +337,11 @@ public class Toolbar extends ViewGroup {
         }
 
         if (a.hasValue(R.styleable.Toolbar_titleTextColor)) {
-            setTitleTextColor(a.getColor(R.styleable.Toolbar_titleTextColor, 0xffffffff));
+            setTitleTextColor(a.getColorStateList(R.styleable.Toolbar_titleTextColor));
         }
 
         if (a.hasValue(R.styleable.Toolbar_subtitleTextColor)) {
-            setSubtitleTextColor(a.getColor(R.styleable.Toolbar_subtitleTextColor, 0xffffffff));
+            setSubtitleTextColor(a.getColorStateList(R.styleable.Toolbar_subtitleTextColor));
         }
         a.recycle();
     }
@@ -758,7 +762,7 @@ public class Toolbar extends ViewGroup {
                 if (mTitleTextAppearance != 0) {
                     mTitleTextView.setTextAppearance(context, mTitleTextAppearance);
                 }
-                if (mTitleTextColor != 0) {
+                if (mTitleTextColor != null) {
                     mTitleTextView.setTextColor(mTitleTextColor);
                 }
             }
@@ -812,7 +816,7 @@ public class Toolbar extends ViewGroup {
                 if (mSubtitleTextAppearance != 0) {
                     mSubtitleTextView.setTextAppearance(context, mSubtitleTextAppearance);
                 }
-                if (mSubtitleTextColor != 0) {
+                if (mSubtitleTextColor != null) {
                     mSubtitleTextView.setTextColor(mSubtitleTextColor);
                 }
             }
@@ -857,6 +861,15 @@ public class Toolbar extends ViewGroup {
      * @param color The new text color in 0xAARRGGBB format
      */
     public void setTitleTextColor(@ColorInt int color) {
+        setTitleTextColor(ColorStateList.valueOf(color));
+    }
+
+    /**
+     * Sets the text color of the title, if present.
+     *
+     * @param color The new text color
+     */
+    public void setTitleTextColor(@NonNull ColorStateList color) {
         mTitleTextColor = color;
         if (mTitleTextView != null) {
             mTitleTextView.setTextColor(color);
@@ -869,6 +882,15 @@ public class Toolbar extends ViewGroup {
      * @param color The new text color in 0xAARRGGBB format
      */
     public void setSubtitleTextColor(@ColorInt int color) {
+        setSubtitleTextColor(ColorStateList.valueOf(color));
+    }
+
+    /**
+     * Sets the text color of the subtitle, if present.
+     *
+     * @param color The new text color
+     */
+    public void setSubtitleTextColor(@NonNull ColorStateList color) {
         mSubtitleTextColor = color;
         if (mSubtitleTextView != null) {
             mSubtitleTextView.setTextColor(color);
