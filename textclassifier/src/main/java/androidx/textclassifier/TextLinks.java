@@ -88,6 +88,8 @@ public final class TextLinks {
     public static final int STATUS_NO_LINKS_APPLIED = 2;
     /** The specified text does not match the text used to generate the links. */
     public static final int STATUS_DIFFERENT_TEXT = 3;
+    /** The specified text contains unsupported characters. */
+    public static final int STATUS_UNSUPPORTED_CHARACTER = 4;
 
     /** @hide */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -97,7 +99,8 @@ public final class TextLinks {
             STATUS_LINKS_APPLIED,
             STATUS_NO_LINKS_FOUND,
             STATUS_NO_LINKS_APPLIED,
-            STATUS_DIFFERENT_TEXT
+            STATUS_DIFFERENT_TEXT,
+            STATUS_UNSUPPORTED_CHARACTER
     })
     public @interface Status {}
 
@@ -190,12 +193,19 @@ public final class TextLinks {
      * <p><strong>NOTE: </strong>It may be necessary to set a LinkMovementMethod on the TextView
      * widget to properly handle links. See {@link TextView#setMovementMethod(MovementMethod)}
      *
+     * <p><strong>NOTE: </strong>Links are only applied if this method returns
+     * {@link TextLinks#STATUS_LINKS_APPLIED}. If this method returns
+     * {@link TextLinks#STATUS_DIFFERENT_TEXT}, ensure that you apply the links to the text that
+     * the links were originally generated from before retrying. If this method returns
+     * {@link TextLinks#STATUS_UNSUPPORTED_CHARACTER}, remove the unsupported characters from the
+     * text before retrying.
+     *
      * @param text the text to apply the links to. Must match the original text
      * @param textClassifier the TextClassifier to use to classify a clicked link. Should usually
      *                       be the one used to generate the links
      * @param textLinksParams the param that specifies how the links should be applied
      *
-     * @return the status code which indicates the operation is success or not.
+     * @return the status code which indicates whether the operation was successful or not.
      */
     @Status
     @SuppressLint("RestrictedApi")

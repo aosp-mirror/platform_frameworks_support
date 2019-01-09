@@ -127,6 +127,7 @@ package androidx.textclassifier {
     field public static final int STATUS_NO_LINKS_APPLIED = 2; // 0x2
     field public static final int STATUS_NO_LINKS_FOUND = 1; // 0x1
     field public static final int STATUS_UNKNOWN = -1; // 0xffffffff
+    field public static final int STATUS_UNSUPPORTED_CHARACTER = 4; // 0x4
   }
 
   public static final class TextLinks.Builder {
