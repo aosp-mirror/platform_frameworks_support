@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebbe1200_b6cdd305",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/UriMatcherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "Unused (although I think you have typos).\n\nThe name is misleading: this isn\u0027t actually null.",
+      "range": {
+        "startLine": 33,
+        "startChar": 25,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83dad0e_de85f96c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/UriMatcherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "Undefined? Probably meant \"mNullObject\"?",
+      "range": {
+        "startLine": 39,
+        "startChar": 54,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aabd28c_2fc75e58",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "Mention handlers too",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9174c3_84375f3f",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "Wrap these in an @IntDef",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 38
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14716456_daa7e614",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "`this(null)` instead?",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ac17de_8bf9ba16",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "mMatchType perhaps?",
+      "range": {
+        "startLine": 123,
+        "startChar": 26,
+        "endLine": 123,
+        "endChar": 32
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dad48102_2b34293a",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-09T20:45:10Z",
+      "side": 1,
+      "message": "mHandler",
+      "range": {
+        "startLine": 134,
+        "startChar": 13,
+        "endLine": 134,
+        "endChar": 18
+      },
+      "revId": "abaf27d17447bd5ae9c3b17128f39bc15c16ef0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
