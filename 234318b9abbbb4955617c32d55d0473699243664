@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34362c2a_11447e9b",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T21:38:26Z",
+      "side": 1,
+      "message": "We don\u0027t even run on pre API 14 devices, this check is useless.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 69
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "464aa9f3_d84a5246",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T21:38:26Z",
+      "side": 1,
+      "message": "What are these magic constants?",
+      "range": {
+        "startLine": 113,
+        "startChar": 36,
+        "endLine": 113,
+        "endChar": 59
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e27806d_227732a5",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T21:38:26Z",
+      "side": 1,
+      "message": "Some question as above. What are we printing here?",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 69
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ebf8e2_b74e5df4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-09T21:38:26Z",
+      "side": 1,
+      "message": "Add explanation what it means. Will linkify fail? How do developers recover? Can they query what characters are supported/unsupported?",
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
