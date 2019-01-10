@@ -45,6 +45,29 @@
       "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b502da75_c6aa72c9",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-10T19:30:51Z",
+      "side": 1,
+      "message": "Please don\u0027t expose AsyncTask as an API, because how the asynchronous work happens is irrelevant to the public API which should deal in communication between components. \nAs alternatives approach, you may have:\nclass BrowserServiceImageReader {\n  // option 1\n  ListenableFuture\u003cBitmap\u003e read(Uri uri);\n  // option 2\n  void read(Uri uri, Callback callback);\n  interface Callback {\n       onBitmapFileReady(...)\n  }\n}\n\nand have asynctask as implementation detail\n\nfor option 1, look at androidx.concurrent package, which is currently at baking state.",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
