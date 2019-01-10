@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "4eeaf9e4_eb3e06f1",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-01-10T20:45:48Z",
+      "side": 1,
+      "message": "I can think of a few ways:\n\n- you could give the item some text, and make sure it\u0027s not displayed after calling hide overflow menu;\n\n- perhaps try using a type matcher to look for list dialog, and verify it doesn\u0027t exist (i haven\u0027t tried this before)\nhttps://developer.android.com/reference/android/support/test/espresso/matcher/BoundedMatcher\nhttps://developer.android.com/reference/android/support/test/espresso/matcher/RootMatchers.html#isDialog()\n\nin addition, you could add more tests so that we can trust isOverflowMenuShowing() for verification here and other places (basically the same thing as above but done in a different place).\n\nFWIW, toolbar cts uses isOverflowMenuShowing()\nhttps://cs.corp.google.com/android/cts/tests/tests/widget/src/android/widget/cts/ToolbarTest.java?l\u003d161",
+      "parentUuid": "7c17a2a1_697cd05c",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37d8deb4_67478b2b",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
