@@ -22,6 +22,30 @@
       "revId": "f66954c39cb346e8561a485cbf5c49d3429d906c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "764697db_df3d9fb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-10T01:36:58Z",
+      "side": 1,
+      "message": "Ah, now I understood the role of transform checkbox. Ignore the comment.",
+      "parentUuid": "d543543b_d50bf866",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "f66954c39cb346e8561a485cbf5c49d3429d906c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
