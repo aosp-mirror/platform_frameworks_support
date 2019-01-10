@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b99f1350_164f6e85",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoPlayerActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-10T01:44:25Z",
+      "side": 1,
+      "message": "minor) what about applyTransformability",
+      "range": {
+        "startLine": 338,
+        "startChar": 9,
+        "endLine": 338,
+        "endChar": 28
+      },
+      "revId": "a2786604b68ccdc3d72633cba7c7c161a3cf2c4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
