@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecaaefce_75743b48",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/UriMatcherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T01:17:10Z",
+      "side": 1,
+      "message": "optional: you could consider assertion messages. The main advantage is that it\u0027s hard to tell which of the many consecutive assertNull()/assertEquals() failed--it\u0027ll emit a line number, but a unique assertion message is a bit more obvious. But I acknowledge there\u0027s lots of assertions, so it may not be worth the effort.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 92
+      },
+      "revId": "f141c5818edb429d883a13082e21dc9e17bc42b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec1d0314_db8b32aa",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/UriMatcherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T01:17:10Z",
+      "side": 1,
+      "message": "It\u0027s a bit unclear: what\u0027s the difference between returning mNoMatchObject, pathMatch, or null? pathMatch seems to indicate success (the scheme, authority, and path all match). What do the other two indicate?",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 86
+      },
+      "revId": "f141c5818edb429d883a13082e21dc9e17bc42b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef581e7b_d9966c8f",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/UriMatcher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T01:17:10Z",
+      "side": 1,
+      "message": "Based on your comment, it seems it also supports **. Probably worth branching this into a bulleted list.",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "f141c5818edb429d883a13082e21dc9e17bc42b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
