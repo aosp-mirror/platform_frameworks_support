@@ -181,9 +181,22 @@ public class CarToolbar extends ViewGroup {
                     R.drawable.ic_more_vert));
 
             mOverflowButtonView.setOnClickListener(v -> {
-                if (mOverflowDialog != null) {
-                    mOverflowDialog.show();
-                }
+                // Populate the overflow menu dialog.
+                mOverflowMenuItems.clear();
+                List<CharSequence> overflowItemTitles = new ArrayList<>();
+
+                mMenuItems.stream().filter(item -> item.getDisplayBehavior()
+                        == CarMenuItem.DisplayBehavior.NEVER).forEach(item -> {
+                            overflowItemTitles.add(item.getTitle());
+                            mOverflowMenuItems.add(item);
+                        });
+
+                mOverflowDialog = new CarListDialog.Builder(getContext())
+                    .setItems(overflowItemTitles.toArray(
+                            new CharSequence[mOverflowMenuItems.size()]),
+                            mOverflowDialogClickListener)
+                    .create();
+                mOverflowDialog.show();
             });
 
             mEdgeButtonContainerWidth = a.getDimensionPixelSize(
@@ -538,39 +551,13 @@ public class CarToolbar extends ViewGroup {
      */
     public void setMenuItems(@Nullable List<CarMenuItem> items) {
         mMenuItems = items;
-        setUpOverflowMenu();
+
+        // Show the overflow menu button if there are any overflow menu items.
+        mOverflowButtonView.setVisibility(mMenuItems != null && mMenuItems.stream()
+                .anyMatch(item -> item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER)
+                ? VISIBLE : GONE);
+
         requestLayout();
-    }
-
-    /**
-     * Creates an overflow menu if there are any overflow menu items.
-     */
-    private void setUpOverflowMenu() {
-        if (mMenuItems == null || mMenuItems.isEmpty()) {
-            mOverflowDialog = null;
-            mOverflowButtonView.setVisibility(GONE);
-            return;
-        }
-
-        List<CharSequence> overflowItemTitles = new ArrayList<>();
-        mOverflowMenuItems.clear();
-        for (CarMenuItem item : mMenuItems) {
-            if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
-                overflowItemTitles.add(item.getTitle());
-                mOverflowMenuItems.add(item);
-            }
-        }
-
-        if (mOverflowMenuItems.isEmpty()) {
-            mOverflowButtonView.setVisibility(GONE);
-            return;
-        }
-        mOverflowButtonView.setVisibility(VISIBLE);
-
-        mOverflowDialog = new CarListDialog.Builder(getContext())
-                .setItems(overflowItemTitles.toArray(new CharSequence[mOverflowMenuItems.size()]),
-                        mOverflowDialogClickListener)
-                .create();
     }
 
     /**
