@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ad2cb94f_a1ee9073",
+        "filename": "browser/api/1.0.0.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-10T19:11:53Z",
+      "side": 0,
+      "message": "You are effectively removing a method by renaming this which breaks binary compatibility. Either keep the old method that just passes through and add @deprecated or you have to bump the major version X.x.x of your library. I would prefer the former option.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "3752dd1026dbb2d630c05eb2a80cbad9d94db175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdfb4dfa_64bbea21",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsFallbackMenuUi.java",
         "patchSetId": 3

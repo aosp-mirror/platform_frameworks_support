@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68bd64bf_7e39ad39",
+        "filename": "browser/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-10T19:11:53Z",
+      "side": 1,
+      "message": "You need to bump the version of the library in LibraryVersion.kt to at least 1.1.0-alpha01 or 2.0.0-alpha01 if you decided to go through with api removal mentioned in txt file comment.",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 42
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c817fee8_0f432148",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-10T19:11:53Z",
+      "side": 1,
+      "message": "Add nullability annotations",
+      "range": {
+        "startLine": 449,
+        "startChar": 18,
+        "endLine": 449,
+        "endChar": 24
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

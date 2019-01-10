@@ -354,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "46b4a597_9b43ab32",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-10T19:11:53Z",
+      "side": 1,
+      "message": "Yes, thats correct. You can always add it for your non exposed stuff too, then you can enable Nullaway (add annotationProcessor(NULLAWAY) to your build.gradle) and that will catch any mistakes you might make.\n\nexample https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/palette/build.gradle#19",
+      "parentUuid": "fa39ae9f_dd453ec9",
+      "range": {
+        "startLine": 43,
+        "startChar": 39,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ed3bc2b_8186af78",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
         "patchSetId": 3
