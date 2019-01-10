@@ -16,6 +16,24 @@
       "revId": "b9fb086f8eaab24af969b66e04df38b3680d69da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb57075_5089f1b8",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-01-10T08:16:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba11cd1e_1cac4bd4",
+      "revId": "b9fb086f8eaab24af969b66e04df38b3680d69da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
