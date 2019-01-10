@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fcf4f86e_1d07b58e",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T16:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bf4d302_30de1049",
+      "range": {
+        "startLine": 21,
+        "startChar": 34,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ea1e5c2_803d37fd",
         "filename": "development/update_library_versions.py",
         "patchSetId": 11
@@ -36,6 +60,24 @@
       "writtenOn": "2019-01-09T20:55:28Z",
       "side": 1,
       "message": "Not a big deal but I\u0027d use a name more like \"changed\" - I think it\u0027s less that this function fails to increment a version that doesn\u0027t contain \"alpha\" or \"beta\" and more that this function is supposed to skip incrementing those kinds of versions",
+      "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "885a7caa_97032480",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T16:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea1e5c2_803d37fd",
       "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "43fef95e_acb8e522",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T16:02:18Z",
+      "side": 1,
+      "message": "Seems reasonable.  Done",
+      "parentUuid": "a3f9508d_17f1f3e1",
+      "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72240e81_6da000d1",
         "filename": "development/update_library_versions.py",
         "patchSetId": 11
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "24d64f03_a552b5ec",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T16:02:18Z",
+      "side": 1,
+      "message": "Nope.  Just overly cautious programming.",
+      "parentUuid": "72240e81_6da000d1",
+      "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb90b3b9_0a6d9057",
         "filename": "development/update_library_versions.py",
         "patchSetId": 11
@@ -90,6 +168,24 @@
       "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b8d5fcd_97963286",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T16:02:18Z",
+      "side": 1,
+      "message": "I don\u0027t know how we would get into that state (release a version then decrement the version?), but happy to add it.",
+      "parentUuid": "bb90b3b9_0a6d9057",
+      "revId": "901f78e26bc5b62db60e7810329e9d48052e7d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
