@@ -37,11 +37,15 @@
         </activity>
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+<<<<<<< HEAD
         <activity android:name=".ProxyOverrideActivity"
           android:exported="true" />
         <activity android:name=".AssetLoaderListActivity"
           android:exported="true" />
         <activity android:name=".AssetLoaderSimpleActivity"
+=======
+        <activity android:name=".WebViewAssetLoaderAjaxActivity"
+>>>>>>> [WebView Support Library] Add Demo to use WebViewAssetLoader
           android:exported="true" />
     </application>
 </manifest>
