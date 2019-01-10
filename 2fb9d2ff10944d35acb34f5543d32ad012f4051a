@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02c5fb9a_7f013a74",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-01-10T23:33:35Z",
+      "side": 1,
+      "message": "Let\u0027s move this to be just under the 4 tests that use it.",
+      "range": {
+        "startLine": 1417,
+        "startChar": 17,
+        "endLine": 1417,
+        "endChar": 40
+      },
+      "revId": "2fb9d2ff10944d35acb34f5543d32ad012f4051a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "486d7a7e_5a27103d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/GridLayoutManagerTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-01-10T23:33:35Z",
+      "side": 1,
+      "message": "Seems important to test this with HORIZONTAL too given that the changes affect that code path as well.\n\nI\u0027d recommend making a private helper method that runs the test, and that accepts parameters to flip the things needing flipping to test vertical and horizontal.",
+      "range": {
+        "startLine": 1442,
+        "startChar": 37,
+        "endLine": 1442,
+        "endChar": 45
+      },
+      "revId": "2fb9d2ff10944d35acb34f5543d32ad012f4051a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
