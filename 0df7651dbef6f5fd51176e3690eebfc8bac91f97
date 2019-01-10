@@ -22,6 +22,30 @@
       "revId": "0df7651dbef6f5fd51176e3690eebfc8bac91f97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b68198a_73b33937",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/Toolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-10T22:40:42Z",
+      "side": 1,
+      "message": "@VisibleForTesting has no actual effect. I\u0027ll switch this to getters with @RestrictTo",
+      "parentUuid": "75b6582e_dec538fd",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "0df7651dbef6f5fd51176e3690eebfc8bac91f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
