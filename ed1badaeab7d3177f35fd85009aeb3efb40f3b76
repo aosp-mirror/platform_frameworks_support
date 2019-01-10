@@ -22,6 +22,30 @@
       "revId": "ed1badaeab7d3177f35fd85009aeb3efb40f3b76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d3fe1f_338f764c",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoPlayerActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-10T02:18:56Z",
+      "side": 1,
+      "message": "Then, I think VideoView#setOnViewTypeChangedListener should be public not annotated by \"RestrictTo\" nor \"VisibleForTesting\". Let me file a separate issue about it.",
+      "parentUuid": "bddab0b2_43e693b0",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 23
+      },
+      "revId": "ed1badaeab7d3177f35fd85009aeb3efb40f3b76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
