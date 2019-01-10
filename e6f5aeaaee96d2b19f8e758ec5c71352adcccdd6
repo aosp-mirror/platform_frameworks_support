@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "f4276387_32f97d93",
+        "filename": "webkit/api/1.1.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Done. @hide the whole class",
+      "parentUuid": "c241aafb_a2e06388",
+      "range": {
+        "startLine": 164,
+        "startChar": 15,
+        "endLine": 164,
+        "endChar": 33
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89f9560c_ba5efce2",
         "filename": "webkit/api/1.1.0-alpha01.txt",
         "patchSetId": 2
@@ -933,6 +957,30 @@
     },
     {
       "key": {
+        "uuid": "8a519554_4f6e5515",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9651e76c_49e307ab",
+      "range": {
+        "startLine": 129,
+        "startChar": 101,
+        "endLine": 129,
+        "endChar": 121
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e239170b_af590d1e",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -1192,6 +1240,30 @@
     },
     {
       "key": {
+        "uuid": "f12760c2_59a11963",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "ACK\n\nI removed the contractor as it wasn\u0027t used anywhere anyway.",
+      "parentUuid": "e7d7cbaf_6e4454bb",
+      "range": {
+        "startLine": 340,
+        "startChar": 15,
+        "endLine": 340,
+        "endChar": 26
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e9384ff_b3c5fd4f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 2
@@ -1203,6 +1275,30 @@
       "writtenOn": "2018-11-28T00:34:57Z",
       "side": 1,
       "message": "Throwing an exception seems cleaner IMO, even if we just catch it and return null above",
+      "range": {
+        "startLine": 444,
+        "startChar": 12,
+        "endLine": 444,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a185dc_e87f85bb",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Don\u0027t know, Uri.parse() does the same for malformed url strings (returning null). I feel like keeping it this way.",
+      "parentUuid": "6e9384ff_b3c5fd4f",
       "range": {
         "startLine": 444,
         "startChar": 12,
@@ -1283,6 +1379,30 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ce29d3f_3525ed13",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "No, I haven\u0027t addressed this yet.\n\nUsed template in aosp/866769",
+      "parentUuid": "e49c049c_1e9bac79",
+      "range": {
+        "startLine": 468,
+        "startChar": 22,
+        "endLine": 468,
+        "endChar": 35
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1400,6 +1520,30 @@
       "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38694bb7_8d2106fe",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f446fd64_4efbdfbf",
+      "range": {
+        "startLine": 783,
+        "startChar": 4,
+        "endLine": 783,
+        "endChar": 48
+      },
+      "revId": "e6f5aeaaee96d2b19f8e758ec5c71352adcccdd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

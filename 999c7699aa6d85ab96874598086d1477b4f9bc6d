@@ -136,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "d09f7c5a_23d50f51",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "As far as I understand, android.content.UriMatcher ignores the scheme part in the URI.\n\nFor example http://a.b.c/ and https://a.b.c/ will be matched to the same code.\n\nAs well as it returns a handler object to handle this matched URI instead of a int code. I think it makes the code easier to organize.\n\nDo you think I should change it\u0027s name in order not to be confused by android.content.UriMatcher?",
+      "parentUuid": "e7282e11_c4927206",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e27125a_6485d627",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -479,6 +497,24 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b6cce6_e43b64ad",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c19ed4e2_05ee02ea",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
