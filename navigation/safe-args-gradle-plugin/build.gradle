@@ -34,6 +34,7 @@ sourceSets {
 
 dependencies {
     compile(SAFE_ARGS_ANDROID_GRADLE_PLUGIN)
+    compile(SAFE_ARGS_KOTLIN_GRADLE_PLUGIN)
     compile project(":navigation:navigation-safe-args-generator")
     compile gradleApi()
     compile(GSON)
@@ -47,6 +48,7 @@ task generateSdkResource() {
     inputs.property("buildToolsVersion", SupportConfig.BUILD_TOOLS_VERSION)
     inputs.property("minSdkVersion", SupportConfig.DEFAULT_MIN_SDK_VERSION)
     inputs.property("navigationCommon", SAFE_ARGS_NAVIGATION_COMMON)
+    inputs.property("kotlinStdlib", KOTLIN_STDLIB)
     outputs.dir(generatedResources)
     doLast {
         // Properties.write will have a timestamp, that invalidates the task,
@@ -57,6 +59,7 @@ task generateSdkResource() {
             writer.write("buildToolsVersion=$SupportConfig.BUILD_TOOLS_VERSION\n")
             writer.write("minSdkVersion=$SupportConfig.DEFAULT_MIN_SDK_VERSION\n")
             writer.write("navigationCommon=$SAFE_ARGS_NAVIGATION_COMMON\n")
+            writer.write("kotlinStdlib=$KOTLIN_STDLIB\n")
         }
     }
 }
@@ -69,9 +72,13 @@ tasks["compileTestJava"].dependsOn generateSdkResource
 
 gradlePlugin {
     plugins {
-        safeargs {
+        safeargsJava {
             id = "androidx.navigation.safeargs"
-            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsPlugin"
+            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsJavaPlugin"
+        }
+        safeargsKotlin {
+            id = "androidx.navigation.safeargs.kotlin"
+            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsKotlinPlugin"
         }
     }
 }
