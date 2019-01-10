@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package androidx.navigation.safe.args.generator.ext
+package androidx.navigation.safe.args.generator
 
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.JavaFile
+import androidx.navigation.safe.args.generator.models.Destination
 
-fun JavaFile.toClassName(): ClassName = ClassName.get(this.packageName, this.typeSpec.name)
+interface NavWriter<T : CodeFile> {
+    fun generateDirectionsCodeFile(
+        destination: Destination,
+        parentDirectionFile: T?
+    ): T
+
+    fun generateArgsCodeFile(destination: Destination): T
+}
