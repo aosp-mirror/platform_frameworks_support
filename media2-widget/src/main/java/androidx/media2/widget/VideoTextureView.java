@@ -146,8 +146,8 @@ class VideoTextureView extends TextureView
             Log.i(TAG, " mVideoWidth/height: " + videoWidth + ", " + videoHeight);
         }
 
-        int width = getDefaultSize(videoWidth, widthMeasureSpec);
-        int height = getDefaultSize(videoHeight, heightMeasureSpec);
+        int width = resolveSize(videoWidth, widthMeasureSpec);
+        int height = resolveSize(videoHeight, heightMeasureSpec);
 
         if (videoWidth > 0 && videoHeight > 0) {
             int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -168,8 +168,6 @@ class VideoTextureView extends TextureView
                     Log.d(TAG, "image too tall, correcting. height: " + height);
                 }
             }
-        } else {
-            // no size yet, just adopt the given spec sizes
         }
         setMeasuredDimension(width, height);
         if (DEBUG) {
