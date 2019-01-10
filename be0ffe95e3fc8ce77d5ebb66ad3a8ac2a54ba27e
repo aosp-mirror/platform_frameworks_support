@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "35b50633_5f305415",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d7085ac_e0ae3858",
+      "range": {
+        "startLine": 115,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 14
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcf66190_42024c32",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionItem.java",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "0bd580cb_efcf7bb8",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "@Nullable (since there are some constructors that don\u0027t set it), but DONE.",
+      "parentUuid": "bcf66190_42024c32",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 12
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35af8f94_23a7199e",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
         "patchSetId": 3
@@ -91,6 +139,30 @@
       "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c3762e_9906e5aa",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35af8f94_23a7199e",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 11
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "c64fff35_298a0960",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b109fef5_83cdfdad",
+      "range": {
+        "startLine": 369,
+        "startChar": 68,
+        "endLine": 369,
+        "endChar": 75
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5708974c_61db9289",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd2a0104_172da487",
+      "range": {
+        "startLine": 369,
+        "startChar": 18,
+        "endLine": 369,
+        "endChar": 35
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52c1f7e9_6b97f232",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
@@ -151,6 +271,30 @@
       "writtenOn": "2019-01-09T16:21:41Z",
       "side": 1,
       "message": "Is this meant to be a generic or specific to browser service and browser client?",
+      "range": {
+        "startLine": 53,
+        "startChar": 51,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea09857_b818ffc1",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Only for browser services - I\u0027ve updated the javadoc.",
+      "parentUuid": "52c1f7e9_6b97f232",
       "range": {
         "startLine": 53,
         "startChar": 51,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "fa39ae9f_dd453ec9",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done - the guideline is nullability annotations on everything exposed, right?",
+      "parentUuid": "2e2bb26a_f62ae7d9",
+      "range": {
+        "startLine": 43,
+        "startChar": 39,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ed3bc2b_8186af78",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
         "patchSetId": 3
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "d1e0d09d_6d5f64d2",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ed3bc2b_8186af78",
+      "range": {
+        "startLine": 100,
+        "startChar": 18,
+        "endLine": 100,
+        "endChar": 24
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43482c35_eb03f3c6",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
         "patchSetId": 3
@@ -229,6 +421,30 @@
       "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd244c73_f10d2722",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43482c35_eb03f3c6",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 101,
+        "endChar": 27
+      },
+      "revId": "be0ffe95e3fc8ce77d5ebb66ad3a8ac2a54ba27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

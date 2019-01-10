@@ -22,6 +22,30 @@
       "revId": "3752dd1026dbb2d630c05eb2a80cbad9d94db175",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16231dc_67cc643e",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-10T13:36:53Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "cdfb4dfa_64bbea21",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "3752dd1026dbb2d630c05eb2a80cbad9d94db175",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
