@@ -35,5 +35,7 @@
         </activity>
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+        <activity android:name=".WebViewAssetLoaderActivity"
+          android:exported="true" />
     </application>
 </manifest>
