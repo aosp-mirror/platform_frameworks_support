@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba11cd1e_1cac4bd4",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-10T01:15:48Z",
+      "side": 1,
+      "message": "I think we can remove this line, since media2-widget\u0027s minSdkVersion itself is KITKAT.",
+      "revId": "b9fb086f8eaab24af969b66e04df38b3680d69da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
