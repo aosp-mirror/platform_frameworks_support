@@ -70,6 +70,30 @@
       "revId": "ed1badaeab7d3177f35fd85009aeb3efb40f3b76",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c95b70c_7b7d027c",
+        "filename": "samples/SupportMediaDemos/src/main/java/com/example/androidx/media/VideoPlayerActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-10T02:41:24Z",
+      "side": 1,
+      "message": "Done. http://b/122620634",
+      "parentUuid": "8c850f1b_2e3b5e25",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 23
+      },
+      "revId": "ed1badaeab7d3177f35fd85009aeb3efb40f3b76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
