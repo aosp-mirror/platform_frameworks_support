@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d0d33f_1dc60a95",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/HttpUriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T00:42:36Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 55
+      },
+      "revId": "567f768a91d95f1e3dbc817d440d6e0d155295c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5510f657_cc26a0bd",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/HttpUriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T00:42:36Z",
+      "side": 1,
+      "message": "Maybe say \"unsupported scheme?\" I don\u0027t think there are actually restrictions on what\u0027s \"valid\" for a URI",
+      "range": {
+        "startLine": 79,
+        "startChar": 57,
+        "endLine": 79,
+        "endChar": 77
+      },
+      "revId": "567f768a91d95f1e3dbc817d440d6e0d155295c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0771b8e_9d3ab0b7",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/HttpUriMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-10T00:42:36Z",
+      "side": 1,
+      "message": "I think asserts are discouraged on Android. Something about dalvik not implementing them correctly? As I understand, it\u0027s OK in chromium because we rewrite bytecode to support them as we like, but I might be mistaken.\n\nI think Lint told me asserts are discouraged, but I also found this SO: https://stackoverflow.com/questions/6176441/how-to-use-assert-in-android",
+      "range": {
+        "startLine": 98,
+        "startChar": 12,
+        "endLine": 98,
+        "endChar": 18
+      },
+      "revId": "567f768a91d95f1e3dbc817d440d6e0d155295c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
