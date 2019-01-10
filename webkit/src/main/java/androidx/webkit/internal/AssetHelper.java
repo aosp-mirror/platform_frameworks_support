@@ -132,11 +132,12 @@ public class AssetHelper {
         // The path must be of the form "asset_type/asset_name.ext".
         List<String> pathSegments = uri.getPathSegments();
         if (pathSegments.size() != 2) {
-            Log.e(TAG, "Incorrect resource path: " + uri);
+            Log.e(TAG, "Incorrect resource path: " + pathSegments.size());
             return null;
         }
         String assetType = pathSegments.get(0);
         String assetName = pathSegments.get(1);
+        Log.e(TAG, "assetType: " + assetType + " - assetName: " + assetName);
 
         // Drop the file extension.
         assetName = assetName.split("\\.")[0];
