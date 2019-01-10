@@ -22,6 +22,30 @@
       "revId": "423d26c6788470f04703e74205db6e2ae400c118",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd6dbbd_7370c9fe",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-10T18:48:21Z",
+      "side": 0,
+      "message": "Yeah totally my bad. I just forgot to revert and then rebased 2 months later. This when figuring out that we were using an ancient JDK which broken error-prone.",
+      "parentUuid": "fb76d082_9b034b91",
+      "range": {
+        "startLine": 79,
+        "startChar": 34,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "423d26c6788470f04703e74205db6e2ae400c118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
