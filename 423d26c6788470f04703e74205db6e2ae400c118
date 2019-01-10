@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb76d082_9b034b91",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-10T18:46:51Z",
+      "side": 0,
+      "message": "lol. You changed it after I +2ed. I should not have trusted you :D",
+      "range": {
+        "startLine": 79,
+        "startChar": 34,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "423d26c6788470f04703e74205db6e2ae400c118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
