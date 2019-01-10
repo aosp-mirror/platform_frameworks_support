@@ -17,6 +17,7 @@
 package com.example.androidx.car;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -64,6 +65,7 @@ public class CarToolbarActivity extends AppCompatActivity {
             items.add(new CarMenuItem.Builder()
                         .setTitle("Overflow item")
                         .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER)
+                        .setOnClickListener(item -> Log.d("toolbar", "title: " + item.getTitle()))
                         .build());
             carToolbar.setMenuItems(items);
         });
