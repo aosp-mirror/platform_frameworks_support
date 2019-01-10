@@ -117,6 +117,30 @@
       "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e3e0028_e2900328",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-10T18:42:23Z",
+      "side": 1,
+      "message": "Here is the script that generates them:\nhttps://script.google.com/a/google.com/d/1F67vbYHsK2QtQzKFWrBili5JB89x-GEAJg4ARNIoJHoea-20dCa1f9Eo/edit?usp\u003dsharing",
+      "parentUuid": "520c9f63_43d37104",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
