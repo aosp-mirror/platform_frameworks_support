@@ -1,0 +1,54 @@
+<!--
+Copyright 2019 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+
+<head>
+    <title>Load html over XMLHttpRequest</title>
+
+    <!-- Load html file from android_assets -->
+    <script>
+        fetch('https://androidplatform.net/assets/www/some_text.html')
+            .then(response => response.text())
+            .then(response => {
+                document.getElementById("assets_html").innerHTML = response;
+            })
+            .catch(err => {
+                document.getElementById("assets_html").innerHTML = "Loading file from assets failed";
+            })
+    </script>
+
+    <!-- Load html file from android_resources -->
+    <script>
+        fetch('https://androidplatform.net/res/raw/some_text.html')
+            .then(response => response.text())
+            .then(response => {
+                console.log(response);
+                document.getElementById("res_html").innerHTML = response;
+            })
+            .catch(err => {
+                console.log("error:", err);
+                document.getElementById("res_html").innerHTML = "Loading file from resources failed";
+            })
+    </script>
+</head>
+
+<body>
+    <h1>Loaded HTML should appear below on success</h1>
+    <div id="assets_html"></div>
+    <div id="res_html"></div>
+</body>
+
+</html>
