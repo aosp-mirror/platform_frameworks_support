@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75b6582e_dec538fd",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/Toolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-10T13:35:11Z",
+      "side": 1,
+      "message": "Does this not allow access to these two fields for application classes in the androidx.appcompat.widget package now? Or is @VisibleForTesting annotation some sort of a build time guard the same way as with the core Android APIs?",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "0df7651dbef6f5fd51176e3690eebfc8bac91f97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
