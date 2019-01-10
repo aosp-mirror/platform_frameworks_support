@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16e7aa46_f1c266ef",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-10T21:57:21Z",
+      "side": 1,
+      "message": "Cool. Thanks. Removed.",
+      "parentUuid": "34362c2a_11447e9b",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 69
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "464aa9f3_d84a5246",
         "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "234318b9abbbb4955617c32d55d0473699243664",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8a180e_e24a2c33",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-10T21:57:21Z",
+      "side": 1,
+      "message": "https://docs.google.com/document/d/1OnD-8O_COk2LB70u4V_gAzxR4hWWjE682AqiDejQh2E/edit#heading\u003dh.psy70qs06c2o\n\n116321860 is the bug id.\n\nRemoved anyway. I don\u0027t think this should be part of this androidx CL. I think it should just be in the platform cherrypicks.",
+      "parentUuid": "464aa9f3_d84a5246",
+      "range": {
+        "startLine": 113,
+        "startChar": 36,
+        "endLine": 113,
+        "endChar": 59
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "03932371_a52b0c56",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-10T21:57:21Z",
+      "side": 1,
+      "message": "ditto.",
+      "parentUuid": "6e27806d_227732a5",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 69
+      },
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0ebf8e2_b74e5df4",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "234318b9abbbb4955617c32d55d0473699243664",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f12eb3_ee6a6108",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-10T21:57:21Z",
+      "side": 1,
+      "message": "Done.\nAdded to comment to the relevant method.",
+      "parentUuid": "c0ebf8e2_b74e5df4",
+      "revId": "234318b9abbbb4955617c32d55d0473699243664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
