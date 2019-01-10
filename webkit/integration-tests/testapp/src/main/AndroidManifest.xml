@@ -39,5 +39,9 @@
           android:exported="true" />
         <activity android:name=".ProxyOverrideActivity"
           android:exported="true" />
+        <activity android:name=".WebViewAssetLoaderListActivity"
+          android:exported="true" />
+        <activity android:name=".WebViewAssetLoaderSimpleActivity"
+          android:exported="true" />
     </application>
 </manifest>

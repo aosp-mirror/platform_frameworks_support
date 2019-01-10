@@ -30,28 +30,22 @@ import androidx.appcompat.app.AppCompatActivity;
  * ListView} which starts other Activities, each of which may similarly be a ListView, or may
  * actually exercise specific {@link android.webkit.WebView} features.
  */
-public class MainActivity extends AppCompatActivity {
+public class WebViewAssetLoaderListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_webview_asset_loader_list);
         WebkitHelpers.appendWebViewVersionToTitle(this);
 
         final Context activityContext = this;
-        MenuListView listView = findViewById(R.id.top_level_list);
+        MenuListView listView = findViewById(R.id.webview_asset_loader_list);
         MenuListView.MenuItem[] menuItems = new MenuListView.MenuItem[] {
                 new MenuListView.MenuItem(
-                        getResources().getString(R.string.safebrowsing_activity_title),
-                        new Intent(activityContext, SafeBrowsingActivity.class)),
-                new MenuListView.MenuItem(
-                        getResources().getString(R.string.proxy_override_activity_title),
-                        new Intent(activityContext, ProxyOverrideActivity.class)),
-                new MenuListView.MenuItem(
                         getResources()
-                                .getString(R.string.webview_asset_loader_activity_list_title),
-                        new Intent(activityContext, WebViewAssetLoaderListActivity.class)),
+                                .getString(R.string.webview_asset_loader_simple_activity_title),
+                        new Intent(activityContext, WebViewAssetLoaderSimpleActivity.class)),
         };
         listView.setItems(menuItems);
     }

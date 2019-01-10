@@ -20,4 +20,6 @@
     <string name="proxy_override_activity_title">Proxy Override</string>
     <string name="not_updateable_webview">not updatable</string>
     <string name="proxy_override_requests_served">Requests served: %d</string>
+    <string name="webview_asset_loader_activity_list_title">WebViewAssetLoader</string>
+    <string name="webview_asset_loader_simple_activity_title">WebViewAssetLoader Simple</string>
 </resources>
