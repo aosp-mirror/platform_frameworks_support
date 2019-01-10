@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdecd19c_9e6d6300",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-10T20:26:01Z",
+      "side": 1,
+      "message": "This form of link on gerrit links to the AOSP bug tracker, not back to Gerrit unfortunately ;)\n\nIt\u0027s probably better to just omit this from the commit message, and just include this information in a comment if you want the reviewers to be able to reference it, though in this case it\u0027s not strictly necessary as the commits are linked to each other automatically by gerrit due to them being dependent on each other.",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a86c5f_c749fb6d",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-10T20:26:01Z",
+      "side": 1,
+      "message": "Maybe a better name here would be something like ResourceHelper? It\u0027s primarily about making it easy to open resources/assets, rather than actually handling any protocol, especially if you implement my other suggestions here.",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a49f31_751a73b5",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-10T20:26:01Z",
+      "side": 1,
+      "message": "Instead of having the caller of this and openAsset convert the URL back into a file:///android_(asset|res)/ URL, which isn\u0027t really necessary any more, we could just pass the actual path part that we need maybe? That would allow us to remove some of this.",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c768f93e_084953c4",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-10T20:26:01Z",
+      "side": 1,
+      "message": "This will never be hit here, right?",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec42fa61_f282ecef",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-10T20:26:01Z",
+      "side": 1,
+      "message": "We might want to remove this. MIME type sniffing is a source of a bunch of security issues and browsers are working on restricting it to fewer and fewer cases with the goal of completely eliminating it. While the existing file://android_asset code does sniff, I think we could probably tolerate the support library refusing to, and simply document that people should use the correct file extensions.\n\nThis could probably then be entirely inlined into the caller, since all it would have to do really is just guessContentTypeFromName(path).",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
