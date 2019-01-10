@@ -1250,7 +1250,17 @@ public class PagedListView extends FrameLayout {
         mScrollBarView.setShowAlphaJump(supportsAlphaJump);
     }
 
-    void showAlphaJump() {
+    /**
+     * Returns {@code true} if the Alpha Jump Overlay is shown.
+     */
+    public boolean isAlphaJumpShown() {
+        return mAlphaJumpView != null && mAlphaJumpView.getVisibility() == VISIBLE;
+    }
+
+    /**
+     * Show the Alpha Jump overlay by toggling its visibility.
+     */
+    public void showAlphaJump() {
         if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
             mAlphaJumpView = new AlphaJumpOverlayView(getContext());
             mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
@@ -1261,7 +1271,7 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
-     * Hide the Alpha Jump Overview by toggling its visibility
+     * Hide the Alpha Jump Overlay by toggling its visibility.
      */
     public void hideAlphaJump() {
         if (mAlphaJumpView != null) {
