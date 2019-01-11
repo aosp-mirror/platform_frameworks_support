@@ -25,6 +25,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.app.job.JobParameters;
@@ -208,6 +210,22 @@ public class SystemJobServiceTest extends WorkManagerTest {
         JobParameters mockParams = createMockJobParameters(work.getStringId());
         assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(true));
         assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(false));
+    }
+
+    @Test
+    @SmallTest
+    public void testDuplicateOnStartJobCleansUp() {
+        // TODO: Remove after we figure out why these tests execute on API 17 emulators.
+        if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
+            return;
+        }
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(InfiniteTestWorker.class).build();
+        insertWork(work);
+        // Start work, so the Processor is already aware of it.
+        mWorkManagerImpl.startWork(work.getStringId());
+        JobParameters mockParams = createMockJobParameters(work.getStringId());
+        assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(true));
+        verify(mSystemJobServiceSpy, times(1)).onExecuted(work.getStringId(), false);
     }
 
     @Test
