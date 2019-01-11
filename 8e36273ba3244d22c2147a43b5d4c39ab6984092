@@ -22,6 +22,30 @@
       "revId": "8e36273ba3244d22c2147a43b5d4c39ab6984092",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b45c73f5_ae8e804a",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-11T11:47:48Z",
+      "side": 1,
+      "message": "Good catch! Thanks!",
+      "parentUuid": "781e14d6_4260c060",
+      "range": {
+        "startLine": 1219,
+        "startChar": 0,
+        "endLine": 1219,
+        "endChar": 34
+      },
+      "revId": "8e36273ba3244d22c2147a43b5d4c39ab6984092",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
