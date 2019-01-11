@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa19b7a8_b3455576",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-01-11T00:59:20Z",
+      "side": 1,
+      "message": "nit: framework\u0027s\n\nIf both label and command are null, should we just call remove?",
+      "range": {
+        "startLine": 1251,
+        "startChar": 43,
+        "endLine": 1251,
+        "endChar": 53
+      },
+      "revId": "069e9d9705e680af2c334d355cda9739b46c63ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
