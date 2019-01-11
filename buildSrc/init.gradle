@@ -31,6 +31,10 @@ ext.init = init
 rootProject.ext.versionChecker = new GMavenVersionChecker(rootProject.logger)
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
 
+subprojects {
+    project.project
+}
+
 def setupRepoOutAndBuildNumber() {
     /*
      * The OUT_DIR is a temporary directory you can use to put things during the build.
@@ -93,10 +97,8 @@ def setupSubprojectsForBuildServer() {
         // Copy instrumentation test APKs and app APKs into the dist dir
         // For test apks, they are uploaded only if we have java test sources.
         // For regular app apks, they are uploaded only if they have java sources.
-        // Copy only the minDepVersions debug version since that is the publish
-        // flavor.
         project.tasks.whenTaskAdded { task ->
-            if (task.name.startsWith("packageMinDepVersionsDebug")) {
+            if (task.name.startsWith("packageDebug")) {
                 // run this task only if we should run it
                 def testApk = task.name.contains("AndroidTest")
                 if (testApk) {
@@ -128,10 +130,7 @@ def setupSubprojectsForBuildServer() {
                                 // existing support library presubmit tests.
                                 if (fileName.contains("media-compat-test")
                                         || fileName.contains("media2-test")) {
-                                    fileName
-                                            .replace(fileName,
-                                            "minDepVersions-${fileName}")
-                                            .replace("-minDepVersions-debug-androidTest", "")
+                                    fileName.replace("-debug-androidTest", "")
                                 } else {
                                     // multiple modules may have the same name so prefix the name with
                                     // the module's path to ensure it is unique.
