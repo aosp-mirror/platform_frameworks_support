@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "476287bf_aa32ca6c",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-11T19:27:50Z",
+      "side": 1,
+      "message": "The log statement in this method indicates the job executed, but it didn\u0027t.  This will make our debugging very difficult.  At the very least, log something here so we can make sure we see this.",
+      "range": {
+        "startLine": 153,
+        "startChar": 20,
+        "endLine": 153,
+        "endChar": 50
+      },
+      "revId": "28de9aac329c700cfc53310ecaa7dc0c439138f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
