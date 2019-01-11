@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e003a242_e37ed644",
+        "filename": "room/common/src/main/java/androidx/room/Delete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T21:41:28Z",
+      "side": 1,
+      "message": "delete returns the # of deleted rows.",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 10
+      },
+      "revId": "4beedeff79e5915cb2a937eaf13bdf113aa9ea4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109a6d46_05a150ea",
+        "filename": "room/common/src/main/java/androidx/room/Delete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T21:41:28Z",
+      "side": 1,
+      "message": "this is not guava specific. we support rx, coroutines etc.",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "4beedeff79e5915cb2a937eaf13bdf113aa9ea4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b69b073_868f2f9c",
+        "filename": "room/common/src/main/java/androidx/room/Insert.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T21:41:28Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "4beedeff79e5915cb2a937eaf13bdf113aa9ea4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3bf83d3_739239eb",
+        "filename": "room/common/src/main/java/androidx/room/Update.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T21:41:28Z",
+      "side": 1,
+      "message": "update returns the # of updated rows.",
+      "revId": "4beedeff79e5915cb2a937eaf13bdf113aa9ea4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "101e18ca_5dad0644",
+        "filename": "room/common/src/main/java/androidx/room/Update.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T21:41:28Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "4beedeff79e5915cb2a937eaf13bdf113aa9ea4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
