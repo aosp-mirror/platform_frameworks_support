@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0725332_08cea14f",
+        "filename": "samples/SupportAppCompatDemos/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee9c44e_6ed081a7",
+      "range": {
+        "startLine": 1,
+        "startChar": 4,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f61dfa34_4783ab73",
         "filename": "samples/SupportAppCompatDemos/build.gradle",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-19T18:43:14Z",
       "side": 1,
       "message": "Why so high?",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b69f959_14bf73ad",
+        "filename": "samples/SupportAppCompatDemos/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Java 8 won\u0027t accept any less :(",
+      "parentUuid": "f61dfa34_4783ab73",
       "range": {
         "startLine": 20,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ac50b422_141c5b28",
+        "filename": "samples/SupportAppCompatDemos/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16519d84_b677d761",
+      "range": {
+        "startLine": 22,
+        "startChar": 44,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b584b40_ab620852",
         "filename": "samples/SupportAppCompatDemos/src/main/java/com/example/android/support/appcompat/ControlsActivity.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afe03d18_6a63f748",
+        "filename": "samples/SupportAppCompatDemos/src/main/java/com/example/android/support/appcompat/ControlsActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b584b40_ab620852",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "740dbc53_2fa90d64",
+        "filename": "samples/SupportAppCompatDemos/src/main/java/com/example/android/support/appcompat/ControlsActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fb94c03_8675ccec",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "777ea478_fadbf6be",
         "filename": "samples/SupportAppCompatDemos/src/main/java/com/example/android/support/appcompat/ControlsActivity.java",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2018-10-19T18:43:14Z",
       "side": 1,
       "message": "For proper example, is_selected should have a placeholder for the selected item string - and not concatenate strings in code",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 207,
+        "endChar": 46
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c3d899c_1590620c",
+        "filename": "samples/SupportAppCompatDemos/src/main/java/com/example/android/support/appcompat/ControlsActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "What do you mean?",
+      "parentUuid": "777ea478_fadbf6be",
       "range": {
         "startLine": 206,
         "startChar": 44,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "61e954e7_e231050e",
+        "filename": "samples/SupportAppCompatDemos/src/main/res/values/arrays.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e8ec681_6509060a",
+      "range": {
+        "startLine": 1,
+        "startChar": 12,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47e4dd60_90ff9b2c",
         "filename": "samples/SupportAppCompatDemos/src/main/res/values/colors.xml",
         "patchSetId": 3
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e9c7f620_b3ab0e5d",
+        "filename": "samples/SupportAppCompatDemos/src/main/res/values/colors.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47e4dd60_90ff9b2c",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 31
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13aa07f5_238b0140",
         "filename": "samples/SupportAppCompatDemos/src/main/res/values/strings.xml",
         "patchSetId": 3
@@ -206,6 +398,30 @@
       "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0025836e_e03dbc20",
+        "filename": "samples/SupportAppCompatDemos/src/main/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T16:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13aa07f5_238b0140",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "6aed9def207b7370528d991c4c633cdd094f3fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
