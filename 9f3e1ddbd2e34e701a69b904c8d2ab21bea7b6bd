@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce9f0cd4_c7966e17",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-11T11:15:42Z",
+      "side": 1,
+      "message": "The log is to help developers debugging an issue.\n\nHave you taken a look at the discussion in the referenced bug (b/116321860)?\nThe summary is we deem certain text linkification as a security issue and will not linkify such text. The status code and logs are a way to inform a developer that is trying to debug why some text was not linkified. There are valid reasons to have these characters in a piece of text so a blanket remove all unsupported characters is not necessarily what developers want. I however can see an argument for such an API but it is not clear to me if this/what is really desired of such API. The issue about getting the text over the wire particularly one of the reasons why we\u0027re choosing not to linkify such text, just in case someone is composing an attack via an unsuspecting app.",
+      "parentUuid": "8c45ad3a_a3756ccb",
+      "range": {
+        "startLine": 391,
+        "startChar": 14,
+        "endLine": 391,
+        "endChar": 34
+      },
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07b091b8_9fc014a3",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-11T00:27:59Z",
       "side": 1,
       "message": "How can they do it easily via code? There is no API to query for unsupported characters.",
+      "range": {
+        "startLine": 200,
+        "startChar": 55,
+        "endLine": 201,
+        "endChar": 28
+      },
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d816cc_f6a80b98",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-11T11:15:42Z",
+      "side": 1,
+      "message": "See related comment in LinkifyCompat.",
+      "parentUuid": "07b091b8_9fc014a3",
       "range": {
         "startLine": 200,
         "startChar": 55,
