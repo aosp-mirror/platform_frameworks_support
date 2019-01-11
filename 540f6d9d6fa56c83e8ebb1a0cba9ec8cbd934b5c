@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cb184a0_3fb0ceef",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/NavWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T11:50:08Z",
+      "side": 1,
+      "message": "I don\u0027t see a strong reason it to be generic, it looks like it should be simply parentDestination: Destination?\n\nthan in generator you can transform Destination -\u003e class name. after that everything is easier:\ninterface NavWriter {\n    fun generateDirections(destination: Destination,\n             parentDestination: Destination?) : CodeFile\n\n    fun generateArgs(destination: Destination): CodeFile\n}",
+      "revId": "540f6d9d6fa56c83e8ebb1a0cba9ec8cbd934b5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "077bb126_e4dfe284",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaNavWriter.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T11:50:08Z",
+      "side": 1,
+      "message": "is it simply move? (except useAndroidX is field now)",
+      "revId": "540f6d9d6fa56c83e8ebb1a0cba9ec8cbd934b5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
