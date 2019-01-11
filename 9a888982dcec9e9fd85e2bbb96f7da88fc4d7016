@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "305f3d96_1cb2f3c0",
+        "filename": "room/compiler/src/test/data/daoWriter/input/ComplexDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T00:58:55Z",
+      "side": 1,
+      "message": "since this is not really a compilation failure, lets remove this (as we are not really testing it works anyways).\nwe need integration tests for this which already is included in this CL.",
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cff0d59_549c0353",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ConstructorInheritanceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T00:58:55Z",
+      "side": 1,
+      "message": "just make it a data class",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
