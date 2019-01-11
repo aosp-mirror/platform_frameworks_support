@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1043788d_42cb15c5",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T19:13:53Z",
+      "side": 1,
+      "message": "I think the main problem here is that likely this failure to linkify will happen in someone\u0027s production code. To the user it will just look broken as the links don\u0027t work. If we provide a getter to get a list of unsupported characters, then developer can make an informed decision in their code if they are willing to drop these characters to get linkification work or don\u0027t can loose links.",
+      "parentUuid": "ce9f0cd4_c7966e17",
+      "range": {
+        "startLine": 391,
+        "startChar": 14,
+        "endLine": 391,
+        "endChar": 34
+      },
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07b091b8_9fc014a3",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
         "patchSetId": 5
