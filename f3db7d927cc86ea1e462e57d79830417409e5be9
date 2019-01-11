@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "633fde88_4e29e5b5",
+        "filename": "gradle.properties",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T21:45:30Z",
+      "side": 1,
+      "message": "With it enabled you get the following:\n\n* What went wrong:\nExecution failed for task \u0027:webkit:integration-tests:testapp:transformClassesAndResourcesWithR8ForMaxDepVersionsDebugAndroidTest\u0027.\n\u003e com.android.tools.r8.CompilationFailedException: Compilation failed to complete",
+      "parentUuid": "2cd6ad24_4cda3f56",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02c588a1_71758377",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3808d14_48dfa816",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T21:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02c588a1_71758377",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 34
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4c611653_f99e5990",
+        "filename": "samples/SupportLeanbackDemos/src/main/java/com/example/android/leanback/MediaSessionService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T21:45:30Z",
+      "side": 1,
+      "message": "b/122735841",
+      "parentUuid": "546e9df8_7a74abb1",
+      "range": {
+        "startLine": 678,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 27
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6343952f_7865d117",
         "filename": "work/integration-tests/testapp/build.gradle",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe33440c_f36c2b5d",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T21:45:30Z",
+      "side": 1,
+      "message": "b/122737117",
+      "parentUuid": "6343952f_7865d117",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
