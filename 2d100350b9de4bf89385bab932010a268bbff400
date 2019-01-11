@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3016e140_305cb90c",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaTypes.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T11:28:08Z",
+      "side": 1,
+      "message": "super nit: that\u0027s a bit weird, that it is CAPS, but I see why you did",
+      "revId": "2d100350b9de4bf89385bab932010a268bbff400",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
