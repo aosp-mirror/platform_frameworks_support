@@ -187,6 +187,29 @@
       "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62bd00d5_fc71d78b",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-11T21:49:15Z",
+      "side": 1,
+      "message": "I don\u0027t know what this means.  What\u0027s the actual error?  The bug doesn\u0027t specify it either from what I can tell.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 5
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
