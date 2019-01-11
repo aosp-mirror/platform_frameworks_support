@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f63adc88_6ce0bc46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-11T16:45:55Z",
+      "side": 1,
+      "message": "That\u0027s an internal redirector, though, which only works for people at google :)\n\nI\u0027m not sure what syntaxes the AOSP Gerrit config autolinks (other than this aosp/ one apparently which autolinks to the wrong thing) so not sure if there\u0027s a compact way to link to another CL here.\n\n...however, it\u0027s not great to link to a Gerrit CL in a commit message anyway, because someone who has checked out the repository and is seeing the URL in \"git log\" then has to actually click through to Gerrit to find out what change is being referred to (and you can\u0027t do that offline). If you need to refer to another already committed change you should just use the SHA1, and if you want to refer to a not-yet-committed change then probably you shouldn\u0027t do that in the commit message at all, as I suggested - just mention it in a comment on the review.",
+      "parentUuid": "bda9f4e8_f7b18ed9",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61a86c5f_c749fb6d",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
         "patchSetId": 1
