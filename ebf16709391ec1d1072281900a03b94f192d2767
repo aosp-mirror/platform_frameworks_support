@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf04a1f0_16a36910",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/background/systemjob/SystemJobServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-11T23:12:43Z",
+      "side": 1,
+      "message": "Before you call onStartJob, you should verify that this has never been called before.",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 85
+      },
+      "revId": "ebf16709391ec1d1072281900a03b94f192d2767",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
