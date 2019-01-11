@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b323a4fe_8e15cebe",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/MutableCollectionsTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-11T10:58:55Z",
+      "side": 1,
+      "message": "Not sure if this was intentional, nor if the old or the new version adheres to our style. Please verify",
+      "revId": "bd407ac4022d393016015a5959219c762a4e3d9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
