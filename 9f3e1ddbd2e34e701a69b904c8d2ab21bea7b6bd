@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c45ad3a_a3756ccb",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T00:27:59Z",
+      "side": 1,
+      "message": "This is not super useful for developers. What if you are getting your text over the wire and you passing it into Linkify. Here we just fail to linkify. We should either offer an option to sanitize or have a way to get unsupported character set so developers can sanitize it themselves.",
+      "range": {
+        "startLine": 391,
+        "startChar": 14,
+        "endLine": 391,
+        "endChar": 34
+      },
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b091b8_9fc014a3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextLinks.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T00:27:59Z",
+      "side": 1,
+      "message": "How can they do it easily via code? There is no API to query for unsupported characters.",
+      "range": {
+        "startLine": 200,
+        "startChar": 55,
+        "endLine": 201,
+        "endChar": 28
+      },
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
