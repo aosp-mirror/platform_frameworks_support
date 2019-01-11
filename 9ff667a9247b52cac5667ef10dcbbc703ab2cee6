@@ -70,6 +70,30 @@
       "revId": "9ff667a9247b52cac5667ef10dcbbc703ab2cee6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69bdd2b9_21babe81",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T20:31:10Z",
+      "side": 1,
+      "message": "Yes we could do that, but wouldn\u0027t that mean we\u0027d have to hard code this into every build file? And say we chose to do it in the Plugin for all projects, I tried that and so far I have been unsuccessful :( That being said, the do it for every build file is not so bad, it\u0027s just redundant code, although it\u0027s better because it determines dependency projects during initialization which means it will run for all variants and also for java projects; functionally, it is the best way possible. I think it makes sense to do it for the java projects anyways since there is so few of them and they don\u0027t have variants.",
+      "parentUuid": "3ea93c3c_dc466c08",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 80
+      },
+      "revId": "9ff667a9247b52cac5667ef10dcbbc703ab2cee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
