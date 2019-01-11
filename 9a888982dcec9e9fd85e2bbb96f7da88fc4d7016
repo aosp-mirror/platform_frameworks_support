@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8488692a_24434901",
+        "filename": "room/compiler/src/test/data/daoWriter/input/ComplexDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-11T02:29:28Z",
+      "side": 1,
+      "message": "This is neccesary for getChild2List to fail. Should I remove the entire Writer test?",
+      "parentUuid": "305f3d96_1cb2f3c0",
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cff0d59_549c0353",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ConstructorInheritanceTest.kt",
         "patchSetId": 2
