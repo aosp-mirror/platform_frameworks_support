@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2b31f6d_91ad72b4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T13:28:05Z",
+      "side": 1,
+      "message": "o_O",
+      "range": {
+        "startLine": 199,
+        "startChar": 29,
+        "endLine": 199,
+        "endChar": 30
+      },
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f2251c_3af7a680",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T13:28:05Z",
+      "side": 1,
+      "message": "omg, that constructor is ugly. we can generated top level \n\nfun MainFragmentArgs(bundle: Bundle) : MainFragmentArgs\n\nit will make code easier and prettier",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02387506_91ef6972",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-11T13:28:05Z",
+      "side": 1,
+      "message": "\"__\" as strategy to avoid conflict with is not a best thing, originally what I did is I called fields as \"this.fieldName\", then you definetely won\u0027t have any issues",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 20
+      },
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
