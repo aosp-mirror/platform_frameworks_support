@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "edc87029_f1baaaf4",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-11T17:33:35Z",
+      "side": 1,
+      "message": "The \u0027by navArgs()\u0027 is specifically looking for a constructor that takes a Bundle, so I don\u0027t think we can use a top level function and still have that work",
+      "parentUuid": "e3f2251c_3af7a680",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02387506_91ef6972",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
         "patchSetId": 5
