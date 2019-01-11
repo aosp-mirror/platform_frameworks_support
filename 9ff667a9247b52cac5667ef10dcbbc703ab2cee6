@@ -22,6 +22,30 @@
       "revId": "9ff667a9247b52cac5667ef10dcbbc703ab2cee6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b9aeb26_52020cc0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T20:04:41Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand the suggestion and the example code, but I tried several ways of doing this inside projects, but none were working for several reasons (although at this moment I could think of a way that may or may not work, but it\u0027s less efficient and more verbose.) Could you clarify the suggestion?",
+      "parentUuid": "e2d4925c_72886901",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 80
+      },
+      "revId": "9ff667a9247b52cac5667ef10dcbbc703ab2cee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
