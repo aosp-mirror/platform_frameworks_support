@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e57c591_a7da6d1f",
+        "filename": "enterprise/feedback/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "Any !-suffixed types in the API surface means there are missing nullability annotations, which will be a problem for Kotlin users. Please add @NonNull / @Nullable to all public APIs.",
+      "range": {
+        "startLine": 8,
+        "startChar": 33,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e802388a_b83b95e7",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "Use a Maven spec with a version here, ex. androidx.core:core:1.0.0, to express the minimum version requirement.",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec38fb60_7906e89d",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "Are these annotations actually being exposed by your library\u0027s API surface? If not, use implementation(...) or compileOnly(...).",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7c0b0c_4e62d5be",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "This is high and will limit your client base. Is there a plan to lower this prior to stable release? Most AndroidX libraries are using 14 to reach 99% of GMS devices.",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a664667_8f3d2843",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "Not recommended due to implicit minimum SDK requirements.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d087993_d5621a82",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "Enterprise Feedback?",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057b6d59_c076f522",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "We\u0027re trying to improve these for new libraries. Please put a summary here suitable for use on d.android.com or Twitter, e.g. what the library does.",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 47
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b36d49d8_67be03af",
+        "filename": "enterprise/feedback/gradle.properties",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-11T21:19:00Z",
+      "side": 1,
+      "message": "This file isn\u0027t used.",
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
