@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8776b870_a069ae86",
+        "filename": "room/compiler/src/test/data/daoWriter/input/ComplexDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-11T02:45:08Z",
+      "side": 1,
+      "message": "i meant that for all ComplexDao changes. I thought it was not necessary since the bug was a runtime failure but after your changes, it is  a compilation failure, just keep it.",
+      "parentUuid": "8488692a_24434901",
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cff0d59_549c0353",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ConstructorInheritanceTest.kt",
         "patchSetId": 2
