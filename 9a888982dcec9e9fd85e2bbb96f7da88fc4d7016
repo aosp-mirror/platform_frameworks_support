@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b7786dc2_9171c993",
+        "filename": "room/compiler/src/test/data/daoWriter/input/ComplexDao.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-11T02:52:24Z",
+      "side": 1,
+      "message": "Yes, this was a compile time issue.",
+      "parentUuid": "8776b870_a069ae86",
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cff0d59_549c0353",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ConstructorInheritanceTest.kt",
         "patchSetId": 2
@@ -66,6 +84,30 @@
       "writtenOn": "2019-01-11T00:58:55Z",
       "side": 1,
       "message": "just make it a data class",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "9a888982dcec9e9fd85e2bbb96f7da88fc4d7016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e52f37f_7e91524f",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/ConstructorInheritanceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-11T02:52:24Z",
+      "side": 1,
+      "message": "Data classes cannot be inherited.",
+      "parentUuid": "1cff0d59_549c0353",
       "range": {
         "startLine": 54,
         "startChar": 8,
