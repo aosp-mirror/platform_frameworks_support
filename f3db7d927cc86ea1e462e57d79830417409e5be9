@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cd6ad24_4cda3f56",
+        "filename": "gradle.properties",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T20:50:02Z",
+      "side": 1,
+      "message": "Why are we disabling it here?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c588a1_71758377",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T20:50:02Z",
+      "side": 1,
+      "message": "Why did we change this?",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 34
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "546e9df8_7a74abb1",
+        "filename": "samples/SupportLeanbackDemos/src/main/java/com/example/android/leanback/MediaSessionService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T20:50:02Z",
+      "side": 1,
+      "message": "File a bug for \"NewApi\" suppressions in here.",
+      "range": {
+        "startLine": 678,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 27
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6343952f_7865d117",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-11T20:50:02Z",
+      "side": 1,
+      "message": "as soon as ... ? Can you file a bug for this?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
