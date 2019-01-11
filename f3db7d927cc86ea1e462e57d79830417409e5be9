@@ -210,6 +210,30 @@
       "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0de22f43_c53a840b",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-11T22:24:58Z",
+      "side": 1,
+      "message": "Errors found:\n  \n  /usr/local/google/home/obenabde/gradle-update/frameworks/support/work/integration-tests/testapp/build.gradle: Error: Dependencies using groupId com.android.support and androidx.* can not be combined but found com.android.support:support-vector-drawable:27.1.1@aar and androidx.multidex:multidex:2.0.0@aar incompatible dependencies [GradleCompatible]",
+      "parentUuid": "62bd00d5_fc71d78b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 5
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
