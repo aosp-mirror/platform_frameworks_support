@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Representation of a document backed by either a
@@ -82,6 +83,8 @@ import java.io.File;
 public abstract class DocumentFile {
     static final String TAG = "DocumentFile";
 
+    private static final String PATH_TREE = "tree";
+
     @Nullable
     private final DocumentFile mParent;
 
@@ -135,7 +138,7 @@ public abstract class DocumentFile {
         if (Build.VERSION.SDK_INT >= 21) {
             return new TreeDocumentFile(null, context,
                     DocumentsContract.buildDocumentUriUsingTree(treeUri,
-                            DocumentsContract.getTreeDocumentId(treeUri)));
+                            getTreeDocumentId(treeUri)));
         } else {
             return null;
         }
@@ -364,4 +367,19 @@ public abstract class DocumentFile {
      *      Uri, String)
      */
     public abstract boolean renameTo(@NonNull String displayName);
+
+    /**
+     * Extract the {@link DocumentsContract.Document#COLUMN_DOCUMENT_ID} from the given URI.
+     *
+     * {@link DocumentsContract#getTreeDocumentId(Uri)} truncates the actual document ID,
+     * so this code can be used in its place to get the full document ID.
+     */
+    private static String getTreeDocumentId(Uri documentUri) {
+        final List<String> paths = documentUri.getPathSegments();
+        if (paths.size() >= 2 && PATH_TREE.equals(paths.get(0))) {
+            return paths.get(paths.size() - 1);
+        }
+        throw new IllegalArgumentException("Invalid URI: " + documentUri);
+    }
+
 }
