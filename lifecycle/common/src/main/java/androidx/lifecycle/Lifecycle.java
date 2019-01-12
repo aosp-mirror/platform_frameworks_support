@@ -18,6 +18,8 @@ package androidx.lifecycle;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 /**
  * Defines an object that has an Android Lifecycle. {@link androidx.fragment.app.Fragment Fragment}
@@ -110,6 +112,10 @@ public abstract class Lifecycle {
     @MainThread
     @NonNull
     public abstract State getCurrentState();
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @Nullable
+    Object internalScope;
 
     @SuppressWarnings("WeakerAccess")
     public enum Event {

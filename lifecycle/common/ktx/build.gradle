@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-
+import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension
-
-import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("SupportKotlinLibraryPlugin")
 }
 
 dependencies {
-    testCompile(JUNIT)
-    testCompile(MOCKITO_CORE)
-    compile(SUPPORT_ANNOTATIONS)
+    api(project(":lifecycle:lifecycle-common"))
+    api(project(":lifecycle:lifecycle-common-java8"))
+    api(KOTLIN_STDLIB)
+    api(KOTLIN_COROUTINES) // TODO this should be CORE_COMMON
+    // tests are in lifecycle kotlin test app to be able to test with a proper lifecycle
+    // implementation while keeping this project pure kotlin.
 }
 
-
 supportLibrary {
-    name = "Android Lifecycle-Common"
-    publish = true
+    name = "Lifecycle Kotlin Extensions"
+    publish = false
     mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
-    inceptionYear = "2017"
-    description = "Android Lifecycle-Common"
-    url = SupportLibraryExtension.ARCHITECTURE_URL
+    inceptionYear = "2018"
+    description = "Kotlin extensions for 'lifecycle' artifact"
+    useMetalava = true
 }
