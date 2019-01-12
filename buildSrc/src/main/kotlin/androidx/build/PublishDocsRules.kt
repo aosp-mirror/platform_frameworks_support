@@ -103,6 +103,7 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-ktx")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-core-ktx")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-compiler")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-common-ktx")
     prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha02")
     prebuilts(LibraryGroups.ARCH_CORE, "2.0.0")
     prebuilts(LibraryGroups.PAGING, "2.1.0")
