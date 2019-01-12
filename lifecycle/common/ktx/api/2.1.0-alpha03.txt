@@ -1,0 +1,26 @@
+// Signature format: 3.0
+package androidx.lifecycle {
+
+  public final class LifecycleDestroyedException extends java.util.concurrent.CancellationException {
+    ctor public LifecycleDestroyedException();
+  }
+
+  public final class LifecycleKt {
+    ctor public LifecycleKt();
+    method public static kotlinx.coroutines.CoroutineScope getCoroutineScope(androidx.lifecycle.Lifecycle);
+    method public static suspend <T> Object? withCreated(androidx.lifecycle.Lifecycle lifecycle, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+    method public static suspend <T> Object? withResumed(androidx.lifecycle.Lifecycle lifecycle, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+    method public static suspend <T> Object? withStarted(androidx.lifecycle.Lifecycle lifecycle, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+    method public static suspend <T> Object? withStateAtLeast(androidx.lifecycle.Lifecycle lifecycle, androidx.lifecycle.Lifecycle.State state, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+  }
+
+  public final class LifecycleOwnerKt {
+    ctor public LifecycleOwnerKt();
+    method public static kotlinx.coroutines.CoroutineScope getLifecycleScope(androidx.lifecycle.LifecycleOwner);
+    method public static suspend <T> Object? withCreated(androidx.lifecycle.LifecycleOwner owner, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+    method public static suspend <T> Object? withResumed(androidx.lifecycle.LifecycleOwner owner, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+    method public static suspend <T> Object? withStarted(androidx.lifecycle.LifecycleOwner owner, kotlin.jvm.functions.Function0<? extends T> block, kotlin.coroutines.experimental.Continuation<? super T> p);
+  }
+
+}
+
