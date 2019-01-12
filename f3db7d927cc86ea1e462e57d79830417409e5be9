@@ -234,6 +234,30 @@
       "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c885471_495fa84e",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-12T00:42:42Z",
+      "side": 1,
+      "message": "Please resync - I have fixed this issue, so you can take out this suppression.",
+      "parentUuid": "0de22f43_c53a840b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 5
+      },
+      "revId": "f3db7d927cc86ea1e462e57d79830417409e5be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
