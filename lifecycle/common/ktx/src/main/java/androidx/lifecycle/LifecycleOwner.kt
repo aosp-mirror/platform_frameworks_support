@@ -28,3 +28,51 @@ import kotlinx.coroutines.Dispatchers
  */
 val LifecycleOwner.lifecycleScope: CoroutineScope
     get() = lifecycle.coroutineScope
+
+/**
+ * Runs the given [block] on [Dispatchers.Main] when the [LifecycleOwner]'s [Lifecycle] is at
+ * least in the [Lifecycle.State.CREATED] state.
+ *
+ * @see withStateAtLeast for details
+ */
+
+suspend fun <T> withCreated(
+    owner: LifecycleOwner,
+    block: () -> T
+) = withStateAtLeast(
+    lifecycle = owner.lifecycle,
+    state = Lifecycle.State.CREATED,
+    block = block
+)
+
+/**
+ * Runs the given [block] on [Dispatchers.Main] when the [LifecycleOwner]'s [Lifecycle] is at
+ * least in the [Lifecycle.State.STARTED] state.
+ *
+ * @see withStateAtLeast for details
+ */
+
+suspend fun <T> withStarted(
+    owner: LifecycleOwner,
+    block: () -> T
+) = withStateAtLeast(
+    lifecycle = owner.lifecycle,
+    state = Lifecycle.State.STARTED,
+    block = block
+)
+
+/**
+ * Runs the given [block] on [Dispatchers.Main] when the [LifecycleOwner]'s [Lifecycle] is at
+ * least in the [Lifecycle.State.RESUMED] state.
+ *
+ * @see withStateAtLeast for details
+ */
+
+suspend fun <T> withResumed(
+    owner: LifecycleOwner,
+    block: () -> T
+) = withStateAtLeast(
+    lifecycle = owner.lifecycle,
+    state = Lifecycle.State.RESUMED,
+    block = block
+)
