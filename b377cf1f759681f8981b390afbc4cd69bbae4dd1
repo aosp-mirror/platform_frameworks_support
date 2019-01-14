@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c1f2875_a0e10bda",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-14T23:59:05Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 64,
+        "startChar": 74,
+        "endLine": 64,
+        "endChar": 78
+      },
+      "revId": "b377cf1f759681f8981b390afbc4cd69bbae4dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3330722_44096877",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/CallbackToFutureAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-14T23:59:05Z",
+      "side": 1,
+      "message": "purposes",
+      "range": {
+        "startLine": 64,
+        "startChar": 55,
+        "endLine": 64,
+        "endChar": 56
+      },
+      "revId": "b377cf1f759681f8981b390afbc4cd69bbae4dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
