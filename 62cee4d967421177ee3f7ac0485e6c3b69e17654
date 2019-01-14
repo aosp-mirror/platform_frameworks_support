@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21ff307f_001d909e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-14T23:21:38Z",
+      "side": 1,
+      "message": "I\u0027m always feeling fancy and down to JavaScript my way through Java :), as long as you don\u0027t think it hinders readability.",
+      "parentUuid": "b8ac6abe_e416550f",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "62cee4d967421177ee3f7ac0485e6c3b69e17654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43249151_b479cc4a",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "62cee4d967421177ee3f7ac0485e6c3b69e17654",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c61f14e_8a12d1a1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-14T23:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43249151_b479cc4a",
+      "range": {
+        "startLine": 558,
+        "startChar": 12,
+        "endLine": 563,
+        "endChar": 13
+      },
+      "revId": "62cee4d967421177ee3f7ac0485e6c3b69e17654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
