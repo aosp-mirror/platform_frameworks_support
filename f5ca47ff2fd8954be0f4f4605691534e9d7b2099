@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "154ed5bc_862e4969",
+        "filename": "navigation/common/ktx/proguard-rules.pro",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-14T23:28:51Z",
+      "side": 1,
+      "message": "Turns out, this rule didn\u0027t work when I tried it in my own app.\n\nI had to use:\n-keepclassmembers public class ** implements androidx.navigation.NavArgs {\n    ** fromBundle(android.os.Bundle);\n}",
+      "revId": "f5ca47ff2fd8954be0f4f4605691534e9d7b2099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
