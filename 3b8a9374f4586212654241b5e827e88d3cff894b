@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "21ce4940_b884e9eb",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-14T18:25:53Z",
+      "side": 1,
+      "message": "Thanks for the ideas.\n\n\"you could give the item some text, and make sure it\u0027s not displayed after calling hide overflow menu\": this is what I was doing in PS6, but Espresso was not able to match the view. I removed the \".inRoot(isDialog())\" part and now it passes, which I think is fine since as long as the text is not displayed, that means the dialog is not either.",
+      "parentUuid": "4eeaf9e4_eb3e06f1",
+      "revId": "3b8a9374f4586212654241b5e827e88d3cff894b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37d8deb4_67478b2b",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
