@@ -96,6 +96,24 @@
     },
     {
       "key": {
+        "uuid": "4db9c516_7d9e6495",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-14T18:02:20Z",
+      "side": 1,
+      "message": "I don\u0027t like idea of landing code that definitely drives us into wrong direction. Switching to another reflection call is trivial and should be done before this change. Big part of this CL isn\u0027t need at all once we switch to different reflection call. \n\nGeneral rule: Generated code can be boilerplate code, but it should be a code that you\u0027d write otherwise manually. Currently, this generated code is not something anyone would write manually, it is smartish and extremely ugly way to overrule requirement of calling primary constractor first.",
+      "parentUuid": "24021c8b_c7630c09",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02387506_91ef6972",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
         "patchSetId": 5
