@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "24021c8b_c7630c09",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-14T17:54:28Z",
+      "side": 1,
+      "message": "The by navArgs CL https://android-review.googlesource.com/864732 specifically switched to a constructor that takes a Bundle instead of a static fromBundle() method. We can revisit that discussion after this change - as it is, this constructor and format is what is expected and what should be generated.",
+      "parentUuid": "4b105d20_168b21da",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02387506_91ef6972",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
         "patchSetId": 5
