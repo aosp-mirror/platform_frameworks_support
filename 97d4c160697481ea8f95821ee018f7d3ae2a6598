@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d44a171d_8dd28a42",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T23:53:58Z",
+      "side": 1,
+      "message": "Let\u0027s pull this out into its own method so this constructor is not cluttered.",
+      "revId": "97d4c160697481ea8f95821ee018f7d3ae2a6598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1625e75_07efcb56",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T23:53:58Z",
+      "side": 1,
+      "message": "This variable only needs to be set once. So there\u0027s no need to clear it each time the button is pressed.\n\nIt can be initialized during setMenuItems()",
+      "revId": "97d4c160697481ea8f95821ee018f7d3ae2a6598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19e6d1a8_fbd00659",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T23:53:58Z",
+      "side": 1,
+      "message": "I think you set the result to mOverflowMenuItems:\n\n  mOverflowMenuItems \u003d mMenuItems.stream()\n    .filter(item -\u003e item.getDisplayBehavior() \u003d\u003d CarMenuItem.DisplayBehavior.NEVER)\n    .collect(Collectors.toList());",
+      "revId": "97d4c160697481ea8f95821ee018f7d3ae2a6598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeebe53d_70aeb117",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T23:53:58Z",
+      "side": 1,
+      "message": "And then here, you can create the titles array to pass to the Builder.\n\n  CharSequence[] titles \u003d mOverflowMenuItems.stream()\n    .map(item -\u003e item.getTitle())\n    .toArray(CharSequence[]::new);\n\nI\u0027ll leave up to you if you wanna save this as a field or not.",
+      "revId": "97d4c160697481ea8f95821ee018f7d3ae2a6598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "218c4672_128b2ebc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T23:53:58Z",
+      "side": 1,
+      "message": "If you initialize mOverflowMenuItems here, then you can toggle the visibility based on if mOverflowMenuItems is empty or not.",
+      "revId": "97d4c160697481ea8f95821ee018f7d3ae2a6598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
