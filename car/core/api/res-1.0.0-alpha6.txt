@@ -293,6 +293,7 @@ attr showPagedListViewDivider
 attr showScrollBarThumb
 attr subtitle
 attr subtitleTextAppearance
+attr switchScale
 attr title
 attr titleIcon
 attr titleIconSize

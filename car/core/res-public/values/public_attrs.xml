@@ -101,5 +101,6 @@
     <public type="attr" name="titleTextAppearance" />
     <public type="attr" name="subtitle" />
     <public type="attr" name="subtitleTextAppearance"/>
+    <public type="attr" name="switchScale"/>
     <public type="attr" name="overflowIcon"/>
 </resources>
