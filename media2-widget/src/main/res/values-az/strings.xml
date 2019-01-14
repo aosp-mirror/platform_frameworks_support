@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"İfaçı bilinmir"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"Təklif etdiyiniz elementləri oxutmaq alınmadı"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"OK"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"Geri"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"Əvvəlki düymə siyahısına geri"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"Daha çox düyməyə baxın"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"Oxutmanın gedişatı"</string>

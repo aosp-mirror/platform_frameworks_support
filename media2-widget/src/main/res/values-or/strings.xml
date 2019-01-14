@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"ଅଜଣା କଳାକାର"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"ଆପଣ ଅନୁରୋଧ କରିଥିବା ଆଇଟମ୍ ଚଲାଇହେବ ନାହିଁ"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"ଠିକ୍ ଅଛି"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"ପଛକୁ"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"ପୂର୍ବବର୍ତ୍ତୀ ବଟନ୍ ତାଲିକାକୁ ଫେରିଯାଆନ୍ତୁ"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"ଅଧିକ ବଟନ୍ ଦେଖନ୍ତୁ"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"ପ୍ଲେବ୍ୟାକ୍ ପ୍ରଗତି"</string>

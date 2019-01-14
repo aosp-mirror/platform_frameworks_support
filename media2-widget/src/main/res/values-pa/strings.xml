@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"ਕਲਾਕਾਰ ਅਗਿਆਤ ਹੈ"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"ਤੁਹਾਡੇ ਵੱਲੋਂ ਬੇਨਤੀ ਕੀਤੀ ਗਈ ਆਈਟਮ ਨਹੀਂ ਚਲਾਈ ਜਾ ਸਕੀ"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"ਠੀਕ ਹੈ"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"ਪਿੱਛੇ"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"ਪਿਛਲੀ ਬਟਨ ਸੂਚੀ \'ਤੇ ਵਾਪਸ ਜਾਓ"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"ਹੋਰ ਬਟਨ ਦੇਖੋ"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"ਪਲੇਬੈਕ ਪ੍ਰਗਤੀ"</string>

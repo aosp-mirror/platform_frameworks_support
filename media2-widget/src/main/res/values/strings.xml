@@ -70,7 +70,6 @@
     <string name="mcv2_error_dialog_button">OK</string>
 
     <!--Content Descriptions -->
-    <string name="mcv2_back_button_desc">Back</string>
     <string name="mcv2_overflow_left_button_desc">Back to previous button list</string>
     <string name="mcv2_overflow_right_button_desc">See more buttons</string>
     <string name="mcv2_seek_bar_desc">Playback progress</string>

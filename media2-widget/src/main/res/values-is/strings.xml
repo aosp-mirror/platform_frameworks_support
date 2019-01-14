@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"Óþekktur flytjandi"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"Ekki tókst að spila það sem þú baðst um"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"Í lagi"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"Til baka"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"Aftur á fyrri hnappalista"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"Sjá fleiri hnappa"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"Framvinda spilunar"</string>

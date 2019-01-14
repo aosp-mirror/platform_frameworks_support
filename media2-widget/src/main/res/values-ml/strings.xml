@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"അജ്ഞാത ആർട്ടിസ്‌റ്റ്"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"നിങ്ങൾ അഭ്യർത്ഥിച്ച ഇനം പ്ലേ ചെയ്യാനായില്ല"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"ശരി"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"മടങ്ങുക"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"മുമ്പത്തെ ബട്ടൺ ലിസ്‌റ്റിലേക്ക് പോവുക"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"കൂടുതൽ ബട്ടണുകൾ കാണുക"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"പ്ലേബാക്ക് പുരോഗതി"</string>

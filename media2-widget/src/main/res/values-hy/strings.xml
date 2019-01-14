@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"Կատարողն անհայտ է"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"Չհաջողվեց նվագարկել տեսանյութը"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"Եղավ"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"Հետ"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"Վերադառնալ կոճակների նախորդ ցանկին"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"Տեսնել այլ կոճակներ"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"Նվագարկվում է"</string>

@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"未知的演出者"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"無法播放你要求的項目"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"確定"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"倒轉"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"返回前一個按鈕清單"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"顯示更多按鈕"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"播放進度"</string>

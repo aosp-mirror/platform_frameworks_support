@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"कलाकारको नाम अज्ञात"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"तपाईंले अनुरोध गर्नुभएको वस्तु प्ले गर्न सकिएन"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"ठिक छ"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"पछाडि"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"बटनको अघिल्लो सूचीमा फर्कनुहोस्"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"थप बटनहरू हेर्नुहोस्"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"प्लेब्याकको प्रगति"</string>

@@ -34,7 +34,6 @@
     <string name="mcv2_music_artist_unknown_text" msgid="7281381729593359490">"கலைஞர் பெயர் தெரியவில்லை"</string>
     <string name="mcv2_playback_error_text" msgid="8679540579604773521">"நீங்கள் கோரிய வீடியோவை இயக்க இயலவில்லை"</string>
     <string name="mcv2_error_dialog_button" msgid="4729185181004825701">"சரி"</string>
-    <string name="mcv2_back_button_desc" msgid="3840841379369664026">"பின்செல்லும்"</string>
     <string name="mcv2_overflow_left_button_desc" msgid="725682068946773136">"முந்தைய பட்டன்களின் பட்டியலுக்குச் செல்லும்"</string>
     <string name="mcv2_overflow_right_button_desc" msgid="5401011338060374430">"மேலும் பட்டன்களைக் காட்டும்"</string>
     <string name="mcv2_seek_bar_desc" msgid="9175754636904349811">"வீடியோவின் இயக்கம்"</string>
