@@ -179,7 +179,8 @@ abstract class SystemMediaRouteProvider extends MediaRouteProvider {
             public void onUpdateVolume(int delta) {
                 int volume = mAudioManager.getStreamVolume(PLAYBACK_STREAM);
                 int maxVolume = mAudioManager.getStreamMaxVolume(PLAYBACK_STREAM);
-                int newVolume = Math.min(maxVolume, Math.max(0, volume + delta));
+                int minVolume = mAudioManager.getStreamMinVolume(PLAYBACK_STREAM);
+                int newVolume = Math.min(maxVolume, Math.max(minVolume, volume + delta));
                 if (newVolume != volume) {
                     mAudioManager.setStreamVolume(PLAYBACK_STREAM, volume, 0);
                 }
