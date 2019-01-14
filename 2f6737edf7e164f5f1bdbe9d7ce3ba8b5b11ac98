@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6edd764_981151f8",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-14T22:11:13Z",
+      "side": 1,
+      "message": "Lets rename this to make it clearer: `getTintListForDrawableRes()` or something",
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "723f3d51_db4ca12b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-14T22:11:13Z",
+      "side": 1,
+      "message": "Ditto: `getTintModeForDrawableRes()`",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f231ab5_80bba181",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-14T22:11:13Z",
+      "side": 1,
+      "message": "IMO, split this out to a separate class (DefaultAppCompatDrawableManagerHooks?) and lets seperate out the API and impl",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 63
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff58489c_67c5bd34",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-14T22:11:13Z",
+      "side": 1,
+      "message": "@NonNull, and probably should make an explicit setter",
+      "range": {
+        "startLine": 426,
+        "startChar": 42,
+        "endLine": 426,
+        "endChar": 48
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
