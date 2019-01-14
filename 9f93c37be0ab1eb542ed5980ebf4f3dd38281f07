@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3354a32_3db6697c",
+        "filename": "navigation/common/ktx/proguard-rules.pro",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-14T21:23:53Z",
+      "side": 1,
+      "message": "This needs to be keepclasseswithmembernames",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "9f93c37be0ab1eb542ed5980ebf4f3dd38281f07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
