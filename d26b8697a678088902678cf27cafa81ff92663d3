@@ -114,6 +114,24 @@
     },
     {
       "key": {
+        "uuid": "43a15b68_cd96ac25",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-14T21:17:14Z",
+      "side": 1,
+      "message": "Updated to have a fromBundle static method with reasonable code.\n\nAlso created aosp/870691 so that the ktx extension uses the static fromBundle method instead of a constructor.",
+      "parentUuid": "4db9c516_7d9e6495",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02387506_91ef6972",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
         "patchSetId": 5
