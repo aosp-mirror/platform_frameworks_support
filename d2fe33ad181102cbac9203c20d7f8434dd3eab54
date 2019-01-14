@@ -70,6 +70,30 @@
       "revId": "d2fe33ad181102cbac9203c20d7f8434dd3eab54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c25b59f3_73d845f2",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-01-14T07:50:05Z",
+      "side": 1,
+      "message": "Math.ceil() is required to hide the progress bar completely.\n\nI\u0027m not sure how layout works when floating point(like 5.5) is involved, but we can see an artifact when we use float variable directly.",
+      "parentUuid": "e3b2a996_1814f7d4",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 41
+      },
+      "revId": "d2fe33ad181102cbac9203c20d7f8434dd3eab54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
