@@ -69,6 +69,15 @@ public @interface RestrictTo {
         LIBRARY_GROUP,
 
         /**
+         * Restrict usage to code within libraries that share the same
+         * library group prefix (e.g libraries foo.bar:library1 and
+         * foo.baz:library2 share the library group prefix "foo."
+         * so both can use each other's apis that are restricted to this
+         * scope.)
+         */
+        LIBRARY_GROUP_PREFIX,
+
+        /**
          * Restrict usage to code within the same group ID (based on gradle
          * group ID). This is an alias for {@link #LIBRARY_GROUP}.
          *
