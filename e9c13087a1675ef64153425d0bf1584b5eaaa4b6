@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e5c4ebe_7f728a8a",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaNavWriter.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-14T12:17:13Z",
+      "side": 1,
+      "message": "move it to small helper fun right here to avoid duplication",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 79
+      },
+      "revId": "e9c13087a1675ef64153425d0bf1584b5eaaa4b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
