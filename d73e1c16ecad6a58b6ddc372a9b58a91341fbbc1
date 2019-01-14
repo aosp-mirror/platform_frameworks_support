@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e339cbf_a734def0",
+        "filename": "preference/res/layout-v29/image_frame.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1429802
+      },
+      "writtenOn": "2019-01-14T07:32:04Z",
+      "side": 1,
+      "message": "This file is almost same as here.\nhttps://cs.corp.google.com/aosp-androidx/preference/res/layout-v17/preference_material.xml?g\u003d0\n\nHere is spec from UX. (https://screenshot.googleplex.com/9SxK9vWcwhb)",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "d73e1c16ecad6a58b6ddc372a9b58a91341fbbc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed80efa0_84ccf8d1",
+        "filename": "preference/res/layout-v29/image_frame.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1429802
+      },
+      "writtenOn": "2019-01-14T07:32:04Z",
+      "side": 1,
+      "message": "only change here. 56 -\u003e 54",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "d73e1c16ecad6a58b6ddc372a9b58a91341fbbc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228b3124_4e2a1d02",
+        "filename": "preference/res/layout-v29/image_frame.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1429802
+      },
+      "writtenOn": "2019-01-14T07:32:04Z",
+      "side": 1,
+      "message": "add padding here",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "d73e1c16ecad6a58b6ddc372a9b58a91341fbbc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
