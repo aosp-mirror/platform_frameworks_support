@@ -46,6 +46,30 @@
       "revId": "d2fe33ad181102cbac9203c20d7f8434dd3eab54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3b2a996_1814f7d4",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-14T07:36:40Z",
+      "side": 1,
+      "message": "Q) Is Math.ceil still needed?",
+      "parentUuid": "b379bdd7_480b9a8f",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 41
+      },
+      "revId": "d2fe33ad181102cbac9203c20d7f8434dd3eab54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
