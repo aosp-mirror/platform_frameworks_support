@@ -40,7 +40,12 @@ public class SupportCarDemoActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new SampleAdapter(querySampleActivities()));
+        for (SampleInfo si : querySampleActivities()) {
+            if (si.mName.equals("Toolbar")){
+                startActivity(si.mIntent);
+            }
+        }
+//        setListAdapter(new SampleAdapter(querySampleActivities()));
     }
 
     @Override

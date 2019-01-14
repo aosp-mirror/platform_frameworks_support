@@ -24,11 +24,15 @@ import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -79,6 +83,8 @@ public class CarToolbar extends ViewGroup {
     private final ImageButton mNavButtonView;
     private final int mEdgeButtonIconSize;
     private final ImageView mTitleIconView;
+    private final int mActionItemSize;
+    private final LinearLayout mActionItemsContainer;
     private final ImageButton mOverflowButtonView;
     private final int mToolbarHeight;
     private final int mTextVerticalPadding;
@@ -100,6 +106,7 @@ public class CarToolbar extends ViewGroup {
     @Nullable
     private CarListDialog mOverflowDialog;
     private final List<CarMenuItem> mOverflowMenuItems = new ArrayList<>();
+    private final List<CarMenuItem> mActionItems = new ArrayList<>();
     /**
      * OnClickListener that handles the overflow dialog clicks by calling the appropriate
      * {@link CarMenuItem.OnClickListener} of the overflow {@link CarMenuItem}s.
@@ -130,6 +137,7 @@ public class CarToolbar extends ViewGroup {
         Resources res = context.getResources();
         mToolbarHeight = res.getDimensionPixelSize(R.dimen.car_app_bar_height);
         mEdgeButtonIconSize = res.getDimensionPixelSize(R.dimen.car_primary_icon_size);
+        mActionItemSize = res.getDimensionPixelSize(R.dimen.car_button_min_width);
 
         mTextVerticalPadding = getResources().getDimensionPixelSize(R.dimen.car_padding_1);
         LayoutInflater.from(context).inflate(R.layout.car_toolbar, this);
@@ -144,6 +152,7 @@ public class CarToolbar extends ViewGroup {
         mTitleIconView = findViewById(R.id.title_icon);
         mSubtitleTextView = findViewById(R.id.subtitle);
         mOverflowButtonView = findViewById(R.id.overflow_menu);
+        mActionItemsContainer = findViewById(R.id.action_items_container);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarToolbar, defStyleAttr,
                 /* defStyleRes= */ 0);
@@ -189,6 +198,7 @@ public class CarToolbar extends ViewGroup {
             mEdgeButtonContainerWidth = a.getDimensionPixelSize(
                     R.styleable.CarToolbar_navigationIconContainerWidth,
                     res.getDimensionPixelSize(R.dimen.car_margin));
+
         } finally {
             a.recycle();
         }
@@ -225,6 +235,11 @@ public class CarToolbar extends ViewGroup {
             mOverflowButtonView.measure(measureSpec, measureSpec);
             width += Math.max(mEdgeButtonContainerWidth, mOverflowButtonView.getMeasuredWidth())
                     + getHorizontalMargins(mOverflowButtonView);
+        }
+
+        if (mActionItemsContainer.getVisibility() != GONE) {
+            measureChild(mActionItemsContainer, widthMeasureSpec, width, childHeightMeasureSpec, 0);
+            width += mActionItemsContainer.getMeasuredWidth();
         }
 
         if (mTitleIconView.getVisibility() != GONE) {
@@ -274,6 +289,12 @@ public class CarToolbar extends ViewGroup {
                     right - horizontalMargin, height);
             layoutRight += Math.max(mEdgeButtonContainerWidth,
                     mOverflowButtonView.getMeasuredWidth());
+        }
+
+        if (mActionItemsContainer.getVisibility() != GONE) {
+            layoutViewFromRightVerticallyCentered(mActionItemsContainer,
+                    right - layoutRight, height);
+            layoutRight += mActionItemsContainer.getMeasuredWidth() + 10;
         }
 
         if (mTitleIconView.getVisibility() != GONE) {
@@ -539,7 +560,34 @@ public class CarToolbar extends ViewGroup {
     public void setMenuItems(@Nullable List<CarMenuItem> items) {
         mMenuItems = items;
         setUpOverflowMenu();
+        setupActionButtons();
         requestLayout();
+    }
+
+    public void setupActionButtons() {
+        mActionItems.clear();
+        mActionItemsContainer.removeAllViews();
+        if (mMenuItems != null) {
+            mMenuItems.stream()
+                    .filter(item -> item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.ALWAYS)
+                    .forEach(mActionItems::add);
+        }
+        if (!mActionItems.isEmpty()) {
+            for (CarMenuItem actionItem : mActionItems) {
+                Button button = new Button(new ContextThemeWrapper(getContext(),
+                        actionItem.getStyleResId()), null, 0);
+                button.setText(actionItem.getTitle());
+                button.setOnClickListener(v -> {
+                    CarMenuItem.OnClickListener onClickListener = actionItem.getOnClickListener();
+                    if (onClickListener != null) {
+                        onClickListener.onClick(actionItem);
+                    }
+                });
+                button.setEnabled(actionItem.isEnabled());
+                mActionItemsContainer.addView(button);
+            }
+        }
+        mActionItemsContainer.setVisibility(!mActionItems.isEmpty() ? VISIBLE : GONE);
     }
 
     /**
