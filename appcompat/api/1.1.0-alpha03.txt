@@ -175,7 +175,7 @@ package androidx.appcompat.app {
   public static class AlertDialog.Builder {
     ctor public AlertDialog.Builder(android.content.Context);
     ctor public AlertDialog.Builder(android.content.Context, @StyleRes int);
-    method public androidx.appcompat.app.AlertDialog! create();
+    method public androidx.appcompat.app.AlertDialog create();
     method public android.content.Context getContext();
     method public androidx.appcompat.app.AlertDialog.Builder! setAdapter(android.widget.ListAdapter!, android.content.DialogInterface.OnClickListener!);
     method public androidx.appcompat.app.AlertDialog.Builder! setCancelable(boolean);
@@ -223,7 +223,8 @@ package androidx.appcompat.app {
     method public androidx.appcompat.app.ActionBar? getSupportActionBar();
     method public android.content.Intent? getSupportParentActivityIntent();
     method public void onCreateSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder);
-    method public final boolean onMenuItemSelected(int, android.view.MenuItem!);
+    method public final boolean onMenuItemSelected(int, android.view.MenuItem);
+    method public void onNightModeChanged(int);
     method public void onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder);
     method @CallSuper public void onSupportActionModeFinished(androidx.appcompat.view.ActionMode);
     method @CallSuper public void onSupportActionModeStarted(androidx.appcompat.view.ActionMode);
@@ -243,6 +244,7 @@ package androidx.appcompat.app {
   }
 
   public interface AppCompatCallback {
+    method public void onNightModeChanged(int);
     method public void onSupportActionModeFinished(androidx.appcompat.view.ActionMode!);
     method public void onSupportActionModeStarted(androidx.appcompat.view.ActionMode!);
     method public androidx.appcompat.view.ActionMode? onWindowStartingSupportActionMode(androidx.appcompat.view.ActionMode.Callback!);
@@ -271,6 +273,7 @@ package androidx.appcompat.app {
     method public abstract void onPostCreate(android.os.Bundle!);
     method public abstract void onPostResume();
     method public abstract void onSaveInstanceState(android.os.Bundle!);
+    method public abstract void onSetTheme(@StyleRes int);
     method public abstract void onStart();
     method public abstract void onStop();
     method public abstract boolean requestWindowFeature(int);
@@ -299,6 +302,7 @@ package androidx.appcompat.app {
     ctor protected AppCompatDialog(android.content.Context!, boolean, android.content.DialogInterface.OnCancelListener!);
     method public androidx.appcompat.app.AppCompatDelegate! getDelegate();
     method public androidx.appcompat.app.ActionBar! getSupportActionBar();
+    method public void onNightModeChanged(int);
     method public void onSupportActionModeFinished(androidx.appcompat.view.ActionMode!);
     method public void onSupportActionModeStarted(androidx.appcompat.view.ActionMode!);
     method public androidx.appcompat.view.ActionMode? onWindowStartingSupportActionMode(androidx.appcompat.view.ActionMode.Callback!);
@@ -324,6 +328,7 @@ package androidx.appcompat.app {
     method protected androidx.appcompat.widget.AppCompatSeekBar createSeekBar(android.content.Context!, android.util.AttributeSet!);
     method protected androidx.appcompat.widget.AppCompatSpinner createSpinner(android.content.Context!, android.util.AttributeSet!);
     method protected androidx.appcompat.widget.AppCompatTextView createTextView(android.content.Context!, android.util.AttributeSet!);
+    method protected androidx.appcompat.widget.AppCompatToggleButton createToggleButton(android.content.Context!, android.util.AttributeSet!);
     method protected android.view.View? createView(android.content.Context!, String!, android.util.AttributeSet!);
   }
 
@@ -485,12 +490,17 @@ package androidx.appcompat.widget {
     method public void setTextAppearance(android.content.Context!, int);
   }
 
-  public class AppCompatCheckBox extends android.widget.CheckBox implements androidx.core.widget.TintableCompoundButton {
+  public class AppCompatCheckBox extends android.widget.CheckBox implements androidx.core.view.TintableBackgroundView androidx.core.widget.TintableCompoundButton {
     ctor public AppCompatCheckBox(android.content.Context!);
     ctor public AppCompatCheckBox(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatCheckBox(android.content.Context!, android.util.AttributeSet!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportButtonTintList();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportButtonTintMode();
+    method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintList(android.content.res.ColorStateList?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintMode(android.graphics.PorterDuff.Mode?);
   }
@@ -556,12 +566,17 @@ package androidx.appcompat.widget {
     method public void setTextAppearance(android.content.Context!, int);
   }
 
-  public class AppCompatRadioButton extends android.widget.RadioButton implements androidx.core.widget.TintableCompoundButton {
+  public class AppCompatRadioButton extends android.widget.RadioButton implements androidx.core.view.TintableBackgroundView androidx.core.widget.TintableCompoundButton {
     ctor public AppCompatRadioButton(android.content.Context!);
     ctor public AppCompatRadioButton(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatRadioButton(android.content.Context!, android.util.AttributeSet!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportButtonTintList();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportButtonTintMode();
+    method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintList(android.content.res.ColorStateList?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintMode(android.graphics.PorterDuff.Mode?);
   }
@@ -606,7 +621,7 @@ package androidx.appcompat.widget {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
     method public void setTextAppearance(android.content.Context!, int);
-    method public void setTextFuture(java.util.concurrent.Future<androidx.core.text.PrecomputedTextCompat>);
+    method public void setTextFuture(java.util.concurrent.Future<androidx.core.text.PrecomputedTextCompat>?);
     method public void setTextMetricsParamsCompat(androidx.core.text.PrecomputedTextCompat.Params);
   }
 
@@ -921,6 +936,7 @@ package androidx.appcompat.widget {
     method public void setSubtitle(CharSequence!);
     method public void setSubtitleTextAppearance(android.content.Context!, @StyleRes int);
     method public void setSubtitleTextColor(@ColorInt int);
+    method public void setSubtitleTextColor(android.content.res.ColorStateList);
     method public void setTitle(@StringRes int);
     method public void setTitle(CharSequence!);
     method public void setTitleMargin(int, int, int, int);
@@ -930,6 +946,7 @@ package androidx.appcompat.widget {
     method public void setTitleMarginTop(int);
     method public void setTitleTextAppearance(android.content.Context!, @StyleRes int);
     method public void setTitleTextColor(@ColorInt int);
+    method public void setTitleTextColor(android.content.res.ColorStateList);
     method public boolean showOverflowMenu();
   }
 
