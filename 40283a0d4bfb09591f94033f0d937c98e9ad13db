@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e6a5275_e130c0e0",
+        "filename": "browser/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-14T21:07:57Z",
+      "side": 1,
+      "message": "You still need to update the version in LibraryVersions.kt to 1.1.0-alpha01",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
