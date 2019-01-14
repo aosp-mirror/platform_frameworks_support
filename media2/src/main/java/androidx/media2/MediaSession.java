@@ -381,10 +381,15 @@ public class MediaSession implements AutoCloseable {
          * You can reject the connection by return {@code null}. In that case, controller receives
          * {@link MediaController.ControllerCallback#onDisconnected(MediaController)} and cannot
          * be usable.
+         * <p>
+         * The controller hasn't connected yet in this method, so any calls that specifies the
+         * controller info would fail. (e.g. {@link MediaSession#setCustomLayout}). Override
+         * {@link #onPostConnect} if you want use such APIs.
          *
          * @param session the session for this event
          * @param controller controller information.
          * @return allowed commands. Can be {@code null} to reject connection.
+         * @see #onPostConnect(MediaSession, ControllerInfo)
          */
         public @Nullable SessionCommandGroup onConnect(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller) {
@@ -392,6 +397,17 @@ public class MediaSession implements AutoCloseable {
                     .addAllPredefinedCommands(SessionCommand.COMMAND_VERSION_1)
                     .build();
             return commands;
+        }
+
+        /**
+         * Called immediately after a controller is connected. This is convenient method to add
+         * custom initialization between session and controller.
+         *
+         * @param session the session for this event
+         * @param controller controller information.
+         */
+        public void onPostConnect(@NonNull MediaSession session,
+                @NonNull ControllerInfo controller) {
         }
 
         /**
