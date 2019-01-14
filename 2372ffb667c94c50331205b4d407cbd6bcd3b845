@@ -22,6 +22,30 @@
       "revId": "2372ffb667c94c50331205b4d407cbd6bcd3b845",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f5181c_3b70b2f0",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-01-14T08:29:22Z",
+      "side": 1,
+      "message": "I worried about the situation where bottomBarTranslateY is integer but progressBarHeight is not.\n(e.g. progressThumbHeight \u003d 19.2 progressBarHeight \u003d 3.2)\n\nSince the last position of the animation of hiding progress bar is calculated with bottomBarTranslateY + progressBarHeight, it could be rounded down and the progress bar may not disappear completely.",
+      "parentUuid": "e14afb0d_3abd4a90",
+      "range": {
+        "startLine": 641,
+        "startChar": 34,
+        "endLine": 641,
+        "endChar": 52
+      },
+      "revId": "2372ffb667c94c50331205b4d407cbd6bcd3b845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
