@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90442272_bc711a00",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T21:32:23Z",
+      "side": 1,
+      "message": "Need a waitForIdleSync() after this",
+      "revId": "6454b0c75ae507bf3316a68c94f3410e69890f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff8c27f2_27df722b",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T21:32:23Z",
+      "side": 1,
+      "message": "Don\u0027t need it here because onView() will implicitly do this.",
+      "revId": "6454b0c75ae507bf3316a68c94f3410e69890f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d57c05_cf1ab3e0",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-14T21:32:23Z",
+      "side": 1,
+      "message": "Same here. Don\u0027t need this call.",
+      "revId": "6454b0c75ae507bf3316a68c94f3410e69890f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
