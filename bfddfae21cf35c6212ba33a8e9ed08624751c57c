@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb1a6110_6d3d6a3b",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-14T21:47:43Z",
+      "side": 1,
+      "message": "Am I correct to think that technically, it\u0027s not that we\u0027re partially dejetifying these artifacts but that these are artifacts that should be included in partial dejetification given that they get concatenated with the other list (commonArchivesToDejetify)?\n\nIf so, do we want to rename it to something like \"extraArtifactsToIncludeInPartialDejetification\"?",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "bfddfae21cf35c6212ba33a8e9ed08624751c57c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea63d4a_801b50c9",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-14T21:47:43Z",
+      "side": 1,
+      "message": "Why are there artifacts that get included in partial dejetification but not in full dejetification (could we find clearer names (or even just task descriptions) for them)?\n\nIs it because the \"full\" dejetified artifact was only used for version 28.0.0 (which already released (and we don\u0027t really need to keep building it anymore, we just haven\u0027t disabled building it yet)) and the \"partial\" dejetified artifact is actually created to be used internally (and does need to be up-to-date)?",
+      "revId": "bfddfae21cf35c6212ba33a8e9ed08624751c57c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
