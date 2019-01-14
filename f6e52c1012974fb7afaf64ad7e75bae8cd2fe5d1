@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "75ad85d7_13dabf64",
+        "filename": "enterprise/feedback/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e57c591_a7da6d1f",
+      "range": {
+        "startLine": 8,
+        "startChar": 33,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e802388a_b83b95e7",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfab60f1_33829983",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e802388a_b83b95e7",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "644ad03d_f20fdba9",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec38fb60_7906e89d",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b7c0b0c_4e62d5be",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8adc8661_4197e4a2",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure where 26 came from - my mistake. I\u0027ve lowered it to 21 which is the lowest that lets us use message.sendingUid to verify the receiver.",
+      "parentUuid": "6b7c0b0c_4e62d5be",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a664667_8f3d2843",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-11T21:19:00Z",
       "side": 1,
       "message": "Not recommended due to implicit minimum SDK requirements.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92608527_23e8eb5f",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Am I right that removing this would mean I couldn\u0027t use lambdas for the assertThrows in the tests?\n\nWhat SDK does sourceCompatibility 1.8 force?",
+      "parentUuid": "8a664667_8f3d2843",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "ea5e5967_dae5e9a7",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d087993_d5621a82",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "057b6d59_c076f522",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "66afb567_3ebde062",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "057b6d59_c076f522",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 47
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b36d49d8_67be03af",
         "filename": "enterprise/feedback/gradle.properties",
         "patchSetId": 8
@@ -177,6 +345,24 @@
       "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f51e9b7_a59caf9d",
+        "filename": "enterprise/feedback/gradle.properties",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-14T11:41:02Z",
+      "side": 1,
+      "message": "I added this when getting the Robolectric tests to work. They seem to work without it so removed, thanks.",
+      "parentUuid": "b36d49d8_67be03af",
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
