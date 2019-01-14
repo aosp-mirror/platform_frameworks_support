@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fedc5640_0d5bc08a",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-14T16:59:58Z",
+      "side": 1,
+      "message": "Do you expect developers to extend this class? We mark it final if you don\u0027t.",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 39
+      },
+      "revId": "7849b3273210ce3f0d7de8f8f0638a618cca3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
