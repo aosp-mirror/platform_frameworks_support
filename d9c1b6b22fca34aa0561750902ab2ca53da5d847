@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27bb00ae_c1f137b0",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T10:11:26Z",
+      "side": 1,
+      "message": "Q) why this is not AT_MOST?",
+      "range": {
+        "startLine": 61,
+        "startChar": 56,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f69172b4_68c23bfd",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T10:11:26Z",
+      "side": 1,
+      "message": "Q) why divided by 2?",
+      "range": {
+        "startLine": 69,
+        "startChar": 62,
+        "endLine": 69,
+        "endChar": 71
+      },
+      "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a625dd2_475fc714",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T10:11:26Z",
+      "side": 1,
+      "message": "(Discussed)\nLet me leave the note: We discussed the amount of cost increase. It seems reasonable. The more performance improvement will be handled in b/122094497.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 31
+      },
+      "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1ed303d_cf28ef3e",
+        "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T10:11:26Z",
+      "side": 1,
+      "message": "Optional) As we talked, it sounds a bit confusing with VV/MCV\u0027s embedded/full mode. But I cannot come up with better naming...",
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb49df4d_5bfc423f",
+        "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T10:11:26Z",
+      "side": 1,
+      "message": "Q) What\u0027s the benefit from changing this to FrameLayout?",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
