@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2db7e07_4abfb6df",
+        "filename": "browser/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-14T15:41:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "68bd64bf_7e39ad39",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 42
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c817fee8_0f432148",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d3491147_0bad7955",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-14T15:41:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c817fee8_0f432148",
+      "range": {
+        "startLine": 449,
+        "startChar": 18,
+        "endLine": 449,
+        "endChar": 24
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b502da75_c6aa72c9",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-01-10T19:30:51Z",
       "side": 1,
       "message": "Please don\u0027t expose AsyncTask as an API, because how the asynchronous work happens is irrelevant to the public API which should deal in communication between components. \nAs alternatives approach, you may have:\nclass BrowserServiceImageReader {\n  // option 1\n  ListenableFuture\u003cBitmap\u003e read(Uri uri);\n  // option 2\n  void read(Uri uri, Callback callback);\n  interface Callback {\n       onBitmapFileReady(...)\n  }\n}\n\nand have asynctask as implementation detail\n\nfor option 1, look at androidx.concurrent package, which is currently at baking state.",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "6dbc6263261408f7145f0a8e8601d42577443d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f201d793_f7c29c8d",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-14T15:41:45Z",
+      "side": 1,
+      "message": "There wasn\u0027t much point in this class if it wasn\u0027t being used as an AsyncTask, so I removed it and added the method you suggested as a static to BrowserServiceFileProvider.",
+      "parentUuid": "b502da75_c6aa72c9",
       "range": {
         "startLine": 42,
         "startChar": 22,
