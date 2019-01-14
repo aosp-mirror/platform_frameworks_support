@@ -26,7 +26,8 @@
         app:titleIcon="@android:drawable/sym_def_app_icon"
         app:titleIconSize="@dimen/car_avatar_icon_size"
         app:title="@string/car_toolbar_title"
-        app:subtitle="@string/car_toolbar_subtitle"/>
+        app:subtitle="@string/car_toolbar_subtitle"
+        app:switchScale="@dimen/car_app_bar_switch_scale"/>
     <LinearLayout
             android:id="@+id/demo_buttons"
             android:layout_width="match_parent"
@@ -39,21 +40,28 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
+        <Button
+                android:id="@+id/add_switch"
+                android:text="@string/button_add_switch"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/car_button_height"
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/add_if_room"
                 android:text="@string/button_add_if_room"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/add_overflow"
                 android:text="@string/button_add_overflow"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/clear_menu"
                 android:text="@string/button_clear_menu"
