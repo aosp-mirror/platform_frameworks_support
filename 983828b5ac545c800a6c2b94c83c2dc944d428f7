@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17a37adc_98cb700d",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-14T23:29:26Z",
+      "side": 1,
+      "message": "Recommend echoing back the text that failed to parse (\"\u0027$1\u0027\")",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 13
+      },
+      "revId": "983828b5ac545c800a6c2b94c83c2dc944d428f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
