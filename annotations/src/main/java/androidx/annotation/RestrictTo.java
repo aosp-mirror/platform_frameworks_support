@@ -69,6 +69,16 @@ public @interface RestrictTo {
         LIBRARY_GROUP,
 
         /**
+         * Restrict usage to code within packages whose groups share
+         * the same specified prefix. The intended usage is for apis
+         * to be annotated with @RestrictTo(GROUP_PREFIX, "foo.")
+         * and that would make it such that all libraries whose
+         * group starts with "foo." can use that restricted api (e.g
+         * foo.bar:library1, foo.baz:library2, foo.bar.baz:library3.)
+         */
+        GROUP_PREFIX,
+
+        /**
          * Restrict usage to code within the same group ID (based on gradle
          * group ID). This is an alias for {@link #LIBRARY_GROUP}.
          *
