@@ -141,6 +141,30 @@
       "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdb94676_cf87d15f",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-14T21:25:27Z",
+      "side": 1,
+      "message": "Reminder about the duplication of having \u003crelease-date\u003e both as a command-line-argument and in the file",
+      "parentUuid": "0e3e0028_e2900328",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "6a03689d0abc4c4c7cffeb78420d14c5146c8085",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
