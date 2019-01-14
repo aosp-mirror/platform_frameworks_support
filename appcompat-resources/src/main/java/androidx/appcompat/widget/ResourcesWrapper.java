@@ -30,17 +30,22 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 /**
  * This extends Resources but delegates the calls to another Resources object. This enables
  * any customization done by some subclass of Resources to be also picked up.
- */
-class ResourcesWrapper extends Resources {
+ * @hide
+ **/
+@RestrictTo(LIBRARY_GROUP)
+public class ResourcesWrapper extends Resources {
 
     private final Resources mResources;
 

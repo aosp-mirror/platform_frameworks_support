@@ -71,6 +71,7 @@ const val NAV_SUPPORT_FRAGMENTS = "com.android.support:support-fragment:$NAV_SUP
 private const val SUPPORT_VERSION = "1.0.0"
 const val SUPPORT_ANNOTATIONS = "androidx.annotation:annotation:$SUPPORT_VERSION"
 const val SUPPORT_APPCOMPAT = "androidx.appcompat:appcompat:$SUPPORT_VERSION"
+const val SUPPORT_APPCOMPAT_RESOURCES = "androidx.appcompat:appcompat-resources:$SUPPORT_VERSION"
 const val SUPPORT_CORE_UTILS = "androidx.legacy:legacy-support-core-utils:$SUPPORT_VERSION"
 const val SUPPORT_DESIGN = "com.google.android.material:material:1.0.0@aar"
 const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"

@@ -25,6 +25,7 @@ object LibraryVersions {
     val ANIMATION_TESTING = Version("1.0.0")
     val ANNOTATION = Version("1.0.0")
     val APPCOMPAT = Version("1.1.0-alpha02")
+    val APPCOMPAT_RESOURCES = Version("1.1.0-alpha02")
     val ARCH_CORE = Version("2.0.0")
     val ARCH_CORE_TESTING = ARCH_CORE
     val ARCH_RUNTIME = Version("2.0.1-alpha01")
