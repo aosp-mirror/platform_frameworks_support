@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e14afb0d_3abd4a90",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-14T08:07:42Z",
+      "side": 1,
+      "message": "Sorry for bothering you but I think Math.ceil for progressBarHeight is not needed.",
+      "range": {
+        "startLine": 641,
+        "startChar": 34,
+        "endLine": 641,
+        "endChar": 52
+      },
+      "revId": "2372ffb667c94c50331205b4d407cbd6bcd3b845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
