@@ -177,6 +177,8 @@ limitations under the License.
         <attr name="titleTextAppearance" format="reference"/>
         <!-- TextAppearance of the subtitle. -->
         <attr name="subtitleTextAppearance" format="reference"/>
+        <!-- Factor used to scale the Switch widgets. -->
+        <attr name="switchScale" format="float"/>
         <!-- Icon to use for the overflow menu button. -->
         <attr name="overflowIcon" format="reference"/>
     </declare-styleable>

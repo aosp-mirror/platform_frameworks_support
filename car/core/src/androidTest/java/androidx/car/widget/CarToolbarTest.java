@@ -247,6 +247,37 @@ public class CarToolbarTest {
     }
 
     @Test
+    public void testActionItemsShownOnToolbar() throws Throwable {
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(withText(actionItemText)).check(matches(isDisplayed()));
+    }
+
+//    @Test
+//    public void testActionSwitchItemContainsSwitch() throws Throwable {
+//        String actionItemText = "action_item_text";
+//        CarMenuItem actionItem = new CarMenuItem
+//            .Builder()
+//            .setTitle(actionItemText)
+//            .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
+//            .setCheckable(true)
+//            .build();
+//
+//        mActivityRule.runOnUiThread(() ->
+//                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+//
+//        onView(withText(actionItemText)).inRoot(is).check(matches(isDisplayed()));
+//    }
+
+    @Test
     public void testOverflowButtonShownIfOverflowItems() throws Throwable {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
@@ -288,7 +319,7 @@ public class CarToolbarTest {
     }
 
     @Test
-    public void testOverflowMenuDoesNotDisplayAlwaysItem() throws Throwable {
+    public void testOverflowMenuDoesNotDisplayActionItem() throws Throwable {
         String overflowItemText = "overflow_item_text";
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
@@ -296,18 +327,18 @@ public class CarToolbarTest {
                 .setTitle(overflowItemText)
                 .build();
 
-        String alwaysItemText = "always_item_text";
-        CarMenuItem alwaysItem = new CarMenuItem
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
                 .Builder()
-                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Overflow menu item
-                .setTitle(alwaysItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
+                .setTitle(actionItemText)
                 .build();
         mActivityRule.runOnUiThread(() ->
-                mToolbar.setMenuItems(Arrays.asList(overflowItem, alwaysItem)));
+                mToolbar.setMenuItems(Arrays.asList(overflowItem, actionItem)));
         // Open overflow menu.
         onView(withId(R.id.overflow_menu)).perform(click());
 
-        onView(withText(alwaysItemText)).inRoot(isDialog()).check(doesNotExist());
+        onView(withText(actionItemText)).inRoot(isDialog()).check(doesNotExist());
     }
 
     @Test

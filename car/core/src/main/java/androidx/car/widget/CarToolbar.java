@@ -24,11 +24,16 @@ import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -80,9 +85,13 @@ public class CarToolbar extends ViewGroup {
     private final ImageButton mNavButtonView;
     private final int mEdgeButtonIconSize;
     private final ImageView mTitleIconView;
+    private final LinearLayout mActionItemsContainer;
     private final ImageButton mOverflowButtonView;
     private final int mToolbarHeight;
     private final int mTextVerticalPadding;
+    private final int mActionButtonPadding;
+    private final int mActionButtonHeight;
+    private float mSwitchScale;
     private int mTitleIconSize;
     // There is no actual container for edge buttons (Navigation / Overflow). This value is used
     // to calculate a horizontal margin on both ends of the edge buttons so that they're centered.
@@ -101,6 +110,8 @@ public class CarToolbar extends ViewGroup {
     @Nullable
     private CarListDialog mOverflowDialog;
     private List<CarMenuItem> mOverflowMenuItems;
+    private List<CarMenuItem> mActionItems = new ArrayList<>();
+
     /**
      * OnClickListener that handles the overflow dialog clicks by calling the appropriate
      * {@link CarMenuItem.OnClickListener} of the overflow {@link CarMenuItem}s.
@@ -131,8 +142,9 @@ public class CarToolbar extends ViewGroup {
         Resources res = context.getResources();
         mToolbarHeight = res.getDimensionPixelSize(R.dimen.car_app_bar_height);
         mEdgeButtonIconSize = res.getDimensionPixelSize(R.dimen.car_primary_icon_size);
-
-        mTextVerticalPadding = getResources().getDimensionPixelSize(R.dimen.car_padding_1);
+        mTextVerticalPadding = res.getDimensionPixelSize(R.dimen.car_padding_1);
+        mActionButtonPadding = res.getDimensionPixelSize(R.dimen.car_padding_2);
+        mActionButtonHeight = res.getDimensionPixelSize(R.dimen.car_button_height);
         LayoutInflater.from(context).inflate(R.layout.car_toolbar, this);
 
         // Ensure min touch target size for nav button.
@@ -145,6 +157,7 @@ public class CarToolbar extends ViewGroup {
         mTitleIconView = findViewById(R.id.title_icon);
         mSubtitleTextView = findViewById(R.id.subtitle);
         mOverflowButtonView = findViewById(R.id.overflow_menu);
+        mActionItemsContainer = findViewById(R.id.action_items_container);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarToolbar, defStyleAttr,
                 /* defStyleRes= */ 0);
@@ -180,6 +193,8 @@ public class CarToolbar extends ViewGroup {
 
             setOverflowIcon(a.getResourceId(R.styleable.CarToolbar_overflowIcon,
                     R.drawable.ic_more_vert));
+
+            mSwitchScale = a.getFloat(R.styleable.CarToolbar_switchScale, 1);
 
             mOverflowButtonView.setOnClickListener(v -> {
                 populateOverflowMenu();
@@ -225,6 +240,11 @@ public class CarToolbar extends ViewGroup {
             mOverflowButtonView.measure(measureSpec, measureSpec);
             width += Math.max(mEdgeButtonContainerWidth, mOverflowButtonView.getMeasuredWidth())
                     + getHorizontalMargins(mOverflowButtonView);
+        }
+
+        if (mActionItemsContainer.getVisibility() != GONE) {
+            measureChild(mActionItemsContainer, widthMeasureSpec, width, childHeightMeasureSpec, 0);
+            width += mActionItemsContainer.getMeasuredWidth();
         }
 
         if (mTitleIconView.getVisibility() != GONE) {
@@ -274,6 +294,12 @@ public class CarToolbar extends ViewGroup {
                     right - horizontalMargin, height);
             layoutRight += Math.max(mEdgeButtonContainerWidth,
                     mOverflowButtonView.getMeasuredWidth());
+        }
+
+        if (mActionItemsContainer.getVisibility() != GONE) {
+            layoutViewFromRightVerticallyCentered(mActionItemsContainer,
+                    right - layoutRight, height);
+            layoutRight += mActionItemsContainer.getMeasuredWidth();
         }
 
         if (mTitleIconView.getVisibility() != GONE) {
@@ -507,6 +533,137 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
+     * Sets the list of {@link CarMenuItem}s that will be displayed on this {@code CarToolbar}.
+     *
+     * @param items List of {@link CarMenuItem}s to display, {@code null} to remove all items.
+     */
+    public void setMenuItems(@Nullable List<CarMenuItem> items) {
+        mMenuItems = items;
+
+        if (mMenuItems != null) {
+            mOverflowMenuItems = mMenuItems.stream()
+                .filter(item -> item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER)
+                .collect(Collectors.toList());
+            mActionItems = mMenuItems.stream()
+                .filter(item -> item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.ALWAYS)
+                .collect(Collectors.toList());
+        } else {
+            mOverflowMenuItems = new ArrayList<>();
+            mActionItems = new ArrayList<>();
+        }
+
+        // Show the overflow menu button if there are any overflow menu items.
+        mOverflowButtonView.setVisibility(mOverflowMenuItems.isEmpty() ? GONE : VISIBLE);
+
+        mActionItemsContainer.removeAllViews();
+        mActionItems.forEach(item -> {
+            if (item.isCheckable()) {
+                createActionSwitch(item, getContext());
+            } else {
+                createActionButton(item, getContext());
+            }
+        });
+        mActionItemsContainer.setVisibility(mActionItems.isEmpty() ? GONE : VISIBLE);
+
+        requestLayout();
+    }
+
+    /**
+     * Returns a list of this {@code CarToolbar}'s {@link CarMenuItem}s, or
+     * {@code null} if none were set.
+     */
+    @Nullable
+    public List<CarMenuItem> getMenuItems() {
+        return mMenuItems;
+    }
+
+    private void createActionButton(CarMenuItem item, Context context) {
+        Button actionItem = new Button(
+                new ContextThemeWrapper(context, item.getStyleResId()), null, 0);
+        actionItem.setText(item.getTitle());
+        if (item.getIcon() != null) {
+            Drawable icon = item.getIcon().loadDrawable(context);
+            icon.setBounds(0, 0, 30, 30);
+            actionItem.setCompoundDrawables(icon, null, null, null);
+            actionItem.setHeight(mActionButtonHeight);
+            if (item.getTitle() != null) {
+                actionItem.setCompoundDrawablePadding(mActionButtonPadding);
+            }
+        }
+        actionItem.setOnClickListener(v -> {
+            CarMenuItem.OnClickListener onClickListener = item.getOnClickListener();
+            if (onClickListener != null) {
+                onClickListener.onClick(item);
+            }
+        });
+        actionItem.setEnabled(item.isEnabled());
+        mActionItemsContainer.addView(actionItem, 0);
+    }
+
+    private void createActionSwitch(CarMenuItem item, Context context) {
+        Switch switchWidget = new Switch(context);
+        switchWidget.setEnabled(item.isEnabled());
+        switchWidget.setChecked(item.isChecked());
+        switchWidget.setScaleX(mSwitchScale);
+        switchWidget.setScaleY(mSwitchScale);
+        switchWidget.setPadding(mActionButtonPadding, 0, mActionButtonPadding, 0);
+
+        OnClickListener onClickListener = (v -> {
+            switchWidget.toggle();
+            item.setChecked(switchWidget.isChecked());
+            CarMenuItem.OnClickListener itemOnClickListener = item.getOnClickListener();
+            if (itemOnClickListener != null) {
+                itemOnClickListener.onClick(item);
+            }
+        });
+
+        if (item.getTitle() == null) {
+            switchWidget.setOnClickListener(onClickListener);
+            mActionItemsContainer.addView(switchWidget, 0);
+        } else {
+            // Use a LinearLayout that contains the switch and the text.
+            LinearLayout linearLayout = new LinearLayout(context);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_VERTICAL;
+            linearLayout.setLayoutParams(params);
+            linearLayout.setOnClickListener(onClickListener);
+            linearLayout.addView(switchWidget);
+
+            // Set the switch to be un-clickable so that the LinearLayout handles the clicks.
+            switchWidget.setClickable(false);
+
+            // Use a button instead of TextView so the style is applied properly.
+            Button button = new Button(
+                    new ContextThemeWrapper(context, item.getStyleResId()), null, 0);
+            button.setText(item.getTitle());
+            // Remove ripple effect on text.
+            button.setBackgroundResource(0);
+            linearLayout.addView(button);
+            mActionItemsContainer.addView(linearLayout, 0);
+        }
+    }
+
+    /**
+     * Adds the overflow items to the overflow menu dialog.
+     */
+    private void populateOverflowMenu() {
+        if (mOverflowMenuItems == null || mOverflowMenuItems.isEmpty()) {
+            mOverflowDialog = null;
+            return;
+        }
+
+        CharSequence[] titles = mOverflowMenuItems.stream()
+            .map(CarMenuItem::getTitle)
+            .toArray(CharSequence[]::new);
+
+        mOverflowDialog = new CarListDialog.Builder(getContext())
+            .setItems(titles, mOverflowDialogClickListener)
+            .create();
+    }
+
+    /**
      * Sets the icon of the overflow menu button.
      *
      * @param iconResId Resource id of the drawable to use for the overflow menu button.
@@ -529,37 +686,6 @@ public class CarToolbar extends ViewGroup {
             throw new IllegalArgumentException("Provided overflow icon cannot be null.");
         }
         mOverflowButtonView.setImageDrawable(icon);
-    }
-
-    /**
-     * Sets the list of {@link CarMenuItem}s that will be displayed on this {@code CarToolbar}.
-     *
-     * @param items List of {@link CarMenuItem}s to display, {@code null} to remove all items.
-     */
-    public void setMenuItems(@Nullable List<CarMenuItem> items) {
-        mMenuItems = items;
-
-        if (mMenuItems != null) {
-            mOverflowMenuItems = mMenuItems.stream()
-                .filter(item -> item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER)
-                .collect(Collectors.toList());
-        } else {
-            mOverflowMenuItems = new ArrayList<>();
-        }
-
-        // Show the overflow menu button if there are any overflow menu items.
-        mOverflowButtonView.setVisibility(mOverflowMenuItems.isEmpty() ? GONE : VISIBLE);
-
-        requestLayout();
-    }
-
-    /**
-     * Returns a list of this {@code CarToolbar}'s {@link CarMenuItem}s, or
-     * {@code null} if none were set.
-     */
-    @Nullable
-    public List<CarMenuItem> getMenuItems() {
-        return mMenuItems;
     }
 
     /**
@@ -586,24 +712,6 @@ public class CarToolbar extends ViewGroup {
         if (mOverflowDialog != null) {
             mOverflowDialog.dismiss();
         }
-    }
-
-    /**
-     * Adds the overflow items to the overflow menu dialog.
-     */
-    private void populateOverflowMenu() {
-        if (mOverflowMenuItems == null || mOverflowMenuItems.isEmpty()) {
-            mOverflowDialog = null;
-            return;
-        }
-
-        CharSequence[] titles = mOverflowMenuItems.stream()
-            .map(CarMenuItem::getTitle)
-            .toArray(CharSequence[]::new);
-
-        mOverflowDialog = new CarListDialog.Builder(getContext())
-            .setItems(titles, mOverflowDialogClickListener)
-            .create();
     }
 
     @Override
