@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "4b105d20_168b21da",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-14T12:23:54Z",
+      "side": 1,
+      "message": "by navArgs uses reflection to look up a thing and we control generator and navargs, so we can generate static (@JvmStatic) fromBundle method for example and call it via reflection.",
+      "parentUuid": "edc87029_f1baaaf4",
+      "revId": "d26b8697a678088902678cf27cafa81ff92663d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02387506_91ef6972",
         "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentArgs.kt",
         "patchSetId": 5
