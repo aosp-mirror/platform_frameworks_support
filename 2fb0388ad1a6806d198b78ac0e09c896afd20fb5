@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d237b198_67806632",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoViewImplBase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-14T06:23:59Z",
+      "side": 1,
+      "message": "Q) Why this happens from now on? Don\u0027t we need any TODO comment with a bug id?",
+      "revId": "2fb0388ad1a6806d198b78ac0e09c896afd20fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
