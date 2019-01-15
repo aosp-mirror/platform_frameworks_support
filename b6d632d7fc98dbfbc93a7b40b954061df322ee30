@@ -103,6 +103,29 @@
     },
     {
       "key": {
+        "uuid": "9bc35285_f760b1a7",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransactionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-01-15T22:34:31Z",
+      "side": 1,
+      "message": "Why was this removed?",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95b03263_c230b5a0",
         "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentViewTests.java",
         "patchSetId": 3

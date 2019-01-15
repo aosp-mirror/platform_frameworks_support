@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3dccf37_e434d746",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-01-15T22:34:31Z",
+      "side": 1,
+      "message": "Is it normal to use numbers rather than Build.VERSION_CODES? I\u0027ve always used the VERSION_CODES.",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "37f2d45370dc3d53ea3f327068edd21698c2e959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
