@@ -22,6 +22,47 @@
       "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9934b2d_01efb5aa",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-15T16:31:13Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to keep the reflection if this works. The framework docs/code only discourage getIdentifier because it\u0027s slower than using the R class, but that doesn\u0027t apply if you have to look the R class members up by reflection (it\u0027s only fast if the compiler sorts it all out for you at build time) :)\n\nWe could consider changing the version in WebView itself, even? That would resolve the package name not matching issue that the removeOneSuffix is a partial workaround for, and might expose if there\u0027s any apps for which getIdentifier doesn\u0027t work - we could have it record a UMA stat for whether it had to fall back to reflection to find out I guess.",
+      "parentUuid": "c0d8531d_e4239470",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 9
+      },
+      "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202f186b_11049411",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-15T16:31:13Z",
+      "side": 1,
+      "message": "Not used any more",
+      "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
