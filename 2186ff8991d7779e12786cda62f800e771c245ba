@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8412a24d_8178d534",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-15T19:40:28Z",
+      "side": 1,
+      "message": "I don\u0027t think an exception is necessary. We can just have the method call be a no-op if there are no overflow items, similar to hideOverflowMenu()",
+      "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd35aee8_0578c94a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-15T19:40:28Z",
+      "side": 1,
+      "message": "Do an empty check here too",
+      "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf9fcf4_4211c5e1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-15T19:40:28Z",
+      "side": 1,
+      "message": "You might want to null out mOverflowDialog.",
+      "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6716217c_747299b5",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-15T19:40:28Z",
+      "side": 1,
+      "message": "I think this will read clearer as its own variable.",
+      "range": {
+        "startLine": 600,
+        "startChar": 22,
+        "endLine": 602,
+        "endChar": 52
+      },
+      "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
