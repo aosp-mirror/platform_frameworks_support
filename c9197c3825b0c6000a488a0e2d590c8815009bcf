@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5423e79a_d06c8114",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T00:15:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f63adc88_6ce0bc46",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61a86c5f_c749fb6d",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c344d13_9ba05a4f",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T00:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61a86c5f_c749fb6d",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "233fdd61_e7a952ca",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T00:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27a49f31_751a73b5",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c768f93e_084953c4",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
         "patchSetId": 1
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "42381fe9_47f7c51a",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T00:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c768f93e_084953c4",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec42fa61_f282ecef",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
         "patchSetId": 1
@@ -120,6 +192,24 @@
       "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "007f25e6_da76b48e",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AndroidProtocolHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T00:15:09Z",
+      "side": 1,
+      "message": "Removed the whole method",
+      "parentUuid": "ec42fa61_f282ecef",
+      "revId": "c9197c3825b0c6000a488a0e2d590c8815009bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
