@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "6ce1fcac_27f08be4",
+        "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-15T03:01:34Z",
+      "side": 1,
+      "message": "Hm. I don\u0027t see the needs to change this now, but it\u0027s okay. Feel free to keep this change.",
+      "parentUuid": "1546e803_2fd7bfd4",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ffdb21f_f461def4",
         "filename": "media2-widget/src/main/res/layout/full_landscape_music.xml",
         "patchSetId": 3
