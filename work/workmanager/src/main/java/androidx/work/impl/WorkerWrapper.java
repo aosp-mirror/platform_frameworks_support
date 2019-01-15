@@ -149,10 +149,17 @@ public class WorkerWrapper implements Runnable {
                 return;
             }
 
+            // Case 1:
+            // Ensure that Workers that are backed off are only executed when they are supposed to.
+            // This typically happens when GreedyScheduler does not know about WorkSpec's that have
+            // already been executed and returned a Result.retry().
+
+            // Case 2:
             // On API 23, we double scheduler Workers because JobScheduler prefers batching.
             // So is the Work is periodic, we only need to execute it once per interval.
             // Also potential bugs in the platform may cause a Job to run more than once.
-            if (mWorkSpec.isPeriodic()) {
+
+            if (mWorkSpec.isPeriodic() || mWorkSpec.isBackedOff()) {
                 long now = System.currentTimeMillis();
                 if (now < mWorkSpec.calculateNextRunTime()) {
                     resolve(false);
