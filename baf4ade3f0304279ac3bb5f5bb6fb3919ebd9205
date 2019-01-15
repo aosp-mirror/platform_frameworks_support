@@ -22,6 +22,30 @@
       "revId": "baf4ade3f0304279ac3bb5f5bb6fb3919ebd9205",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f555bd6a_3c6022c2",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-15T01:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d8dd4fb_ac85d51a",
+      "range": {
+        "startLine": 1261,
+        "startChar": 35,
+        "endLine": 1261,
+        "endChar": 61
+      },
+      "revId": "baf4ade3f0304279ac3bb5f5bb6fb3919ebd9205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
