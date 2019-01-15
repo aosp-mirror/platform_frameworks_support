@@ -34,6 +34,24 @@
       "revId": "edc8531d2d8b23017ccd011c0e66bdcaf60cb27d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34aeef67_e6b49bf7",
+        "filename": "annotations/src/main/java/androidx/annotation/RestrictTo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-15T17:20:52Z",
+      "side": 1,
+      "message": "Continuing discussion on bug. I am having second thoughts about TLD matching.",
+      "parentUuid": "60845f3e_e0b5cd12",
+      "revId": "edc8531d2d8b23017ccd011c0e66bdcaf60cb27d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
