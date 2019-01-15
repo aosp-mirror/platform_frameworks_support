@@ -151,6 +151,30 @@
       "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54c2d2c9_9b10ba1d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-15T21:31:30Z",
+      "side": 1,
+      "message": "My previous comment said I\u0027d leave up to you if you wanted to save this as a field or local variable.",
+      "parentUuid": "dbec2ca4_35a82da5",
+      "range": {
+        "startLine": 600,
+        "startChar": 22,
+        "endLine": 602,
+        "endChar": 52
+      },
+      "revId": "2186ff8991d7779e12786cda62f800e771c245ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
