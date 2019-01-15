@@ -3,6 +3,7 @@ package androidx.car.cluster.navigation {
 
   public final class Destination implements androidx.versionedparcelable.VersionedParcelable {
     method public String getAddress();
+    method public androidx.car.cluster.navigation.Destination.Delay getDelay();
     method public androidx.car.cluster.navigation.Distance? getDistance();
     method public java.time.ZonedDateTime? getEta();
     method public androidx.car.cluster.navigation.LatLng? getLocation();
@@ -13,10 +14,18 @@ package androidx.car.cluster.navigation {
     ctor public Destination.Builder();
     method public androidx.car.cluster.navigation.Destination build();
     method public androidx.car.cluster.navigation.Destination.Builder setAddress(String);
+    method public androidx.car.cluster.navigation.Destination.Builder setDelay(androidx.car.cluster.navigation.Destination.Delay, androidx.car.cluster.navigation.Destination.Delay...);
     method public androidx.car.cluster.navigation.Destination.Builder setDistance(androidx.car.cluster.navigation.Distance?);
     method public androidx.car.cluster.navigation.Destination.Builder setEta(java.time.ZonedDateTime?);
     method public androidx.car.cluster.navigation.Destination.Builder setLocation(androidx.car.cluster.navigation.LatLng?);
     method public androidx.car.cluster.navigation.Destination.Builder setTitle(String);
+  }
+
+  public static enum Destination.Delay {
+    enum_constant public static final androidx.car.cluster.navigation.Destination.Delay DELAY_HIGH;
+    enum_constant public static final androidx.car.cluster.navigation.Destination.Delay DELAY_LOW;
+    enum_constant public static final androidx.car.cluster.navigation.Destination.Delay DELAY_MEDIUM;
+    enum_constant public static final androidx.car.cluster.navigation.Destination.Delay DELAY_UNKNOWN;
   }
 
   public final class Distance implements androidx.versionedparcelable.VersionedParcelable {
