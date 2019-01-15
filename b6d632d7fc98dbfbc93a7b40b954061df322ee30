@@ -126,6 +126,30 @@
     },
     {
       "key": {
+        "uuid": "73a4a4c6_7695b36a",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransactionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-15T22:38:10Z",
+      "side": 1,
+      "message": "This test was removed in aosp/837638 - the only reason it appears on previous patches was that the CL was not up to date (it has since been rebased - you\u0027ll note that this was removed in the new base)",
+      "parentUuid": "9bc35285_f760b1a7",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 0
+      },
+      "revId": "b6d632d7fc98dbfbc93a7b40b954061df322ee30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95b03263_c230b5a0",
         "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentViewTests.java",
         "patchSetId": 3

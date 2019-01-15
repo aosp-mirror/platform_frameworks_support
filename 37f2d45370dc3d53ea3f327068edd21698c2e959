@@ -22,6 +22,30 @@
       "revId": "37f2d45370dc3d53ea3f327068edd21698c2e959",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229a46f1_58ff627a",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-15T22:38:10Z",
+      "side": 1,
+      "message": "Yes, this was a more recent effort lead by jakew@",
+      "parentUuid": "b3dccf37_e434d746",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "37f2d45370dc3d53ea3f327068edd21698c2e959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
