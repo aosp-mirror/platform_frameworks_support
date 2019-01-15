@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "809dddfe_5b6f9451",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-15T16:21:36Z",
+      "side": 1,
+      "message": "you should listen for this on the UI thread to avoid race conditions w/ the adapter changes.",
+      "range": {
+        "startLine": 114,
+        "startChar": 13,
+        "endLine": 119,
+        "endChar": 15
+      },
+      "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73d1305_cfd606af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-15T16:21:36Z",
+      "side": 1,
+      "message": "was this intended to be 1.1.0-alpha01?\nI already see a 1.0.0 public package here: https://dl.google.com/dl/android/maven2/index.html",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
