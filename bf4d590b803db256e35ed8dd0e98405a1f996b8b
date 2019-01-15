@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5f27f1a_887bdc0b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-15T20:01:15Z",
+      "side": 1,
+      "message": "I\u0027m not quite sure what level of JavaDoc can be expected/required of alpha01. I will do a quick pass b/122825734 but this isn\u0027t it. Still, hopefully better than just \u0027work in progress, see this go link you can\u0027t access\u0027.",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "bf4d590b803db256e35ed8dd0e98405a1f996b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
