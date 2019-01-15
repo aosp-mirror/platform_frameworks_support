@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "197484a9_cb986c47",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-15T11:06:21Z",
+      "side": 1,
+      "message": "probably \"w\" or \"e\"",
+      "range": {
+        "startLine": 544,
+        "startChar": 16,
+        "endLine": 544,
+        "endChar": 17
+      },
+      "revId": "a1321fa01b0e4f8b138dd26157e11a7e5d84f9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d4572e1_5adfa509",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-15T11:06:21Z",
+      "side": 1,
+      "message": "I\u0027d rather name it validateDeepLink or smth like that, but up to you",
+      "range": {
+        "startLine": 614,
+        "startChar": 19,
+        "endLine": 614,
+        "endChar": 62
+      },
+      "revId": "a1321fa01b0e4f8b138dd26157e11a7e5d84f9e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
