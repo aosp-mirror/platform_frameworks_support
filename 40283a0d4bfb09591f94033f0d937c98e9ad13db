@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "bc673014_401fb895",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-15T14:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "363b6e8f_b3a999a9",
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3d81209_f6eecb60",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 7
@@ -77,6 +95,30 @@
       "writtenOn": "2019-01-15T12:46:56Z",
       "side": 1,
       "message": "I\u0027d say it is a bit misleading name, it doesn\u0027t simply generate  uri, it saves bitmap to file.  \n\nAlso, I\u0027d advise against immediately returning Uri for operation that actually may fail, so generated uri is not a valid handle. Returning ListenableFuture here may also streamline implementation, looks like you won\u0027t need to block in openFile because Uri isn\u0027t published until bitmap is actually saved.",
+      "range": {
+        "startLine": 236,
+        "startChar": 10,
+        "endLine": 236,
+        "endChar": 33
+      },
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142d2aed_ba0b4057",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-15T14:41:26Z",
+      "side": 1,
+      "message": "Returning a ListenableFuture simplifies this class quite a bit - no more need to use CountDownLatches or block on file reads.",
+      "parentUuid": "d3d81209_f6eecb60",
       "range": {
         "startLine": 236,
         "startChar": 10,
@@ -106,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "5a2ed8b3_5def845d",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-15T14:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f504bba7_0329a9cd",
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aed4734c_4095392b",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 7
@@ -123,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "3580ca87_8ea6405b",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-15T14:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aed4734c_4095392b",
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb33d8e5_872d4926",
         "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 7
@@ -137,6 +215,24 @@
       "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82aff387_51de9c2f",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-15T14:41:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb33d8e5_872d4926",
+      "revId": "40283a0d4bfb09591f94033f0d937c98e9ad13db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
