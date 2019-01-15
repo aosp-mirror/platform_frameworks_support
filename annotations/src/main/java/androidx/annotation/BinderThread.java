@@ -27,13 +27,46 @@ import java.lang.annotation.Target;
 
 /**
  * Denotes that the annotated method should only be called on the binder thread.
- * If the annotated element is a class, then all methods in the class should be called
- * on the binder thread.
- * <p>
- * Example:
  * <pre><code>
  *  &#64;BinderThread
  *  public BeamShareData createBeamShareData() { ... }
+ * </code></pre>
+ *
+ * <p>If the annotated element is a class, then all methods in the class should be called
+ * on the binder thread. </p>
+ *
+ * <pre><code>
+ *  &#64;BinderThread
+ *  public class Foo { ... }
+ * </code></pre>
+ *
+ * <p>When the class is annotated, but one of the methods has another threading annotation such as
+ * {@link UiThread}, the method annotation takes precedence. In the following example,
+ * <code>setText()</code> should be called on the UI thread.</p>
+ *
+ * <pre><code>
+ *  &#64;BinderThread
+ *  public class Foo {
+ *      &#64;UiThread
+ *      void setText(String text) { ... }
+ *  }
+ * </code></pre>
+ *
+ * <p>Multiple threading annotations can be combined. Following example illustrates that,
+ * <code>isEmpty()</code> can be called on a worker thread or the binder thread.
+ * It's safe for <code>saveUser()</code> to invoke <code>isEmpty()</code>, whereas it's not safe
+ * for <code>isEmpty()</code> to invoke <code>saveUser()</code>.
+ * </p>
+ *
+ * <pre><code>
+ *  public class Foo {
+ *      &#64;WorkerThread
+ *      void saveUser(User user) { ... }
+ *
+ *      &#64;WorkerThread
+ *      &#64;BinderThread
+ *      boolean isEmpty(String value) { ... }
+ *  }
  * </code></pre>
  */
 @Documented
