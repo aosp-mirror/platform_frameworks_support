@@ -90,7 +90,7 @@ final class CollapsiblePreferenceGroupController {
             // Recursively generate nested list of visible preferences
             final List<Preference> innerList = createInnerVisiblePreferencesList(innerGroup);
             if (hasExpandablePreference && mHasExpandablePreference) {
-                throw new IllegalArgumentException("Nested expand buttons are not supported!");
+                throw new IllegalStateException("Nested expand buttons are not supported!");
             }
 
             for (Preference inner : innerList) {
