@@ -43,6 +43,7 @@ import org.junit.Assert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import java.util.concurrent.atomic.AtomicBoolean
@@ -699,6 +700,58 @@ class PageChangeListenerTest(private val config: TestConfig) : BaseTest() {
     }
 
     @Test
+    fun test_setCurrentItem_noAdapter() {
+        val test = setUpTest(config.orientation)
+
+        listOf(-1, 0, 1, 10).forEach { targetPage ->
+            // given
+            val initialPage = test.viewPager.currentItem
+            test.viewPager.clearOnPageChangeListeners()
+            val listener = test.viewPager.addNewRecordingListener()
+
+            // when
+            val latch = CountDownLatch(1)
+            test.runOnUiThread {
+                test.viewPager.setCurrentItem(targetPage, false)
+                latch.countDown()
+            }
+            latch.await(1, SECONDS)
+
+            // then
+            assertThat(test.viewPager.currentItem, equalTo(initialPage))
+            assertThat(listener.eventCount, equalTo(0))
+        }
+    }
+
+    @Test
+    fun test_setCurrentItem_outOfBounds() {
+        val test = setUpTest(config.orientation)
+        val n = 3
+        test.setAdapterSync(viewAdapterProvider(stringSequence(n)))
+
+        listOf(-5, -1, 3, 10).forEach { targetPage ->
+            assertThat("Test should only test setCurrentItem for pages on or out of bounds," +
+                    " bounds are [0, $n)", targetPage, not(isBetweenInEx(1, n - 1)))
+            // given
+            val initialPage = test.viewPager.currentItem
+            val listener = test.viewPager.addNewRecordingListener()
+
+            // when
+            val latch = CountDownLatch(1)
+            test.runOnUiThread {
+                test.viewPager.setCurrentItem(targetPage, false)
+                latch.countDown()
+            }
+            latch.await(1, SECONDS)
+            test.waitForFrames(1)
+
+            // then
+            val boundary = if (targetPage <= 0) 0 else n - 1
+            listener.assertScrolledToBounds(initialPage, boundary, test.viewPager.currentItem)
+        }
+    }
+
+    @Test
     fun test_setCurrentItemBeforeRender() {
         // given
         val viewPager =
@@ -833,6 +886,21 @@ class PageChangeListenerTest(private val config: TestConfig) : BaseTest() {
             finalEvents.get(1),
             equalTo(OnPageScrollStateChangedEvent(SCROLL_STATE_IDLE) as Event)
         )
+    }
+
+    private fun RecordingListener.assertScrolledToBounds(
+        initialPage: Int,
+        boundary: Int,
+        currentItem: Int
+    ) {
+        assertThat(currentItem, equalTo(boundary))
+        if (initialPage == boundary) {
+            assertThat(eventCount, equalTo(0))
+        } else {
+            assertThat(eventCount, equalTo(2))
+            assertThat(pageSelectedIx(boundary), equalTo(0))
+            assertThat(scrollEvents.last(), equalTo(OnPageScrolledEvent(boundary, 0f, 0)))
+        }
     }
 
     private fun List<OnPageScrolledEvent>.assertOffsetSorted(sortOrder: SortOrder) {

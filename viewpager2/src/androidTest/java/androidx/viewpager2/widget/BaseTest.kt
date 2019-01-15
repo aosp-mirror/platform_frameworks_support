@@ -126,6 +126,14 @@ open class BaseTest {
 
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
 
+        fun waitForFrames(numFrames: Int) {
+            repeat(numFrames) {
+                val latch = CountDownLatch(1)
+                runOnUiThread { latch.countDown() }
+                latch.await(1, TimeUnit.SECONDS)
+            }
+        }
+
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
         val isRtl

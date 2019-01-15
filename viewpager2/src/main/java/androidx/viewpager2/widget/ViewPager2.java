@@ -412,12 +412,23 @@ public class ViewPager2 extends ViewGroup {
     }
 
     /**
-     * Set the currently selected page.
+     * Set the currently selected page. Silently ignored if the adapter is not set or empty. Clamps
+     * item to the bounds of the adapter.
      *
      * @param item Item index to select
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
+        Adapter adapter = getAdapter();
+        if (adapter == null || adapter.getItemCount() <= 0) {
+            return;
+        }
+        if (item < 0) {
+            item = 0;
+        } else if (item >= adapter.getItemCount()) {
+            item = adapter.getItemCount() - 1;
+        }
+
         if (item == mCurrentItem && mScrollEventAdapter.isIdle()) {
             // Already at the correct page
             return;
