@@ -223,6 +223,30 @@
       "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6644b772_b76108fe",
+        "filename": "media2-widget/src/main/res/layout/full_landscape_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:47:13Z",
+      "side": 1,
+      "message": "I didn\u0027t noticed that they are consistent. I have removed the empty lines in the next patch set. Thank you for letting me know.",
+      "parentUuid": "01c7aca1_7589c5fb",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
