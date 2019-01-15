@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bef27c24_3911170f",
+        "filename": "annotations/src/main/java/androidx/annotation/RestrictTo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-15T01:27:17Z",
+      "side": 1,
+      "message": "Maybe we want to be extra clear about the meaning of \"share the same library group prefix\" (mention that strings are split on \".\")?\n\nWe could say that the two groupIds get split on \".\" and then the first components get matched (probably easiest to implement in Lint)\nWe could say that the two groupIds get split on \".\", and then we find the shorter list, remove its last element, and check that both lists start with that (seems to me to make the most sense without being very sure yet)\n\nWe probably want to include an example having two \".\" characters too, maybe \"com.mycompany.sample\" and whether it matches \"com.othercompany\" and whether it matches \"com.mycompany.other\"\n\nProbably not super important given that the validation code probably doesn\u0027t exist yet but probably worth clarifying anyway",
+      "revId": "edc8531d2d8b23017ccd011c0e66bdcaf60cb27d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
