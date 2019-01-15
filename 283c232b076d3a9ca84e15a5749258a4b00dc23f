@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0d8531d_e4239470",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-15T02:16:24Z",
+      "side": 1,
+      "message": "Added this because when I was writing the demo app in aosp/870579, finding the R class by reflection was failing (which is not the case in instrumentation tests!), hence cannot open resources.\n\n+torne@ pointed that it may be proguard is dropping the R class from the final APK, which may need some investigation.\n\nNot sure if reflection should be kept though?",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 9
+      },
+      "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
