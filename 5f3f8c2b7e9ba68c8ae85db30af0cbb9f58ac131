@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1d7d968_8f2e82da",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/ResourceManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-15T22:44:53Z",
+      "side": 1,
+      "message": "Doing the time warp",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "5f3f8c2b7e9ba68c8ae85db30af0cbb9f58ac131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbcbe46_3d6cd074",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/ResourceManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-15T22:44:53Z",
+      "side": 1,
+      "message": "Not: Don\u0027t need `this.`",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "5f3f8c2b7e9ba68c8ae85db30af0cbb9f58ac131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
