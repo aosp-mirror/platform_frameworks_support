@@ -16,6 +16,24 @@
       "revId": "edc8531d2d8b23017ccd011c0e66bdcaf60cb27d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60845f3e_e0b5cd12",
+        "filename": "annotations/src/main/java/androidx/annotation/RestrictTo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-01-15T16:18:36Z",
+      "side": 1,
+      "message": "Worded it differently to include your suggestion. Also details are in the bug.",
+      "parentUuid": "bef27c24_3911170f",
+      "revId": "edc8531d2d8b23017ccd011c0e66bdcaf60cb27d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
