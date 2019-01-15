@@ -22,6 +22,30 @@
       "revId": "5ed265572e404044027eab9d8675587aea67e8a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1753c843_c5bfcea9",
+        "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2019-01-15T18:44:20Z",
+      "side": 1,
+      "message": "Good point. Removed.",
+      "parentUuid": "7d12ec2c_27aba58d",
+      "range": {
+        "startLine": 86,
+        "startChar": 44,
+        "endLine": 86,
+        "endChar": 51
+      },
+      "revId": "5ed265572e404044027eab9d8675587aea67e8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
