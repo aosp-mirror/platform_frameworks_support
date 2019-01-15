@@ -150,6 +150,10 @@ object ProcessorErrors {
             "private, final, or abstract. It can be abstract only if the method is also" +
             " annotated with @Query."
 
+    val TRANSACTION_METHOD_ASYNC = "Method annotated with @Transaction must not return a deferred" +
+            "/async return type such as LiveData, Observable, Completable, Single," +
+            " ListenableFuture, etc."
+
     val TRANSACTION_MISSING_ON_RELATION = "The return value includes a Pojo with a @Relation." +
             " It is usually desired to annotate this method with @Transaction to avoid" +
             " possibility of inconsistent results between the Pojo and its relations. See " +

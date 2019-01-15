@@ -81,14 +81,71 @@ class TransactionMethodProcessorTest {
         }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_MODIFIERS)
     }
 
-    private fun singleTransactionMethod(vararg input: String,
-                                handler: (TransactionMethod, TestInvocation) -> Unit):
-            CompileTester {
+    @Test
+    fun deferredReturnType_liveData() {
+        singleTransactionMethod(
+            """
+                @Transaction
+                public LiveData<String> doInTransaction(int param) { return null; }
+                """) { transaction, _ ->
+            assertThat(transaction.name, `is`("doInTransaction"))
+        }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_ASYNC)
+    }
+
+    @Test
+    fun deferredReturnType_flowable() {
+        singleTransactionMethod(
+            """
+                @Transaction
+                public Flowable<String> doInTransaction(int param) { return null; }
+                """) { transaction, _ ->
+            assertThat(transaction.name, `is`("doInTransaction"))
+        }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_ASYNC)
+    }
+
+    @Test
+    fun deferredReturnType_completable() {
+        singleTransactionMethod(
+            """
+                @Transaction
+                public Completable doInTransaction(int param) { return null; }
+                """) { transaction, _ ->
+            assertThat(transaction.name, `is`("doInTransaction"))
+        }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_ASYNC)
+    }
+
+    @Test
+    fun deferredReturnType_single() {
+        singleTransactionMethod(
+            """
+                @Transaction
+                public Single<String> doInTransaction(int param) { return null; }
+                """) { transaction, _ ->
+            assertThat(transaction.name, `is`("doInTransaction"))
+        }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_ASYNC)
+    }
+
+    @Test
+    fun deferredReturnType_listenableFuture() {
+        singleTransactionMethod(
+            """
+                @Transaction
+                public ListenableFuture<String> doInTransaction(int param) { return null; }
+                """) { transaction, _ ->
+            assertThat(transaction.name, `is`("doInTransaction"))
+        }.failsToCompile().withErrorContaining(ProcessorErrors.TRANSACTION_METHOD_ASYNC)
+    }
+
+    private fun singleTransactionMethod(
+        vararg input: String,
+        handler: (TransactionMethod, TestInvocation) -> Unit
+    ): CompileTester {
         return Truth.assertAbout(JavaSourcesSubjectFactory.javaSources())
                 .that(listOf(JavaFileObjects.forSourceString("foo.bar.MyClass",
                         TransactionMethodProcessorTest.DAO_PREFIX + input.joinToString("\n") +
                                 TransactionMethodProcessorTest.DAO_SUFFIX
-                )))
+                ), COMMON.LIVE_DATA, COMMON.FLOWABLE, COMMON.PUBLISHER, COMMON.COMPLETABLE,
+                    COMMON.SINGLE, COMMON.LISTENABLE_FUTURE))
                 .processedWith(TestProcessor.builder()
                         .forAnnotations(Transaction::class, Dao::class)
                         .nextRunHandler { invocation ->
