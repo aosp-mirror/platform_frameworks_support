@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "f78161ac_39c3f641",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-15T21:34:15Z",
+      "side": 1,
+      "message": "Nullability annotations here and elsewhere.",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "bf4d590b803db256e35ed8dd0e98405a1f996b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d391e6b2_0baa598f",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-15T21:34:15Z",
+      "side": 1,
+      "message": "Should be add/remove with no clear per go/android-api-guidelines.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "bf4d590b803db256e35ed8dd0e98405a1f996b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e4932e_25d7d83c",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-15T21:34:15Z",
+      "side": 1,
+      "message": "Add single-arg overload with default boolean.",
+      "range": {
+        "startLine": 39,
+        "startChar": 23,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "bf4d590b803db256e35ed8dd0e98405a1f996b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4516600_e2f46dcc",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-15T21:34:15Z",
+      "side": 1,
+      "message": "This should be a Callback per go/android-api-guidelines (which would also imply register/unregister rather than add/remove).",
+      "range": {
+        "startLine": 49,
+        "startChar": 37,
+        "endLine": 49,
+        "endChar": 57
+      },
+      "revId": "bf4d590b803db256e35ed8dd0e98405a1f996b8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5f27f1a_887bdc0b",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
