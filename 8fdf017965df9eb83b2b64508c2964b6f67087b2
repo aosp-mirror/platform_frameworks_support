@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b53103_e234ade0",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-15T21:02:11Z",
+      "side": 1,
+      "message": "This method seems extremely weird to use because the linked list is \"outside\" the class; the caller has to care about the internal implementation details and replace their references with the return value.\n\nIf we want this to be this flexible (to support an arbitrary list of (scheme, authority, path) tuples to match against, instead of just assuming we only care about a fixed set) then addUri should just be manipulating the internal state of the object. Just define a value-object class to hold each matcher entry and keep a List of them as a member of this class instead?\n\nDo we even need to match an arbitrary number of entries though? Do we want the caller to be able to mount the assets to more than one location at once, or would it be enough to assume there\u0027s only one authority/path prefix, and just some flags for whether to match http/https? That would require even less, but maybe that\u0027s too inflexible?",
+      "revId": "8fdf017965df9eb83b2b64508c2964b6f67087b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
