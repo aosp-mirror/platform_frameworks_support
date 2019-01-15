@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "913e0073_da428550",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "Thank you for pointing out.\n\nPORTRAIT layout has a vertical LinearLayout as a root. Measuring a vertical LinearLayout\u0027s height using MeasureSpec.AT_MOST never sets MEASURED_STATE_TOO_SMALL flag. To check whether the view can be fit, there are two OR conditions at the next if statement, the first one is for width and the second one is for height.\n\nBy the way, LANDSCAPE layout has a horizontal LinearLayout as a root. So it may be thought that the width should be measured by UNSPECIFIED, but actually in this case AT_MOST is sufficient since it has another vertical LinearLayout that has minWidth. However, it\u0027s hard to read the code so I uploaded new patch set to make it consistent between LANDSCAPE and PORTRAIT.",
+      "parentUuid": "27bb00ae_c1f137b0",
+      "range": {
+        "startLine": 61,
+        "startChar": 56,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f69172b4_68c23bfd",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213666ee_d1d96bfa",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "To make the size of image half of its parent. I removed the inner views in embedded_music.xml which were used in order to set the height of image to 1/2. After this change, it considers the both size, width and height.",
+      "parentUuid": "f69172b4_68c23bfd",
+      "range": {
+        "startLine": 69,
+        "startChar": 62,
+        "endLine": 69,
+        "endChar": 71
+      },
+      "revId": "d9c1b6b22fca34aa0561750902ab2ca53da5d847",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

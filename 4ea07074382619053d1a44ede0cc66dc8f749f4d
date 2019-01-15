@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef01df0a_0852751e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MusicView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "Setting visibility to View.GONE causes requestLayout() which should be avoided in layout (onLayout).",
+      "parentUuid": "719c7177_6503fc20",
+      "range": {
+        "startLine": 93,
+        "startChar": 36,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ed303d_cf28ef3e",
         "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2019-01-14T10:11:26Z",
       "side": 1,
       "message": "Optional) As we talked, it sounds a bit confusing with VV/MCV\u0027s embedded/full mode. But I cannot come up with better naming...",
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d3736eb_823d43e9",
+        "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "I changed them in the next patch set:\nembedded_music -\u003e music_without_title\nfull_landscape_music -\u003e music_with_title_landscape\nfull_portrait_music -\u003e music_with_title_portrait",
+      "parentUuid": "b1ed303d_cf28ef3e",
       "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1546e803_2fd7bfd4",
+        "filename": "media2-widget/src/main/res/layout/embedded_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "It\u0027s the most simplest layout.\n\nIt can be just an ImageView, though. I thought that maybe some other views can be added in the future.",
+      "parentUuid": "eb49df4d_5bfc423f",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ffdb21f_f461def4",
         "filename": "media2-widget/src/main/res/layout/full_landscape_music.xml",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2019-01-14T12:03:59Z",
       "side": 1,
       "message": "Q) Are the empty lines intentional? Is this the convention?",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "4ea07074382619053d1a44ede0cc66dc8f749f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fadd85f_84ef7307",
+        "filename": "media2-widget/src/main/res/layout/full_landscape_music.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-15T02:16:39Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any style guides for xml files. Do you know about the convention?",
+      "parentUuid": "5ffdb21f_f461def4",
       "range": {
         "startLine": 53,
         "startChar": 35,
