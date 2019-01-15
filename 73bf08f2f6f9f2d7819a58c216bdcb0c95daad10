@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe7f6762_c999f790",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-15T23:14:07Z",
+      "side": 1,
+      "message": "We should clarify this.  Maybe talk about \"when GreedyScheduler starts looking at older snapshots of WorkSpecs that have been backed off\".",
+      "range": {
+        "startLine": 154,
+        "startChar": 59,
+        "endLine": 155,
+        "endChar": 67
+      },
+      "revId": "73bf08f2f6f9f2d7819a58c216bdcb0c95daad10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
