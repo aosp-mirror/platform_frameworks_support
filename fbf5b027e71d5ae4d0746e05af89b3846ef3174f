@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efaa0b6d_6fe86e3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-15T23:59:51Z",
+      "side": 1,
+      "message": "It would great if you specify which tests you ran. For instance ./gradlew :media2:connectedCheck on device 27.",
+      "revId": "fbf5b027e71d5ae4d0746e05af89b3846ef3174f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
