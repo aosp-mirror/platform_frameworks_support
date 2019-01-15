@@ -44,6 +44,22 @@ public final class Destination implements VersionedParcelable {
     Time mEta;
     @ParcelField(5)
     LatLng mLatLng;
+    @ParcelField(6)
+    EnumWrapper<Delay> mDelay;
+
+    /**
+     * Level of estimated extra driving time, in comparison to ideal traffic conditions.
+     */
+    public enum Delay {
+        /** Delay information is not available */
+        UNKNOWN,
+        /** Much higher driving time than ideal */
+        HIGH,
+        /** Higher driving time than ideal */
+        MEDIUM,
+        /** Driving time close to ideal */
+        LOW,
+    }
 
     /**
      * Used by {@link VersionedParcelable}
@@ -59,12 +75,13 @@ public final class Destination implements VersionedParcelable {
      */
     @RestrictTo(LIBRARY_GROUP)
     Destination(@NonNull String title, @NonNull String address, @Nullable Distance distance,
-            @Nullable Time eta, @Nullable LatLng latlng) {
+            @Nullable Time eta, @Nullable LatLng latlng, @Nullable EnumWrapper<Delay> delay) {
         mTitle = title;
         mAddress = address;
         mDistance = distance;
         mEta = eta;
         mLatLng = latlng;
+        mDelay = delay;
     }
 
     /**
@@ -76,6 +93,7 @@ public final class Destination implements VersionedParcelable {
         private Distance mDistance;
         private Time mEta;
         private LatLng mLatLng;
+        private EnumWrapper<Delay> mDelay;
 
         /**
          * Sets the destination title (formatted for the current user's locale), or empty if there
@@ -137,11 +155,26 @@ public final class Destination implements VersionedParcelable {
         }
 
         /**
+         * Sets the level of delay to this destination compared to the estimated time of arrival
+         * under ideal driving conditions.
+         *
+         * @param delay level of delay
+         * @param fallbacks Variations of {@code delay}, in case the consumer of this API doesn't
+         *                  know the main one (used for backward compatibility).
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder setDelay(@NonNull Delay delay, @NonNull Delay... fallbacks) {
+            mDelay = EnumWrapper.of(delay, fallbacks);
+            return this;
+        }
+
+        /**
          * Returns a {@link Destination} built with the provided information.
          */
         @NonNull
         public Destination build() {
-            return new Destination(mTitle, mAddress, mDistance, mEta, mLatLng);
+            return new Destination(mTitle, mAddress, mDistance, mEta, mLatLng, mDelay);
         }
     }
 
@@ -182,6 +215,15 @@ public final class Destination implements VersionedParcelable {
     }
 
     /**
+     * Returns the level of delay to this destination compared to the estimated time of arrival
+     * under ideal driving conditions.
+     */
+    @NonNull
+    public Delay getDelay() {
+        return EnumWrapper.getValue(mDelay, Delay.UNKNOWN);
+    }
+
+    /**
      * Returns the geo-location of this destination, or null if it was not provided or is unknown.
      */
     @Nullable
@@ -202,17 +244,19 @@ public final class Destination implements VersionedParcelable {
                 && Objects.equals(getAddress(), that.getAddress())
                 && Objects.equals(getDistance(), that.getDistance())
                 && Objects.equals(getLocation(), that.getLocation())
-                && Objects.equals(getEta(), that.getEta());
+                && Objects.equals(getEta(), that.getEta())
+                && Objects.equals(getDelay(), that.getDelay());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getAddress(), getDistance(), getLocation(), getEta());
+        return Objects.hash(getTitle(), getAddress(), getDistance(), getLocation(), getEta(),
+            getDelay());
     }
 
     @Override
     public String toString() {
-        return String.format("{title: %s, address: %s, distance: %s, location: %s, eta: %s}",
-                mTitle, mAddress, mDistance, mLatLng, mEta);
+        return String.format("{title: %s, address: %s, distance: %s, location: %s, eta: %s, "
+                + "delay: %s}", mTitle, mAddress, mDistance, mLatLng, mEta, mDelay);
     }
 }
