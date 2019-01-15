@@ -43,7 +43,7 @@ dependencies {
 supportLibrary {
     name = "Android Lifecycle ViewModel"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLE
+    mavenVersion = LibraryVersions.LIFECYCLE_VIEWMODEL
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2017"
     description = "Android Lifecycle ViewModel"
