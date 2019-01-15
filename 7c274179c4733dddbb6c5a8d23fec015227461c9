@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ece6e9e1_b028ee2b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-15T21:27:32Z",
+      "side": 1,
+      "message": "maybe link to a doc etc on why this cannot work.\nAlternarively can make this more descriptive.",
+      "revId": "7c274179c4733dddbb6c5a8d23fec015227461c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa47b18_ef9ed379",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/TransactionMethodProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-15T21:27:32Z",
+      "side": 1,
+      "message": "move these to a constant probably to TypeName.ext\n\nactually would b even better if this was relied on the observable binder provider we have, if possible.\n\nMaybe we can do it after we pick the adapter and check on that instead ?",
+      "revId": "7c274179c4733dddbb6c5a8d23fec015227461c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
