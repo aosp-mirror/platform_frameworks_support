@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "05f5beab_4379722a",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-15T15:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6edd764_981151f8",
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "723f3d51_db4ca12b",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "94299cf6_93167da0",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-15T15:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723f3d51_db4ca12b",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f231ab5_80bba181",
         "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2019-01-14T22:11:13Z",
       "side": 1,
       "message": "IMO, split this out to a separate class (DefaultAppCompatDrawableManagerHooks?) and lets seperate out the API and impl",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 63
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873baede_a766188f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-15T15:48:41Z",
+      "side": 1,
+      "message": "The API is now in ResourceManager. The implementation is here in this class. Not sure if it\u0027s worth splitting it out into a separate package-protected class, since the rest of ACDM is just a couple dozen lines that redirect all calls to ResourceManager.",
+      "parentUuid": "8f231ab5_80bba181",
       "range": {
         "startLine": 102,
         "startChar": 34,
@@ -85,6 +151,30 @@
       "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a381fc1e_b9a4e59e",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-15T15:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff58489c_67c5bd34",
+      "range": {
+        "startLine": 426,
+        "startChar": 42,
+        "endLine": 426,
+        "endChar": 48
+      },
+      "revId": "2f6737edf7e164f5f1bdbe9d7ce3ba8b5b11ac98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
