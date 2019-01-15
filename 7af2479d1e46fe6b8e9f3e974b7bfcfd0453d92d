@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c245273a_ce1f7333",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-15T16:36:15Z",
+      "side": 1,
+      "message": "I\u0027d avoid referring to file:///android_resources/ and android_assets at all in the example, it reads a bit like this is just remapping the existing thing rather than replacing it.",
+      "revId": "7af2479d1e46fe6b8e9f3e974b7bfcfd0453d92d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
