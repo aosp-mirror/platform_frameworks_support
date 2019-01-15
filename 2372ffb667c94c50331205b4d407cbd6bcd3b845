@@ -70,6 +70,30 @@
       "revId": "2372ffb667c94c50331205b4d407cbd6bcd3b845",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97a01075_12a81a9a",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-01-15T04:39:55Z",
+      "side": 1,
+      "message": "With tests with many different range of values, I concluded that it is okay to remove Math.ceil here.",
+      "parentUuid": "006a1bc8_9ebefec9",
+      "range": {
+        "startLine": 641,
+        "startChar": 34,
+        "endLine": 641,
+        "endChar": 52
+      },
+      "revId": "2372ffb667c94c50331205b4d407cbd6bcd3b845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
