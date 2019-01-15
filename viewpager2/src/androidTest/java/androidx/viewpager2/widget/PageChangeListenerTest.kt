@@ -37,6 +37,7 @@ import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.junit.Assert.assertThat
@@ -696,6 +697,68 @@ class PageChangeListenerTest(private val config: TestConfig) : BaseTest() {
                 equalTo(RecyclerView.SCROLL_STATE_DRAGGING)))
         assertThat(ViewPager2.SCROLL_STATE_SETTLING, allOf(equalTo(ViewPager.SCROLL_STATE_SETTLING),
                 equalTo(RecyclerView.SCROLL_STATE_SETTLING)))
+    }
+
+    @Test
+    fun test_setCurrentItem_noAdapter() {
+        val test = setUpTest(config.orientation)
+        assertThat(test.viewPager.adapter, nullValue())
+        assertThat(test.viewPager.currentItem, equalTo(0))
+
+        listOf(-1, 0, 1, 10).forEach { targetPage ->
+            // given
+            test.viewPager.clearOnPageChangeListeners()
+            val listener = test.viewPager.addNewRecordingListener()
+
+            // when
+            test.viewPager.setCurrentItemSync(targetPage, false, 2, SECONDS)
+
+            // then
+            assertThat(test.viewPager.currentItem, equalTo(0))
+            assertThat(listener.eventCount, equalTo(0))
+        }
+    }
+
+    private fun test_setCurrentItem_outOfBounds(smoothScroll: Boolean) {
+        val test = setUpTest(config.orientation)
+        val n = 3
+        test.setAdapterSync(viewAdapterProvider(stringSequence(n)))
+        val adapterCount = test.viewPager.adapter.itemCount
+
+        listOf(-5, -1, n, n + 1, adapterCount, adapterCount + 1).forEach { targetPage ->
+            assertThat("Test should only test setCurrentItem for pages out of bounds, " +
+                    "bounds are [0, $n)", targetPage, not(isBetweenInEx(0, n)))
+            // given
+            val initialPage = test.viewPager.currentItem
+            val listener = test.viewPager.addNewRecordingListener()
+
+            // when
+            test.viewPager.setCurrentItemSync(targetPage, smoothScroll, 2, SECONDS)
+
+            // then the viewpager must have scrolled to the respective boundary
+            val boundary = if (targetPage <= 0) 0 else n - 1
+            assertThat(test.viewPager.currentItem, equalTo(boundary))
+            if (initialPage == boundary) {
+                // when it was already there, no events should have been fired
+                assertThat(listener.eventCount, equalTo(0))
+            } else {
+                // otherwise, make sure the page select events and scroll events are correct
+                val pageSize = test.viewPager.pageSize
+                listener.scrollEvents.assertValueSanity(initialPage, boundary, pageSize)
+                listener.scrollEvents.assertLastCorrect(boundary)
+                listener.assertAllPagesSelected(listOf(boundary))
+            }
+        }
+    }
+
+    @Test
+    fun test_setCurrentItem_outOfBounds_smoothScroll() {
+        test_setCurrentItem_outOfBounds(true)
+    }
+
+    @Test
+    fun test_setCurrentItem_outOfBounds_noSmoothScroll() {
+        test_setCurrentItem_outOfBounds(false)
     }
 
     @Test
