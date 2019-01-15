@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5236e25d_e869cf42",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-15T03:07:49Z",
+      "side": 1,
+      "message": "I did some more digging and found that this in comparison to freeflow traffic conditions. We should incorporate that here. How about\n\n\"Level of extra traffic delay, in comparison to freeflow traffic conditions\"\n\nOr something like that? Not fussy on exact wording",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 87
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59863aee_478e07ea",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-15T03:07:49Z",
+      "side": 1,
+      "message": "freeflow traffic conditions (sorry, this is my bad, I was wrong to begin with on what this means)",
+      "range": {
+        "startLine": 159,
+        "startChar": 17,
+        "endLine": 159,
+        "endChar": 31
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
