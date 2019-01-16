@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7082d1c2_2db063d0",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-16T07:17:39Z",
+      "side": 1,
+      "message": "is a",
+      "revId": "500350d003f4da60ece9b1855de19e7df6959f55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
