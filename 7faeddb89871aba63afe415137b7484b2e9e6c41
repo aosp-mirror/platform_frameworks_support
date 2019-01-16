@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df14af54_58bd0bc5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "How come we didn\u0027t need it for other tests?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 43
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb1d9d9_69c38400",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "Maybe assert that viewpager.adapter is null as a sanity check; could change with changes in setUpTest",
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44a0c86e_04379aa3",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "Replace with setCurrentItemSync",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 13
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a119d010_307a73fa",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "Let\u0027s hardcode that value and make sure it\u0027s the same as ViewPager1. I\u0027m guessing it\u0027s zero, but not sure. Maybe it should be an Exception. Let\u0027s aim for API parity with VP1 and document the value in JavaDoc of getCurrentItem",
+      "range": {
+        "startLine": 721,
+        "startChar": 59,
+        "endLine": 721,
+        "endChar": 70
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c94fef4_af0ecdae",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "nit: \nalternatively drop variable n (inline) and here do e.g. adapter.count - 1, adapter.count, adapter.count + 1, adapter.count + 5 ; would be more \u0027future proof\u0027",
+      "range": {
+        "startLine": 732,
+        "startChar": 23,
+        "endLine": 732,
+        "endChar": 28
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a3a5ede_b6e5b745",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "I\u0027d keep it to \"out of bounds\". The rest we test somewhere else. Also would be easier to follow (simpler code).",
+      "range": {
+        "startLine": 733,
+        "startChar": 71,
+        "endLine": 733,
+        "endChar": 73
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15b1d08_a473e251",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "Nit: double negation a bit hard to follow. With the current setup maybe easier to read: `or(lessThanOrEqual(0), greaterOrEqualTo(lastIx))`.",
+      "range": {
+        "startLine": 734,
+        "startChar": 55,
+        "endLine": 734,
+        "endChar": 83
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e390a35_f156f177",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "What about smooth scroll? The algorithm is a bit different, so worth testing.",
+      "range": {
+        "startLine": 742,
+        "startChar": 58,
+        "endLine": 742,
+        "endChar": 63
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f628474e_67e66e36",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "This is too specific and doesn\u0027t feel like a good candidate for reusable function. Let\u0027s inline it in the test.",
+      "range": {
+        "startLine": 891,
+        "startChar": 16,
+        "endLine": 891,
+        "endChar": 56
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68113712_4530a76b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "Only two events because it\u0027s smoothScroll false?",
+      "range": {
+        "startLine": 900,
+        "startChar": 12,
+        "endLine": 900,
+        "endChar": 34
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71820733_a8422382",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeListenerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "replace with assertLastCorrect",
+      "range": {
+        "startLine": 901,
+        "startChar": 0,
+        "endLine": 902,
+        "endChar": 90
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d9ea831_945e2b5c",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T14:59:39Z",
+      "side": 1,
+      "message": "alternatively:\n```\n        item \u003d Math.max(item, 0);\n        item \u003d Math.min(item, adapter.getItemCount() - 1);\n```",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 9
+      },
+      "revId": "7faeddb89871aba63afe415137b7484b2e9e6c41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
