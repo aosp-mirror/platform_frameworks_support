@@ -16,6 +16,24 @@
       "revId": "fe0e1b3e3d1035bd0206f5901bfd14e68993900f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda755e9_5054e2b8",
+        "filename": "annotations/src/main/java/androidx/annotation/RestrictTo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-16T18:18:54Z",
+      "side": 1,
+      "message": "Same-until-last would work for all of the common cases that I can think of. It also has the advantages of preventing nonsense specs (ex. restricting androidx.leanback visibility to androidx.wear) and giving us a simple set of enums that can be used to generate an androidx-current.txt API file (ex. without needing to parse the string spec to check for androidx).\n\nIt does somewhat restrict the flexibility -- we won\u0027t be able to make APIs in com.squareup.feature.subgroup visible to com.squareup.feature or androidx.leanback only visible to androidx.wear, but we don\u0027t have use cases for those at the moment.\n\nUltimately I\u0027m happy to go with whatever Tor thinks is best.",
+      "parentUuid": "a6aa3bbc_40630b20",
+      "revId": "fe0e1b3e3d1035bd0206f5901bfd14e68993900f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
