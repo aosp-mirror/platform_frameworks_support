@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "abdf4fc9_e2f1717a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "I\u0027ve now un-ignored them. For now the source jars seem to be empty though so for now I think the result is equivalent",
+      "parentUuid": "a976833b_5f090deb",
+      "range": {
+        "startLine": 103,
+        "startChar": 47,
+        "endLine": 103,
+        "endChar": 55
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96df2745_ba530ad5",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 8
@@ -60,6 +84,30 @@
       "writtenOn": "2019-01-04T20:07:16Z",
       "side": 1,
       "message": "For a later CL, but is there any chance this approach is causing us to evaluate projects too early? I had originally set it up like this because it wasn\u0027t clear at the time how to aggregate all of the projects to a single parent task, but that feels... wrong... now.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 75
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f853754c_b66e295f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Hmm good question. I\u0027ll take a deeper look now that you mention it.",
+      "parentUuid": "96df2745_ba530ad5",
       "range": {
         "startLine": 98,
         "startChar": 0,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7116e6f8_4fd2aa71",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Yeah, it doesn\u0027t seem to me that \"@hide\" in a package-info.java file is causing Dokka to skip documenting other classes in the package.\n\nYeah, this is programmatically asking Dokka to skip documenting these packages (see https://android-review.googlesource.com/c/platform/frameworks/support/+/849195/8/buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt#52 ) but if anyone could elaborate about how to move this information back into the package-info.java files, that\u0027d be great.\n\nI\u0027ve now opened b/122968083 for this",
+      "parentUuid": "4c00406e_ced21b98",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cc3db89_d3a0d59d",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
         "patchSetId": 8
@@ -130,6 +202,30 @@
       "writtenOn": "2019-01-04T20:07:16Z",
       "side": 1,
       "message": "Can we synchronize on the tasks object here instead of at the method level?",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 17
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad7f058b_7f6c9098",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "0cc3db89_d3a0d59d",
       "range": {
         "startLine": 74,
         "startChar": 4,
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "2268fa97_f63ee269",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "cd1293a8_b7fd460a",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 82
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63998f88_05e4728b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
         "patchSetId": 8
@@ -182,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "ec02a7f4_016f5056",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Interesting. That exclusion had already been present for Doclava so I kept it but now that you ask about it I discover that removing this exclusion doesn\u0027t change the output, so I\u0027ll remove it",
+      "parentUuid": "63998f88_05e4728b",
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8382c7b_0c826c6c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
         "patchSetId": 8
@@ -193,6 +331,30 @@
       "writtenOn": "2019-01-04T20:07:16Z",
       "side": 1,
       "message": "ditto re: synchronize on object being accessed",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fccb25d_158e49ce",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaSourceDocs.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T22:00:17Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "a8382c7b_0c826c6c",
       "range": {
         "startLine": 47,
         "startChar": 4,
