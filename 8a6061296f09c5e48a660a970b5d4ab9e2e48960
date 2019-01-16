@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c6e6df01_2d515913",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T21:17:14Z",
+      "side": 1,
+      "message": "Well, one is for testing resources and the other for testing assets. I\u0027m using them to make sure that the resource/asset is opened properly and content is correct. I added plain text files because they are easier to test rather than other binaries or html files.\n\nI don\u0027t know if there is a better way to do this.",
+      "parentUuid": "ebf2aa88_a9557147",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60bc5b68_68e87eae",
         "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c57c6c_84bb6a74",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T21:17:14Z",
+      "side": 1,
+      "message": "Sorry my bad. Fixed.",
+      "parentUuid": "60bc5b68_68e87eae",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3633a45e_f9f73704",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T21:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f867a8fa_78fd1182",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27d45d69_474a5be1",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aba30e4_9ee2e251",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T21:17:14Z",
+      "side": 1,
+      "message": "It\u0027s used in WebViewAssetLoaderTest",
+      "parentUuid": "27d45d69_474a5be1",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
