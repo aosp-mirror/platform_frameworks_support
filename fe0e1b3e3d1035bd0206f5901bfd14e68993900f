@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6aa3bbc_40630b20",
+        "filename": "annotations/src/main/java/androidx/annotation/RestrictTo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-16T02:35:35Z",
+      "side": 1,
+      "message": "If so, we\u0027d need to actually add a second attribute to this annotation as well; right now the only payload is the enum list.\n\nBut - instead of doing that, I\u0027m thinking we might be able to just go with the same-until-last segment algorithm. I think that will work for all of androidx, and it should work for things like com.company.baz.lib1, com.company.baz.lib2, etc as well.",
+      "revId": "fe0e1b3e3d1035bd0206f5901bfd14e68993900f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
