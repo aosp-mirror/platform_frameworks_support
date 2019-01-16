@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2512240a_bcb8b380",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T14:39:05Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think we need to keep the reflection if this works. The framework docs/code only discourage getIdentifier because it\u0027s slower than using the R class, but that doesn\u0027t apply if you have to look the R class members up by reflection (it\u0027s only fast if the compiler sorts it all out for you at build time) :)\n\nremoved Reflection part.\n\n\u003e We could consider changing the version in WebView itself, even? That would resolve the package name not matching issue that the removeOneSuffix is a partial workaround for, and might expose if there\u0027s any apps for which getIdentifier doesn\u0027t work - we could have it record a UMA stat for whether it had to fall back to reflection to find out I guess.\n\nYes, I thought about doing this as well, looks like this is going to be my next CL chromium :D",
+      "parentUuid": "e9934b2d_01efb5aa",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 9
+      },
+      "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "202f186b_11049411",
         "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
         "patchSetId": 4
@@ -63,6 +87,24 @@
       "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7863b181_76a84492",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-16T14:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202f186b_11049411",
+      "revId": "283c232b076d3a9ca84e15a5749258a4b00dc23f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
