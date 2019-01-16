@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "0a2f5add_8ec13482",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-16T00:09:03Z",
+      "side": 1,
+      "message": "s/DELAY_//g\n\nWe\u0027ll always refer to this as Delay.HIGH, don\u0027t need to stutter and say Delay.DELAY_HIGH.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 18
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59863aee_478e07ea",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 3
