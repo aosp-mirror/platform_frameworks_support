@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "470010b0_46b41e71",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-16T20:16:37Z",
+      "side": 1,
+      "message": "For my knowledge, what is the reason we ignore all these artifactIds?",
+      "range": {
+        "startLine": 103,
+        "startChar": 47,
+        "endLine": 103,
+        "endChar": 55
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96df2745_ba530ad5",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 8
