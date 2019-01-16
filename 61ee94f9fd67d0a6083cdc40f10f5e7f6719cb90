@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4f486167_d0dfe95c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-16T19:28:21Z",
+      "side": 1,
+      "message": "I personally like Traffic better, but also fine with Delay if we feel that\u0027s more flexible.",
+      "parentUuid": "ecb44b53_ab9bf243",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 87
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a2f5add_8ec13482",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 3

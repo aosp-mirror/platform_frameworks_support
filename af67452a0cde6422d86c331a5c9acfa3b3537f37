@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fd484b_f9ec7480",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-16T19:28:21Z",
+      "side": 1,
+      "message": "Should there be an option for no delay (e.g. NONE) or is LOW supposed to cover this case? Just seems weird to me that there\u0027ll always be LOW traffic, especially if Maps in general will just represent this as no traffic.",
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45112764_a028c99c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-16T19:28:21Z",
+      "side": 1,
+      "message": "nit: Maybe \"support\" instead?",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
