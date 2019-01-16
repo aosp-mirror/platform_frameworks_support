@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a976833b_5f090deb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-16T20:37:14Z",
+      "side": 1,
+      "message": "At the time I made this change; those artifacts weren\u0027t checked into the prebuilts/ dir. Now it looks to me like they are, so I\u0027ll see about un-ignoring them.",
+      "parentUuid": "470010b0_46b41e71",
+      "range": {
+        "startLine": 103,
+        "startChar": 47,
+        "endLine": 103,
+        "endChar": 55
+      },
+      "revId": "fcdc117fd8904bc092603382325e1b6ef0cf3171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96df2745_ba530ad5",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 8
