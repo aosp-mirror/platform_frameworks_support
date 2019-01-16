@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "4a43c064_c9683eb9",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-16T08:02:27Z",
+      "side": 1,
+      "message": "the controller",
+      "range": {
+        "startLine": 381,
+        "startChar": 79,
+        "endLine": 381,
+        "endChar": 89
+      },
+      "revId": "500350d003f4da60ece9b1855de19e7df6959f55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6c552da_ca092f6d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-16T08:02:27Z",
+      "side": 1,
+      "message": "What about followings?\n\nThe controller hasn\u0027t connected yet, so sending commands in this method to the controller will fail. For initial setup for the controller, use {@link #onPostConnect}.",
+      "range": {
+        "startLine": 385,
+        "startChar": 10,
+        "endLine": 387,
+        "endChar": 59
+      },
+      "revId": "500350d003f4da60ece9b1855de19e7df6959f55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7082d1c2_2db063d0",
         "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
         "patchSetId": 1
@@ -13,6 +59,29 @@
       "writtenOn": "2019-01-16T07:17:39Z",
       "side": 1,
       "message": "is a",
+      "revId": "500350d003f4da60ece9b1855de19e7df6959f55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "984a0775_e3d57eac",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-16T08:02:27Z",
+      "side": 1,
+      "message": "this session and a controller?",
+      "range": {
+        "startLine": 404,
+        "startChar": 41,
+        "endLine": 404,
+        "endChar": 63
+      },
       "revId": "500350d003f4da60ece9b1855de19e7df6959f55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
