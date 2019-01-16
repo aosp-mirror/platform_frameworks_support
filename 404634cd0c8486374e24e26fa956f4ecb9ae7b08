@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e8a62d1_e0c8a2ab",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T18:29:10Z",
+      "side": 1,
+      "message": "nit: doesn\u0027t throw these exceptions any more",
+      "revId": "404634cd0c8486374e24e26fa956f4ecb9ae7b08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c3bce31_eb459e10",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T18:29:10Z",
+      "side": 1,
+      "message": "Do we really need the manually unfolded assertions? It\u0027s going to hit an error case anyway if the path is null and I don\u0027t think it\u0027s much clearer to have the assertion first.",
+      "revId": "404634cd0c8486374e24e26fa956f4ecb9ae7b08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
