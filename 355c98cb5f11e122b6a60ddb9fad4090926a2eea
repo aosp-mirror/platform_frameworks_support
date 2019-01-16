@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d40e9b9_603e5a35",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-16T07:36:05Z",
+      "side": 1,
+      "message": "Q) When a child view (of VV) uses this with true/false? Could you add some doc?",
+      "revId": "355c98cb5f11e122b6a60ddb9fad4090926a2eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7f859c_ae080801",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-16T07:36:05Z",
+      "side": 1,
+      "message": "This boolean param makes the code less readable, I think.\nFor instance, let\u0027s compare these alternatives :\n1) LayoutParam lp \u003d new LayoutParams(true);\n2) LayoutParam lp \u003d new LayoutParam();\n   lp.doNoMeasure \u003d true;\n3) LayoutParam lp \u003d new LayoutParams(DO_NOT_MEASURE)\n\nI think 2) or 3) looks better for readability.",
+      "range": {
+        "startLine": 188,
+        "startChar": 21,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "355c98cb5f11e122b6a60ddb9fad4090926a2eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
