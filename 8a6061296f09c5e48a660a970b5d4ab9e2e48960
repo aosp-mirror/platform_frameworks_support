@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebf2aa88_a9557147",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T20:24:23Z",
+      "side": 1,
+      "message": "Why do we have both raw/test.txt and text/test.txt ? The test doesn\u0027t seem to do anything different with them; do they both need to exist at all?",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60bc5b68_68e87eae",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/AssetHelperTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T20:24:23Z",
+      "side": 1,
+      "message": "If this is the one that\u0027s supposed to be testing no extension, the other two cases above probably should have an extension?",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f867a8fa_78fd1182",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T20:24:23Z",
+      "side": 1,
+      "message": "nit: doesn\u0027t handle the MimeType any more",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d45d69_474a5be1",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-16T20:24:23Z",
+      "side": 1,
+      "message": "nit: not used in the test any more",
+      "revId": "8a6061296f09c5e48a660a970b5d4ab9e2e48960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
