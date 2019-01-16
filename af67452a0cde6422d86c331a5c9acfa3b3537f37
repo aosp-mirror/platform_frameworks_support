@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6e19e790_979d8e67",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-16T20:25:57Z",
+      "side": 1,
+      "message": "LOW is supposed to cover the \"NONE\" case. I had the same thoughts, but the lowest level (however we call it) doesn\u0027t strictly mean no traffic, just that is ideal or almost ideal travel time. \n\nAlternatives:\n- NONE_OR_LOW\n- MINIMUM\n\nIdeas?",
+      "parentUuid": "35fd484b_f9ec7480",
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45112764_a028c99c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 5
