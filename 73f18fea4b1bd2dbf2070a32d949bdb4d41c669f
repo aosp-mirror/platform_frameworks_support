@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "406ca7a2_0ef10b3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: Material Design Components",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7abb50ec_ef1b9fa0",
+        "filename": "samples/ViewPager2Demos/src/main/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "I think⭑ we can drop the label here and in other places in this file. We\u0027re not using it.\n\n⭑ Not sure",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 55,
+        "endChar": 98
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6095d885_97f4e85b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: maybe abstract val instead, so we don\u0027t have to specify the default value\nseems more explicit that way (avoid the surprise that activity_no_tablayout is the default)",
+      "range": {
+        "startLine": 54,
+        "startChar": 39,
+        "endLine": 54,
+        "endChar": 69
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a530ef4d_43b9a158",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/CardViewTabLayoutActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Not sure about what our API guidelines say. I can see:\n1. what you have\n2. static factory method ConcreteTabLayoutMediator.create(tabLayout, viewPager)\n3. separate constructor / register: ConcreteTabLayoutMediator().register(tabLayout, viewPager)\n\nCould you check with API guidelines?\n\nConcreteTabLayoutMediator is `object : TabLayoutMediator() { override ... }`",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f04525_65138fb2",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "unexpected end of text?",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c159b574_6d3fed59",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Nit: no empty line?",
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c5c2ee1_ed6a292e",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Are these coming from TabLayout API or did we add this ourselves? Might be easier to follow is there is only one way to do things.",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 50
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f81021_012fa756",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Maybe throw an exception \"already attached\"? Otherwise harder to debug? Not sure what the API guidelines say.",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 21
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "767c1ec2_07f38919",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "why need to reset a new object?",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c22f9110_69ac7f0b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Why not private?",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 8
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513c2c26_fe4b9a52",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: populateTabsFromViewPager?",
+      "range": {
+        "startLine": 170,
+        "startChar": 9,
+        "endLine": 170,
+        "endChar": 33
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f377b0e_bf4da15b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "should always be true?",
+      "range": {
+        "startLine": 185,
+        "startChar": 27,
+        "endLine": 185,
+        "endChar": 62
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e4cf18_fec197f7",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "why not private?",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 201,
+        "endChar": 10
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8480a33a_fac37c3d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: maybe add a comment that we\u0027re only using reflection temporarily while working on making these methods public?",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 45
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c23b892f_950d41dd",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: might be able to get those from Method? please ignore if not true",
+      "range": {
+        "startLine": 255,
+        "startChar": 32,
+        "endLine": 255,
+        "endChar": 56
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a3e723_5fb68525",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 314,
+        "endChar": 10
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdabd891_b41a16eb",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/TabLayoutMediator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 33
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071335b2_572025bd",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout-land/activity_tablayout.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Inconsistent header. Let\u0027s stick to one type in the project. Also please double check the creation date.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 50
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9499287f_8b1419af",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout-land/activity_tablayout.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "nit: remove?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430a8e86_d526e156",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_tablayout.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-16T16:15:28Z",
+      "side": 1,
+      "message": "Inconsistent header. Let\u0027s stick to one type in the project. Also please double check the creation date.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "73f18fea4b1bd2dbf2070a32d949bdb4d41c669f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
