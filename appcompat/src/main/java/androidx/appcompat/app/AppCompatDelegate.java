@@ -450,6 +450,11 @@ public abstract class AppCompatDelegate {
     public abstract void setLocalNightMode(@NightMode int mode);
 
     /**
+     * Returns true if the {@link #applyDayNight()} method has applied the daynight mode.
+     */ 
+    abstract boolean hasAppliedDayNight();
+
+    /**
      * Sets the default night mode. This is used across all activities/dialogs but can be overridden
      * locally via {@link #setLocalNightMode(int)}.
      *

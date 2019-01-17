@@ -216,6 +216,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
     private boolean mApplyDayNightCalled;
+    private boolean mApplyDayNightUpdated;
 
     private AutoNightModeManager mAutoNightModeManager;
 
@@ -2015,7 +2016,12 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         mApplyDayNightCalled = true;
+        mApplyDayNightUpdated = mApplyDayNightUpdated | applied;
         return applied;
+    }
+
+    boolean hasAppliedDayNight() {
+      return mApplyDayNightUpdated;
     }
 
     @Override
