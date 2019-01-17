@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a13386a_3c21a0aa",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-17T04:47:21Z",
+      "side": 1,
+      "message": "Didn\u0027t we agree to change it to something like follows?\n\nrequestSent \u003d sendConnectionRequestToSession();",
+      "revId": "846744f286b2640e28a2788bed866b85e68659ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
