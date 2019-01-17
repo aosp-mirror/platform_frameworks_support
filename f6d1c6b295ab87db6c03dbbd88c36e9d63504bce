@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71e2bc88_a2787cf5",
+        "filename": "preference/src/main/java/androidx/preference/ExpandButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-17T19:00:37Z",
+      "side": 1,
+      "message": "Can we make it also final?",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "f6d1c6b295ab87db6c03dbbd88c36e9d63504bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2db3de8_d130664e",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceGroupAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-17T19:00:37Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a list but set instead to reduce linear complexity for each check. You can then also write just mPreferenceResourceDescriptors.add(descriptor); without having to check contains.",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 13
+      },
+      "revId": "f6d1c6b295ab87db6c03dbbd88c36e9d63504bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
