@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "0652dcb8_dab68d07",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-17T18:59:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "440389f1_03493433",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 87
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a2f5add_8ec13482",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 3

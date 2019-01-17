@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7d5d2817_25af67f4",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-17T18:59:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70ee9635_f5f39df6",
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45112764_a028c99c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 5
@@ -66,6 +84,30 @@
       "writtenOn": "2019-01-16T19:28:21Z",
       "side": 1,
       "message": "nit: Maybe \"support\" instead?",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f10edc4_f7770973",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-17T18:59:20Z",
+      "side": 1,
+      "message": "Could you change this one still?",
+      "parentUuid": "45112764_a028c99c",
       "range": {
         "startLine": 163,
         "startChar": 28,
