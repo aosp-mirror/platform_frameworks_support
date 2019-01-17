@@ -22,6 +22,30 @@
       "revId": "dc067fc9dc9902727ed38980aabfc93155c9d65e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58bfd0c0_14367986",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-17T16:22:56Z",
+      "side": 1,
+      "message": "... I have no idea how that happened (again).\n\nIt\u0027s definitely 21 now!",
+      "parentUuid": "68818e63_069c2d59",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 23
+      },
+      "revId": "dc067fc9dc9902727ed38980aabfc93155c9d65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
