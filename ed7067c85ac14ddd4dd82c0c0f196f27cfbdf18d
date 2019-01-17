@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c419edd9_3d8f8cc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-17T20:43:15Z",
+      "side": 1,
+      "message": "I recommend adding something like\n\n\"This change removes the javac argument \"-Werror\" from normal builds and makes it only be present for builds that run checkReleaseReady\n\nThis helps the prebuilt-drop robot to update the sdk prebuilt more easily\"",
+      "revId": "ed7067c85ac14ddd4dd82c0c0f196f27cfbdf18d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf6966b9_07bc9470",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-17T20:43:15Z",
+      "side": 1,
+      "message": "I think that this means that if we create a new task that depends on CHECK_RELEASE_READY_TASK (maybe we\u0027ll have a use case for a \"doRelease\" task someday? Or maybe some feature branch will elect to make buildOnServer depend on checkReleaseReady?) and the user requests the dependent task instead, then this check would return false and the javaCompileTask wouldn\u0027t run with \"-Werror\".\n\nI think that it also means that if the user runs `./gradlew cRR` (which Gradle expands to `./gradlew checkReleaseReady`) then [\"cRR\"] is determined to not contain \"checkReleaseReady\" and return false\n\nI recommend doing something similar to `gradle.taskGraph.whenReady { if hasTask (checkReleaseReadyTask) { javaCompileTask.options.compilerArgs.add(\"-Werror\") } }` to check whether checkReleaseReady is part of the task graph.\n\n(That would have the interesting side effect of making it possible for a user to check if a project is release ready without also checking its dependency projects (unless we also make checkReleaseReady in each project depend on checkReleaseReady in other projects). I\u0027m not sure whether that\u0027s preferable or unpreferable - my guess is that it\u0027s probably equivalent either way.)\n\n(It does still seem weird to me to modify the logic of javaCompileTask based on the presence of another task, rather than to make a new javaCompileTask that runs with -Werror, although I imagine that would slow the build down so it seems reasonable to me to continue to modify the settings of javaCompileTask)",
+      "revId": "ed7067c85ac14ddd4dd82c0c0f196f27cfbdf18d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
