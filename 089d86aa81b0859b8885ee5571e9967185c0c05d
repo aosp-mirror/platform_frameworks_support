@@ -22,6 +22,30 @@
       "revId": "089d86aa81b0859b8885ee5571e9967185c0c05d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9617b1_bcf73b80",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-17T06:44:36Z",
+      "side": 1,
+      "message": "Discussed in offline",
+      "parentUuid": "22869fc3_94d9e554",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 36
+      },
+      "revId": "089d86aa81b0859b8885ee5571e9967185c0c05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
