@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b660f6e_3284f76e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/WakeLocks.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-01-17T23:03:42Z",
+      "side": 1,
+      "message": "Nit: WakeLocks status.",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "e043fba84c42867457c6919adb0ec84ec799d651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
