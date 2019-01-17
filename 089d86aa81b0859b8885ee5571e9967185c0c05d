@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22869fc3_94d9e554",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-01-17T06:04:51Z",
+      "side": 1,
+      "message": "Q) What\u0027s the difference between \"lp.forceMatchParent \u003d true\" and lp \u003d new LayoutParams(MATCH_PARENT, MATCH_PARENT)  (or simply LayoutParamas()) , regarding the measured sizes?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 36
+      },
+      "revId": "089d86aa81b0859b8885ee5571e9967185c0c05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
