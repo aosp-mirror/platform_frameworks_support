@@ -34,6 +34,24 @@
       "revId": "be2939ea6637fe2d36f44e4a9973e84c5e7dad6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195972a7_7b9bd936",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-17T19:08:07Z",
+      "side": 1,
+      "message": "Actually strike that. Changed to beta03 because we still have some unresolved things.",
+      "parentUuid": "791b083e_a8ba56af",
+      "revId": "be2939ea6637fe2d36f44e4a9973e84c5e7dad6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
