@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4dd9756d_7b1466c6",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-17T15:20:30Z",
+      "side": 1,
+      "message": "I thought this executor meant it was run on the UI thread?",
+      "parentUuid": "809dddfe_5b6f9451",
+      "range": {
+        "startLine": 114,
+        "startChar": 13,
+        "endLine": 119,
+        "endChar": 15
+      },
+      "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c73d1305_cfd606af",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-15T16:21:36Z",
       "side": 1,
       "message": "was this intended to be 1.1.0-alpha01?\nI already see a 1.0.0 public package here: https://dl.google.com/dl/android/maven2/index.html",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24850791_87b35989",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-01-17T15:20:30Z",
+      "side": 1,
+      "message": "We seem to have a bit of a mess of names - what do you reckon we should use?\n\n1.0.0-alpha1\n1.0.0-alpha3\n1.0.0-beta01\n1.0.0-rc01\n1.0.0-rc02\n1.0.0",
+      "parentUuid": "c73d1305_cfd606af",
       "range": {
         "startLine": 34,
         "startChar": 4,
