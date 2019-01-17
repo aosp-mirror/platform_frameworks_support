@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "b2344b0a_545e123f",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-17T16:02:03Z",
+      "side": 1,
+      "message": "The steps used in that link don\u0027t seem to work for Android.\n\nI\u0027ve removed the 1.8 target and just changed the test code so it uses a different pattern to test exceptions. Please take a look.",
+      "parentUuid": "f92d44b9_5f31a74b",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d087993_d5621a82",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
