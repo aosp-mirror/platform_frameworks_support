@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccb04b30_76a5ebeb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-17T18:44:02Z",
+      "side": 1,
+      "message": "Just to double-check, was this version supposed to be \"1.0.0-beta03\"?\n\n(I thought I remembered reading that a final version (without a suffix) was supposed to be the same as its previous RC. I don\u0027t really have a particularly strong opinion, just double checking)",
+      "revId": "be2939ea6637fe2d36f44e4a9973e84c5e7dad6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
