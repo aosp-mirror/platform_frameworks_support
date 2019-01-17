@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "440389f1_03493433",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-17T02:22:22Z",
+      "side": 1,
+      "message": "More that I think about it, the happier I\u0027d be with \u0027Traffic\u0027. It seems more intuitive, and it\u0027ll make more sense for other implementors of this API.",
+      "parentUuid": "4f486167_d0dfe95c",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 87
+      },
+      "revId": "61ee94f9fd67d0a6083cdc40f10f5e7f6719cb90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a2f5add_8ec13482",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 3

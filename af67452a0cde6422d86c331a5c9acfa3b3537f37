@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "70ee9635_f5f39df6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-17T02:22:22Z",
+      "side": 1,
+      "message": "LOW is supposed to cover the no delay case. If it helps, these three should map to green/yellow/red traffic/delay. None is if we don\u0027t have data, otherwise good traffic means green/LOW.\n\nIMO Low is fine (and nice symmetry with low/medium/high).",
+      "parentUuid": "6e19e790_979d8e67",
+      "revId": "af67452a0cde6422d86c331a5c9acfa3b3537f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45112764_a028c99c",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 5
