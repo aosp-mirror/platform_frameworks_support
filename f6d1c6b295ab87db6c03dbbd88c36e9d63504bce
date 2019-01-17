@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5487a01c_aee22b29",
+        "filename": "preference/src/main/java/androidx/preference/ExpandButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-01-17T19:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71e2bc88_a2787cf5",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "f6d1c6b295ab87db6c03dbbd88c36e9d63504bce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2db3de8_d130664e",
         "filename": "preference/src/main/java/androidx/preference/PreferenceGroupAdapter.java",
         "patchSetId": 2
