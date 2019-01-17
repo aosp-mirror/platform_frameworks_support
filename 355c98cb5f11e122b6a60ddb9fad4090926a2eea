@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e63a4f76_70273d2a",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-17T02:23:39Z",
+      "side": 1,
+      "message": "I have added some comments and renamed the variable, please review the next patch set.",
+      "parentUuid": "2d40e9b9_603e5a35",
+      "revId": "355c98cb5f11e122b6a60ddb9fad4090926a2eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e7f859c_ae080801",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "355c98cb5f11e122b6a60ddb9fad4090926a2eea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac2eed8_c6558623",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-17T02:23:39Z",
+      "side": 1,
+      "message": "Thanks! I chose 2).",
+      "parentUuid": "7e7f859c_ae080801",
+      "range": {
+        "startLine": 188,
+        "startChar": 21,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "355c98cb5f11e122b6a60ddb9fad4090926a2eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
