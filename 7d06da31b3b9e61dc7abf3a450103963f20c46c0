@@ -22,6 +22,30 @@
       "revId": "7d06da31b3b9e61dc7abf3a450103963f20c46c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa09133_9b4b1e48",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-01-17T04:45:53Z",
+      "side": 1,
+      "message": "This is in comparison to freeflow traffic. You can\u0027t get better than ideal traffic conditions. This isn\u0027t verus \"normal\" traffic, this is vs freeflow traffic.\n\ne.g. it\u0027s \"normal\" for US-101-N to have heavy traffic at 5pm, which would be represented here as HIGH, despite it being expected\n\nNo delay is represented as LOW.",
+      "parentUuid": "bd09f383_1e74a550",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "7d06da31b3b9e61dc7abf3a450103963f20c46c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
