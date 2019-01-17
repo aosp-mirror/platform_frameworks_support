@@ -36,6 +36,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 
 /**
  * A wrapper around a WebView instance, to run View methods on the UI thread. This also includes
@@ -184,6 +185,23 @@ class WebViewOnUiThread {
             @Override
             public void run() {
                 WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
+            }
+        });
+    }
+
+    public void setWebViewRendererClient(
+            final Executor executor, final WebViewRendererClient webViewRendererClient) {
+        setWebViewRendererClient(mWebView, executor, webViewRendererClient);
+    }
+
+    public static void setWebViewRendererClient(
+            final WebView webView,
+            final Executor executor,
+            final WebViewRendererClient webViewRendererClient) {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
             }
         });
     }
