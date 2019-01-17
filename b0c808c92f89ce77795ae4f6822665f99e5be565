@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5bf675cb_5ec16c23",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19ef0c7e_a8ce00c8",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 63
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8cc50b8_97bfef52",
         "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b3d5ec4_d527202a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8cc50b8_97bfef52",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f5582ec6_15c837a4",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb656999_99deab99",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1aa010_5def547c",
         "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e15289f_eadb905b",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "\u003e This isn\u0027t usually considered to be a wildcard character. Do you mean this doesn\u0027t support URL fragments? What about queries?\n\nWell, I just wanted to differentiate between it and the original android.content.UriMathcher which supports these wildcards. Queries and fragments are not handled. Assuming the URI is parsed and canonicalized correctly. Uri.getPath() should not contain queries and fragments.\n\n\u003e I might revise this to say \"Supports matching scheme, authority, and path.\" Positives usually read better than negatives. http://go/positive-booleans (IMO this generalizes beyond code booleans)\n\nYou are right. Done.",
+      "parentUuid": "ba1aa010_5def547c",
+      "range": {
+        "startLine": 27,
+        "startChar": 73,
+        "endLine": 27,
+        "endChar": 77
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c9e54d09_4ca27f36",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01cabba9_c2eada23",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "753caf21_7fd0d8c6",
         "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6183a2b_46a03d66",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "753caf21_7fd0d8c6",
+      "range": {
+        "startLine": 72,
+        "startChar": 54,
+        "endLine": 72,
+        "endChar": 60
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "c20cd851_11e99898",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644af006_820642e6",
+      "range": {
+        "startLine": 73,
+        "startChar": 50,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61e13de6_cd51e15d",
         "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747263e5_fcf47365",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T14:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e13de6_cd51e15d",
+      "range": {
+        "startLine": 74,
+        "startChar": 22,
+        "endLine": 74,
+        "endChar": 25
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
