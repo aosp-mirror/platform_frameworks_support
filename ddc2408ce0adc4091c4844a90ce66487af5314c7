@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a39e8aa_7feaef1f",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-17T07:34:49Z",
+      "side": 1,
+      "message": "This is always false.",
+      "range": {
+        "startLine": 1234,
+        "startChar": 21,
+        "endLine": 1234,
+        "endChar": 40
+      },
+      "revId": "ddc2408ce0adc4091c4844a90ce66487af5314c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a48932ad_0daf8d1e",
         "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
         "patchSetId": 1
