@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2875eb_03b46cac",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/kotlin/KotlinNavWriter.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-17T11:38:23Z",
+      "side": 1,
+      "message": "move it to class level / top level constant: \nval CAST_NEVER_SUCCEEDS \u003d AnnotationSpec.builder(Suppress::class)\n  .addMember(\"%S\", \"CAST_NEVER_SUCCEEDS\").build()\n\nadd a comment why do we have it. (maybe even in generated code as well). Smth like:\n\"In oppose to annotation processors Safe Args Code Generator doesn\u0027t have access to classpath to check class hierarchy\"",
+      "revId": "f0f73c622bc7896cc0a409bfe5e05a4dbd459e96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f102d915_b28e14be",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/kotlin/KotlinNavWriter.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-17T11:38:23Z",
+      "side": 1,
+      "message": "formatting",
+      "range": {
+        "startLine": 178,
+        "startChar": 16,
+        "endLine": 178,
+        "endChar": 19
+      },
+      "revId": "f0f73c622bc7896cc0a409bfe5e05a4dbd459e96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8831f1_70eb66a7",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/kotlin_nav_writer_test/MainFragmentDirections.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-17T11:38:23Z",
+      "side": 1,
+      "message": "I think you should be consistent - in toBundle you used \"this.\" approach, so this should aligned to",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "f0f73c622bc7896cc0a409bfe5e05a4dbd459e96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
