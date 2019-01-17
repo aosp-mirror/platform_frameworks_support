@@ -16,6 +16,24 @@
       "revId": "be2939ea6637fe2d36f44e4a9973e84c5e7dad6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791b083e_a8ba56af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-17T19:02:00Z",
+      "side": 1,
+      "message": "I think we might go out of beta finally? I don\u0027t see any other critical bugs at this stage so it would probably be reasonable. What do you think?",
+      "parentUuid": "ccb04b30_76a5ebeb",
+      "revId": "be2939ea6637fe2d36f44e4a9973e84c5e7dad6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
