@@ -109,7 +109,7 @@ class AndroidXPlugin : Plugin<Project> {
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
+                    // "distDocs" == task.name ||
                     "dejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
@@ -144,7 +144,7 @@ class AndroidXPlugin : Plugin<Project> {
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
+        // buildOnServerTask.dependsOn(allDocsTask)
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         buildOnServerTask.dependsOn(jacocoUberJar)
