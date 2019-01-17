@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a514a39_29ea47a0",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/DestinationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-17T22:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ca2f45c_549789a5",
+      "revId": "7d06da31b3b9e61dc7abf3a450103963f20c46c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ec0f193_dd0f2cf4",
         "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/DestinationTest.java",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "7d06da31b3b9e61dc7abf3a450103963f20c46c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33225e08_2145afb9",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/DestinationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-17T22:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ec0f193_dd0f2cf4",
+      "revId": "7d06da31b3b9e61dc7abf3a450103963f20c46c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
