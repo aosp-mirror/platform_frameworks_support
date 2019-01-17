@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "f92d44b9_5f31a74b",
+        "filename": "enterprise/feedback/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-17T15:38:07Z",
+      "side": 1,
+      "message": "You can set up your tests to use a different compatibility level, ex. https://stackoverflow.com/questions/28513789/gradle-different-jdk-version-for-source-and-test\n\nOtherwise your client will be required to use 1.8, which means you\u0027d have to be careful to only use features that can be desugared and means client would be forced to use desugar on SDK \u003c\u003d 23. Currently the Tools team isn\u0027t confident enough in D8 desugar to enable it by default, so we advise against requiring it by targeting 1.8.",
+      "parentUuid": "92608527_23e8eb5f",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "f6e52c1012974fb7afaf64ad7e75bae8cd2fe5d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d087993_d5621a82",
         "filename": "enterprise/feedback/build.gradle",
         "patchSetId": 8
