@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "4d083344_ef13592c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T15:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09f7c5a_23d50f51",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e27125a_6485d627",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
         "patchSetId": 5
@@ -463,6 +481,24 @@
       "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2942f3e_1db30dac",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewLocalServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-01-17T15:27:46Z",
+      "side": 1,
+      "message": "Removed the randomly generated domain. Using package name as a default domain now, will look into other alternatives later today.",
+      "parentUuid": "402841b3_cf5211c7",
+      "revId": "999c7699aa6d85ab96874598086d1477b4f9bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
