@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baedc029_2bb311ab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-01-17T16:16:06Z",
+      "side": 1,
+      "message": "We need to keep this part. Using something deterministic instead of random was about what to use as a *subdomain* of this. The application package name may not be a valid hostname at all (this isn\u0027t really required by android afaik), and because it\u0027s typically reversed from a valid hostname in the usual case it won\u0027t be likely to have a real TLD which affects the way that certain network-related things work (due to the public suffix list).\n\nIf we\u0027re going to use the package name we\u0027ll need to do more validation of it: probably strip/replace invalid chars, check lengths of individual components, check lengths of the whole thing, etc, and then still use it as a subdomain of androidplatform.net.",
+      "revId": "499178f1d9d7905a10a854750c97f7eacbb8ddf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
