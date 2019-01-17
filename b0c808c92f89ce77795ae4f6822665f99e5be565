@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19ef0c7e_a8ce00c8",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "nit: fragment",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 63
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8cc50b8_97bfef52",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "nit: might rephrase this to something like \"Incorrectly matched https...\". This might read a bit better (it\u0027s clearer which behavior actually happened and which behavior is expected)",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb656999_99deab99",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/internal/WebUriMatcherTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "typo (and below)",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1aa010_5def547c",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "This isn\u0027t usually considered to be a wildcard character. Do you mean this doesn\u0027t support URL fragments? What about queries?\n\nI might revise this to say \"Supports matching scheme, authority, and path.\" Positives usually read better than negatives. http://go/positive-booleans (IMO this generalizes beyond code booleans)",
+      "range": {
+        "startLine": 27,
+        "startChar": 73,
+        "endLine": 27,
+        "endChar": 77
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01cabba9_c2eada23",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "optional: Does empty string make sense? You could consider throwing IllegalArgumentError if the caller provides empty string.",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753caf21_7fd0d8c6",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "authority",
+      "range": {
+        "startLine": 72,
+        "startChar": 54,
+        "endLine": 72,
+        "endChar": 60
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "644af006_820642e6",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "path",
+      "range": {
+        "startLine": 73,
+        "startChar": 50,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e13de6_cd51e15d",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebUriMatcher.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-17T03:02:22Z",
+      "side": 1,
+      "message": "uri",
+      "range": {
+        "startLine": 74,
+        "startChar": 22,
+        "endLine": 74,
+        "endChar": 25
+      },
+      "revId": "b0c808c92f89ce77795ae4f6822665f99e5be565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
