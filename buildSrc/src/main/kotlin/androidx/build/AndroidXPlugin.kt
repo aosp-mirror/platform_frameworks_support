@@ -86,6 +86,8 @@ class AndroidXPlugin : Plugin<Project> {
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val compileJavaTask = project.properties["compileJava"] as JavaCompile
                     verifyDependencyVersionsTask.dependsOn(compileJavaTask)
+                    val checkReleaseReadyTask = project.tasks.create(CHECK_RELEASE_READY_TASK)
+                    checkReleaseReadyTask.dependsOn(verifyDependencyVersionsTask)
                 }
                 is LibraryPlugin -> {
                     val extension = project.extensions.getByType<LibraryExtension>()
@@ -95,9 +97,17 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                    extension.libraryVariants.all { libraryVariant ->
+                        val javaCompileTask = libraryVariant
+                            .javaCompileProvider.get()
+                        verifyDependencyVersionsTask.dependsOn(javaCompileTask)
+                        if (project.gradle.startParameter
+                                .taskNames.contains(CHECK_RELEASE_READY_TASK)) {
+                                javaCompileTask.options.compilerArgs.add("-Werror")
+                        }
                     }
+                    val checkReleaseReadyTask = project.tasks.create(CHECK_RELEASE_READY_TASK)
+                    checkReleaseReadyTask.dependsOn(verifyDependencyVersionsTask)
                 }
                 is AppPlugin -> {
                     val extension = project.extensions.getByType<AppExtension>()
@@ -302,6 +312,7 @@ class AndroidXPlugin : Plugin<Project> {
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
+        const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
     }
 }
 
