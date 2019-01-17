@@ -197,6 +197,35 @@ public class CarToolbarTest {
     }
 
     @Test
+    public void testSetTitleIconStartMargin() throws Throwable {
+        int startMargin = 100;
+        int navIconWidth = 100;
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setNavigationIconContainerWidth(navIconWidth);
+            mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon);
+            mToolbar.setTitleIconStartMargin(startMargin);
+        });
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        onView(withId(R.id.title_icon)).check(matches(withLeft(navIconWidth + startMargin)));
+    }
+
+    @Test
+    public void testSetTitleIconEndMargin() throws Throwable {
+        int endMargin = 100;
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setTitle("Test");
+            mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon);
+            mToolbar.setTitleIconEndMargin(endMargin);
+        });
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        int iconEnd = mActivity.findViewById(R.id.title_icon).getRight();
+
+        onView(withId(R.id.title)).check(matches(withLeft(iconEnd + endMargin)));
+    }
+
+    @Test
     public void testTitleIconHasCorrectDefaultWidth() throws Throwable {
         mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(
                 android.R.drawable.sym_def_app_icon));
