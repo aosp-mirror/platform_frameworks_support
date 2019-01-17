@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7601a00_d10c3363",
+        "filename": "navigation/safe-args-gradle-plugin/src/main/kotlin/androidx/navigation/safeargs/gradle/SafeArgsPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-17T22:16:47Z",
+      "side": 1,
+      "message": "Can we use the fully qualified plugin name?",
+      "range": {
+        "startLine": 65,
+        "startChar": 35,
+        "endLine": 65,
+        "endChar": 50
+      },
+      "revId": "fc9407c16156afc4cf192f81168b55c1ceaea4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
