@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3cf31d_85a6987d",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "WebkitUtils? Or follow up?",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 65
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5061f6ae_a33eb8df",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "This should be the final paragraph (above @params)",
+      "range": {
+        "startLine": 525,
+        "startChar": 7,
+        "endLine": 527,
+        "endChar": 84
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e34b6dc_592e5d9a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "optional: IMO this javadoc should be \"like {@link #otherSetRendererClient} except callbacks will execute on the thread the WebView is instantiated on.\" Or, vice-versa (other overload defers to this one)",
+      "range": {
+        "startLine": 529,
+        "startChar": 7,
+        "endLine": 529,
+        "endChar": 85
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bb227e8_b7f721d9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "Not totally clear what this sentence means",
+      "range": {
+        "startLine": 531,
+        "startChar": 63,
+        "endLine": 532,
+        "endChar": 15
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41216e49_e489df6d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "This should have the sentence about passing null for the client",
+      "range": {
+        "startLine": 561,
+        "startChar": 4,
+        "endLine": 561,
+        "endChar": 6
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0393d954_61e0597f",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewRendererClientAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-01-18T07:43:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense (this class is internal). Ditto below",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
