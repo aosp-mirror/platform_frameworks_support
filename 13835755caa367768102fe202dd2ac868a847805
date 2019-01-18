@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25f28e0b_5912f968",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Not sure: even though this is not public API, should we maybe still add nullability annotations?",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d7d7bf_005f0280",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Rename to register/unregister as well, for consistency with the public api?",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb07bb7_141d3791",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Is this still used, now clearListeners has been removed from ViewPager2?",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bea11899_78849f93",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Odd that we have to suppress this",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e1d671_477280c6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Do we have a bug in buganizer for this?",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6367e92c_26ea7736",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "Can be removed",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 13
+      },
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aa301c7_c8cc3f22",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "viewPager.unregisterOnPageChangeCallback(callback)\n\nDecide on either to always unregister, or never unregister if not registered inside a loop construct; then go over rest of the code to either add missing unregisters or remove unregisters that are not inside a loop",
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd00a72_01d48b8c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-18T12:52:02Z",
+      "side": 1,
+      "message": "viewPager.unregisterOnPageChangeCallback(callback)",
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
