@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6627f23_090bbe4f",
+        "filename": "lifecycle/viewmodel/proguard-rules.pro",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-01-18T19:39:07Z",
+      "side": 1,
+      "message": "Should this be\n!abstract class\n\nBecause you can\u0027t instantiate an abstract class anyway?",
+      "range": {
+        "startLine": 5,
+        "startChar": 34,
+        "endLine": 5,
+        "endChar": 35
+      },
+      "revId": "5f6e46e40a7e47924ac1d04426230466de7b6f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
