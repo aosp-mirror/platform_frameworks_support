@@ -22,6 +22,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
@@ -64,30 +65,38 @@ class TypefaceCompatApi21Impl extends TypefaceCompatBaseImpl {
     private static final Method sCreateFromFamiliesWithDefault;
 
     static {
-        Class fontFamilyClass;
-        Constructor fontFamilyCtor;
-        Method addFontMethod;
-        Method createFromFamiliesWithDefaultMethod;
-        try {
-            fontFamilyClass = Class.forName(FONT_FAMILY_CLASS);
-            fontFamilyCtor = fontFamilyClass.getConstructor();
-            addFontMethod = fontFamilyClass.getMethod(ADD_FONT_WEIGHT_STYLE_METHOD,
-                     String.class, Integer.TYPE, Boolean.TYPE);
-            Object familyArray = Array.newInstance(fontFamilyClass, 1);
-            createFromFamiliesWithDefaultMethod =
-                    Typeface.class.getMethod(CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD,
-                            familyArray.getClass());
-        } catch (ClassNotFoundException | NoSuchMethodException e) {
-            Log.e(TAG, e.getClass().getName(), e);
-            fontFamilyClass = null;
-            fontFamilyCtor = null;
-            addFontMethod = null;
-            createFromFamiliesWithDefaultMethod = null;
+        // As in API 26 there is a different private API, don't execute this on API 26 and up
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            Class fontFamilyClass;
+            Constructor fontFamilyCtor;
+            Method addFontMethod;
+            Method createFromFamiliesWithDefaultMethod;
+            try {
+                fontFamilyClass = Class.forName(FONT_FAMILY_CLASS);
+                fontFamilyCtor = fontFamilyClass.getConstructor();
+                addFontMethod = fontFamilyClass.getMethod(ADD_FONT_WEIGHT_STYLE_METHOD,
+                        String.class, Integer.TYPE, Boolean.TYPE);
+                Object familyArray = Array.newInstance(fontFamilyClass, 1);
+                createFromFamiliesWithDefaultMethod =
+                        Typeface.class.getMethod(CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD,
+                                familyArray.getClass());
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
+                Log.e(TAG, e.getClass().getName(), e);
+                fontFamilyClass = null;
+                fontFamilyCtor = null;
+                addFontMethod = null;
+                createFromFamiliesWithDefaultMethod = null;
+            }
+            sFontFamilyCtor = fontFamilyCtor;
+            sFontFamily = fontFamilyClass;
+            sAddFontWeightStyle = addFontMethod;
+            sCreateFromFamiliesWithDefault = createFromFamiliesWithDefaultMethod;
+        } else {
+            sFontFamilyCtor = null;
+            sFontFamily = null;
+            sAddFontWeightStyle = null;
+            sCreateFromFamiliesWithDefault = null;
         }
-        sFontFamilyCtor = fontFamilyCtor;
-        sFontFamily = fontFamilyClass;
-        sAddFontWeightStyle = addFontMethod;
-        sCreateFromFamiliesWithDefault = createFromFamiliesWithDefaultMethod;
     }
 
     private File getFile(@NonNull ParcelFileDescriptor fd) {
