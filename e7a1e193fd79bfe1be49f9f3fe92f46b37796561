@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e5d4aaa_d39010ed",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T00:54:22Z",
+      "side": 1,
+      "message": "suggest withStarted for parity with withContext",
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d38a908_4be30620",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 12
@@ -42,6 +59,23 @@
         "endLine": 103,
         "endChar": 23
       },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0e9e29_c0c90b09",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T00:54:22Z",
+      "side": 1,
+      "message": "Consider withStartedLifecycle for the LifecycleOwner variant - LifecycleOwners tend to have a lot of methods, disambiguation might be good here. (Consider a MediaPlayerFragment or similar)",
       "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
