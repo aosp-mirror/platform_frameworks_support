@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbe44138_1b9f9a2c",
+        "filename": "recyclerview/recyclerview/api/current.txt",
+        "patchSetId": 33
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T20:28:46Z",
+      "side": 1,
+      "message": "get/set pair should differ only by the is/set prefix so that kotlin merges them into property syntax",
+      "revId": "74e551b101af2886543affb31d9e6bea57b459cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
