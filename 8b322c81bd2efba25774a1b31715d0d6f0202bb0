@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "212d4988_418af8f1",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3cf31d_85a6987d",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 65
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5061f6ae_a33eb8df",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6c7bac77_5ea15692",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5061f6ae_a33eb8df",
+      "range": {
+        "startLine": 525,
+        "startChar": 7,
+        "endLine": 527,
+        "endChar": 84
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e34b6dc_592e5d9a",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-01-18T07:43:49Z",
       "side": 1,
       "message": "optional: IMO this javadoc should be \"like {@link #otherSetRendererClient} except callbacks will execute on the thread the WebView is instantiated on.\" Or, vice-versa (other overload defers to this one)",
+      "range": {
+        "startLine": 529,
+        "startChar": 7,
+        "endLine": 529,
+        "endChar": 85
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4853dd98_546d8a5d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e34b6dc_592e5d9a",
       "range": {
         "startLine": 529,
         "startChar": 7,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fbe46cb8_51af1909",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "Made it a bit clearer, I hope.",
+      "parentUuid": "2bb227e8_b7f721d9",
+      "range": {
+        "startLine": 531,
+        "startChar": 63,
+        "endLine": 532,
+        "endChar": 15
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41216e49_e489df6d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
         "patchSetId": 1
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6e8c68f8_f71efbba",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "I don\u0027t think it should? It\u0027s @NonNull, here; I figured that if you intend to clear the renderer client, you should use the two arg form that doesn\u0027t take an Executor. If you\u0027re passing something that may be null but can\u0027t statically be inferred to be, then I don\u0027t think additional documentation will help you...",
+      "parentUuid": "41216e49_e489df6d",
+      "range": {
+        "startLine": 561,
+        "startChar": 4,
+        "endLine": 561,
+        "endChar": 6
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0393d954_61e0597f",
         "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewRendererClientAdapter.java",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c4a59b_aaae787e",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewRendererClientAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-01-18T11:21:12Z",
+      "side": 1,
+      "message": "Good point. Code reorganisation remnant.",
+      "parentUuid": "0393d954_61e0597f",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "8b322c81bd2efba25774a1b31715d0d6f0202bb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
