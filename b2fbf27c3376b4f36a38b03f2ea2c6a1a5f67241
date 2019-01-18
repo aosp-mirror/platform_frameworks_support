@@ -22,6 +22,30 @@
       "revId": "b2fbf27c3376b4f36a38b03f2ea2c6a1a5f67241",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33a5d8f7_48cebba4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/TypeAdapterStore.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-18T23:49:34Z",
+      "side": 1,
+      "message": "Not needed for Optional\u003cT\u003e, the reason this happens with List is because when using List in Kotlin you end up using kotlin.collections.List and not Java\u0027s List and the type arg in kotlin.collections is List\u003cout T\u003e (notice the out modifier, making it covariant) which in Java is represented by List\u003c? extend T\u003e.",
+      "parentUuid": "b33cca69_d2cb5937",
+      "range": {
+        "startLine": 399,
+        "startChar": 48,
+        "endLine": 399,
+        "endChar": 55
+      },
+      "revId": "b2fbf27c3376b4f36a38b03f2ea2c6a1a5f67241",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
