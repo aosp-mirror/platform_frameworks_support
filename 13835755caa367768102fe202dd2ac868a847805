@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "b91a3ab4_1a4e4cb6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Trying to keep this CL small to make the deadline. Let\u0027s address when we next spot it in the wild.",
+      "parentUuid": "25f28e0b_5912f968",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf0f4036_c4bde688",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Trying to keep this CL small to make the deadline. Let\u0027s address when we next spot it in the wild.",
+      "parentUuid": "21d7d7bf_005f0280",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbb07bb7_141d3791",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "13835755caa367768102fe202dd2ac868a847805",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5f9e4e_75e7b080",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositeOnPageChangeCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "bbb07bb7_141d3791",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "5e7a9616_a2b20f81",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Was a warning yesterday, but looks OK today..",
+      "parentUuid": "bea11899_78849f93",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6e1d671_477280c6",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "13835755caa367768102fe202dd2ac868a847805",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82cfdfbe_befb5194",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6e1d671_477280c6",
+      "revId": "13835755caa367768102fe202dd2ac868a847805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

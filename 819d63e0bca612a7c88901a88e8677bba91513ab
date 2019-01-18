@@ -22,6 +22,30 @@
       "revId": "819d63e0bca612a7c88901a88e8677bba91513ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a2b1edf_f7b9dd4c",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 0,
+      "message": "Removed because Android Studio warnings. We\u0027re losing something and gaining something..",
+      "parentUuid": "840b1151_d3281de3",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 18
+      },
+      "revId": "819d63e0bca612a7c88901a88e8677bba91513ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

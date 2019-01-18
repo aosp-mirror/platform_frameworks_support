@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b6ad595_f8143180",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6367e92c_26ea7736",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 13
+      },
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9aa301c7_c8cc3f22",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "a1ef203e_c8b5f1d4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Initially only replaced in places where clear() had been called. Tidied up in this test, but not going further.",
+      "parentUuid": "9aa301c7_c8cc3f22",
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acd00a72_01d48b8c",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75210f65_aa77ecc9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-18T14:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd00a72_01d48b8c",
+      "revId": "fb6d04559f0bc05b473fd3981a2a338659d3ba90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
