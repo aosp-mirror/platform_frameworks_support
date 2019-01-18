@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40613854_0dcf7d44",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T19:31:03Z",
+      "side": 1,
+      "message": "Try to adjust the grammar of this get/set pair such that set/is makes sense rather than set/get, as this is a boolean property. e.g. isSpanScrollbarEstimationEnabled/setSpanScrollbarEstimationEnabled or similar.",
+      "range": {
+        "startLine": 1268,
+        "startChar": 19,
+        "endLine": 1268,
+        "endChar": 60
+      },
+      "revId": "a662460a511187ddd04b244f3886ab60a6fa7a2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
