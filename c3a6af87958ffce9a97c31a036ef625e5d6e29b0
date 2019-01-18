@@ -46,6 +46,30 @@
       "revId": "c3a6af87958ffce9a97c31a036ef625e5d6e29b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e507e79_a9d06042",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/XmlUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-01-18T14:20:32Z",
+      "side": 1,
+      "message": "I still wonder what would one do when seeing this message, but now that it is at info level, it\u0027s probably okay then.",
+      "parentUuid": "c099ddb9_dc007060",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 85
+      },
+      "revId": "c3a6af87958ffce9a97c31a036ef625e5d6e29b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "1a05ebd75f401ad4badf0c1c36c7251e1fc57e74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "077a71b0_7a9c2789",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/PomDocument.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-01-18T14:20:32Z",
+      "side": 0,
+      "message": "Ack.",
+      "parentUuid": "ce4db275_12840e3a",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "1a05ebd75f401ad4badf0c1c36c7251e1fc57e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
