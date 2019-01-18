@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0306e9ce_ba7e544a",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 1099528
+      },
+      "writtenOn": "2019-01-18T18:32:56Z",
+      "side": 1,
+      "message": "perhaps rename this to currentConfig here and below in updateForNightMode?",
+      "range": {
+        "startLine": 2015,
+        "startChar": 57,
+        "endLine": 2015,
+        "endChar": 63
+      },
+      "revId": "fd838863ad1a94680a4b4d9bbdc04aa4a9dc60d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb58a80_8bc7116b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 1099528
+      },
+      "writtenOn": "2019-01-18T18:32:56Z",
+      "side": 1,
+      "message": "looks like this method will be called even if manifestHandlingUiMode \u003d false which is incorrect, I think.",
+      "range": {
+        "startLine": 2150,
+        "startChar": 16,
+        "endLine": 2150,
+        "endChar": 57
+      },
+      "revId": "fd838863ad1a94680a4b4d9bbdc04aa4a9dc60d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
