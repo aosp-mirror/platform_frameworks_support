@@ -84,6 +84,7 @@ public class BiometricPromptDemo extends FragmentActivity {
     private KeyStore mKeyStore;
     private BiometricPrompt mBiometricPrompt;
 
+    private int mCounter;
     private int mNumberFailedAttempts;
 
     private final Executor mExecutor = (runnable) -> {
@@ -249,12 +250,14 @@ public class BiometricPromptDemo extends FragmentActivity {
         // Build the biometric prompt info
         BiometricPrompt.PromptInfo info =
                 new BiometricPrompt.PromptInfo.Builder()
-                        .setTitle("Title")
-                        .setSubtitle("Subtitle")
+                        .setTitle("Title " + mCounter)
+                        .setSubtitle("Subtitle " + mCounter)
                         .setDescription(
-                                "Lorem ipsum dolor sit amet, consecte etur adipisicing elit.")
-                        .setNegativeButtonText("Negative Button")
+                                "Lorem ipsum dolor sit amet, consecte etur adipisicing elit. "
+                                        + mCounter)
+                        .setNegativeButtonText("Negative Button " + mCounter)
                         .build();
+        mCounter++;
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && mUseCrypto) {
             try {
