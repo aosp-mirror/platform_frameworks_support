@@ -22,6 +22,30 @@
       "revId": "c3a6af87958ffce9a97c31a036ef625e5d6e29b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c099ddb9_dc007060",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/XmlUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-18T14:05:04Z",
+      "side": 1,
+      "message": "Well it still means that something in the pom could not be resolved fully. That is still valuable information. E.g. if it happens to someone else using jetifier standalone.",
+      "parentUuid": "82092603_e4e19737",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 85
+      },
+      "revId": "c3a6af87958ffce9a97c31a036ef625e5d6e29b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

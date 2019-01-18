@@ -22,6 +22,30 @@
       "revId": "1a05ebd75f401ad4badf0c1c36c7251e1fc57e74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4db275_12840e3a",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/PomDocument.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-18T14:05:04Z",
+      "side": 0,
+      "message": "2) is really hard to achieve (even from engineering resources perspective - XML, POM, ProGuard, Java files all have special parsers). Sometimes we rely on regEx and not on full spec grammar. And mostly even if we achieve it, recreating a zip file would break security signatures anyway (different order of the files, timestamps, version of library used to produce it, etc.). I understand it would be nice to have 2) but 1) does the same job and is something we can afford at this moment.",
+      "parentUuid": "be48e50b_6fb37fbb",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "1a05ebd75f401ad4badf0c1c36c7251e1fc57e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
