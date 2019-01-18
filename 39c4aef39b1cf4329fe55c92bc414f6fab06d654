@@ -1,0 +1,277 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c23559d_9a153caa",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Since you\u0027re not setting this from a stream anymore, declare it final",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14da4891_d71bef5f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 111,
+        "startChar": 23,
+        "endLine": 111,
+        "endChar": 35
+      },
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee1d5ed0_de75328e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "You don\u0027t need this check. The for-each loop will handle the empty case.",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb76552d_9a61c05e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db43a04_a09c821d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "You can call clear() here instead",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca06de49_6979c31a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "You\u0027re not using this as part of a stream, so I prefer if you just use a regular for-each loop. \n\nThe forEach() method is nice if you\u0027re using it as part of a stream and if the contents of the loop are independent of each other. In this case, it\u0027s not because of the order of adding the views matters.",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05b1ac0_c80bb5c1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Better to treat IF_ROOM items the same as NEVER.",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c57df9c_6a83fd03",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Same here. Use a for-each loop",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f307ae_48e1368b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "You should be able to pass the style as the 4th parameter of the constructor:\n\nhttps://developer.android.com/reference/android/widget/Button.html#Button(android.content.Context,%20android.util.AttributeSet,%20int,%20int)",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a88145c_9c4bf2ea",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Pull out these values into a dimens.xml file.",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7eab5b6_6f38ec90",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Since you\u0027re using a LinearLayout for this anyway, just inflate it from an XML. \n\n  View checkableAction \u003d \n      LayoutInflater.fromContext(getContext()).inflate(R.layout.your_layout,...);\n  // set what you need to on the checkableAction (use ids to get the views).",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f64a33_e9334bb5",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "I think it\u0027s ok not to expose this as a public method yet. We can have a default scaling for the switches that doesn\u0027t change.",
+      "range": {
+        "startLine": 679,
+        "startChar": 16,
+        "endLine": 679,
+        "endChar": 30
+      },
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa406910_e4f20c2a",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "private\n\nAnd add a new line after this.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 10
+      },
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d33074d6_b8f5540f",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "nit: parenthesis unnecessary",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c9972ad_f794bfd3",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:27:08Z",
+      "side": 1,
+      "message": "Wrap these in isLoggable checks.",
+      "revId": "39c4aef39b1cf4329fe55c92bc414f6fab06d654",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
