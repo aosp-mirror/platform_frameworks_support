@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b33cca69_d2cb5937",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/TypeAdapterStore.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T23:20:52Z",
+      "side": 1,
+      "message": "should we do it here too?",
+      "range": {
+        "startLine": 399,
+        "startChar": 48,
+        "endLine": 399,
+        "endChar": 55
+      },
+      "revId": "b2fbf27c3376b4f36a38b03f2ea2c6a1a5f67241",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
