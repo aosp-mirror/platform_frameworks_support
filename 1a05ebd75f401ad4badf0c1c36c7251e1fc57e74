@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be48e50b_6fb37fbb",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/PomDocument.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-01-18T10:18:22Z",
+      "side": 0,
+      "message": "It appears to me that the bug is two-fold:\n\nGiven a library (in this case, the pom file of a library) that does not need to be jetified,\n  (1) Jetifier should ideally not jetify it;\n  (2) It\u0027s still okay for Jetifier to jetify it, but it must return an output identical to the input.\n\nThis CL fixes (1), but I don\u0027t see it fixes (2) yet. We may argue that if (1) is guaranteed, (2) will no longer be relevant, but I think it\u0027s better that we fix both to prevent future bugs. WDYT?",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "1a05ebd75f401ad4badf0c1c36c7251e1fc57e74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

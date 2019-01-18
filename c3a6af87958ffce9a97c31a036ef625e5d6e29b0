@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82092603_e4e19737",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/pom/XmlUtils.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-01-18T10:18:22Z",
+      "side": 1,
+      "message": "nit: What is the purpose of this message? (Does it lead to any useful action?)",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 85
+      },
+      "revId": "c3a6af87958ffce9a97c31a036ef625e5d6e29b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
