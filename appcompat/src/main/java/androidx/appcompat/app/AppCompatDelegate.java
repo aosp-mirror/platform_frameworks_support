@@ -36,6 +36,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.VectorEnabledTintResources;
@@ -276,6 +277,12 @@ public abstract class AppCompatDelegate {
      * Should be called from {@link Activity#onPostResume()}
      */
     public abstract void onPostResume();
+
+    /**
+     * This should be called from {@link Activity#setTheme(int)} to notify AppCompat of what
+     * the current theme resource id is.
+     */
+    public abstract void onSetTheme(@StyleRes int themeResId);
 
     /**
      * Finds a view that was identified by the id attribute from the XML that

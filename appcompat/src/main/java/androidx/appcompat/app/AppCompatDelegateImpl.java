@@ -45,7 +45,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -72,6 +71,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -216,6 +216,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
     private boolean mApplyDayNightCalled;
+
+    private int mThemeResId;
+    private boolean mActivityHandlesUiMode;
+    private boolean mActivityHandlesUiModeChecked;
 
     private AutoNightModeManager mAutoNightModeManager;
 
@@ -421,8 +425,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // Make sure that the DrawableManager knows about the new config
         AppCompatDrawableManager.get().onConfigurationChanged(mContext);
 
-        // Re-apply Day/Night to the new configuration
-        applyDayNight();
+        // Re-apply Day/Night with the new configuration
+        applyDayNight(newConfig);
     }
 
     @Override
@@ -512,6 +516,11 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         if (mAutoNightModeManager != null) {
             mAutoNightModeManager.cleanup();
         }
+    }
+
+    @Override
+    public void onSetTheme(@StyleRes int themeResId) {
+        mThemeResId = themeResId;
     }
 
     private void ensureSubDecor() {
@@ -2000,12 +2009,16 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public boolean applyDayNight() {
+        return applyDayNight(mContext.getResources().getConfiguration());
+    }
+
+    private boolean applyDayNight(@NonNull Configuration config) {
         boolean applied = false;
 
         @NightMode final int nightMode = getNightMode();
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
         if (modeToApply != MODE_NIGHT_FOLLOW_SYSTEM) {
-            applied = updateForNightMode(modeToApply);
+            applied = updateForNightMode(modeToApply, config);
         }
 
         if (nightMode == MODE_NIGHT_AUTO) {
@@ -2070,40 +2083,71 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     /**
      * Updates the {@link Resources} configuration {@code uiMode} with the
      * chosen {@code UI_MODE_NIGHT} value.
+     *
+     * @param mode The new night mode to apply
+     * @param config The configuration which triggered this update
      */
-    private boolean updateForNightMode(@ApplyableNightMode final int mode) {
+    private boolean updateForNightMode(@ApplyableNightMode final int mode,
+            @NonNull final Configuration config) {
         final Resources res = mContext.getResources();
-        final Configuration conf = res.getConfiguration();
-        final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        final int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         final int newNightMode = (mode == MODE_NIGHT_YES)
                 ? Configuration.UI_MODE_NIGHT_YES
                 : Configuration.UI_MODE_NIGHT_NO;
 
         if (currentNightMode != newNightMode) {
-            if (shouldRecreateOnNightModeChange()) {
+            final boolean manifestHandlingUiMode = isActivityManifestHandlingUiMode();
+            final boolean shouldRecreateOnNightModeChange =
+                    !manifestHandlingUiMode && mApplyDayNightCalled && mContext instanceof Activity;
+            final Activity activity = (Activity) mContext;
+
+            if (shouldRecreateOnNightModeChange) {
                 if (DEBUG) {
                     Log.d(TAG, "applyNightMode() | Night mode changed, recreating Activity");
                 }
                 // If we've already been created, we need to recreate the Activity for the
                 // mode to be applied
-                final Activity activity = (Activity) mContext;
                 activity.recreate();
             } else {
-                if (DEBUG) {
-                    Log.d(TAG, "applyNightMode() | Night mode changed, updating configuration");
-                }
-                final Configuration config = new Configuration(conf);
-                final DisplayMetrics metrics = res.getDisplayMetrics();
+                // Create an Configuration with an updated UI Mode to reflect the new night mode
+                final Configuration newConf = new Configuration(config);
+                newConf.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
 
-                // Update the UI Mode to reflect the new night mode
-                config.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
-                res.updateConfiguration(config, metrics);
+                if (!manifestHandlingUiMode) {
+                    // If the Activity is not set to handle uiMode config changes we will
+                    // update the Resources with the new Configuration
 
-                // We may need to flush the Resources' drawable cache due to framework bugs.
-                if (!(Build.VERSION.SDK_INT >= 26)) {
-                    ResourcesFlusher.flush(res);
+                    if (DEBUG) {
+                        Log.d(TAG, "applyNightMode() | Night mode changed, "
+                                + "updating configuration");
+                    }
+
+                    res.updateConfiguration(newConf, res.getDisplayMetrics());
+
+                    // We may need to flush the Resources' drawable cache due to framework bugs.
+                    if (Build.VERSION.SDK_INT < 26) {
+                        ResourcesFlusher.flush(res);
+                    }
+
+                    if (mThemeResId != 0) {
+                        // We need to re-apply the theme so that it reflected the new
+                        // configuration
+                        activity.setTheme(mThemeResId);
+
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            // On M+ setTheme only applies if the themeResId actually changes,
+                            // since we have no way to publicly check what the Theme's current
+                            // themeResId is, we just manually apply it anyway. Most of the time
+                            // this is what we need anyway (since the themeResId does not
+                            // often change)
+                            activity.getTheme().applyStyle(mThemeResId, true);
+                        }
+                    }
                 }
+
+                // Finally call the Activity's onConfigurationChanged method
+                activity.onConfigurationChanged(newConf);
             }
             return true;
         } else {
@@ -2126,25 +2170,24 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return mAutoNightModeManager;
     }
 
-    private boolean shouldRecreateOnNightModeChange() {
-        if (mApplyDayNightCalled && mContext instanceof Activity) {
-            // If we've already applyDayNight() (via setTheme), we need to check if the
-            // Activity has configChanges set to handle uiMode changes
+    private boolean isActivityManifestHandlingUiMode() {
+        if (!mActivityHandlesUiModeChecked && mContext instanceof Activity) {
             final PackageManager pm = mContext.getPackageManager();
             try {
                 final ActivityInfo info = pm.getActivityInfo(
                         new ComponentName(mContext, mContext.getClass()), 0);
-                // We should return true (to recreate) if configChanges does not want to
-                // handle uiMode
-                return (info.configChanges & ActivityInfo.CONFIG_UI_MODE) == 0;
+                mActivityHandlesUiMode = (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
             } catch (PackageManager.NameNotFoundException e) {
                 // This shouldn't happen but let's not crash because of it, we'll just log and
-                // return true (since most apps will do that anyway)
+                // return false (since most apps won't be handling it)
                 Log.d(TAG, "Exception while getting ActivityInfo", e);
-                return true;
+                mActivityHandlesUiMode = false;
             }
         }
-        return false;
+        // Flip the checked flag so we don't check again
+        mActivityHandlesUiModeChecked = true;
+
+        return mActivityHandlesUiMode;
     }
 
     /**

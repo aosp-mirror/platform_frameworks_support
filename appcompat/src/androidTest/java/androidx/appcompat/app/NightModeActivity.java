@@ -16,6 +16,8 @@
 
 package androidx.appcompat.app;
 
+import android.content.res.Configuration;
+
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.BaseTestActivity;
 
@@ -29,6 +31,8 @@ public class NightModeActivity extends BaseTestActivity {
      */
     static NightModeActivity TOP_ACTIVITY = null;
 
+    Configuration lastChangeConfiguration = null;
+
     @Override
     protected int getContentViewLayoutResId() {
         return R.layout.activity_night_mode;
@@ -38,6 +42,12 @@ public class NightModeActivity extends BaseTestActivity {
     protected void onResume() {
         super.onResume();
         TOP_ACTIVITY = this;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        lastChangeConfiguration = newConfig;
     }
 
     @Override
