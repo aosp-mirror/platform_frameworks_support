@@ -468,12 +468,13 @@ public class BiometricPrompt implements BiometricConstants {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // Create the fragment that wraps BiometricPrompt once.
             if (mBiometricFragment == null) {
-                mBiometricFragment = BiometricFragment.newInstance(bundle);
+                mBiometricFragment = BiometricFragment.newInstance();
                 mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                         mAuthenticationCallback);
             }
             // Set the crypto object.
             mBiometricFragment.setCryptoObject(crypto);
+            mBiometricFragment.setBundle(bundle);
 
             if (fragmentManager.findFragmentByTag(BIOMETRIC_FRAGMENT_TAG) == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
