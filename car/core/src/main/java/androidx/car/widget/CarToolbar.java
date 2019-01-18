@@ -80,6 +80,8 @@ import java.util.List;
 public class CarToolbar extends ViewGroup {
 
     private static final String TAG = "Toolbar";
+    // Recommended limit of Action items displayed on the toolbar.
+    public static final int ACTION_ITEM_LIMIT = 3;
 
     private final ImageButton mNavButtonView;
     private final int mEdgeButtonIconSize;
@@ -541,6 +543,7 @@ public class CarToolbar extends ViewGroup {
         mMenuItems = items;
 
         List<CarMenuItem> actionItems = new ArrayList<>();
+        List<CarMenuItem> ifRoomItems = new ArrayList<>();
         mOverflowMenuItems = new ArrayList<>();
 
         // Remove all old action views from the Layout then the list.
@@ -549,13 +552,26 @@ public class CarToolbar extends ViewGroup {
 
         if (mMenuItems != null) {
             mMenuItems.forEach(item -> {
-                if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
-                    mOverflowMenuItems.add(item);
-                } else {    // Treat If-Room items as Action until that behavior is supported.
+                if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.ALWAYS) {
                     actionItems.add(item);
+                } else if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
+                    mOverflowMenuItems.add(item);
+                } else {
+                    ifRoomItems.add(item);
                 }
             });
         }
+
+        // Process IF_ROOM items afterwards to prioritize ALWAYS items.
+        ifRoomItems.forEach(item -> {
+            // Checkable items are not supported in the overflow menu yet.
+            if (item.isCheckable() || actionItems.size() < ACTION_ITEM_LIMIT) {
+                actionItems.add(item);
+            } else {
+                // If the IF_ROOM item is being pushed to overflow, push it to the front.
+                mOverflowMenuItems.add(0, item);
+            }
+        });
 
         // Show the overflow menu button if there are any overflow menu items.
         mOverflowButtonView.setVisibility(mOverflowMenuItems.isEmpty() ? GONE : VISIBLE);

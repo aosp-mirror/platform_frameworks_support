@@ -48,10 +48,10 @@ public class CarToolbarActivity extends AppCompatActivity {
         List<CarMenuItem> items = new ArrayList<>();
 
         CarMenuItem.OnClickListener onClickListener = (item -> {
+            CharSequence title = item.getTitle();
             if (item.isCheckable()) {
-                Log.d(TAG, "Switch checked? " + item.isChecked());
+                Log.d(TAG, (title != null ? title : "Switch") + " checked? " + item.isChecked());
             } else {
-                CharSequence title = item.getTitle();
                 Log.d(TAG, "Clicked" + (title != null ? ": " + title : ""));
             }
         });
@@ -61,7 +61,7 @@ public class CarToolbarActivity extends AppCompatActivity {
                         .setTitle("Action item")
                         .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
                         .setIcon(Icon.createWithResource(this,
-                                android.R.drawable.sym_def_app_icon))
+                                android.R.drawable.star_big_on))
                         .setOnClickListener(onClickListener)
                         .build());
             carToolbar.setMenuItems(items);
@@ -72,7 +72,6 @@ public class CarToolbarActivity extends AppCompatActivity {
                         .setTitle("Checkable item")
                         .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
                         .setCheckable(true)
-                        .setEnabled(false)
                         .setOnClickListener(onClickListener)
                         .build());
             carToolbar.setMenuItems(items);
@@ -82,6 +81,8 @@ public class CarToolbarActivity extends AppCompatActivity {
             items.add(new CarMenuItem.Builder()
                         .setTitle("If-Room item")
                         .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                        .setIcon(Icon.createWithResource(this,
+                                android.R.drawable.star_big_off))
                         .setOnClickListener(onClickListener)
                         .build());
             carToolbar.setMenuItems(items);
