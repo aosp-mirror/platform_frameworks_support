@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e2f7c5d_1444a299",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:34:37Z",
+      "side": 1,
+      "message": "Needs a test for the default state of the margins",
+      "revId": "137a03de7e8ebea8af1bac6d096a8e6e3ed403dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcaca189_5517bdf6",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:34:37Z",
+      "side": 1,
+      "message": "You don\u0027t need this. onView() will wait",
+      "revId": "137a03de7e8ebea8af1bac6d096a8e6e3ed403dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbd128e_77284e32",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-18T23:34:37Z",
+      "side": 1,
+      "message": "Needs a requestLayout() call on mTitleIconView to get these to apply.",
+      "revId": "137a03de7e8ebea8af1bac6d096a8e6e3ed403dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
