@@ -93,6 +93,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
     prebuilts(LibraryGroups.ROOM, "2.1.0-alpha03")
     prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-runtime-ktx")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-core")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-fragment")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-savedstate")

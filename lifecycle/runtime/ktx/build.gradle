@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,24 +32,20 @@ android {
 }
 
 dependencies {
-    api(project(":activity"))
-    api(project(":lifecycle:lifecycle-runtime-ktx"))
-    api(project(":lifecycle:lifecycle-viewmodel-ktx"))
+    api(project(":lifecycle:lifecycle-runtime"))
     api(KOTLIN_STDLIB)
-    androidTestImplementation(JUNIT)
-    androidTestImplementation(TRUTH)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    testImplementation(JUNIT)
+    testImplementation(TRUTH)
+    testCompile(MOCKITO_CORE)
+    testImplementation(TEST_RULES)
 }
 
 supportLibrary {
-    name = "Activity Kotlin Extensions"
-    publish = true
-    mavenVersion = LibraryVersions.ACTIVITY
-    mavenGroup = LibraryGroups.ACTIVITY
+    name = "Lifecycle Runtime Kotlin Extensions"
+    publish = false
+    mavenVersion = LibraryVersions.LIFECYCLE
+    mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
-    description = "Kotlin extensions for 'activity' artifact"
+    description = "Kotlin extensions for 'lifecycle-runtime' artifact"
     useMetalava = true
 }

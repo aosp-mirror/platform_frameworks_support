@@ -1,0 +1,11 @@
+// Signature format: 2.0
+package androidx.lifecycle {
+
+  public final class LifecycleRegistryKt {
+    ctor public LifecycleRegistryKt();
+    method public static androidx.lifecycle.Lifecycle.State getState(androidx.lifecycle.LifecycleRegistry);
+    method public static void setState(androidx.lifecycle.LifecycleRegistry, androidx.lifecycle.Lifecycle.State state);
+  }
+
+}
+

@@ -35,7 +35,7 @@ dependencies {
     api(project(":lifecycle:lifecycle-livedata"))
     api(project(":lifecycle:lifecycle-livedata-core-ktx"))
     api(KOTLIN_STDLIB)
-    testImplementation(project(":lifecycle:lifecycle-runtime"))
+    testImplementation(project(":lifecycle:lifecycle-runtime-ktx"))
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(TRUTH)
