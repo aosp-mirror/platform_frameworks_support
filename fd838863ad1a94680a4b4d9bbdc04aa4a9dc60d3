@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "e630be09_1bbdf4f6",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1099528
+      },
+      "writtenOn": "2019-01-18T19:01:20Z",
+      "side": 1,
+      "message": "nevermind, the currentNightMode !\u003d newNightMode should take care of that. Sorry for the noise.",
+      "parentUuid": "4a753d46_3385f16e",
+      "range": {
+        "startLine": 2101,
+        "startChar": 26,
+        "endLine": 2101,
+        "endChar": 57
+      },
+      "revId": "fd838863ad1a94680a4b4d9bbdc04aa4a9dc60d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfb58a80_8bc7116b",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
         "patchSetId": 1
