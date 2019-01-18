@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7d224ec_c0899106",
+        "filename": "appcompat/res/layout-v29/abc_alert_dialog_title_material.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2019-01-18T08:41:11Z",
+      "side": 1,
+      "message": "This file was copied from\nhttps://cs.corp.google.com/aosp-androidx/appcompat/res/layout/abc_alert_dialog_title_material.xml\n\nHere is th UX spec\nhttps://docs.google.com/presentation/d/1RRXn4g89w7GA_mC9qUhulJ0yGcmwdE9GnAaI8TXyGSQ/edit#slide\u003did.g44cba7ff80_0_234\n\nThis new dialog layout of v29 will only be appiled since Q.",
+      "revId": "d7bca16c78118a1feed41a8e2d84d9a94e668c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5bbdf21_1c35d799",
+        "filename": "appcompat/res/layout-v29/abc_alert_dialog_title_material.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2019-01-18T08:41:11Z",
+      "side": 1,
+      "message": "Changes:\n- gravity: center_vertical|start|left -\u003e center\n- orientation: horizontal-\u003e vertical",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 38
+      },
+      "revId": "d7bca16c78118a1feed41a8e2d84d9a94e668c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffab49ea_37dc3ab0",
+        "filename": "appcompat/res/layout-v29/abc_alert_dialog_title_material.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2019-01-18T08:41:11Z",
+      "side": 1,
+      "message": "Changes:\n- remove marginEnd and marginRight\n- add marginBottom",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "d7bca16c78118a1feed41a8e2d84d9a94e668c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fce67ed_d96c57a9",
+        "filename": "appcompat/res/layout-v29/abc_alert_dialog_title_material.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2019-01-18T08:41:11Z",
+      "side": 1,
+      "message": "Change:\n- viewStart -\u003e center",
+      "range": {
+        "startLine": 51,
+        "startChar": 35,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "d7bca16c78118a1feed41a8e2d84d9a94e668c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
