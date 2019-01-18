@@ -22,6 +22,30 @@
       "revId": "a662460a511187ddd04b244f3886ab60a6fa7a2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a9a8f4_1cf76529",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/GridLayoutManager.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1398837
+      },
+      "writtenOn": "2019-01-18T19:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40613854_0dcf7d44",
+      "range": {
+        "startLine": 1268,
+        "startChar": 19,
+        "endLine": 1268,
+        "endChar": 60
+      },
+      "revId": "a662460a511187ddd04b244f3886ab60a6fa7a2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
