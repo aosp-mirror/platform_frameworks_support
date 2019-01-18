@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d38a908_4be30620",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T00:42:14Z",
+      "side": 1,
+      "message": "Why not?",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4bb115_e20fd38e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-18T00:42:14Z",
+      "side": 1,
+      "message": "inline might not be desirable here, this is a lot of code.",
+      "range": {
+        "startLine": 103,
+        "startChar": 17,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
