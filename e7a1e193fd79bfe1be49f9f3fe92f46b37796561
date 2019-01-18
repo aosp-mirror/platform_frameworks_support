@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "61110de3_ff724bdd",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T07:38:59Z",
+      "side": 1,
+      "message": "renamed to lifecycleScope for clarity",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e5d4aaa_d39010ed",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 12
@@ -16,6 +39,24 @@
       "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32f8ae8_be609c0f",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T07:38:59Z",
+      "side": 1,
+      "message": "Done.\ni still wish withContext(Lifecycle.STARTED) but we\u0027ve been through that discussion :) (making this suspend).\nreplaced with withStarted",
+      "parentUuid": "2e5d4aaa_d39010ed",
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -42,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "4f971f04_565b5e2f",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T07:38:59Z",
+      "side": 1,
+      "message": "i dont like how it looks but would be nice for other libs. I\u0027ll open it up.",
+      "parentUuid": "8d38a908_4be30620",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d4bb115_e20fd38e",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 12
@@ -65,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "f81bd53a_ce5a8331",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T07:38:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d4bb115_e20fd38e",
+      "range": {
+        "startLine": 103,
+        "startChar": 17,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef0e9e29_c0c90b09",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
         "patchSetId": 12
@@ -76,6 +165,24 @@
       "writtenOn": "2019-01-18T00:54:22Z",
       "side": 1,
       "message": "Consider withStartedLifecycle for the LifecycleOwner variant - LifecycleOwners tend to have a lot of methods, disambiguation might be good here. (Consider a MediaPlayerFragment or similar)",
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b293c06_9d19394a",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-18T07:38:59Z",
+      "side": 1,
+      "message": "moved them to withStarted(lifecycle) / withStarted(lifecycleOwner) to look more similar to withContext(context).",
+      "parentUuid": "ef0e9e29_c0c90b09",
       "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
