@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aae591bb_f1eb0f80",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-01-19T01:52:50Z",
+      "side": 1,
+      "message": "just realized, can you upload a separate CL and call super.onSaveInstanceState(outState) here?",
+      "range": {
+        "startLine": 173,
+        "startChar": 16,
+        "endLine": 173,
+        "endChar": 35
+      },
+      "revId": "dfeccc6b5b38b48c4a41a03457470d848681a25b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
