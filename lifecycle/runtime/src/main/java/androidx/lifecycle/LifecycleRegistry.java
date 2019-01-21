@@ -28,8 +28,6 @@ import static androidx.lifecycle.Lifecycle.State.INITIALIZED;
 import static androidx.lifecycle.Lifecycle.State.RESUMED;
 import static androidx.lifecycle.Lifecycle.State.STARTED;
 
-import android.util.Log;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -317,9 +315,8 @@ public class LifecycleRegistry extends Lifecycle {
     private void sync() {
         LifecycleOwner lifecycleOwner = mLifecycleOwner.get();
         if (lifecycleOwner == null) {
-            Log.w(LOG_TAG, "LifecycleOwner is garbage collected, you shouldn't try dispatch "
-                    + "new events from it.");
-            return;
+            throw new IllegalStateException("LifecycleOwner of this LifecycleRegistry is already"
+                    + "garbage collected. It is too late to change lifecycle state.");
         }
         while (!isSynced()) {
             mNewEventOccurred = false;
