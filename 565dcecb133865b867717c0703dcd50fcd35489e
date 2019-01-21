@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "024423fb_00826ebb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-01-21T10:59:42Z",
+      "side": 1,
+      "message": "High level question:\n\nMaybe you could explain a bit why OnPreDrawListener is used to implement OnCoordinatesChangeListener, given that it is not really called when coordinates change?\n\nIs there a better choice of listener we can rely on, like \"OnLayoutChangeListener\" we used in FloatingToolbar?",
+      "range": {
+        "startLine": 353,
+        "startChar": 23,
+        "endLine": 353,
+        "endChar": 57
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7c8f7f_2c4116be",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-01-21T10:59:42Z",
+      "side": 1,
+      "message": "If we keep a separate copy of mContentRect here, it will be out of sync with the mContentRect in ToolbarController class?",
+      "range": {
+        "startLine": 357,
+        "startChar": 27,
+        "endLine": 357,
+        "endChar": 39
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13e843b_96097463",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-01-21T10:59:42Z",
+      "side": 1,
+      "message": "Why do we need to call show() when mToolbar.isShowing is True?",
+      "range": {
+        "startLine": 383,
+        "startChar": 20,
+        "endLine": 383,
+        "endChar": 35
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
