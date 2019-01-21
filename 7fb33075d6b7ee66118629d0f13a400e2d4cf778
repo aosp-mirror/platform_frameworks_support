@@ -16,6 +16,24 @@
       "revId": "7fb33075d6b7ee66118629d0f13a400e2d4cf778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8d33b62_a6bfd5fe",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-01-21T06:59:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c340887b_3bf257ad",
+      "revId": "7fb33075d6b7ee66118629d0f13a400e2d4cf778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
