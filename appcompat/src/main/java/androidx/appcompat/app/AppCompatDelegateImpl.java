@@ -160,9 +160,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     final Context mContext;
-    final Window mWindow;
-    final Window.Callback mOriginalWindowCallback;
-    final Window.Callback mAppCompatWindowCallback;
+    Window mWindow;
+    Window.Callback mOriginalWindowCallback;
+    Window.Callback mAppCompatWindowCallback;
     final AppCompatCallback mAppCompatCallback;
 
     ActionBar mActionBar;
@@ -215,6 +215,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
+
+    private boolean mAttached;
     private boolean mCreated;
 
     private int mThemeResId;
@@ -246,10 +248,28 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private AppCompatViewInflater mAppCompatViewInflater;
 
+    AppCompatDelegateImpl(Context context, AppCompatCallback callback) {
+        this(context, null, callback);
+    }
+
     AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback) {
         mContext = context;
-        mWindow = window;
         mAppCompatCallback = callback;
+        mWindow = window;
+    }
+
+    @Override
+    public void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        applyDayNight();
+        mAttached = true;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        if (mWindow == null && mContext instanceof Activity) {
+            mWindow = ((Activity) mContext).getWindow();
+        }
 
         mOriginalWindowCallback = mWindow.getCallback();
         if (mOriginalWindowCallback instanceof AppCompatWindowCallback) {
@@ -261,16 +281,13 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         mWindow.setCallback(mAppCompatWindowCallback);
 
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
-                context, null, sWindowBackgroundStyleable);
+                mContext, null, sWindowBackgroundStyleable);
         final Drawable winBg = a.getDrawableIfKnown(0);
         if (winBg != null) {
             mWindow.setBackgroundDrawable(winBg);
         }
         a.recycle();
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
         if (mOriginalWindowCallback instanceof Activity) {
             String parentActivityName = null;
             try {
@@ -2084,62 +2101,83 @@ class AppCompatDelegateImpl extends AppCompatDelegate
      * @return true if an action has been taken (recreation, resources updating, etc)
      */
     private boolean updateForNightMode(@ApplyableNightMode final int mode) {
-        final Resources res = mContext.getResources();
-        final Configuration config = res.getConfiguration();
-        final int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean handled = false;
 
         final int newNightMode = (mode == MODE_NIGHT_YES)
                 ? Configuration.UI_MODE_NIGHT_YES
                 : Configuration.UI_MODE_NIGHT_NO;
 
-        boolean handled = false;
+        if (!mAttached && Build.VERSION.SDK_INT >= 17
+                && mContext instanceof android.view.ContextThemeWrapper) {
+            final Configuration conf = new Configuration();
+            conf.setToDefaults();
 
-        if (currentNightMode != newNightMode) {
-            final boolean manifestHandlingUiMode = isActivityManifestHandlingUiMode();
-            final boolean shouldRecreateOnNightModeChange =
-                    !manifestHandlingUiMode && mCreated && mContext instanceof Activity;
+            final Configuration deltaConf = new Configuration();
+            deltaConf.uiMode = newNightMode | (conf.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
 
-            if (shouldRecreateOnNightModeChange) {
-                if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity");
-                }
-                // If we've already been created, we need to recreate the Activity for the
-                // mode to be applied
-                ((Activity) mContext).recreate();
-            } else if (!manifestHandlingUiMode) {
-                // If the Activity is not set to handle uiMode config changes we will
-                // update the Resources with a new Configuration with an updated UI Mode
-                final Configuration newConf = new Configuration(config);
-                newConf.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
-                res.updateConfiguration(newConf, res.getDisplayMetrics());
+            conf.updateFrom(deltaConf);
 
-                if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, updated res config");
-                }
-                // We may need to flush the Resources' drawable cache due to framework bugs.
-                if (Build.VERSION.SDK_INT < 26) {
-                    ResourcesFlusher.flush(res);
-                }
+            try {
+                ((android.view.ContextThemeWrapper) mContext).applyOverrideConfiguration(conf);
+                handled = true;
+            } catch (Throwable t) {
+                handled = false;
+            }
+        }
 
-                if (mThemeResId != 0) {
-                    // We need to re-apply the theme so that it reflected the new
-                    // configuration
-                    mContext.setTheme(mThemeResId);
+        if (!handled) {
+            final Resources res = mContext.getResources();
+            final Configuration config = res.getConfiguration();
+            final int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        // On M+ setTheme only applies if the themeResId actually changes,
-                        // since we have no way to publicly check what the Theme's current
-                        // themeResId is, we just manually apply it anyway. Most of the time
-                        // this is what we need anyway (since the themeResId does not
-                        // often change)
-                        mContext.getTheme().applyStyle(mThemeResId, true);
+            if (currentNightMode != newNightMode) {
+                final boolean manifestHandlingUiMode = isActivityManifestHandlingUiMode();
+                final boolean shouldRecreateOnNightModeChange =
+                        !manifestHandlingUiMode && mCreated && mContext instanceof Activity;
+
+                if (shouldRecreateOnNightModeChange) {
+                    if (DEBUG) {
+                        Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity");
+                    }
+                    // If we've already been created, we need to recreate the Activity for the
+                    // mode to be applied
+                    ((Activity) mContext).recreate();
+                } else if (!manifestHandlingUiMode) {
+                    // If the Activity is not set to handle uiMode config changes we will
+                    // update the Resources with a new Configuration with an updated UI Mode
+                    final Configuration newConf = new Configuration(config);
+                    newConf.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+                    res.updateConfiguration(newConf, res.getDisplayMetrics());
+
+                    if (DEBUG) {
+                        Log.d(TAG, "updateForNightMode. Night mode changed, updated res config");
+                    }
+                    // We may need to flush the Resources' drawable cache due to framework bugs.
+                    if (Build.VERSION.SDK_INT < 26) {
+                        ResourcesFlusher.flush(res);
+                    }
+
+                    if (mThemeResId != 0) {
+                        // We need to re-apply the theme so that it reflected the new
+                        // configuration
+                        mContext.setTheme(mThemeResId);
+
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            // On M+ setTheme only applies if the themeResId actually changes,
+                            // since we have no way to publicly check what the Theme's current
+                            // themeResId is, we just manually apply it anyway. Most of the time
+                            // this is what we need anyway (since the themeResId does not
+                            // often change)
+                            mContext.getTheme().applyStyle(mThemeResId, true);
+                        }
                     }
                 }
-            }
-            handled = true;
-        } else {
-            if (DEBUG) {
-                Log.d(TAG, "applyNightMode() | Skipping. Night mode has not changed: " + mode);
+                handled = true;
+            } else {
+                if (DEBUG) {
+                    Log.d(TAG, "applyNightMode() | Skipping. Night mode has not changed: "
+                            + mode);
+                }
             }
         }
 

@@ -180,7 +180,7 @@ public abstract class AppCompatDelegate {
      * @param callback An optional callback for AppCompat specific events
      */
     public static AppCompatDelegate create(Activity activity, AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(activity, activity.getWindow(), callback);
+        return new AppCompatDelegateImpl(activity, callback);
     }
 
     /**
@@ -316,6 +316,14 @@ public abstract class AppCompatDelegate {
      * {@link Activity#addContentView(android.view.View, android.view.ViewGroup.LayoutParams)}}
      */
     public abstract void addContentView(View v, ViewGroup.LayoutParams lp);
+
+    /**
+     * TODO
+     *
+     * @param context
+     */
+    public void attachBaseContext(Context context) {
+    }
 
     /**
      * Should be called from {@link Activity#onTitleChanged(CharSequence, int)}}
