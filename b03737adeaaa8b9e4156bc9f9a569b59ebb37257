@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c770bb01_086458ce",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-21T11:56:01Z",
+      "side": 1,
+      "message": "good catch!",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "b03737adeaaa8b9e4156bc9f9a569b59ebb37257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bdceeac_0ff0948c",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-21T11:56:01Z",
+      "side": 1,
+      "message": "nit: should we have a variant with \u0027true\u0027 as well? can be in the next CL",
+      "range": {
+        "startLine": 721,
+        "startChar": 58,
+        "endLine": 721,
+        "endChar": 63
+      },
+      "revId": "b03737adeaaa8b9e4156bc9f9a569b59ebb37257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
