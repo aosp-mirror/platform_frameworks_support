@@ -22,6 +22,30 @@
       "revId": "48860aa6c0f538ea9bb10cdcd65181ed5d541531",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd60318_863f8b0f",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/SelectiveLayout.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-21T08:59:32Z",
+      "side": 1,
+      "message": "I\u0027ll remove it. It was there because this class was copied from BaseLayout.",
+      "parentUuid": "2be674d4_9286b220",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "48860aa6c0f538ea9bb10cdcd65181ed5d541531",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
