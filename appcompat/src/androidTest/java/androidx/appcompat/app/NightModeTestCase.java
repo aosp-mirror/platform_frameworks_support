@@ -17,6 +17,7 @@
 package androidx.appcompat.app;
 
 import static androidx.appcompat.app.NightModeActivity.TOP_ACTIVITY;
+import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
@@ -28,6 +29,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.content.res.Configuration;
+import android.webkit.WebView;
 
 import androidx.appcompat.test.R;
 import androidx.core.content.ContextCompat;
@@ -142,31 +145,30 @@ public class NightModeTestCase {
         final FakeTwilightManager twilightManager = new FakeTwilightManager();
         TwilightManager.setInstance(twilightManager);
 
-        NightModeActivity activity = mActivityTestRule.getActivity();
-
         // Set MODE_NIGHT_AUTO so that we will change to night mode automatically
-        activity = setLocalNightModeAndWaitForRecreate(activity, AppCompatDelegate.MODE_NIGHT_AUTO);
+        setLocalNightModeAndWaitForRecreate(mActivityTestRule.getActivity(),
+                AppCompatDelegate.MODE_NIGHT_AUTO);
         // Verify that we're currently in day mode
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
 
-        final NightModeActivity toTest = activity;
         final CountDownLatch resumeCompleteLatch = new CountDownLatch(1);
 
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                final NightModeActivity activity = mActivityTestRule.getActivity();
                 final Instrumentation instrumentation =
                         InstrumentationRegistry.getInstrumentation();
                 // Now fool the Activity into thinking that it has gone into the background
-                instrumentation.callActivityOnPause(toTest);
-                instrumentation.callActivityOnStop(toTest);
+                instrumentation.callActivityOnPause(activity);
+                instrumentation.callActivityOnStop(activity);
 
                 // Now update the twilight manager while the Activity is in the 'background'
                 twilightManager.setIsNight(true);
 
                 // Now tell the Activity that it has gone into the foreground again
-                instrumentation.callActivityOnStart(toTest);
-                instrumentation.callActivityOnResume(toTest);
+                instrumentation.callActivityOnStart(activity);
+                instrumentation.callActivityOnResume(activity);
 
                 resumeCompleteLatch.countDown();
             }
@@ -190,6 +192,31 @@ public class NightModeTestCase {
         // Assert that the Activity received a new value
         assertEquals(AppCompatDelegate.MODE_NIGHT_NO,
                 mActivityTestRule.getActivity().getLastNightModeAndReset());
+    }
+
+    @Test
+    public void testWebViewMaintainsConfiguration() throws Throwable {
+        // Set night mode and wait for the new Activity
+        final NightModeActivity activity = setLocalNightModeAndWaitForRecreate(
+                mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Assert that the context still has a night themed configuration
+        assertConfigurationNightModeEquals(
+                Configuration.UI_MODE_NIGHT_YES,
+                activity.getResources().getConfiguration());
+
+        // Now load a WebView into the Activity
+        mActivityTestRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final WebView webView = new WebView(activity);
+            }
+        });
+
+        // Now assert that the context still has a night themed configuration
+        assertConfigurationNightModeEquals(
+                Configuration.UI_MODE_NIGHT_YES,
+                activity.getResources().getConfiguration());
     }
 
     private static class FakeTwilightManager extends TwilightManager {
