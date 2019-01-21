@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "54589013_242e7290",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-21T18:23:10Z",
+      "side": 1,
+      "message": "If I find a better choice of listener, I\u0027d switch to it. OnLayoutChangeListener is not necessarily being called on the events we\u0027re trying to track, e.g. depending on the flags set on the widget/activity keyboard showing/hiding may/may not trigger a layout change request. It sometimes just moves the window upwards.\n\nThe reason the platform\u0027s toolbar correctly tracks the position of the selection highlight is because it is also listening for predraw.\nhttps://cs.corp.google.com/android/frameworks/base/core/java/com/android/internal/policy/DecorView.java?rcl\u003dd3e0fd9395151fa031661d56d9c13c9e7cc8d2b4\u0026l\u003d191",
+      "parentUuid": "024423fb_00826ebb",
+      "range": {
+        "startLine": 353,
+        "startChar": 23,
+        "endLine": 353,
+        "endChar": 57
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae7c8f7f_2c4116be",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fefe2d8a_4cfdb3d6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-21T18:23:10Z",
+      "side": 1,
+      "message": "I guess that\u0027s okay. This rect will properly track the one in ToolbarController class when necessary as onPreDraw() runs just before every draw frame. I\u0027d rather avoid this class holding on to ToolbarController.mContentRect, it could easily lead to unintended consequences.",
+      "parentUuid": "ae7c8f7f_2c4116be",
+      "range": {
+        "startLine": 357,
+        "startChar": 27,
+        "endLine": 357,
+        "endChar": 39
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c13e843b_96097463",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b285bccd_b64ce251",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-21T18:23:10Z",
+      "side": 1,
+      "message": "changed to updateLayout().",
+      "parentUuid": "c13e843b_96097463",
+      "range": {
+        "startLine": 383,
+        "startChar": 20,
+        "endLine": 383,
+        "endChar": 35
+      },
+      "revId": "565dcecb133865b867717c0703dcd50fcd35489e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
