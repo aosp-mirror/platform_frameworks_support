@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11f826d1_918cc78e",
+        "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1013508
+      },
+      "writtenOn": "2019-01-22T17:18:10Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not a support library guru, but the other methods in this class offer a sane \"no-op\" behavior of returning null, etc, when running on older OS\u0027es.",
+      "revId": "98b39ce6418d809b5022f295e8a5a8a656007c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9e865f_70ba9253",
+        "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1013508
+      },
+      "writtenOn": "2019-01-22T17:18:10Z",
+      "side": 1,
+      "message": "Hmm, this is changing the behavior of the method, but now it\u0027s diverging from the upstream implementation in the framework?  I\u0027m wondering if we should leave getTreeDocumentId() unchanged as-is.\n\nHmm, on further inspection, perhaps you\u0027re looking for getDocumentId(), which returns the documentId being referenced, and it handles both tree and non-tree style Uris?",
+      "revId": "98b39ce6418d809b5022f295e8a5a8a656007c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
