@@ -34,6 +34,24 @@
       "revId": "fabfe81536cdc14d2a77cd21f344a10f4f7db284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49da6053_2a08e525",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-22T22:44:21Z",
+      "side": 1,
+      "message": "Hmm, I think it\u0027d be nice to do one of:\n\nA) Ask someone else for an opinion\n\n or \n\nB)\n  Add validation that the input strings look like SHAs (the right number of characters, and every character is 0-9 or A-E) to help double-check that the inputs aren\u0027t the result of a parse error in a previous tool\n  and\n  Re-echo all nonexistent SHAs at the end to make it extra-easy to see which ones failed (so that if the user was expecting a different set of failures, then the user can easily check that)\n\n or\n\nC)\n Make the tool that generates this file somehow specify which SHAs are supposed to exist (maybe by specifying the host and/or repo they were generated in)\n This would have the downside of needing the file to be updated if the release branch ever was merged into aosp, however",
+      "parentUuid": "3f3bca16_496116ed",
+      "revId": "fabfe81536cdc14d2a77cd21f344a10f4f7db284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
