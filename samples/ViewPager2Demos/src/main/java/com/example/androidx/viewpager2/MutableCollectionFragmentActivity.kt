@@ -28,7 +28,8 @@ import kotlinx.android.synthetic.main.item_mutable_collection.buttonCountIncreas
 import kotlinx.android.synthetic.main.item_mutable_collection.textViewCount
 import kotlinx.android.synthetic.main.item_mutable_collection.textViewItemId
 
-private const val KEY_ITEM_ID = "KEY_ITEM_ID"
+private const val KEY_ITEM_TEXT = "com.example.androidx.viewpager2.KEY_ITEM_TEXT"
+private const val KEY_CLICK_COUNT = "com.example.androidx.viewpager2.KEY_CLICK_COUNT"
 
 /**
  * Shows how to use [FragmentStateAdapter.notifyDataSetChanged] with [ViewPager2]
@@ -37,7 +38,7 @@ class MutableCollectionFragmentActivity : MutableCollectionBaseActivity() {
     override fun createViewPagerAdapter(): RecyclerView.Adapter<*> {
         val items = items // avoids resolving the ViewModel multiple times
         return object : FragmentStateAdapter(supportFragmentManager) {
-            override fun getItem(position: Int) = PageFragment.create(items.itemId(position))
+            override fun getItem(position: Int) = PageFragment.create(items[items.itemId(position)])
             override fun getItemCount(): Int = items.size
             override fun getItemId(position: Int): Long = items.itemId(position)
             override fun containsItem(itemId: Long): Boolean = items.contains(itemId)
@@ -53,26 +54,32 @@ class PageFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.item_mutable_collection, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val itemId = arguments?.getLong(KEY_ITEM_ID) ?: throw IllegalStateException()
-        val items = (context as MutableCollectionBaseActivity).items
-        textViewItemId.text = items[itemId]
+        val itemText = arguments?.getString(KEY_ITEM_TEXT) ?: throw IllegalStateException()
+        textViewItemId.text = itemText
 
-        fun updateCountView() {
-            textViewCount.text = "${items.clickCount(itemId)}"
+        fun updateCountView(count: Int) {
+            textViewCount.text = "$count"
         }
-        updateCountView()
+        updateCountView(savedInstanceState?.getInt(KEY_CLICK_COUNT) ?: 0)
 
         buttonCountIncrease.setOnClickListener {
-            items.registerClick(itemId)
-            updateCountView()
+            updateCountView(clickCount() + 1)
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(KEY_CLICK_COUNT, clickCount())
+    }
+
+    private fun clickCount(): Int {
+        return "${textViewCount.text}".toInt()
+    }
+
     companion object {
-        fun create(itemId: Long) =
+        fun create(itemText: String) =
             PageFragment().apply {
                 arguments = Bundle(1).apply {
-                    putLong(KEY_ITEM_ID, itemId)
+                    putString(KEY_ITEM_TEXT, itemText)
                 }
             }
     }

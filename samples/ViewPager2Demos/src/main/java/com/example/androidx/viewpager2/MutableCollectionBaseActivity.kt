@@ -89,15 +89,12 @@ class Items : ViewModel() {
     private var nextValue = 1L
 
     private val items = (1..9).map { longToItem(nextValue++) }.toMutableList()
-    private val clickCount = mutableMapOf<Long, Int>()
 
     operator fun get(id: Long): String = items.first { itemToLong(it) == id }
     fun itemId(position: Int): Long = itemToLong(items[position])
     fun contains(itemId: Long): Boolean = items.any { itemToLong(it) == itemId }
     fun addNewAt(position: Int) = items.add(position, longToItem(nextValue++))
     fun removeAt(position: Int) = items.removeAt(position)
-    fun clickCount(itemId: Long): Int = clickCount[itemId] ?: 0
-    fun registerClick(itemId: Long) = clickCount.set(itemId, 1 + clickCount(itemId))
     val size: Int get() = items.size
 
     private fun longToItem(value: Long): String = "item#$value"

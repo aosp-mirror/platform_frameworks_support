@@ -18,6 +18,9 @@ package com.example.androidx.viewpager2
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.item_mutable_collection.view.buttonCountIncrease
@@ -45,17 +48,27 @@ class PageViewHolder(parent: ViewGroup) :
     ) {
 
     fun bind() {
-        val items = (itemView.context as MutableCollectionBaseActivity).items
+        val items = (itemView.context as MutableCollectionViewActivity).items
+        val clickRegistry = clickRegistry(itemView.context as FragmentActivity)
         itemView.textViewItemId.text = items[itemId]
 
         fun updateCountView() {
-            itemView.textViewCount.text = "${items.clickCount(itemId)}"
+            itemView.textViewCount.text = "${clickRegistry.clickCount(itemId)}"
         }
         updateCountView()
 
         itemView.buttonCountIncrease.setOnClickListener {
-            items.registerClick(itemId)
+            clickRegistry.registerClick(itemId)
             updateCountView()
         }
     }
+
+    val clickRegistry: (FragmentActivity) -> ClickRegistry =
+        { ViewModelProviders.of(it)[ClickRegistry::class.java] }
+}
+
+class ClickRegistry : ViewModel() {
+    private val clickCount = mutableMapOf<Long, Int>()
+    fun clickCount(itemId: Long): Int = clickCount[itemId] ?: 0
+    fun registerClick(itemId: Long) = clickCount.set(itemId, 1 + clickCount(itemId))
 }
