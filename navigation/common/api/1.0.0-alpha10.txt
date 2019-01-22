@@ -182,5 +182,11 @@ package androidx.navigation {
     method @CallSuper public <T extends androidx.navigation.Navigator<?>> T getNavigator(String);
   }
 
+  public class SimpleNavDirections implements androidx.navigation.NavDirections {
+    ctor public SimpleNavDirections(int);
+    method public int getActionId();
+    method public android.os.Bundle? getArguments();
+  }
+
 }
 

@@ -16,69 +16,15 @@
 
 package foo.flavor;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
-import java.util.HashMap;
+import androidx.navigation.SimpleNavDirections;
 
 public class MainFragmentDirections {
-    private MainFragmentDirections() {
-    }
+  private MainFragmentDirections() {
+  }
 
-    @NonNull
-    public static StartLogin startLogin() {
-        return new StartLogin();
-    }
-
-    public static class StartLogin implements NavDirections {
-        private final HashMap arguments = new HashMap();
-
-        private StartLogin() {
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        @NonNull
-        public Bundle getArguments() {
-            Bundle __result = new Bundle();
-            return __result;
-        }
-
-        @Override
-        public int getActionId() {
-            return foo.R.id.start_login;
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            if (this == object) {
-                return true;
-            }
-            if (object == null || getClass() != object.getClass()) {
-                return false;
-            }
-            StartLogin that = (StartLogin) object;
-            if (getActionId() != that.getActionId()) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = 1;
-            result = 31 * result + getActionId();
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "StartLogin(actionId=" + getActionId() + "){"
-                    + "}";
-        }
-    }
+  @NonNull
+  public static SimpleNavDirections startLogin() {
+    return new SimpleNavDirections(foo.R.id.start_login);
+  }
 }
