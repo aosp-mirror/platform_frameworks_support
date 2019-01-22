@@ -93,6 +93,30 @@
       "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "900d3c55_d471cde2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-22T21:42:04Z",
+      "side": 1,
+      "message": "You want 1.1.0-alpha01.\n\n1.0.0, this change includes api changes, so we need to bump 1.X.0 version and it is alpha first.",
+      "parentUuid": "24850791_87b35989",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "fdee52acac4d29a67cb09ce0fdf3c65b3342fae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
