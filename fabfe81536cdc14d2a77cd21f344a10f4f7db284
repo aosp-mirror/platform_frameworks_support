@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b438d584_2c4569d7",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-22T18:41:05Z",
+      "side": 1,
+      "message": "What\u0027s the use case where SHAs might not exist and we don\u0027t want the script to abort?\nIs it in case the SHA refers to an internal release branch?",
+      "revId": "fabfe81536cdc14d2a77cd21f344a10f4f7db284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
