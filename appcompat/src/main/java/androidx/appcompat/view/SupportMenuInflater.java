@@ -42,6 +42,7 @@ import androidx.appcompat.R;
 import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.appcompat.widget.DrawableUtils;
+import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.internal.view.SupportMenu;
 import androidx.core.view.ActionProvider;
 import androidx.core.view.MenuItemCompat;
@@ -175,7 +176,7 @@ public class SupportMenuInflater extends MenuInflater {
                     if (tagName.equals(XML_GROUP)) {
                         menuState.readGroup(attrs);
                     } else if (tagName.equals(XML_ITEM)) {
-                        menuState.readItem(attrs);
+                        menuState.readItem(mContext, attrs);
                     } else if (tagName.equals(XML_MENU)) {
                         // A menu start tag denotes a submenu for an item
                         SubMenu subMenu = menuState.addSubMenuItem();
@@ -381,8 +382,9 @@ public class SupportMenuInflater extends MenuInflater {
         /**
          * Called when the parser is pointing to an item tag.
          */
-        public void readItem(AttributeSet attrs) {
-            TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.MenuItem);
+        public void readItem(Context context, AttributeSet attrs) {
+            TintTypedArray a = TintTypedArray.obtainStyledAttributes(mContext, attrs,
+                    R.styleable.MenuItem);
 
             // Inherit attributes from the group as default value
             itemId = a.getResourceId(R.styleable.MenuItem_android_id, defaultItemId);
