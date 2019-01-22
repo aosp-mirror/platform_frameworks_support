@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f057b30_1bc763ad",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-22T09:20:02Z",
+      "side": 1,
+      "message": "The sentence didn\u0027t end",
+      "revId": "76fa2faa3de21d8c45b31b2a5d3fd2b3753f93e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
