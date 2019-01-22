@@ -1065,6 +1065,9 @@ public class VideoView extends SelectiveLayout implements VideoViewInterface.Sur
                             break;
                         case SessionPlayer.PLAYER_STATE_ERROR:
                             mCurrentState = STATE_ERROR;
+                            if (mMediaControlView != null) {
+                                mMediaControlView.setEnabled(false);
+                            }
                             break;
                     }
                 }
