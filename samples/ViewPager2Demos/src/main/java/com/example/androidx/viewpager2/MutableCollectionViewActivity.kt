@@ -18,14 +18,13 @@ package com.example.androidx.viewpager2
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.item_mutable_collection.view.buttonCountIncrease
-import kotlinx.android.synthetic.main.item_mutable_collection.view.textViewCount
-import kotlinx.android.synthetic.main.item_mutable_collection.view.textViewItemId
 
 /**
  * Shows how to use [RecyclerView.Adapter.notifyDataSetChanged] with [ViewPager2]
@@ -46,18 +45,21 @@ class PageViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_mutable_collection, parent, false)
     ) {
+    private val textViewItemId: TextView = itemView.findViewById(R.id.textViewItemText)
+    private val textViewCount: TextView = itemView.findViewById(R.id.textViewCount)
+    private val buttonCountIncrease: Button = itemView.findViewById(R.id.buttonCountIncrease)
 
     fun bind() {
         val items = (itemView.context as MutableCollectionViewActivity).items
         val clickRegistry = clickRegistry(itemView.context as FragmentActivity)
-        itemView.textViewItemId.text = items[itemId]
+        textViewItemId.text = items[itemId]
 
         fun updateCountView() {
-            itemView.textViewCount.text = "${clickRegistry.clickCount(itemId)}"
+            textViewCount.text = "${clickRegistry.clickCount(itemId)}"
         }
         updateCountView()
 
-        itemView.buttonCountIncrease.setOnClickListener {
+        buttonCountIncrease.setOnClickListener {
             clickRegistry.registerClick(itemId)
             updateCountView()
         }

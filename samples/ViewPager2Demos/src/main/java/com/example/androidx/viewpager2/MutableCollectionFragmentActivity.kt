@@ -20,13 +20,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.item_mutable_collection.buttonCountIncrease
-import kotlinx.android.synthetic.main.item_mutable_collection.textViewCount
-import kotlinx.android.synthetic.main.item_mutable_collection.textViewItemId
 
 private const val KEY_ITEM_TEXT = "com.example.androidx.viewpager2.KEY_ITEM_TEXT"
 private const val KEY_CLICK_COUNT = "com.example.androidx.viewpager2.KEY_CLICK_COUNT"
@@ -47,6 +46,10 @@ class MutableCollectionFragmentActivity : MutableCollectionBaseActivity() {
 }
 
 class PageFragment : Fragment() {
+    private lateinit var textViewItemText: TextView
+    private lateinit var textViewCount: TextView
+    private lateinit var buttonCountIncrease: Button
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,8 +57,11 @@ class PageFragment : Fragment() {
     ): View? = inflater.inflate(R.layout.item_mutable_collection, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val itemText = arguments?.getString(KEY_ITEM_TEXT) ?: throw IllegalStateException()
-        textViewItemId.text = itemText
+        textViewItemText = view.findViewById(R.id.textViewItemText)
+        textViewCount = view.findViewById(R.id.textViewCount)
+        buttonCountIncrease = view.findViewById(R.id.buttonCountIncrease)
+
+        textViewItemText.text = arguments?.getString(KEY_ITEM_TEXT) ?: throw IllegalStateException()
 
         fun updateCountView(count: Int) {
             textViewCount.text = "$count"
