@@ -57,7 +57,7 @@ package androidx.navigation {
 
   public interface NavDirections {
     method @IdRes public int getActionId();
-    method public android.os.Bundle? getArguments();
+    method public android.os.Bundle getArguments();
   }
 
   public class NavGraph extends androidx.navigation.NavDestination implements java.lang.Iterable<androidx.navigation.NavDestination> {
@@ -180,6 +180,12 @@ package androidx.navigation {
     method @CallSuper public androidx.navigation.Navigator<? extends androidx.navigation.NavDestination>? addNavigator(String, androidx.navigation.Navigator<? extends androidx.navigation.NavDestination>);
     method public final <T extends androidx.navigation.Navigator<?>> T getNavigator(Class<T>);
     method @CallSuper public <T extends androidx.navigation.Navigator<?>> T getNavigator(String);
+  }
+
+  public class SimpleNavDirections implements androidx.navigation.NavDirections {
+    ctor public SimpleNavDirections(int);
+    method public int getActionId();
+    method public android.os.Bundle getArguments();
   }
 
 }
