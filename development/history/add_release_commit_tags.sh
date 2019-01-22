@@ -29,6 +29,14 @@ function validateDate() {
 	fi
 }
 
+function shaExists() {
+	if git cat-file -e $1 2> /dev/null; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 # Iterate through commit log files and create tags
 commit_list="$script_dir/$1"
 first_line=1
@@ -44,6 +52,14 @@ while read -r line; do
     sha="$(echo "$line" | cut -d':' -f1)"
     artifactId="$(echo "$line" | cut -d':' -f2)"
     version="$(echo "$line" | cut -d':' -f3)"
+    # Check that SHA exists in this repo:
+    if !(shaExists $sha); then
+    	echo ""
+    	echo "Error: SHA for $artifactId-$version does not exist in this repo"
+    	echo "Missing SHA: $sha"
+    	echo ""
+    	continue
+    fi
     # Add tag for the release
     echo "Adding tag $date-release-$artifactId to SHA: $sha"
     git tag -a "$date-release-$artifactId" "$sha" -m "Inclusive cutoff commit for $artifactId for the $date release"
