@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a43b2126_6abd094b",
+        "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2019-01-22T17:25:58Z",
+      "side": 1,
+      "message": "Sure, and that happens. This method is only called if the API level is 21+ (as was checked on line 137). The annotation is just for Android Studio. :)",
+      "parentUuid": "11f826d1_918cc78e",
+      "revId": "98b39ce6418d809b5022f295e8a5a8a656007c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec9e865f_70ba9253",
         "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-22T17:18:10Z",
       "side": 1,
       "message": "Hmm, this is changing the behavior of the method, but now it\u0027s diverging from the upstream implementation in the framework?  I\u0027m wondering if we should leave getTreeDocumentId() unchanged as-is.\n\nHmm, on further inspection, perhaps you\u0027re looking for getDocumentId(), which returns the documentId being referenced, and it handles both tree and non-tree style Uris?",
+      "revId": "98b39ce6418d809b5022f295e8a5a8a656007c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8667b980_11609ac3",
+        "filename": "documentfile/src/main/java/androidx/documentfile/provider/DocumentFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2019-01-22T17:25:58Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure on which API to change, but the end result should be that it\u0027s possible to use `fromTreeUri` to get a `TreeDocumentFile` on any valid tree uri, not only from the root document returned.",
+      "parentUuid": "ec9e865f_70ba9253",
       "revId": "98b39ce6418d809b5022f295e8a5a8a656007c6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
