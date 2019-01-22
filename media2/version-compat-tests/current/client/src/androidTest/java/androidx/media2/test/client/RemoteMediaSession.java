@@ -435,6 +435,30 @@ public class RemoteMediaSession {
             }
         }
 
+        public void setCurrentMediaItemIndex(int index) {
+            try {
+                mBinder.setCurrentMediaItemIndex(mSessionId, index);
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call setCurrentMediaItemIndex()");
+            }
+        }
+
+        public void setPreviousMediaItemIndex(int index) {
+            try {
+                mBinder.setPreviousMediaItemIndex(mSessionId, index);
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call setPreviousMediaItemIndex()");
+            }
+        }
+
+        public void setNextMediaItemIndex(int index) {
+            try {
+                mBinder.setNextMediaItemIndex(mSessionId, index);
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call setNextMediaItemIndex()");
+            }
+        }
+
         public void setCurrentMediaItem(int index) {
             try {
                 mBinder.setCurrentMediaItem(mSessionId, index);

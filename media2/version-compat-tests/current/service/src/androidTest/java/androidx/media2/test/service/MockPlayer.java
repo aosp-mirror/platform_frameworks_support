@@ -58,6 +58,9 @@ public class MockPlayer extends SessionPlayer {
     public int mIndex = -1;
     public @RepeatMode int mRepeatMode = -1;
     public @ShuffleMode int mShuffleMode = -1;
+    public int mCurrentItemIndex;
+    public int mPreviousItemIndex;
+    public int mNextItemIndex;
 
     public boolean mSetPlaylistCalled;
     public boolean mUpdatePlaylistMetadataCalled;
@@ -321,30 +324,17 @@ public class MockPlayer extends SessionPlayer {
 
     @Override
     public int getCurrentMediaItemIndex() {
-        if (mPlaylist == null) {
-            return ITEM_NONE;
-        }
-        return mPlaylist.indexOf(mCurrentMediaItem);
+        return mCurrentItemIndex;
     }
 
     @Override
     public int getPreviousMediaItemIndex() {
-        // TODO: reflect repeat & shuffle modes
-        int currentIdx = getCurrentMediaItemIndex();
-        if (currentIdx == ITEM_NONE || currentIdx == 0) {
-            return ITEM_NONE;
-        }
-        return currentIdx--;
+        return mPreviousItemIndex;
     }
 
     @Override
     public int getNextMediaItemIndex() {
-        // TODO: reflect repeat & shuffle modes
-        int currentIdx = getCurrentMediaItemIndex();
-        if (currentIdx == ITEM_NONE || currentIdx == mPlaylist.size() - 1) {
-            return ITEM_NONE;
-        }
-        return currentIdx++;
+        return mNextItemIndex;
     }
 
     @Override

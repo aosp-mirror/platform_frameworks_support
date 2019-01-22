@@ -39,6 +39,7 @@ import android.os.Bundle;
 
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.MediaController;
+import androidx.media2.MediaController.ControllerCallback;
 import androidx.media2.MediaController.PlaybackInfo;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
@@ -291,6 +292,84 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         // Null ITEM becomes null MediaItem.
         mRemoteSession2.getMockPlayer().notifyCurrentMediaItemChanged(INDEX_FOR_NULL_ITEM);
         assertTrue(latchForControllerCallback.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testOnCurrentMediaItemChanged_calledByCurrentMediaItemMetadataChange()
+            throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(2);
+        final long duration = 1000L;
+        final MediaItem item = MediaTestUtils.createFileMediaItemWithMetadata();
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onCurrentMediaItemChanged(MediaController controller, MediaItem item) {
+                MediaMetadata metadata = item.getMetadata();
+                if (metadata != null) {
+                    switch ((int) latch.getCount()) {
+                        case 2:
+                            assertEquals(-1, controller.getCurrentMediaItemIndex());
+                            assertFalse(metadata.containsKey(MediaMetadata.METADATA_KEY_DURATION));
+                            break;
+                        case 1:
+                            assertEquals(-1, controller.getCurrentMediaItemIndex());
+                            assertTrue(metadata.containsKey(MediaMetadata.METADATA_KEY_DURATION));
+                            assertEquals(duration,
+                                    metadata.getLong(MediaMetadata.METADATA_KEY_DURATION));
+                    }
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+
+        RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
+//        player.setMediaItem(item);
+//        player.notifyCurrentMediaItemChanged(item);
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        // The media item should be modified by other side! (e.g. setMetadataForCurrentMediaItem(index, metadata))
+//        item.setMetadata(MediaTestUtils.createMetadata(item.getMediaId(), duration));
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testOnCurrentMediaItemChanged_calledByPlaylistMediaItemMetadataChange()
+            throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(2);
+        final long duration = 1000L;
+        final int currentItemIdx = 0;
+        final List<MediaItem> list = MediaTestUtils.createFileMediaItems(2);
+        final MediaMetadata oldMetadata = list.get(1).getMetadata();
+        final MediaMetadata newMetadata = MediaTestUtils.createMetadata(oldMetadata.getMediaId(),
+                duration);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onPlaylistChanged(MediaController controller, List<MediaItem> list,
+                    MediaMetadata metadata) {
+                switch ((int) latch.getCount()) {
+                    case 2:
+                        assertEquals(currentItemIdx, controller.getCurrentMediaItemIndex());
+                        assertFalse(oldMetadata.containsKey(MediaMetadata.METADATA_KEY_DURATION));
+                        break;
+                    case 1:
+                        assertEquals(currentItemIdx, controller.getCurrentMediaItemIndex());
+                        assertTrue(list.get(1).getMetadata().containsKey(
+                                MediaMetadata.METADATA_KEY_DURATION));
+                        assertEquals(duration, list.get(1).getMetadata().getLong(
+                                MediaMetadata.METADATA_KEY_DURATION));
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+
+        RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
+        player.setPlaylist(list);
+        mPlayer.skipToPlaylistItem(currentItemIdx);
+        player.notifyPlaylistChanged();
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        // The media item should be modified by other side! (e.g. setMetadataForPlaylistItem(index, metadata))
+        list.get(1).setMetadata(newMetadata);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
     /**
@@ -561,6 +640,85 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         player.notifyRepeatModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testRepeatMode, controller.getRepeatMode());
+    }
+
+    @Test
+    public void testUpdatedIndicesInRepeatMode() throws InterruptedException {
+        prepareLooper();
+        final int noneRepeatMode = SessionPlayer.REPEAT_MODE_NONE;
+        final int groupRepeatMode = SessionPlayer.REPEAT_MODE_GROUP;
+        final int currentIndex = -1;
+        final int targetIndex = 2;
+        final CountDownLatch latch = new CountDownLatch(2);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onRepeatModeChanged(MediaController controller, int repeatMode) {
+                switch ((int) latch.getCount()) {
+                    case 2:
+                        assertEquals(noneRepeatMode, repeatMode);
+                        break;
+                    case 1:
+                        assertEquals(groupRepeatMode, repeatMode);
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
+
+        player.setPreviousMediaItemIndex(currentIndex);
+        player.setRepeatMode(noneRepeatMode);
+
+        // Need to call this in order to update previous media item index.
+        player.notifyRepeatModeChanged();
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(currentIndex, controller.getPreviousMediaItemIndex());
+
+        player.setPreviousMediaItemIndex(targetIndex);
+        player.setRepeatMode(groupRepeatMode);
+        player.notifyRepeatModeChanged();
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(targetIndex, controller.getPreviousMediaItemIndex());
+    }
+
+    @Test
+    public void testUpdatedIndicesInShuffleMode() throws InterruptedException {
+        prepareLooper();
+        final int noneShuffleMode = SessionPlayer.SHUFFLE_MODE_NONE;
+        final int groupShuffleMode = SessionPlayer.SHUFFLE_MODE_GROUP;
+        final int currentIndex = -1;
+        final int targetIndex = 2;
+        final CountDownLatch latch = new CountDownLatch(2);
+        final ControllerCallback callback = new ControllerCallback() {
+            @Override
+            public void onShuffleModeChanged(MediaController controller, int shuffleMode) {
+                switch ((int) latch.getCount()) {
+                    case 2:
+                        assertEquals(noneShuffleMode, shuffleMode);
+                        break;
+                    case 1:
+                        assertEquals(groupShuffleMode, shuffleMode);
+
+                }
+                latch.countDown();
+            }
+        };
+        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
+
+        player.setPreviousMediaItemIndex(currentIndex);
+        player.setShuffleMode(noneShuffleMode);
+
+        // Need to call this in order to update previous media item index.
+        player.notifyShuffleModeChanged();
+        assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(currentIndex, controller.getPreviousMediaItemIndex());
+
+        player.setPreviousMediaItemIndex(targetIndex);
+        player.setShuffleMode(groupShuffleMode);
+        player.notifyShuffleModeChanged();
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertEquals(targetIndex, controller.getPreviousMediaItemIndex());
     }
 
     @Test

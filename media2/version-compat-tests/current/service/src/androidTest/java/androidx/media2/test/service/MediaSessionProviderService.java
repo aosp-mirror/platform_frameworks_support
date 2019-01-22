@@ -461,11 +461,32 @@ public class MediaSessionProviderService extends Service {
         }
 
         @Override
+        public void setCurrentMediaItemIndex(String sessionId, int index) {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            player.mCurrentItemIndex = index;
+        }
+
+        @Override
+        public void setPreviousMediaItemIndex(String sessionId, int index) {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            player.mPreviousItemIndex = index;
+        }
+
+        @Override
+        public void setNextMediaItemIndex(String sessionId, int index) {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            player.mNextItemIndex = index;
+        }
+
+        @Override
         public void setCurrentMediaItem(String sessionId, int index)
                 throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
             MockPlayer player = (MockPlayer) session.getPlayer();
-            player.mCurrentMediaItem = player.mPlaylist.get(index);
+            player.mRepeatMode = index;
         }
 
         @Override

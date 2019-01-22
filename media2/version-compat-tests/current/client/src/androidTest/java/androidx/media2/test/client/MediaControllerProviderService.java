@@ -351,6 +351,24 @@ public class MediaControllerProviderService extends Service {
         }
 
         @Override
+        public int getCurrentMediaItemIndex(String controllerId) {
+            MediaController controller = mMediaControllerMap.get(controllerId);
+            return controller.getCurrentMediaItemIndex();
+        }
+
+        @Override
+        public int getPreviousMediaItemIndex(String controllerId) {
+            MediaController controller = mMediaControllerMap.get(controllerId);
+            return controller.getPreviousMediaItemIndex();
+        }
+
+        @Override
+        public int getNextMediaItemIndex(String controllerId) {
+            MediaController controller = mMediaControllerMap.get(controllerId);
+            return controller.getNextMediaItemIndex();
+        }
+
+        @Override
         public void close(String controllerId) throws RemoteException {
             MediaController controller = mMediaControllerMap.get(controllerId);
             controller.close();

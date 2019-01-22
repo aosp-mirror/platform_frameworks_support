@@ -16,6 +16,11 @@
 
 package androidx.media2.test.client;
 
+import static androidx.media2.MediaMetadata.BROWSABLE_TYPE_NONE;
+import static androidx.media2.MediaMetadata.METADATA_KEY_BROWSABLE;
+import static androidx.media2.MediaMetadata.METADATA_KEY_MEDIA_ID;
+import static androidx.media2.MediaMetadata.METADATA_KEY_PLAYABLE;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -104,7 +109,10 @@ public final class MediaTestUtils {
     public static MediaMetadata createMetadata() {
         String mediaId = Thread.currentThread().getStackTrace()[1].getMethodName();
         return new MediaMetadata.Builder()
-                .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, mediaId).build();
+                .putString(METADATA_KEY_MEDIA_ID, mediaId)
+                .putLong(METADATA_KEY_BROWSABLE, BROWSABLE_TYPE_NONE)
+                .putLong(METADATA_KEY_PLAYABLE, 1)
+                .build();
     }
 
     public static List<ParcelImpl> convertToParcelImplList(List<MediaItem> list) {

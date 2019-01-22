@@ -56,6 +56,9 @@ interface IRemoteMediaSession {
     void setPlaylistMetadataWithLargeBitmaps(String sessionId, int count, int width, int height);
     void setShuffleMode(String sessionId, int shuffleMode);
     void setRepeatMode(String sessionId, int repeatMode);
+    void setCurrentMediaItemIndex(String sessionId, int index);
+    void setPreviousMediaItemIndex(String sessionId, int index);
+    void setNextMediaItemIndex(String sessionId, int index);
     void setCurrentMediaItem(String sessionId, int index);
     void notifyPlaylistChanged(String sessionId);
     void notifyPlaylistMetadataChanged(String sessionId);

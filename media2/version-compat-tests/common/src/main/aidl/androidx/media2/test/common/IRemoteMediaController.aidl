@@ -59,6 +59,9 @@ interface IRemoteMediaController {
     void prepareFromSearch(String controllerId, String query, in Bundle extras);
     void prepareFromUri(String controllerId, in Uri uri, in Bundle extras);
     void setRating(String controllerId, String mediaId, in ParcelImpl rating);
+    int getCurrentMediaItemIndex(String controllerId);
+    int getPreviousMediaItemIndex(String controllerId);
+    int getNextMediaItemIndex(String controllerId);
     void close(String controllerId);
 
     // MediaBrowser methods

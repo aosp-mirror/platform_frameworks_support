@@ -353,6 +353,33 @@ public class RemoteMediaController {
         }
     }
 
+    public int getCurrentMediaItemIndex() {
+        try {
+            return mBinder.getCurrentMediaItemIndex(mControllerId);
+        } catch (RemoteException ex) {
+            Log.e(TAG, "Failed to call getCurrentMediaItemIndex()");
+            return Integer.MIN_VALUE;
+        }
+    }
+
+    public int getPreviousMediaItemIndex() {
+        try {
+            return mBinder.getPreviousMediaItemIndex(mControllerId);
+        } catch (RemoteException ex) {
+            Log.e(TAG, "Failed to call getPreviousMediaItemIndex()");
+            return Integer.MIN_VALUE;
+        }
+    }
+
+    public int getNextMediaItemIndex() {
+        try {
+            return mBinder.getNextMediaItemIndex(mControllerId);
+        } catch (RemoteException ex) {
+            Log.e(TAG, "Failed to call getNextMediaItemIndex()");
+            return Integer.MIN_VALUE;
+        }
+    }
+
     public void close() {
         try {
             mBinder.close(mControllerId);

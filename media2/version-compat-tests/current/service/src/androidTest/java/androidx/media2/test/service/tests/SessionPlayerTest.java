@@ -118,6 +118,19 @@ public class SessionPlayerTest extends MediaSessionTestBase {
     }
 
     @Test
+    public void testPlay_autoPrepare() throws Exception {
+        prepareLooper();
+
+        final MockPlayer player = new MockPlayer(2);
+        player.mLastPlayerState = SessionPlayer.PLAYER_STATE_IDLE;
+        mSession.updatePlayer(player);
+        mController.play();
+        assertTrue(player.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(player.mPlayCalled);
+        assertTrue(player.mPrepareCalled);
+    }
+
+    @Test
     public void testPauseBySession() throws Exception {
         prepareLooper();
         mSession.getPlayer().pause();
