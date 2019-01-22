@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c68759ad_ae723b36",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_generator_test/java/nested_overridden_action/MainFragmentDirections.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-22T22:05:46Z",
+      "side": 1,
+      "message": "Looks like this got changed to 2 space indents. Change back to 4 space indents for consistency.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 2
+      },
+      "revId": "ed94078d072f7d6af3d033ad439091f59eb5b112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a63087f_a7e40f8e",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_generator_test/java/nested_same_action/MainFragmentDirections.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-22T22:05:46Z",
+      "side": 1,
+      "message": "Looks like this got changed to 2 space indents. Change back to 4 space indents for consistency.",
+      "revId": "ed94078d072f7d6af3d033ad439091f59eb5b112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
