@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "171c1d84_98307ed6",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-01-22T19:15:37Z",
+      "side": 1,
+      "message": "does this have to be static? can it be lazy?",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
