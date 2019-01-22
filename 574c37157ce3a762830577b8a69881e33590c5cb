@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "322db5f7_c03f2a0b",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_generator_test/java/nested_overridden_action/MainFragmentDirections.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-22T21:23:40Z",
+      "side": 1,
+      "message": "This should be just NavDirections - no need to expose SimpleNavDirections directly.",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "574c37157ce3a762830577b8a69881e33590c5cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
