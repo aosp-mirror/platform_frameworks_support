@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21f3b50a_145b360e",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-22T19:00:10Z",
+      "side": 1,
+      "message": "I find this very hard to follow. Consider returning the Item object in the get operator, and change signature of create to `fun create(item: Item): PageFragment`. It feels more natural to have the get operator of a collection of type T return an object of type T instead of a String. Also, maybe use the adapter\u0027s getItemId to convert position to an id?\n\nYou\u0027d end up with: `PageFragment.create(items[getItemId(position)])`.\n\n(looking at the Item object it seems it will need a new itemText property for this suggestion to work)",
+      "range": {
+        "startLine": 41,
+        "startChar": 70,
+        "endLine": 41,
+        "endChar": 99
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a656335a_1ffb6425",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-22T19:00:10Z",
+      "side": 1,
+      "message": "As far as I understand, itemId and itemText are two different things (\"13\" vs \"item#13\"). Maybe rename the text view\u0027s id to textViewItemText if it is showing the itemText instead of the itemId?",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "051112bf_afb9a41f",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-22T19:00:10Z",
+      "side": 1,
+      "message": "nit: maybe \"updateCountText\" is easier to understand, as it doesn\u0027t really update a view, but a text?",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
