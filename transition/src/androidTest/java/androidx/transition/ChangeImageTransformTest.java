@@ -114,6 +114,34 @@ public class ChangeImageTransformTest extends BaseTransitionTest {
                 - mImageView.getPaddingTop() - mImageView.getPaddingBottom());
     }
 
+    @Test
+    public void testInterruptionKeepsCorrectScaleType() throws Throwable {
+        final ImageView imageView = enterImageViewScene(ImageView.ScaleType.CENTER_INSIDE,
+                null, false);
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.beginDelayedTransition(mRoot, mChangeImageTransform);
+                imageView.setScaleType(ImageView.ScaleType.FIT_END);
+            }
+        });
+        waitForStart();
+
+        // reset the transition with the listener
+        createTransition();
+        // start the new transition which will interrupt the previous one
+        rule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.beginDelayedTransition(mRoot, mChangeImageTransform);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+        });
+        waitForEnd();
+
+        assertEquals(ImageView.ScaleType.CENTER_CROP, imageView.getScaleType());
+    }
+
     private Matrix centerMatrix() {
         int imageWidth = mImage.getIntrinsicWidth();
         int imageViewWidth = mImageView.getWidth();
