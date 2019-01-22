@@ -16,6 +16,24 @@
       "revId": "fabfe81536cdc14d2a77cd21f344a10f4f7db284",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f3bca16_496116ed",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-01-22T22:22:38Z",
+      "side": 1,
+      "message": "Yes, exactly.  I should name this error with \"does not exist in this project\"\n\nOpen to ideas on how to appropriately git tag this",
+      "parentUuid": "b438d584_2c4569d7",
+      "revId": "fabfe81536cdc14d2a77cd21f344a10f4f7db284",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
