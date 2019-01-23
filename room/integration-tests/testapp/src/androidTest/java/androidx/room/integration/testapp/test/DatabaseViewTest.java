@@ -29,6 +29,7 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Dao;
@@ -51,6 +52,7 @@ import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -242,9 +244,13 @@ public class DatabaseViewTest {
         abstract EmployeeDao employee();
     }
 
+    @Rule
+    public final InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
+
     private CompanyDatabase getDatabase() {
         final Context context = ApplicationProvider.getApplicationContext();
-        return Room.inMemoryDatabaseBuilder(context, CompanyDatabase.class).build();
+        return Room.inMemoryDatabaseBuilder(context, CompanyDatabase.class)
+                .allowMainThreadQueries().build();
     }
 
     @Test
