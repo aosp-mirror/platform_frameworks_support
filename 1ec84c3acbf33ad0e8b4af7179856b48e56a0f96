@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a9ae630_af837856",
+        "filename": "appcompat/api/1.0.0.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-23T22:35:46Z",
+      "side": 0,
+      "message": "Why is this file being updated?",
+      "range": {
+        "startLine": 343,
+        "startChar": 15,
+        "endLine": 343,
+        "endChar": 46
+      },
+      "revId": "1ec84c3acbf33ad0e8b4af7179856b48e56a0f96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
