@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b21c5a_7b65abbb",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T00:47:57Z",
+      "side": 1,
+      "message": "You should also test the start of the icon.\n\nRather than relying on withLeft(), you could also just create another matcher that checks the margin directly. Like:\n\nhttp://cs/aosp-androidx/car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java?l\u003d911\u0026rcl\u003d1694f42efad0b157ada9aed1f9451fe607c00a8c",
+      "revId": "781535d912d9a85801213a455c4dd80ca4979967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
