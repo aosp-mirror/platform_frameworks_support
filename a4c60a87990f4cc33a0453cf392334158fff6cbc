@@ -22,6 +22,30 @@
       "revId": "a4c60a87990f4cc33a0453cf392334158fff6cbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af29b0e_9f388c8d",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-23T22:52:25Z",
+      "side": 1,
+      "message": "Nope. I\u0027ll remove it in the battery save mode CL since it touches this code.",
+      "parentUuid": "0cd60104_bc483285",
+      "range": {
+        "startLine": 2046,
+        "startChar": 16,
+        "endLine": 2046,
+        "endChar": 78
+      },
+      "revId": "a4c60a87990f4cc33a0453cf392334158fff6cbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
