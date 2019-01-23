@@ -22,6 +22,30 @@
       "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "203e69e6_6a0adc40",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-01-23T14:26:09Z",
+      "side": 1,
+      "message": "Actually, it doesn\u0027t need to be static as there is always just one instance of TypefaceCompatApi21Impl. Similar to TypefaceCompatApi26Impl (but in contrast to how TypefaceCompatApi24Impl deals with the situation), the static members (and member functions) can be made non-static and the code inside the static block can be moved in the constructor.\n\nTo solve this problem (the exception being thrown) we could do the above and then use the fact that Java allows dynamic dispatch in constructors: instead of adding all the code from the static block in the constructor we can add it in an init() method that gets called in TypefaceCompatApi21Impl\u0027s constructor and then in TypefaceCompatApi26Impl we can just override the init() method. This does require making some members non-final though.\n\nWe can also solve the whole \u0027dynamic dispatch in constructor\u0027 problem by just calling init() on a newly constructed object ourselves immediately after creation in the static block of TypefaceCompat.\n\nRegarding lazy initialisation, we can use the above approach with the init() method (we may or may not choose to leave current members static) then add getter wrappers over the four members that are initialised in init() and in the getters we first check if init() was called.\n\nWould you like for me to use one of the above (or a different) approach ?",
+      "parentUuid": "171c1d84_98307ed6",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
