@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cd60104_bc483285",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-23T22:50:24Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem actionable or useful for developer debugging. Could this be an unchecked exception, or are you anticipating new MODE_NIGHT values in the platform?",
+      "range": {
+        "startLine": 2046,
+        "startChar": 16,
+        "endLine": 2046,
+        "endChar": 78
+      },
+      "revId": "a4c60a87990f4cc33a0453cf392334158fff6cbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
