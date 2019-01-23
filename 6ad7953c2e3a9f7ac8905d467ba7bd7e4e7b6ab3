@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f47da61e_6fe93db1",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T23:35:33Z",
+      "side": 1,
+      "message": "Did you mean to comment this out?\n\nIf you did, just remove the line.",
+      "revId": "6ad7953c2e3a9f7ac8905d467ba7bd7e4e7b6ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
