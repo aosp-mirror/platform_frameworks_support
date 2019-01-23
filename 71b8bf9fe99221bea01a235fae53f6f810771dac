@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c0e5dd2_b82967aa",
+        "filename": "activity/ktx/api/1.0.0-alpha04.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-23T19:10:25Z",
+      "side": 1,
+      "message": "Interesting -- here we have Kotlin style nulls combined with signature format 2.0. That\u0027s not really right; using --output-kotlin-style-nulls\u003dyes should imply --format\u003dv3. I\u0027m updating metalava to automatically force this to happen here: https://android-review.googlesource.com/c/platform/tools/metalava/+/882673\n\nBut in the meantime, can you add in --format\u003dv3 next to your invocation of metalava that supplies the --output-kotlin-style nulls somewhere?\n\n(It\u0027s important to be explicit about this since in the future it\u0027s vital to know how to interpret a type in a signature file; is \"String\" a platform type (true if signature file v2) or a non null String (true if signature file v3, which is what kotlin style nulls implies).",
+      "revId": "71b8bf9fe99221bea01a235fae53f6f810771dac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
