@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7cfe6cc2_ef9469b8",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T21:45:04Z",
+      "side": 1,
+      "message": "This should be `as LifecycleCoroutineScope?` which casts to a nullable type. The current code falls back to null when the cast fails which has the chance of hiding bugs should some other type be set.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b51f3f64_33ec7c17",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -13,6 +30,23 @@
       "writtenOn": "2019-01-23T10:38:32Z",
       "side": 1,
       "message": "Shouldn\u0027t it be SupervisorJob?\nIf any coroutine launched within this scope fails, scope becomes cancelled, while lifecycle is still active.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6481238_0720390c",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T21:45:04Z",
+      "side": 1,
+      "message": "If you want you can move this into the constructor if you change the argument name\n\n    internal class LifecycleCoroutineScope(\n      private val lifecycle: Lifecycle,\n      override val coroutineContext: CoroutineContext\n    ) : CoroutineScope, LifecycleEventObserver {",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -70,6 +104,40 @@
     },
     {
       "key": {
+        "uuid": "0de67a30_e0f727a6",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T21:45:04Z",
+      "side": 1,
+      "message": "The style guide says that type parameters should either be single capital letters or PascalCase suffixed with \"T\". I.e., T or ReturnT\n\nhttps://developer.android.com/kotlin/style-guide#type_variable_names",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dcbd1ef_5ec5984e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T21:45:04Z",
+      "side": 1,
+      "message": "This should be outside `withContext` so that you get a readable stacktrace with user code when it fails instead of one that points at `Looper.loop`",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4358155e_b2409267",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -98,6 +166,23 @@
       "writtenOn": "2019-01-23T10:38:32Z",
       "side": 1,
       "message": "Extra indent",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf078e0_e80e5344",
+        "filename": "lifecycle/common/src/main/java/androidx/lifecycle/Lifecycle.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T21:45:04Z",
+      "side": 1,
+      "message": "+final",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
