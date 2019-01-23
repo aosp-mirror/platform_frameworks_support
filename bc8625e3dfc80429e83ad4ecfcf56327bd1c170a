@@ -16,6 +16,24 @@
       "revId": "bc8625e3dfc80429e83ad4ecfcf56327bd1c170a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b5ebd5f_b00a25dc",
+        "filename": "resources/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-23T19:50:11Z",
+      "side": 1,
+      "message": "This was copied from appcompat. Is it recommended to use implementation over api?",
+      "parentUuid": "e9a9a282_fbdd4f18",
+      "revId": "bc8625e3dfc80429e83ad4ecfcf56327bd1c170a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
