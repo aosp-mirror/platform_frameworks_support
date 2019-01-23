@@ -22,6 +22,30 @@
       "revId": "b1aa1b894bfd34bb9de1387641c29914ebbf6fa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "253c17dc_c5736ac2",
+        "filename": "resources/build.gradle",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-23T22:08:29Z",
+      "side": 1,
+      "message": "So the newly split module will forever be at the same version as appcompat? Also, do we have another module that hosts \"submodules\" in such a configuration? The whole idea is to split resource handling away from appcompat so that apps can use only the new module without the overhead of activities, fragments, widgets etc.",
+      "parentUuid": "13e6d332_6113d5b7",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "b1aa1b894bfd34bb9de1387641c29914ebbf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
