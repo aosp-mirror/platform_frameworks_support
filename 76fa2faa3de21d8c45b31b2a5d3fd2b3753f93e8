@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d53c8580_944899e2",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-23T01:22:00Z",
+      "side": 1,
+      "message": "What about followings?\n\n        synchronized (mLock) {\n            if (mContext.bindService(\n                    intent, mServiceConnection, Context.BIND_AUTO_CREATE)) {\n                Log.d(TAG, \"bind to \" + mToken + \" succeeded\");\n                return true;\n            } else if (DEBUG) {\n                Log.w(TAG, \"bind to \" + mToken + \" failed\");\n                return false;\n            }\n        }",
+      "range": {
+        "startLine": 815,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 20
+      },
+      "revId": "76fa2faa3de21d8c45b31b2a5d3fd2b3753f93e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f057b30_1bc763ad",
         "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
         "patchSetId": 2
