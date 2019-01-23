@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "693057f8_bc1907b6",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/FutureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-23T15:45:48Z",
+      "side": 1,
+      "message": "I know it is a bad name, but I spent half an hour trying to come up with better name and then gave up.\n\nOther idea that I had - we can go with AndroidxFutures as guava Futures",
+      "range": {
+        "startLine": 31,
+        "startChar": 16,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "782da9e9ab8fa97e68e0381df8b951ad39cc4ef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c747b1_dac3b64b",
+        "filename": "concurrent/futures/src/test/java/androidx/concurrent/futures/FutureCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-23T15:45:48Z",
+      "side": 1,
+      "message": "Side discussion, should we make DirectExecutor publicly available instead of spread such one-off implementations? (What about mainThreadExecutor?)",
+      "range": {
+        "startLine": 55,
+        "startChar": 34,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "782da9e9ab8fa97e68e0381df8b951ad39cc4ef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
