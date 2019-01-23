@@ -16,6 +16,24 @@
       "revId": "71b8bf9fe99221bea01a235fae53f6f810771dac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfda2224_2d92d583",
+        "filename": "activity/ktx/api/1.0.0-alpha04.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-23T19:15:19Z",
+      "side": 1,
+      "message": "(Correction: it\u0027s -output-kotlin-nulls\u003dyes)",
+      "parentUuid": "7c0e5dd2_b82967aa",
+      "revId": "71b8bf9fe99221bea01a235fae53f6f810771dac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
