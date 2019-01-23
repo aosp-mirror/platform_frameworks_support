@@ -1,4 +1,4 @@
-// Signature format: 2.0
+// Signature format: 3.0
 package androidx.viewpager2.adapter {
 
   public abstract class FragmentStateAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.viewpager2.adapter.FragmentViewHolder> implements androidx.viewpager2.adapter.StatefulAdapter {
@@ -15,6 +15,9 @@ package androidx.viewpager2.adapter {
     method public void restoreState(android.os.Parcelable);
     method public android.os.Parcelable saveState();
     method public final void setHasStableIds(boolean);
+  }
+
+  public final class FragmentViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
   }
 
   public interface StatefulAdapter {
