@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f7b8385_05fbe386",
+        "filename": "slices/view/src/main/res-public/values/public_attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 0,
+      "message": "I\u0027m not sure we can remove API like this? Not quite sure how res API is supposed to be deprecated or whatever",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "f58eff9c1dcc4fe742bc815aba189b1e77b4ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

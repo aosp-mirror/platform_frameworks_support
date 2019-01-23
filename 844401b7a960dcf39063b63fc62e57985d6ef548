@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd9e444b_94d19c1d",
+        "filename": "slices/view/src/main/res-public/values/public_attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "could we call this titleItem, that\u0027s what\u0027s referred to when developers add this sort of item in the slice builder methods:\nhttps://cs.corp.google.com/aosp-androidx/slices/builders/src/main/java/androidx/slice/builders/ListBuilder.java?l\u003d1011",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a22e4a50_bfae62df",
+        "filename": "slices/view/src/main/res-public/values/public_attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "could we call this endItem, that\u0027s what\u0027s referred to when developers add this in builder methods:\nhttps://cs.corp.google.com/aosp-androidx/slices/builders/src/main/java/androidx/slice/builders/ListBuilder.java?l\u003d1161",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f95e37_534ece44",
+        "filename": "slices/view/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "These are all styles that only apply to the row, I think these should be part of RowStyle... I\u0027m not really sure how changing API for styles works so maybe don\u0027t do that just yet??",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75099b7e_9a44c819",
+        "filename": "slices/view/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "replace with: title items shown in the row",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 55
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37ab174_a88f915a",
+        "filename": "slices/view/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "replace with: the collection of items shown at the end of the row.",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 76,
+        "endChar": 58
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabddd56_7bd41b18",
+        "filename": "slices/view/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-23T02:12:38Z",
+      "side": 1,
+      "message": "the collection of items shown at the end of the row.",
+      "range": {
+        "startLine": 78,
+        "startChar": 40,
+        "endLine": 78,
+        "endChar": 56
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
