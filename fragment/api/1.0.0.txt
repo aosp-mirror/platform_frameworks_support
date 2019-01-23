@@ -263,6 +263,7 @@ package androidx.fragment.app {
     method public abstract int getBackStackEntryCount();
     method public abstract androidx.fragment.app.Fragment? getFragment(android.os.Bundle, String);
     method public abstract java.util.List<androidx.fragment.app.Fragment> getFragments();
+    method public abstract androidx.fragment.app.FragmentFactory getFragmentFactory();
     method public abstract androidx.fragment.app.Fragment? getPrimaryNavigationFragment();
     method public abstract boolean isDestroyed();
     method public abstract boolean isStateSaved();
@@ -276,6 +277,7 @@ package androidx.fragment.app {
     method public abstract void registerFragmentLifecycleCallbacks(androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks, boolean);
     method public abstract void removeOnBackStackChangedListener(androidx.fragment.app.FragmentManager.OnBackStackChangedListener);
     method public abstract androidx.fragment.app.Fragment.SavedState? saveFragmentInstanceState(androidx.fragment.app.Fragment!);
+    method public abstract void setFragmentFactory(androidx.fragment.app.FragmentFactory);
     method public abstract void unregisterFragmentLifecycleCallbacks(androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks);
     field public static final int POP_BACK_STACK_INCLUSIVE = 1; // 0x1
   }

@@ -23,7 +23,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-final class FragmentViewHolder extends RecyclerView.ViewHolder {
+public final class FragmentViewHolder extends RecyclerView.ViewHolder {
     Fragment mFragment;
 
     private FragmentViewHolder(FrameLayout container) {
