@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4f06305a_521610d6",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "Renamed the class.\n\nlateinit / onCreate directly conflict with CL feedback I got on http://r.android.com/860552\n\nI\u0027m sharing the items ViewModel between the two classes. For click counting I\u0027ve introduced a separation in this CL with the goal described in the commit message.",
+      "parentUuid": "bcb8d2ff_b83a973a",
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e5ee35_ce1552c1",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
         "patchSetId": 1
@@ -57,6 +75,30 @@
       "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1decc248_d7d3ed8f",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "This seems arbitrary. Introducing another layer of separation (ItemsViewModel.getItems() : Items) would make the code harder to follow.\n\nIn http://r.android.com/860552 I was also told not to use \"get...\" in Kotlin.",
+      "parentUuid": "d2e5ee35_ce1552c1",
+      "range": {
+        "startLine": 93,
+        "startChar": 17,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "7ba9e24e_7e064f65",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "getItemId was pushed back against in  as non-canonical-kotlin; hence itemId for function name;\nhttp://r.android.com/c/platform/frameworks/support/+/860552/3/samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt#95\n\nbroke down into a few statements, so hopefully more readable now",
+      "parentUuid": "21f3b50a_145b360e",
+      "range": {
+        "startLine": 41,
+        "startChar": 70,
+        "endLine": 41,
+        "endChar": 99
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a656335a_1ffb6425",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -103,6 +169,30 @@
       "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfcf610b_00a6aa83",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "good point; addressed in the next CL, so will leave here as is\nhttp://r.android.com/880596",
+      "parentUuid": "a656335a_1ffb6425",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -129,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "6376b4ea_edb08cda",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "051112bf_afb9a41f",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5c61e2f_e7c519e8",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -152,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "7fda36f5_b5547d74",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "Without it we don\u0027t really verify / highlight FragmentStateAdapter\u0027s ability to correctly\nhandle Fragment state, which is the point of this CL. I nominated click count as an example of transient state. Added a comment to clarify.",
+      "parentUuid": "d5c61e2f_e7c519e8",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b2127ed_a28edc4a",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
         "patchSetId": 1
@@ -163,6 +301,30 @@
       "writtenOn": "2019-01-23T12:06:30Z",
       "side": 1,
       "message": "You shouldn\u0027t be keeping references to the ViewModel in the ViewHolder. \nThe ViewModel survives configuration changes. In general, I advise against doing this kind of work in the ViewHolder. The Holder should just get the data that needs to be bound as parameters of the bind method.",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee36ccf_d8f67be3",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "I don\u0027t follow. AFAIK ViewHolders would get destroyed on config change so no memory leak.",
+      "parentUuid": "2b2127ed_a28edc4a",
       "range": {
         "startLine": 52,
         "startChar": 28,
@@ -198,6 +360,30 @@
     },
     {
       "key": {
+        "uuid": "b4bdef2b_3677d701",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "We also need click counts. Both are provided by ClickRegistery so why not use it?\nUnless I\u0027m missing a memory leak somewhere I don\u0027t see a reason.",
+      "parentUuid": "61ff7546_77f10ed0",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "697c5c13_6a446d07",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
         "patchSetId": 1
@@ -218,6 +404,30 @@
       "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f6b0af_b41a6d2d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-23T13:14:27Z",
+      "side": 1,
+      "message": "registry \u003d a place where registers or records are kept :) here click count records registered via registerClick :)\n\nViewModel for MutableCollectionViewActivity involves ClickRegistry and Items",
+      "parentUuid": "697c5c13_6a446d07",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 19
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
