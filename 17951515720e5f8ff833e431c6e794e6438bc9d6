@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aea691b8_129d0d16",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-23T21:56:45Z",
+      "side": 1,
+      "message": "we don\u0027t really use instant task executor in integration tests as it does not do real threading.\nyou should use CountingExecutor and simply use `drain` before asserting.",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 40
+      },
+      "revId": "17951515720e5f8ff833e431c6e794e6438bc9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
