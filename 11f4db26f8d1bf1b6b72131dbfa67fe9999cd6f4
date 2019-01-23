@@ -22,6 +22,30 @@
       "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "692eba68_50c6ff6f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-01-23T10:49:23Z",
+      "side": 1,
+      "message": "It\u0027s used below on line 627 and without making it package private there is a synthetic accessor warning. So as far as I can tell, we can \n- change this to package private, \n- copy the check, \n- modify the interface that mPopup implements to have a show() method and do the check there but as multiple classes implement the interface we would again need to copy this,\n- modify the interface to add a show() method then make it an abstract class then put the SDK_INT check there. \n\nDo you want me to change this ?",
+      "parentUuid": "01ef8667_a056bdcf",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 8
+      },
+      "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
