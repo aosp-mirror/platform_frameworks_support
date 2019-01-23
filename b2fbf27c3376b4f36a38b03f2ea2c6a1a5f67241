@@ -70,6 +70,30 @@
       "revId": "b2fbf27c3376b4f36a38b03f2ea2c6a1a5f67241",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2428b1_aead590e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/solver/TypeAdapterStore.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-23T00:47:02Z",
+      "side": 1,
+      "message": "That doesn\u0027t work right now, but we should think if it should really work... We can make it work by extending the bounds here too, it would be valid Java if the return type is Optional\u003c? extends Foo\u003e and we return Optional\u003cUser\u003e but there is no meaning in declaring the type arg \u003c? extends Foo\u003e when there is no way that Room would return something like Optional\u003cSubUser\u003e where SubUser extends User. Since there isn\u0027t any benefit in having those usages of generics for this I think it might be best to always ask for a more concrete declaration. What do you think? Extending the bounds here would be pretty trivial by the way its a question of \"do we allow it?\".",
+      "parentUuid": "4f9ee639_3d2fa8b6",
+      "range": {
+        "startLine": 399,
+        "startChar": 48,
+        "endLine": 399,
+        "endChar": 55
+      },
+      "revId": "b2fbf27c3376b4f36a38b03f2ea2c6a1a5f67241",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
