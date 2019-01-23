@@ -29,6 +29,7 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.CountingTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.room.Dao;
@@ -51,10 +52,13 @@ import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseViewTest {
@@ -242,6 +246,9 @@ public class DatabaseViewTest {
         abstract EmployeeDao employee();
     }
 
+    @Rule
+    public CountingTaskExecutorRule executorRule = new CountingTaskExecutorRule();
+
     private CompanyDatabase getDatabase() {
         final Context context = ApplicationProvider.getApplicationContext();
         return Room.inMemoryDatabaseBuilder(context, CompanyDatabase.class).build();
@@ -279,7 +286,7 @@ public class DatabaseViewTest {
 
     @Test
     @MediumTest
-    public void liveData() {
+    public void liveData() throws TimeoutException, InterruptedException {
         final CompanyDatabase db = getDatabase();
         db.department().insert(new Department(1L, "Shop"));
         final LiveData<List<TeamDetail>> teams = db.team().liveDetail();
@@ -288,6 +295,7 @@ public class DatabaseViewTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() ->
                 teams.observeForever(observer));
         db.team().insert(new Team(1L, 1L, "Books"));
+        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat((list) ->
                 list.size() == 1
                         && list.get(0).departmentName.equals("Shop")
@@ -295,6 +303,7 @@ public class DatabaseViewTest {
         //noinspection unchecked
         reset(observer);
         db.department().rename(1L, "Sales");
+        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat((list) ->
                 list.size() == 1
                         && list.get(0).departmentName.equals("Sales")
@@ -321,7 +330,7 @@ public class DatabaseViewTest {
 
     @Test
     @MediumTest
-    public void nestedLive() {
+    public void nestedLive() throws TimeoutException, InterruptedException {
         final CompanyDatabase db = getDatabase();
         final LiveData<EmployeeDetail> employee = db.employee().liveDetailById(2L);
         @SuppressWarnings("unchecked") final Observer<EmployeeDetail> observer =
@@ -333,6 +342,7 @@ public class DatabaseViewTest {
         db.team().insert(new Team(1L, 1L, "Books"));
         db.employee().insert(new Employee(1L, "CEO", null, 1L));
         db.employee().insert(new Employee(2L, "Jane", 1L, 1L));
+        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
 
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat(e ->
                 e != null
@@ -349,6 +359,7 @@ public class DatabaseViewTest {
             db.employee().updateReport(2L, 3L);
         });
 
+        executorRule.drainTasks(3000, TimeUnit.MILLISECONDS);
         verify(observer, timeout(300L).atLeastOnce()).onChanged(argThat(e ->
                 e != null
                         && e.name.equals("Jane")
