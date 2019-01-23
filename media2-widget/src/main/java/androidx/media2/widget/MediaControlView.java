@@ -1219,6 +1219,10 @@ public class MediaControlView extends BaseLayout {
     private final OnClickListener mSubtitleListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            // Do nothing if we have no subtitle descriptions
+            if (mSubtitleDescriptionsList == null || mSubtitleDescriptionsList.size() == 0) {
+                return;
+            }
             removeCallbacks(mHideMainBars);
             removeCallbacks(mHideProgressBar);
 
