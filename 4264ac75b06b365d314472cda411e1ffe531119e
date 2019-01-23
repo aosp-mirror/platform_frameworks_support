@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d5c263e_eaf58f95",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "unrelated to this change but, name this class ItemsViewModel, otherwise it\u0027s easy to expect that this is just a list of items\n\nI think you\u0027re missusing the ViewModel. You\u0027re using it here as if it\u0027s just a List.\nConsider making the itemsViewModel a lateinit member of the Activity and initializing it in the onCreate of the activity.",
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e5ee35_ce1552c1",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "Rename this to getItems, and don\u0027t make it an operator. The role of the ViewModel is to *provide* the model for the UI. In this case, the model for the UI is the list of items. With the current code, the ViewModel *is* the model for the UI.",
+      "range": {
+        "startLine": 93,
+        "startChar": 17,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21f3b50a_145b360e",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -64,6 +104,98 @@
         "startChar": 12,
         "endLine": 60,
         "endChar": 27
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c61e2f_e7c519e8",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "Why save this in onSaveInstanceState when you\u0027re using a ViewModel that survives configuration changes?",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2127ed_a28edc4a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be keeping references to the ViewModel in the ViewHolder. \nThe ViewModel survives configuration changes. In general, I advise against doing this kind of work in the ViewHolder. The Holder should just get the data that needs to be bound as parameters of the bind method.",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61ff7546_77f10ed0",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "if you want to handle clicks, then add a lambda function as another param to the bind, and just trigger it in the onClickListener, to avoid working with the ViewModel here.",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "697c5c13_6a446d07",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:06:30Z",
+      "side": 1,
+      "message": "What\u0027s a registry? \nWhy not make this a MutableCollectionViewActivityViewModel, whose role is to expose the model to the Activity.",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 19
       },
       "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
