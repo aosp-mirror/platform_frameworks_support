@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51f3f64_33ec7c17",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be SupervisorJob?\nIf any coroutine launched within this scope fails, scope becomes cancelled, while lifecycle is still active.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156651d4_e317a773",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "`Dispatchers.Main.immediate` can save you a dispatch when a scope is initialized from the main thread",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a1da72d_5f8c86c9",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "Empty KDoc",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be0011c_b5ba9464",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "It is the question of Androidx conventions for sure, so my comment may be irrelevant.\n\nHave you considered making it (and the rest of methods) an extension on lifecycle? \n`lifecycle.withStarted { ... }` is (arguably) a bit more natural than `withStarted(lifecycle) {}`",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4358155e_b2409267",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "This can be simplified to `cancellable.resumeWith(runCatching{ block() })`",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76754267_b00c08c5",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-01-23T10:38:32Z",
+      "side": 1,
+      "message": "Extra indent",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
