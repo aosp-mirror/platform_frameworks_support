@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bcb8d2ff_b83a973a",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T12:18:20Z",
+      "side": 1,
+      "message": "Also, both subclasses of the MutableCollectionBaseActivity have exactly the same behaviour. So, you should be able to use one ViewModel for both of them, the difference being in the way you\u0027re working with the data exposed by the ViewModel, in the 2 activities.",
+      "parentUuid": "6d5c263e_eaf58f95",
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2e5ee35_ce1552c1",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
         "patchSetId": 1
