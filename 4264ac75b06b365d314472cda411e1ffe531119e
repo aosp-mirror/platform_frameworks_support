@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "4a8f0fe0_1cda145d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T14:32:09Z",
+      "side": 1,
+      "message": "The feedback on that CL only refers to the get below. Maybe there was another CL with that comment?",
+      "parentUuid": "4f06305a_521610d6",
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e5ee35_ce1552c1",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
         "patchSetId": 1
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "This seems arbitrary. Introducing another layer of separation (ItemsViewModel.getItems() : Items) would make the code harder to follow.\n\nIn http://r.android.com/860552 I was also told not to use \"get...\" in Kotlin.",
       "parentUuid": "d2e5ee35_ce1552c1",
+      "range": {
+        "startLine": 93,
+        "startChar": 17,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ff748a9_6c8e96bb",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionBaseActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T14:32:09Z",
+      "side": 1,
+      "message": "I don\u0027t think this applies here since it leads to a confusing data modeling. Your ViewModel doesn\u0027t have a size, for example, but the list of items that are a model for the UI do have a size",
+      "parentUuid": "1decc248_d7d3ed8f",
       "range": {
         "startLine": 93,
         "startChar": 17,
@@ -325,6 +367,30 @@
       "side": 1,
       "message": "I don\u0027t follow. AFAIK ViewHolders would get destroyed on config change so no memory leak.",
       "parentUuid": "2b2127ed_a28edc4a",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "4264ac75b06b365d314472cda411e1ffe531119e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e62c8b5a_b291c10b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T14:32:09Z",
+      "side": 1,
+      "message": "You\u0027re bypassing layers of abstraction. Even if the activity knows about the ViewModel and about the RecyclerView.Adapter, and the ViewHolder, I would let only the activity work with the ViewModel and decide which data to pass from one class to another. \nIn this case, the only thing that the ViewHolder needs to know is the text that needs to be displayed and what should be triggered in case of button click.",
+      "parentUuid": "8ee36ccf_d8f67be3",
       "range": {
         "startLine": 52,
         "startChar": 28,
