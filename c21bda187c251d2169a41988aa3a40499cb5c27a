@@ -46,6 +46,30 @@
       "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7141ffd3_454cc20a",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-01-23T17:32:48Z",
+      "side": 1,
+      "message": "Is it possible to have getters for those Method/Constructor/Class, and during first access create them?\n\ngetAddFontWeightStyleMethod() {\n    init() --\u003e init checks it is initialized if not runs the same block, otherwise just returns the static variable (as it is right now)\n}\n\nThis is probably your second solution or a little extension. wdyt?",
+      "parentUuid": "203e69e6_6a0adc40",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
