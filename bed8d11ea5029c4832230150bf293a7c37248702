@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dd20f0e_9481f24d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T17:23:54Z",
+      "side": 1,
+      "message": "could you mention that the viewpager here holds fragments",
+      "range": {
+        "startLine": 34,
+        "startChar": 70,
+        "endLine": 34,
+        "endChar": 80
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2668537f_85745961",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T17:23:54Z",
+      "side": 1,
+      "message": "A reader might not know what \"correctly\" means here. Also, the alternative suggested wouldn\u0027t showcase the feature. \n\nHow about something on the lines of:\n\n\"[FragmentStateAdapter] handles saving and restoring each fragment state. To showcase this feature we\u0027re using onSaveInstanceState to save the click count for each page. An implementation that also saves the state but does not showcase the FragmentStateAdapter ability is saving the state in a ViewModel\"",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "331d8cbd_26394d44",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T17:23:54Z",
+      "side": 1,
+      "message": "Could you mention that the ViewPager here holds Views",
+      "range": {
+        "startLine": 29,
+        "startChar": 69,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2261b4fa_689a0d08",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1271132
+      },
+      "writtenOn": "2019-01-23T17:23:54Z",
+      "side": 1,
+      "message": "could you add doc to this class?",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 19
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
