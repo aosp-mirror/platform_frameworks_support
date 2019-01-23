@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13e6d332_6113d5b7",
+        "filename": "resources/build.gradle",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-23T22:04:23Z",
+      "side": 1,
+      "message": "We should using APPCOMPAT maven version and have all our classes in this library be in androidx.library iff we are moving any public classes over to this lib. Alternatively, you can duplicate the classes that you want to move, make one extend the other, deprecate one of them, etc. Then you can stay in a brand new package of androidx.resources\n\nAlso, if we go with appcompat package, this code should probably be under appcompat/resources/ instead of top level directory.",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "b1aa1b894bfd34bb9de1387641c29914ebbf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
