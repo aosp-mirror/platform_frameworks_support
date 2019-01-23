@@ -19,6 +19,7 @@ package androidx.build.metalava
 import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.SupportLibraryExtension
 import androidx.build.checkapi.ApiLocation
+import androidx.build.checkapi.ApiTrackingStatus
 import androidx.build.checkapi.getCurrentApiLocation
 import androidx.build.checkapi.getRequiredCompatibilityApiLocation
 import androidx.build.checkapi.hasApiFolder
@@ -132,7 +133,7 @@ object Metalava {
         if (lastReleasedApiFile != null) {
             val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
                  task.configuration = metalavaConfiguration
-                 task.apiLocation = lastReleasedApiFile
+                 task.apiTracking = ApiTrackingStatus.fromApi(lastReleasedApiFile)
                  task.dependsOn(metalavaConfiguration)
                  task.checkRestrictedAPIs = extension.trackRestrictedAPIs
              }

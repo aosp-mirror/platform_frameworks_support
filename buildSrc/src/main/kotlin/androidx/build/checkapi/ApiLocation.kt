@@ -20,7 +20,7 @@ import java.io.File
 
 import androidx.build.Version
 
-// A ApiLocation contains the filepath of a public API and restricted API of a library
+// An ApiLocation contains the filepath of a public API and restricted API of a library
 data class ApiLocation (
     // file specifying the public API of the library
     val publicApiFile: File,
@@ -43,4 +43,28 @@ data class ApiLocation (
             return ApiLocation(f, File(f.parentFile, "restricted_" + f.name))
         }
     }
+}
+
+// An ApiTrackingStatus records the API of a library and possibly a list of known violations
+// (to the api-tracking SemVer policy) that we want to ignore
+data class ApiTrackingStatus (
+    // specifies the API of the library
+    val api: ApiLocation,
+    // specifies known violations (to the api-tracking SemVer policy) that we want to ignore
+    val exclusions: ApiLocation
+) {
+
+    fun files(): List<File> {
+        return api.files() + exclusions.files()
+    }
+
+    companion object {
+        fun fromApi(apiLocation: ApiLocation): ApiTrackingStatus {
+            val publicExclusionsFile = File(apiLocation.publicApiFile.toString().removeSuffix(".txt") + ".ignore")
+            val restrictedExclusionsFile = File(apiLocation.restrictedApiFile.parentFile.toString().removeSuffix(".txt") + ".ignore")
+            val exclusions = ApiLocation(publicExclusionsFile, restrictedExclusionsFile)
+            return ApiTrackingStatus(apiLocation, exclusions)
+        }
+    }
+
 }
