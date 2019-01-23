@@ -34,6 +34,24 @@
       "revId": "bc8625e3dfc80429e83ad4ecfcf56327bd1c170a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100cf8d8_9cca59ee",
+        "filename": "resources/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-01-23T19:57:45Z",
+      "side": 1,
+      "message": "So long as you don\u0027t expose any of the types from the dependency in your public API, yes. This lets you add and remove these dependencies without worrying about your consumers relying on them being available as a side-effect of using your library.",
+      "parentUuid": "0b5ebd5f_b00a25dc",
+      "revId": "bc8625e3dfc80429e83ad4ecfcf56327bd1c170a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
