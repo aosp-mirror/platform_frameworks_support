@@ -16,6 +16,24 @@
       "revId": "6ad7953c2e3a9f7ac8905d467ba7bd7e4e7b6ab3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa952eab_82898c73",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-23T23:38:36Z",
+      "side": 1,
+      "message": "I did but might as well just add it back.",
+      "parentUuid": "f47da61e_6fe93db1",
+      "revId": "6ad7953c2e3a9f7ac8905d467ba7bd7e4e7b6ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
