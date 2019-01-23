@@ -17,5 +17,14 @@ package androidx.concurrent.futures {
     method public Object? attachCompleter(androidx.concurrent.futures.CallbackToFutureAdapter.Completer<T>) throws java.lang.Exception;
   }
 
+  public class FutureCallback {
+    method public static <V> void addCallback(com.google.common.util.concurrent.ListenableFuture<V>, androidx.concurrent.futures.FutureCallback.Callback<? super V>, java.util.concurrent.Executor);
+  }
+
+  public static interface FutureCallback.Callback<V> {
+    method public void onFailure(Throwable);
+    method public void onSuccess(V!);
+  }
+
 }
 
