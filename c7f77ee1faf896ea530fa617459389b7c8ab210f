@@ -1,0 +1,306 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3603e5f7_91a40a12",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Remove this attribute as well since we removed the method.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a4275f_d3015e09",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Seems like you should specify TextAppearance.Car.Body3.Light for the textAppearance of this.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7893b99c_f8e643bb",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Rename to something like testActionItemSetEnabled_False()",
+      "range": {
+        "startLine": 326,
+        "startChar": 16,
+        "endLine": 326,
+        "endChar": 40
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3fc480_a0491482",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Move this declaration right before the mMenuItems !\u003d null check since that\u0027s when it\u0027s first used.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "084ed13f_e0baa770",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "nit: move this comment in the \"else\" block",
+      "range": {
+        "startLine": 549,
+        "startChar": 27,
+        "endLine": 549,
+        "endChar": 96
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c80bb3ed_1f2c5721",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "nit: call this something like actionButton/button/action. Better to have a more semantic name",
+      "range": {
+        "startLine": 559,
+        "startChar": 17,
+        "endLine": 559,
+        "endChar": 21
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823ab0a7_bad564ca",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Add a new line before @param and remove the new line between @param and @return.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b660c88_443b9617",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "You don\u0027t need this null check; isEmpty() will perform this check",
+      "range": {
+        "startLine": 595,
+        "startChar": 16,
+        "endLine": 595,
+        "endChar": 29
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2c1dca5_62ceaaea",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4349b74_8b8dcb0e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Inline this call since you only use it once.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48036e7_d6f53868",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "After you remove the dynamic scale, you can probably set both of these in the XML.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c19781f3_e8a1e096",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Use \"v\" here",
+      "range": {
+        "startLine": 627,
+        "startChar": 43,
+        "endLine": 627,
+        "endChar": 44
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faaf99cf_e59f1c62",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Rather than make this check, selectively set the click listener depending on if it\u0027s enabled or not.\n\nYou\u0027ll also want to call setClickable(false) if it\u0027s not enabled.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0a3a011_dd22e2fc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Remove this comment and instead write a comment about how you\u0027re creating the button programmatically instead of in the XML to apply to style.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcfab5d4_79efef6d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "You probably don\u0027t want to do this. If someone sets a background in the style, this will remove it. We\u0027d want to retain that style. \n\nI think it\u0027s ok for the button to ripple btw. It adds a visual effect for the click.",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca19feb_8d17532c",
+        "filename": "car/core/src/main/res/layout/checkable_action_item.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T01:16:14Z",
+      "side": 1,
+      "message": "Add an explicit android:orientation",
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
