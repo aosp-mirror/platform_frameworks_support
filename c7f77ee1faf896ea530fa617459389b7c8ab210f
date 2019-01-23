@@ -301,6 +301,52 @@
       "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948ec1cf_620d7486",
+        "filename": "car/core/src/main/res/layout/checkable_action_item.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-23T04:45:36Z",
+      "side": 1,
+      "message": "Do we want clickable to be false here?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 33
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f439fe_63886e94",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarToolbarActivity.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-23T04:45:36Z",
+      "side": 1,
+      "message": "I feel you can just log the title and it\u0027ll print out null if it\u0027s null.  It\u0027s easier to debug than going to the code and figuring out oh if it\u0027s null, it won\u0027t print anything.\n\nLog.d(TAG, \"Clicked:\" + \"title:\" + title);",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 57,
+        "endChar": 80
+      },
+      "revId": "c7f77ee1faf896ea530fa617459389b7c8ab210f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
