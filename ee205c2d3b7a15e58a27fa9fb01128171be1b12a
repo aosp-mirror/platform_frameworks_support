@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41012118_0d7946ef",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-23T22:52:49Z",
+      "side": 1,
+      "message": "Hmm I don\u0027t think this is how this matcher should work. It\u0027s rather confusing for the value passed to be a sum rather than the individual values. \n\nRather, the margin you pass in should be the value you\u0027re trying to validate exists on the left/right.\n\nFor example, someone wouldn\u0027t call a method \"setHorizontalMargins(int)\" and have that parameter represent the sum of the left/right margin. It would make more sense for the parameter to be the actual margin value.",
+      "revId": "ee205c2d3b7a15e58a27fa9fb01128171be1b12a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
