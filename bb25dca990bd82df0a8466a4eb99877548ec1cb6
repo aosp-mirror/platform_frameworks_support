@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ff18ea6_66d3847f",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-24T01:31:29Z",
+      "side": 1,
+      "message": "Yeah it\u0027s not needed anymore. So the color is light in the day and dark at night (for dark mode), which coincidentally will also work for light mode themes.\n\nSo we can consolidate into one now.",
+      "parentUuid": "a6d48d9e_08634c5f",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd063324_cd254466",
         "filename": "car/core/res/values/themes.xml",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1706530c_5241bc2f",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-24T01:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd063324_cd254466",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9de10f87_d52fd123",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-24T01:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21922669_76056310",
+      "range": {
+        "startLine": 67,
+        "startChar": 40,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cd4a8a2_6bbdd1a2",
         "filename": "car/core/res/values/themes.xml",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e40b6296_f8ad0cc0",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-01-24T01:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cd4a8a2_6bbdd1a2",
+      "range": {
+        "startLine": 219,
+        "startChar": 58,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
