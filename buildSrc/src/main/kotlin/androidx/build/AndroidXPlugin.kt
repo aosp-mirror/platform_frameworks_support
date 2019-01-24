@@ -97,6 +97,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
+<<<<<<< Updated upstream
                     val checkNoWarningsTask = project.tasks.create(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
@@ -110,6 +111,12 @@ class AndroidXPlugin : Plugin<Project> {
                                 javaCompileTask.options.compilerArgs.add("-Werror")
                             }
                         }
+=======
+                    val listDependencyVersionsTask = project.createListDependencyVersionsTask()
+                    extension.libraryVariants.all { variant ->  
+                        verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                        listDependencyVersionsTask.dependsOn(variant.javaCompiler)
+>>>>>>> Stashed changes
                     }
                 }
                 is AppPlugin -> {
@@ -389,4 +396,9 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
+}
+
+private fun Project.createListDependencyVersionsTask(): DefaultTask {
+    return project.tasks.create("listDependencyVersions",
+            ListDependencyVersionsTask::class.java)
 }
