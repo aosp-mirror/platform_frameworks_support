@@ -476,6 +476,24 @@
     },
     {
       "key": {
+        "uuid": "e67773c3_58947dca",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-24T17:21:36Z",
+      "side": 1,
+      "message": "The version we have here receives a non-suspend function and immediately called when you reach to a desired state. Since it is on the Main thread, the lifecycle cannot change before the block returns.\n\nOn the example you have, awaitStarted() will return as soon as we reach to started state, yet lifecycle can go back to stopped state before the next line executes, hence it will provide no guarantee that the await does what is expected. \n\nLmk if it is not clear, i can try to draw something when i get time.\n\nALso, we are aware of that bug (thanks!). As sergey mentioned, we prefer to have them in AndroidX since we write all other integrations here (and it kind of makes sense to be in sister ktx packages of original artifacts).",
+      "parentUuid": "7cdd0a80_7b333a26",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7dcbd1ef_5ec5984e",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
