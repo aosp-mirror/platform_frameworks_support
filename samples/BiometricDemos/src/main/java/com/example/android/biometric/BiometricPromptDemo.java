@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
@@ -93,7 +92,7 @@ public class BiometricPromptDemo extends FragmentActivity {
     private final BiometricPrompt.AuthenticationCallback mAuthenticationCallback =
             new BiometricPrompt.AuthenticationCallback() {
         @Override
-        public void onAuthenticationError(int err, @NonNull CharSequence message) {
+        public void onAuthenticationError(int err, CharSequence message) {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             Log.v(TAG, "Error " + err + ": " + message);
             mNumberFailedAttempts = 0;
