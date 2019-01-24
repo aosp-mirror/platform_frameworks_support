@@ -54,7 +54,6 @@ import androidx.test.espresso.action.Swipe;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.Suppress;
 import androidx.test.rule.ActivityTestRule;
 
@@ -105,7 +104,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerOpenCloseNoAnimationViaAPI() {
         assertFalse("Initial state", mDrawerLayout.isDrawerOpen(GravityCompat.START));
 
@@ -168,7 +167,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerOpenCloseNoAnimationWithRedundancyViaAPI() {
         assertFalse("Initial state", mDrawerLayout.isDrawerOpen(GravityCompat.START));
 
@@ -256,7 +255,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerHeight() {
         // Open the drawer so it becomes visible
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -299,7 +298,7 @@ public class DrawerLayoutTest {
     // Tests for listener(s) being notified of various events
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerListenerCallbacksOnOpeningViaAPI() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);
@@ -336,7 +335,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerListenerCallbacksOnOpeningNoAnimationViaAPI() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);
@@ -405,7 +404,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerListenerCallbacksOnClosingNoAnimationViaAPI() {
         // Open the drawer so it becomes visible
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START, false));
@@ -439,7 +438,7 @@ public class DrawerLayoutTest {
     @Suppress
     @FlakyTest(bugId = 33659300)
     @Test
-    @MediumTest
+    @LargeTest
     public void testDrawerListenerCallbacksOnOpeningViaSwipes() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);

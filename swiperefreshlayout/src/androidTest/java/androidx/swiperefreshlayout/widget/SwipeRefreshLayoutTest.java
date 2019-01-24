@@ -36,7 +36,6 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.testutils.PollingCheck;
 
@@ -107,7 +106,7 @@ public class SwipeRefreshLayoutTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSetSize() throws Throwable {
         float density = mSwipeRefresh.getResources().getDisplayMetrics().density;
         assertEquals((int) (SwipeRefreshLayout.CIRCLE_DIAMETER * density),
@@ -125,7 +124,7 @@ public class SwipeRefreshLayoutTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSetOnChildScrollUpCallback() throws Throwable {
         SwipeRefreshLayout.OnChildScrollUpCallback mockCallback =
                 mock(SwipeRefreshLayout.OnChildScrollUpCallback.class);

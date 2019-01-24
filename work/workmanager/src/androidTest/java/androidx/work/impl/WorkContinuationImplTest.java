@@ -38,7 +38,7 @@ import android.support.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
@@ -69,7 +69,7 @@ import java.util.concurrent.ExecutionException;
 
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 public class WorkContinuationImplTest extends WorkManagerTest {
 
     private Configuration mConfiguration;
@@ -318,7 +318,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasCycles() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B
@@ -343,7 +343,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasCycles2() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         WorkContinuation continuationA = new WorkContinuationImpl(
@@ -355,7 +355,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasCycles3() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         WorkContinuation continuationA = new WorkContinuationImpl(
@@ -374,7 +374,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasCycles4() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest cWork = createTestWorker(); // C
@@ -399,7 +399,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasNoCycles() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B
@@ -418,7 +418,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasNoCycles2() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B
@@ -449,7 +449,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testContinuation_hasNoCycles3() {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B
@@ -475,7 +475,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetWorkInfosSync() throws ExecutionException, InterruptedException {
         OneTimeWorkRequest aWork = createTestWorker(); // A
         OneTimeWorkRequest bWork = createTestWorker(); // B

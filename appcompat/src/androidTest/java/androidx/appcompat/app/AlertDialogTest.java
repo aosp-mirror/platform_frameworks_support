@@ -75,7 +75,6 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Description;
@@ -143,7 +142,7 @@ public class AlertDialogTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     @UiThreadTest
     public void testBuilderTheme() {
         final Context context = mActivityTestRule.getActivity();
@@ -231,7 +230,7 @@ public class AlertDialogTest {
     // Tests for title
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testThemeMainFontIsAppliedToTitle() {
         final Context context = mActivityTestRule.getActivity();
         context.setTheme(R.style.Theme_CustomFont);

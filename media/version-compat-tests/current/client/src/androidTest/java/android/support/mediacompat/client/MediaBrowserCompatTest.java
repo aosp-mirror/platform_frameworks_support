@@ -78,7 +78,6 @@ import androidx.media.MediaBrowserServiceCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.filters.SmallTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -167,7 +166,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testBrowserRoot() {
         final String id = "test-id";
         final String key = "test-key";
@@ -182,7 +181,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testMediaBrowser() throws Exception {
         assertFalse(mMediaBrowser.isConnected());
 
@@ -203,7 +202,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetServiceComponentBeforeConnection() {
         try {
             ComponentName serviceComponent = mMediaBrowser.getServiceComponent();
@@ -214,7 +213,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testConnectionFailed() throws Exception {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -234,7 +233,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testConnectTwice() throws Exception {
         connectMediaBrowserService();
         try {
@@ -404,7 +403,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSubscribeWithOptionsIncludingCompatParcelables() throws Exception {
         if (Build.VERSION.SDK_INT >= 26 && !VERSION_TOT.equals(mServiceVersion)) {
             // This test will fail on API 26 or newer APIs if the service application uses
@@ -464,7 +463,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSubscribeInvalidItem() throws Exception {
         connectMediaBrowserService();
 
@@ -475,7 +474,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSubscribeInvalidItemWithOptions() throws Exception {
         connectMediaBrowserService();
 
@@ -600,7 +599,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetItem() throws Exception {
         connectMediaBrowserService();
 
@@ -632,7 +631,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetItemWhenOnLoadItemIsNotImplemented() throws Exception {
         connectMediaBrowserService();
         synchronized (mItemCallback.mWaitLock) {
@@ -643,7 +642,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetItemWhenMediaIdIsInvalid() throws Exception {
         mItemCallback.mLastMediaItem = new MediaItem(new MediaDescriptionCompat.Builder()
                 .setMediaId("dummy_id").build(), MediaItem.FLAG_BROWSABLE);
@@ -658,7 +657,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSearch() throws Exception {
         connectMediaBrowserService();
 
@@ -698,7 +697,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSendCustomAction() throws Exception {
         connectMediaBrowserService();
 
@@ -815,7 +814,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSendCustomActionWithError() throws Exception {
         connectMediaBrowserService();
 

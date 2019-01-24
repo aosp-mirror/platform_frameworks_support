@@ -109,7 +109,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -171,7 +170,7 @@ public class MediaSessionCompatCallbackTest {
      * Tests that a session can be created and that all the fields are initialized correctly.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testCreateSession() throws Exception {
         assertNotNull(mSession.getSessionToken());
         assertFalse("New session should not be active", mSession.isActive());
@@ -205,7 +204,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetSessionToken() throws Exception {
         assertEquals(mSession.getSessionToken(), mSession.getController().getSessionToken());
     }
@@ -215,7 +214,7 @@ public class MediaSessionCompatCallbackTest {
      * set on the framework session object before fromSession() is called works properly.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testFromSession() throws Exception {
         if (android.os.Build.VERSION.SDK_INT < 21) {
             // MediaSession was introduced from API level 21.
@@ -234,7 +233,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
     public void testCallers() throws Exception {
         mCallback.reset(1, getExpectedPackageNameForSelf());
@@ -273,7 +272,7 @@ public class MediaSessionCompatCallbackTest {
      * Tests {@link MediaSessionCompat.Token} created in the constructor of MediaSessionCompat.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testSessionToken() throws Exception {
         MediaSessionCompat.Token sessionToken = mSession.getSessionToken();
 
@@ -293,7 +292,7 @@ public class MediaSessionCompatCallbackTest {
      * Tests {@link MediaSessionCompat.QueueItem}.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testQueueItem() {
         MediaSessionCompat.QueueItem item = new MediaSessionCompat.QueueItem(
                 new MediaDescriptionCompat.Builder()
@@ -319,14 +318,14 @@ public class MediaSessionCompatCallbackTest {
      * Tests {@link MediaSessionCompat#setActive}.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testSetActive() throws Exception {
         mSession.setActive(true);
         assertTrue(mSession.isActive());
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testGetPlaybackStateWithPositionUpdate() throws InterruptedException {
         final long stateSetTime = SystemClock.elapsedRealtime();
         PlaybackStateCompat stateIn = new PlaybackStateCompat.Builder()
@@ -365,7 +364,7 @@ public class MediaSessionCompatCallbackTest {
      * No callback messages should be posted once {@code setCallback(null)} is done.
      */
     @Test
-    @SmallTest
+    @MediumTest
     public void testSetCallbackWithNull() throws Exception {
         mSession.setActive(true);
         mCallback.reset(1);
@@ -382,7 +381,7 @@ public class MediaSessionCompatCallbackTest {
      * Therefore, no callback should be called once {@code setCallback(null)} is done.
      */
     @Test
-    @SmallTest
+    @MediumTest
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
     public void testSetCallbackWithNullShouldRemoveCallbackMessages() throws Exception {
         mSession.setActive(true);
@@ -400,7 +399,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSendCommand() throws Exception {
         mCallback.reset(1);
 
@@ -422,7 +421,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSendCommandWithNullResultReceiver() throws Exception {
         mCallback.reset(1);
         if (Build.VERSION.SDK_INT < 21 && !TextUtils.equals(VERSION_TOT, mClientVersion)) {
@@ -444,7 +443,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testAddRemoveQueueItems() throws Exception {
         mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS);
 
@@ -490,7 +489,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testTransportControlsAndMediaSessionCallback() throws Exception {
         mCallback.reset(1);
         callTransportControlsMethod(PLAY, null, getApplicationContext(),
@@ -836,7 +835,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testSetVolumeWithLocalVolume() throws Exception {
         if (Build.VERSION.SDK_INT >= 21 && mAudioManager.isVolumeFixed()) {
             // This test is not eligible for this device.
@@ -872,7 +871,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testAdjustVolumeWithLocalVolume() throws Exception {
         if (Build.VERSION.SDK_INT >= 21 && mAudioManager.isVolumeFixed()) {
             // This test is not eligible for this device.
@@ -909,7 +908,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testRemoteVolumeControl() throws Exception {
         if (android.os.Build.VERSION.SDK_INT < 27) {
             // This test causes an Exception on System UI in API < 27.
@@ -963,7 +962,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testReceivingMediaParcelables() throws Exception {
         mCallback.reset(1);
         final String action = "test-action";
@@ -1016,7 +1015,7 @@ public class MediaSessionCompatCallbackTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testMediaDescriptionContainsUserParcelable() {
         mCallback.reset(1);
         mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS);
