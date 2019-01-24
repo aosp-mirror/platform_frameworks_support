@@ -100,6 +100,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    project.createDumpDependenciesTask()
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
@@ -143,6 +144,7 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        project.configureDependencyGraphFileTask()
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
         tasks.all { task ->
@@ -320,6 +322,18 @@ class AndroidXPlugin : Plugin<Project> {
                 VerifyDependencyVersionsTask::class.java)
     }
 
+    private fun Project.configureDependencyGraphFileTask() {
+        val dependencyGraphFileTask = project.createDependencyGraphFileTask()
+        subprojects { project ->
+            project.tasks.all { task ->
+                if ("dumpDependencies" == task.name && task is ListProjectDependencyVersionsTask) {
+                    dependencyGraphFileTask.dependsOn(task)
+                    dependencyGraphFileTask.projectDepDumpFiles.add(task.outputDepFile)
+                }
+            }
+        }
+    }
+
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
@@ -398,4 +412,14 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
+}
+
+private fun Project.createDumpDependenciesTask(): DefaultTask {
+    return project.tasks.create("dumpDependencies",
+        ListProjectDependencyVersionsTask::class.java)
+}
+
+private fun Project.createDependencyGraphFileTask(): DependencyGraphFileTask {
+    return project.tasks.create("createDependencyGraphFile",
+        DependencyGraphFileTask::class.java)
 }
