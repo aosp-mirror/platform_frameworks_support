@@ -17,13 +17,13 @@
 package androidx.fragment.app.testing
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.testing.R
 
 /**
- * Launches a Fragment with given arguments hosted by an empty [FragmentActivity] using
+ * Launches a Fragment with given arguments hosted by an empty [AppCompatActivity] using
  * given [FragmentFactory] and waits for it to reach a resumed state.
  *
  * This method cannot be called from the main thread.
@@ -34,12 +34,12 @@ import androidx.fragment.testing.R
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    themeResId: Int = R.style.FragmentScenarioEmptyAppCompatActivityTheme,
     factory: FragmentFactory? = null
 ) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, factory)
 
 /**
- * Launches a Fragment with given arguments hosted by an empty [FragmentActivity] using
+ * Launches a Fragment with given arguments hosted by an empty [AppCompatActivity] using
  * [instantiate] to create the Fragment and waits for it to reach a resumed state.
  *
  * This method cannot be called from the main thread.
@@ -50,7 +50,7 @@ inline fun <reified F : Fragment> launchFragment(
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    themeResId: Int = R.style.FragmentScenarioEmptyAppCompatActivityTheme,
     crossinline instantiate: (args: Bundle?) -> F
 ) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, object : FragmentFactory() {
     override fun instantiate(
@@ -65,7 +65,7 @@ inline fun <reified F : Fragment> launchFragment(
 
 /**
  * Launches a Fragment in the Activity's root view container `android.R.id.content`, with
- * given arguments hosted by an empty [FragmentActivity] and waits for it to reach a
+ * given arguments hosted by an empty [AppCompatActivity] and waits for it to reach a
  * resumed state.
  *
  * This method cannot be called from the main thread.
@@ -76,13 +76,13 @@ inline fun <reified F : Fragment> launchFragment(
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    themeResId: Int = R.style.FragmentScenarioEmptyAppCompatActivityTheme,
     factory: FragmentFactory? = null
 ) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId, factory)
 
 /**
  * Launches a Fragment in the Activity's root view container `android.R.id.content`, with
- * given arguments hosted by an empty [FragmentActivity] using
+ * given arguments hosted by an empty [AppCompatActivity] using
  * [instantiate] to create the Fragment and waits for it to reach a
  * resumed state.
  *
@@ -96,7 +96,7 @@ inline fun <reified F : Fragment> launchFragmentInContainer(
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    themeResId: Int = R.style.FragmentScenarioEmptyAppCompatActivityTheme,
     crossinline instantiate: (args: Bundle?) -> F
 ) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId,
     object : FragmentFactory() {

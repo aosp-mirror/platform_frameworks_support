@@ -22,8 +22,8 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application>
         <activity
-                android:name="androidx.fragment.app.testing.FragmentScenario$EmptyFragmentActivity"
-                android:theme="@style/FragmentScenarioEmptyFragmentActivityTheme"
+                android:name="androidx.fragment.app.testing.FragmentScenario$EmptyAppCompatActivity"
+                android:theme="@style/FragmentScenarioEmptyAppCompatActivityTheme"
                 android:taskAffinity=""
                 android:multiprocess="true"
                 android:exported="true">
