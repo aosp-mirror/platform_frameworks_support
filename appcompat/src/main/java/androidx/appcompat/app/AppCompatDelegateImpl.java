@@ -116,6 +116,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     private static final boolean DEBUG = false;
     private static final boolean IS_PRE_LOLLIPOP = Build.VERSION.SDK_INT < 21;
     private static final String KEY_LOCAL_NIGHT_MODE = "appcompat:local_night_mode";
+    private static final String KEY_DEFAULT_SYSTEM_UI_MODE = "appcompat:default_system_uimode";
 
     private static final int[] sWindowBackgroundStyleable = {android.R.attr.windowBackground};
 
@@ -215,11 +216,13 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
+
     private boolean mCreated;
 
     private int mThemeResId;
     private boolean mActivityHandlesUiMode;
     private boolean mActivityHandlesUiModeChecked;
+    private int mSystemDefaultUiMode;
 
     private AutoNightModeManager mAutoNightModeManager;
 
@@ -290,11 +293,28 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
-        if (savedInstanceState != null && mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
-            // If we have a icicle and we haven't had a local night mode set yet, try and read
-            // it from the icicle
-            mLocalNightMode = savedInstanceState.getInt(KEY_LOCAL_NIGHT_MODE,
-                    MODE_NIGHT_UNSPECIFIED);
+        boolean systemDefaultUiModeSet = false;
+
+        if (savedInstanceState != null) {
+            if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
+                // If we have a icicle and we haven't had a local night mode set yet, try and read
+                // it from the icicle
+                mLocalNightMode = savedInstanceState.getInt(KEY_LOCAL_NIGHT_MODE,
+                        MODE_NIGHT_UNSPECIFIED);
+            }
+            if (savedInstanceState.containsKey(KEY_DEFAULT_SYSTEM_UI_MODE)) {
+                mSystemDefaultUiMode = savedInstanceState.getInt(KEY_DEFAULT_SYSTEM_UI_MODE);
+                systemDefaultUiModeSet = true;
+            }
+        }
+
+        if (!systemDefaultUiModeSet) {
+            // This looks really weird but we need a way to keep a record of the system's
+            // default uiMode. Since configuration's persist over recreate()ions, we need a
+            // reliable way to know which value is from the system. If we haven't loaded the
+            // value from an icicle above, we're a new activity and should store the current
+            // config value
+            mSystemDefaultUiMode = mContext.getResources().getConfiguration().uiMode;
         }
 
         applyDayNight();
@@ -502,6 +522,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             // If we have a local night mode set, save it
             outState.putInt(KEY_LOCAL_NIGHT_MODE, mLocalNightMode);
         }
+        outState.putInt(KEY_DEFAULT_SYSTEM_UI_MODE, mSystemDefaultUiMode);
     }
 
     @Override
@@ -2013,13 +2034,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public boolean applyDayNight() {
-        boolean applied = false;
-
         @NightMode final int nightMode = getNightMode();
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
-        if (modeToApply != MODE_NIGHT_FOLLOW_SYSTEM) {
-            applied = updateForNightMode(modeToApply);
-        }
+        final boolean applied = updateForNightMode(modeToApply);
 
         if (nightMode == MODE_NIGHT_AUTO) {
             // If we're already been started, we may need to setup auto mode again
@@ -2088,9 +2105,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         final Configuration config = res.getConfiguration();
         final int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-        final int newNightMode = (mode == MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        int newNightMode = currentNightMode;
+        switch (mode) {
+            case MODE_NIGHT_YES:
+                newNightMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case MODE_NIGHT_NO:
+                newNightMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            case MODE_NIGHT_FOLLOW_SYSTEM:
+                // If we're following the system, we just use the system default
+                newNightMode = mSystemDefaultUiMode & Configuration.UI_MODE_NIGHT_MASK;
+                break;
+        }
 
         boolean handled = false;
 
@@ -2101,7 +2128,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
             if (shouldRecreateOnNightModeChange) {
                 if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity");
+                    Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity."
+                            + " Mode: " + mode);
                 }
                 // If we've already been created, we need to recreate the Activity for the
                 // mode to be applied
@@ -2114,7 +2142,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 res.updateConfiguration(newConf, res.getDisplayMetrics());
 
                 if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, updated res config");
+                    Log.d(TAG, "updateForNightMode. Night mode changed, updated res config."
+                            + " Mode: " + mode);
                 }
                 // We may need to flush the Resources' drawable cache due to framework bugs.
                 if (Build.VERSION.SDK_INT < 26) {
