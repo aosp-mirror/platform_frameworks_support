@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3b719b54_6dd6fc62",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T00:33:57Z",
+      "side": 1,
+      "message": "Using this property would be quite redundant readability wise: `lifecycle.lifecycleScope`, the word lifecycle is repeated.\nAlso, it may be unclear that we\u0027re talking about a `CoroutineScope` if user code has symbols or types that include the word `scope` but are not related to coroutines.\n\nConsequently, I suggest to rename this as `coroutineScope`, so usage would look so instead: `lifecycle.coroutineScope`.\n\nAnother possibility is calling it `mainScope` since it dispatches on the main thread, and the naming would align with `MainScope()` which is already present in kotlinx.coroutines.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cfe6cc2_ef9469b8",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -30,6 +47,23 @@
       "writtenOn": "2019-01-23T10:38:32Z",
       "side": 1,
       "message": "Shouldn\u0027t it be SupervisorJob?\nIf any coroutine launched within this scope fails, scope becomes cancelled, while lifecycle is still active.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2930b1c_9422fbdc",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T00:33:57Z",
+      "side": 1,
+      "message": "About `Dispatchers.Main`: there\u0027s currently a performance issue with it on Android because of how ServiceLoader used for initialization \"performs\" blocking I/O: https://github.com/Kotlin/kotlinx.coroutines/issues/878\n\nYou can track a D8 desugaring fix here: https://issuetracker.google.com/issues/120436373\n\nIn the meantime, there\u0027s a workaround which is using the `asCoroutineDispatcher` extension function on a `Handler` that is linked to the main thread. You can take this as an example: https://github.com/LouisCAD/Splitties/blob/8a38de6131b1b41d5404c8f236204cfa7becc3b8/lifecycle-coroutines/src/main/kotlin/splitties/lifecycle/coroutines/AndroidMainDispatcher.kt#L17\n\nUsing this workaround for lifecycle scopes could avoid a performance hit, and would prevent from negating the efforts of developers using it to avoid the problem.",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -104,6 +138,23 @@
     },
     {
       "key": {
+        "uuid": "d46a87a0_663220d7",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T00:33:57Z",
+      "side": 1,
+      "message": "Following replacement of `withStateAtLeast` by `awaitState`, I\u0027d drop this to make the API surface simpler, or rename it to `awaitStarted()` otherwise.",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0de67a30_e0f727a6",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -115,6 +166,23 @@
       "writtenOn": "2019-01-23T21:45:04Z",
       "side": 1,
       "message": "The style guide says that type parameters should either be single capital letters or PascalCase suffixed with \"T\". I.e., T or ReturnT\n\nhttps://developer.android.com/kotlin/style-guide#type_variable_names",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd84e723_dd5dcd5e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T00:33:57Z",
+      "side": 1,
+      "message": "I find this method confusing. Given the use case, which is running some code when the lifecycle state is at least the state that has been passed as parameter, being a both a suspend function and taking a lambda that is run before resuming is IMHO highly likely to cause confusion.\nIn addition, being top level for this would pollute autocompletion for all the places where you don\u0027t have and don\u0027t need a lifecycle.\n\nI suggest the following replacement: an extension function for Lifecycle (and Lifecycle only, no LifecycleOwner shortcut) named `awaitState`.\nThe signature would be `suspend fun Lifecycle.awaitState(state: Lifecycle.State)`. With such a replacement, there\u0027s no ambiguity, it will resume when the state has been reached. I think it fits much better into coroutines, with no unnecessary lambda.\n\nI already implemented it and it is open source, feel free to reuse my code, here\u0027s a permalink to the line: https://github.com/LouisCAD/Splitties/blob/8a38de6131b1b41d5404c8f236204cfa7becc3b8/lifecycle-coroutines/src/main/kotlin/splitties/lifecycle/coroutines/LifecycleAwaitState.kt#L26-L50",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -149,6 +217,23 @@
       "writtenOn": "2019-01-23T10:38:32Z",
       "side": 1,
       "message": "This can be simplified to `cancellable.resumeWith(runCatching{ block() })`",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8806c15_e6f7c762",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T00:33:57Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this property be inline given how trivial is its getter? Remember in some projects that are near the multidex limit, each method counts, because only one can make it overflow.\n\nI assume this would mainly be used directly from subclasses, so it would look like this: `lifecycleScope.launch { ... }`.\n\nHaving `lifecycle` in the name is good because it removes ambiguity about the coroutine scope source.\n\nHowever, if the `lifecycleScope` extension for the `Lifecycle` class is renamed to `coroutineScope` or `mainScope` following my suggestion, shouldn\u0027t this one be renamed accordingly to `lifecycleCoroutineScope` or `lifecycleMainScope`? I know this is longer, but I believe being explicit (and consistent) takes precedence, and one can always use named import or an inline extension with any name.",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
