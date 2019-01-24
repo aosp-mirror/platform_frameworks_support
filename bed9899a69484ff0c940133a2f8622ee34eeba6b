@@ -177,6 +177,30 @@
       "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e61607ec_c40f51cd",
+        "filename": "settings.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T15:09:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c6fabbf_1512d9ec",
+      "range": {
+        "startLine": 44,
+        "startChar": 40,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
