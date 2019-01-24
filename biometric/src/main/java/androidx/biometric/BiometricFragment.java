@@ -78,8 +78,12 @@ public class BiometricFragment extends Fragment {
                     mClientExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
+                            CharSequence error = errString;
+                            if (error == null) {
+                                error = R.string.default_error_msg + " " + errorCode;
+                            }
                             mClientAuthenticationCallback
-                                    .onAuthenticationError(errorCode, errString);
+                                    .onAuthenticationError(errorCode, error);
                         }
                     });
                     cleanup();
