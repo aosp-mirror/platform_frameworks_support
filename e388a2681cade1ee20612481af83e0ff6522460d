@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d294bcd2_f2c45e47",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-01-24T05:15:53Z",
+      "side": 1,
+      "message": "Let\u0027s move this to the strings.xml so it can be translated to each language. Let\u0027s have it be just \"Unknown error\" without the period",
+      "range": {
+        "startLine": 48,
+        "startChar": 38,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "e388a2681cade1ee20612481af83e0ff6522460d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4b4493_b95a993e",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-01-24T05:15:53Z",
+      "side": 1,
+      "message": "nit: perhaps `\"error \" + errorCode`",
+      "revId": "e388a2681cade1ee20612481af83e0ff6522460d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f218ffd_5a5a2b1b",
+        "filename": "samples/BiometricDemos/src/main/java/com/example/android/biometric/BiometricPromptDemo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-01-24T05:15:53Z",
+      "side": 1,
+      "message": "we can remove the changes in this file right?",
+      "range": {
+        "startLine": 95,
+        "startChar": 50,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "e388a2681cade1ee20612481af83e0ff6522460d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
