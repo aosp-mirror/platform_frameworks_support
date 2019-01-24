@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6740614_869f19a3",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dd20f0e_9481f24d",
+      "range": {
+        "startLine": 34,
+        "startChar": 70,
+        "endLine": 34,
+        "endChar": 80
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d59451f_7fc9eaf3",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50dbe5bc_982ca201",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "I\u0027d rather keep the sample simple.",
+      "parentUuid": "7d59451f_7fc9eaf3",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "090567c2_33bad600",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "Is that true for Fragments as well? onViewCreated guarantees that the elements are fully functional and accessible. Changed as requested, but not sure if that\u0027s a good move.",
+      "parentUuid": "e962de0d_1a43d90f",
+      "range": {
+        "startLine": 63,
+        "startChar": 17,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44339a7f_c4f02b33",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "03a2c02d_530dbf5d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "Keeping visibility to minimum. Update vs set is arbitrary, e.g. you can argue setFoo is for setter of a field mFoo.",
+      "parentUuid": "44339a7f_c4f02b33",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2668537f_85745961",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-23T17:23:54Z",
       "side": 1,
       "message": "A reader might not know what \"correctly\" means here. Also, the alternative suggested wouldn\u0027t showcase the feature. \n\nHow about something on the lines of:\n\n\"[FragmentStateAdapter] handles saving and restoring each fragment state. To showcase this feature we\u0027re using onSaveInstanceState to save the click count for each page. An implementation that also saves the state but does not showcase the FragmentStateAdapter ability is saving the state in a ViewModel\"",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f06ba30_d992270b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "I\u0027ve revised the comment.",
+      "parentUuid": "2668537f_85745961",
       "range": {
         "startLine": 81,
         "startChar": 7,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "dc79da81_27fa90e2",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "I\u0027ve had CL feedback toString -\u003e template. Now vice versa. Let\u0027s keep as is since arbitrary.",
+      "parentUuid": "d6630fd1_d9388091",
+      "range": {
+        "startLine": 90,
+        "startChar": 15,
+        "endLine": 90,
+        "endChar": 38
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "331d8cbd_26394d44",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
         "patchSetId": 1
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "eca705ef_c7ce1613",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "331d8cbd_26394d44",
+      "range": {
+        "startLine": 29,
+        "startChar": 69,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2261b4fa_689a0d08",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8867a79_0f296f07",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionViewActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-24T16:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2261b4fa_689a0d08",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 19
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
