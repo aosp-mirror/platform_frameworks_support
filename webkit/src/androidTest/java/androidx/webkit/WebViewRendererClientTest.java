@@ -22,7 +22,7 @@ import android.webkit.WebView;
 
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewRendererClientTest {
     WebViewOnUiThread mWebViewOnUiThread;

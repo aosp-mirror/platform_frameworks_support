@@ -37,7 +37,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.transition.test.R;
 
@@ -45,7 +45,7 @@ import org.junit.Test;
 
 import javax.annotation.Nullable;
 
-@MediumTest
+@LargeTest
 public class ChangeImageTransformTest extends BaseTransitionTest {
 
     private ChangeImageTransform mChangeImageTransform;
