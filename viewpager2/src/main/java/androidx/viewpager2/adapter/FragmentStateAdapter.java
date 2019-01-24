@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.List;
  * <p>
  * Lifecycle within {@link RecyclerView}:
  * <ul>
- * <li>{@link RecyclerView.ViewHolder} initially an empty {@link FrameLayout}, serves as a
+ * <li>{@link ViewHolder} initially an empty {@link FrameLayout}, serves as a
  * re-usable container for a {@link Fragment} in later stages.
  * <li>{@link RecyclerView.Adapter#onBindViewHolder} we ask for a {@link Fragment} for the
  * position. If we already have the fragment, or have previously saved its state, we use those.
@@ -51,7 +52,7 @@ import java.util.List;
  * </ul>
  */
 public abstract class FragmentStateAdapter extends
-        RecyclerView.Adapter<FragmentViewHolder> implements StatefulAdapter {
+        RecyclerView.Adapter<ViewHolder> implements StatefulAdapter {
     private static final String STATE_ARG_KEYS = "keys";
     private static final String STATE_ARG_VALUES = "values";
 
@@ -94,12 +95,15 @@ public abstract class FragmentStateAdapter extends
 
     @NonNull
     @Override
-    public final FragmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public final ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return FragmentViewHolder.create(parent);
     }
 
     @Override
-    public final void onBindViewHolder(final @NonNull FragmentViewHolder holder, int position) {
+    public final void onBindViewHolder(final @NonNull ViewHolder viewHolder, int position) {
+        /** Prevents {@link FragmentViewHolder} from being exposed */
+        final FragmentViewHolder holder = (FragmentViewHolder) viewHolder;
+
         holder.mFragment = getFragment(position);
 
         /** Special case when {@link RecyclerView} decides to keep the {@link container}
@@ -131,7 +135,10 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
+    public final void onViewAttachedToWindow(@NonNull ViewHolder viewHolder) {
+        /** Prevents {@link FragmentViewHolder} from being exposed */
+        final FragmentViewHolder holder = (FragmentViewHolder) viewHolder;
+
         if (holder.mFragment.isAdded()) {
             return;
         }
@@ -140,12 +147,12 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public final void onViewRecycled(@NonNull FragmentViewHolder holder) {
+    public final void onViewRecycled(@NonNull ViewHolder holder) {
         removeFragment(holder);
     }
 
     @Override
-    public final boolean onFailedToRecycleView(@NonNull FragmentViewHolder holder) {
+    public final boolean onFailedToRecycleView(@NonNull ViewHolder holder) {
         // This happens when a ViewHolder is in a transient state (e.g. during custom
         // animation). We don't have sufficient information on how to clear up what lead to
         // the transient state, so we are throwing away the ViewHolder to stay on the
@@ -154,7 +161,10 @@ public abstract class FragmentStateAdapter extends
         return false; // don't recycle the view
     }
 
-    private void removeFragment(@NonNull FragmentViewHolder holder) {
+    private void removeFragment(@NonNull ViewHolder viewHolder) {
+        /** Prevents {@link FragmentViewHolder} from being exposed */
+        final FragmentViewHolder holder = (FragmentViewHolder) viewHolder;
+
         removeFragment(holder.mFragment, holder.getItemId());
         holder.mFragment = null;
     }

@@ -1,17 +1,17 @@
 // Signature format: 2.0
 package androidx.viewpager2.adapter {
 
-  public abstract class FragmentStateAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.viewpager2.adapter.FragmentViewHolder> implements androidx.viewpager2.adapter.StatefulAdapter {
+  public abstract class FragmentStateAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder> implements androidx.viewpager2.adapter.StatefulAdapter {
     ctor public FragmentStateAdapter(androidx.fragment.app.FragmentManager);
     method public boolean containsItem(long);
     method public abstract androidx.fragment.app.Fragment getItem(int);
     method public final void onAttachedToRecyclerView(androidx.recyclerview.widget.RecyclerView);
-    method public final void onBindViewHolder(androidx.viewpager2.adapter.FragmentViewHolder, int);
-    method public final androidx.viewpager2.adapter.FragmentViewHolder onCreateViewHolder(android.view.ViewGroup, int);
+    method public final void onBindViewHolder(androidx.recyclerview.widget.RecyclerView.ViewHolder, int);
+    method public final androidx.recyclerview.widget.RecyclerView.ViewHolder onCreateViewHolder(android.view.ViewGroup, int);
     method public final void onDetachedFromRecyclerView(androidx.recyclerview.widget.RecyclerView);
-    method public final boolean onFailedToRecycleView(androidx.viewpager2.adapter.FragmentViewHolder);
-    method public final void onViewAttachedToWindow(androidx.viewpager2.adapter.FragmentViewHolder);
-    method public final void onViewRecycled(androidx.viewpager2.adapter.FragmentViewHolder);
+    method public final boolean onFailedToRecycleView(androidx.recyclerview.widget.RecyclerView.ViewHolder);
+    method public final void onViewAttachedToWindow(androidx.recyclerview.widget.RecyclerView.ViewHolder);
+    method public final void onViewRecycled(androidx.recyclerview.widget.RecyclerView.ViewHolder);
     method public void restoreState(android.os.Parcelable);
     method public android.os.Parcelable saveState();
     method public final void setHasStableIds(boolean);
