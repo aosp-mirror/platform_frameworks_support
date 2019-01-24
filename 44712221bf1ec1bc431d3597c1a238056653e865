@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a8afdd_0e3e8fb6",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-24T23:24:45Z",
+      "side": 1,
+      "message": "Not sure whether \"--check-compatibility:api:released ${apiFile}\" is supposed to be required or whether there\u0027s supposed to be a clearer syntax for telling Metalava which api file we want to compare against",
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca791fa1_bfc76598",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-24T23:24:45Z",
+      "side": 1,
+      "message": "I don\u0027t exactly feel good about the name \"ignoreApiChanges\" - I think something like \"updateApiViolationExemptions\" would slightly more precise, but \"ignoreApiChanges\" I think is easier to remember because people already know that the data gets stored in files named \"*.ignore\", and also the name is shorter.\n\nIf anyone wants to comment on the task name, that\u0027d be great",
+      "range": {
+        "startLine": 144,
+        "startChar": 67,
+        "endLine": 144,
+        "endChar": 85
+      },
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
