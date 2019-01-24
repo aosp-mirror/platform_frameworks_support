@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "51747668_130fb50d",
+        "filename": "room/common/src/main/java/androidx/room/OnConflictStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-24T02:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6691ed2_2b2cc298",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "c15c366caa5a1f47dc4adebbd20bc0b3cca3b1cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ceba600_d64a5ed3",
         "filename": "room/common/src/main/java/androidx/room/OnConflictStrategy.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c15c366caa5a1f47dc4adebbd20bc0b3cca3b1cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda383f8_175aced1",
+        "filename": "room/common/src/main/java/androidx/room/OnConflictStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-24T02:40:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ceba600_d64a5ed3",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "c15c366caa5a1f47dc4adebbd20bc0b3cca3b1cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
