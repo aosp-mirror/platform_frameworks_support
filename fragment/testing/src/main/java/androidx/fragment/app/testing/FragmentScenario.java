@@ -29,6 +29,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Preconditions;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -61,13 +62,13 @@ public final class FragmentScenario<F extends Fragment> {
     @Nullable private final FragmentFactory mFragmentFactory;
 
     /**
-     * An empty activity inheriting FragmentActivity. This Activity is used to host Fragment in
+     * An empty activity inheriting AppCompatActivity. This Activity is used to host Fragment in
      * FragmentScenario.
      *
      * @hide
      */
     @RestrictTo(LIBRARY)
-    public static class EmptyFragmentActivity extends FragmentActivity {
+    public static class EmptyFragmentActivity extends AppCompatActivity {
 
         @NonNull
         public static final String THEME_EXTRAS_BUNDLE_KEY =
