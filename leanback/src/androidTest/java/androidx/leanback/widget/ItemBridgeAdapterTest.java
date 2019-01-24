@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +39,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-@SmallTest
+@MediumTest
 @RunWith(JUnit4.class)
 public class ItemBridgeAdapterTest {
     private static final int sViewWidth = 100;

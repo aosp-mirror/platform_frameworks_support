@@ -55,7 +55,6 @@ import android.support.v4.media.MediaBrowserCompat.SubscriptionCallback;
 import androidx.media2.MediaLibraryService;
 import androidx.media2.test.common.TestUtils;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -67,7 +66,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Tests whether {@link MediaBrowserCompat} works well with {@link MediaLibraryService}.
  */
-@SmallTest
+@LargeTest
 public class MediaBrowserCompatTestWithMediaLibraryService extends
         MediaBrowserCompatTestWithMediaSessionService {
     @Override

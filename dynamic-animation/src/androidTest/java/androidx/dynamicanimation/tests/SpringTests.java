@@ -44,7 +44,7 @@ import androidx.dynamicanimation.animation.SpringForce;
 import androidx.dynamicanimation.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -54,7 +54,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class SpringTests {
     @Rule public final ActivityTestRule<AnimationActivity> mActivityTestRule;

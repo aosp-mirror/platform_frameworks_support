@@ -63,8 +63,8 @@ import androidx.test.espresso.action.GeneralClickAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.textclassifier.R;
 import androidx.textclassifier.TestUtils;
@@ -83,7 +83,7 @@ import java.util.Locale;
 /**
  * Tests for {@link FloatingToolbar}.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.M)
 public final class FloatingToolbarTest {
