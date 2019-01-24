@@ -45,6 +45,7 @@ import java.util.concurrent.Executor;
 public class BiometricFragment extends Fragment {
 
     private static final String TAG = "BiometricFragment";
+    private static final CharSequence DEFAULT_ERROR_MSG = "Unknown error.";
 
     // Re-set by the application, through BiometricPromptCompat upon orientation changes.
     Executor mClientExecutor;
@@ -78,8 +79,12 @@ public class BiometricFragment extends Fragment {
                     mClientExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
+                            CharSequence error = errString;
+                            if (error == null) {
+                                error = DEFAULT_ERROR_MSG;
+                            }
                             mClientAuthenticationCallback
-                                    .onAuthenticationError(errorCode, errString);
+                                    .onAuthenticationError(errorCode, error);
                         }
                     });
                     cleanup();
