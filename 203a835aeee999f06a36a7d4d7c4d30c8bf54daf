@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3562c1ce_004d10e4",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 1607,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-24T19:44:28Z",
+      "side": 1,
+      "message": "Please change to: legacy-support-v13",
+      "range": {
+        "startLine": 1607,
+        "startChar": 23,
+        "endLine": 1607,
+        "endChar": 34
+      },
+      "revId": "203a835aeee999f06a36a7d4d7c4d30c8bf54daf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
