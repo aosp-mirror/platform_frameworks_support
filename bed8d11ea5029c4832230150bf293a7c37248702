@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0ce21599_c07f23e2",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-24T17:14:19Z",
+      "side": 1,
+      "message": "After chat in person I realized that I\u0027ve been wrong all along. I somehow had the idea that we had a list of Item objects, but that was not the case. Pardon me for the confusion.",
+      "parentUuid": "50dbe5bc_982ca201",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e962de0d_1a43d90f",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "650dfcd1_ba42312b",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-24T17:14:19Z",
+      "side": 1,
+      "message": "*Only* true for Fragments: onViewCreated doesn\u0027t exist in Activity\u0027s :)\n\nYou can start configuring and editing views immediately after inflation. That\u0027s why onViewCreated is rarely used in most apps.\n\nThanks for changing :)",
+      "parentUuid": "090567c2_33bad600",
+      "range": {
+        "startLine": 63,
+        "startChar": 17,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44339a7f_c4f02b33",
         "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
         "patchSetId": 1
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Keeping visibility to minimum. Update vs set is arbitrary, e.g. you can argue setFoo is for setter of a field mFoo.",
       "parentUuid": "44339a7f_c4f02b33",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "492e20e5_c4ed701f",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-24T17:14:19Z",
+      "side": 1,
+      "message": "@Update vs set: agreed\n\n@Scope: Okay, not worth further discussion :)",
+      "parentUuid": "03a2c02d_530dbf5d",
       "range": {
         "startLine": 70,
         "startChar": 8,
@@ -281,6 +353,30 @@
       "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "347e9261_f3707877",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/MutableCollectionFragmentActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-24T17:14:19Z",
+      "side": 1,
+      "message": "Agreed",
+      "parentUuid": "dc79da81_27fa90e2",
+      "range": {
+        "startLine": 90,
+        "startChar": 15,
+        "endLine": 90,
+        "endChar": 38
+      },
+      "revId": "bed8d11ea5029c4832230150bf293a7c37248702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
