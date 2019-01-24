@@ -25,6 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
@@ -77,6 +78,52 @@ public class NightModeTestCase {
 
         // Now check the text has changed, signifying that night resources are being used
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)));
+    }
+
+    @Test
+    public void testSwitchingYesToFollowSystem() throws Throwable {
+        // Verify first that we're in day mode
+        onView(withId(R.id.text_night_mode))
+                .check(matches(withText(STRING_DAY)));
+
+        // Now force the local night mode to be yes (aka night mode)
+        setLocalNightModeAndWaitForRecreate(
+                mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Now check the text has changed, signifying that night resources are being used
+        onView(withId(R.id.text_night_mode))
+                .check(matches(withText(STRING_NIGHT)));
+
+        // Now force the local night mode to be FOLLOW_SYSTEM, which should go back to DAY
+        setLocalNightModeAndWaitForRecreate(
+                mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // Now check the text has changed, signifying that night resources are being used
+        onView(withId(R.id.text_night_mode))
+                .check(matches(withText(STRING_DAY)));
+    }
+
+    @Test
+    public void testResettingFollowSystem() throws Throwable {
+        // Verify first that we're in day mode
+        onView(withId(R.id.text_night_mode))
+                .check(matches(withText(STRING_DAY)));
+
+        // Now force the local night mode to be yes (aka night mode)
+        setLocalNightModeAndWaitForRecreate(
+                mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // Now check the text has changed, signifying that night resources are being used
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
+
+        final NightModeActivity activity = mActivityTestRule.getActivity();
+
+        // Now set it again
+        setLocalNightModeAndWaitForRecreate(activity, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        // Check that the text is the same
+        onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
+        // Assert that the Activity has not been recreated
+        assertSame(activity, mActivityTestRule.getActivity());
     }
 
     @Test
