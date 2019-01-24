@@ -70,6 +70,30 @@
       "revId": "b1aa1b894bfd34bb9de1387641c29914ebbf6fa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e3c60a_379355a7",
+        "filename": "resources/build.gradle",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:27:00Z",
+      "side": 1,
+      "message": "There was a longer discussion yesterday (see chat) about that. The main danger is an app that is starts using the new module while still using the old appcompat - ending up with duplicate class definitions. So we want to now lock appcompat and appcompat-resources to be on the same versioning train.",
+      "parentUuid": "57b8abe1_df4a4d8b",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "b1aa1b894bfd34bb9de1387641c29914ebbf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

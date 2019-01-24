@@ -22,6 +22,30 @@
       "revId": "1ec84c3acbf33ad0e8b4af7179856b48e56a0f96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74c5902_6053df15",
+        "filename": "appcompat/api/1.0.0.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:27:00Z",
+      "side": 0,
+      "message": "See the discussion we had yesterday. We don\u0027t yet have a proper solution to mark changes like this where existing APIs are being moved to a new module that is marked as a dependency. So the APIs are still there, but in a different module. So until that solution (WIP by Jeff) is in place, we have to remove it from here.",
+      "parentUuid": "8a9ae630_af837856",
+      "range": {
+        "startLine": 343,
+        "startChar": 15,
+        "endLine": 343,
+        "endChar": 46
+      },
+      "revId": "1ec84c3acbf33ad0e8b4af7179856b48e56a0f96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
