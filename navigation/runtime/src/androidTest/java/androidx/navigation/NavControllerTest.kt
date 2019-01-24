@@ -19,12 +19,11 @@ package androidx.navigation
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcel
-import androidx.navigation.test.R
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.assertEquals
@@ -41,7 +40,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4::class)
 class NavControllerTest {
 
