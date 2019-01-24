@@ -99,6 +99,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    project.createDumpDependenciesTask()
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
@@ -142,6 +143,7 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        val dependencyGraphFileTask = project.createDependencyGraphFileTask()
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
         tasks.all { task ->
@@ -170,6 +172,9 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name) {
                     buildTestApksTask.dependsOn(task)
+                }
+                if ("dumpDependencies" == task.name) {
+                    dependencyGraphFileTask.dependsOn(task)
                 }
             }
         }
@@ -396,4 +401,14 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
+}
+
+private fun Project.createDumpDependenciesTask(): DefaultTask {
+    return project.tasks.create("dumpDependencies",
+        ListProjectDependencyVersionsTask::class.java)
+}
+
+private fun Project.createDependencyGraphFileTask(): DefaultTask {
+    return project.tasks.create("createDependencyGraphFile",
+        DependencyGraphFileTask::class.java)
 }
