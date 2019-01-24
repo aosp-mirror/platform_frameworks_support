@@ -22,6 +22,30 @@
       "revId": "17951515720e5f8ff833e431c6e794e6438bc9d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "331e21da_5a9c9813",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/DatabaseViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-01-24T04:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aea691b8_129d0d16",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 40
+      },
+      "revId": "17951515720e5f8ff833e431c6e794e6438bc9d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
