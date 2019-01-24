@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5f84d36f_165c72ee",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/FutureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-01-24T15:27:25Z",
+      "side": 1,
+      "message": "Why are we copy-pasting guava for this in the first place? To avoid writing try-catch blocks?",
+      "parentUuid": "693057f8_bc1907b6",
+      "range": {
+        "startLine": 31,
+        "startChar": 16,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "782da9e9ab8fa97e68e0381df8b951ad39cc4ef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2470a5be_a499ce49",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/FutureCallback.java",
         "patchSetId": 1
