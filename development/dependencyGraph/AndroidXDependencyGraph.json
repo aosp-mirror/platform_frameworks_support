@@ -1,0 +1,3125 @@
+{ "artifacts": [
+{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-runtime",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "enterprise-feedback",
+  "groupId": "support",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "palette",
+  "groupId": "androidx.palette",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-fragment-ktx",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "support-media-compat-test-client-previous",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "preference",
+  "groupId": "androidx.preference",
+  "version": "1.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "palette",
+      "groupId": "androidx.palette",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "media",
+      "groupId": "androidx.media",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "mediarouter",
+  "groupId": "androidx.mediarouter",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "legacy-support-core-utils",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-livedata",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-runtime",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-rxjava2",
+  "groupId": "androidx.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "car-moderator",
+  "groupId": "androidx.car",
+  "version": "1.0.0-alpha1"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "legacy-support-core-utils",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-runtime",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite-framework",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-migration",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-testing",
+  "groupId": "androidx.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "gridlayout",
+  "groupId": "androidx.gridlayout",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-view",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-core",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-builders",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-benchmark",
+  "groupId": "support",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "asynclayoutinflater",
+  "groupId": "androidx.asynclayoutinflater",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "legacy-support-core-utils",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "dynamicanimation",
+  "groupId": "androidx.dynamicanimation",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "constraintlayout",
+      "groupId": "androidx.constraintlayout",
+      "version": "1.1.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "cardview",
+      "groupId": "androidx.cardview",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "coordinatorlayout",
+      "groupId": "androidx.coordinatorlayout",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "gridlayout",
+      "groupId": "androidx.gridlayout",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "preference",
+      "groupId": "androidx.preference",
+      "version": "1.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "car",
+  "groupId": "androidx.car",
+  "version": "1.0.0-alpha6"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "testapp",
+  "groupId": "support.animation.integration-tests",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "tvprovider",
+  "groupId": "androidx.tvprovider",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.1",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "media",
+  "groupId": "androidx.media",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "emoji",
+      "groupId": "androidx.emoji",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "emoji-bundled",
+  "groupId": "androidx.emoji",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "work-runtime",
+  "groupId": "android.arch.work",
+  "version": "1.0.0-beta04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "contentpager",
+  "groupId": "androidx.contentpager",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "legacy-support-core-utils",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-service",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "viewpager2",
+  "groupId": "androidx.viewpager2",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "remotecallback-processor",
+      "groupId": "androidx.remotecallback",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "remotecallback",
+  "groupId": "androidx.remotecallback",
+  "version": "1.0.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "dynamicanimation",
+      "groupId": "androidx.dynamicanimation",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "dynamicanimation-ktx",
+  "groupId": "androidx.dynamicanimation",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "slice-builders",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-core",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-builders-ktx",
+  "groupId": "androidx.slice",
+  "version": "1.0.0-alpha6"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "savedstate-bundle",
+      "groupId": "androidx.savedstate",
+      "version": "1.0.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "activity",
+  "groupId": "androidx.activity",
+  "version": "1.0.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "activity",
+      "groupId": "androidx.activity",
+      "version": "1.0.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-viewmodel-ktx",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "activity-ktx",
+  "groupId": "androidx.activity",
+  "version": "1.0.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "drawerlayout",
+  "groupId": "androidx.drawerlayout",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "versionedparcelable",
+  "groupId": "androidx.versionedparcelable",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media-compat-test-lib",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-process",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "recyclerview-benchmark",
+  "groupId": "support.recyclerview",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "textclassifier",
+  "groupId": "androidx.textclassifier",
+  "version": "1.0.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-livedata",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "paging-common",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "paging-runtime",
+  "groupId": "androidx.paging",
+  "version": "2.2.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "interpolator",
+  "groupId": "androidx.interpolator",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "core-ktx",
+  "groupId": "androidx.core",
+  "version": "1.1.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "work-runtime-ktx",
+  "groupId": "android.arch.work",
+  "version": "1.0.0-beta04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "media2-exoplayer",
+  "groupId": "androidx.media2",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.1",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "core",
+  "groupId": "androidx.core",
+  "version": "1.1.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "recyclerview-selection",
+  "groupId": "androidx.recyclerview",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "benchmark",
+  "groupId": "support",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "legacy-support-core-utils",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "viewpager",
+      "groupId": "androidx.viewpager",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "coordinatorlayout",
+      "groupId": "androidx.coordinatorlayout",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "drawerlayout",
+      "groupId": "androidx.drawerlayout",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slidingpanelayout",
+      "groupId": "androidx.slidingpanelayout",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "interpolator",
+      "groupId": "androidx.interpolator",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "swiperefreshlayout",
+      "groupId": "androidx.swiperefreshlayout",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "asynclayoutinflater",
+      "groupId": "androidx.asynclayoutinflater",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "cursoradapter",
+      "groupId": "androidx.cursoradapter",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "legacy-support-core-ui",
+  "groupId": "androidx.legacy",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "biometric",
+  "groupId": "androidx.biometric",
+  "version": "1.0.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-common",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.1-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-livedata-core",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-fragment",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "media",
+      "groupId": "androidx.media",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "media2-exoplayer",
+      "groupId": "androidx.media2",
+      "version": "1.0.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "media2",
+  "groupId": "androidx.media2",
+  "version": "1.0.0-alpha05"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "fragment-ktx",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "fragment-testing",
+  "groupId": "androidx.fragment",
+  "version": "1.1.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-runtime",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-guava",
+  "groupId": "androidx.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "interpolator",
+      "groupId": "androidx.interpolator",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "swiperefreshlayout",
+  "groupId": "androidx.swiperefreshlayout",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "car",
+      "groupId": "androidx.car",
+      "version": "1.0.0-alpha6",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "car-cluster",
+  "groupId": "androidx.car",
+  "version": "1.0.0-alpha5"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-runtime",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-rxjava2",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite-framework",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-compiler",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-benchmark",
+  "groupId": "support.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "documentfile",
+  "groupId": "androidx.documentfile",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "work-testing",
+  "groupId": "android.arch.work",
+  "version": "1.0.0-beta04"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "paging-common",
+      "groupId": "androidx.paging",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-extensions",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite-framework",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "sqlite",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-runtime",
+  "groupId": "androidx.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "dumb-tests",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-livedata-core-ktx",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "testing",
+  "groupId": "support.animation",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-common",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-runtime",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-ui-ktx",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "percentlayout",
+  "groupId": "androidx.percentlayout",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-runtime-ktx",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "preference",
+      "groupId": "androidx.preference",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "leanback",
+      "groupId": "androidx.leanback",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "leanback-preference",
+  "groupId": "androidx.leanback",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "loader",
+  "groupId": "androidx.loader",
+  "version": "1.1.0-beta01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-ui",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "sqlite",
+  "groupId": "androidx.sqlite",
+  "version": "2.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "emoji",
+      "groupId": "androidx.emoji",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "emoji-appcompat",
+  "groupId": "androidx.emoji",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "core-runtime",
+  "groupId": "androidx.arch.core",
+  "version": "2.0.1-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.1-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "core-testing",
+  "groupId": "androidx.arch.core",
+  "version": "2.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "interpolator",
+      "groupId": "androidx.interpolator",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "media",
+      "groupId": "androidx.media",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "leanback",
+  "groupId": "androidx.leanback",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "viewpager",
+      "groupId": "androidx.viewpager",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "legacy-support-v13",
+  "groupId": "androidx.legacy",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-testing",
+  "groupId": "support.navigation",
+  "version": "1.0.0-alpha08"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "lifecycle-viewmodel",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "versionedparcelable",
+      "groupId": "androidx.versionedparcelable",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media2-test-common",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "viewpager",
+  "groupId": "androidx.viewpager",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "media2",
+      "groupId": "androidx.media2",
+      "version": "1.0.0-alpha05",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media2-test-client",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "paging-runtime",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "paging-common-ktx",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "paging-runtime-ktx",
+  "groupId": "androidx.paging",
+  "version": "2.2.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "heifwriter",
+  "groupId": "androidx.heifwriter",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "palette",
+      "groupId": "androidx.palette",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "palette-ktx",
+  "groupId": "androidx.palette",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slidingpanelayout",
+  "groupId": "androidx.slidingpanelayout",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "work-rxjava2",
+  "groupId": "android.arch.work",
+  "version": "1.0.0-beta04"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "transition",
+  "groupId": "androidx.transition",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "recyclerview",
+  "groupId": "androidx.recyclerview",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "preference",
+      "groupId": "androidx.preference",
+      "version": "1.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "preference-ktx",
+  "groupId": "androidx.preference",
+  "version": "1.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "cursoradapter",
+      "groupId": "androidx.cursoradapter",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "vectordrawable",
+      "groupId": "androidx.vectordrawable",
+      "version": "1.0.1",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "vectordrawable-animated",
+      "groupId": "androidx.vectordrawable",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "drawerlayout",
+      "groupId": "androidx.drawerlayout",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "appcompat",
+  "groupId": "androidx.appcompat",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-common-ktx",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "cursoradapter",
+  "groupId": "androidx.cursoradapter",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "paging-common",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "paging-rxjava2",
+  "groupId": "androidx.paging",
+  "version": "2.2.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "media",
+      "groupId": "androidx.media",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media-compat-test-client",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "emoji",
+  "groupId": "androidx.emoji",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-benchmark",
+  "groupId": "support.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "vectordrawable",
+      "groupId": "androidx.vectordrawable",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "interpolator",
+      "groupId": "androidx.interpolator",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "vectordrawable-animated",
+  "groupId": "androidx.vectordrawable",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.1-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-livedata",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "webkit",
+  "groupId": "androidx.webkit",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "paging-rxjava2",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "paging-common-ktx",
+      "groupId": "androidx.paging",
+      "version": "2.2.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "paging-rxjava2-ktx",
+  "groupId": "androidx.paging",
+  "version": "2.2.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "recommendation",
+  "groupId": "androidx.recommendation",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "savedstate-common",
+      "groupId": "androidx.savedstate",
+      "version": "1.0.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-viewmodel-savedstate",
+  "groupId": "support.lifecycle",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "palette",
+      "groupId": "androidx.palette",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "media2",
+      "groupId": "androidx.media2",
+      "version": "1.0.0-alpha05",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "mediarouter",
+      "groupId": "androidx.mediarouter",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "media2-widget",
+  "groupId": "androidx.media2",
+  "version": "1.0.0-alpha07"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "remotecallback-processor",
+      "groupId": "androidx.remotecallback",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "remotecallback",
+      "groupId": "androidx.remotecallback",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-core",
+  "groupId": "androidx.slice",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "concurrent-futures",
+      "groupId": "androidx.concurrent",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "sharetarget",
+  "groupId": "androidx.sharetarget",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "sqlite",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "sqlite-framework",
+  "groupId": "androidx.sqlite",
+  "version": "2.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-reactivestreams",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-reactivestreams-ktx",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "support-media-compat-test-service-previous",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-runtime",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.1-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-common",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-livedata",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-process",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-service",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-extensions",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "customview",
+  "groupId": "androidx.customview",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core-common",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-common",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-livedata",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-reactivestreams",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "remotecallback",
+      "groupId": "androidx.remotecallback",
+      "version": "1.0.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-core",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-builders",
+  "groupId": "androidx.slice",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "viewpager",
+      "groupId": "androidx.viewpager",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "loader",
+      "groupId": "androidx.loader",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "activity",
+      "groupId": "androidx.activity",
+      "version": "1.0.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "fragment",
+  "groupId": "androidx.fragment",
+  "version": "1.1.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-livedata",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-livedata-core-ktx",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "lifecycle-runtime",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core-testing",
+      "groupId": "androidx.arch.core",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-livedata-ktx",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [],
+  "artifactId": "navigation-common",
+  "groupId": "android.arch.navigation",
+  "version": "1.0.0-alpha11"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "vectordrawable",
+  "groupId": "androidx.vectordrawable",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "sqlite",
+      "groupId": "androidx.sqlite",
+      "version": "2.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "sqlite-ktx",
+  "groupId": "androidx.sqlite",
+  "version": "2.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "appcompat",
+      "groupId": "androidx.appcompat",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "internal-testutils",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": false
+    },
+    {
+      "artifactId": "customview",
+      "groupId": "androidx.customview",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [],
+  "artifactId": "coordinatorlayout",
+  "groupId": "androidx.coordinatorlayout",
+  "version": "1.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "animation",
+  "groupId": "support",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "lifecycle-viewmodel",
+      "groupId": "androidx.lifecycle",
+      "version": "2.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "lifecycle-viewmodel-ktx",
+  "groupId": "androidx.lifecycle",
+  "version": "2.1.0-alpha02"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "constraintlayout",
+      "groupId": "androidx.constraintlayout",
+      "version": "1.1.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "legacy-support-core-ui",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "wear",
+  "groupId": "androidx.wear",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "cardview",
+  "groupId": "androidx.cardview",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "documentfile",
+      "groupId": "androidx.documentfile",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "loader",
+      "groupId": "androidx.loader",
+      "version": "1.1.0-beta01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "localbroadcastmanager",
+      "groupId": "androidx.localbroadcastmanager",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "print",
+      "groupId": "androidx.print",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "legacy-support-core-utils",
+  "groupId": "androidx.legacy",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "core",
+      "groupId": "androidx.core",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "interpolator",
+      "groupId": "androidx.interpolator",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "collection",
+      "groupId": "androidx.collection",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "legacy-support-core-ui",
+      "groupId": "androidx.legacy",
+      "version": "1.0.0",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "browser",
+  "groupId": "androidx.browser",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "media",
+      "groupId": "androidx.media",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media-compat-test-service",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "room-common",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "room-runtime",
+      "groupId": "androidx.room",
+      "version": "2.1.0-alpha03",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "room-coroutines",
+  "groupId": "androidx.room",
+  "version": "2.1.0-alpha03"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "print",
+  "groupId": "androidx.print",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "fragment",
+      "groupId": "androidx.fragment",
+      "version": "1.1.0-alpha04",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "activity-ktx",
+      "groupId": "androidx.activity",
+      "version": "1.0.0-alpha04",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "fragment-ktx",
+  "groupId": "androidx.fragment",
+  "version": "1.1.0-alpha04"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "slice-core",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-builders",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-test",
+  "groupId": "support",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "exifinterface",
+  "groupId": "androidx.exifinterface",
+  "version": "1.0.0"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "savedstate-common",
+      "groupId": "androidx.savedstate",
+      "version": "1.0.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "savedstate-bundle",
+  "groupId": "androidx.savedstate",
+  "version": "1.0.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "annotation",
+      "groupId": "androidx.annotation",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "localbroadcastmanager",
+  "groupId": "androidx.localbroadcastmanager",
+  "version": "1.1.0-alpha01"
+}
+,{
+  "prebuiltDependencies": [],
+  "projectDependency": [
+    {
+      "artifactId": "media2",
+      "groupId": "androidx.media2",
+      "version": "1.0.0-alpha05",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "support-media2-test-service",
+  "groupId": "support",
+  "version": "unspecified"
+}
+,{
+  "prebuiltDependencies": [
+    {
+      "artifactId": "lifecycle-livedata-core",
+      "groupId": "androidx.lifecycle",
+      "version": "2.0.0",
+      "isProjectDependency": false
+    }
+  ],
+  "projectDependency": [
+    {
+      "artifactId": "slice-builders",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "slice-core",
+      "groupId": "androidx.slice",
+      "version": "1.1.0-alpha01",
+      "isProjectDependency": true
+    },
+    {
+      "artifactId": "recyclerview",
+      "groupId": "androidx.recyclerview",
+      "version": "1.1.0-alpha02",
+      "isProjectDependency": true
+    }
+  ],
+  "artifactId": "slice-view",
+  "groupId": "androidx.slice",
+  "version": "1.1.0-alpha01"
+}
+,]}
