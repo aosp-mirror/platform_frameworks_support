@@ -121,6 +121,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private static boolean sInstalledExceptionHandler;
 
+    private static int sSystemDefaultUiMode;
+    private static boolean sSystemDefaultUiModeSet;
+
     static final String EXCEPTION_HANDLER_MESSAGE_SUFFIX= ". If the resource you are"
             + " trying to use is a vector resource, you may be referencing it in an unsupported"
             + " way. See AppCompatDelegate.setCompatVectorFromResourcesEnabled() for more info.";
@@ -215,6 +218,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
+
     private boolean mCreated;
 
     private int mThemeResId;
@@ -250,6 +254,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         mContext = context;
         mWindow = window;
         mAppCompatCallback = callback;
+
+        if (!sSystemDefaultUiModeSet) {
+            // This looks really weird but we need a way to keep a record of the system's default
+            // uiMode. Since configuration's persist over recreate()ions, we need a reliable way
+            // to know this, and this is as good as it gets
+            sSystemDefaultUiMode = mContext.getResources().getConfiguration().uiMode;
+            sSystemDefaultUiModeSet = true;
+        }
 
         mOriginalWindowCallback = mWindow.getCallback();
         if (mOriginalWindowCallback instanceof AppCompatWindowCallback) {
@@ -2013,13 +2025,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public boolean applyDayNight() {
-        boolean applied = false;
-
         @NightMode final int nightMode = getNightMode();
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
-        if (modeToApply != MODE_NIGHT_FOLLOW_SYSTEM) {
-            applied = updateForNightMode(modeToApply);
-        }
+        final boolean applied = updateForNightMode(modeToApply);
 
         if (nightMode == MODE_NIGHT_AUTO) {
             // If we're already been started, we may need to setup auto mode again
@@ -2088,9 +2096,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         final Configuration config = res.getConfiguration();
         final int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-        final int newNightMode = (mode == MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        int newNightMode = currentNightMode;
+        switch (mode) {
+            case MODE_NIGHT_YES:
+                newNightMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case MODE_NIGHT_NO:
+                newNightMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            case MODE_NIGHT_FOLLOW_SYSTEM:
+                // If we're following the system, we just use the system default
+                newNightMode = sSystemDefaultUiMode & Configuration.UI_MODE_NIGHT_MASK;
+                break;
+        }
 
         boolean handled = false;
 
@@ -2101,7 +2119,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
             if (shouldRecreateOnNightModeChange) {
                 if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity");
+                    Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity."
+                            + " Mode: " + mode);
                 }
                 // If we've already been created, we need to recreate the Activity for the
                 // mode to be applied
@@ -2114,7 +2133,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 res.updateConfiguration(newConf, res.getDisplayMetrics());
 
                 if (DEBUG) {
-                    Log.d(TAG, "updateForNightMode. Night mode changed, updated res config");
+                    Log.d(TAG, "updateForNightMode. Night mode changed, updated res config."
+                            + " Mode: " + mode);
                 }
                 // We may need to flush the Resources' drawable cache due to framework bugs.
                 if (Build.VERSION.SDK_INT < 26) {
