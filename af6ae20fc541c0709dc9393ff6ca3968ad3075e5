@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5c718f7d_e0a55b59",
+        "filename": "navigation/fragment/ktx/api/1.0.0-alpha10.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-24T00:42:19Z",
+      "side": 1,
+      "message": "That\u0027s weird. I tried to reproduce this as a unit test in lint and it passes there; I\u0027m not sure what\u0027s different...\n\nhttps://android-review.googlesource.com/c/platform/tools/metalava/+/883673/1/src/test/java/com/android/tools/metalava/ApiFileTest.kt",
+      "parentUuid": "59077fe5_0c6d949d",
+      "range": {
+        "startLine": 11,
+        "startChar": 132,
+        "endLine": 11,
+        "endChar": 133
+      },
+      "revId": "af6ae20fc541c0709dc9393ff6ca3968ad3075e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fc8be5a_95940f70",
         "filename": "navigation/runtime/ktx/api/1.0.0-alpha10.txt",
         "patchSetId": 2
