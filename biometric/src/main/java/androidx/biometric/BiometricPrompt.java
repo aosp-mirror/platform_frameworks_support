@@ -168,8 +168,7 @@ public class BiometricPrompt implements BiometricConstants {
          *                  be one of the BIOMETRIC_ERROR constants.
          * @param errString A human-readable error string that can be shown on an UI
          */
-        public void onAuthenticationError(@BiometricError int errorCode,
-                @NonNull CharSequence errString) {}
+        public void onAuthenticationError(@BiometricError int errorCode, CharSequence errString) {}
 
         /**
          * Called when a biometric is recognized.
