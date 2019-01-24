@@ -97,6 +97,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
+                    val listDependencyVersionsTask = project.createListDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.create(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
@@ -104,6 +105,7 @@ class AndroidXPlugin : Plugin<Project> {
                         val javaCompileTask = libraryVariant
                             .javaCompileProvider.get()
                         verifyDependencyVersionsTask.dependsOn(javaCompileTask)
+                        listDependencyVersionsTask.dependsOn(javaCompileTask)
                         checkNoWarningsTask.dependsOn(javaCompileTask)
                         project.gradle.taskGraph.whenReady {
                             if (it.hasTask(checkNoWarningsTask)) {
@@ -128,6 +130,7 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+
         // Disable timestamps and ensure filesystem-independent archive ordering to maximize
         // cross-machine byte-for-byte reproducibility of artifacts.
         project.tasks.withType<Jar> {
@@ -137,6 +140,7 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
+        val combineDependencyListTask = project.createCombineDependencyListTask()
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
@@ -168,6 +172,9 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name) {
                     buildTestApksTask.dependsOn(task)
+                }
+                if ("listDependencyVersions" == task.name) {
+                    combineDependencyListTask.dependsOn(task)
                 }
             }
         }
@@ -389,4 +396,14 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
+}
+
+private fun Project.createListDependencyVersionsTask(): DefaultTask {
+    return project.tasks.create("listDependencyVersions",
+            ListDependencyVersionsTask::class.java)
+}
+
+private fun Project.createCombineDependencyListTask(): DefaultTask {
+    return project.tasks.create("combineDependencyList",
+        CombineDependencyListTask::class.java)
 }
