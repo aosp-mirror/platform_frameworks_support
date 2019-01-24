@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6d48d9e_08634c5f",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-24T01:27:33Z",
+      "side": 1,
+      "message": "Do we not want the light version anymore?",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd063324_cd254466",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-24T01:27:33Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 64
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21922669_76056310",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-24T01:27:33Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 67,
+        "startChar": 40,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd4a8a2_6bbdd1a2",
+        "filename": "car/core/res/values/themes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1344513
+      },
+      "writtenOn": "2019-01-24T01:27:33Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 219,
+        "startChar": 58,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "bb25dca990bd82df0a8466a4eb99877548ec1cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
