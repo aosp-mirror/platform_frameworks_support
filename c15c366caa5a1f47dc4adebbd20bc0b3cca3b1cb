@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6691ed2_2b2cc298",
+        "filename": "room/common/src/main/java/androidx/room/OnConflictStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-24T00:45:00Z",
+      "side": 1,
+      "message": "Re-phrase to \"Does not work with Android\u0027s current SQLite Bindings\", the point being that in the future it might work.",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "c15c366caa5a1f47dc4adebbd20bc0b3cca3b1cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ceba600_d64a5ed3",
+        "filename": "room/common/src/main/java/androidx/room/OnConflictStrategy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-24T00:45:00Z",
+      "side": 1,
+      "message": "Add deprecated reason, similar to above.",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "c15c366caa5a1f47dc4adebbd20bc0b3cca3b1cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
