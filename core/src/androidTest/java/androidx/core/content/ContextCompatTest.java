@@ -136,14 +136,14 @@ import android.view.textservice.TextServicesManager;
 
 import androidx.core.test.R;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@SmallTest
+@LargeTest
 public class ContextCompatTest extends BaseInstrumentationTestCase<ThemedYellowActivity> {
     private Context mContext;
 

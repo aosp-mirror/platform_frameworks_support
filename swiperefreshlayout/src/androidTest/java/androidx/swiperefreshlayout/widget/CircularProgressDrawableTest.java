@@ -31,7 +31,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -63,7 +63,7 @@ public class CircularProgressDrawableTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void sizeIsSquareBasedOnSmallerEdgeWithNoCenterRadius() {
         int width = 100;
         int height = 50;
@@ -80,7 +80,7 @@ public class CircularProgressDrawableTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void setCenterRadiusFixesSize() {
         float radius = 10f;
         float strokeWidth = 4f;

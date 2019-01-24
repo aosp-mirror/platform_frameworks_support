@@ -77,7 +77,7 @@ import androidx.emoji.util.Emoji.EmojiMapping;
 import androidx.emoji.util.TestString;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -90,7 +90,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class EmojiCompatTest {
 

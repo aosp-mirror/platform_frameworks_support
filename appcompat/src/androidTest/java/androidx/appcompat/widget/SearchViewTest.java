@@ -37,7 +37,7 @@ import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 /**
  * Test {@link SearchView}.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class SearchViewTest {
     private Instrumentation mInstrumentation;

@@ -47,7 +47,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.Transaction;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -278,7 +278,7 @@ public class DatabaseViewTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void liveData() {
         final CompanyDatabase db = getDatabase();
         db.department().insert(new Department(1L, "Shop"));
@@ -320,7 +320,7 @@ public class DatabaseViewTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void nestedLive() {
         final CompanyDatabase db = getDatabase();
         final LiveData<EmployeeDetail> employee = db.employee().liveDetailById(2L);
@@ -361,7 +361,7 @@ public class DatabaseViewTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void viewInRelation() {
         final CompanyDatabase db = getDatabase();
         db.department().insert(new Department(1L, "Shop"));

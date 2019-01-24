@@ -48,7 +48,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.transition.test.R;
 
 import org.junit.Before;
@@ -56,7 +56,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-@MediumTest
+@SmallTest
 public class TransitionTest extends BaseTest {
 
     private Scene[] mScenes = new Scene[2];

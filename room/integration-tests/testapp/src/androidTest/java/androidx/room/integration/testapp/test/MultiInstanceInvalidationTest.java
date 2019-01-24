@@ -44,7 +44,7 @@ import androidx.room.integration.testapp.database.SampleDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ServiceTestRule;
 
@@ -110,7 +110,7 @@ public class MultiInstanceInvalidationTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void invalidateInAnotherInstance() throws Exception {
         final SampleDatabase db1 = openDatabase(true);
         final SampleDatabase db2 = openDatabase(true);
@@ -213,7 +213,7 @@ public class MultiInstanceInvalidationTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void reopen() throws Exception {
         final SampleDatabase db1 = openDatabase(true);
         final Product product = new Product();
@@ -230,7 +230,7 @@ public class MultiInstanceInvalidationTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void invalidatedByAnotherProcess() throws Exception {
         bindTestService();
         final SampleDatabase db = openDatabase(true);
@@ -246,7 +246,7 @@ public class MultiInstanceInvalidationTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void invalidateAnotherProcess() throws Exception {
         bindTestService();
         final SampleDatabase db = openDatabase(true);

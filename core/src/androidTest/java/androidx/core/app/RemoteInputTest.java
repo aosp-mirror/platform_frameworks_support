@@ -28,7 +28,7 @@ import android.support.v4.BaseInstrumentationTestCase;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class RemoteInputTest extends BaseInstrumentationTestCase<TestActivity> {
     private static final String RESULT_KEY = "result_key";  // value doesn't matter
     private static final String MIME_TYPE = "mimeType";  // value doesn't matter

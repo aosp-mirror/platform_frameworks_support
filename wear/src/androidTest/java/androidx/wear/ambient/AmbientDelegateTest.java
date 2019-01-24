@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import com.google.android.wearable.compat.WearableActivityController;
 
@@ -36,7 +36,7 @@ import org.mockito.Mock;
 /**
  * Tests for {@link AmbientDelegate}.
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AmbientDelegateTest {
 

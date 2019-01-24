@@ -42,7 +42,7 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -64,7 +64,7 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testAndroidThemeInflation() {
         final LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
         assertThemedContext(inflater.inflate(R.layout.layout_android_theme, null));
@@ -72,7 +72,7 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testAppThemeInflation() {
         final LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
         assertThemedContext(inflater.inflate(R.layout.layout_app_theme, null));
@@ -81,7 +81,7 @@ public class LayoutInflaterFactoryTestCase {
     // Propagation of themed context to children only works on API 11+.
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testAndroidThemeWithChildrenInflation() {
         LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
         final ViewGroup root = (ViewGroup) inflater.inflate(
@@ -91,7 +91,7 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testThemedInflationWithUnattachedParent() {
         final Context activity = mActivityTestRule.getActivity();
 
@@ -112,35 +112,35 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testSpinnerInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_spinner, AppCompatSpinner.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testEditTextInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_edittext, AppCompatEditText.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testButtonInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_button, AppCompatButton.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testRadioButtonInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_radiobutton, AppCompatRadioButton.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testRadioButtonInflationWithVectorButton() {
         verifyAppCompatWidgetInflation(R.layout.layout_radiobutton_vector,
                 AppCompatRadioButton.class);
@@ -148,7 +148,7 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testImageViewInflationWithVectorSrc() {
         verifyAppCompatWidgetInflation(R.layout.layout_imageview_vector,
                 AppCompatImageView.class);
@@ -156,7 +156,7 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testContextWrapperParentImageViewInflationWithVectorSrc() {
         verifyAppCompatWidgetInflation(R.layout.layout_contextwrapperparent_imageview_vector,
                 ContextWrapperFrameLayout.class);
@@ -164,21 +164,21 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testCheckBoxInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_checkbox, AppCompatCheckBox.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testActvInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_actv, AppCompatAutoCompleteTextView.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testMactvInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_mactv,
                 AppCompatMultiAutoCompleteTextView.class);
@@ -186,14 +186,14 @@ public class LayoutInflaterFactoryTestCase {
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testRatingBarInflation() {
         verifyAppCompatWidgetInflation(R.layout.layout_ratingbar, AppCompatRatingBar.class);
     }
 
     @UiThreadTest
     @Test
-    @SmallTest
+    @LargeTest
     public void testDeclarativeOnClickWithContextWrapper() {
         LayoutInflater inflater = LayoutInflater.from(mActivityTestRule.getActivity());
         View view = inflater.inflate(R.layout.layout_button_themed_onclick, null);

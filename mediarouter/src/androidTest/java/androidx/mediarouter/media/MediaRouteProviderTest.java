@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 import android.os.Bundle;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +45,7 @@ public class MediaRouteProviderTest {
     private static final String FAKE_MEDIA_ROUTE_NAME_4 = "fakeMediaRouteName4";
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testDescriptorBuilder() {
         // Tests for empty descriptor
         MediaRouteProviderDescriptor.Builder builder = new MediaRouteProviderDescriptor.Builder();
@@ -112,7 +112,7 @@ public class MediaRouteProviderTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testRouteDescriptorBuilder() {
         // Tests addGroupMemberId
         MediaRouteDescriptor routeDescriptor = new MediaRouteDescriptor.Builder(
@@ -147,7 +147,7 @@ public class MediaRouteProviderTest {
     }
 
     @Test
-    @SmallTest
+    @MediumTest
     public void testCreateDescriptorBundleForClient() {
         MediaRouteProviderDescriptor.Builder builder = new MediaRouteProviderDescriptor.Builder();
         builder.addRoute(new MediaRouteDescriptor.Builder(FAKE_MEDIA_ROUTE_ID_1,

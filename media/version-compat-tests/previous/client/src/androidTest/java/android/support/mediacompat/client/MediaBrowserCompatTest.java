@@ -71,8 +71,8 @@ import android.util.Log;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -161,7 +161,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testBrowserRoot() {
         final String id = "test-id";
         final String key = "test-key";
@@ -176,7 +176,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testMediaBrowser() throws Exception {
         assertFalse(mMediaBrowser.isConnected());
 
@@ -197,7 +197,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testGetServiceComponentBeforeConnection() {
         try {
             ComponentName serviceComponent = mMediaBrowser.getServiceComponent();
@@ -208,7 +208,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testConnectionFailed() throws Exception {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -228,7 +228,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testConnectTwice() throws Exception {
         connectMediaBrowserService();
         try {
@@ -240,7 +240,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testReconnection() throws Exception {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -286,7 +286,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testConnectionCallbackNotCalledAfterDisconnect() {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -308,7 +308,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSubscribe() throws Exception {
         connectMediaBrowserService();
 
@@ -345,7 +345,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSubscribeWithOptions() throws Exception {
         connectMediaBrowserService();
         final int pageSize = 3;
@@ -398,7 +398,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSubscribeDelayedItems() throws Exception {
         connectMediaBrowserService();
 
@@ -415,7 +415,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSubscribeInvalidItem() throws Exception {
         connectMediaBrowserService();
 
@@ -426,7 +426,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSubscribeInvalidItemWithOptions() throws Exception {
         connectMediaBrowserService();
 
@@ -448,7 +448,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testUnsubscribeForMultipleSubscriptions() throws Exception {
         connectMediaBrowserService();
         final List<StubSubscriptionCallback> subscriptionCallbacks = new ArrayList<>();
@@ -493,7 +493,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     @FlakyTest(bugId = 74093976)
     public void testUnsubscribeWithSubscriptionCallbackForMultipleSubscriptions() throws Exception {
         connectMediaBrowserService();
@@ -551,7 +551,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testGetItem() throws Exception {
         connectMediaBrowserService();
 
@@ -564,7 +564,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testGetItemDelayed() throws Exception {
         connectMediaBrowserService();
 
@@ -583,7 +583,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testGetItemWhenOnLoadItemIsNotImplemented() throws Exception {
         connectMediaBrowserService();
         synchronized (mItemCallback.mWaitLock) {
@@ -594,7 +594,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testGetItemWhenMediaIdIsInvalid() throws Exception {
         mItemCallback.mLastMediaItem = new MediaItem(new MediaDescriptionCompat.Builder()
                 .setMediaId("dummy_id").build(), MediaItem.FLAG_BROWSABLE);
@@ -609,7 +609,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSearch() throws Exception {
         connectMediaBrowserService();
 
@@ -649,7 +649,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSendCustomAction() throws Exception {
         connectMediaBrowserService();
 
@@ -706,7 +706,7 @@ public class MediaBrowserCompatTest {
 
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSendCustomActionWithDetachedError() throws Exception {
         connectMediaBrowserService();
 
@@ -747,7 +747,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSendCustomActionWithNullCallback() throws Exception {
         connectMediaBrowserService();
 
@@ -766,7 +766,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSendCustomActionWithError() throws Exception {
         connectMediaBrowserService();
 
@@ -778,7 +778,7 @@ public class MediaBrowserCompatTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDelayedSetSessionToken() throws Exception {
         // This test has no meaning in API 21. The framework MediaBrowserService just connects to
         // the media browser without waiting setMediaSession() to be called.

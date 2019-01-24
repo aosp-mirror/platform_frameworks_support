@@ -67,7 +67,7 @@ import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -78,7 +78,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
-@SmallTest
+@LargeTest
 public class TextViewCompatTest extends BaseInstrumentationTestCase<TextViewTestActivity> {
     private static final String TAG = "TextViewCompatTest";
 

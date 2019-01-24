@@ -56,7 +56,7 @@ import androidx.core.provider.FontsContractCompat.FontInfo;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +72,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class FontRequestEmojiCompatConfigTest {
     private static final int DEFAULT_TIMEOUT_MILLIS = 3000;

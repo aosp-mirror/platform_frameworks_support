@@ -25,7 +25,7 @@ import android.view.View;
 
 import androidx.core.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class DialogCompatTest extends BaseInstrumentationTestCase<TestActivity> 
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRequireViewByIdFound() throws Throwable {
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
@@ -60,7 +60,7 @@ public class DialogCompatTest extends BaseInstrumentationTestCase<TestActivity> 
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @SmallTest
+    @LargeTest
     public void testRequireViewByIdMissing() throws Throwable {
         // container isn't present inside dialog.
         mActivityTestRule.runOnUiThread(new Runnable() {
@@ -75,7 +75,7 @@ public class DialogCompatTest extends BaseInstrumentationTestCase<TestActivity> 
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @SmallTest
+    @LargeTest
     public void testRequireViewByIdInvalid() throws Throwable {
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override

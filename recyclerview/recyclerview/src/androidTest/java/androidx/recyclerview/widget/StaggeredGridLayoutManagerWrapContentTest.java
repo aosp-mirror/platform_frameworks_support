@@ -26,7 +26,7 @@ import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.filters.SdkSuppress;
 
 import org.junit.Test;
@@ -36,7 +36,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class StaggeredGridLayoutManagerWrapContentTest extends BaseWrapContentTest {
     int mOrientation = StaggeredGridLayoutManager.VERTICAL;

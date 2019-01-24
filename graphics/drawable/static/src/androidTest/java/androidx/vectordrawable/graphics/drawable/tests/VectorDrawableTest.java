@@ -44,7 +44,7 @@ import android.util.Log;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.vectordrawable.test.R;
 
@@ -59,7 +59,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class VectorDrawableTest {
     private static final String LOGTAG = "VectorDrawableTest";
 
