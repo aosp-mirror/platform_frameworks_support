@@ -70,6 +70,30 @@
       "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2a62f2d_5983e42b",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatApi21Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-01-24T12:18:54Z",
+      "side": 1,
+      "message": "Sounds good, the only thing to note here is that TypefaceCompatApi21Impl would initialize some variables lazily while other classes such as TypefaceCompatApi26Impl wouldn\u0027t, which is arguably a little weird. Shall we agree this is the best solution though ?",
+      "parentUuid": "7141ffd3_454cc20a",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 10
+      },
+      "revId": "c21bda187c251d2169a41988aa3a40499cb5c27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
