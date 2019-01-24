@@ -22,6 +22,30 @@
       "revId": "fe8b2359cabbb866d5a88752dfff0ec78c3800fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e20e2d4_0b247214",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-01-24T05:13:14Z",
+      "side": 0,
+      "message": "Maybe done, I will look double check tomorrow but an initial pass seemed good to me.",
+      "parentUuid": "8c2ff62d_eb18c1d6",
+      "range": {
+        "startLine": 172,
+        "startChar": 17,
+        "endLine": 172,
+        "endChar": 24
+      },
+      "revId": "fe8b2359cabbb866d5a88752dfff0ec78c3800fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
