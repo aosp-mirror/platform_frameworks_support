@@ -97,6 +97,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
+                    val listDependencyVersionsTask = project.createListDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.create(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
@@ -104,6 +105,7 @@ class AndroidXPlugin : Plugin<Project> {
                         val javaCompileTask = libraryVariant
                             .javaCompileProvider.get()
                         verifyDependencyVersionsTask.dependsOn(javaCompileTask)
+                        listDependencyVersionsTask.dependsOn(javaCompileTask)
                         checkNoWarningsTask.dependsOn(javaCompileTask)
                         project.gradle.taskGraph.whenReady {
                             if (it.hasTask(checkNoWarningsTask)) {
@@ -139,6 +141,7 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        val dependencyGraphFileTask = project.createDependencyGraphFileTask()
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
         tasks.all { task ->
@@ -168,6 +171,9 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name) {
                     buildTestApksTask.dependsOn(task)
+                }
+                if ("listDependencyVersions" == task.name) {
+                    dependencyGraphFileTask.dependsOn(task)
                 }
             }
         }
@@ -389,4 +395,14 @@ private fun Project.configureResourceApiChecks() {
 private fun Project.getGenerateResourceApiFile(): File {
     return File(project.buildDir, "intermediates/public_res/release" +
             "/packageReleaseResources/public.txt")
+}
+
+private fun Project.createListDependencyVersionsTask(): DefaultTask {
+    return project.tasks.create("listDependencyVersions",
+        ListProjectDependencyVersionsTask::class.java)
+}
+
+private fun Project.createDependencyGraphFileTask(): DefaultTask {
+    return project.tasks.create("createDependencyGraphFile",
+        DependencyGraphFileTask::class.java)
 }
