@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "38195cd2_28aa9422",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T07:37:40Z",
+      "side": 1,
+      "message": "I may not be in the right place to comment on this, but I think `viewModelScope` should include the word `main` in its name, and there could be a lazily evaluated `defaultScope` property dispatching on `Dispatchers.Default` (sharing the `Job` instance with the one dispatching on main thread), and the same could be done for I/O with `Dispatchers.IO`.\nIn a ViewModel, you\u0027re more likely to work off the main thread, do calculations that involve the CPU, or do blocking I/O, and only posting to LiveDatas or going back on main thread to sync results.",
+      "parentUuid": "d7ef07b8_ea8da9f2",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cfe6cc2_ef9469b8",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -139,6 +157,59 @@
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13339b66_08948d26",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T07:37:40Z",
+      "side": 1,
+      "message": "This is not the behavior you\u0027ll get. If a coroutine launched from this scope is cancelled (for example a `CancellationException` or subclass thrown inside a `launch` lambda because of a call to `withTimeout(millis) { ... }` that timed out), then all subsequent attempts to launch a coroutine, and all running coroutines will result in being cancelled, which will put the app into an inconsistent near-dead state, without any crash (normal cancellation should never crash anyway).\n\nThe same would happen if you call `async { ... }` from this scope and it fails inside (and is properly caught at `await()` call place.\n\nThat is the reason why there\u0027s `SupervisorJob()` provided in kotlinx.coroutines, and it needs to be used there.\n\nFYI, I made this mistake in the past (using `Job()` for lifecycle coroutine scope), and in my case, if first attempt to do something failed normally (with no uncaught exception), all subsequent attempts would be cancelled straightaway.",
+      "parentUuid": "1b665030_f56f8288",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1638ae_c3ad3914",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T07:37:40Z",
+      "side": 1,
+      "message": "In the project I linked, I have non instrumented unit tests for that code which pass, because if not run on Android, an exception is thrown when accessing `Looper`, which is caught to use `Dispatchers.Main` instead. You can try simply with this snippet:\n```\ninternal val Dispatchers.MainAndroid: MainCoroutineDispatcher get() \u003d androidMainDispatcher\nprivate val androidMainDispatcher: MainCoroutineDispatcher \u003d runCatching {\n    Handler(Looper.getMainLooper()).asCoroutineDispatcher(\"androidx-main-dispatcher\")\n}.getOrElse { Dispatchers.Main }\n```",
+      "parentUuid": "a9b902f1_b7a874e3",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64701659_db5a7758",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T07:37:40Z",
+      "side": 1,
+      "message": "Could/should accept a `minimumState` parameter of type `Lifecycle.State` to support scopes for STARTED state, and also for RESUMED state (although I think it should be discouraged because of multi-window).",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -381,6 +452,24 @@
       "side": 1,
       "message": "sgtm; will move to T",
       "parentUuid": "0de67a30_e0f727a6",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cdd0a80_7b333a26",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T07:37:40Z",
+      "side": 1,
+      "message": "I don\u0027t think this snippet would work with `withStateAtLeast` either because if cancelled, then the `CancellationException` would be thrown anyway.\n\nAlso, the purpose of `withContext` is very different from this use case, so IMHO, there\u0027s no reason to attempt to mimic its signature. What should be provided instead is a way to create scopes that are cancelled when the lifecycle is no longer at least a state, that\u0027s the purpose of coroutine scopes.\n\nI thought about this in the past, and wrote an extension with this signature: `fun Lifecycle.createJob(activeWhile: Lifecycle.State \u003d INITIALIZED): Job`, plus another one to create the scope: `fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope`.\nYou can see how I implemented it there: https://github.com/LouisCAD/Splitties/blob/8a38de6131b1b41d5404c8f236204cfa7becc3b8/lifecycle-coroutines/src/main/kotlin/splitties/lifecycle/coroutines/Lifecycle.kt#L34-L67\nFYI, this code was initially meant to become an integration of kotlinx.coroutines (after Roman Elizarov from Kotlin team at JetBrains suggested me to start it from a gist I shared in Kotlin Slack back when coroutines were still experimental just after release of version 0.26.1 with structured concurrency), and I wrote it with that in mind, but eventually added it to a library and closed the PR as your colleague Sergey Vasilinets said they were planning to have it in AndroidX.\n\nNote that `awaitState` resumes if the state is at least the one passed in parameter, so as long as the lifecycle is not destroyed first, it suspends and resumes as soon as there\u0027s a lifecycle change that makes is at least the passed state. I should rename the parameter to `minimumState`.\n\nTaking this into account, what do you think now?",
+      "parentUuid": "4d56c6ec_79cac208",
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
