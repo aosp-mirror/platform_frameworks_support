@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b29dac6_f65045cf",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "661af9ca_3cb04056",
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48962221_8edef3fc",
         "filename": "resources/build.gradle",
         "patchSetId": 11
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4728d175_67eeafa7",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48962221_8edef3fc",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0190a6d_e55d7e84",
         "filename": "resources/build.gradle",
         "patchSetId": 11
@@ -53,6 +95,30 @@
       "writtenOn": "2019-01-24T01:08:10Z",
       "side": 1,
       "message": "We don\u0027t have any vector drawables, remove.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d460f0be_5d74ced7",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "It has drawable/abc_vector_test.xml that is used in ResourceManagerInternal.checkVectorDrawableSetup",
+      "parentUuid": "b0190a6d_e55d7e84",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "f802e67f_697a529d",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baf504d0_cd670604",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0d5d322_dd0eb9de",
         "filename": "resources/build.gradle",
         "patchSetId": 11
@@ -108,6 +198,30 @@
       "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20059c73_d23b218d",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0d5d322_dd0eb9de",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "7e890e7b_58f46f3c",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "834e75f8_381fb920",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 289
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb8d5fe2_352a95bf",
         "filename": "resources/build.gradle",
         "patchSetId": 11
@@ -145,6 +283,30 @@
       "writtenOn": "2019-01-24T01:08:10Z",
       "side": 1,
       "message": "Remove these. Hopefully we dont have these warnings in the code we just moved. If we do, we should suppress inline.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 37
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5722226a_dd007a6f",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-24T16:23:33Z",
+      "side": 1,
+      "message": "There\u0027s a couple dozen warnings, all on classes that extend the core drawable / resource classes and override all the methods to do tinting etc. They have to be there so that it works properly on older devices and for apps that still use those deprecated methods. I don\u0027t think it will be too useful to pepper the code with inline suppression.",
+      "parentUuid": "eb8d5fe2_352a95bf",
       "range": {
         "startLine": 58,
         "startChar": 0,
