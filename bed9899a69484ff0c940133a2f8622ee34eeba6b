@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "661af9ca_3cb04056",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "Add copyright header.",
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48962221_8edef3fc",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "We don\u0027t have any public resources, the default directory for resources is src/main/res, put the resources there.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0190a6d_e55d7e84",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "We don\u0027t have any vector drawables, remove.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf504d0_cd670604",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "We don\u0027t have progard flags for this library, remove.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d5d322_dd0eb9de",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "Update year.",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "834e75f8_381fb920",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "Add a description that is a bit closer to what this library actually is.",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 289
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8d5fe2_352a95bf",
+        "filename": "resources/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "Remove these. Hopefully we dont have these warnings in the code we just moved. If we do, we should suppress inline.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 37
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c6fabbf_1512d9ec",
+        "filename": "settings.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-01-24T01:08:10Z",
+      "side": 1,
+      "message": "move the resources directory to appcompat/resources since it is a sub library now.",
+      "range": {
+        "startLine": 44,
+        "startChar": 40,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "bed9899a69484ff0c940133a2f8622ee34eeba6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
