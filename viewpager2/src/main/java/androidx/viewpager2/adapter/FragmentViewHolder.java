@@ -16,14 +16,24 @@
 
 package androidx.viewpager2.adapter;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-final class FragmentViewHolder extends RecyclerView.ViewHolder {
+/**
+ * {@link ViewHolder} implementation for handling {@link Fragment}s. Used in
+ * {@link FragmentStateAdapter}.
+ *
+ * @hide
+ */
+@RestrictTo(LIBRARY)
+public final class FragmentViewHolder extends ViewHolder {
     Fragment mFragment;
 
     private FragmentViewHolder(FrameLayout container) {
