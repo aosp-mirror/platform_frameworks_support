@@ -29,7 +29,7 @@ import android.os.Process;
 import androidx.annotation.GuardedBy;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
@@ -44,7 +44,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Tests for {@link SelfDestructiveThread}
  */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class SelfDestructiveThreadTest {
     private static final int DEFAULT_TIMEOUT = 1000;
 

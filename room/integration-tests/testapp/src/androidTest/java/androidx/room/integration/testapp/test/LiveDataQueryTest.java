@@ -43,7 +43,6 @@ import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -329,7 +328,7 @@ public class LiveDataQueryTest extends TestDatabaseTest {
         assertThat(observer.get().get(0), is(mail));
     }
 
-    @MediumTest
+    @SmallTest
     @Test
     public void handleGc() throws ExecutionException, InterruptedException, TimeoutException {
         LiveData<User> liveData = mUserDao.liveUserById(3);

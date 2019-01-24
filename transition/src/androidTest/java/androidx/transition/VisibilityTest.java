@@ -36,14 +36,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-@MediumTest
+@SmallTest
 public class VisibilityTest extends BaseTest {
 
     private View mView;
