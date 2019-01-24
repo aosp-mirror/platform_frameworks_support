@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c2ff62d_eb18c1d6",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-01-24T04:52:44Z",
+      "side": 0,
+      "message": "Hmm, prefer option two in comment #4 of the bug. That way applications dont need to do a null check. And also, we wouldn\u0027t need to update the API (reason why treehugger is failing).",
+      "range": {
+        "startLine": 172,
+        "startChar": 17,
+        "endLine": 172,
+        "endChar": 24
+      },
+      "revId": "fe8b2359cabbb866d5a88752dfff0ec78c3800fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
