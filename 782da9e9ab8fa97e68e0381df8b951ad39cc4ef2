@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "18524a1b_8b031488",
+        "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/FutureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-24T15:40:10Z",
+      "side": 1,
+      "message": "Yep. however, I set up a chat about the whole approach next Monday. I\u0027ll send you an invite, join if you can",
+      "parentUuid": "5f84d36f_165c72ee",
+      "range": {
+        "startLine": 31,
+        "startChar": 16,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "782da9e9ab8fa97e68e0381df8b951ad39cc4ef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2470a5be_a499ce49",
         "filename": "concurrent/futures/src/main/java/androidx/concurrent/futures/FutureCallback.java",
         "patchSetId": 1
