@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c4d3baf_44bf5f2c",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-24T18:55:21Z",
+      "side": 1,
+      "message": "Put the bug number as well.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 37
+      },
+      "revId": "bd019857c8833e41988556c011b5bbbed63de045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e310fa05_4c38ee84",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-24T18:55:21Z",
+      "side": 1,
+      "message": "jobFinished in onExecuted",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 36
+      },
+      "revId": "bd019857c8833e41988556c011b5bbbed63de045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
