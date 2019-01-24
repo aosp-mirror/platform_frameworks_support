@@ -79,7 +79,7 @@ import java.util.List;
 
 /** Unit tests for {@link PagedListView}. */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public final class PagedListViewTest {
 
     /**

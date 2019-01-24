@@ -83,7 +83,7 @@ import java.util.Locale;
 /**
  * Tests for {@link FloatingToolbar}.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.M)
 public final class FloatingToolbarTest {

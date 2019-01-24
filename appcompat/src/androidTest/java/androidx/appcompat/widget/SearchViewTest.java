@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 /**
  * Test {@link SearchView}.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class SearchViewTest {
     private Instrumentation mInstrumentation;

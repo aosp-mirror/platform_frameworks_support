@@ -50,7 +50,7 @@ import androidx.core.app.NotificationCompat.MessagingStyle.Message;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +61,7 @@ import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class NotificationCompatTest extends BaseInstrumentationTestCase<TestActivity> {
     private static final String TEXT_RESULT_KEY = "text";
     private static final String DATA_RESULT_KEY = "data";
@@ -287,7 +287,7 @@ public class NotificationCompatTest extends BaseInstrumentationTestCase<TestActi
 
 
     @SdkSuppress(maxSdkVersion = 16)
-    @SmallTest
+    @LargeTest
     @Test
     public void testNotificationWearableExtenderAction_noActions()
             throws Throwable {

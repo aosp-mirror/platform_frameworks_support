@@ -42,7 +42,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-@MediumTest
+@SmallTest
 public class SlideEdgeTest extends BaseTransitionTest {
 
     private static final ArrayList<Pair<Integer, String>> SLIDE_EDGES = new ArrayList<>();

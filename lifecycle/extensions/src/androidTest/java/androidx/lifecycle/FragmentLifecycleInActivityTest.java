@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class FragmentLifecycleInActivityTest {
 

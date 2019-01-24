@@ -24,7 +24,7 @@ import androidx.room.integration.kotlintestapp.vo.BookWithPublisher
 import androidx.room.integration.kotlintestapp.vo.Lang
 import androidx.room.integration.kotlintestapp.vo.Publisher
 import androidx.test.filters.SdkSuppress
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import com.google.common.base.Optional
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers

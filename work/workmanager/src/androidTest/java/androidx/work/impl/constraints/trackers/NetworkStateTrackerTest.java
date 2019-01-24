@@ -30,7 +30,7 @@ import android.net.ConnectivityManager;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.work.impl.constraints.NetworkState;
 
 import org.junit.Before;

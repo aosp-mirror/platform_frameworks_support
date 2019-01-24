@@ -25,14 +25,14 @@ import androidx.core.os.LocaleListCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /** UnInstrumentation unit tests for {@link PlatformTextClassifierWrapper}. */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
 public class PlatformTextClassifierWrapperTest {

@@ -25,7 +25,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -38,7 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-@SmallTest
+@MediumTest
 public class DefaultMeasureSpecTest {
     private final int mWSpec;
     private final int mHSpec;

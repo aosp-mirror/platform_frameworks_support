@@ -66,7 +66,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class AlertDialogCursorTest {
     @Rule

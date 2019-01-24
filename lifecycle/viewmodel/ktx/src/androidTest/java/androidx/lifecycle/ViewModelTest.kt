@@ -16,7 +16,7 @@
 
 package androidx.lifecycle
 
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import com.google.common.truth.Truth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

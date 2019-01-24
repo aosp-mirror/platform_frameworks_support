@@ -51,7 +51,7 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class BoxInsetLayoutTest {
     private static final float FACTOR = 0.146467f; //(1 - sqrt(2)/2)/2

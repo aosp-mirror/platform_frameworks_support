@@ -54,7 +54,7 @@ import androidx.media2.test.client.MediaTestUtils;
 import androidx.media2.test.client.RemoteMediaSessionCompat;
 import androidx.media2.test.common.MockActivity;
 import androidx.media2.test.common.TestUtils;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.After;
 import org.junit.Before;

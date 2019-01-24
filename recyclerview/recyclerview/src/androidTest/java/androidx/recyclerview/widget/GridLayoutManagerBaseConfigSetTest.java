@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class GridLayoutManagerBaseConfigSetTest extends BaseGridLayoutManagerTest {
     @Parameterized.Parameters(name = "{0}")

@@ -47,7 +47,7 @@ import android.util.Log;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.Configuration;
 import androidx.work.Data;
@@ -116,7 +116,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSuccess() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWork(work);
@@ -128,7 +128,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRunAttemptCountIncremented_successfulExecution() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWork(work);
@@ -141,7 +141,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRunAttemptCountIncremented_failedExecution() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
         insertWork(work);
@@ -153,7 +153,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPermanentErrorWithInvalidWorkSpecId() {
         final String invalidWorkSpecId = "INVALID_ID";
         WorkerWrapper workerWrapper = createBuilder(invalidWorkSpecId).build();
@@ -163,7 +163,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testInvalidWorkerClassName() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         work.getWorkSpec().workerClassName = "dummy";
@@ -179,7 +179,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testUsedWorker_failsExecution() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWork(work);
@@ -206,7 +206,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testNotEnqueued() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setInitialState(RUNNING)
@@ -219,7 +219,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testCancelled() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setInitialState(CANCELLED)
@@ -233,7 +233,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPermanentErrorWithInvalidWorkerClass() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         getWorkSpec(work).workerClassName = "INVALID_CLASS_NAME";
@@ -246,7 +246,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPermanentErrorWithInvalidInputMergerClass() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         getWorkSpec(work).inputMergerClassName = "INVALID_CLASS_NAME";
@@ -261,7 +261,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFailed() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
         insertWork(work);
@@ -287,7 +287,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRunning_onlyWhenEnqueued() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setInitialState(RUNNING)
@@ -300,7 +300,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
@@ -337,7 +337,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies_passesOutputs() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(ChainedArgumentWorker.class).build();
@@ -366,7 +366,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies_passesMergedOutputs() {
         String key = "key";
         String value1 = "value1";
@@ -421,7 +421,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies_setsPeriodStartTimesForUnblockedWork() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
@@ -452,7 +452,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies_enqueuesBlockedDependentsOnSuccess() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
@@ -489,7 +489,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testDependencies_failsUncancelledDependentsOnFailure() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(FailureWorker.class).build();
@@ -525,7 +525,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testBackedOffOneTimeWork_doesNotRun() {
         OneTimeWorkRequest retryWork =
                 new OneTimeWorkRequest.Builder(RetryWorker.class).build();
@@ -551,7 +551,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRun_periodicWork_success_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
@@ -573,7 +573,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRun_periodicWork_failure_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
@@ -595,7 +595,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPeriodicWork_success() {
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 TestWorker.class,
@@ -627,7 +627,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPeriodicWork_fail() {
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 FailureWorker.class,
@@ -648,7 +648,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPeriodicWork_retry() {
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 RetryWorker.class,
@@ -670,7 +670,7 @@ public class WorkerWrapperTest extends DatabaseTest {
 
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testPeriodic_dedupe() {
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 TestWorker.class,
@@ -690,7 +690,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testScheduler() {
         OneTimeWorkRequest prerequisiteWork =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
@@ -719,7 +719,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFromWorkSpec_hasAppContext() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         ListenableWorker worker = mConfiguration.getWorkerFactory().createWorkerWithDefaultFallback(
@@ -740,7 +740,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFromWorkSpec_hasCorrectArguments() {
         String key = "KEY";
         String expectedValue = "VALUE";
@@ -783,7 +783,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFromWorkSpec_hasCorrectTags() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(TestWorker.class)
@@ -809,7 +809,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFromWorkSpec_hasCorrectRuntimeExtras() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(TestWorker.class).build();
@@ -838,7 +838,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testSuccess_withPendingScheduledWork() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWork(work);
@@ -858,7 +858,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFailure_withPendingScheduledWork() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
         insertWork(work);
@@ -936,7 +936,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testInterruptionWithoutCancellation_isMarkedOnRunningWorker() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(InterruptionAwareWorker.class).build();
@@ -968,7 +968,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testInterruptionWithCancellation_isMarkedOnRunningWorker() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(InterruptionAwareWorker.class).build();
@@ -1000,7 +1000,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testException_isTreatedAsFailure() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(ExceptionWorker.class).build();
         insertWork(work);
@@ -1049,7 +1049,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testWorkerThatReturnsNullResult() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(ReturnNullResultWorker.class).build();

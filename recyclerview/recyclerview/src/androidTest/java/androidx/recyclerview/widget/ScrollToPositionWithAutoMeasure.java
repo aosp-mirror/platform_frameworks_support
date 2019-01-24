@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
  * Tests scroll to position with wrap content to make sure that LayoutManagers can keep track of
  * the position if layout is called multiple times.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ScrollToPositionWithAutoMeasure extends BaseRecyclerViewInstrumentationTest {
     @Test

@@ -32,7 +32,7 @@ import org.mockito.Mockito.verifyNoMoreInteractions
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class ComponentActivityLifecycleTest {
 

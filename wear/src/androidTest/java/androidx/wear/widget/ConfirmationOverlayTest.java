@@ -44,7 +44,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ConfirmationOverlayTest {
 

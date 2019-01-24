@@ -59,7 +59,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class VectorDrawableTest {
     private static final String LOGTAG = "VectorDrawableTest";
 

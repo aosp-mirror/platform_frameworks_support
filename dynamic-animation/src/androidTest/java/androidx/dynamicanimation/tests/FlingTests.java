@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
 import org.mockito.internal.matchers.GreaterThan;
 import org.mockito.internal.matchers.LessThan;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class FlingTests {
     @Rule

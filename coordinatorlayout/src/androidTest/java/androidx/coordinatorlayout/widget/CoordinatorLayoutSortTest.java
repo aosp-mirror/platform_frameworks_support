@@ -37,7 +37,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-@MediumTest
+@SmallTest
 public class CoordinatorLayoutSortTest {
     @Rule
     public final ActivityTestRule<CoordinatorLayoutActivity> mActivityTestRule;

@@ -54,7 +54,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class SpringTests {
     @Rule public final ActivityTestRule<AnimationActivity> mActivityTestRule;

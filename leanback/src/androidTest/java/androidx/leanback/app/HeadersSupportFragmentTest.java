@@ -34,7 +34,7 @@ import androidx.test.filters.MediumTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class HeadersSupportFragmentTest extends SingleSupportFragmentTestBase {
 

@@ -34,7 +34,7 @@ import org.mockito.Mock;
 
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class CircularProgressLayoutControllerTest {
 

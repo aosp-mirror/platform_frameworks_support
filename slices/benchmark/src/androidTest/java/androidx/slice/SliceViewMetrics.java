@@ -41,7 +41,7 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
 @RunWith(Parameterized.class)
-@MediumTest
+@SmallTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceViewMetrics {
 

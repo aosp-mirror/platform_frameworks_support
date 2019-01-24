@@ -16,7 +16,7 @@
 
 package androidx.room.integration.kotlintestapp.test
 
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import io.reactivex.observers.TestObserver
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`

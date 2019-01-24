@@ -50,7 +50,7 @@ public class LinearLayoutManagerResizeTest extends BaseLinearLayoutManagerTest {
         return configs;
     }
 
-    @MediumTest
+    @SmallTest
     @Test
     public void resize() throws Throwable {
         final Config config = (Config) mConfig.clone();

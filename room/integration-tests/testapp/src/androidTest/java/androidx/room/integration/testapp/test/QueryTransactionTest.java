@@ -43,7 +43,7 @@ import androidx.room.RoomWarnings;
 import androidx.room.Transaction;
 import androidx.room.paging.LimitOffsetDataSource;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;

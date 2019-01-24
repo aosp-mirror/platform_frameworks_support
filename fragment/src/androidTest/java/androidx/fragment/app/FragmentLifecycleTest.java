@@ -75,7 +75,7 @@ import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class FragmentLifecycleTest {
 
     @Rule

@@ -48,7 +48,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class ViewCompatTest extends BaseInstrumentationTestCase<ViewCompatActivity> {
 
     private View mView;

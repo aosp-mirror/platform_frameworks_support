@@ -33,7 +33,7 @@ import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.testapp.LifecycleTestActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.rule.UiThreadTestRule;
 
 import org.junit.Rule;

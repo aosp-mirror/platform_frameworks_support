@@ -48,7 +48,7 @@ import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class ActivityNavigatorTest {
     companion object {

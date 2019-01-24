@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class CircularProgressLayoutTest {
 

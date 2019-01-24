@@ -35,7 +35,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class PathInterpolatorValueParameterizedTest {
     private static final float EPSILON = 1e-3f;

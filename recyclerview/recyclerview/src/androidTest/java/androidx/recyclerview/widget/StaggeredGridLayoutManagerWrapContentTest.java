@@ -36,7 +36,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class StaggeredGridLayoutManagerWrapContentTest extends BaseWrapContentTest {
     int mOrientation = StaggeredGridLayoutManager.VERTICAL;

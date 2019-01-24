@@ -37,7 +37,7 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
-@MediumTest
+@SmallTest
 public class ChangeBoundsTest extends BaseTransitionTest {
 
     @Override

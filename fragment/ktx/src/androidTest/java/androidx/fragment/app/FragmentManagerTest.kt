@@ -7,7 +7,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 
-@MediumTest
+@SmallTest
 @Suppress("DEPRECATION")
 class FragmentManagerTest {
     @get:Rule val activityRule = ActivityTestRule<TestActivity>(TestActivity::class.java)

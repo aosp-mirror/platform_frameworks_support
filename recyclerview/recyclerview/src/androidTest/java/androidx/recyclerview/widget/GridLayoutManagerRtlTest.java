@@ -36,7 +36,7 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class GridLayoutManagerRtlTest extends BaseGridLayoutManagerTest {
 

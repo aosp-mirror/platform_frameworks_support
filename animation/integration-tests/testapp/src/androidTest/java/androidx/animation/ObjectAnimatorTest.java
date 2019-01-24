@@ -35,7 +35,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ObjectAnimatorTest {
     private static final float LINE1_START = -32f;

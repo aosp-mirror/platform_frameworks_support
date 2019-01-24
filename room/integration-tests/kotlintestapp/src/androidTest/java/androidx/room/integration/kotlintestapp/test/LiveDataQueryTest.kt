@@ -19,7 +19,7 @@ package androidx.room.integration.kotlintestapp.test
 import androidx.room.integration.kotlintestapp.vo.Book
 import androidx.room.integration.kotlintestapp.vo.BookWithPublisher
 import androidx.room.integration.kotlintestapp.vo.Publisher
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test

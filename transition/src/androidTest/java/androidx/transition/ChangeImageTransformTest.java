@@ -45,7 +45,7 @@ import org.junit.Test;
 
 import javax.annotation.Nullable;
 
-@MediumTest
+@SmallTest
 public class ChangeImageTransformTest extends BaseTransitionTest {
 
     private ChangeImageTransform mChangeImageTransform;

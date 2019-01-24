@@ -105,7 +105,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerOpenCloseNoAnimationViaAPI() {
         assertFalse("Initial state", mDrawerLayout.isDrawerOpen(GravityCompat.START));
 
@@ -168,7 +168,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerOpenCloseNoAnimationWithRedundancyViaAPI() {
         assertFalse("Initial state", mDrawerLayout.isDrawerOpen(GravityCompat.START));
 
@@ -256,7 +256,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerHeight() {
         // Open the drawer so it becomes visible
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START));
@@ -299,7 +299,7 @@ public class DrawerLayoutTest {
     // Tests for listener(s) being notified of various events
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerListenerCallbacksOnOpeningViaAPI() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);
@@ -336,7 +336,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerListenerCallbacksOnOpeningNoAnimationViaAPI() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);
@@ -405,7 +405,7 @@ public class DrawerLayoutTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerListenerCallbacksOnClosingNoAnimationViaAPI() {
         // Open the drawer so it becomes visible
         onView(withId(R.id.drawer_layout)).perform(openDrawer(GravityCompat.START, false));
@@ -439,7 +439,7 @@ public class DrawerLayoutTest {
     @Suppress
     @FlakyTest(bugId = 33659300)
     @Test
-    @MediumTest
+    @SmallTest
     public void testDrawerListenerCallbacksOnOpeningViaSwipes() {
         // Register a mock listener
         DrawerLayout.DrawerListener mockedListener = mock(DrawerLayout.DrawerListener.class);

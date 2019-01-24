@@ -27,7 +27,7 @@ import android.content.Context;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.work.DatabaseTest;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.impl.WorkManagerImpl;
@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 public class AlarmsTest extends DatabaseTest {
 
     private Context mContext;

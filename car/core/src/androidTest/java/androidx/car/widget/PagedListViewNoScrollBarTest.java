@@ -57,7 +57,7 @@ import java.util.List;
 
 /** Unit tests for a {@link PagedListView} that has scrollbars disabled. */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public final class PagedListViewNoScrollBarTest {
     /**
      * Used by {@link TestAdapter} to calculate ViewHolder height so N items appear in one page of

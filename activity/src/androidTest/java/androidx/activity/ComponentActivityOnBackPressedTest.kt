@@ -31,7 +31,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import java.util.concurrent.CountDownLatch
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class ComponentActivityOnBackPressedTest {
 

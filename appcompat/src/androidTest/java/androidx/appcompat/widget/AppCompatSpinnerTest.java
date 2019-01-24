@@ -39,7 +39,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -48,7 +48,7 @@ import org.junit.Test;
  * In addition to all tinting-related tests done by the base class, this class provides
  * tests specific to {@link AppCompatSpinner} class.
  */
-@SmallTest
+@LargeTest
 public class AppCompatSpinnerTest
         extends AppCompatBaseViewTest<AppCompatSpinnerActivity, AppCompatSpinner> {
     public AppCompatSpinnerTest() {

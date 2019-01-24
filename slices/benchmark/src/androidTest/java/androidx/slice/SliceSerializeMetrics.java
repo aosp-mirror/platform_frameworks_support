@@ -57,7 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceSerializeMetrics {
 

@@ -44,7 +44,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Tests for {@link SelfDestructiveThread}
  */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class SelfDestructiveThreadTest {
     private static final int DEFAULT_TIMEOUT = 1000;
 

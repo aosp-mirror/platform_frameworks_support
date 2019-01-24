@@ -56,7 +56,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-@MediumTest
+@SmallTest
 public class TransitionTest extends BaseTest {
 
     private Scene[] mScenes = new Scene[2];

@@ -38,7 +38,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -69,7 +69,7 @@ public class FragmentTest {
         mInstrumentation = InstrumentationRegistry.getInstrumentation();
     }
 
-    @SmallTest
+    @LargeTest
     @UiThreadTest
     @Test
     public void testRequireView() {
@@ -82,7 +82,7 @@ public class FragmentTest {
                 .isNotNull();
     }
 
-    @SmallTest
+    @LargeTest
     @UiThreadTest
     @Test(expected = IllegalStateException.class)
     public void testRequireViewWithoutView() {
@@ -94,7 +94,7 @@ public class FragmentTest {
         fragment1.requireView();
     }
 
-    @SmallTest
+    @LargeTest
     @UiThreadTest
     @Test
     public void testOnCreateOrder() throws Throwable {
@@ -195,7 +195,7 @@ public class FragmentTest {
         latch.await(5, TimeUnit.SECONDS);
     }
 
-    @MediumTest
+    @SmallTest
     @UiThreadTest
     @Test
     public void testViewOrder() throws Throwable {
@@ -215,7 +215,7 @@ public class FragmentTest {
         assertNotNull(content.getChildAt(2).findViewById(R.id.textC));
     }
 
-    @SmallTest
+    @LargeTest
     @UiThreadTest
     @Test
     public void testRequireParentFragment() {
@@ -233,7 +233,7 @@ public class FragmentTest {
                 .isSameAs(parentFragment);
     }
 
-    @SmallTest
+    @LargeTest
     @Test
     public void requireMethodsThrowsWhenNotAttached() {
         Fragment fragment = new Fragment();
@@ -269,7 +269,7 @@ public class FragmentTest {
         }
     }
 
-    @SmallTest
+    @LargeTest
     @Test
     public void requireArguments() {
         Fragment fragment = new Fragment();

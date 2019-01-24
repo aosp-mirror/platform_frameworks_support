@@ -16,7 +16,7 @@
 
 package androidx.benchmark
 
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

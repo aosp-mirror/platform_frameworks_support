@@ -42,7 +42,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class AnimatedVectorDrawableParameterizedTest {
     @Rule public final ActivityTestRule<DrawableStubActivity> mActivityTestRule =

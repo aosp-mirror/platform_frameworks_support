@@ -45,7 +45,7 @@ import java.util.Map;
  * Tests whether the layout manager can keep its children positions properly after it is re-laid
  * out with larger/smaller intermediate size but the same final size.
  */
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class TestResizingRelayoutWithAutoMeasure extends BaseRecyclerViewInstrumentationTest {
     private final int mRvWidth;

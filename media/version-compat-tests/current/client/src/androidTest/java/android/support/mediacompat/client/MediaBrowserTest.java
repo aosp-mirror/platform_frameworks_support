@@ -57,7 +57,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -226,7 +226,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testReconnection() throws Exception {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -272,7 +272,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testConnectionCallbackNotCalledAfterDisconnect() {
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -294,7 +294,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testSubscribe() throws Exception {
         connectMediaBrowserService();
 
@@ -331,7 +331,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     @FlakyTest(bugId = 115820189)
     @SdkSuppress(minSdkVersion = 26)
     public void testSubscribeWithOptions() throws Exception {
@@ -387,7 +387,7 @@ public class MediaBrowserTest {
 
     @FlakyTest(bugId = 112290465)
     @Test
-    @MediumTest
+    @SmallTest
     public void testSubscribeDelayedItems() throws Exception {
         connectMediaBrowserService();
 
@@ -438,7 +438,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     @SdkSuppress(minSdkVersion = 24)
     public void testUnsubscribeForMultipleSubscriptions() throws Exception {
         connectMediaBrowserService();
@@ -484,7 +484,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     @FlakyTest(bugId = 74093976)
     @SdkSuppress(minSdkVersion = 26)
     public void testUnsubscribeWithSubscriptionCallbackForMultipleSubscriptions() throws Exception {
@@ -556,7 +556,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testGetItemDelayed() throws Exception {
         connectMediaBrowserService();
 
@@ -603,7 +603,7 @@ public class MediaBrowserTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testDelayedSetSessionToken() throws Exception {
         // This test has no meaning in API 21. The framework MediaBrowserService just connects to
         // the media browser without waiting setMediaSession() to be called.

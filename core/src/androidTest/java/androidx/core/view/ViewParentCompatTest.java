@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class ViewParentCompatTest {
 
     private View mView;

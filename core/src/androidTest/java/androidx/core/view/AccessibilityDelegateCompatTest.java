@@ -64,7 +64,7 @@ import org.mockito.ArgumentCaptor;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class AccessibilityDelegateCompatTest extends
         BaseInstrumentationTestCase<ViewCompatActivity> {
 

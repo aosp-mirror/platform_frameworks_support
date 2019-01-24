@@ -66,7 +66,7 @@ public class LinearLayoutManagerCacheTest extends BaseLinearLayoutManagerTest {
         return mRecyclerView.mRecycler.mCachedViews;
     }
 
-    @MediumTest
+    @SmallTest
     @Test
     public void cacheAndPrefetch() throws Throwable {
         final Config config = (Config) mConfig.clone();

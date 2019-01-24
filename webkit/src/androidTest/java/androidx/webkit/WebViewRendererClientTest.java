@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewRendererClientTest {
     WebViewOnUiThread mWebViewOnUiThread;

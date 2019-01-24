@@ -49,7 +49,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class LoaderTest {
     private static final int DELAY_LOADER = 10;
 

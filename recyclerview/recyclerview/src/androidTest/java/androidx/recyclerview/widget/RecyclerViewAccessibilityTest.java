@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentationTest {
     private static final boolean SUPPORTS_COLLECTION_INFO =

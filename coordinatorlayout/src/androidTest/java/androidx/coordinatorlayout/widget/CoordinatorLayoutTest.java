@@ -69,7 +69,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class CoordinatorLayoutTest {
     @Rule

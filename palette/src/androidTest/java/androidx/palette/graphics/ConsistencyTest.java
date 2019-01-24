@@ -32,7 +32,7 @@ public class ConsistencyTest {
     private static final int NUMBER_TRIALS = 10;
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testConsistency() {
         Palette lastPalette = null;
         final Bitmap bitmap = TestUtils.loadSampleBitmap();

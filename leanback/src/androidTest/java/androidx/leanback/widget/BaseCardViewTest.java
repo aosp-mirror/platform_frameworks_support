@@ -31,7 +31,7 @@ import static org.mockito.Mockito.verify;
 import android.view.View;
 
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -85,7 +85,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class MediaSession_PermissionTest extends MediaSessionTestBase {
     private static final String SESSION_ID = "MediaSessionTest_permission";
 

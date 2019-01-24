@@ -49,7 +49,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class RecyclerViewAccessibilityLifecycleTest extends BaseRecyclerViewInstrumentationTest {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)

@@ -38,7 +38,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +53,7 @@ import java.util.List;
 public class DatabaseCallbackTest {
 
     @Test
-    @MediumTest
+    @SmallTest
     public void createAndOpen() {
         Context context = ApplicationProvider.getApplicationContext();
         TestDatabaseCallback callback1 = new TestDatabaseCallback();
@@ -152,7 +152,7 @@ public class DatabaseCallbackTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void corruptExceptionOnCreate() throws IOException {
         Context context = ApplicationProvider.getApplicationContext();
 

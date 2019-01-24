@@ -16,7 +16,7 @@
 
 package androidx.recyclerview.widget
 
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertSame

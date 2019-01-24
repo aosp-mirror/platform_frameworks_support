@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 
 import java.lang.reflect.Field;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class AppCompatTextViewAutoSizeTest extends
         AppCompatBaseAutoSizeTest<AppCompatTextViewAutoSizeActivity, AppCompatTextView> {

@@ -30,7 +30,7 @@ import androidx.transition.test.R;
 
 import org.junit.Test;
 
-@MediumTest
+@SmallTest
 public class SceneTest extends BaseTransitionTest {
 
     @Test

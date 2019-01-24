@@ -53,7 +53,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewCompatTest {
     WebViewOnUiThread mWebViewOnUiThread;

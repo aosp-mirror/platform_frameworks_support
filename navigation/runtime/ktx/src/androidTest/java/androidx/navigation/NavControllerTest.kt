@@ -19,7 +19,7 @@ package androidx.navigation
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

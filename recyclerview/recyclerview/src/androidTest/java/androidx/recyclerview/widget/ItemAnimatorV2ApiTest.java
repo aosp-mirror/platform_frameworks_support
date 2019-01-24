@@ -47,7 +47,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Includes tests for the new RecyclerView animations API (v2).
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ItemAnimatorV2ApiTest extends BaseRecyclerViewAnimationsTest {
     @Override

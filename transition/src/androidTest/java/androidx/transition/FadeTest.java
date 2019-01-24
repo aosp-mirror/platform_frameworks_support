@@ -49,7 +49,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-@MediumTest
+@SmallTest
 public class FadeTest extends BaseTest {
 
     private View mView;

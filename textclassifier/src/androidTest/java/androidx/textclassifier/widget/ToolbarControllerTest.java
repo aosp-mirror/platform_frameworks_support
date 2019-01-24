@@ -73,7 +73,7 @@ import java.util.Collections;
 /**
  * Tests for {@link ToolbarController}.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.M)
 public final class ToolbarControllerTest {

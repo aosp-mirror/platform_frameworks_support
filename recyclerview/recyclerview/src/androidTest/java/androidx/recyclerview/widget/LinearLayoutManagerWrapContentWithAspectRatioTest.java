@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-@MediumTest
+@SmallTest
 public class LinearLayoutManagerWrapContentWithAspectRatioTest
         extends BaseWrapContentWithAspectRatioTest {
 

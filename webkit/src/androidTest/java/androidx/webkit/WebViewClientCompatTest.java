@@ -48,7 +48,7 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewClientCompatTest {
     private WebViewOnUiThread mWebViewOnUiThread;

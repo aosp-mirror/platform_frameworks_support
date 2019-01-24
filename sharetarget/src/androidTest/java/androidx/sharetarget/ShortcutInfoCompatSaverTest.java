@@ -53,7 +53,7 @@ import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ShortcutInfoCompatSaverTest {
 

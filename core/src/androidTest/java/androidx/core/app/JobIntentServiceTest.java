@@ -361,7 +361,7 @@ public class JobIntentServiceTest {
     /**
      * Test simple case of enqueueing one piece of work.
      */
-    @MediumTest
+    @SmallTest
     @Test
     public void testEnqueueOne() throws Throwable {
         initStatics();
@@ -382,7 +382,7 @@ public class JobIntentServiceTest {
     /**
      * Test case of enqueueing multiple pieces of work.
      */
-    @MediumTest
+    @SmallTest
     @Test
     public void testEnqueueMultiple() throws Throwable {
         initStatics();
@@ -406,7 +406,7 @@ public class JobIntentServiceTest {
     /**
      * Test case of enqueueing multiple pieces of work.
      */
-    @MediumTest
+    @SmallTest
     @Test
     public void testEnqueueSubWork() throws Throwable {
         initStatics();
@@ -435,7 +435,7 @@ public class JobIntentServiceTest {
     /**
      * Test case of job stopping while it is doing work.
      */
-    @MediumTest
+    @SmallTest
     @Test
     @RequiresApi(26)
     public void testStopWhileWorking() throws Throwable {

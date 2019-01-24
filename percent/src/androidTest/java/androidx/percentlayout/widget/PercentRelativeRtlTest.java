@@ -19,7 +19,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import android.os.Build;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import android.view.View;
 
 import androidx.core.view.ViewCompat;

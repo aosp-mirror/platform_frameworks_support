@@ -43,7 +43,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-@MediumTest
+@SmallTest
 public class VisibilityTest extends BaseTest {
 
     private View mView;

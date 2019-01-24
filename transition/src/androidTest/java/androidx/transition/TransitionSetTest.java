@@ -39,7 +39,7 @@ import androidx.transition.test.R;
 import org.junit.Before;
 import org.junit.Test;
 
-@MediumTest
+@SmallTest
 public class TransitionSetTest extends BaseTest {
 
     private final TransitionSet mTransitionSet = new TransitionSet();

@@ -44,7 +44,7 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 public class CoordinatorSnackbarWithButtonTest extends BaseDynamicCoordinatorLayoutTest {
     private View mBar;
 

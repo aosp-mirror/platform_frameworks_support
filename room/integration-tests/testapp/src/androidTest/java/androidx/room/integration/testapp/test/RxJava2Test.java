@@ -36,7 +36,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import com.google.common.collect.Lists;
 
@@ -337,7 +337,7 @@ public class RxJava2Test extends TestDatabaseTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void observeEmpty_Flowable() throws InterruptedException {
         TestSubscriber<User> consumer = new TestSubscriber<>();
         Disposable disposable = mUserDao.flowableUserById(3).observeOn(mTestScheduler)
@@ -356,7 +356,7 @@ public class RxJava2Test extends TestDatabaseTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void observeEmpty_Observable() throws InterruptedException {
         TestObserver<User> consumer = new TestObserver<>();
         Disposable disposable = mUserDao.observableUserById(3).observeOn(mTestScheduler)
@@ -448,7 +448,7 @@ public class RxJava2Test extends TestDatabaseTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void countUsers_Publisher() throws InterruptedException {
         TestSubscriber<Integer> subscriber = new TestSubscriber<>();
         mUserDao.publisherCountUsers().subscribe(subscriber);

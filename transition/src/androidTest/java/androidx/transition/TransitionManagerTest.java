@@ -35,7 +35,7 @@ import androidx.transition.test.R;
 import org.junit.Before;
 import org.junit.Test;
 
-@MediumTest
+@SmallTest
 public class TransitionManagerTest extends BaseTest {
 
     private Scene[] mScenes = new Scene[2];

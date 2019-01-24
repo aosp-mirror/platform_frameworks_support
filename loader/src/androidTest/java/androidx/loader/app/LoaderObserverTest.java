@@ -24,7 +24,7 @@ import android.content.Context;
 
 import androidx.loader.app.test.DummyLoaderCallbacks;
 import androidx.loader.content.Loader;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

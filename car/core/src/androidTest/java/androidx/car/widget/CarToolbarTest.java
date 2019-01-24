@@ -64,7 +64,7 @@ import java.util.Collections;
  * Unit tests for {@link CarToolbar}.
  */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class CarToolbarTest {
 
     @Rule

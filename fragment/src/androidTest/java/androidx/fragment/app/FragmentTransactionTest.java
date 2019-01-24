@@ -54,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Tests usage of the {@link FragmentTransaction} class.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class FragmentTransactionTest {
 

@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class CountingTaskExecutorRuleTest {
     private final Semaphore mOnIdleCount = new Semaphore(0);
 

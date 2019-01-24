@@ -52,7 +52,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class WearableRecyclerViewTest {
 

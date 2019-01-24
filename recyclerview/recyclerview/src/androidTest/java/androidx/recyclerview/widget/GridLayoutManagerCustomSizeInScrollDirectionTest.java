@@ -35,7 +35,7 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class GridLayoutManagerCustomSizeInScrollDirectionTest extends BaseGridLayoutManagerTest {
     @Parameterized.Parameters(name = "addDecorOffsets:{1},addMargins:{2},config:{0}")

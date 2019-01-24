@@ -43,7 +43,7 @@ import android.util.SparseBooleanArray;
 
 import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

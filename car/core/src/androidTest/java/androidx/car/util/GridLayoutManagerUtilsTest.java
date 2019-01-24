@@ -54,7 +54,7 @@ import java.util.List;
 
 /** Unit tests for {@link GridLayoutManagerUtils}. */
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public final class GridLayoutManagerUtilsTest {
     /**
      * Used by {@link TestAdapter} to calculate ViewHolder height so N items appear in one page of

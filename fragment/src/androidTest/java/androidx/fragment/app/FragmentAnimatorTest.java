@@ -47,7 +47,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class FragmentAnimatorTest {
     // These are pretend resource IDs for animators. We don't need real ones since we

@@ -44,7 +44,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-@MediumTest
+@SmallTest
 public class ViewModelsWithStateTests {
 
     private static final String FRAGMENT_MODE = "fragment";

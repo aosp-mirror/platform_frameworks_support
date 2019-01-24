@@ -46,7 +46,7 @@ import java.util.UUID;
 
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@SmallTest
 public class NotificationManagerCompatTest {
 
     private static final String TAG = NotificationManagerCompatTest.class.getSimpleName();

@@ -21,7 +21,7 @@ import androidx.test.filters.MediumTest;
 
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class AppCompatButtonAutoSizeTest extends
         AppCompatBaseAutoSizeTest<AppCompatButtonAutoSizeActivity, AppCompatButton> {

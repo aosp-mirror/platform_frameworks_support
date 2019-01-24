@@ -38,7 +38,7 @@ import androidx.media2.test.service.MockPlayer;
 import androidx.media2.test.service.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,7 +55,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class MediaSession_KeyEventTest extends MediaSessionTestBase {
     private static String sExpectedControllerPackageName;
 
@@ -94,7 +94,7 @@ public class MediaSession_KeyEventTest extends MediaSessionTestBase {
         mPlayer.notifyPlayerStateChanged(SessionPlayer.PLAYER_STATE_PLAYING);
 
         // SDK >= 26: Play a media item in the same process of the session.
-        // Target raw resource should be short enough to finish within the time limit of @SmallTest.
+        // Target raw resource should be short enough to finish within the time limit of @LargeTest.
         final CountDownLatch latch = new CountDownLatch(1);
         sHandler.postAndSync(new Runnable() {
             @Override

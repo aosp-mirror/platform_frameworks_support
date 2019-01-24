@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class PostMessageTest {
     public static final long TIMEOUT = 6000L;
