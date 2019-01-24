@@ -494,6 +494,24 @@
     },
     {
       "key": {
+        "uuid": "39856e5e_e274c71d",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-01-24T22:52:25Z",
+      "side": 1,
+      "message": "Your explanation makes it clearer to me, I understand the rationale behind.\nI still find having a function that suspends the caller, yet takes a lambda to run synchronously on a specify thread before resuming is confusing, although I may be biased as I\u0027ve used coroutines extensively since Kotlin 1.1.\nAs I said earlier, I think you should satisfy this use case with a function with the following signature `fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope` (or an alternative if you find a better one) because I find it more explicit (do you need explanations on what it does beyond the signature?), and I find it to integrate correctly in coroutines, as it cancels all coroutines from the scope as soon as the state of the lifecycle is lower than the activeWhile, regardless of the dispatcher or the thread the coroutines are running on.\n\nIn my experience, `createScope` and `awaitState` fulfilled all my lifecycle/coroutine related use cases across multiple projects, and I don\u0027t see how I\u0027d use the block from that `withStateAtLeast` function.\n\nI think it makes sense to have this integration into AndroidX too. For example, you don\u0027t need to mess with a MutableMap to cache the lifecycle job/scope here in AndroidX.",
+      "parentUuid": "e67773c3_58947dca",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7dcbd1ef_5ec5984e",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
