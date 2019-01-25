@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f69ff17_d9391eb7",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-01-25T01:09:24Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "d294bcd2_f2c45e47",
+      "range": {
+        "startLine": 48,
+        "startChar": 38,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "e388a2681cade1ee20612481af83e0ff6522460d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff4b4493_b95a993e",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricFragment.java",
         "patchSetId": 3
