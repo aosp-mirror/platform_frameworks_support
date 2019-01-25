@@ -18,6 +18,7 @@ package androidx.car.widget;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyLeftOf;
 import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyRightOf;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -66,8 +67,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Unit tests for {@link CarToolbar}.
@@ -430,6 +433,71 @@ public class CarToolbarTest {
         onView(withText(actionItemText)).perform(click());
 
         assertFalse(clicked[0]);
+    }
+
+    @Test
+    public void testIfRoomItemDisplayedIfRoomAvailable() throws Throwable {
+        String ifRoomItemText = "if_room_item_text";
+        CarMenuItem ifRoomItem = new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(ifRoomItem)));
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testIfRoomItemPushedToOverflowIfNoRoom() throws Throwable {
+        List<CarMenuItem> items = new ArrayList<>();
+        for (int i = 0; i < CarToolbar.RECOMMENDED_ACTION_ITEM_LIMIT; i++) {
+            items.add(new CarMenuItem
+                    .Builder()
+                    .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                    .build());
+        }
+
+        String ifRoomItemText = "if_room_item_text";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build());
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(doesNotExist());
+
+        // Open overflow menu.
+        onView(withId(R.id.overflow_menu)).perform(click());
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testIfRoomItemDisplayedAfterActionItems() throws Throwable {
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                .build();
+
+        String ifRoomItemText = "if_room_item_text";
+        CarMenuItem ifRoomItem = new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Arrays.asList(ifRoomItem, actionItem)));
+
+        // IF_ROOM items should always be to the left of ALWAYS items even if they were added first.
+        onView(withText(ifRoomItemText)).check(isCompletelyLeftOf(withText(actionItemText)));
     }
 
     @Test

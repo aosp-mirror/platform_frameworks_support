@@ -75,8 +75,10 @@ import java.util.List;
  * <p>The CarToolbar has a fixed height of {@code R.dimen.car_app_bar_height}.
  */
 public class CarToolbar extends ViewGroup {
-
     private static final String TAG = "CarToolbar";
+
+    // Recommended limit for number of Action items displayed on the toolbar.
+    static final int RECOMMENDED_ACTION_ITEM_LIMIT = 3;
 
     private final ImageButton mNavButtonView;
     private final int mEdgeButtonIconSize;
@@ -570,15 +572,29 @@ public class CarToolbar extends ViewGroup {
         mActionViews.clear();
 
         List<CarMenuItem> actionItems = new ArrayList<>();
+        List<CarMenuItem> ifRoomItems = new ArrayList<>();
 
         if (mMenuItems != null) {
             for (CarMenuItem item : mMenuItems) {
                 if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.ALWAYS) {
                     actionItems.add(item);
+                } else if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.IF_ROOM) {
+                    ifRoomItems.add(item);
                 } else {
                     // Treat If-Room items as overflow until that behavior is supported.
                     mOverflowMenuItems.add(item);
                 }
+            }
+        }
+
+        // Process IF_ROOM items afterwards to prioritize displaying ALWAYS items.
+        for (CarMenuItem item : ifRoomItems) {
+            // Checkable items are not supported in the overflow menu yet.
+            if (item.isCheckable() || actionItems.size() < RECOMMENDED_ACTION_ITEM_LIMIT) {
+                actionItems.add(item);
+            } else {
+                // If the IF_ROOM item is being pushed to the overflow menu, add it to the front.
+                mOverflowMenuItems.add(0, item);
             }
         }
 
