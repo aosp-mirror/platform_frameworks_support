@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f743c5a5_64433b05",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-01-25T00:50:56Z",
+      "side": 1,
+      "message": "Does this need a @VisibleForTesting tag?",
+      "revId": "848517af20161acdb547265674bc645c1e6fbb53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
