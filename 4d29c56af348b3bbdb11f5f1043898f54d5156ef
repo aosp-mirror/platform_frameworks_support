@@ -22,6 +22,30 @@
       "revId": "4d29c56af348b3bbdb11f5f1043898f54d5156ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0119bbc4_9819fc9a",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-01-25T14:26:35Z",
+      "side": 1,
+      "message": "Good call",
+      "parentUuid": "ce720043_a1ab3d75",
+      "range": {
+        "startLine": 623,
+        "startChar": 16,
+        "endLine": 623,
+        "endChar": 67
+      },
+      "revId": "4d29c56af348b3bbdb11f5f1043898f54d5156ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
