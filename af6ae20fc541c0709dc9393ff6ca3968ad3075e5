@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "0245d731_f80f5bf4",
+        "filename": "navigation/fragment/ktx/api/1.0.0-alpha10.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-25T20:11:45Z",
+      "side": 1,
+      "message": "No, I\u0027m dusting off the proper type printing code now (I\u0027m just adding some additional unit tests) which I\u0027ll check in. That will hopefully fix this; if not, I\u0027ll try to repro in the androidx context.\n\nRe: checking in first: probably a good idea; the older version of metalava didn\u0027t include reified methods at all, so I think it\u0027s better to get it in even with an error in the type signature than to have the method fully missing :-)",
+      "parentUuid": "a1ee8e87_0e24d0e4",
+      "range": {
+        "startLine": 11,
+        "startChar": 132,
+        "endLine": 11,
+        "endChar": 133
+      },
+      "revId": "af6ae20fc541c0709dc9393ff6ca3968ad3075e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fc8be5a_95940f70",
         "filename": "navigation/runtime/ktx/api/1.0.0-alpha10.txt",
         "patchSetId": 2
