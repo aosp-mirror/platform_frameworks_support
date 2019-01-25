@@ -19,6 +19,41 @@
     },
     {
       "key": {
+        "uuid": "c2036faa_0292294d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-25T17:36:10Z",
+      "side": 1,
+      "message": "This is correct. There are many different types of compatibility checks metalava can perform, and you can supply multiple arguments at the same time; that\u0027s what the platform does to enforce both checking against current and previous, as well as removed api checks.\n\nThe general form is:\n\n--check-compatibility:\u003capi type\u003e:\u003crelease type\u003e\n\nAPI types include \"api\" (the public API), \"removed\" (the removed API; maybe not relevant in androidx), and \"private\" (the private API; we\u0027re only using this for platform graylist stuff right now.)\n\nRelease types are \"current\" or \"released\".\n\nReleased is something that has actually been released to the public, so we *cannot* change our minds about certain things, such as removing methods. \"current\" is the current dev API checked in, where we don\u0027t quite enforce the same set of checks.\n\nSo, in the platform build we run both types of checks --\n--check-compatibility:api:released against 28.txt, and --check-compatibility:api:current against current.txt.",
+      "parentUuid": "50a8afdd_0e3e8fb6",
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3bbc76_5ba0bb52",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-01-25T17:36:10Z",
+      "side": 1,
+      "message": "You don\u0027t need these two flags anymore (89 and 90); omit-common-packages is implied by using format \u003e\u003d 2, and --input-kotlin-style-nulls isn\u0027t necessary since your signature files now have the signature format header in them which says 3.0, which is how it knows to interpret the types as having Kotlin nullness now.",
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca791fa1_bfc76598",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
         "patchSetId": 3
