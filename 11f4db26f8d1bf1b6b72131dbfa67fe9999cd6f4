@@ -118,6 +118,30 @@
       "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3e28d3_b3d80197",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-01-25T14:19:36Z",
+      "side": 1,
+      "message": "My bad, for some reason AndroidStudio didn\u0027t show the warning for SyntheticAccessor on mPopup.isShowing() but it was caught by lint (alongside another similar warning).",
+      "parentUuid": "485bc246_219629db",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 8
+      },
+      "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
