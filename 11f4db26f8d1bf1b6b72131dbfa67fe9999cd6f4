@@ -94,6 +94,30 @@
       "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485bc246_219629db",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-01-25T12:57:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "50b1aa27_f00ca760",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 8
+      },
+      "revId": "11f4db26f8d1bf1b6b72131dbfa67fe9999cd6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
