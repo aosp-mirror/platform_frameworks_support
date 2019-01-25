@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "25331dad_15eeeaf3",
+        "filename": "navigation/fragment/ktx/api/1.0.0-alpha10.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-25T20:46:35Z",
+      "side": 1,
+      "message": "I\u0027m fine with this being resolved in a follow up CL.",
+      "parentUuid": "0245d731_f80f5bf4",
+      "range": {
+        "startLine": 11,
+        "startChar": 132,
+        "endLine": 11,
+        "endChar": 133
+      },
+      "revId": "af6ae20fc541c0709dc9393ff6ca3968ad3075e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fc8be5a_95940f70",
         "filename": "navigation/runtime/ktx/api/1.0.0-alpha10.txt",
         "patchSetId": 2
