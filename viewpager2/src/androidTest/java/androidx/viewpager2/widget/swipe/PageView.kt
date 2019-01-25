@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.viewpager2.test.R
+import androidx.viewpager2.testui.TouchConsumingTextView
 
 private const val PAGE_COLOR_EVEN = 0xFFFF0000.toInt()
 private const val PAGE_COLOR_ODD = 0xFF0000FF.toInt()
@@ -40,5 +41,9 @@ object PageView {
 
     fun setPageColor(page: View, position: Int) {
         page.setBackgroundColor(if (position % 2 == 0) PAGE_COLOR_EVEN else PAGE_COLOR_ODD)
+    }
+
+    fun setConsumeTouches(page: View, value: Boolean) {
+        (page as TouchConsumingTextView).eatTouches = value
     }
 }
