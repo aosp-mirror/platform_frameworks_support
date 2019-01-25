@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce720043_a1ab3d75",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatSpinner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-01-25T14:19:57Z",
+      "side": 1,
+      "message": "can you use getInternalPopup() instead which is already package private?",
+      "range": {
+        "startLine": 623,
+        "startChar": 16,
+        "endLine": 623,
+        "endChar": 67
+      },
+      "revId": "4d29c56af348b3bbdb11f5f1043898f54d5156ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
