@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b900543_cda5da3f",
+        "filename": "navigation/safe-args-generator/src/tests/test-data/expected/nav_generator_test/java/nested_overridden_action/InnerSettingsFragmentDirections.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-25T00:31:32Z",
+      "side": 1,
+      "message": "Notice the return type and import statement are for the grandfather direction class. This was being wrongly generated before this change.",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "f85de8f1f4a1f025bcd6ae566c9ce3b4c8f1f06c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
