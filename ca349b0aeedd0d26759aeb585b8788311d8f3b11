@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e300472_8954126e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-25T17:15:12Z",
+      "side": 1,
+      "message": "It would be nice if this was parameterized with the type that caused this error to occur.",
+      "range": {
+        "startLine": 154,
+        "startChar": 32,
+        "endLine": 155,
+        "endChar": 35
+      },
+      "revId": "ca349b0aeedd0d26759aeb585b8788311d8f3b11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2781eb28_dee30ee9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-25T17:15:12Z",
+      "side": 1,
+      "message": "Remove this word, the sentence reads better without it.",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 26
+      },
+      "revId": "ca349b0aeedd0d26759aeb585b8788311d8f3b11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
