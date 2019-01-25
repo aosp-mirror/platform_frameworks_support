@@ -46,6 +46,30 @@
       "revId": "f58eff9c1dcc4fe742bc815aba189b1e77b4ced9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071e84f7_5efd50c1",
+        "filename": "slices/view/src/main/res-public/values/public_attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1122613
+      },
+      "writtenOn": "2019-01-25T20:05:03Z",
+      "side": 0,
+      "message": "It looks like this is just in the slices library. Not sure of the deprecation/removal process for the androidx slices library. I bet alanv@ would know since he wrote go/androidx-api-guidelines. I would imagine there may be a different deprecation policy for code vs. style attributes but that doc doesn\u0027t mention one.",
+      "parentUuid": "a235087c_c8ac832a",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "f58eff9c1dcc4fe742bc815aba189b1e77b4ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
