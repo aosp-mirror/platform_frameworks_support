@@ -386,10 +386,8 @@ package androidx.car.widget {
     method public int positionOf(android.view.View?);
     method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void removeOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
-    method public void resetMaxPages();
     method public void scrollToPosition(int);
     method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter<? extends androidx.recyclerview.widget.RecyclerView.ViewHolder>);
-    method public void setDefaultMaxPages(int);
     method public void setDividerColor(@ColorRes int);
     method public void setDividerVisibilityManager(androidx.car.widget.PagedListView.DividerVisibilityManager!);
     method public void setDownButtonIcon(android.graphics.drawable.Drawable!);
@@ -398,7 +396,7 @@ package androidx.car.widget {
     method public void setItemSpacing(int);
     method public void setListContentBottomOffset(@Px int);
     method public void setListContentTopOffset(@Px int);
-    method public void setMaxPages(int);
+    method public void setMaxPages(@IntRange(from=1) int);
     method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
     method public void setScrollBarContainerWidth(int);
     method public void setScrollBarTopMargin(int);
@@ -406,7 +404,6 @@ package androidx.car.widget {
     method public void setUpButtonIcon(android.graphics.drawable.Drawable!);
     method public void showAlphaJump();
     method public void snapToPosition(int);
-    field public static final int DEFAULT_MAX_CLICKS = 6; // 0x6
     field public static final int UNLIMITED_PAGES = -1; // 0xffffffff
   }
 
