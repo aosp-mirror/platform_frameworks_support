@@ -2,7 +2,9 @@
 package androidx.exifinterface.media {
 
   public class ExifInterface {
+    ctor public ExifInterface(java.io.File) throws java.io.IOException;
     ctor public ExifInterface(String) throws java.io.IOException;
+    ctor public ExifInterface(java.io.FileDescriptor) throws java.io.IOException;
     ctor public ExifInterface(java.io.InputStream) throws java.io.IOException;
     method public void flipHorizontally();
     method public void flipVertically();
