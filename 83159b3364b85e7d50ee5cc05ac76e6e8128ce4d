@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5961e530_040e6cf8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-01-28T23:08:33Z",
+      "side": 1,
+      "message": "Just a suggestion: Might make things a bit more robust if you stay type safe by extending ViewHolder to contain TouchConsumingTextView, and then keeping the type consistent at compile time?\n\nJust a suggestion, won\u0027t block submission based on this.",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7fdb8c9_973f29e3",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-01-28T23:08:33Z",
+      "side": 1,
+      "message": "Nit: What is the right terminology here?  GestureDetector defines scroll and fling.  I suppose we should stick to that.  Maybe change to \"(scroll and fling gestures)\" instead of introducing \"swipe\" as well?  Maybe just removed the \"(swipe gestures)\"?",
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ece367a_e13ad8b5",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-01-28T23:08:33Z",
+      "side": 1,
+      "message": "This may be correct, but certainly feels weird.  I\u0027m adding qasid@ to the review for his guidance.",
+      "range": {
+        "startLine": 541,
+        "startChar": 28,
+        "endLine": 541,
+        "endChar": 53
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
