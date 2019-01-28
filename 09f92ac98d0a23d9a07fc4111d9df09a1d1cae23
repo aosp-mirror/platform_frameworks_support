@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcd06e6c_b5912fc8",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkManagerImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T23:05:18Z",
+      "side": 0,
+      "message": "Might be worth having this to make sure it\u0027s set to 0.",
+      "range": {
+        "startLine": 492,
+        "startChar": 16,
+        "endLine": 492,
+        "endChar": 61
+      },
+      "revId": "09f92ac98d0a23d9a07fc4111d9df09a1d1cae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
