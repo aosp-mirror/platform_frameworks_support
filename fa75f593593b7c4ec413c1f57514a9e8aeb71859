@@ -22,6 +22,30 @@
       "revId": "fa75f593593b7c4ec413c1f57514a9e8aeb71859",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6f73b7_7df8df99",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-01-28T21:23:10Z",
+      "side": 1,
+      "message": "You are correct. periodStartTime should always be the last time we executed the Worker at, not the next. My change would essentially perpetuate the original bug.\n\nperiodStartTime here should be System.currentTimeMillis();\n\nHowever we will have to change calculateNextRunTime() in WorkSpec to behave differently for API \u003c\u003d 22 otherwise \ncalculateNextRunTime \u003d\u003d periodStartTime for the case when flex equals interval duration.",
+      "parentUuid": "4e0515ec_7ae17729",
+      "range": {
+        "startLine": 515,
+        "startChar": 39,
+        "endLine": 515,
+        "endChar": 72
+      },
+      "revId": "fa75f593593b7c4ec413c1f57514a9e8aeb71859",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
