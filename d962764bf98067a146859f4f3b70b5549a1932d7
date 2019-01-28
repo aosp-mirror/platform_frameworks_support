@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b48d1578_855ca193",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-28T19:28:05Z",
+      "side": 1,
+      "message": "Hmm I think that technically it would be more accurate to say something like \"lifecycle 2.1.0-alpha02\" or \"lifecycle:2.1.0-alpha02\" or \"lifecycle:*:alpha02\" since technically \"lifecycle\" is the group and \"2.1.0-alpha02\" is the version so there might not exist a file named \"lifecycle-2.1.0-alpha02\", and these updates might also cover multiple artifacts",
+      "range": {
+        "startLine": 7,
+        "startChar": 281,
+        "endLine": 7,
+        "endChar": 304
+      },
+      "revId": "d962764bf98067a146859f4f3b70b5549a1932d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
