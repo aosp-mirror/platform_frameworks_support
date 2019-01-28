@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7bf682d_8271542c",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-28T14:42:16Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 1408,
+        "startChar": 0,
+        "endLine": 1412,
+        "endChar": 0
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e855ef3_98cbcc26",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-28T14:42:16Z",
+      "side": 1,
+      "message": "How about checking if command exists first (canPause, canRew...), then calling findControlButton(...)?",
+      "range": {
+        "startLine": 1582,
+        "startChar": 0,
+        "endLine": 1600,
+        "endChar": 77
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc55ae22_ff93ff6d",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-28T14:42:16Z",
+      "side": 1,
+      "message": "Q) Does this remove the necessity of \"layout_alignParent*\" attributes?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
