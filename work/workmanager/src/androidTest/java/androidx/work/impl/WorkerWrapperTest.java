@@ -555,13 +555,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_success_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 TestWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -569,7 +567,9 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        // This will be true even for SDK >= 23 because when you WorkerWrapper internally
+        // sets the periodStartTime to when the WorkerWrapper was executed.
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
@@ -577,13 +577,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_failure_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 FailureWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -591,7 +589,9 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        // This will be true even for SDK >= 23 because when you WorkerWrapper internally
+        // sets the periodStartTime to when the WorkerWrapper was executed.
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
