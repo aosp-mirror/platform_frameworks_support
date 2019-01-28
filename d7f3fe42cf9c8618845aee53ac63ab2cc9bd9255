@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44a1c588_9ffcdd5a",
+        "filename": "samples/ViewPager2Demos/src/main/res/drawable/border.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T15:41:50Z",
+      "side": 1,
+      "message": "Should be defined in dp (you probably want 1dp for a border)",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c55309_ce83711b",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T15:41:50Z",
+      "side": 1,
+      "message": "Indent size should be 4 spaces. Our code formatter is wrong on this, but it\u0027s in the process of being fixed. Not really important, but since we\u0027re cleaning up this file anyway... ;)\n\nI believe the code style in AndroidStyle.xml has got this right, you can temporarily switch to that one to fix it automatically\nhttps://cs.corp.google.com/android/development/ide/intellij/codestyles/AndroidStyle.xml",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d16dca_b87ff233",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/item_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T15:41:50Z",
+      "side": 1,
+      "message": "Same as before (4 spaces instead of 8)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e23f245c_9b38997f",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T15:41:50Z",
+      "side": 1,
+      "message": "Typically, spacer sizes are based on a unit of 8dp: 4, 8, 16, 24. Other sizes are used as well, though, if these defaults don\u0027t look nice, so totally up to your own discretion. Really depends on the design in the end, which we don\u0027t have",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4a6e8a_670896e1",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T15:41:50Z",
+      "side": 1,
+      "message": "For consistency with existing naming scheme: prefix name with label_ for labels before a widget (\"Id:\") and labels on buttons (\"Add new before\"). Feel free to start a new scheme for \"Toolbox\" and \"ViewPager2\" or leave as is, maybe title_toolbox and title_viewpager2?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
