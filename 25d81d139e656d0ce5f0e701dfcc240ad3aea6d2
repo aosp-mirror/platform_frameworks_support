@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f0abd6_18a7c9b8",
+        "filename": "appcompat/resources/src/androidTest/java/androidx/appcompat/widget/TintResourcesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-01-28T22:05:18Z",
+      "side": 1,
+      "message": "This is not strictly a new file. It\u0027s a copy of TintResourcesTest in appcompat/src/androidTest. Here it\u0027s testing TintResources to work with core Activity, and in appcompat it continues to test it to work with AppCompatActivity.",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 26
+      },
+      "revId": "25d81d139e656d0ce5f0e701dfcc240ad3aea6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
