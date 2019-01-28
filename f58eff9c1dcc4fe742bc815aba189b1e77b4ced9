@@ -94,6 +94,30 @@
       "revId": "f58eff9c1dcc4fe742bc815aba189b1e77b4ced9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5bfce73_abc1e84a",
+        "filename": "slices/view/src/main/res-public/values/public_attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1393882
+      },
+      "writtenOn": "2019-01-28T18:08:51Z",
+      "side": 0,
+      "message": "This one was newly added by my previous CL and it seems nobody is using so far.\nAnd neither did Settings because the divider is longer than the header text in our use case.",
+      "parentUuid": "0f7b8385_05fbe386",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "f58eff9c1dcc4fe742bc815aba189b1e77b4ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
