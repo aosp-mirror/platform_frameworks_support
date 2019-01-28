@@ -86,20 +86,22 @@ abstract class SafeArgsPlugin protected constructor(
     /**
      * Sets the android project application id into the task.
      *
-     * Safe Args depends on AGP 3.2 which doesn't declare getApplicationIdTextResource.
-     * However, on 3.3+ getApplicationIdTextResource() is recommended and on 3.4 getApplicationId
-     * is completely deprecated and will throw. Thus the need for this method to get
+     * Safe Args depends on AGP 3.2 which doesn't declare getApplicationIdTextResource().
+     * However, on 3.3+ getApplicationIdTextResource() is recommended and on 3.4 getApplicationId()
+     * is deprecated for feature modules and will throw. Thus the need for this method to get
      * the app id resource via a reflection call.
      */
     private fun setApplicationId(task: ArgumentsGenerationTask, variant: BaseVariant) {
         val appIdTextResource = variant::class.memberFunctions.firstOrNull {
             it.name == "getApplicationIdTextResource"
         }?.let {
-            it.call(variant) as TextResource
+            it.call(variant) as TextResource?
         }
         if (appIdTextResource != null) {
             task.applicationIdResource = appIdTextResource
         } else {
+            // getApplicationIdTextResource() was not found or it returned null, fallback to
+            // getApplicationId()
             task.applicationId = variant.applicationId
         }
     }
