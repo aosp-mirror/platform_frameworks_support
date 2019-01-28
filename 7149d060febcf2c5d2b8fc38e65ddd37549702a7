@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9fadd20_986e9b42",
+        "filename": "fragment/api/1.1.0-alpha04.ignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-28T21:53:35Z",
+      "side": 1,
+      "message": "Following up on b/123291927.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 112
+      },
+      "revId": "7149d060febcf2c5d2b8fc38e65ddd37549702a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
