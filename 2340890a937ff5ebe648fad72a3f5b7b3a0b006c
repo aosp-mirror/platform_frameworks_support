@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf299bf5_180a1470",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-28T18:25:46Z",
+      "side": 1,
+      "message": "nit: Comment about whey we\u0027re storing the TCM in a WR?\nThanks.",
+      "revId": "2340890a937ff5ebe648fad72a3f5b7b3a0b006c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476e348d_e25f6f43",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassificationManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-01-28T18:25:46Z",
+      "side": 1,
+      "message": "I think we don\u0027t want to re-put the tcm in a new WR if it was already there:\n\nif (smapping.get(ctx) \u003d\u003d null || smapping.get(ctx).get() \u003d\u003d null) {\n  smapping.put(ctx, new WR(tcm));\n}",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 82
+      },
+      "revId": "2340890a937ff5ebe648fad72a3f5b7b3a0b006c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
