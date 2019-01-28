@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "128814f5_677be82f",
+        "filename": ".idea/codeStyles/codeStyleConfig.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-28T23:04:31Z",
+      "side": 1,
+      "message": "Was this change intended?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "f69cbb685bf2011d007dbd721e16708768597793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
