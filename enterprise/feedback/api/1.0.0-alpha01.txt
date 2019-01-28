@@ -1,6 +1,16 @@
 // Signature format: 2.0
 package androidx.enterprise.feedback {
 
+  public abstract class Configuration {
+    method public static androidx.enterprise.feedback.Configuration.ConfigurationBuilder builder();
+    method public abstract java.util.concurrent.Executor executor();
+  }
+
+  public abstract static class Configuration.ConfigurationBuilder {
+    method public abstract androidx.enterprise.feedback.Configuration! build();
+    method public abstract androidx.enterprise.feedback.Configuration.ConfigurationBuilder setExecutor(java.util.concurrent.Executor);
+  }
+
   public abstract class KeyedAppState {
     method public static androidx.enterprise.feedback.KeyedAppState.KeyedAppStateBuilder builder();
     method public abstract String? data();
@@ -24,6 +34,7 @@ package androidx.enterprise.feedback {
 
   public class KeyedAppStatesReporter {
     method public static androidx.enterprise.feedback.KeyedAppStatesReporter getInstance(android.content.Context);
+    method public static void initialize(androidx.enterprise.feedback.Configuration);
     method public void set(java.util.Collection<androidx.enterprise.feedback.KeyedAppState>);
     method public void setImmediate(java.util.Collection<androidx.enterprise.feedback.KeyedAppState>);
     field public static final String APP_STATES_ACTION = "androidx.enterprise.feedback.action.APP_STATES";

@@ -63,6 +63,7 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.Executor;
 
 /** Tests {@link KeyedAppStatesReporter}. */
 @RunWith(RobolectricTestRunner.class)
@@ -71,6 +72,10 @@ import java.util.Collections;
 public class KeyedAppStatesReporterTest {
 
     private final ComponentName mTestComponentName = new ComponentName("test_package", "");
+
+    private final Executor mExecutor = new TestExecutor();
+    private final Configuration mConfiguration =
+            Configuration.builder().setExecutor(mExecutor).build();
 
     private final ContextWrapper mContext = ApplicationProvider.getApplicationContext();
     private final DevicePolicyManager mDevicePolicyManager =
@@ -87,6 +92,7 @@ public class KeyedAppStatesReporterTest {
     public void setUp() {
         // Reset the singleton so tests are independent
         KeyedAppStatesReporter.resetSingleton();
+        KeyedAppStatesReporter.initialize(mConfiguration);
     }
 
     @Test
@@ -96,6 +102,31 @@ public class KeyedAppStatesReporterTest {
             KeyedAppStatesReporter.getInstance(null);
             fail();
         } catch (NullPointerException expected) { }
+    }
+
+    @Test
+    @SmallTest
+    public void initialize_usesExecutor() {
+        KeyedAppStatesReporter.resetSingleton();
+        TestExecutor testExecutor = new TestExecutor();
+        KeyedAppStatesReporter.initialize(
+                Configuration.builder().setExecutor(testExecutor).build()
+        );
+
+        KeyedAppStatesReporter.getInstance(mContext).set(singleton(mState));
+
+        assertThat(testExecutor.lastExecuted()).isNotNull();
+    }
+
+    @Test
+    @SmallTest
+    public void initialize_calledAfterGetInstance_throwsIllegalStateException() {
+        KeyedAppStatesReporter.resetSingleton();
+        KeyedAppStatesReporter.getInstance(mContext);
+
+        try {
+            KeyedAppStatesReporter.initialize(mConfiguration);
+        } catch (IllegalStateException expected) { }
     }
 
     @Test
