@@ -72,7 +72,7 @@ public abstract class KeyedAppStatesService extends Service {
         private final Collection<ReceivedKeyedAppState> mStates;
         private final boolean mRequestSync;
 
-        KeyedAppStatesServiceAsyncTask(
+        private KeyedAppStatesServiceAsyncTask(
                 KeyedAppStatesService keyedAppStatesService,
                 Collection<ReceivedKeyedAppState> states,
                 boolean requestSync) {
