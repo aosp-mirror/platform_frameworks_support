@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7cedd621_7a1841d5",
+        "filename": "samples/ViewPager2Demos/src/main/res/drawable/border.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T17:35:52Z",
+      "side": 1,
+      "message": "In that case you should define a dimension in dp in values/dimens.xml, and override it in values-\u003cdensity\u003e/dimens.xml for all densities where this problem occurs. But that seems like effort you\u0027d put into a top notch production app, not in a demo. By using 5px here, the border will have a different size on each phone (e.g. it will be 5dp on an mdpi device but 1.25dp on an xxxhdpi device).\n\nI don\u0027t really care about crisp clarity here, but I do care about showing the Android community best practices. They should learn that you should never use px until you know enough of the system to decide otherwise.",
+      "parentUuid": "b77195ab_e9e23ac1",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51c55309_ce83711b",
         "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37e6745f_e3a9e9d7",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T17:35:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2440e9d_f4e9a475",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "32f67b7f_a4f50b1e",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/item_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T17:35:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eee7e512_ed0b8699",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e23f245c_9b38997f",
         "filename": "samples/ViewPager2Demos/src/main/res/values/dimens.xml",
         "patchSetId": 1
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "3ecdfe4f_bc38ec77",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T17:35:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3be2ffd_88529cc4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd4a6e8a_670896e1",
         "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
         "patchSetId": 1
@@ -225,6 +321,30 @@
       "side": 1,
       "message": "If we wanted a scheme, we\u0027d have to give it some thought, e.g. how we optimise for them being reusable. It\u0027s a bit of a mess now, agreed. I\u0027d rather wait and refactor when we add more screens, so the scheme is dictated by project needs.",
       "parentUuid": "fd4a6e8a_670896e1",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc7ee45_faab831d",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-28T17:35:52Z",
+      "side": 1,
+      "message": "We already have a scheme, see the other values. I\u0027m open to changes to it, though.\n\nFWIW: in my experience strings are usually not reusable, and it always turns into a mess in apps. This scheme may not be perfect, but it\u0027s better then nothing, it\u0027s very low-cost, and prefixing labels with \"label_\" at least creates a smaller set of strings to look through when you\u0027re in need of a label.\n\nFYI: last time I\u0027m pushing back, pinky swear :)",
+      "parentUuid": "64d5549d_30ff2b30",
       "range": {
         "startLine": 26,
         "startChar": 0,
