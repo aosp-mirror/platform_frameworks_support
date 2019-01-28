@@ -40,7 +40,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.XmlRes;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.preference.internal.AbstractMultiSelectListPreference;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -432,14 +431,11 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                                 + "implement this method so that you can configure the new "
                                 + "fragment that will be displayed, and set a transition between "
                                 + "the fragments.");
-                final FragmentManager fragmentManager = requireActivity()
-                        .getSupportFragmentManager();
-                final Bundle args = preference.getExtras();
-                final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
-                        requireActivity().getClassLoader(), preference.getFragment(), args);
-                fragment.setArguments(args);
+                final Fragment fragment =
+                        Fragment.instantiate(getContext(), preference.getFragment(),
+                                preference.getExtras());
                 fragment.setTargetFragment(this, 0);
-                fragmentManager.beginTransaction()
+                getActivity().getSupportFragmentManager().beginTransaction()
                         // Attempt to replace this fragment in its root view - developers should
                         // implement onPreferenceStartFragment in their activity so that they can
                         // customize this behaviour and handle any transitions between fragments
@@ -480,14 +476,13 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                             + "display the nested hierarchy, and set a transition between the "
                             + "fragments.");
             // Try and use a new instance of this fragment to display the nested hierarchy
-            final FragmentManager fragmentManager = requireActivity()
-                    .getSupportFragmentManager();
+            final Fragment fragment =
+                    Fragment.instantiate(getContext(), getClass().getName(),
+                            preferenceScreen.getExtras());
             final Bundle args = new Bundle(1);
             args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
-            final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
-                    requireActivity().getClassLoader(), getClass().getName(), args);
             fragment.setArguments(args);
-            fragmentManager.beginTransaction()
+            getActivity().getSupportFragmentManager().beginTransaction()
                     // Attempt to replace this fragment's root view with the new fragment
                     .replace((((View) getView().getParent()).getId()), fragment)
                     .addToBackStack(null)

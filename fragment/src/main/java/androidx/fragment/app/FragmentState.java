@@ -22,7 +22,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelStore;
 
 final class FragmentState implements Parcelable {
@@ -68,21 +67,23 @@ final class FragmentState implements Parcelable {
         mSavedFragmentState = in.readBundle();
     }
 
-    public Fragment instantiate(FragmentHostCallback host, @NonNull FragmentFactory factory,
+    public Fragment instantiate(FragmentHostCallback host, FragmentContainer container,
             Fragment parent, FragmentManagerNonConfig childNonConfig,
             ViewModelStore viewModelStore) {
         if (mInstance == null) {
             final Context context = host.getContext();
-            final ClassLoader classLoader = context.getClassLoader();
             if (mArguments != null) {
-                mArguments.setClassLoader(classLoader);
+                mArguments.setClassLoader(context.getClassLoader());
             }
 
-            mInstance = factory.instantiate(classLoader, mClassName, mArguments);
-            mInstance.setArguments(mArguments);
+            if (container != null) {
+                mInstance = container.instantiate(context, mClassName, mArguments);
+            } else {
+                mInstance = Fragment.instantiate(context, mClassName, mArguments);
+            }
 
             if (mSavedFragmentState != null) {
-                mSavedFragmentState.setClassLoader(classLoader);
+                mSavedFragmentState.setClassLoader(context.getClassLoader());
                 mInstance.mSavedFragmentState = mSavedFragmentState;
             }
             mInstance.setIndex(mIndex, parent);
