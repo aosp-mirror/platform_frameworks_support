@@ -490,28 +490,6 @@ public class WorkManagerImplTest {
 
     @Test
     @SmallTest
-    public void testEnqueued_periodicWork_setsPeriodStartTime()
-            throws ExecutionException, InterruptedException {
-
-        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
-                TestWorker.class,
-                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
-                TimeUnit.MILLISECONDS)
-                .build();
-        assertThat(periodicWork.getWorkSpec().periodStartTime, is(0L));
-
-        long beforeEnqueueTime = System.currentTimeMillis();
-
-        mWorkManagerImpl.enqueue(Collections.singletonList(periodicWork))
-                .getResult()
-                .get();
-
-        WorkSpec workSpec = mDatabase.workSpecDao().getWorkSpec(periodicWork.getStringId());
-        assertThat(workSpec.periodStartTime, is(greaterThanOrEqualTo(beforeEnqueueTime)));
-    }
-
-    @Test
-    @SmallTest
     public void testBeginUniqueWork_setsUniqueName()
             throws ExecutionException, InterruptedException {
 
