@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b77195ab_e9e23ac1",
+        "filename": "samples/ViewPager2Demos/src/main/res/drawable/border.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-28T16:05:15Z",
+      "side": 1,
+      "message": "It\u0027s deliberate. By using px for borders you end up with sharper ones (no half pixel rounding effects). Picked it up when working on ManagedProvisioning but can\u0027t find anymore, maybe they changed it.",
+      "parentUuid": "44a1c588_9ffcdd5a",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51c55309_ce83711b",
         "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-28T15:41:50Z",
       "side": 1,
       "message": "Indent size should be 4 spaces. Our code formatter is wrong on this, but it\u0027s in the process of being fixed. Not really important, but since we\u0027re cleaning up this file anyway... ;)\n\nI believe the code style in AndroidStyle.xml has got this right, you can temporarily switch to that one to fix it automatically\nhttps://cs.corp.google.com/android/development/ide/intellij/codestyles/AndroidStyle.xml",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2440e9d_f4e9a475",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-28T16:05:15Z",
+      "side": 1,
+      "message": "I\u0027d rather not fight the formatter for spaces. Let\u0027s revisit when the formatter is fixed?",
+      "parentUuid": "51c55309_ce83711b",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eee7e512_ed0b8699",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout/item_mutable_collection.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-28T16:05:15Z",
+      "side": 1,
+      "message": "same as the other file",
+      "parentUuid": "58d16dca_b87ff233",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 8
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e23f245c_9b38997f",
         "filename": "samples/ViewPager2Demos/src/main/res/values/dimens.xml",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c3be2ffd_88529cc4",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-28T16:05:15Z",
+      "side": 1,
+      "message": "I\u0027ve tested with these values and looks good. Don\u0027t want to have to retest / risk something will stop being visible. Will bear in mind in the future.",
+      "parentUuid": "e23f245c_9b38997f",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd4a6e8a_670896e1",
         "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-28T15:41:50Z",
       "side": 1,
       "message": "For consistency with existing naming scheme: prefix name with label_ for labels before a widget (\"Id:\") and labels on buttons (\"Add new before\"). Feel free to start a new scheme for \"Toolbox\" and \"ViewPager2\" or leave as is, maybe title_toolbox and title_viewpager2?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d5549d_30ff2b30",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-28T16:05:15Z",
+      "side": 1,
+      "message": "If we wanted a scheme, we\u0027d have to give it some thought, e.g. how we optimise for them being reusable. It\u0027s a bit of a mess now, agreed. I\u0027d rather wait and refactor when we add more screens, so the scheme is dictated by project needs.",
+      "parentUuid": "fd4a6e8a_670896e1",
       "range": {
         "startLine": 26,
         "startChar": 0,
