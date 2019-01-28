@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1fbc5a2_45fee609",
+        "filename": "media2-widget/src/main/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-28T07:44:19Z",
+      "side": 0,
+      "message": "I had a similar CL before, removing back button. At that time, sungsoo@ told me that it\u0027s better not to remove the string resources since there already exist translation resources and they are expensive, so I reverted (please see the diff between patch set 1 and 2 https://android-review.googlesource.com/c/platform/frameworks/support/+/870291/1..2)\n\nAlthough this CL didn\u0027t remove the translated strings (values-XX/strings.xml), I think the strings in values/strings.xml should also be untouched.",
+      "revId": "2a5537e1bfd74f69185623daafd02fc8d4d6fd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
