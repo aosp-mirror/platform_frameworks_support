@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e0515ec_7ae17729",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T21:14:02Z",
+      "side": 1,
+      "message": "This won\u0027t work if there is a flex and JobScheduler starts the job before the interval duration - we will fail the other check we put not to start it too early, right?",
+      "range": {
+        "startLine": 515,
+        "startChar": 39,
+        "endLine": 515,
+        "endChar": 72
+      },
+      "revId": "fa75f593593b7c4ec413c1f57514a9e8aeb71859",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
