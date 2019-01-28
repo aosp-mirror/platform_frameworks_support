@@ -74,6 +74,7 @@ def commonArchivesToDejetify = [
 def extraArchivesForPartialDejetification = [
     "m2repository/androidx/media2/**",
     "m2repository/androidx/concurrent/**",
+    "m2repository/androidx/paging/**",
     "m2repository/androidx/sharetarget/**"
 ]
 
