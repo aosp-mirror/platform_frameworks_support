@@ -292,7 +292,11 @@ public class EnqueueRunnable implements Runnable {
                 }
             }
 
-            if (Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT <= 25) {
+            if (Build.VERSION.SDK_INT >= WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL
+                    && Build.VERSION.SDK_INT <= 25) {
+                tryDelegateConstrainedWorkSpec(workSpec);
+            } else if (Build.VERSION.SDK_INT <= WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL
+                    && workManagerImpl.usesScheduler(Schedulers.GCM_SCHEDULER)) {
                 tryDelegateConstrainedWorkSpec(workSpec);
             }
 
