@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "0a078836_6271fb71",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff9c0bc8_c31905de",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b51f3f64_33ec7c17",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -196,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "935eb6c3_0a9da0fa",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b1638ae_c3ad3914",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64701659_db5a7758",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -210,6 +246,24 @@
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c74ccc2e_7a2c2f86",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "it is internal right now. if we decide to provide scopes more than CREATED, we can consider that. \nIt is probably better to not add that for this CL (since it is already fairly big)",
+      "parentUuid": "64701659_db5a7758",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "a705c2a4_706dda7e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30fb732b_39a10f42",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "156651d4_e317a773",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -283,6 +355,24 @@
     },
     {
       "key": {
+        "uuid": "7233a166_ba8e0048",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "added a TODO.",
+      "parentUuid": "175207d9_f204f4c5",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a1da72d_5f8c86c9",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -315,6 +405,24 @@
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef792fd_ba45c2bb",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edaab097_045517bb",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -512,6 +620,42 @@
     },
     {
       "key": {
+        "uuid": "d23faf95_e336c5aa",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "We\u0027ll discuss internally but I\u0027m worried that that API might mislead people (they might hope it will start running again after stop/start cycle).\nOver the years, we\u0027ve had more success in limiting things. It sucks for more advanced use cases but makes the APIs much easier to understand for the greater pool.\n\nThat being said, nothing really prevents us from providing an API to create a scope hence we might do both (have lifecycle that goes between create-destroy as default, then allow people create their own if they want).\n\nBtw, the original idea I had was to have a scope that automatically suspends if lifecycle goes out of scope (via a custom dispatcher). We\u0027ve ditched that idea for being too magical.",
+      "parentUuid": "39856e5e_e274c71d",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e836c9_2ba92b24",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eab2aad0_788d29f1",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dcbd1ef_5ec5984e",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -579,6 +723,24 @@
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2031a4d_e42a1ce6",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-28T06:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a14cd46_918b87f2",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
