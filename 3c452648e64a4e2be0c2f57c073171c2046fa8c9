@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889a2c26_5cc8c52c",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T23:04:44Z",
+      "side": 1,
+      "message": "Not sure I understood this comment?  Why is this worth calling out?",
+      "range": {
+        "startLine": 570,
+        "startChar": 8,
+        "endLine": 571,
+        "endChar": 75
+      },
+      "revId": "3c452648e64a4e2be0c2f57c073171c2046fa8c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d119bb_a6717dca",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T23:04:44Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 592,
+        "startChar": 8,
+        "endLine": 593,
+        "endChar": 75
+      },
+      "revId": "3c452648e64a4e2be0c2f57c073171c2046fa8c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf96c7e0_310fe568",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/CommandHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T23:04:44Z",
+      "side": 1,
+      "message": "So this is okay, because by definition alarms in the past are triggered immediately.",
+      "range": {
+        "startLine": 224,
+        "startChar": 29,
+        "endLine": 224,
+        "endChar": 99
+      },
+      "revId": "3c452648e64a4e2be0c2f57c073171c2046fa8c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62679f75_e4a607af",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/EnqueueRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-28T23:04:44Z",
+      "side": 1,
+      "message": "Do we want to explicitly set it to 0 for periodic and update this comment?",
+      "range": {
+        "startLine": 288,
+        "startChar": 16,
+        "endLine": 290,
+        "endChar": 17
+      },
+      "revId": "3c452648e64a4e2be0c2f57c073171c2046fa8c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
