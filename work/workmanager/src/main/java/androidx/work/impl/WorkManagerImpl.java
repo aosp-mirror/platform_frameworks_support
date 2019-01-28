@@ -265,6 +265,26 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
+     * @param className The fully qualified class name of the {@link Scheduler}
+     * @return {@code true} if the {@link Scheduler} class is being used by WorkManager.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public boolean usesScheduler(@NonNull String className) {
+        try {
+            Class<?> klass = Class.forName(className);
+            for (Scheduler scheduler : getSchedulers()) {
+                if (klass.isAssignableFrom(scheduler.getClass())) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (ClassNotFoundException ignore) {
+            return false;
+        }
+    }
+
+    /**
      * @return The {@link Processor} used to process background work.
      * @hide
      */
