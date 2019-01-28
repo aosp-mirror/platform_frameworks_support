@@ -30,7 +30,6 @@
     <string name="MediaControlView_subtitle_off_text">Off</string>
     <string name="MediaControlView_audio_track_text">Audio track</string>
     <string name="MediaControlView_audio_track_none_text">None</string>
-    <string name="MediaControlView_video_quality_auto_text">Auto</string>
     <string name="MediaControlView_playback_speed_text">Playback speed</string>
     <string name="MediaControlView_playback_speed_normal">Normal</string>
     <string-array translatable="false" name="MediaControlView_playback_speeds">
@@ -75,7 +74,6 @@
     <string name="mcv2_overflow_right_button_desc">See more buttons</string>
     <string name="mcv2_seek_bar_desc">Playback progress</string>
     <string name="mcv2_settings_button_desc">Settings</string>
-    <string name="mcv2_video_quality_button_desc">Video Quality Selection</string>
     <string name="mcv2_cc_is_on">Subtitle is on. Click to hide it.</string>
     <string name="mcv2_cc_is_off">Subtitle is off. Click to show it.</string>
     <string name="mcv2_replay_button_desc">Replay</string>
