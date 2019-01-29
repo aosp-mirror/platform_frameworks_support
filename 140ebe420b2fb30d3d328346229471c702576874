@@ -85,6 +85,98 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd154866_5be06db7",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3736,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T06:58:45Z",
+      "side": 1,
+      "message": "Needs null check of \u0027File file\u0027.",
+      "range": {
+        "startLine": 3736,
+        "startChar": 8,
+        "endLine": 3736,
+        "endChar": 37
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3dd233f_cad63cbc",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3781,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T06:58:45Z",
+      "side": 1,
+      "message": "\", e);",
+      "range": {
+        "startLine": 3781,
+        "startChar": 74,
+        "endLine": 3781,
+        "endChar": 75
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0f9096_e8403e37",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4391,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T06:58:45Z",
+      "side": 1,
+      "message": "Q) Why do we do this?",
+      "range": {
+        "startLine": 4388,
+        "startChar": 12,
+        "endLine": 4391,
+        "endChar": 55
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d11ef3_1c532a1a",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4392,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T06:58:45Z",
+      "side": 1,
+      "message": "Couldn\u0027t",
+      "range": {
+        "startLine": 4392,
+        "startChar": 43,
+        "endLine": 4392,
+        "endChar": 51
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
