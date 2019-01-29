@@ -118,6 +118,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e6175f4_33f1cdab",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-29T17:40:41Z",
+      "side": 1,
+      "message": "Internal link: https://cs.corp.google.com/search/?q\u003d%22extends+FragmentManager+%7B%22\u0026sq\u003dpackage:piper+file://depot/google3+-file:google3/(experimental%7Cobsolete)\u0026type\u003dcs",
+      "parentUuid": "e7cdb61b_b0ea9d95",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
