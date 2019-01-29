@@ -140,12 +140,20 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                 EVT_SCREEN_DATA_READY);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getFragmentManager().beginTransaction()
+                .setPrimaryNavigationFragment(this)
+                .commit();
+    }
+
     final class BackStackListener implements FragmentManager.OnBackStackChangedListener {
         int mLastEntryCount;
         int mIndexOfHeadersBackStack;
 
         BackStackListener() {
-            mLastEntryCount = getFragmentManager().getBackStackEntryCount();
+            mLastEntryCount = getChildFragmentManager().getBackStackEntryCount();
             mIndexOfHeadersBackStack = -1;
         }
 
@@ -155,7 +163,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                 mShowingHeaders = mIndexOfHeadersBackStack == -1;
             } else {
                 if (!mShowingHeaders) {
-                    getFragmentManager().beginTransaction()
+                    getChildFragmentManager().beginTransaction()
                             .addToBackStack(mWithHeadersBackStackName).commit();
                 }
             }
@@ -165,18 +173,17 @@ public class BrowseSupportFragment extends BaseSupportFragment {
             outState.putInt(HEADER_STACK_INDEX, mIndexOfHeadersBackStack);
         }
 
-
         @Override
         public void onBackStackChanged() {
-            if (getFragmentManager() == null) {
-                Log.w(TAG, "getFragmentManager() is null, stack:", new Exception());
+            if (getChildFragmentManager() == null) {
+                Log.w(TAG, "getChildFragmentManager() is null, stack:", new Exception());
                 return;
             }
-            int count = getFragmentManager().getBackStackEntryCount();
+            int count = getChildFragmentManager().getBackStackEntryCount();
             // if backstack is growing and last pushed entry is "headers" backstack,
             // remember the index of the entry.
             if (count > mLastEntryCount) {
-                BackStackEntry entry = getFragmentManager().getBackStackEntryAt(count - 1);
+                BackStackEntry entry = getChildFragmentManager().getBackStackEntryAt(count - 1);
                 if (mWithHeadersBackStackName.equals(entry.getName())) {
                     mIndexOfHeadersBackStack = count - 1;
                 }
@@ -186,7 +193,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                     if (!isHeadersDataReady()) {
                         // if main fragment was restored first before BrowseSupportFragment's adapter gets
                         // restored: don't start header transition, but add the entry back.
-                        getFragmentManager().beginTransaction()
+                        getChildFragmentManager().beginTransaction()
                                 .addToBackStack(mWithHeadersBackStackName).commit();
                         return;
                     }
@@ -1033,7 +1040,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     }
 
     void startHeadersTransitionInternal(final boolean withHeaders) {
-        if (getFragmentManager().isDestroyed()) {
+        if (getChildFragmentManager().isDestroyed()) {
             return;
         }
         if (!isHeadersDataReady()) {
@@ -1055,13 +1062,14 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                         withHeaders ? mSceneWithHeaders : mSceneWithoutHeaders, mHeadersTransition);
                 if (mHeadersBackStackEnabled) {
                     if (!withHeaders) {
-                        getFragmentManager().beginTransaction()
+                        getChildFragmentManager().beginTransaction()
                                 .addToBackStack(mWithHeadersBackStackName).commit();
                     } else {
                         int index = mBackStackChangedListener.mIndexOfHeadersBackStack;
                         if (index >= 0) {
-                            BackStackEntry entry = getFragmentManager().getBackStackEntryAt(index);
-                            getFragmentManager().popBackStackImmediate(entry.getId(),
+                            BackStackEntry entry = getChildFragmentManager()
+                                    .getBackStackEntryAt(index);
+                            getChildFragmentManager().popBackStackImmediate(entry.getId(),
                                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         }
                     }
@@ -1196,7 +1204,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
             if (mHeadersBackStackEnabled) {
                 mWithHeadersBackStackName = LB_HEADERS_BACKSTACK + this;
                 mBackStackChangedListener = new BackStackListener();
-                getFragmentManager().addOnBackStackChangedListener(mBackStackChangedListener);
+                getChildFragmentManager().addOnBackStackChangedListener(mBackStackChangedListener);
                 mBackStackChangedListener.load(savedInstanceState);
             } else {
                 if (savedInstanceState != null) {
@@ -1221,7 +1229,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     @Override
     public void onDestroy() {
         if (mBackStackChangedListener != null) {
-            getFragmentManager().removeOnBackStackChangedListener(mBackStackChangedListener);
+            getChildFragmentManager().removeOnBackStackChangedListener(mBackStackChangedListener);
         }
         super.onDestroy();
     }
