@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6776d1fa_cecefb48",
+        "filename": "navigation/safe-args-gradle-plugin/src/main/kotlin/androidx/navigation/safeargs/gradle/SafeArgsPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-29T00:19:52Z",
+      "side": 1,
+      "message": "This is no longer true. Either we should set it back to 3.2.1 or change the comment here.",
+      "revId": "06450f03e92cab6bfe41af7e6aa789b33ce6e061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ada6224_c6d06779",
+        "filename": "navigation/safe-args-gradle-plugin/src/test/kotlin/androidx/navigation/safeargs/gradle/PluginTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-29T00:19:52Z",
+      "side": 1,
+      "message": "Rename to FOO_DYNAMIC_ARGS if this is an args file",
+      "range": {
+        "startLine": 46,
+        "startChar": 18,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "06450f03e92cab6bfe41af7e6aa789b33ce6e061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
