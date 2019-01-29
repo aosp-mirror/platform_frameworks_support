@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c010279a_19566a31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T05:47:50Z",
+      "side": 1,
+      "message": "API changes will need update of current.txt",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92dcb9b3_2a25266f",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T05:47:50Z",
+      "side": 1,
+      "message": "What is this value? Better to have variable/constant for this.",
+      "range": {
+        "startLine": 807,
+        "startChar": 80,
+        "endLine": 807,
+        "endChar": 84
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6838331_4052a7dd",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T05:47:50Z",
+      "side": 1,
+      "message": "How about not catching any exception here? (try ~ finally)",
+      "range": {
+        "startLine": 810,
+        "startChar": 14,
+        "endLine": 810,
+        "endChar": 33
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fdec40a_28436992",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-01-29T05:47:50Z",
+      "side": 1,
+      "message": "\", e);",
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
