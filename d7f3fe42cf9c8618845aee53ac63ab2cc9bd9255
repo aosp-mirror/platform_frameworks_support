@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5aecb4b9_18ec9cc6",
+        "filename": "samples/ViewPager2Demos/src/main/res/drawable/border.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-29T12:34:42Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "7cedd621_7a1841d5",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c55309_ce83711b",
         "filename": "samples/ViewPager2Demos/src/main/res/layout/activity_mutable_collection.xml",
         "patchSetId": 1
@@ -354,6 +378,30 @@
       "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fadb1c2_6bbe77c4",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-29T12:34:42Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "4cc7ee45_faab831d",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "d7f3fe42cf9c8618845aee53ac63ab2cc9bd9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
