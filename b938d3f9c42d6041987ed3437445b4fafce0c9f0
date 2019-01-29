@@ -16,6 +16,24 @@
       "revId": "b938d3f9c42d6041987ed3437445b4fafce0c9f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe2b492_87db47b5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-01-29T23:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "472f0ead_553296fe",
+      "revId": "b938d3f9c42d6041987ed3437445b4fafce0c9f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
