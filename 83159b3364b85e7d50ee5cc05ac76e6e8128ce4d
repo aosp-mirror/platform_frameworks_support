@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aad6c597_ff351b78",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-29T10:07:23Z",
+      "side": 1,
+      "message": "Yeah, I was thinking about it as well. In the end I followed the convention set out by line 36, but I\u0027ll revisit this with Jakub",
+      "parentUuid": "5961e530_040e6cf8",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7fdb8c9_973f29e3",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "300eec4b_86721e89",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-29T10:07:23Z",
+      "side": 1,
+      "message": "Good call, better to use consistent terminology all over the landscape\n\n(Marking it as solved because I fixed it locally, but I\u0027m waiting with upload so we can accumulate all comments in the same patch set)",
+      "parentUuid": "e7fdb8c9_973f29e3",
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ece367a_e13ad8b5",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2019-01-28T23:08:33Z",
       "side": 1,
       "message": "This may be correct, but certainly feels weird.  I\u0027m adding qasid@ to the review for his guidance.",
+      "range": {
+        "startLine": 541,
+        "startChar": 28,
+        "endLine": 541,
+        "endChar": 53
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91165864_a3750373",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-01-29T10:07:23Z",
+      "side": 1,
+      "message": "When user scrolling is disabled, a ViewPager2 degrades to a simple ViewGroup from the perspective of the user. The fact that the page can still be changed programmatically doesn\u0027t change this; in fact, from the user\u0027s perspective, it is exactly the same as if you would commit a fragment transaction with an animation.\n\nBorrowing from complexity theory, you could say that a ViewGroup can be reduced to a ViewPager2 with user scrolling disabled, by putting the ViewGroup on the current page and add any number of other pages. Similarly, you could reduce a fragment transaction that has an animation where the old fragment slides away to the left while the new fragment slides in from the right, to a ViewPager2 with user scrolling disabled, by putting the old fragment on the current page and the new fragment on the next page and then call setCurrentItem(nextPage, true).\n\nNot to say that I\u0027m right, but just to show how I got to this implementation :)\n\nAddendum: maybe it is entirely superfluous in the first place, given that I block onInitializeAccessibilityNodeInfo in the LinearLayoutManagerImpl as well. Or maybe it is quite necessary because of that, if Accessibility Services happens to expect info in the accessibility node when the accessibility class name is ViewPager. I think Qasid and Sally can shed some light on this :)",
+      "parentUuid": "1ece367a_e13ad8b5",
       "range": {
         "startLine": 541,
         "startChar": 28,
