@@ -38,10 +38,7 @@ import java.util.concurrent.Executor;
  *                                                    .addProxyRule(ProxyConfig.DIRECT)
  *                                                    .build();
  * </pre>
- * TODO(laisminchillo): unhide this when we're ready to expose this
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ProxyConfig {
     /**
      * Connect to URLs directly instead of using a proxy server.

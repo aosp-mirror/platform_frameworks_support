@@ -49,11 +49,7 @@ import java.util.concurrent.Executor;
  * ...
  * ProxyController.getInstance().clearProxyOverride(executor, listener);
  * </pre>
- *
- * TODO(laisminchillo): unhide this when we're ready to expose this
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class ProxyController {
     /**
      * @hide Don't allow apps to sub-class this class.
