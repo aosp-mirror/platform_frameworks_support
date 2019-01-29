@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "06a5c398_eb23e5ac",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-29T00:15:24Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "c2036faa_0292294d",
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3bbc76_5ba0bb52",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
         "patchSetId": 3
@@ -51,6 +69,24 @@
       "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e1207d2_e819d4dc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-29T00:15:24Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "cd3bbc76_5ba0bb52",
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -74,6 +110,30 @@
       "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7675160_4137dbb3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-01-29T00:15:24Z",
+      "side": 1,
+      "message": "marking this comment as resolved so Treehugger will feel empowered to autosubmit",
+      "parentUuid": "ca791fa1_bfc76598",
+      "range": {
+        "startLine": 144,
+        "startChar": 67,
+        "endLine": 144,
+        "endChar": 85
+      },
+      "revId": "44712221bf1ec1bc431d3597c1a238056653e865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
