@@ -43,14 +43,14 @@ public class RichTextTest {
     @Test
     public void equality() {
         RichText expected = createSampleRichText();
-        RichTextElement element = new RichTextElement.Builder().build(TEST_TEXT);
+        RichTextElement element = new RichTextElement.Builder().setText(TEST_TEXT).build();
 
         assertEquals(expected, createSampleRichText());
-        assertNotEquals(expected, new RichText.Builder().build());
+        assertNotEquals(expected, new RichText.Builder().build(TEST_TEXT));
         assertNotEquals(expected, new RichText.Builder()
                 .addElement(element)
                 .addElement(element)
-                .build());
+                .build(TEST_TEXT));
 
         assertEquals(expected.hashCode(), createSampleRichText().hashCode());
     }
@@ -60,7 +60,7 @@ public class RichTextTest {
      */
     @Test
     public void immutability() {
-        assertImmutable(new RichText.Builder().build().getElements());
+        assertImmutable(new RichText.Builder().build(TEST_TEXT).getElements());
         assertImmutable(new RichText().getElements());
     }
 
@@ -71,6 +71,14 @@ public class RichTextTest {
     @Test
     public void nullability_elementsListIsNeverNull() {
         assertEquals(new ArrayList<>(), new RichText().getElements());
+    }
+
+    /**
+     * Test that a text representation must not be null.
+     */
+    @Test(expected = NullPointerException.class)
+    public void builder_textIsMandatory() {
+        new RichText.Builder().build(null);
     }
 
     /**
@@ -86,7 +94,7 @@ public class RichTextTest {
      */
     public static RichText createSampleRichText() {
         return new RichText.Builder()
-                .addElement(new RichTextElement.Builder().build(TEST_TEXT))
-                .build();
+                .addElement(new RichTextElement.Builder().setText(TEST_TEXT).build())
+                .build(TEST_TEXT);
     }
 }
