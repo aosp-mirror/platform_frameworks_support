@@ -21,7 +21,6 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -32,10 +31,10 @@ import java.util.Objects;
  * An item in a {@link RichText} sequence, acting as a union of different graphic elements that can
  * be displayed one after another.
  * <p>
- * All {@link RichTextElement} must contain a textual representation of its content, which will be
- * used by consumers incapable of rendering the desired graphic element. A {@link RichTextElement}
- * can only contain one other graphic element. Consumers must attempt to render such element and
- * only fallback to text if needed.
+ * A {@link RichTextElement} can contain text and a graphic element as its representation.
+ * Consumers must attempt to render the graphic element if present. In case of failure to render
+ * the element, the first line of fallback should be {@link #getText()}. If that is also empty,
+ * fallback to {@link RichText#getText()} will be used.
  * <p>
  * New graphic element types might be added in the future. If such elements are unknown to the
  * consumer, they will be delivered to the consumer as just text.
@@ -49,6 +48,7 @@ public class RichTextElement implements VersionedParcelable {
 
     /**
      * Used by {@link VersionedParcelable}
+     *
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -59,9 +59,8 @@ public class RichTextElement implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public RichTextElement(@NonNull String text, @Nullable ImageReference image) {
-        mText = Preconditions.checkNotNull(text, "A textual representation of this "
-                + "element must be provided.");
+    public RichTextElement(@Nullable String text, @Nullable ImageReference image) {
+        mText = text;
         mImage = image;
     }
 
@@ -70,6 +69,7 @@ public class RichTextElement implements VersionedParcelable {
      */
     public static class Builder {
         private ImageReference mImage;
+        private String mText;
 
         /**
          * Sets an image to be displayed as part of the {@link RichText} sequence. Images in the
@@ -88,20 +88,32 @@ public class RichTextElement implements VersionedParcelable {
         }
 
         /**
-         * Builds a {@link RichTextElement} with the given textual representation, and any other
-         * optional representation provided to this builder. If no other graphic element is provided
-         * or if such graphic element cannot be rendered by the consumer, this text will be used
-         * instead.
+         * Sets the textual representation for this element to be displayed as part of the
+         * {@link RichText} sequence.
          *
          * @param text textual representation to use
+         * @return this object for chaining
          */
-        public RichTextElement build(@NonNull String text) {
-            return new RichTextElement(Preconditions.checkNotNull(text), mImage);
+        public Builder setText(@Nullable String text) {
+            mText = text;
+            return this;
+        }
+
+        /**
+         * Builds a {@link RichTextElement} with an optional textual representation, and any other
+         * optional representation provided to this builder. If no other graphic element is provided
+         * or if such graphic element cannot be rendered by the consumer, text will be used instead.
+         */
+        public RichTextElement build() {
+            return new RichTextElement(Common.nonNullOrEmpty(mText), mImage);
         }
     }
 
     /**
-     * Returns the textual representation of this element
+     * Returns the textual representation of this element.
+     *
+     * If {@link #getImage()} is provided, then this is used as a fallback in the case of render
+     * failures.
      */
     @NonNull
     public String getText() {
@@ -109,8 +121,11 @@ public class RichTextElement implements VersionedParcelable {
     }
 
     /**
-     * Returns an image representing this element, or null if the textual representation should be
-     * used instead.
+     * Returns an image representing this element. This representation should be used over
+     * the textual representation {@link #getText()} whenever possible.
+     *
+     * In case of failure to render, initial fallback to {@link #getText()} should be used.
+     * Fallback to {@link RichText#getText()} should be used if textual fallback is not provided.
      */
     @Nullable
     public ImageReference getImage() {
