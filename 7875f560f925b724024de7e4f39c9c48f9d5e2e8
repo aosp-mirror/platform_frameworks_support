@@ -46,6 +46,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "381d98bc_b28b52d6",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-01-29T01:29:36Z",
+      "side": 1,
+      "message": "There are in g3 :D",
+      "parentUuid": "6ddb9972_bc3535cb",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
