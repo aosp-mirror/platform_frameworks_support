@@ -70,6 +70,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "987ef920_325c42b8",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-29T17:14:44Z",
+      "side": 1,
+      "message": "if there are known implementers, this  is a bit risky (sergey, can you link it? my codesearchFu didn\u0027t find).\nI aggree with Alan though, this solution makes it worse :/. lets discuss if we can come up w/ backwards compatible implementation.\nif not, maybe the only option is to bump fragments version :/",
+      "parentUuid": "381d98bc_b28b52d6",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
