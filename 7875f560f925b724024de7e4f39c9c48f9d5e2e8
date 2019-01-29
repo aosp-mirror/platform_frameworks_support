@@ -142,6 +142,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "035a60b7_783b170d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-29T17:40:54Z",
+      "side": 1,
+      "message": "mHost and mParent, both factors for FragmentManagerImpl\u0027s implementation of getFragmentFactory(), don\u0027t exist in the abstract FragmentManager. I think we can provide a ~compatible implementation despite that, which I\u0027ll be doing in a follow up CL.",
+      "parentUuid": "e7cdb61b_b0ea9d95",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
