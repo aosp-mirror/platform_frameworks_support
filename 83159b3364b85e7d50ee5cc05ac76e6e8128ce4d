@@ -176,6 +176,53 @@
       "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b65325e_4f3b0343",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-01-29T19:04:23Z",
+      "side": 1,
+      "message": "When the page is set programmatically TalkBack still needs to know that this is a ViewPager vs a ViewGroup to provide page number feedback. And keeping the ViewPager name shouldn\u0027t affect TB, as we check that the scroll actions exist on the node before performing these actions, which can be removed in onInitializeAllyNodeInfo",
+      "parentUuid": "91165864_a3750373",
+      "range": {
+        "startLine": 541,
+        "startChar": 28,
+        "endLine": 541,
+        "endChar": 53
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f6c6bb_f5082f54",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-01-29T19:04:23Z",
+      "side": 1,
+      "message": "I\u0027m a little uncomfortable with having an empty node if it isn\u0027t necessary. super.onInitializeAllyNodeInfo can be called so all the info isn\u0027t lost, and the scroll actions can be removed and scrollable can be set to false in the check",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 79
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
