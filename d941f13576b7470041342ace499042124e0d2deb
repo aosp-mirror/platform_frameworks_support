@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f499b9e_24aa0e76",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T17:31:25Z",
+      "side": 1,
+      "message": "Let\u0027s add mText as @ParcelField(2). \nFor backwards compatibility we need to data types stable for the same field ids.",
+      "revId": "d941f13576b7470041342ace499042124e0d2deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ffbc7f4_32fe5dce",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T17:31:25Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment here saying that the elements list might be empty if no rich-text representation is available. In such case, consumers should fallback to use getText().",
+      "revId": "d941f13576b7470041342ace499042124e0d2deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad6da8b_d902b580",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T17:31:25Z",
+      "side": 1,
+      "message": "I would rather create a new setText() and leave this method as build() (no parameters).",
+      "revId": "d941f13576b7470041342ace499042124e0d2deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
