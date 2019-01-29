@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8e805bd_a6f8d01e",
+        "filename": "navigation/safe-args-generator/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-29T00:34:00Z",
+      "side": 1,
+      "message": "What does this do?",
+      "revId": "24bda69b080084cf811f018401308154a90c19d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
