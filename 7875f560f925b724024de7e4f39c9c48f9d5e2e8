@@ -22,6 +22,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddb9972_bc3535cb",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-01-29T00:31:28Z",
+      "side": 1,
+      "message": "There are no other implementations AFAIK.",
+      "parentUuid": "4d6a78df_c0a2865b",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
