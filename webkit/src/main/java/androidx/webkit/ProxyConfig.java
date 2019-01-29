@@ -27,21 +27,19 @@ import java.util.concurrent.Executor;
  * Config for {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)}.
  * <p>
  * Proxy rules should be added using {@code addProxyRule} methods. Multiple rules can be used as
- * fallback if a proxy fails to respond (e.g. the proxy server is down). Bypass rules can be set
+ * fallback if a proxy fails to respond (ex. the proxy server is down). Bypass rules can be set
  * for URLs that should not use these settings.
  * <p>
- * For instance, the following code means that WebView would first try to use proxy1.com for all
- * URLs, if that fails, proxy2.com, and if that fails, it would make a direct connection.
+ * For instance, the following code means that WebView would first try to use {@code proxy1.com}
+ * for all URLs, if that fails, {@code proxy2.com}, and if that fails, it would make a direct
+ * connection.
  * <pre class="prettyprint">
  * ProxyConfig proxyConfig = new ProxyConfig.Builder().addProxyRule("proxy1.com")
  *                                                    .addProxyRule("proxy2.com")
  *                                                    .addProxyRule(ProxyConfig.DIRECT)
  *                                                    .build();
  * </pre>
- * TODO(laisminchillo): unhide this when we're ready to expose this
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class ProxyConfig {
     /**
      * Connect to URLs directly instead of using a proxy server.
@@ -98,10 +96,12 @@ public class ProxyConfig {
 
     /**
      * ProxyConfig builder. Use {@link Builder#addProxyRule(String)} or
-     * {@link Builder#addProxyRule(String, String)} to add proxy rules. Note that if
-     * you don't add any proxy rules, all connections will be made directly. Use
-     * {@link Builder#addBypassRule(String)} to add bypass rules. Use
-     * {@link Builder#build()} to build this into a {@link ProxyConfig} object.
+     * {@link Builder#addProxyRule(String, String)} to add proxy rules. Use
+     * {@link Builder#addBypassRule(String)} to add bypass rules. Use {@link Builder#build()} to
+     * build this into a {@link ProxyConfig} object.
+     * <p>
+     * <p class="note"><b>Note:</b> if you don't add any proxy rules, all connections will be made
+     * directly (any existing system wide setting will be ignored).
      */
     public static class Builder {
         private ArrayList<String[]> mProxyRules;
@@ -123,23 +123,16 @@ public class ProxyConfig {
         /**
          * Adds a proxy to be used for all URLs.
          * <p>Proxy is either {@link ProxyConfig#DIRECT} or a string in the format
-         * {@code [scheme://]host[:port]}. Scheme is optional and defaults to HTTP; host is one
-         * of an IPv6 literal with brackets, an IPv4 literal or one or more labels separated by
-         * a period; port number is optional and defaults to {@code 80} for {@code HTTP},
-         * {@code 443} for {@code HTTPS} and {@code 1080} for {@code SOCKS}.
+         * {@code [scheme://]host[:port]}. Scheme is optional, if present must be {@code HTTP},
+         * {@code HTTPS} or <a href="https://tools.ietf.org/html/rfc1928">SOCKS</a> and defaults to
+         * {@code HTTP}. Host is one of an IPv6 literal with brackets, an IPv4 literal or one or
+         * more labels separated by a period. Port number is optional and defaults to {@code 80} for
+         * {@code HTTP}, {@code 443} for {@code HTTPS} and {@code 1080} for {@code SOCKS}.
          * <p>
          * The correct syntax for hosts is defined by
-         * <a  href="https://tools.ietf.org/html/rfc3986#section-3.2.2">RFC 3986</a>
+         * <a href="https://tools.ietf.org/html/rfc3986#section-3.2.2">RFC 3986</a>
          * <p>
-         * Host examples:
-         * <table>
-         * <tr><th> Type </th> <th> Example </th></tr>
-         * <tr><td> IPv4 literal</td> <td> 192.168.1.1 </td></tr>
-         * <tr><td> IPv6 literal with brackets</td> <td> [10:20:30:40:50:60:70:80] </td></tr>
-         * <tr><td> Labels </td> <td> example.com </td></tr>
-         * </table>
-         * <p>
-         * Proxy URL examples:
+         * Examples:
          * <table>
          * <tr><th> Scheme </th> <th> Host </th> <th> Port </th> <th> Proxy URL </th></tr>
          * <tr><td></td> <td>example.com</td> <td></td> <td>example.com</td> </tr>
@@ -192,7 +185,10 @@ public class ProxyConfig {
         }
 
         /**
-         * Matches hostnames without a period in them (and are not IP literals).
+         * Hostnames without a period in them (and that are not IP literals) will skip proxy
+         * settings and be connected to directly instead.
+         * <p>
+         * Examples: {@code "abc"}, {@code "local"}, {@code "some-domain"}.
          */
         @NonNull
         public Builder doNotProxyLocalNetworkRequests() {
