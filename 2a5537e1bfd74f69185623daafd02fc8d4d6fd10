@@ -16,6 +16,24 @@
       "revId": "2a5537e1bfd74f69185623daafd02fc8d4d6fd10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43398587_20dc1c9f",
+        "filename": "media2-widget/src/main/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-29T01:02:39Z",
+      "side": 0,
+      "message": "Thanks for pointing that out. Reverted.",
+      "parentUuid": "e1fbc5a2_45fee609",
+      "revId": "2a5537e1bfd74f69185623daafd02fc8d4d6fd10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
