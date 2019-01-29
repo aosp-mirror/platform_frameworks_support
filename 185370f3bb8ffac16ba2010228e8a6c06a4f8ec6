@@ -22,6 +22,30 @@
       "revId": "185370f3bb8ffac16ba2010228e8a6c06a4f8ec6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "254723f3_8efa1152",
+        "filename": ".idea/codeStyles/Project.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-29T18:13:06Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "5bf5ea65_396bab32",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "185370f3bb8ffac16ba2010228e8a6c06a4f8ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

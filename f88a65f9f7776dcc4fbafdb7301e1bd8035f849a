@@ -22,6 +22,30 @@
       "revId": "f88a65f9f7776dcc4fbafdb7301e1bd8035f849a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08213a3f_a1d36302",
+        "filename": ".idea/codeStyles/codeStyleConfig.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-01-29T18:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a33d92bc_242d8fdc",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 4
+      },
+      "revId": "f88a65f9f7776dcc4fbafdb7301e1bd8035f849a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
