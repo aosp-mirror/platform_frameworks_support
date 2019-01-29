@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "e6800777_08deb503",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-01-29T15:27:11Z",
+      "side": 1,
+      "message": "I don\u0027t think prefix recommended_ is necessary, since this is already final.",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 33
+      },
+      "revId": "848517af20161acdb547265674bc645c1e6fbb53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47ced83f_8a78da10",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 1
@@ -53,6 +76,29 @@
         "startChar": 20,
         "endLine": 579,
         "endChar": 45
+      },
+      "revId": "848517af20161acdb547265674bc645c1e6fbb53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4145c65_8af2b294",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-01-29T15:27:11Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 584,
+        "startChar": 20,
+        "endLine": 584,
+        "endChar": 88
       },
       "revId": "848517af20161acdb547265674bc645c1e6fbb53",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
