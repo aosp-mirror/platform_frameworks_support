@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4807d43_11266aa6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T23:18:06Z",
+      "side": 1,
+      "message": "Let\u0027s also check that \"text\" is not empty.",
+      "revId": "cd281eef0916b6bc2b852936eebf35989efb9ea6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "472f0ead_553296fe",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T23:18:06Z",
+      "side": 1,
+      "message": "Nit: \u003cp\u003e",
+      "revId": "b938d3f9c42d6041987ed3437445b4fafce0c9f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
