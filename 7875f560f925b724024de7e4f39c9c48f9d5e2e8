@@ -94,6 +94,30 @@
       "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7cdb61b_b0ea9d95",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-29T17:20:17Z",
+      "side": 1,
+      "message": "actually,\nwhy don\u0027t we move the field to base and have a default implementation that does `Fragment.instantiate(context, className, arguments)` instead of calling mHost since host concept does not exist in the base ?\n\nalso, for the future, maybe we can annotate this class not to be extended, or even try to close it up in the next major version? (make constructors hidden?)",
+      "parentUuid": "987ef920_325c42b8",
+      "range": {
+        "startLine": 399,
+        "startChar": 18,
+        "endLine": 399,
+        "endChar": 47
+      },
+      "revId": "7875f560f925b724024de7e4f39c9c48f9d5e2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
