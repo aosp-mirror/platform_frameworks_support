@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a420b34_fd4f81cb",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-29T05:13:35Z",
+      "side": 1,
+      "message": "I\u0027ll remove it in the next patch set.",
+      "parentUuid": "f7bf682d_8271542c",
+      "range": {
+        "startLine": 1408,
+        "startChar": 0,
+        "endLine": 1412,
+        "endChar": 0
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e855ef3_98cbcc26",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-28T14:42:16Z",
       "side": 1,
       "message": "How about checking if command exists first (canPause, canRew...), then calling findControlButton(...)?",
+      "range": {
+        "startLine": 1582,
+        "startChar": 0,
+        "endLine": 1600,
+        "endChar": 77
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3996103_11dd08ba",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-29T05:13:35Z",
+      "side": 1,
+      "message": "What\u0027s the benefit checking them first?",
+      "parentUuid": "6e855ef3_98cbcc26",
       "range": {
         "startLine": 1582,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16b51864_2ca1c42b",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-29T05:13:35Z",
+      "side": 1,
+      "message": "No, they are separated issues.\n\nFirst, \"layout_alignParent*\" attributes are used only for children of RelativeLayout since these attributes are defined in RelativeLayout.LayoutParams. The attributes will be ignored since they are in LinearLayout, so I removed them.\n\nSecond, AndroidStudio recommended setting baselineAligned to false for better performance. In this case, (I think) there may be no visual difference setting it to false so I added the attribute.",
+      "parentUuid": "dc55ae22_ff93ff6d",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "b029feb9ddc49eee2b8714407684ab3153cc67ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
