@@ -30,13 +30,21 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Immutable sequence of graphic elements (e.g.: text, images) to be displayed one after another in
- * the same way as a {@link CharSequence} would. Elements in this sequence are represented by
- * {@link RichTextElement} instances.
+ * A @link{RichText} is an immutable sequence of graphic elements (e.g.: text, images)
+ * to be displayed one after another in the same way as a {@link CharSequence} would.
+ *
+ * Each sequence will have a textual representation provided by {@link #mText}
+ * and in the case of the absence of a rich representation,
+ * the sequence of elements {@link #mElements} may be left empty.
+ *
+ * Elements in this sequence are represented by {@link RichTextElement} instances.
  */
 @VersionedParcelize
 public class RichText implements VersionedParcelable {
     @ParcelField(1)
+    String mText;
+
+    @ParcelField(2)
     List<RichTextElement> mElements;
 
     /**
@@ -51,7 +59,8 @@ public class RichText implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    RichText(@NonNull List<RichTextElement> elements) {
+    RichText(@NonNull String text, @NonNull List<RichTextElement> elements) {
+        mText = text;
         mElements = new ArrayList<>(elements);
     }
 
@@ -77,9 +86,17 @@ public class RichText implements VersionedParcelable {
          * Returns a {@link RichText} built with the provided information.
          */
         @NonNull
-        public RichText build() {
-            return new RichText(mElements);
+        public RichText build(@NonNull String text) {
+            return new RichText(Preconditions.checkNotNull(text), mElements);
         }
+    }
+
+    /**
+     * Returns the textual representation of {@link #mElements}
+     */
+    @NonNull
+    public String getText() {
+        return Common.nonNullOrEmpty(mText);
     }
 
     /**
@@ -99,16 +116,17 @@ public class RichText implements VersionedParcelable {
             return false;
         }
         RichText richText = (RichText) o;
-        return Objects.equals(getElements(), richText.getElements());
+        return Objects.equals(getText(), richText.getText())
+            && Objects.equals(getElements(), richText.getElements());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getElements());
+        return Objects.hash(getText(), getElements());
     }
 
     @Override
     public String toString() {
-        return String.format("{elements: %s}", mElements);
+        return String.format("{text: '%s', elements: %s}", mText, mElements);
     }
 }

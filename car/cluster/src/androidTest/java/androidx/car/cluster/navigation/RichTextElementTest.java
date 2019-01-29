@@ -53,14 +53,6 @@ public class RichTextElementTest {
     }
 
     /**
-     * Test that a text representation must be provided.
-     */
-    @Test(expected = NullPointerException.class)
-    public void builder_textIsMandatory() {
-        new RichTextElement.Builder().build(null);
-    }
-
-    /**
      * Test that an empty string will be returned from {@link RichTextElement#getText()} to the
      * consumer, even if no string was received.
      */
