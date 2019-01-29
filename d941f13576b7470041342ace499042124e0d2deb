@@ -205,6 +205,30 @@
       "revId": "d941f13576b7470041342ace499042124e0d2deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d44c6b1e_5b132670",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-01-29T21:59:32Z",
+      "side": 1,
+      "message": "I would definitively discourage the second option for the reason you mentioned.\nWhat about?:\n- If both present (text and image), then image would be displayed, falling back to text if needed. If images can not be displayed for any reason, and any of the images in the RichText sequence misses its text representation, then RichText#getText() should be used instead.",
+      "parentUuid": "db49600a_3101e893",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 57
+      },
+      "revId": "d941f13576b7470041342ace499042124e0d2deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
