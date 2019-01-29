@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f0ae0b3_e8b10950",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-29T23:39:45Z",
+      "side": 1,
+      "message": "having the same field seems worry. instead i would say \n: have a static inner IMPL\nmake getFF() return it if mFF is null.\nand ffImpl can check if parent returned IMPL and if so, call setFF",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 11
+      },
+      "revId": "bc10bd4eed7947990af79f6c2785c8e83cac1932",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
