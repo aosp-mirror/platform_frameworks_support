@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef2f363c_a9c3a0f0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-01-30T02:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdd7b1b0_697708ba",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "581a1ef5_c44d7a9e",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c65d5f_adc7cb7c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-01-30T02:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "581a1ef5_c44d7a9e",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 75
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7ec070b5_5517d9f1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-01-30T02:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58b74639_fcaedb1e",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 67
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2e5852e_d89b69f6",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954c6605_af946c42",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-01-30T02:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2e5852e_d89b69f6",
+      "range": {
+        "startLine": 128,
+        "startChar": 64,
+        "endLine": 128,
+        "endChar": 96
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
