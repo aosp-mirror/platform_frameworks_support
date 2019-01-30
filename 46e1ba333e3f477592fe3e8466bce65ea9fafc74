@@ -69,6 +69,30 @@
       "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9941040_3034ce81",
+        "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-30T22:56:54Z",
+      "side": 1,
+      "message": "So because of setPrimaryNavigationFragment(),  the backstack can now be nested with two level fragmentmanager?",
+      "parentUuid": "d768154f_5aeb4839",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
