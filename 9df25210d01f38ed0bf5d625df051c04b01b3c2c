@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89f644c8_2d18599a",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-30T21:34:45Z",
+      "side": 1,
+      "message": "remove the observer early if the coroutine is cancelled?",
+      "range": {
+        "startLine": 171,
+        "startChar": 26,
+        "endLine": 171,
+        "endChar": 37
+      },
+      "revId": "9df25210d01f38ed0bf5d625df051c04b01b3c2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "f28e31e2_3d75129b",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-30T21:34:45Z",
+      "side": 1,
+      "message": "I kind of agree with coroutineScope here but leave it as lifecycleScope (or lifecycleCoroutineScope) in LifecycleOwner. Reason being that both ViewModel and LifecycleOwner are implemented by user code and the namespace may become ambiguous. For Lifecycle, not so much.",
+      "parentUuid": "38195cd2_28aa9422",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cfe6cc2_ef9469b8",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
@@ -229,6 +247,24 @@
       "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4204b7f5_3b0b553f",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-01-30T21:34:45Z",
+      "side": 1,
+      "message": "We\u0027ve gone back and forth on this with some of the patterns we want to encourage, specifically around split async/await calls made on the raw lifecycle scope from non-suspending contexts. I\u0027m a bit worried about losing errors from defaulting to Supervisor here, but the benefits seem to outweigh the downsides given the widely-scoped nature of this coroutinescope.",
+      "parentUuid": "13339b66_08948d26",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
