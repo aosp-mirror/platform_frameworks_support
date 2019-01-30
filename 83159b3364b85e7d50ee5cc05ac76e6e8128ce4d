@@ -2,6 +2,362 @@
   "comments": [
     {
       "key": {
+        "uuid": "c6f20bb2_bc837f3d",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "You could skip this check imo and always run the line. Especially if viewpager were to maintain the state of the userScrollable flag (see below). Otherwise you have two sources of truth depending on whether it\u0027s an initial pass, or config changes.",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2f1ff6_e203b9b5",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t ViewPager2 persist its user scrollable state?",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8fe5b4a_1b68cdc7",
+        "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "Nit: There is a bit of inconsistency with colons. Sometimes present, like Orientation:, sometimes not, like here.",
+      "range": {
+        "startLine": 22,
+        "startChar": 36,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab8b833_8e00126f",
+        "filename": "testutils/src/main/java/androidx/testutils/FragmentActivityUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "This is in 2 places now. Doesn\u0027t this class have access to the AppCompat one?",
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6950037b_988b4fdb",
+        "filename": "viewpager2/api/1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "User scrolling disabled is an unusual case. I\u0027m not sure what API guidelines say for those, positive like you did \u0027set scrollable false\u0027, or reflecting enabling of the special case \u0027disable user scrolling\u0027. Could check now or just add a note to http://b/70663708",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e860d6e_3cc42ba5",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/testui/TouchConsumingTextView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "WDYT about androidx.viewpager2.test.ui and keeping all test code behind androidx.viewpager2.test.*?",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523a9119_8c952b70",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure what consume touches does here. testSwipe works either way. Could you explain?",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f18dcd_4de07d3d",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "Instead of creating a new one you could setConsumeTouches in onCreateCallback. Could be wrong, don\u0027t have a strong opinion.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37382a9_0e7a1bda",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 7
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fbdc1a_8981da19",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "It\u0027s likely to be the only place where we use this (specialized, not reusable). Keep local to the call before adding to PageView?",
+      "range": {
+        "startLine": 69,
+        "startChar": 29,
+        "endLine": 69,
+        "endChar": 46
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "265d9dbb_9eb8362f",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "nit: Swipe -\u003e SwipeWhileUserScrollDisabled? / AttemptSwipeWhileSwipeDisabled?",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d208fdc1_51d1cdab",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "It\u0027d be good to have a sanity check after this line to verify you reached the middlePage. Similarly in the other place (places?).",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6437bc9f_928a66cf",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "I\u0027m surprised this doesn\u0027t crash - swipe only accepts pages adjacent to current. (plus current is adjacent to itself).",
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "932edca0_5cd623af",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "nit: swap for more formal lingo ;)",
+      "range": {
+        "startLine": 110,
+        "startChar": 72,
+        "endLine": 110,
+        "endChar": 82
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd976226_70654e90",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "Maybe add as extra field in TestConfig. Saves us the effort to reason about it at the cost of an extra test run. IMO worth it.",
+      "range": {
+        "startLine": 139,
+        "startChar": 27,
+        "endLine": 139,
+        "endChar": 31
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7fd8427_74db9558",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DisableUserScrollingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "this does a config change + verifies\nmaybe rename the method or inline if only used in one place?",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 34
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5961e530_040e6cf8",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageView.kt",
         "patchSetId": 2
@@ -70,6 +426,76 @@
       "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aca3c44_80533c61",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageView.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "My 2c: The page is currently a TextView, but can be more complex in the future. In that case, we only have to change implementation of the two methods: getPageText and setPageText - the rest stays the same. Additionally the method will blow up as soon as an incompatible change is made and manifest itself immediately in tests, so it\u0027s safe from that perspective. I say keep as is to avoid an added effort in a refactor in the future. The practice of unchecked casts in tests was initially controversial to me, but I later warmed to it for certain scenarios.\n\nAlso I suggest putting setConsumeTouches back in the local test code, it\u0027s not too re-usable from what I can see. Could be wrong.",
+      "parentUuid": "0ed982a7_da7929c5",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48978328_43eb08a9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/ViewAdapter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "Can be avoided as per the test comment.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b74e9e7c_2be7e7b6",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:45:18Z",
+      "side": 1,
+      "message": "You should probably update the test for SavedState as well. I think it\u0027s in BasicTest. The test should have blown up and caught this (I\u0027d have hoped) but it didn\u0027t. Not sure if an easy fix.",
+      "range": {
+        "startLine": 272,
+        "startChar": 16,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
