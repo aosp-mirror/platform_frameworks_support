@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fbf87d_2ed99778",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-30T10:32:08Z",
+      "side": 0,
+      "message": "why was this removed? Doesn\u0027t this prevent the progress being reversed in RTL mode?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
