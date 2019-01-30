@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb06e3c_5e329207",
+        "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-30T22:42:21Z",
+      "side": 1,
+      "message": "this should be done when the fragment is added, such as the activity.",
+      "range": {
+        "startLine": 146,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 26
+      },
+      "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bd728fe_716b56a5",
+        "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-30T22:42:21Z",
+      "side": 1,
+      "message": "This will break something, we intentionally not using child fragment manager.  Maybe related with using xml to inflate a fragment. But I dont remember exactly.",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
