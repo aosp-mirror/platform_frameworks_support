@@ -146,6 +146,9 @@ public class WorkerWrapper implements Runnable {
             if (mWorkSpec.state != ENQUEUED) {
                 resolveIncorrectStatus();
                 mWorkDatabase.setTransactionSuccessful();
+                Logger.get().debug(TAG,
+                        String.format("%s is not in ENQUEUED state. Nothing more to do.",
+                                mWorkSpec.workerClassName));
                 return;
             }
 
@@ -163,7 +166,15 @@ public class WorkerWrapper implements Runnable {
             if (mWorkSpec.isPeriodic() || mWorkSpec.isBackedOff()) {
                 long now = System.currentTimeMillis();
                 if (now < mWorkSpec.calculateNextRunTime()) {
-                    resolve(false);
+                    Logger.get().debug(TAG,
+                            String.format(
+                                    "Delaying execution for %s because it is being executed "
+                                            + "before schedule.",
+                                    mWorkSpec.workerClassName));
+                    // For AlarmManager implementation we need to reschedule this kind  of Work.
+                    // This is not a problem for JobScheduler because we will only reschedule
+                    // work if JobScheduler is unaware of a jobId.
+                    resolve(true);
                     return;
                 }
             }
@@ -244,6 +255,8 @@ public class WorkerWrapper implements Runnable {
                         @Override
                         public void run() {
                             try {
+                                Logger.get().debug(TAG, String.format("Starting work for %s",
+                                        mWorkSpec.workerClassName));
                                 mInnerFuture = mWorker.startWork();
                                 future.setFuture(mInnerFuture);
                             } catch (Throwable e) {
@@ -267,6 +280,8 @@ public class WorkerWrapper implements Runnable {
                                     "%s returned a null result. Treating it as a failure.",
                                     mWorkSpec.workerClassName));
                         } else {
+                            Logger.get().debug(TAG, String.format("%s returned a %s result.",
+                                    mWorkSpec.workerClassName, result));
                             mResult = result;
                         }
                     } catch (CancellationException exception) {
