@@ -17,6 +17,7 @@
 package androidx.appcompat.app;
 
 import static androidx.appcompat.app.NightModeActivity.TOP_ACTIVITY;
+import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
@@ -28,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.content.res.Configuration;
 
 import androidx.appcompat.test.R;
 import androidx.core.content.ContextCompat;
@@ -191,6 +193,28 @@ public class NightModeTestCase {
         // Assert that the Activity received a new value
         assertEquals(AppCompatDelegate.MODE_NIGHT_NO,
                 mActivityTestRule.getActivity().getLastNightModeAndReset());
+    }
+
+    @Test
+    public void testDialogDoesNotOverrideActivityConfiguration() throws Throwable {
+        // Set Activity local night mode to YES
+        final NightModeActivity activity = setLocalNightModeAndWaitForRecreate(
+                mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Assert that the uiMode is as expected
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, activity);
+
+        // Now show a AppCompatDialog
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppCompatDialog dialog = new AppCompatDialog(activity);
+                dialog.show();
+            }
+        });
+
+        // Assert that the uiMode is unchanged
+        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES, activity);
     }
 
     private static class FakeTwilightManager extends TwilightManager {
