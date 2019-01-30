@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca8a24ff_80104917",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/background/systemalarm/SystemAlarmDispatcherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T00:08:08Z",
+      "side": 1,
+      "message": "Don\u0027t we have a constant for this?",
+      "range": {
+        "startLine": 319,
+        "startChar": 56,
+        "endLine": 319,
+        "endChar": 59
+      },
+      "revId": "0349296e6ca831d14b848dc4c0038457f4e00f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e8f9da7_9eb82fd1",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T00:08:08Z",
+      "side": 1,
+      "message": "I don\u0027t know what this means.  What is \"eagerly scheduled\"?  This has nothing to do with scheduling, and I don\u0027t think there\u0027s anything eager about it either?",
+      "range": {
+        "startLine": 170,
+        "startChar": 41,
+        "endLine": 170,
+        "endChar": 94
+      },
+      "revId": "0349296e6ca831d14b848dc4c0038457f4e00f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812e7d99_e3d212ed",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/CommandHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T00:08:08Z",
+      "side": 1,
+      "message": "because it*",
+      "range": {
+        "startLine": 216,
+        "startChar": 80,
+        "endLine": 216,
+        "endChar": 81
+      },
+      "revId": "0349296e6ca831d14b848dc4c0038457f4e00f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8dc8773_92721634",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T00:08:08Z",
+      "side": 1,
+      "message": "debug",
+      "range": {
+        "startLine": 109,
+        "startChar": 37,
+        "endLine": 109,
+        "endChar": 41
+      },
+      "revId": "0349296e6ca831d14b848dc4c0038457f4e00f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
