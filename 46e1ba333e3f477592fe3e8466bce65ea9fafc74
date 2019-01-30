@@ -45,6 +45,30 @@
       "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d768154f_5aeb4839",
+        "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-30T22:49:19Z",
+      "side": 1,
+      "message": "shot in dark\n@adamp, do you remember the childFragmentManager vs FragmentManager issue?",
+      "parentUuid": "5bd728fe_716b56a5",
+      "range": {
+        "startLine": 166,
+        "startChar": 23,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
