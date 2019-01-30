@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75f103d8_3321eba8",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-30T20:28:59Z",
+      "side": 1,
+      "message": "remove or wrap with debug check",
+      "range": {
+        "startLine": 216,
+        "startChar": 20,
+        "endLine": 216,
+        "endChar": 64
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
