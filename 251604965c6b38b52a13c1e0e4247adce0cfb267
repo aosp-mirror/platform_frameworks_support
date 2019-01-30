@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad44a9d6_e9332299",
+        "filename": "preference/res-public/values/public_attrs.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-01-30T13:52:16Z",
+      "side": 1,
+      "message": "Could you sort this alphabetically please? Below preferenceCategoryStyle",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 71
+      },
+      "revId": "251604965c6b38b52a13c1e0e4247adce0cfb267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
