@@ -65,8 +65,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
-import androidx.savedstate.BundleSavedStateRegistry;
 import androidx.savedstate.SavedStateRegistry;
+import androidx.savedstate.SavedStateRegistryMaster;
 import androidx.savedstate.SavedStateRegistryOwner;
 
 import java.io.FileDescriptor;
@@ -247,7 +247,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
-    BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+    SavedStateRegistryMaster mSavedStateRegistryMaster = new SavedStateRegistryMaster();
 
     /**
      * {@inheritDoc}
@@ -345,7 +345,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @NonNull
     @Override
     public final SavedStateRegistry getSavedStateRegistry() {
-        return mSavedStateRegistry;
+        return mSavedStateRegistryMaster.getSavedStateRegistry();
     }
 
     /**
@@ -1573,7 +1573,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
-        mSavedStateRegistry.performRestore(savedInstanceState);
+        mSavedStateRegistryMaster.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
         if (mChildFragmentManager != null
                 && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
@@ -1843,7 +1843,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     void initState() {
         initLifecycle();
-        mSavedStateRegistry = new BundleSavedStateRegistry();
+        mSavedStateRegistryMaster = new SavedStateRegistryMaster();
         mWho = UUID.randomUUID().toString();
         mAdded = false;
         mRemoving = false;
@@ -2715,7 +2715,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
-        mSavedStateRegistry.performSave(outState);
+        mSavedStateRegistryMaster.performSave(outState);
         if (mChildFragmentManager != null) {
             Parcelable p = mChildFragmentManager.saveAllState();
             if (p != null) {
