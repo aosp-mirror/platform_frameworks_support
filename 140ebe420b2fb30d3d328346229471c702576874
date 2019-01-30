@@ -111,6 +111,29 @@
     },
     {
       "key": {
+        "uuid": "b2cb5eaa_d2c5872b",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3751,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-01-30T00:16:36Z",
+      "side": 1,
+      "message": "What about checking this in isSeekableFd()?",
+      "range": {
+        "startLine": 3751,
+        "startChar": 16,
+        "endLine": 3751,
+        "endChar": 43
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3dd233f_cad63cbc",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
