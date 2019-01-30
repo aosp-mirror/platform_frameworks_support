@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2cdce67_6c7b4dfe",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T23:39:18Z",
+      "side": 1,
+      "message": "It seems like you can\u0027t enforce this contract (or aren\u0027t doing so).  What can you do to prevent someone from shooting themselves in the foot here?",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24836890_39cbd142",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-30T23:39:18Z",
+      "side": 1,
+      "message": "So I see a few issues here.  First, am I correct in understanding that this is a static because you are pairing it with a static singleton (sSingleton)?  If so, the problem is that because you can call KeyedAppStatesReporter.setExecutor(...) at any point, you can change the executor and orphan the old one(s) - you\u0027re not actually stopping that work from running, nor cleaning it up meaningfully.\n\nMoreover, if something happens to be hanging on to a reference to that Executor, it will stay in memory and will not clean up as you expect.\n\nFinally, depending on which thread you set this executor on, you could run into a race condition where the set method below (which does NOT synchronize) could end up using the \"old\" executor.  You\u0027d still run into threading issues.\n\nBecause you already have a singleton, wouldn\u0027t it make much more sense to make this a non-static method/member of that class?",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75f103d8_3321eba8",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
         "patchSetId": 4
