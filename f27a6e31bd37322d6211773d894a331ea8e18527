@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdd7b1b0_697708ba",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-01-30T00:14:42Z",
+      "side": 1,
+      "message": "{@link RichText}",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "581a1ef5_c44d7a9e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-01-30T00:14:42Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s really any need to enforce this. There could conceivably be images with no reasonable fallback text.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 75
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b74639_fcaedb1e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-01-30T00:14:42Z",
+      "side": 1,
+      "message": "This isn\u0027t actually quite true: getElements states that it might be empty, and in that case this *isn\u0027t* a representation of getElements.",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 67
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e5852e_d89b69f6",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-01-30T00:14:42Z",
+      "side": 1,
+      "message": "How should the consumer detect that a textual fallback is not provided? If it\u0027s just emptiness of the string, we should probably document that.",
+      "range": {
+        "startLine": 128,
+        "startChar": 64,
+        "endLine": 128,
+        "endChar": 96
+      },
+      "revId": "f27a6e31bd37322d6211773d894a331ea8e18527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
