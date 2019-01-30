@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6d6b737_7be20674",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-30T17:28:35Z",
+      "side": 1,
+      "message": "Please fix indent.",
+      "range": {
+        "startLine": 775,
+        "startChar": 4,
+        "endLine": 783,
+        "endChar": 7
+      },
+      "revId": "507eddac949bf47804f38b4fc681a7e3ec754c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53952124_f94c8c3a",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-30T17:28:35Z",
+      "side": 1,
+      "message": "You also need to add:\n\n    {\n      \"from\": \"androidx/core/view/inputmethod/(.*)\",\n      \"to\": \"ignore\"\n    },\n\nbecause of:\n\"android/support/v13/view/inputmethod/InputConnectionCompat\" to \"androidx/core/view/inputmethod/InputConnectionCompat\",\n\nand \n\n\"android/support/v13/view/inputmethod/InputContentInfoCompat\" to \"androidx/core/view/inputmethod/InputContentInfoCompat\",",
+      "range": {
+        "startLine": 784,
+        "startChar": 4,
+        "endLine": 784,
+        "endChar": 5
+      },
+      "revId": "507eddac949bf47804f38b4fc681a7e3ec754c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
