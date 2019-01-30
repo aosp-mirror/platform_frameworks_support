@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "fc83e77f_897209d7",
+        "filename": "slices/view/src/main/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-01-30T03:12:34Z",
+      "side": 1,
+      "message": "Yes! totally fine to do this in another CL.",
+      "parentUuid": "cf19dea5_6aa95a11",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "844401b7a960dcf39063b63fc62e57985d6ef548",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75099b7e_9a44c819",
         "filename": "slices/view/src/main/res/values/attrs.xml",
         "patchSetId": 5
