@@ -675,16 +675,18 @@ public class MediaRouteButton extends View {
 
     private final class RemoteIndicatorLoader extends AsyncTask<Void, Void, Drawable> {
         private final int mResId;
+        private final Context mContext;
 
         RemoteIndicatorLoader(int resId) {
             mResId = resId;
+            mContext = getContext();
         }
 
         @Override
         protected Drawable doInBackground(Void... params) {
             Drawable.ConstantState remoteIndicatorState = sRemoteIndicatorCache.get(mResId);
             if (remoteIndicatorState == null) {
-                return getContext().getResources().getDrawable(mResId);
+                return mContext.getResources().getDrawable(mResId);
             } else {
                 return null;
             }
