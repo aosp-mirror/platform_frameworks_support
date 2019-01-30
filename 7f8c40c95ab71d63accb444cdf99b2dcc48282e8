@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2283a2ad_639fe6c3",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/RichTextTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-01-30T02:46:12Z",
+      "side": 1,
+      "message": "Maybe we should use different text for the RichTextElement and the RichText, just in case something seriously weird is going on with equality checking?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "7f8c40c95ab71d63accb444cdf99b2dcc48282e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
