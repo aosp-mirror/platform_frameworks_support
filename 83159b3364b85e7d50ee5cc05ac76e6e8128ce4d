@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "73321794_80167a4a",
+        "filename": "samples/ViewPager2Demos/src/main/res/layout-land/controls.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-30T12:48:33Z",
+      "side": 1,
+      "message": "Oh, this demo page is getting hard to understand. Maybe pull out into a separate demo activity? Like a hero slider that programmatically rotates between pages (hero image ad top of the web page). Rotate via AsyncTask or equivalent using smooth scroll. On last page flip to first.",
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8fe5b4a_1b68cdc7",
         "filename": "samples/ViewPager2Demos/src/main/res/values/strings.xml",
         "patchSetId": 2
