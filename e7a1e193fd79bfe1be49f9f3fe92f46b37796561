@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c068205a_32540f49",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-30T21:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61110de3_ff724bdd",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "e7a1e193fd79bfe1be49f9f3fe92f46b37796561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e5d4aaa_d39010ed",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 12
