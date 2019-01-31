@@ -23,6 +23,9 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.internal.SafeIterableMap;
+import androidx.lifecycle.GenericLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -40,8 +43,22 @@ public final class SavedStateRegistry {
     @Nullable
     private Bundle mRestoredState;
     private boolean mRestored;
+    private Recreator.SavedStateProvider mRecreatorProvider;
+    private final Lifecycle mLifecycle;
+    boolean mAllowingSavingState = true;
 
-    SavedStateRegistry() {
+    SavedStateRegistry(Lifecycle lifecycle) {
+        mLifecycle = lifecycle;
+        mLifecycle.addObserver(new GenericLifecycleObserver() {
+            @Override
+            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
+                if (event == Lifecycle.Event.ON_START) {
+                    mAllowingSavingState = true;
+                } else if (event == Lifecycle.Event.ON_STOP) {
+                    mAllowingSavingState = false;
+                }
+            }
+        });
     }
 
     /**
@@ -124,6 +141,52 @@ public final class SavedStateRegistry {
     @MainThread
     public boolean isRestored() {
         return mRestored;
+    }
+
+    /**
+     * Subclasses of this interface will be automatically recreated if they were previously
+     * registered via {{@link #runOnNextRecreation(Class)}}.
+     * <p>
+     * Subclasses must have a default constructor
+     */
+    public interface AutoRecreated {
+        /**
+         * This method will be called during
+         * dispatching of {@link androidx.lifecycle.Lifecycle.Event#ON_CREATE} of owning component.
+         *
+         * @param owner a component that was restarted
+         */
+        void onRecreated(@NonNull SavedStateRegistryOwner owner);
+    }
+
+    /**
+     * Executes the given class when the owning component restarted.
+     * <p>
+     * The given class will be automatically instantiated via default constructor and method
+     * {@link AutoRecreated#onRecreated(SavedStateRegistryOwner)} will be called.
+     * It is called as part of dispatching of {@link androidx.lifecycle.Lifecycle.Event#ON_CREATE}
+     * event.
+     *
+     * @param clazz that will need to be instantiated on the next component recreation
+     * @throws IllegalStateException if you try to call if after {@link Lifecycle.Event#ON_STOP}
+     * was dispatched
+     */
+    @MainThread
+    public void runOnNextRecreation(@NonNull Class<? extends AutoRecreated> clazz) {
+        if (!mAllowingSavingState) {
+            throw new IllegalStateException(
+                    "Can not perform this action after onSaveInstanceState");
+        }
+        if (mRecreatorProvider == null) {
+            mRecreatorProvider = new Recreator.SavedStateProvider(this);
+        }
+        try {
+            clazz.getConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException("Class" + clazz.getSimpleName() + " must have "
+                    + "default constructor in order to be automatically recreated", e);
+        }
+        mRecreatorProvider.add(clazz.getName());
     }
 
     /**

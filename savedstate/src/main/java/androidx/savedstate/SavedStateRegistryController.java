@@ -21,6 +21,7 @@ import android.os.Bundle;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 
 /**
  * An API for {@link SavedStateRegistryOwner} implementations to control {@link SavedStateRegistry}.
@@ -29,7 +30,11 @@ import androidx.annotation.Nullable;
  * {@link SavedStateRegistry} and {@link #performSave(Bundle)} to gather SavedState from it.
  */
 public final class SavedStateRegistryController {
-    private SavedStateRegistry mRegistry = new SavedStateRegistry();
+    private final SavedStateRegistry mRegistry;
+
+    private SavedStateRegistryController(Lifecycle lifecycle) {
+        mRegistry = new SavedStateRegistry(lifecycle);
+    }
 
     /**
      * Returns controlled {@link SavedStateRegistry}
@@ -60,5 +65,20 @@ public final class SavedStateRegistryController {
     @MainThread
     public void performSave(@NonNull Bundle outBundle) {
         mRegistry.performSave(outBundle);
+    }
+
+    /**
+     * Creates a {@link SavedStateRegistryController}.
+     * <p>
+     * It should be called during construction time of {@link SavedStateRegistryOwner}
+     */
+    @NonNull
+    public static SavedStateRegistryController create(@NonNull SavedStateRegistryOwner owner) {
+        if (owner.getLifecycle().getCurrentState() != Lifecycle.State.INITIALIZED) {
+            throw new IllegalStateException("Restarter must be created only during "
+                    + "owner's initialization stage");
+        }
+        owner.getLifecycle().addObserver(new Recreator(owner));
+        return new SavedStateRegistryController(owner.getLifecycle());
     }
 }
