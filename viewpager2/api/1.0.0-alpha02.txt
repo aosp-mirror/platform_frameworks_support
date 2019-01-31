@@ -32,9 +32,14 @@ package androidx.viewpager2.widget {
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?);
     ctor public ViewPager2(android.content.Context, android.util.AttributeSet?, int);
     ctor @RequiresApi(21) public ViewPager2(android.content.Context, android.util.AttributeSet?, int, int);
+    method @UiThread public final void beginFakeDrag();
+    method @UiThread public final boolean endFakeDrag();
+    method @UiThread public final boolean fakeDragBy(float);
     method public final androidx.recyclerview.widget.RecyclerView.Adapter? getAdapter();
     method public final int getCurrentItem();
     method @androidx.viewpager2.widget.ViewPager2.Orientation public final int getOrientation();
+    method public final boolean isDragging();
+    method public final boolean isFakeDragging();
     method public boolean isUserInputEnabled();
     method public final void onViewAdded(android.view.View!);
     method public final void registerOnPageChangeCallback(androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback);
@@ -48,6 +53,7 @@ package androidx.viewpager2.widget {
     field public static final int ORIENTATION_HORIZONTAL = 0; // 0x0
     field public static final int ORIENTATION_VERTICAL = 1; // 0x1
     field public static final int SCROLL_STATE_DRAGGING = 1; // 0x1
+    field public static final int SCROLL_STATE_FAKE_DRAGGING = 3; // 0x3
     field public static final int SCROLL_STATE_IDLE = 0; // 0x0
     field public static final int SCROLL_STATE_SETTLING = 2; // 0x2
   }
@@ -66,7 +72,7 @@ package androidx.viewpager2.widget {
     method public void transformPage(android.view.View, float);
   }
 
-  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING}) public static @interface ViewPager2.ScrollState {
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING, androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_FAKE_DRAGGING}) public static @interface ViewPager2.ScrollState {
   }
 
 }
