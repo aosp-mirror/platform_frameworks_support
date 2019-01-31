@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33c8e11e_dafa93ee",
+        "filename": "samples/ViewPager2Demos/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-31T16:14:20Z",
+      "side": 1,
+      "message": "nit: I think you still should run: disableUserInputCheckBox.checked \u003d !viewPager.isUserInputEnabled() on every onCreate. Now these are coincidentally OK since default of ViewPager2 is isUserInputEnabled \u003d true and checkbox\u0027s checked \u003d false.",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 32
+      },
+      "revId": "6c266d39c0b96fbab7a4ad02d084e8dbedc817ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58546cc8_8bfd4db2",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-31T16:14:20Z",
+      "side": 1,
+      "message": "nit: mUserInputEnabled",
+      "range": {
+        "startLine": 486,
+        "startChar": 8,
+        "endLine": 486,
+        "endChar": 23
+      },
+      "revId": "6c266d39c0b96fbab7a4ad02d084e8dbedc817ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1022,6 +1022,30 @@
     },
     {
       "key": {
+        "uuid": "1300c921_e44e04fe",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-01-31T16:14:20Z",
+      "side": 1,
+      "message": "From what I remember that test would pick values that are picked so that incorrect reading order would be caught. Let\u0027s keep it up to date? Why do you think we don\u0027t have to update it if we have added a field to SavedState?",
+      "parentUuid": "04ee77d2_be461102",
+      "range": {
+        "startLine": 272,
+        "startChar": 16,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "83159b3364b85e7d50ee5cc05ac76e6e8128ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7fdb8c9_973f29e3",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 2
