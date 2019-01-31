@@ -192,10 +192,7 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(
-                    viewPager.orientation,
-                    isRtl
-                )
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
             }
         }
@@ -281,11 +278,15 @@ open class BaseTest {
     }
 
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
+        return addWaitForStateLatch(SCROLL_STATE_IDLE)
+    }
+
+    fun ViewPager2.addWaitForStateLatch(targetState: Int): CountDownLatch {
         val latch = CountDownLatch(1)
 
         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
-                if (state == SCROLL_STATE_IDLE) {
+                if (state == targetState) {
                     latch.countDown()
                     post { unregisterOnPageChangeCallback(this) }
                 }
