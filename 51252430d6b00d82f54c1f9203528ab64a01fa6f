@@ -22,6 +22,30 @@
       "revId": "51252430d6b00d82f54c1f9203528ab64a01fa6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c8d314_987ab3de",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2118,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-31T23:40:05Z",
+      "side": 1,
+      "message": "Good point, reworked.",
+      "parentUuid": "da539106_bbe93afa",
+      "range": {
+        "startLine": 2118,
+        "startChar": 31,
+        "endLine": 2118,
+        "endChar": 51
+      },
+      "revId": "51252430d6b00d82f54c1f9203528ab64a01fa6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
