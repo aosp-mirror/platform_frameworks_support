@@ -140,6 +140,7 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     /**
      * Return the rows from startPos to startPos + loadCount
      */
+    @SuppressWarnings("deprecation")
     @Nullable
     public List<T> loadRange(int startPosition, int loadCount) {
         final RoomSQLiteQuery sqLiteQuery = RoomSQLiteQuery.acquire(mLimitOffsetQuery,
