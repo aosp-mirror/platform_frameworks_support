@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "83a78ab7_920353c2",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-01-31T19:58:15Z",
+      "side": 1,
+      "message": "WorkManager is doing something slightly different because there\u0027s only one static singleton involved.  In fact, at one point we had two different singletons and we ran into a lot of issues coordinating the two.\n\nI missed your sSingleton!\u003dnull check.  Still, wouldn\u0027t it make more sense to avoid the potential issues here and have a configuration/initialization step like WorkManager is doing?  Having two static methods that rely on ordering will be confusing to the user.\n\nI think there may still be a race condition here if you call setExecutor and getInstance from different threads because of the fact that you\u0027re locking in setExecutor but not in getInstance.  I could see getInstance creating an executor before assigning sSingleton and setExecutor running in that timeframe.  That\u0027s why I think having the executor be an actual (non-static) member of your class would be better.",
+      "parentUuid": "29b47f0c_7f76f75f",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75f103d8_3321eba8",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
         "patchSetId": 4
