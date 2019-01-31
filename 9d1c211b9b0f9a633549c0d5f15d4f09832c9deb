@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88e344b1_ad6b54c9",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-31T22:29:24Z",
+      "side": 1,
+      "message": "mBaseContextAttached",
+      "range": {
+        "startLine": 223,
+        "startChar": 20,
+        "endLine": 223,
+        "endChar": 29
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e00893b_a97a8cc2",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2135,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-31T22:29:24Z",
+      "side": 1,
+      "message": "What throwable are you expecting here?",
+      "range": {
+        "startLine": 2135,
+        "startChar": 21,
+        "endLine": 2135,
+        "endChar": 32
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e19362f_8ffb9022",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-31T22:29:24Z",
+      "side": 1,
+      "message": "unnecessary, updateConfiguration can take a delta-only config",
+      "range": {
+        "startLine": 2181,
+        "startChar": 56,
+        "endLine": 2181,
+        "endChar": 62
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfffcaf_047aa593",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2183,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-31T22:29:24Z",
+      "side": 1,
+      "message": "null to leave as-is",
+      "range": {
+        "startLine": 2183,
+        "startChar": 41,
+        "endLine": 2183,
+        "endChar": 64
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
