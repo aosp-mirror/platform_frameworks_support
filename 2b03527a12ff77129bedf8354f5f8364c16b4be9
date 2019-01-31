@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc1bbb7c_56b89243",
+        "filename": "documentfile/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006166
+      },
+      "writtenOn": "2019-01-31T19:49:27Z",
+      "side": 1,
+      "message": "This person doesn\u0027t contribute code to Android.\n\nI am jsharkey@android.com.",
+      "revId": "2b03527a12ff77129bedf8354f5f8364c16b4be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
