@@ -16,6 +16,24 @@
       "revId": "3fe5f09802b30e98392b3e4564c316e08de97f64",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacb7249_deeddb7f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-01-31T23:59:10Z",
+      "side": 1,
+      "message": "getNightMode() is just an internal thing to calculate the night mode to use, I\u0027ve renamed it to be clearer.\n\nGood catch on the override thing /facepalm",
+      "parentUuid": "f1111d6e_7177f42b",
+      "revId": "3fe5f09802b30e98392b3e4564c316e08de97f64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
