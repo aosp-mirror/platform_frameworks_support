@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6d10738_9b66a655",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-31T11:06:54Z",
+      "side": 1,
+      "message": "That\u0027s true, though I\u0027m not sure what can be done here.\n\nWe use the Executor (and require it to execute serially) to push everything onto a single thread to avoid needing to synchronize everywhere (suggested by sergeyv@). This method is for apps which have their own requirements about executors who don\u0027t want the library to create one.\n\nCan you recommend an alternative to this method?",
+      "parentUuid": "c2cdce67_6c7b4dfe",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24836890_39cbd142",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-30T23:39:18Z",
       "side": 1,
       "message": "So I see a few issues here.  First, am I correct in understanding that this is a static because you are pairing it with a static singleton (sSingleton)?  If so, the problem is that because you can call KeyedAppStatesReporter.setExecutor(...) at any point, you can change the executor and orphan the old one(s) - you\u0027re not actually stopping that work from running, nor cleaning it up meaningfully.\n\nMoreover, if something happens to be hanging on to a reference to that Executor, it will stay in memory and will not clean up as you expect.\n\nFinally, depending on which thread you set this executor on, you could run into a race condition where the set method below (which does NOT synchronize) could end up using the \"old\" executor.  You\u0027d still run into threading issues.\n\nBecause you already have a singleton, wouldn\u0027t it make much more sense to make this a non-static method/member of that class?",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b47f0c_7f76f75f",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-31T11:06:54Z",
+      "side": 1,
+      "message": "setExecutor will throw an exception if the singleton has already been created (see line 139), so this class can\u0027t have used the executor for anything before it is changed.\n\nI think this will ensure an old executor isn\u0027t orphaned, and avoids a race condition in set.\n\nA similar thing is done in https://cs.corp.google.com/aosp-androidx/work/workmanager/src/main/java/androidx/work/WorkManager.java?l\u003d168\n\nIs this correct?",
+      "parentUuid": "24836890_39cbd142",
       "range": {
         "startLine": 136,
         "startChar": 23,
@@ -68,6 +116,30 @@
       "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c023d88b_3da53cb6",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-01-31T11:06:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75f103d8_3321eba8",
+      "range": {
+        "startLine": 216,
+        "startChar": 20,
+        "endLine": 216,
+        "endChar": 64
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
