@@ -17,12 +17,16 @@
 package androidx.savedstate
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleRegistry
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import java.lang.ClassCastException
+import java.lang.IllegalStateException
 
 @SmallTest
 @RunWith(JUnit4::class)
@@ -130,6 +134,80 @@ class SavedStateRegistryTest {
         newStore.performRestore(savedState2)
         assertThat(newStore.consumeRestoredStateForKey("a").isSame(bundleOf("key", "ba"))).isTrue()
     }
+
+    @Test
+    fun autoRecreatedThrowOnMissingDefaultConstructor() {
+        val registry = SavedStateRegistry()
+
+        class InvalidConstructorClass(unused: Int) : SavedStateRegistry.AutoRecreated {
+            override fun onRecreated(owner: SavedStateRegistryOwner) {
+                TODO("not implemented")
+            }
+        }
+
+        try {
+            registry.runOnNextRecreation(InvalidConstructorClass::class.java)
+            Assert.fail()
+        } catch (e: Exception) {
+            assertThat(e).isInstanceOf(IllegalArgumentException::class.java)
+        }
+    }
+
+    @Test
+    fun sneakClass() {
+        val registry = SavedStateRegistry()
+        @Suppress("UNCHECKED_CAST")
+        val sneak = ErrorInStaticBlock::class.java as Class<SavedStateRegistry.AutoRecreated>
+        registry.runOnNextRecreation(sneak)
+        val bundle = Bundle()
+        registry.performSave(bundle)
+        val owner = FakeSavedStateRegistryOwner()
+        owner.savedStateRegistryController.performRestore(bundle)
+        try {
+            owner.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+            Assert.fail()
+        } catch (e: Exception) {
+            assertThat(e).isInstanceOf(ClassCastException::class.java)
+        }
+    }
+
+    @Test
+    fun throwSavedStateRegistry() {
+        val owner = FakeSavedStateRegistryOwner()
+        // shouldn't throw, though we aren't even created
+        owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+        owner.savedStateRegistryController.performRestore(null)
+        owner.lifecycleRegistry.markState(Lifecycle.State.RESUMED)
+        owner.lifecycleRegistry.markState(Lifecycle.State.CREATED)
+        try {
+            owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+            Assert.fail()
+        } catch (e: IllegalStateException) {
+            assertThat(e.message).contains("Can not perform this action after onSaveInstanceState")
+        }
+        owner.lifecycleRegistry.markState(Lifecycle.State.STARTED)
+        // shouldn't fail
+        owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+    }
+
+    private fun SavedStateRegistry(): SavedStateRegistry {
+        val savedStateRegistry = FakeSavedStateRegistryOwner().savedStateRegistry
+        return savedStateRegistry
+    }
+}
+
+class ToBeRecreated : SavedStateRegistry.AutoRecreated {
+    override fun onRecreated(owner: SavedStateRegistryOwner) {
+        TODO("not implemented")
+    }
+}
+
+class FakeSavedStateRegistryOwner : SavedStateRegistryOwner {
+    val lifecycleRegistry = LifecycleRegistry(this)
+    val savedStateRegistryController = SavedStateRegistryController.create(this)
+
+    override fun getLifecycle() = lifecycleRegistry
+    override fun getSavedStateRegistry() = savedStateRegistryController.savedStateRegistry
 }
 
 private fun bundleOf(key: String, value: Int): Bundle {
