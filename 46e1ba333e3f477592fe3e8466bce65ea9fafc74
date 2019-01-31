@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "80617cf2_b7bdb46b",
+        "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-01-31T19:19:26Z",
+      "side": 1,
+      "message": "nonetheless, you will have to make it optional, because this is an incompatible change, it breaks this use case: if the app is \"activty.getSupportFragmentManager().beginTransaction().add(popupFragment).addToBackStack()\" in BrowseSupportFragment.onClick(item),  the backkey will be incorrectly sent to BrowseSupportFragment instead of closing the popupFragment.\n\nIt\u0027s counter-intuitive to have BrowseSupportFragment itself to decide what to do,  a natural way would be the caller (aka activity) code setPrimaryNavigationFragment() when adding BrowseFragment,  BrowseFragment can check \"this \u003d\u003d getFragmentManager().getPrimaryNavigationFragment()\" (not 100% sure if this will work as the getPrimaryNavigationFragment() may not return the fragment before FragmentTransaction is actually done)",
+      "parentUuid": "eb241290_1f403705",
+      "range": {
+        "startLine": 146,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 26
+      },
+      "revId": "46e1ba333e3f477592fe3e8466bce65ea9fafc74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3efd67eb_7b8d5b11",
         "filename": "leanback/src/main/java/androidx/leanback/app/BrowseSupportFragment.java",
         "patchSetId": 2
