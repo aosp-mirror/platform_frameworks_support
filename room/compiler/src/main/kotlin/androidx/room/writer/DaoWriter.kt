@@ -23,6 +23,10 @@ import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
 import androidx.room.processor.OnConflictProcessor
 import androidx.room.solver.CodeGenScope
+import androidx.room.solver.prepared.binder.InstantPreparedQueryResultBinder
+import androidx.room.solver.query.result.InstantQueryResultBinder
+import androidx.room.solver.shortcut.binder.InstantDeleteOrUpdateMethodBinder
+import androidx.room.solver.shortcut.binder.InstantInsertMethodBinder
 import androidx.room.vo.Dao
 import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.Entity
@@ -144,6 +148,9 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     ): MethodSpec {
         val scope = CodeGenScope(this)
         val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
+            if (method.preparedQueryResultBinder is InstantPreparedQueryResultBinder) {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
             val stmtName = scope.getTmpVar("_stmt")
             addStatement("final $T $L = $N.acquire()",
                     SupportDbTypeNames.SQLITE_STMT, stmtName, preparedStmtField)
@@ -271,11 +278,13 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createRawQueryMethod(method: RawQueryMethod): MethodSpec {
         return overrideWithoutAnnotations(method.element, declaredDao).apply {
+            if (method.queryResultBinder is InstantQueryResultBinder) {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
             val scope = CodeGenScope(this@DaoWriter)
             val roomSQLiteQueryVar: String
             val queryParam = method.runtimeQueryParam
             val shouldReleaseQuery: Boolean
-
             when {
                 queryParam?.isString() == true -> {
                     roomSQLiteQueryVar = scope.getTmpVar("_statement")
@@ -360,7 +369,11 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }
 
         val scope = CodeGenScope(this)
-
+        if (method.methodBinder is InstantInsertMethodBinder) {
+            scope.builder().apply {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
+        }
         method.methodBinder.convertAndReturn(
                 parameters = method.parameters,
                 insertionAdapters = insertionAdapters,
@@ -423,7 +436,11 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
             return CodeBlock.builder().build()
         }
         val scope = CodeGenScope(this)
-
+        if (method.methodBinder is InstantDeleteOrUpdateMethodBinder) {
+            scope.builder().apply {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
+        }
         method.methodBinder.convertAndReturn(
                 parameters = method.parameters,
                 adapters = adapters,
@@ -434,8 +451,13 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     }
 
     private fun createPreparedQueryMethodBody(method: WriteQueryMethod): CodeBlock {
-        val queryWriter = QueryWriter(method)
         val scope = CodeGenScope(this)
+        if (method.preparedQueryResultBinder is InstantPreparedQueryResultBinder) {
+            scope.builder().apply {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
+        }
+        val queryWriter = QueryWriter(method)
         val sqlVar = scope.getTmpVar("_sql")
         val stmtVar = scope.getTmpVar("_stmt")
         val listSizeArgs = queryWriter.prepareQuery(sqlVar, scope)
@@ -456,8 +478,13 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     }
 
     private fun createQueryMethodBody(method: ReadQueryMethod): CodeBlock {
-        val queryWriter = QueryWriter(method)
         val scope = CodeGenScope(this)
+        if (method.queryResultBinder is InstantQueryResultBinder) {
+            scope.builder().apply {
+                addStatement("$N.assertNotSuspendingTransaction()", dbField)
+            }
+        }
+        val queryWriter = QueryWriter(method)
         val sqlVar = scope.getTmpVar("_sql")
         val roomSQLiteQueryVar = scope.getTmpVar("_statement")
         queryWriter.prepareReadAndBind(sqlVar, roomSQLiteQueryVar, scope)

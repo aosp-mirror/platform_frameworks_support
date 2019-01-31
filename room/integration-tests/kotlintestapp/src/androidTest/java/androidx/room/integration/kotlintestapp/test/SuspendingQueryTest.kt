@@ -17,16 +17,23 @@
 package androidx.room.integration.kotlintestapp.test
 
 import androidx.room.integration.kotlintestapp.NewThreadDispatcher
-import androidx.room.integration.kotlintestapp.vo.Book
+import androidx.room.runSuspendingTransaction
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4::class)
 class SuspendingQueryTest : TestDatabaseTest() {
     @Test
@@ -36,10 +43,8 @@ class SuspendingQueryTest : TestDatabaseTest() {
             booksDao.addPublishers(TestUtil.PUBLISHER)
             booksDao.addBooks(TestUtil.BOOK_1)
 
-            assertThat(
-                booksDao.getBookSuspend(TestUtil.BOOK_1.bookId),
-                `is`<Book>(TestUtil.BOOK_1)
-            )
+            assertThat(booksDao.getBookSuspend(TestUtil.BOOK_1.bookId))
+                .isEqualTo(TestUtil.BOOK_1)
         }
     }
 
@@ -52,22 +57,68 @@ class SuspendingQueryTest : TestDatabaseTest() {
 
             val books = booksDao.getBooksSuspend()
 
-            assertThat(books.size, `is`(2))
-            assertThat(books[0], `is`<Book>(TestUtil.BOOK_1))
-            assertThat(books[1], `is`<Book>(TestUtil.BOOK_2))
+            assertThat(books.size).isEqualTo((2))
+            assertThat(books[0]).isEqualTo(TestUtil.BOOK_1)
+            assertThat(books[1]).isEqualTo(TestUtil.BOOK_2)
         }
     }
 
     @Test
-    fun suspendingTransaction() {
+    fun suspendingBlock_beginEndTransaction() {
+        runBlocking {
+            try {
+                database.beginTransaction()
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                booksDao.insertBookSuspend(TestUtil.BOOK_2)
+
+                booksDao.deleteUnsoldBooks()
+                database.setTransactionSuccessful()
+            } finally {
+                database.endTransaction()
+            }
+        }
+        runBlocking {
+            assertThat(booksDao.getBooksSuspend()).isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun suspendingBlock_beginEndTransaction_blockingDaoMethods() {
+        runBlocking {
+            try {
+                database.beginTransaction()
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+
+                booksDao.addBooks(TestUtil.BOOK_1.copy(salesCnt = 0), TestUtil.BOOK_2)
+
+                booksDao.deleteUnsoldBooks()
+                database.setTransactionSuccessful()
+            } finally {
+                database.endTransaction()
+            }
+        }
+        runBlocking {
+            assertThat(booksDao.getBooksSuspend()).isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun suspendingBlock_beginEndTransaction_newThreadDispatcher() {
         runBlocking(NewThreadDispatcher()) {
             try {
                 database.beginTransaction()
-                booksDao.insertPublisherSuspend(TestUtil.PUBLISHER.publisherId,
-                    TestUtil.PUBLISHER.name)
-                booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(
-                    salesCnt = 0
-                ))
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
                 booksDao.insertBookSuspend(TestUtil.BOOK_2)
 
                 booksDao.deleteUnsoldBooks()
@@ -77,7 +128,276 @@ class SuspendingQueryTest : TestDatabaseTest() {
             }
         }
         runBlocking(NewThreadDispatcher()) {
-            assertThat(booksDao.getBooksSuspend(), `is`(listOf(TestUtil.BOOK_2)))
+            assertThat(booksDao.getBooksSuspend()).isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun suspendingBlock_blockingDaoMethods() {
+        runBlocking {
+            booksDao.insertPublisherSuspend(
+                TestUtil.PUBLISHER.publisherId,
+                TestUtil.PUBLISHER.name
+            )
+
+            booksDao.addBooks(TestUtil.BOOK_1)
+
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                booksDao.deleteUnsoldBooks()
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_newThreadDispatcher() {
+        runBlocking(NewThreadDispatcher()) {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                booksDao.deleteUnsoldBooks()
+            }
+        }
+        runBlocking(NewThreadDispatcher()) {
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_contextSwitch() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                withContext(Dispatchers.IO) {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+                booksDao.deleteUnsoldBooks()
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_exception() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.insertBookSuspend(TestUtil.BOOK_1)
+            }
+
+            try {
+                database.runSuspendingTransaction {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                    throw RuntimeException("Boom!")
+                }
+                fail("An exception should have been thrown.")
+            } catch (ex: RuntimeException) {
+            }
+
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_nested() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                database.runSuspendingTransaction {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+                booksDao.deleteUnsoldBooks()
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_nested_contextSwitch() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                withContext(Dispatchers.IO) {
+                    database.runSuspendingTransaction {
+                        booksDao.insertBookSuspend(TestUtil.BOOK_1.copy(salesCnt = 0))
+                        booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                    }
+                }
+                booksDao.deleteUnsoldBooks()
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_childCoroutine_defaultDispatcher() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                launch {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_1)
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1, TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_childCoroutine_ioDispatcher() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                launch(Dispatchers.IO) {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_1)
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1, TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_cancelCoroutine() {
+        runBlocking {
+            booksDao.insertPublisherSuspend(
+                TestUtil.PUBLISHER.publisherId,
+                TestUtil.PUBLISHER.name
+            )
+            booksDao.insertBookSuspend(TestUtil.BOOK_1)
+
+            val job = launch(Dispatchers.IO) {
+                database.runSuspendingTransaction {
+                    delay(Long.MAX_VALUE)
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+            }
+
+            yield()
+            job.cancelAndJoin()
+
+            booksDao.insertBookSuspend(TestUtil.BOOK_3)
+
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1, TestUtil.BOOK_3))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_blockingDaoMethods() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+                booksDao.addBooks(TestUtil.BOOK_1.copy(salesCnt = 0))
+                booksDao.addBooks(TestUtil.BOOK_2)
+
+                booksDao.deleteUnsoldBooks()
+            }
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_2))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_blockingDaoMethods_contextSwitch() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+
+                try {
+                    withContext(Dispatchers.IO) {
+                        booksDao.insertBookSuspend(TestUtil.BOOK_1)
+                        booksDao.addBooks(TestUtil.BOOK_2)
+                    }
+                } catch (ex: IllegalStateException) {
+                    assertThat(ex).hasMessageThat()
+                        .contains("Cannot access database on a different coroutine context")
+                }
+            }
+
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1))
+        }
+    }
+
+    @Test
+    fun runSuspendingTransaction_async() {
+        runBlocking {
+            database.runSuspendingTransaction {
+                booksDao.insertPublisherSuspend(
+                    TestUtil.PUBLISHER.publisherId,
+                    TestUtil.PUBLISHER.name
+                )
+
+                val one = async {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_1)
+                }
+                val two = async(Dispatchers.Default) {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                }
+                val three = async(Dispatchers.IO) {
+                    booksDao.insertBookSuspend(TestUtil.BOOK_3)
+                }
+
+                one.await()
+                two.await()
+                three.await()
+            }
+
+            assertThat(booksDao.getBooksSuspend())
+                .isEqualTo(listOf(TestUtil.BOOK_1, TestUtil.BOOK_2, TestUtil.BOOK_3))
         }
     }
 }

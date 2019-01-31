@@ -38,13 +38,13 @@ package androidx.room {
 
   public abstract class RoomDatabase {
     ctor public RoomDatabase();
-    method public void beginTransaction();
+    method @Deprecated public void beginTransaction();
     method @WorkerThread public abstract void clearAllTables();
     method public void close();
     method public androidx.sqlite.db.SupportSQLiteStatement! compileStatement(String);
     method protected abstract androidx.room.InvalidationTracker createInvalidationTracker();
     method protected abstract androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration!);
-    method public void endTransaction();
+    method @Deprecated public void endTransaction();
     method public androidx.room.InvalidationTracker getInvalidationTracker();
     method public androidx.sqlite.db.SupportSQLiteOpenHelper getOpenHelper();
     method public java.util.concurrent.Executor getQueryExecutor();

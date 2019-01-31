@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "deprecation"})
 public final class ComplexDao_Impl extends ComplexDao {
     private final RoomDatabase __db;
 
@@ -42,6 +42,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public List<ComplexDao.FullName> fullNames(final int id) {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT name || lastName as fullName, uid as id FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
@@ -67,6 +68,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public User getById(final int id) {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT * FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
@@ -98,6 +100,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public User findByName(final String name, final String lastName) {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT * FROM user where name LIKE ? AND lastName LIKE ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
         int _argIndex = 1;
@@ -139,6 +142,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public List<User> loadAllByIds(final int... ids) {
+        __db.assertNotSuspendingTransaction();
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT * FROM user where uid IN (");
         final int _inputSize = ids.length;
@@ -179,6 +183,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     int getAge(final int id) {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT ageColumn FROM user where uid = ?";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
@@ -200,6 +205,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public int[] getAllAges(final int... ids) {
+        __db.assertNotSuspendingTransaction();
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids.length;
@@ -232,6 +238,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public List<Integer> getAllAgesAsList(final List<Integer> ids) {
+        __db.assertNotSuspendingTransaction();
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids.size();
@@ -360,6 +367,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     @Override
     public List<Integer> getAllAgesAsList(final List<Integer> ids1, final int[] ids2,
             final int... ids3) {
+        __db.assertNotSuspendingTransaction();
         StringBuilder _stringBuilder = StringUtil.newStringBuilder();
         _stringBuilder.append("SELECT ageColumn FROM user where uid IN(");
         final int _inputSize = ids1.size();
@@ -414,6 +422,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public List<Child1> getChild1List() {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT * FROM Child1";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
@@ -449,6 +458,7 @@ public final class ComplexDao_Impl extends ComplexDao {
 
     @Override
     public List<Child2> getChild2List() {
+        __db.assertNotSuspendingTransaction();
         final String _sql = "SELECT * FROM Child2";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
