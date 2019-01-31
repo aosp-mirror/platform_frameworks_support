@@ -2571,6 +2571,7 @@ public class ViewPager extends ViewGroup {
         if (mAdapter != null) {
             final VelocityTracker velocityTracker = mVelocityTracker;
             velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+            Log.i("JELLE", "mActivePointerId=" + mActivePointerId);
             int initialVelocity = (int) velocityTracker.getXVelocity(mActivePointerId);
             mPopulatePending = true;
             final int width = getClientWidth();
