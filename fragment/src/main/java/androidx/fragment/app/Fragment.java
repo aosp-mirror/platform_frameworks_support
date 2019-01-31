@@ -247,7 +247,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
-    SavedStateRegistryMaster mSavedStateRegistryMaster = new SavedStateRegistryMaster();
+    SavedStateRegistryMaster mSavedStateRegistryMaster = SavedStateRegistryMaster.create(this);
 
     /**
      * {@inheritDoc}
@@ -1843,7 +1843,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     void initState() {
         initLifecycle();
-        mSavedStateRegistryMaster = new SavedStateRegistryMaster();
+        mSavedStateRegistryMaster = SavedStateRegistryMaster.create(this);
         mWho = UUID.randomUUID().toString();
         mAdded = false;
         mRemoving = false;

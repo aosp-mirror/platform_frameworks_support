@@ -18,11 +18,12 @@ package androidx.savedstate;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * A scope that owns {@link SavedStateRegistry}
  */
-public interface SavedStateRegistryOwner {
+public interface SavedStateRegistryOwner extends LifecycleOwner {
     /**
      * Returns owned {@link SavedStateRegistry}
      *

@@ -40,6 +40,7 @@ public final class SavedStateRegistry {
     @Nullable
     private Bundle mRestoredState;
     private boolean mRestored;
+    private Recreator.SavedStateProvider mRecreatorProvider;
 
     SavedStateRegistry() {
     }
@@ -124,6 +125,40 @@ public final class SavedStateRegistry {
     @MainThread
     public boolean isRestored() {
         return mRestored;
+    }
+
+    /**
+     * Subclasses of this interface will be automatically recreated if they were previously
+     * registered via {{@link #runOnNextRecreation(Class)}}.
+     * <p>
+     * Subclasses must have a default constructor
+     */
+    public interface AutoRecreated {
+        /**
+         * This method will be called during
+         * dispatching of {@link androidx.lifecycle.Lifecycle.Event#ON_CREATE} of owning component.
+         *
+         * @param owner a component that was restarted
+         */
+        void onRecreated(@NonNull SavedStateRegistryOwner owner);
+    }
+
+    /**
+     * Executes the given class when the owning component restarted.
+     * <p>
+     * The given class will be automatically instantiated via default constructor and method
+     * {@link AutoRecreated#onRecreated(SavedStateRegistryOwner)} will be called.
+     * It is called as part of dispatching of {@link androidx.lifecycle.Lifecycle.Event#ON_CREATE}
+     * event
+     *
+     * @param clazz that will need to be instantiated on the next component recreation
+     */
+    @MainThread
+    public  void runOnNextRecreation(@NonNull Class<? extends AutoRecreated> clazz) {
+        if (mRecreatorProvider == null) {
+            mRecreatorProvider = new Recreator.SavedStateProvider(this);
+        }
+        mRecreatorProvider.add(clazz.getName());
     }
 
     /**
