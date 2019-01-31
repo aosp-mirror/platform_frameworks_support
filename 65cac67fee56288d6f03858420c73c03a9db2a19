@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "6b74753e_79d8cc22",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-01-31T01:56:37Z",
+      "side": 1,
+      "message": "changed this to coroutineScope (Owner still has lifecycleScope)",
+      "parentUuid": "4612b674_d7ed7f25",
+      "revId": "65cac67fee56288d6f03858420c73c03a9db2a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cfe6cc2_ef9469b8",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 14
