@@ -17,8 +17,6 @@
 package com.example.androidx.viewpager2
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
@@ -36,20 +34,18 @@ import com.example.androidx.viewpager2.cards.Card
  */
 abstract class BaseCardActivity : FragmentActivity() {
 
-    lateinit var viewPager: ViewPager2
+    protected lateinit var viewPager: ViewPager2
     private lateinit var cardSelector: Spinner
     private lateinit var smoothScrollCheckBox: CheckBox
     private lateinit var rotateCheckBox: CheckBox
     private lateinit var translateCheckBox: CheckBox
     private lateinit var scaleCheckBox: CheckBox
     private lateinit var gotoPage: Button
-    private lateinit var orientationSelector: Spinner
     private lateinit var disableUserInputCheckBox: CheckBox
-    private var orientation: Int = ORIENTATION_HORIZONTAL
 
-    private val translateX get() = orientation == ORIENTATION_VERTICAL &&
+    private val translateX get() = viewPager.orientation == ORIENTATION_VERTICAL &&
             translateCheckBox.isChecked
-    private val translateY get() = orientation == ORIENTATION_HORIZONTAL &&
+    private val translateY get() = viewPager.orientation == ORIENTATION_HORIZONTAL &&
             translateCheckBox.isChecked
 
     protected open val layoutId: Int = R.layout.activity_no_tablayout
@@ -76,7 +72,6 @@ abstract class BaseCardActivity : FragmentActivity() {
         setContentView(layoutId)
 
         viewPager = findViewById(R.id.view_pager)
-        orientationSelector = findViewById(R.id.orientation_spinner)
         disableUserInputCheckBox = findViewById(R.id.disable_user_input_checkbox)
         cardSelector = findViewById(R.id.card_spinner)
         smoothScrollCheckBox = findViewById(R.id.smooth_scroll_checkbox)
@@ -89,27 +84,10 @@ abstract class BaseCardActivity : FragmentActivity() {
             viewPager.isUserInputEnabled = !isDisabled
         }
 
-        orientationSelector.adapter = createOrientationAdapter()
+        OrientationTracker(viewPager, findViewById(R.id.orientation_spinner))
         cardSelector.adapter = createCardAdapter()
 
         viewPager.setPageTransformer(mAnimator)
-
-        orientationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (parent.selectedItem.toString()) {
-                    HORIZONTAL -> orientation = ORIENTATION_HORIZONTAL
-                    VERTICAL -> orientation = ORIENTATION_VERTICAL
-                }
-                viewPager.orientation = orientation
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>) {}
-        }
 
         gotoPage.setOnClickListener {
             val card = cardSelector.selectedItemPosition
@@ -122,18 +100,5 @@ abstract class BaseCardActivity : FragmentActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Card.DECK)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         return adapter
-    }
-
-    private fun createOrientationAdapter(): SpinnerAdapter {
-        val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, arrayOf(HORIZONTAL, VERTICAL))
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        return adapter
-    }
-
-    companion object {
-        val cards = Card.DECK
-        private const val HORIZONTAL = "horizontal"
-        private const val VERTICAL = "vertical"
     }
 }
