@@ -22,6 +22,30 @@
       "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b544911_d089c9a1",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-31T03:14:08Z",
+      "side": 0,
+      "message": "I have added the attribute back in the patchset 10. Also, I filed a bug for RTL mode b/123666848.",
+      "parentUuid": "f2fbf87d_2ed99778",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
