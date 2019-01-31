@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1111d6e_7177f42b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1439799
+      },
+      "writtenOn": "2019-01-31T14:45:59Z",
+      "side": 1,
+      "message": "AppCompatDelegateImpl doesn\u0027t override this to return the actual local night mode. There\u0027s also a bit of strangeness there since AppCompatDelegateImpl already has its own private getNightMode function that first looks at mLocalNightMode before returning the default mode.",
+      "revId": "3fe5f09802b30e98392b3e4564c316e08de97f64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
