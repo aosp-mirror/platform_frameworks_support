@@ -46,6 +46,30 @@
       "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a0e562a_8a8ed629",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T04:01:53Z",
+      "side": 0,
+      "message": "Q) Does this new implementation not support RTL?",
+      "parentUuid": "1b544911_d089c9a1",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
