@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "becc0244_59a00fa4",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-01-31T19:37:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8fa14a1_514bd7ef",
+      "range": {
+        "startLine": 775,
+        "startChar": 4,
+        "endLine": 783,
+        "endChar": 7
+      },
+      "revId": "507eddac949bf47804f38b4fc681a7e3ec754c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53952124_f94c8c3a",
         "filename": "jetifier/jetifier/migration.config",
         "patchSetId": 7
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "42aa987c_4498c9a2",
+      "range": {
+        "startLine": 784,
+        "startChar": 4,
+        "endLine": 784,
+        "endChar": 5
+      },
+      "revId": "507eddac949bf47804f38b4fc681a7e3ec754c99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "462374e3_240a3f50",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-01-31T19:37:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a78cbba_07837ae5",
       "range": {
         "startLine": 784,
         "startChar": 4,
