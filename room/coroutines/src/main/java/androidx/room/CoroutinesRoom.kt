@@ -20,6 +20,7 @@ import androidx.annotation.RestrictTo
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Callable
+import kotlin.coroutines.coroutineContext
 
 /**
  * A helper class for supporting Kotlin Coroutines in Room.
@@ -30,12 +31,16 @@ import java.util.concurrent.Callable
 class CoroutinesRoom private constructor() {
 
     companion object {
+
         @JvmStatic
         suspend fun <R> execute(db: RoomDatabase, callable: Callable<R>): R {
             if (db.isOpen && db.inTransaction()) {
                 return callable.call()
             }
-            return withContext(db.queryExecutor.asCoroutineDispatcher()) {
+
+            val context = coroutineContext[TransactionElement]?.transactionDispatcher
+                ?: db.queryExecutor.asCoroutineDispatcher()
+            return withContext(context) {
                 callable.call()
             }
         }
