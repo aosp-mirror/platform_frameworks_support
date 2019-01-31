@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da539106_bbe93afa",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2118,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-01-31T22:20:02Z",
+      "side": 1,
+      "message": "Why can\u0027t this be pulled from UiModeManager.getNightMode() or the application context?",
+      "range": {
+        "startLine": 2118,
+        "startChar": 31,
+        "endLine": 2118,
+        "endChar": 51
+      },
+      "revId": "51252430d6b00d82f54c1f9203528ab64a01fa6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
