@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cff23301_34f1ef7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c010279a_19566a31",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92dcb9b3_2a25266f",
         "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90998090_ae8d2d67",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Permissions for user read/write. Added constant.",
+      "parentUuid": "92dcb9b3_2a25266f",
+      "range": {
+        "startLine": 807,
+        "startChar": 80,
+        "endLine": 807,
+        "endChar": 84
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a74b939b_eefddb6f",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "We need to catch ErrnoException and throw IOException.",
+      "parentUuid": "e6838331_4052a7dd",
+      "range": {
+        "startLine": 810,
+        "startChar": 14,
+        "endLine": 810,
+        "endChar": 33
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fdec40a_28436992",
         "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
         "patchSetId": 4
@@ -85,6 +157,24 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84389ea_1bcb0d10",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fdec40a_28436992",
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "640910a3_62eef41c",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3736,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd154866_5be06db7",
+      "range": {
+        "startLine": 3736,
+        "startChar": 8,
+        "endLine": 3736,
+        "endChar": 37
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2cb5eaa_d2c5872b",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -131,6 +245,30 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b6d1ac0_30a28a73",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3751,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2cb5eaa_d2c5872b",
+      "range": {
+        "startLine": 3751,
+        "startChar": 16,
+        "endLine": 3751,
+        "endChar": 43
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "f3e60309_46655a9e",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3781,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3dd233f_cad63cbc",
+      "range": {
+        "startLine": 3781,
+        "startChar": 74,
+        "endLine": 3781,
+        "endChar": 75
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c0f9096_e8403e37",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "dc58a192_80e4a313",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4391,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Since we cannot make the input stream and the output stream refer to the same file, we make the original file a different temp file and copy the data from there. (i.e. exif.jpg --\u003e exif.jpg.temp + exif.jpg)",
+      "parentUuid": "2c0f9096_e8403e37",
+      "range": {
+        "startLine": 4388,
+        "startChar": 12,
+        "endLine": 4391,
+        "endChar": 55
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d11ef3_1c532a1a",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -200,6 +386,30 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7953d720_ef81b62b",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4392,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-01-31T05:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3d11ef3_1c532a1a",
+      "range": {
+        "startLine": 4392,
+        "startChar": 43,
+        "endLine": 4392,
+        "endChar": 51
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
