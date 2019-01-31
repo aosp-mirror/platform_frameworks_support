@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55fa661d_be175506",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-01-31T18:11:30Z",
+      "side": 1,
+      "message": "nit: could be simplified to:\n\nif (isCopyingEnabled() \u0026\u0026 mOnCopyListener \u003d\u003d null) {\n    mOnCopyListener \u003d new OnPreferenceCopyListener(this);\n}\nholder.itemView.setOnCreateContextMenuListener(mOnCopyListener);",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 9
+      },
+      "revId": "bdd5421864974388ad48c00c7c9f7e0f412d42a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
