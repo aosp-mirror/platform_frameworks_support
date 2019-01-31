@@ -118,6 +118,30 @@
       "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98b889fa_0c080f89",
+        "filename": "media2-widget/src/main/res/layout/media_controller.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-01-31T07:26:43Z",
+      "side": 0,
+      "message": "I have updated this CL to be aware of RTL mode.",
+      "parentUuid": "6c167590_16514cfa",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "f9c0fc4c799aa91f6f7ace9c371768a282b7fc28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
