@@ -359,7 +359,6 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         }
 
         val scope = CodeGenScope(this)
-
         method.methodBinder.convertAndReturn(
                 parameters = method.parameters,
                 insertionAdapters = insertionAdapters,
@@ -422,7 +421,6 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
             return CodeBlock.builder().build()
         }
         val scope = CodeGenScope(this)
-
         method.methodBinder.convertAndReturn(
                 parameters = method.parameters,
                 adapters = adapters,
