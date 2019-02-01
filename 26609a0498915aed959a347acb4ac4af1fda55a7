@@ -22,6 +22,30 @@
       "revId": "26609a0498915aed959a347acb4ac4af1fda55a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5b3d2e7_0c667b60",
+        "filename": "media2-widget/src/main/res/layout/full_settings_list_item.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-01T09:04:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd25bd1b_90d5d6ba",
+      "range": {
+        "startLine": 33,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "26609a0498915aed959a347acb4ac4af1fda55a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
