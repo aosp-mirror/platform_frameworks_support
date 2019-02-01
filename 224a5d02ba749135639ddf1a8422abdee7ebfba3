@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aeccc08e_bece8b33",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "320b906f_5946c437",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Replace with gradle class",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "083f2287_bcaaa544",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Replace with gradle class too",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19d8548f_2f53a6cb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Probably leave, but consider adding. Could consider mapping project to groupId that Oussama wrote, such that we actively include all project we develop",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "974b0b8a_a51dc578",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Fix this to be correct",
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78d90477_c3c1e8bb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Add more robust or clear way of confirming that json was successfully parsed",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 9
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500723d1_4292df20",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Look into JSON builder",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 45
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e977540_6af5502b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-01T21:19:36Z",
+      "side": 1,
+      "message": "Extract to a function where a project registers a file to be included in the final DepGraph",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 9
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
