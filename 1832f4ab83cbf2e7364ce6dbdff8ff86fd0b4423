@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "97de2db2_0fbe2cff",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T21:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5df42e87_a30023fa",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62dfc503_a5381a5e",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
         "patchSetId": 2

@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e889771_8b5022b7",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T21:50:58Z",
+      "side": 1,
+      "message": "Do we need this check? I feel you can just check for switch and everything else falls into the \"else\" case should be fine.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 67
+      },
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9272fad0_063e117f",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T21:50:58Z",
+      "side": 1,
+      "message": "private",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dc32d63_436ce4c3",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T21:50:58Z",
+      "side": 1,
+      "message": "I think all these can be final",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1762148_e0f9653f",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T21:50:58Z",
+      "side": 1,
+      "message": "Initialize this with the declaration and make final",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
