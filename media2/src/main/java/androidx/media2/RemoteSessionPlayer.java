@@ -32,10 +32,7 @@ import java.util.concurrent.Future;
  * <p>
  * If you use this to the {@link MediaSession}, session would dispatch incoming volume change event
  * to the player instead of changing device stream volume.
- *
- * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
 public abstract class RemoteSessionPlayer extends SessionPlayer {
     /**
      * @hide
@@ -122,18 +119,18 @@ public abstract class RemoteSessionPlayer extends SessionPlayer {
     public abstract @VolumeControlType int getVolumeControlType();
 
     /**
-     * @hide
+     * A callback class to receive notifications for events on the remote eession player. See
+     * {@link #registerPlayerCallback(Executor, PlayerCallback)} to register this callback.
      */
-    @RestrictTo(LIBRARY_GROUP)
     public static class Callback extends SessionPlayer.PlayerCallback {
         /**
          * Called to indicate that the volume has changed.
          *
-         * @param player2 the player that has completed volume changes.
+         * @param player the player that has changed volume.
          * @param volume the new volume
          * @see #setVolume(int)
          */
-        public void onVolumeChanged(@NonNull RemoteSessionPlayer player2, int volume) {
+        public void onVolumeChanged(@NonNull RemoteSessionPlayer player, int volume) {
         }
     }
 }
