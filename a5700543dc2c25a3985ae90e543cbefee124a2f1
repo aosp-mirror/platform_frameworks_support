@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "73e87a09_11923a47",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T20:31:59Z",
+      "side": 1,
+      "message": "Thanks for fixing the race condition.\n\nI think maybe the crux of what I\u0027m getting at is that the method name \"setExecutor\" does not imply anything about ordering.  You may also want to add more customizable settings in the future and the contract may not be clear.  Would it make more sense to make this more like WM and have this be an initialize method?",
+      "parentUuid": "a1fe657c_5e98ff75",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "a5700543dc2c25a3985ae90e543cbefee124a2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75f103d8_3321eba8",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
         "patchSetId": 4
