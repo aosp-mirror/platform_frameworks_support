@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65a6c4cb_e0273ee2",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T22:20:03Z",
+      "side": 1,
+      "message": "all views are under viewgroup \"container\" :/\n\nadded a comment on why we check ViewGroup",
+      "parentUuid": "4e889771_8b5022b7",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 67
+      },
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9272fad0_063e117f",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4558804b_45157f9c",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T22:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9272fad0_063e117f",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "eec63ed6_4ab8dbc8",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T22:20:03Z",
+      "side": 1,
+      "message": "mContext is used by listener. I got an error saying it may not be initialized (though obviously the first thing constructor does is to set context :/)\n\neverything else is final-able.",
+      "parentUuid": "7dc32d63_436ce4c3",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1762148_e0f9653f",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
         "patchSetId": 3
@@ -73,6 +133,24 @@
       "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1867d70_02781f33",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/SwitchListItemActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T22:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1762148_e0f9653f",
+      "revId": "6639eb8a019e5c65cb9442d1da3b54db2236b195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
