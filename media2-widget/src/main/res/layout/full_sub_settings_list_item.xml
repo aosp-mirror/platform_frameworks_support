@@ -38,14 +38,13 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/mcv2_settings_height"
-        android:gravity="center"
+        android:gravity="center|start"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/mcv2_settings_text_height"
-            android:gravity="center"
             android:paddingStart="2dp"
             android:textColor="@color/white"
             android:textSize="@dimen/mcv2_settings_main_text_size"/>
