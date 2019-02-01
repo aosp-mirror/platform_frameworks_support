@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f015d6b_11bb3256",
+        "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistryMaster.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-01T01:05:59Z",
+      "side": 1,
+      "message": "this sentence seems off.",
+      "range": {
+        "startLine": 27,
+        "startChar": 74,
+        "endLine": 27,
+        "endChar": 92
+      },
+      "revId": "92d45db90be8f1d9f82443cc8b6f90b398ae6e62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e207bb5b_a245bf68",
+        "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistryMaster.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-01T01:05:59Z",
+      "side": 1,
+      "message": "is this master or Controller ?",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "92d45db90be8f1d9f82443cc8b6f90b398ae6e62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
