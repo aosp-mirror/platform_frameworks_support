@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5df42e87_a30023fa",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "Can you add another test that checks the default state for enabled is true?",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62dfc503_a5381a5e",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "Can you fit this on one line?",
+      "range": {
+        "startLine": 758,
+        "startChar": 40,
+        "endLine": 760,
+        "endChar": 14
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5f7569c_6f9b7057",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 773,
+        "startChar": 40,
+        "endLine": 775,
+        "endChar": 13
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e64269_fc8df0af",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "To try and reduce the idle times, I rather you just call waitForIdleSync() here. I believe that setting the adapter should already trigger a refresh of the data.",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3286fdf2_358eba25",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this method anymore cause the SwitchListItem has a flat heirarchy. It\u0027s also only called in one test, so I rather you just inline the contents there.\n\nLet\u0027s make this verification as straightforward as possible as well. \n\nI think you can remove the \"instanceof ViewGroup\" part now.",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f2eec0_a8b99e18",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-01T18:58:50Z",
+      "side": 1,
+      "message": "Let\u0027s update this method name to just setSwitch() or something similar to that.",
+      "range": {
+        "startLine": 541,
+        "startChar": 17,
+        "endLine": 541,
+        "endChar": 39
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
