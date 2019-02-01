@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "e01b1517_385ddbe9",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62dfc503_a5381a5e",
+      "range": {
+        "startLine": 758,
+        "startChar": 40,
+        "endLine": 760,
+        "endChar": 14
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5f7569c_6f9b7057",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
         "patchSetId": 2
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "e464bd9b_5f704285",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5f7569c_6f9b7057",
+      "range": {
+        "startLine": 773,
+        "startChar": 40,
+        "endLine": 775,
+        "endChar": 13
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31e64269_fc8df0af",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
         "patchSetId": 2
@@ -82,6 +130,24 @@
     },
     {
       "key": {
+        "uuid": "70ccda8b_3b63c943",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T20:02:07Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "31e64269_fc8df0af",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3286fdf2_358eba25",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
         "patchSetId": 2
@@ -96,6 +162,24 @@
       "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f5be4d3_c30d913f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SwitchListItemTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3286fdf2_358eba25",
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +203,30 @@
       "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83e6d85_568ba8f4",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T20:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47f2eec0_a8b99e18",
+      "range": {
+        "startLine": 541,
+        "startChar": 17,
+        "endLine": 541,
+        "endChar": 39
+      },
+      "revId": "1832f4ab83cbf2e7364ce6dbdff8ff86fd0b4423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
