@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89de9c25_1fa8186c",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-01T01:13:30Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c332220_470f4d4e",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-01T01:13:30Z",
+      "side": 1,
+      "message": "Wouldn\u0027t seeing an bundle stored at CLASSES_KEY but with no entries be an error?",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f93cef_fdde00b8",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-01T01:13:30Z",
+      "side": 1,
+      "message": "Instead of instanceof check, use class.forname(name, false, classloader).asSubClass(AutoCreated.class)\n\nThis lets you do your validation before executing any code from the class. Historically this has caused some vulnerabilities in android, like fragment injection and a serializable bug.",
+      "range": {
+        "startLine": 70,
+        "startChar": 24,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e293d3_03624537",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-01T01:13:30Z",
+      "side": 1,
+      "message": "No error if state is already saved?",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
