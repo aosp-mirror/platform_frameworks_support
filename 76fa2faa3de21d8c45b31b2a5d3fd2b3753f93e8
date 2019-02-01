@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2f2d129_2eeac804",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-01T07:16:40Z",
+      "side": 1,
+      "message": "Changed bit different way because the \u0027return false\u0027 is needed anyway.",
+      "parentUuid": "d53c8580_944899e2",
+      "range": {
+        "startLine": 815,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 20
+      },
+      "revId": "76fa2faa3de21d8c45b31b2a5d3fd2b3753f93e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f057b30_1bc763ad",
         "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "76fa2faa3de21d8c45b31b2a5d3fd2b3753f93e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72f3d96_65e15616",
+        "filename": "media2/src/main/java/androidx/media2/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-01T07:16:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f057b30_1bc763ad",
+      "revId": "76fa2faa3de21d8c45b31b2a5d3fd2b3753f93e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
