@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42898543_8e4e3e82",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "You don\u0027t need this at all.",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664f4acf_d83f292e",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "Builders provide default values that can be overridden.  An abstract Builder is not normal.",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2c437d_c5c25817",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this just be called Builder?  Why is this Configuration.ConfigurationBuilder?  That\u0027s not a normal naming scheme.",
+      "range": {
+        "startLine": 74,
+        "startChar": 33,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f64ac4_b50ccf8a",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "And this should definitely not be abstract.  Is the user expected to make their own Configuration object?  Can they even do that, given that the constructor is not public?",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b87ab6d6_a1cc8e66",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "Rename.",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0372531b_7f75b654",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-01T23:53:13Z",
+      "side": 1,
+      "message": "Can this be a variable owned by KeyedAppStatesReporter that is passed in its constructor?  You have no reason for this to stay as a static now.",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 66
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
