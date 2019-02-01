@@ -55,7 +55,8 @@ object Metalava {
             if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
                 if (!project.hasApiFolder()) {
                     project.logger.info(
-                        "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
+                        "Project ${project.name} doesn't have an api folder, ignoring API tasks."
+                    )
                     return@all
                 }
 
@@ -74,7 +75,8 @@ object Metalava {
         }
         if (!project.hasApiFolder()) {
             project.logger.info(
-                    "Project ${project.name} doesn't have an api folder, ignoring API tasks.")
+                "Project ${project.name} doesn't have an api folder, ignoring API tasks."
+            )
             return
         }
 
@@ -100,16 +102,27 @@ object Metalava {
         // the api files whose file names contain the version of the library
         val libraryVersionApi = project.getCurrentApiLocation()
         // the api files whose file names contain "current.txt"
-        val currentTxtApi = ApiLocation.fromPublicApiFile(File(libraryVersionApi.publicApiFile.parentFile, "current.txt"))
+        val currentTxtApi = ApiLocation.fromPublicApiFile(
+            File(
+                libraryVersionApi.publicApiFile.parentFile,
+                "current.txt"
+            )
+        )
 
         // make sure to update current.txt if it wasn't previously planned to be updated
-        val outputApiLocations: List<ApiLocation> = if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
-            listOf(libraryVersionApi)
-        } else {
-            listOf(libraryVersionApi, currentTxtApi)
-        }
+        val outputApiLocations: List<ApiLocation> =
+            if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
+                listOf(libraryVersionApi)
+            } else {
+                listOf(libraryVersionApi, currentTxtApi)
+            }
 
-        val builtApiLocation = ApiLocation.fromPublicApiFile(File(project.docsDir(), "release/${project.name}/current.txt"))
+        val builtApiLocation = ApiLocation.fromPublicApiFile(
+            File(
+                project.docsDir(),
+                "release/${project.name}/current.txt"
+            )
+        )
 
         var generateApi = project.tasks.create("generateApi", GenerateApiTask::class.java) { task ->
             task.group = "API"

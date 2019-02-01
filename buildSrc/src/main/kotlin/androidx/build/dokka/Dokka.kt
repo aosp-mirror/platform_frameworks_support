@@ -29,6 +29,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getPlugin
 import org.jetbrains.dokka.gradle.DokkaPlugin
 import org.jetbrains.dokka.gradle.DokkaTask
@@ -102,10 +103,8 @@ object Dokka {
         }
         library.libraryVariants.all { variant ->
             if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
-                project.afterEvaluate({
-                    val inputs = JavaCompileInputs.fromLibraryVariant(library, variant)
-                    registerInputs(inputs, project)
-                })
+                val inputs = JavaCompileInputs.fromLibraryVariant(library, variant)
+                registerInputs(inputs, project)
             }
         }
         DiffAndDocs.get(project).registerPrebuilts(extension)
@@ -121,18 +120,19 @@ object Dokka {
         }
         val javaPluginConvention = project.convention.getPlugin<JavaPluginConvention>()
         val mainSourceSet = javaPluginConvention.sourceSets.getByName("main")
-        project.afterEvaluate({
-            val inputs = JavaCompileInputs.fromSourceSet(mainSourceSet, project)
-            registerInputs(inputs, project)
-        })
+        project.afterEvaluate {
+            val inputs = JavaCompileInputs.fromSourceSet(mainSourceSet, it)
+            registerInputs(inputs, it)
+        }
         DiffAndDocs.get(project).registerPrebuilts(extension)
     }
 
     fun registerInputs(inputs: JavaCompileInputs, project: Project) {
         val docsTask = getDocsTask(project)
-        docsTask.sourceDirs += inputs.sourcePaths
-        docsTask.classpath =
-                docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
+        docsTask.apply {
+            sourceDirs += inputs.sourcePaths
+            classpath += inputs.dependencyClasspath + inputs.bootClasspath
+        }
         docsTask.dependsOn(inputs.dependencyClasspath)
     }
 }
