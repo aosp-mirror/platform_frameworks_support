@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f570ae2b_48a307a6",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-01T00:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88e344b1_ad6b54c9",
+      "range": {
+        "startLine": 223,
+        "startChar": 20,
+        "endLine": 223,
+        "endChar": 29
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e00893b_a97a8cc2",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd6a70a7_5ba31efb",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2135,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-01T00:38:04Z",
+      "side": 1,
+      "message": "IllegalState. Added a comment explaining it.",
+      "parentUuid": "7e00893b_a97a8cc2",
+      "range": {
+        "startLine": 2135,
+        "startChar": 21,
+        "endLine": 2135,
+        "endChar": 32
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "886b6fda_17f9d3e4",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-01T00:38:04Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "0e19362f_8ffb9022",
+      "range": {
+        "startLine": 2181,
+        "startChar": 56,
+        "endLine": 2181,
+        "endChar": 62
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bfffcaf_047aa593",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4fa4a9_8a8072bc",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2183,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-01T00:38:04Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "5bfffcaf_047aa593",
+      "range": {
+        "startLine": 2183,
+        "startChar": 41,
+        "endLine": 2183,
+        "endChar": 64
+      },
+      "revId": "9d1c211b9b0f9a633549c0d5f15d4f09832c9deb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
