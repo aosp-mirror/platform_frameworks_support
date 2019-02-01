@@ -53,10 +53,9 @@ dependencies {
 
 //used by testCompile safe-args-generator
 android.libraryVariants.all { variant ->
-    def name = variant.name
-    def suffix = name.capitalize()
-    project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompileProvider.get()
+    def suffix = variant.name.capitalize()
+    project.tasks.register("jar${suffix}", Jar) {
+        dependsOn variant.javaCompileProvider
         from variant.javaCompileProvider.get().destinationDir
         destinationDir new File(project.buildDir, "libJar")
     }
