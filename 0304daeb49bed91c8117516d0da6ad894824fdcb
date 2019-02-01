@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc253012_a396cb79",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T18:40:05Z",
+      "side": 1,
+      "message": "calculate after ALWAYS items are all measured\n\nthis var is already a double - why not just use 0.5 so you don\u0027t need to * 100?\n(a var named \"percentage\" with value 50 is 5000%)",
+      "range": {
+        "startLine": 279,
+        "startChar": 16,
+        "endLine": 279,
+        "endChar": 88
+      },
+      "revId": "0304daeb49bed91c8117516d0da6ad894824fdcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27ac49a_b8aa20db",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T18:40:05Z",
+      "side": 1,
+      "message": "remove\n\nvisibility of overflow button is already set in onLayout",
+      "range": {
+        "startLine": 300,
+        "startChar": 17,
+        "endLine": 302,
+        "endChar": 21
+      },
+      "revId": "0304daeb49bed91c8117516d0da6ad894824fdcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5236b713_85352b0c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T18:40:05Z",
+      "side": 1,
+      "message": "how about addView and removeView both in onMeasure? this way i think it\u0027ll be easier to track the views. wdyt?",
+      "range": {
+        "startLine": 651,
+        "startChar": 20,
+        "endLine": 651,
+        "endChar": 36
+      },
+      "revId": "0304daeb49bed91c8117516d0da6ad894824fdcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8f17c1_0df40cb7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-01T18:40:05Z",
+      "side": 1,
+      "message": "i don\u0027t like this approach because by the end of this method, this field is not in a settled state (there could be more added later in onMeasure).\n\nhttps://memegen.googleplex.com/5843738408779776",
+      "range": {
+        "startLine": 656,
+        "startChar": 20,
+        "endLine": 656,
+        "endChar": 38
+      },
+      "revId": "0304daeb49bed91c8117516d0da6ad894824fdcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
