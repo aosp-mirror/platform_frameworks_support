@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "2c39342a_92bed709",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-02T00:04:45Z",
+      "side": 1,
+      "message": "I read up on AutoValue and see that some of your code makes sense within that context.  As I\u0027m not familiar with its usage within AndroidX code, I\u0027ll defer this to Alan.",
+      "parentUuid": "8a81961f_21450757",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 22
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "664f4acf_d83f292e",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
         "patchSetId": 8
