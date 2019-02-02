@@ -25,6 +25,143 @@
     },
     {
       "key": {
+        "uuid": "52fef52f_38f10d40",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Move this definition of CarToolbar. Also can it be static?",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc35c6b_02da523a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Add @Nullable to this parameter as well",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbfd104_106e971a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Add \"percentage\" in the name somewhere. Maybe ACTION_ITEM_WIDTH_LIMIT_PERCENTAGE or something",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 47
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7777a348_4d44023a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Call this mAllMenuItems or something like that. That\u0027s a more descriptive name",
+      "range": {
+        "startLine": 128,
+        "startChar": 41,
+        "endLine": 128,
+        "endChar": 59
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49354d7d_3fde621a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Now update this name be more indicative of what it represents now. These are the items that fit on the toolbar.\n\nMaybe mToolbarItems or something",
+      "range": {
+        "startLine": 130,
+        "startChar": 29,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06f0189_07788d33",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "I rather you not deal with floating point arithmetic as much as possible. Just use regular integer math here.\n\nYou have the toolbarWidth so you can calculate half its width. Now, just keep track of the amount of space the buttons take up in terms of their width. You know you can\u0027t fit anymore if it goes past half the toolbarWidth.",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df57793e_a9c2614c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Each of these loops can be in its own method. You might have to return different things from each. For example, in this first loop, you can probably return the total width taken up by the ALWAYS buttons.\n\nMake alwaysItemCount a field. Seems like you can calculate this in setMenuItems.",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1aef5ad_c9113482",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -64,6 +201,46 @@
         "startChar": 35,
         "endLine": 273,
         "endChar": 55
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a9f4f7_7ce35266",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Possible that this is already negative. Check before looping to avoid looping when you don\u0027t have to.",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ed6cc1_8619ab33",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to not null out these items. It comes down to the possibility that you might need to re-measure and then some items that you null-ed out can now fit.\n\nRight now, you\u0027re using a \"null\" view to indicate whether or not it fits on the toolbar, so you\u0027ll probably need to introduce a boolean for this state now.",
+      "range": {
+        "startLine": 281,
+        "startChar": 56,
+        "endLine": 281,
+        "endChar": 74
       },
       "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -117,6 +294,46 @@
     },
     {
       "key": {
+        "uuid": "0817c938_442c4695",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "Confusing name. Better to be something like \"fitsOnToolbar\". \n\nBut if you take my suggestion of not null-ing out the views, then you won\u0027t need this variable anymore.",
+      "range": {
+        "startLine": 285,
+        "startChar": 24,
+        "endLine": 285,
+        "endChar": 36
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea77d14_858af2c0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "If ifRoomCapacity is 0 or negative, seems like you can break out of the loop.",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c134c78a_2aaa4c81",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
@@ -157,6 +374,23 @@
         "endLine": 305,
         "endChar": 93
       },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d321b35c_fd3d2270",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:25:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be moved to onMeasure. You can already determine this in setMenuItems.",
       "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
