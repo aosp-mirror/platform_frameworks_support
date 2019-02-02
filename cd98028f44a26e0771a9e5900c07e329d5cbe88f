@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9e7b12c_a846c5b6",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "42898543_8e4e3e82",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a81961f_21450757",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
         "patchSetId": 8
@@ -69,6 +93,30 @@
       "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77608774_e9a03f43",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Yeah this is all pretty standard for AutoValue - which generates valid subclasses - so the API is:\n\nConfiguration.builder().setExecutor(...).build();\n\nand AutoValue has properly tested implementations of all the usual stuff you\u0027d expect.",
+      "parentUuid": "2c39342a_92bed709",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 22
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +166,54 @@
     },
     {
       "key": {
+        "uuid": "c11fb505_96cb30a8",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd2c437d_c5c25817",
+      "range": {
+        "startLine": 74,
+        "startChar": 33,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41739c48_f85fd19a",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "664f4acf_d83f292e",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26f64ac4_b50ccf8a",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
         "patchSetId": 8
@@ -138,6 +234,30 @@
       "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4423f1ee_a02d0bb1",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26f64ac4_b50ccf8a",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "0bc7d71c_b8ad8c33",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b87ab6d6_a1cc8e66",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0372531b_7f75b654",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
         "patchSetId": 8
@@ -184,6 +328,30 @@
       "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81a93f8_a0d0e791",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/KeyedAppStatesReporter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-02-02T13:02:50Z",
+      "side": 1,
+      "message": "Yep that\u0027s fine. It means we need to construct in the initialize method but I can\u0027t see a valid reason to call initialize multiple times anyway.\n\nIt does make the testing a little bit more fiddly as we can\u0027t set the configuration up front incase we need to change the initial state. Added a getReporter() method which sets up the test configuration.\n\nDone.",
+      "parentUuid": "0372531b_7f75b654",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 66
+      },
+      "revId": "cd98028f44a26e0771a9e5900c07e329d5cbe88f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
