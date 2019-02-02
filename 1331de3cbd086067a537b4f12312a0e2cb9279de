@@ -397,6 +397,24 @@
     },
     {
       "key": {
+        "uuid": "57d29f14_4e80bc12",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-02T00:37:17Z",
+      "side": 1,
+      "message": "Never mind, I take this back.",
+      "parentUuid": "d321b35c_fd3d2270",
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02b37708_5f14a72a",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 3
