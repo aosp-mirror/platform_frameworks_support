@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dceb2d2c_4cd6c1d9",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "i think the test name should match constant if you decided to add \"percentage\" to its name",
+      "range": {
+        "startLine": 652,
+        "startChar": 51,
+        "endLine": 652,
+        "endChar": 56
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1aef5ad_c9113482",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "percentageTaken only needs to be calculated once after loop. width/toolbarWidth",
+      "range": {
+        "startLine": 273,
+        "startChar": 16,
+        "endLine": 273,
+        "endChar": 31
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37bc373_4098ccdc",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "i think you only need to cast one var. java will upcast (promote?) everything to double",
+      "range": {
+        "startLine": 273,
+        "startChar": 35,
+        "endLine": 273,
+        "endChar": 55
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d020110_251e605f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "can you check capacity first in the loop?\nif (ifRoomCapacity \u003d\u003d 0) break;",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 66
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74edacb1_24b316f7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "how does this happen?",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 49
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c134c78a_2aaa4c81",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "if (percentage allows) {\naddView\n} else {\nmView \u003d null\n}",
+      "range": {
+        "startLine": 299,
+        "startChar": 16,
+        "endLine": 299,
+        "endChar": 36
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b660ec8_649192bf",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "can you clarify this comment. maybe group menu items separately to maintain the order of menu items from the passed-in variable",
+      "range": {
+        "startLine": 305,
+        "startChar": 55,
+        "endLine": 305,
+        "endChar": 93
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b37708_5f14a72a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "nitpick: this doesn\u0027t match with comment (ALWAYS and IF_ROOM). can you explicit compare the values (i think this is the right approach)?",
+      "range": {
+        "startLine": 648,
+        "startChar": 77,
+        "endLine": 648,
+        "endChar": 82
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0084b8a7_e73444c4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "just curious, why do you need to do this?",
+      "range": {
+        "startLine": 676,
+        "startChar": 15,
+        "endLine": 676,
+        "endChar": 30
+      },
+      "revId": "1331de3cbd086067a537b4f12312a0e2cb9279de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

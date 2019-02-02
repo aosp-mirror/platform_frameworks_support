@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfc113f3_6f165752",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-02T00:24:05Z",
+      "side": 1,
+      "message": "change the name so it\u0027s clear this is a percentage",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 47
+      },
+      "revId": "fc763de69dce725b7da3fb0faae22b519a44c250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
