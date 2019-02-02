@@ -161,8 +161,8 @@ internal fun NavType.typeName(): TypeName = when (this) {
     BoolArrayType -> BooleanArray::class.asTypeName()
     ReferenceType -> INT
     ReferenceArrayType -> IntArray::class.asTypeName()
-    is ObjectType -> ClassName.bestGuess(canonicalName)
-    is ObjectArrayType -> ARRAY.parameterizedBy(ClassName.bestGuess(canonicalName))
+    is ObjectType -> canonicalName.toClassName()
+    is ObjectArrayType -> ARRAY.parameterizedBy(canonicalName.toClassName())
     else -> throw IllegalStateException("Unknown type: $this")
 }
 
@@ -178,4 +178,21 @@ internal fun WritableValue.write(): CodeBlock {
         is EnumValue -> CodeBlock.of("%T.%N", type.typeName(), value)
         else -> throw IllegalStateException("Unknown value: $this")
     }
+}
+
+// Gets a [ClassName] out of a canonical name such as a.b.OuterClass$InnerClass
+private fun String.toClassName(): ClassName {
+    val packageName = substringBeforeLast('.', "")
+    val (simpleName, innerNames) = substringAfterLast('.').let {
+        val simpleName = it.substringBefore("$")
+        val innerNames = it.substringAfter("$", "").let { innerName ->
+            if (innerName.isNotEmpty()) {
+                innerName.split("$")
+            } else {
+                emptyList()
+            }
+        }
+        simpleName to innerNames
+    }
+    return ClassName(packageName, simpleName, *innerNames.toTypedArray())
 }
