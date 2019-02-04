@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "39eb32c4_f50d7b8c",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb93475c_e572d9d2",
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "898f58d8_b7489e63",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54dca08e_7bd8e715",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "898f58d8_b7489e63",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e1165e45_ad034582",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1897a2ab_cd91e622",
+      "range": {
+        "startLine": 29,
+        "startChar": 7,
+        "endLine": 29,
+        "endChar": 11
+      },
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4d9b9bc_2cf30601",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/archive/ArchiveItem.kt",
         "patchSetId": 4
@@ -76,6 +142,24 @@
       "writtenOn": "2019-02-04T19:32:04Z",
       "side": 1,
       "message": "If an ArchiveItem can represent a file before or after transformation, it seems to me that it\u0027s be slightly clearer for \u003cmarkedForRemoval\u003e to be a property of some generator object or for there to be some exporter with its own representation of which items are getting exported, to make it more obvious when \u003cmarkedForRemoval\u003e is relevant.\n\n(This doesn\u0027t seem like a high priority to me though since I\u0027m guessing we won\u0027t need that many more code changes so I\u0027m marking this as resolved)",
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ad25d78_d4d6e4f2",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/archive/ArchiveItem.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Yes, I agree that sharing the files for input and output at the same time is a bit messy. This would deserve a bit larger refactoring. Maybe with some producers pattern.",
+      "parentUuid": "d4d9b9bc_2cf30601",
       "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "1cca2734_58cf6bf8",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/archive/ArchiveItem.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4faf156_51ec7e0d",
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d420405a_a9d7c5a5",
         "filename": "jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt",
         "patchSetId": 4
@@ -119,6 +221,30 @@
       "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43245f0f_901fba11",
+        "filename": "jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-04T19:54:24Z",
+      "side": 1,
+      "message": "Done! Thanks!",
+      "parentUuid": "d420405a_a9d7c5a5",
+      "range": {
+        "startLine": 89,
+        "startChar": 72,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a99468d2f6a76fd89e010e883a09dcac8a7b781a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
