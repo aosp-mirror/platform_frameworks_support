@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8645669_3f049f62",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019174
+      },
+      "writtenOn": "2019-02-04T21:58:17Z",
+      "side": 1,
+      "message": "Should this be LOCATION_MODE_OFF?",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b048d2db_233c0265",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1019174
+      },
+      "writtenOn": "2019-02-04T21:58:17Z",
+      "side": 1,
+      "message": "I don\u0027t think you should use reflection to get the context. It\u0027s better to pass it directly. But can\u0027t you just use the fallback logic (for pre-kitkat) since KitKat was backwards compatible?",
+      "range": {
+        "startLine": 85,
+        "startChar": 17,
+        "endLine": 85,
+        "endChar": 37
+      },
+      "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
