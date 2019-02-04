@@ -1136,6 +1136,20 @@ package androidx.core.hardware.fingerprint {
 
 }
 
+package androidx.core.location {
+
+  public final class LocationManagerCompat {
+    method public static int getLocationMode(android.location.LocationManager);
+    method public static boolean isLocationEnabled(android.location.LocationManager);
+    field public static final int LOCATION_MODE_BATTERY_SAVING = 2; // 0x2
+    field public static final int LOCATION_MODE_HIGH_ACCURACY = 3; // 0x3
+    field public static final int LOCATION_MODE_OFF = 0; // 0x0
+    field public static final int LOCATION_MODE_ON = 3; // 0x3
+    field public static final int LOCATION_MODE_SENSORS_ONLY = 1; // 0x1
+  }
+
+}
+
 package androidx.core.math {
 
   public class MathUtils {
