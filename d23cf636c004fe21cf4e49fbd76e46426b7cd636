@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "274fdf00_a573161f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-04T19:24:09Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need to capitalize this.",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbe67da0_fd751012",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-04T19:24:09Z",
+      "side": 1,
+      "message": "Hm I don\u0027t think this is the right measure spec of the action items. I think it should probably be an at most of MeasureSpec.getSize(widthMeasureSpec) / 2 (i.e. can take up to 50% of the toolbar).\n\n  int maxItemsWidth \u003d MeasureSpec.getSize(widthMeasureSpec) / 2;\n  MeasureSpec.makeMeasureSpec(maxItemsWidth, MeasureSpec.AT_MOST);",
+      "range": {
+        "startLine": 249,
+        "startChar": 57,
+        "endLine": 249,
+        "endChar": 73
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484f269d_40bca57d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-04T19:24:09Z",
+      "side": 1,
+      "message": "I think you can move this into its own method. Looks like you only need alwaysItemsWidth and width as parameters.\n\nAnd then you can pass back the updated width",
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "709abe00_3fef3ddb",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-04T19:24:09Z",
+      "side": 1,
+      "message": "I think you can leave off this parameter. Just return the total width occupied by the ALWAYS items, like your @return says. No need to subtract to get the value.\n\n  int widthTaken \u003d 0;\n  for (all the buttons) {\n    widthTaken +\u003d getMeasuredWidth() + ...;\n  }\n  return widthTaken;",
+      "range": {
+        "startLine": 326,
+        "startChar": 39,
+        "endLine": 326,
+        "endChar": 49
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe3d3a5_5a6bf897",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-04T19:24:09Z",
+      "side": 1,
+      "message": "Add a comment here about how mView is null for NEVER items.",
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
