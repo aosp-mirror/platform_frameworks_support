@@ -41,12 +41,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
@@ -234,18 +231,19 @@ public class WebViewClientCompatTest {
         mWebServer.start();
 
         Assert.assertNull(webViewClient.getOnReceivedHttpError());
-        String url = mWebServer.url("/non_existent_page").toString();
-        mWebServer.enqueue(new MockResponse().setResponseCode(404));
+        // String url = mWebServer.url("/non_existent_page").toString();
+        // mWebServer.enqueue(new MockResponse().setResponseCode(404));
+        String url = "https://putsreq.com/lSTsA2yWOJ3I6vXgLv2z"; // will return 405 code, over HTTP/2 protocol
 
         mWebViewOnUiThread.loadUrlAndWaitForCompletion(url);
 
-        RecordedRequest request = mWebServer.takeRequest(WebkitUtils.TEST_TIMEOUT_MS,
-                TimeUnit.MILLISECONDS);
-        Assert.assertNotNull("The server should receive an HTTP request", request);
-        Assert.assertEquals("/non_existent_page", request.getPath());
+        // RecordedRequest request = mWebServer.takeRequest(WebkitUtils.TEST_TIMEOUT_MS,
+        //         TimeUnit.MILLISECONDS);
+        // Assert.assertNotNull("The server should receive an HTTP request", request);
+        // Assert.assertEquals("/non_existent_page", request.getPath());
 
         Assert.assertNotNull(webViewClient.getOnReceivedHttpError());
-        Assert.assertEquals(404, webViewClient.getOnReceivedHttpError().getStatusCode());
+        Assert.assertEquals(405, webViewClient.getOnReceivedHttpError().getStatusCode());
     }
 
     /**
