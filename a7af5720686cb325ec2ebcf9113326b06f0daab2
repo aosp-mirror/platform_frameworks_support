@@ -93,6 +93,30 @@
       "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a095b57_8d9b5e67",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1019174
+      },
+      "writtenOn": "2019-02-04T22:14:22Z",
+      "side": 1,
+      "message": "I think that\u0027s good since the old APIs were deprecated but not removed, all OEMs had to ensure they were functional.",
+      "parentUuid": "192e2688_c55918f8",
+      "range": {
+        "startLine": 85,
+        "startChar": 17,
+        "endLine": 85,
+        "endChar": 37
+      },
+      "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
