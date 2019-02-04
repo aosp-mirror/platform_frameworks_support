@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dba4e8ef_93740578",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-04T22:11:48Z",
+      "side": 1,
+      "message": "oops...",
+      "parentUuid": "c8645669_3f049f62",
+      "range": {
+        "startLine": 82,
+        "startChar": 20,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b048d2db_233c0265",
         "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "192e2688_c55918f8",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-04T22:11:48Z",
+      "side": 1,
+      "message": "I\u0027m unsure what to do here. The guidance for compat classes says that the first thing passed in should always be non-compat object (ie, LocationManager). It also says that methods here should exactly match the non-compat methods. However, we\u0027ve never offered a getLocationMode() API ever, so arguably there\u0027s no method for this to match, and we could simply have the client pass in Context. In that case it wouldn\u0027t match the signature of the other methods though...\n\nWe could use the fallback logic yes; I was trying to make this use the public API for each release, but especially given the need for reflection to access the context, it might be simpler to just fallback.",
+      "parentUuid": "b048d2db_233c0265",
+      "range": {
+        "startLine": 85,
+        "startChar": 17,
+        "endLine": 85,
+        "endChar": 37
+      },
+      "revId": "a7af5720686cb325ec2ebcf9113326b06f0daab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
