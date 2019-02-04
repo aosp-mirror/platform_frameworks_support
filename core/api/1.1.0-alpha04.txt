@@ -1628,6 +1628,19 @@ package androidx.core.view {
     method @Deprecated public android.view.View! onCreateView(android.view.View!, String!, android.content.Context!, android.util.AttributeSet!);
   }
 
+  public class LocationManagerCompat {
+    method @androidx.core.view.LocationManagerCompat.LocationMode public static int getLocationMode(android.location.LocationManager);
+    method public static boolean isLocationEnabled(android.location.LocationManager);
+    field public static final int LOCATION_MODE_BATTERY_SAVING = 2; // 0x2
+    field public static final int LOCATION_MODE_HIGH_ACCURACY = 3; // 0x3
+    field public static final int LOCATION_MODE_OFF = 0; // 0x0
+    field public static final int LOCATION_MODE_ON = 3; // 0x3
+    field public static final int LOCATION_MODE_SENSORS_ONLY = 1; // 0x1
+  }
+
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.core.view.LocationManagerCompat.LOCATION_MODE_OFF, androidx.core.view.LocationManagerCompat.LOCATION_MODE_SENSORS_ONLY, androidx.core.view.LocationManagerCompat.LOCATION_MODE_BATTERY_SAVING, androidx.core.view.LocationManagerCompat.LOCATION_MODE_HIGH_ACCURACY, androidx.core.view.LocationManagerCompat.LOCATION_MODE_ON}) public static @interface LocationManagerCompat.LocationMode {
+  }
+
   public final class MarginLayoutParamsCompat {
     method public static int getLayoutDirection(android.view.ViewGroup.MarginLayoutParams!);
     method public static int getMarginEnd(android.view.ViewGroup.MarginLayoutParams!);
