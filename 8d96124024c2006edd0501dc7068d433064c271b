@@ -211,6 +211,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc83287_a112bcb8",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1019174
+      },
+      "writtenOn": "2019-02-05T00:38:10Z",
+      "side": 1,
+      "message": "+1 to only exposing isLocationEnabled. Devs can use LocationManager.isProviderEnabled or the location settings dialog in GCore. But ideally compatlib can provide a bridge from newer APIs to older platform versions, but not the other way around.",
+      "parentUuid": "26784e49_c3f0c4f3",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
