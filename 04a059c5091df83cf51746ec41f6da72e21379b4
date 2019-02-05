@@ -33,6 +33,24 @@
       "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52656bc_50ab5561",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-05T11:41:36Z",
+      "side": 1,
+      "message": "We are not going to recompute digests. We just simply remove the manifest file if we find these digests inside. Sew below that I\u0027m already looking for SHA-256-Digest.",
+      "parentUuid": "9c5448b6_42008b06",
+      "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
