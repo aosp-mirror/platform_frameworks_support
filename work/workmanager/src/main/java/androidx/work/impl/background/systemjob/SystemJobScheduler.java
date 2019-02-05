@@ -15,6 +15,8 @@
  */
 package androidx.work.impl.background.systemjob;
 
+import static androidx.work.impl.background.systemjob.SystemJobInfoConverter.EXTRA_WORK_SPEC_ID;
+
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
@@ -104,7 +106,7 @@ public class SystemJobScheduler implements Scheduler {
                         .getSystemIdInfo(workSpec.id);
 
                 if (info != null) {
-                    JobInfo jobInfo = mJobScheduler.getPendingJob(info.systemId);
+                    JobInfo jobInfo = getScheduledJobInfo(mJobScheduler, workSpec.id);
                     if (jobInfo != null) {
                         Logger.get().debug(TAG, String.format(
                                 "Skipping scheduling %s because JobScheduler is aware of it "
@@ -166,24 +168,26 @@ public class SystemJobScheduler implements Scheduler {
         // Note: despite what the word "pending" and the associated Javadoc might imply, this is
         // actually a list of all unfinished jobs that JobScheduler knows about for the current
         // process.
-        List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
-        if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
-            for (JobInfo jobInfo : allJobInfos) {
-                if (workSpecId.equals(
-                        jobInfo.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
 
-                    // Its safe to call this method twice.
-                    mWorkManager.getWorkDatabase()
-                            .systemIdInfoDao()
-                            .removeSystemIdInfo(workSpecId);
+        JobInfo jobInfo = getScheduledJobInfo(mJobScheduler, workSpecId);
+        if (jobInfo != null) {
+            mWorkManager.getWorkDatabase()
+                    .systemIdInfoDao()
+                    .removeSystemIdInfo(workSpecId);
 
-                    mJobScheduler.cancel(jobInfo.getId());
+            mJobScheduler.cancel(jobInfo.getId());
+        }
 
-                    // See comment in #schedule.
-                    if (Build.VERSION.SDK_INT != 23) {
-                        return;
-                    }
-                }
+        if (Build.VERSION.SDK_INT == 23) {
+            // There is a second job scheduled which needs to be cancelled
+            jobInfo = getScheduledJobInfo(mJobScheduler, workSpecId);
+            if (jobInfo != null) {
+                // Its safe to call this method twice.
+                mWorkManager.getWorkDatabase()
+                        .systemIdInfoDao()
+                        .removeSystemIdInfo(workSpecId);
+
+                mJobScheduler.cancel(jobInfo.getId());
             }
         }
     }
@@ -202,11 +206,30 @@ public class SystemJobScheduler implements Scheduler {
                 for (JobInfo jobInfo : jobInfos) {
                     PersistableBundle extras = jobInfo.getExtras();
                     // This is a job scheduled by WorkManager.
-                    if (extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (extras.containsKey(EXTRA_WORK_SPEC_ID)) {
                         jobScheduler.cancel(jobInfo.getId());
                     }
                 }
             }
         }
+    }
+
+    private static JobInfo getScheduledJobInfo(
+            @NonNull JobScheduler jobScheduler,
+            @NonNull String workSpecId) {
+
+        List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+        // Apparently this CAN be null on API 23?
+        if (jobInfos != null) {
+            for (JobInfo jobInfo : jobInfos) {
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
+                    if (workSpecId.equals(extras.getString(EXTRA_WORK_SPEC_ID))) {
+                        return jobInfo;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
