@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dfb4130_b06538d1",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "I think the guidelines is not to use protected (although this is sth I kind-a-agree less) see go/android-api-guidelines.",
+      "range": {
+        "startLine": 563,
+        "startChar": 11,
+        "endLine": 563,
+        "endChar": 20
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d662eba4_1ef9fa3b",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "protected-\u003epublic, see above.",
+      "range": {
+        "startLine": 566,
+        "startChar": 11,
+        "endLine": 566,
+        "endChar": 20
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30f9ca15_311bd870",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "nonnull",
+      "range": {
+        "startLine": 243,
+        "startChar": 25,
+        "endLine": 243,
+        "endChar": 37
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48f8872_25c49218",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "nonnull",
+      "range": {
+        "startLine": 255,
+        "startChar": 24,
+        "endLine": 255,
+        "endChar": 36
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58a34675_06fe596c",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "nonnull or null accepted?",
+      "range": {
+        "startLine": 279,
+        "startChar": 49,
+        "endLine": 279,
+        "endChar": 63
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff77602d_f1ac78a3",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-02-05T00:40:57Z",
+      "side": 1,
+      "message": "nonnull, javadoc",
+      "range": {
+        "startLine": 591,
+        "startChar": 26,
+        "endLine": 591,
+        "endChar": 30
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
