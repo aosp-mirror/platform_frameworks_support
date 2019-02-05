@@ -16,6 +16,24 @@
       "revId": "fb54adb411bc534ad8b3ffe2a759fa43a55efb38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f074a60_b747c52f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T21:37:01Z",
+      "side": 1,
+      "message": "Thanks! Great catch! \n\nFixed and added a test",
+      "parentUuid": "4936551d_f4d32b95",
+      "revId": "fb54adb411bc534ad8b3ffe2a759fa43a55efb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
