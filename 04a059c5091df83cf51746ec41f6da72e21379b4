@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a5364b2_81e4d183",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-02-05T11:20:18Z",
+      "side": 1,
+      "message": "nit: Not part of this CL, but it would be nice if you could also add a special exception for the ambiguous mappings case: line 91 at http://r.android.com/c/platform/frameworks/support/+/784597/1/jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/bytecode/CoreRemapperImpl.kt#91\n\nI plan to catch that exception from the AGP and ask users to try out the blacklist workaround.",
+      "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
