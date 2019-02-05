@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e0d0e05_14449fb2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "What does this mean? Add more explanation here.",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db8698d_968a3909",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Use a {@link #ACTION_ITEM_COUNT_LIMIT} here instead",
+      "range": {
+        "startLine": 330,
+        "startChar": 75,
+        "endLine": 330,
+        "endChar": 80
+      },
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0526adc4_2463d45d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Expand on what the width limit is. You can just say \"half the toolbar\" or something like that.",
+      "range": {
+        "startLine": 330,
+        "startChar": 84,
+        "endLine": 330,
+        "endChar": 95
+      },
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe85bd75_ac84989d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "isWidthUnspecified* instead",
+      "range": {
+        "startLine": 344,
+        "startChar": 16,
+        "endLine": 344,
+        "endChar": 32
+      },
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39335c7c_abe6eaf0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Let\u0027s make this a \"\u003c 1\" or \"\u003c\u003d 0\" check instead.\n\nPossible that mAlwaysItemCount \u003e ACTION_ITEM_COUNT_LIMIT and the result is negative when you first initialize it.\n\nAlternatively, check for that case before you begin the loop.",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e081ef_60a04255",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Looking at this again, I think you can get rid of this check. You check for it after you measure the child (so you can break there if you\u0027d like).\n\nThe downside is that you measure one extra action, but I don\u0027t think that\u0027s too bad. It\u0027ll also allow you to get rid of the mMinActionButtonWidth.",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc6b014_3eb910a8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "You can break here instead. But flip it so it\u0027s a break early.\n\n  if (!isWidthUnspecified \u0026\u0026 (widthCapacity - viewWidth \u003c 0)) {\n    break;\n  }",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0104246_8e364f05",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Noticied you don\u0027t actually need the index, so I\u0027d rather you just change this to a for-each loop",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecae25e_a77fa8a4",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "Hm actually can we make this a switch instead? You can also use a fall-through to avoid the double ALWAYS check (just make sure to label it)\n\n  View action;\n  switch (item.getDisplayBehavior()) {\n    case ALWAYS:\n      mAlwaysItemCount++;\n      // fall-through\n    case IF_ROOM:\n      action \u003d ...;\n      break;\n    case NEVER:\n    default:\n      action \u003d null;\n  }",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "314e1687_fc82c4a2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:17:23Z",
+      "side": 1,
+      "message": "This can be final now",
+      "revId": "fdc67aa2a67f753119e2fadafc7ed93df9822660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
