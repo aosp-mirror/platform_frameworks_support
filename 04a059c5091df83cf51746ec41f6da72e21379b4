@@ -16,6 +16,23 @@
       "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5448b6_42008b06",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1337251
+      },
+      "writtenOn": "2019-02-05T11:33:32Z",
+      "side": 1,
+      "message": "Manifest file may contain digests of the entries e.g:\n\nName: common/class1.class\nSHA-256-Digest: (base64 representation of SHA-256 digest)\n\nThis is not a signature strictly speaking, however it might (I did not check TBH) prevent the verification. Should we also skip/recompute such digests?",
+      "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
