@@ -283,6 +283,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b98b400_a6d25ef7",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1019174
+      },
+      "writtenOn": "2019-02-05T01:01:44Z",
+      "side": 1,
+      "message": "Yes I think they can do everything with the new methods. While we did reduce the setting UX in Q, we did not reduce the functionality in terms of what combinations of providers can be enabled (the effective \"location mode\"). We had the deprecation period - now it\u0027s time for devs to rethink what \"location mode\" means in the new Q paradigm.",
+      "parentUuid": "29452563_7efde81b",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
