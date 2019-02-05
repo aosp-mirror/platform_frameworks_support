@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56b79f8e_e5f3100c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/TextClassification.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-02-05T20:53:14Z",
+      "side": 1,
+      "message": "Change this to new SpannableString(new SpannableStringBuilder...)) to preserve style.",
+      "range": {
+        "startLine": 651,
+        "startChar": 33,
+        "endLine": 651,
+        "endChar": 41
+      },
+      "revId": "81ecef432f54048d6796ac798803222ce8261fa6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
