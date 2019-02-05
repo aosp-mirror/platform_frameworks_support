@@ -307,6 +307,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb4a1a7_8c3e64de",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T01:04:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b98b400_a6d25ef7",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
