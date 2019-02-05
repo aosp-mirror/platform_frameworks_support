@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7ce2a9b_f673e6a3",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-02-05T19:19:21Z",
+      "side": 1,
+      "message": "based on discussion below, I believe we can write a summary sentence that linkify will not execute if certain characters are in the text. \n\nyou can use the names defined in here http://unicode.org/reports/tr9/\n\nsame holds for the other addLinks function.\n\nIf the characters will not change there may not be a strong need for API to return a list of characters. However since this is LinkifyCompat I\u0027d suggest to put them into an array, and return a copy at every api call. The same function can be added to master. This way all versions will be covered. \n\nwdyt?",
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c45ad3a_a3756ccb",
         "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
         "patchSetId": 5
