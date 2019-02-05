@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d505a4b4_72e7c377",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6011,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-02-05T04:31:49Z",
+      "side": 1,
+      "message": "It sounds like there\u0027s a condition where the view doesn\u0027t get bound. Is there another method that would be called to bind it in that case?",
+      "range": {
+        "startLine": 6009,
+        "startChar": 93,
+        "endLine": 6011,
+        "endChar": 95
+      },
+      "revId": "7af4b4390f998178e01461ae327a69940ef67f5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

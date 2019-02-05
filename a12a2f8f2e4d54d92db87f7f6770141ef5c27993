@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2d904d0_3adde9a1",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-02-05T04:31:49Z",
+      "side": 0,
+      "message": "This seems like a very long test to just check if the delegate is cleared. Is that really all it does?",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 47
+      },
+      "revId": "a12a2f8f2e4d54d92db87f7f6770141ef5c27993",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
