@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "64fec22f_28b879e8",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:26:09Z",
+      "side": 1,
+      "message": "Now that I think about it, can it be final?",
+      "parentUuid": "42d7cd9f_cc1db73e",
+      "range": {
+        "startLine": 563,
+        "startChar": 11,
+        "endLine": 563,
+        "endChar": 20
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d662eba4_1ef9fa3b",
         "filename": "car/core/api/current.txt",
         "patchSetId": 4

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa22322a_cf7c1efe",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-05T23:26:09Z",
+      "side": 1,
+      "message": "Add @CallSuper annotation",
+      "revId": "a9c463691f47a49f318c9f49f216782c20f2096e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
