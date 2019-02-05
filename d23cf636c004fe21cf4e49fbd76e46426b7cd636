@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9bee6685_ae31a26a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T19:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "274fdf00_a573161f",
+      "range": {
+        "startLine": 115,
+        "startChar": 32,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbe67da0_fd751012",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4fa4b7c2_2b550a0d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T19:29:44Z",
+      "side": 1,
+      "message": "I think this is correct. ALWAYS item will take as much as it needs, even exceeding half of car toolbar.",
+      "parentUuid": "fbe67da0_fd751012",
+      "range": {
+        "startLine": 249,
+        "startChar": 57,
+        "endLine": 249,
+        "endChar": 73
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "484f269d_40bca57d",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
@@ -62,6 +110,24 @@
       "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f82a31_1473347e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T19:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "484f269d_40bca57d",
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "16e84393_6e7b44d6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T19:29:44Z",
+      "side": 1,
+      "message": "Done.\n\nthis parameter is passed into measureChild() so it remains.",
+      "parentUuid": "709abe00_3fef3ddb",
+      "range": {
+        "startLine": 326,
+        "startChar": 39,
+        "endLine": 326,
+        "endChar": 49
+      },
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfe3d3a5_5a6bf897",
         "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
         "patchSetId": 5
@@ -102,6 +192,24 @@
       "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7abfbb93_bd893174",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T19:29:44Z",
+      "side": 1,
+      "message": "This is explained 3 lines below.",
+      "parentUuid": "bfe3d3a5_5a6bf897",
+      "revId": "d23cf636c004fe21cf4e49fbd76e46426b7cd636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
