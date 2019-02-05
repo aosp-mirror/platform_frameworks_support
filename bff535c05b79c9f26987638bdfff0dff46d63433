@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5986c32_7e07c110",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-05T19:07:49Z",
+      "side": 1,
+      "message": "I\u0027d suggest changing this logic to if (!sAnnotationIds.contains(getClass()) {} and move the get() to after the block. This approach would be compatible with the below suggestion to unconditionally call put().",
+      "revId": "bff535c05b79c9f26987638bdfff0dff46d63433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "745d56f4_09264821",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-05T19:07:49Z",
+      "side": 1,
+      "message": "You need to unconditionally call put() rather than only put if you find a valid layoutId (putting null if you don\u0027t find the annotation makes sense to me). Otherwise you\u0027ll be calling getAnnotation() over and over again for classes without a ContentView annotation.",
+      "revId": "bff535c05b79c9f26987638bdfff0dff46d63433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
