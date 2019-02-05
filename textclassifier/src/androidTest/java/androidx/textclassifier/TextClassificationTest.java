@@ -252,6 +252,25 @@ public final class TextClassificationTest {
         assertThat(platformTextClassification.getIntent()).isNull();
     }
 
+    @Test
+    public void testFixUriSchemeInRequest() {
+        // Change scheme to lower case if classifying a URI.
+        String text = "Visit hTTp://www.android.com today";
+        String expected = "Visit http://www.android.com today";
+        int startIndex = text.indexOf("hTTp://www.android.com");
+        int endIndex = startIndex + "hTTp://www.android.com".length();
+        TextClassification.Request request =
+                new TextClassification.Request.Builder(text, startIndex, endIndex).build();
+        assertThat(request.getText().toString()).isEqualTo(expected);
+
+        // No changes if classifying non-URIs.
+        text = "Visit hTTp://www.android.com today";
+        startIndex = text.indexOf("hTTp");
+        endIndex = startIndex + "hTTp".length();
+        request = new TextClassification.Request.Builder(text, startIndex, endIndex).build();
+        assertThat(request.getText().toString()).isEqualTo(text);
+    }
+
     private static TextClassification.Request.Builder createTextClassificationRequestBuilder() {
         return new TextClassification.Request.Builder(TEXT, START_INDEX, END_INDEX)
                 .setDefaultLocales(LOCALE_LIST)
