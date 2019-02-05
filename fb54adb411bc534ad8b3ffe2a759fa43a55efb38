@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4936551d_f4d32b95",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarToolbar.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1363753
+      },
+      "writtenOn": "2019-02-05T20:30:55Z",
+      "side": 1,
+      "message": "Don\u0027t you still need to call requestLayout()?",
+      "revId": "fb54adb411bc534ad8b3ffe2a759fa43a55efb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
