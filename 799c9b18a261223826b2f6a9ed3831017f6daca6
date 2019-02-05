@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d20d67b0_7f31ad65",
+        "filename": "browser/src/main/java/androidx/browser/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-05T18:01:13Z",
+      "side": 1,
+      "message": "Why is this public and @hide? It does not seem to be used outside of this class?",
+      "range": {
+        "startLine": 85,
+        "startChar": 31,
+        "endLine": 85,
+        "endChar": 43
+      },
+      "revId": "799c9b18a261223826b2f6a9ed3831017f6daca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
