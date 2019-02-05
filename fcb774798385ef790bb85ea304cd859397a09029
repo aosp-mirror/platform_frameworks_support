@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6756d78_4ede7041",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-05T22:43:14Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 96
+      },
+      "revId": "fcb774798385ef790bb85ea304cd859397a09029",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0219d9c_ff95ee2e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-05T22:43:14Z",
+      "side": 1,
+      "message": "Please don\u0027t do it this way - we already know there are timing problems on some versions of JobScheduler.  Leave the existing code as-is and fix the buggy code.",
+      "range": {
+        "startLine": 181,
+        "startChar": 7,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "fcb774798385ef790bb85ea304cd859397a09029",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98dbdb0b_f996274a",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-05T22:43:14Z",
+      "side": 1,
+      "message": "getPendingJobInfo.",
+      "range": {
+        "startLine": 217,
+        "startChar": 27,
+        "endLine": 217,
+        "endChar": 46
+      },
+      "revId": "fcb774798385ef790bb85ea304cd859397a09029",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
