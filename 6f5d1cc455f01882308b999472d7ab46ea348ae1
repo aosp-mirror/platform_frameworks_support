@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d5965cd_c8b90f94",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:40:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4016f2_08840e17",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "6f5d1cc455f01882308b999472d7ab46ea348ae1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf614424_b12f6148",
         "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "6f5d1cc455f01882308b999472d7ab46ea348ae1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f74077_81c3812c",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:40:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf614424_b12f6148",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "6f5d1cc455f01882308b999472d7ab46ea348ae1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

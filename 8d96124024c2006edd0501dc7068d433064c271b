@@ -235,6 +235,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8b4137d_1ac3fd7f",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:40:49Z",
+      "side": 1,
+      "message": "Yes, unfortunately we do. Developers still need to work with older versions of Android, and the easiest way for developers to think of location in a way that continues to work with old and new APIs is to think in terms of location modes (even if we\u0027ve moved away from that in new versions).",
+      "parentUuid": "26784e49_c3f0c4f3",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
