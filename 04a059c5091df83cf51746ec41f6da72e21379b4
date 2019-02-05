@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b77ea9d1_0dd282eb",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-05T11:54:15Z",
+      "side": 1,
+      "message": "Done! I have added the AmbiguousStringJetifierException into this CL.",
+      "parentUuid": "7a5364b2_81e4d183",
+      "revId": "04a059c5091df83cf51746ec41f6da72e21379b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c5448b6_42008b06",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/SignatureDetection.kt",
         "patchSetId": 5
