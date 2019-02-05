@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09fc21da_c1c4752c",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff9c9199_c3f77ee0",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "051824b2_65517ff5",
         "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675a581c_e301a65b",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:19:00Z",
+      "side": 1,
+      "message": "oops, yup!",
+      "parentUuid": "051824b2_65517ff5",
+      "range": {
+        "startLine": 17,
+        "startChar": 22,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7535ee06_67e6ff4c",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:19:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ee17ee_a848a048",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82673bf3_0098b34f",
         "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fbbe02c_30ad5f4a",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:19:00Z",
+      "side": 1,
+      "message": "Yes, we could, I was copying what appears to be done in other files (like WindowCompat) where the values are recreated. This is particularily relevant for us as we are trying to remove these constants from AOSP completely. This means that if we linked directly against the values from Settings, this code might break with a future SDK.",
+      "parentUuid": "82673bf3_0098b34f",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
