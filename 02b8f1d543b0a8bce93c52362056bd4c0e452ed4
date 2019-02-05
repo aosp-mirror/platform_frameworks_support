@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42d7cd9f_cc1db73e",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "Chatted offline. Keeping protected to keep consistency with sibling classes.",
+      "parentUuid": "3dfb4130_b06538d1",
+      "range": {
+        "startLine": 563,
+        "startChar": 11,
+        "endLine": 563,
+        "endChar": 20
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d662eba4_1ef9fa3b",
         "filename": "car/core/api/current.txt",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af8791d_e4b12bdd",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d662eba4_1ef9fa3b",
+      "range": {
+        "startLine": 566,
+        "startChar": 11,
+        "endLine": 566,
+        "endChar": 20
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "707ac751_7fb94435",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "null is accepted. it can clear out the text. this is the same as sibling list item classes\n\nannotated with @Nullable",
+      "parentUuid": "30f9ca15_311bd870",
+      "range": {
+        "startLine": 243,
+        "startChar": 25,
+        "endLine": 243,
+        "endChar": 37
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d48f8872_25c49218",
         "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8594f64e_e10dc54b",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "null is accepted. annotated.",
+      "parentUuid": "d48f8872_25c49218",
+      "range": {
+        "startLine": 255,
+        "startChar": 24,
+        "endLine": 255,
+        "endChar": 36
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "48353f12_f96bdc3b",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "null accepted",
+      "parentUuid": "58a34675_06fe596c",
+      "range": {
+        "startLine": 279,
+        "startChar": 49,
+        "endLine": 279,
+        "endChar": 63
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff77602d_f1ac78a3",
         "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac69b846_4cea1868",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-05T17:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff77602d_f1ac78a3",
+      "range": {
+        "startLine": 591,
+        "startChar": 26,
+        "endLine": 591,
+        "endChar": 30
+      },
+      "revId": "02b8f1d543b0a8bce93c52362056bd4c0e452ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
