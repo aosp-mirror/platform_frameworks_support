@@ -187,6 +187,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26784e49_c3f0c4f3",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-05T00:32:07Z",
+      "side": 1,
+      "message": "If we are removing them from SDK, do we want to continue having these old values here? Should the API just be MODE_ON MODE_OFF then? Or maybe we should not even add getLocationMode at all?",
+      "parentUuid": "8fbbe02c_30ad5f4a",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

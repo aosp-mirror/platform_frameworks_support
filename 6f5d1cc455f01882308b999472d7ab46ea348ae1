@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb4016f2_08840e17",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-05T00:32:07Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "6f5d1cc455f01882308b999472d7ab46ea348ae1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf614424_b12f6148",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-05T00:32:07Z",
+      "side": 1,
+      "message": "You need to mark this\n/**\n@hide\n*/\n@RestrictTo(LIBRARY)\n\nWe cannot expose @IntDef as public API sadly, however, if you hide it it will continue to be checked by Android lint, so if developer tries to use the wrong value, they\u0027ll get a warning.",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "6f5d1cc455f01882308b999472d7ab46ea348ae1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
