@@ -259,6 +259,30 @@
       "revId": "8d96124024c2006edd0501dc7068d433064c271b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29452563_7efde81b",
+        "filename": "core/src/main/java/androidx/core/location/LocationManagerCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1146013
+      },
+      "writtenOn": "2019-02-05T00:46:17Z",
+      "side": 1,
+      "message": "@David I think the underlying assumption there is that APIs usually get more expressive over time, not less, like in this case. Do you think a developer can accomplish everything with just isLocationEnabled() and isProviderEnabled()? If so, I\u0027m ok with removing getLocationMode().",
+      "parentUuid": "e8b4137d_1ac3fd7f",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "8d96124024c2006edd0501dc7068d433064c271b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
