@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72608528_fccd686e",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-02-05T22:04:09Z",
+      "side": 1,
+      "message": "sgtm.\n\nIt\u0027s still not clear to me what the impact of excluding these characters will be. \n\nBy default, I\u0027m at peace with us not linkifying text with these characters. Better safe than sorry.\nHowever, what should be the approach for folks that legitimately want text with these characters linkified?\n1. Remove the characters, linkify, re-insert the characters\n2. Have another API for folks that believe they really want to linkify with these characters\n3. Add a flag for the link mask to specify they really want to linkify with these characters\n\nAt the moment, I\u0027m thinking (1) for now.\n\nOpinions?",
+      "parentUuid": "e7ce2a9b_f673e6a3",
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c45ad3a_a3756ccb",
         "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
         "patchSetId": 5
