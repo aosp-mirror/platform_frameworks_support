@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c51df8ba_4f457fff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "It\u0027s not clear how you verified this. How does one distinguish between correct behavior vs. incorrect behavior?\n\nSome suggestions (take what\u0027s useful):\n * Toast every time the Proxy handles a request\n * Put an EditText on the bottom of the View layout, which shows the number of requests this handles",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db592f9c_dc4be0bb",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/Proxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "Is it reasonable to use okhttp instead of building this ourselves? Not a big deal if not.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96514a9d_ad4c6119",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/Proxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "nit: Can this be a lambda?",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb1d1ee3_4e33c148",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "optional: Since this should only be called once, IMO it\u0027s better to inline into #onCreate",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c6baad_2ab38182",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "This needs Feature-checks, and you need to show some UI (maybe use loadData()?) to show when the Feature is not supported",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 72
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd495354_815c317b",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "If you\u0027re loading www.google.com, you need to enable JavaScript",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da58191_37ba6bb3",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "Is this the right spot for this code?\n\nIn most of my apps, I initialize and configure the WebView during #onCreate... but I might be doing the wrong thing. The docs [1] say \"[#onStart] is where the app initializes the code that maintains the UI.\" So maybe #onStart is better?\n\n[1] https://developer.android.com/guide/components/activities/activity-lifecycle#onstart",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 58
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f6235c_6a3c28b8",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "\".i\" since this isn\u0027t a problem to warn about. You could optionally consider a Toast (user visible, but hard to verify programmatically) or something else.",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc9b5f11_e45e9802",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-05T00:34:19Z",
+      "side": 1,
+      "message": "Can you put a comment explaining why this goes here? (for the sake of serving as demo code for external readers)",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 50
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
