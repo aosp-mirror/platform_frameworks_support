@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4693128_67264b91",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/DokkaPublicDocs.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-05T17:45:28Z",
+      "side": 1,
+      "message": "I know there is a similar method in the other class, is this why you try to keep the library argument even though it\u0027s not used here? Is this like an interface? Why not have a registerProject for this class?",
+      "revId": "adfb27904774c96cd85d83ad1171b18b57fb14fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
