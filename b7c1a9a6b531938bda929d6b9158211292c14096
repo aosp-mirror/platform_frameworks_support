@@ -22,6 +22,30 @@
       "revId": "b7c1a9a6b531938bda929d6b9158211292c14096",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ca0d551_0b3e1ea3",
+        "filename": "core/src/main/java/androidx/core/text/ICUCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-02-06T20:59:51Z",
+      "side": 1,
+      "message": "I was just doing it :). It sounded not very readable in terms of relating with the if\u0027s in the function to me though. still, ack.",
+      "parentUuid": "6bfe181e_460d06c2",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "b7c1a9a6b531938bda929d6b9158211292c14096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
