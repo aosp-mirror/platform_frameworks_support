@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bfe181e_460d06c2",
+        "filename": "core/src/main/java/androidx/core/text/ICUCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-02-06T20:57:58Z",
+      "side": 1,
+      "message": "This is not very readable. You had this:\n\nif (sdk \u003e\u003d 21) {\n   A\n} else { \n   B\n}\n\nNow it can be\n\nif (sdk \u003c 21) {\n   B\n} else if (sdk \u003c 24) {\n   A\n}\n// otherwise do nothing for 24 and above",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "b7c1a9a6b531938bda929d6b9158211292c14096",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
