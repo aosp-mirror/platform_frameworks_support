@@ -34,6 +34,7 @@ import android.util.StateSet;
 import androidx.appcompat.resources.test.R;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
@@ -122,7 +123,7 @@ public class AnimatedStateListDrawableCompatTest {
         assertTrue(new AnimatedStateListDrawableCompat().isStateful());
     }
 
-    @Test
+    @LargeTest
     public void testOnStateChange() {
         AnimatedStateListDrawableCompat asld = new AnimatedStateListDrawableCompat();
 
