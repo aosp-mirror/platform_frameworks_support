@@ -22,6 +22,30 @@
       "revId": "7af4b4390f998178e01461ae327a69940ef67f5d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d3fcd1_78529088",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6011,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-06T00:26:15Z",
+      "side": 1,
+      "message": "The item delegate will be set when the holder is created and doesn\u0027t depend on binding\n\nUpdated the commit msg due to confusion",
+      "parentUuid": "d505a4b4_72e7c377",
+      "range": {
+        "startLine": 6009,
+        "startChar": 93,
+        "endLine": 6011,
+        "endChar": 95
+      },
+      "revId": "7af4b4390f998178e01461ae327a69940ef67f5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

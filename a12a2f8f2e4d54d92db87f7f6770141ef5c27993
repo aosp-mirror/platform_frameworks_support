@@ -22,6 +22,30 @@
       "revId": "a12a2f8f2e4d54d92db87f7f6770141ef5c27993",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22dd6857_701a91d7",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-06T00:26:15Z",
+      "side": 0,
+      "message": "Looks like it. It creates a set of views and checks if they all have the a11y flag and an item delegate. Then it forces them into the rv pool and checks if all the item delegates have been removed",
+      "parentUuid": "b2d904d0_3adde9a1",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 47
+      },
+      "revId": "a12a2f8f2e4d54d92db87f7f6770141ef5c27993",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
