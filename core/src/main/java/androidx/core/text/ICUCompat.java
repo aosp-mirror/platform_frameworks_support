@@ -16,6 +16,7 @@
 
 package androidx.core.text;
 
+import android.icu.util.ULocale;
 import android.os.Build;
 import android.util.Log;
 
@@ -32,30 +33,32 @@ public final class ICUCompat {
     private static Method sAddLikelySubtagsMethod;
 
     static {
-        if (Build.VERSION.SDK_INT >= 21) {
-            try {
-                // This class should always exist on API-21 since it's CTS tested.
-                final Class<?> clazz = Class.forName("libcore.icu.ICU");
-                sAddLikelySubtagsMethod = clazz.getMethod("addLikelySubtags",
-                        new Class[]{ Locale.class });
-            } catch (Exception e) {
-                throw new IllegalStateException(e);
-            }
-        } else {
-            try {
-                final Class<?> clazz = Class.forName("libcore.icu.ICU");
-                if (clazz != null) {
-                    sGetScriptMethod = clazz.getMethod("getScript",
-                            new Class[]{ String.class });
+        if (Build.VERSION.SDK_INT < 24) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                try {
+                    // This class should always exist on API-21 since it's CTS tested.
+                    final Class<?> clazz = Class.forName("libcore.icu.ICU");
                     sAddLikelySubtagsMethod = clazz.getMethod("addLikelySubtags",
-                            new Class[]{ String.class });
+                            new Class[]{ Locale.class });
+                } catch (Exception e) {
+                    throw new IllegalStateException(e);
                 }
-            } catch (Exception e) {
-                sGetScriptMethod = null;
-                sAddLikelySubtagsMethod = null;
+            } else {
+                try {
+                    final Class<?> clazz = Class.forName("libcore.icu.ICU");
+                    if (clazz != null) {
+                        sGetScriptMethod = clazz.getMethod("getScript",
+                                new Class[]{ String.class });
+                        sAddLikelySubtagsMethod = clazz.getMethod("addLikelySubtags",
+                                new Class[]{ String.class });
+                    }
+                } catch (Exception e) {
+                    sGetScriptMethod = null;
+                    sAddLikelySubtagsMethod = null;
 
-                // Nothing we can do here, we just log the exception
-                Log.w(TAG, e);
+                    // Nothing we can do here, we just log the exception
+                    Log.w(TAG, e);
+                }
             }
         }
     }
@@ -85,7 +88,10 @@ public final class ICUCompat {
      */
     @Nullable
     public static String maximizeAndGetScript(Locale locale) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            ULocale uLocale = ULocale.addLikelySubtags(ULocale.forLocale(locale));
+            return uLocale.getScript();
+        } else if (Build.VERSION.SDK_INT >= 21) {
             try {
                 final Object[] args = new Object[] { locale };
                 return ((Locale) sAddLikelySubtagsMethod.invoke(null, args)).getScript();
