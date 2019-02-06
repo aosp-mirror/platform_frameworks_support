@@ -16,6 +16,24 @@
       "revId": "a9c463691f47a49f318c9f49f216782c20f2096e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f396eccb_e65b78a6",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-06T00:16:02Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "fa22322a_cf7c1efe",
+      "revId": "a9c463691f47a49f318c9f49f216782c20f2096e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
