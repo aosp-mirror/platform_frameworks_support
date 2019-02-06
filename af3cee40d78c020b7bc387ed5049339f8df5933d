@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35e17b2b_de010a30",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-02-06T15:15:13Z",
+      "side": 1,
+      "message": "Ah! Because we\u0027re wrapping the Animation, we don\u0027t have to worry about the listener. Makes sense to me.",
+      "range": {
+        "startLine": 1087,
+        "startChar": 22,
+        "endLine": 1087,
+        "endChar": 42
+      },
+      "revId": "af3cee40d78c020b7bc387ed5049339f8df5933d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
