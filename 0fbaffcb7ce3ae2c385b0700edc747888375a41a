@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "38849df6_14b95697",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-07T14:55:24Z",
+      "side": 1,
+      "message": "Changed to set context in constructor.",
+      "parentUuid": "43d7918a_86d879ee",
+      "range": {
+        "startLine": 1137,
+        "startChar": 44,
+        "endLine": 1137,
+        "endChar": 56
+      },
+      "revId": "0fbaffcb7ce3ae2c385b0700edc747888375a41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65000c5e_79eb368a",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "09609cc9_1ef31e98",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-07T14:55:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65000c5e_79eb368a",
+      "range": {
+        "startLine": 1199,
+        "startChar": 16,
+        "endLine": 1199,
+        "endChar": 17
+      },
+      "revId": "0fbaffcb7ce3ae2c385b0700edc747888375a41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78d09221_3bd6b572",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "0fbaffcb7ce3ae2c385b0700edc747888375a41a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bab2c4a_9cc62565",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-07T14:55:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78d09221_3bd6b572",
+      "range": {
+        "startLine": 1215,
+        "startChar": 16,
+        "endLine": 1215,
+        "endChar": 17
+      },
+      "revId": "0fbaffcb7ce3ae2c385b0700edc747888375a41a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
