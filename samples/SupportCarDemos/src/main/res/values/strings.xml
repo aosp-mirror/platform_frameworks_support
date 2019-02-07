@@ -149,5 +149,11 @@
     <string name="show_nothing">Show nothing</string>
     <string name="show_buttons">Only show buttons</string>
     <string name="show_everything">Show everything</string>
+
+    <!-- Strings for TabBarViewActivity Demo. -->
+    <string name="button_tab_align_start">Align start</string>
+    <string name="button_tab_align_center">Align center</string>
+    <string name="button_add_tab">Add tab</string>
+    <string name="button_remove_tab">Remove tab</string>
 </resources>
 

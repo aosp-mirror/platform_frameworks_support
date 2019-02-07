@@ -203,4 +203,8 @@ limitations under the License.
     <!-- list margin won't be necessary after PagedListView is brought in -->
     <dimen name="car_preference_list_margin">8dp</dimen>
 
+    <!-- Tabs -->
+    <dimen name="tab_min_width">140dp</dimen>
+    <item name="selected_tab_alpha" format="float" type="dimen">1.0</item>
+    <item name="inactive_tab_alpha" format="float" type="dimen">0.5</item>
 </resources>
