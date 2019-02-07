@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c1e31b08_bfae7d62",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-02-07T19:07:59Z",
+      "side": 1,
+      "message": "Cool. Thanks.\nI\u0027ll start in 1 and then begin the process for 3 as a different task as I\u0027ll need to consider whether this should go in androidx only or if we have to make API changes in platform too. There\u0027s also a consideration for how to handle platform versions where we\u0027ve essentially removed the ability to even linkify these characters.",
+      "parentUuid": "72b40e4f_f6a6d1e1",
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c45ad3a_a3756ccb",
         "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
         "patchSetId": 5
