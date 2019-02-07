@@ -257,6 +257,39 @@ package androidx.car.widget {
     method public void onClick(androidx.car.widget.CarMenuItem!);
   }
 
+  public class CarTabBarView extends android.view.ViewGroup {
+    ctor public CarTabBarView(android.content.Context!);
+    ctor public CarTabBarView(android.content.Context!, android.util.AttributeSet!);
+    ctor public CarTabBarView(android.content.Context!, android.util.AttributeSet!, int);
+    ctor public CarTabBarView(android.content.Context!, android.util.AttributeSet!, int, int);
+    method @IntRange(from=0) public int getSelectedTab();
+    method public void setOnTabSelectListener(androidx.car.widget.CarTabBarView.OnTabSelectedListener?);
+    method public void setSelectedTab(@IntRange(from=0) int);
+    method public void setTabAlignment(@androidx.car.widget.CarTabBarView.TabAlignment int);
+    method public void setTabs(java.util.List<androidx.car.widget.CarTabItem>?);
+  }
+
+  public static interface CarTabBarView.OnTabSelectedListener {
+    method public void onTabSelected(int);
+  }
+
+  @IntDef({androidx.car.widget.CarTabBarView.TabAlignment.START, androidx.car.widget.CarTabBarView.TabAlignment.CENTER}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface CarTabBarView.TabAlignment {
+    field public static final int CENTER = 1; // 0x1
+    field public static final int START = 0; // 0x0
+  }
+
+  public class CarTabItem {
+    method public android.graphics.drawable.Icon? getIcon();
+    method public CharSequence? getText();
+  }
+
+  public static final class CarTabItem.Builder {
+    ctor public CarTabItem.Builder();
+    method public androidx.car.widget.CarTabItem build();
+    method public androidx.car.widget.CarTabItem.Builder setIcon(android.graphics.drawable.Icon?);
+    method public androidx.car.widget.CarTabItem.Builder setText(CharSequence?);
+  }
+
   public class CarToolbar extends android.view.ViewGroup {
     ctor public CarToolbar(android.content.Context!);
     ctor public CarToolbar(android.content.Context!, android.util.AttributeSet!);
