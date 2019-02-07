@@ -19,6 +19,7 @@ package androidx.navigation
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcel
+import android.os.Parcelable
 import androidx.navigation.test.R
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
@@ -208,7 +209,7 @@ class NavControllerTest {
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
         val graph = NavInflater(context, navController.navigatorProvider)
-                .inflate(R.navigation.nav_simple)
+            .inflate(R.navigation.nav_simple)
         navController.graph = graph
         navController.navigate(R.id.second_test)
 
@@ -222,6 +223,165 @@ class NavControllerTest {
 
         // Explicitly setting a graph then restores the state
         navController.graph = graph
+        assertEquals(R.id.second_test, navController.currentDestination?.id ?: 0)
+        assertEquals(2, navigator.backStack.size)
+    }
+
+    @Test
+    fun testSaveRestoreStateBundleParceledXml() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = SaveStateTestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.nav_simple)
+        navController.navigate(R.id.second_test)
+
+        val savedState = navController.saveState()
+        savedState?.putParcelable("TEST", CustomTestParcelable("ARG1"))
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        // Restore state doesn't recreate any graph
+        navController.restoreState(restoredState)
+        assertNull(navController.currentDestination)
+
+        // Ensure custom parcelable is present and can be read
+        val customParcelableArg = restoredState
+            .getParcelable<CustomTestParcelable>("TEST")
+        assertEquals("ARG1", customParcelableArg?.name)
+
+        // Explicitly setting a graph then restores the state
+        navController.setGraph(R.navigation.nav_simple)
+
+        assertEquals(R.id.second_test, navController.currentDestination?.id ?: 0)
+        assertEquals(2, navigator.backStack.size)
+        // Save state should be called on the navigator exactly once
+        assertEquals(1, navigator.saveStateCount)
+    }
+
+    @Test
+    fun testBackstackArgsBundleParceledXml() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = SaveStateTestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+
+        val backStackArg1 = Bundle()
+        backStackArg1.putParcelable("TEST", CustomTestParcelable("ARG1"))
+        navController.setGraph(R.navigation.nav_arguments)
+        navController.navigate(R.id.second_test, backStackArg1)
+
+        val savedState = navController.saveState()
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        // Restore state doesn't recreate any graph
+        navController.restoreState(restoredState)
+        assertNull(navController.currentDestination)
+
+        // Explicitly setting a graph then restores the state
+        navController.setGraph(R.navigation.nav_arguments)
+
+        // Ensure custom parcelable is present and can be read
+        val customParcelableArg = navController.mBackStack.last.arguments
+            ?.getParcelable<CustomTestParcelable>("TEST")
+        assertEquals("ARG1", customParcelableArg?.name)
+
+        assertEquals(R.id.second_test, navController.currentDestination?.id ?: 0)
+        assertEquals(2, navigator.backStack.size)
+        // Save state should be called on the navigator exactly once
+        assertEquals(1, navigator.saveStateCount)
+
+    }
+
+    @Test
+    fun testSaveRestoreStateBundleParceledProgrammatic() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = TestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+        val graph = NavInflater(context, navController.navigatorProvider)
+            .inflate(R.navigation.nav_simple)
+        navController.graph = graph
+        navController.navigate(R.id.second_test)
+
+        val savedState = navController.saveState()
+        savedState?.putParcelable("TEST", CustomTestParcelable("ARG1"))
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        // Restore state doesn't recreate any graph
+        navController.restoreState(restoredState)
+        assertNull(navController.currentDestination)
+
+        // Ensure custom parcelable is present and can be read
+        val customParcelableArg = restoredState
+            .getParcelable<CustomTestParcelable>("TEST")
+        assertEquals("ARG1", customParcelableArg?.name)
+
+        // Explicitly setting a graph then restores the state
+        navController.graph = graph
+        assertEquals(R.id.second_test, navController.currentDestination?.id ?: 0)
+        assertEquals(2, navigator.backStack.size)
+    }
+
+    @Test
+    fun testSBackstackArgsBundleParceledProgrammatic() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = TestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+        val backStackArg1 = Bundle()
+        backStackArg1.putParcelable("TEST", CustomTestParcelable("ARG1"))
+        val graph = NavInflater(context, navController.navigatorProvider)
+            .inflate(R.navigation.nav_arguments)
+        navController.graph = graph
+        navController.navigate(R.id.second_test, backStackArg1)
+
+        val savedState = navController.saveState()
+        savedState?.putParcelable("TEST", CustomTestParcelable("ARG1"))
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        // Restore state doesn't recreate any graph
+        navController.restoreState(restoredState)
+        assertNull(navController.currentDestination)
+
+        // Explicitly setting a graph then restores the state
+        navController.graph = graph
+
+        // Ensure custom parcelable is present and can be read
+        val customParcelableArg = navController.mBackStack.last.arguments
+            ?.getParcelable<CustomTestParcelable>("TEST")
+        assertEquals("ARG1", customParcelableArg?.name)
         assertEquals(R.id.second_test, navController.currentDestination?.id ?: 0)
         assertEquals(2, navigator.backStack.size)
     }
@@ -662,4 +822,31 @@ class SaveStateTestNavigator : TestNavigator() {
     override fun onRestoreState(savedState: Bundle) {
         saveStateCount = savedState.getInt(STATE_SAVED_COUNT)
     }
+}
+
+/**
+ * [CustomTestParcelable] that helps testing bundled custom parcels
+ */
+data class CustomTestParcelable(val name : String?) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString())
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.writeString(name)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<CustomTestParcelable> {
+        override fun createFromParcel(parcel: Parcel): CustomTestParcelable {
+            return CustomTestParcelable(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CustomTestParcelable?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }
