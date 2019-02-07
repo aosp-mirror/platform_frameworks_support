@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04581f4d_b85a8320",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearSmoothScroller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-07T01:23:15Z",
+      "side": 1,
+      "message": "Haha, good catch! (or good test)",
+      "revId": "dc8e01309aa30a4956b13e5c91d11b5fa1c62952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

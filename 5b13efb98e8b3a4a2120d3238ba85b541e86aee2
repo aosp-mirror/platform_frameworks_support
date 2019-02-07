@@ -22,6 +22,30 @@
       "revId": "5b13efb98e8b3a4a2120d3238ba85b541e86aee2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cafa76cb_7ec46429",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearSmoothScroller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-07T01:23:15Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "bcabedc5_f4ec54d8",
+      "range": {
+        "startLine": 156,
+        "startChar": 7,
+        "endLine": 158,
+        "endChar": 8
+      },
+      "revId": "5b13efb98e8b3a4a2120d3238ba85b541e86aee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
