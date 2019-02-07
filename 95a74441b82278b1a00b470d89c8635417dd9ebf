@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00803b7a_eeace439",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-07T05:14:02Z",
+      "side": 1,
+      "message": "Q) Should the alpha05.txt and current.txt both change?",
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03f4c372_b67b7274",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-07T05:14:02Z",
+      "side": 1,
+      "message": "Needs @NonNull/Nullable",
+      "range": {
+        "startLine": 505,
+        "startChar": 98,
+        "endLine": 505,
+        "endChar": 99
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94da6a7a_ded95eec",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-07T05:14:02Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 509,
+        "startChar": 98,
+        "endLine": 509,
+        "endChar": 100
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92072cd3_fbfe092c",
+        "filename": "media2/src/main/java/androidx/media2/RemoteSessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-07T05:14:02Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 122,
+        "startChar": 74,
+        "endLine": 122,
+        "endChar": 75
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
