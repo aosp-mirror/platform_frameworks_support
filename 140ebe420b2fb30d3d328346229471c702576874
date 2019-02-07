@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c2d9e795_f7e71a05",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-07T14:11:33Z",
+      "side": 1,
+      "message": "Changed to OsConstants.S_IRWXU based on information here: http://man7.org/linux/man-pages/man2/open.2.html",
+      "parentUuid": "348b6960_92d4429a",
+      "range": {
+        "startLine": 807,
+        "startChar": 80,
+        "endLine": 807,
+        "endChar": 84
+      },
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6838331_4052a7dd",
         "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
         "patchSetId": 4
@@ -241,6 +265,24 @@
       "revId": "140ebe420b2fb30d3d328346229471c702576874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c715343_f8cbff58",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-07T14:11:33Z",
+      "side": 1,
+      "message": "Ooops. Done",
+      "parentUuid": "2eea708b_b407f4c7",
+      "revId": "140ebe420b2fb30d3d328346229471c702576874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
