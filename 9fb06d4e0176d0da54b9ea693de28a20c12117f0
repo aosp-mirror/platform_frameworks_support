@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4eb2a3d_42b064dd",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary for this test.",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 48
+      },
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c09f13_c59f5022",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "This comment isn\u0027t as useful as part of this test.",
+      "range": {
+        "startLine": 252,
+        "startChar": 8,
+        "endLine": 252,
+        "endChar": 51
+      },
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b15da6_bef643dd",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "Remove this comment too",
+      "range": {
+        "startLine": 254,
+        "startChar": 8,
+        "endLine": 254,
+        "endChar": 61
+      },
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e8bf2de_2c90ec27",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "Use Truth asserts:\n\nassertThat(navigator.customParcel?.name)\n    .isEqualTo(\"ARG1\")",
+      "range": {
+        "startLine": 258,
+        "startChar": 8,
+        "endLine": 258,
+        "endChar": 58
+      },
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8788b733_13179eef",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "Remove this comment",
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f9f3bf3_b511c423",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "Remove this comment (and the newline above it)",
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2268154_c6de4613",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T23:47:28Z",
+      "side": 1,
+      "message": "Use Truth asserts:\n\nassertThat(arguments?.getParcelable\u003cCustomTestParcelable\u003e(\"TEST\")?.name)\n    .isEqualTo(\"ARG1\")",
+      "revId": "9fb06d4e0176d0da54b9ea693de28a20c12117f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
