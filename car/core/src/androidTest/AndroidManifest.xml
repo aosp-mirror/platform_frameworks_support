@@ -21,6 +21,8 @@
     <application android:supportsRtl="true">
         <activity android:name="androidx.car.drawer.CarDrawerTestActivity"
                   android:theme="@style/Theme.Car.Light.NoActionBar.Drawer" />
+        <activity android:name="androidx.car.widget.CarTabBarViewTestActivity"
+                  android:theme="@style/Theme.Car.Light.NoActionBar" />
         <activity android:name="androidx.car.widget.CarToolbarTestActivity"
                   android:theme="@style/Theme.Car.Light.NoActionBar" />
         <activity android:name="androidx.car.widget.ColumnCardViewTestActivity"
