@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "72b40e4f_f6a6d1e1",
+        "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-02-07T18:57:28Z",
+      "side": 1,
+      "message": "I feel like if you do 2/3 then you wouldn\u0027t need to add an api to return the list of forbidden characters. there are tradeoffs for all of them, but mask solution can easily handle the case by adding a force flag. \ni think all 1-2-3 are good.",
+      "parentUuid": "72608528_fccd686e",
+      "revId": "9f3e1ddbd2e34e701a69b904c8d2ab21bea7b6bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c45ad3a_a3756ccb",
         "filename": "core/src/main/java/androidx/core/text/util/LinkifyCompat.java",
         "patchSetId": 5
