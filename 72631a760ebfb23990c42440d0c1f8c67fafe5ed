@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83a99b50_fbff8509",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/kotlin/KotlinTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-07T22:43:21Z",
+      "side": 1,
+      "message": "This should be as? to support null values.",
+      "range": {
+        "startLine": 97,
+        "startChar": 38,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "72631a760ebfb23990c42440d0c1f8c67fafe5ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
