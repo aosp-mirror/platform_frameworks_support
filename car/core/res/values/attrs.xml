@@ -185,6 +185,23 @@ limitations under the License.
         <attr name="overflowIcon" format="reference"/>
     </declare-styleable>
 
+    <!-- Attributes for the tab bar view. -->
+    <declare-styleable name="CarTabBarView">
+        <!-- The horizontal alignment of the tabs. -->
+        <attr name="carTabAlignment" format="enum">
+            <!-- The tabs are laid out from the start of the view. -->
+            <enum name="start" value="0" />
+            <!-- The tabs are horizontally centered. -->
+            <enum name="center" value="1" />
+        </attr>
+        <!-- Drawable that will provide the touch ripple for each tab. -->
+        <attr name="carTabRippleDrawable" format="color"/>
+        <!-- Tint that will be applied to the icon on each tab. -->
+        <attr name="carTabIconTint" format="color"/>
+        <!-- TextAppearance of the text on each tab. -->
+        <attr name="carTabTextAppearance" format="reference"/>
+    </declare-styleable>
+
     <!-- Attributes specifically related to modifying car themes. -->
     <declare-styleable name="CarTheme">
         <!-- ================== -->
@@ -206,6 +223,8 @@ limitations under the License.
         <!-- An attribute for specifying a style that modifies the look of CarToolbar. -->
         <attr name="carToolbarStyle" format="reference"/>
 
+        <!-- An attribute for specifying a style that modifies the look of CarToolbar. -->
+        <attr name="carTabBarStyle" format="reference"/>
 
         <!-- ================= -->
         <!-- Dialog Attributes -->
