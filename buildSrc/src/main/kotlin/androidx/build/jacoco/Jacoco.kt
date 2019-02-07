@@ -19,6 +19,7 @@ package androidx.build.jacoco
 import androidx.build.getDistributionDirectory
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
 
@@ -46,6 +47,14 @@ object Jacoco {
             archiveName = "jacocoant.jar"
         }
         return task
+    }
+
+    @JvmStatic
+    fun registerClassFilesTask(project: Project, provider: TaskProvider<out Task>) {
+        project.rootProject.tasks.named("packageAllClassFilesForCoverageReport", Jar::class.java)
+            .configure {
+                it.from(provider)
+            }
     }
 
     fun createCoverageJarTask(project: Project): Task {
