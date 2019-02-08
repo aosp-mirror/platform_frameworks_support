@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a320411_f2509f8b",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "move these to the actual method calls so that we don\u0027t over suppress in our code",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6333fe94_b7cc4668",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "not sure why this wrapper is necessary.",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "640c6111_7ef9f6c7",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "what prevents someone putting into this queue after release? We probably need to cancel them immediately.",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ad2b7a_2128cd00",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "comment on why this is hashcode. as far as i remember, this is just used as a marker. in that case, maybe use a constant or Sysytem.identitiyHsah ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 73,
+        "endLine": 96,
+        "endChar": 94
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd22be4f_955e2d13",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
         "patchSetId": 5
@@ -25,6 +117,133 @@
     },
     {
       "key": {
+        "uuid": "4550bca2_afaedb94",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "suppress deprecated on this? (and all other usages :(). we might want to move deprecation into another CL to clean things up.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 43
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfff19ee_e91ba685",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "a couple of if checks: https://android-review.googlesource.com/c/platform/frameworks/support/+/891674/5/room/runtime/src/main/java/androidx/room/RoomDatabase.java#256",
+      "parentUuid": "bd22be4f_955e2d13",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d87943b4_930f9d11",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "ditto, deprecated warning",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 62
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4ab0a26_d70e62d5",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bacb625_d11417ec",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "you shouldn\u0027t need awaits here as you are running async in the transaction scope. runSuspend should be waiting for them already before returning.",
+      "range": {
+        "startLine": 431,
+        "startChar": 13,
+        "endLine": 433,
+        "endChar": 29
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3089fa_d587430a",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36361689_f8af86d5",
         "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
         "patchSetId": 5
@@ -36,6 +255,30 @@
       "writtenOn": "2019-02-07T21:04:56Z",
       "side": 1,
       "message": "There\u0027s no type enforcement stopping the body from calling whatever non-blocking or blocking DAO methods it likes?",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 58
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d205b989_4ce94651",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:56:37Z",
+      "side": 1,
+      "message": "they would need a scope to launch inside that function.",
+      "parentUuid": "36361689_f8af86d5",
       "range": {
         "startLine": 355,
         "startChar": 0,
