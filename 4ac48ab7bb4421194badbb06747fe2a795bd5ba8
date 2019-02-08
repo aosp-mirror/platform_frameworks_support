@@ -360,6 +360,30 @@
       "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6b0762_fcc30b58",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-08T23:23:47Z",
+      "side": 1,
+      "message": "The last example deadlocks with suspendInsert2() trying to acquire the database lock, does it not? (barring reentrancy)\n\nThe same DAO object can have both suspend and non-suspend methods on it that otherwise do the same thing. Only the non-suspend versions really make sense to call in a transaction - all the suspend ones add is a chance to accidentally run from a different thread and deadlock when awaited.\n\nWouldn\u0027t it be better if these were separated somehow?",
+      "parentUuid": "ba5ede42_81647539",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 58
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
