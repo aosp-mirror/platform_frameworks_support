@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "43d612a7_deb42854",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T22:28:02Z",
+      "side": 1,
+      "message": "i think we just need to mark dispatchers\u0027s job cancelled when we receive stop.",
+      "parentUuid": "640c6111_7ef9f6c7",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5ad2b7a_2128cd00",
         "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
         "patchSetId": 5
