@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09e4e875_fbbd43dc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/element_ext.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:12:36Z",
+      "side": 1,
+      "message": "comment on what this is",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 5
+      },
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c45511c2_7cd32d96",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:12:36Z",
+      "side": 1,
+      "message": "can we used named params here? (if KotlinClassHeader is coming from kotlin not java)",
+      "range": {
+        "startLine": 75,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c296fa_75508873",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T20:12:36Z",
+      "side": 1,
+      "message": "create bug for todo.",
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
