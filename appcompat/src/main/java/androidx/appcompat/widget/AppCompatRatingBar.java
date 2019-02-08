@@ -16,13 +16,23 @@
 
 package androidx.appcompat.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RatingBar;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
+import androidx.core.view.TintableBackgroundView;
+import androidx.core.view.ViewCompat;
 
 /**
  * A {@link RatingBar} which supports compatible features on older versions of the platform.
@@ -32,9 +42,10 @@ import androidx.appcompat.R;
  * <a href="{@docRoot}topic/libraries/support-library/packages.html#v7-appcompat">appcompat</a>.
  * You should only need to manually use this class when writing custom views.</p>
  */
-public class AppCompatRatingBar extends RatingBar {
+public class AppCompatRatingBar extends RatingBar implements TintableBackgroundView {
 
     private final AppCompatProgressBarHelper mAppCompatProgressBarHelper;
+    private final AppCompatBackgroundHelper mBackgroundTintHelper;
 
     public AppCompatRatingBar(Context context) {
         this(context, null);
@@ -49,6 +60,9 @@ public class AppCompatRatingBar extends RatingBar {
 
         mAppCompatProgressBarHelper = new AppCompatProgressBarHelper(this);
         mAppCompatProgressBarHelper.loadFromAttributes(attrs, defStyleAttr);
+
+        mBackgroundTintHelper = new AppCompatBackgroundHelper(this);
+        mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
     }
 
     @Override
@@ -63,4 +77,83 @@ public class AppCompatRatingBar extends RatingBar {
         }
     }
 
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintList(View, ColorStateList)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintList(tint);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintList(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public ColorStateList getSupportBackgroundTintList() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintList() : null;
+    }
+
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintMode(View, PorterDuff.Mode)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintMode(tintMode);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintMode(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public PorterDuff.Mode getSupportBackgroundTintMode() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintMode() : null;
+    }
+
+    @Override
+    public void setBackgroundDrawable(Drawable background) {
+        super.setBackgroundDrawable(background);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundDrawable(background);
+        }
+    }
+
+    @Override
+    public void setBackgroundResource(@DrawableRes int resId) {
+        super.setBackgroundResource(resId);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundResource(resId);
+        }
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.applySupportBackgroundTint();
+        }
+    }
 }

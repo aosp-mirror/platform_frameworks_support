@@ -507,10 +507,15 @@ package androidx.appcompat.widget {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintMode(android.graphics.PorterDuff.Mode?);
   }
 
-  public class AppCompatCheckedTextView extends android.widget.CheckedTextView {
+  public class AppCompatCheckedTextView extends android.widget.CheckedTextView implements androidx.core.view.TintableBackgroundView {
     ctor public AppCompatCheckedTextView(android.content.Context!);
     ctor public AppCompatCheckedTextView(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatCheckedTextView(android.content.Context!, android.util.AttributeSet!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
+    method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
     method public void setTextAppearance(android.content.Context!, int);
   }
 
@@ -583,16 +588,26 @@ package androidx.appcompat.widget {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportButtonTintMode(android.graphics.PorterDuff.Mode?);
   }
 
-  public class AppCompatRatingBar extends android.widget.RatingBar {
+  public class AppCompatRatingBar extends android.widget.RatingBar implements androidx.core.view.TintableBackgroundView {
     ctor public AppCompatRatingBar(android.content.Context!);
     ctor public AppCompatRatingBar(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatRatingBar(android.content.Context!, android.util.AttributeSet!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
+    method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
   }
 
-  public class AppCompatSeekBar extends android.widget.SeekBar {
+  public class AppCompatSeekBar extends android.widget.SeekBar implements androidx.core.view.TintableBackgroundView {
     ctor public AppCompatSeekBar(android.content.Context!);
     ctor public AppCompatSeekBar(android.content.Context!, android.util.AttributeSet!);
     ctor public AppCompatSeekBar(android.content.Context!, android.util.AttributeSet!, int);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.content.res.ColorStateList? getSupportBackgroundTintList();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public android.graphics.PorterDuff.Mode? getSupportBackgroundTintMode();
+    method public void setBackgroundDrawable(android.graphics.drawable.Drawable!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintList(android.content.res.ColorStateList?);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public void setSupportBackgroundTintMode(android.graphics.PorterDuff.Mode?);
   }
 
   public class AppCompatSpinner extends android.widget.Spinner implements androidx.core.view.TintableBackgroundView {
