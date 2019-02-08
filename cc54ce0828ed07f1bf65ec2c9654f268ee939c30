@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ea155a84_c3c31055",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-08T22:24:44Z",
+      "side": 1,
+      "message": "This in isolation also managed to hang the build.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 25
+      },
+      "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37ea33a3_d36bf804",
         "filename": "buildSrc/init.gradle",
         "patchSetId": 2
@@ -66,6 +89,29 @@
         "startChar": 8,
         "endLine": 99,
         "endChar": 35
+      },
+      "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8532dfe7_2908f1ba",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-08T22:24:44Z",
+      "side": 1,
+      "message": "This also causes the build to get stuck.",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 46
       },
       "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
