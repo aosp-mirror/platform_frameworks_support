@@ -80,7 +80,9 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
         for (NavDestination child : this) {
             Pair<NavDestination, Bundle> childBestMatch = child.matchDeepLink(uri);
             if (childBestMatch != null && (bestMatch == null
-                    || childBestMatch.second.size() > bestMatch.second.size())) {
+                    || childBestMatch.second.size() == 0
+                    || (bestMatch.second.size() > 0
+                    && childBestMatch.second.size() > bestMatch.second.size()))) {
                 bestMatch = childBestMatch;
             }
         }

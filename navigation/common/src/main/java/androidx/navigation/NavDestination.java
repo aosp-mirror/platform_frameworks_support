@@ -308,7 +308,9 @@ public class NavDestination {
         for (NavDeepLink deepLink : mDeepLinks) {
             Bundle matchingArguments = deepLink.getMatchingArguments(uri, getArguments());
             if (matchingArguments != null && (bestMatchingArguments == null
-                    || matchingArguments.size() > bestMatchingArguments.size())) {
+                    || matchingArguments.size() == 0
+                    || (bestMatchingArguments.size() > 0
+                    && matchingArguments.size() > bestMatchingArguments.size()))) {
                 bestMatchingArguments = matchingArguments;
             }
         }
