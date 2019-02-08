@@ -105,6 +105,14 @@ import java.util.concurrent.Executor;
  *
  */
 public class MediaControlView extends ViewGroup {
+    /**
+     * Indicates that the delayed animation that automatically hides MediaControlView after it is
+     * shown should be disabled.
+     *
+     * @see {@link VideoView#setMediaControlView(MediaControlView, long)}
+     */
+    public static final long DISABLE_DELAYED_ANIMATION = -1;
+
     private static final String TAG = "MediaControlView";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
@@ -143,15 +151,14 @@ public class MediaControlView extends ViewGroup {
 
     // Int for defining the UX state where all the views (TitleBar, ProgressBar, BottomBar) are
     // all visible.
-    private static final int UX_STATE_ALL_VISIBLE = 0;
+    static final int UX_STATE_ALL_VISIBLE = 0;
     // Int for defining the UX state where only the ProgressBar view is visible.
-    private static final int UX_STATE_ONLY_PROGRESS_VISIBLE = 1;
+    static final int UX_STATE_ONLY_PROGRESS_VISIBLE = 1;
     // Int for defining the UX state where none of the views are visible.
-    private static final int UX_STATE_NONE_VISIBLE = 2;
+    static final int UX_STATE_NONE_VISIBLE = 2;
     // Int for defining the UX state where the views are being animated (shown or hidden).
-    private static final int UX_STATE_ANIMATING = 3;
+    static final int UX_STATE_ANIMATING = 3;
 
-    private static final long DISABLE_DELAYED_ANIMATION = -1;
     private static final long DEFAULT_DELAYED_ANIMATION_INTERVAL_MS = 2000;
     private static final long DEFAULT_PROGRESS_UPDATE_TIME_MS = 1000;
     private static final long REWIND_TIME_MS = 10000;
@@ -918,7 +925,7 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
-    private void showMediaControlView() {
+    void showMediaControlView() {
         if (mUxState == UX_STATE_ANIMATING) {
             return;
         }
@@ -932,7 +939,7 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
-    private void hideMediaControlView() {
+    void hideMediaControlView() {
         if (shouldNotHideBars() || mUxState == UX_STATE_ANIMATING) {
             return;
         }

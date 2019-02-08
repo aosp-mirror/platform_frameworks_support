@@ -43,6 +43,23 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="androidx.media2.widget.VideoViewFullScreenActivity"
+                  android:theme="@style/Theme.AppCompat"
+                  android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".VideoPlayerFullScreenActivity"
+            android:theme="@style/Theme.AppCompat"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
+
+
         <receiver android:name="androidx.media.session.MediaButtonReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
