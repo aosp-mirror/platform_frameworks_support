@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5269fbe9_23371b0f",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/CarToolbarTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-08T21:59:02Z",
+      "side": 1,
+      "message": "Can you remove the extra new line here?",
+      "revId": "13f6718bb48f130791b29c7739a9efd96bf612c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
