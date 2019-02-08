@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11135be0_d2dc99d1",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-08T05:16:20Z",
+      "side": 1,
+      "message": "Would it be better if it could be public?",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 11
+      },
+      "revId": "54369742b90f06571c538e226f4f957e415f5600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d92a887e_3d4afd42",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-08T05:16:20Z",
+      "side": 1,
+      "message": "I have a question which is not really about this CL. Is there any reason not exposing this method as public? It can be set by VideoView#setMediaControlView but using MCV alone does not allow setting the interval.",
+      "range": {
+        "startLine": 538,
+        "startChar": 9,
+        "endLine": 538,
+        "endChar": 36
+      },
+      "revId": "54369742b90f06571c538e226f4f957e415f5600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
