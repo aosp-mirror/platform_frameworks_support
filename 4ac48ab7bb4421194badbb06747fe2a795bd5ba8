@@ -312,6 +312,30 @@
       "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a2c09d_50e67fda",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-08T22:34:14Z",
+      "side": 1,
+      "message": "Doesn\u0027t that risk deadlock if that scope is running on a different thread? What happens for single-threaded contexts?",
+      "parentUuid": "d205b989_4ce94651",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 58
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
