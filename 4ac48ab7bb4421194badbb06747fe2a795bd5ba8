@@ -336,6 +336,30 @@
       "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5ede42_81647539",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T23:17:03Z",
+      "side": 1,
+      "message": "that would be async.\nso if they do\n\n    runInTransaction {\n        insert1()\n        GlobalScope.launch {\n           insert2()\n        }\n    }\n\nThe response from GlobalScope.launch will not be awaited. And practically that code looks bad, could do the same in java:\n\n\n\n    runInTransaction {\n        insert1()\n        executors.submit {\n           insert2()\n        }\n    }\n\nBoth wont work, or more practically, neither will in the same transaction.\nOnly if, executor is a fake impl that runs the code immediately.\n\nAnd if they do:\n\n    runInTransaction {\n        insert1()\n        runBlocking {\n           insert2()\n\n        }\n    }\n\nthat should work, because runBlocking uses current thread.\n\nbut if they do:\n    runInTransaction {\n        insert1()\n        runBlocking {\n           suspendInsert2()\n\n        }\n    }\n\n    suspend fun suspendInsert2() \u003d withContext(Dispatchers.IO) { insert2() }\n\nit wont work unless they use the suspend version of run in transaction.",
+      "parentUuid": "c5a2c09d_50e67fda",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 58
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
