@@ -384,6 +384,30 @@
       "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406c54bd_b8a6f820",
+        "filename": "room/runtime/src/main/java/androidx/room/RoomDatabase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-08T23:51:20Z",
+      "side": 1,
+      "message": "for regular transactions, yes, you should never launch but runBlocking is discouraged already and doing scope.launch makes it async. So it is really really hard to call a suspend function inside a runInTransaction. \n\nnot sure if we can detect the case you are mentioning.\nThe opposite is what we are detecting though, in the suspend version of run in transaction (if you switch context and call a blocking function, we detect and throw. We\u0027ll hopefully detect and fix in the future).",
+      "parentUuid": "9a6b0762_fcc30b58",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 58
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
