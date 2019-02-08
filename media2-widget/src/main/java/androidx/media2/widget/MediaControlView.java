@@ -105,6 +105,14 @@ import java.util.concurrent.Executor;
  *
  */
 public class MediaControlView extends ViewGroup {
+    /**
+     * Indicates that the delayed animation that automatically hides MediaControlView after it is
+     * shown should be disabled.
+     *
+     * @see {@link VideoView#setMediaControlView(MediaControlView, long)}
+     */
+    public static final long DISABLE_DELAYED_ANIMATION = -1;
+
     private static final String TAG = "MediaControlView";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
@@ -151,7 +159,6 @@ public class MediaControlView extends ViewGroup {
     // Int for defining the UX state where the views are being animated (shown or hidden).
     private static final int UX_STATE_ANIMATING = 3;
 
-    private static final long DISABLE_DELAYED_ANIMATION = -1;
     private static final long DEFAULT_DELAYED_ANIMATION_INTERVAL_MS = 2000;
     private static final long DEFAULT_PROGRESS_UPDATE_TIME_MS = 1000;
     private static final long REWIND_TIME_MS = 10000;

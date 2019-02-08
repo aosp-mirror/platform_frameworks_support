@@ -65,7 +65,7 @@ object LibraryVersions {
     val MEDIA = Version("1.1.0-alpha02")
     val MEDIA2 = Version("1.0.0-alpha05")
     val MEDIA2_EXOPLAYER = Version("1.0.0-alpha02")
-    val MEDIA2_WIDGET = Version("1.0.0-alpha07")
+    val MEDIA2_WIDGET = Version("1.1.0-alpha01")
     val MEDIAROUTER = Version("1.1.0-alpha02")
     val NAVIGATION = Version("1.0.0-beta02")
     val NAVIGATION_TESTING = Version("1.0.0-alpha08") // Unpublished

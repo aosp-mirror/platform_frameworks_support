@@ -59,6 +59,12 @@ public class VideoSelectorActivity extends Activity {
 
     private Intent createLaunchIntent(Context ctx, String url) {
         Intent ret_val = new Intent(ctx, VideoPlayerActivity.class);
+
+        /**
+        // Uncomment to launch full screen activity.
+        Intent ret_val = new Intent(ctx, VideoPlayerFullScreenActivity.class);
+         */
+
         ret_val.setData(Uri.parse(url));
         ret_val.putExtra(
                 VideoPlayerActivity.LOOPING_EXTRA_NAME, mLoopingCheckbox.isChecked());
