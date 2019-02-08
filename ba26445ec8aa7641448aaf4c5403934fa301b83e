@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88b38cf_98274294",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-08T00:32:42Z",
+      "side": 1,
+      "message": "Your assert is backwards: the assertThat(/* value to test */).isEqualTo(/* expected value */)",
+      "revId": "ba26445ec8aa7641448aaf4c5403934fa301b83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
