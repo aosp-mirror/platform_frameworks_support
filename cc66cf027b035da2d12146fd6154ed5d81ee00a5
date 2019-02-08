@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "a807e2ed_41262341",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T19:23:15Z",
+      "side": 1,
+      "message": "I think we should ensure all tabs displayed.\nHow about calculating a per-tab max width (total/tab_count) and tell each tab to measure with that AT_MOST instead of UNSPECIFIED?",
+      "parentUuid": "3eecb36f_a2fea280",
+      "range": {
+        "startLine": 294,
+        "startChar": 8,
+        "endLine": 294,
+        "endChar": 28
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "789024dc_6f00e9c9",
         "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
         "patchSetId": 5
