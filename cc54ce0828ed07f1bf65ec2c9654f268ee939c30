@@ -46,6 +46,30 @@
       "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b5b0088_e168b62c",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-08T20:09:56Z",
+      "side": 1,
+      "message": "Nope, now it\u0027s stuck at 73%. I just managed to move the stall around.",
+      "parentUuid": "efd451a9_0e6f71ca",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
