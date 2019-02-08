@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37ea33a3_d36bf804",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-08T19:01:47Z",
+      "side": 1,
+      "message": "This breaks the build.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "cc54ce0828ed07f1bf65ec2c9654f268ee939c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
