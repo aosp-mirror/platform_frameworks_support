@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37330698_3bed7301",
+        "filename": "navigation/safe-args-gradle-plugin/src/test/kotlin/androidx/navigation/safeargs/gradle/IncrementalPluginTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-08T23:46:14Z",
+      "side": 1,
+      "message": "Notice that this is a parameterized test, specifically we run the incremental tests for both the java and kotlin test projects.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "0cac3738d6ec48331208cc2697af239e64ebbb70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
