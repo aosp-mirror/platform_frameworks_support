@@ -159,6 +159,19 @@ def increment_alpha_beta_version(version):
 	else:
 		return version, changed
 
+# Asks users if they would like to update the version of a given artifact
+def confirm_version_update(artifact, new_version):
+	if (artifact.version == new_version):
+		return False
+	answer = input("Update %s:%s from %s to %s? [y/n]" %(artifact.groupId,
+		artifact.artifactId,
+		artifact.version,
+		new_version))
+	if answer.lower() == 'yes' or answer.lower() == 'y':
+		return True
+	else:
+		return False
+
 def update_artifact_version(lv_lines, artifact):
 	num_lines = len(lv_lines)
 	for i in range(num_lines):
@@ -168,7 +181,8 @@ def update_artifact_version(lv_lines, artifact):
 		artifactId = get_artifactId_from_LibraryVersions_line(cur_line)
 		if artifactId == artifact.artifactId:
 			new_version, ver_was_updated = increment_alpha_beta_version(artifact.version)
-			if ver_was_updated:
+			user_confirmed = confirm_version_update(artifact, new_version)
+			if ver_was_updated and user_confirmed:
 				# Only modify line if the version was actually changed
 				lv_lines[i] ="    val " + artifactId.upper() + " = Version(\"" + new_version + "\")\n"
 				summary_log.append("Updated %s to FROM %s TO %s" % (artifactId.upper(), artifact.version, new_version))
