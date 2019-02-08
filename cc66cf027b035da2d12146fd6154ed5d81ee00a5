@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06b8eb9e_968dc06a",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "How about rename to OnTabSelectedListener to align with TabLayout?",
+      "range": {
+        "startLine": 272,
+        "startChar": 40,
+        "endLine": 272,
+        "endChar": 59
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1d0e238_af817549",
+        "filename": "car/core/res/values/attrs.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "update",
+      "range": {
+        "startLine": 226,
+        "startChar": 75,
+        "endLine": 226,
+        "endChar": 86
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a1f1ea_9d85fa9c",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "nitpick: can you keep the comment format consistent with the next field? /**/ vs //",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 7
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c086917f_1df810e8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "Should it always reset to first position when this method is called?",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 217,
+        "endChar": 30
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df2c0d47_c8cd39f0",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "*tab?",
+      "range": {
+        "startLine": 290,
+        "startChar": 36,
+        "endLine": 290,
+        "endChar": 40
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f6d8c8_51e5b0fe",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "This forces users to make assumptions about the screen width, right? If there are too many items or screen is narrower than expected it\u0027ll overflow. \n\nDo you think it\u0027s necessary to ensure all items will be displayed?\n\nHow about ensuring tabs have equal width?",
+      "range": {
+        "startLine": 294,
+        "startChar": 8,
+        "endLine": 294,
+        "endChar": 28
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789024dc_6f00e9c9",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "do you need mHorizontalMargins for centering?",
+      "range": {
+        "startLine": 317,
+        "startChar": 16,
+        "endLine": 317,
+        "endChar": 26
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c656cee5_ca1999f8",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarTabBarView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-08T18:14:41Z",
+      "side": 1,
+      "message": "style wise, do you need to explicitly requestLayout or leaving it to setAlpha is fine?",
+      "range": {
+        "startLine": 326,
+        "startChar": 17,
+        "endLine": 326,
+        "endChar": 34
+      },
+      "revId": "cc66cf027b035da2d12146fd6154ed5d81ee00a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
