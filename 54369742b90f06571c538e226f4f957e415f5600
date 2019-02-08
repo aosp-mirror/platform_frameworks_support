@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4376974_3f138a50",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-08T06:06:37Z",
+      "side": 1,
+      "message": "I\u0027ll do this in the next CL when I add VideoViewFragmentActivity class.",
+      "parentUuid": "11135be0_d2dc99d1",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 11
+      },
+      "revId": "54369742b90f06571c538e226f4f957e415f5600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d92a887e_3d4afd42",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "54369742b90f06571c538e226f4f957e415f5600",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4c4dd7_5d85e678",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-08T06:06:37Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a specific reason for not exposing this. I think it has to do with how we are not supporting any customization for MediaControlView. But let\u0027s continue the discussion and keep adding new APIs for customizing. (i.e. I think we should also add API for setting the animation duration).",
+      "parentUuid": "d92a887e_3d4afd42",
+      "range": {
+        "startLine": 538,
+        "startChar": 9,
+        "endLine": 538,
+        "endChar": 36
+      },
+      "revId": "54369742b90f06571c538e226f4f957e415f5600",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
