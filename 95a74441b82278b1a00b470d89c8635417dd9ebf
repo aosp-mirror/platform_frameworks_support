@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ec9dc7f_6aa100f2",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-08T04:38:36Z",
+      "side": 1,
+      "message": "updateApi automatically touches both files.",
+      "parentUuid": "00803b7a_eeace439",
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03f4c372_b67b7274",
         "filename": "media2/api/1.0.0-alpha05.txt",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec1ccbf_2fc6623c",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-08T04:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03f4c372_b67b7274",
+      "range": {
+        "startLine": 505,
+        "startChar": 98,
+        "endLine": 505,
+        "endChar": 99
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "8b719d74_2046e62d",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-08T04:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94da6a7a_ded95eec",
+      "range": {
+        "startLine": 509,
+        "startChar": 98,
+        "endLine": 509,
+        "endChar": 100
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92072cd3_fbfe092c",
         "filename": "media2/src/main/java/androidx/media2/RemoteSessionPlayer.java",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abeb581e_b760613f",
+        "filename": "media2/src/main/java/androidx/media2/RemoteSessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-08T04:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92072cd3_fbfe092c",
+      "range": {
+        "startLine": 122,
+        "startChar": 74,
+        "endLine": 122,
+        "endChar": 75
+      },
+      "revId": "95a74441b82278b1a00b470d89c8635417dd9ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
