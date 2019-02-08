@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b1b3d22_9b808397",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-08T21:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeccc08e_bece8b33",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "320b906f_5946c437",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d937e9b6_49009267",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-08T21:42:37Z",
+      "side": 1,
+      "message": "When I try replacing this with the gradle class equivalent, I get a stack overflow.  My initial guess is that the gradle dependency class is pretty large, so we\u0027d be keeping a list large classes in memory.  Not totally sure.",
+      "parentUuid": "320b906f_5946c437",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "083f2287_bcaaa544",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 8
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-01T21:19:36Z",
       "side": 1,
       "message": "Replace with gradle class too",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6402770e_977b5689",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-08T21:42:37Z",
+      "side": 1,
+      "message": "When doing so, GSON will write ALL members to a JSON file.  Seems like oversharing of information.",
+      "parentUuid": "083f2287_bcaaa544",
       "range": {
         "startLine": 43,
         "startChar": 15,
@@ -108,6 +180,24 @@
       "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbfe3b04_4b46032a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-08T21:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "974b0b8a_a51dc578",
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
