@@ -16,15 +16,26 @@
 
 package androidx.appcompat.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ActionMode;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.CheckedTextView;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.TintableBackgroundView;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
 
 /**
@@ -35,12 +46,13 @@ import androidx.core.widget.TextViewCompat;
  * <a href="{@docRoot}topic/libraries/support-library/packages.html#v7-appcompat">appcompat</a>.
  * You should only need to manually use this class when writing custom views.</p>
  */
-public class AppCompatCheckedTextView extends CheckedTextView {
+public class AppCompatCheckedTextView extends CheckedTextView implements TintableBackgroundView {
 
     private static final int[] TINT_ATTRS = {
             android.R.attr.checkMark
     };
 
+    private final AppCompatBackgroundHelper mBackgroundTintHelper;
     private final AppCompatTextHelper mTextHelper;
 
     public AppCompatCheckedTextView(Context context) {
@@ -53,6 +65,9 @@ public class AppCompatCheckedTextView extends CheckedTextView {
 
     public AppCompatCheckedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(TintContextWrapper.wrap(context), attrs, defStyleAttr);
+
+        mBackgroundTintHelper = new AppCompatBackgroundHelper(this);
+        mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
 
         mTextHelper = new AppCompatTextHelper(this);
         mTextHelper.loadFromAttributes(attrs, defStyleAttr);
@@ -77,9 +92,84 @@ public class AppCompatCheckedTextView extends CheckedTextView {
         }
     }
 
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintList(View, ColorStateList)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintList(tint);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintList(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public ColorStateList getSupportBackgroundTintList() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintList() : null;
+    }
+
+    /**
+     * This should be accessed via
+     * {@link ViewCompat#setBackgroundTintMode(View, PorterDuff.Mode)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.setSupportBackgroundTintMode(tintMode);
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.view.ViewCompat#getBackgroundTintMode(android.view.View)}
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public PorterDuff.Mode getSupportBackgroundTintMode() {
+        return mBackgroundTintHelper != null
+                ? mBackgroundTintHelper.getSupportBackgroundTintMode() : null;
+    }
+
+    @Override
+    public void setBackgroundDrawable(Drawable background) {
+        super.setBackgroundDrawable(background);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundDrawable(background);
+        }
+    }
+
+    @Override
+    public void setBackgroundResource(@DrawableRes int resId) {
+        super.setBackgroundResource(resId);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundResource(resId);
+        }
+    }
+
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.applySupportBackgroundTint();
+        }
         if (mTextHelper != null) {
             mTextHelper.applyCompoundDrawablesTints();
         }
