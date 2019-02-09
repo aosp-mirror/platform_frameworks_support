@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc635a3e_59631f17",
+        "filename": "car/core/res/color/car_tab_tint.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-09T03:26:07Z",
+      "side": 1,
+      "message": "It really only needs the state_selected one. That one will kick in when the tabs aren\u0027t selected.\n\nI could take out the enabled, but I figured it doesn\u0027t harm anything to leave it there.",
+      "parentUuid": "3d69d0ec_724d8990",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "743e4a70_78444d09",
         "filename": "car/core/res/values/styles.xml",
         "patchSetId": 11
@@ -36,6 +60,24 @@
       "writtenOn": "2019-02-09T01:37:49Z",
       "side": 1,
       "message": "do we need to also provide a .Light style? the color in tab layout is fixed to car_tab_tint though..",
+      "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43ee9b8b_3173cc3a",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-02-09T03:26:07Z",
+      "side": 1,
+      "message": "I thought about it, but most of our apps have migrated off the light theme and I wanna remove it completely.\n\nI figured it wasn\u0027t necessary to add it right now. Currently, this default style is the light style (similar to how CarToolbar\u0027s style is).\n\nLet me know if you feel I should add aother.",
+      "parentUuid": "743e4a70_78444d09",
       "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
