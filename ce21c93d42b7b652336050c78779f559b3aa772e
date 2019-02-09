@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d69d0ec_724d8990",
+        "filename": "car/core/res/color/car_tab_tint.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-09T01:37:49Z",
+      "side": 1,
+      "message": "just curious, why does it need 2 states?",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "743e4a70_78444d09",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-09T01:37:49Z",
+      "side": 1,
+      "message": "do we need to also provide a .Light style? the color in tab layout is fixed to car_tab_tint though..",
+      "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
