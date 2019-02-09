@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47b1a1e3_7b4004b2",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 31
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-09T13:23:56Z",
+      "side": 1,
+      "message": "Excess new line (here and below)",
+      "revId": "c63ed54e0d8a74887ba41c9db747039d41ff5947",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
