@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "843bec1e_196614d4",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-10T10:06:45Z",
+      "side": 1,
+      "message": "It would be way more useful if all withXxx function receive suspending function in its block, e.g. `block: suspend () -\u003e T`. See below at how it could be implemented.",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69833f0f_051efb48",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-10T10:06:45Z",
+      "side": 1,
+      "message": "As a matter of style (and efficiency) it is advised to extract invocations of `suspendCoroutine` into a separate function that is written an expression like this:\n```\nfun suspendUntilState(...) \u003d \n   suspendCancellableCoroutine\u003cT\u003e { \n       // install callback here \u0026 resume when it fires. \n   }\n```",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe91976_a1659d1e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-10T10:06:45Z",
+      "side": 1,
+      "message": "Calling an external block from inside the callback does not seems like a good idea. `suspendCoroutine` functions are designed for integration with callbacks and are supposed to quickly resume the corresponding coroutine. You can put all the other code (like `block()`) invocation _after_ the `suspendCoroutine` invocation, so it gets invoked in a coroutine (with an appropriate context) after its resumption. This also automatically makes it possible to make the corresponding block a suspending function.",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
