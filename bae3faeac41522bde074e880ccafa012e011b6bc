@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5059a12_1565ec79",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-10T13:45:48Z",
+      "side": 1,
+      "message": "On further reflection, the whole withXXXX concept seems to be weird. First of all this function _suspend_ until some condition is true, yet it is named withXxx and takes a block. So I can write:\n\n```\nwithCreated(lc) { \n   // this get called when the condition is reached (1)\n}\n// this _also_ get called when the condition is reached after (1) finishes.\n```\n\nSo, what is actually the purpose of the block and why it is called withXxx? It looks, by looking at what is does, this function should be named `awaitCreated(lc)`, but still the purpose of having a block parameter is escaping me.",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
