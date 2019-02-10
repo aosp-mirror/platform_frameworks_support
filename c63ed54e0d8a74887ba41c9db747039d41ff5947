@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "560deb2f_e0de076a",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 31
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-10T20:32:56Z",
+      "side": 1,
+      "message": "we were trying to mimic withContext but that does not seem to play well much. Your point makes sense We\u0027ll re-iterate on this API.",
+      "parentUuid": "fafb3367_672b18e8",
+      "revId": "c63ed54e0d8a74887ba41c9db747039d41ff5947",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47b1a1e3_7b4004b2",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
         "patchSetId": 31

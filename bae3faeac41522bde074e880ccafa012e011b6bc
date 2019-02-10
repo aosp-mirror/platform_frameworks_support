@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ed06173_c0bc9018",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-10T20:32:56Z",
+      "side": 1,
+      "message": "The basic use case for this API looks like: (errors ignored for simplicity)\n\n    // ViewModel\n    suspend fun getTask(id : String) \u003d withContext(Dispatchers.IO) {\n        api.fetchTask(id)\n    }\n\n    // in a ViewController  (Fragment, Activity etc)\n    onViewCreated() {\n        showLoading()\n        viewLifecycleScope.launch {\n            val task \u003d viewModel.getTask(id)\n            withStarted(viewLifecycle) { \n                if (task \u003d\u003d null) navigateBack()\n                else showTask(task)\n            }\n        }\n    }\n\nThis does not look very pretty but gives coroutines a safe way to communicate with the views.\n\nIf it was await, we wouldn\u0027t be able to guarantee that lifecycle did not move backwards when the next line is invoked:\n\ne.g.\n\n    viewLifecycleScope.launch {\n         val task \u003d viewModel.getTask(id)\n         lifecycle.awaitStarted()\n         showTask(task) // lifecycle might\u0027ve already stopped (CREATED state)\n    }\n\nfor the code above, before showTask is  executed, lifecycle may move back to created state.\n\nIf we accepted a suspend block that gets cancelled if lifecycle moves outside the desired state, that would be a misleading API since lifecycle can move back to the desired state. (we would lose the operation that could actually continue)\ne.g.\n    \n    viewLifecycleScope.launch {\n         val task \u003d viewModel.getTask(id)\n         lifecycle.withStarted { // suspend block\n             showTask(task)\n             val details \u003d viewModel.getDetails(task) // another suspend call\n             showDetails(details) // lifecycle may not be started anymore\n         }\n    }\n\n\nThere is another option which we dismissed earlier that I would like to get your opinion.\n\nThe very first prototype we had for this functionality was a custom dispatcher that paused the coroutine if lifecycle goes out of the expected minimum state.\nSomething like:\n\n    viewLifecycleScope.launch(lifecycle.startedDispatcher) {\n         val task \u003d viewModel.getTask(id)\n         showTask(task)\n         val details \u003d viewModel.getDetails(task) // another suspend call\n         showDetails(details) // if lifecycle is stopped, waits until it started again before executing this line\n    }\n\nThat `StartedDispatcher` was a special dispatcher that didn\u0027t run its runnables until the Lifecycle is in desired state. What do you think about it? We thought having a custom dispatcher that might randomly pause would be confusing. In terms of usability, it seem to provide the best API with guarantees. I found a version of it and posted here for reference:\nhttps://gist.github.com/yigit/d5a9d0fd99149bdb1ea8eb29c3f9447a (please don\u0027t judge that code :) just experimenting)\n\nlmk what you think and thanks a lot for your review!",
+      "parentUuid": "d5059a12_1565ec79",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
@@ -64,6 +82,24 @@
       "writtenOn": "2019-02-10T10:06:45Z",
       "side": 1,
       "message": "Calling an external block from inside the callback does not seems like a good idea. `suspendCoroutine` functions are designed for integration with callbacks and are supposed to quickly resume the corresponding coroutine. You can put all the other code (like `block()`) invocation _after_ the `suspendCoroutine` invocation, so it gets invoked in a coroutine (with an appropriate context) after its resumption. This also automatically makes it possible to make the corresponding block a suspending function.",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d6d0db6_41203594",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-10T20:32:56Z",
+      "side": 1,
+      "message": "i\u0027ll add details on why block is not suspend function in the other comment (about awaitXXX).",
+      "parentUuid": "1fe91976_a1659d1e",
       "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
