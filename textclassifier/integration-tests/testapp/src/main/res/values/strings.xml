@@ -26,6 +26,7 @@
 
     <string-array name="textclassifiers">
         <item>Default</item>
-        <item>Simple textclassifier</item>
+        <item>Simple TC</item>
+        <item>Legacy TC</item>
     </string-array>
 </resources>

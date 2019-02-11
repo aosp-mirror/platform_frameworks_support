@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.textclassifier.LegacyTextClassifier;
 import androidx.textclassifier.MainThreadExecutor;
 import androidx.textclassifier.TextClassificationManager;
 import androidx.textclassifier.TextClassifier;
@@ -38,8 +39,10 @@ import java.util.concurrent.Executors;
  * Main activity.
  */
 public class MainActivity extends AppCompatActivity {
+
     private static final int DEFAULT = 0;
     private static final int CUSTOM = 1;
+    private static final int LEGACY = 2;
 
     private static final Executor sWorkerThreadExecutor = Executors.newSingleThreadExecutor();
     private static final Executor sMainThreadExecutor = new MainThreadExecutor();
@@ -64,10 +67,17 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                if (pos == DEFAULT) {
-                    setTextClassifier(null);
-                } else {
-                    setTextClassifier(new SimpleTextClassifier(MainActivity.this));
+                switch (pos) {
+                    case CUSTOM:
+                        setTextClassifier(new SimpleTextClassifier(MainActivity.this));
+                        break;
+                    case LEGACY:
+                        setTextClassifier(LegacyTextClassifier.of(MainActivity.this));
+                        break;
+                    default: // fall through
+                    case DEFAULT:
+                        setTextClassifier(null);
+                        break;
                 }
                 updateStatusText();
             }
@@ -77,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateStatusText() {
+    void updateStatusText() {
         mStatusTextView.setText(getTextClassifier().getClass().getName());
     }
 
@@ -111,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         return TextClassificationManager.of(this).getTextClassifier();
     }
 
-    private void setTextClassifier(TextClassifier textClassifier) {
+    void setTextClassifier(TextClassifier textClassifier) {
         TextClassificationManager.of(this).setTextClassifier(textClassifier);
     }
 
