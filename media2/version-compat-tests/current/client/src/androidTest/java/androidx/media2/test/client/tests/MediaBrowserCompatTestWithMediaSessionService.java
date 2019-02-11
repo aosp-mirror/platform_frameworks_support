@@ -74,7 +74,8 @@ public class MediaBrowserCompatTestWithMediaSessionService extends MediaSessionT
 
     void connectAndWait() throws InterruptedException {
         mBrowserCompat.connect();
-        assertTrue(mConnectionCallback.mConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrue(mConnectionCallback.mConnectedLatch.await(
+                BROWSER_COMPAT_CONNECT_TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
     @Test
