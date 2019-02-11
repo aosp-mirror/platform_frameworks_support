@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa1136d8_fc1ba530",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T16:23:09Z",
+      "side": 1,
+      "message": "That\u0027s interesting. Is it expected that the user will want to update a subset of the given libraries? Also, if the user does update a subset of the given libraries, then the command listed in the commit message might not encode all of the information about how to regenerate the given commit :(\n\nWould it work as well for your use case if instead of having a separate yes/no prompt per artifact, the script printed all libraries to update, printed a single yes/no prompt, and then continued?",
+      "revId": "8cca72247cd34d8d9d398256d5f48bb482fa785e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
