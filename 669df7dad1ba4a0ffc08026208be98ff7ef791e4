@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7eb8d182_03fbaf3e",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-11T16:19:08Z",
+      "side": 1,
+      "message": "Doesn\u0027t need to be a member var? Also, move this closer to where it\u0027s used if you can",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "669df7dad1ba4a0ffc08026208be98ff7ef791e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08cf0bd8_aac78a98",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-11T16:19:08Z",
+      "side": 1,
+      "message": "Can you add a more descriptive name, like \"mNavigationBar\"?\n\nMight make sense to refactor this into a reusable class? I don\u0027t understand any of this omnibox-ish code, so you should explain to me offline.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "669df7dad1ba4a0ffc08026208be98ff7ef791e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ec2513_5d08c57a",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-11T16:19:08Z",
+      "side": 1,
+      "message": "This is not an acceptable value. Please consult API documentation",
+      "range": {
+        "startLine": 90,
+        "startChar": 33,
+        "endLine": 90,
+        "endChar": 40
+      },
+      "revId": "669df7dad1ba4a0ffc08026208be98ff7ef791e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64798f14_39a81212",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-11T16:19:08Z",
+      "side": 1,
+      "message": "nit: prefer https",
+      "range": {
+        "startLine": 106,
+        "startChar": 26,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "669df7dad1ba4a0ffc08026208be98ff7ef791e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
