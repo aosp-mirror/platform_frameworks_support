@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a99b477_b040db7b",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-11T21:41:19Z",
+      "side": 1,
+      "message": "Could you add a \"// Assert\" above this line (with an empty line before and after it) to emphasize that this is the point in the test code where the assertions relevant to the test are being made.  Just to help future readers zero in on the thing being verified.\n\nAlso, could you add a \"// Sanity check\" above this line to tell the reader that this isn\u0027t what the test is about but instead is just a sanity check that we are in the state that we believe we are in.",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 64
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "240c441b_125a475c",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-11T21:41:19Z",
+      "side": 1,
+      "message": "Add a \"// Sanity check\" above.",
+      "range": {
+        "startLine": 293,
+        "startChar": 20,
+        "endLine": 293,
+        "endChar": 80
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "935c2834_63e25109",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-11T21:41:19Z",
+      "side": 1,
+      "message": "Similarly, add a \"// Assert\" above here with empty lines before and after.  Also Add a \"sanity check\" comment above this line.",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 64
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74da670e_cd2cadcf",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-11T21:41:19Z",
+      "side": 1,
+      "message": "Ad comment that these two lines are \"sanity checks\".",
+      "range": {
+        "startLine": 388,
+        "startChar": 20,
+        "endLine": 390,
+        "endChar": 56
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
