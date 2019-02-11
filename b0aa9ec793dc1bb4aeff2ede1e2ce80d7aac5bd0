@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7e96d9f_e2762513",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/ActivityRecreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-11T17:10:48Z",
+      "side": 1,
+      "message": "As I can\u0027t assume that all activities in the app are appcompatactivities, I can\u0027t replace my copy with this one. How about exposing a method on this that takes Activity as a param, and calls recreate() directly if it\u0027s an AppCompatActivity to avoid reentrancy?",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "b0aa9ec793dc1bb4aeff2ede1e2ce80d7aac5bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
