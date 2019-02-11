@@ -63,7 +63,7 @@ public class EditTextPreference extends DialogPreference {
     @SuppressLint("RestrictedApi")
     public EditTextPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.editTextPreferenceStyle,
-                AndroidResources.ANDROID_R_EDITTEXT_PREFERENCE_STYLE));
+                android.R.attr.editTextPreferenceStyle));
     }
 
     public EditTextPreference(Context context) {

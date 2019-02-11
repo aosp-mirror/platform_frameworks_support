@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -189,7 +189,7 @@ public class SwitchPreferenceCompat extends TwoStatePreference {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     @Override
     protected void performClick(View view) {
         super.performClick(view);

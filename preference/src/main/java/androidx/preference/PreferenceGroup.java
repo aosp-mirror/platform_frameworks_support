@@ -16,7 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -406,7 +407,7 @@ public abstract class PreferenceGroup extends Preference {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public boolean isAttached() {
         return mAttachedToHierarchy;
     }
@@ -414,11 +415,13 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Sets the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @param onExpandButtonClickListener The callback to be invoked
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setOnExpandButtonClickListener(
             @Nullable OnExpandButtonClickListener onExpandButtonClickListener) {
         mOnExpandButtonClickListener = onExpandButtonClickListener;
@@ -427,10 +430,12 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Returns the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @return The callback to be invoked when the expand button is clicked.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     public OnExpandButtonClickListener getOnExpandButtonClickListener() {
         return mOnExpandButtonClickListener;
@@ -552,10 +557,13 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Definition for a callback to be invoked when the expand button is clicked.
+     *
+     * Used by Settings.
+     *
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public interface OnExpandButtonClickListener {
         /**
          * Called when the expand button is clicked.
