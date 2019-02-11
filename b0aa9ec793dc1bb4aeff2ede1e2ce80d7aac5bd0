@@ -22,6 +22,30 @@
       "revId": "b0aa9ec793dc1bb4aeff2ede1e2ce80d7aac5bd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7a213d7_8443b266",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/ActivityRecreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-11T23:12:28Z",
+      "side": 1,
+      "message": "Sure, re-worked to make this happen automatically.",
+      "parentUuid": "e7e96d9f_e2762513",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "b0aa9ec793dc1bb4aeff2ede1e2ce80d7aac5bd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
