@@ -288,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "096e6f38_eaebe9f5",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-11T22:59:45Z",
+      "side": 1,
+      "message": "New CL -\u003e aosp/900916",
+      "parentUuid": "4550bca2_afaedb94",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 43
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d87943b4_930f9d11",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
         "patchSetId": 5
