@@ -16,6 +16,24 @@
       "revId": "49d0f380482d63bcb65bc3f793db0ad18bce1070",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a14a87_65315c05",
+        "filename": "exifinterface/api/1.0.0.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-11T00:57:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8debee52_66dd8c1d",
+      "revId": "49d0f380482d63bcb65bc3f793db0ad18bce1070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
