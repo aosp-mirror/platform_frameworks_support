@@ -58,7 +58,7 @@ import java.util.List;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-final class LegacyTextClassifier extends TextClassifier {
+public final class LegacyTextClassifier extends TextClassifier {
 
     private static final String LOG_TAG = "LegacyTextClassifier";
 
