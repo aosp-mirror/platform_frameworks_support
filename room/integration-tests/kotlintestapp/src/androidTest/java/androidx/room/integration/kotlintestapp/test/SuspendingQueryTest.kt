@@ -87,6 +87,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
     }
 
     @Test
+    @Suppress("DEPRECATION")
     fun suspendingBlock_beginEndTransaction() {
         runBlocking {
             try {
@@ -110,6 +111,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
     }
 
     @Test
+    @Suppress("DEPRECATION")
     fun suspendingBlock_beginEndTransaction_blockingDaoMethods() {
         runBlocking {
             try {
@@ -133,6 +135,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
     }
 
     @Test
+    @Suppress("DEPRECATION")
     fun suspendingBlock_beginEndTransaction_newThreadDispatcher() {
         runBlocking(NewThreadDispatcher()) {
             try {
@@ -820,6 +823,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
     }
 
     @Test
+    @Suppress("DEPRECATION")
     fun runSuspendingTransaction_setTransactionSuccessful_error() {
         runBlocking {
             try {
@@ -837,6 +841,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
     }
 
     @Test
+    @Suppress("DEPRECATION")
     fun runSuspendingTransaction_endTransaction_error() {
         runBlocking {
             try {
