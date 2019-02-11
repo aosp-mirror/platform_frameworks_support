@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b0df6bd_ce5638be",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T23:34:28Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "revId": "b87f3464bb2a96f4df4378b78d7b1f3969e88f4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202cf414_7527217e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderProtocol.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T23:34:28Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "revId": "b87f3464bb2a96f4df4378b78d7b1f3969e88f4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823a2951_254ed6a2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T23:34:28Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "revId": "b87f3464bb2a96f4df4378b78d7b1f3969e88f4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
