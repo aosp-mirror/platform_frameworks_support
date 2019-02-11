@@ -18,8 +18,6 @@
 import androidx.build.BuildServerConfigurationKt
 import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.gmaven.GMavenVersionChecker
-import com.android.build.gradle.internal.coverage.JacocoReportTask
-import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
 
 def supportRoot = ext.supportRootFolder
 if (supportRoot == null) {
@@ -72,10 +70,13 @@ def setupSubprojectsForBuildServer() {
                     // and test coverage is enabled
                     if (v.buildType.testCoverageEnabled
                             && v.sourceSets.any { !it.java.sourceFiles.isEmpty() }) {
-                        def jarifyTask = project.tasks.create(
-                                name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
-                                type: Jar) {
-                            from v.testedVariant.javaCompileProvider.get().destinationDir
+                        def jarifyTask = project.tasks.register(
+                                "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                                Jar) {
+                            dependsOn v.testedVariant.javaCompileProvider
+                            from v.testedVariant.javaCompileProvider.map {
+                                destinationDir
+                            }
                             exclude "**/R.class"
                             exclude "**/R\$*.class"
                             exclude "**/BuildConfig.class"
@@ -83,8 +84,9 @@ def setupSubprojectsForBuildServer() {
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
                         }
 
-                        jarifyTask.dependsOn v.getJavaCompileProvider()
-                        v.assemble.dependsOn jarifyTask
+                        v.assembleProvider.configure {
+                            it.dependsOn jarifyTask
+                        }
                     }
                 }
             }
