@@ -148,17 +148,20 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
         sqLiteQuery.bindLong(sqLiteQuery.getArgCount() - 1, loadCount);
         sqLiteQuery.bindLong(sqLiteQuery.getArgCount(), startPosition);
         if (mInTransaction) {
+            //noinspection deprecation
             mDb.beginTransaction();
             Cursor cursor = null;
             try {
                 cursor = mDb.query(sqLiteQuery);
                 List<T> rows = convertRows(cursor);
+                //noinspection deprecation
                 mDb.setTransactionSuccessful();
                 return rows;
             } finally {
                 if (cursor != null) {
                     cursor.close();
                 }
+                //noinspection deprecation
                 mDb.endTransaction();
                 sqLiteQuery.release();
             }
