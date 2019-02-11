@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d0eb3e2_74fb302a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Added a new TextView that displays the number of handled requests.",
+      "parentUuid": "c51df8ba_4f457fff",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db592f9c_dc4be0bb",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/Proxy.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f39901_52be0e47",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/Proxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "I\u0027m working on implementing actual proxy behavior, if not then we can fallback to using MockWebServer.",
+      "parentUuid": "db592f9c_dc4be0bb",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7801569b_4b5a9eaa",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/Proxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96514a9d_ad4c6119",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb1d1ee3_4e33c148",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4339df0f_6f8c2610",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb1d1ee3_4e33c148",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ce977101_3c1ca2c5",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45c6baad_2ab38182",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 72
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd495354_815c317b",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad0f152e_f1ed4851",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "We don\u0027t actually need to load google.com; however it seemed to display fine even without JS enabled.",
+      "parentUuid": "dd495354_815c317b",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ab34c2cf_b6e939cd",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "This is all being called from inside onCreate. I think this is correct because we don\u0027t need to set the client more than once, right? If for any reason the webview object is destroyed the app will go though onCreate again.\n\nThat being said I refactored some of this code so it\u0027s clearer that it\u0027s in onCreate. We can discuss in the next patchset if needed.",
+      "parentUuid": "2da58191_37ba6bb3",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 58
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3f6235c_6a3c28b8",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
         "patchSetId": 1
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "85bed662_1ddf2464",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3f6235c_6a3c28b8",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc9b5f11_e45e9802",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
         "patchSetId": 1
@@ -206,6 +398,30 @@
       "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c171835a_709af969",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ProxyOverrideActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-11T15:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc9b5f11_e45e9802",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 50
+      },
+      "revId": "fbefa625946580052785ac57e5482e1f6a1a9c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
