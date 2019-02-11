@@ -66,6 +66,7 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
 
     private AppCompatDelegate mDelegate;
     private Resources mResources;
+    private Runnable mRecreateRunnable;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -586,6 +587,19 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
                 && (actionBar == null || !actionBar.closeOptionsMenu())) {
             super.closeOptionsMenu();
         }
+    }
+
+    @Override
+    public void recreate() {
+        if (mRecreateRunnable == null) {
+            mRecreateRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    AppCompatActivity.super.recreate();
+                }
+            };
+        }
+        ActivityRecreator.recreate(this, mRecreateRunnable);
     }
 
     /**
