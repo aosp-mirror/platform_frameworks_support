@@ -137,6 +137,45 @@ public abstract class AppCompatBaseImageViewTest<T extends ImageView>
     }
 
     /**
+     * Test that image tinting works correctly when the image doesn't explicitly specify
+     * {@code src_in} as the tint mode.
+     */
+    @Test
+    @SmallTest
+    public void testImageTintingWithDefaultMode() {
+        final @IdRes int viewId = R.id.view_tinted_no_mode;
+        final Resources res = mActivity.getResources();
+        final T view = (T) mContainer.findViewById(viewId);
+
+        @ColorInt int lilacDefault = ResourcesCompat.getColor(res, R.color.lilac_default, null);
+        @ColorInt int lilacDisabled = ResourcesCompat.getColor(res, R.color.lilac_disabled, null);
+        @ColorInt int sandDefault = ResourcesCompat.getColor(res, R.color.sand_default, null);
+
+        // Test the default state for tinting set up in the layout XML file.
+        verifyImageSourceIsColoredAs("Default lilac tinting in enabled state", view,
+                lilacDefault, 0);
+
+        // Disable the view and check that the image has switched to the matching entry
+        // in the default color state list.
+        onView(withId(viewId)).perform(setEnabled(false));
+        verifyImageSourceIsColoredAs("Default lilac tinting in disabled state", view,
+                lilacDisabled, 0);
+
+
+        // Reset the view to enabled before swapping the color state list.
+        onView(withId(viewId)).perform(setEnabled(true));
+
+        // Load a new color state list, set it on the view and check that the image has
+        // switched to the matching entry in newly set color state list.
+        final ColorStateList sandColor = ResourcesCompat.getColorStateList(
+                res, R.color.color_state_list_sand, null);
+        onView(withId(viewId)).perform(
+                AppCompatTintableViewActions.setImageSourceTintList(sandColor));
+        verifyImageSourceIsColoredAs("New sand tinting in enabled state", view,
+                sandDefault, 0);
+    }
+
+    /**
      * This method tests that image tinting is applied to tintable image view
      * in enabled and disabled state across the same image source respects the currently set
      * image source tinting mode.

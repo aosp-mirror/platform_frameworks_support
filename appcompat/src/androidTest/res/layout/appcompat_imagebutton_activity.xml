@@ -72,6 +72,13 @@
             app:tint="@color/color_state_list_lilac"
             app:tintMode="src_in"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/view_tinted_no_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/test_drawable_blue"
+            app:tint="@color/color_state_list_lilac" />
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/view_untinted_source"
             android:layout_width="match_parent"
