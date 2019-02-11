@@ -16,6 +16,24 @@
       "revId": "8cca72247cd34d8d9d398256d5f48bb482fa785e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce0f205_75758f9f",
+        "filename": "development/update_library_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-11T18:05:27Z",
+      "side": 1,
+      "message": "Not really, that\u0027s effectively what the script does without this commit.  I\u0027ve found that in practice, it\u0027s better to be able to specify and confirm which libraries to update.\n\nI can update the commit message to include the list of libraries updated by this commit.  It would like something like ./update_library_versions.py --archives artifactId1 artifactId2",
+      "parentUuid": "aa1136d8_fc1ba530",
+      "revId": "8cca72247cd34d8d9d398256d5f48bb482fa785e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
