@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8e9077c_c48054b0",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-11T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a99b477_b040db7b",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 64
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240c441b_125a475c",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05fc49e_f223502d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-11T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240c441b_125a475c",
+      "range": {
+        "startLine": 293,
+        "startChar": 20,
+        "endLine": 293,
+        "endChar": 80
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "df14b492_1f457c56",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-11T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "935c2834_63e25109",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 64
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74da670e_cd2cadcf",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f294f01e_0ddc83e4",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityLifecycleTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-11T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74da670e_cd2cadcf",
+      "range": {
+        "startLine": 388,
+        "startChar": 20,
+        "endLine": 390,
+        "endChar": 56
+      },
+      "revId": "d0da04e3791045a4135dad664727f9561cab7ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
