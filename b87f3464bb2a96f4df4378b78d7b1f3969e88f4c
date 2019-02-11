@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "8e5c31d4_ca61bb9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T23:46:57Z",
+      "side": 1,
+      "message": "Suggest \u0027Any library that needed to use the LIBRARY_GROUP_PREFIX now\ndepends on project(\":annotation\")\u0027 since a question came up in discussion about it",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "b87f3464bb2a96f4df4378b78d7b1f3969e88f4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd33a45_4ff18d71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-11T23:46:57Z",
+      "side": 1,
+      "message": "Might want to add \u0027via @SuppressWarnings(\"RestrictedApi\")\u0027 since a question came up in discussion about this",
+      "revId": "b87f3464bb2a96f4df4378b78d7b1f3969e88f4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "128947c8_62c1f3ee",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
