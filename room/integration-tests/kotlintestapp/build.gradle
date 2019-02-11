@@ -44,7 +44,7 @@ dependencies {
     implementation(project(":sqlite:sqlite"))
     implementation(project(":sqlite:sqlite-framework"))
     implementation(project(":room:room-runtime"))
-    implementation(ARCH_CORE_RUNTIME)
+    implementation(project(":arch:core-runtime"))
     implementation(ARCH_LIFECYCLE_EXTENSIONS)
     implementation(KOTLIN_STDLIB)
     implementation(KOTLIN_COROUTINES)

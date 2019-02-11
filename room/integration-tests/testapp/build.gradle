@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":room:room-runtime"))
     implementation(project(":sqlite:sqlite"))
     implementation(project(":sqlite:sqlite-framework"))
-    implementation(ARCH_CORE_RUNTIME)
+    implementation(project(":arch:core-runtime"))
     implementation(ARCH_LIFECYCLE_EXTENSIONS)
 
     // FINDBUGS dependency resolves an app/testapp version conflict.
