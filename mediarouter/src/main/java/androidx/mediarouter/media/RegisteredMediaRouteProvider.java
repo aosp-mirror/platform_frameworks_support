@@ -19,7 +19,7 @@ package androidx.mediarouter.media;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_MEMBER_ROUTE_ID;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_MEMBER_ROUTE_IDS;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_ID;
-import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_LIBRARY_GROUP;
+import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_ROUTE_LIBRARY_GROUP_PREFIX;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_UNSELECT_REASON;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_DATA_VOLUME;
 import static androidx.mediarouter.media.MediaRouteProviderProtocol.CLIENT_MSG_ADD_MEMBER_ROUTE;
@@ -864,7 +864,7 @@ final class RegisteredMediaRouteProvider extends MediaRouteProvider
             int controllerId = mNextControllerId++;
             Bundle data = new Bundle();
             data.putString(CLIENT_DATA_ROUTE_ID, routeId);
-            data.putString(CLIENT_DATA_ROUTE_LIBRARY_GROUP, routeGroupId);
+            data.putString(CLIENT_DATA_ROUTE_LIBRARY_GROUP_PREFIX, routeGroupId);
             sendRequest(CLIENT_MSG_CREATE_ROUTE_CONTROLLER,
                     mNextRequestId++, controllerId, null, data);
             return controllerId;
