@@ -16,7 +16,7 @@
 
 package androidx.media2.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.SessionResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.SessionResult.RESULT_SUCCESS;
 
@@ -128,7 +128,7 @@ import java.util.concurrent.Executor;
  */
 public class VideoView extends SelectiveLayout {
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({
             VIEW_TYPE_TEXTUREVIEW,
             VIEW_TYPE_SURFACEVIEW
@@ -789,6 +789,126 @@ public class VideoView extends SelectiveLayout {
         data.putStringArrayList(MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST,
                 subtitleTracksLanguageList);
         return data;
+    }
+
+    MediaMetadata extractMetadata(MediaItem mediaItem, boolean isMusic) {
+        MediaMetadataRetriever retriever = null;
+        String path = "";
+        try {
+            if (mediaItem == null) {
+                return null;
+            } else if (mediaItem instanceof UriMediaItem) {
+                Uri uri = ((UriMediaItem) mediaItem).getUri();
+
+                // Save file name as title since the file may not have a title Metadata.
+                if (UriUtil.isFromNetwork(uri)) {
+                    path = uri.getPath();
+                } else {
+                    path = uri.getLastPathSegment();
+                }
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(getContext(), uri);
+            } else if (mediaItem instanceof FileMediaItem) {
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(
+                        ((FileMediaItem) mediaItem).getParcelFileDescriptor().getFileDescriptor(),
+                        ((FileMediaItem) mediaItem).getFileDescriptorOffset(),
+                        ((FileMediaItem) mediaItem).getFileDescriptorLength());
+            }
+        } catch (IllegalArgumentException e) {
+            Log.v(TAG, "Cannot retrieve metadata for this media file.");
+            retriever = null;
+        }
+
+        MediaMetadata metadata = mediaItem.getMetadata();
+
+        // Do not extract metadata of a media item which is not the current item.
+        if (mediaItem != mMediaItem) {
+            if (retriever != null) {
+                retriever.release();
+            }
+            return null;
+        }
+        if (!isMusic) {
+            mTitle = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_TITLE, retriever,
+                    MediaMetadataRetriever.METADATA_KEY_TITLE, path);
+        } else {
+            Resources resources = getResources();
+            mTitle = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_TITLE, retriever,
+                    MediaMetadataRetriever.METADATA_KEY_TITLE,
+                    resources.getString(R.string.mcv2_music_title_unknown_text));
+            mMusicArtistText = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_ARTIST,
+                    retriever,
+                    MediaMetadataRetriever.METADATA_KEY_ARTIST,
+                    resources.getString(R.string.mcv2_music_artist_unknown_text));
+            mMusicAlbumDrawable = extractAlbumArt(metadata, retriever,
+                    resources.getDrawable(R.drawable.ic_default_album_image));
+        }
+
+        if (retriever != null) {
+            retriever.release();
+        }
+
+        // Set duration and title values as MediaMetadata for MediaControlView
+        MediaMetadata.Builder builder = new MediaMetadata.Builder();
+
+        if (isMusic) {
+            builder.putString(MediaMetadata.METADATA_KEY_ARTIST, mMusicArtistText);
+        }
+        builder.putString(MediaMetadata.METADATA_KEY_TITLE, mTitle);
+        builder.putLong(
+                MediaMetadata.METADATA_KEY_DURATION, mMediaSession.getPlayer().getDuration());
+        builder.putString(
+                MediaMetadata.METADATA_KEY_MEDIA_ID, mediaItem.getMediaId());
+        builder.putLong(MediaMetadata.METADATA_KEY_PLAYABLE, 1);
+        return builder.build();
+    }
+
+    // TODO: move this method inside callback to make sure it runs inside the callback thread.
+    private String extractString(MediaMetadata metadata, String stringKey,
+            MediaMetadataRetriever retriever, int intKey, String defaultValue) {
+        String value = null;
+
+        if (metadata != null) {
+            value = metadata.getString(stringKey);
+            if (value != null && !value.isEmpty()) {
+                return value;
+            }
+        }
+        if (retriever != null) {
+            value = retriever.extractMetadata(intKey);
+        }
+        return value == null ? defaultValue : value;
+    }
+
+    // TODO: move this method inside callback to make sure it runs inside the callback thread.
+    private Drawable extractAlbumArt(MediaMetadata metadata, MediaMetadataRetriever retriever,
+            Drawable defaultDrawable) {
+        Bitmap bitmap = null;
+
+        if (metadata != null && metadata.containsKey(MediaMetadata.METADATA_KEY_ALBUM_ART)) {
+            bitmap = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+        } else if (retriever != null) {
+            byte[] album = retriever.getEmbeddedPicture();
+            if (album != null) {
+                bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+            }
+        }
+        if (bitmap != null) {
+            Palette.Builder builder = Palette.from(bitmap);
+            builder.generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    mDominantColor = palette.getDominantColor(0);
+                    mMusicView.setBackgroundColor(mDominantColor);
+                }
+            });
+            return new BitmapDrawable(getResources(), bitmap);
+        }
+        return defaultDrawable;
     }
 
     boolean isCurrentItemMusic() {
