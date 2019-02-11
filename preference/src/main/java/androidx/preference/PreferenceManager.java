@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -96,9 +96,11 @@ public class PreferenceManager {
     private OnNavigateToScreenListener mOnNavigateToScreenListener;
 
     /**
+     * Used by Settings.
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public PreferenceManager(Context context) {
         mContext = context;
 
@@ -195,6 +197,8 @@ public class PreferenceManager {
      * Inflates a preference hierarchy from XML. If a preference hierarchy is given, the new
      * preference hierarchies will be merged in.
      *
+     * Used by Settings.
+     *
      * @param context         The context of the resource
      * @param resId           The resource ID of the XML to inflate
      * @param rootPreferences Optional existing hierarchy to merge the new
@@ -202,7 +206,7 @@ public class PreferenceManager {
      * @return The root hierarchy (if one was not provided, the new hierarchy's root)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public PreferenceScreen inflateFromResource(Context context, int resId,
             PreferenceScreen rootPreferences) {
         // Block commits

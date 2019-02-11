@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -45,9 +45,11 @@ public final class PreferenceScreen extends PreferenceGroup {
     /**
      * Do NOT use this constructor, use {@link PreferenceManager#createPreferenceScreen(Context)}.
      *
+     * Used by Settings :)
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @SuppressLint("RestrictedApi")
     public PreferenceScreen(Context context, AttributeSet attrs) {
         super(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceScreenStyle,
