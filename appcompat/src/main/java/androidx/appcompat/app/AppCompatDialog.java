@@ -16,7 +16,7 @@
 
 package androidx.appcompat.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -153,7 +153,7 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
      * @hide
      */
     @Override
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void invalidateOptionsMenu() {
         getDelegate().invalidateOptionsMenu();
     }
