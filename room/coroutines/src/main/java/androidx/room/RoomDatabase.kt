@@ -49,15 +49,18 @@ suspend fun <R> RoomDatabase.runSuspendingTransaction(block: suspend CoroutineSc
         coroutineContext[TransactionElement]?.transactionContext ?: createTransactionContext(this)
     return withContext(transactionContext) {
         val transactionElement = coroutineContext[TransactionElement]!!
+        @Suppress("DEPRECATION")
         tryTransactionMethod(RoomDatabase::beginTransaction, transactionElement)
         try {
             // wrap suspending block in a new scope to wait for any child coroutine
             val result = coroutineScope {
                 block.invoke(this)
             }
+            @Suppress("DEPRECATION")
             setTransactionSuccessful()
             return@withContext result
         } finally {
+            @Suppress("DEPRECATION")
             tryTransactionMethod(RoomDatabase::endTransaction, transactionElement)
             if (!inTransaction()) {
                 // last transaction, release transaction thread
