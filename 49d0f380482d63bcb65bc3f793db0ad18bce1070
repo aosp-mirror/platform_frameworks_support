@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8debee52_66dd8c1d",
+        "filename": "exifinterface/api/1.0.0.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-11T00:14:38Z",
+      "side": 1,
+      "message": "You may want to increase the version from 1.0.0 to 1.1.0-alpha01.\nFYI, https://g3doc.corp.google.com/company/teams/androidx/versioning.md?cl\u003dhead",
+      "revId": "49d0f380482d63bcb65bc3f793db0ad18bce1070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
