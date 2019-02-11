@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b29a5efe_9e8ff4f9",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoViewFullScreenActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-11T09:11:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure but I wonder it could be just an Activity(android.app.Activity) since it doesn\u0027t use any Fragments.",
+      "range": {
+        "startLine": 34,
+        "startChar": 49,
+        "endLine": 34,
+        "endChar": 65
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fbbb48f_7247702a",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoViewFullScreenActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-11T09:11:42Z",
+      "side": 1,
+      "message": "minor) Use Window#addFlags and bitwise OR the two flags?",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8a0158_116e778e",
+        "filename": "media2-widget/src/main/res/layout/video_view_full_screen.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-11T09:11:42Z",
+      "side": 1,
+      "message": "I think the merge element is not needed. Let\u0027s remove it and use the view as root.",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2157dc2a_60d3f60f",
+        "filename": "samples/SupportMediaDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-11T09:11:42Z",
+      "side": 1,
+      "message": "Q1) Can we use androidx.media2.widget.VideoViewFullScreenActivity directly in the manifest?\nQ2) Do we need both of them?\nQ3) Will the app bar (title bar, action bar?) be shown depending on the theme? I think it would be better to be hidden regardless of the theme (by setting FEATURE_NO_TITLE in onCreate, for example).",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 19
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
