@@ -81,6 +81,24 @@
       "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a40ea1b2_0a31282d",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-02-11T16:57:58Z",
+      "side": 1,
+      "message": "I see. Makes sense.",
+      "parentUuid": "43ee9b8b_3173cc3a",
+      "revId": "ce21c93d42b7b652336050c78779f559b3aa772e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
