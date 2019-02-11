@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cd33cd0b_b785405d",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-11T21:18:03Z",
+      "side": 1,
+      "message": "btw, awaitStarted(block) sounds like a good name, we can make that change. Though it still needs to receive a non-suspend block (unless we go with the dispatcher).\n\nAlso, I\u0027ve extracted some samples for use cases to help clarify expectations:\n\nhttps://gist.github.com/yigit/23594c3c3abb6f29d3a276920490d942",
+      "parentUuid": "5ed06173_c0bc9018",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
