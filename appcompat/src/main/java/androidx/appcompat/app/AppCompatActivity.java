@@ -16,6 +16,8 @@
 
 package androidx.appcompat.app;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -35,6 +37,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDelegate.NightMode;
 import androidx.appcompat.view.ActionMode;
@@ -586,6 +589,19 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
                 && (actionBar == null || !actionBar.closeOptionsMenu())) {
             super.closeOptionsMenu();
         }
+    }
+
+    @Override
+    public void recreate() {
+        ActivityRecreator.recreate(this);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
+    final void superRecreate() {
+        super.recreate();
     }
 
     /**
