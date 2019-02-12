@@ -201,6 +201,9 @@ public class VideoView extends SelectiveLayout {
 
     private SubtitleAnchorView mSubtitleAnchorView;
 
+    private boolean mCanBroadcastCustomCommand;
+    private boolean mNeedToBroadcastPostConnect;
+
     private MediaRouter mMediaRouter;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
             MediaRouteSelector mRouteSelector;
@@ -851,9 +854,14 @@ public class VideoView extends SelectiveLayout {
                     if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
                         Bundle data = extractTrackInfoData();
                         if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
-                                    new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
-                                            null), data);
+                            if (mCanBroadcastCustomCommand) {
+                                mMediaSession.broadcastCustomCommand(
+                                        new SessionCommand(
+                                                MediaControlView.EVENT_UPDATE_TRACK_STATUS,
+                                                null), data);
+                            } else {
+                                mNeedToBroadcastPostConnect = true;
+                            }
                         }
                     }
                 }
@@ -948,9 +956,14 @@ public class VideoView extends SelectiveLayout {
                     if (mMediaSession != null) {
                         Bundle data = extractTrackInfoData();
                         if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
-                                    new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
-                                            null), data);
+                            if (mCanBroadcastCustomCommand) {
+                                mMediaSession.broadcastCustomCommand(
+                                        new SessionCommand(
+                                                MediaControlView.EVENT_UPDATE_TRACK_STATUS,
+                                                null), data);
+                            } else {
+                                mNeedToBroadcastPostConnect = true;
+                            }
                         }
 
                         // Run extractMetadata() in another thread to prevent StrictMode violation.
@@ -995,6 +1008,7 @@ public class VideoView extends SelectiveLayout {
                     Log.w(TAG, "onConnect() is ignored. session is already gone.");
                 }
             }
+            mCanBroadcastCustomCommand = false;
             SessionCommandGroup.Builder commandsBuilder = new SessionCommandGroup.Builder()
                     .addCommand(SessionCommand.COMMAND_CODE_PLAYER_PAUSE)
                     .addCommand(SessionCommand.COMMAND_CODE_PLAYER_PLAY)
@@ -1016,6 +1030,20 @@ public class VideoView extends SelectiveLayout {
                     .addCommand(new SessionCommand(
                             MediaControlView.COMMAND_HIDE_SUBTITLE, null));
             return commandsBuilder.build();
+        }
+
+        @Override
+        public void onPostConnect(@NonNull MediaSession session,
+                @NonNull MediaSession.ControllerInfo controller) {
+            mCanBroadcastCustomCommand = true;
+            if (mNeedToBroadcastPostConnect) {
+                Bundle data = extractTrackInfoData();
+                if (data != null) {
+                    mMediaSession.broadcastCustomCommand(new SessionCommand(
+                            MediaControlView.EVENT_UPDATE_TRACK_STATUS, null), data);
+                }
+                mNeedToBroadcastPostConnect = false;
+            }
         }
 
         @Override

@@ -18,6 +18,8 @@ package androidx.media2.widget;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
+import static androidx.media2.widget.MediaControlView.KEY_AUDIO_TRACK_COUNT;
+import static androidx.media2.widget.MediaControlView.KEY_VIDEO_TRACK_COUNT;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -34,6 +36,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,7 +48,9 @@ import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
+import androidx.media2.SessionCommand;
 import androidx.media2.SessionPlayer;
+import androidx.media2.SessionResult;
 import androidx.media2.UriMediaItem;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
@@ -280,8 +285,8 @@ public class MediaControlViewTest {
                 ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                 afd.getStartOffset(), afd.getLength()).build();
         afd.close();
-        final CountDownLatch latchForUri = new CountDownLatch(3);
-        final CountDownLatch latchForFile = new CountDownLatch(3);
+        final CountDownLatch latchForUri = new CountDownLatch(5);
+        final CountDownLatch latchForFile = new CountDownLatch(5);
         final MediaController controller =
                 createController(new MediaController.ControllerCallback() {
                     @Override
@@ -300,6 +305,9 @@ public class MediaControlViewTest {
                                             MediaMetadata.METADATA_KEY_ARTIST));
                                     countDown();
                                 }
+                                // onCurrentMediaItemChanged is twice -- when duration value
+                                // is updated and again and when media item is changed. See
+                                // MediaSessionImplBase.SessionPlayerCallback#updateDurationIfNeeded
                                 if (metadata.containsKey(MediaMetadata.METADATA_KEY_DURATION)) {
                                     assertEquals(duration, metadata.getLong(
                                             MediaMetadata.METADATA_KEY_DURATION), tolerance);
@@ -308,6 +316,23 @@ public class MediaControlViewTest {
                             }
                         }
                     }
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (command.getCustomCommand()
+                                == MediaControlView.EVENT_UPDATE_TRACK_STATUS) {
+                            int videoTrackCount =
+                                    (args != null) ? args.getInt(KEY_VIDEO_TRACK_COUNT) : 0;
+                            int audioTrackCount =
+                                    (args != null) ? args.getInt(KEY_AUDIO_TRACK_COUNT) : 0;
+                            if (videoTrackCount == 0 && audioTrackCount == 1) {
+                                countDown();
+                            }
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+
                     private void countDown() {
                         if (latchForUri.getCount() != 0) {
                             latchForUri.countDown();
