@@ -48,7 +48,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.text.AllCapsTransformationMethod;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -499,7 +498,7 @@ public class SwitchCompat extends CompoundButton {
      * {@link androidx.appcompat.R.attr#track}
      */
     public void setTrackResource(int resId) {
-        setTrackDrawable(AppCompatResources.getDrawable(getContext(), resId));
+        setTrackDrawable(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     /**
@@ -619,7 +618,7 @@ public class SwitchCompat extends CompoundButton {
      * {@link androidx.appcompat.R.attr#android_thumb}
      */
     public void setThumbResource(int resId) {
-        setThumbDrawable(AppCompatResources.getDrawable(getContext(), resId));
+        setThumbDrawable(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     /**

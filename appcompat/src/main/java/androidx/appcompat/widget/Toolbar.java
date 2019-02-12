@@ -500,7 +500,7 @@ public class Toolbar extends ViewGroup {
      * @param resId ID of a drawable resource
      */
     public void setLogo(@DrawableRes int resId) {
-        setLogo(AppCompatResources.getDrawable(getContext(), resId));
+        setLogo(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     /** @hide */
@@ -957,7 +957,7 @@ public class Toolbar extends ViewGroup {
      * {@link androidx.appcompat.R.attr#navigationIcon}
      */
     public void setNavigationIcon(@DrawableRes int resId) {
-        setNavigationIcon(AppCompatResources.getDrawable(getContext(), resId));
+        setNavigationIcon(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     /**
@@ -1085,7 +1085,7 @@ public class Toolbar extends ViewGroup {
      * {@link androidx.appcompat.R.attr#collapseIcon}
      */
     public void setCollapseIcon(@DrawableRes int resId) {
-        setCollapseIcon(AppCompatResources.getDrawable(getContext(), resId));
+        setCollapseIcon(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     /**
