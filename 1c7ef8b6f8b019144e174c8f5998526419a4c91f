@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "672f0601_7376fb4a",
+        "filename": "paging/common/src/test/java/androidx/paging/futures/FuturesTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-02-12T22:02:01Z",
+      "side": 1,
+      "message": "This is awesome !! TIL.",
+      "revId": "1c7ef8b6f8b019144e174c8f5998526419a4c91f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
