@@ -40,7 +40,6 @@ import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
-import me.eugeniomarletti.kotlin.metadata.shadow.load.java.JvmAbi
 import stripNonJava
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.ElementKind
@@ -49,7 +48,6 @@ import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
 import javax.lang.model.element.Modifier.PUBLIC
 import javax.lang.model.type.DeclaredType
-import javax.lang.model.type.TypeKind
 
 /**
  * Creates the implementation for a class annotated with Dao.
@@ -169,71 +167,16 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createTransactionMethodBody(method: TransactionMethod): MethodSpec {
         val scope = CodeGenScope(this)
-        val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
-            addStatement("$N.beginTransaction()", dbField)
-            beginControlFlow("try").apply {
-                val returnsValue = method.element.returnType.kind != TypeKind.VOID
-                val resultVar = if (returnsValue) {
-                    scope.getTmpVar("_result")
-                } else {
-                    null
-                }
-                addDelegateToSuperStatement(method.element, method.callType, resultVar)
-                addStatement("$N.setTransactionSuccessful()", dbField)
-                if (returnsValue) {
-                    addStatement("return $N", resultVar)
-                }
-            }
-            nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
-            }
-            endControlFlow()
-        }
-        return methodBuilder.build()
-    }
-
-    private fun MethodSpec.Builder.addDelegateToSuperStatement(
-        element: ExecutableElement,
-        callType: TransactionMethod.CallType,
-        result: String?
-    ) {
-        val params: MutableList<Any> = mutableListOf()
-        val format = buildString {
-            if (result != null) {
-                append("$T $L = ")
-                params.add(element.returnType)
-                params.add(result)
-            }
-            when (callType) {
-                TransactionMethod.CallType.CONCRETE -> {
-                    append("super.$N(")
-                    params.add(element.simpleName)
-                }
-                TransactionMethod.CallType.DEFAULT_JAVA8 -> {
-                    append("$N.super.$N(")
-                    params.add(element.enclosingElement.simpleName)
-                    params.add(element.simpleName)
-                }
-                TransactionMethod.CallType.DEFAULT_KOTLIN -> {
-                    append("$N.$N.$N(this")
-                    params.add(element.enclosingElement.simpleName)
-                    params.add(JvmAbi.DEFAULT_IMPLS_CLASS_NAME)
-                    params.add(element.simpleName)
-                }
-            }
-            var first = callType != TransactionMethod.CallType.DEFAULT_KOTLIN
-            element.parameters.forEach {
-                if (first) {
-                    first = false
-                } else {
-                    append(", ")
-                }
-                append(L)
-                params.add(it.simpleName)
-            }
-            append(")")
-        }
-        addStatement(format, *params.toTypedArray())
+        method.methodBinder.executeAndReturn(
+            returnType = method.returnType,
+            parameterNames = method.parameterNames,
+            daoName = dao.typeName,
+            daoImplName = dao.implTypeName,
+            dbField = dbField,
+            scope = scope)
+        return overrideWithoutAnnotations(method.element, declaredDao)
+            .addCode(scope.generate())
+            .build()
     }
 
     private fun createConstructor(
