@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1a5c9ab_fe68d109",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-12T00:52:13Z",
+      "side": 1,
+      "message": "1.0.0 is not released. We should keep the version 1.0.0 before the release.",
+      "parentUuid": "c2f5ff53_bbc7d4b6",
+      "range": {
+        "startLine": 68,
+        "startChar": 33,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3472c688_d21a6796",
         "filename": "media2-widget/api/1.1.0-alpha01.txt",
         "patchSetId": 4
@@ -41,6 +65,29 @@
         "startChar": 2,
         "endLine": 42,
         "endChar": 3
+      },
+      "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b70f3ca6_10b267d8",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-12T00:52:13Z",
+      "side": 1,
+      "message": "package private?",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 10
       },
       "revId": "c777a5092fe4deeac97215ce5debd0901e0c808b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
