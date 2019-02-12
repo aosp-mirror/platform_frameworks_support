@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e34816ef_5ba9d999",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T23:14:20Z",
+      "side": 1,
+      "message": "You should also link against 124301015 (thanks for taking on the de-duplication!)",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "c2a5c69f32f80882a9617f57aa6199f3be2be482",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7e95dd5_a9b6469a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T23:14:20Z",
+      "side": 1,
+      "message": "Don\u0027t log in tests, not usually helpful",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 46
+      },
+      "revId": "c2a5c69f32f80882a9617f57aa6199f3be2be482",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
