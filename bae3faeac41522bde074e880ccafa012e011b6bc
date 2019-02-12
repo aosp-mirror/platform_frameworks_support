@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9c719aab_b5ca042c",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2019-02-12T21:29:26Z",
+      "side": 1,
+      "message": "Your comment in one of your snippet \"// lifecycle might\u0027ve already stopped (CREATED state)\" is not accurate. I understand your concern, but the good news it that it\u0027s easy to not have the issue you mention in that comment, here\u0027s how:\n\nIf your coroutine dispatcher is Dispatchers.Main, and the `awaitCreated`, `awaitStarted` and `awaitResumed` functions are based on an `awaitState` function that uses `Dispatchers.Main.immediate`, then the coroutine will resume immediately when the lifecycle state reaches at least the desired state, being synchronous until the next suspension point. There\u0027s no need for a dispatcher that magically pauses dispatching based on lifecycle state.\n\nExample of possible implementation for `awaitState`: https://github.com/LouisCAD/Splitties/blob/61e9f223219f0c1c894be77c334d826413ed720c/lifecycle-coroutines/src/main/kotlin/splitties/lifecycle/coroutines/LifecycleAwaitState.kt#L38",
+      "parentUuid": "cd33cd0b_b785405d",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
