@@ -30,7 +30,6 @@ import android.view.SubMenu;
 import android.view.View;
 
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.ActivityChooserModel.OnChooseActivityListener;
 import androidx.core.view.ActionProvider;
 
@@ -228,7 +227,8 @@ public class ShareActionProvider extends ActionProvider {
         // Lookup and set the expand action icon.
         TypedValue outTypedValue = new TypedValue();
         mContext.getTheme().resolveAttribute(R.attr.actionModeShareDrawable, outTypedValue, true);
-        Drawable drawable = AppCompatResources.getDrawable(mContext, outTypedValue.resourceId);
+        Drawable drawable = AppCompatDrawableManager.get()
+                .getDrawable(mContext, outTypedValue.resourceId);
         activityChooserView.setExpandActivityOverflowButtonDrawable(drawable);
         activityChooserView.setProvider(this);
 

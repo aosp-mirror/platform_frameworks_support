@@ -79,7 +79,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.StandaloneActionMode;
@@ -2701,7 +2700,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         @Override
         public void setBackgroundResource(int resid) {
-            setBackgroundDrawable(AppCompatResources.getDrawable(getContext(), resid));
+            setBackgroundDrawable(AppCompatDrawableManager.get().getDrawable(getContext(), resid));
         }
 
         private boolean isOutOfBounds(int x, int y) {

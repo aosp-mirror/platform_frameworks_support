@@ -40,7 +40,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.internal.view.SupportMenuItem;
 import androidx.core.view.ActionProvider;
@@ -502,7 +502,8 @@ public final class MenuItemImpl implements SupportMenuItem {
         }
 
         if (mIconResId != NO_ICON) {
-            Drawable icon = AppCompatResources.getDrawable(mMenu.getContext(), mIconResId);
+            Drawable icon = AppCompatDrawableManager.get()
+                    .getDrawable(mMenu.getContext(), mIconResId);
             mIconResId = NO_ICON;
             mIconDrawable = icon;
             return applyIconTintIfNecessary(icon);

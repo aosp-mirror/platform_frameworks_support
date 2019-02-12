@@ -27,7 +27,6 @@ import android.widget.CompoundButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 
@@ -62,8 +61,8 @@ class AppCompatCompoundButtonHelper {
                 final int resourceId = a.getResourceId(R.styleable.CompoundButton_buttonCompat, 0);
                 if (resourceId != 0) {
                     try {
-                        mView.setButtonDrawable(
-                                AppCompatResources.getDrawable(mView.getContext(), resourceId));
+                        mView.setButtonDrawable(AppCompatDrawableManager.get()
+                                .getDrawable(mView.getContext(), resourceId));
                         buttonDrawableLoaded = true;
                     } catch (Resources.NotFoundException nfe) {
                         // Animated buttonCompat relies on AAPT2 features. If not found then swallow
@@ -75,8 +74,8 @@ class AppCompatCompoundButtonHelper {
                 final int resourceId = a.getResourceId(
                         R.styleable.CompoundButton_android_button, 0);
                 if (resourceId != 0) {
-                    mView.setButtonDrawable(
-                            AppCompatResources.getDrawable(mView.getContext(), resourceId));
+                    mView.setButtonDrawable(AppCompatDrawableManager.get()
+                            .getDrawable(mView.getContext(), resourceId));
                 }
             }
             if (a.hasValue(R.styleable.CompoundButton_buttonTint)) {
