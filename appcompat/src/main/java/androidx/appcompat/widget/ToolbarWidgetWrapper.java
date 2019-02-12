@@ -39,7 +39,6 @@ import android.widget.SpinnerAdapter;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.appcompat.app.WindowDecorActionBar;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.menu.ActionMenuItem;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPresenter;
@@ -298,7 +297,8 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override
     public void setIcon(int resId) {
-        setIcon(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
+        setIcon(resId != 0 ? AppCompatDrawableManager.get().getDrawable(getContext(), resId)
+                : null);
     }
 
     @Override
@@ -309,7 +309,8 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override
     public void setLogo(int resId) {
-        setLogo(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
+        setLogo(resId != 0 ? AppCompatDrawableManager.get().getDrawable(getContext(), resId)
+                : null);
     }
 
     @Override
@@ -596,7 +597,8 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override
     public void setNavigationIcon(int resId) {
-        setNavigationIcon(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
+        setNavigationIcon(resId != 0 ? AppCompatDrawableManager.get()
+                .getDrawable(getContext(), resId) : null);
     }
 
     @Override

@@ -28,7 +28,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.ImageViewCompat;
 
 /**
@@ -56,7 +55,7 @@ public class AppCompatImageHelper {
                 // it from srcCompat
                 final int id = a.getResourceId(R.styleable.AppCompatImageView_srcCompat, -1);
                 if (id != -1) {
-                    drawable = AppCompatResources.getDrawable(mView.getContext(), id);
+                    drawable = AppCompatDrawableManager.get().getDrawable(mView.getContext(), id);
                     if (drawable != null) {
                         mView.setImageDrawable(drawable);
                     }
@@ -83,7 +82,8 @@ public class AppCompatImageHelper {
 
     public void setImageResource(int resId) {
         if (resId != 0) {
-            final Drawable d = AppCompatResources.getDrawable(mView.getContext(), resId);
+            final Drawable d = AppCompatDrawableManager.get()
+                    .getDrawable(mView.getContext(), resId);
             if (d != null) {
                 DrawableUtils.fixDrawable(d);
             }

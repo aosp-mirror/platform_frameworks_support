@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":appcompat:appcompat-resources"))
     implementation(project(":appcompat"))
     implementation(project(":cardview"))
     implementation(project(":gridlayout"))
