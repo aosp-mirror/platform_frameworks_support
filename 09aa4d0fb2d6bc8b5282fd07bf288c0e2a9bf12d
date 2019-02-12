@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02da51ad_89a94676",
+        "filename": "studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T22:01:58Z",
+      "side": 1,
+      "message": "Hmm I guess now that you\u0027ve implemented the ability to persist the acceptance of the license agreement, I guess that probably means it\u0027d be preferable to notify the user each time the license agreement changes. Right? If that\u0027s true, I think that means we want this to prompt the user inline rather than recommend the command-line argument.\n\nI think that can be done via:\n\necho \"Do you accept the license agreement? [y/n]\"\nread acceptsLicenseAgreement\nif [ \"${acceptsLicenseAgreement}\" \u003d\u003d \"y\" ]; then\n  touch \"${licenseAcceptedPath}\"\nelse\n  exit 1\nfi",
+      "revId": "09aa4d0fb2d6bc8b5282fd07bf288c0e2a9bf12d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
