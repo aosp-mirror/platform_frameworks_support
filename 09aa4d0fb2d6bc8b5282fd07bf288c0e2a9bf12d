@@ -16,6 +16,24 @@
       "revId": "09aa4d0fb2d6bc8b5282fd07bf288c0e2a9bf12d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c71a21_aec9cc06",
+        "filename": "studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-02-12T22:04:18Z",
+      "side": 1,
+      "message": "I\u0027m definitely interested in an inline prompt, but I\u0027m not sure I\u0027m ready to break the command line argument just yet. Thoughts about doing it in a subsequent CL?",
+      "parentUuid": "02da51ad_89a94676",
+      "revId": "09aa4d0fb2d6bc8b5282fd07bf288c0e2a9bf12d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
