@@ -1,0 +1,14 @@
+package androidx.paging {
+
+  public final class PagedListConfigKt {
+    ctor public PagedListConfigKt();
+    method public static androidx.paging.PagedList.Config Config(int, int, boolean, int, int);
+  }
+
+  public final class PagedListKt {
+    ctor public PagedListKt();
+    method public static <Key, Value> androidx.paging.PagedList<Value> PagedList(androidx.paging.DataSource<Key, Value>, androidx.paging.PagedList.Config, java.util.concurrent.Executor, java.util.concurrent.Executor, androidx.paging.PagedList.BoundaryCallback<Value>, Key);
+  }
+
+}
+
