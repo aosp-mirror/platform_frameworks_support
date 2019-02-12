@@ -98,6 +98,30 @@
     },
     {
       "key": {
+        "uuid": "60fad856_2515a3dc",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T02:08:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "117ec828_f83c7dc8",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "640c6111_7ef9f6c7",
         "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
         "patchSetId": 5
@@ -170,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "0eaec35c_f80f3f7b",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T02:08:42Z",
+      "side": 1,
+      "message": "but not running may leave other references to that callback. basically, some coroutine is waiting for it to complete to continue. we need to cancel anything that gets added after stop. maybe the suspendCoroutine above fixes it already. anyways, best to have a test to ensure those ones gets cancelled (actually, we probably need to just run them to propoganate the cancelation).",
+      "parentUuid": "17482cdb_4e492454",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5ad2b7a_2128cd00",
         "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
         "patchSetId": 5
@@ -215,6 +263,30 @@
       "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20cce67e_8f764181",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T02:08:42Z",
+      "side": 1,
+      "message": "then we need to use System.hashCode() to avoid any potential for conflict in case hascode gets implemented there for whatever reason.",
+      "parentUuid": "1a6bf685_75498727",
+      "range": {
+        "startLine": 96,
+        "startChar": 73,
+        "endLine": 96,
+        "endChar": 94
+      },
+      "revId": "4ac48ab7bb4421194badbb06747fe2a795bd5ba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b4b3daa_31f35183",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T02:08:42Z",
+      "side": 1,
+      "message": "why remove the failure? if the problem is that it is getting caught because catch is a RuntimeException, just throw something that does not extend from RuntimeException in the inner loop.",
+      "revId": "f18fba44feeac5ed9a018d246d069614275ee9e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07749789_628bb9e3",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T02:08:42Z",
+      "side": 1,
+      "message": "lets replace these runBlockings with another inner scope that defers to another multi threaded scope to ensure it covers that case. run blcoking uses a single threaded executor (literally current thread) that might hide issues.\n(for all usages of runBLocking in this test and others)",
+      "range": {
+        "startLine": 415,
+        "startChar": 8,
+        "endLine": 415,
+        "endChar": 19
+      },
+      "revId": "f18fba44feeac5ed9a018d246d069614275ee9e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
