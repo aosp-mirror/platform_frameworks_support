@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.appcompat.widget.ResourceManagerInternal;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ColorStateListInflaterCompat;
 
@@ -98,8 +98,8 @@ public final class AppCompatResources {
      * @see ContextCompat#getDrawable(Context, int)
      */
     @Nullable
-    public static Drawable getDrawable(@NonNull Context context, @DrawableRes int resId) {
-        return AppCompatDrawableManager.get().getDrawable(context, resId);
+    public static Drawable getDrawable2(@NonNull Context context, @DrawableRes int resId) {
+        return ResourceManagerInternal.get().getDrawable(context, resId);
     }
 
     /**

@@ -52,7 +52,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.menu.ShowableListMenu;
 import androidx.core.view.TintableBackgroundView;
@@ -312,7 +311,8 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
 
     @Override
     public void setPopupBackgroundResource(@DrawableRes int resId) {
-        setPopupBackgroundDrawable(AppCompatResources.getDrawable(getPopupContext(), resId));
+        setPopupBackgroundDrawable(
+                AppCompatDrawableManager.get().getDrawable(getPopupContext(), resId));
     }
 
     @Override

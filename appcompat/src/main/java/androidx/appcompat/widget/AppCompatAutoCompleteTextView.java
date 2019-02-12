@@ -33,7 +33,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.TintableBackgroundView;
 import androidx.core.widget.TextViewCompat;
 
@@ -90,7 +89,8 @@ public class AppCompatAutoCompleteTextView extends AutoCompleteTextView implemen
 
     @Override
     public void setDropDownBackgroundResource(@DrawableRes int resId) {
-        setDropDownBackgroundDrawable(AppCompatResources.getDrawable(getContext(), resId));
+        setDropDownBackgroundDrawable(AppCompatDrawableManager.get()
+                .getDrawable(getContext(), resId));
     }
 
     @Override

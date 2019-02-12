@@ -30,7 +30,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.TintableBackgroundView;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TintableCompoundButton;
@@ -87,7 +86,7 @@ public class AppCompatCheckBox extends CheckBox implements TintableCompoundButto
 
     @Override
     public void setButtonDrawable(@DrawableRes int resId) {
-        setButtonDrawable(AppCompatResources.getDrawable(getContext(), resId));
+        setButtonDrawable(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     @Override

@@ -58,13 +58,15 @@ public class AppCompatResourcesTestCase {
     @Test
     public void testGetDrawableVectorResource() {
         final Activity context = mActivityTestRule.getActivity();
-        assertNotNull(AppCompatResources.getDrawable(context, R.drawable.test_vector_off));
+        assertNotNull(AppCompatDrawableManager.get()
+                .getDrawable(context, R.drawable.test_vector_off));
     }
 
     @Test
     public void testGetAnimatedStateListDrawable() {
         final Activity context = mActivityTestRule.getActivity();
-        assertNotNull(AppCompatResources.getDrawable(context, R.drawable.asl_heart));
+        assertNotNull(AppCompatDrawableManager.get()
+                .getDrawable(context, R.drawable.asl_heart));
     }
 
 }
