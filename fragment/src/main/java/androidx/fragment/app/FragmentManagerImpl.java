@@ -1439,6 +1439,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (DEBUG) Log.v(TAG, "detach: " + fragment);
         if (!fragment.mDetached) {
             fragment.mDetached = true;
+            fragment.mFragmentManager = null;
             if (fragment.mAdded) {
                 // We are not already in back stack, so need to remove the fragment.
                 if (DEBUG) Log.v(TAG, "remove from detach: " + fragment);
