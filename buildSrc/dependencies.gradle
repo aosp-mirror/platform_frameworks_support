@@ -40,6 +40,7 @@ libs.exclude_for_material = {
     exclude group: 'androidx.appcompat'
     exclude group: 'androidx.recyclerview'
     exclude group: 'androidx.cardview'
+    exclude group: 'androidx.vectordrawable'
 }
 
 libs.exclude_for_espresso = {
