@@ -52,6 +52,24 @@
       "revId": "09aa4d0fb2d6bc8b5282fd07bf288c0e2a9bf12d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7514e7c1_9a079c3d",
+        "filename": "studiow",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-02-12T22:09:55Z",
+      "side": 1,
+      "message": "Sounds good to me",
+      "parentUuid": "ae79648d_db9e64f4",
+      "revId": "09aa4d0fb2d6bc8b5282fd07bf288c0e2a9bf12d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
