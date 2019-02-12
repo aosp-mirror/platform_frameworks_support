@@ -339,4 +339,20 @@ interface BooksDao {
     // see: b/123767877, suspend function with inner class as parameter issues.
     @Query("SELECT 'YES' FROM book")
     suspend fun getAnswer(): AnswerConverter.Answer
+
+    @Transaction
+    suspend fun insertBookAndAuthorSuspend(book: Book, author: Author) {
+        addBooks(book)
+        addAuthors(author)
+    }
+
+    @Query("SELECT * FROM book WHERE salesCnt = :count")
+    suspend fun getBooksSalesCountSuspend(count: Int): List<Book>
+
+    @Transaction
+    suspend fun deleteBooksWithZeroSales(): List<Book> {
+        val books = getBooksSalesCountSuspend(0)
+        deleteBookWithIds(*books.map { it.bookId }.toTypedArray())
+        return books
+    }
 }
