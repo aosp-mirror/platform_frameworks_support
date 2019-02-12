@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bb05d33_813d8f3b",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-12T23:58:41Z",
+      "side": 1,
+      "message": "What happens when two contexts are created at the same, one each by a different thread?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "ef58457af5a904e6c5169173245c5de3e2015c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bbe2691_23c5faba",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-12T23:58:41Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like Coroutines has SequentialExecutor yet: https://github.com/Kotlin/kotlinx.coroutines/issues/261\n\nI don\u0027t think this is quite this simple, unfortunately. In particular, rejecting execution because of a timing window isn\u0027t good. It should instead acquire a new thread.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "ef58457af5a904e6c5169173245c5de3e2015c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
