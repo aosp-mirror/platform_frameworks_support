@@ -16,7 +16,10 @@
 
 package androidx.appcompat.widget;
 
+import static androidx.appcompat.testutils.TestUtils.assertCenterPixelOfColor;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -27,6 +30,7 @@ import android.view.MenuItem;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
+import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -137,5 +141,32 @@ public class ToolbarTest {
 
         assertEquals(expectedColor, toolbar.getTitleTextView().getCurrentTextColor());
         assertEquals(expectedColor, toolbar.getSubtitleTextView().getCurrentTextColor());
+    }
+
+    @Test
+    public void testToolbarOverflowIconWithThemedCSL() throws Throwable {
+        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_themedcsl_colorcontrolnormal);
+
+        // Inflate a menu so that the overflow is displayed
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                toolbar.inflateMenu(R.menu.popup_menu);
+            }
+        });
+        Espresso.onIdle();
+
+        // Assert that the overflow icon is tinted magenta, as per the theme
+        final Drawable icon = toolbar.getOverflowIcon();
+        assertNotNull(icon);
+        assertCenterPixelOfColor(
+                "Overflow icon is not tinted",
+                icon,
+                icon.getIntrinsicWidth(),
+                icon.getIntrinsicHeight(),
+                false,
+                0xFFFF00FF,
+                10,
+                false);
     }
 }
