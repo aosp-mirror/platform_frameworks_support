@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "559da4ba_8273de2e",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-12T22:29:50Z",
+      "side": 1,
+      "message": "that assumes the outer scope is `Dispatchers.Main` which we cannot assume. We could check that we are inside the main thread when the method is called but that only validates for our method, not for the outer scope. We cannot guarantee where / when the outer scope will run so it will be like a footgun.\nmoreover, if it is just await, developer can possibly write:\n\n```\nval data \u003d fetchData()\nawaitStarted()\nupdateUI(data)\nval details \u003d fetchDetails(data)\nupdateDetails(details)\n```\nbecause user is in suspend function, they can easily call another suspend function and the second updateDetails function may run after lifecycle has changed. It is easy to get wrong and not an API we would like to provide.\n\nProviding that await API will require:\n* always call it in Dispatchers.MAIN\n* never make another suspend call while accessing UI.\n\nIf the requirement is going to be never make another suspend call, we can as well receive a non-suspending block to make it impossible (besides launch which is not something that can be fixed).",
+      "parentUuid": "9c719aab_b5ca042c",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
