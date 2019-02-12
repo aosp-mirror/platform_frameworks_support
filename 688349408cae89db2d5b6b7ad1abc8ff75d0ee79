@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "63a5f6d4_2c8bacae",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "My understanding is that it requires compilation to run this task.  Now that you ask, I don\u0027t think we need this.  Runs faster without it too.",
+      "parentUuid": "61e57fbc_69111966",
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ac323d9_e2a8c019",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -65,6 +83,54 @@
     },
     {
       "key": {
+        "uuid": "143241cc_73c2620a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c765ab5_db6d323c",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 11
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed54b715_55f556d1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac323d9_e2a8c019",
+      "range": {
+        "startLine": 29,
+        "startChar": 48,
+        "endLine": 29,
+        "endChar": 63
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6fb2bff_0a43a9f5",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -105,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "bbc1f81d_39496232",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "I think I follow, but we should probably discuss to confirm.  Seems to run pretty quickly as is.",
+      "parentUuid": "6fc8932c_e5e8e9ef",
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "377991e0_5d11dd6a",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -128,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "9889a673_90ec4a36",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377991e0_5d11dd6a",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 13
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "267565f8_cec96065",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -139,6 +247,30 @@
       "writtenOn": "2019-02-11T22:15:20Z",
       "side": 1,
       "message": "We might be able to remove the comment if:\n\n1. The function were renamed from \"listDependencyVersions\" to \"dumpDependencies\"\n2. The loop (the one having \"project.configurations.all\") were extracted to a new function named \"serializeDependencies\"\n\nto make it easier to figure out what the function does based on the name+structure",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 7
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce809bab_56f70b70",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "I\u0027ve restructured and changed the function names.\n\nI\u0027m always for leaving high-level comments, even if they\u0027re redundant.  Helps with comprehension of the code along with good function naming.",
+      "parentUuid": "267565f8_cec96065",
       "range": {
         "startLine": 81,
         "startChar": 0,
@@ -214,6 +346,30 @@
     },
     {
       "key": {
+        "uuid": "984ebc6e_b923e7c4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "The createDependencyGraphFile task depends on listDependencyVersions (dumpDependencies) task,  so we create and then delete these files every time the createDependencyGraphFile tasks run.  So unless that dependency on listDependencyVersions (dumpDependencies) can be broken, I don\u0027t think we can get into that state",
+      "parentUuid": "680d451b_4bc79008",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 28
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f42369a3_1b84cfd7",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -225,6 +381,24 @@
       "writtenOn": "2019-02-11T22:15:20Z",
       "side": 1,
       "message": "Is it easy to use https://docs.oracle.com/javaee/7/api/javax/json/JsonObjectBuilder.html ?",
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbed1b53_cfe97b85",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-12T19:53:56Z",
+      "side": 1,
+      "message": "Do we have access to this library as part of our build?",
+      "parentUuid": "f42369a3_1b84cfd7",
       "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
