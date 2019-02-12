@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54d1e241_1265bb5a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "I vote for a capital \"C\"\n\nSince this refers to a Gradle Configuration ( https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html ) rather than the usual English concept of configuring things",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32cafa70_987c461f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "I think it\u0027d be clearer to name this \"aggregateDependencies\" or \"collectDependencies\" since it essentially returns a MutableSet rather than returning a String",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2436f68f_120dcbea",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "If there isn\u0027t currently a usecase for passing a nonempty dependencySet as an argument:\n\nI recommend making the dependencySet be created at the beginning of the function and returned as a return value to make it that much faster to recognize that it\u0027s essentially an output of the function",
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

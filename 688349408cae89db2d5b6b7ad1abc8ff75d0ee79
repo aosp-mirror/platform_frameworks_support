@@ -370,6 +370,30 @@
     },
     {
       "key": {
+        "uuid": "9901ff9e_df9915ae",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "I don\u0027t see anything in the Gradle tasks that deletes these directories (although a build bot might) so I\u0027d imagine that the the DependencyGraphFileTask could still be wrong if someone runs it locally, then deletes a project, and then runs it locally again.\n\nI don\u0027t imagine it as being particularly problematic but I hypothesize it to not take long to refactor either.\n\nThis would also help to guard against the possibility of renaming the text \"-dependency-graph.json\" (another way to guard against that would be to extract that text into a variable  that\u0027s referenced on lines 60, 209, and 213)",
+      "parentUuid": "984ebc6e_b923e7c4",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 28
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f42369a3_1b84cfd7",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -405,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "fc4271a3_feb29b87",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "I think that when we talked offline you said you tried adding this import and that the build passed\n\nIf it needs a new dependency before using it though then skipping it seems acceptable to me",
+      "parentUuid": "bbed1b53_cfe97b85",
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0152013_1ba4ee19",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
@@ -416,6 +458,24 @@
       "writtenOn": "2019-02-11T22:15:20Z",
       "side": 1,
       "message": "I think we want this println to throw an exception if it\u0027s a pain to switch to a json builder library",
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e0654c_cdb25292",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-12T20:36:46Z",
+      "side": 1,
+      "message": "Reminder to fail (probably throw an exception) here",
+      "parentUuid": "c0152013_1ba4ee19",
       "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
