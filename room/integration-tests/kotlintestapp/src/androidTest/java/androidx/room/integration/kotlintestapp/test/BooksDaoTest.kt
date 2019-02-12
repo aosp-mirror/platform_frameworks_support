@@ -29,6 +29,7 @@ import com.google.common.base.Optional
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.TestSubscriber
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.equalTo
@@ -321,6 +322,21 @@ class BooksDaoTest : TestDatabaseTest() {
         booksDao.getPublishers().run {
             assertThat(this.size, `is`(1))
             assertThat(this.first(), `is`(equalTo(TestUtil.PUBLISHER)))
+        }
+    }
+
+    @Test
+    fun deleteBooksWithZeroSales() {
+        val books = listOf(
+            TestUtil.BOOK_1.copy(salesCnt = 0),
+            TestUtil.BOOK_2.copy(salesCnt = 0)
+        )
+        booksDao.addPublishers(TestUtil.PUBLISHER)
+        booksDao.addBooks(*books.toTypedArray())
+
+        runBlocking {
+            assertThat(booksDao.deleteBooksWithZeroSales(), `is`(equalTo(books)))
+            assertThat(booksDao.getBooksSuspend(), `is`(equalTo(emptyList())))
         }
     }
 }
