@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9385c0b_853e2d0f",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "Prefer \"ex.\" over \"e.g.\" (a tip I learned from asolovay@)",
+      "range": {
+        "startLine": 30,
+        "startChar": 41,
+        "endLine": 30,
+        "endChar": 45
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b03c33_25b99f81",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "{@code} (otherwise, I would guess this would linkify in the javadoc)",
+      "range": {
+        "startLine": 33,
+        "startChar": 78,
+        "endLine": 33,
+        "endChar": 88
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb474f5_b9c7f2ba",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "If I recall correctly, this is not the default (which might be to use some Proxy setup system-wide). If that\u0027s still true, I think you need to explicitly call out that this will step around system-wide proxy settings.",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b100889_9e1a1bc0",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "This contradicts my understanding of the default behavior. Let\u0027s chat?",
+      "range": {
+        "startLine": 99,
+        "startChar": 38,
+        "endLine": 99,
+        "endChar": 74
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60d59a1_2ce690de",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "What is SOCKS? Needs a link.\n\nIt\u0027s not clear what \"scheme://\" is permitted to be. I would have guessed only the HTTP or HTTPS constants.",
+      "range": {
+        "startLine": 126,
+        "startChar": 40,
+        "endLine": 126,
+        "endChar": 76
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1ea425_b6a23756",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "The next set of examples is sufficient IMO",
+      "range": {
+        "startLine": 131,
+        "startChar": 11,
+        "endLine": 138,
+        "endChar": 14
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d20c1ba_3240b16f",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-12T16:58:02Z",
+      "side": 1,
+      "message": "Do you mean it matches if you *do* call this, or matches if you *don\u0027t* call this?",
+      "range": {
+        "startLine": 192,
+        "startChar": 11,
+        "endLine": 192,
+        "endChar": 79
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
