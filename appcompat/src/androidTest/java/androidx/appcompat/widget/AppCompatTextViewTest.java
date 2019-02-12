@@ -49,7 +49,6 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.GuardedBy;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
 import androidx.core.content.ContextCompat;
@@ -1097,7 +1096,7 @@ public class AppCompatTextViewTest
     public void testSetCompoundDrawablesTintList() {
         // Given an ACTV with a compound drawable
         final AppCompatTextView textView = new AppCompatTextView(mActivity);
-        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+        textView.setCompoundDrawables(AppCompatDrawableManager.get().getDrawable(
                 mActivity, R.drawable.white_square), null, null, null);
 
         // When a tint is set programmatically
@@ -1124,7 +1123,7 @@ public class AppCompatTextViewTest
     public void testSetCompoundDrawablesTintMode() {
         // Given an ACTV with a red compound drawable
         final AppCompatTextView textView = new AppCompatTextView(mActivity);
-        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+        textView.setCompoundDrawables(AppCompatDrawableManager.get().getDrawable(
                 mActivity, R.drawable.red_square), null, null, null);
 
         // When a semi-transparent blue tint is set programmatically with a mode of SRC_OVER
@@ -1160,7 +1159,7 @@ public class AppCompatTextViewTest
         TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(tint));
 
         // When a white compound drawable is set
-        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+        textView.setCompoundDrawables(AppCompatDrawableManager.get().getDrawable(
                 mActivity, R.drawable.white_square), null, null, null);
 
         // Then the drawable should be tinted

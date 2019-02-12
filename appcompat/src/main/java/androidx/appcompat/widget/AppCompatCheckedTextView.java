@@ -24,7 +24,6 @@ import android.view.inputmethod.InputConnection;
 import android.widget.CheckedTextView;
 
 import androidx.annotation.DrawableRes;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.TextViewCompat;
 
 /**
@@ -66,7 +65,7 @@ public class AppCompatCheckedTextView extends CheckedTextView {
 
     @Override
     public void setCheckMarkDrawable(@DrawableRes int resId) {
-        setCheckMarkDrawable(AppCompatResources.getDrawable(getContext(), resId));
+        setCheckMarkDrawable(AppCompatDrawableManager.get().getDrawable(getContext(), resId));
     }
 
     @Override

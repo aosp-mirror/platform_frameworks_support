@@ -39,7 +39,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.TypefaceCompat;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.TintableBackgroundView;
@@ -580,10 +579,10 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     public void setCompoundDrawablesWithIntrinsicBounds(int left, int top, int right, int bottom) {
         final Context context = getContext();
         setCompoundDrawablesWithIntrinsicBounds(
-                left != 0 ? AppCompatResources.getDrawable(context, left) : null,
-                top != 0 ? AppCompatResources.getDrawable(context, top) : null,
-                right != 0 ? AppCompatResources.getDrawable(context, right) : null,
-                bottom != 0 ? AppCompatResources.getDrawable(context, bottom) : null);
+                left != 0 ? AppCompatDrawableManager.get().getDrawable(context, left) : null,
+                top != 0 ? AppCompatDrawableManager.get().getDrawable(context, top) : null,
+                right != 0 ? AppCompatDrawableManager.get().getDrawable(context, right) : null,
+                bottom != 0 ? AppCompatDrawableManager.get().getDrawable(context, bottom) : null);
         if (mTextHelper != null) {
             mTextHelper.onSetCompoundDrawables();
         }
@@ -605,10 +604,10 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
             int start, int top, int end, int bottom) {
         final Context context = getContext();
         setCompoundDrawablesRelativeWithIntrinsicBounds(
-                start != 0 ? AppCompatResources.getDrawable(context, start) : null,
-                top != 0 ? AppCompatResources.getDrawable(context, top) : null,
-                end != 0 ? AppCompatResources.getDrawable(context, end) : null,
-                bottom != 0 ? AppCompatResources.getDrawable(context, bottom) : null);
+                start != 0 ? AppCompatDrawableManager.get().getDrawable(context, start) : null,
+                top != 0 ? AppCompatDrawableManager.get().getDrawable(context, top) : null,
+                end != 0 ? AppCompatDrawableManager.get().getDrawable(context, end) : null,
+                bottom != 0 ? AppCompatDrawableManager.get().getDrawable(context, bottom) : null);
         if (mTextHelper != null) {
             mTextHelper.onSetCompoundDrawables();
         }
