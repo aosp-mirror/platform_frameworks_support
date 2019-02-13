@@ -1,0 +1,9 @@
+// Baseline format: 1.0
+RemovedInterface: androidx.lifecycle.CompositeGeneratedAdaptersObserver:
+    Class androidx.lifecycle.CompositeGeneratedAdaptersObserver no longer implements androidx.lifecycle.GenericLifecycleObserver
+RemovedInterface: androidx.lifecycle.GenericLifecycleObserver:
+    Class androidx.lifecycle.GenericLifecycleObserver no longer implements androidx.lifecycle.LifecycleObserver
+RemovedInterface: androidx.lifecycle.SingleGeneratedAdapterObserver:
+    Class androidx.lifecycle.SingleGeneratedAdapterObserver no longer implements androidx.lifecycle.GenericLifecycleObserver
+
+
