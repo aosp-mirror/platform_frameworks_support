@@ -147,8 +147,12 @@ public class MediaRouteButton extends View {
 
     public MediaRouteButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(MediaRouterThemeHelper.createThemedButtonContext(context), attrs, defStyleAttr);
+        if (isInEditMode()) {
+            mRouter = null;
+            mCallback = null;
+            return;
+        }
         context = getContext();
-
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback();
 
@@ -445,6 +449,10 @@ public class MediaRouteButton extends View {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
+        if (isInEditMode()) {
+            return;
+        }
+
         mAttachedToWindow = true;
         if (!mSelector.isEmpty()) {
             mRouter.addCallback(mSelector, mCallback);
@@ -456,12 +464,14 @@ public class MediaRouteButton extends View {
 
     @Override
     public void onDetachedFromWindow() {
-        mAttachedToWindow = false;
-        if (!mSelector.isEmpty()) {
-            mRouter.removeCallback(mCallback);
-        }
+        if (!isInEditMode()) {
+            mAttachedToWindow = false;
+            if (!mSelector.isEmpty()) {
+                mRouter.removeCallback(mCallback);
+            }
 
-        sConnectivityReceiver.unregisterReceiver(this);
+            sConnectivityReceiver.unregisterReceiver(this);
+        }
 
         super.onDetachedFromWindow();
     }
