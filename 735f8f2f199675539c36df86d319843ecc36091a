@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc3568d_8683c925",
+        "filename": "appcompat/src/androidTest/res/layout/appcompat_toolbar_activity.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-13T03:05:17Z",
+      "side": 1,
+      "message": "I reformatted the file. Only the bottom the Toolbar is new.",
+      "revId": "735f8f2f199675539c36df86d319843ecc36091a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
