@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e09130ce_8c6257b5",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-02-13T11:24:52Z",
+      "side": 1,
+      "message": "I think you want withType(Test).configureEach(action) here.\n\nwithType(Type, Action) is the same as withType(Type).all(action) which will eagerly configures them. You can see this because the call does return a collection of Task.",
+      "range": {
+        "startLine": 144,
+        "startChar": 30,
+        "endLine": 144,
+        "endChar": 31
+      },
+      "revId": "36f6903fef5e03225f267556bf243414a23266ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
