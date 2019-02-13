@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c484b6d_e2c4c656",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "nit: can you format this license to match the style of the rest of the files? (manifest/activity xml)",
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb10c41_32e269ee",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "nit: no newline at the end of file",
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a18f463_5e61bb94",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "nit: no newline at the end of file",
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd6b3f5c_5b6d0dcc",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_webview_asset_loader.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "Seems like this isn\u0027t being used anywhere in your activity. If that\u0027s the case, just remove it.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 46
+      },
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2108a7b8_e8f19686",
+        "filename": "webkit/integration-tests/testapp/src/main/res/raw/some_text.html",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "nit: no newline at the end of file",
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ff30db6_024c0dbb",
+        "filename": "webkit/integration-tests/testapp/src/main/res/values/strings.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-13T14:53:18Z",
+      "side": 1,
+      "message": "nit: maybe use Demo instead of Example? Seeing as the top activity is called AndroidX Demos",
+      "range": {
+        "startLine": 20,
+        "startChar": 84,
+        "endLine": 20,
+        "endChar": 91
+      },
+      "revId": "2ed064a6ff9c33ee170b942d45f45681fd1cdb81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
