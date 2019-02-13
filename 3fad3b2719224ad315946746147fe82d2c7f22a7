@@ -22,6 +22,30 @@
       "revId": "3fad3b2719224ad315946746147fe82d2c7f22a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5690d01_bdfb578d",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/content/res/AppCompatResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-02-13T18:15:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07428621_03b9eb46",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "3fad3b2719224ad315946746147fe82d2c7f22a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
