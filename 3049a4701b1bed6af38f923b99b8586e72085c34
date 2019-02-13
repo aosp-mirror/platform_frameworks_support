@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "991eafa6_81fd0372",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T22:07:52Z",
+      "side": 1,
+      "message": "Defaults to JS on all remotely modern web engines, specified in HTML5. It\u0027s fine to leave it out.",
+      "parentUuid": "f09648be_3c8e3a33",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44293128_8fd9b280",
         "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-13T21:54:27Z",
       "side": 1,
       "message": "Please include a proper \u003cbody\u003e element and all that",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a137f1c_44ca3854",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T22:07:52Z",
+      "side": 1,
+      "message": "Also not required in HTML5 and rendering engines have never really cared",
+      "parentUuid": "44293128_8fd9b280",
       "range": {
         "startLine": 15,
         "startChar": 0,
