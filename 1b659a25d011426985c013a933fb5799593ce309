@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e23735c_e0cd8bf1",
+        "filename": "webkit/integration-tests/testapp/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-13T21:40:21Z",
+      "side": 1,
+      "message": "Please follow SafeBrowsingActivity for inspiration: create another Activity to host a menu, which will point to the simple-asset-loader Activity as well as the ajax-ish-asset-loader Activity.",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "1b659a25d011426985c013a933fb5799593ce309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962d3221_54f8dbb3",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-13T21:40:21Z",
+      "side": 1,
+      "message": "I think this makes more sense as a Uri (so, call \".build()\" at the end of this line).",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "1b659a25d011426985c013a933fb5799593ce309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
