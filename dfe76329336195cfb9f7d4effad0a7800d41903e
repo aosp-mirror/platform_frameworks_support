@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60bc2845_e8244bf2",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatAutoCompleteTextView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-02-13T20:46:01Z",
+      "side": 1,
+      "message": "Why the move back to using ACDM in the widgets?",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "dfe76329336195cfb9f7d4effad0a7800d41903e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
