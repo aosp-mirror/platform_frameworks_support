@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e25305c0_d66f35ee",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiCompatibilityTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-13T20:38:51Z",
+      "side": 1,
+      "message": "I thought I remembered Tor saying that \"show-annotation\" wasn\u0027t really intended for this case, but I also don\u0027t remember finding a better option",
+      "revId": "8aa5741b144d480bef6e8232a9ccd80c864593b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
