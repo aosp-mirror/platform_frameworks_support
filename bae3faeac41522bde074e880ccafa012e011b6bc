@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "8e5b99ab_f58f3a64",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-13T11:45:24Z",
+      "side": 1,
+      "message": "If the use-case is to execute _one piece_ of code when the lifecycle is in the certain state, then the most straightforward solution it to provide a suspending `awaitXxx` function that guarantees the execution of the next line happens right inside the lifecycle callback when it is ensured to be in the appropriate state. I can help to show how to implement it. However, as you correctly pointed out, as soon as you do a suspending invocation after `awaitXxx()` that state would have already changed. That is reality with any kind of asynchronous code and could be the source of bugs. \n\nIf the use-case is to execute a series of actions, all of which only to be performed in a certain state, then a special dispatcher seems to me a better solution. However, `scope.launch(lifecycle.startedDispatcher) { ... }` looks too low level and too verbose solution. I would have preferred a higher level wrapper function like `lifecycle.whenStarted { ... }` that would be a shortcut for `withContext(lifecycle.startedDispatcher + lifecycle.job(parentJob)) { ... }` and which would correctly capture the intent of executing the given code only in the certain state, which fully supporting suspending in that code (resumption would always guarantee to be happening in a certain state). However, this dispatcher will have to be support cancellation, e.g. it has to execute the code not only in STARTED state of the lifecycle, but when it is destoroyed, too, so that coroutine can execute any finally sections this way.",
+      "parentUuid": "cd33cd0b_b785405d",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
