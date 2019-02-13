@@ -22,6 +22,30 @@
       "revId": "dfe76329336195cfb9f7d4effad0a7800d41903e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d9f5cfe_cb0d40d9",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatAutoCompleteTextView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-02-13T20:59:03Z",
+      "side": 1,
+      "message": "Technically speaking, AppCompatResources can no longer use AppCompatDrawableManager since ACR is in appcompat-resources and ACDM is in appcompat (that depends on appcompat-resources). Some (but not all) of the calls to AppCompatResources.getDrawable() are with drawable IDs that have special handling that is configured in AppCompatDrawableManager.get(). That is the part that makes sure that drawables used for appcompat-internal parts of various widgets and toolbar still get replaced properly before being resolved.\n\nHaving said that, since there should only be one object of both AppCompatDrawableManager and ResourceManagerInternal - the later being used by AppCompatResources.getDrawable(), if the app is using appcompat, by the time the various widgets and toolbar classes get to call AppCompatResources.getDrawable, that extra configuration in ACDM should have been set up in ResourceManagerInternal.\n\nChris - is there a place early on during the initialization phase of an app that is using appcompat to force \"pre-loading\" of AppCompatDrawableManager? Would it be OK to just put AppCompatDrawableManager.get() in the constructor of AppCompatDelegateImpl? In that case, all the places that have been touched in this CL can be reverted back to use AppCompatResources.",
+      "parentUuid": "60bc2845_e8244bf2",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "dfe76329336195cfb9f7d4effad0a7800d41903e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
