@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58a41864_b6f13417",
+        "filename": "work/workmanager-ktx/api/restricted_1.0.0-rc01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-13T22:15:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this is the only thing that\u0027s actually being listed from WorkManager.  Can you explain what\u0027s happening here?  There are other RestrictTos in our code, and this one isn\u0027t being used in other work* libraries, even through dependencies.",
+      "range": {
+        "startLine": 4,
+        "startChar": 60,
+        "endLine": 4,
+        "endChar": 74
+      },
+      "revId": "8d19f6615c2bf7f01d7cc1bb0909d074e318057f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
