@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22ba6b29_2300664c",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkSpec.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-13T00:37:02Z",
+      "side": 1,
+      "message": "Nit: can you just inline System.currentTimeMillis here?",
+      "range": {
+        "startLine": 263,
+        "startChar": 56,
+        "endLine": 263,
+        "endChar": 59
+      },
+      "revId": "013a4445048c178ebd6adbbf33c3e4e04ffd2663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
