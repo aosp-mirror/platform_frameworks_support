@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7afcc538_196703f3",
+        "filename": "webkit/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 33
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T16:29:12Z",
+      "side": 1,
+      "message": "nit: Integration",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 27,
+        "endChar": 70
+      },
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a58f5f_7b17b400",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T16:29:12Z",
+      "side": 1,
+      "message": "nit: can these be lambdas instead of anonymous inner classes?",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c01d214_8baadeb4",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T16:29:12Z",
+      "side": 1,
+      "message": "nit: probably these should be appassets.androidplatform.net throughout for consistency?",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "806647e7_267ac97f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-13T16:29:12Z",
+      "side": 1,
+      "message": "nit: comment obsolete",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
