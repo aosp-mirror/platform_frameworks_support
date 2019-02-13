@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdcb3338_45c119bd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-02-13T13:40:44Z",
+      "side": 1,
+      "message": "Don\u0027t we need to check that the path ends in / here?",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "3426a3f583451837a5c5411c5c5e597b89eea9d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
