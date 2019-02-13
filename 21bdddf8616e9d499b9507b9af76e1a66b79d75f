@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c75e7ad_fa4814e3",
+        "filename": "preference/res/layout/expand_button.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-13T19:33:27Z",
+      "side": 1,
+      "message": "Did you actually want to also change values in ExpendButton?",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "21bdddf8616e9d499b9507b9af76e1a66b79d75f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50cf028c_30153f10",
+        "filename": "preference/res/layout/preference_widget_seekbar_material.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-13T19:33:27Z",
+      "side": 1,
+      "message": "nice documentation!",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 97
+      },
+      "revId": "21bdddf8616e9d499b9507b9af76e1a66b79d75f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
