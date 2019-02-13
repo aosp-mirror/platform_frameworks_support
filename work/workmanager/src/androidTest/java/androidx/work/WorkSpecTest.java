@@ -112,7 +112,7 @@ public class WorkSpecTest extends WorkManagerTest {
         WorkSpec workSpec = getWorkSpec(periodicWork);
         long nextRunTime = workSpec.calculateNextRunTime();
         assertThat(nextRunTime,
-                is(DEFAULT_PERIOD_START_TIME + DEFAULT_INTERVAL_TIME_MS - DEFAULT_FLEX_TIME_MS));
+                is(DEFAULT_PERIOD_START_TIME + DEFAULT_INTERVAL_TIME_MS));
     }
 
     @Test
