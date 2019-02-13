@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07428621_03b9eb46",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/content/res/AppCompatResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-13T17:58:41Z",
+      "side": 1,
+      "message": "It should probably stay as 2016?",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "3fad3b2719224ad315946746147fe82d2c7f22a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
