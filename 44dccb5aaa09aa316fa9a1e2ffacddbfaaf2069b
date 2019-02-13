@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d4d00bf_07ac62a4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-13T00:15:31Z",
+      "side": 1,
+      "message": "Why is this necessary?  I\u0027m not sure I understand.",
+      "range": {
+        "startLine": 178,
+        "startChar": 20,
+        "endLine": 178,
+        "endChar": 52
+      },
+      "revId": "44dccb5aaa09aa316fa9a1e2ffacddbfaaf2069b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b8830c_c6221701",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkSpec.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-13T00:15:31Z",
+      "side": 1,
+      "message": "Instead of actually changing the member variable, just do a return here with System.currentTimeMillis.",
+      "range": {
+        "startLine": 262,
+        "startChar": 20,
+        "endLine": 264,
+        "endChar": 21
+      },
+      "revId": "44dccb5aaa09aa316fa9a1e2ffacddbfaaf2069b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
