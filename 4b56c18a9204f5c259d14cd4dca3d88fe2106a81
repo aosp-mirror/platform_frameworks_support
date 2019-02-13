@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05d3c033_57665776",
+        "filename": "media2/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaSessionTestBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-13T01:13:18Z",
+      "side": 1,
+      "message": "If 1000ms isn\u0027t enough, then some tests should be MediumTest or LargeTest.",
+      "revId": "4b56c18a9204f5c259d14cd4dca3d88fe2106a81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
