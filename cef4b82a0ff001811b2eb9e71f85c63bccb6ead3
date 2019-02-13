@@ -98,6 +98,30 @@
     },
     {
       "key": {
+        "uuid": "0334d81e_8b19998c",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-13T23:47:03Z",
+      "side": 1,
+      "message": "i think it is still useful when the target can change.",
+      "parentUuid": "e03e697e_96b39ba1",
+      "range": {
+        "startLine": 75,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22c296fa_75508873",
         "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
         "patchSetId": 1
