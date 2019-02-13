@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "98d03c7a_8107f728",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-13T20:40:09Z",
+      "side": 1,
+      "message": "OK, I will try to revive my prototype of the dispatcher into a real implementation.\n\nI\u0027m a bit concerned about `whenStarted` being too implicit but that can be decided later.\n\nI\u0027ll also go ahead and divide this CL into two. The lifecycle.Scope is more or less clear so I\u0027ll separate it and  try to merge.\nWill create whenStarted as a separate CL.",
+      "parentUuid": "8e5b99ab_f58f3a64",
+      "revId": "bae3faeac41522bde074e880ccafa012e011b6bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "843bec1e_196614d4",
         "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
         "patchSetId": 27
