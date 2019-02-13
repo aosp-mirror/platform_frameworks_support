@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7cc0bc0_a905d065",
+        "filename": "room/guava/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-02-13T17:39:01Z",
+      "side": 1,
+      "message": "do you need to exclude these anymore, now that listenable future is compatible with guava_android?",
+      "revId": "1fffffcd58ec75383840d02a4c0652e8dfbe547e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
