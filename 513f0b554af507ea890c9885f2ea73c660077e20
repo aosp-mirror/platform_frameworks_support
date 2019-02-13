@@ -22,6 +22,29 @@
       "revId": "513f0b554af507ea890c9885f2ea73c660077e20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02daf20a_9da90db8",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-13T18:08:33Z",
+      "side": 1,
+      "message": "I\u0027d prefer if the first parameter was a FragmentActivity, instead of the ActivityTestRule being the last parameter. Same for restartFragmentController().",
+      "range": {
+        "startLine": 354,
+        "startChar": 63,
+        "endLine": 355,
+        "endChar": 91
+      },
+      "revId": "513f0b554af507ea890c9885f2ea73c660077e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
