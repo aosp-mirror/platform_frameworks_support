@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "914d07df_c118c082",
+        "filename": "paging/common/src/main/java/androidx/paging/futures/Futures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-13T00:13:21Z",
+      "side": 1,
+      "message": "At some point doesn\u0027t it make sense to take the j.c.g.util.concurrent dependency? The next thing that\u0027ll get added is the transformAsync() overload...",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "1c7ef8b6f8b019144e174c8f5998526419a4c91f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "672f0601_7376fb4a",
         "filename": "paging/common/src/test/java/androidx/paging/futures/FuturesTest.kt",
         "patchSetId": 1
