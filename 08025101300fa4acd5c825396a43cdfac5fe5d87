@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08638d8e_d7c360c5",
+        "filename": "webkit/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 33
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-13T20:29:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7afcc538_196703f3",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 27,
+        "endChar": 70
+      },
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15a58f5f_7b17b400",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
         "patchSetId": 33
@@ -39,6 +63,24 @@
       "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90dcf64d_1e89290a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-13T20:29:23Z",
+      "side": 1,
+      "message": "unfortunately lambda and other java 8 syntax features are not currently supported in the aandroidx.",
+      "parentUuid": "15a58f5f_7b17b400",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "d12b79b9_609a1a93",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-13T20:29:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c01d214_8baadeb4",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "806647e7_267ac97f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 33
@@ -73,6 +133,24 @@
       "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014fc8c2_6b51e2ea",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-13T20:29:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "806647e7_267ac97f",
+      "revId": "08025101300fa4acd5c825396a43cdfac5fe5d87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
