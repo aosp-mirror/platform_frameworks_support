@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "307a23de_d6d5e10a",
+        "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistryController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-13T04:29:28Z",
+      "side": 1,
+      "message": "Per the Lint error, this should have an @NonNull annotation",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "c6cda1177dce676564ca193d811a829e022ea84e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
