@@ -122,6 +122,30 @@
     },
     {
       "key": {
+        "uuid": "9e3b9ed4_25fa8b52",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-13T23:49:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0334d81e_8b19998c",
+      "range": {
+        "startLine": 75,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22c296fa_75508873",
         "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
         "patchSetId": 1
@@ -136,6 +160,24 @@
       "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d27708a_7fd50bfc",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/kotlin/KotlinMetadataElement.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-13T23:49:41Z",
+      "side": 1,
+      "message": "done -\u003e b/124249298",
+      "parentUuid": "22c296fa_75508873",
+      "revId": "cef4b82a0ff001811b2eb9e71f85c63bccb6ead3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
