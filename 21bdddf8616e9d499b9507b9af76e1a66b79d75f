@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "835e1518_1b59781f",
+        "filename": "preference/res/layout/expand_button.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-13T20:28:11Z",
+      "side": 1,
+      "message": "Yeah, will add note to description.",
+      "parentUuid": "8c75e7ad_fa4814e3",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "21bdddf8616e9d499b9507b9af76e1a66b79d75f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50cf028c_30153f10",
         "filename": "preference/res/layout/preference_widget_seekbar_material.xml",
         "patchSetId": 1
