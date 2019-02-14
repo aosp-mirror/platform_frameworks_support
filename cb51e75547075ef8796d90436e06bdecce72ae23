@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "caba1850_8276737b",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityRunOnNextRecreateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "Added SavedStateRegistryTest#sneakClass, though not 100% sure that it is what you meant",
+      "parentUuid": "e7c4c423_f35ea2df",
+      "range": {
+        "startLine": 33,
+        "startChar": 45,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "89de9c25_1fa8186c",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c825699_be100894",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89de9c25_1fa8186c",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8cacf1ad_4bd2cd29",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "Agree, should be error",
+      "parentUuid": "5c332220_470f4d4e",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96f93cef_fdde00b8",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b8d509df_df242df3",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "oh, interesting, found a doc about it. \n\nThanks and done.",
+      "parentUuid": "96f93cef_fdde00b8",
+      "range": {
+        "startLine": 70,
+        "startChar": 24,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e293d3_03624537",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-01T01:13:30Z",
       "side": 1,
       "message": "No error if state is already saved?",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbd8515a_d5c3717b",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "I\u0027m going back and forth on that (yeah, I know that you banned commitAllowingStateLoss), because savedstate is lossy by its nature. Anyhow, I added it here, because for this usecase it looks like that if you can\u0027t guarantee lifecycle state, then it points on structural issue in your app / library",
+      "parentUuid": "d2e293d3_03624537",
       "range": {
         "startLine": 96,
         "startChar": 13,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5709e598_10c3f4ee",
+        "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7a848ef_4c89952a",
+      "range": {
+        "startLine": 136,
+        "startChar": 21,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9324ba42_a54269f3",
         "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ebb152b_9e7aef29",
+        "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-14T14:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9324ba42_a54269f3",
+      "range": {
+        "startLine": 161,
+        "startChar": 37,
+        "endLine": 161,
+        "endChar": 44
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
