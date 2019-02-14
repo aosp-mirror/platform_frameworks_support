@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f16f6211_82c7574e",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T18:47:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "991eafa6_81fd0372",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44293128_8fd9b280",
         "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
         "patchSetId": 11
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "8898063a_f627f7a4",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T18:47:54Z",
+      "side": 1,
+      "message": "The thing is it\u0027s meant to be loaded inside ajax_requests.html which has a proper \u003cbody\u003e and \u003chtml\u003e elements not as a standalone html file.",
+      "parentUuid": "0a137f1c_44ca3854",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "624ddfb9_401a29bd",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
         "patchSetId": 11
@@ -107,6 +155,30 @@
       "writtenOn": "2019-02-13T21:54:27Z",
       "side": 1,
       "message": "I think different activities can have different resources? So, it probably makes sense to use Activity Context instead of Application Context?",
+      "range": {
+        "startLine": 61,
+        "startChar": 27,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db50b4e_23bbc0a5",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T18:47:54Z",
+      "side": 1,
+      "message": "well, I didn\u0027t know that .. can you link to some documentation on this? I thought it\u0027s called \"App Resources\" so they are shared for all activities in the app.\n\nAnyway it does not matter here .. because WebViewAsstLoader calls context.getApplicationContext() before using the context.",
+      "parentUuid": "624ddfb9_401a29bd",
       "range": {
         "startLine": 61,
         "startChar": 27,
@@ -165,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "9b145bb5_bc1f996d",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_webview_asset_loader.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T18:47:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0819efe_6511ab61",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de3f9f7b_cd958acf",
         "filename": "webkit/integration-tests/testapp/src/main/res/raw/some_text.html",
         "patchSetId": 11
@@ -179,6 +275,24 @@
       "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d89520f_e4dab3a2",
+        "filename": "webkit/integration-tests/testapp/src/main/res/raw/some_text.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T18:47:54Z",
+      "side": 1,
+      "message": "The thing is it\u0027s meant to be loaded inside ajax_requests.html which has a proper \u003cbody\u003e and \u003chtml\u003e elements not as a standalone html file.",
+      "parentUuid": "de3f9f7b_cd958acf",
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
