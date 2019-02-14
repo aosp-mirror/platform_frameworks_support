@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "c6d41d5b_d3ae9d58",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-14T18:52:13Z",
+      "side": 1,
+      "message": "Different activities can have different configurations, which can result in them picking different alternative resource files for the same resource ID if there\u0027s more than one version that applies.\n(they\u0027re unlikely to have an actually different set of resources at the ID level though I think nothing actually prevents someone from doing this, it\u0027s just not something that would normally happen)\n\nWe probably should use the context that we\u0027re passed, not the app context, as a result.",
+      "parentUuid": "1db50b4e_23bbc0a5",
+      "range": {
+        "startLine": 61,
+        "startChar": 27,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d55f875b_697d0325",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
         "patchSetId": 11
