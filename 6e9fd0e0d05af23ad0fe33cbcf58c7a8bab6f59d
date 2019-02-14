@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c95eaf3f_1295e875",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "Maybe something like \u0027whether the SeekBarPreference should continuously save the Seekbar value while the Seekbar is being dragged.\u0027",
+      "range": {
+        "startLine": 327,
+        "startChar": 41,
+        "endLine": 328,
+        "endChar": 79
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef32d28a_c8024f9d",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "nit: Whether the SeekBarPreference should continuously save the Seekbar value while it is being dragged.",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 67
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5e1ce5_2ee5ac4e",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "nit: Gets whether the SeekBarPreference should continuously save the Seekbar value while it is being dragged.\n\nditto for the rest of this method and the setter",
+      "range": {
+        "startLine": 298,
+        "startChar": 7,
+        "endLine": 299,
+        "endChar": 58
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f9ab93a_64967d9a",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "nit: current {@link SeekBar} value is displayed to the user.\nditto for the setter",
+      "range": {
+        "startLine": 320,
+        "startChar": 24,
+        "endLine": 320,
+        "endChar": 78
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c74021f2_19ac4c7c",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "nit: current {@link SeekBar} value is displayed to the user\nditto for the setter",
+      "range": {
+        "startLine": 322,
+        "startChar": 27,
+        "endLine": 322,
+        "endChar": 65
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2f48dd_e873af50",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:05:14Z",
+      "side": 1,
+      "message": "Need to add notifyChanged() after this so we refresh the layout when this value changes to show the label",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 45
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
