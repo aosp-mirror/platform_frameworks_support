@@ -67,6 +67,7 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-core-ktx")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-compiler")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-common-eap")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-runtime-eap")
     prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha02")
     prebuilts(LibraryGroups.LOADER, "1.1.0-alpha01")
     prebuilts(LibraryGroups.LOCALBROADCASTMANAGER, "1.1.0-alpha01")
