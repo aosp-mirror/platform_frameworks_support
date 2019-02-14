@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edf5bfef_ddc44ee6",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/some_text.html",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "newline",
+      "range": {
+        "startLine": 1,
+        "startChar": 45,
+        "endLine": 1,
+        "endChar": 46
+      },
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e881982e_885e86cd",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderListActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "330c1284_93918605",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderListActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "You didn\u0027t set this activity\u0027s title. Was that intended?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53dbee9b_3b8cbfac",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderSimpleActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "This is a really long name. Maybe it\u0027s already clear that all activities here are related to WebView and so you could shorten it by just calling it AssetLoaderActivity? Or AssetLoaderSimpleActivity - if it so happens that there is gonna be one that\u0027s \"not simple\" in the furure",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559156a3_7794ff68",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_webview_asset_loader.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "Same comment about the name. Perhaps just asset_loader_webview?",
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742cec28_9f0f8bc0",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_webview_asset_loader_list.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "This list currently only has one item, is that because later more items are going to be added?",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930ba938_1c3d8cd8",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_webview_asset_loader_list.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "asset_loader_list?",
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b5ceaf_dc97dabf",
+        "filename": "webkit/integration-tests/testapp/src/main/res/values/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-14T16:40:24Z",
+      "side": 1,
+      "message": "Since this is visible in the UI I\u0027d prefer to  have a space between words: \"Simple Asset Loader\" which reads better than \"Asset Loader Simple\"",
+      "range": {
+        "startLine": 24,
+        "startChar": 62,
+        "endLine": 24,
+        "endChar": 87
+      },
+      "revId": "874d3798d71717d84f2e97964484004316f12aa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
