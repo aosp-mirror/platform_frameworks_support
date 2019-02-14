@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a45213c3_9ad15d57",
+        "filename": ".idea/codeStyles/codeStyleConfig.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-14T08:22:30Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 12
+      },
+      "revId": "d1dd7430859254cc3c6dc37937cdb6172b4c2da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13601af_e6e88628",
+        "filename": "paging/common/src/main/java/androidx/paging/PositionalDataSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-14T08:22:30Z",
+      "side": 1,
+      "message": "add a comment on what we are doing here.",
+      "revId": "d1dd7430859254cc3c6dc37937cdb6172b4c2da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd98c11f_5c9d4413",
+        "filename": "paging/common/src/main/java/androidx/paging/PositionalDataSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-14T08:22:30Z",
+      "side": 1,
+      "message": "seems like convertPosition is not used?",
+      "range": {
+        "startLine": 589,
+        "startChar": 22,
+        "endLine": 589,
+        "endChar": 37
+      },
+      "revId": "d1dd7430859254cc3c6dc37937cdb6172b4c2da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d98a1e5_699fee1d",
+        "filename": "paging/common/src/main/java/androidx/paging/PositionalDataSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-14T08:22:30Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 601,
+        "startChar": 13,
+        "endLine": 601,
+        "endChar": 14
+      },
+      "revId": "d1dd7430859254cc3c6dc37937cdb6172b4c2da3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
