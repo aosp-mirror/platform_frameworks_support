@@ -22,6 +22,30 @@
       "revId": "c994b49821c30a89bde71b224f017da9c4dd1e7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9a11f4_7f0725ec",
+        "filename": ".idea/codeStyles/codeStyleConfig.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:41:46Z",
+      "side": 1,
+      "message": "Whoops my bad",
+      "parentUuid": "c09654ac_07966ab9",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 93
+      },
+      "revId": "c994b49821c30a89bde71b224f017da9c4dd1e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
