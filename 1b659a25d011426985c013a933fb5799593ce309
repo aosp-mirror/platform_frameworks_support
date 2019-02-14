@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8b8dffe_6e285c3e",
+        "filename": "webkit/integration-tests/testapp/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e23735c_e0cd8bf1",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "1b659a25d011426985c013a933fb5799593ce309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "962d3221_54f8dbb3",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderActivity.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1b659a25d011426985c013a933fb5799593ce309",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0075819_3d1b8722",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "962d3221_54f8dbb3",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "1b659a25d011426985c013a933fb5799593ce309",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
