@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d9ebdb9_10b5ac92",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-14T19:02:42Z",
+      "side": 1,
+      "message": "add \"/\" \u003d\u003e \"paging/(.*)\"\n\nYou always want to copy-paste what was in the original rule.",
+      "range": {
+        "startLine": 777,
+        "startChar": 24,
+        "endLine": 777,
+        "endChar": 30
+      },
+      "revId": "e84962f36556912fb590e715385e92598a77e378",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
