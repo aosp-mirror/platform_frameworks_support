@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "bb253a6b_cd4775e8",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2019-02-14T10:30:45Z",
+      "side": 1,
+      "message": "You could try withType(Test).whenObjectAdded { task -\u003e\n}\n\nwithType does not enforce configuration, and the returned collection is live so adding a whenObjectAdded callback might be ok.\n\nThe challenge is if this happens during task graph creation it might be too late.\n\nThe best course of action should be to find where these Test tasks are created and add stuff then.",
+      "parentUuid": "0dedb5de_aaace7ad",
+      "range": {
+        "startLine": 156,
+        "startChar": 31,
+        "endLine": 156,
+        "endChar": 35
+      },
+      "revId": "5f7abe606115e1d0f3c8586470e71cc404cb56ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d07af0e_3248144c",
         "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
         "patchSetId": 15
