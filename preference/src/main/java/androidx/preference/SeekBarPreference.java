@@ -64,13 +64,16 @@ public class SeekBarPreference extends Preference {
     boolean mAdjustable;
     // Whether to show the SeekBar value TextView next to the bar
     private boolean mShowSeekBarValue;
+    // Whether the SeekBarPreference should continuously save the Seekbar value while it is being
+    // dragged.
+    private boolean mUpdateContinuously;
     /**
      * Listener reacting to the {@link SeekBar} changing value by the user
      */
     private OnSeekBarChangeListener mSeekBarChangeListener = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser && !mTrackingTouch) {
+            if (fromUser && (mUpdateContinuously || !mTrackingTouch)) {
                 syncValueInternal(seekBar);
             }
         }
@@ -136,6 +139,7 @@ public class SeekBarPreference extends Preference {
         setSeekBarIncrement(a.getInt(R.styleable.SeekBarPreference_seekBarIncrement, 0));
         mAdjustable = a.getBoolean(R.styleable.SeekBarPreference_adjustable, true);
         mShowSeekBarValue = a.getBoolean(R.styleable.SeekBarPreference_showSeekBarValue, false);
+        mUpdateContinuously = a.getBoolean(R.styleable.SeekBarPreference_updateContinuously, false);
         a.recycle();
     }
 
@@ -289,6 +293,47 @@ public class SeekBarPreference extends Preference {
      */
     public void setAdjustable(boolean adjustable) {
         mAdjustable = adjustable;
+    }
+
+    /**
+     * Gets whether the {@link SeekBarPreference} should continuously save the {@link Seekbar} value
+     * while it is being dragged.
+     *
+     * @return Whether the {@link SeekBarPreference} should continuously save the {@link Seekbar}
+     * value while it is being dragged
+     */
+    public boolean isUpdatingContinuously() {
+        return mUpdateContinuously;
+    }
+
+    /**
+     * Sets whether the {@link SeekBarPreference} should continuously save the {@link Seekbar} value
+     * while it is being dragged.
+     *
+     * @param updateContinuously Whether the {@link SeekBarPreference} should continuously save
+     *                           the {@link Seekbar} value while it is being dragged
+     */
+    public void setUpdateContinuously(boolean updateContinuously) {
+        mUpdateContinuously = updateContinuously;
+    }
+
+    /**
+     * Gets whether the current {@link SeekBar} value is displayed to the user.
+     *
+     * @return Whether the current {@link SeekBar} value is displayed to the user
+     */
+    public boolean isShowingSeekBarValue() {
+        return mShowSeekBarValue;
+    }
+
+    /**
+     * Sets whether the current {@link SeekBar} value is displayed to the user.
+     *
+     * @param showSeekBarValue Whether the current {@link SeekBar} value is displayed to the user
+     */
+    public void setShowSeekBarValue(boolean showSeekBarValue) {
+        mShowSeekBarValue = showSeekBarValue;
+        notifyChanged();
     }
 
     private void setValueInternal(int seekBarValue, boolean notifyChanged) {
