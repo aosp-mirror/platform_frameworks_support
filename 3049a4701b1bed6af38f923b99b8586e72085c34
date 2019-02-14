@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "b640c556_80203d55",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T19:27:17Z",
+      "side": 1,
+      "message": "Done.\n\nOKay, will change it in the lib in another CL. filed a ticket for it: b/124453216",
+      "parentUuid": "c6d41d5b_d3ae9d58",
+      "range": {
+        "startLine": 61,
+        "startChar": 27,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d55f875b_697d0325",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
         "patchSetId": 11
@@ -235,6 +259,30 @@
       "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb7db04_4b88d6a2",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/WebViewAssetLoaderAjaxActivity.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-14T19:27:17Z",
+      "side": 1,
+      "message": "Done.\n\nChanged to use example.com\n\nAlso added an iframe that loads example.com which would have failed if AssetLoader wasn\u0027t used because of the cross origin policy. What do you think about this?",
+      "parentUuid": "d55f875b_697d0325",
+      "range": {
+        "startLine": 76,
+        "startChar": 11,
+        "endLine": 76,
+        "endChar": 90
+      },
+      "revId": "3049a4701b1bed6af38f923b99b8586e72085c34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
