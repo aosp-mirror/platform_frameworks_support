@@ -16,6 +16,24 @@
       "revId": "0b95d6c394c94b96f3169e3acfe6943ff321b419",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ec09cd3_84a8dd97",
+        "filename": "jetifier/jetifier/source-transformer/rewritePackageNames.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-14T22:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c64d460_8a67d9d6",
+      "revId": "0b95d6c394c94b96f3169e3acfe6943ff321b419",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
