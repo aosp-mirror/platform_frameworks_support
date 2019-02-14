@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c09654ac_07966ab9",
+        "filename": ".idea/codeStyles/codeStyleConfig.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-14T18:35:58Z",
+      "side": 1,
+      "message": "nit: remove :)",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 93
+      },
+      "revId": "c994b49821c30a89bde71b224f017da9c4dd1e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
