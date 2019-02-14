@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc3c0e73_8062c8ca",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-14T16:29:51Z",
+      "side": 1,
+      "message": "This isn\u0027t quite right. Here\u0027s an example: http://cs/aosp-master/frameworks/base/core/java/android/webkit/WebView.java?l\u003d303\u0026rcl\u003d5de80df81e205aea56dea0eda94aa2e63a51e177",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 28
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc65350_02aaabf9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-14T16:29:51Z",
+      "side": 1,
+      "message": "suggestion: IMO this reads better as multiple sentences rather than a \";\" list",
+      "range": {
+        "startLine": 127,
+        "startChar": 53,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac663a40_c9c9b013",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-14T16:29:51Z",
+      "side": 1,
+      "message": "I think you need to mention SOCKS above too? Otherwise, it\u0027s not clear why the port would default to something for SOCKS if SOCKS is not an allowed scheme...",
+      "range": {
+        "startLine": 129,
+        "startChar": 86,
+        "endLine": 130,
+        "endChar": 71
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
