@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c64d460_8a67d9d6",
+        "filename": "jetifier/jetifier/source-transformer/rewritePackageNames.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-14T22:44:52Z",
+      "side": 1,
+      "message": "deindent 2 spaces?",
+      "revId": "0b95d6c394c94b96f3169e3acfe6943ff321b419",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
