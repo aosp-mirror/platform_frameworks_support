@@ -324,6 +324,10 @@
         value will be displayed. If true, the view is VISIBLE; if false, the view will be GONE.
         By default, this view is GONE. -->
         <attr name="showSeekBarValue" format="boolean" />
+        <!-- Flag indicating whether the onSeekListener is triggered continuously or only after the
+        seek bar is released. If true, the seekbar receives continuous updates; if false, the
+        seekbar only updates when released. By default, this boolean is false. -->
+        <attr name="updateContinuously" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SwitchPreference">

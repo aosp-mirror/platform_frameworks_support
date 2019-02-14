@@ -64,13 +64,15 @@ public class SeekBarPreference extends Preference {
     boolean mAdjustable;
     // Whether to show the SeekBar value TextView next to the bar
     private boolean mShowSeekBarValue;
+    // Whether scrolling provides continuous calls to the listener.
+    private boolean mUpdateContinuously;
     /**
      * Listener reacting to the {@link SeekBar} changing value by the user
      */
     private OnSeekBarChangeListener mSeekBarChangeListener = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser && !mTrackingTouch) {
+            if (fromUser && (mUpdateContinuously || !mTrackingTouch)) {
                 syncValueInternal(seekBar);
             }
         }
@@ -136,6 +138,7 @@ public class SeekBarPreference extends Preference {
         setSeekBarIncrement(a.getInt(R.styleable.SeekBarPreference_seekBarIncrement, 0));
         mAdjustable = a.getBoolean(R.styleable.SeekBarPreference_adjustable, true);
         mShowSeekBarValue = a.getBoolean(R.styleable.SeekBarPreference_showSeekBarValue, false);
+        mUpdateContinuously = a.getBoolean(R.styleable.SeekBarPreference_updateContinuously, false);
         a.recycle();
     }
 
@@ -289,6 +292,46 @@ public class SeekBarPreference extends Preference {
      */
     public void setAdjustable(boolean adjustable) {
         mAdjustable = adjustable;
+    }
+
+    /**
+     * Gets whether the {@link SeekBar} should conginuously fire
+     * {@link OnSeekBarChangedListener#onProgressChanged}.
+     *
+     * @return Whether the {@link SeekBar} should conginuously fire
+     * {@link OnSeekBarChangedListener#onProgressChanged}
+     */
+    public boolean isUpdatingContinuously() {
+        return mUpdateContinuously;
+    }
+
+    /**
+     * Sets whether the {@link SeekBar} should continuously fire
+     * {@link OnSeekBarChangedListener#onProgressChanged}.
+     *
+     * @param updateContinuously Whether the {@link SeekBar} should conginuously fire
+     * {@link OnSeekBarChangedListener#onProgressChanged}
+     */
+    public void setUpdateContinuously(boolean updateContinuously) {
+        mUpdateContinuously = updateContinuously;
+    }
+
+    /**
+     * Gets whether the current value of the {@link SeekBar} is shown as text.
+     *
+     * @return Whether the {@link SeekBar} value is shown as text
+     */
+    public boolean isShowingSeekBarValue() {
+        return mShowSeekBarValue;
+    }
+
+    /**
+     * Sets whether the current value of the {@link SeekBar} is shown as text.
+     *
+     * @param showSeekBarValue Whether the {@link SeekBar} value is shown as text
+     */
+    public void setShowSeekBarValue(boolean showSeekBarValue) {
+        mShowSeekBarValue = showSeekBarValue;
     }
 
     private void setValueInternal(int seekBarValue, boolean notifyChanged) {
