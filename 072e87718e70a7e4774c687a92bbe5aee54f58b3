@@ -46,6 +46,30 @@
       "revId": "072e87718e70a7e4774c687a92bbe5aee54f58b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc864da_3c161707",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-14T04:51:30Z",
+      "side": 1,
+      "message": "1) OK I see.\n2) I\u0027m just curious about whether it is covered by other test cases or not.",
+      "parentUuid": "4a2359d2_c5ae476a",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 80
+      },
+      "revId": "072e87718e70a7e4774c687a92bbe5aee54f58b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
