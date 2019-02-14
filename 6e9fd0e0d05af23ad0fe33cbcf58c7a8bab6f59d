@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6845a073_f7664931",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c95eaf3f_1295e875",
+      "range": {
+        "startLine": 327,
+        "startChar": 41,
+        "endLine": 328,
+        "endChar": 79
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef32d28a_c8024f9d",
         "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "288efb4c_4b5aa54e",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef32d28a_c8024f9d",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 67
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a823469_37bcd687",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d5e1ce5_2ee5ac4e",
+      "range": {
+        "startLine": 298,
+        "startChar": 7,
+        "endLine": 299,
+        "endChar": 58
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f9ab93a_64967d9a",
         "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2865489_aba08863",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9ab93a_64967d9a",
+      "range": {
+        "startLine": 320,
+        "startChar": 24,
+        "endLine": 320,
+        "endChar": 78
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1c6ebfbe_7b6943c2",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c74021f2_19ac4c7c",
+      "range": {
+        "startLine": 322,
+        "startChar": 27,
+        "endLine": 322,
+        "endChar": 65
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f2f48dd_e873af50",
         "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a87ddb7_53f92e64",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1448200
+      },
+      "writtenOn": "2019-02-14T18:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f2f48dd_e873af50",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 45
+      },
+      "revId": "6e9fd0e0d05af23ad0fe33cbcf58c7a8bab6f59d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
