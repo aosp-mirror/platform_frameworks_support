@@ -70,6 +70,30 @@
       "revId": "072e87718e70a7e4774c687a92bbe5aee54f58b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d9cb27_26c1b0a6",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/VideoViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-14T05:00:55Z",
+      "side": 1,
+      "message": "2) It\u0027s slightly different from other test cases. This one changes the view type while playing.",
+      "parentUuid": "3bc864da_3c161707",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 80
+      },
+      "revId": "072e87718e70a7e4774c687a92bbe5aee54f58b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
