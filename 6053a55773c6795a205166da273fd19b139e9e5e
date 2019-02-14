@@ -46,6 +46,30 @@
       "revId": "6053a55773c6795a205166da273fd19b139e9e5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "626987e4_dba5ad8a",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-14T03:50:11Z",
+      "side": 1,
+      "message": "Q) Why is it needed to call getContext() instead of just using the context in the parameter?",
+      "parentUuid": "719b1a22_67722a7e",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 31
+      },
+      "revId": "6053a55773c6795a205166da273fd19b139e9e5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
