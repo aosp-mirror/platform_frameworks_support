@@ -2954,12 +2954,20 @@ public class ExifInterface {
     private static class ExifAttribute {
         public final int format;
         public final int numberOfComponents;
+        public final long bytesOffset;
         public final byte[] bytes;
+
+        public static final long BYTES_OFFSET_UNKNOWN = -1;
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         ExifAttribute(int format, int numberOfComponents, byte[] bytes) {
+            this(format, numberOfComponents, BYTES_OFFSET_UNKNOWN, bytes);
+        }
+
+        private ExifAttribute(int format, int numberOfComponents, long bytesOffset, byte[] bytes) {
             this.format = format;
             this.numberOfComponents = numberOfComponents;
+            this.bytesOffset = bytesOffset;
             this.bytes = bytes;
         }
 
@@ -3722,6 +3730,7 @@ public class ExifInterface {
     private int mOrfThumbnailLength;
     private int mRw2JpgFromRawOffset;
     private boolean mIsSupportedFile;
+    private boolean mModified;
 
     // Pattern to check non zero timestamp
     private static final Pattern sNonZeroTimePattern = Pattern.compile(".*[1-9].*");
@@ -4358,6 +4367,11 @@ public class ExifInterface {
      * and make a single call rather than multiple calls for each attribute.
      * <p>
      * This method is only supported for JPEG files.
+     * <p class="note">
+     * Note: after calling this method, any attempts to obtain range information
+     * from {@link #getAttributeRange(String)} or {@link #getThumbnailRange()}
+     * will throw {@link IllegalStateException}, since the offsets may have
+     * changed in the newly written file.
      * </p>
      */
     public void saveAttributes() throws IOException {
@@ -4368,6 +4382,10 @@ public class ExifInterface {
             throw new IOException(
                     "ExifInterface does not support saving attributes for the current input.");
         }
+
+        // Remember the fact that we've changed the file on disk from what was
+        // originally parsed, meaning we can't answer range questions
+        mModified = true;
 
         // Keep the thumbnail in memory
         mThumbnailBytes = getThumbnail();
@@ -4426,6 +4444,15 @@ public class ExifInterface {
      */
     public boolean hasThumbnail() {
         return mHasThumbnail;
+    }
+
+    /**
+     * Returns true if the image file has the given attribute defined.
+     *
+     * @param tag the name of the tag.
+     */
+    public boolean hasAttribute(String tag) {
+        return (getExifAttribute(tag) != null);
     }
 
     /**
@@ -4536,7 +4563,13 @@ public class ExifInterface {
      * not exist or thumbnail image is uncompressed.
      */
     public boolean isThumbnailCompressed() {
-        return mThumbnailCompression == DATA_JPEG || mThumbnailCompression == DATA_JPEG_COMPRESSED;
+        if (!mHasThumbnail) {
+            return false;
+        }
+        if (mThumbnailCompression == DATA_JPEG || mThumbnailCompression == DATA_JPEG_COMPRESSED) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -4545,18 +4578,62 @@ public class ExifInterface {
      *
      * @return two-element array, the offset in the first value, and length in
      *         the second, or {@code null} if no thumbnail was found.
+     * @throws IllegalStateException if {@link #saveAttributes()} has been
+     *             called since the underlying file was initially parsed, since
+     *             that means offsets may have changed.
      */
     @Nullable
     public long[] getThumbnailRange() {
-        if (!mHasThumbnail) {
-            return null;
+        if (mModified) {
+            throw new IllegalStateException(
+                    "The underlying file has been modified since being parsed");
         }
 
-        long[] range = new long[2];
-        range[0] = mThumbnailOffset;
-        range[1] = mThumbnailLength;
+        if (mHasThumbnail) {
+            return new long[] { mThumbnailOffset, mThumbnailLength };
+        } else {
+            return null;
+        }
+    }
 
-        return range;
+    /**
+     * Returns the offset and length of the requested tag inside the image file,
+     * or {@code null} if the tag is not contained.
+     *
+     * @return two-element array, the offset in the first value, and length in
+     *         the second, or {@code null} if no tag was found.
+     * @throws IllegalStateException if {@link #saveAttributes()} has been
+     *             called since the underlying file was initially parsed, since
+     *             that means offsets may have changed.
+     */
+    public @Nullable long[] getAttributeRange(@NonNull String tag) {
+        if (mModified) {
+            throw new IllegalStateException(
+                    "The underlying file has been modified since being parsed");
+        }
+
+        final ExifAttribute attribute = getExifAttribute(tag);
+        if (attribute != null) {
+            return new long[] { attribute.bytesOffset, attribute.bytes.length };
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Returns the raw bytes for the value of the requested tag inside the image
+     * file, or {@code null} if the tag is not contained.
+     *
+     * @return raw bytes for the value of the requested tag, or {@code null} if
+     *         no tag was found.
+     */
+    public @Nullable byte[] getAttributeBytes(@NonNull String tag) {
+        final ExifAttribute attribute = getExifAttribute(tag);
+        if (attribute != null) {
+            return attribute.bytes;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -4690,13 +4767,41 @@ public class ExifInterface {
     }
 
     /**
-     * Returns number of milliseconds since Jan. 1, 1970, midnight local time.
-     * Returns -1 if the date time information if not available.
+     * Returns parsed {@code DateTime} value, or -1 if unavailable or invalid.
+     *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public long getDateTime() {
-        String dateTimeString = getAttribute(TAG_DATETIME);
+        return parseDateTime(getAttribute(TAG_DATETIME),
+                getAttribute(TAG_SUBSEC_TIME));
+    }
+
+    /**
+     * Returns parsed {@code DateTimeDigitized} value, or -1 if unavailable or
+     * invalid.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public long getDateTimeDigitized() {
+        return parseDateTime(getAttribute(TAG_DATETIME_DIGITIZED),
+                getAttribute(TAG_SUBSEC_TIME_DIGITIZED));
+    }
+
+    /**
+     * Returns parsed {@code DateTimeOriginal} value, or -1 if unavailable or
+     * invalid.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public long getDateTimeOriginal() {
+        return parseDateTime(getAttribute(TAG_DATETIME_ORIGINAL),
+                getAttribute(TAG_SUBSEC_TIME_ORIGINAL));
+    }
+
+    private static long parseDateTime(String dateTimeString, String subSecs) {
         if (dateTimeString == null
                 || !sNonZeroTimePattern.matcher(dateTimeString).matches()) return -1;
 
@@ -4708,7 +4813,6 @@ public class ExifInterface {
             if (datetime == null) return -1;
             long msecs = datetime.getTime();
 
-            String subSecs = getAttribute(TAG_SUBSEC_TIME);
             if (subSecs != null) {
                 try {
                     long sub = Long.parseLong(subSecs);
@@ -5607,9 +5711,11 @@ public class ExifInterface {
                 continue;
             }
 
-            byte[] bytes = new byte[(int) byteCount];
+            final int bytesOffset = dataInputStream.peek();
+            final byte[] bytes = new byte[(int) byteCount];
             dataInputStream.readFully(bytes);
-            ExifAttribute attribute = new ExifAttribute(dataFormat, numberOfComponents, bytes);
+            ExifAttribute attribute = new ExifAttribute(dataFormat, numberOfComponents,
+                    bytesOffset, bytes);
             mAttributes[ifdType].put(tag.name, attribute);
 
             // DNG files have a DNG Version tag specifying the version of specifications that the
