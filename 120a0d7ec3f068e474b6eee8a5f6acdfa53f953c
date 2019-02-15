@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a259c9b_79260b39",
+        "filename": "jetifier/jetifier/source-transformer/rewritePackageNames.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:02:12Z",
+      "side": 1,
+      "message": "I\u0027m actually surprised that this has to exist. If something is missing in jetifier\u0027s mappings shouldn\u0027t that be an issue? Jeff do you recall why was this added?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "120a0d7ec3f068e474b6eee8a5f6acdfa53f953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
