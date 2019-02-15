@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -73,5 +74,42 @@ public class CustomTabsIntentTest {
                 color == intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
         intent = new CustomTabsIntent.Builder().setToolbarColor(color).build().intent;
         assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
+    public void testDarkThemeBehavior() {
+        try {
+            new CustomTabsIntent.Builder().setDarkThemeBehavior(-1);
+            fail("Underflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        try {
+            new CustomTabsIntent.Builder().setDarkThemeBehavior(42);
+            fail("Overflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        // None of the valid parameters should throw.
+        Intent intent = new CustomTabsIntent.Builder()
+                            .setDarkThemeBehavior(CustomTabsIntent.DARK_THEME_AUTO)
+                            .build()
+                            .intent;
+        assertEquals(CustomTabsIntent.DARK_THEME_AUTO,
+                intent.getIntExtra(CustomTabsIntent.EXTRA_DARK_THEME, -1));
+
+        intent = new CustomTabsIntent.Builder()
+                     .setDarkThemeBehavior(CustomTabsIntent.DARK_THEME_ENABLE)
+                     .build()
+                     .intent;
+        assertEquals(CustomTabsIntent.DARK_THEME_ENABLE,
+                intent.getIntExtra(CustomTabsIntent.EXTRA_DARK_THEME, -1));
+
+        intent = new CustomTabsIntent.Builder()
+                     .setDarkThemeBehavior(CustomTabsIntent.DARK_THEME_DISABLE)
+                     .build()
+                     .intent;
+        assertEquals(CustomTabsIntent.DARK_THEME_DISABLE,
+                intent.getIntExtra(CustomTabsIntent.EXTRA_DARK_THEME, -1));
     }
 }
