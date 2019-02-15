@@ -99,7 +99,8 @@ import java.util.Map;
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
 public class MediaRouteCastDialog extends AppCompatDialog {
-    static final String TAG = "MediaRouteCastDialog";
+    private static final String TAG = "MediaRouteCastDialog";
+    @SuppressWarnings("WeakerAccess")
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     // Do not update the route list immediately to avoid unnatural dialog change.
@@ -107,28 +108,35 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     private static final int CONNECTION_TIMEOUT_MS = 30000;
     private static final int UPDATE_VOLUME_DELAY_MS = 500;
 
-    static final int MSG_UPDATE_ROUTES_VIEW = 1;
-    static final int MSG_UPDATE_ROUTE_VOLUME_BY_USER = 2;
+    private static final int MSG_UPDATE_ROUTES_VIEW = 1;
+    private static final int MSG_UPDATE_ROUTE_VOLUME_BY_USER = 2;
 
     // TODO (b/111731099): Remove this once dark theme is implemented inside MediaRouterThemeHelper.
-    static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
+    private static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
 
-    static final int MUTED_VOLUME = 0;
-    static final int MIN_UNMUTED_VOLUME = 1;
+    private static final int MUTED_VOLUME = 0;
+    private static final int MIN_UNMUTED_VOLUME = 1;
 
     private static final int BLUR_RADIUS = 10;
 
+    @SuppressWarnings("WeakerAccess")
     final MediaRouter mRouter;
     private final MediaRouterCallback mCallback;
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
+    @SuppressWarnings("WeakerAccess")
     MediaRouter.RouteInfo mSelectedRoute;
+    @SuppressWarnings("WeakerAccess")
     final List<MediaRouter.RouteInfo> mMemberRoutes = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     final List<MediaRouter.RouteInfo> mGroupableRoutes = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     final List<MediaRouter.RouteInfo> mTransferableRoutes = new ArrayList<>();
 
     // List of routes that were previously groupable but temporarily ungroupable.
+    @SuppressWarnings("WeakerAccess")
     final List<MediaRouter.RouteInfo> mUngroupableRoutes = new ArrayList<>();
 
+    @SuppressWarnings("WeakerAccess")
     Context mContext;
     private boolean mCreated;
     private boolean mAttachedToWindow;
@@ -156,15 +164,15 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     RecyclerView mRecyclerView;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     RecyclerAdapter mAdapter;
+    @SuppressWarnings("WeakerAccess")
     VolumeChangeListener mVolumeChangeListener;
-    int mVolumeSliderColor;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Map<String, MediaRouteVolumeSliderHolder> mVolumeSliderHolderMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     MediaRouter.RouteInfo mRouteForVolumeUpdatingByUser;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    Map<String, Integer> mBeforeMuteVolumeMap;
+    Map<String, Integer> mUnmutedVolumeMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mIsSelectingRoute;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -183,15 +191,24 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     private TextView mSubtitleView;
     private String mTitlePlaceholder;
 
+    @SuppressWarnings("WeakerAccess")
     MediaControllerCompat mMediaController;
+    @SuppressWarnings("WeakerAccess")
     MediaControllerCallback mControllerCallback;
+    @SuppressWarnings("WeakerAccess")
     MediaDescriptionCompat mDescription;
 
+    @SuppressWarnings("WeakerAccess")
     FetchArtTask mFetchArtTask;
+    @SuppressWarnings("WeakerAccess")
     Bitmap mArtIconBitmap;
+    @SuppressWarnings("WeakerAccess")
     Uri mArtIconUri;
+    @SuppressWarnings("WeakerAccess")
     boolean mArtIconIsLoaded;
+    @SuppressWarnings("WeakerAccess")
     Bitmap mArtIconLoadedBitmap;
+    @SuppressWarnings("WeakerAccess")
     int mArtIconBackgroundColor;
 
     public MediaRouteCastDialog(Context context) {
@@ -348,9 +365,8 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mVolumeChangeListener = new VolumeChangeListener();
-        mVolumeSliderColor = MediaRouterThemeHelper.getControllerColor(mContext, 0);
         mVolumeSliderHolderMap = new HashMap<>();
-        mBeforeMuteVolumeMap = new HashMap<>();
+        mUnmutedVolumeMap = new HashMap<>();
 
         mMetadataBackground = findViewById(R.id.mr_cast_meta_background);
         mMetadataBlackScrim = findViewById(R.id.mr_cast_meta_black_scrim);
@@ -442,12 +458,9 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         Uri newUri = mDescription == null ? null : mDescription.getIconUri();
         Bitmap oldBitmap = mFetchArtTask == null ? mArtIconBitmap : mFetchArtTask.getIconBitmap();
         Uri oldUri = mFetchArtTask == null ? mArtIconUri : mFetchArtTask.getIconUri();
-        if (oldBitmap != newBitmap) {
-            return true;
-        } else if (oldBitmap == null && ObjectsCompat.equals(oldUri, newUri)) {
-            return true;
-        }
-        return false;
+
+        return (oldBitmap != newBitmap)
+                || (oldBitmap == null && !ObjectsCompat.equals(oldUri, newUri));
     }
 
     /**
@@ -463,10 +476,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             return true;
         }
         // Defer updating views if corresponding views aren't created yet.
-        if (!mCreated) {
-            return true;
-        }
-        return false;
+        return !mCreated;
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -537,6 +547,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     static void setLayoutHeight(View view, int height) {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         lp.height = height;
@@ -579,21 +590,26 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     /**
-     * Returns a list of groupable routes of selected route.
-     * If selected route is not dynamic group, returns empty list.
+     * Returns a list of currently groupable routes of the selected route.
+     * If the selected route is not dynamic group, returns empty list.
      */
-    List<MediaRouter.RouteInfo> getGroupableRoutes() {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    List<MediaRouter.RouteInfo> getCurrentGroupableRoutes() {
         List<MediaRouter.RouteInfo> groupableRoutes = new ArrayList<>();
         if (mSelectedRoute.isDynamicRoute()) {
             for (MediaRouter.RouteInfo route : mSelectedRoute.getProvider().getRoutes()) {
-                if (route.isGroupable()) groupableRoutes.add(route);
+                if (route.isGroupable()) {
+                    groupableRoutes.add(route);
+                }
+
             }
         }
         return groupableRoutes;
     }
 
     /**
-     * Updates the routes view that are shown in the cast dialog.
+     * Updates the visible status(groupable/unselectable status and volume) of routes.
+     * The position of the routes is not changed and no routes are added/removed.
      */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void updateRoutesView() {
@@ -618,6 +634,12 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
     }
 
+    /**
+     * Updates routes and items of the adapter.
+     * It introduces new routes or hides removed routes.
+     * Calling this method would result in sudden UI changes due to change of the adapter.
+     */
+    @SuppressWarnings("WeakerAccess")
     void updateRoutes() {
         mMemberRoutes.clear();
         mGroupableRoutes.clear();
@@ -644,7 +666,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         Collections.sort(mGroupableRoutes, RouteComparator.sInstance);
         Collections.sort(mTransferableRoutes, RouteComparator.sInstance);
 
-        mAdapter.setItems();
+        mAdapter.updateItems();
     }
 
     @RequiresApi(17)
@@ -735,14 +757,14 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             if (mute) {
                 // Save current progress, who is the progress just before muted, so that the volume
                 // can be restored to that value when user unmutes it.
-                mBeforeMuteVolumeMap.put(mRoute.getId(), mVolumeSlider.getProgress());
+                mUnmutedVolumeMap.put(mRoute.getId(), mVolumeSlider.getProgress());
             } else {
-                mBeforeMuteVolumeMap.remove(mRoute.getId());
+                mUnmutedVolumeMap.remove(mRoute.getId());
             }
         }
 
         int getUnmutedVolume() {
-            Integer beforeMuteVolume = mBeforeMuteVolumeMap.get(mRoute.getId());
+            Integer beforeMuteVolume = mUnmutedVolumeMap.get(mRoute.getId());
 
             return (beforeMuteVolume == null)
                     ? MIN_UNMUTED_VOLUME : Math.max(MIN_UNMUTED_VOLUME, beforeMuteVolume);
@@ -778,7 +800,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     R.integer.mr_cast_volume_slider_layout_animation_duration_ms);
             mAccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
 
-            setItems();
+            updateItems();
         }
 
         boolean isGroupVolumeNeeded() {
@@ -834,6 +856,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
 
             boolean wasShown = isGroupVolumeNeeded();
+            // Group volume is shown when two or more members are in the selected route.
             boolean shouldShow = memberCount >= 2;
 
             if (wasShown != shouldShow) {
@@ -849,7 +872,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
 
         // Create a list of items with mMemberRoutes and add them to mItems
-        void setItems() {
+        void updateItems() {
             mItems.clear();
 
             mGroupVolumeItem = new Item(mSelectedRoute, ITEM_TYPE_GROUP_VOLUME);
@@ -912,12 +935,12 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             // routes at groupable routes section.
             mUngroupableRoutes.clear();
             mUngroupableRoutes.addAll(MediaRouteDialogHelper.getItemsRemoved(mGroupableRoutes,
-                    getGroupableRoutes()));
+                    getCurrentGroupableRoutes()));
             notifyDataSetChanged();
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view;
 
             switch (viewType) {
@@ -940,7 +963,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             int viewType = getItemViewType(position);
             Item item = getItem(position);
 
@@ -975,7 +998,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
 
         @Override
-        public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
             super.onViewRecycled(holder);
             mVolumeSliderHolderMap.values().remove(holder);
         }
@@ -1070,7 +1093,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mExpandedHeight = (int) value.getDimension(metrics);
             }
 
-            public void bindGroupVolumeViewHolder(Item item) {
+            void bindGroupVolumeViewHolder(Item item) {
                 setLayoutHeight(itemView, isGroupVolumeNeeded() ? mExpandedHeight : 0);
 
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
@@ -1079,7 +1102,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView.setText(route.getName());
             }
 
-            public int getExpandedHeight() {
+            int getExpandedHeight() {
                 return mExpandedHeight;
             }
         }
@@ -1092,7 +1115,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 mTextView = itemView.findViewById(R.id.mr_cast_header_name);
             }
 
-            public void bindHeaderViewHolder(Item item) {
+            void bindHeaderViewHolder(Item item) {
                 String headerName = item.getData().toString();
 
                 mTextView.setText(headerName);
@@ -1186,7 +1209,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 return true;
             }
 
-            public void bindRouteViewHolder(Item item) {
+            void bindRouteViewHolder(Item item) {
                 MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
 
                 // This is required to sync volume and the name of the route
@@ -1286,7 +1309,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 return true;
             }
 
-            public void bindGroupViewHolder(Item item) {
+            void bindGroupViewHolder(Item item) {
                 final MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
                 mRoute = route;
                 mImageView.setVisibility(View.VISIBLE);
@@ -1309,42 +1332,17 @@ public class MediaRouteCastDialog extends AppCompatDialog {
         }
     }
 
-    /*
-     * The following comment is to improve readability. It explains about the sequence of callback
-     * triggering when selecting a route whose provider supports dynamic group.
-     *
-     * When selecting a route, the sequence of callback triggered depends on whether the provider
-     * supports dynamic group or not. If the provider supports dynamic group, the sequence becomes
-     * more complex, which is shown below with parameters of callbacks.
-     * 1) onRouteUnselected
-     *    Previously selected route is passed as a parameter.
-     * 2) onRouteSelected
-     *    Dynamic group route of selecting route isn't published at this point, which means passed
-     *    route is not dynamic group route yet.
-     * 3) onRouteAdded
-     *    Published dynamic group route is passed as a parameter, but its member/groupable/
-     *    transferable routes are not initialized yet.
-     * 4) onRouteChanged
-     *    member/groupable/transferable routes of dynamic group route is initialized and
-     *    corresponding dynamic group route is passed as a parameter.
-     */
+    // When a new route is selected, member/groupable/transferable routes are not updated
+    // immediately in onRouteSelected(). Instead, onRouteChanged() is called after a while.
+    // So we should refresh items in onRouteChanged().
+    // But onRouteChanged() is also called when a member is added/removed so we refresh
+    // items only when a new route is found, which happens right after a new member is selected.
     private final class MediaRouterCallback extends MediaRouter.Callback {
         MediaRouterCallback() {
         }
 
-        // This method is to check if selecting a route is in progress and the provider of selecting
-        // route supports dynamic group or not.
-        private boolean isSelectingDynamicRoute() {
-            // Because MediaRouteCastDialog shows routes with same provider, we can check if the
-            // provider of selecting route supports dynamic group or not by checking instance of
-            // mSelectedRoute.
-            return mIsSelectingRoute && mSelectedRoute.isDynamicRoute();
-        }
-
         @Override
         public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
-            // Defer updating because member/groupable/transferable routes of selecting route isn't
-            // initialized yet.
             updateRoutesView();
         }
 
@@ -1377,6 +1375,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     if (mSelectedRoute.getMemberRoutes().contains(memberRoute)) {
                         continue;
                     }
+                    // Refresh items only when a new groupable route is found.
                     if (memberRoute.isGroupable() && !mGroupableRoutes.contains(memberRoute)) {
                         shouldRefreshRoute = true;
                         break;
@@ -1385,6 +1384,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             }
             if (shouldRefreshRoute) {
                 updateViewsIfNeeded();
+                // Calls updateRoutes to show new routes.
                 updateRoutes();
             } else {
                 updateRoutesView();
@@ -1441,11 +1441,11 @@ public class MediaRouteCastDialog extends AppCompatDialog {
             mIconUri = mDescription == null ? null : mDescription.getIconUri();
         }
 
-        public Bitmap getIconBitmap() {
+        Bitmap getIconBitmap() {
             return mIconBitmap;
         }
 
-        public Uri getIconUri() {
+        Uri getIconUri() {
             return mIconUri;
         }
 
@@ -1551,7 +1551,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     }
 
     static final class RouteComparator implements Comparator<MediaRouter.RouteInfo> {
-        public static final RouteComparator sInstance = new RouteComparator();
+        static final RouteComparator sInstance = new RouteComparator();
 
         @Override
         public int compare(MediaRouter.RouteInfo lhs, MediaRouter.RouteInfo rhs) {
