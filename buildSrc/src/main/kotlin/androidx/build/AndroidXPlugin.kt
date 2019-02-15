@@ -97,6 +97,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidLibraryOptions(extension)
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
+                    project.createVerifyLibraryVersionTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
@@ -316,6 +317,12 @@ class AndroidXPlugin : Plugin<Project> {
             TaskProvider<VerifyDependencyVersionsTask> {
         return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
+    }
+
+    private fun Project.createVerifyLibraryVersionTask():
+            TaskProvider<VerifyLibraryVersion> {
+        return project.tasks.register("verifyVersion",
+            VerifyLibraryVersion::class.java)
     }
 
     companion object {
