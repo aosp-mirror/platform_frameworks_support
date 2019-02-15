@@ -198,30 +198,54 @@ public class QueryTransactionTest {
                 new LivePagedListBuilder<>(mDao.pagedList(), 10).build();
         observeForever(pagedList);
         drain();
-        assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 0 : 0));
+        assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 1 : 1));
 
         mDao.insert(new Entity1(1, "foo"));
         drain();
         //noinspection ConstantConditions
         assertThat(pagedList.getValue().size(), is(1));
-        assertTransactionCount(pagedList.getValue(), mUseTransactionDao ? 2 : 1);
+        assertTransactionCount(pagedList.getValue(), mUseTransactionDao ? 4 : 3);
 
         mDao.insert(new Entity1(2, "bar"));
         drain();
         assertThat(pagedList.getValue().size(), is(2));
-        assertTransactionCount(pagedList.getValue(), mUseTransactionDao ? 4 : 2);
+        assertTransactionCount(pagedList.getValue(), mUseTransactionDao ? 7 : 5);
     }
 
     @Test
-    public void dataSource() {
+    public void dataSourceRange() {
         mDao.insert(new Entity1(2, "bar"));
         drain();
         resetTransactionCount();
-        @SuppressWarnings("deprecation")
         LimitOffsetDataSource<Entity1> dataSource =
                 (LimitOffsetDataSource<Entity1>) mDao.dataSource();
         dataSource.loadRange(0, 10);
         assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 1 : 0));
+    }
+
+    @Test
+    public void dataSourceInitial() {
+        mDao.insert(new Entity1(2, "bar"));
+        drain();
+        resetTransactionCount();
+        LimitOffsetDataSource<Entity1> dataSource =
+                (LimitOffsetDataSource<Entity1>) mDao.dataSource();
+        dataSource.loadInitial(
+                new PositionalDataSource.LoadInitialParams(0, 30, 10, true),
+                new PositionalDataSource.LoadInitialCallback<Entity1>() {
+                    @Override
+                    public void onResult(@NonNull List<Entity1> data, int position,
+                            int totalCount) {
+
+                    }
+
+                    @Override
+                    public void onResult(@NonNull List<Entity1> data, int position) {
+
+                    }
+                });
+        dataSource.loadRange(0, 10);
+        assertThat(sStartedTransactionCount.get(), is(mUseTransactionDao ? 3 : 1));
     }
 
     private void assertTransactionCount(List<Entity1> allEntities, int expectedTransactionCount) {

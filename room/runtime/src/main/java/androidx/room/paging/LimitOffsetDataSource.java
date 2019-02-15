@@ -107,17 +107,26 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams params,
             @NonNull LoadInitialCallback<T> callback) {
-        int totalCount = countItems();
-        if (totalCount == 0) {
-            callback.onResult(Collections.<T>emptyList(), 0, 0);
-            return;
+        List<T> list;
+        final int totalCount;
+        final int firstLoadPosition;
+        final int firstLoadSize;
+        try {
+            mDb.beginTransaction();
+            totalCount = countItems();
+            if (totalCount == 0) {
+                callback.onResult(Collections.<T>emptyList(), 0, 0);
+                return;
+            }
+
+            // bound the size requested, based on known count
+            firstLoadPosition = computeInitialLoadPosition(params, totalCount);
+            firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
+
+            list = loadRange(firstLoadPosition, firstLoadSize);
+        } finally {
+            mDb.endTransaction();
         }
-
-        // bound the size requested, based on known count
-        final int firstLoadPosition = computeInitialLoadPosition(params, totalCount);
-        final int firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
-
-        List<T> list = loadRange(firstLoadPosition, firstLoadSize);
         if (list != null && list.size() == firstLoadSize) {
             callback.onResult(list, firstLoadPosition, totalCount);
         } else {
