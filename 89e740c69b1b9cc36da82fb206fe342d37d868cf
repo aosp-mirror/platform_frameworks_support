@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29f4fc51_ada59e8f",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/SavedStateVMFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-15T12:08:32Z",
+      "side": 1,
+      "message": "still depends on Fragment, but it is inherited issue about getting Application. If we decide it make default factory, then this \"checkApplication\" will be in ViewModelProviders, same as today.",
+      "range": {
+        "startLine": 71,
+        "startChar": 49,
+        "endLine": 71,
+        "endChar": 57
+      },
+      "revId": "89e740c69b1b9cc36da82fb206fe342d37d868cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
