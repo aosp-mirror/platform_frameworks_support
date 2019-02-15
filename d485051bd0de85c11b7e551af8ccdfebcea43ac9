@@ -95,6 +95,52 @@
     },
     {
       "key": {
+        "uuid": "c8fd0cf7_af4988b8",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "updatesContinuously to match with the other changes",
+      "range": {
+        "startLine": 331,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 38
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97c36fa_f6a1a392",
+        "filename": "preference/res/values/styles.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "updatesContinuously",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "006575d1_097a4e44",
         "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
         "patchSetId": 8
@@ -111,6 +157,53 @@
         "startChar": 4,
         "endLine": 70,
         "endChar": 11
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a737193_7204e7d7",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "Needs to be package-private to avoid synthetic access from within mSeekBarChangeListener",
+      "parentUuid": "006575d1_097a4e44",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a99ffe1_af204562",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "mUpdatesContinuously",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 31
       },
       "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -152,6 +245,70 @@
       "writtenOn": "2019-02-15T14:22:05Z",
       "side": 1,
       "message": "Please add\n{@see #setUpdateContinuously()}\n{@link R.attr#isUpdatingContinuously}\n\nSimilarly please also in other getters / setter.",
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54020b26_2bbcc87c",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "Instead of @link... use:\n@attr name updatesContinuously",
+      "parentUuid": "b183b351_165a3383",
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc640f3_2bec7ad6",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "Discussed naming offline - please change these APIs / comments to:\n\nsetUpdatesContinuously\ngetUpdatesContinuously\n\nsetShowSeekBarValue\ngetShowSeekBarValue\n\nApologies for the churn :)",
+      "range": {
+        "startLine": 306,
+        "startChar": 19,
+        "endLine": 306,
+        "endChar": 41
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abda0ddb_bb52fbf4",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-15T17:26:06Z",
+      "side": 1,
+      "message": "{@link SeekBar} - ditto elsewhere",
+      "range": {
+        "startLine": 315,
+        "startChar": 37,
+        "endLine": 315,
+        "endChar": 52
+      },
       "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
