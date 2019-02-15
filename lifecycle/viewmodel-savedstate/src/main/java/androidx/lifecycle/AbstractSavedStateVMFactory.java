@@ -16,12 +16,13 @@
 
 package androidx.lifecycle;
 
-import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.savedstate.SavedStateRegistry;
+import androidx.savedstate.SavedStateRegistryOwner;
 
 /**
  * Skeleton of {@link androidx.lifecycle.ViewModelProvider.KeyedFactory}
@@ -30,21 +31,21 @@ import androidx.savedstate.SavedStateRegistry;
  * {@code ViewModels}.
  */
 public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
-    static final String TAG_SAVED_STATE_HANDLE = "androidx.lifecycle.savedstate.vm.tag";
+    static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
 
     private final SavedStateRegistry mSavedStateRegistry;
+    private final Lifecycle mLifecycle;
     private final Bundle mDefaultArgs;
 
     /**
      * Constructs this factory.
      */
-    public AbstractSavedStateVMFactory(
-            @NonNull Application application,
-            @NonNull SavedStateRegistry savedStateRegistry,
+    public AbstractSavedStateVMFactory(@NonNull SavedStateRegistry savedStateRegistry,
+            @NonNull Lifecycle lifecycle,
             @Nullable Bundle defaultArgs) {
         mSavedStateRegistry = savedStateRegistry;
+        mLifecycle = lifecycle;
         mDefaultArgs = defaultArgs;
-        VMSavedStateInitializer.initializeIfNeeded(application);
     }
 
     @NonNull
@@ -52,9 +53,11 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
     public final <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass) {
         Bundle restoredState = mSavedStateRegistry.consumeRestoredStateForKey(key);
         SavedStateHandle handle = SavedStateHandle.createHandle(restoredState, mDefaultArgs);
-        mSavedStateRegistry.registerSavedStateProvider(key, handle.savedStateProvider());
+        SavedStateHandleController controller = new SavedStateHandleController(key, handle);
+        controller.attachToLifecycle(mSavedStateRegistry, mLifecycle);
         T viewmodel = create(key, modelClass, handle);
-        viewmodel.setTagIfAbsent(TAG_SAVED_STATE_HANDLE, handle);
+        viewmodel.setTagIfAbsent(TAG_SAVED_STATE_HANDLE_CONTROLLER, controller);
+        mSavedStateRegistry.runOnNextRecreation(OnRecreation.class);
         return viewmodel;
     }
 
@@ -71,5 +74,71 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
     @NonNull
     protected abstract <T extends ViewModel> T create(@NonNull String key,
             @NonNull Class<T> modelClass, @NonNull SavedStateHandle handle);
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final class OnRecreation implements SavedStateRegistry.AutoRecreated {
+
+        public OnRecreation() {}
+
+        @Override
+        public void onRecreated(@NonNull SavedStateRegistryOwner owner) {
+            if (!(owner instanceof ViewModelStoreOwner)) {
+                throw new IllegalStateException(
+                        "Internal error: OnRecreation should be registered only on components"
+                                + "that implement ViewModelStoreOwner");
+            }
+            ViewModelStore viewModelStore = ((ViewModelStoreOwner) owner).getViewModelStore();
+            SavedStateRegistry savedStateRegistry = owner.getSavedStateRegistry();
+            for (String key : viewModelStore.keys()) {
+                ViewModel viewModel = viewModelStore.get(key);
+                SavedStateHandleController controller = viewModel.getTag(
+                        TAG_SAVED_STATE_HANDLE_CONTROLLER);
+                if (controller != null && !controller.isAttached()) {
+                    controller.attachToLifecycle(owner.getSavedStateRegistry(),
+                            owner.getLifecycle());
+                }
+            }
+            if (!viewModelStore.keys().isEmpty()) {
+                savedStateRegistry.runOnNextRecreation(OnRecreation.class);
+            }
+        }
+    }
+
+    static final class SavedStateHandleController implements LifecycleEventObserver {
+        private final String mKey;
+        boolean mIsAttached = false;
+        private final SavedStateHandle mHandle;
+
+        SavedStateHandleController(String key, SavedStateHandle handle) {
+            mKey = key;
+            mHandle = handle;
+        }
+
+        boolean isAttached() {
+            return mIsAttached;
+        }
+
+        void attachToLifecycle(SavedStateRegistry registry, Lifecycle lifecycle) {
+            if (mIsAttached) {
+                throw new IllegalStateException("Already attached to lifecycleOwner");
+            }
+            mIsAttached = true;
+            lifecycle.addObserver(this);
+            registry.registerSavedStateProvider(mKey,
+                    mHandle.savedStateProvider());
+        }
+
+        @Override
+        public void onStateChanged(@NonNull LifecycleOwner source,
+                @NonNull Lifecycle.Event event) {
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                mIsAttached = false;
+                source.getLifecycle().removeObserver(this);
+            }
+        }
+    }
 }
 
