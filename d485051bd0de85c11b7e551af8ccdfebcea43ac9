@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef7cb9f2_04a98d9b",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "nit: extra \"whether the\" :)",
+      "range": {
+        "startLine": 327,
+        "startChar": 29,
+        "endLine": 327,
+        "endChar": 41
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d1563d8_65200ac5",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "This might be a bit misleading. I think we should recycle the javadoc from the getter. Something along the lines of the SeekBar\u0027s value being update continuously.",
+      "range": {
+        "startLine": 328,
+        "startChar": 57,
+        "endLine": 329,
+        "endChar": 16
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182c2d46_928ffaac",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "nit: to stay consistent with the getter / setter naming, let\u0027s call this \"isUpdatingContinuously\"",
+      "range": {
+        "startLine": 331,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 38
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "006575d1_097a4e44",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "nit: private",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816d669f_caa6d4c8",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "It might be also worth to highlight that this means that \"OnPreferenceChangeListener\" will be called continuosly too.",
+      "range": {
+        "startLine": 300,
+        "startChar": 7,
+        "endLine": 301,
+        "endChar": 33
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b183b351_165a3383",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "Please add\n{@see #setUpdateContinuously()}\n{@link R.attr#isUpdatingContinuously}\n\nSimilarly please also in other getters / setter.",
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b628b4_f8adb2ea",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T14:22:05Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we have an XML attribute for this one also?",
+      "range": {
+        "startLine": 326,
+        "startChar": 19,
+        "endLine": 326,
+        "endChar": 40
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
