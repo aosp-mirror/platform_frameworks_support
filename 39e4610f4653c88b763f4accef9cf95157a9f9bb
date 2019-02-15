@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01b24e2b_1d2e54c5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-15T12:07:13Z",
+      "side": 1,
+      "message": "Good catch",
+      "parentUuid": "54d1e241_1265bb5a",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32cafa70_987c461f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 13
@@ -62,6 +86,48 @@
       "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7ac7b5b_c45581cc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-15T12:07:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2436f68f_120dcbea",
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b42258a_f85e4f22",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-15T12:07:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32cafa70_987c461f",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "39e4610f4653c88b763f4accef9cf95157a9f9bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
