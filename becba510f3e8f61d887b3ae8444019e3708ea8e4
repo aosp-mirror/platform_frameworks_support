@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f7ccfb9_7beb3e5e",
+        "filename": "room/runtime/src/main/java/androidx/room/paging/LimitOffsetDataSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-15T18:44:46Z",
+      "side": 1,
+      "message": "beginTransaction() should be outside the try-finally, if begin throws, calling end will also probably throw (something, something about not being in a transaction), thus swallowing the exception and hiding the original problem.",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "becba510f3e8f61d887b3ae8444019e3708ea8e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c28bdbf_7df31ae7",
+        "filename": "room/runtime/src/main/java/androidx/room/paging/LimitOffsetDataSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-15T18:44:46Z",
+      "side": 1,
+      "message": "Since this is now in a transaction it would be nice if the invocation of the callback is done outside the transaction (ending the transaction quickly). So that whatever work the callback does, does not hold other db operations from continuing.",
+      "range": {
+        "startLine": 118,
+        "startChar": 16,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "becba510f3e8f61d887b3ae8444019e3708ea8e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
