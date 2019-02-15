@@ -29,12 +29,15 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.BundleCompat;
 import androidx.core.content.ContextCompat;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 /**
@@ -65,6 +68,37 @@ public final class CustomTabsIntent {
      * Null if there is no need to match any service side sessions with the intent.
      */
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({DARK_THEME_AUTO, DARK_THEME_ENABLE, DARK_THEME_DISABLE})
+    public @interface DarkThemeBehavior {
+    }
+
+    /**
+     * Dark theme will be enabled or disabled according to system configuration.
+     */
+    public static final int DARK_THEME_AUTO = 0;
+
+    /**
+     * Dark theme should be enabled for the custom tab.
+     */
+    public static final int DARK_THEME_ENABLE = 1;
+
+    /**
+     * Dark theme should be disabled for the custom tab.
+     */
+    public static final int DARK_THEME_DISABLE = 2;
+
+    /**
+     * Maximum value for the DARK_THEME_* configuration options. For validation purposes only.
+     */
+    private static final int DARK_THEME_MAX = 2;
+
+    /**
+     * Extra (int) that specifies whether dark theme should be applied to the custom tab. Default is
+     * {@link #DARK_THEME_AUTO}.
+     */
+    public static final String EXTRA_DARK_THEME = "androidx.browser.customtabs.extra.DARK_THEME";
 
     /**
      * Extra that changes the background color for the toolbar. colorRes is an int that specifies a
@@ -508,6 +542,24 @@ public final class CustomTabsIntent {
             Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(
                     context, enterResId, exitResId).toBundle();
             mIntent.putExtra(EXTRA_EXIT_ANIMATION_BUNDLE, bundle);
+            return this;
+        }
+
+        /**
+         * Sets behavior of the custom tab in regards to dark theme.
+         *
+         * @param behavior Desired dark theme behavior.
+         * @throws IllegalArgumentException When an invalid behavior has been provided.
+         * @see CustomTabsIntent#DARK_THEME_AUTO
+         * @see CustomTabsIntent#DARK_THEME_ENABLE
+         * @see CustomTabsIntent#DARK_THEME_DISABLE
+         */
+        public Builder setDarkThemeBehavior(@DarkThemeBehavior int behavior)
+                throws IllegalArgumentException {
+            if (behavior < 0 || behavior > DARK_THEME_MAX) {
+                throw new IllegalArgumentException("Invalid value for the behavior argument");
+            }
+            mIntent.putExtra(EXTRA_DARK_THEME, behavior);
             return this;
         }
 
