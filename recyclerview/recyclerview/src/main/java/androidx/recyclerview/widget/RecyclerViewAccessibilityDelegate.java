@@ -22,13 +22,18 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 /**
  * The AccessibilityDelegate used by RecyclerView.
  * <p>
  * This class handles basic accessibility actions and delegates them to LayoutManager.
+ * @deprecated Use accessibility methods that act directly on the View instead, for example add
+ * actions using {@link ViewCompat#addAccessibilityAction(View,
+ * AccessibilityNodeInfoCompat.AccessibilityActionCompat)}.
  */
+@Deprecated
 public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateCompat {
     final RecyclerView mRecyclerView;
     final AccessibilityDelegateCompat mItemDelegate;
@@ -39,16 +44,12 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
         mItemDelegate = new ItemDelegate(this);
     }
 
-    boolean shouldIgnore() {
-        return mRecyclerView.hasPendingAdapterUpdates();
-    }
-
     @Override
     public boolean performAccessibilityAction(View host, int action, Bundle args) {
         if (super.performAccessibilityAction(host, action, args)) {
             return true;
         }
-        if (!shouldIgnore() && mRecyclerView.getLayoutManager() != null) {
+        if (mRecyclerView.getLayoutManager() != null) {
             return mRecyclerView.getLayoutManager().performAccessibilityAction(action, args);
         }
 
@@ -58,15 +59,19 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
     @Override
     public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
         super.onInitializeAccessibilityNodeInfo(host, info);
-        if (!shouldIgnore() && mRecyclerView.getLayoutManager() != null) {
+        if (mRecyclerView.getLayoutManager() != null) {
             mRecyclerView.getLayoutManager().onInitializeAccessibilityNodeInfo(info);
+            info.setScrollable(mRecyclerView.canScrollVertically(1)
+                    || mRecyclerView.canScrollVertically(-1)
+                    || mRecyclerView.canScrollHorizontally(1)
+                    || mRecyclerView.canScrollHorizontally(-1));
         }
     }
 
     @Override
     public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(host, event);
-        if (host instanceof RecyclerView && !shouldIgnore()) {
+        if (host instanceof RecyclerView) {
             RecyclerView rv = (RecyclerView) host;
             if (rv.getLayoutManager() != null) {
                 rv.getLayoutManager().onInitializeAccessibilityEvent(event);
@@ -91,7 +96,11 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
      * If you are overriding {@code RecyclerViewAccessibilityDelegate#getItemDelegate()} but still
      * want to keep some default behavior, you can create an instance of this class and delegate to
      * the parent as necessary.
+     * @deprecated Use accessibility methods that act directly on the View instead, for example
+     * add actions using {@link ViewCompat#addAccessibilityAction(View,
+     * AccessibilityNodeInfoCompat.AccessibilityActionCompat)}.
      */
+    @Deprecated
     public static class ItemDelegate extends AccessibilityDelegateCompat {
         final RecyclerViewAccessibilityDelegate mRecyclerViewDelegate;
 
@@ -107,8 +116,7 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            if (!mRecyclerViewDelegate.shouldIgnore()
-                    && mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
+            if (mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
                 mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
                         .onInitializeAccessibilityNodeInfoForItem(host, info);
             }
@@ -119,8 +127,7 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
             if (super.performAccessibilityAction(host, action, args)) {
                 return true;
             }
-            if (!mRecyclerViewDelegate.shouldIgnore()
-                    && mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
+            if (mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
                 return mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
                         .performAccessibilityActionForItem(host, action, args);
             }

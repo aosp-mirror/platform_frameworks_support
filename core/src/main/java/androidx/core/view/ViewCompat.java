@@ -1297,13 +1297,16 @@ public class ViewCompat {
     }
 
     private static List<AccessibilityActionCompat> getActionList(View view) {
-        ArrayList<AccessibilityActionCompat> actions =
-                (ArrayList<AccessibilityActionCompat>) view.getTag(R.id.tag_accessibility_actions);
-        if (actions == null) {
-            actions = new ArrayList<AccessibilityActionCompat>();
-            view.setTag(R.id.tag_accessibility_actions, actions);
+        return getLazyViewTagList(view, R.id.tag_accessibility_actions);
+    }
+
+    private static <T> List<T> getLazyViewTagList(View view, int key) {
+        ArrayList<T> list = (ArrayList<T>) view.getTag(key);
+        if (list == null) {
+            list = new ArrayList<T>();
+            view.setTag(key, list);
         }
-        return actions;
+        return list;
     }
 
     /**
