@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a331a8f6_8e6c2795",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-15T12:09:56Z",
+      "side": 1,
+      "message": "It is not entirely clear why \"it is recommended\" to have suspending DAO functions. Execution in the block seems to be confined to the transaction thread anyway (regardless of them being suspending or not).",
+      "revId": "f214084dbb64b1d08e98a56d6b08455dd980cdc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d13c96a_5721d15e",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-15T12:09:56Z",
+      "side": 1,
+      "message": "Is good style to extract these kinds of `suspendCancellableCoroutine { ... }` blocks into a separate private function `awaitSometing` as it improves readability and avoids mixing of high-level suspending logic and low-level callback-based integration.",
+      "revId": "f214084dbb64b1d08e98a56d6b08455dd980cdc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c055498_677a3ee0",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-15T12:09:56Z",
+      "side": 1,
+      "message": "An alternative way to execute this logic (instead of LinkedBlockingQueue) is to do `runBlocking { ... }` inside of `db.queryExecutor.execute`, since that is exactly what `runBlocking` does -- creates an even loop. Now, as soon as you are inside, you can get this even loop using `coroutineContext[ContinuationInterceptor]` and pass it to the code waiting outside with `continuation.resume(...)`. A sketch:\n\nsuspend fun acquireTransactionThread(job: Job): ContinuationInterceptor \u003d\n    suspendCancellableCoroutine { continuation -\u003e\n        db.queryExecutor.execute {\n            runBlocking {\n                continuation.resume(coroutineContext[ContinuationInterceptor]!!)\n                job.join()\n            }\n        }\n    }\n\nNow, you pass a Job to that function (cancelling job release the thread) and it returns you a reference to the dispather to use. It has a few advantages:\n\n* It is way more efficient (task queue in run blocking is highly optimized and array-based)\n* It benefits from integration of nested runBlocking invocations in coroutines library, e.g. runBlocking that could be nested inside not block processing of events as they share their event loops.",
+      "revId": "f214084dbb64b1d08e98a56d6b08455dd980cdc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
