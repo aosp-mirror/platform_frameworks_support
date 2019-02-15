@@ -99,6 +99,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidLibraryOptions(extension)
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
+                    project.createVerifyLibraryVersionTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
                     // Only dump dependencies of published projects
@@ -333,7 +334,7 @@ class AndroidXPlugin : Plugin<Project> {
         return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
     }
-
+    
     // Task that creates a json file of a project's dependencies
     private fun Project.createDumpDependenciesTask():
             TaskProvider<ListProjectDependencyVersionsTask> {
@@ -355,6 +356,12 @@ class AndroidXPlugin : Plugin<Project> {
                 }
             }
         }
+    }
+
+    private fun Project.createVerifyLibraryVersionTask():
+            TaskProvider<VerifyLibraryVersion> {
+        return project.tasks.register("verifyVersion",
+            VerifyLibraryVersion::class.java)
     }
 
     companion object {
