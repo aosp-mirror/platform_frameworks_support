@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "38d43e0e_08be7c1c",
+        "filename": "preference/res/values/attrs.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T15:49:42Z",
+      "side": 1,
+      "message": "Actually strike my previous comment. Please keep this.",
+      "parentUuid": "182c2d46_928ffaac",
+      "range": {
+        "startLine": 331,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 38
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "006575d1_097a4e44",
         "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
         "patchSetId": 8
@@ -154,6 +178,30 @@
       "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be8f7d1d_a4d2375c",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-15T15:49:42Z",
+      "side": 1,
+      "message": "Sorry, there is one already. Taking it back :)",
+      "parentUuid": "b1b628b4_f8adb2ea",
+      "range": {
+        "startLine": 326,
+        "startChar": 19,
+        "endLine": 326,
+        "endChar": 40
+      },
+      "revId": "d485051bd0de85c11b7e551af8ccdfebcea43ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
