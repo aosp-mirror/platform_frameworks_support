@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c92a1b5_0dc98c7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-15T16:25:05Z",
+      "side": 1,
+      "message": "Could you include a test line to mention how you check javadoc? Make sure to double-check everything is formatting as you expect.\n\nTest: ./gradlew generateDocs",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "06deb8b3d4ac21b65de035b71208c2b319be9246",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c527e4b7_964a1773",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-15T16:25:05Z",
+      "side": 1,
+      "message": "suggestion: since these are basically strings, you could wrap them in double-quotes (inside the {@code})",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 31
+      },
+      "revId": "06deb8b3d4ac21b65de035b71208c2b319be9246",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
