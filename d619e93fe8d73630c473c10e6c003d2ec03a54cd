@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b923286_210ad121",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-15T12:11:26Z",
+      "side": 1,
+      "message": "I don\u0027t make it \"setAccessible\", this means that class to be recreated should be public. What do you think?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
