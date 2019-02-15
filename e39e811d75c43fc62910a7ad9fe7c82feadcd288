@@ -22,6 +22,30 @@
       "revId": "e39e811d75c43fc62910a7ad9fe7c82feadcd288",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0f3006_a80d8292",
+        "filename": "core/src/main/java/androidx/core/view/ViewCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T08:24:31Z",
+      "side": 1,
+      "message": "On second look, I don\u0027t need to remove actions, replace handles that. And in general, this scheme makes it so layoutManagers don\u0027t need to fiddle with scroll.",
+      "parentUuid": "26957144_88655cba",
+      "range": {
+        "startLine": 1251,
+        "startChar": 16,
+        "endLine": 1251,
+        "endChar": 45
+      },
+      "revId": "e39e811d75c43fc62910a7ad9fe7c82feadcd288",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
