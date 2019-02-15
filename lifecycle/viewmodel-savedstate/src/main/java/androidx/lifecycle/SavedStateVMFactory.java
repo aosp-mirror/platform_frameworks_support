@@ -70,7 +70,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      */
     public SavedStateVMFactory(@NonNull Fragment fragment, @Nullable Bundle defaultArgs) {
         this(checkApplication(checkActivity(fragment)),
-                fragment.getSavedStateRegistry(), defaultArgs);
+                fragment.getSavedStateRegistry(), fragment.getLifecycle(), defaultArgs);
     }
 
     /**
@@ -97,7 +97,8 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      * misses a value by such key.
      */
     public SavedStateVMFactory(@NonNull FragmentActivity activity, @Nullable Bundle defaultArgs) {
-        this(checkApplication(activity), activity.getSavedStateRegistry(), defaultArgs);
+        this(checkApplication(activity), activity.getSavedStateRegistry(), activity.getLifecycle(),
+                defaultArgs);
     }
 
     /**
@@ -114,8 +115,9 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      */
     public SavedStateVMFactory(@NonNull Application application,
             @NonNull SavedStateRegistry savedStateRegistry,
+            @NonNull Lifecycle lifecycle,
             @Nullable Bundle defaultArgs) {
-        super(application, savedStateRegistry, defaultArgs);
+        super(savedStateRegistry, lifecycle, defaultArgs);
         mApplication = application;
         mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(application);
     }
