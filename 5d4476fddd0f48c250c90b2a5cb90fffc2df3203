@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6864dcc6_02c28f00",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/GridLayoutManager.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ed486da_d843727c",
+      "range": {
+        "startLine": 3704,
+        "startChar": 16,
+        "endLine": 3704,
+        "endChar": 56
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ea123a7_7a0af2b3",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
         "patchSetId": 20
@@ -45,6 +69,30 @@
       "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee699c5_1049ef72",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "Does removing the layout manager remove the view from the hierarchy?\nI don\u0027t think number 2 is necessary just because that\u0027s tested elsewhere, and ViewCompat doesn\u0027t maintain a reference to the view. The view is referenced in frameworks based on wether it is attached to the window or not",
+      "parentUuid": "1ea123a7_7a0af2b3",
+      "range": {
+        "startLine": 307,
+        "startChar": 16,
+        "endLine": 307,
+        "endChar": 31
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6726e28c_560c92a1",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewAccessibilityTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "It actually adds the actoin to a list associated with a view through a viewTag. So when the view goes, so does this.",
+      "parentUuid": "2447575d_a6cb37f5",
+      "range": {
+        "startLine": 320,
+        "startChar": 27,
+        "endLine": 320,
+        "endChar": 49
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0bd02c_7ce06079",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 20
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5f6f30dd_be4c7dfc",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 8085,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0bd02c_7ce06079",
+      "range": {
+        "startLine": 8085,
+        "startChar": 20,
+        "endLine": 8085,
+        "endChar": 40
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43096cff_4f3201de",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 20
@@ -114,6 +210,30 @@
       "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "968eee20_a37a5430",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 8169,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43096cff_4f3201de",
+      "range": {
+        "startLine": 8169,
+        "startChar": 12,
+        "endLine": 8169,
+        "endChar": 47
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +280,30 @@
       "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5606cdbe_4c91a17f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 10245,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-02-15T06:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca479aee_ebdaf463",
+      "range": {
+        "startLine": 10245,
+        "startChar": 12,
+        "endLine": 10245,
+        "endChar": 47
+      },
+      "revId": "5d4476fddd0f48c250c90b2a5cb90fffc2df3203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
