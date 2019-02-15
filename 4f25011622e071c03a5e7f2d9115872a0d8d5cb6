@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58a44f53_bbd8ac7e",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-15T17:37:21Z",
+      "side": 1,
+      "message": "Is this the right header? Your java file doesn\u0027t use the \"(C)\". If Android Studio generated the header for you, just do whatever that created.",
+      "range": {
+        "startLine": 2,
+        "startChar": 5,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "4f25011622e071c03a5e7f2d9115872a0d8d5cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ea3717_f66fa6e7",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-15T17:37:21Z",
+      "side": 1,
+      "message": "use console.error() if you really want to log an error (but IMO you could just delete this)",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "4f25011622e071c03a5e7f2d9115872a0d8d5cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
