@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec2fe94b_836f1e9f",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-15T11:27:29Z",
+      "side": 1,
+      "message": "It should not be needed to handle cancellation properly. Coroutine must still run (get dispatched) on cancellation. What is needed, instead, is to ensure that PausingDispatcher automatically resumes all coroutines when the corresponding lifecycle is destroyed, so that all coroutines have a chance to run and cleanup (they would be cancelled because their jobs would be tied to the same lifecycle).",
+      "revId": "47bac422eded38de726c294446f9c8e6f58993a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
