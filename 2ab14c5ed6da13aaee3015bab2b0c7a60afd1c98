@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae875b97_c4a6888c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-15T18:55:22Z",
+      "side": 1,
+      "message": "I think it\u0027d be clearer if anything named Artifact didn\u0027t have its dependencies resolved, to be more like what Gradle does (at first glance it appears that this code writes only the .pom file as opposed to all of the transitive dependencies too).\n\nI\u0027d imagine that the argument to writeJsonToFile would be \"dependencySet\" rather than \"artifact\"\n\nI would use a name like \"ResolvedArtifact\" for a type representing an artifact and its dependencies, or \"Configuration\" or \"DependencySet\" to represent a set of dependencies, and make collectDependencies return an object of that type.",
+      "revId": "2ab14c5ed6da13aaee3015bab2b0c7a60afd1c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e0a468a_73c12ccf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-15T18:55:22Z",
+      "side": 1,
+      "message": "Reminder to fail (probably throw an exception) here if this code stays in, to avoid print messages that are easy to overlook",
+      "revId": "2ab14c5ed6da13aaee3015bab2b0c7a60afd1c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
