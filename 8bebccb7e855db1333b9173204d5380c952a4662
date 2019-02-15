@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9dd1d33f_d37eb0c6",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-15T12:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc3c0e73_8062c8ca",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 28
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bc65350_02aaabf9",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b77b49d5_65944f86",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-15T12:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bc65350_02aaabf9",
+      "range": {
+        "startLine": 127,
+        "startChar": 53,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac663a40_c9c9b013",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c44a5c_552b6b78",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-15T12:14:19Z",
+      "side": 1,
+      "message": "You\u0027re right. Fixed it.",
+      "parentUuid": "ac663a40_c9c9b013",
+      "range": {
+        "startLine": 129,
+        "startChar": 86,
+        "endLine": 130,
+        "endChar": 71
+      },
+      "revId": "8bebccb7e855db1333b9173204d5380c952a4662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

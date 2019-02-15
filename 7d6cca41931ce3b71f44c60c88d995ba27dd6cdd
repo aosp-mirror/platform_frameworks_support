@@ -304,6 +304,30 @@
       "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d545d59_848e4eae",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-15T12:14:19Z",
+      "side": 1,
+      "message": "Rephrased.",
+      "parentUuid": "7d20c1ba_3240b16f",
+      "range": {
+        "startLine": 192,
+        "startChar": 11,
+        "endLine": 192,
+        "endChar": 79
+      },
+      "revId": "7d6cca41931ce3b71f44c60c88d995ba27dd6cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
