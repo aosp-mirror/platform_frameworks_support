@@ -17,16 +17,19 @@
 package androidx.recyclerview.widget;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
+import androidx.core.view.accessibility.AccessibilityViewCommand;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
@@ -36,6 +39,8 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 @SmallTest
 @RunWith(Parameterized.class)
@@ -139,13 +144,8 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         setRecyclerView(recyclerView);
         final RecyclerViewAccessibilityDelegate delegateCompat = recyclerView
                 .getCompatAccessibilityDelegate();
-        final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                delegateCompat.onInitializeAccessibilityNodeInfo(recyclerView, info);
-            }
-        });
+        final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.wrap(
+                recyclerView.createAccessibilityNodeInfo());
         assertEquals(mHorizontalScrollAfter || mHorizontalScrollBefore
                 || mVerticalScrollAfter || mVerticalScrollBefore, info.isScrollable());
         assertEquals(mHorizontalScrollBefore || mVerticalScrollBefore,
@@ -233,56 +233,6 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         assertEquals(mVerticalScrollAfter, vScrolledFwd.get());
     }
 
-    @Test
-    public void ignoreAccessibilityIfAdapterHasChanged() throws Throwable {
-        final RecyclerView recyclerView = new RecyclerView(getActivity()) {
-            //@Override
-            @Override
-            public boolean canScrollHorizontally(int direction) {
-                return true;
-            }
-
-            //@Override
-            @Override
-            public boolean canScrollVertically(int direction) {
-                return true;
-            }
-        };
-        final DumbLayoutManager layoutManager = new DumbLayoutManager();
-        final TestAdapter adapter = new TestAdapter(10);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-        layoutManager.expectLayouts(1);
-        setRecyclerView(recyclerView);
-        layoutManager.waitForLayout(1);
-
-        final RecyclerViewAccessibilityDelegate delegateCompat = recyclerView
-                .getCompatAccessibilityDelegate();
-        final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                delegateCompat.onInitializeAccessibilityNodeInfo(recyclerView, info);
-            }
-        });
-        assertTrue("test sanity", info.isScrollable());
-        final AccessibilityNodeInfoCompat info2 = AccessibilityNodeInfoCompat.obtain();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    adapter.deleteAndNotify(1, 1);
-                } catch (Throwable throwable) {
-                    postExceptionToInstrumentation(throwable);
-                }
-                delegateCompat.onInitializeAccessibilityNodeInfo(recyclerView, info2);
-                assertFalse("info should not be filled if data is out of date",
-                        info2.isScrollable());
-            }
-        });
-        checkForMainThreadException();
-    }
-
     boolean performAccessibilityAction(final AccessibilityDelegateCompat delegate,
             final RecyclerView recyclerView, final int action) throws Throwable {
         final boolean[] result = new boolean[1];
@@ -295,5 +245,82 @@ public class RecyclerViewAccessibilityTest extends BaseRecyclerViewInstrumentati
         getInstrumentation().waitForIdleSync();
         Thread.sleep(250);
         return result[0];
+    }
+
+    @Test
+    public void addActionToItem() throws Throwable {
+        final AtomicInteger action1CallCount =  new AtomicInteger(0);
+        final AtomicInteger action2CallCount =  new AtomicInteger(0);
+        final String customAction1Title = "Swipe action 1";
+        final String customAction2Title = "Swipe action 2";
+
+        // This is code an app developer would write to add accessibility actions.
+        // They can also use lambdas.
+        final TestAdapter adapter = new TestAdapter(1) {
+            public TestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+                    int viewType) {
+                TestViewHolder holder = super.onCreateViewHolder(viewGroup, viewType);
+                ViewCompat.addAccessibilityAction(holder.itemView, customAction1Title,
+                        new AccessibilityViewCommand() {
+                            @Override
+                            public boolean perform(View view, CommandArguments arguments) {
+                                //Use holder.getAdapterPosition() to do item specific things.
+                                action1CallCount.incrementAndGet();
+                                return true;
+                            }
+                        });
+                ViewCompat.addAccessibilityAction(holder.itemView, customAction2Title,
+                        new AccessibilityViewCommand() {
+                            @Override
+                            public boolean perform(View view, CommandArguments arguments) {
+                                action2CallCount.incrementAndGet();
+                                return true;
+                            }
+                        });
+                return holder;
+            }
+        };
+
+        // Configure recyclerView
+        final RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(adapter);
+        final DumbLayoutManager layoutManager = new DumbLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.expectLayouts(1);
+        setRecyclerView(recyclerView);
+        layoutManager.waitForLayout(1);
+
+        View view = recyclerView.getChildAt(0);
+
+        // Since we don't have a service and a user, let's simulate that by finding the ID using the
+        // action label.
+        int customAction1Id = -1;
+        int customAction2Id = -1;
+        for (AccessibilityActionCompat action : getActionsOnView(view)) {
+            if (customAction1Title.equals(action.getLabel())) {
+                customAction1Id = action.getId();
+            } else if (customAction2Title.equals(action.getLabel())) {
+                customAction2Id = action.getId();
+            }
+        }
+
+        //ViewCompat.performAccessibilityAction calls the same code a service would end up calling.
+        ViewCompat.performAccessibilityAction(view, customAction2Id, null);
+        assertEquals(1, action2CallCount.get());
+        assertEquals(0, action1CallCount.get());
+
+        ViewCompat.performAccessibilityAction(view, customAction1Id, null);
+        assertEquals(1, action2CallCount.get());
+        assertEquals(1, action1CallCount.get());
+
+        ViewCompat.performAccessibilityAction(view, customAction1Id, null);
+        assertEquals(1, action2CallCount.get());
+        assertEquals(2, action1CallCount.get());
+    }
+
+    private List<AccessibilityActionCompat> getActionsOnView(View view) {
+        AccessibilityNodeInfoCompat nodeInfoCompat = AccessibilityNodeInfoCompat.obtain();
+        view.onInitializeAccessibilityNodeInfo(nodeInfoCompat.unwrap());
+        return nodeInfoCompat.getActionList();
     }
 }

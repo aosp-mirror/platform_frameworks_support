@@ -1278,6 +1278,9 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         return state;
     }
 
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
     public void onInitializeAccessibilityNodeInfoForItem(RecyclerView.Recycler recycler,
             RecyclerView.State state, View host, AccessibilityNodeInfoCompat info) {
@@ -1300,6 +1303,9 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
         }
     }
 
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);

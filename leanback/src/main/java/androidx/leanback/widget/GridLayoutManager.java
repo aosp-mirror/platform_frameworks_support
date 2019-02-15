@@ -23,7 +23,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -3696,7 +3695,11 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         return super.getColumnCountForAccessibility(recycler, state);
     }
 
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
+    @Deprecated
     public void onInitializeAccessibilityNodeInfoForItem(RecyclerView.Recycler recycler,
             RecyclerView.State state, View host, AccessibilityNodeInfoCompat info) {
         ViewGroup.LayoutParams lp = host.getLayoutParams();
@@ -3717,57 +3720,6 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
                     guessSpanIndex, 1, rowIndex, 1, false, false));
         }
-    }
-
-    /*
-     * Leanback widget is different than the default implementation because the "scroll" is driven
-     * by selection change.
-     */
-    @Override
-    public boolean performAccessibilityAction(Recycler recycler, State state, int action,
-            Bundle args) {
-        if (!isScrollEnabled()) {
-            // eat action request so that talkback wont focus out of RV
-            return true;
-        }
-        saveContext(recycler, state);
-        int translatedAction = action;
-        boolean reverseFlowPrimary = (mFlag & PF_REVERSE_FLOW_PRIMARY) != 0;
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (mOrientation == HORIZONTAL) {
-                if (action == AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                        .ACTION_SCROLL_LEFT.getId()) {
-                    translatedAction = reverseFlowPrimary
-                            ? AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD :
-                            AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD;
-                } else if (action == AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                        .ACTION_SCROLL_RIGHT.getId()) {
-                    translatedAction = reverseFlowPrimary
-                            ? AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD :
-                            AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD;
-                }
-            } else { // VERTICAL layout
-                if (action == AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_UP
-                        .getId()) {
-                    translatedAction = AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD;
-                } else if (action == AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                        .ACTION_SCROLL_DOWN.getId()) {
-                    translatedAction = AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD;
-                }
-            }
-        }
-        switch (translatedAction) {
-            case AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD:
-                processPendingMovement(false);
-                processSelectionMoves(false, -1);
-                break;
-            case AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD:
-                processPendingMovement(true);
-                processSelectionMoves(false, 1);
-                break;
-        }
-        leaveContext();
-        return true;
     }
 
     /*
@@ -3824,46 +3776,14 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         return moves;
     }
 
+
+    /**
+     * @deprecated Use accessibility methods that act directly on the View instead.
+     */
     @Override
     public void onInitializeAccessibilityNodeInfo(Recycler recycler, State state,
             AccessibilityNodeInfoCompat info) {
         saveContext(recycler, state);
-        int count = state.getItemCount();
-        boolean reverseFlowPrimary = (mFlag & PF_REVERSE_FLOW_PRIMARY) != 0;
-        if (count > 1 && !isItemFullyVisible(0)) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (mOrientation == HORIZONTAL) {
-                    info.addAction(reverseFlowPrimary
-                            ? AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                                    .ACTION_SCROLL_RIGHT :
-                            AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                                    .ACTION_SCROLL_LEFT);
-                } else {
-                    info.addAction(
-                            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_UP);
-                }
-            } else {
-                info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD);
-            }
-            info.setScrollable(true);
-        }
-        if (count > 1 && !isItemFullyVisible(count - 1)) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (mOrientation == HORIZONTAL) {
-                    info.addAction(reverseFlowPrimary
-                            ? AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                                    .ACTION_SCROLL_LEFT :
-                            AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                                    .ACTION_SCROLL_RIGHT);
-                } else {
-                    info.addAction(AccessibilityNodeInfoCompat.AccessibilityActionCompat
-                                    .ACTION_SCROLL_DOWN);
-                }
-            } else {
-                info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);
-            }
-            info.setScrollable(true);
-        }
         final AccessibilityNodeInfoCompat.CollectionInfoCompat collectionInfo =
                 AccessibilityNodeInfoCompat.CollectionInfoCompat
                         .obtain(getRowCountForAccessibility(recycler, state),
