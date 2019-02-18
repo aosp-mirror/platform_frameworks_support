@@ -1,0 +1,8 @@
+Code-Review+2: Louis Pullen-Freilich <lpf@google.com>
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+Build-Cop-Override+1: Jakub Gielzak <jgielzak@google.com>
+Submitted-by: Jakub Gielzak <jgielzak@google.com>
+Submitted-at: Mon, 18 Feb 2019 17:26:16 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/907107
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
