@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "6c5b237f_a1fc6375",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "It seemj that private static final variables which can be determined at compile time does not require synthetic access(compiler optimization?).\n\nI added @SuppressWarnings(\"WeakerAccess\") for necessary variables.",
+      "parentUuid": "bf80d125_9c335e23",
+      "range": {
+        "startLine": 141,
+        "startChar": 21,
+        "endLine": 141,
+        "endChar": 43
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25a75ce3_1957dc87",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -62,6 +86,30 @@
       "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a38a79_00ddbed2",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "I think the statement is not to load the same icon again when oldBitmap \u003d\u003d newBitmap but oldUri !\u003d newUri (same icon but different uri).\n\nIt\u0027s changed as a single statement.",
+      "parentUuid": "25a75ce3_1957dc87",
+      "range": {
+        "startLine": 443,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 21
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "7224178d_8b6e2e79",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "1) All routes\u0027 status.\n2) Yes.\nI added a brief comment to clarify this.",
+      "parentUuid": "10ea7497_0c1492e7",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 36
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "199a5527_1586c59b",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -108,6 +180,30 @@
       "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac93c9d2_fdc57d7e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "199a5527_1586c59b",
+      "range": {
+        "startLine": 841,
+        "startChar": 42,
+        "endLine": 841,
+        "endChar": 49
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "c51fea13_bbbf8808",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "That was my first renaming.\n\nI just wanted to emphasize that this method does generating something rather than simply set or update.\nIf `update\u0027 is appropriate for both of us, let me use that name!",
+      "parentUuid": "cfa5ce8b_3f83e69b",
+      "range": {
+        "startLine": 857,
+        "startChar": 13,
+        "endLine": 857,
+        "endChar": 25
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52778733_f42aecd4",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
         "patchSetId": 2
@@ -154,6 +274,30 @@
       "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fe88e7_5bafbcee",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T06:56:35Z",
+      "side": 1,
+      "message": "Actually it doesn\u0027t because it is static final constant.",
+      "parentUuid": "52778733_f42aecd4",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 12
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
