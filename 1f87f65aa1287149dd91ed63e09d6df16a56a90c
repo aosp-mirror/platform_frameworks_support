@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b3a81a5_c2570d16",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T08:48:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "966c5ec0_1398289e",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 60
+      },
+      "revId": "1f87f65aa1287149dd91ed63e09d6df16a56a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b10ad47e_be1856d1",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1f87f65aa1287149dd91ed63e09d6df16a56a90c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153d7b3d_6cef24fb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-18T08:48:49Z",
+      "side": 1,
+      "message": "I agree. The method is removed.",
+      "parentUuid": "b10ad47e_be1856d1",
+      "range": {
+        "startLine": 456,
+        "startChar": 20,
+        "endLine": 456,
+        "endChar": 33
+      },
+      "revId": "1f87f65aa1287149dd91ed63e09d6df16a56a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
