@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "966c5ec0_1398289e",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-18T07:57:36Z",
+      "side": 1,
+      "message": "Let\u0027s use this format.\n\nhttps://cs.corp.google.com/search/?q\u003d@SuppressWarnings%5C(%5C%22WeakerAccess%5C%22%5C)\u0026p\u003d7\u0026sq\u003dpackage:%5Eandroid$%7C%5Eaosp-androidx$\u0026type\u003dcs",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 60
+      },
+      "revId": "1f87f65aa1287149dd91ed63e09d6df16a56a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b10ad47e_be1856d1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-18T07:57:36Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be reloadIconRequired()?\n\nThis method is only used in updateArtIconIfNeeded().\nWhat about removing this method?",
+      "range": {
+        "startLine": 456,
+        "startChar": 20,
+        "endLine": 456,
+        "endChar": 33
+      },
+      "revId": "1f87f65aa1287149dd91ed63e09d6df16a56a90c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
