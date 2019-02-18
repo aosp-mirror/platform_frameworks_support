@@ -22,6 +22,30 @@
       "revId": "158bc01d0ab0815c36c13cd4e46b5e9c95b61f6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9e8fdb4_4016a2b8",
+        "filename": "samples/ViewPager2Demos/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-02-18T14:51:06Z",
+      "side": 1,
+      "message": "I think for the ViewModels",
+      "parentUuid": "a8a37a1a_4675560e",
+      "range": {
+        "startLine": 34,
+        "startChar": 19,
+        "endLine": 34,
+        "endChar": 44
+      },
+      "revId": "158bc01d0ab0815c36c13cd4e46b5e9c95b61f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
