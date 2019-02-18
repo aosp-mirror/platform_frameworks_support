@@ -1,0 +1,12 @@
+Code-Review+2: Jakub Gielzak <jgielzak@google.com>
+Code-Review+2: Filip Pavlis <pavlis@google.com>
+Code-Review+2: Clara Bayarri <clarabayarri@google.com>
+Presubmit-Ready+1: Jakub Gielzak <jgielzak@google.com>
+API-Review+1: Clara Bayarri <clarabayarri@google.com>
+Build-Cop-Override+1: Jakub Gielzak <jgielzak@google.com>
+Autosubmit+1: Jakub Gielzak <jgielzak@google.com>
+Submitted-by: Jakub Gielzak <jgielzak@google.com>
+Submitted-at: Mon, 18 Feb 2019 15:51:07 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/907106
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
