@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67198f28_42c3f2ed",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-18T17:31:51Z",
+      "side": 1,
+      "message": "I don\u0027t know, I just copied the headers from Android Manifest file and updated the year. I did the same for the java source files (copied the header from other source files)",
+      "parentUuid": "58a44f53_bbd8ac7e",
+      "range": {
+        "startLine": 2,
+        "startChar": 5,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "4f25011622e071c03a5e7f2d9115872a0d8d5cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11ea3717_f66fa6e7",
         "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "4f25011622e071c03a5e7f2d9115872a0d8d5cb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d081378_c65b552a",
+        "filename": "webkit/integration-tests/testapp/src/main/assets/www/ajax_requests.html",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-18T17:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11ea3717_f66fa6e7",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "4f25011622e071c03a5e7f2d9115872a0d8d5cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
