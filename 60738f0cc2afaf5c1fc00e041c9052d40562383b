@@ -160,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "4768170f_fb02011b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-18T07:41:41Z",
+      "side": 1,
+      "message": "Thanks for the clarification. It looks better!",
+      "parentUuid": "7224178d_8b6e2e79",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 36
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "199a5527_1586c59b",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
