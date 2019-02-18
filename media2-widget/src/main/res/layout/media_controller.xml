@@ -236,6 +236,7 @@
             android:paddingEnd="0dp"
             android:maxHeight="@dimen/mcv2_custom_progress_max_size"
             android:minHeight="@dimen/mcv2_custom_progress_max_size"
+            android:background="@null"
             android:progressDrawable="@drawable/custom_progress"
             android:thumb="@drawable/custom_progress_thumb"
             android:thumbOffset="0dp"
