@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf80d125_9c335e23",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-18T02:30:42Z",
+      "side": 1,
+      "message": "We are using package private for synthetic accesses.",
+      "range": {
+        "startLine": 141,
+        "startChar": 21,
+        "endLine": 141,
+        "endChar": 43
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a75ce3_1957dc87",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-18T02:30:42Z",
+      "side": 1,
+      "message": "What about this?\n\nreturn (!ObjectsCompat.equals(oldUri, newUri) || oldBitmap !\u003d newBitmap);",
+      "range": {
+        "startLine": 443,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 21
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa5ce8b_3f83e69b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-18T02:30:42Z",
+      "side": 1,
+      "message": "updateItems?",
+      "range": {
+        "startLine": 857,
+        "startChar": 13,
+        "endLine": 857,
+        "endChar": 25
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
