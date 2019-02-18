@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a48f5f7a_919d885f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-18T05:16:28Z",
+      "side": 1,
+      "message": "Please make sure that you ran lint check. (:mediarouter:check or something)",
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf80d125_9c335e23",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -48,6 +65,52 @@
     },
     {
       "key": {
+        "uuid": "10ea7497_0c1492e7",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-18T05:16:28Z",
+      "side": 1,
+      "message": "Just a question) 1. Does it update *selected* routes\u0027 status? Or all the route\u0027s status? 2. Does \"status\" include volume info and connection status?",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 36
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199a5527_1586c59b",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-18T05:16:28Z",
+      "side": 1,
+      "message": "two or more",
+      "range": {
+        "startLine": 841,
+        "startChar": 42,
+        "endLine": 841,
+        "endChar": 49
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfa5ce8b_3f83e69b",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteCastDialog.java",
         "patchSetId": 2
@@ -64,6 +127,29 @@
         "startChar": 13,
         "endLine": 857,
         "endChar": 25
+      },
+      "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52778733_f42aecd4",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDevicePickerDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-18T05:16:28Z",
+      "side": 1,
+      "message": "This might bring lint error.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 12
       },
       "revId": "60738f0cc2afaf5c1fc00e041c9052d40562383b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
