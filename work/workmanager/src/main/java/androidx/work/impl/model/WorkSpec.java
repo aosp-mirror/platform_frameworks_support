@@ -348,9 +348,9 @@ public class WorkSpec {
     }
 
     /**
-     * A POJO containing the ID and state of a WorkSpec.
+     * A POJO containing the ID, state and schedule_requested_at of a WorkSpec.
      */
-    public static class IdAndState {
+    public static class IdStateAndSchedule {
 
         @ColumnInfo(name = "id")
         public String id;
@@ -358,21 +358,26 @@ public class WorkSpec {
         @ColumnInfo(name = "state")
         public WorkInfo.State state;
 
+        @ColumnInfo(name = "schedule_requested_at")
+        public long scheduleRequestedAt;
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            IdAndState that = (IdAndState) o;
+            IdStateAndSchedule that = (IdStateAndSchedule) o;
 
-            if (state != that.state) return false;
-            return id.equals(that.id);
+            if (scheduleRequestedAt != that.scheduleRequestedAt) return false;
+            if (!id.equals(that.id)) return false;
+            return state == that.state;
         }
 
         @Override
         public int hashCode() {
             int result = id.hashCode();
             result = 31 * result + state.hashCode();
+            result = 31 * result + (int) (scheduleRequestedAt ^ (scheduleRequestedAt >>> 32));
             return result;
         }
     }

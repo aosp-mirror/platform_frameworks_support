@@ -76,9 +76,9 @@ public interface WorkSpecDao {
      * @param name The work graph name
      * @return The {@link WorkSpec}s labelled with the given name
      */
-    @Query("SELECT id, state FROM workspec WHERE id IN "
+    @Query("SELECT id, state, schedule_requested_at FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM workname WHERE name=:name)")
-    List<WorkSpec.IdAndState> getWorkSpecIdAndStatesForName(String name);
+    List<WorkSpec.IdStateAndSchedule> getWorkSpecIdStatesAndScheduleForName(String name);
 
     /**
      * @return All WorkSpec ids in the database.

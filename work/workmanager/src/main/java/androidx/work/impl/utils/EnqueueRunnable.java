@@ -155,7 +155,6 @@ public class EnqueueRunnable implements Runnable {
 
     private static boolean enqueueContinuation(@NonNull WorkContinuationImpl workContinuation) {
         Set<String> prerequisiteIds = WorkContinuationImpl.prerequisitesFor(workContinuation);
-
         boolean needsScheduling = enqueueWorkWithPrerequisites(
                 workContinuation.getWorkManagerImpl(),
                 workContinuation.getWork(),
@@ -218,23 +217,34 @@ public class EnqueueRunnable implements Runnable {
         boolean shouldApplyExistingWorkPolicy = isNamed && !hasPrerequisite;
         if (shouldApplyExistingWorkPolicy) {
             // Get everything with the unique tag.
-            List<WorkSpec.IdAndState> existingWorkSpecIdAndStates =
-                    workDatabase.workSpecDao().getWorkSpecIdAndStatesForName(name);
+            List<WorkSpec.IdStateAndSchedule> existingWorkSpecIdStateAndSchedules =
+                    workDatabase.workSpecDao().getWorkSpecIdStatesAndScheduleForName(name);
 
-            if (!existingWorkSpecIdAndStates.isEmpty()) {
+            if (!existingWorkSpecIdStateAndSchedules.isEmpty()) {
                 // If appending, these are the new prerequisites.
                 if (existingWorkPolicy == APPEND) {
                     DependencyDao dependencyDao = workDatabase.dependencyDao();
                     List<String> newPrerequisiteIds = new ArrayList<>();
-                    for (WorkSpec.IdAndState idAndState : existingWorkSpecIdAndStates) {
-                        if (!dependencyDao.hasDependents(idAndState.id)) {
-                            hasCompletedAllPrerequisites &= (idAndState.state == SUCCEEDED);
-                            if (idAndState.state == FAILED) {
+                    for (WorkSpec.IdStateAndSchedule idStateAndSchedule :
+                            existingWorkSpecIdStateAndSchedules) {
+                        // Only look at leaf nodes that have no dependents.
+                        if (!dependencyDao.hasDependents(idStateAndSchedule.id)) {
+                            hasCompletedAllPrerequisites &= (idStateAndSchedule.state == SUCCEEDED);
+                            if (idStateAndSchedule.state == FAILED) {
                                 hasFailedPrerequisites = true;
-                            } else if (idAndState.state == CANCELLED) {
+                            } else if (idStateAndSchedule.state == CANCELLED) {
                                 hasCancelledPrerequisites = true;
                             }
-                            newPrerequisiteIds.add(idAndState.id);
+                            newPrerequisiteIds.add(idStateAndSchedule.id);
+                        }
+                        // We need to check if all named pre-requisite work is marked scheduled.
+                        // This is because some pre-requisites may have been previously running
+                        // before the application crashed, and the WorkDatabase cleanup sets it
+                        // back to ENQUEUED. For more information take a look at b/124546316
+                        if (idStateAndSchedule.state == ENQUEUED
+                                && idStateAndSchedule.scheduleRequestedAt
+                                        == WorkSpec.SCHEDULE_NOT_REQUESTED_YET) {
+                            needsScheduling = true;
                         }
                     }
                     prerequisiteIds = newPrerequisiteIds.toArray(prerequisiteIds);
@@ -243,8 +253,11 @@ public class EnqueueRunnable implements Runnable {
                     // If we're keeping existing work, make sure to do so only if something is
                     // enqueued or running.
                     if (existingWorkPolicy == KEEP) {
-                        for (WorkSpec.IdAndState idAndState : existingWorkSpecIdAndStates) {
-                            if (idAndState.state == ENQUEUED || idAndState.state == RUNNING) {
+                        for (WorkSpec.IdStateAndSchedule idStateAndSchedule :
+                                existingWorkSpecIdStateAndSchedules) {
+
+                            if (idStateAndSchedule.state == ENQUEUED
+                                    || idStateAndSchedule.state == RUNNING) {
                                 return false;
                             }
                         }
@@ -263,8 +276,9 @@ public class EnqueueRunnable implements Runnable {
 
                     // And delete all the database records.
                     WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-                    for (WorkSpec.IdAndState idAndState : existingWorkSpecIdAndStates) {
-                        workSpecDao.delete(idAndState.id);
+                    for (WorkSpec.IdStateAndSchedule idStateAndSchedule :
+                            existingWorkSpecIdStateAndSchedules) {
+                        workSpecDao.delete(idStateAndSchedule.id);
                     }
                 }
             }
