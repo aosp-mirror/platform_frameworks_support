@@ -76,6 +76,9 @@ public class SeekBarPreference extends Preference {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (fromUser && (mUpdatesContinuously || !mTrackingTouch)) {
                 syncValueInternal(seekBar);
+            } else {
+                // We always want to update the text while the seekbar is being dragged
+                updateLabelValue(progress + mMin);
             }
         }
 
@@ -187,9 +190,7 @@ public class SeekBarPreference extends Preference {
         }
 
         mSeekBar.setProgress(mSeekBarValue - mMin);
-        if (mSeekBarValueTextView != null) {
-            mSeekBarValueTextView.setText(String.valueOf(mSeekBarValue));
-        }
+        updateLabelValue(mSeekBarValue);
         mSeekBar.setEnabled(isEnabled());
     }
 
@@ -357,9 +358,7 @@ public class SeekBarPreference extends Preference {
 
         if (seekBarValue != mSeekBarValue) {
             mSeekBarValue = seekBarValue;
-            if (mSeekBarValueTextView != null) {
-                mSeekBarValueTextView.setText(String.valueOf(mSeekBarValue));
-            }
+            updateLabelValue(mSeekBarValue);
             persistInt(seekBarValue);
             if (notifyChanged) {
                 notifyChanged();
@@ -397,7 +396,20 @@ public class SeekBarPreference extends Preference {
                 setValueInternal(seekBarValue, false);
             } else {
                 seekBar.setProgress(mSeekBarValue - mMin);
+                updateLabelValue(mSeekBarValue);
             }
+        }
+    }
+
+    /**
+     * Attempts to update the TextView label that displays the current value.
+     *
+     * @param value the value to display next to the {@link SeekBar}
+     */
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void updateLabelValue(int value) {
+        if (mSeekBarValueTextView != null) {
+            mSeekBarValueTextView.setText(String.valueOf(value));
         }
     }
 

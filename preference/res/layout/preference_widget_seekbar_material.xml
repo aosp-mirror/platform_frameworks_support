@@ -86,7 +86,7 @@
             increased touch area so you do not need to exactly tap the thumb to move it. However,
             setting the Seekbar height directly causes the thumb and seekbar to be misaligned on
             API 22 and 23 - so instead we just set 15dp padding above and below, to account for the
-            2dp height of the track, and the 8dp margin above and below the whole Preference. -->
+            18dp default height of the Seekbar thumb for a total of 48dp. -->
             <SeekBar
                 android:id="@+id/seekbar"
                 android:layout_width="0dp"
