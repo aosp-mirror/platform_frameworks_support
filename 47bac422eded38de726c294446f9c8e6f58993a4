@@ -16,6 +16,24 @@
       "revId": "47bac422eded38de726c294446f9c8e6f58993a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44a166c2_df66a34c",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-18T22:54:29Z",
+      "side": 1,
+      "message": "I\u0027ve taken this part from the coroutines source:\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/kotlinx-coroutines-android/src/HandlerDispatcher.kt#L118\n\nI\u0027m not sure if we need to implement Delay though. There is `DefaultDelay` as well if I don\u0027t implement it here but I decided to implement it since HandlerDispatcher does.\nAlso, even with this implementation; I\u0027m not sure how to properly test that case. I do have a parent job cancelled test but that does pass w/ the current implementation.\n\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/905134/6/lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt#276\n\nSeems like I\u0027m missing a test case.\n\nIn terms of running pending jobs, we already run all pending runnables if lifecycle is destroyed:\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/905134/6/lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt#78 (calls consume enqueued)\nI\u0027ll also update LifecycleController to observe job\u0027s cancellation.",
+      "parentUuid": "ec2fe94b_836f1e9f",
+      "revId": "47bac422eded38de726c294446f9c8e6f58993a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
