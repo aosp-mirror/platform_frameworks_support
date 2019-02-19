@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b31152b2_b205239c",
+        "filename": "lifecycle/runtime/src/main/java/androidx/lifecycle/SuspendingLifecycleRegistry.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-19T13:04:20Z",
+      "side": 1,
+      "message": "Copy pasted comment from patchset 1 (so it won\u0027t be dismissed): \n\nThis is super simple version of Lifecycle, that allows to add observer from other threads. \nOutlined design: \n1. SuspendingLifecycleRegistry can be created only on a thread with looper, internal wrapped lifecycle registry will work on this thread. \n2. You can call an addObserverSuspending from other threads, it will return once observer was added and brought upto initial state (However, because of multi-threading nature, observer may process some other events after initial state)\n3. To keep compatibility with the old lifecycles, regular addObserver/removeObserver are confined to one thread, which was used during creation",
+      "revId": "567d862861ef7b33b973e3ac02af827e1e024f66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
