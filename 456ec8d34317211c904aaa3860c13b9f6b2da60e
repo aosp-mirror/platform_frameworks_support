@@ -22,6 +22,30 @@
       "revId": "456ec8d34317211c904aaa3860c13b9f6b2da60e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb8aa87_21000f3d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-02-19T21:56:11Z",
+      "side": 1,
+      "message": "Seems like core is enough to fulfill the used dependencies. I\u0027ll remove the util until it is needed.",
+      "parentUuid": "e47548b3_47241ba4",
+      "range": {
+        "startLine": 69,
+        "startChar": 36,
+        "endLine": 69,
+        "endChar": 77
+      },
+      "revId": "456ec8d34317211c904aaa3860c13b9f6b2da60e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
