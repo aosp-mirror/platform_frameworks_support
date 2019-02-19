@@ -22,6 +22,30 @@
       "revId": "d111249e02803cf3aeb113a09698f1e73eb4aa10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b2b2fe8_a9ebd9fa",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/SelfChecking.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-02-19T13:05:51Z",
+      "side": 1,
+      "message": "Forget about that, I failed to notice this interface is in the androidTest source set itself",
+      "parentUuid": "3e0b78f4_659f63b1",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "d111249e02803cf3aeb113a09698f1e73eb4aa10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
