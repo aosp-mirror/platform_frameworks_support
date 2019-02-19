@@ -23,16 +23,17 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.collection.LongSparseArray;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.GenericLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Similar in behavior to {@link FragmentStatePagerAdapter}
@@ -58,33 +59,11 @@ public abstract class FragmentStateAdapter extends
     private final LongSparseArray<Fragment> mFragments = new LongSparseArray<>();
     private final LongSparseArray<Fragment.SavedState> mSavedStates = new LongSparseArray<>();
 
-    private final RecyclerView.AdapterDataObserver mDataObserver =
-            new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onChanged() {
-                    // TODO(122667374): implement more efficiently
-                    /** Below effectively removes all Fragments and state of no longer used items.
-                     * See {@link FragmentStateAdapter#containsItem(long)} */
-                    Parcelable state = FragmentStateAdapter.this.saveState();
-                    FragmentStateAdapter.this.restoreState(state);
-                }
-            };
-
     private final FragmentManager mFragmentManager;
 
     public FragmentStateAdapter(@NonNull FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
         super.setHasStableIds(true);
-    }
-
-    @Override
-    public final void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        registerAdapterDataObserver(mDataObserver);
-    }
-
-    @Override
-    public final void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        unregisterAdapterDataObserver(mDataObserver);
     }
 
     /**
@@ -123,20 +102,120 @@ public abstract class FragmentStateAdapter extends
     }
 
     private Fragment getFragment(int position) {
-        Fragment fragment = getItem(position);
         long itemId = getItemId(position);
-        fragment.setInitialSavedState(mSavedStates.get(itemId));
-        mFragments.put(itemId, fragment);
-        return fragment;
+        Fragment activeFragment = mFragments.get(itemId);
+        if (activeFragment != null) {
+            return activeFragment;
+        }
+
+        Fragment newFragment = getItem(position);
+        newFragment.setInitialSavedState(mSavedStates.get(itemId));
+        mFragments.put(itemId, newFragment);
+        return newFragment;
     }
 
     @Override
     public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
-        if (holder.mFragment.isAdded()) {
+        Fragment fragment = holder.mFragment;
+        FrameLayout container = holder.getContainer();
+        View view = fragment.getView();
+
+        /*
+        possible states:
+        - fragment: { added, notAdded }
+        - view: { created, notCreated }
+        - view: { attached, notAttached }
+
+        combinations:
+        - { f:added, v:created, v:attached } -> check if attached to the right container
+        - { f:added, v:created, v:notAttached} -> attach view to container
+        - { f:added, v:notCreated, v:attached } -> impossible
+        - { f:added, v:notCreated, v:notAttached} -> schedule callback for when created
+        - { f:notAdded, v:created, v:attached } -> illegal state
+        - { f:notAdded, v:created, v:notAttached } -> illegal state
+        - { f:notAdded, v:notCreated, v:attached } -> impossible
+        - { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
+         */
+
+        // { f:notAdded, v:created, v:attached } -> illegal state
+        // { f:notAdded, v:created, v:notAttached } -> illegal state
+        if (!fragment.isAdded() && view != null) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+
+        // { f:added, v:notCreated, v:notAttached} -> schedule callback for when created
+        if (fragment.isAdded() && view == null) {
+            scheduleViewAttachDetach(fragment, container);
             return;
         }
-        mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
-                holder.mFragment).commit(); // TODO(122669030): review transaction commit type usage
+
+        // { f:added, v:created, v:attached } -> check if attached to the right container
+        if (fragment.isAdded() && view.getParent() != null) {
+            if (view.getParent() != container) {
+                ((FrameLayout) view.getParent()).removeAllViews();
+                addViewToContainer(view, container);
+            }
+            return;
+        }
+
+        // { f:added, v:created, v:notAttached} -> attach view to container
+        if (fragment.isAdded()) {
+            view.getParent();
+            addViewToContainer(view, container);
+            return;
+        }
+
+        // { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
+        scheduleViewAttachDetach(fragment, container);
+        mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+    }
+
+    private void scheduleViewAttachDetach(final Fragment fragment, final FrameLayout container) {
+        // After a config change Fragments that were in FragmentManager will be recreated. Since
+        // ViewHolder container ids are dynamically generated, we opted to manually handle
+        // attaching Fragment views to containers. For consistency, we use the same mechanism for
+        // all Fragment views.
+        mFragmentManager.registerFragmentLifecycleCallbacks(
+                new FragmentManager.FragmentLifecycleCallbacks() {
+                    @Override
+                    public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                            @NonNull Fragment f, @NonNull View v,
+                            @Nullable Bundle savedInstanceState) {
+                        if (f == fragment) {
+                            fm.unregisterFragmentLifecycleCallbacks(this);
+                            addViewToContainer(v, container);
+                        }
+                    }
+                }, false);
+
+        // We detach Fragment views from a container when the Fragment is getting destroyed.
+        // Without this, Fragments recreated on rotation will try to attach to containers that no
+        // longer exist (ViewHolder container ids are dynamically generated).
+        fragment.getLifecycle().addObserver(new GenericLifecycleObserver() {
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    Fragment f = (Fragment) source;
+                    View v = f.getView();
+                    if (v != null && v.getParent() != null) {
+                        FrameLayout container = (FrameLayout) v.getParent();
+                        checkChildCount(container, 1).removeAllViews();
+                    }
+                }
+            }
+        });
+    }
+
+    private void addViewToContainer(@NonNull View v, FrameLayout container) {
+        checkChildCount(container, 0).addView(v);
+    }
+
+    private FrameLayout checkChildCount(FrameLayout container, int desiredChildCount) {
+        if (container.getChildCount() != desiredChildCount) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+        return container;
     }
 
     @Override
@@ -156,6 +235,7 @@ public abstract class FragmentStateAdapter extends
 
     private void removeFragment(@NonNull FragmentViewHolder holder) {
         removeFragment(holder.mFragment, holder.getItemId());
+        holder.getContainer().removeAllViews();
         holder.mFragment = null;
     }
 
@@ -220,18 +300,15 @@ public abstract class FragmentStateAdapter extends
 
     @Override
     public @NonNull Parcelable saveState() {
-        /** remove active fragments saving their state in {@link mSavedStates) */
-        List<Long> toRemove = new ArrayList<>();
+        Bundle savedState = new Bundle(mFragments.size() + 2);
+
+        /** save references to active fragments */
         for (int ix = 0; ix < mFragments.size(); ix++) {
-            toRemove.add(mFragments.keyAt(ix));
-        }
-        if (!toRemove.isEmpty()) {
-            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            for (Long itemId : toRemove) {
-                removeFragment(mFragments.get(itemId), itemId, fragmentTransaction);
+            long itemId = mFragments.keyAt(ix);
+            Fragment fragment = mFragments.get(itemId);
+            if (fragment != null && fragment.isAdded()) {
+                mFragmentManager.putFragment(savedState, "f" + itemId, fragment);
             }
-            // TODO(b/122669030): add a recovery step / handle in a more graceful manner
-            fragmentTransaction.commitNowAllowingStateLoss();
         }
 
         /** Write {@link mSavedStates) into a {@link Parcelable} */
@@ -247,7 +324,6 @@ public abstract class FragmentStateAdapter extends
         }
 
         /** TODO(b/122670461): use custom {@link Parcelable} instead of Bundle to save space */
-        Bundle savedState = new Bundle(2);
         savedState.putLongArray(STATE_ARG_KEYS, keys);
         savedState.putParcelableArray(STATE_ARG_VALUES, values);
         return savedState;
@@ -257,6 +333,13 @@ public abstract class FragmentStateAdapter extends
     public void restoreState(@NonNull Parcelable savedState) {
         try {
             Bundle bundle = (Bundle) savedState;
+            for (String key : bundle.keySet()) {
+                if (key.startsWith("f")) {
+                    Fragment fragment = mFragmentManager.getFragment(bundle, key);
+                    long itemId = Long.parseLong(key.substring(1));
+                    mFragments.put(itemId, fragment);
+                }
+            }
             long[] keys = bundle.getLongArray(STATE_ARG_KEYS);
             Fragment.SavedState[] values =
                     (Fragment.SavedState[]) bundle.getParcelableArray(STATE_ARG_VALUES);
