@@ -509,12 +509,15 @@ public class VideoView extends SelectiveLayout {
     }
 
     /**
-     * Registers a callback to be invoked when a view type change is done.
+     * Registers a listener to be invoked when a view type change is done.
+     *
      * {@see #setViewType(int)}
-     * @param l The callback that will be run
+     *
+     * @param listener The listener that will be run. A value of <code>null</code> removes any
+     * existing listener.
      */
-    public void setOnViewTypeChangedListener(@Nullable OnViewTypeChangedListener l) {
-        mViewTypeChangedListener = l;
+    public void setOnViewTypeChangedListener(@Nullable OnViewTypeChangedListener listener) {
+        mViewTypeChangedListener = listener;
     }
 
     @Override

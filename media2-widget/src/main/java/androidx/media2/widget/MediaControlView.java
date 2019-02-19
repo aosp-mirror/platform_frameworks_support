@@ -292,13 +292,20 @@ public class MediaControlView extends ViewGroup {
     }
 
     /**
-     * Registers a callback to be invoked when the fullscreen mode should be changed.
+     * Registers a listener to be invoked when the fullscreen mode should be changed.
      * This needs to be implemented in order to display the fullscreen button.
-     * @param l The callback that will be run
+     *
+     * @param listener The listener that will be run. A value of <code>null</code> removes any
+     * existing listener.
      */
-    public void setOnFullScreenListener(@NonNull OnFullScreenListener l) {
-        mOnFullScreenListener = l;
-        mFullScreenButton.setVisibility(View.VISIBLE);
+    public void setOnFullScreenListener(@Nullable OnFullScreenListener listener) {
+        if (listener == null) {
+            mOnFullScreenListener = null;
+            mFullScreenButton.setVisibility(View.GONE);
+        } else {
+            mOnFullScreenListener = listener;
+            mFullScreenButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
