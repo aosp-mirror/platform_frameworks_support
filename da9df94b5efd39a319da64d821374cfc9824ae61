@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84581d0b_d85eb5c9",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/BackStackStateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-19T23:31:21Z",
+      "side": 1,
+      "message": "Assert the message in correct in the catch block:\n\nassertThat(ex).hasMessageThat().contains(\"expected msg\")",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "da9df94b5efd39a319da64d821374cfc9824ae61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
