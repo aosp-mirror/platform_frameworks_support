@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efa4e10a_3fd85ed9",
+        "filename": "room/runtime/api/restricted_2.1.0-alpha05.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-19T19:10:49Z",
+      "side": 1,
+      "message": "Hmm, it shouldn\u0027t have these room changes. If they\u0027re missing in tip of tree, we need to land them separately from navigation bump",
+      "revId": "5dfd64e8791c4ee8edf98723bb6bcb189bc65194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
