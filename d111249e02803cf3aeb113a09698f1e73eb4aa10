@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e0b78f4_659f63b1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/SelfChecking.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-02-19T12:59:44Z",
+      "side": 1,
+      "message": "Are there annotations that we can use to limit its use to test variants? Or maybe we can strip it using proguard when creating the release artifacts, given the fact that we won\u0027t use this interface outside of androidTest.",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "d111249e02803cf3aeb113a09698f1e73eb4aa10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
