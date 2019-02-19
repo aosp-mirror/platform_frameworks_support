@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42768d5a_c0b0ba3f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 10276,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-02-19T18:07:20Z",
+      "side": 0,
+      "message": "Should this code be in the delegate class?",
+      "range": {
+        "startLine": 10276,
+        "startChar": 12,
+        "endLine": 10276,
+        "endChar": 68
+      },
+      "revId": "ac5f95fe3773a8acb48d78ed01f3c162386ff5cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
