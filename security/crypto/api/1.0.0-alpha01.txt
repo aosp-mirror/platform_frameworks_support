@@ -1,1 +1,327 @@
 // Signature format: 3.0
+package androidx.security {
+
+  public class SecureConfig {
+    method public String! getAndroidCAStore();
+    method public String! getAndroidKeyStore();
+    method public String! getAsymmetricBlockModes();
+    method public String! getAsymmetricCipherTransformation();
+    method public String! getAsymmetricKeyPairAlgorithm();
+    method public int getAsymmetricKeyPurposes();
+    method public int getAsymmetricKeySize();
+    method public String! getAsymmetricPaddings();
+    method public int getAsymmetricRequireUserValiditySeconds();
+    method public androidx.security.biometric.BiometricSupport! getBiometricSupport();
+    method public String! getCertPath();
+    method public String! getCertPathValidator();
+    method public String[]! getClientCertAlgorithms();
+    method public static androidx.security.SecureConfig! getDefault();
+    method public static androidx.security.SecureConfig! getDefault(androidx.security.biometric.BiometricSupport!);
+    method public String! getKeystoreType();
+    method public static androidx.security.SecureConfig! getStrongConfig();
+    method public static androidx.security.SecureConfig! getStrongConfig(androidx.security.biometric.BiometricSupport!);
+    method public String[]! getStrongSSLCiphers();
+    method public String! getSymmetricBlockModes();
+    method public String! getSymmetricCipherTransformation();
+    method public int getSymmetricGcmTagLength();
+    method public String! getSymmetricKeyAlgorithm();
+    method public int getSymmetricKeyPurposes();
+    method public int getSymmetricKeySize();
+    method public String! getSymmetricPaddings();
+    method public int getSymmetricRequireUserValiditySeconds();
+    method public androidx.security.config.TrustAnchorOptions! getTrustAnchorOptions();
+    method public boolean isAsymmetricRequireUserAuthEnabled();
+    method public boolean isAsymmetricSensitiveDataProtectionEnabled();
+    method public boolean isSymmetricRequireUserAuthEnabled();
+    method public boolean isSymmetricSensitiveDataProtectionEnabled();
+    method public boolean isUseStrongSSLCiphers();
+    method public boolean isUseStrongSSLCiphersEnabled();
+    method public void setAndroidCAStore(String!);
+    method public void setAndroidKeyStore(String!);
+    method public void setAsymmetricBlockModes(String!);
+    method public void setAsymmetricCipherTransformation(String!);
+    method public void setAsymmetricKeyPairAlgorithm(String!);
+    method public void setAsymmetricKeyPurposes(int);
+    method public void setAsymmetricKeySize(int);
+    method public void setAsymmetricPaddings(String!);
+    method public void setAsymmetricRequireUserAuth(boolean);
+    method public void setAsymmetricRequireUserValiditySeconds(int);
+    method public void setAsymmetricSensitiveDataProtection(boolean);
+    method public void setBiometricSupport(androidx.security.biometric.BiometricSupport!);
+    method public void setCertPath(String!);
+    method public void setCertPathValidator(String!);
+    method public void setClientCertAlgorithms(String[]!);
+    method public void setKeystoreType(String!);
+    method public void setStrongSSLCiphers(String[]!);
+    method public void setSymmetricBlockModes(String!);
+    method public void setSymmetricCipherTransformation(String!);
+    method public void setSymmetricGcmTagLength(int);
+    method public void setSymmetricKeyAlgorithm(String!);
+    method public void setSymmetricKeyPurposes(int);
+    method public void setSymmetricKeySize(int);
+    method public void setSymmetricPaddings(String!);
+    method public void setSymmetricRequireUserAuth(boolean);
+    method public void setSymmetricRequireUserValiditySeconds(int);
+    method public void setSymmetricSensitiveDataProtection(boolean);
+    method public void setTrustAnchorOptions(androidx.security.config.TrustAnchorOptions!);
+    method public void setUseStrongSSLCiphers(boolean);
+    field public static final int AES_IV_SIZE_BYTES = 16; // 0x10
+    field public static final String ANDROID_CA_STORE = "AndroidCAStore";
+    field public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
+    field public static final String SSL_TLS = "TLS";
+  }
+
+  public static class SecureConfig.Builder {
+    ctor public SecureConfig.Builder();
+    method public androidx.security.SecureConfig! build();
+    method public androidx.security.SecureConfig.Builder! forKeyStoreType(String!);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricBlockModes(String!);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricCipherTransformation(String!);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricKeyPairAlgorithm(String!);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricKeyPurposes(int);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricKeySize(int);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricPaddings(String!);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricRequireUserAuth(boolean);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricRequireUserValiditySeconds(int);
+    method public androidx.security.SecureConfig.Builder! setAsymmetricSensitiveDataProtection(boolean);
+    method public androidx.security.SecureConfig.Builder! setBiometricSupport(androidx.security.biometric.BiometricSupport!);
+    method public androidx.security.SecureConfig.Builder! setCertPath(String!);
+    method public androidx.security.SecureConfig.Builder! setCertPathValidator(String!);
+    method public androidx.security.SecureConfig.Builder! setClientCertAlgorithms(String[]!);
+    method public androidx.security.SecureConfig.Builder! setStrongSSLCiphers(String[]!);
+    method public androidx.security.SecureConfig.Builder! setSymmetricBlockModes(String!);
+    method public androidx.security.SecureConfig.Builder! setSymmetricCipherTransformation(String!);
+    method public androidx.security.SecureConfig.Builder! setSymmetricGcmTagLength(int);
+    method public androidx.security.SecureConfig.Builder! setSymmetricKeyAlgorithm(String!);
+    method public androidx.security.SecureConfig.Builder! setSymmetricKeyPurposes(int);
+    method public androidx.security.SecureConfig.Builder! setSymmetricKeySize(int);
+    method public androidx.security.SecureConfig.Builder! setSymmetricPaddings(String!);
+    method public androidx.security.SecureConfig.Builder! setSymmetricRequireUserAuth(boolean);
+    method public androidx.security.SecureConfig.Builder! setSymmetricRequireUserValiditySeconds(int);
+    method public androidx.security.SecureConfig.Builder! setSymmetricSensitiveDataProtection(boolean);
+    method public androidx.security.SecureConfig.Builder! setTrustAnchorOptions(androidx.security.config.TrustAnchorOptions!);
+    method public androidx.security.SecureConfig.Builder! setUseStrongSSLCiphers(boolean);
+  }
+
+}
+
+package androidx.security.biometric {
+
+  public interface BiometricSupport {
+    method public void authenticate(javax.crypto.Cipher!, androidx.security.crypto.CipherCompat.SecureAuthCallback!);
+    method public void dismissBiometricDialog();
+    method public void onAuthenticationCancelled();
+    method public void onAuthenticationError(int, CharSequence!);
+    method public void onAuthenticationFailed();
+    method public void onAuthenticationHelp(int, CharSequence!);
+    method public void onAuthenticationSucceeded();
+    method public void onMessage(String!);
+  }
+
+  public enum BiometricSupport.BiometricStatus {
+    method public static androidx.security.biometric.BiometricSupport.BiometricStatus! fromId(int);
+    method public int getType();
+    enum_constant public static final androidx.security.biometric.BiometricSupport.BiometricStatus CANCELLED;
+    enum_constant public static final androidx.security.biometric.BiometricSupport.BiometricStatus FAILED;
+    enum_constant public static final androidx.security.biometric.BiometricSupport.BiometricStatus SUCCESS;
+  }
+
+  public abstract class BiometricSupportImpl extends android.hardware.biometrics.BiometricPrompt.AuthenticationCallback implements androidx.security.biometric.BiometricSupport {
+    ctor public BiometricSupportImpl(android.app.Activity!, android.content.Context!);
+    method public void authenticate(javax.crypto.Cipher!, androidx.security.crypto.CipherCompat.SecureAuthCallback!);
+    method public void dismissBiometricDialog();
+    method public void showAuthDialog(String!, String!, String!, String!, androidx.security.crypto.CipherCompat.SecureAuthCallback!);
+  }
+
+}
+
+package androidx.security.config {
+
+  public class TldConstants {
+    ctor public TldConstants();
+    field public static final java.util.List<java.lang.String>! VALID_TLDS;
+  }
+
+  public enum TrustAnchorOptions {
+    method public static androidx.security.config.TrustAnchorOptions! fromId(int);
+    method public int getType();
+    enum_constant public static final androidx.security.config.TrustAnchorOptions LIMITED_SYSTEM;
+    enum_constant public static final androidx.security.config.TrustAnchorOptions SYSTEM_ONLY;
+    enum_constant public static final androidx.security.config.TrustAnchorOptions USER_ONLY;
+    enum_constant public static final androidx.security.config.TrustAnchorOptions USER_SYSTEM;
+  }
+
+}
+
+package androidx.security.content {
+
+  public class SharedPreferencesCompat {
+    ctor public SharedPreferencesCompat(android.content.Context!);
+  }
+
+}
+
+package androidx.security.context {
+
+  public class ContextCompat {
+    ctor public ContextCompat(android.content.Context!);
+    ctor public ContextCompat(android.content.Context, androidx.security.SecureConfig);
+    method public boolean deviceLocked();
+    method public void openEncryptedFileInput(String, java.util.concurrent.Executor, androidx.security.context.ContextCompat.EncryptedFileInputStreamListener) throws java.io.IOException;
+    method public java.io.FileOutputStream! openEncryptedFileOutput(String, int) throws java.io.IOException;
+    method public java.io.FileOutputStream! openEncryptedFileOutput(String, int, String) throws java.io.IOException;
+  }
+
+  public static interface ContextCompat.EncryptedFileInputStreamListener {
+    method public void onEncryptedFileInput(java.io.FileInputStream!);
+  }
+
+}
+
+package androidx.security.crypto {
+
+  public class CipherCompat {
+    ctor public CipherCompat(androidx.security.SecureConfig!);
+    method public void decryptEncodedData(byte[]!, androidx.security.crypto.CipherCompat.SecureDecryptionCallback!);
+    method public byte[]! decryptEphemeralData(androidx.security.crypto.EphemeralSecretKey!, byte[]!, byte[]!);
+    method public void decryptSensitiveData(String!, byte[]!, byte[]!, androidx.security.crypto.CipherCompat.SecureDecryptionCallback!);
+    method public void decryptSensitiveDataAsymmetric(String!, byte[]!, androidx.security.crypto.CipherCompat.SecureDecryptionCallback!);
+    method public byte[]! encodeAsymmetricData(byte[]!, byte[]!);
+    method public byte[]! encodeEphemeralData(byte[]!, byte[]!, byte[]!, byte[]!);
+    method public byte[]! encodeSymmetricData(byte[]!, byte[]!, byte[]!);
+    method public android.util.Pair<byte[],byte[]>! encryptEphemeralData(androidx.security.crypto.EphemeralSecretKey!, byte[]!);
+    method public void encryptSensitiveData(String!, byte[]!, androidx.security.crypto.CipherCompat.SecureSymmetricEncryptionCallback!);
+    method public void encryptSensitiveDataAsymmetric(String!, byte[]!, androidx.security.crypto.CipherCompat.SecureAsymmetricEncryptionCallback!);
+    method public static androidx.security.crypto.CipherCompat! getDefault();
+    method public static androidx.security.crypto.CipherCompat! getDefault(androidx.security.biometric.BiometricSupport!);
+    method public static androidx.security.crypto.CipherCompat! getInstance(androidx.security.SecureConfig!);
+    field public static int MODE_DECRYPT;
+    field public static int MODE_ENCRYPT;
+  }
+
+  public static class CipherCompat.Builder {
+    ctor public CipherCompat.Builder(String);
+    method public androidx.security.crypto.CipherCompat! build();
+    method public androidx.security.crypto.CipherCompat.Builder! setAlgorithm(String!);
+  }
+
+  public static interface CipherCompat.SecureAsymmetricEncryptionCallback extends androidx.security.crypto.CipherCompat.SecureCallback {
+    method public void encryptionComplete(byte[]!);
+  }
+
+  public static interface CipherCompat.SecureAuthCallback extends androidx.security.crypto.CipherCompat.SecureCallback {
+    method public void authComplete(androidx.security.biometric.BiometricSupport.BiometricStatus!);
+  }
+
+  public static interface CipherCompat.SecureCallback {
+  }
+
+  public static interface CipherCompat.SecureDecryptionCallback extends androidx.security.crypto.CipherCompat.SecureCallback {
+    method public void decryptionComplete(byte[]!);
+  }
+
+  public enum CipherCompat.SecureFileEncodingType {
+    method public static androidx.security.crypto.CipherCompat.SecureFileEncodingType! fromId(int);
+    method public int getType();
+    enum_constant public static final androidx.security.crypto.CipherCompat.SecureFileEncodingType ASYMMETRIC;
+    enum_constant public static final androidx.security.crypto.CipherCompat.SecureFileEncodingType EPHEMERAL;
+    enum_constant public static final androidx.security.crypto.CipherCompat.SecureFileEncodingType NOT_ENCRYPTED;
+    enum_constant public static final androidx.security.crypto.CipherCompat.SecureFileEncodingType SYMMETRIC;
+  }
+
+  public static interface CipherCompat.SecureSymmetricEncryptionCallback extends androidx.security.crypto.CipherCompat.SecureCallback {
+    method public void encryptionComplete(byte[]!, byte[]!);
+  }
+
+  public class EphemeralSecretKey implements java.security.spec.KeySpec javax.crypto.SecretKey {
+    ctor public EphemeralSecretKey(byte[]!);
+    ctor public EphemeralSecretKey(byte[]!, String!);
+    ctor public EphemeralSecretKey(byte[]!, androidx.security.SecureConfig!);
+    ctor public EphemeralSecretKey(byte[]!, String!, androidx.security.SecureConfig!);
+    ctor public EphemeralSecretKey(byte[]!, int, int, String!);
+    method public void destroy();
+    method public void destroyCipherKey(javax.crypto.Cipher!, int);
+    method public String! getAlgorithm();
+    method public byte[]! getEncoded();
+    method public String! getFormat();
+  }
+
+  public class FileCipher {
+    ctor public FileCipher(String!, java.io.FileInputStream!, androidx.security.SecureConfig!, java.util.concurrent.Executor!, androidx.security.context.ContextCompat.EncryptedFileInputStreamListener!) throws java.io.IOException;
+    ctor public FileCipher(String!, java.io.FileOutputStream!, androidx.security.SecureConfig!);
+    method public java.io.FileInputStream! getFileInputStream();
+    method public java.io.FileOutputStream! getFileOutputStream();
+    method public void setEncryptedFileInputStreamListener(java.util.concurrent.Executor, androidx.security.context.ContextCompat.EncryptedFileInputStreamListener);
+  }
+
+  public class KeyGeneratorCompat {
+    ctor public KeyGeneratorCompat(String);
+    method public boolean generateAsymmetricKeyPair(String!);
+    method public androidx.security.crypto.EphemeralSecretKey! generateEphemeralDataKey();
+    method public boolean generateKey(String!, androidx.security.crypto.KeyGeneratorCompat.KeyBuilder!);
+    method public static androidx.security.crypto.KeyGeneratorCompat! getDefault();
+    method public static androidx.security.crypto.KeyGeneratorCompat! getInstance(androidx.security.SecureConfig!);
+  }
+
+  public static class KeyGeneratorCompat.KeyBuilder {
+    ctor public KeyGeneratorCompat.KeyBuilder(String);
+    method public androidx.security.crypto.KeyGeneratorCompat! build();
+    method public androidx.security.crypto.KeyGeneratorCompat! getDefaultEncryptDecrypt();
+    method public androidx.security.crypto.KeyGeneratorCompat.KeyBuilder! setAlgorithm(String);
+  }
+
+  public static class KeyGeneratorCompat.KeyPairBuilder {
+    ctor public KeyGeneratorCompat.KeyPairBuilder(String);
+    method public androidx.security.crypto.KeyGeneratorCompat.KeyPairBuilder! setAlgorithm(String!);
+  }
+
+  public class KeyStoreCompat {
+    method public boolean checkKeyInsideSecureHardware(String!);
+    method public boolean checkKeyInsideSecureHardwareAsymmetric(String!);
+    method public static androidx.security.crypto.KeyStoreCompat! getDefault();
+    method public static androidx.security.crypto.KeyStoreCompat! getInstance(androidx.security.SecureConfig!);
+    method public boolean keyExists(String!);
+  }
+
+}
+
+package androidx.security.net {
+
+  public class KeyManagerCompat implements android.security.KeyChainAliasCallback javax.net.ssl.X509KeyManager {
+    ctor public KeyManagerCompat(String!, androidx.security.SecureConfig!);
+    method public void alias(String);
+    method public String! chooseClientAlias(String[]!, java.security.Principal[]!, java.net.Socket!);
+    method public final String! chooseServerAlias(String!, java.security.Principal[]!, java.net.Socket!);
+    method public java.security.cert.X509Certificate[]! getCertificateChain(String!);
+    method public final String[]! getClientAliases(String!, java.security.Principal[]!);
+    method public static androidx.security.net.KeyManagerCompat! getDefault(String!);
+    method public static androidx.security.net.KeyManagerCompat! getDefault(String!, androidx.security.SecureConfig!);
+    method public java.security.PrivateKey! getPrivateKey(String!);
+    method public final String[]! getServerAliases(String!, java.security.Principal[]!);
+    method public static androidx.security.net.KeyManagerCompat! installCertManually(androidx.security.net.KeyManagerCompat.CertType!, byte[]!, String!, androidx.security.SecureConfig!);
+    method public void setCertChain(java.security.cert.X509Certificate[]!);
+    method public static void setContext(android.app.Activity!);
+    method public void setPrivateKey(java.security.PrivateKey!);
+  }
+
+  public enum KeyManagerCompat.CertType {
+    method public static androidx.security.net.KeyManagerCompat.CertType! fromId(int);
+    method public int getType();
+    enum_constant public static final androidx.security.net.KeyManagerCompat.CertType NOT_SUPPORTED;
+    enum_constant public static final androidx.security.net.KeyManagerCompat.CertType PKCS12;
+    enum_constant public static final androidx.security.net.KeyManagerCompat.CertType X509;
+  }
+
+  public class URLCompat {
+    ctor public URLCompat(String!, String!) throws java.net.MalformedURLException;
+    ctor public URLCompat(String!, String!, androidx.security.SecureConfig!) throws java.net.MalformedURLException;
+    method public String! getClientCertAlias();
+    method public String! getHostname();
+    method public boolean isValid(String!, javax.net.ssl.SSLSocket!);
+    method public boolean isValid(javax.net.ssl.HttpsURLConnection!);
+    method public java.net.URLConnection! openConnection() throws java.io.IOException;
+    method public java.net.URLConnection! openUserTrustedCertConnection(java.util.Map<java.lang.String,java.io.InputStream>!) throws java.io.IOException;
+  }
+
+}
+
