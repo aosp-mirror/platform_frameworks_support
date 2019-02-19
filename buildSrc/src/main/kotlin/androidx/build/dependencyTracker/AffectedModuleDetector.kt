@@ -51,9 +51,13 @@ abstract class AffectedModuleDetector {
         private const val ROOT_PROP_NAME = "affectedModuleDetector"
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
+        private const val ONLY_DEPENDANTS_ARG = "androidx.onlyDependant"
+        private const val ONLY_DIRECTLY_AFFECTED_ARG = "androidx.onlyDirectlyAffected"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
+            val onlyDependant = rootProject.hasProperty(ONLY_DEPENDANTS_ARG)
+            val onlyDirectlyAffected = rootProject.hasProperty(ONLY_DIRECTLY_AFFECTED_ARG)
             val inBuildServer = isRunningOnBuildServer()
             if (!enabled && !inBuildServer) {
                 setInstance(rootProject, AcceptAll())
@@ -74,7 +78,9 @@ abstract class AffectedModuleDetector {
                     AffectedModuleDetectorImpl(
                             rootProject = rootProject,
                             logger = logger,
-                            ignoreUnknownProjects = false
+                            ignoreUnknownProjects = false,
+                            onlyDependant = onlyDependant,
+                            onlyDirectlyAffected = onlyDirectlyAffected
                     ).also {
                         if (!enabled) {
                             logger.info("swapping with accept all")
@@ -153,6 +159,8 @@ internal class AffectedModuleDetectorImpl constructor(
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
+    private val onlyDependant: Boolean = false,
+    private val onlyDirectlyAffected: Boolean = false,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -182,7 +190,11 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     /**
-     * Finds all modules that are affected by current changes.
+     * By default, finds all modules that are affected by current changes, and always built modules
+     *
+     * With param onlyDependant, finds only modules dependant on directly affected modules
+     *
+     * With param onlyDirectlyAffected, finds only directly affectedModules and always built modules
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
@@ -220,8 +232,13 @@ internal class AffectedModuleDetectorImpl constructor(
                 project.name.contains(it)
             }
         }
-        // expand the list to all of their dependants
-        return expandToDependants(containingProjects + alwaysBuild)
+
+        return when {
+            onlyDependant -> expandToDependants(containingProjects) - containingProjects
+                .filterNotNull()
+            onlyDirectlyAffected -> (containingProjects + alwaysBuild).filterNotNull().toSet()
+            else -> expandToDependants(containingProjects) + alwaysBuild
+        }
     }
 
     private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
