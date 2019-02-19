@@ -70,6 +70,30 @@
       "revId": "dfe76329336195cfb9f7d4effad0a7800d41903e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9745814_897fd332",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatAutoCompleteTextView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-02-19T15:26:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9464c761_1200c6ba",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "dfe76329336195cfb9f7d4effad0a7800d41903e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
