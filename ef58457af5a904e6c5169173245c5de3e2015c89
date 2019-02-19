@@ -50,6 +50,30 @@
     },
     {
       "key": {
+        "uuid": "a3cb8961_11c297ff",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-19T18:51:15Z",
+      "side": 1,
+      "message": "That still results in lock-ordering the callers in some cases, does it not?",
+      "parentUuid": "79d960a1_38db87d1",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "ef58457af5a904e6c5169173245c5de3e2015c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3bbe2691_23c5faba",
         "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
         "patchSetId": 7

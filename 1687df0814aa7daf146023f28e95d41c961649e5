@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad95e7b0_bcad79a9",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-19T18:51:15Z",
+      "side": 1,
+      "message": "I would document this differently, more like \"never assign meaning to this value\".\n\nUsing the identity of a Job as part of dispatch logic is pretty sketchy.",
+      "range": {
+        "startLine": 83,
+        "startChar": 73,
+        "endLine": 84,
+        "endChar": 24
+      },
+      "revId": "1687df0814aa7daf146023f28e95d41c961649e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecba4243_68e094a1",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-19T18:51:15Z",
+      "side": 1,
+      "message": "Adding methods to Executor is an unusual way to do this. Why not create a scope from the Executor instead of using its execute() and within that running the coroutine?\n\nI *think* this acquireTransactionThread setup is basically SuspendableUiThreadExecutor, just with background threads. It does the same capture logic.\n\nFactoring this as a first-class scoping concept instead of bolting it onto Executor would result both in more reusable logic (upstreamable to Coroutines, even) and a more understandable patch here.",
+      "range": {
+        "startLine": 99,
+        "startChar": 20,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "1687df0814aa7daf146023f28e95d41c961649e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca9c77a_bc649ac1",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-19T18:51:15Z",
+      "side": 1,
+      "message": "Cancel should accept a reason.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "1687df0814aa7daf146023f28e95d41c961649e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb628be0_403f8b6b",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-02-19T18:51:15Z",
+      "side": 1,
+      "message": "http://go/java-practices/exceptions#chaining",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "1687df0814aa7daf146023f28e95d41c961649e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
