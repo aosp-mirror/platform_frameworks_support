@@ -22,6 +22,30 @@
       "revId": "0ae34d224730e300da7446dcf80b311180751bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b97f1f3_c2e0b545",
+        "filename": "preference/src/main/java/androidx/preference/SeekBarPreference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-02-19T13:22:15Z",
+      "side": 1,
+      "message": "Synthetic access from within the anonymous OnSeekBarChangeListener",
+      "parentUuid": "e87270d7_30e01acf",
+      "range": {
+        "startLine": 406,
+        "startChar": 9,
+        "endLine": 406,
+        "endChar": 25
+      },
+      "revId": "0ae34d224730e300da7446dcf80b311180751bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
