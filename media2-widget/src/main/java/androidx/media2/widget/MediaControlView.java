@@ -297,9 +297,14 @@ public class MediaControlView extends ViewGroup {
      * This needs to be implemented in order to display the fullscreen button.
      * @param l The callback that will be run
      */
-    public void setOnFullScreenListener(@NonNull OnFullScreenListener l) {
-        mOnFullScreenListener = l;
-        mFullScreenButton.setVisibility(View.VISIBLE);
+    public void setOnFullScreenListener(@Nullable OnFullScreenListener l) {
+        if (l == null) {
+            mOnFullScreenListener = null;
+            mFullScreenButton.setVisibility(View.GONE);
+        } else {
+            mOnFullScreenListener = l;
+            mFullScreenButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
