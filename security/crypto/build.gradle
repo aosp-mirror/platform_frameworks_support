@@ -23,7 +23,16 @@ plugins {
     id("kotlin-android")
 }
 
-dependencies {}
+dependencies {
+    api("androidx.annotation:annotation:1.0.0") { transitive = true}
+    api("androidx.core:core:1.0.0") { transitive = true}
+    api("androidx.fragment:fragment:1.0.0") { transitive = true}
+    api("androidx.biometric:biometric:1.0.0-alpha03")
+
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
+    androidTestImplementation(MOCKITO_CORE)
+}
 
 android {
     defaultConfig {
