@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "71f9e17e_1a268a81",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/GridLayoutManager.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3771,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-19T21:32:55Z",
+      "side": 0,
+      "message": "This class is actually owned by the leanback library, so you should include dake@ as a reviewer if you wish to make this change, and the change below.",
+      "range": {
+        "startLine": 3726,
+        "startChar": 4,
+        "endLine": 3771,
+        "endChar": 5
+      },
+      "revId": "ac5f95fe3773a8acb48d78ed01f3c162386ff5cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42768d5a_c0b0ba3f",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 22
@@ -18,6 +41,29 @@
         "startChar": 12,
         "endLine": 10276,
         "endChar": 68
+      },
+      "revId": "ac5f95fe3773a8acb48d78ed01f3c162386ff5cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83f3b77c_b46745cb",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-19T21:32:55Z",
+      "side": 0,
+      "message": "You sure this check should be removed?  It seems like this may have served some purpose.  If you think it is safe to remove this, do you think the actual risk in doing so is outweighed by the benefit, especially given that you are deprecating this class?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 5
       },
       "revId": "ac5f95fe3773a8acb48d78ed01f3c162386ff5cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",

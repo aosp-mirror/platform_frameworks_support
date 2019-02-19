@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "467f15b0_c9b7520c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 4170,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-19T21:32:55Z",
+      "side": 1,
+      "message": "Hmm, so this should possibly be made public API as ViewPager2 currently overrides onInitializeAccessibilityEvent to block the actions if interactivity is intentionally blocked (if someone wants to use a ViewPager as a widget that you can\u0027t manually swipe).",
+      "range": {
+        "startLine": 4170,
+        "startChar": 37,
+        "endLine": 4170,
+        "endChar": 68
+      },
+      "revId": "f6a1c6316d4c456ba2725c0bc0527c130a4590b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4665d844_e1010b91",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-02-19T21:32:55Z",
+      "side": 1,
+      "message": "Is this change worthwhile?  It is potentially breaking for those who overrode this to do something different while counting on this code chunk still existing in implementations of LayoutManager.  And you are deprecating this class and the LayoutManager method anyway... so maybe making this potentially breaking change isn\u0027t worth it?",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 64
+      },
+      "revId": "f6a1c6316d4c456ba2725c0bc0527c130a4590b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
