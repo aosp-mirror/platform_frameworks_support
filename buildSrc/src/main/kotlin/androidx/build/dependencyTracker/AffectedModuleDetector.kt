@@ -29,6 +29,11 @@ import org.gradle.api.invocation.Gradle
 import org.gradle.api.logging.Logger
 
 /**
+ * The subsets we allow the projects to be partitioned into.
+ */
+enum class ProjectSubset { ONLY_DEPENDENT, ONLY_DIRECTLY_AFFECTED, ALL }
+
+/**
  * A utility class that can discover which files are changed based on git history.
  *
  * To enable this, you need to pass [ENABLE_ARG] into the build as a command line parameter
@@ -51,9 +56,17 @@ abstract class AffectedModuleDetector {
         private const val ROOT_PROP_NAME = "affectedModuleDetector"
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
+        private const val ONLY_DEPENDENTS_ARG = "androidx.onlyDependent"
+        private const val ONLY_DIRECTLY_AFFECTED_ARG = "androidx.onlyDirectlyAffected"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
+            val subset = when {
+                rootProject.hasProperty(ONLY_DEPENDENTS_ARG) -> ProjectSubset.ONLY_DEPENDENT
+                rootProject.hasProperty(ONLY_DIRECTLY_AFFECTED_ARG)
+                    -> ProjectSubset.ONLY_DIRECTLY_AFFECTED
+                else -> ProjectSubset.ALL
+            }
             val inBuildServer = isRunningOnBuildServer()
             if (!enabled && !inBuildServer) {
                 setInstance(rootProject, AcceptAll())
@@ -74,7 +87,8 @@ abstract class AffectedModuleDetector {
                     AffectedModuleDetectorImpl(
                             rootProject = rootProject,
                             logger = logger,
-                            ignoreUnknownProjects = false
+                            ignoreUnknownProjects = false,
+                            projectSubset = subset
                     ).also {
                         if (!enabled) {
                             logger.info("swapping with accept all")
@@ -153,6 +167,7 @@ internal class AffectedModuleDetectorImpl constructor(
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
+    private val projectSubset: ProjectSubset = ProjectSubset.ALL,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -182,7 +197,11 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     /**
-     * Finds all modules that are affected by current changes.
+     * By default, finds all modules that are affected by current changes, and always built modules
+     *
+     * With param onlyDependent, finds only modules dependent on directly affected modules
+     *
+     * With param onlyDirectlyAffected, finds only directly affectedModules and always built modules
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
@@ -210,7 +229,7 @@ internal class AffectedModuleDetectorImpl constructor(
             logger?.info(
                     """
                         if i was going to check for what i've found, i would've returned
-                        ${expandToDependants(containingProjects.filterNotNull())}
+                        ${expandToDependents(containingProjects.filterNotNull())}
                     """.trimIndent()
             )
             return allProjects
@@ -220,13 +239,19 @@ internal class AffectedModuleDetectorImpl constructor(
                 project.name.contains(it)
             }
         }
-        // expand the list to all of their dependants
-        return expandToDependants(containingProjects + alwaysBuild)
+
+        return when (projectSubset) {
+            ProjectSubset.ONLY_DEPENDENT
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+            ProjectSubset.ONLY_DIRECTLY_AFFECTED
+                -> (containingProjects + alwaysBuild).filterNotNull().toSet()
+            else -> expandToDependents(containingProjects) + alwaysBuild
+        }
     }
 
-    private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
+    private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
         return containingProjects.flatMapTo(mutableSetOf()) {
-            dependencyTracker.findAllDependants(it!!)
+            dependencyTracker.findAllDependents(it!!)
         }
     }
 
