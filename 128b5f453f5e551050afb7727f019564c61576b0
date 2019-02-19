@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c05fff99_9608d3ad",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/utils/ForceStopRunnableTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-19T20:58:29Z",
+      "side": 1,
+      "message": "Same as other file re: \"reschedule\".",
+      "range": {
+        "startLine": 119,
+        "startChar": 16,
+        "endLine": 119,
+        "endChar": 51
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d65131fe_d3430535",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-19T20:58:29Z",
+      "side": 1,
+      "message": "You don\u0027t need BLOCKED work.  You need RUNNING and ENQUEUED.",
+      "range": {
+        "startLine": 86,
+        "startChar": 55,
+        "endLine": 86,
+        "endChar": 75
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bf920ea_ca98dcd0",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-19T20:58:29Z",
+      "side": 1,
+      "message": "Don\u0027t use the word reschedule - that has a particular meaning (as in WorkManager#rescheduleEligibleWork, which actually cancels it on the JobScheduler first).",
+      "range": {
+        "startLine": 88,
+        "startChar": 45,
+        "endLine": 88,
+        "endChar": 81
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ecd0052_af5f1101",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-19T20:58:29Z",
+      "side": 1,
+      "message": "You need to set all of these from RUNNING to ENQUEUED.",
+      "range": {
+        "startLine": 96,
+        "startChar": 20,
+        "endLine": 98,
+        "endChar": 21
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89a47910_f61a58b9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-02-19T20:58:29Z",
+      "side": 1,
+      "message": "Please test this thoroughly in integration tests for both JobScheduler and SystemAlarmScheduler.",
+      "range": {
+        "startLine": 99,
+        "startChar": 31,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
