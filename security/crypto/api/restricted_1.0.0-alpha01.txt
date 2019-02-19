@@ -1,1 +1,12 @@
 // Signature format: 3.0
+package androidx.security.crypto {
+
+    ctor public FileCipher(String, java.io.FileInputStream, androidx.security.SecureConfig, java.util.concurrent.Executor, androidx.security.context.SecureContextCompat.EncryptedFileInputStreamListener) throws java.io.IOException;
+    ctor public FileCipher(String, java.io.FileOutputStream, androidx.security.SecureConfig);
+    method public java.io.FileInputStream getFileInputStream();
+    method public java.io.FileOutputStream getFileOutputStream();
+    method public void setEncryptedFileInputStreamListener(java.util.concurrent.Executor, androidx.security.context.SecureContextCompat.EncryptedFileInputStreamListener);
+  }
+
+}
+
