@@ -23,7 +23,12 @@ plugins {
     id("kotlin-android")
 }
 
-dependencies {}
+dependencies {
+    api("androidx.annotation:annotation:1.0.0") { transitive = true}
+    api("androidx.core:core:1.0.0") { transitive = true}
+    api("androidx.fragment:fragment:1.0.0") { transitive = true}
+    api("androidx.biometric:biometric:1.0.0-alpha03")
+}
 
 android {
     defaultConfig {
