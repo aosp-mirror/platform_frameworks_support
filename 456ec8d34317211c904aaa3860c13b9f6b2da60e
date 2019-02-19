@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e47548b3_47241ba4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-19T18:58:45Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to depend on any of legacy artifacts. We should find out what was being used and to where it was moved so that we depend on the appropriate androidx artifact.",
+      "range": {
+        "startLine": 69,
+        "startChar": 36,
+        "endLine": 69,
+        "endChar": 77
+      },
+      "revId": "456ec8d34317211c904aaa3860c13b9f6b2da60e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
