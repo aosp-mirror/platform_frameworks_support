@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db59263d_d29da4de",
+        "filename": "room/coroutines/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "is there a way to get rid of this constructor ?",
+      "range": {
+        "startLine": 5,
+        "startChar": 16,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa13d94_986ef02c",
+        "filename": "room/coroutines/src/main/java/androidx/room/CoroutinesRoom.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "add a comment here to clarify what we are picking (dispatcher for existing transaction in the context or just a new context w/o a transaction)",
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2097edcc_a4d8d177",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "lets call this control job as well, i was confused w/ this being cancelled in TransactionELement",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16cdc481_92d4e822",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "this is nice :)",
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ee02360_caf45098",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be atomic ? are we guarateed single threaded access ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 0
+      },
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e3e0a04_d9164dc1",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "i was quite confused with this :/. reads like we are cancelling the transaction.\n\nmaybe rename it to controlJob AND comment on what this actually means",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 26
+      },
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4b4d6af_77d6a5aa",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "this is bound to flake :/ \ninstead, use a CountDownLatch that you countDown when `runSuspending` starts so that you know for sure transaction started. and then await on it before cancelling.\n\nsimilar to these: https://android-review.googlesource.com/c/platform/frameworks/support/+/905134/8/lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt#106\n\nI\u0027ve not gone through the whole test so just update others as well if necessary.",
+      "range": {
+        "startLine": 422,
+        "startChar": 12,
+        "endLine": 422,
+        "endChar": 22
+      },
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e79449_712ab280",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-19T22:27:22Z",
+      "side": 1,
+      "message": "not sure how you ensure the thread is not acquired in this test. \nseems like you want to block the IO thread with busy stuff to ensure that",
+      "revId": "c386d71b0a0493e349c4f52ca7729dc73804dbd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
