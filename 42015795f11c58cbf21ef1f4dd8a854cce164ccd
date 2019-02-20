@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e0ef98e5_547e275a",
+        "filename": "media2-widget/src/main/res/drawable/title_bar_gradient.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-20T09:32:41Z",
+      "side": 1,
+      "message": "Marking it as resolved.",
+      "parentUuid": "73692e10_115a5451",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "42015795f11c58cbf21ef1f4dd8a854cce164ccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e07f2f8b_3259cfa1",
         "filename": "media2-widget/src/main/res/values/colors.xml",
         "patchSetId": 2
