@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e69aae6a_ed18680a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-20T18:26:08Z",
+      "side": 1,
+      "message": "line break at 100 chars (ktlint will catch this for you)",
+      "range": {
+        "startLine": 38,
+        "startChar": 89,
+        "endLine": 38,
+        "endChar": 115
+      },
+      "revId": "d695734c2ccfe43f4662a30490bec3f0cd1276ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf736fc3_a0517360",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-20T18:26:08Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 105
+      },
+      "revId": "d695734c2ccfe43f4662a30490bec3f0cd1276ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
