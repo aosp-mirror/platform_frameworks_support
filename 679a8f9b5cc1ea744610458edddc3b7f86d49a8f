@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4d8f431d_26601c3e",
+        "filename": "lifecycle/integration-tests/kotlintestapp/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T21:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b3f7c71_a940f1bd",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 36
+      },
+      "revId": "679a8f9b5cc1ea744610458edddc3b7f86d49a8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccceb67d_9ae65eff",
         "filename": "lifecycle/integration-tests/kotlintestapp/src/main/java/androidx/lifecycle/kotlintestapp/TestActivity.kt",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "679a8f9b5cc1ea744610458edddc3b7f86d49a8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097719ed_5510e1de",
+        "filename": "lifecycle/integration-tests/kotlintestapp/src/main/java/androidx/lifecycle/kotlintestapp/TestActivity.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T21:22:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccceb67d_9ae65eff",
+      "range": {
+        "startLine": 21,
+        "startChar": 21,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "679a8f9b5cc1ea744610458edddc3b7f86d49a8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
