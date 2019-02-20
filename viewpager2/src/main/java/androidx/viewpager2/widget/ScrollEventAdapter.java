@@ -130,8 +130,6 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
                 dispatchStateChanged(SCROLL_STATE_SETTLING);
                 // Determine target page and dispatch onPageSelected on next scroll event
                 mDispatchSelected = true;
-                // Reset value to recognise if onPageSelected has been fired when going to idle
-                mScrollHappened = false;
             }
             return;
         }
@@ -139,32 +137,36 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         // Drag is finished (dragging || settling -> idle)
         if (mAdapterState == STATE_IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_IDLE) {
+            // When going from dragging to idle, we skipped the settling phase.
+            // This happens if there is no velocity or if the drag was at the edge.
+            // PagerSnapHelper will kick in if we're not yet snapped at a page (mOffsetPx != 0).
+            // If it won't, do the necessary bookkeeping before going to idle.
             if (mScrollState == SCROLL_STATE_DRAGGING && mScrollValues.mOffsetPx == 0) {
-                // When going from dragging to idle, we skipped the settling phase.
-                // Depending on whether mOffsetPx is 0 or not, PagerSnapHelper will kick in or not.
-                // If it won't, do the necessary bookkeeping before going to idle.
                 if (!mScrollHappened) {
+                    // Pages didn't move during drag, so must be at the start or end of the list
+                    // ViewPager's contract requires at least one scroll event though
                     dispatchScrolled(getPosition(), 0f, 0);
                 } else {
-                    // Don't dispatch settling event
+                    // Pages did move during drag, so must be without velocity. Ideally determine
+                    // the target page and dispatch onPageSelected on next scroll event, but since
+                    // mOffsetPx == 0 this will never happen. Set the mDispatchSelected flag to
+                    // true anyway, so normal handling of the state transition to idle kicks in.
                     mDispatchSelected = true;
-                    mScrollHappened = false;
                 }
             } else if (mScrollState == SCROLL_STATE_SETTLING && !mScrollHappened) {
                 throw new IllegalStateException("RecyclerView sent SCROLL_STATE_SETTLING event "
                         + "without scrolling any further before going to SCROLL_STATE_IDLE");
             }
-            if (!mScrollHappened) {
-                // Special case if we were snapped at a page when going from dragging to settling
-                // Happens if there was no velocity or if it was the first or last page
-                if (mDispatchSelected) {
-                    // Fire onPageSelected when snapped page is different from initial position
-                    // E.g.: smooth scroll from 0 to 1, interrupt with drag at 0.5, release at 0
-                    updateScrollEventValues();
-                    if (mDragStartPosition != mScrollValues.mPosition) {
-                        dispatchSelected(mScrollValues.mPosition);
-                    }
+            // Special case if we were snapped at a page when releasing a drag
+            if (mDispatchSelected) {
+                // Fire onPageSelected when snapped page is different from initial position
+                // E.g.: drag to next page and release exactly when mOffsetPx is 0
+                updateScrollEventValues();
+                if (mDragStartPosition != mScrollValues.mPosition) {
+                    dispatchSelected(mScrollValues.mPosition);
                 }
+            }
+            if (!mScrollHappened || mDispatchSelected) {
                 // Normally idle is fired in onScrolled, but scroll did not happen
                 dispatchStateChanged(SCROLL_STATE_IDLE);
                 resetState();
@@ -197,6 +199,8 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
         dispatchScrolled(values.mPosition, values.mOffset, values.mOffsetPx);
 
+        // Dispatch idle in onScrolled instead of in onScrollStateChanged because RecyclerView
+        // doesn't send IDLE event when using setCurrentItem(x, false)
         if ((values.mPosition == mTarget || mTarget == NO_POSITION) && values.mOffsetPx == 0
                 && mScrollState != SCROLL_STATE_DRAGGING) {
             // When the target page is reached and the user is not dragging anymore, we're settled,
