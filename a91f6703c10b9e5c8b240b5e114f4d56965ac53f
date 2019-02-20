@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2ad72b90_ca54f507",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-20T05:39:57Z",
+      "side": 1,
+      "message": "Q1) This is not related with the CL, but do you know where the link directs? \nQ2) Do we have some developer guide to show how to use ListenableFuture?",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "a91f6703c10b9e5c8b240b5e114f4d56965ac53f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1ac0993_a77e5934",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 2
