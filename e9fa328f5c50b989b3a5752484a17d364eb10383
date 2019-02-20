@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e5561ef_8c534ddc",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/BackStackStateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-20T18:06:00Z",
+      "side": 1,
+      "message": "no reason to retainInstance?",
+      "revId": "e9fa328f5c50b989b3a5752484a17d364eb10383",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbdb9392_bae2e9ec",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-20T18:06:00Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 317,
+        "startChar": 54,
+        "endLine": 317,
+        "endChar": 55
+      },
+      "revId": "e9fa328f5c50b989b3a5752484a17d364eb10383",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
