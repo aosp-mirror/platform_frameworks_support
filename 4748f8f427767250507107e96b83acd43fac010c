@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42e08928_fa89e51d",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/LifecycleController.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "You don\u0027t because you are removing this observer in `finally` block after withContext.",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fce0294f_8e044bb7",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you call `controller.finish` here as well?",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "173bd32f_3c5c3255",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "I\u0027d rather avoid implementing `Delay` unless there is strong evidence that `postDelayed` should be used for `delay` and `withTimeout` calls (for the latter you have to override `invokeOnTimeout` as well).\n\nThis API is internal for a reason: we are not quite happy with its design and semantics (e.g. how it should be exposed to end users? Does it cover all time-related use-cases? etc.), so we are going to revisit and probably partially rework it when there will be some demand or known issues about its non-publicity. Such change will be binary-compatible but will add some maintenance burden for you.",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbbf8d62_3645f0c2",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "Code style:\nMAIN_HANDLER is used only from within this file.\nProbably you need to make it private. If not: `internal` implies auto-generated getters/setters and you already have `setMainHandler`. You can mark property with `@JvmField` and get rid of two redundant methods with that",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60b32910_1e6b0658",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "How this approach is going to work with `Dispatchers.[re]setMain` in `kotlinx-coroutines-test`?\n\nDo you avoid Dispatchers.Main due to service-loader startup issues?",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb51d69_fef15249",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1434600
+      },
+      "writtenOn": "2019-02-20T10:55:20Z",
+      "side": 1,
+      "message": "`ArrayDeque` is generally more efficient than `LinkedList` while preserving the same semantics",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
