@@ -79,6 +79,7 @@ public final class MediaRouteProviderDescriptor {
 
     /**
      * Indicates whether a {@link MediaRouteProvider} supports dynamic group route.
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
      */
     public boolean supportsDynamicGroupRoute() {
         return mSupportsDynamicGroupRoute;
