@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "480e857f_0472cd27",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-20T14:39:20Z",
+      "side": 1,
+      "message": "This is added in API 19:\n\nhttps://developer.android.com/reference/java/nio/charset/StandardCharsets",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "515df4e782c6ea6e3ce28b398f6c353a7f248ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
