@@ -806,8 +806,8 @@ public class MediaPlayer extends SessionPlayer {
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
                 ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
                 synchronized (mPendingCommands) {
-                    Object token = mPlayer.setPlaybackParams(new PlaybackParams.Builder(
-                            mPlayer.getPlaybackParams())
+                    Object token = mPlayer.setPlaybackParams(new PlaybackParams.Builder()
+                            .setPlaybackParams(mPlayer.getPlaybackParams())
                             .setSpeed(playbackSpeed).build());
                     addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SET_PLAYBACK_PARAMS,
                             future, token);

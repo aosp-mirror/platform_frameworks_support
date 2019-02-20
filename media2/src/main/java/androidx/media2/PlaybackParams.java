@@ -182,13 +182,7 @@ public final class PlaybackParams {
         }
 
         public Builder(@NonNull PlaybackParams playbackParams) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                mPlaybackParams = playbackParams.getPlaybackParams();
-            } else {
-                mAudioFallbackMode = playbackParams.getAudioFallbackMode();
-                mPitch = playbackParams.getPitch();
-                mSpeed = playbackParams.getSpeed();
-            }
+            //
         }
 
         /**
@@ -219,6 +213,24 @@ public final class PlaybackParams {
                 mPlaybackParams.setPitch(pitch);
             } else {
                 mPitch = pitch;
+            }
+            return this;
+        }
+
+        /**
+         * Sets {@link PlaybackParams}.
+         * <p>
+         * Note that this method overwrites other previously set values to this Builder.
+         *
+         * @return this <code>Builder</code> instance.
+         */
+        public @NonNull Builder setPlaybackParams(@NonNull PlaybackParams playbackParams) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                mPlaybackParams = playbackParams.getPlaybackParams();
+            } else {
+                mAudioFallbackMode = playbackParams.getAudioFallbackMode();
+                mPitch = playbackParams.getPitch();
+                mSpeed = playbackParams.getSpeed();
             }
             return this;
         }
