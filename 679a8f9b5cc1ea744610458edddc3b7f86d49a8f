@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b3f7c71_a940f1bd",
+        "filename": "lifecycle/integration-tests/kotlintestapp/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T16:18:37Z",
+      "side": 1,
+      "message": "not really, old habits :). i\u0027ll reduce.",
+      "parentUuid": "cfbc0754_4263b5a1",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 36
+      },
+      "revId": "679a8f9b5cc1ea744610458edddc3b7f86d49a8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccceb67d_9ae65eff",
         "filename": "lifecycle/integration-tests/kotlintestapp/src/main/java/androidx/lifecycle/kotlintestapp/TestActivity.kt",
         "patchSetId": 2
