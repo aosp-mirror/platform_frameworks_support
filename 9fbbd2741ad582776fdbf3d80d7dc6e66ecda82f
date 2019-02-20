@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8262c23e_affb363b",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-20T09:26:03Z",
+      "side": 1,
+      "message": "I\u0027m worried that System.identityHashCode does not guaranteed uniqueness. Does it needed? If yes, then it is better to create your own sequential transaction counter (just AtomicInteger would do great).",
+      "revId": "9fbbd2741ad582776fdbf3d80d7dc6e66ecda82f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1afba636_88ff9d99",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-20T09:26:03Z",
+      "side": 1,
+      "message": "I think it would be slightly more efficient (bytecode-wise) and bit more idiomatic to move this `catch` block to inside of `suspendCancellableCoroutine` invocation, so that the whole function is just `\u003d suspendCancellableCoroutine { ... }` expression. How do you catch cancellation exception from inside? Do this:\n\ncont.invokeOnCancellation { \n    controlJob.cancel()\n} \n\nPro bonus: Don\u0027t need to rethrow it anymore.",
+      "revId": "9fbbd2741ad582776fdbf3d80d7dc6e66ecda82f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
