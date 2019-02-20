@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f2f880f_5c276104",
+        "filename": "lifecycle/common/ktx/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-20T09:50:51Z",
+      "side": 1,
+      "message": "Is lock-freedom really needed here for coroutine scope creating? It involves a lot of boilerplate code. The code of `register` seems innocent enough (it immediately fires of a new coroutine), so I\u0027d suggest to consider changing the definition of `Lifecycle.mInternalScopeRef` to:\n\ninternal val mInternalScope by lazy { createLifecycleCoroutineScope() }\n\nwhere\n\ninternal fun Lifecycle.createLifecycleCoroutineScope() \u003d \n    LifecycleCoroutineScope(this, SupervisorJob() + Dispatchers.Main)\n    .apply { register() } \n\nso then you can say \n\nval Lifecycle.coroutineScope: CoroutineScope\n    get() \u003d mInternalScope\n\n(Or just make a val on Lifecycle public instead of extension)",
+      "revId": "f61ace99109aeb8f834abb237f67a49e3c661f70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
