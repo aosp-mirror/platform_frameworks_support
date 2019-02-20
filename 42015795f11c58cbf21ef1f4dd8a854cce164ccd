@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73692e10_115a5451",
+        "filename": "media2-widget/src/main/res/drawable/title_bar_gradient.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-20T02:52:32Z",
+      "side": 1,
+      "message": "-270 works, but the document says: \"Must be a multiple of 45 in the range [0, 315].\"\nhttps://developer.android.com/reference/android/graphics/drawable/GradientDrawable.html#attr_android:angle",
+      "parentUuid": "2d455b89_177bb0e4",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "42015795f11c58cbf21ef1f4dd8a854cce164ccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e07f2f8b_3259cfa1",
         "filename": "media2-widget/src/main/res/values/colors.xml",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "42015795f11c58cbf21ef1f4dd8a854cce164ccd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789cb55d_97d5c687",
+        "filename": "media2-widget/src/main/res/values/colors.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-20T02:52:32Z",
+      "side": 1,
+      "message": "Nice catch! Done.",
+      "parentUuid": "e07f2f8b_3259cfa1",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "42015795f11c58cbf21ef1f4dd8a854cce164ccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
