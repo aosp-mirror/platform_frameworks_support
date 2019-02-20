@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ca9d474_a709937e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T19:08:30Z",
+      "side": 1,
+      "message": "maybe call it DirectlyDependent to match the  other arg name ? (or change that one instead)",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15666874_130fbc3f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T19:08:30Z",
+      "side": 1,
+      "message": "looks like these should be an ENUM ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 54
+      },
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "036db95f_87b52e82",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-20T19:08:30Z",
+      "side": 1,
+      "message": "not sure why we remove the projects themselves here",
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
