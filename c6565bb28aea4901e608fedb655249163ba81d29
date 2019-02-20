@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d20324a3_e4321237",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-20T18:31:21Z",
+      "side": 1,
+      "message": "Dependent (here and elsewhere)",
+      "range": {
+        "startLine": 54,
+        "startChar": 62,
+        "endLine": 54,
+        "endChar": 71
+      },
+      "revId": "c6565bb28aea4901e608fedb655249163ba81d29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0562e181_d7db187e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-20T18:31:21Z",
+      "side": 1,
+      "message": "Why are some of these filtered or wrapped with Set and some not?",
+      "range": {
+        "startLine": 239,
+        "startChar": 70,
+        "endLine": 239,
+        "endChar": 94
+      },
+      "revId": "c6565bb28aea4901e608fedb655249163ba81d29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
