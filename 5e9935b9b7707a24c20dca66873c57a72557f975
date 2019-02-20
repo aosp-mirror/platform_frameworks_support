@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc6f82c2_d8d21205",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-20T05:03:52Z",
+      "side": 1,
+      "message": "Q) Can we guarantee that this onView() always goes after mVideoView...setOnFullScreenListener()?",
+      "revId": "5e9935b9b7707a24c20dca66873c57a72557f975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
