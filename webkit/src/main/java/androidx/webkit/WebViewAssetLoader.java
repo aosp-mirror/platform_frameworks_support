@@ -25,7 +25,6 @@ import android.webkit.WebResourceResponse;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.webkit.internal.AssetHelper;
 
@@ -33,19 +32,21 @@ import java.io.InputStream;
 import java.net.URLConnection;
 
 /**
- * Helper class meant to be used with the android.webkit.WebView class to enable hosting assets,
- * resources and other data on 'virtual' http(s):// URL.
- * Hosting assets and resources on http(s):// URLs is desirable as it is compatible with the
- * Same-Origin policy.
+ * Helper class to enable hosting assets and resources under a "virtual" http(s):// URL to be used
+ * in {@link android.webkit.WebView} class.
+ * Hosting assets and resources this way is desirable as it is compatible with the Same-Origin
+ * policy.
  *
- * This class is intended to be used from within the
- * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView,
- * android.webkit.WebResourceRequest)}
- * methods.
- * <pre>
+ * <p>
+ * Using http(s):// URLs to access local resources may conflict with a real website. This means
+ * that local resources should only be hosted on domains your organization owns (at paths reserved
+ * for this purpose) or the default domain Google has reserved for this
+ * {@code appassets.androidplatform.net}.
+ *
+ * <p>
+ * A typical usage would be like:
+ * <pre class="prettyprint">
  *     WebViewAssetLoader assetLoader = new WebViewAssetLoader(this);
- *     // For security WebViewAssetLoader uses a unique subdomain by default.
- *     assetLoader.hostAssets();
  *     webView.setWebViewClient(new WebViewClient() {
  *         @Override
  *         public WebResourceResponse shouldInterceptRequest(WebView view,
@@ -53,47 +54,45 @@ import java.net.URLConnection;
  *             return assetLoader.shouldInterceptRequest(request);
  *         }
  *     });
- *     // If your application's assets are in the "main/assets" folder this will read the file
+ *     // This will host assets under http(s)://appassets.androidplatform.net/assets/...
+ *     assetLoader.hostAssets();
+ *     // If the application's assets are in the "main/assets" folder this will read the file
  *     // from "main/assets/www/index.html" and load it as if it were hosted on:
  *     // https://appassets.androidplatform.net/assets/www/index.html
- *     assetLoader.hostAssets();
- *     webview.loadUrl(assetLoader.getAssetsHttpsPrefix().buildUpon().appendPath("www/index.html")
- *                              .build().toString());
+ *     webview.loadUrl(assetLoader.getAssetsHttpsPrefix().buildUpon()
+ *                                      .appendPath("www")
+ *                                      .appendPath("index.html")
+ *                                      .build().toString());
  *
  * </pre>
- *
- * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class WebViewAssetLoader {
     private static final String TAG = "WebViewAssetLoader";
 
     /**
-     * Using http(s):// URL to access local resources may conflict with a real website. This means
-     * that local resources should only be hosted on domains that the user has control of or which
-     * have been dedicated for this purpose.
+     * An unused domain reserved by Google for Android applications to intercept requests
+     * for app assets.
      *
-     * The androidplatform.net domain currently belongs to Google and has been reserved for the
-     * purpose of Android applications intercepting navigations/requests directed there. It'll be
-     * used by default unless the user specified a different domain.
-     *
-     * A subdomain "appassets" will be used to even make sure no such collisons would happen.
+     * It'll be used by default unless the user specified a different domain.
      */
     public static final String KNOWN_UNUSED_AUTHORITY = "appassets.androidplatform.net";
 
     private static final String HTTP_SCHEME = "http";
     private static final String HTTPS_SCHEME = "https";
 
-    @NonNull final AssetHelper mAssetHelper;
-    @Nullable @VisibleForTesting PathHandler mAssetsHandler;
-    @Nullable @VisibleForTesting PathHandler mResourcesHandler;
+    /*package*/ @NonNull final AssetHelper mAssetHelper;
+    /*package*/ @Nullable @VisibleForTesting PathHandler mAssetsHandler;
+    /*package*/ @Nullable @VisibleForTesting PathHandler mResourcesHandler;
 
     /**
      * A handler that produces responses for the registered paths.
      *
+     * Matches URIs on the form: {@code "http(s)://authority/path/**"}, HTTPS is always enabled.
+     *
+     * <p>
      * Methods of this handler will be invoked on a background thread and care must be taken to
      * correctly synchronize access to any shared state.
-     *
+     * <p>
      * On Android KitKat and above these methods may be called on more than one thread. This thread
      * may be different than the thread on which the shouldInterceptRequest method was invoked.
      * This means that on Android KitKat and above it is possible to block in this method without
@@ -112,12 +111,9 @@ public class WebViewAssetLoader {
         @NonNull final String mPath;
 
         /**
-         * Add a URI to match, and the handler to return when this URI is
-         * matched. Matches URIs on the form: "scheme://authority/path/**"
-         *
-         * @param authority the authority to match (For example example.com)
-         * @param path the prefix path to match. Should start and end with a slash "/".
-         * @param httpEnabled whether to enable hosting using the http scheme.
+         * @param authority the authority to match (For instance {@code "example.com"})
+         * @param path the prefix path to match, it should start and end with a {@code "/"}.
+         * @param httpEnabled enable hosting under the HTTP scheme, HTTPS is always enabled.
          */
         PathHandler(@NonNull final String authority, @NonNull final String path,
                             boolean httpEnabled) {
@@ -134,19 +130,31 @@ public class WebViewAssetLoader {
             this.mHttpEnabled = httpEnabled;
         }
 
+        /**
+         * Should be invoked when a match happens.
+         *
+         * @param url path that has been matched.
+         *
+         * @return {@link InputStream} for the requested URL, {@code null} if an error happens
+         *         while opening the file or file doesn't exist.
+         */
         @Nullable
         public abstract InputStream handle(@NonNull Uri url);
 
         /**
-         * Match happens when:
-         *      - Scheme is "https" or the scheme is "http" and http is enabled.
-         *      - AND authority exact matches the given URI's authority.
-         *      - AND path is a prefix of the given URI's path.
-         * @param uri The URI whose path we will match against.
+         * Match against registered scheme, authority and path prefix.
          *
-         * @return  true if match happens, false otherwise.
+         * Match happens when:
+         * <ul>
+         *      <li>Scheme is "https" <b>or</b> the scheme is "http" and http is enabled.</li>
+         *      <li>Authority exact matches the given URI's authority.</li>
+         *      <li>Path is a prefix of the given URI's path.</li>
+         * </ul>
+         *
+         * @param uri the URI whose path we will match against.
+         *
+         * @return {@code true} if a match happens, {@code false} otherwise.
          */
-        @Nullable
         public boolean match(@NonNull Uri uri) {
             // Only match HTTP_SCHEME if caller enabled HTTP matches.
             if (uri.getScheme().equals(HTTP_SCHEME) && !mHttpEnabled) {
@@ -187,10 +195,7 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Creates a new instance of the WebView asset loader.
-     * Will use a default domain on the form of: appassets.androidplatform.net
-     *
-     * @param context context used to resolve resources/assets.
+     * @param context {@link Context} used to resolve resources/assets.
      */
     public WebViewAssetLoader(@NonNull Context context) {
         this(new AssetHelper(context.getApplicationContext()));
@@ -215,17 +220,23 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Attempt to retrieve the WebResourceResponse associated with the given <code>request</code>.
+     * Attempt to resolve the coming {@link WebResourceRequest} to an application resource or
+     * asset, and return a {@link WebResourceResponse} for the content.
+     * <p>
+     * If the URL matches a registered path but the requested resource or asset is not found, a
+     * {@link WebResourceResponse} with a {@code null} {@link InputStream} will be returned. If
+     * the URL doesn't match any registered URL, it returns {@code null} and falls back to network.
+     * <p>
      * This method should be invoked from within
-     * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView,
-     * android.webkit.WebResourceRequest)}.
+     * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView, android.webkit.WebResourceRequest)}.
      *
-     * @param request the request to process.
-     * @return a response if the request URL had a matching registered url, null otherwise.
+     * @param request the {@link WebResourceRequest} to process.
+     * @return {@link WebResourceResponse} if the request URL matches a registered url,
+     *         {@code null} otherwise.
      */
     @RequiresApi(21)
     @Nullable
-    public WebResourceResponse shouldInterceptRequest(WebResourceRequest request) {
+    public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request) {
         PathHandler handler;
 
         if (mAssetsHandler != null && mAssetsHandler.match(request.getUrl())) {
@@ -241,12 +252,19 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Attempt to retrieve the WebResourceResponse associated with the given <code>url</code>.
+     * Attempt to resolve the coming {@code url} to an application resource or asset, and return
+     * a {@link WebResourceResponse} for the content.
+     * <p>
+     * If the URL matches a registered path but the requested resource or asset is not found, a
+     * {@link WebResourceResponse} with a {@code null} {@link InputStream} will be returned. If
+     * the URL doesn't match any registered URL, it returns {@code null} and falls back to network.
+     * <p>
      * This method should be invoked from within
      * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView, String)}.
      *
-     * @param url the url to process.
-     * @return a response if the request URL had a matching registered url, null otherwise.
+     * @param url the URL string to process.
+     * @return {@link WebResourceResponse} if the request URL matches a registered url,
+     *         {@code null} otherwise.
      */
     @Nullable
     public WebResourceResponse shouldInterceptRequest(@Nullable String url) {
@@ -269,8 +287,10 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's assets on an http(s):// URL. It will be available under
-     * <code>http(s)://appassets.androidplatform.net/assets/...</code>.
+     * Host application's assets under {@code http(s)://appassets.androidplatform.net/assets/...}.
+     *
+     * <p class='note'>
+     * HTTP and HTTPS are both enabled.
      */
     @NonNull
     public void hostAssets() {
@@ -278,12 +298,17 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's assets on an http(s):// URL. It will be available under
-     * <code>http(s)://appassets.androidplatform.net/{virtualAssetPath}/...</code>.
+     * Host application's assets under
+     * {@code http(s)://appassets.androidplatform.net/{virtualAssetPath}/...}.
      *
-     * @param virtualAssetPath the virtual path under which the assets should be hosted. Should
-     *                         have a leading and trailing slash (for example "/assets/www/").
-     * @param enableHttp whether to enable hosting using the http scheme.
+     * <p class='note'>
+     * HTTPS is always enabled.
+     * <p>
+     * The virtual assets path should have a leading and trailing slash
+     * (for instance {@code "/assets/www/"}).
+     *
+     * @param virtualAssetPath virtual path under which the assets should be hosted.
+     * @param enableHttp enable hosting under the HTTP scheme.
      */
     @NonNull
     public void hostAssets(@NonNull final String virtualAssetPath, boolean enableHttp) {
@@ -291,13 +316,19 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's assets on an http(s):// URL. It will be available under
-     * <code>http(s)://{domain}/{virtualAssetPath}/...</code>.
+     * Host application's assets under {@code http(s)://{domain}/{virtualAssetPath}/...}.
      *
-     * @param domain custom domain on which the assets should be hosted (for example "example.com").
-     * * @param virtualAssetPath the virtual path under which the assets should be hosted. Should
-     *                         have a leading and trailing slash (for example "/assets/www/").
-     * @param enableHttp whether to enable hosting using the http scheme.
+     * <p class='note'>
+     * The user should always be in control of the provided domain or the default domain
+     * {@code appassets.androidplatform.net} should be used instead. HTTPS is always enabled.
+     * <p>
+     * The virtual assets path should have a leading and trailing slash
+     * (for instance {@code "/assets/www/"}).
+     *
+     * @param domain custom domain under which assets should be hosted (for instance
+     *               {@code "example.com"}).
+     * @param virtualAssetPath virtual path under which the assets should be hosted.
+     * @param enableHttp enable hosting under the HTTP scheme.
      */
     @NonNull
     public void hostAssets(@NonNull final String domain, @NonNull final String virtualAssetPath,
@@ -322,8 +353,11 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's resources on an http(s):// URL. Resources
-     * <code>http(s)://appassets.androidplatform.net/res/{resource_type}/{resource_name}</code>.
+     * Host application's resources under
+     * {@code http(s)://appassets.androidplatform.net/res/{resource_type}/{resource_name}}.
+     *
+     * <p class='note'>
+     * HTTPS is always enabled.
      */
     @NonNull
     public void hostResources() {
@@ -331,13 +365,17 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's resources on an http(s):// URL. Resources
-     * <code>http(s)://appassets.androidplatform.net/{virtualResourcesPath}/
-     * {resource_type}/{resource_name}</code>.
+     * Host application's resources under
+     * {@code http(s)://appassets.androidplatform.net/{virtualResourcesPath}/{resource_type}/{resource_name}}.
      *
-     * @param virtualResourcesPath the virtual path under which the assets should be hosted. Should
-     *                         have a leading and trailing slash (for example "/resources/").
-     * @param enableHttp whether to enable hosting using the http scheme.
+     * <p class='note'>
+     * HTTPS is always enabled.
+     * <p>
+     * The virtual resources path should have a leading and trailing slash
+     * (for instance {@code "/resources/raw/"}).
+     *
+     * @param virtualResourcesPath virtual path under which the resources should be hosted.
+     * @param enableHttp enable hosting under the HTTP scheme.
      */
     @NonNull
     public void hostResources(@NonNull final String virtualResourcesPath, boolean enableHttp) {
@@ -345,13 +383,20 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Hosts the application's resources on an http(s):// URL. Resources
-     * <code>http(s)://{domain}/{virtualResourcesPath}/{resource_type}/{resource_name}</code>.
+     * Host application's resources under
+     * {@code http(s)://{domain}/{virtualResourcesPath}/{resource_type}/{resource_name}}.
      *
-     * @param domain custom domain on which the assets should be hosted (for example "example.com").
-     * @param virtualResourcesPath the virtual path under which the assets should be hosted. Should
-     *                         have a leading and trailing slash (for example "/resources/").
-     * @param enableHttp whether to enable hosting using the http scheme.
+     * <p class='note'>
+     * The user should always be in control of the provided domain or the default domain
+     * {@code appassets.androidplatform.net} should be used instead. HTTPS is always enabled.
+     * <p>
+     * The virtual resources path should have a leading and trailing slash
+     * (for instance {@code "/resources/raw/"}).
+     *
+     * @param domain custom domain under which resources should be hosted (for instance
+     *               {@code "example.com"}).
+     * @param virtualResourcesPath virtual path under which the resources should be hosted.
+     * @param enableHttp enable hosting under the HTTP scheme.
      */
     @NonNull
     public void hostResources(@NonNull final String domain,
@@ -399,8 +444,10 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Gets the http: scheme prefix at which assets are hosted.
-     * @return  the http: scheme prefix at which assets are hosted. Can return null.
+     * Get the HTTP URL prefix under which assets are hosted.
+     *
+     * @return the HTTP URL prefix under which assets are hosted, or {@code null} if no URL
+     *         has been registered or HTTP was not enabled.
      */
     @Nullable
     public Uri getAssetsHttpPrefix() {
@@ -417,8 +464,10 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Gets the https: scheme prefix at which assets are hosted.
-     * @return  the https: scheme prefix at which assets are hosted. Can return null.
+     * Get the HTTPS URL prefix under which assets are hosted.
+     *
+     * @return the HTTPS URL prefix under which assets are hosted, or {@code null} if no URL
+     *         has been registered or.
      */
     @Nullable
     public Uri getAssetsHttpsPrefix() {
@@ -435,8 +484,10 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Gets the http: scheme prefix at which resources are hosted.
-     * @return  the http: scheme prefix at which resources are hosted. Can return null.
+     * Get the HTTP URL prefix under which resources are hosted.
+     *
+     * @return the HTTP URL prefix under which resources are hosted, or {@code null} if no URL
+     *         has been registered or HTTP was not enabled.
      */
     @Nullable
     public Uri getResourcesHttpPrefix() {
@@ -453,8 +504,10 @@ public class WebViewAssetLoader {
     }
 
     /**
-     * Gets the https: scheme prefix at which resources are hosted.
-     * @return  the https: scheme prefix at which resources are hosted. Can return null.
+     * Get the HTTPS URL prefix under which resources are hosted.
+     *
+     * @return the HTTPs URL prefix under which resources are hosted, or {@code null} if no URL
+     *         has been registered.
      */
     @Nullable
     public Uri getResourcesHttpsPrefix() {
