@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9b78bd4_c73abe6d",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-20T01:23:27Z",
+      "side": 1,
+      "message": "nit) remove empty line",
+      "range": {
+        "startLine": 386,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 0
+      },
+      "revId": "dccb40ffac694dce8d5625c12296d8c825104cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cca2864_6c9bda4f",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-20T01:23:27Z",
+      "side": 1,
+      "message": "nit) remove empty line",
+      "range": {
+        "startLine": 400,
+        "startChar": 9,
+        "endLine": 402,
+        "endChar": 15
+      },
+      "revId": "dccb40ffac694dce8d5625c12296d8c825104cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
