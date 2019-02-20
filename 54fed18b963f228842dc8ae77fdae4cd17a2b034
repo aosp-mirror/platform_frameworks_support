@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8b2c660_c61e1ea1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-02-20T20:33:23Z",
+      "side": 1,
+      "message": "The problem with naming it DirectlyDependent is that it\u0027s not just the directly dependent projects that get picked up, it\u0027s all dependent projects. \n\nIf p4 is dependent on p3 and p3 is dependent on p2, and a file changes in p2, then:\n\np2 is directly affected\np3 is directly dependent\np4 is indirectly dependent\np3 and p4 are dependent\n\nThis is meant to capture that 4th set.",
+      "parentUuid": "3ca9d474_a709937e",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15666874_130fbc3f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3f57919a_0109631a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-02-20T20:33:23Z",
+      "side": 1,
+      "message": "Yes! Fixed, looks better. Hopefully I put the enum in the right place in the file.",
+      "parentUuid": "15666874_130fbc3f",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 54
+      },
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "036db95f_87b52e82",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 4
@@ -59,6 +107,24 @@
       "writtenOn": "2019-02-20T19:08:30Z",
       "side": 1,
       "message": "not sure why we remove the projects themselves here",
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c73fa84_80729d7f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-02-20T20:33:23Z",
+      "side": 1,
+      "message": "In order to return only dependent modules I expand the set of affected modules from containingProjects (the directly affected projects) to include the dependents. But this still includes the directly affected projects, which we don\u0027t want to include.",
+      "parentUuid": "036db95f_87b52e82",
       "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
