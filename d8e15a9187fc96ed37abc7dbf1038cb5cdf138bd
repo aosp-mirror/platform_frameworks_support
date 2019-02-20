@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84457196_678ef304",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-02-20T03:49:49Z",
+      "side": 1,
+      "message": "It\u0027s a small thing but could you reverse the condition and swap the visibility flags? View.VISIBLE comes first in the other statements.",
+      "range": {
+        "startLine": 464,
+        "startChar": 16,
+        "endLine": 464,
+        "endChar": 74
+      },
+      "revId": "d8e15a9187fc96ed37abc7dbf1038cb5cdf138bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
