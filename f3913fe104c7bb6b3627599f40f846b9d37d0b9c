@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a3a819cc_0fd30059",
+        "filename": "exifinterface/api/1.1.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-20T14:38:21Z",
+      "side": 1,
+      "message": "Needs NonNull/Nullable",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d952e2a8_dc72e596",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -41,6 +64,29 @@
         "startChar": 32,
         "endLine": 4455,
         "endChar": 38
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b74dd2a3_bf065939",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4456,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-20T14:38:21Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 4456,
+        "startChar": 15,
+        "endLine": 4456,
+        "endChar": 16
       },
       "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
