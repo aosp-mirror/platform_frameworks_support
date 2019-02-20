@@ -239,6 +239,30 @@
       "revId": "128b5f453f5e551050afb7727f019564c61576b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58714222_6114811f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/ForceStopRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-02-20T18:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b28c5d23_a56c0517",
+      "range": {
+        "startLine": 99,
+        "startChar": 31,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "128b5f453f5e551050afb7727f019564c61576b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
