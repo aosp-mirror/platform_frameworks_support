@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1ac0993_a77e5934",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-02-20T03:44:08Z",
+      "side": 1,
+      "message": "Could you add \" on success\" here and other locations?",
+      "range": {
+        "startLine": 293,
+        "startChar": 35,
+        "endLine": 293,
+        "endChar": 37
+      },
+      "revId": "a91f6703c10b9e5c8b240b5e114f4d56965ac53f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
