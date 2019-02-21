@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11d9c5a9_87edd7af",
+        "filename": "room/coroutines/src/main/java/androidx/room/CoroutinesRoom.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T02:14:14Z",
+      "side": 1,
+      "message": "nit \"use\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "351be8f95fe27c41c2af33b38b150e41256cf41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecec9933_8322e454",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T02:14:14Z",
+      "side": 1,
+      "message": "you should assertTrue on this.",
+      "range": {
+        "startLine": 424,
+        "startChar": 12,
+        "endLine": 424,
+        "endChar": 20
+      },
+      "revId": "351be8f95fe27c41c2af33b38b150e41256cf41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cab7d5_77cdbd25",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T02:14:14Z",
+      "side": 1,
+      "message": "instead of fail, you can have another Latch there and here await and assert false.also, better to await for a second or so and just mark it as large test. make sure to assert that await returned false.",
+      "range": {
+        "startLine": 729,
+        "startChar": 12,
+        "endLine": 729,
+        "endChar": 22
+      },
+      "revId": "351be8f95fe27c41c2af33b38b150e41256cf41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
