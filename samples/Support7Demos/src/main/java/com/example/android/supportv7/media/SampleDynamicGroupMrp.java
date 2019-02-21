@@ -89,7 +89,7 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
         return mController;
     }
 
-    private void copyRouteWithNewId(String routeId) {
+    void copyRouteWithNewId(String routeId) {
         MediaRouteDescriptor routeDescriptor = mRouteDescriptors.get(routeId);
         if (routeDescriptor == null || !routeDescriptor.isValid()) {
             Log.w(TAG, "copyRouteWithNewId: Route doesn't exist or isn't valid : " + routeId);
@@ -310,6 +310,17 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
             mMemberRouteIds = routeIds;
         }
 
+        private boolean ensureDynamicRoute(String routeId) {
+            MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(routeId);
+            if (selectedRouteDescriptor == null) {
+                return false;
+            }
+            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
+                copyRouteWithNewId(mRouteId);
+            }
+            return true;
+        }
+
         @Override
         public void onAddMemberRoute(String routeId) {
             DynamicRouteDescriptor dynamicDescriptor = mDynamicRouteDescriptors.get(routeId);
@@ -318,13 +329,9 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                 return;
             }
 
-            MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(mRouteId);
-            if (selectedRouteDescriptor == null) {
+            if (!ensureDynamicRoute(mRouteId)) {
                 Log.w(TAG, "onAddMemberRoute: Can't find selected route : " + mRouteId);
                 return;
-            }
-            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
-                copyRouteWithNewId(mRouteId);
             }
 
             // Add each member route do dynamic group
@@ -409,6 +416,7 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
 
         @Override
         public void onRemoveMemberRoute(String routeId) {
+            Log.d(TAG, "member removed : " + routeId);
             DynamicRouteDescriptor dynamicDescriptor = mDynamicRouteDescriptors.get(routeId);
             if (dynamicDescriptor == null || !dynamicDescriptor.isUnselectable()
                     || !mMemberRouteIds.remove(routeId)) {
@@ -416,13 +424,9 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                 return;
             }
 
-            MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(mRouteId);
-            if (selectedRouteDescriptor == null) {
+            if (!ensureDynamicRoute(mRouteId)) {
                 Log.w(TAG, "onRemoveMemberRoute: Can't find selected route : " + mRouteId);
                 return;
-            }
-            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
-                copyRouteWithNewId(mRouteId);
             }
 
             MediaRouteDescriptor routeDescriptor = dynamicDescriptor.getRouteDescriptor();
