@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40f5bff3_568d6865",
+        "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T07:12:27Z",
+      "side": 1,
+      "message": "Not needed here, but filling the buffer in readAt() is the expected behavior for MediaPlayer.\nLet me remove because to simplify test.",
+      "parentUuid": "499ab423_8c8f401a",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 40
+      },
+      "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da9d6213_b15e448b",
         "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb96061_fe67cf61",
+        "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T07:12:27Z",
+      "side": 1,
+      "message": "Only used to generate readable test name. See L142.\nLet me remove to simplify test.",
+      "parentUuid": "da9d6213_b15e448b",
+      "range": {
+        "startLine": 151,
+        "startChar": 32,
+        "endLine": 151,
+        "endChar": 41
+      },
+      "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
