@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f94d1983_b6e95f19",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T03:05:12Z",
+      "side": 1,
+      "message": "indentation",
+      "range": {
+        "startLine": 191,
+        "startChar": 11,
+        "endLine": 191,
+        "endChar": 14
+      },
+      "revId": "4f8570d6957429211ea1535758313237a6b983a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
