@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "fe12c25c_2b8769d6",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-21T23:06:20Z",
+      "side": 1,
+      "message": "Just to be clear, in this API, I do check and throw but in earlier stage: SavedStateRegistry#runOnNextRecreation",
+      "parentUuid": "9c610c2f_56db9064",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7a848ef_4c89952a",
         "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
         "patchSetId": 1
