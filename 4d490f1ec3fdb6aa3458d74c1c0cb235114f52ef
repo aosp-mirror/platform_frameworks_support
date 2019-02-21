@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b920745b_6752566a",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T02:08:45Z",
+      "side": 1,
+      "message": "It may be required to add javadoc instead of API changes.\nI left a comment in the buganizer.",
+      "range": {
+        "startLine": 184,
+        "startChar": 15,
+        "endLine": 184,
+        "endChar": 22
+      },
+      "revId": "4d490f1ec3fdb6aa3458d74c1c0cb235114f52ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f986d35b_970cf544",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T02:08:45Z",
+      "side": 1,
+      "message": "??",
+      "range": {
+        "startLine": 185,
+        "startChar": 11,
+        "endLine": 185,
+        "endChar": 14
+      },
+      "revId": "4d490f1ec3fdb6aa3458d74c1c0cb235114f52ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
