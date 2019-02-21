@@ -1,0 +1,533 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "548f110d_c09854f6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "nit: double quotes. Also, the meaning of \"virtual\" isn\u0027t obviously clear; torne@ can you suggest a better term?",
+      "range": {
+        "startLine": 35,
+        "startChar": 63,
+        "endLine": 35,
+        "endChar": 72
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17087db_ec7471d6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "If you intend this to be a separate paragraph, need \"\u003cp\u003e\" tag. If not, you should just merge it into the \"paragraph\" above, so the meaning is clear.\n\nHere and everywhere.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29668ae0_ee1212ee",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "either \"using an http(s):// URL\" or \"using http(s):// URLs\".",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ddd9d4_8ec4108f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "\"domains your organization owns (at paths reserved for this purpose) or the default domain Google has reserved for this (android.platform.net)\"\n\nAlso: it flows better to merge this into the next paragraph (you can delete most of the next paragraph\u0027s sentences)",
+      "range": {
+        "startLine": 48,
+        "startChar": 49,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45de3761_3efb6173",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "{@code}, not \u003ccode\u003e, here and everywhere",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af040807_579af05a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "\u003cpre class\u003d\"prettyprint\"\u003e (see http://cs/android/frameworks/base/core/java/android/webkit/TracingConfig.java?l\u003d159\u0026rcl\u003d98ab00f921250aa18521076d93b41b1136b97bf5)",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 8
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3001aca9_558ae244",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "suggestion: \"An unused domain reserved by Google\"",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bbf711b_1380ba59",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "Several comments:\n\n * Need \u003cul\u003e to wrap this\n * don\u0027t mix AND and OR (I recommend you just merge bullets #1 and #2 back into one)\n * English convention for bulleted lists is to put the conjunction at the end of the second to last element. So, you could put \"authority exactly matches the given URI\u0027s authority, and\" (although, \"and\" is actually the implied conjunction, so you could omit it entirely)\n * use \"\u003cb\u003eand\u003c/b\u003e\" for emphasis, not all-caps",
+      "range": {
+        "startLine": 155,
+        "startChar": 11,
+        "endLine": 155,
+        "endChar": 30
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ec99443_64802191",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "{@code true}\n\nper http://go/android-api-guidelines#heading\u003dh.9fqirtbr8jx9\n\n---\n\nPlease apply this globally for \"true\", \"false\", and \"null\"",
+      "range": {
+        "startLine": 162,
+        "startChar": 19,
+        "endLine": 162,
+        "endChar": 23
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32faa6dd_d1ee58af",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "{@link Context}, per http://go/android-api-guidelines#heading\u003dh.g3xoxji1qk4i",
+      "range": {
+        "startLine": 204,
+        "startChar": 22,
+        "endLine": 204,
+        "endChar": 29
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14028941_a22b4e69",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "suggestion: Attempt to resolve {@code url} to an application resource or asset, and return a {@link WebResourceResponse} for the content.",
+      "range": {
+        "startLine": 259,
+        "startChar": 7,
+        "endLine": 259,
+        "endChar": 95
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f3a333_ee56db5b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "nit: URL (here and other places)",
+      "range": {
+        "startLine": 267,
+        "startChar": 22,
+        "endLine": 267,
+        "endChar": 25
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9e46e4_0f663e12",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "Should also mention the behavior with HTTP. Also, is there value in having a hostAssets(boolean) API?",
+      "range": {
+        "startLine": 291,
+        "startChar": 7,
+        "endLine": 292,
+        "endChar": 71
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029370fe_2ce1fd8b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "It\u0027s not clear why an app would use overload of the API. Could you explain the motivation behind virtualAssetPath?",
+      "range": {
+        "startLine": 303,
+        "startChar": 31,
+        "endLine": 304,
+        "endChar": 94
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbcee455_665158e1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "What happens if the app calls hostAssets() multiple times?\n\n```java\nassetLoader.hostAssets();\nassetLoader.hostAssets(\"/some/path/\", true);\n```\n\nMostly just curious, but I might suggest we throw an exception if this otherwise causes subtle (but significant) problems.",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 88
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ac3202_4c6cd56d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "Move this up to its own paragraph, see http://go/android-api-guidelines#heading\u003dh.al01f8r6vqgj. Here and everywhere",
+      "range": {
+        "startLine": 321,
+        "startChar": 63,
+        "endLine": 321,
+        "endChar": 87
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9ab53fd_3956f36e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "Optional parameters must go at the end, per http://go/android-api-guidelines#heading\u003dh.fw2yx064kr9m.",
+      "range": {
+        "startLine": 324,
+        "startChar": 4,
+        "endLine": 324,
+        "endChar": 56
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7293155_19ca148a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "{@code \"/resources/\"} (here, above, and below)\n\nper http://go/android-api-guidelines#heading\u003dh.9fqirtbr8jx9",
+      "range": {
+        "startLine": 359,
+        "startChar": 82,
+        "endLine": 359,
+        "endChar": 95
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6edba4b_430480be",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "optional: Consider putting this in a \"\u003cp class\u003d\u0027note\u0027\u003e\" (only if you think this is justified for security or otherwise)\n\nSee http://cs/android/frameworks/base/core/java/android/webkit/WebView.java?l\u003d306\u0026rcl\u003d1485a60b454c9a3e335084e10734cba21525ee8c \u0026 https://developer.android.com/reference/android/webkit/WebView.html#WebView(android.content.Context)",
+      "range": {
+        "startLine": 372,
+        "startChar": 64,
+        "endLine": 374,
+        "endChar": 87
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ddbcd28_1642c67a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "Would it make more sense to say \"if no domain has been registered\"? That\u0027s consistent with the parameter name in hostResources().",
+      "range": {
+        "startLine": 427,
+        "startChar": 66,
+        "endLine": 427,
+        "endChar": 92
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a39765_21901e95",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "How is it possible for there to be no HTTPS URL registered?",
+      "range": {
+        "startLine": 447,
+        "startChar": 56,
+        "endLine": 447,
+        "endChar": 94
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69677c53_06b5f028",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "{@code null}\n\nper http://go/android-api-guidelines#heading\u003dh.9fqirtbr8jx9",
+      "range": {
+        "startLine": 466,
+        "startChar": 61,
+        "endLine": 466,
+        "endChar": 65
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecfa919_0305effd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-21T01:31:48Z",
+      "side": 1,
+      "message": "nit: I think it reads better if you put \"the\" before \"HTTPS\" (and similar suggestions for above methods). This also clarifies that only *one* domain is associated with a given AssetLoader.",
+      "range": {
+        "startLine": 484,
+        "startChar": 11,
+        "endLine": 484,
+        "endChar": 16
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
