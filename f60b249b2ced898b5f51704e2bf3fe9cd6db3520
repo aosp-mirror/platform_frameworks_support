@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eed5d1d_e1f96751",
+        "filename": "navigation/fragment/src/androidTest/java/androidx/navigation/fragment/FragmentNavigatorTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T22:50:07Z",
+      "side": 0,
+      "message": "Sort below android.os.Bundle",
+      "revId": "f60b249b2ced898b5f51704e2bf3fe9cd6db3520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f980a62f_96bbad0b",
+        "filename": "navigation/runtime/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T22:50:07Z",
+      "side": 0,
+      "message": "Re-add this dependency for 2.0 (I\u0027d like it to be 1:1 with 1.0 in every way possible). We can remove it in 2.1 if it is determined that we don\u0027t need it.",
+      "revId": "f60b249b2ced898b5f51704e2bf3fe9cd6db3520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
