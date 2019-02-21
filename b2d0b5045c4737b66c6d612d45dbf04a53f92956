@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "28c3748b_075114cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1452040
+      },
+      "writtenOn": "2019-02-21T22:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dc8b845_0fa4afb2",
+      "revId": "b2d0b5045c4737b66c6d612d45dbf04a53f92956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30f4de47_30860359",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b2d0b5045c4737b66c6d612d45dbf04a53f92956",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a943143_61286a14",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1452040
+      },
+      "writtenOn": "2019-02-21T22:44:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30f4de47_30860359",
+      "revId": "b2d0b5045c4737b66c6d612d45dbf04a53f92956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
