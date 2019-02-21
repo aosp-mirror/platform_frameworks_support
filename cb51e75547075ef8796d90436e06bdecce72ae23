@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "098d6baa_f7e834f4",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-21T19:10:02Z",
+      "side": 1,
+      "message": "Why is it lossy by nature?",
+      "parentUuid": "cbd8515a_d5c3717b",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7a848ef_4c89952a",
         "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
         "patchSetId": 1
