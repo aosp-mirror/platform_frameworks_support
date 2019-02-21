@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce0007c0_6d274007",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "@throws?",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7556da09_069d9d09",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "FYI, throwing NPE is the recommended way now.",
+      "range": {
+        "startLine": 784,
+        "startChar": 22,
+        "endLine": 784,
+        "endChar": 46
+      },
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10e5479_a76621fa",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "Could you add more doc what will be returned by getCurrentMediaItem after this method is called?",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d237b59b_8393d45b",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "Let\u0027s add @see annotation for setMediaItem and getCurrentMediaItem.",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc690279_2f50b3ce",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "If you want to change current item in the playlist,",
+      "range": {
+        "startLine": 420,
+        "startChar": 22,
+        "endLine": 420,
+        "endChar": 61
+      },
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b45c19_76c10d6a",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "Let\u0027s add @see annotation for setPlaylist and getCurrentMediaItem.",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85fb62d7_0d810b31",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T07:22:26Z",
+      "side": 1,
+      "message": "Let\u0027s add @see annotation for setMediaItem and setPlaylist.",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
