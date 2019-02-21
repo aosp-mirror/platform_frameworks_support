@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d5eaad6_91ded305",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "TODO: replace with one that doesn\u0027t cause layout",
+      "range": {
+        "startLine": 155,
+        "startChar": 49,
+        "endLine": 155,
+        "endChar": 63
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c7bf09_e11421fc",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "TODO: handle synthetic accessor",
+      "range": {
+        "startLine": 186,
+        "startChar": 28,
+        "endLine": 186,
+        "endChar": 46
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e4a393_9b48ac71",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "TODO: unhide / remove RestrictTo",
+      "range": {
+        "startLine": 194,
+        "startChar": 48,
+        "endLine": 194,
+        "endChar": 72
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b8400ce_00fc0205",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "TODO: handle synthetic accessor",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 39
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a09d69f_55786d70",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 203,
+        "startChar": 54,
+        "endLine": 203,
+        "endChar": 68
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d681b06f_180d1214",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-21T19:49:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 238,
+        "startChar": 30,
+        "endLine": 238,
+        "endChar": 44
+      },
+      "revId": "08a4584c153effc4fd0b84db735df6951df23b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
