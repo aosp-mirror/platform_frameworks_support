@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e8c3cb5_86999d88",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/ChildFragmentStateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T21:08:37Z",
+      "side": 1,
+      "message": "Rename to activityRule - we don\u0027t use the mPrefix style in Kotlin code",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "ae9d305621dba9cbf9131581fb9e5495acc432a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
