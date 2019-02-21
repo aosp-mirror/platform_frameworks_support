@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "d13d31e2_469450da",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-21T20:07:41Z",
+      "side": 1,
+      "message": "well I meant by \"lossy\": \nBecause even if you returned something as saved state, system still can drop it on the floor. So you should always expect that you can receive \u0027null\u0027 no matter what is your persistent state (like sql) is. \n\nSecondly, let\u0027s say after applying some changes to persistent state you want to change your savedstate as a result - you can\u0027t guarantee that change is going to be ever applied (app went to background and never came back).  Similarly in other direction, you changed your savedstate - no guarantee that your persistent storage will have time to change accordingly. \nTo sum up, once your savedstate is not about UI, but about having keys to some persistent data - you can\u0027t get consistency (so for cases like these I\u0027d say it is okay to update your savedstate opportunistically) \n\nHowever, this exact case doesn\u0027t fall into this category.",
+      "parentUuid": "098d6baa_f7e834f4",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7a848ef_4c89952a",
         "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
         "patchSetId": 1
