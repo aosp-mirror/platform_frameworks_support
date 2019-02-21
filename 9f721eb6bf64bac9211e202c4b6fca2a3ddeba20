@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46a327ec_e78ba85f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T18:54:13Z",
+      "side": 1,
+      "message": "i think we either need alwaysBuild here or remove from down.\ne..g won\u0027t the presubmit fail if always build is not considered here and WEAR presubmit will fail because it won\u0027t find the apk ?",
+      "range": {
+        "startLine": 254,
+        "startChar": 38,
+        "endLine": 254,
+        "endChar": 56
+      },
+      "revId": "9f721eb6bf64bac9211e202c4b6fca2a3ddeba20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
