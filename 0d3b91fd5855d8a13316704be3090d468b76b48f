@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce36da9c_7791dfe2",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce0007c0_6d274007",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7556da09_069d9d09",
         "filename": "media2/src/main/java/androidx/media2/MediaController.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f8de4b7a_1fc0e586",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7556da09_069d9d09",
+      "range": {
+        "startLine": 784,
+        "startChar": 22,
+        "endLine": 784,
+        "endChar": 46
+      },
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e10e5479_a76621fa",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 1
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "98faf6cc_e6b069c9",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done, but mentioned about onCurrentMediaItemChanged instead.\nPTAL.",
+      "parentUuid": "e10e5479_a76621fa",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d237b59b_8393d45b",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f13ddf_fc67e1b3",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done, but mentioned about onCurrentMediaItemChanged instead.\nPTAL.",
+      "parentUuid": "d237b59b_8393d45b",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "9983ccc3_51acdf5f",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc690279_2f50b3ce",
+      "range": {
+        "startLine": 420,
+        "startChar": 22,
+        "endLine": 420,
+        "endChar": 61
+      },
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7b45c19_76c10d6a",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 1
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "e38a361f_c90dfbd4",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done, but mentioned about onCurrentMediaItemChanged instead.\nPTAL.",
+      "parentUuid": "a7b45c19_76c10d6a",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85fb62d7_0d810b31",
         "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
         "patchSetId": 1
@@ -130,6 +250,24 @@
       "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca3c363_84b93223",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-21T08:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85fb62d7_0d810b31",
+      "revId": "0d3b91fd5855d8a13316704be3090d468b76b48f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
