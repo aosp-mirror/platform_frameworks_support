@@ -754,7 +754,7 @@ public class MediaController implements AutoCloseable {
      * This list may differ with the list that was specified with
      * {@link #setPlaylist(List, MediaMetadata)} depending on the {@link SessionPlayer}
      * implementation. Use media items returned here for other playlist agent APIs such as
-     * {@link SessionPlayer#skipToPlaylistItem(MediaItem)}.
+     * {@link SessionPlayer#skipToPlaylistItem}.
      *
      * @return playlist, or {@code null} if the playlist hasn't set, controller isn't connected,
      *         or it doesn't have enough permission
@@ -766,13 +766,22 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Sets the playlist with the list of media IDs. All media IDs in the list shouldn't be empty.
+     * Sets the playlist with the list of media IDs. Use this or {@link #setMediaItem} to specify
+     * which items to play.
+     * <p>
+     * All media IDs in the list shouldn't be an empty string.
+     * <p>
+     * The {@link ControllerCallback#onPlaylistChanged} and
+     * {@link ControllerCallback#onCurrentMediaItemChanged} would be called when it's completed.
+     * The current item would be the first item in the playlist.
      *
      * @param list list of media id. Shouldn't contain an empty id.
      * @param metadata metadata of the playlist
-     * @see #getPlaylist()
+     * @see #setMediaItem
+     * @see ControllerCallback#onCurrentMediaItemChanged
      * @see ControllerCallback#onPlaylistChanged
      * @see MediaMetadata#METADATA_KEY_MEDIA_ID
+     * @throws IllegalArgumentException if the list is {@code null} or contains any empty string.
      */
     @NonNull
     public ListenableFuture<SessionResult> setPlaylist(@NonNull List<String> list,
@@ -792,11 +801,21 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Sets a {@link MediaItem} for playback.
+     * Sets a {@link MediaItem} for playback with the media ID. Use this or {@link #setPlaylist}
+     * to specify which items to play. If you want to change current item in the playlist, use one
+     * of {@link #skipToPlaylistItem}, {@link #skipToNextPlaylistItem}, or
+     * {@link #skipToPreviousPlaylistItem}.
+     * <p>
+     * The {@link ControllerCallback#onPlaylistChanged} and
+     * {@link ControllerCallback#onCurrentMediaItemChanged} would be called when it's completed.
+     * The current item would be the item given here.
      *
      * @param mediaId The non-empty media id of the item to play
+     * @see #setPlaylist
+     * @see ControllerCallback#onCurrentMediaItemChanged
+     * @see ControllerCallback#onPlaylistChanged
      * @see MediaMetadata#METADATA_KEY_MEDIA_ID
-     */
+     **/
     @NonNull
     public ListenableFuture<SessionResult> setMediaItem(@NonNull String mediaId) {
         if (TextUtils.isEmpty(mediaId)) {
@@ -909,6 +928,8 @@ public class MediaController implements AutoCloseable {
      * {@link ControllerCallback#onCurrentMediaItemChanged(MediaController, MediaItem)}.
      *
      * @return the currently playing item, or null if unknown or not connected
+     * @see #setMediaItem
+     * @see #setPlaylist
      */
     @Nullable
     public MediaItem getCurrentMediaItem() {

@@ -383,9 +383,11 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract float getPlaybackSpeed();
 
     /**
-     * Sets a list of {@link MediaItem} with metadata. Ensure uniqueness of each {@link MediaItem}
-     * in the playlist so the session can uniquely identity individual items. All
-     * {@link MediaItem}s shouldn't be {@code null} as well.
+     * Sets a list of {@link MediaItem} with metadata. Use this or {@link #setMediaItem} to specify
+     * which items to play.
+     * <p>
+     * Ensure uniqueness of each {@link MediaItem} in the playlist so the session can uniquely
+     * identity individual items. All {@link MediaItem}s shouldn't be {@code null} as well.
      * <p>
      * It's recommended to fill {@link MediaMetadata} in each {@link MediaItem} especially for the
      * duration information with the key {@link MediaMetadata#METADATA_KEY_DURATION}. Without the
@@ -393,8 +395,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * it to the controller.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
-     * completed.
+     * {@link PlayerCallback#onPlaylistChanged} and {@link PlayerCallback#onCurrentMediaItemChanged}
+     * when it's completed. The current media item would be the first item in the playlist.
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * when a media item in the playlist is a {@link FileMediaItem}.
@@ -403,7 +405,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @throws IllegalArgumentException if the given list is {@code null} or empty, or has
      *         duplicated media items.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * @see PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)
+     * @see #setMediaItem
+     * @see PlayerCallback#onPlaylistChanged
+     * @see PlayerCallback#onCurrentMediaItemChanged
      */
     public abstract @NonNull ListenableFuture<PlayerResult> setPlaylist(
             @NonNull List<MediaItem> list, @Nullable MediaMetadata metadata);
@@ -414,22 +418,28 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @Nullable AudioAttributesCompat getAudioAttributes();
 
     /**
-     * Sets a {@link MediaItem} for playback.
+     * Sets a {@link MediaItem} for playback. Use this or {@link #setPlaylist} to specify which
+     * items to play. If you want to change current item in the playlist, use one of
+     * {@link #skipToPlaylistItem}, {@link #skipToNextPlaylistItem}, or
+     * {@link #skipToPreviousPlaylistItem}.
      * <p>
-     * It's recommended to fill {@link MediaMetadata} in each {@link MediaItem} especially for the
+     * It's recommended to fill {@link MediaMetadata} in {@link MediaItem} especially for the
      * duration information with the key {@link MediaMetadata#METADATA_KEY_DURATION}. Without the
      * duration information in the metadata, session will do extra work to get the duration and send
      * it to the controller.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
-     * completed.
+     * {@link PlayerCallback#onPlaylistChanged} and {@link PlayerCallback#onCurrentMediaItemChanged}
+     * when it's completed. The current item would be the item given here.
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * if the given media item is a {@link FileMediaItem}.
      *
      * @param item the descriptor of media item you want to play
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
+     * @see #setPlaylist
+     * @see PlayerCallback#onPlaylistChanged
+     * @see PlayerCallback#onCurrentMediaItemChanged
      * @throws IllegalArgumentException if the given item is {@code null}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> setMediaItem(
@@ -611,13 +621,16 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @ShuffleMode int getShuffleMode();
 
     /**
-     * Gets the current media item. This value may be updated when
+     * Gets the current media item, which is currently playing or would be played with later
+     * {@link #play}. This value may be updated when
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is
      * called.
      *
      * @return the current media item. Can be {@code null} only when media item or playlist hasn't
      *         been set.
+     * @see #setMediaItem
+     * @see #setPlaylist
      */
     public abstract @Nullable MediaItem getCurrentMediaItem();
 
