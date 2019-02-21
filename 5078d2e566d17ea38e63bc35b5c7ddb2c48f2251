@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1392372a_8e2cc989",
+        "filename": "persistence/db/api/2.0.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-21T16:28:32Z",
+      "side": 1,
+      "message": "it should be 2.0.0-alpha01.txt not  2.0.1-alpha01.txt. looks like it is bug in updateApi script.",
+      "revId": "5078d2e566d17ea38e63bc35b5c7ddb2c48f2251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
