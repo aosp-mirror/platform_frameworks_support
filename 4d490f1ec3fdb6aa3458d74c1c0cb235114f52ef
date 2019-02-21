@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4132980_46db0692",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-21T02:53:12Z",
+      "side": 1,
+      "message": "Thanks. I revised the patch accordingly. (Kept this ctor and added documentation)",
+      "parentUuid": "b920745b_6752566a",
+      "range": {
+        "startLine": 184,
+        "startChar": 15,
+        "endLine": 184,
+        "endChar": 22
+      },
+      "revId": "4d490f1ec3fdb6aa3458d74c1c0cb235114f52ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f986d35b_970cf544",
         "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "4d490f1ec3fdb6aa3458d74c1c0cb235114f52ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e8d585_f170013c",
+        "filename": "media2/src/main/java/androidx/media2/PlaybackParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-21T02:53:12Z",
+      "side": 1,
+      "message": "Sorry. It\u0027s my silly mistake.",
+      "parentUuid": "f986d35b_970cf544",
+      "range": {
+        "startLine": 185,
+        "startChar": 11,
+        "endLine": 185,
+        "endChar": 14
+      },
+      "revId": "4d490f1ec3fdb6aa3458d74c1c0cb235114f52ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
