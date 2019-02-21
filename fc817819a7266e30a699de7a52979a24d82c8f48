@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8795f27a_92f2a611",
+        "filename": "preference/api/restricted_current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2019-02-21T12:31:04Z",
+      "side": 1,
+      "message": "This field is missing a surrounding class.",
+      "revId": "fc817819a7266e30a699de7a52979a24d82c8f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "219996c8_18f5638f",
+        "filename": "preference/api/restricted_current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1061009
+      },
+      "writtenOn": "2019-02-21T12:31:04Z",
+      "side": 1,
+      "message": "unmatched brace",
+      "revId": "fc817819a7266e30a699de7a52979a24d82c8f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
