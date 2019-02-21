@@ -52,6 +52,63 @@
       "revId": "5e9935b9b7707a24c20dca66873c57a72557f975",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dc33313_f152073f",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T01:49:51Z",
+      "side": 1,
+      "message": "Please add an empty line before @param",
+      "revId": "5e9935b9b7707a24c20dca66873c57a72557f975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c18944ec_749894b5",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T01:49:51Z",
+      "side": 1,
+      "message": "Please describe what happens if listener is null.",
+      "revId": "5e9935b9b7707a24c20dca66873c57a72557f975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63c607da_093cbf60",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T01:49:51Z",
+      "side": 1,
+      "message": "s/l/listener",
+      "range": {
+        "startLine": 300,
+        "startChar": 71,
+        "endLine": 300,
+        "endChar": 72
+      },
+      "revId": "5e9935b9b7707a24c20dca66873c57a72557f975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
