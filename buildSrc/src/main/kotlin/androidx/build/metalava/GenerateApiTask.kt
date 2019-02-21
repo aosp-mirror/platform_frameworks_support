@@ -88,10 +88,18 @@ open class GenerateApiTask : MetalavaTask() {
     fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
         val outputBuilder = StringBuilder()
         val lines = inputFile.readLines()
+        var skipScopeUntil: String? = null
         for (line in lines) {
-            if (!line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")) {
+            val skipLine = line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")
+            if (skipLine && line.endsWith("{")) {
+               skipScopeUntil = line.commonPrefixWith("  ") + "}"
+            }
+            if (!skipLine && skipScopeUntil == null) {
                 outputBuilder.append(line)
                 outputBuilder.append("\n")
+            }
+            if (line == skipScopeUntil) {
+               skipScopeUntil = null
             }
         }
         outputFile.writeText(outputBuilder.toString())
