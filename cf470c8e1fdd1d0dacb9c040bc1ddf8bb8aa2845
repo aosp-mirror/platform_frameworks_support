@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eaf2ea0_e7ee0262",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T11:55:55Z",
+      "side": 1,
+      "message": "Will it be called with null?",
+      "range": {
+        "startLine": 809,
+        "startChar": 37,
+        "endLine": 809,
+        "endChar": 54
+      },
+      "revId": "cf470c8e1fdd1d0dacb9c040bc1ddf8bb8aa2845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84526eb6_0ebf673a",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T11:55:55Z",
+      "side": 1,
+      "message": "remove a \u0027*\u0027",
+      "range": {
+        "startLine": 818,
+        "startChar": 6,
+        "endLine": 818,
+        "endChar": 7
+      },
+      "revId": "cf470c8e1fdd1d0dacb9c040bc1ddf8bb8aa2845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
