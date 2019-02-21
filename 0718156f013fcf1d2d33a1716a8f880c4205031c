@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "499ab423_8c8f401a",
+        "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-21T05:36:17Z",
+      "side": 1,
+      "message": "Q) Why do we need this?",
+      "range": {
+        "startLine": 105,
+        "startChar": 24,
+        "endLine": 105,
+        "endChar": 40
+      },
+      "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9d6213_b15e448b",
+        "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-21T05:36:17Z",
+      "side": 1,
+      "message": "Q) When is this used?",
+      "range": {
+        "startLine": 151,
+        "startChar": 32,
+        "endLine": 151,
+        "endChar": 41
+      },
+      "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcedb7ff_854d0eb2",
+        "filename": "media2/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-21T05:36:17Z",
+      "side": 1,
+      "message": "Q) Do all the test methods run 3 times since it is a parameterized test?\nIf so, let\u0027s move parameterized tests into a new file - MediaItemSubclassesTest.java.",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 56
+      },
+      "revId": "0718156f013fcf1d2d33a1716a8f880c4205031c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
