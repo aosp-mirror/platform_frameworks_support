@@ -46,6 +46,30 @@
       "revId": "456ec8d34317211c904aaa3860c13b9f6b2da60e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3930eac_3b18a84b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T17:36:48Z",
+      "side": 1,
+      "message": "For the 2.0 release, I\u0027d like to use the exact 1:1 dependencies, even if that means relying on legacy-support-core-utils. We will reduce the scope in 2.1",
+      "parentUuid": "cfb8aa87_21000f3d",
+      "range": {
+        "startLine": 69,
+        "startChar": 36,
+        "endLine": 69,
+        "endChar": 77
+      },
+      "revId": "456ec8d34317211c904aaa3860c13b9f6b2da60e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
