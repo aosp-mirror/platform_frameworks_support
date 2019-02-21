@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51eab989_5f03e89f",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-21T10:00:29Z",
+      "side": 1,
+      "message": "Uh. oh. A footgun here. Cancellation is performed with CancellationExeption, so when the coroutine is cancelled this `catch block` is going to catch it, potentially trying to access views when lifecycle was already destroyed. I don\u0027t have a simple solution to this problem in mind. Need to think. On the surface it seems that you should against this kind of try/catch exception handling inside of whenStateAtLeast blocks, but then you need to provide an alternative solution.",
+      "revId": "8a34248b9a6e8164349356b39b3cc1d847241341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b832bdb7_a21f3037",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-21T10:00:29Z",
+      "side": 1,
+      "message": "Kotlin idioms nitpick: throw IllegalStateException(ms) -\u003e error(msg)",
+      "revId": "8a34248b9a6e8164349356b39b3cc1d847241341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
