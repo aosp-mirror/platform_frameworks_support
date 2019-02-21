@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fd8a848b_9f669088",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T17:31:18Z",
+      "side": 1,
+      "message": "ugh i totally missed that :/. \nthis sample could probably be written as `catch(IOException)` (or check isActive) BUT devs write this kind of code a lot (catch anything).\nThis seems like a general coroutines programming problem where if you catch some exception from a sub-coroutine, you need to be careful about cancellation exception. Almost feels like catch should skip CancelationException\u0027s inside coroutines.\n\nMaybe it is OK for most cases for that code to keep running (just wasted resources?) but if we provide a special dispatcher like this, it will need to have better safeguards.\n\nWe could have a custom runCatching here as well that does check for isActive but that won\u0027t be much different then the alternative CL we had (whenStarted block that receives a non-suspending function) and guarantees there are better.",
+      "parentUuid": "51eab989_5f03e89f",
+      "revId": "8a34248b9a6e8164349356b39b3cc1d847241341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b832bdb7_a21f3037",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "8a34248b9a6e8164349356b39b3cc1d847241341",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c1ed028_6d21e8ea",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T17:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b832bdb7_a21f3037",
+      "revId": "8a34248b9a6e8164349356b39b3cc1d847241341",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
