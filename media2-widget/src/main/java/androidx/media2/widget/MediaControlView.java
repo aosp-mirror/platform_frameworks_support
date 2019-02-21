@@ -26,7 +26,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -293,13 +292,20 @@ public class MediaControlView extends ViewGroup {
     }
 
     /**
-     * Registers a callback to be invoked when the fullscreen mode should be changed.
-     * This needs to be implemented in order to display the fullscreen button.
-     * @param l The callback that will be run
+     * Sets a listener to be called when the fullscreen mode should be changed.
+     * A non-null listener needs to be set in order to display the fullscreen button.
+     *
+     * @param listener The listener to be called. A value of <code>null</code> removes any
+     * existing listener and hides the fullscreen button.
      */
-    public void setOnFullScreenListener(@NonNull OnFullScreenListener l) {
-        mOnFullScreenListener = l;
-        mFullScreenButton.setVisibility(View.VISIBLE);
+    public void setOnFullScreenListener(@Nullable OnFullScreenListener listener) {
+        if (listener == null) {
+            mOnFullScreenListener = null;
+            mFullScreenButton.setVisibility(View.GONE);
+        } else {
+            mOnFullScreenListener = listener;
+            mFullScreenButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -325,7 +331,8 @@ public class MediaControlView extends ViewGroup {
 
     @Override
     public CharSequence getAccessibilityClassName() {
-        return MediaControlView.class.getName();
+        // Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage.
+        return "androidx.media2.widget.MediaControlView";
     }
 
     @Override
@@ -459,6 +466,8 @@ public class MediaControlView extends ViewGroup {
                 sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
         mMinimalFullScreenButton.setVisibility(
                 sizeType == SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mCenterView.setVisibility(
+                sizeType != SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
 
         final int childLeft = getPaddingLeft();
         final int childRight = childLeft + width;
@@ -642,17 +651,18 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float alpha = (float) animation.getAnimatedValue();
-                Drawable thumb = mProgress.getThumb();
-                if (thumb != null) {
-                    thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
-                }
+                int scaleLevel = mSizeType == SIZE_TYPE_MINIMAL ? 0 : MAX_SCALE_LEVEL;
+                mProgress.getThumb().setLevel((int) (scaleLevel * alpha));
 
                 mCenterView.setAlpha(alpha);
                 mMinimalFullScreenView.setAlpha(alpha);
-                if (alpha == 0.0f) {
-                    mCenterView.setVisibility(View.INVISIBLE);
-                    mMinimalFullScreenView.setVisibility(View.INVISIBLE);
-                }
+            }
+        });
+        fadeOutAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCenterView.setVisibility(View.INVISIBLE);
+                mMinimalFullScreenView.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -662,17 +672,20 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float alpha = (float) animation.getAnimatedValue();
-                Drawable thumb = mProgress.getThumb();
-                if (thumb != null) {
-                    thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
-                }
+                int scaleLevel = mSizeType == SIZE_TYPE_MINIMAL ? 0 : MAX_SCALE_LEVEL;
+                mProgress.getThumb().setLevel((int) (scaleLevel * alpha));
 
                 mCenterView.setAlpha(alpha);
                 mMinimalFullScreenView.setAlpha(alpha);
-                if (alpha == 0.0f) {
+            }
+        });
+        fadeInAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if (mSizeType != SIZE_TYPE_FULL) {
                     mCenterView.setVisibility(View.VISIBLE);
-                    mMinimalFullScreenView.setVisibility(View.VISIBLE);
                 }
+                mMinimalFullScreenView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -681,34 +694,32 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationY(0, -titleBarHeight, mTitleBar))
                 .with(AnimatorUtil.ofTranslationYTogether(0, bottomBarHeight, bottomBarGroup));
         mHideMainBarsAnimator.setDuration(HIDE_TIME_MS);
-        mHideMainBarsAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mHideMainBarsAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
+            }
+        });
 
         mHideProgressBarAnimator = AnimatorUtil.ofTranslationYTogether(
                 bottomBarHeight, bottomBarHeight + progressBarHeight, bottomBarGroup);
         mHideProgressBarAnimator.setDuration(HIDE_TIME_MS);
-        mHideProgressBarAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mHideProgressBarAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_NONE_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_NONE_VISIBLE;
+            }
+        });
 
         mHideAllBarsAnimator = new AnimatorSet();
         mHideAllBarsAnimator.play(fadeOutAnimator)
@@ -716,7 +727,7 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationYTogether(
                         0, bottomBarHeight + progressBarHeight, bottomBarGroup));
         mHideAllBarsAnimator.setDuration(HIDE_TIME_MS);
-        mHideAllBarsAnimator.getChildAnimations().get(0).addListener(new AnimatorListenerAdapter() {
+        mHideAllBarsAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 mUxState = UX_STATE_ANIMATING;
@@ -733,18 +744,17 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationY(-titleBarHeight, 0, mTitleBar))
                 .with(AnimatorUtil.ofTranslationYTogether(bottomBarHeight, 0, bottomBarGroup));
         mShowMainBarsAnimator.setDuration(SHOW_TIME_MS);
-        mShowMainBarsAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mShowMainBarsAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_ALL_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ALL_VISIBLE;
+            }
+        });
 
         mShowAllBarsAnimator = new AnimatorSet();
         mShowAllBarsAnimator.play(fadeInAnimator)
@@ -752,7 +762,7 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationYTogether(
                         bottomBarHeight + progressBarHeight, 0, bottomBarGroup));
         mShowAllBarsAnimator.setDuration(SHOW_TIME_MS);
-        mShowAllBarsAnimator.getChildAnimations().get(0).addListener(new AnimatorListenerAdapter() {
+        mShowAllBarsAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 mUxState = UX_STATE_ANIMATING;
@@ -1346,12 +1356,11 @@ public class MediaControlView extends ViewGroup {
             case SIZE_TYPE_FULL:
             case SIZE_TYPE_EMBEDDED:
                 // Relating to Progress Bar
-                mProgress.setThumb(mResources.getDrawable(R.drawable.custom_progress_thumb));
-                mProgress.setThumbOffset(0);
+                mProgress.getThumb().setLevel(MAX_SCALE_LEVEL);
                 break;
             case SIZE_TYPE_MINIMAL:
                 // Relating to Progress Bar
-                mProgress.setThumb(null);
+                mProgress.getThumb().setLevel(0);
                 break;
         }
 
