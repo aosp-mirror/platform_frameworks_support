@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a0577be_e3e28ea9",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T05:54:42Z",
+      "side": 1,
+      "message": "s/Registers/Sets\nRegistering \"null\" listener doesn\u0027t make sense.",
+      "range": {
+        "startLine": 295,
+        "startChar": 7,
+        "endLine": 295,
+        "endChar": 16
+      },
+      "revId": "c839b51017f419f518626212363b1992c5fb2eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee4a9e0_6622fe30",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T05:54:42Z",
+      "side": 1,
+      "message": "We can add more comment here as well about what happens when null listener is set.",
+      "revId": "c839b51017f419f518626212363b1992c5fb2eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f7d5a84_e4dca4c5",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-21T05:54:42Z",
+      "side": 1,
+      "message": "What about followings?\n\nIf \u003ccode\u003enull\u003ccode\u003e, the full screen button will not be shown in MediaControlView.",
+      "range": {
+        "startLine": 298,
+        "startChar": 54,
+        "endLine": 299,
+        "endChar": 25
+      },
+      "revId": "c839b51017f419f518626212363b1992c5fb2eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
