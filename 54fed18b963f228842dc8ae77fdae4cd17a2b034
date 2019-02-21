@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "793d2031_78b9e449",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-02-21T15:05:45Z",
+      "side": 1,
+      "message": "On second thought refactoring the names is trivial if we want them changed, so I just updated everything. Also removed the @VisibleForTesting annotation, since it was from the com.google package, and didn\u0027t appear to affect the build.",
+      "parentUuid": "36f38b44_7c7ee415",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "54fed18b963f228842dc8ae77fdae4cd17a2b034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15666874_130fbc3f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 4
