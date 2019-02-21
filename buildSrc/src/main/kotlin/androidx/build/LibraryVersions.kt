@@ -67,7 +67,7 @@ object LibraryVersions {
     val MEDIA2_EXOPLAYER = Version("1.0.0-alpha02")
     val MEDIA2_WIDGET = Version("1.0.0-alpha07")
     val MEDIAROUTER = Version("1.1.0-alpha02")
-    val NAVIGATION = Version("1.0.0-beta02")
+    val NAVIGATION = Version("1.0.0-rc01")
     val NAVIGATION_TESTING = Version("1.0.0-alpha08") // Unpublished
     val PAGING = Version("2.2.0-alpha01")
     val PALETTE = Version("1.1.0-alpha01")
@@ -97,5 +97,5 @@ object LibraryVersions {
     val VIEWPAGER2 = Version("1.0.0-alpha02")
     val WEAR = Version("1.1.0-alpha01")
     val WEBKIT = Version("1.1.0-alpha01")
-    val WORKMANAGER = Version("1.0.0-rc01")
+    val WORKMANAGER = Version("1.0.0-rc03")
 }
