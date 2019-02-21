@@ -227,6 +227,24 @@
       "revId": "20975498d16775a41547e4af1f1134959a2aa4c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbca5816_6a2b7580",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProviderDescriptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-21T07:32:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9fc3696_2dff224f",
+      "revId": "20975498d16775a41547e4af1f1134959a2aa4c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
