@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c35ac5fc_41ef03e1",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T21:13:30Z",
+      "side": 1,
+      "message": "Rename to activityRule - don\u0027t use the mPrefix style in Kotlin code",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53c4f50_c0e5e34b",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T21:13:30Z",
+      "side": 1,
+      "message": "This should be\n\nprivate lateinit var instrumentation: Instrumentation\n\nI.e.,\n- Don\u0027t use mPrefix style\n- Make it non-null by using lateinit",
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b353299_5138f5b3",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T21:13:30Z",
+      "side": 1,
+      "message": "Use requireView() throughout instead of view!!",
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb40812f_4e892907",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-21T21:13:30Z",
+      "side": 1,
+      "message": "Remove mPrefix on all of these variables",
+      "range": {
+        "startLine": 655,
+        "startChar": 12,
+        "endLine": 655,
+        "endChar": 30
+      },
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
