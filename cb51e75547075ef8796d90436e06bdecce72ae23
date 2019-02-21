@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "9c610c2f_56db9064",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-02-21T20:32:42Z",
+      "side": 1,
+      "message": "OK. I differentiate between \"lossy\" where if you thrown your phone in a lake the state is lost, and \"lossy\" where your code is dumping data off to /dev/null. The problem is that updating opportunistically doesn\u0027t make a ton of sense - we know that updating saved state outside the lifecycle will not ever actually save state. I think that this API should raise an error if state is lost for any reason other than the system losing the underlying state.",
+      "parentUuid": "d13d31e2_469450da",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "cb51e75547075ef8796d90436e06bdecce72ae23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7a848ef_4c89952a",
         "filename": "savedstate/src/main/java/androidx/savedstate/SavedStateRegistry.java",
         "patchSetId": 1
