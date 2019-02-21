@@ -754,7 +754,7 @@ public class MediaController implements AutoCloseable {
      * This list may differ with the list that was specified with
      * {@link #setPlaylist(List, MediaMetadata)} depending on the {@link SessionPlayer}
      * implementation. Use media items returned here for other playlist agent APIs such as
-     * {@link SessionPlayer#skipToPlaylistItem(MediaItem)}.
+     * {@link SessionPlayer#skipToPlaylistItem}.
      *
      * @return playlist, or {@code null} if the playlist hasn't set, controller isn't connected,
      *         or it doesn't have enough permission
@@ -766,7 +766,10 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Sets the playlist with the list of media IDs. All media IDs in the list shouldn't be empty.
+     * Sets the playlist with the list of media IDs. Use this or {@link #setMediaItem} to specify
+     * which items to play.
+     * <p>
+     * All media IDs in the list shouldn't be {@code null}.
      *
      * @param list list of media id. Shouldn't contain an empty id.
      * @param metadata metadata of the playlist
@@ -792,7 +795,10 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Sets a {@link MediaItem} for playback.
+     * Sets a {@link MediaItem} for playback with the media ID. Use this or {@link #setPlaylist}
+     * to specify which items to play. If you only want to change current item, use one of
+     * {@link #skipToPlaylistItem}, {@link #skipToNextPlaylistItem}, or
+     * {@link #skipToPreviousPlaylistItem}.
      *
      * @param mediaId The non-empty media id of the item to play
      * @see MediaMetadata#METADATA_KEY_MEDIA_ID
