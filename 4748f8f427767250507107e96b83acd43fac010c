@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cafe0763_161ff4c8",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/LifecycleController.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e08928_fa89e51d",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fce0294f_8e044bb7",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9625a703_3c0fc047",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "I didn\u0027t need it before because controller did observe the job (so if job completes, it was going to call finish anyways. But I think it is better to move here as it also guarantees my thread)\n\ni\u0027ll rename `dispose` to `finish` to match the state manager and it will remove observer + finish the state manager. the only difference will be on receiveing ON_DESTROY event which will also cancel the job.",
+      "parentUuid": "fce0294f_8e044bb7",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "173bd32f_3c5c3255",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2019-02-20T10:55:20Z",
       "side": 1,
       "message": "I\u0027d rather avoid implementing `Delay` unless there is strong evidence that `postDelayed` should be used for `delay` and `withTimeout` calls (for the latter you have to override `invokeOnTimeout` as well).\n\nThis API is internal for a reason: we are not quite happy with its design and semantics (e.g. how it should be exposed to end users? Does it cover all time-related use-cases? etc.), so we are going to revisit and probably partially rework it when there will be some demand or known issues about its non-publicity. Such change will be binary-compatible but will add some maintenance burden for you.",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5088079c_e344b22c",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "that is good reason to avoid implementing it. I\u0027ll remove that, thanks. \nThe only risk here is that if someone is running w/ a custom main looper (.e.g. like a robolectric tests); we won\u0027t be following its delay semantics. But for those cases, I assume kotlin will also have a way to control the Default Delay implementation?",
+      "parentUuid": "173bd32f_3c5c3255",
       "revId": "4748f8f427767250507107e96b83acd43fac010c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "3fd0a3c1_a9783e4b",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "yea i\u0027ll make it JVMField. thanks.",
+      "parentUuid": "cbbf8d62_3645f0c2",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60b32910_1e6b0658",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
         "patchSetId": 8
@@ -81,6 +153,24 @@
       "writtenOn": "2019-02-20T10:55:20Z",
       "side": 1,
       "message": "How this approach is going to work with `Dispatchers.[re]setMain` in `kotlinx-coroutines-test`?\n\nDo you avoid Dispatchers.Main due to service-loader startup issues?",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f293c7_cfcf076c",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "To be clear, i have MAIN_HANDLER settable just to be able to control it in tests, not for public API.\n\nIn terms of Dispatchers.(re)setMain, I\u0027ve not focused on that much because these APIs are really intended for fragments / activities. Testing them is likely to be an integration test (or robolectric) both of which have a default looper. Trying to set Dispatcher.Main anything besides their looper is likely to cause a lot more problems (unless all of them are set).\n\n\nI can possibly consider using Dispatchers.Main.Immediate as if it is a handler but I\u0027ve not dived into that. Not sure if that makes much sense as I do need fine grained control over when things are executed (to keep the lifecycle guarantees). I\u0027m not even sure how it would look to use a Dispatcher outside a coroutine.\n\nlmk if you think it is important to figure out a way to delegate back to the main dispatcher. We can also just provide a testing API for this if we see a use case.",
+      "parentUuid": "60b32910_1e6b0658",
       "revId": "4748f8f427767250507107e96b83acd43fac010c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -101,6 +191,24 @@
       "revId": "4748f8f427767250507107e96b83acd43fac010c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48befc92_8a8b24bf",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-21T01:23:01Z",
+      "side": 1,
+      "message": "thanks!",
+      "parentUuid": "5cb51d69_fef15249",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
