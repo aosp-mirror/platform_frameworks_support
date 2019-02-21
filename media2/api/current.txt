@@ -5,9 +5,12 @@ package androidx.media2 {
     method public androidx.media2.DataSourceCallback getDataSourceCallback();
   }
 
-  public static final class CallbackMediaItem.Builder {
+  public static final class CallbackMediaItem.Builder extends androidx.media2.MediaItem.Builder {
     ctor public CallbackMediaItem.Builder(androidx.media2.DataSourceCallback);
     method public androidx.media2.CallbackMediaItem build();
+    method public androidx.media2.CallbackMediaItem.Builder setEndPosition(long);
+    method public androidx.media2.CallbackMediaItem.Builder setMetadata(androidx.media2.MediaMetadata?);
+    method public androidx.media2.CallbackMediaItem.Builder setStartPosition(long);
   }
 
   public abstract class DataSourceCallback implements java.io.Closeable {
@@ -23,10 +26,13 @@ package androidx.media2 {
     field public static final long FD_LENGTH_UNKNOWN = 576460752303423487L; // 0x7ffffffffffffffL
   }
 
-  public static final class FileMediaItem.Builder {
+  public static final class FileMediaItem.Builder extends androidx.media2.MediaItem.Builder {
     ctor public FileMediaItem.Builder(android.os.ParcelFileDescriptor);
     ctor public FileMediaItem.Builder(android.os.ParcelFileDescriptor, long, long);
     method public androidx.media2.FileMediaItem build();
+    method public androidx.media2.FileMediaItem.Builder setEndPosition(long);
+    method public androidx.media2.FileMediaItem.Builder setMetadata(androidx.media2.MediaMetadata?);
+    method public androidx.media2.FileMediaItem.Builder setStartPosition(long);
   }
 
   public final class HeartRating implements androidx.media2.Rating {
@@ -47,7 +53,7 @@ package androidx.media2 {
     method public int getResultCode();
     field public static final int RESULT_ERROR_BAD_VALUE = -3; // 0xfffffffd
     field public static final int RESULT_ERROR_INVALID_STATE = -2; // 0xfffffffe
-    field public static final int RESULT_ERROR_IO_ERROR = -5; // 0xfffffffb
+    field public static final int RESULT_ERROR_IO = -5; // 0xfffffffb
     field public static final int RESULT_ERROR_NOT_SUPPORTED = -6; // 0xfffffffa
     field public static final int RESULT_ERROR_PERMISSION_DENIED = -4; // 0xfffffffc
     field public static final int RESULT_ERROR_SESSION_AUTHENTICATION_EXPIRED = -102; // 0xffffff9a
@@ -58,7 +64,7 @@ package androidx.media2 {
     field public static final int RESULT_ERROR_SESSION_PREMIUM_ACCOUNT_REQUIRED = -103; // 0xffffff99
     field public static final int RESULT_ERROR_SESSION_SETUP_REQUIRED = -108; // 0xffffff94
     field public static final int RESULT_ERROR_SESSION_SKIP_LIMIT_REACHED = -107; // 0xffffff95
-    field public static final int RESULT_ERROR_UNKNOWN_ERROR = -1; // 0xffffffff
+    field public static final int RESULT_ERROR_UNKNOWN = -1; // 0xffffffff
     field public static final int RESULT_INFO_SKIPPED = 1; // 0x1
     field public static final int RESULT_SUCCESS = 0; // 0x0
   }
@@ -170,7 +176,10 @@ package androidx.media2 {
 
   public static class MediaItem.Builder {
     ctor public MediaItem.Builder();
-    method public androidx.media2.MediaItem! build();
+    method public androidx.media2.MediaItem build();
+    method public androidx.media2.MediaItem.Builder setEndPosition(long);
+    method public androidx.media2.MediaItem.Builder setMetadata(androidx.media2.MediaMetadata?);
+    method public androidx.media2.MediaItem.Builder setStartPosition(long);
   }
 
   public abstract class MediaLibraryService extends androidx.media2.MediaSessionService {
@@ -570,15 +579,15 @@ package androidx.media2 {
     method public abstract int getBufferingState();
     method protected final java.util.List<androidx.core.util.Pair<androidx.media2.SessionPlayer.PlayerCallback,java.util.concurrent.Executor>> getCallbacks();
     method public abstract androidx.media2.MediaItem? getCurrentMediaItem();
-    method public abstract int getCurrentMediaItemIndex();
+    method @IntRange(from=androidx.media2.SessionPlayer.INVALID_ITEM_INDEX) public abstract int getCurrentMediaItemIndex();
     method public abstract long getCurrentPosition();
     method public abstract long getDuration();
-    method public abstract int getNextMediaItemIndex();
+    method @IntRange(from=androidx.media2.SessionPlayer.INVALID_ITEM_INDEX) public abstract int getNextMediaItemIndex();
     method public abstract float getPlaybackSpeed();
     method public abstract int getPlayerState();
     method public abstract java.util.List<androidx.media2.MediaItem>? getPlaylist();
     method public abstract androidx.media2.MediaMetadata? getPlaylistMetadata();
-    method public abstract int getPreviousMediaItemIndex();
+    method @IntRange(from=androidx.media2.SessionPlayer.INVALID_ITEM_INDEX) public abstract int getPreviousMediaItemIndex();
     method public abstract int getRepeatMode();
     method public abstract int getShuffleMode();
     method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionPlayer.PlayerResult> pause();
@@ -640,10 +649,10 @@ package androidx.media2 {
     method public int getResultCode();
     field public static final int RESULT_ERROR_BAD_VALUE = -3; // 0xfffffffd
     field public static final int RESULT_ERROR_INVALID_STATE = -2; // 0xfffffffe
-    field public static final int RESULT_ERROR_IO_ERROR = -5; // 0xfffffffb
+    field public static final int RESULT_ERROR_IO = -5; // 0xfffffffb
     field public static final int RESULT_ERROR_NOT_SUPPORTED = -6; // 0xfffffffa
     field public static final int RESULT_ERROR_PERMISSION_DENIED = -4; // 0xfffffffc
-    field public static final int RESULT_ERROR_UNKNOWN_ERROR = -1; // 0xffffffff
+    field public static final int RESULT_ERROR_UNKNOWN = -1; // 0xffffffff
     field public static final int RESULT_INFO_SKIPPED = 1; // 0x1
     field public static final int RESULT_SUCCESS = 0; // 0x0
   }
@@ -656,7 +665,7 @@ package androidx.media2 {
     method public int getResultCode();
     field public static final int RESULT_ERROR_BAD_VALUE = -3; // 0xfffffffd
     field public static final int RESULT_ERROR_INVALID_STATE = -2; // 0xfffffffe
-    field public static final int RESULT_ERROR_IO_ERROR = -5; // 0xfffffffb
+    field public static final int RESULT_ERROR_IO = -5; // 0xfffffffb
     field public static final int RESULT_ERROR_NOT_SUPPORTED = -6; // 0xfffffffa
     field public static final int RESULT_ERROR_PERMISSION_DENIED = -4; // 0xfffffffc
     field public static final int RESULT_ERROR_SESSION_AUTHENTICATION_EXPIRED = -102; // 0xffffff9a
@@ -667,7 +676,7 @@ package androidx.media2 {
     field public static final int RESULT_ERROR_SESSION_PREMIUM_ACCOUNT_REQUIRED = -103; // 0xffffff99
     field public static final int RESULT_ERROR_SESSION_SETUP_REQUIRED = -108; // 0xffffff94
     field public static final int RESULT_ERROR_SESSION_SKIP_LIMIT_REACHED = -107; // 0xffffff95
-    field public static final int RESULT_ERROR_UNKNOWN_ERROR = -1; // 0xffffffff
+    field public static final int RESULT_ERROR_UNKNOWN = -1; // 0xffffffff
     field public static final int RESULT_INFO_SKIPPED = 1; // 0x1
     field public static final int RESULT_SUCCESS = 0; // 0x0
   }
@@ -720,10 +729,13 @@ package androidx.media2 {
     method public java.util.Map<java.lang.String,java.lang.String>? getUriHeaders();
   }
 
-  public static final class UriMediaItem.Builder {
+  public static final class UriMediaItem.Builder extends androidx.media2.MediaItem.Builder {
     ctor public UriMediaItem.Builder(android.content.Context, android.net.Uri);
     ctor public UriMediaItem.Builder(android.content.Context, android.net.Uri, java.util.Map<java.lang.String,java.lang.String>?, java.util.List<java.net.HttpCookie>?);
     method public androidx.media2.UriMediaItem build();
+    method public androidx.media2.UriMediaItem.Builder setEndPosition(long);
+    method public androidx.media2.UriMediaItem.Builder setMetadata(androidx.media2.MediaMetadata?);
+    method public androidx.media2.UriMediaItem.Builder setStartPosition(long);
   }
 
   public final class VideoSize {
