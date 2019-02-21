@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "01def234_4e923142",
+        "filename": "room/coroutines/src/main/java/androidx/room/RoomDatabase.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-02-21T07:40:54Z",
+      "side": 1,
+      "message": "Do we really need this long name `runSuspendingTransaction`? Can it simply be `runTransaction` where the fact that it is suspending is denoted by `suspend` modifier on the function and its block?",
+      "revId": "351be8f95fe27c41c2af33b38b150e41256cf41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecec9933_8322e454",
         "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
         "patchSetId": 16
