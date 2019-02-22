@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ed786f6_1b9681e8",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d448d50b_3b0a13ac",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73d61698_86ef476c",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d94d1c79_99c0eca9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73d61698_86ef476c",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "32107829_bad6e51d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c7b39c8_3657e868",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad6f7830_65568f3f",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061f5f75_2ce107dd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad6f7830_65568f3f",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "61919289_3e90576b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "667f0fb6_5ebf6341",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca5116a_a87d20e9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf9f4baa_dbcb22c6",
+      "range": {
+        "startLine": 118,
+        "startChar": 11,
+        "endLine": 118,
+        "endChar": 22
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b776e71f_a304b4f6",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6fa41b_98af54c2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b776e71f_a304b4f6",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 92
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "0691cc45_dc5f93ef",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fae0869b_db84bf55",
+      "range": {
+        "startLine": 123,
+        "startChar": 77,
+        "endLine": 123,
+        "endChar": 86
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b7cca2a_91d80d4c",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -206,6 +398,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fcf4608_43517dab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b7cca2a_91d80d4c",
+      "range": {
+        "startLine": 144,
+        "startChar": 11,
+        "endLine": 144,
+        "endChar": 49
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "56ed78e1_b3beeaf9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1481cf0c_103b0200",
+      "range": {
+        "startLine": 154,
+        "startChar": 38,
+        "endLine": 154,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52955b12_af99a640",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -252,6 +492,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b25b9e59_00d3299e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52955b12_af99a640",
+      "range": {
+        "startLine": 232,
+        "startChar": 55,
+        "endLine": 232,
+        "endChar": 61
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "96debb09_534158dc",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d65ea2_80665426",
+      "range": {
+        "startLine": 233,
+        "startChar": 61,
+        "endLine": 233,
+        "endChar": 66
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0039a92e_c123e0df",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "fd3a7f07_72405851",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0039a92e_c123e0df",
+      "range": {
+        "startLine": 239,
+        "startChar": 62,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ccee111_e7a3741b",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 3
@@ -321,6 +633,30 @@
       "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e853290e_aff93fe5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ccee111_e7a3741b",
+      "range": {
+        "startLine": 309,
+        "startChar": 6,
+        "endLine": 309,
+        "endChar": 31
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

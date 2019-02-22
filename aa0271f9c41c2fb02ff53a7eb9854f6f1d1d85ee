@@ -612,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "aa9ae030_194fa343",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "I had the same exact thought ..\n\nI think the overloads here could be:\nhostAssets(boolean enableHttp)\nhostAssets(boolean enableHttp, String domain, String path)",
+      "parentUuid": "98277002_a788a9ae",
+      "range": {
+        "startLine": 303,
+        "startChar": 31,
+        "endLine": 304,
+        "endChar": 94
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbcee455_665158e1",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -683,6 +707,30 @@
     },
     {
       "key": {
+        "uuid": "f1392c6f_04daee69",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "opened b/125735735",
+      "parentUuid": "ff77cb3c_f208dd82",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 88
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24ac3202_4c6cd56d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -741,6 +789,30 @@
       "writtenOn": "2019-02-21T01:31:48Z",
       "side": 1,
       "message": "Optional parameters must go at the end, per http://go/android-api-guidelines#heading\u003dh.fw2yx064kr9m.",
+      "range": {
+        "startLine": 324,
+        "startChar": 4,
+        "endLine": 324,
+        "endChar": 56
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba90c1f7_7142134e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-22T14:10:52Z",
+      "side": 1,
+      "message": "I\u0027ll do this after we reach an agreement on what overloads we should have.",
+      "parentUuid": "d9ab53fd_3956f36e",
       "range": {
         "startLine": 324,
         "startChar": 4,
