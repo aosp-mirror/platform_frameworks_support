@@ -46,5 +46,4 @@ supportLibrary {
     description = "Media2"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
-    trackRestrictedAPIs = false
 }

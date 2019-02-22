@@ -48,7 +48,6 @@ import androidx.viewpager2.widget.swipe.FragmentAdapter
 import androidx.viewpager2.widget.swipe.PageSwiper
 import androidx.viewpager2.widget.swipe.PageSwiperEspresso
 import androidx.viewpager2.widget.swipe.PageSwiperManual
-import androidx.viewpager2.widget.swipe.SelfChecking
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
@@ -343,8 +342,14 @@ open class BaseTest {
             matches(withText(value))
         )
 
-        if (viewPager.adapter is SelfChecking) {
-            (viewPager.adapter as SelfChecking).selfCheck()
+        // FIXME: too tight coupling
+        if (viewPager.adapter is FragmentAdapter) {
+            val adapter = viewPager.adapter as FragmentAdapter
+            assertThat(
+                "Number of fragment attaches minus fragment destroys must be " +
+                        "between 1 and 4 (inclusive)",
+                adapter.attachCount.get() - adapter.destroyCount.get(), isBetweenInIn(1, 4)
+            )
         }
     }
 

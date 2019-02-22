@@ -135,10 +135,6 @@ public class LinearLayoutCompat extends ViewGroup {
     private static final int INDEX_BOTTOM = 2;
     private static final int INDEX_FILL = 3;
 
-    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
-    private static final String ACCESSIBILITY_CLASS_NAME =
-            "androidx.appcompat.widget.LinearLayoutCompat";
-
     private Drawable mDivider;
     private int mDividerWidth;
     private int mDividerHeight;
@@ -1758,13 +1754,13 @@ public class LinearLayoutCompat extends ViewGroup {
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
-        event.setClassName(ACCESSIBILITY_CLASS_NAME);
+        event.setClassName(LinearLayoutCompat.class.getName());
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(ACCESSIBILITY_CLASS_NAME);
+        info.setClassName(LinearLayoutCompat.class.getName());
     }
 
     /**

@@ -148,16 +148,7 @@ public class MediaRouteButton extends View {
     public MediaRouteButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(MediaRouterThemeHelper.createThemedButtonContext(context), attrs, defStyleAttr);
         context = getContext();
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.MediaRouteButton, defStyleAttr, 0);
-        if (isInEditMode()) {
-            mRouter = null;
-            mCallback = null;
-            int remoteIndicatorStaticResId = a.getResourceId(
-                    R.styleable.MediaRouteButton_externalRouteEnabledDrawableStatic, 0);
-            mRemoteIndicator = getResources().getDrawable(remoteIndicatorStaticResId);
-            return;
-        }
+
         mRouter = MediaRouter.getInstance(context);
         mCallback = new MediaRouterCallback();
 
@@ -165,6 +156,8 @@ public class MediaRouteButton extends View {
             sConnectivityReceiver = new ConnectivityReceiver(context.getApplicationContext());
         }
 
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.MediaRouteButton, defStyleAttr, 0);
         mButtonTint = a.getColorStateList(R.styleable.MediaRouteButton_mediaRouteButtonTint);
         mMinWidth = a.getDimensionPixelSize(
                 R.styleable.MediaRouteButton_android_minWidth, 0);
@@ -263,11 +256,6 @@ public class MediaRouteButton extends View {
 
     /**
      * Enables dynamic group feature.
-     * After enabling dynamic group feature, clicking the media route button will show
-     * a dialog which can interact with
-     * {@link androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController}.
-     *
-     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
      */
     public void enableDynamicGroup() {
         mUseDynamicGroup = true;
@@ -412,11 +400,10 @@ public class MediaRouteButton extends View {
     }
 
     /**
-     * Sets whether the button is visible when no routes are available.
+     * Sets weather the button is visible when no routes are available.
      * When true, the button is visible even if there are no routes to connect.
      * You may want to override {@link View#performClick()} to change the behavior
      * when the button is clicked.
-     * The default is false.
      * It doesn't overrides the {@link View#getVisibility visibility} status of the button.
      *
      * @param alwaysVisible true to show button always.
@@ -458,10 +445,6 @@ public class MediaRouteButton extends View {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        if (isInEditMode()) {
-            return;
-        }
-
         mAttachedToWindow = true;
         if (!mSelector.isEmpty()) {
             mRouter.addCallback(mSelector, mCallback);
@@ -473,14 +456,12 @@ public class MediaRouteButton extends View {
 
     @Override
     public void onDetachedFromWindow() {
-        if (!isInEditMode()) {
-            mAttachedToWindow = false;
-            if (!mSelector.isEmpty()) {
-                mRouter.removeCallback(mCallback);
-            }
-
-            sConnectivityReceiver.unregisterReceiver(this);
+        mAttachedToWindow = false;
+        if (!mSelector.isEmpty()) {
+            mRouter.removeCallback(mCallback);
         }
+
+        sConnectivityReceiver.unregisterReceiver(this);
 
         super.onDetachedFromWindow();
     }
