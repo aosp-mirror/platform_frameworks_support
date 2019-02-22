@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78d89b0b_38e281e9",
+        "filename": "jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-22T15:53:09Z",
+      "side": 1,
+      "message": "I think we don\u0027t need this actually. All we need to do is to patch the processor to just automatically process \".java\" files. You can look into the Transformer and add a new one and enable a processing of non-zip files.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "e2c0a23c54969b60358a01c7c0ff793c3502663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12db8c71_04934442",
+        "filename": "jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-22T15:53:09Z",
+      "side": 1,
+      "message": "Please let\u0027s add some tests. There is quite a lot of tests already you can get some inspiration from.\n\nOptimally would be best to test on some random source codes as strings including imports. We could have jetifySource to take and return Strings and test that. And build a file support on top of that for easier testing.\n\n\nExample (complex includes writing / loading files):\nhttps://cs.corp.google.com/aosp-androidx/jetifier/jetifier/processor/src/test/kotlin/com/android/tools/build/jetifier/processor/transform/pom/PomDocumentTest.kt\n\nhttps://cs.corp.google.com/aosp-androidx/jetifier/jetifier/processor/src/test/kotlin/com/android/tools/build/jetifier/processor/transform/resource/XmlResourcesTransformerTest.kt",
+      "revId": "e2c0a23c54969b60358a01c7c0ff793c3502663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3dbfa84_92f122bf",
+        "filename": "jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-22T15:53:09Z",
+      "side": 1,
+      "message": "This could be moved to processor artifact for better integration and reuse.",
+      "range": {
+        "startLine": 179,
+        "startChar": 16,
+        "endLine": 179,
+        "endChar": 28
+      },
+      "revId": "e2c0a23c54969b60358a01c7c0ff793c3502663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
