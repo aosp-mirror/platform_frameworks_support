@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d448d50b_3b0a13ac",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "This is a bit misleading. The class itself should be instantiated outside of this method (that counts as use, too) and then particular APIs should be used inside that method.\n\nI think you can delete this paragraph.",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73d61698_86ef476c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "suggestion: just change this to say \"{@code appassets.android.platform.net}\"",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c7b39c8_3657e868",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "suggestion: delete this (it\u0027s mostly redundant).",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad6f7830_65568f3f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "nit: \"\u003cb\u003e\" is overkill here IMO",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9f4baa_dbcb22c6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 118,
+        "startChar": 11,
+        "endLine": 118,
+        "endChar": 22
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "667f0fb6_5ebf6341",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "\"a PathHandler\"",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b776e71f_a304b4f6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "\u003cp\u003e",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 92
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fae0869b_db84bf55",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "Cut out the word \"slash\" and wrap the string literal as `{@code \"/\"}`.\n\nAlso, only one sentence for @param doc",
+      "range": {
+        "startLine": 123,
+        "startChar": 77,
+        "endLine": 123,
+        "endChar": 86
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7cca2a_91d80d4c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "nit: @return doc please",
+      "range": {
+        "startLine": 144,
+        "startChar": 11,
+        "endLine": 144,
+        "endChar": 49
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1481cf0c_103b0200",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "don\u0027t use all-caps (you should use \"\u003cb\u003e\" instead)",
+      "range": {
+        "startLine": 154,
+        "startChar": 38,
+        "endLine": 154,
+        "endChar": 40
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52955b12_af99a640",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "{@link InputStream}",
+      "range": {
+        "startLine": 232,
+        "startChar": 55,
+        "endLine": 232,
+        "endChar": 61
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d65ea2_80665426",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "\"falls back\"",
+      "range": {
+        "startLine": 233,
+        "startChar": 61,
+        "endLine": 233,
+        "endChar": 66
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0039a92e_c123e0df",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "suggestion: \"matched a registered URL\"",
+      "range": {
+        "startLine": 239,
+        "startChar": 62,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ccee111_e7a3741b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "suggestion: I think it might be good to say something like \"HTTPS is always enabled. Consider setting {@code enableHttp} to {@code false} and accessing your resources over HTTPS for security.\"\n\nI think a \"note\" is overkill for the paragraph as-written, but security-hardening is probably worth a \"note\". (this is really more of a \"best practice,\" but I don\u0027t know the CSS class Android uses for this, if any exists).",
+      "range": {
+        "startLine": 309,
+        "startChar": 6,
+        "endLine": 309,
+        "endChar": 31
+      },
+      "revId": "83bab482d8aa7f5e50983181b254a6df2f184570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

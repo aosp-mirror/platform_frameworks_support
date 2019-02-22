@@ -588,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "98277002_a788a9ae",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "Looking at this again... is virtualAssetPath actually useful on the default domain? I agree it\u0027s useful for the custom domain (so an app may avoid conflicting with real paths on their domain), and I think you should mention that use-case below.\n\nCan we just replace this overload with hostAssets(boolean) (per my above comment)? I think that overload has a minor security win, while avoiding the not-beneficial complexity of virtualAssetPath.",
+      "parentUuid": "029370fe_2ce1fd8b",
+      "range": {
+        "startLine": 303,
+        "startChar": 31,
+        "endLine": 304,
+        "endChar": 94
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbcee455_665158e1",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 1
@@ -623,6 +647,30 @@
       "side": 1,
       "message": "Current behaviour is that it replaces previous registered path. I think throwing an exception here is a good idea.\n\n(Or should we consider using a builder class that construct this whole thing at once?).\n\nA similar thing that should be handled is what would happen if assets and resources are registered using the same virtual path? Current behaviour will be weird and purely arbitrary: the priority will be given to assets over resources, if a similar file exists in both of them.",
       "parentUuid": "dbcee455_665158e1",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 88
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff77cb3c_f208dd82",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "Builder pattern makes sense if it\u0027s legitimate to call hostAssets() multiple times; if we don\u0027t support that, I vote against it.\n\nI think it\u0027s _possible_ an app may try to call host{Assets,Resources}() multiple times with conflicting params (they might reasonably think this will host multiple end-points). I think it\u0027s somewhat likely an app would call hostAssets and hostResources with the same virtualPath (they think they can host assets and resources at the same spot, so they don\u0027t need to reserve 2 separate subpaths on their domain).\n\nI think throwing an exception is a good enough fix, and it wouldn\u0027t need to block this CL. If you think this handles all the concerns (and you agree it\u0027s a good idea), feel free to file a follow-up buganizer ticket so you don\u0027t need to block this CL.",
+      "parentUuid": "17bfa418_ba85f37c",
       "range": {
         "startLine": 308,
         "startChar": 4,
@@ -881,6 +929,30 @@
       "side": 1,
       "message": "the user haven\u0027t called any of the methods that register URLs for assets, (want to host just resources but not assets)",
       "parentUuid": "02a39765_21901e95",
+      "range": {
+        "startLine": 447,
+        "startChar": 56,
+        "endLine": 447,
+        "endChar": 94
+      },
+      "revId": "aa0271f9c41c2fb02ff53a7eb9854f6f1d1d85ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3329727_d149bdde",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-22T06:01:40Z",
+      "side": 1,
+      "message": "Oh, I see. So there\u0027s always a URL associated with the given AssetLoader, but that AssetLoader may not be registered to either assets *or* resources.\n\nI agree this is correct as-is. This will hurt Kotlin usability a bit (they must always null-check, even if this can\u0027t return null for their specific use-case). I guess that\u0027s fine.",
+      "parentUuid": "5eea5910_795f9069",
       "range": {
         "startLine": 447,
         "startChar": 56,
