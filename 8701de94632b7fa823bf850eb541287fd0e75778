@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56e02123_3d408665",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Adding annotations to fix all these.",
+      "parentUuid": "3097c519_2d24e46a",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 25
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d4e2ea0_2a127b6a",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-20T20:29:51Z",
       "side": 1,
       "message": "Avoid \"Support\" or \"Util\" in class names. What functionality does this interface provide?",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199d133a_dbc0cd9a",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Going to refactor this to use AndroidXBiometric, this is meant to be a callback definition. The word support was accidental and will remove from the class name.",
+      "parentUuid": "0d4e2ea0_2a127b6a",
       "range": {
         "startLine": 110,
         "startChar": 28,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "42ae62a9_a66b4a99",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Will remove if not using after I refactor.",
+      "parentUuid": "2805d307_736f1bbc",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5873d72b_bbd52164",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-02-20T20:29:51Z",
       "side": 1,
       "message": "Class should be final, non-instantiable. Make the constructor private.",
+      "range": {
+        "startLine": 141,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1d150e_ab00c05c",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5873d72b_bbd52164",
       "range": {
         "startLine": 141,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "011de568_ea1cf1d5",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Placeholder for now. Will remove until implementation is added.",
+      "parentUuid": "b4e0816f_f1044e7d",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 0
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "df108573_43fde9df",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2019-02-20T20:29:51Z",
       "side": 1,
       "message": "SecureContextCompat or, really, anything other than ContextCompat.\n\nIf this library were being written in Kotlin, this would be a great candidate for extension methods.",
+      "range": {
+        "startLine": 166,
+        "startChar": 15,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ba234f0_7c35c4a0",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "df108573_43fde9df",
       "range": {
         "startLine": 166,
         "startChar": 15,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "57f00f1e_3acd9fd1",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "I will change the name to SecureContextCompat. The reason I didn\u0027t use a static class is to not have to pass the SecureConfig around on each method use. This class will be expanding to have SharedPreferences as well.\n\nHappy to make the chance if you think its better overall.",
+      "parentUuid": "d1a12aa1_f4882972",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 56
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f35f842e_2e85f07e",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2019-02-20T20:29:51Z",
       "side": 1,
       "message": "Is there a platform equivalent to this class? If not, don\u0027t use Compat suffix (go/androidx-api-guidelines).",
+      "range": {
+        "startLine": 183,
+        "startChar": 15,
+        "endLine": 183,
+        "endChar": 27
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f6146e_766ac314",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "You\u0027re right, will change it to SecureCipher.",
+      "parentUuid": "f35f842e_2e85f07e",
       "range": {
         "startLine": 183,
         "startChar": 15,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "df31ed11_b2486d4c",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "I will change each to listeners.\n\nFor the Executor mentioned in the docs, Is this required? I need to ensure that the Biometric Prompt runs while the encryption code waits, currently I use a SingleThreadExecutor to force this to work properly, some Executors, including the Main one block improperly for this use case.",
+      "parentUuid": "031c304b_7711882c",
+      "range": {
+        "startLine": 209,
+        "startChar": 23,
+        "endLine": 209,
+        "endChar": 41
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "831a6c03_b881c1a4",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -220,6 +436,30 @@
       "writtenOn": "2019-02-20T20:29:51Z",
       "side": 1,
       "message": "Why does this interface exist?",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 3
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e507939c_417e32a2",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "I believe it\u0027s unused and will remove it.",
+      "parentUuid": "831a6c03_b881c1a4",
       "range": {
         "startLine": 216,
         "startChar": 0,
@@ -246,6 +486,24 @@
       "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed18ab7_91d11ba9",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T00:00:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4c5e649_c7d4aec2",
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
