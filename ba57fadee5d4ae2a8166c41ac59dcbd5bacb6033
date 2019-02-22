@@ -596,6 +596,81 @@
       "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5947d27e_4df1ac2a",
+        "filename": "paging/common/src/main/java/androidx/paging/PositionalDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T21:58:04Z",
+      "side": 1,
+      "message": ".",
+      "parentUuid": "3fc58153_12b71056",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7259d366_45804323",
+        "filename": "paging/common/src/main/java/androidx/paging/WrapperDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T21:58:04Z",
+      "side": 1,
+      "message": "can we use more explicit type arguments here? like TKey etc ? (they still need to start with T if they are word)",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807e007f_82cbde85",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T21:58:04Z",
+      "side": 1,
+      "message": "why mutable LiveData? i think you just want to extend LiveData (set\u0026post are protected)",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ae260d_c39a9d63",
+        "filename": "paging/runtime/src/main/java/androidx/paging/LivePagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T21:58:04Z",
+      "side": 1,
+      "message": "not sure why it is a skip instead of a future cancel ?",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 23
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
