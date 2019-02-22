@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,12 +66,9 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
             setUpTest(orientation).apply {
                 val pageCount = max(startPage, targetPage) + 1
                 setAdapterSync(viewAdapterProvider(stringSequence(pageCount)))
-                if (viewPager.currentItem != startPage) {
-                    val latch = viewPager.addWaitForIdleLatch()
-                    runOnUiThread { viewPager.setCurrentItem(startPage, false) }
-                    latch.await(2, SECONDS)
-                }
-                val listener = viewPager.addNewRecordingListener()
+                viewPager.setCurrentItemSync(startPage, false, 2, SECONDS)
+
+                val callback = viewPager.addNewRecordingCallback()
                 val movingForward = targetPage > startPage
 
                 // when we are close enough
@@ -89,12 +86,13 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                 viewPager.addWaitForIdleLatch().await(2, SECONDS)
 
                 // and check the result
-                listener.apply {
+                callback.apply {
                     assertThat(
-                        "Unexpected sequence of state changes (0=IDLE, 1=DRAGGING, 2=SETTLING)",
+                        "Unexpected sequence of state changes (0=IDLE, 1=DRAGGING, 2=SETTLING)" +
+                                dumpEvents(),
                         stateEvents.map { it.state },
                         equalTo(
-                            if (expectIdleAfterDrag(pageCount)) {
+                            if (expectIdleAfterDrag()) {
                                 listOf(
                                     SCROLL_STATE_SETTLING,
                                     SCROLL_STATE_DRAGGING,
@@ -138,8 +136,8 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
         }
     }
 
-    private fun ViewPager2.addNewRecordingListener(): RecordingListener {
-        return RecordingListener().also { addOnPageChangeListener(it) }
+    private fun ViewPager2.addNewRecordingCallback(): RecordingCallback {
+        return RecordingCallback().also { registerOnPageChangeCallback(it) }
     }
 
     private sealed class Event {
@@ -152,7 +150,7 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
         data class OnPageScrollStateChangedEvent(val state: Int) : Event()
     }
 
-    private class RecordingListener : ViewPager2.OnPageChangeListener {
+    private class RecordingCallback : ViewPager2.OnPageChangeCallback() {
         private val events = mutableListOf<Event>()
 
         val stateEvents get() = events.mapNotNull { it as? OnPageScrollStateChangedEvent }
@@ -180,14 +178,16 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
             }
         }
 
-        fun expectIdleAfterDrag(pageCount: Int): Boolean {
+        fun expectIdleAfterDrag(): Boolean {
             val lastScrollEvent = events
                 .dropWhile { it != OnPageScrollStateChangedEvent(SCROLL_STATE_DRAGGING) }.drop(1)
                 .takeWhile { it is OnPageScrolledEvent }
                 .lastOrNull() as? OnPageScrolledEvent
-            return lastScrollEvent?.let {
-                (it.position == 0 || it.position == pageCount - 1) && it.positionOffsetPixels == 0
-            } ?: false
+            return lastScrollEvent?.let { it.positionOffsetPixels == 0 } ?: false
+        }
+
+        fun dumpEvents(): String {
+            return events.joinToString("\n- ", "\n- ")
         }
     }
 }

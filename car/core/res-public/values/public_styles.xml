@@ -39,6 +39,8 @@
     <public type="style" name="TextAppearance.Car.Body3.Dark" />
     <public type="style" name="TextAppearance.Car.Body3.Medium.Dark" />
     <public type="style" name="TextAppearance.Car.Body4" />
+    <public type="style" name="TextAppearance.Car.Body4.Light" />
+    <public type="style" name="TextAppearance.Car.Body4.Dark" />
     <public type="style" name="TextAppearance.Car.SubText1" />
     <public type="style" name="TextAppearance.Car.SubText2" />
     <public type="style" name="TextAppearance.Car.SubText3" />
@@ -93,6 +95,7 @@
     <public type="style" name="Widget.Car.Dialog.Body" />
     <public type="style" name="Widget.Car.Dialog.Body.Light" />
     <public type="style" name="Widget.Car.Dialog.Body.Dark" />
+    <public type="style" name="Widget.Car.Dialog.Button" />
 
     <!-- Preference Styles -->
     <public type="style" name="CarPreference" />

@@ -47,6 +47,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -1160,6 +1161,45 @@ public class FragmentLifecycleTest {
         shutdownFragmentController(fc, viewModelStore);
     }
 
+    /**
+     * Test the availability of getTargetFragment() when the target Fragment is already
+     * attached to a FragmentManager, but the referrer Fragment is not attached.
+     */
+    @Test
+    @UiThreadTest
+    public void targetFragmentOnlyTargetAdded() {
+        ViewModelStore viewModelStore = new ViewModelStore();
+        final FragmentController fc = startupFragmentController(null, viewModelStore);
+
+        final FragmentManager fm = fc.getSupportFragmentManager();
+
+        final Fragment target = new TargetFragment();
+        // Add just the target Fragment to the FragmentManager
+        fm.beginTransaction().add(target, "target").commitNow();
+
+        final Fragment referrer = new ReferrerFragment();
+        referrer.setTargetFragment(target, 0);
+
+        assertWithMessage("Target Fragment should be accessible before being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction().add(referrer, "referrer").commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being added")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        fm.beginTransaction()
+                .remove(referrer)
+                .commitNow();
+
+        assertWithMessage("Target Fragment should be accessible after being removed")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
+
+        shutdownFragmentController(fc, viewModelStore);
+    }
 
     /**
      * Test the availability of getTargetFragment() when the target fragment is
@@ -1196,6 +1236,10 @@ public class FragmentLifecycleTest {
                 .isSameAs(target);
 
         shutdownFragmentController(fc, viewModelStore);
+
+        assertWithMessage("Target Fragment should be accessible after destruction")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
     }
 
     /**
@@ -1234,6 +1278,10 @@ public class FragmentLifecycleTest {
                 .isSameAs(target);
 
         shutdownFragmentController(fc, viewModelStore);
+
+        assertWithMessage("Target Fragment should be accessible after destruction")
+                .that(referrer.getTargetFragment())
+                .isSameAs(target);
     }
 
     /**
@@ -1269,10 +1317,9 @@ public class FragmentLifecycleTest {
         fc.dispatchStop();
         fc.dispatchDestroy();
 
-
-        assertWithMessage("Target Fragment should be null after target Fragment destruction")
+        assertWithMessage("Target Fragment should be accessible after target Fragment destruction")
                 .that(referrer.getTargetFragment())
-                .isNull();
+                .isSameAs(target);
     }
 
     /**
@@ -1847,7 +1894,7 @@ public class FragmentLifecycleTest {
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
-            mString = getArguments().getString("string", "NO VALUE");
+            mString = requireArguments().getString("string", "NO VALUE");
         }
 
         public String getString() {
@@ -2076,16 +2123,11 @@ public class FragmentLifecycleTest {
         }
     }
 
+    @ContentView(R.layout.nested_retained_inflated_fragment_parent)
     public static class RetainedInflatedParentFragment extends Fragment {
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.nested_retained_inflated_fragment_parent, container,
-                    false);
-        }
     }
 
+    @ContentView(R.layout.nested_inflated_fragment_child)
     public static class RetainedInflatedChildFragment extends Fragment {
 
         int mOnInflateCount = 0;
@@ -2101,13 +2143,6 @@ public class FragmentLifecycleTest {
                 @Nullable Bundle savedInstanceState) {
             super.onInflate(context, attrs, savedInstanceState);
             mOnInflateCount++;
-        }
-
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.nested_inflated_fragment_child, container, false);
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.FragmentActivityUtils
+import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
@@ -88,6 +89,7 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
+        waitForActivityDrawn(activityTestRule.activity)
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
@@ -114,6 +116,7 @@ open class BaseTest {
             }
             activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
             TestActivity.onCreateCallback = { }
+            waitForActivityDrawn(activity)
         }
 
         var activity: TestActivity = activityTestRule.activity
@@ -143,7 +146,7 @@ open class BaseTest {
         }
 
         fun swipe(currentPageIx: Int, nextPageIx: Int, method: SwipeMethod = SwipeMethod.ESPRESSO) {
-            val lastPageIx = viewPager.adapter.itemCount - 1
+            val lastPageIx = viewPager.adapter!!.itemCount - 1
 
             if (nextPageIx > lastPageIx) {
                 throw IllegalArgumentException("Invalid next page: beyond last page.")
@@ -230,15 +233,11 @@ open class BaseTest {
         val latch = CountDownLatch(if (waitForIdle) 2 else 1)
         var lastScrollFired = false
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (lastScrollFired && state == SCROLL_STATE_IDLE) {
                     latch.countDown()
                 }
-            }
-
-            override fun onPageSelected(position: Int) {
-                // nothing
             }
 
             override fun onPageScrolled(
@@ -281,21 +280,11 @@ open class BaseTest {
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
         val latch = CountDownLatch(1)
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-            }
-
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == SCROLL_STATE_IDLE) {
                     latch.countDown()
-                    post { removeOnPageChangeListener(this) }
+                    post { unregisterOnPageChangeCallback(this) }
                 }
             }
         })
@@ -306,7 +295,7 @@ open class BaseTest {
     fun ViewPager2.addWaitForDistanceToTarget(target: Int, distance: Float): CountDownLatch {
         val latch = CountDownLatch(1)
 
-        addOnPageChangeListener(object : ViewPager2.OnPageChangeListener {
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -314,14 +303,8 @@ open class BaseTest {
             ) {
                 if (abs(target - position - positionOffset) <= distance) {
                     latch.countDown()
-                    post { removeOnPageChangeListener(this) }
+                    post { unregisterOnPageChangeCallback(this) }
                 }
-            }
-
-            override fun onPageSelected(position: Int) {
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
             }
         })
 
@@ -488,7 +471,7 @@ val viewAdapterProviderValueId: AdapterProviderForItems = { items ->
 
 val viewAdapterProvider: AdapterProviderForItems = { items -> { ViewAdapter(items) } }
 
-fun stringSequence(pageCount: Int) = (1..pageCount).mapIndexed { ix, _ -> ix.toString() }
+fun stringSequence(pageCount: Int) = (0 until pageCount).map { it.toString() }
 
 val AdapterProviderForItems.supportsMutations: Boolean
     get() {

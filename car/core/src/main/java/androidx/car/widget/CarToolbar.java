@@ -20,16 +20,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Icon;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
@@ -54,7 +59,7 @@ import java.util.List;
  *          always provide access to other navigational destinations. If navigation button is to
  *          be used as Up Button, its {@code OnClickListener} needs to explicitly invoke
  *          {@link AppCompatActivity#onSupportNavigateUp()}
- *      <li><em>A title icon.</em> An @{@code Icon} shown before the title.
+ *      <li><em>A title icon.</em> A @{@code Drawable} shown before the title.
  *      <li><em>A title.</em> A single line primary text that ellipsizes at the end.
  *      <li><em>A subtitle.</em> A single line secondary text that ellipsizes at the end.
  *      <li><em>An overflow button.</em> A button that opens the overflow menu.
@@ -71,7 +76,7 @@ import java.util.List;
  */
 public class CarToolbar extends ViewGroup {
 
-    private static final String TAG = "Toolbar";
+    private static final String TAG = "CarToolbar";
 
     private final ImageButton mNavButtonView;
     private final int mEdgeButtonIconSize;
@@ -79,6 +84,9 @@ public class CarToolbar extends ViewGroup {
     private final ImageButton mOverflowButtonView;
     private final int mToolbarHeight;
     private final int mTextVerticalPadding;
+    private final int mActionButtonPadding;
+    private final int mActionButtonIconBound;
+    private final int mActionButtonHeight;
     private int mTitleIconSize;
     // There is no actual container for edge buttons (Navigation / Overflow). This value is used
     // to calculate a horizontal margin on both ends of the edge buttons so that they're centered.
@@ -97,6 +105,8 @@ public class CarToolbar extends ViewGroup {
     @Nullable
     private CarListDialog mOverflowDialog;
     private final List<CarMenuItem> mOverflowMenuItems = new ArrayList<>();
+    private final List<View> mActionViews = new ArrayList<>();
+
     /**
      * OnClickListener that handles the overflow dialog clicks by calling the appropriate
      * {@link CarMenuItem.OnClickListener} of the overflow {@link CarMenuItem}s.
@@ -118,7 +128,7 @@ public class CarToolbar extends ViewGroup {
     }
 
     public CarToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, /* defStyleRes= */ 0);
+        this(context, attrs, defStyleAttr, R.style.Widget_Car_CarToolbar);
     }
 
     public CarToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -127,8 +137,10 @@ public class CarToolbar extends ViewGroup {
         Resources res = context.getResources();
         mToolbarHeight = res.getDimensionPixelSize(R.dimen.car_app_bar_height);
         mEdgeButtonIconSize = res.getDimensionPixelSize(R.dimen.car_primary_icon_size);
-
-        mTextVerticalPadding = getResources().getDimensionPixelSize(R.dimen.car_padding_1);
+        mTextVerticalPadding = res.getDimensionPixelSize(R.dimen.car_padding_1);
+        mActionButtonPadding = res.getDimensionPixelSize(R.dimen.car_padding_2);
+        mActionButtonIconBound = res.getDimensionPixelSize(R.dimen.car_app_bar_action_icon_bound);
+        mActionButtonHeight = res.getDimensionPixelSize(R.dimen.car_button_height);
         LayoutInflater.from(context).inflate(R.layout.car_toolbar, this);
 
         // Ensure min touch target size for nav button.
@@ -149,15 +161,27 @@ public class CarToolbar extends ViewGroup {
             setTitle(title);
 
             setTitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_titleTextAppearance,
-                    R.style.TextAppearance_Car_Body1_Medium));
+                    R.style.TextAppearance_Car_Body1_Medium_Light));
 
-            setNavigationIcon(Icon.createWithResource(getContext(),
-                    a.getResourceId(R.styleable.CarToolbar_navigationIcon,
-                            R.drawable.ic_nav_arrow_back)));
+            setNavigationIcon(a.getResourceId(R.styleable.CarToolbar_navigationIcon,
+                    R.drawable.ic_nav_arrow_back));
+
+            int navigationIconTintResId =
+                    a.getResourceId(R.styleable.CarToolbar_navigationIconTint, -1);
+            if (navigationIconTintResId != -1) {
+                setNavigationIconTint(context.getColor(navigationIconTintResId));
+            }
 
             int titleIconResId = a.getResourceId(R.styleable.CarToolbar_titleIcon, -1);
-            setTitleIcon(titleIconResId != -1 ? Icon.createWithResource(context, titleIconResId)
+            setTitleIcon(titleIconResId != -1
+                    ? context.getDrawable(titleIconResId)
                     : null);
+
+            setTitleIconStartMargin(
+                    a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconStartMargin, 0));
+
+            setTitleIconEndMargin(
+                    a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconEndMargin, 0));
 
             setTitleIconSize(a.getDimensionPixelSize(R.styleable.CarToolbar_titleIconSize,
                     res.getDimensionPixelSize(R.dimen.car_application_icon_size)));
@@ -166,15 +190,14 @@ public class CarToolbar extends ViewGroup {
             setSubtitle(subtitle);
 
             setSubtitleTextAppearance(a.getResourceId(R.styleable.CarToolbar_subtitleTextAppearance,
-                    R.style.TextAppearance_Car_Body2));
+                    R.style.TextAppearance_Car_Body2_Light));
 
-            setOverflowIcon(Icon.createWithResource(getContext(),
-                    a.getResourceId(R.styleable.CarToolbar_overflowIcon, R.drawable.ic_more_vert)));
+            setOverflowIcon(a.getResourceId(R.styleable.CarToolbar_overflowIcon,
+                    R.drawable.ic_more_vert));
 
             mOverflowButtonView.setOnClickListener(v -> {
-                if (mOverflowDialog != null) {
-                    mOverflowDialog.show();
-                }
+                populateOverflowMenu();
+                mOverflowDialog.show();
             });
 
             mEdgeButtonContainerWidth = a.getDimensionPixelSize(
@@ -218,11 +241,15 @@ public class CarToolbar extends ViewGroup {
                     + getHorizontalMargins(mOverflowButtonView);
         }
 
+        for (View view : mActionViews) {
+            measureChild(view, widthMeasureSpec, width, childHeightMeasureSpec, 0);
+            width += view.getMeasuredWidth() + getHorizontalMargins(view);
+        }
+
         if (mTitleIconView.getVisibility() != GONE) {
             int measureSpec = MeasureSpec.makeMeasureSpec(mTitleIconSize, MeasureSpec.EXACTLY);
             mTitleIconView.measure(measureSpec, measureSpec);
-
-            width += mTitleIconView.getMeasuredWidth();
+            width += mTitleIconView.getMeasuredWidth() + getHorizontalMargins(mTitleIconView);
         }
 
         int titleLength = 0;
@@ -267,9 +294,16 @@ public class CarToolbar extends ViewGroup {
                     mOverflowButtonView.getMeasuredWidth());
         }
 
+        for (View view : mActionViews) {
+            layoutViewFromRightVerticallyCentered(view, right - layoutRight, height);
+            layoutRight += view.getMeasuredWidth();
+        }
+
         if (mTitleIconView.getVisibility() != GONE) {
+            MarginLayoutParams marginParams = (MarginLayoutParams) mTitleIconView.getLayoutParams();
+            layoutLeft += marginParams.getMarginStart();
             layoutViewFromLeftVerticallyCentered(mTitleIconView, layoutLeft, height);
-            layoutLeft += mTitleIconView.getMeasuredWidth();
+            layoutLeft += mTitleIconView.getMeasuredWidth() + marginParams.getMarginEnd();
         }
 
         if (mTitleTextView.getVisibility() != GONE && mSubtitleTextView.getVisibility() != GONE) {
@@ -282,6 +316,19 @@ public class CarToolbar extends ViewGroup {
         }
     }
 
+    /**
+     * Set the icon to use for the toolbar's navigation button.
+     *
+     * <p>The navigation button appears at the start of the toolbar if present. Setting an icon
+     * will make the navigation button visible.
+     *
+     * @param iconResId The resource id of the icon to set on the navigatino button.
+     *
+     * {@link R.attr#navigationIcon}
+     */
+    public void setNavigationIcon(@DrawableRes int iconResId) {
+        setNavigationIcon(getContext().getDrawable(iconResId));
+    }
 
     /**
      * Set the icon to use for the toolbar's navigation button.
@@ -290,16 +337,40 @@ public class CarToolbar extends ViewGroup {
      * will make the navigation button visible.
      *
      * @param icon Icon to set; {@code null} will hide the icon.
-     * @attr ref R.styleable#CarToolbar_navigationIcon
+     *
+     * {@link R.attr#navigationIcon}
      */
-    public void setNavigationIcon(@Nullable Icon icon) {
+    public void setNavigationIcon(@Nullable Drawable icon) {
         if (icon == null) {
             mNavButtonView.setVisibility(GONE);
             mNavButtonView.setImageDrawable(null);
             return;
         }
         mNavButtonView.setVisibility(VISIBLE);
-        mNavButtonView.setImageDrawable(icon.loadDrawable(getContext()));
+        mNavButtonView.setImageDrawable(icon);
+    }
+
+    /**
+     * Sets the tint color for the navigation icon.
+     *
+     * @param tint Color tint to apply.
+     *
+     * {@link R.attr#navigationIconTint}
+     */
+    public void setNavigationIconTint(@ColorInt int tint) {
+        mNavButtonView.setColorFilter(tint);
+    }
+
+    /**
+     * Sets the given {@link ColorFilter} as the tint for the navigation icon. A {@code null}
+     * {@code ColorFilter} will clear any set color filters.
+     *
+     * @param colorFilter Color filter to apply for the tint.
+     *
+     * {@link R.attr#navigationIconTint}
+     */
+    public void setNavigationIconTint(@Nullable ColorFilter colorFilter) {
+        mNavButtonView.setColorFilter(colorFilter);
     }
 
     /**
@@ -309,7 +380,7 @@ public class CarToolbar extends ViewGroup {
      * at the start of the toolbar. An icon must be set for the navigation button to appear.
      *
      * @param listener Listener to set.
-     * @see #setNavigationIcon(Icon)
+     * @see #setNavigationIcon(Drawable)
      */
     public void setNavigationIconOnClickListener(@Nullable View.OnClickListener listener) {
         mNavButtonView.setOnClickListener(listener);
@@ -333,24 +404,60 @@ public class CarToolbar extends ViewGroup {
      *
      * <p>The title icon is positioned between the navigation button and the title.
      *
-     * @param icon Icon to set; {@code null} will hide the icon.
-     * @attr ref R.styleable#CarToolbar_titleIcon
+     * @param iconResId Resource id of the drawable to use as the title icon.
+     * {@link R.attr#titleIcon}
      */
-    public void setTitleIcon(@Nullable Icon icon) {
+    public void setTitleIcon(@DrawableRes int iconResId) {
+        setTitleIcon(getContext().getDrawable(iconResId));
+    }
+
+    /**
+     * Sets the title icon to use in the toolbar.
+     *
+     * <p>The title icon is positioned between the navigation button and the title.
+     *
+     * @param icon Icon to set; {@code null} will hide the icon.
+     * {@link R.attr#titleIcon}
+     */
+    public void setTitleIcon(@Nullable Drawable icon) {
         if (icon == null) {
             mTitleIconView.setVisibility(GONE);
             mTitleIconView.setImageDrawable(null);
             return;
         }
         mTitleIconView.setVisibility(VISIBLE);
-        mTitleIconView.setImageDrawable(icon.loadDrawable(getContext()));
+        mTitleIconView.setImageDrawable(icon);
+    }
+
+    /**
+     * Sets the start margin of the title icon.
+     *
+     * @param margin Start margin of the title icon in pixels.
+     * @attr ref R.styleable#CarToolbar_titleIconStartMargin
+     */
+    public void setTitleIconStartMargin(@Px int margin) {
+        MarginLayoutParams marginParams = (MarginLayoutParams) mTitleIconView.getLayoutParams();
+        marginParams.setMarginStart(margin);
+        requestLayout();
+    }
+
+    /**
+     * Sets the end margin of the title icon.
+     *
+     * @param margin End margin of the title icon in pixels.
+     * @attr ref R.styleable#CarToolbar_titleIconEndMargin
+     */
+    public void setTitleIconEndMargin(@Px int margin) {
+        MarginLayoutParams marginParams = (MarginLayoutParams) mTitleIconView.getLayoutParams();
+        marginParams.setMarginEnd(margin);
+        requestLayout();
     }
 
     /**
      * Sets a new size for the title icon.
      *
      * @param size Size of the title icon dimensions in pixels.
-     * @attr ref R.styleable#CarToolbar_titleIconSize
+     * {@link R.attr#titleIconSize}
      */
     public void setTitleIconSize(@Px int size) {
         mTitleIconSize = size;
@@ -449,55 +556,44 @@ public class CarToolbar extends ViewGroup {
     }
 
     /**
-     * Sets the icon of the overflow menu button.
-     *
-     * @param icon Icon to set.
-     * @attr ref R.styleable#CarToolbar_overflowIcon
-     */
-    public void setOverflowIcon(@NonNull Icon icon) {
-        mOverflowButtonView.setImageDrawable(icon.loadDrawable(getContext()));
-    }
-
-    /**
      * Sets the list of {@link CarMenuItem}s that will be displayed on this {@code CarToolbar}.
      *
      * @param items List of {@link CarMenuItem}s to display, {@code null} to remove all items.
      */
     public void setMenuItems(@Nullable List<CarMenuItem> items) {
         mMenuItems = items;
-        setUpOverflowMenu();
-        requestLayout();
-    }
 
-    /**
-     * Creates an overflow menu if there are any overflow menu items.
-     */
-    private void setUpOverflowMenu() {
-        if (mMenuItems == null || mMenuItems.isEmpty()) {
-            mOverflowDialog = null;
-            mOverflowButtonView.setVisibility(GONE);
-            return;
-        }
-
-        List<CharSequence> overflowItemTitles = new ArrayList<>();
         mOverflowMenuItems.clear();
-        for (CarMenuItem item : mMenuItems) {
-            if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.NEVER) {
-                overflowItemTitles.add(item.getTitle());
-                mOverflowMenuItems.add(item);
+
+        // Remove all old action views from the Layout then the list.
+        mActionViews.forEach(this::removeView);
+        mActionViews.clear();
+
+        List<CarMenuItem> actionItems = new ArrayList<>();
+
+        if (mMenuItems != null) {
+            for (CarMenuItem item : mMenuItems) {
+                if (item.getDisplayBehavior() == CarMenuItem.DisplayBehavior.ALWAYS) {
+                    actionItems.add(item);
+                } else {
+                    // Treat If-Room items as overflow until that behavior is supported.
+                    mOverflowMenuItems.add(item);
+                }
             }
         }
 
-        if (mOverflowMenuItems.isEmpty()) {
-            mOverflowButtonView.setVisibility(GONE);
-            return;
-        }
-        mOverflowButtonView.setVisibility(VISIBLE);
+        // Show the overflow menu button if there are any overflow menu items.
+        mOverflowButtonView.setVisibility(mOverflowMenuItems.isEmpty() ? GONE : VISIBLE);
 
-        mOverflowDialog = new CarListDialog.Builder(getContext())
-                .setItems(overflowItemTitles.toArray(new CharSequence[mOverflowMenuItems.size()]),
-                        mOverflowDialogClickListener)
-                .create();
+        for (CarMenuItem item : actionItems) {
+            View action = item.isCheckable() ? createCheckableAction(item) : createAction(item);
+            MarginLayoutParams marginLayoutParams =
+                    new MarginLayoutParams(LayoutParams.WRAP_CONTENT, mActionButtonHeight);
+            action.setLayoutParams(marginLayoutParams);
+            mActionViews.add(action);
+            addView(action);
+        }
+        requestLayout();
     }
 
     /**
@@ -507,6 +603,146 @@ public class CarToolbar extends ViewGroup {
     @Nullable
     public List<CarMenuItem> getMenuItems() {
         return mMenuItems;
+    }
+
+    /**
+     * Creates an Action {@link Button} item configured for the given {@link CarMenuItem}.
+     *
+     * @param item The {@link CarMenuItem} used to create the {@link Button}.
+     * @return A configured {@link Button} view.
+     */
+    private Button createAction(CarMenuItem item) {
+        Context context = getContext();
+        Button button = new Button(context, null, 0, item.getStyleResId());
+        CharSequence title = item.getTitle();
+        button.setText(title);
+
+        if (item.getIcon() != null) {
+            Drawable icon = item.getIcon().loadDrawable(context);
+            icon.setBounds(0, 0, mActionButtonIconBound, mActionButtonIconBound);
+            // Set the Drawable on the left side.
+            button.setCompoundDrawables(icon, null, null, null);
+            if (!TextUtils.isEmpty(title)) {
+                // Add padding after the icon only if there's a title.
+                button.setCompoundDrawablePadding(mActionButtonPadding);
+            }
+        }
+
+        button.setEnabled(item.isEnabled());
+        button.setOnClickListener(v -> {
+            CarMenuItem.OnClickListener onClickListener = item.getOnClickListener();
+            if (onClickListener != null) {
+                onClickListener.onClick(item);
+            }
+        });
+        return button;
+    }
+
+    /**
+     * Creates an Action {@link Switch} item configured for the given {@link CarMenuItem}.
+     *
+     * @param item The checkable {@link CarMenuItem} used to create the {@link Switch}.
+     * @return A configured {@link Switch} view.
+     */
+    private View createCheckableAction(CarMenuItem item) {
+        Context context = getContext();
+        ViewGroup checkableAction = (ViewGroup) LayoutInflater.from(context)
+                .inflate(R.layout.checkable_action_item, this, false);
+        Switch switchWidget = checkableAction.findViewById(R.id.switch_widget);
+        switchWidget.setEnabled(item.isEnabled());
+        switchWidget.setChecked(item.isChecked());
+
+        if (item.isEnabled()) {
+            checkableAction.setOnClickListener(v -> {
+                switchWidget.toggle();
+                item.setChecked(switchWidget.isChecked());
+                CarMenuItem.OnClickListener itemOnClickListener = item.getOnClickListener();
+                if (itemOnClickListener != null) {
+                    itemOnClickListener.onClick(item);
+                }
+            });
+        } else {
+            checkableAction.setClickable(false);
+        }
+
+        CharSequence title = item.getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            Button button = new Button(context, null, 0, item.getStyleResId());
+            // The button is added programmatically so that we can apply a custom style.
+            button.setText(title);
+
+            checkableAction.addView(button);
+        }
+        return checkableAction;
+    }
+
+    /**
+     * Adds the overflow items to the overflow menu dialog.
+     */
+    private void populateOverflowMenu() {
+        if (mOverflowMenuItems == null || mOverflowMenuItems.isEmpty()) {
+            mOverflowDialog = null;
+            return;
+        }
+
+        CharSequence[] titles = mOverflowMenuItems.stream()
+            .map(CarMenuItem::getTitle)
+            .toArray(CharSequence[]::new);
+
+        mOverflowDialog = new CarListDialog.Builder(getContext())
+            .setItems(titles, mOverflowDialogClickListener)
+            .create();
+    }
+
+    /**
+     * Sets the icon of the overflow menu button.
+     *
+     * @param iconResId Resource id of the drawable to use for the overflow menu button.
+     *
+     * @attr ref R.styleable#CarToolbar_overflowIcon
+     */
+    public void setOverflowIcon(@DrawableRes int iconResId) {
+        mOverflowButtonView.setImageDrawable(getContext().getDrawable(iconResId));
+    }
+
+    /**
+     * Sets the icon of the overflow menu button.
+     *
+     * @param icon Icon to set.
+     *
+     * @attr ref R.styleable#CarToolbar_overflowIcon
+     */
+    public void setOverflowIcon(@NonNull Drawable icon) {
+        if (icon == null) {
+            throw new IllegalArgumentException("Provided overflow icon cannot be null.");
+        }
+        mOverflowButtonView.setImageDrawable(icon);
+    }
+
+    /**
+     * Returns {@code true} if the overflow menu is showing.
+     */
+    public boolean isOverflowMenuShowing() {
+        return mOverflowDialog != null && mOverflowDialog.isShowing();
+    }
+
+    /**
+     * Shows the overflow menu.
+     */
+    public void showOverflowMenu() {
+        populateOverflowMenu();
+        if (mOverflowDialog != null) {
+            mOverflowDialog.show();
+        }
+    }
+
+    /**
+     * Hides the overflow menu.
+     */
+    public void hideOverflowMenu() {
+        if (mOverflowDialog != null) {
+            mOverflowDialog.dismiss();
+        }
     }
 
     @Override
@@ -591,8 +827,8 @@ public class CarToolbar extends ViewGroup {
      */
     private void measureChild(View child, int parentWidthSpec, int widthUsed,
             int parentHeightSpec, int heightUsed) {
-        // Calculate the padding and margin of current dimension, including
-        // the width/height used by other child views.
+        // Calculate the padding and margin of current dimension,
+        // including the width/height used by other child views.
         MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
         int childWidthSpec = getChildMeasureSpec(parentWidthSpec,
                 getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin + widthUsed,

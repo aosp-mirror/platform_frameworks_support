@@ -16,6 +16,7 @@
 package androidx.fragment.app;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,12 +24,12 @@ import static org.junit.Assert.fail;
 
 import android.app.Instrumentation;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 
+import androidx.annotation.ContentView;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
@@ -268,6 +269,22 @@ public class FragmentTest {
         }
     }
 
+    @SmallTest
+    @Test
+    public void requireArguments() {
+        Fragment fragment = new Fragment();
+        try {
+            fragment.requireArguments();
+            fail();
+        } catch (IllegalStateException expected) {
+        }
+        Bundle arguments = new Bundle();
+        fragment.setArguments(arguments);
+        assertWithMessage("requireArguments should return the arguments")
+                .that(fragment.requireArguments())
+                .isSameAs(arguments);
+    }
+
     public static class OrderFragment extends Fragment {
         private static AtomicInteger sOrder = new AtomicInteger();
         public int createOrder = -1;
@@ -281,27 +298,15 @@ public class FragmentTest {
         }
     }
 
+    @ContentView(R.layout.fragment_a)
     public static class FragmentA extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_a, container, false);
-        }
     }
 
+    @ContentView(R.layout.fragment_b)
     public static class FragmentB extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_b, container, false);
-        }
     }
 
+    @ContentView(R.layout.fragment_c)
     public static class FragmentC extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_c, container, false);
-        }
     }
 }

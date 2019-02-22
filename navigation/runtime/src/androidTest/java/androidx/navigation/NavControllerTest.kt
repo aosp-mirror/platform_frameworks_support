@@ -25,6 +25,7 @@ import androidx.navigation.testing.test
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -33,6 +34,12 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
@@ -53,6 +60,24 @@ class NavControllerTest {
         val navController = createNavController()
         navController.setGraph(R.navigation.nav_start_destination)
         assertEquals(R.id.start_test, navController.currentDestination?.id ?: 0)
+    }
+
+    @Test
+    fun testSetGraphTwice() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_start_destination)
+        val navigator = navController.navigatorProvider[TestNavigator::class]
+        assertThat(navController.currentDestination?.id)
+            .isEqualTo(R.id.start_test)
+        assertThat(navigator.backStack.size)
+            .isEqualTo(1)
+
+        // Now set a new graph, overriding the first
+        navController.setGraph(R.navigation.nav_nested_start_destination)
+        assertThat(navController.currentDestination?.id)
+            .isEqualTo(R.id.nested_test)
+        assertThat(navigator.backStack.size)
+            .isEqualTo(1)
     }
 
     @Test
@@ -549,9 +574,66 @@ class NavControllerTest {
         intent!!.writeToParcel(p, 0)
     }
 
+    @Test
+    fun testHandleDeepLinkValid() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val onDestinationChangedListener =
+            mock(NavController.OnDestinationChangedListener::class.java)
+        navController.addOnDestinationChangedListener(onDestinationChangedListener)
+        verify(onDestinationChangedListener).onDestinationChanged(
+            eq(navController),
+            eq(navController.findDestination(R.id.start_test)),
+            any())
+
+        val taskStackBuilder = navController.createDeepLink()
+            .setDestination(R.id.second_test)
+            .createTaskStackBuilder()
+
+        val intent = taskStackBuilder.editIntentAt(0)
+        assertNotNull(intent)
+        navController.handleDeepLink(intent)
+
+        // Verify that we navigated down to the deep link
+        verify(onDestinationChangedListener, times(2)).onDestinationChanged(
+            eq(navController),
+            eq(navController.findDestination(R.id.start_test)),
+            any())
+        verify(onDestinationChangedListener).onDestinationChanged(
+            eq(navController),
+            eq(navController.findDestination(R.id.second_test)),
+            any())
+        verifyNoMoreInteractions(onDestinationChangedListener)
+    }
+
+    @Test
+    fun testHandleDeepLinkInvalid() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val onDestinationChangedListener =
+            mock(NavController.OnDestinationChangedListener::class.java)
+        navController.addOnDestinationChangedListener(onDestinationChangedListener)
+        verify(onDestinationChangedListener).onDestinationChanged(
+            eq(navController),
+            eq(navController.findDestination(R.id.start_test)),
+            any())
+
+        val taskStackBuilder = navController.createDeepLink()
+            .setGraph(R.navigation.nav_nested_start_destination)
+            .setDestination(R.id.nested_second_test)
+            .createTaskStackBuilder()
+
+        val intent = taskStackBuilder.editIntentAt(0)
+        assertNotNull(intent)
+        assertWithMessage("handleDeepLink should return false when passed an invalid deep link")
+            .that(navController.handleDeepLink(intent))
+            .isFalse()
+
+        verifyNoMoreInteractions(onDestinationChangedListener)
+    }
+
     private fun createNavController(): NavController {
-        val navController =
-            NavController(ApplicationProvider.getApplicationContext() as android.content.Context)
+        val navController = NavController(ApplicationProvider.getApplicationContext())
         val navigator = TestNavigator()
         navController.navigatorProvider.addNavigator(navigator)
         return navController

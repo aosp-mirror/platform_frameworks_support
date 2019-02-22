@@ -56,7 +56,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.UiThread;
 import androidx.collection.ArrayMap;
@@ -720,7 +719,7 @@ public class ViewCompat {
      * On API 25 and below, it is a no-op</p>
      *
      * @param autofillHints The autofill hints to set. If the array is emtpy, {@code null} is set.
-     * @attr ref android.R.styleable#View_autofillHints
+     * {@link android.R.attr#autofillHints}
      */
     public static void setAutofillHints(@NonNull View v, @Nullable String... autofillHints) {
         if (Build.VERSION.SDK_INT >= 26) {
@@ -740,7 +739,7 @@ public class ViewCompat {
      * @return {@link View#IMPORTANT_FOR_AUTOFILL_AUTO} by default, or value passed to
      * {@link #setImportantForAutofill(View, int)}.
      *
-     * @attr ref android.R.styleable#View_importantForAutofill
+     * {@link android.R.attr#importantForAutofill}
      */
     @SuppressLint("InlinedApi")
     public static @AutofillImportance int getImportantForAutofill(@NonNull View v) {
@@ -785,7 +784,7 @@ public class ViewCompat {
      * {@link View#IMPORTANT_FOR_AUTOFILL_YES_EXCLUDE_DESCENDANTS},
      * or {@link View#IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS}.
      *
-     * @attr ref android.R.styleable#View_importantForAutofill
+     * {@link android.R.attr#importantForAutofill}
      */
     public static void setImportantForAutofill(@NonNull View v, @AutofillImportance int mode) {
         if (Build.VERSION.SDK_INT >= 26) {
@@ -1265,10 +1264,8 @@ public class ViewCompat {
             @NonNull AccessibilityActionCompat action) {
         if (Build.VERSION.SDK_INT >= 21) {
             getOrCreateAccessibilityDelegateCompat(view);
-            List<AccessibilityActionCompat> actions = getActionList(view);
-
-            actions.remove(action);
-            actions.add(action);
+            removeActionWithId(action.getId(), view);
+            getActionList(view).add(action);
             notifyViewAccessibilityStateChangedIfNeeded(
                     view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
         }
@@ -1283,15 +1280,19 @@ public class ViewCompat {
      */
     public static void removeAccessibilityAction(@NonNull View view, int actionId) {
         if (Build.VERSION.SDK_INT >= 21) {
-            List<AccessibilityActionCompat> actions = getActionList(view);
-            for (int i = 0; i < actions.size(); i++) {
-                if (actions.get(i).getId() == actionId) {
-                    actions.remove(i);
-                    break;
-                }
-            }
+            removeActionWithId(actionId, view);
             notifyViewAccessibilityStateChangedIfNeeded(
                     view, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
+        }
+    }
+
+    private static void removeActionWithId(int actionId, View view) {
+        List<AccessibilityActionCompat> actions = getActionList(view);
+        for (int i = 0; i < actions.size(); i++) {
+            if (actions.get(i).getId() == actionId) {
+                actions.remove(i);
+                break;
+            }
         }
     }
 
@@ -3659,7 +3660,7 @@ public class ViewCompat {
      * @see #removeOnUnhandledKeyEventListener
      */
     public static void addOnUnhandledKeyEventListener(@NonNull View v,
-            @NonNull OnUnhandledKeyEventListenerCompat listener) {
+            final @NonNull OnUnhandledKeyEventListenerCompat listener) {
         if (Build.VERSION.SDK_INT >= 28) {
             Map<OnUnhandledKeyEventListenerCompat, View.OnUnhandledKeyEventListener>
                     viewListeners = (Map<OnUnhandledKeyEventListenerCompat,
@@ -3669,8 +3670,14 @@ public class ViewCompat {
                 viewListeners = new ArrayMap<>();
                 v.setTag(R.id.tag_unhandled_key_listeners, viewListeners);
             }
-            View.OnUnhandledKeyEventListener fwListener =
-                    new OnUnhandledKeyEventListenerWrapper(listener);
+
+            View.OnUnhandledKeyEventListener fwListener = new View.OnUnhandledKeyEventListener() {
+                @Override
+                public boolean onUnhandledKeyEvent(View v, KeyEvent event) {
+                    return listener.onUnhandledKeyEvent(v, event);
+                }
+            };
+
             viewListeners.put(listener, fwListener);
             v.addOnUnhandledKeyEventListener(fwListener);
             return;
@@ -3738,19 +3745,6 @@ public class ViewCompat {
          * @return {@code true} if the listener has consumed the event, {@code false} otherwise.
          */
         boolean onUnhandledKeyEvent(View v, KeyEvent event);
-    }
-
-    @RequiresApi(28)
-    private static class OnUnhandledKeyEventListenerWrapper
-            implements View.OnUnhandledKeyEventListener {
-        private OnUnhandledKeyEventListenerCompat mCompatListener;
-        OnUnhandledKeyEventListenerWrapper(OnUnhandledKeyEventListenerCompat listener) {
-            mCompatListener = listener;
-        }
-        @Override
-        public boolean onUnhandledKeyEvent(View v, KeyEvent event) {
-            return mCompatListener.onUnhandledKeyEvent(v, event);
-        }
     }
 
     @UiThread

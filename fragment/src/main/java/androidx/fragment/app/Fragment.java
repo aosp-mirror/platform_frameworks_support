@@ -47,6 +47,7 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.ContentView;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,8 +56,8 @@ import androidx.annotation.StringRes;
 import androidx.core.app.SharedElementCallback;
 import androidx.core.util.DebugUtils;
 import androidx.core.view.LayoutInflaterCompat;
+import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
@@ -248,6 +249,12 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of Fragment.
+     */
     @Override
     @NonNull
     public Lifecycle getLifecycle() {
@@ -281,6 +288,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * to receive a callback for when the Fragment's view lifecycle is available.
      * <p>
      * This should only be called on the main thread.
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of Fragment.
      *
      * @return A {@link LifecycleOwner} that represents the {@link #getView() Fragment's View}
      * lifecycle.
@@ -302,6 +312,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * <p>
      * This will be set to the new {@link LifecycleOwner} after {@link #onCreateView} returns a
      * non-null View and will set to null after {@link #onDestroyView()}.
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of Fragment.
      *
      * @return A LiveData that changes in sync with {@link #getViewLifecycleOwner()}.
      */
@@ -312,6 +325,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     /**
      * Returns the {@link ViewModelStore} associated with this Fragment
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of Fragment.
      *
      * @return a {@code ViewModelStore}
      * @throws IllegalStateException if called before the Fragment is attached i.e., before
@@ -415,10 +431,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     private void initLifecycle() {
         mLifecycleRegistry = new LifecycleRegistry(this);
         if (Build.VERSION.SDK_INT >= 19) {
-            mLifecycleRegistry.addObserver(new LifecycleEventObserver() {
+            mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
                 @Override
-                public void onStateChanged(@NonNull LifecycleOwner source,
-                        @NonNull Lifecycle.Event event) {
+                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         if (mView != null) {
                             mView.cancelPendingInputEvents();
@@ -585,6 +600,21 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Return the arguments supplied when the fragment was instantiated.
+     *
+     * @throws IllegalStateException if no arguments were supplied to the Fragment.
+     * @see #getArguments()
+     */
+    @NonNull
+    public final Bundle requireArguments() {
+        Bundle arguments = getArguments();
+        if (arguments == null) {
+            throw new IllegalStateException("Fragment " + this + " does not have any arguments.");
+        }
+        return arguments;
+    }
+
+    /**
      * Returns true if this fragment is added and its state has already been saved
      * by its host. Any operations that would change saved state should not be performed
      * if this method returns true, and some operations such as {@link #setArguments(Bundle)}
@@ -649,7 +679,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (fragment == null) {
             mTargetWho = null;
             mTarget = null;
-        } else if (fragment.mFragmentManager != null) {
+        } else if (mFragmentManager != null && fragment.mFragmentManager != null) {
             // Just save the reference to the Fragment
             mTargetWho = fragment.mWho;
         } else {
@@ -1579,9 +1609,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     /**
      * Called to have the fragment instantiate its user interface view.
-     * This is optional, and non-graphical fragments can return null (which
-     * is the default implementation).  This will be called between
+     * This is optional, and non-graphical fragments can return null. This will be called between
      * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
+     * <p>The default implementation looks for an {@link ContentView} annotation, inflating
+     * and returning that layout. If the annotation is not found or has an invalid layout resource
+     * id, this method returns null.
+     *
+     * <p>It is recommended to <strong>only</strong> inflate the layout in this method and move
+     * logic that operates on the returned View to {@link #onViewCreated(View, Bundle)}.
      *
      * <p>If you return a View from here, you will later be called in
      * {@link #onDestroyView} when the view is being released.
@@ -1599,6 +1634,13 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        ContentView annotation = getClass().getAnnotation(ContentView.class);
+        if (annotation != null) {
+            int layoutId = annotation.value();
+            if (layoutId != 0) {
+                return inflater.inflate(layoutId, container, false);
+            }
+        }
         return null;
     }
 

@@ -170,9 +170,9 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * Constructor used when layout manager is set in XML by RecyclerView attribute
      * "layoutManager". Defaults to vertical orientation.
      *
-     * @attr ref androidx.recyclerview.R.styleable#RecyclerView_android_orientation
-     * @attr ref androidx.recyclerview.R.styleable#RecyclerView_reverseLayout
-     * @attr ref androidx.recyclerview.R.styleable#RecyclerView_stackFromEnd
+     * {@link androidx.recyclerview.R.attr#android_orientation}
+     * {@link androidx.recyclerview.R.attr#reverseLayout}
+     * {@link androidx.recyclerview.R.attr#stackFromEnd}
      */
     public LinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
@@ -1323,8 +1323,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         if (getChildCount() == 0 || dy == 0) {
             return 0;
         }
-        mLayoutState.mRecycle = true;
         ensureLayoutState();
+        mLayoutState.mRecycle = true;
         final int layoutDirection = dy > 0 ? LayoutState.LAYOUT_END : LayoutState.LAYOUT_START;
         final int absDy = Math.abs(dy);
         updateLayoutState(layoutDirection, absDy, true, state);
@@ -1709,7 +1709,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param completelyVisible Whether child should be completely visible or not
      * @return The first visible child closest to start of the layout from user's perspective.
      */
-    private View findFirstVisibleChildClosestToStart(boolean completelyVisible,
+    View findFirstVisibleChildClosestToStart(boolean completelyVisible,
             boolean acceptPartiallyVisible) {
         if (mShouldReverseLayout) {
             return findOneVisibleChild(getChildCount() - 1, -1, completelyVisible,
@@ -1727,7 +1727,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param completelyVisible Whether child should be completely visible or not
      * @return The first visible child closest to end of the layout from user's perspective.
      */
-    private View findFirstVisibleChildClosestToEnd(boolean completelyVisible,
+    View findFirstVisibleChildClosestToEnd(boolean completelyVisible,
             boolean acceptPartiallyVisible) {
         if (mShouldReverseLayout) {
             return findOneVisibleChild(0, getChildCount(), completelyVisible,

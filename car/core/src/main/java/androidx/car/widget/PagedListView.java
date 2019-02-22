@@ -501,7 +501,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param offset The top offset to add in pixels.
      *
-     * @attr ref R.styleable#PagedListView_listContentTopOffset
+     * {@link R.attr#listContentTopOffset}
      */
     public void setListContentTopOffset(@Px int offset) {
         TopOffsetDecoration existing = null;
@@ -548,7 +548,7 @@ public class PagedListView extends FrameLayout {
      *
      * @param offset The bottom offset to add in pixels
      *
-     * @attr ref R.styleable#PagedListView_listContentBottomOffset
+     * {@link R.attr#listContentBottomOffset}
      */
     public void setListContentBottomOffset(@Px int offset) {
         BottomOffsetDecoration existing = null;
@@ -1250,7 +1250,17 @@ public class PagedListView extends FrameLayout {
         mScrollBarView.setShowAlphaJump(supportsAlphaJump);
     }
 
-    void showAlphaJump() {
+    /**
+     * Returns {@code true} if the Alpha Jump Overlay is shown.
+     */
+    public boolean isAlphaJumpShown() {
+        return mAlphaJumpView != null && mAlphaJumpView.getVisibility() == VISIBLE;
+    }
+
+    /**
+     * Show the Alpha Jump Overlay.
+     */
+    public void showAlphaJump() {
         if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
             mAlphaJumpView = new AlphaJumpOverlayView(getContext());
             mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
@@ -1261,7 +1271,7 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
-     * Hide the Alpha Jump Overview by toggling its visibility
+     * Hide the Alpha Jump Overlay.
      */
     public void hideAlphaJump() {
         if (mAlphaJumpView != null) {
