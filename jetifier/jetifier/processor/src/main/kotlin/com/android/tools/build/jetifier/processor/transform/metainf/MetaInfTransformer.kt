@@ -18,6 +18,7 @@ package com.android.tools.build.jetifier.processor.transform.metainf
 
 import com.android.tools.build.jetifier.core.pom.PomDependency
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
+import com.android.tools.build.jetifier.processor.FileMapping
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
 import java.nio.file.Paths
@@ -50,6 +51,8 @@ class MetaInfTransformer internal constructor(
             file.relativePath.toString().contains(META_INF_DIR, ignoreCase = true) &&
             file.fileName.endsWith(VERSION_FILE_SUFFIX, ignoreCase = true)
     }
+    // Unable to transform single meta-info file yet.
+    override fun canTransform(fileMapping: FileMapping) = false
 
     override fun runTransform(file: ArchiveFile) {
         if (FILES_TO_IGNORE.contains(file.fileName)) {
@@ -79,5 +82,8 @@ class MetaInfTransformer internal constructor(
         val newFileName = result.groupId + "_" + result.artifactId + VERSION_FILE_SUFFIX
         val newPath = Paths.get(dirPath, newFileName)
         file.updateRelativePath(newPath)
+    }
+    override fun runTransform(file: FileMapping) {
+        throw IllegalAccessError("Single file meta-inf transformation is not yet supported!")
     }
 }
