@@ -24,6 +24,7 @@ import com.android.tools.build.jetifier.processor.archive.Archive
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
 import com.android.tools.build.jetifier.processor.archive.ArchiveItemVisitor
 import com.android.tools.build.jetifier.processor.archive.FileSearchResult
+import com.android.tools.build.jetifier.processor.com.android.tools.build.jetifier.processor.transform.java.JavaTransformer
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
 import com.android.tools.build.jetifier.processor.transform.bytecode.ByteCodeTransformer
@@ -57,7 +58,8 @@ class Processor private constructor(
             // Register your transformers here
             ByteCodeTransformer(context),
             XmlResourcesTransformer(context),
-            ProGuardTransformer(context)
+            ProGuardTransformer(context),
+            JavaTransformer(context)
         )
 
         /**
@@ -232,7 +234,20 @@ class Processor private constructor(
      * @return list of files (existing and generated) that should replace the given [input] files.
      */
     fun transform(input: Set<FileMapping>, copyUnmodifiedLibsAlso: Boolean = true): Set<File> {
-        val inputLibraries = input.map { it.from }.toSet()
+        val nonSingleFiles = HashSet<FileMapping>(input)
+        for (fileMapping in nonSingleFiles) {
+            val transformer = transformers.firstOrNull { it.canTransform(fileMapping) }
+            if (transformer != null) {
+                transformer.runTransform(fileMapping)
+                nonSingleFiles.remove(fileMapping)
+            }
+        }
+        if (nonSingleFiles.isEmpty()) {
+            // all files were single files, we're done.
+            return HashSet<File>()
+        }
+
+        val inputLibraries = nonSingleFiles.map { it.from }.toSet()
         if (inputLibraries.size != input.size) {
             throw IllegalArgumentException("Input files are duplicated!")
         }
