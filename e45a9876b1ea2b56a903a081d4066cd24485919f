@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88903016_372caee6",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "I didn\u0027t see that in the Guidelines and other Builders here are also not final, should I still change this one to final?",
+      "parentUuid": "a879c821_ac528140",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97925708_845057e8",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a1810a1b_e1c49941",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97925708_845057e8",
+      "range": {
+        "startLine": 30,
+        "startChar": 41,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2c26266_c080b14e",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-22T04:34:59Z",
       "side": 1,
       "message": "Is fallback to direct not the default already? If so, why?",
+      "range": {
+        "startLine": 39,
+        "startChar": 54,
+        "endLine": 39,
+        "endChar": 87
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15b4e68_189f4531",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "It\u0027s not. If setProxyOverride is called, only rules explicitly added will be used.",
+      "parentUuid": "c2c26266_c080b14e",
       "range": {
         "startLine": 39,
         "startChar": 54,
@@ -91,6 +163,30 @@
       "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877aca42_05a00b58",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce84a14e_ead40f21",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "65ed43a1_ad9d2eaf",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "Renamed to bypassLocalNetworkRequests(). We didn\u0027t want to use \"disable\" because that might give the wrong idea.",
+      "parentUuid": "dc022193_85199c55",
+      "range": {
+        "startLine": 194,
+        "startChar": 23,
+        "endLine": 194,
+        "endChar": 53
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14ff7e90_e6e32aed",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -211,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "c9bdb64e_8f235286",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "Rephrased. I\u0027ll ask eroman@ to look at these 2 javadocs to make sure my phrasing is correct.",
+      "parentUuid": "a7b9a7a7_2a3b92cc",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdc80236_40482173",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -231,6 +375,30 @@
       "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166d99df_74d43a8a",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344364
+      },
+      "writtenOn": "2019-02-22T14:20:23Z",
+      "side": 1,
+      "message": "Renamed to proxyLoopbackRequests()",
+      "parentUuid": "bdc80236_40482173",
+      "range": {
+        "startLine": 203,
+        "startChar": 23,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
