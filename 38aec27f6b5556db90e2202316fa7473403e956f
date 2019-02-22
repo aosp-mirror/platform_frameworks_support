@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdd9f37b_9e0dc19a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-22T20:07:00Z",
+      "side": 1,
+      "message": "It looks to me like this would have been failing (which is what I\u0027m told we want to happen) until isFinalApi changed in https://android-review.googlesource.com/c/platform/frameworks/support/+/764686/4/buildSrc/src/main/kotlin/androidx/build/Version.kt for the purpose of permitting a version number of \"2.0.1-beta01\" in https://android-review.googlesource.com/c/platform/frameworks/support/+/764686/3/buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt#79\n\nI think that means we could use more of a comment above isFinalApi describing its intent. Is that right? If so, does anyone have any ideas about a good comment to add to it? Also, do we want to revert the definition of isFinalApi too?",
+      "revId": "38aec27f6b5556db90e2202316fa7473403e956f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
