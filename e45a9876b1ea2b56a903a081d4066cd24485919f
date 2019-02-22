@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a879c821_ac528140",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "This should be final, right?",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97925708_845057e8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "just spell it out, \"for example\"",
+      "range": {
+        "startLine": 30,
+        "startChar": 41,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c26266_c080b14e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "Is fallback to direct not the default already? If so, why?",
+      "range": {
+        "startLine": 39,
+        "startChar": 54,
+        "endLine": 39,
+        "endChar": 87
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce84a14e_ead40f21",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "naming for these 3 seems inconsitent, should they be called MATCH_HTTP, MATCH_HTTPS, MATCH_ALL_SCHEMES?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c83ab82_6c182824",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "Why are we using strings and not something like java.net.URL?",
+      "range": {
+        "startLine": 151,
+        "startChar": 52,
+        "endLine": 151,
+        "endChar": 60
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc022193_85199c55",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "do* seems like a method pattern we don\u0027t use in platform.\n\nCould something like disableProxyForLocalNetworkRequests() work?",
+      "range": {
+        "startLine": 194,
+        "startChar": 23,
+        "endLine": 194,
+        "endChar": 53
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ff7e90_e6e32aed",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "Explain this more, it is mot clear to me what calling this does, loopback request is not even mentioned in the javadoc.",
+      "range": {
+        "startLine": 199,
+        "startChar": 11,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc80236_40482173",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "Similar as above, do not use \"do*\" in the method name, go with something like enableProxyForLoopbackRequests() or setProxyLoopbackRequestsEnabled()",
+      "range": {
+        "startLine": 203,
+        "startChar": 23,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "107a723a_452f30a2",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-22T04:34:59Z",
+      "side": 1,
+      "message": "I assume this should be private to library right? Scope.LIBRARY",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 53
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
