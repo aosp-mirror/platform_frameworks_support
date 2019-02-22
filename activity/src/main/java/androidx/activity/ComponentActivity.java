@@ -25,10 +25,11 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.ReportFragment;
@@ -78,10 +79,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
                     + "initialization.");
         }
         if (Build.VERSION.SDK_INT >= 19) {
-            getLifecycle().addObserver(new LifecycleEventObserver() {
+            getLifecycle().addObserver(new GenericLifecycleObserver() {
                 @Override
-                public void onStateChanged(@NonNull LifecycleOwner source,
-                        @NonNull Lifecycle.Event event) {
+                public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
                     if (event == Lifecycle.Event.ON_STOP) {
                         Window window = getWindow();
                         final View decor = window != null ? window.peekDecorView() : null;
@@ -92,10 +92,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
                 }
             });
         }
-        getLifecycle().addObserver(new LifecycleEventObserver() {
+        getLifecycle().addObserver(new GenericLifecycleObserver() {
             @Override
-            public void onStateChanged(@NonNull LifecycleOwner source,
-                    @NonNull Lifecycle.Event event) {
+            public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
                 if (event == Lifecycle.Event.ON_DESTROY) {
                     if (!isChangingConfigurations()) {
                         getViewModelStore().clear();
@@ -109,12 +108,25 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * If your ComponentActivity is annotated with {@link ContentView}, this will
+     * call {@link #setContentView(int)} for you.
+     */
     @Override
     @SuppressWarnings("RestrictedApi")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedStateRegistry.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
+        ContentView annotation = getClass().getAnnotation(ContentView.class);
+        if (annotation != null) {
+            int layoutId = annotation.value();
+            if (layoutId != 0) {
+                setContentView(layoutId);
+            }
+        }
     }
 
     @SuppressLint("RestrictedApi")
@@ -207,6 +219,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     /**
      * Returns the {@link ViewModelStore} associated with this activity
+     * <p>
+     * Overriding this method is no longer supported and this method will be made
+     * <code>final</code> in a future version of ComponentActivity.
      *
      * @return a {@code ViewModelStore}
      * @throws IllegalStateException if called before the Activity is attached to the Application
@@ -348,7 +363,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     private class LifecycleAwareOnBackPressedCallback implements
             OnBackPressedCallback,
-            LifecycleEventObserver {
+            GenericLifecycleObserver {
         private final Lifecycle mLifecycle;
         private final OnBackPressedCallback mOnBackPressedCallback;
 
@@ -376,8 +391,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         }
 
         @Override
-        public void onStateChanged(@NonNull LifecycleOwner source,
-                @NonNull Lifecycle.Event event) {
+        public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
             if (event == Lifecycle.Event.ON_DESTROY) {
                 synchronized (mOnBackPressedCallbacks) {
                     mLifecycle.removeObserver(this);

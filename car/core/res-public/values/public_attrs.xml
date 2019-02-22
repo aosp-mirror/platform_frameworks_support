@@ -93,8 +93,11 @@
 
     <!-- CarToolbar attributes -->
     <public type="attr" name="navigationIcon" />
+    <public type="attr" name="navigationIconTint" />
     <public type="attr" name="navigationIconContainerWidth" />
     <public type="attr" name="titleIcon"/>
+    <public type="attr" name="titleIconStartMargin"/>
+    <public type="attr" name="titleIconEndMargin"/>
     <public type="attr" name="titleIconSize"/>
     <public type="attr" name="title" />
     <public type="attr" name="titleTextAppearance" />

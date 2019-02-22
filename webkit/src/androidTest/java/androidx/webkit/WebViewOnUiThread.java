@@ -33,9 +33,9 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 
 /**
  * A wrapper around a WebView instance, to run View methods on the UI thread. This also includes
@@ -180,10 +180,27 @@ class WebViewOnUiThread {
 
     public static void setWebViewRendererClient(
             final WebView webView, final WebViewRendererClient webViewRendererClient) {
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
                 WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
+            }
+        });
+    }
+
+    public void setWebViewRendererClient(
+            final Executor executor, final WebViewRendererClient webViewRendererClient) {
+        setWebViewRendererClient(mWebView, executor, webViewRendererClient);
+    }
+
+    public static void setWebViewRendererClient(
+            final WebView webView,
+            final Executor executor,
+            final WebViewRendererClient webViewRendererClient) {
+        WebkitUtils.onMainThreadSync(new Runnable() {
+            @Override
+            public void run() {
+                WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
             }
         });
     }
@@ -433,8 +450,8 @@ class WebViewOnUiThread {
             call.run();
         } else {
             WebkitUtils.onMainThreadSync(call);
-            waitForLoadCompletion();
         }
+        waitForLoadCompletion();
     }
 
     /**
@@ -494,7 +511,7 @@ class WebViewOnUiThread {
 
         // Force loop to exit when processing this. Loop.quit() doesn't
         // work because this is the main Loop.
-        mWebView.getHandler().post(new Runnable() {
+        WebkitUtils.onMainThread(new Runnable() {
             @Override
             public void run() {
                 throw new ExitLoopException(); // exit loop!

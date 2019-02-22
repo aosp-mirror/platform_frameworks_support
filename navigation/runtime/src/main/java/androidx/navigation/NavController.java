@@ -391,7 +391,7 @@ public class NavController {
 
     /**
      * Sets the {@link NavGraph navigation graph} to the specified resource.
-     * Any current navigation graph data will be replaced.
+     * Any current navigation graph data (including back stack) will be replaced.
      *
      * <p>The inflated graph can be retrieved via {@link #getGraph()}.</p>
      *
@@ -408,7 +408,7 @@ public class NavController {
 
     /**
      * Sets the {@link NavGraph navigation graph} to the specified resource.
-     * Any current navigation graph data will be replaced.
+     * Any current navigation graph data (including back stack) will be replaced.
      *
      * <p>The inflated graph can be retrieved via {@link #getGraph()}.</p>
      *
@@ -421,13 +421,12 @@ public class NavController {
      */
     @CallSuper
     public void setGraph(@NavigationRes int graphResId, @Nullable Bundle startDestinationArgs) {
-        mGraph = getNavInflater().inflate(graphResId);
-        onGraphCreated(startDestinationArgs);
+        setGraph(getNavInflater().inflate(graphResId), startDestinationArgs);
     }
 
     /**
      * Sets the {@link NavGraph navigation graph} to the specified graph.
-     * Any current navigation graph data will be replaced.
+     * Any current navigation graph data (including back stack) will be replaced.
      *
      * <p>The graph can be retrieved later via {@link #getGraph()}.</p>
      *
@@ -442,7 +441,7 @@ public class NavController {
 
     /**
      * Sets the {@link NavGraph navigation graph} to the specified graph.
-     * Any current navigation graph data will be replaced.
+     * Any current navigation graph data (including back stack) will be replaced.
      *
      * <p>The graph can be retrieved later via {@link #getGraph()}.</p>
      *
@@ -452,6 +451,10 @@ public class NavController {
      */
     @CallSuper
     public void setGraph(@NonNull NavGraph graph, @Nullable Bundle startDestinationArgs) {
+        if (mGraph != null) {
+            // Pop everything from the old graph off the back stack
+            popBackStackInternal(mGraph.getId(), true);
+        }
         mGraph = graph;
         onGraphCreated(startDestinationArgs);
     }
@@ -529,30 +532,17 @@ public class NavController {
             Pair<NavDestination, Bundle> matchingDeepLink = mGraph.matchDeepLink(intent.getData());
             if (matchingDeepLink != null) {
                 deepLink = matchingDeepLink.first.buildDeepLinkIds();
-                for (String argumentName: matchingDeepLink.second.keySet()) {
-                    NavArgument argument = matchingDeepLink.first.getArguments().get(argumentName);
-                    if (argument != null) {
-                        NavType type = argument.getType();
-                        try {
-                            type.parseAndPut(bundle,
-                                    argumentName,
-                                    matchingDeepLink.second.getString(argumentName));
-                        } catch (IllegalArgumentException e) {
-                            Log.i(TAG, "Deep link parameter "
-                                    + argumentName
-                                    + " cannot be parsed into navigation argument of type "
-                                    + argument.getType()
-                                    + ".");
-                            return false;
-                        }
-                    } else {
-                        bundle.putString(argumentName,
-                                matchingDeepLink.second.getString(argumentName));
-                    }
-                }
+                bundle.putAll(matchingDeepLink.second);
             }
         }
         if (deepLink == null || deepLink.length == 0) {
+            return false;
+        }
+        String invalidDestinationDisplayName =
+                findInvalidDestinationDisplayNameInDeepLink(deepLink);
+        if (invalidDestinationDisplayName != null) {
+            Log.i(TAG, "Could not find destination " + invalidDestinationDisplayName
+                    + " in the navigation graph, ignoring the deep link from " + intent);
             return false;
         }
         bundle.putParcelable(KEY_DEEP_LINK_INTENT, intent);
@@ -575,9 +565,7 @@ public class NavController {
         if ((flags & Intent.FLAG_ACTIVITY_NEW_TASK) != 0) {
             // Start with a cleared task starting at our root when we're on our own task
             if (!mBackStack.isEmpty()) {
-                navigate(mGraph.getStartDestination(), bundle, new NavOptions.Builder()
-                        .setPopUpTo(mGraph.getId(), true)
-                        .setEnterAnim(0).setExitAnim(0).build());
+                popBackStackInternal(mGraph.getId(), true);
             }
             int index = 0;
             while (index < deepLink.length) {
@@ -604,6 +592,11 @@ public class NavController {
             if (i != deepLink.length - 1) {
                 // We're not at the final NavDestination yet, so keep going through the chain
                 graph = (NavGraph) node;
+                // Automatically go down the navigation graph when
+                // the start destination is also a NavGraph
+                while (graph.findNode(graph.getStartDestination()) instanceof NavGraph) {
+                    graph = (NavGraph) graph.findNode(graph.getStartDestination());
+                }
             } else {
                 // Navigate to the last NavDestination, clearing any existing destinations
                 navigate(node, node.addInDefaultArgs(bundle), new NavOptions.Builder()
@@ -612,6 +605,37 @@ public class NavController {
             }
         }
         return true;
+    }
+
+    /**
+     * Looks through the deep link for invalid destinations, returning the display name of
+     * any invalid destinations in the deep link array.
+     *
+     * @param deepLink array of deep link IDs that are expected to match the graph
+     * @return The display name of the first destination not found in the graph or null if
+     * all destinations were found in the graph.
+     */
+    @Nullable
+    private String findInvalidDestinationDisplayNameInDeepLink(@NonNull int[] deepLink) {
+        NavGraph graph = mGraph;
+        for (int i = 0; i < deepLink.length; i++) {
+            int destinationId = deepLink[i];
+            NavDestination node = i == 0 ? mGraph : graph.findNode(destinationId);
+            if (node == null) {
+                return NavDestination.getDisplayName(mContext, destinationId);
+            }
+            if (i != deepLink.length - 1) {
+                // We're not at the final NavDestination yet, so keep going through the chain
+                graph = (NavGraph) node;
+                // Automatically go down the navigation graph when
+                // the start destination is also a NavGraph
+                while (graph.findNode(graph.getStartDestination()) instanceof NavGraph) {
+                    graph = (NavGraph) graph.findNode(graph.getStartDestination());
+                }
+            }
+        }
+        // We found every destination in the deepLink array, yay!
+        return null;
     }
 
     /**

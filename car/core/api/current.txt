@@ -9,6 +9,7 @@ package androidx.car.app {
     method public androidx.car.app.CarAlertDialog! create();
     method public androidx.car.app.CarAlertDialog.Builder! setBody(@StringRes int);
     method public androidx.car.app.CarAlertDialog.Builder! setBody(CharSequence!);
+    method public androidx.car.app.CarAlertDialog.Builder! setBodyMovementMethod(android.text.method.MovementMethod?);
     method public androidx.car.app.CarAlertDialog.Builder! setCancelable(boolean);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(@DrawableRes int);
     method public androidx.car.app.CarAlertDialog.Builder setHeaderIcon(android.graphics.drawable.Icon?);
@@ -92,6 +93,12 @@ package androidx.car.drawer {
 }
 
 package androidx.car.util {
+
+  public class CarUxRestrictionsHelper {
+    ctor public CarUxRestrictionsHelper(android.content.Context!, androidx.car.uxrestrictions.OnUxRestrictionsChangedListener);
+    method public void start();
+    method public void stop();
+  }
 
   public class ColumnCalculator {
     method public int getColumnCount();
@@ -259,19 +266,29 @@ package androidx.car.widget {
     method public java.util.List<androidx.car.widget.CarMenuItem>? getMenuItems();
     method public CharSequence? getSubtitle();
     method public CharSequence! getTitle();
+    method public void hideOverflowMenu();
+    method public boolean isOverflowMenuShowing();
     method public void setMenuItems(java.util.List<androidx.car.widget.CarMenuItem>?);
-    method public void setNavigationIcon(android.graphics.drawable.Icon?);
+    method public void setNavigationIcon(@DrawableRes int);
+    method public void setNavigationIcon(android.graphics.drawable.Drawable?);
     method public void setNavigationIconContainerWidth(@Px int);
     method public void setNavigationIconOnClickListener(android.view.View.OnClickListener?);
-    method public void setOverflowIcon(android.graphics.drawable.Icon);
+    method public void setNavigationIconTint(@ColorInt int);
+    method public void setNavigationIconTint(android.graphics.ColorFilter?);
+    method public void setOverflowIcon(@DrawableRes int);
+    method public void setOverflowIcon(android.graphics.drawable.Drawable);
     method public void setSubtitle(@StringRes int);
     method public void setSubtitle(CharSequence?);
     method public void setSubtitleTextAppearance(@StyleRes int);
     method public void setTitle(@StringRes int);
     method public void setTitle(CharSequence!);
-    method public void setTitleIcon(android.graphics.drawable.Icon?);
+    method public void setTitleIcon(@DrawableRes int);
+    method public void setTitleIcon(android.graphics.drawable.Drawable?);
+    method public void setTitleIconEndMargin(@Px int);
     method public void setTitleIconSize(@Px int);
+    method public void setTitleIconStartMargin(@Px int);
     method public void setTitleTextAppearance(@StyleRes int);
+    method public void showOverflowMenu();
   }
 
   public final class ColumnCardView extends androidx.cardview.widget.CardView {
@@ -357,6 +374,7 @@ package androidx.car.widget {
     method public androidx.recyclerview.widget.RecyclerView getRecyclerView();
     method public int getRowsPerPage();
     method public void hideAlphaJump();
+    method public boolean isAlphaJumpShown();
     method public boolean isAtEnd();
     method public boolean isAtStart();
     method public boolean isScrollbarThumbEnabled();
@@ -386,6 +404,7 @@ package androidx.car.widget {
     method public void setScrollBarTopMargin(int);
     method public void setScrollbarThumbEnabled(boolean);
     method public void setUpButtonIcon(android.graphics.drawable.Drawable!);
+    method public void showAlphaJump();
     method public void snapToPosition(int);
     field public static final int DEFAULT_MAX_CLICKS = 6; // 0x6
     field public static final int UNLIMITED_PAGES = -1; // 0xffffffff

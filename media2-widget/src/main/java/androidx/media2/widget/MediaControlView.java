@@ -36,7 +36,6 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -198,13 +197,11 @@ public class MediaControlView extends BaseLayout {
     int mSelectedVideoQualityIndex;
     int mSelectedSpeedIndex;
     int mMediaType;
-    // TODO: Add lock for accessing mSizeType and mUxState (b/111862062)
     int mSizeType;
     int mUxState;
     long mDuration;
     long mPlaybackActions;
     long mShowControllerIntervalMs;
-    // TODO: Add lock for accessing mCurrentSeekPosition and mNextSeekPosition (b/111862062)
     long mCurrentSeekPosition;
     long mNextSeekPosition;
     boolean mDragging;
@@ -221,7 +218,6 @@ public class MediaControlView extends BaseLayout {
     private View mTitleBar;
     private TextView mTitleView;
     private View mAdExternalLink;
-    private ImageButton mBackButton;
     private MediaRouteButton mRouteButton;
     private MediaRouteSelector mRouteSelector;
 
@@ -461,9 +457,6 @@ public class MediaControlView extends BaseLayout {
         if (mSettingsButton != null) {
             mSettingsButton.setEnabled(enabled);
         }
-        if (mBackButton != null) {
-            mBackButton.setEnabled(enabled);
-        }
         if (mRouteButton != null) {
             mRouteButton.setEnabled(enabled);
         }
@@ -530,11 +523,6 @@ public class MediaControlView extends BaseLayout {
         mTitleBar = v.findViewById(R.id.title_bar);
         mTitleView = v.findViewById(R.id.title_text);
         mAdExternalLink = v.findViewById(R.id.ad_external_link);
-        mBackButton = v.findViewById(R.id.back);
-        if (mBackButton != null) {
-            mBackButton.setOnClickListener(mBackListener);
-            mBackButton.setVisibility(View.GONE);
-        }
         mRouteButton = v.findViewById(R.id.cast);
 
         // Relating to Center View
@@ -635,12 +623,12 @@ public class MediaControlView extends BaseLayout {
 
         int titleBarTranslateY =
                 (-1) * mResources.getDimensionPixelSize(R.dimen.mcv2_title_bar_height);
-        int bottomBarHeight = mResources.getDimensionPixelSize(R.dimen.mcv2_bottom_bar_height);
-        int progressThumbHeight = mResources.getDimensionPixelSize(
+        float bottomBarHeight = mResources.getDimension(R.dimen.mcv2_bottom_bar_height);
+        float progressThumbHeight = mResources.getDimension(
                 R.dimen.mcv2_custom_progress_thumb_size);
-        int progressBarHeight = mResources.getDimensionPixelSize(
-                R.dimen.mcv2_custom_progress_max_size);
-        int bottomBarTranslateY = bottomBarHeight + progressThumbHeight / 2 - progressBarHeight / 2;
+        float progressBarHeight = mResources.getDimension(R.dimen.mcv2_custom_progress_max_size);
+        float bottomBarTranslateY = (float) Math.ceil(bottomBarHeight + progressThumbHeight / 2
+                - progressBarHeight / 2);
 
         ValueAnimator fadeOutAnimator = ValueAnimator.ofFloat(1.0f, 0.0f);
         fadeOutAnimator.setInterpolator(new LinearInterpolator());
@@ -1228,17 +1216,6 @@ public class MediaControlView extends BaseLayout {
         }
     };
 
-    private final OnClickListener mBackListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            View parent = (View) getParent();
-            if (parent != null) {
-                parent.onKeyDown(KeyEvent.KEYCODE_BACK,
-                        new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-            }
-        }
-    };
-
     private final OnClickListener mSubtitleListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -1522,12 +1499,6 @@ public class MediaControlView extends BaseLayout {
             case SIZE_TYPE_EMBEDDED:
                 // Relating to Title Bar
                 mTitleBar.setVisibility(View.VISIBLE);
-                mBackButton.setVisibility(View.GONE);
-                mTitleView.setPadding(
-                        mResources.getDimensionPixelSize(R.dimen.mcv2_embedded_icon_padding),
-                        mTitleView.getPaddingTop(),
-                        mTitleView.getPaddingRight(),
-                        mTitleView.getPaddingBottom());
 
                 // Relating to Full Screen Button
                 if (mOnFullScreenListener != null) {
@@ -1559,12 +1530,6 @@ public class MediaControlView extends BaseLayout {
             case SIZE_TYPE_FULL:
                 // Relating to Title Bar
                 mTitleBar.setVisibility(View.VISIBLE);
-                mBackButton.setVisibility(View.VISIBLE);
-                mTitleView.setPadding(
-                        0,
-                        mTitleView.getPaddingTop(),
-                        mTitleView.getPaddingRight(),
-                        mTitleView.getPaddingBottom());
 
                 // Relating to Full Screen Button
                 if (mOnFullScreenListener != null) {
@@ -1596,7 +1561,6 @@ public class MediaControlView extends BaseLayout {
             case SIZE_TYPE_MINIMAL:
                 // Relating to Title Bar
                 mTitleBar.setVisibility(View.GONE);
-                mBackButton.setVisibility(View.GONE);
 
                 // Relating to Full Screen Button
                 if (mOnFullScreenListener != null) {
@@ -1750,9 +1714,12 @@ public class MediaControlView extends BaseLayout {
         // Show window
         mNeedToHideBars = false;
         mSettingsWindow.dismiss();
-        mSettingsWindow.showAsDropDown(this, mSettingsWindowMargin,
-                mSettingsWindowMargin - height, Gravity.BOTTOM | Gravity.RIGHT);
-        mNeedToHideBars = true;
+        // Workaround for b/123271636.
+        if (height > 0) {
+            mSettingsWindow.showAsDropDown(this, mSettingsWindowMargin,
+                    mSettingsWindowMargin - height, Gravity.BOTTOM | Gravity.RIGHT);
+            mNeedToHideBars = true;
+        }
     }
 
     void dismissSettingsWindow() {

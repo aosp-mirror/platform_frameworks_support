@@ -16,10 +16,8 @@
 
 package androidx.navigation.safe.args.generator
 
-import com.squareup.javapoet.JavaFile
-
-data class GeneratorOutput(val files: List<JavaFile>, val errors: List<ErrorMessage>) {
-    val fileNames = files.map { it -> "${it.packageName}.${it.typeSpec.name}" }
+data class GeneratorOutput(val files: List<CodeFile>, val errors: List<ErrorMessage>) {
+    val fileNames = files.map { it -> it.fileName() }
 }
 
 data class ErrorMessage(val path: String, val line: Int, val column: Int, val message: String) {

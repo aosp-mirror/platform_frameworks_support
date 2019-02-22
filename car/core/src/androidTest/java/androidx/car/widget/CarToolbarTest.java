@@ -22,28 +22,39 @@ import static androidx.test.espresso.assertion.PositionAssertions.isCompletelyRi
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
+import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.car.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Description;
@@ -135,15 +146,13 @@ public class CarToolbarTest {
         // Since there is no easy way to compare drawable, here we are testing that calling the
         // relevant APIs doesn't crash.
         mActivityRule.runOnUiThread(() ->
-                mToolbar.setNavigationIcon(
-                        Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+                mToolbar.setNavigationIcon(android.R.drawable.sym_def_app_icon));
     }
 
     @Test
     public void testSetNavigationIconContainerWidth() throws Throwable {
         mActivityRule.runOnUiThread(() -> {
-            mToolbar.setNavigationIcon(
-                    Icon.createWithResource(mActivity, R.drawable.ic_nav_arrow_back));
+            mToolbar.setNavigationIcon(R.drawable.ic_nav_arrow_back);
             // Set title to verify icon space on right.
             mToolbar.setTitle("title");
         });
@@ -162,8 +171,7 @@ public class CarToolbarTest {
     public void testSetNavigationIconContainerWidth_NoContainerKeepsIconCompletelyVisible()
             throws Throwable {
         mActivityRule.runOnUiThread(() -> {
-            mToolbar.setNavigationIcon(
-                    Icon.createWithResource(mActivity, (R.drawable.ic_nav_arrow_back)));
+            mToolbar.setNavigationIcon(R.drawable.ic_nav_arrow_back);
             // Set title to verify icon space on right.
             mToolbar.setTitle("title");
         });
@@ -189,7 +197,7 @@ public class CarToolbarTest {
     @Test
     public void testSetTitleIconShowsAndHidesTitleIconView() throws Throwable {
         mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+                android.R.drawable.sym_def_app_icon));
 
         onView(withId(R.id.title_icon)).check(matches(isDisplayed()));
 
@@ -199,9 +207,45 @@ public class CarToolbarTest {
     }
 
     @Test
+    public void testTitleIconHasZeroDefaultMargins() throws Throwable {
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon));
+
+        onView(withId(R.id.title_icon)).check(matches(withHorizontalMargins(0)));
+    }
+
+    @Test
+    public void testSetTitleIconStartMargin() throws Throwable {
+        int startMargin = 100;
+        int navIconWidth = 100;
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setNavigationIconContainerWidth(navIconWidth);
+            mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon);
+            mToolbar.setTitleIconStartMargin(startMargin);
+        });
+
+        onView(withId(R.id.title_icon)).check(matches(withLeft(navIconWidth + startMargin)));
+    }
+
+    @Test
+    public void testSetTitleIconEndMargin() throws Throwable {
+        int endMargin = 100;
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon);
+            mToolbar.setTitleIconEndMargin(endMargin);
+            mToolbar.setTitle("title");
+        });
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        int iconEnd = mActivity.findViewById(R.id.title_icon).getRight();
+
+        onView(withId(R.id.title)).check(matches(withLeft(iconEnd + endMargin)));
+    }
+
+    @Test
     public void testTitleIconHasCorrectDefaultWidth() throws Throwable {
         mActivityRule.runOnUiThread(() -> mToolbar.setTitleIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon)));
+                android.R.drawable.sym_def_app_icon));
 
         onView(withId(R.id.title_icon)).check(matches(withWidth(
                 mActivity.getResources()
@@ -212,8 +256,7 @@ public class CarToolbarTest {
     public void testSetTitleIconSizeSetsCorrectSize() throws Throwable {
         int size = mActivity.getResources().getDimensionPixelSize(R.dimen.car_avatar_icon_size);
         mActivityRule.runOnUiThread(() -> {
-            mToolbar.setTitleIcon(Icon.createWithResource(mActivity,
-                    android.R.drawable.sym_def_app_icon));
+            mToolbar.setTitleIcon(android.R.drawable.sym_def_app_icon);
             mToolbar.setTitleIconSize(size);
         });
 
@@ -250,11 +293,150 @@ public class CarToolbarTest {
     }
 
     @Test
+    public void testActionItemDisplayedOnToolbar() throws Throwable {
+        String actionItemText = "checkable_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(withText(actionItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testActionItemWithIconDisplaysIcon() throws Throwable {
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setIcon(Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon))
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(allOf(withText(actionItemText), hasLeftCompoundDrawable()))
+                .check(matches((isDisplayed())));
+    }
+
+    @Test
+    public void testSwitchActionItemDisplaysSwitchWidget() throws Throwable {
+        String actionItemText = "checkable_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setCheckable(true)
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(allOf(instanceOf(Switch.class), hasSibling(withText(actionItemText))))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testSwitchActionItemSetCheckable() throws Throwable {
+        String actionItemText = "checkable_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setCheckable(true)
+                .setChecked(true) // Check the item
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        onView(allOf(instanceOf(Switch.class), hasSibling(withText(actionItemText))))
+                .check(matches(isChecked()));
+    }
+
+    @Test
+    public void testActionItemSetEnabled_False() throws Throwable {
+        boolean[] clicked = new boolean[] {false};
+
+        String actionItemText = "checkable_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setTitle(actionItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setCheckable(true)
+                .setEnabled(false)
+                .setOnClickListener(item -> clicked[0] = item.isChecked())
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        // 1. Check that the Switch is disabled.
+        onView(allOf(instanceOf(Switch.class), hasSibling(withText(actionItemText))))
+                .check(matches(not(isEnabled())));
+
+        // 2. Check that the OnClickListener is not called.
+        //    Since the Switch is toggled programmatically.
+        onView(withText(actionItemText)).perform(click());
+        assertFalse(clicked[0]);
+    }
+
+    @Test
+    public void testActionItemClickInvokesItemOnClickListener() throws Throwable {
+        boolean[] clicked = new boolean[] {false};
+
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setTitle(actionItemText)
+                .setOnClickListener(item -> clicked[0] = true)
+                .build();
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        // Click action item.
+        onView(withText(actionItemText)).perform(click());
+
+        assertTrue(clicked[0]);
+    }
+
+    @Test
+    public void testCheckableActionItemToggleInvokesItemOnClickListener() throws Throwable {
+        boolean[] clicked = new boolean[] {false};
+
+        String actionItemText = "checkable_item_text";
+        CarMenuItem actionItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setTitle(actionItemText)
+                .setCheckable(true)
+                .setOnClickListener(item -> clicked[0] = item.isChecked())
+                .build();
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(actionItem)));
+
+        // Toggle the Switch ON.
+        onView(withText(actionItemText)).perform(click());
+
+        assertTrue(clicked[0]);
+
+        // Toggle the switch OFF.
+        onView(withText(actionItemText)).perform(click());
+
+        assertFalse(clicked[0]);
+    }
+
+    @Test
     public void testOverflowButtonShownIfOverflowItems() throws Throwable {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .build();
         mActivityRule.runOnUiThread(() ->
                 mToolbar.setMenuItems(Collections.singletonList(overflowItem)));
@@ -266,8 +448,7 @@ public class CarToolbarTest {
     public void testOverflowButtonHiddenIfNoOverflowItems() throws Throwable {
         CarMenuItem actionItem = new CarMenuItem
                 .Builder()
-                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action menu item
-                .setStyle(1) // Style is required for now until b/120920382
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
                 .build();
 
         mActivityRule.runOnUiThread(() ->
@@ -282,7 +463,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .build();
         mActivityRule.runOnUiThread(() ->
@@ -294,28 +474,80 @@ public class CarToolbarTest {
     }
 
     @Test
-    public void testOverflowMenuDoesNotDisplayAlwaysItem() throws Throwable {
+    public void testOverflowMenuDoesNotDisplayActionItem() throws Throwable {
         String overflowItemText = "overflow_item_text";
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .build();
 
-        String alwaysItemText = "always_item_text";
-        CarMenuItem alwaysItem = new CarMenuItem
+        String actionItemText = "action_item_text";
+        CarMenuItem actionItem = new CarMenuItem
                 .Builder()
-                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
-                .setTitle(alwaysItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
+                .setTitle(actionItemText)
                 .build();
         mActivityRule.runOnUiThread(() ->
-                mToolbar.setMenuItems(Arrays.asList(overflowItem, alwaysItem)));
+                mToolbar.setMenuItems(Arrays.asList(overflowItem, actionItem)));
         // Open overflow menu.
         onView(withId(R.id.overflow_menu)).perform(click());
 
-        onView(withText(alwaysItemText)).inRoot(isDialog()).check(doesNotExist());
+        onView(withText(actionItemText)).inRoot(isDialog()).check(doesNotExist());
+    }
+
+    @Test
+    public void testIsOverflowMenuShowing() throws Throwable {
+        CarMenuItem overflowItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(overflowItem)));
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        assertFalse(mToolbar.isOverflowMenuShowing());
+
+        // Open overflow menu.
+        onView(withId(R.id.overflow_menu)).perform(click());
+
+        assertTrue(mToolbar.isOverflowMenuShowing());
+    }
+
+    @Test
+    public void testShowOverflowMenu() throws Throwable {
+        String overflowItemText = "overflow_item_text";
+        CarMenuItem overflowItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
+                .setTitle(overflowItemText)
+                .build();
+
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setMenuItems(Collections.singletonList(overflowItem));
+            mToolbar.showOverflowMenu();
+        });
+
+        onView(withText(overflowItemText)).inRoot(isDialog()).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testHideOverflowMenu() throws Throwable {
+        String overflowItemText = "overflow_item_text";
+        CarMenuItem overflowItem = new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
+                .setTitle(overflowItemText)
+                .build();
+
+        mActivityRule.runOnUiThread(() -> {
+            mToolbar.setMenuItems(Collections.singletonList(overflowItem));
+            mToolbar.showOverflowMenu();
+            mToolbar.hideOverflowMenu();
+        });
+
+        onView(withText(overflowItemText)).check(doesNotExist());
     }
 
     @Test
@@ -326,7 +558,6 @@ public class CarToolbarTest {
         CarMenuItem overflowItem = new CarMenuItem
                 .Builder()
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.NEVER) // Overflow menu item
-                .setStyle(1) // Style is required for now until b/120920382
                 .setTitle(overflowItemText)
                 .setOnClickListener(item -> clicked[0] = true)
                 .build();
@@ -388,6 +619,56 @@ public class CarToolbarTest {
             @Override
             public void describeTo(Description description) {
                 description.appendText("has width: " + width);
+            }
+        };
+    }
+
+    /**
+     * Returns a {@link Matcher} that matches {@link Button}s that have a compound {@link Drawable}.
+     *
+     * @return A {@link Matcher} for verification.
+     */
+    @NonNull
+    private static Matcher<View> hasLeftCompoundDrawable() {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                if (view instanceof Button) {
+                    Button button = (Button) view;
+                    // Action items have their icons on the left, so check the first index.
+                    return button.getCompoundDrawables()[0] != null;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has a left compound drawable");
+            }
+        };
+    }
+
+    /**
+     * Returns a matcher that matches {@link View}s that have the given horizontal margins.
+     *
+     * @param horizontalMargin The horizontal margin value to match to.
+     * @return A {@link Matcher} for verification.
+     */
+    @NonNull
+    public static Matcher<View> withHorizontalMargins(int horizontalMargin) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewGroup.MarginLayoutParams params =
+                        (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+                return horizontalMargin == params.leftMargin
+                        && horizontalMargin == params.rightMargin;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has horizontal margins: " + horizontalMargin);
             }
         };
     }

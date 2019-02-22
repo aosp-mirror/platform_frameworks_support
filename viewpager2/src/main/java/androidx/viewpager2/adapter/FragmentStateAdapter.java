@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ public abstract class FragmentStateAdapter extends
             new RecyclerView.AdapterDataObserver() {
                 @Override
                 public void onChanged() {
-                    // TODO: implement more efficiently
+                    // TODO(122667374): implement more efficiently
                     /** Below effectively removes all Fragments and state of no longer used items.
                      * See {@link FragmentStateAdapter#containsItem(long)} */
                     Parcelable state = FragmentStateAdapter.this.saveState();
@@ -72,34 +72,34 @@ public abstract class FragmentStateAdapter extends
 
     private final FragmentManager mFragmentManager;
 
-    public FragmentStateAdapter(FragmentManager fragmentManager) {
+    public FragmentStateAdapter(@NonNull FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
         super.setHasStableIds(true);
     }
 
     @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+    public final void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         registerAdapterDataObserver(mDataObserver);
     }
 
     @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+    public final void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         unregisterAdapterDataObserver(mDataObserver);
     }
 
     /**
-     * Return the Fragment associated with a specified position.
+     * Provide a Fragment associated with the specified position.
      */
-    public abstract Fragment getItem(int position);
+    public abstract @NonNull Fragment getItem(int position);
 
     @NonNull
     @Override
-    public FragmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public final FragmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return FragmentViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(final @NonNull FragmentViewHolder holder, int position) {
+    public final void onBindViewHolder(final @NonNull FragmentViewHolder holder, int position) {
         holder.mFragment = getFragment(position);
 
         /** Special case when {@link RecyclerView} decides to keep the {@link container}
@@ -131,21 +131,21 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
+    public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
         if (holder.mFragment.isAdded()) {
             return;
         }
         mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
-                holder.mFragment).commitNow();
+                holder.mFragment).commit(); // TODO(122669030): review transaction commit type usage
     }
 
     @Override
-    public void onViewRecycled(@NonNull FragmentViewHolder holder) {
+    public final void onViewRecycled(@NonNull FragmentViewHolder holder) {
         removeFragment(holder);
     }
 
     @Override
-    public boolean onFailedToRecycleView(@NonNull FragmentViewHolder holder) {
+    public final boolean onFailedToRecycleView(@NonNull FragmentViewHolder holder) {
         // This happens when a ViewHolder is in a transient state (e.g. during custom
         // animation). We don't have sufficient information on how to clear up what lead to
         // the transient state, so we are throwing away the ViewHolder to stay on the
@@ -188,7 +188,7 @@ public abstract class FragmentStateAdapter extends
     /**
      * Default implementation works for collections that don't add, move, remove items.
      * <p>
-     * TODO: add lint rule
+     * TODO(b/122670460): add lint rule
      * When overriding, also override {@link #containsItem(long)}.
      * <p>
      * If the item is not a part of the collection, return {@link RecyclerView#NO_ID}.
@@ -204,7 +204,7 @@ public abstract class FragmentStateAdapter extends
     /**
      * Default implementation works for collections that don't add, move, remove items.
      * <p>
-     * TODO: add lint rule
+     * TODO(b/122670460): add lint rule
      * When overriding, also override {@link #getItemId(int)}
      */
     public boolean containsItem(long itemId) {
@@ -230,7 +230,7 @@ public abstract class FragmentStateAdapter extends
             for (Long itemId : toRemove) {
                 removeFragment(mFragments.get(itemId), itemId, fragmentTransaction);
             }
-            // TODO: add a recovery step / handle in a more graceful manner
+            // TODO(b/122669030): add a recovery step / handle in a more graceful manner
             fragmentTransaction.commitNowAllowingStateLoss();
         }
 
@@ -246,7 +246,7 @@ public abstract class FragmentStateAdapter extends
             }
         }
 
-        /** TODO: use custom {@link Parcelable} instead of {@link Bundle} to save space */
+        /** TODO(b/122670461): use custom {@link Parcelable} instead of Bundle to save space */
         Bundle savedState = new Bundle(2);
         savedState.putLongArray(STATE_ARG_KEYS, keys);
         savedState.putParcelableArray(STATE_ARG_VALUES, values);

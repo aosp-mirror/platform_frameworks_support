@@ -21,10 +21,13 @@ plugins {
     id("AndroidXPlugin")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id('kotlin-android-extensions')
 }
 
 dependencies {
     api(KOTLIN_STDLIB)
     implementation(project(":viewpager2"))
-    implementation(SUPPORT_DESIGN)
+    implementation(project(":lifecycle:lifecycle-extensions"))
+    implementation(SUPPORT_DESIGN, libs.exclude_for_material)
+    implementation(project(":cardview"))
 }

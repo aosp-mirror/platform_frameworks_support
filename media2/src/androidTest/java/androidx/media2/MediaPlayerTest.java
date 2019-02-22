@@ -224,40 +224,45 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             Thread.sleep(SLEEP_TIME);
         }
 
-        // validate a few MediaMetrics.
-        PersistableBundle metrics = mPlayer.getMetrics();
-        if (metrics == null) {
-            fail("MediaPlayer.getMetrics() returned null metrics");
-        } else if (metrics.isEmpty()) {
-            fail("MediaPlayer.getMetrics() returned empty metrics");
-        } else {
+        // Validate media metrics from API 21 where PersistableBundle was added.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            PersistableBundle metrics = mPlayer.getMetrics();
+            if (metrics == null) {
+                fail("MediaPlayer.getMetrics() returned null metrics");
+            } else if (metrics.isEmpty()) {
+                fail("MediaPlayer.getMetrics() returned empty metrics");
+            } else {
 
-            int size = metrics.size();
-            Set<String> keys = metrics.keySet();
+                int size = metrics.size();
+                Set<String> keys = metrics.keySet();
 
-            if (keys == null) {
-                fail("MediaMetricsSet returned no keys");
-            } else if (keys.size() != size) {
-                fail("MediaMetricsSet.keys().size() mismatch MediaMetricsSet.size()");
-            }
+                if (keys == null) {
+                    fail("MediaMetricsSet returned no keys");
+                } else if (keys.size() != size) {
+                    fail("MediaMetricsSet.keys().size() mismatch MediaMetricsSet.size()");
+                }
 
-            // we played something; so one of these should be non-null
-            String vmime = metrics.getString(MediaPlayer2.MetricsConstants.MIME_TYPE_VIDEO, null);
-            String amime = metrics.getString(MediaPlayer2.MetricsConstants.MIME_TYPE_AUDIO, null);
-            if (vmime == null && amime == null) {
-                fail("getMetrics() returned neither video nor audio mime value");
-            }
+                // we played something; so one of these should be non-null
+                String vmime = metrics.getString(MediaPlayer2.MetricsConstants.MIME_TYPE_VIDEO,
+                        null);
+                String amime = metrics.getString(MediaPlayer2.MetricsConstants.MIME_TYPE_AUDIO,
+                        null);
+                if (vmime == null && amime == null) {
+                    fail("getMetrics() returned neither video nor audio mime value");
+                }
 
-            long duration = metrics.getLong(MediaPlayer2.MetricsConstants.DURATION, -2);
-            if (duration == -2) {
-                fail("getMetrics() didn't return a duration");
-            }
-            long playing = metrics.getLong(MediaPlayer2.MetricsConstants.PLAYING, -2);
-            if (playing == -2) {
-                fail("getMetrics() didn't return a playing time");
-            }
-            if (!keys.contains(MediaPlayer2.MetricsConstants.PLAYING)) {
-                fail("MediaMetricsSet.keys() missing: " + MediaPlayer2.MetricsConstants.PLAYING);
+                long duration = metrics.getLong(MediaPlayer2.MetricsConstants.DURATION, -2);
+                if (duration == -2) {
+                    fail("getMetrics() didn't return a duration");
+                }
+                long playing = metrics.getLong(MediaPlayer2.MetricsConstants.PLAYING, -2);
+                if (playing == -2) {
+                    fail("getMetrics() didn't return a playing time");
+                }
+                if (!keys.contains(MediaPlayer2.MetricsConstants.PLAYING)) {
+                    fail("MediaMetricsSet.keys() missing: "
+                            + MediaPlayer2.MetricsConstants.PLAYING);
+                }
             }
         }
         MediaItem item = mPlayer.getCurrentMediaItem();
@@ -265,10 +270,57 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertTrue(((FileMediaItem) item).isClosed());
     }
 
-//    Temporarily disabled for being flaky, bug b/121078676 filed.
-//    @Test
-//    @SmallTest
-//    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    @Test
+    @LargeTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    public void testPlayVideoWithUri() throws Exception {
+        if (!loadResourceWithUri(R.raw.testvideo)) {
+            fail();
+        }
+        final int width = 352;
+        final int height = 288;
+
+        mPlayer.setSurface(mActivity.getSurfaceHolder().getSurface());
+
+        final TestUtils.Monitor onVideoSizeChangedCalled = new TestUtils.Monitor();
+        final TestUtils.Monitor onVideoRenderingStartCalled = new TestUtils.Monitor();
+        MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
+            @Override
+            public void onVideoSizeChanged(MediaPlayer mp, MediaItem dsd, VideoSize size) {
+                if (size.getWidth() == 0 && size.getHeight() == 0) {
+                    // A size of 0x0 can be sent initially one time when using NuPlayer.
+                    assertFalse(onVideoSizeChangedCalled.isSignalled());
+                    return;
+                }
+                onVideoSizeChangedCalled.signal();
+                assertEquals(width, size.getWidth());
+                assertEquals(height, size.getHeight());
+            }
+
+            @Override
+            public void onError(MediaPlayer mp, MediaItem dsd, int what, int extra) {
+                fail("Media player had error " + what + " playing video");
+            }
+
+            @Override
+            public void onInfo(MediaPlayer mp, MediaItem dsd, int what, int extra) {
+                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                    onVideoRenderingStartCalled.signal();
+                }
+            }
+        };
+        mPlayer.registerPlayerCallback(mExecutor, callback);
+
+        mPlayer.prepare();
+        mPlayer.play();
+
+        onVideoSizeChangedCalled.waitForSignal();
+        onVideoRenderingStartCalled.waitForSignal();
+    }
+
+    @Test
+    @SmallTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testGetDuration() throws Exception {
         if (!loadResource(R.raw.testvideo)) {
             fail();
@@ -891,10 +943,10 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         mPlayer.reset();
     }
-//    Temporarily disabled for being flaky: b/121255910
-//    @Test
-//    @SmallTest
-//    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+
+    @Test
+    @SmallTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testSkipUnnecessarySeek() throws Exception {
         final int resid = R.raw.video_480x360_mp4_h264_1350kbps_30fps_aac_stereo_192kbps_44100hz;
         final TestDataSourceCallback source =

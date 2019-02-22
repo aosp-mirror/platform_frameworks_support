@@ -63,7 +63,7 @@ class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {
                         handleStatefulAdapterItemChange(action.position, items, this)
                     }
 
-                    notifyDatasetChangedSync()
+                    notifyDataSetChangedSync()
                     verifyViewPagerContent(items)
                 }
 
@@ -88,7 +88,7 @@ class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {
      * independent of its item value.. that would allow to verify that page state is maintained even
      * if item value changes.
      *
-     * TODO:
+     * TODO(b/122667374)
      * - Consider adding a [TextView] independent of item value and use for testing state saving.
      * - Document the nuance above.
      * - Discuss the above when finalizing the API.
@@ -110,7 +110,7 @@ class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {
 
     private fun Context.setCurrentPageContent(newContent: String) {
         runOnUiThread {
-            PageView.setPageText(PageView.findPageInActivity(activity), newContent)
+            PageView.setPageText(PageView.findPageInActivity(activity)!!, newContent)
         }
     }
 
@@ -119,14 +119,16 @@ class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {
     }
 
     private fun Context.verifyViewPagerContent(items: MutableList<String>) {
-        fun isPageContentExpected(expectedValue: String): Boolean =
-            PageView.getPageText(PageView.findPageInActivity(activity)) == expectedValue
+        fun isPageContentExpected(expectedValue: String): Boolean {
+            val page = PageView.findPageInActivity(activity) ?: return false
+            return PageView.getPageText(page) == expectedValue
+        }
 
-        (0 until viewPager.adapter.itemCount).forEach { pageIx ->
+        (0 until viewPager.adapter!!.itemCount).forEach { pageIx ->
             setCurrentItemSync(pageIx)
             val expectedValue = items[pageIx]
 
-            // TODO: revising existing listeners so users don't have to rely on polling
+            // TODO(b/122667374): revising existing listeners so users don't have to rely on polling
             PollingCheck.waitFor(5000) { isPageContentExpected(expectedValue) }
 
             assertThat(isPageContentExpected(expectedValue), equalTo(true))
@@ -134,15 +136,15 @@ class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {
         }
     }
 
-    private fun Context.notifyDatasetChangedSync() {
+    private fun Context.notifyDataSetChangedSync() {
         val latch = CountDownLatch(1)
         viewPager.viewTreeObserver.addOnGlobalLayoutListener { latch.countDown() }
 
-        runOnUiThread { viewPager.adapter.notifyDataSetChanged() }
+        runOnUiThread { viewPager.adapter!!.notifyDataSetChanged() }
         latch.await(5, TimeUnit.SECONDS)
     }
 
-    private val ViewPager2.middleItem: Int get() = adapter.itemCount / 2
+    private val ViewPager2.middleItem: Int get() = adapter!!.itemCount / 2
 
     data class TestConfig(
         val name: String,
