@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8a6ad228_ca4ab5ff",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityRunOnNextRecreateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:03:35Z",
+      "side": 1,
+      "message": "does this have any impact ? I hope this API does not depend on actually having some real saved state or not.",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 73
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a87f8751_29ed9357",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:03:35Z",
+      "side": 1,
+      "message": "why can\u0027t we gracefully handle this, as long as event is less than ON_CREATE ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b923286_210ad121",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 4
