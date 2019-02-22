@@ -17,6 +17,7 @@
 package com.android.tools.build.jetifier.processor.transform
 
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
+import com.android.tools.build.jetifier.processor.FileMapping
 
 /**
  * Interface to be implemented by any class that wants process files.
@@ -24,12 +25,22 @@ import com.android.tools.build.jetifier.processor.archive.ArchiveFile
 interface Transformer {
 
     /**
-     * Returns whether this instance can process the given file.
+     * Returns whether this instance can process the given archive file.
      */
     fun canTransform(file: ArchiveFile): Boolean
 
     /**
-     * Runs transformation of the given file.
+     * Returns whether this instance can process the given file.
+     */
+    fun canTransform(fileMapping: FileMapping): Boolean
+
+    /**
+     * Runs transformation of the given archive file.
      */
     fun runTransform(file: ArchiveFile)
+
+    /**
+     * Runs transformation of the given file.
+     */
+    fun runTransform(fileMapping: FileMapping)
 }
