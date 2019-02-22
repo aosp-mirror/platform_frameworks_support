@@ -23,6 +23,8 @@ import com.android.tools.build.jetifier.core.utils.Log
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
+import com.android.tools.build.jetifier.processor.FileMapping
+import com.android.tools.build.jetifier.processor.transform.SourceJetifier
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.nio.charset.Charset
@@ -70,6 +72,7 @@ class XmlResourcesTransformer internal constructor(private val context: Transfor
     )
 
     override fun canTransform(file: ArchiveFile) = file.isXmlFile() && !file.isPomFile()
+    override fun canTransform(fileMapping: FileMapping) = fileMapping.from.path.endsWith(".xml")
 
     override fun runTransform(file: ArchiveFile) {
         if (file.fileName == "maven-metadata.xml") {
@@ -91,6 +94,11 @@ class XmlResourcesTransformer internal constructor(private val context: Transfor
                 file.relativePath.toString().endsWith("annotations.xml")) {
             file.updateRelativePath(rewriteAnnotationsXmlPath(file.relativePath))
         }
+    }
+
+    override fun runTransform(fileMapping: FileMapping) {
+        SourceJetifier.jetifySourceFile(context.config, fileMapping.from, fileMapping.to,
+            context.isInReversedMode)
     }
 
     fun getCharset(file: ArchiveFile): Charset {

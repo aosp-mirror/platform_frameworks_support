@@ -17,6 +17,7 @@
 package com.android.tools.build.jetifier.processor.transform.bytecode
 
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
+import com.android.tools.build.jetifier.processor.FileMapping
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
 import org.objectweb.asm.ClassReader
@@ -30,6 +31,8 @@ class ByteCodeTransformer internal constructor(
 ) : Transformer {
 
     override fun canTransform(file: ArchiveFile) = file.isClassFile()
+    // Unable to transform single meta-info file yet.
+    override fun canTransform(fileMapping: FileMapping) = false
 
     override fun runTransform(file: ArchiveFile) {
         val reader = ClassReader(file.data)
@@ -45,5 +48,8 @@ class ByteCodeTransformer internal constructor(
         }
 
         file.updateRelativePath(remapper.rewritePath(file.relativePath))
+    }
+    override fun runTransform(fileMapping: FileMapping) {
+        throw IllegalAccessError("Single file bytecode transformation is not yet supported!")
     }
 }

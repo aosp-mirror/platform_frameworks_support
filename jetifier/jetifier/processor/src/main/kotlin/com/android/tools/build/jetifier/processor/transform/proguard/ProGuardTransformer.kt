@@ -16,6 +16,7 @@
 
 package com.android.tools.build.jetifier.processor.transform.proguard
 
+import com.android.tools.build.jetifier.processor.FileMapping
 import com.android.tools.build.jetifier.processor.archive.ArchiveFile
 import com.android.tools.build.jetifier.processor.transform.TransformationContext
 import com.android.tools.build.jetifier.processor.transform.Transformer
@@ -39,6 +40,8 @@ class ProGuardTransformer internal constructor(context: TransformationContext) :
     override fun canTransform(file: ArchiveFile): Boolean {
         return file.isProGuardFile()
     }
+    // Unable to transform single meta-info file yet.
+    override fun canTransform(fileMapping: FileMapping) = false
 
     override fun runTransform(file: ArchiveFile) {
         val content = StringBuilder(file.data.toString(StandardCharsets.UTF_8)).toString()
@@ -50,5 +53,8 @@ class ProGuardTransformer internal constructor(context: TransformationContext) :
 
         file.setNewData(result.toByteArray())
     }
-}
 
+    override fun runTransform(file: FileMapping) {
+        throw IllegalAccessError("Single file proguard transformation is not yet supported!")
+    }
+}
