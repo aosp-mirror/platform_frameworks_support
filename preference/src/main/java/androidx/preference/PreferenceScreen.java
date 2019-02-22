@@ -44,8 +44,6 @@ public final class PreferenceScreen extends PreferenceGroup {
     /**
      * Do NOT use this constructor, use {@link PreferenceManager#createPreferenceScreen(Context)}.
      *
-     * Used by Settings :)
-     *
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)

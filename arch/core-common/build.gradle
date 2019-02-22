@@ -38,5 +38,4 @@ supportLibrary {
     inceptionYear = "2017"
     description = "Android Arch-Common"
     url = SupportLibraryExtension.ARCHITECTURE_URL
-    trackRestrictedAPIs = false
 }

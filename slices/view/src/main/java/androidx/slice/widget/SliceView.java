@@ -297,14 +297,20 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return (mLongClickListener != null && handleTouchForLongpress(ev))
-                || super.onInterceptTouchEvent(ev);
+        boolean ret = super.onInterceptTouchEvent(ev);
+        if (mLongClickListener != null) {
+            return handleTouchForLongpress(ev);
+        }
+        return ret;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return (mLongClickListener != null && handleTouchForLongpress(ev))
-                || super.onTouchEvent(ev);
+        boolean ret = super.onTouchEvent(ev);
+        if (mLongClickListener != null) {
+            return handleTouchForLongpress(ev);
+        }
+        return ret;
     }
 
     private boolean handleTouchForLongpress(MotionEvent ev) {
@@ -317,7 +323,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 mPressing = true;
                 mInLongpress = false;
                 mHandler.postDelayed(mLongpressCheck, ViewConfiguration.getLongPressTimeout());
-                return false;
+                break;
 
             case MotionEvent.ACTION_MOVE:
                 final int deltaX = (int) ev.getRawX() - mDownX;
@@ -327,21 +333,16 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     mPressing = false;
                     mHandler.removeCallbacks(mLongpressCheck);
                 }
-                // If a long press has already happened, consume further movement.
-                return mInLongpress;
+                break;
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                boolean wasInLongpress = mInLongpress;
                 mPressing = false;
                 mInLongpress = false;
                 mHandler.removeCallbacks(mLongpressCheck);
-                // If a long press just happened, consume up event to avoid a duplicate short click.
-                return wasInLongpress;
-
-            default:
-                return false;
+                break;
         }
+        return mInLongpress;
     }
 
     private int getHeightForMode(int maxHeight) {

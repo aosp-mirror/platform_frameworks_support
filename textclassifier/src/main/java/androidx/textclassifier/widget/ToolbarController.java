@@ -168,7 +168,9 @@ public final class ToolbarController {
             final int end = spannable.getSpanEnd(highlight);
             final int min = Math.max(0, Math.min(start, end));
             final int max = Math.max(0, Math.max(start, end));
-            return textView.getText().subSequence(min, max).toString();
+            if (min >= 0) {
+                return textView.getText().subSequence(min, max).toString();
+            }
         }
         return null;
     }
@@ -314,93 +316,131 @@ public final class ToolbarController {
 
     private static void setListeners(
             TextView textView, int start, int end, FloatingToolbar toolbar) {
+        final ViewTreeObserver observer = textView.getViewTreeObserver();
+        final OnCoordinatesChangeHandler onCoordinatesChangeHandler =
+                new OnCoordinatesChangeHandler(toolbar, textView, start, end);
+        final OnWindowFocusChangeListener onWindowFocusChangeListener =
+                new OnWindowFocusChangeListener(toolbar);
+        final OnTextViewFocusChangeListener onTextViewFocusChangeListener =
+                new OnTextViewFocusChangeListener(textView, toolbar);
+        final OnTextViewDetachedListener onTextViewDetachedListener =
+                new OnTextViewDetachedListener(toolbar);
+        observer.addOnPreDrawListener(onCoordinatesChangeHandler);
+        observer.addOnWindowFocusChangeListener(onWindowFocusChangeListener);
+        observer.addOnGlobalFocusChangeListener(onTextViewFocusChangeListener);
+        observer.addOnWindowAttachListener(onTextViewDetachedListener);
+        final ActionModeCallback selectionCallback = new ActionModeCallback(
+                toolbar, textView.getCustomSelectionActionModeCallback(), false);
+        final ActionModeCallback insertionCallback = new ActionModeCallback(
+                toolbar, textView.getCustomInsertionActionModeCallback(), true);
+        textView.setCustomSelectionActionModeCallback(selectionCallback);
+        textView.setCustomInsertionActionModeCallback(insertionCallback);
         toolbar.setOnDismissListener(
                 new OnToolbarDismissListener(
                         textView,
-                        new TextViewListener(toolbar, textView, start, end),
-                        new ActionModeCallback(
-                                toolbar,
-                                textView.getCustomSelectionActionModeCallback(),
-                                /* preferMe= */ false),
-                        new ActionModeCallback(
-                                toolbar,
-                                textView.getCustomInsertionActionModeCallback(),
-                                /* preferMe= */ true)));
+                        onCoordinatesChangeHandler,
+                        onWindowFocusChangeListener,
+                        onTextViewFocusChangeListener,
+                        onTextViewDetachedListener,
+                        selectionCallback,
+                        insertionCallback));
     }
 
     /**
-     * Listens for several TextView events to reposition or dismiss the toolbar.
+     * Repositions the toolbar when the coordinates of the highlighted text changes.
+     * It does this by checking just before every draw frame if the coordinates of the highlighted
+     * text have changed. Because this callback is called on every draw frame, it only recalculates
+     * the highlights position when the toolbar is actively showing.
      */
-    private static final class TextViewListener implements
-            ViewTreeObserver.OnPreDrawListener,
-            ViewTreeObserver.OnWindowFocusChangeListener,
-            ViewTreeObserver.OnGlobalFocusChangeListener,
-            ViewTreeObserver.OnWindowAttachListener {
-
-        private static final long THROTTLE_DELAY_MS = 300;
+    private static final class OnCoordinatesChangeHandler
+            implements ViewTreeObserver.OnPreDrawListener {
 
         private final FloatingToolbar mToolbar;
         private final TextView mTextView;
         private final Rect mContentRect;
-        private final Rect mTempRect;
         private final int mStart;
         private final int mEnd;
 
-        private long mLastUpdateTimeMs = System.currentTimeMillis() - THROTTLE_DELAY_MS;
+        private int[] mLocation = new int[2];
 
-        TextViewListener(FloatingToolbar toolbar, TextView textView, int start, int end) {
+        OnCoordinatesChangeHandler(
+                FloatingToolbar toolbar, TextView textView, int start, int end) {
             mToolbar = Preconditions.checkNotNull(toolbar);
             mTextView = Preconditions.checkNotNull(textView);
+            mTextView.getRootView().getLocationOnScreen(mLocation);
             mContentRect = new Rect();
-            mTempRect = new Rect();
             mStart = start;
             mEnd = end;
         }
 
         @Override
         public boolean onPreDraw() {
-            final long now = System.currentTimeMillis();
-            if (!maybeDismissToolbar(true)
-                    && mToolbar.isShowing()
-                    && now - mLastUpdateTimeMs >= THROTTLE_DELAY_MS) {
-                updateRectCoordinates(mTempRect, mTextView, mStart, mEnd);
-                if (!mTempRect.equals(mContentRect)) {
+            if (mToolbar.isShowing()) {
+                final int[] location = new int[2];
+                mTextView.getRootView().getLocationOnScreen(location);
+                if (location[0] != mLocation[0] || location[1] != mLocation[1]) {
                     // View moved.
-                    mContentRect.set(mTempRect);
+                    updateRectCoordinates(mContentRect, mTextView, mStart, mEnd);
                     mToolbar.setContentRect(mContentRect);
                     mToolbar.updateLayout();
-                    mLastUpdateTimeMs = now;
                 }
+                mLocation = location;
             }
             return true;
+        }
+    }
+
+    private static final class OnWindowFocusChangeListener
+            implements ViewTreeObserver.OnWindowFocusChangeListener {
+
+        private final FloatingToolbar mToolbar;
+
+        OnWindowFocusChangeListener(FloatingToolbar toolbar) {
+            mToolbar = Preconditions.checkNotNull(toolbar);
         }
 
         @Override
         public void onWindowFocusChanged(boolean hasFocus) {
-            maybeDismissToolbar(hasFocus);
+            if (!hasFocus) {
+                mToolbar.dismiss();
+            }
+        }
+    }
+
+    private static final class OnTextViewFocusChangeListener
+            implements ViewTreeObserver.OnGlobalFocusChangeListener {
+
+        private final TextView mTextView;
+        private final FloatingToolbar mToolbar;
+
+        OnTextViewFocusChangeListener(TextView textView, FloatingToolbar toolbar) {
+            mTextView = Preconditions.checkNotNull(textView);
+            mToolbar = Preconditions.checkNotNull(toolbar);
         }
 
         @Override
-        public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-            maybeDismissToolbar(true);
+        public void onGlobalFocusChanged(View v, View v1) {
+            if (!mTextView.hasFocus()) {
+                mToolbar.dismiss();
+            }
+        }
+    }
+
+    private static final class OnTextViewDetachedListener
+            implements ViewTreeObserver.OnWindowAttachListener {
+
+        private final FloatingToolbar mToolbar;
+
+        OnTextViewDetachedListener(FloatingToolbar toolbar) {
+            mToolbar = Preconditions.checkNotNull(toolbar);
         }
 
         @Override
-        public void onWindowAttached() {
-            maybeDismissToolbar(true);
-        }
+        public void onWindowAttached() {}
 
         @Override
         public void onWindowDetached() {
-            maybeDismissToolbar(true);
-        }
-
-        private boolean maybeDismissToolbar(boolean assumeWindowFocus) {
-            if (assumeWindowFocus && mTextView.hasFocus() && hasValidTextView(mTextView)) {
-                return false;
-            }
-            dismissImmediately(mToolbar);
-            return true;
+            mToolbar.dismiss();
         }
     }
 
@@ -476,45 +516,38 @@ public final class ToolbarController {
     private static final class OnToolbarDismissListener implements PopupWindow.OnDismissListener {
 
         private final TextView mTextView;
-        private final ViewTreeObserver mObserver;
-        private final TextViewListener mTextViewListener;
+        private final OnCoordinatesChangeHandler mOnCoordinatesChangeHandler;
+        private final OnWindowFocusChangeListener mOnWindowFocusChangeListener;
+        private final OnTextViewFocusChangeListener mOnFocusChangeListener;
+        private final OnTextViewDetachedListener mOnTextViewDetachedListener;
         private final ActionModeCallback mSelectionCallback;
         private final ActionModeCallback mInsertionCallback;
 
         OnToolbarDismissListener(
                 TextView textView,
-                TextViewListener textViewListener,
+                OnCoordinatesChangeHandler onCoordinatesChangeHandler,
+                OnWindowFocusChangeListener onWindowFocusChangeListener,
+                OnTextViewFocusChangeListener onTextViewFocusChangeListener,
+                OnTextViewDetachedListener onTextViewDetachedListener,
                 ActionModeCallback selectionCallback,
                 ActionModeCallback insertionCallback) {
             mTextView = Preconditions.checkNotNull(textView);
-            mObserver = mTextView.getViewTreeObserver();
-            mTextViewListener = Preconditions.checkNotNull(textViewListener);
-            registerListeners();
+            mOnCoordinatesChangeHandler = Preconditions.checkNotNull(onCoordinatesChangeHandler);
+            mOnWindowFocusChangeListener = Preconditions.checkNotNull(onWindowFocusChangeListener);
+            mOnFocusChangeListener = Preconditions.checkNotNull(onTextViewFocusChangeListener);
+            mOnTextViewDetachedListener = Preconditions.checkNotNull(onTextViewDetachedListener);
             mSelectionCallback = Preconditions.checkNotNull(selectionCallback);
             mInsertionCallback = Preconditions.checkNotNull(insertionCallback);
-            setCallbacks();
         }
 
-        private void registerListeners() {
-            mObserver.addOnPreDrawListener(mTextViewListener);
-            mObserver.addOnWindowFocusChangeListener(mTextViewListener);
-            mObserver.addOnGlobalFocusChangeListener(mTextViewListener);
-            mObserver.addOnWindowAttachListener(mTextViewListener);
-        }
-
-        private void unregisterListeners() {
-            mObserver.removeOnPreDrawListener(mTextViewListener);
-            mObserver.removeOnWindowFocusChangeListener(mTextViewListener);
-            mObserver.removeOnGlobalFocusChangeListener(mTextViewListener);
-            mObserver.removeOnWindowAttachListener(mTextViewListener);
-        }
-
-        private void setCallbacks() {
-            mTextView.setCustomSelectionActionModeCallback(mSelectionCallback);
-            mTextView.setCustomInsertionActionModeCallback(mInsertionCallback);
-        }
-
-        private void clearCallbacks() {
+        @Override
+        public void onDismiss() {
+            removeHighlight(mTextView);
+            final ViewTreeObserver observer = mTextView.getViewTreeObserver();
+            observer.removeOnPreDrawListener(mOnCoordinatesChangeHandler);
+            observer.removeOnWindowFocusChangeListener(mOnWindowFocusChangeListener);
+            observer.removeOnGlobalFocusChangeListener(mOnFocusChangeListener);
+            observer.removeOnWindowAttachListener(mOnTextViewDetachedListener);
             if (mSelectionCallback == mTextView.getCustomSelectionActionModeCallback()) {
                 mTextView.setCustomSelectionActionModeCallback(
                         mSelectionCallback.mOriginalCallback);
@@ -523,13 +556,6 @@ public final class ToolbarController {
                 mTextView.setCustomInsertionActionModeCallback(
                         mInsertionCallback.mOriginalCallback);
             }
-        }
-
-        @Override
-        public void onDismiss() {
-            removeHighlight(mTextView);
-            unregisterListeners();
-            clearCallbacks();
         }
     }
 

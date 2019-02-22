@@ -25,7 +25,6 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Update
-import androidx.room.integration.kotlintestapp.vo.AnswerConverter
 import androidx.room.integration.kotlintestapp.vo.Author
 import androidx.room.integration.kotlintestapp.vo.Book
 import androidx.room.integration.kotlintestapp.vo.BookAuthor
@@ -46,7 +45,7 @@ import io.reactivex.Single
 import java.util.Date
 
 @Dao
-@TypeConverters(DateConverter::class, AnswerConverter::class)
+@TypeConverters(DateConverter::class)
 interface BooksDao {
 
     @Insert
@@ -331,12 +330,4 @@ interface BooksDao {
 
     @Query("SELECT dateOfBirth FROM author WHERE authorId = :authorId")
     suspend fun getAuthorDateOfBirths(authorId: String): Date
-
-    // see: b/123767877, suspend function with inner class as parameter issues.
-    @Query("SELECT 0 FROM book WHERE bookId = :param")
-    suspend fun getZero(param: AnswerConverter.Answer): Int
-
-    // see: b/123767877, suspend function with inner class as parameter issues.
-    @Query("SELECT 'YES' FROM book")
-    suspend fun getAnswer(): AnswerConverter.Answer
 }

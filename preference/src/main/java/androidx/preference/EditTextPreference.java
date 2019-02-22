@@ -60,7 +60,7 @@ public class EditTextPreference extends DialogPreference {
 
     public EditTextPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.editTextPreferenceStyle,
-                android.R.attr.editTextPreferenceStyle));
+                AndroidResources.ANDROID_R_EDITTEXT_PREFERENCE_STYLE));
     }
 
     public EditTextPreference(Context context) {

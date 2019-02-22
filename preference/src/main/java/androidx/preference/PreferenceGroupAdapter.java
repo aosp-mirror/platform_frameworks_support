@@ -40,8 +40,6 @@ import java.util.List;
  * An adapter that connects a {@link RecyclerView} to the {@link Preference}s contained in
  * an associated {@link PreferenceGroup}.
  *
- * Used by Settings.
- *
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)

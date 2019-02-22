@@ -16,7 +16,6 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
@@ -405,15 +404,13 @@ public abstract class PreferenceGroup extends Preference {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean isAttached() {
         return mAttachedToHierarchy;
     }
 
     /**
      * Sets the callback to be invoked when the expand button is clicked.
-     *
-     * Used by Settings.
      *
      * @param onExpandButtonClickListener The callback to be invoked
      * @see #setInitialExpandedChildrenCount(int)
@@ -427,8 +424,6 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Returns the callback to be invoked when the expand button is clicked.
-     *
-     * Used by Settings.
      *
      * @return The callback to be invoked when the expand button is clicked.
      * @hide
@@ -555,9 +550,6 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Definition for a callback to be invoked when the expand button is clicked.
-     *
-     * Used by Settings.
-     *
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
      */

@@ -509,15 +509,12 @@ public class VideoView extends SelectiveLayout {
     }
 
     /**
-     * Sets a listener to be called when a view type change is done.
-     *
-     * @see #setViewType(int)
-     *
-     * @param listener The listener to be called. A value of <code>null</code> removes any existing
-     * listener.
+     * Registers a callback to be invoked when a view type change is done.
+     * {@see #setViewType(int)}
+     * @param l The callback that will be run
      */
-    public void setOnViewTypeChangedListener(@Nullable OnViewTypeChangedListener listener) {
-        mViewTypeChangedListener = listener;
+    public void setOnViewTypeChangedListener(@Nullable OnViewTypeChangedListener l) {
+        mViewTypeChangedListener = l;
     }
 
     @Override
@@ -584,8 +581,7 @@ public class VideoView extends SelectiveLayout {
 
     @Override
     public CharSequence getAccessibilityClassName() {
-        // Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage.
-        return "androidx.media2.widget.VideoView";
+        return VideoView.class.getName();
     }
 
     @Override

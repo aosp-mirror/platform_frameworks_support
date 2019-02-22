@@ -36,7 +36,4 @@
         <item name="android:hyphenationFrequency">none</item>
         <item name="android:breakStrategy">high_quality</item>
     </style>
-
-    <style name="Base.Widget.AppCompat.ActionButton.Overflow" parent="android:Widget.Material.ActionButton.Overflow" />
-
 </resources>

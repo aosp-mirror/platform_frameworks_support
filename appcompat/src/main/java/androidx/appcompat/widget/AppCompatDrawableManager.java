@@ -50,7 +50,10 @@ public final class AppCompatDrawableManager {
 
     private static AppCompatDrawableManager INSTANCE;
 
-    public static synchronized void preload() {
+    /**
+     * Returns the singleton instance of this class.
+     */
+    public static synchronized AppCompatDrawableManager get() {
         if (INSTANCE == null) {
             INSTANCE = new AppCompatDrawableManager();
             INSTANCE.mResourceManager = ResourceManagerInternal.get();
@@ -387,15 +390,6 @@ public final class AppCompatDrawableManager {
                     return mode;
                 }
             });
-        }
-    }
-
-    /**
-     * Returns the singleton instance of this class.
-     */
-    public static synchronized AppCompatDrawableManager get() {
-        if (INSTANCE == null) {
-            preload();
         }
         return INSTANCE;
     }
