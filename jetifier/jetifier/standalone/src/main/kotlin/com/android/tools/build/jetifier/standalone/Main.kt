@@ -16,6 +16,7 @@
 
 package com.android.tools.build.jetifier.standalone
 
+import com.android.tools.build.jetifier.core.config.Config
 import com.android.tools.build.jetifier.core.config.ConfigParser
 import com.android.tools.build.jetifier.core.utils.Log
 import com.android.tools.build.jetifier.processor.FileMapping
@@ -39,7 +40,7 @@ class Main {
         val OPTION_INPUT = createOption(
             argName = "i",
             argNameLong = "input",
-            desc = "Input library path (jar, aar, zip)",
+            desc = "Input library path (jar, aar, zip), or source file (java, xml)",
             isRequired = true
         )
         val OPTION_OUTPUT = createOption(
@@ -53,6 +54,13 @@ class Main {
             argNameLong = "config",
             desc = "Input config path (otherwise default is used)",
             isRequired = false
+        )
+        val OPTION_SOURCE = createOption(
+                argName = "src",
+                argNameLong = "source",
+                desc = "Input is a source file",
+                hasArgs = false,
+                isRequired = false
         )
         val OPTION_LOG_LEVEL = createOption(
             argName = "l",
@@ -119,17 +127,13 @@ class Main {
 
         Log.setLevel(cmd.getOptionValue(OPTION_LOG_LEVEL.opt))
 
-        val inputLibrary = File(cmd.getOptionValue(OPTION_INPUT.opt))
+        val input = File(cmd.getOptionValue(OPTION_INPUT.opt))
         val output = cmd.getOptionValue(OPTION_OUTPUT.opt)
         val rebuildTopOfTree = cmd.hasOption(OPTION_REBUILD_TOP_OF_TREE.opt)
-
-        val fileMappings = mutableSetOf<FileMapping>()
-        if (rebuildTopOfTree) {
-            val tempFile = createTempFile(suffix = "zip")
-            fileMappings.add(FileMapping(inputLibrary, tempFile))
-        } else {
-            fileMappings.add(FileMapping(inputLibrary, File(output)))
-        }
+        val isReversed = cmd.hasOption(OPTION_REVERSED.opt)
+        val isStrict = cmd.hasOption(OPTION_STRICT.opt)
+        val isSource = cmd.hasOption(OPTION_SOURCE.opt)
+        val shouldStripSignatures = cmd.hasOption(OPTION_STRIP_SIGNATURES.opt)
 
         val config = if (cmd.hasOption(OPTION_CONFIG.opt)) {
             val configPath = Paths.get(cmd.getOptionValue(OPTION_CONFIG.opt))
@@ -144,9 +148,18 @@ class Main {
             return
         }
 
-        val isReversed = cmd.hasOption(OPTION_REVERSED.opt)
-        val isStrict = cmd.hasOption(OPTION_STRICT.opt)
-        val shouldStripSignatures = cmd.hasOption(OPTION_STRIP_SIGNATURES.opt)
+        if (isSource) {
+            jetifySource(config, input, File(output), isReversed)
+            return
+        }
+
+        val fileMappings = mutableSetOf<FileMapping>()
+        if (rebuildTopOfTree) {
+            val tempFile = createTempFile(suffix = "zip")
+            fileMappings.add(FileMapping(input, tempFile))
+        } else {
+            fileMappings.add(FileMapping(input, File(output)))
+        }
 
         val processor = Processor.createProcessor3(
             config = config,
@@ -161,6 +174,33 @@ class Main {
             TopOfTreeBuilder().rebuildFrom(inputZip = tempFile, outputZip = File(output))
             tempFile.delete()
         }
+    }
+
+    private fun jetifySource(config: Config, inputFile: File, outputFile: File, reverse: Boolean) {
+        config.rulesMap
+        val typesMap = if (reverse) config.typesMap.reverseMapOrDie() else config.typesMap
+        val mappings = typesMap.getClassMappings()
+        var sourceCode = inputFile.readText()
+        for (pair in mappings) {
+            val fromType = pair.key.toDotNotation()
+            val toType = pair.value.toDotNotation()
+            var startIndex = sourceCode.indexOf(string = fromType,
+                    startIndex = 0)
+            while (startIndex != -1) {
+                // Replace only if the match is not followed by an alphanumeric character.
+                // This serves to avoid matches where we match to a subset of the type instead
+                // of the actual intended type (e.g com.foo.Class should not
+                // match for the start of com.foo.Class2)
+                if (startIndex + fromType.length == sourceCode.length ||
+                    !sourceCode[startIndex + fromType.length].isLetterOrDigit()) {
+                    sourceCode = sourceCode.replaceRange(startIndex,
+                        startIndex + fromType.length, toType)
+                }
+                startIndex += toType.length
+                startIndex = sourceCode.indexOf(string = fromType, startIndex = startIndex)
+            }
+        }
+        outputFile.writeText(sourceCode)
     }
 
     private fun parseCmdLine(args: Array<String>): CommandLine? {
