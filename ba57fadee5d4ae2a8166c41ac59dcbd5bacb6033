@@ -1,0 +1,601 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39b061ac_9d674f9d",
+        "filename": "paging/common/ktx/src/test/java/PagedListTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "actually, since we have LF now, we should stop using direct executor but instead just do LF.get() etc to ensure tests go through the realistic path of being asnyc? might reuquire refactoring tests but seems like the right thing to do.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0754f27_a890b6e0",
+        "filename": "paging/common/src/main/java/androidx/paging/ContiguousPagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "is this a TODO?",
+      "range": {
+        "startLine": 65,
+        "startChar": 21,
+        "endLine": 65,
+        "endChar": 23
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4239a8_7e0a8aeb",
+        "filename": "paging/common/src/main/java/androidx/paging/ContiguousPagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 22
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7642e8e_23aa2762",
+        "filename": "paging/common/src/main/java/androidx/paging/ContiguousPagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "is there a thread guarantee that this won\u0027t run in parallel? otherwise, this might be an issue as it might override the value from another thread.",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 18
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc74e3b3_887f904e",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "i think we have Preconditions in some core lib.",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 9
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17cf771b_cf1a9306",
+        "filename": "paging/common/src/main/java/androidx/paging/InitialPagedList.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "this sentence seems a bit off, rephrase?",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0295e722_f681f486",
+        "filename": "paging/common/src/main/java/androidx/paging/ItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "such ugly code, will wash my eyes with mouthwash.\n\nthat being said, maybe move to a helper class `CallbackToFuturesAdapter` to cleanup here ? not sure if there is duplication with others though, if not, can stay here.",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 11
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9200bec6_f7081cb3",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "in uniquely sorted (if there are duplicates, this wouldn\u0027t work)",
+      "range": {
+        "startLine": 31,
+        "startChar": 70,
+        "endLine": 31,
+        "endChar": 80
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f219e1_3fd659f6",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "why do we have this ?",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3b94b0_0b829e8b",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "since we use it both, rename to loadParams ?",
+      "range": {
+        "startLine": 53,
+        "startChar": 48,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b598e9ac_2ed64f78",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "rm (above already says if possible)",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d68333_609cb087",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "what does safer mean? will it crash ? if not, maybe use a different word",
+      "range": {
+        "startLine": 94,
+        "startChar": 51,
+        "endLine": 94,
+        "endChar": 56
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e127e2_dcafafc9",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "maybe we can print a Log.w when this happens? in case developer loses a Future and never calls back ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 10
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d2ea8b_a5c67ead",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 116,
+        "startChar": 51,
+        "endLine": 116,
+        "endChar": 56
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c8ef7f_b8b51f42",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "your size varies",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb3704c_8c3ffb09",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "does calling invalidate cancel previous features ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 70,
+        "endLine": 125,
+        "endChar": 80
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a63b2e4_538a63ec",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenableItemKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": ")",
+      "range": {
+        "startLine": 125,
+        "startChar": 22,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4172024_3641ba28",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenablePageKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "rename to loadParams",
+      "range": {
+        "startLine": 60,
+        "startChar": 48,
+        "endLine": 60,
+        "endChar": 62
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e0d799a_8a111213",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenablePageKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "what does safer mean? will it crash ? if not, maybe use a different word",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86b04ac_c3a96615",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenablePageKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 118,
+        "startChar": 51,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6b9483d_efe11618",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenablePageKeyedDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "lets create a BUG for this.",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 9
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60fb9296_e0b1f451",
+        "filename": "paging/common/src/main/java/androidx/paging/ListenablePositionalDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "what happens if data source is invalidated between our call to their DataSource and before they query db ? are they supposed to never resolve the future or resolve it to invalid ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 13
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad98ce2c_b39b1e23",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "9",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe274d1_3d354b64",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "create a bug for this",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 10
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ed3abd_c4664d41",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "seems like it would be more readable if these were positive (canPrevend)",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 190,
+        "endChar": 33
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff252f6_684f13cf",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 32
+      },
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc58153_12b71056",
+        "filename": "paging/common/src/main/java/androidx/paging/PositionalDataSource.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-22T18:57:29Z",
+      "side": 1,
+      "message": "marker for self. reviwed till here.",
+      "revId": "ba57fadee5d4ae2a8166c41ac59dcbd5bacb6033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
