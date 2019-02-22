@@ -166,7 +166,7 @@ public final class WebkitUtils {
         } catch (InterruptedException | TimeoutException e) {
             // Don't handle InterruptedException specially, since it indicates that a different
             // Thread was interrupted, not this one.
-            throw new RuntimeException(e.getCause());
+            throw new RuntimeException(e);
         }
     }
 
