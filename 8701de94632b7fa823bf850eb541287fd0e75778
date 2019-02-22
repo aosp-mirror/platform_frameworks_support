@@ -449,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "6d60d1d9_cb55bb05",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-22T16:19:05Z",
+      "side": 1,
+      "message": "Given the special case, we can bend the API Guidelines here. You\u0027ll probably get feedback from API Council, but you can just give the same explanation.",
+      "parentUuid": "df31ed11_b2486d4c",
+      "range": {
+        "startLine": 209,
+        "startChar": 23,
+        "endLine": 209,
+        "endChar": 41
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "831a6c03_b881c1a4",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
