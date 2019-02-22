@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c5424d7c_a1701903",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3d7039de_bd155b3c",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2805d307_736f1bbc",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "Will remove if not using after I refactor.",
       "parentUuid": "2805d307_736f1bbc",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b0fca5_67b8b147",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Ended up using this internally, I can mark as library scope and hide if thats cool.",
+      "parentUuid": "42ae62a9_a66b4a99",
       "range": {
         "startLine": 121,
         "startChar": 31,
@@ -261,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "d7e89fa2_fb447bc6",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "011de568_ea1cf1d5",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 0
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df108573_43fde9df",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -305,6 +377,30 @@
       "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd0c0a7_49636425",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ba234f0_7c35c4a0",
+      "range": {
+        "startLine": 166,
+        "startChar": 15,
+        "endLine": 166,
+        "endChar": 28
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -355,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "98c0792b_3611e47f",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Changed the name, the state piece is the config which could change per instance. Going to leave as non static for now. Happy to change if you feel otherwise.",
+      "parentUuid": "57f00f1e_3acd9fd1",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 56
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f35f842e_2e85f07e",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -399,6 +519,30 @@
       "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc7ea90_f74953d7",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21f6146e_766ac314",
+      "range": {
+        "startLine": 183,
+        "startChar": 15,
+        "endLine": 183,
+        "endChar": 27
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -473,6 +617,30 @@
     },
     {
       "key": {
+        "uuid": "66727824_7e18d585",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d60d1d9_cb55bb05",
+      "range": {
+        "startLine": 209,
+        "startChar": 23,
+        "endLine": 209,
+        "endChar": 41
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "831a6c03_b881c1a4",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -520,6 +688,30 @@
     },
     {
       "key": {
+        "uuid": "d801c30d_9937e3df",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e507939c_417e32a2",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 3
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4c5e649_c7d4aec2",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
@@ -549,6 +741,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "a4c5e649_c7d4aec2",
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb049d67_8ebd2028",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-22T21:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed18ab7_91d11ba9",
       "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
