@@ -468,12 +468,13 @@ public class BiometricPrompt implements BiometricConstants {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // Create the fragment that wraps BiometricPrompt once.
             if (mBiometricFragment == null) {
-                mBiometricFragment = BiometricFragment.newInstance(bundle);
+                mBiometricFragment = BiometricFragment.newInstance();
                 mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                         mAuthenticationCallback);
             }
             // Set the crypto object.
             mBiometricFragment.setCryptoObject(crypto);
+            mBiometricFragment.setBundle(bundle);
 
             if (fragmentManager.findFragmentByTag(BIOMETRIC_FRAGMENT_TAG) == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
@@ -487,9 +488,10 @@ public class BiometricPrompt implements BiometricConstants {
         } else {
             // Create the UI
             if (mFingerprintDialogFragment == null) {
-                mFingerprintDialogFragment = FingerprintDialogFragment.newInstance(bundle);
+                mFingerprintDialogFragment = FingerprintDialogFragment.newInstance();
                 mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
             }
+            mFingerprintDialogFragment.setBundle(bundle);
             mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
 
             // Create the connection to FingerprintManager
@@ -510,6 +512,9 @@ public class BiometricPrompt implements BiometricConstants {
                 fragmentManager.beginTransaction().attach(mFingerprintHelperFragment).commit();
             }
         }
+        // For the case when onResume() is being called right after authenticate,
+        // we need to make sure that all fragment transactions have been committed.
+        fragmentManager.executePendingTransactions();
     }
 
     /**

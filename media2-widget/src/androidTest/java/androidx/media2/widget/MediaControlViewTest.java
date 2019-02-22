@@ -50,7 +50,6 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -68,10 +67,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Test {@link MediaControlView}.
- *
- * TODO: Lower minSdkVersion to Kitkat.
  */
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MediaControlViewTest {
@@ -272,6 +268,7 @@ public class MediaControlViewTest {
         AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(R.raw.test_music);
 
         final long duration = 4206L;
+        final int tolerance = 70;
         final String title = "Chimey Phone";
         final String artist = "Android";
         final MediaItem uriMediaItem = createTestMediaItem2(uri);
@@ -301,7 +298,7 @@ public class MediaControlViewTest {
                                 }
                                 if (metadata.containsKey(MediaMetadata.METADATA_KEY_DURATION)) {
                                     assertEquals(duration, metadata.getLong(
-                                            MediaMetadata.METADATA_KEY_DURATION));
+                                            MediaMetadata.METADATA_KEY_DURATION), tolerance);
                                     countDown();
                                 }
                             }

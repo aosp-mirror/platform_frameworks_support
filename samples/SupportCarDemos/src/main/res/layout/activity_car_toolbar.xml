@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         app:titleIcon="@android:drawable/sym_def_app_icon"
         app:titleIconSize="@dimen/car_avatar_icon_size"
+        app:titleIconEndMargin="@dimen/car_padding_4"
         app:title="@string/car_toolbar_title"
         app:subtitle="@string/car_toolbar_subtitle"/>
     <LinearLayout
@@ -39,21 +40,28 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
+        <Button
+                android:id="@+id/add_checkable"
+                android:text="@string/button_add_checkable"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/car_button_height"
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/add_if_room"
                 android:text="@string/button_add_if_room"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/add_overflow"
                 android:text="@string/button_add_overflow"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/car_button_height"
-                android:layout_marginEnd="@dimen/car_padding_5"/>
+                android:layout_marginEnd="@dimen/car_padding_2"/>
         <Button
                 android:id="@+id/clear_menu"
                 android:text="@string/button_clear_menu"

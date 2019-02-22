@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ object PageView {
     fun inflatePage(parent: ViewGroup): View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_test_layout, parent, false)
 
-    fun findPageInActivity(activity: Activity): View = activity.findViewById(R.id.text_view)
+    fun findPageInActivity(activity: Activity): View? = activity.findViewById(R.id.text_view)
 
     fun getPageText(page: View): String = (page as TextView).text.toString()
 

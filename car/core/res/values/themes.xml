@@ -23,12 +23,12 @@ limitations under the License.
          text. The colors will not change for night mode. -->
     <style name="Theme.Car" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:alertDialogTheme">@style/Theme.Car.Dark.Dialog.Alert</item>
-        <item name="android:colorAccent">@color/car_accent_light</item>
+        <item name="android:colorAccent">@color/car_accent</item>
         <item name="android:colorForeground">@color/car_body2_light</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="android:buttonStyle">@style/Widget.Car.Button.DarkText</item>
-        <item name="android:checkboxStyle">@style/Widget.Car.CheckBox</item>
-        <item name="android:colorButtonNormal">@color/car_accent_light</item>
+        <item name="android:checkboxStyle">@style/Widget.Car.CheckBox.Light</item>
+        <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background_light</item>
         <item name="android:colorControlNormal">@color/car_body2_light</item>
         <item name="android:colorPrimary">@android:color/black</item>
@@ -48,7 +48,6 @@ limitations under the License.
         <item name="android:seekBarStyle">@style/Widget.Car.SeekBar.Light</item>
         <item name="android:textColor">@color/car_body1_light</item>
         <item name="android:textColorPrimary">@color/car_display1_light</item>
-        <item name="android:textColorLink">@color/car_light_blue_500</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
         <item name="android:textColorHint">@color/car_body2_light</item>
         <item name="android:spinnerStyle">@style/Widget.Spinner.Car</item>
@@ -64,7 +63,7 @@ limitations under the License.
         <item name="borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="carDialogTheme">@style/Theme.Car.Dark.Dialog</item>
         <item name="carToolbarStyle">@style/Widget.Car.CarToolbar</item>
-        <item name="colorAccent">@color/car_accent_light</item>
+        <item name="colorAccent">@color/car_accent</item>
         <item name="colorControlHighlight">@color/car_card_ripple_background_light</item>
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@android:color/black</item>
@@ -120,7 +119,6 @@ limitations under the License.
         <item name="android:spinnerDropDownItemStyle">@style/CarSpinnerItem</item>
         <item name="android:textColor">@color/car_body1</item>
         <item name="android:textColorPrimary">@color/car_display1</item>
-        <item name="android:textColorLink">@color/car_light_blue_500</item>
         <item name="android:textColorHighlight">@color/car_grey_700</item>
         <item name="android:textColorHint">@color/car_body2</item>
         <item name="android:editTextStyle">@style/Widget.Car.EditText</item>
@@ -207,7 +205,7 @@ limitations under the License.
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorControlHighlight">@color/car_card_ripple_background</item>
-        <item name="dialogButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
+        <item name="dialogButtonStyle">@style/Widget.Car.Dialog.Button</item>
         <item name="dialogBackgroundColor">@color/car_card</item>
         <item name="dialogListTheme">@style/Theme.Car.List</item>
         <item name="dialogTitleStyle">@style/Widget.Car.Dialog.Title</item>
@@ -216,10 +214,10 @@ limitations under the License.
 
     <!-- Styling for dialogs provided by the car support library that is fixed in a dark-color. -->
     <style name="Theme.Car.Dark.Dialog" parent="Theme.Car.Dialog">
-        <item name="android:colorButtonNormal">@color/car_accent_light</item>
+        <item name="android:colorButtonNormal">@color/car_accent</item>
         <item name="android:colorControlHighlight">@color/car_card_ripple_background_light</item>
         <item name="colorControlHighlight">@color/car_card_ripple_background_light</item>
-        <item name="dialogButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
+        <item name="dialogButtonStyle">@style/Widget.Car.Dialog.Button</item>
         <item name="dialogBackgroundColor">@color/car_card_dark</item>
         <item name="dialogListTheme">@style/Theme.Car.Light.List.DarkItems</item>
         <item name="dialogTitleStyle">@style/Widget.Car.Dialog.Title.Light</item>
@@ -236,17 +234,17 @@ limitations under the License.
         <item name="android:background">@color/car_card</item>
         <item name="android:borderlessButtonStyle">@style/Widget.Car.Button.Borderless.Colored</item>
         <item name="android:colorButtonNormal">@color/car_accent</item>
-        <item name="android:colorControlNormal">@color/car_body2</item>
+        <item name="android:colorControlNormal">@color/car_body3</item>
         <item name="android:colorControlActivated">@color/car_accent</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/car_checkbox</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/car_radio_button</item>
         <item name="android:listDividerAlertDialog">@drawable/car_preference_divider</item>
         <item name="android:listPreferredItemHeightSmall">@dimen/car_single_line_list_item_height</item>
-        <item name="android:listPreferredItemPaddingStart">@dimen/car_keyline_1</item>
-        <item name="android:listPreferredItemPaddingEnd">@dimen/car_keyline_1</item>
+        <item name="android:listPreferredItemPaddingStart">@dimen/car_padding_4</item>
+        <item name="android:listPreferredItemPaddingEnd">@dimen/car_padding_4</item>
         <item name="android:scrollbarSize">@dimen/car_scroll_bar_thumb_width</item>
-        <item name="android:textAppearanceLarge">@style/TextAppearance.Car.Body2</item>
-        <item name="android:textColorPrimary">@color/car_body2</item>
+        <item name="android:textAppearanceLarge">@style/TextAppearance.Car.Body3</item>
+        <item name="android:textColorPrimary">@color/car_body3</item>
         <item name="android:windowAnimationStyle">@style/Car.Dialog.Animation</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title</item>
         <item name="alertDialogStyle">@style/AlertDialog</item>
@@ -259,16 +257,20 @@ limitations under the License.
     <!-- Style for framework and the Appcompat AlertDialog that is fixed to have a light colored
          background. -->
     <style name="Theme.Car.Light.Dialog.Alert" parent="Theme.Car.Dialog.Alert">
+        <item name="android:colorButtonNormal">@color/car_accent_dark</item>
+        <item name="android:colorControlActivated">@color/car_accent_dark</item>
         <item name="android:background">@color/car_card_light</item>
-        <item name="android:textColorPrimary">@color/car_body2_dark</item>
+        <item name="android:textColorPrimary">@color/car_body3_dark</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title.Dark</item>
     </style>
 
     <!-- Style for framework and the Appcompat AlertDialog that is fixed to have a dark colored
          background. -->
     <style name="Theme.Car.Dark.Dialog.Alert" parent="Theme.Car.Dialog.Alert">
+        <item name="android:colorButtonNormal">@color/car_accent_light</item>
+        <item name="android:colorControlActivated">@color/car_accent_light</item>
         <item name="android:background">@color/car_card_dark</item>
-        <item name="android:textColorPrimary">@color/car_body2_light</item>
+        <item name="android:textColorPrimary">@color/car_body3_light</item>
         <item name="android:windowTitleStyle">@style/Widget.Car.Dialog.Title.Light</item>
     </style>
 

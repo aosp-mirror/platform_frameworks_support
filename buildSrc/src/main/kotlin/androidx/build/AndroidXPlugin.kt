@@ -37,6 +37,7 @@ import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.DefaultTask
+import org.gradle.api.Task
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
@@ -86,6 +87,7 @@ class AndroidXPlugin : Plugin<Project> {
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val compileJavaTask = project.properties["compileJava"] as JavaCompile
                     verifyDependencyVersionsTask.dependsOn(compileJavaTask)
+                    project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
                 }
                 is LibraryPlugin -> {
                     val extension = project.extensions.getByType<LibraryExtension>()
@@ -95,8 +97,19 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    extension.libraryVariants.all {
-                        variant -> verifyDependencyVersionsTask.dependsOn(variant.javaCompiler)
+                    val checkNoWarningsTask = project.tasks.create(CHECK_NO_WARNINGS_TASK)
+                    project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
+                        checkNoWarningsTask))
+                    extension.libraryVariants.all { libraryVariant ->
+                        val javaCompileTask = libraryVariant
+                            .javaCompileProvider.get()
+                        verifyDependencyVersionsTask.dependsOn(javaCompileTask)
+                        checkNoWarningsTask.dependsOn(javaCompileTask)
+                        project.gradle.taskGraph.whenReady {
+                            if (it.hasTask(checkNoWarningsTask)) {
+                                javaCompileTask.options.compilerArgs.add("-Werror")
+                            }
+                        }
                     }
                 }
                 is AppPlugin -> {
@@ -148,7 +161,8 @@ class AndroidXPlugin : Plugin<Project> {
                 if ("assembleAndroidTest" == task.name ||
                         "assembleDebug" == task.name ||
                         ERROR_PRONE_TASK == task.name ||
-                        "lintMinDepVersionsDebug" == task.name) {
+                        ("lintDebug" == task.name &&
+                        !project.rootProject.hasProperty("useMaxDepVersions"))) {
                     buildOnServerTask.dependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
@@ -175,15 +189,23 @@ class AndroidXPlugin : Plugin<Project> {
 
         AffectedModuleDetector.configure(gradle, this)
 
-        // Iterate through all the project and substitute any artifact dependency of a
-        // maxdepversions future configuration with the corresponding tip of tree project.
-        subprojects { project ->
-            project.configurations.all { configuration ->
-                if (configuration.name.toLowerCase().contains("maxdepversions") &&
-                        project.extra.has("publish")) {
-                    configuration.resolutionStrategy.dependencySubstitution.apply {
-                        for (e in projectModules) {
-                            substitute(module(e.key)).with(project(e.value))
+        // If useMaxDepVersions is set, iterate through all the project and substitute any androidx
+        // artifact dependency with the local tip of tree version of the library.
+        if (project.hasProperty("useMaxDepVersions")) {
+            // This requires evaluating all sub-projects to create the module:project map
+            // and project dependencies.
+            evaluationDependsOnChildren()
+            subprojects { project ->
+                project.configurations.all { configuration ->
+                    // Substitute only for debug configurations/tasks only because we can not
+                    // change release dependencies after evaluation. Test hooks, buildOnServer
+                    // and buildTestApks use the debug configurations as well.
+                    if (project.extra.has("publish") && configuration.name
+                            .toLowerCase().contains("debug")) {
+                        configuration.resolutionStrategy.dependencySubstitution.apply {
+                            for (e in projectModules) {
+                                substitute(module(e.key)).with(project(e.value))
+                            }
                         }
                     }
                 }
@@ -219,22 +241,6 @@ class AndroidXPlugin : Plugin<Project> {
                                         "dependency to list a fixed version.")
                     }
                 }
-            }
-        }
-        if (project.name != "docs-fake") {
-            // Add another "version" flavor dimension which would have two flavors minDepVersions
-            // and maxDepVersions. Flavor minDepVersions builds the libraries against the specified
-            // versions of their dependencies while maxDepVersions builds the libraries against
-            // the local versions of their dependencies (so for example if library A specifies
-            // androidx.collection:collection:1.2.0 as its dependency then minDepVersions would
-            // build using exactly that version while maxDepVersions would build against
-            // project(":collection") instead.)
-            extension.flavorDimensions("version")
-            extension.productFlavors {
-                it.create("minDepVersions")
-                it.get("minDepVersions").dimension = "version"
-                it.create("maxDepVersions")
-                it.get("maxDepVersions").dimension = "version"
             }
         }
 
@@ -309,6 +315,8 @@ class AndroidXPlugin : Plugin<Project> {
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
+        const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
+        const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
     }
 }
 
@@ -338,6 +346,13 @@ private fun Project.createCheckResourceApiTask(): DefaultTask {
             CheckResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
         oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
+    }
+}
+
+private fun Project.createCheckReleaseReadyTask(taskList: List<Task>) {
+    val checkReleaseReadyTask = project.tasks.create(AndroidXPlugin.CHECK_RELEASE_READY_TASK)
+    for (task in taskList) {
+        checkReleaseReadyTask.dependsOn(task)
     }
 }
 
@@ -372,6 +387,6 @@ private fun Project.configureResourceApiChecks() {
 }
 
 private fun Project.getGenerateResourceApiFile(): File {
-    return File(project.buildDir, "intermediates/public_res/minDepVersionsRelease" +
-            "/packageMinDepVersionsReleaseResources/public.txt")
+    return File(project.buildDir, "intermediates/public_res/release" +
+            "/packageReleaseResources/public.txt")
 }

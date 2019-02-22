@@ -20,11 +20,13 @@
 
     <uses-sdk tools:overrideLibrary="androidx.media2.widget" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application android:label="Video View Test"
                  android:supportsRtl="true">
 
-        <!-- Video Selection Activity -->
-        <activity android:name="VideoSelector"
+        <activity android:name=".VideoSelectorActivity"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -33,8 +35,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Video playback activity -->
-        <activity android:name="VideoViewTest"
+        <activity android:name=".VideoPlayerActivity"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -49,7 +50,5 @@
         </receiver>
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

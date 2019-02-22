@@ -30,6 +30,8 @@ style TextAppearance_Car_Body3_Medium
 style TextAppearance_Car_Body3_Medium_Dark
 style TextAppearance_Car_Body3_Medium_Light
 style TextAppearance_Car_Body4
+style TextAppearance_Car_Body4_Dark
+style TextAppearance_Car_Body4_Light
 style TextAppearance_Car_Display1
 style TextAppearance_Car_Display2
 style TextAppearance_Car_Display3
@@ -70,6 +72,7 @@ style Widget_Car_Dialog
 style Widget_Car_Dialog_Body
 style Widget_Car_Dialog_Body_Dark
 style Widget_Car_Dialog_Body_Light
+style Widget_Car_Dialog_Button
 style Widget_Car_Dialog_Title
 style Widget_Car_Dialog_Title_Dark
 style Widget_Car_Dialog_Title_Light
@@ -112,7 +115,6 @@ dimen car_app_bar_height
 dimen car_app_icon_size
 dimen car_application_icon_size
 dimen car_avatar_icon_size
-dimen car_avatar_size
 color car_body1
 color car_body1_dark
 color car_body1_light
@@ -130,7 +132,6 @@ color car_body4_dark
 color car_body4_light
 dimen car_body4_size
 dimen car_button_height
-dimen car_button_horizontal_padding
 dimen car_button_min_width
 dimen car_button_radius
 color car_card
@@ -231,12 +232,6 @@ color car_subtext5
 color car_subtext5_dark
 color car_subtext5_light
 dimen car_subtext5_size
-color car_switch_compat_track_off
-color car_switch_compat_track_on
-color car_switch_thumb_off
-color car_switch_thumb_on
-color car_switch_track_off
-color car_switch_track_on
 color car_tint
 color car_tint_dark
 color car_tint_light
@@ -279,6 +274,7 @@ attr listItemSubheaderTextAppearance
 attr listItemTitleTextAppearance
 attr navigationIcon
 attr navigationIconContainerWidth
+attr navigationIconTint
 attr offsetScrollBar
 attr overflowIcon
 attr pagedListViewStyle
@@ -294,7 +290,9 @@ attr subtitle
 attr subtitleTextAppearance
 attr title
 attr titleIcon
+attr titleIconEndMargin
 attr titleIconSize
+attr titleIconStartMargin
 attr titleTextAppearance
 attr upButtonIcon
 attr verticallyCenterListContent

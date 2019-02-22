@@ -526,6 +526,32 @@ public class WorkerWrapperTest extends DatabaseTest {
 
     @Test
     @SmallTest
+    public void testBackedOffOneTimeWork_doesNotRun() {
+        OneTimeWorkRequest retryWork =
+                new OneTimeWorkRequest.Builder(RetryWorker.class).build();
+
+        long future = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1);
+        mDatabase.beginTransaction();
+        try {
+            mWorkSpecDao.insertWorkSpec(retryWork.getWorkSpec());
+            mWorkSpecDao.setPeriodStartTime(retryWork.getStringId(), future);
+            mWorkSpecDao.incrementWorkSpecRunAttemptCount(retryWork.getStringId());
+            mDatabase.setTransactionSuccessful();
+        } finally {
+            mDatabase.endTransaction();
+        }
+
+        createBuilder(retryWork.getStringId())
+                .build()
+                .run();
+
+        WorkSpec workSpec = mWorkSpecDao.getWorkSpec(retryWork.getStringId());
+        // The run attempt count should remain the same
+        assertThat(workSpec.runAttemptCount, is(1));
+    }
+
+    @Test
+    @SmallTest
     public void testRun_periodicWork_success_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
@@ -640,6 +666,27 @@ public class WorkerWrapperTest extends DatabaseTest {
         assertThat(listener.mResult, is(true));
         assertThat(periodicWorkSpecAfterFirstRun.runAttemptCount, is(1));
         assertThat(periodicWorkSpecAfterFirstRun.state, is(ENQUEUED));
+    }
+
+
+    @Test
+    @SmallTest
+    public void testPeriodic_dedupe() {
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
+                TestWorker.class,
+                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+                TimeUnit.MILLISECONDS)
+                .build();
+
+        final String periodicWorkId = periodicWork.getStringId();
+        final WorkSpec workSpec = periodicWork.getWorkSpec();
+        long now = System.currentTimeMillis();
+        workSpec.periodStartTime = now + workSpec.intervalDuration;
+        insertWork(periodicWork);
+        WorkerWrapper workerWrapper = createBuilder(periodicWorkId).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        assertThat(listener.mResult, is(false));
     }
 
     @Test

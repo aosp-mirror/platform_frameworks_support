@@ -20,13 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * SparseArray mapping longs to Objects, a version of the platform's
- * {@code android.util.LongSparseArray} that can be used on older versions of the
- * platform.  Unlike a normal array of Objects,
+ * SparseArray mapping longs to Objects.  Unlike a normal array of Objects,
  * there can be gaps in the indices.  It is intended to be more memory efficient
  * than using a HashMap to map Longs to Objects, both because it avoids
-  * auto-boxing keys and its data structure doesn't rely on an extra entry object
-  * for each mapping.
+ * auto-boxing keys and its data structure doesn't rely on an extra entry object
+ * for each mapping.
  *
  * <p>Note that this container keeps its mappings in an array data structure,
  * using a binary search to find keys.  The implementation is not intended to be appropriate for
@@ -42,6 +40,12 @@ import androidx.annotation.Nullable;
  * a single garbage collection step of all removed entries.  This garbage collection will
  * need to be performed at any time the array needs to be grown or the the map size or
  * entry values are retrieved.</p>
+ *
+ * <p>It is possible to iterate over the items in this container using
+ * {@link #keyAt(int)} and {@link #valueAt(int)}. Iterating over the keys using
+ * <code>keyAt(int)</code> with ascending values of the index will return the
+ * keys in ascending order, or the values corresponding to the keys in ascending
+ * order in the case of <code>valueAt(int)</code>.</p>
  */
 public class LongSparseArray<E> implements Cloneable {
     private static final Object DELETED = new Object();
@@ -74,7 +78,6 @@ public class LongSparseArray<E> implements Cloneable {
             mKeys = new long[initialCapacity];
             mValues = new Object[initialCapacity];
         }
-        mSize = 0;
     }
 
     @Override
@@ -122,9 +125,17 @@ public class LongSparseArray<E> implements Cloneable {
     }
 
     /**
+     * @deprecated Alias for {@link #remove(long)}.
+     */
+    @Deprecated
+    public void delete(long key) {
+        remove(key);
+    }
+
+    /**
      * Removes the mapping from the specified key, if there was any.
      */
-    public void delete(long key) {
+    public void remove(long key) {
         int i = ContainerHelpers.binarySearch(mKeys, mSize, key);
 
         if (i >= 0) {
@@ -133,13 +144,6 @@ public class LongSparseArray<E> implements Cloneable {
                 mGarbage = true;
             }
         }
-    }
-
-    /**
-     * Alias for {@link #delete(long)}.
-     */
-    public void remove(long key) {
-        delete(key);
     }
 
     /**
@@ -339,6 +343,11 @@ public class LongSparseArray<E> implements Cloneable {
      * Given an index in the range <code>0...size()-1</code>, returns
      * the key from the <code>index</code>th key-value mapping that this
      * LongSparseArray stores.
+     *
+     * <p>The keys corresponding to indices in ascending order are guaranteed to
+     * be in ascending order, e.g., <code>keyAt(0)</code> will return the
+     * smallest key and <code>keyAt(size()-1)</code> will return the largest
+     * key.</p>
      */
     public long keyAt(int index) {
         if (mGarbage) {
@@ -352,6 +361,12 @@ public class LongSparseArray<E> implements Cloneable {
      * Given an index in the range <code>0...size()-1</code>, returns
      * the value from the <code>index</code>th key-value mapping that this
      * LongSparseArray stores.
+     *
+     * <p>The values corresponding to indices in ascending order are guaranteed
+     * to be associated with keys in ascending order, e.g.,
+     * <code>valueAt(0)</code> will return the value associated with the
+     * smallest key and <code>valueAt(size()-1)</code> will return the value
+     * associated with the largest key.</p>
      */
     @SuppressWarnings("unchecked")
     public E valueAt(int index) {
