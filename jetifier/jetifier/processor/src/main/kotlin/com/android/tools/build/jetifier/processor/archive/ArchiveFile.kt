@@ -39,6 +39,10 @@ class ArchiveFile(relativePath: Path, data: ByteArray) : ArchiveItem {
     var data: ByteArray = data
         private set
 
+    // If this is true, treat the file as a single file not part of an archive
+    var isSingleFile: Boolean = false
+        private set
+
     override fun findAllFiles(selector: (ArchiveFile) -> Boolean, result: FileSearchResult) {
         if (selector(this)) {
             result.addFile(this)
@@ -83,5 +87,12 @@ class ArchiveFile(relativePath: Path, data: ByteArray) : ArchiveItem {
      */
     fun setNewDataSilently(newData: ByteArray) {
         data = newData
+    }
+
+    /**
+     * This file is not part of an archive, write output to relative path.
+     */
+    fun setIsSingleFile(isSingleFile: Boolean) {
+        this.isSingleFile = isSingleFile
     }
 }
