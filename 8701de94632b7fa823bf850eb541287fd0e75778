@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3d7039de_bd155b3c",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-22T16:17:26Z",
+      "side": 1,
+      "message": "While we\u0027re on the topic.... :)\n\nWe\u0027re moving away from using \"AndroidX\" branding publicly, since it was confusing for developers, and will only be using \"Jetpack\" to refer to the suite of libraries and \"androidx\" (lowercase, code font) to refer to the Java package. So please avoid using AndroidX anywhere except the Java package. We recommend against using the Jetpack branding in code as well, but it\u0027s fine to use in documentation.",
+      "parentUuid": "199d133a_dbc0cd9a",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2805d307_736f1bbc",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
