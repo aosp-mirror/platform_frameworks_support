@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c52b998b_8ae149b9",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-23T00:02:20Z",
+      "side": 1,
+      "message": "Looks like an accidental rename. I don\u0027t think this comment is useful, so let\u0027s remove it (and the dozen other exactly the same ones in this file that also have an accidental rename)",
+      "range": {
+        "startLine": 68,
+        "startChar": 31,
+        "endLine": 68,
+        "endChar": 42
+      },
+      "revId": "c1b797f0701e50a088eff64302f54f18659bdcd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "774229bb_269fa3fa",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-23T00:02:20Z",
+      "side": 1,
+      "message": "Accidental rename",
+      "range": {
+        "startLine": 405,
+        "startChar": 62,
+        "endLine": 405,
+        "endChar": 73
+      },
+      "revId": "c1b797f0701e50a088eff64302f54f18659bdcd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c499b90a_9ce5bb2a",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-23T00:02:20Z",
+      "side": 1,
+      "message": "Accidental rename",
+      "range": {
+        "startLine": 431,
+        "startChar": 14,
+        "endLine": 431,
+        "endChar": 25
+      },
+      "revId": "c1b797f0701e50a088eff64302f54f18659bdcd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718e22b1_ef53ad92",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-23T00:02:20Z",
+      "side": 1,
+      "message": "Accidental rename",
+      "range": {
+        "startLine": 616,
+        "startChar": 17,
+        "endLine": 616,
+        "endChar": 28
+      },
+      "revId": "c1b797f0701e50a088eff64302f54f18659bdcd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4162b01b_4267fb61",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-23T00:02:20Z",
+      "side": 1,
+      "message": "Accidental rename",
+      "range": {
+        "startLine": 627,
+        "startChar": 22,
+        "endLine": 627,
+        "endChar": 33
+      },
+      "revId": "c1b797f0701e50a088eff64302f54f18659bdcd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
