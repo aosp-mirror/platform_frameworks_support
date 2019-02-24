@@ -18,10 +18,12 @@ package androidx.media2;
 
 import android.content.Context;
 import android.media.session.MediaSessionManager;
+import android.os.Build;
 
 import androidx.media2.MediaSession.ControllerInfo;
 import androidx.media2.MediaSession.SessionCallback;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
@@ -30,12 +32,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * Tests {@link MediaSessionManager} with {@link MediaSession} specific APIs.
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
 public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     private static final String TAG = "MediaSessionManager_MediaSessionTest";
 
