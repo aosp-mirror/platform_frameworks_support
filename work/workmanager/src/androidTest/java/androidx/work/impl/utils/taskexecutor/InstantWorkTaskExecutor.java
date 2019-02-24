@@ -20,6 +20,11 @@ import android.support.annotation.NonNull;
 
 import androidx.work.impl.utils.SynchronousExecutor;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 
 /**
@@ -27,7 +32,7 @@ import java.util.concurrent.Executor;
  */
 public class InstantWorkTaskExecutor implements TaskExecutor {
 
-    private Executor mSynchronousExecutor = new SynchronousExecutor();
+    private final ListeningExecutorService mSynchronousExecutor = MoreExecutors.newDirectExecutorService();
 
     @Override
     public void postToMainThread(Runnable runnable) {
@@ -47,6 +52,11 @@ public class InstantWorkTaskExecutor implements TaskExecutor {
     @Override
     public Executor getBackgroundExecutor() {
         return mSynchronousExecutor;
+    }
+
+    @Override
+    public <T> ListenableFuture<T> executeOnBackgroundThread(Callable<T> callable) {
+        return mSynchronousExecutor.submit(callable);
     }
 
     @NonNull

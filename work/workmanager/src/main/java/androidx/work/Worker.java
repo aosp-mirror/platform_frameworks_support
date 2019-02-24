@@ -22,9 +22,8 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
-import androidx.work.impl.utils.futures.SettableFuture;
-
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.SettableFuture;
 
 /**
  * A class that performs work synchronously on a background thread provided by {@link WorkManager}.

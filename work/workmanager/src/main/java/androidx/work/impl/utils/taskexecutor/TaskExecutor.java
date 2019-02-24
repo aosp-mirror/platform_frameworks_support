@@ -19,10 +19,14 @@ package androidx.work.impl.utils.taskexecutor;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 
 /**
  * Interface for executing common tasks in WorkManager.
+ *
  * @hide
  */
 
@@ -54,4 +58,6 @@ public interface TaskExecutor {
      * @return The {@link Executor} for background task processing
      */
     Executor getBackgroundExecutor();
+
+    <T> ListenableFuture<T> executeOnBackgroundThread(Callable<T> callable);
 }

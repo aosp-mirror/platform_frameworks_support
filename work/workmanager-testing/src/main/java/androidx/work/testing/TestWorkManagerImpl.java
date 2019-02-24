@@ -25,6 +25,9 @@ import androidx.work.WorkManager;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 
 /**
@@ -66,6 +69,11 @@ abstract class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver
                     @Override
                     public Executor getBackgroundExecutor() {
                         return mSynchronousExecutor;
+                    }
+
+                    @Override
+                    public <T> ListenableFuture<T> executeOnBackgroundThread(Callable<T> callable) {
+                        throw new UnsupportedOperationException("Fine for now");
                     }
 
                     @NonNull

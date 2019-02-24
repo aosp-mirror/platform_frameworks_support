@@ -1362,7 +1362,7 @@ public class WorkManagerImplTest {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class).build();
         insertWorkSpecAndTags(work);
 
-        CancelWorkRunnable.forAll(mWorkManagerImpl).run();
+        CancelWorkRunnable.forAll(mWorkManagerImpl).call();
         assertThat(preferences.getLastCancelAllTimeMillis(), is(greaterThan(0L)));
     }
 
@@ -1387,7 +1387,7 @@ public class WorkManagerImplTest {
         insertWorkSpecAndTags(work);
 
         clearInvocations(mockObserver);
-        CancelWorkRunnable.forAll(mWorkManagerImpl).run();
+        CancelWorkRunnable.forAll(mWorkManagerImpl).call();
 
         Thread.sleep(1000L);
         verify(mockObserver).onChanged(captor.capture());

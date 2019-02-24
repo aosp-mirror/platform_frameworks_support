@@ -66,7 +66,7 @@ public class EnqueueRunnableTest {
             }
         }).when(runnable).addToDatabase();
         doNothing().when(runnable).scheduleWorkInBackground();
-        runnable.run();
+        runnable.call();
         verify(runnable, times(1)).scheduleWorkInBackground();
     }
 
@@ -80,7 +80,7 @@ public class EnqueueRunnableTest {
             }
         }).when(runnable).addToDatabase();
         doNothing().when(runnable).scheduleWorkInBackground();
-        runnable.run();
+        runnable.call();
         verify(runnable, times(0)).scheduleWorkInBackground();
     }
 }

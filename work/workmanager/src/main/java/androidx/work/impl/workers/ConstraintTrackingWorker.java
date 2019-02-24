@@ -16,6 +16,8 @@
 
 package androidx.work.impl.workers;
 
+import static com.google.common.util.concurrent.Futures.immediateFuture;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,12 +34,15 @@ import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
 import androidx.work.impl.constraints.WorkConstraintsTracker;
 import androidx.work.impl.model.WorkSpec;
-import androidx.work.impl.utils.futures.SettableFuture;
 
+import com.google.common.util.concurrent.AsyncCallable;
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListenableFutureTask;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Is an implementation of a {@link Worker} that can delegate to a different {@link Worker}
@@ -62,38 +67,44 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
     final Object mLock;
     // Marking this volatile as the delegated workers could switch threads.
     volatile boolean mAreConstraintsUnmet;
-    SettableFuture<Result> mFuture;
 
-    @Nullable private ListenableWorker mDelegate;
+    @Nullable
+    private ListenableWorker mDelegate;
 
     public ConstraintTrackingWorker(@NonNull Context appContext,
             @NonNull WorkerParameters workerParams) {
         super(appContext, workerParams);
         mWorkerParameters = workerParams;
         mLock = new Object();
+        ListenableFutureTask<String> f= ListenableFutureTask.create(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return "string";
+            }
+
+        });
+
+
         mAreConstraintsUnmet = false;
-        mFuture = SettableFuture.create();
     }
 
     @NonNull
     @Override
     public ListenableFuture<Result> startWork() {
-        getBackgroundExecutor().execute(new Runnable() {
+        return Futures.submitAsync(new AsyncCallable<Result>() {
             @Override
-            public void run() {
-                setupAndRunConstraintTrackingWork();
+            public ListenableFuture<Result> call() {
+                return setupAndRunConstraintTrackingWork();
             }
-        });
-        return mFuture;
+        }, getBackgroundExecutor());
     }
 
     // Package-private to avoid synthetic accessor.
-    void setupAndRunConstraintTrackingWork() {
+    ListenableFuture<Result> setupAndRunConstraintTrackingWork() {
         String className = getInputData().getString(ARGUMENT_CLASS_NAME);
         if (TextUtils.isEmpty(className)) {
             Logger.get().error(TAG, "No worker to delegate to.");
-            setFutureFailed();
-            return;
+            return immediateFuture(Result.failure());
         }
 
         mDelegate = getWorkerFactory().createWorkerWithDefaultFallback(
@@ -103,8 +114,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
 
         if (mDelegate == null) {
             Logger.get().debug(TAG, "No worker to delegate to.");
-            setFutureFailed();
-            return;
+            return immediateFuture(Result.failure());
         }
 
         WorkDatabase workDatabase = getWorkDatabase();
@@ -112,8 +122,7 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
         // We need to know what the real constraints are for the delegate.
         WorkSpec workSpec = workDatabase.workSpecDao().getWorkSpec(getId().toString());
         if (workSpec == null) {
-            setFutureFailed();
-            return;
+            return immediateFuture(Result.failure());
         }
         WorkConstraintsTracker workConstraintsTracker =
                 new WorkConstraintsTracker(getApplicationContext(), this);
@@ -129,14 +138,14 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
             // that should cause a retry.
             try {
                 final ListenableFuture<Result> innerFuture = mDelegate.startWork();
-                innerFuture.addListener(new Runnable() {
+                return Futures.whenAllComplete(innerFuture).callAsync(new AsyncCallable<Result>() {
                     @Override
-                    public void run() {
+                    public ListenableFuture<Result> call() {
                         synchronized (mLock) {
                             if (mAreConstraintsUnmet) {
-                                setFutureRetry();
+                                return immediateFuture(Result.retry());
                             } else {
-                                mFuture.setFuture(innerFuture);
+                                return innerFuture;
                             }
                         }
                     }
@@ -148,28 +157,17 @@ public class ConstraintTrackingWorker extends ListenableWorker implements WorkCo
                 synchronized (mLock) {
                     if (mAreConstraintsUnmet) {
                         Logger.get().debug(TAG, "Constraints were unmet, Retrying.");
-                        setFutureRetry();
+                        return immediateFuture(Result.retry());
                     } else {
-                        setFutureFailed();
+                        return immediateFuture(Result.failure());
                     }
                 }
             }
         } else {
             Logger.get().debug(TAG, String.format(
                     "Constraints not met for delegate %s. Requesting retry.", className));
-            setFutureRetry();
+            return immediateFuture(Result.retry());
         }
-
-    }
-
-    // Package-private to avoid synthetic accessor.
-    void setFutureFailed() {
-        mFuture.set(Result.failure());
-    }
-
-    // Package-private to avoid synthetic accessor.
-    void setFutureRetry() {
-        mFuture.set(Result.retry());
     }
 
     @Override

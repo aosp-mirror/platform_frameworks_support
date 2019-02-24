@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.Operation;
-import androidx.work.impl.utils.futures.SettableFuture;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 
 /**
  * A concrete implementation of a {@link Operation}.
@@ -34,40 +36,42 @@ import com.google.common.util.concurrent.ListenableFuture;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class OperationImpl implements Operation {
 
-    private final MutableLiveData<State> mOperationState;
-    private final SettableFuture<State.SUCCESS> mOperationFuture;
+    private final LiveData<State> mOperationState;
+    private final ListenableFuture<State.SUCCESS> mOperationFuture;
 
-    public OperationImpl() {
-        mOperationState = new MutableLiveData<>();
-        mOperationFuture = SettableFuture.create();
-        // Mark the operation as in progress.
-        setState(Operation.IN_PROGRESS);
+    OperationImpl(
+            LiveData<State> operationState,
+            ListenableFuture<State.SUCCESS> operationFuture) {
+        mOperationState = operationState;
+        mOperationFuture = operationFuture;
     }
 
-    @Override
-    public @NonNull ListenableFuture<State.SUCCESS> getResult() {
-        return mOperationFuture;
-    }
 
+    @NonNull
     @Override
-    public @NonNull LiveData<State> getState() {
+    public LiveData<State> getState() {
         return mOperationState;
     }
 
-    /**
-     * Updates the {@link androidx.work.Operation.State} of the {@link Operation}.
-     *
-     * @param state The current {@link Operation.State}
-     */
-    public void setState(@NonNull State state) {
-        mOperationState.postValue(state);
+    @NonNull
+    @Override
+    public ListenableFuture<State.SUCCESS> getResult() {
+        return mOperationFuture;
+    }
 
-        // Only terminal state get updates to the future.
-        if (state instanceof State.SUCCESS) {
-            mOperationFuture.set((State.SUCCESS) state);
-        } else if (state instanceof State.FAILURE) {
-            State.FAILURE failed = (State.FAILURE) state;
-            mOperationFuture.setException(failed.getThrowable());
-        }
+    public static Operation create(ListenableFuture<State.SUCCESS> future) {
+        final MutableLiveData<State> state = new MutableLiveData<>();
+        Futures.addCallback(future, new FutureCallback<State.SUCCESS>() {
+            @Override
+            public void onSuccess(State.SUCCESS success) {
+                state.postValue(success);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                state.postValue(new State.FAILURE(throwable));
+            }
+        }, MoreExecutors.directExecutor());
+        return new OperationImpl(state, future);
     }
 }

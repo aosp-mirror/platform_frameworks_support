@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * A concrete implementation of {@link WorkContinuation}.
@@ -168,11 +169,8 @@ public class WorkContinuationImpl extends WorkContinuation {
     @NonNull
     @Override
     public ListenableFuture<List<WorkInfo>> getWorkInfos() {
-        StatusRunnable<List<WorkInfo>> runnable =
-                StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds);
-
-        mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
-        return runnable.getFuture();
+        return mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(
+                StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds));
     }
 
     @Override
@@ -182,8 +180,9 @@ public class WorkContinuationImpl extends WorkContinuation {
             // The runnable walks the hierarchy of the continuations
             // and marks them enqueued using the markEnqueued() method, parent first.
             EnqueueRunnable runnable = new EnqueueRunnable(this);
-            mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
-            mOperation = runnable.getOperation();
+            ListenableFuture<Operation.State.SUCCESS> future =
+                    mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
+            mOperation = OperationImpl.create(future);
         } else {
             Logger.get().warning(TAG,
                     String.format("Already enqueued work ids (%s)", TextUtils.join(", ", mIds)));
@@ -213,7 +212,6 @@ public class WorkContinuationImpl extends WorkContinuation {
 
     /**
      * @return {@code true} If there are cycles in the {@link WorkContinuationImpl}.
-
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
@@ -266,7 +264,6 @@ public class WorkContinuationImpl extends WorkContinuation {
 
     /**
      * @return the {@link Set} of pre-requisites for a given {@link WorkContinuationImpl}.
-     *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)

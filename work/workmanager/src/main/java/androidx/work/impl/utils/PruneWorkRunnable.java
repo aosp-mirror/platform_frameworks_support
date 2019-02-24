@@ -19,10 +19,12 @@ package androidx.work.impl.utils;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.Operation;
-import androidx.work.impl.OperationImpl;
+import androidx.work.Operation.State.SUCCESS;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpecDao;
+
+import java.util.concurrent.Callable;
 
 /**
  * A Runnable that prunes work in the background.  Pruned work meets the following criteria:
@@ -32,33 +34,19 @@ import androidx.work.impl.model.WorkSpecDao;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class PruneWorkRunnable implements Runnable {
+public class PruneWorkRunnable implements Callable<SUCCESS> {
 
     private final WorkManagerImpl mWorkManagerImpl;
-    private final OperationImpl mOperation;
 
     public PruneWorkRunnable(WorkManagerImpl workManagerImpl) {
         mWorkManagerImpl = workManagerImpl;
-        mOperation = new OperationImpl();
     }
-
-    /**
-     * @return The {@link Operation} that encapsulates the state of the {@link PruneWorkRunnable}.
-     */
-    public Operation getOperation() {
-        return mOperation;
-    }
-
 
     @Override
-    public void run() {
-        try {
-            WorkDatabase workDatabase = mWorkManagerImpl.getWorkDatabase();
-            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-            workSpecDao.pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast();
-            mOperation.setState(Operation.SUCCESS);
-        } catch (Throwable exception) {
-            mOperation.setState(new Operation.State.FAILURE(exception));
-        }
+    public SUCCESS call() throws Exception {
+        WorkDatabase workDatabase = mWorkManagerImpl.getWorkDatabase();
+        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+        workSpecDao.pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast();
+        return Operation.SUCCESS;
     }
 }

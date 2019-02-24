@@ -21,6 +21,11 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -63,6 +68,10 @@ public class WorkManagerTaskExecutor implements TaskExecutor {
     private final ExecutorService mBackgroundExecutor =
             Executors.newSingleThreadExecutor(mBackgroundThreadFactory);
 
+
+    private final ListeningExecutorService mListeningExecutorService =
+            MoreExecutors.listeningDecorator(mBackgroundExecutor);
+
     @Override
     public void postToMainThread(Runnable r) {
         mMainThreadHandler.post(r);
@@ -76,6 +85,11 @@ public class WorkManagerTaskExecutor implements TaskExecutor {
     @Override
     public void executeOnBackgroundThread(Runnable r) {
         mBackgroundExecutor.execute(r);
+    }
+
+    @Override
+    public <T> ListenableFuture<T> executeOnBackgroundThread(Callable<T> callable) {
+        return mListeningExecutorService.submit(callable);
     }
 
     @Override

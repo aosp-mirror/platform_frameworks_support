@@ -26,7 +26,6 @@ import android.support.annotation.WorkerThread;
 
 import androidx.work.Operation;
 import androidx.work.WorkInfo;
-import androidx.work.impl.OperationImpl;
 import androidx.work.impl.Processor;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.Schedulers;
@@ -37,6 +36,7 @@ import androidx.work.impl.model.WorkSpecDao;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
 /**
  * A {@link Runnable} to cancel work.
@@ -44,25 +44,12 @@ import java.util.UUID;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public abstract class CancelWorkRunnable implements Runnable {
-
-    private final OperationImpl mOperation = new OperationImpl();
-
-    /**
-     * @return The {@link Operation} that encapsulates the state of the {@link CancelWorkRunnable}.
-     */
-    public Operation getOperation() {
-        return mOperation;
-    }
+public abstract class CancelWorkRunnable implements Callable<Operation.State.SUCCESS> {
 
     @Override
-    public void run() {
-        try {
-            runInternal();
-            mOperation.setState(Operation.SUCCESS);
-        } catch (Throwable throwable) {
-            mOperation.setState(new Operation.State.FAILURE(throwable));
-        }
+    public Operation.State.SUCCESS call() {
+        runInternal();
+        return Operation.SUCCESS;
     }
 
     abstract void runInternal();

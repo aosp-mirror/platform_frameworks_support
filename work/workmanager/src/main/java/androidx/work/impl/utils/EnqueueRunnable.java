@@ -38,9 +38,9 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
 import androidx.work.Operation;
+import androidx.work.Operation.State.SUCCESS;
 import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
-import androidx.work.impl.OperationImpl;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkContinuationImpl;
 import androidx.work.impl.WorkDatabase;
@@ -57,6 +57,7 @@ import androidx.work.impl.workers.ConstraintTrackingWorker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * Manages the enqueuing of a {@link WorkContinuationImpl}.
@@ -64,44 +65,32 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class EnqueueRunnable implements Runnable {
+public class EnqueueRunnable implements Callable<SUCCESS> {
 
     private static final String TAG = Logger.tagWithPrefix("EnqueueRunnable");
 
     private final WorkContinuationImpl mWorkContinuation;
-    private final OperationImpl mOperation;
 
     public EnqueueRunnable(@NonNull WorkContinuationImpl workContinuation) {
         mWorkContinuation = workContinuation;
-        mOperation = new OperationImpl();
     }
+
 
     @Override
-    public void run() {
-        try {
-            if (mWorkContinuation.hasCycles()) {
-                throw new IllegalStateException(
-                        String.format("WorkContinuation has cycles (%s)", mWorkContinuation));
-            }
-            boolean needsScheduling = addToDatabase();
-            if (needsScheduling) {
-                // Enable RescheduleReceiver, only when there are Worker's that need scheduling.
-                final Context context =
-                        mWorkContinuation.getWorkManagerImpl().getApplicationContext();
-                PackageManagerHelper.setComponentEnabled(context, RescheduleReceiver.class, true);
-                scheduleWorkInBackground();
-            }
-            mOperation.setState(Operation.SUCCESS);
-        } catch (Throwable exception) {
-            mOperation.setState(new Operation.State.FAILURE(exception));
+    public SUCCESS call() {
+        if (mWorkContinuation.hasCycles()) {
+            throw new IllegalStateException(
+                    String.format("WorkContinuation has cycles (%s)", mWorkContinuation));
         }
-    }
-
-    /**
-     * @return The {@link Operation} that encapsulates the state of the {@link EnqueueRunnable}.
-     */
-    public Operation getOperation() {
-        return mOperation;
+        boolean needsScheduling = addToDatabase();
+        if (needsScheduling) {
+            // Enable RescheduleReceiver, only when there are Worker's that need scheduling.
+            final Context context =
+                    mWorkContinuation.getWorkManagerImpl().getApplicationContext();
+            PackageManagerHelper.setComponentEnabled(context, RescheduleReceiver.class, true);
+            scheduleWorkInBackground();
+        }
+        return Operation.SUCCESS;
     }
 
     /**
@@ -255,7 +244,7 @@ public class EnqueueRunnable implements Runnable {
                     // the current transaction.  We want it to happen separately to avoid race
                     // conditions (see ag/4502245, which tries to avoid work trying to run before
                     // it's actually been committed to the database).
-                    CancelWorkRunnable.forName(name, workManagerImpl, false).run();
+                    CancelWorkRunnable.forName(name, workManagerImpl, false).call();
                     // Because we cancelled some work but didn't allow rescheduling inside
                     // CancelWorkRunnable, we need to make sure we do schedule work at the end of
                     // this runnable.
