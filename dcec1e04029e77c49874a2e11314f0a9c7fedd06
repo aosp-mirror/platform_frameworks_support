@@ -103,6 +103,24 @@
     },
     {
       "key": {
+        "uuid": "863487ee_3dfe514a",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-02-24T05:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b353299_5138f5b3",
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb40812f_4e892907",
         "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
         "patchSetId": 1
@@ -123,6 +141,30 @@
       "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc8ebf97_f2bf63b4",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-02-24T05:32:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb40812f_4e892907",
+      "range": {
+        "startLine": 655,
+        "startChar": 12,
+        "endLine": 655,
+        "endChar": 30
+      },
+      "revId": "dcec1e04029e77c49874a2e11314f0a9c7fedd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
