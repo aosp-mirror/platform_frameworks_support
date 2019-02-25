@@ -12,7 +12,7 @@ We **are not** currently accepting new modules.
 ## Checking Out the Code
 **NOTE: You will need to use Linux or Mac OS. Building under Windows is not currently supported.**
 
-Follow the [“Downloading the Source”](https://source.android.com/source/downloading.html) guide to install and set up `repo` tool, but instead of running the listed `repo` commands to initialize the repository, run the folowing:
+Follow the [“Downloading the Source”](https://source.android.com/source/downloading.html) guide to install and set up `repo` tool, but instead of running the listed `repo` commands to initialize the repository, run the following:
 
     repo init -u https://android.googlesource.com/platform/manifest -b androidx-master-dev
 
@@ -34,7 +34,7 @@ If you see any warnings (red underlines) run `Build > Clean Project`.
 
 ## Builds
 ### Full Build (Optional)
-You can do most of your work from Android Studio, however you can also build the full AndroidX library from command line:
+You can do most of your work from Android Studio, however you can also build the full AndroidX library from the command line:
 
     cd path/to/checkout/frameworks/support/
     ./gradlew createArchive
@@ -65,7 +65,7 @@ The AndroidX repository has a set of Android applications that exercise AndroidX
 These applications are named either `<libraryname>-integration-tests-testapp`, or `support-\*-demos` (e.g. `support-4v-demos` or `support-leanback-demos`). You can run them by clicking `Run > Run ...` and choosing the desired application.
 
 ## Password and Contributor Agreement before making a change
-Before uploading your first contribution, you will need setup a password and agree to the contribution agreement:
+Before uploading your first contribution, you will need to setup a password and agree to the contribution agreement:
 
 Generate a HTTPS password:
 https://android-review.googlesource.com/new-password
