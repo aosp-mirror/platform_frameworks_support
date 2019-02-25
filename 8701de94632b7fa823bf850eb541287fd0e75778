@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "5c6070b0_59a06963",
+        "filename": "security/crypto/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-02-25T20:06:24Z",
+      "side": 1,
+      "message": "Actually, after more thought. I am using this status to tell the developer the status of the biometric auth when a key requires it.\n\nIs this OK to keep in? Otherwise I would need some sort of mechanism to convey this.",
+      "parentUuid": "6e0b8c7f_0f5fcd7f",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "8701de94632b7fa823bf850eb541287fd0e75778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5873d72b_bbd52164",
         "filename": "security/crypto/api/current.txt",
         "patchSetId": 2
