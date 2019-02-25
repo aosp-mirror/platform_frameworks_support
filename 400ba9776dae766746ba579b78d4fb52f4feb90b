@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "804e49cb_3a0ca0b1",
+        "filename": "transition/src/main/java/androidx/transition/CanvasUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-02-25T12:47:02Z",
+      "side": 1,
+      "message": "it should be \u003e\u003d here as it will be also not working on later versions. In the current development version the method \"insertReorderBarrier\" is still not accessible, but there is a new public \"enableZ\" which I am going to use in the platform branch later.",
+      "parentUuid": "dc2f50dd_aa87a606",
+      "range": {
+        "startLine": 41,
+        "startChar": 41,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "400ba9776dae766746ba579b78d4fb52f4feb90b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2207ce8c_aada8d48",
         "filename": "transition/src/main/java/androidx/transition/GhostViewHolder.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-22T22:33:56Z",
       "side": 1,
       "message": "Nice implementation. The only thing better would be if buildOrderedChildList wouldn\u0027t have to actually create a list and instead just return the order of the two views. Maybe tracking the index of each?",
+      "range": {
+        "startLine": 170,
+        "startChar": 27,
+        "endLine": 170,
+        "endChar": 34
+      },
+      "revId": "400ba9776dae766746ba579b78d4fb52f4feb90b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f648ee96_a1add2f5",
+        "filename": "transition/src/main/java/androidx/transition/GhostViewHolder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-02-25T12:47:02Z",
+      "side": 1,
+      "message": "Thanks. I simplified this with extracting just a meaningful logic from buildOrderedChildList right inside this method.",
+      "parentUuid": "2207ce8c_aada8d48",
       "range": {
         "startLine": 170,
         "startChar": 27,
