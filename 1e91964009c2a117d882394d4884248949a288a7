@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e33e8701_d1c46d44",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/ViewPagerBaseTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-25T15:57:44Z",
+      "side": 1,
+      "message": "Should be reset between calls (since last verify)?",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "1e91964009c2a117d882394d4884248949a288a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc97e294_96d99f6d",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-25T15:57:44Z",
+      "side": 1,
+      "message": "Maybe change to composition - main responsibility (verifying state) utilizes the callback rather than being it.",
+      "range": {
+        "startLine": 30,
+        "startChar": 61,
+        "endLine": 30,
+        "endChar": 92
+      },
+      "revId": "1e91964009c2a117d882394d4884248949a288a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d109d6f6_55735e62",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-25T15:57:44Z",
+      "side": 1,
+      "message": "Maybe give the field a self-descriptive name, so we know what it waits for?\nAlso, could be private - and if not (synthetic accessor) could you call this out in a comment?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "1e91964009c2a117d882394d4884248949a288a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7615b245_a9042743",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-25T15:57:44Z",
+      "side": 1,
+      "message": "The whole field could be private. Same with other two.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "1e91964009c2a117d882394d4884248949a288a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
