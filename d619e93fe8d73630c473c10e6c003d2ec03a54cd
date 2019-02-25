@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8cf8e40_abb7b03a",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityRunOnNextRecreateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-25T12:29:51Z",
+      "side": 1,
+      "message": "Nah, it is only for test: so on restoration I\u0027m 100% sure that savedstate is not null \u003d\u003e I add observer and check restarted value. Otherwise, let\u0027s say recreator failed and didn\u0027t add anything to savedstate, then theoretically on restoration bundle may be null and I don\u0027t check anything.",
+      "parentUuid": "8a6ad228_ca4ab5ff",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 73
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a87f8751_29ed9357",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbe6971_faebf2c4",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-25T12:29:51Z",
+      "side": 1,
+      "message": "ON_CREATE is first event that arrives, we should remove ourselves as observer on this event. So getting any other event is our error and should result in runtime exception",
+      "parentUuid": "a87f8751_29ed9357",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +164,30 @@
       "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1cd196_7566a0c4",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-25T12:29:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "120d4b2c_e12fd605",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
