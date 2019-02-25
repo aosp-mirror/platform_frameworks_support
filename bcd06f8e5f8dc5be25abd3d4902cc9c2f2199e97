@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3b4880a_4a744a32",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-25T23:47:49Z",
+      "side": 1,
+      "message": "This msg needs to be updated too.",
+      "range": {
+        "startLine": 782,
+        "startChar": 44,
+        "endLine": 782,
+        "endChar": 67
+      },
+      "revId": "bcd06f8e5f8dc5be25abd3d4902cc9c2f2199e97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
