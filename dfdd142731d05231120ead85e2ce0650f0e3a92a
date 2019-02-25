@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83bcec18_c3891499",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-25T21:56:06Z",
+      "side": 1,
+      "message": "For clarity, can this be renamed \"simple hostnames\" rather than \"local\"?\n\nThat is how we refer to the name in Chrome code (i.e. https://chromium.googlesource.com/chromium/src/+/HEAD/net/proxy_resolution/proxy_bypass_rules.h#132).\n\n\"\u003clocal\u003e\" is the internal parsing rule name, which unfortunately we inherited for compatibility with WinInet. (It is poorly named, as it sounds like a general bypass for localhost, but in truth it is something sillier).",
+      "range": {
+        "startLine": 206,
+        "startChar": 23,
+        "endLine": 206,
+        "endChar": 49
+      },
+      "revId": "dfdd142731d05231120ead85e2ce0650f0e3a92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da6e41b_088257d9",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-25T21:56:06Z",
+      "side": 1,
+      "message": "This is a fairly subtle mechanism and could use some more background. How about something like:\n\n\nBy default, certain hostnames implicitly bypass the proxy if they are link-local IPs, or localhost addresses. For instance hostnames matching any of (non-exhaustive list):\n\n    localhost\n    *.localhost\n    [::1]\n    127.0.0.1/8\n    169.254/16\n    [FE80::]/10\n\nCall this function to override the default behavior and force localhost and link-local URLs to be sent through the proxy.",
+      "revId": "dfdd142731d05231120ead85e2ce0650f0e3a92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "726e36a3_9c38a718",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-25T21:56:06Z",
+      "side": 1,
+      "message": "For consistency with Chrome, do we want to name this as \"subtract implicit rules\"?(https://chromium.googlesource.com/chromium/src/+/HEAD/net/proxy_resolution/proxy_bypass_rules.h#217)",
+      "revId": "dfdd142731d05231120ead85e2ce0650f0e3a92a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
