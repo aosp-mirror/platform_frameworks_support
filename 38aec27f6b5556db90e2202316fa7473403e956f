@@ -16,6 +16,24 @@
       "revId": "38aec27f6b5556db90e2202316fa7473403e956f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21431189_b10f1155",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Version.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-02-25T18:14:01Z",
+      "side": 1,
+      "message": "The change in aosp/764686 should not have been submitted. isPatch() does NOT belong here.\n\n/** Returns whether the API surface is allowed to change within the current revision (see go/androidx/versioning for policy definition). */",
+      "parentUuid": "cdd9f37b_9e0dc19a",
+      "revId": "38aec27f6b5556db90e2202316fa7473403e956f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
