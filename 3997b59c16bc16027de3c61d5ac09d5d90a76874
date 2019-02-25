@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "acac87b6_50a99648",
+        "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-25T07:57:46Z",
+      "side": 1,
+      "message": "Can\u0027t we use Uri instead?\nI guess we can get the session id from the session uri.",
+      "range": {
+        "startLine": 139,
+        "startChar": 33,
+        "endLine": 139,
+        "endChar": 39
+      },
+      "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b176f846_23f77934",
         "filename": "media2/src/main/java/androidx/media2/MediaSession.java",
         "patchSetId": 3
@@ -64,6 +87,29 @@
         "startChar": 27,
         "endLine": 96,
         "endChar": 53
+      },
+      "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c8f8f0_f4e9ed3d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-02-25T07:57:46Z",
+      "side": 1,
+      "message": "Can\u0027t we register one receiver instead of multiple receivers per session?",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 15
       },
       "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
