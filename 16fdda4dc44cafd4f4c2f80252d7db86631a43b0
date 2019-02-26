@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7579748d_4403d4af",
+        "filename": "browser/src/androidTest/java/androidx/browser/customtabs/CustomTabsIntentTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-02-26T14:42:11Z",
+      "side": 1,
+      "message": "It seems a bit ugly to re-use the intent (although I guess the testcase above does that).\n\nI\u0027d argue that you just need to test this for one value (or if you\u0027re going to enumerate every valid value, you could do that in a loop).",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "16fdda4dc44cafd4f4c2f80252d7db86631a43b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
