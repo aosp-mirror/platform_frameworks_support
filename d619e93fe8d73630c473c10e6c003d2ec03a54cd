@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "902ea65b_51ed2d69",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityRunOnNextRecreateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T17:03:50Z",
+      "side": 1,
+      "message": "Actually I realised, I don\u0027t need it because I check that observerExecuted. So I removed this",
+      "parentUuid": "fd191d00_dccf03f1",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 73
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a87f8751_29ed9357",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 4
@@ -141,6 +165,30 @@
       "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e24d79_0448fbe5",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T17:03:50Z",
+      "side": 1,
+      "message": "ON_DESTROYED has strong semantics of STARTED -\u003e DESTROYED. We should never send it without ON_CREATE. \n\nIf we\u0027re going change order of these events, it would be super breaking change and the fact that here we somehow were able to predict it, won\u0027t help much, everything else will break.",
+      "parentUuid": "52cec8a1_53e09b16",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
