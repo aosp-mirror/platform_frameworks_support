@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6751147a_9f29baff",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerActivityTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-02-26T18:32:10Z",
+      "side": 1,
+      "message": "assert true",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 68
+      },
+      "revId": "cbf6d582c46f8c81f0b0da5f4d07ac72c1372dce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
