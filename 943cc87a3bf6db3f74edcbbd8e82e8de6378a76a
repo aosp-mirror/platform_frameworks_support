@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b96fd89f_8ec2d068",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T16:49:01Z",
+      "side": 1,
+      "message": "IAE",
+      "range": {
+        "startLine": 330,
+        "startChar": 26,
+        "endLine": 330,
+        "endChar": 47
+      },
+      "revId": "943cc87a3bf6db3f74edcbbd8e82e8de6378a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c8dc4d_e21571fe",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T16:49:01Z",
+      "side": 1,
+      "message": "I don\u0027t see any value to in  wrapping and rethrowning here",
+      "range": {
+        "startLine": 332,
+        "startChar": 9,
+        "endLine": 334,
+        "endChar": 9
+      },
+      "revId": "943cc87a3bf6db3f74edcbbd8e82e8de6378a76a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
