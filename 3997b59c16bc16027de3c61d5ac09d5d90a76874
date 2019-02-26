@@ -234,6 +234,30 @@
       "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0be66e_7da3cc87",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-02-26T07:36:55Z",
+      "side": 1,
+      "message": "Note: List of the sessions is maintained by the MediaSession, not MediaSessionImplBase. Since that it\u0027s inside of the constructor, MediaSession may or may not be consider this as the registered session or not. Given the aboves, I think that an API (or code) to know whether it\u0027s the first session looks bit ambiguous and not readable well.\n\nGiven that it\u0027s the workaround until the real MediaButtonReceiver and there\u0027s not much app with the multiple sessions, I think that it\u0027s OK (not so good) for now. What do you think? Feel free to tell me about your opinion.",
+      "parentUuid": "e74307c7_7aacb9dd",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 15
+      },
+      "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
