@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfffb3cb_9df0b6f0",
+        "filename": "savedstate/proguard-rules.pro",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-26T18:52:22Z",
+      "side": 1,
+      "message": "Add the Copyright block",
+      "revId": "1b01537a1815299cfbfc8de940115f2a95e83a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
