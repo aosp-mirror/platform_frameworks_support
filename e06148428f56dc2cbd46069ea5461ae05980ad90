@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65867c8d_4dad1ed9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-26T16:04:29Z",
+      "side": 1,
+      "message": "Good catch. I will follow up in a separate CL. Actually had a bug for this already. TODO for now.",
+      "parentUuid": "b9412c13_984df7b8",
+      "range": {
+        "startLine": 166,
+        "startChar": 25,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0278b00_5b885a39",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "dbc62999_624b9507",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-26T16:04:29Z",
+      "side": 1,
+      "message": "It\u0027s to differentiate it from the other two arrays in the Bundle keyed by:\n- STATE_ARG_KEYS \u003d \"keys\";\n- STATE_ARG_VALUES \u003d \"values\";\n\nI will make it consistent though and use the prefix method to encode keys for states as well as values.",
+      "parentUuid": "c0278b00_5b885a39",
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "afef5a01_c3d6c312",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2019-02-26T12:45:29Z",
       "side": 1,
       "message": "why clear? I think right thing is to assert that mSavedStates are empty?  Because FragmentStateAdapter isn\u0027t supposed to be reused and receive this callback twice?",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 326,
+        "endChar": 24
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1925110_0bcb231b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-26T16:04:29Z",
+      "side": 1,
+      "message": "Fair enough, I\u0027ll throw an Exception here.",
+      "parentUuid": "afef5a01_c3d6c312",
       "range": {
         "startLine": 326,
         "startChar": 12,
