@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab8990ba_efdb61ae",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T16:09:05Z",
+      "side": 1,
+      "message": "@IntDef cannot be public, you need to add\n/**\n * @hide\n */\n@RestrictTo(LIBRARY)\n\nYou can read more about why here:\nhttps://docs.google.com/document/d/1LtR7mSHWOESKBH0GEgLSUZnnt4gDplCm3WoSJuJmbbI/view#heading\u003dh.cg6cyrqi59jq",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda1a459_f1acdc16",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T16:09:05Z",
+      "side": 1,
+      "message": "You should explain what effects it should have. For example, will it reset the toolbar color?",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 51
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf12645_612bddf9",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T16:09:05Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 557,
+        "startChar": 15,
+        "endLine": 557,
+        "endChar": 22
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
