@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e50dc5b4_d0c3ab41",
+        "filename": "transition/src/androidTest/java/androidx/transition/GhostViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-02-26T09:15:08Z",
+      "side": 1,
+      "message": "This should be O.\n\nPixelCopy class is N, but the method is O.\nhttps://developer.android.com/reference/android/view/PixelCopy.html#request(android.view.Window,%20android.graphics.Rect,%20android.graphics.Bitmap,%20android.view.PixelCopy.OnPixelCopyFinishedListener,%20android.os.Handler)",
+      "range": {
+        "startLine": 277,
+        "startChar": 57,
+        "endLine": 277,
+        "endChar": 58
+      },
+      "revId": "bc2912d0b695ffc45494e7a37e26a59485a1d799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
