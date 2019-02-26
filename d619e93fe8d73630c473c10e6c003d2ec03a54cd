@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fd191d00_dccf03f1",
+        "filename": "activity/src/androidTest/java/androidx/activity/ComponentActivityRunOnNextRecreateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-26T16:49:29Z",
+      "side": 1,
+      "message": "can we add a case for the other possibility? recreator fails if there is no data in saved state? or is that meaningless?",
+      "parentUuid": "c8cf8e40_abb7b03a",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 73
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a87f8751_29ed9357",
         "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52cec8a1_53e09b16",
+        "filename": "savedstate/src/main/java/androidx/savedstate/Recreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-26T16:49:29Z",
+      "side": 1,
+      "message": "i put this in relation to discussions of adding RESUMED_TOP (for q, for tables). We\u0027ve kind of decided not to do it but who knows in the future. TO make code more future proof, maybe we can just check event \u003c CREATED, ignore? also, what happens if DESTROYED comes even before creation? (INITIALIZED-\u003eDESTROYED) that is also less than CREATED.",
+      "parentUuid": "8cbe6971_faebf2c4",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "d619e93fe8d73630c473c10e6c003d2ec03a54cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
