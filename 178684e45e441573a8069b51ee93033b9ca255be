@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e299ff2_af3061df",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-26T18:29:10Z",
+      "side": 1,
+      "message": "Ignore this one. I see it was addressed in the next CL.",
+      "parentUuid": "42289194_bbbdd112",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "178684e45e441573a8069b51ee93033b9ca255be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71cba926_ac5eec7c",
         "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
         "patchSetId": 2
