@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cad2e94_735091fc",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/Transformer.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-26T12:21:03Z",
+      "side": 1,
+      "message": "Can we just convert FileMapping to ArchiveFile (just load the byte array and give it to it) and remove this method from the transformers? It would be better to have the logic only at once place.\n\nAnd if we do that we can also merge the two canTransform methods into canTransform(Path relativePath) and add extension functions that accept both FileMapping and ArchiveFile.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "51a73dce77260ea3fe58cbefc51593ab7ebcbd13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4dfa34_4ec43cea",
+        "filename": "jetifier/jetifier/processor/src/test/kotlin/com/android/tools/build/jetifier/processor/transform/SingleFileJetificationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-26T12:21:03Z",
+      "side": 1,
+      "message": "Nice tests! Thanks a lot!",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "51a73dce77260ea3fe58cbefc51593ab7ebcbd13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7b092ef_74006565",
+        "filename": "jetifier/jetifier/processor/src/test/kotlin/com/android/tools/build/jetifier/processor/transform/SingleFileJetificationTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-26T12:21:03Z",
+      "side": 1,
+      "message": "Can you please align the indent? I don\u0027t know why AS and kotlin do this all the time.",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "51a73dce77260ea3fe58cbefc51593ab7ebcbd13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
