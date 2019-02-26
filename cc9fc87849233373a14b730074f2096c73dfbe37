@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4708c31_7606a891",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-26T17:42:19Z",
+      "side": 1,
+      "message": "Can we rename this BYPASS_RULE_SIMPLE_NAMES?",
+      "revId": "cc9fc87849233373a14b730074f2096c73dfbe37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a3b1be_172eafc7",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-26T17:42:19Z",
+      "side": 1,
+      "message": "Can we rename this BYPASS_RULE_SUBTRACT_IMPLICIT?",
+      "revId": "cc9fc87849233373a14b730074f2096c73dfbe37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabd2096_e19a51f8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1107838
+      },
+      "writtenOn": "2019-02-26T17:42:19Z",
+      "side": 1,
+      "message": "[optional]: Could also note that hostnames with a trailing dot are not considered \"simple\" by this definition, since it contains a dot (even though the final label is empty).",
+      "revId": "cc9fc87849233373a14b730074f2096c73dfbe37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
