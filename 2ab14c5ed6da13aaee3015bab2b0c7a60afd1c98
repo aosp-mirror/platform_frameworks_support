@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "763bfe68_0080d63c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-26T17:51:39Z",
+      "side": 1,
+      "message": "Did my best to address this.  Take a look in the new patch set.",
+      "parentUuid": "ae875b97_c4a6888c",
+      "revId": "2ab14c5ed6da13aaee3015bab2b0c7a60afd1c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e0a468a_73c12ccf",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 15
@@ -33,6 +51,24 @@
       "revId": "2ab14c5ed6da13aaee3015bab2b0c7a60afd1c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120448b1_b959e11b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-26T17:51:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e0a468a_73c12ccf",
+      "revId": "2ab14c5ed6da13aaee3015bab2b0c7a60afd1c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
