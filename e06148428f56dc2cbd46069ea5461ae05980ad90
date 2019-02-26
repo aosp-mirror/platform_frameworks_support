@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9412c13_984df7b8",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T12:45:29Z",
+      "side": 1,
+      "message": "Theoretically, you fail on the classic: \"View lifecycle is completely unaware of activity (\u003d\u003e fragment) lifecycle\". So there is no guarantee that this call won\u0027t fail. I\u0027m not 100% sure how to reliably trigger failure (but you can try to actively change view tree while activity is in background). \n\nSo you have to add a fallback path here on the case of mFragmentManager.isStateSaved()",
+      "range": {
+        "startLine": 166,
+        "startChar": 25,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0278b00_5b885a39",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T12:45:29Z",
+      "side": 1,
+      "message": "wt \"f\"?\n\nyou can assume that bundle has only proper \"keys\", so no need to check for \"startWith\".\n\nIf anyone pass you a bundle that has something else, it is exceptional situation",
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afef5a01_c3d6c312",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-26T12:45:29Z",
+      "side": 1,
+      "message": "why clear? I think right thing is to assert that mSavedStates are empty?  Because FragmentStateAdapter isn\u0027t supposed to be reused and receive this callback twice?",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 326,
+        "endChar": 24
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
