@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "58c6b671_1ffac21f",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T18:03:26Z",
+      "side": 1,
+      "message": "In general we tried to scope things down as much as possible, we prefer private methods over public, we prefer final classes/methods over overridables ones. That way, if we ever change our mind, we can still open it up, but it is not possible to go the other way. The question is really if you expect a developer to extend it and in this case I would say yes, so it should probably be final.",
+      "parentUuid": "88903016_372caee6",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97925708_845057e8",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "92951fef_8019b07e",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T18:03:26Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "e15b4e68_189f4531",
+      "range": {
+        "startLine": 39,
+        "startChar": 54,
+        "endLine": 39,
+        "endChar": 87
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce84a14e_ead40f21",
         "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
         "patchSetId": 6
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "For this specific API: this is not strictly a URL. As described by the javadoc, this differs from a URL/URI as such:\n\n * may or may not have a scheme (URIs require this, per https://tools.ietf.org/html/rfc2396)\n * cannot have a path, query, fragment, username/password (URIs permit these)\n\nAs this is not a URI, I recommended Laís to avoid android.net.Uri. I think the same argument applies to URLs/java.net.URL (but I\u0027m less familiar with this definition, feel free to correct me). I recommend String because (1) it doesn\u0027t mislead users into thinking we support queries/fragments/etc., and (2) string literals will always be more convenient to use than some custom type we create for this purpose (that feels like overkill).\n\nThat said, we should probably rename the variable. How about \"proxyOrigin\"? Per the RFC defining the term (https://tools.ietf.org/html/rfc6454):\n\n\u003e Roughly speaking, two URIs are part of the same origin (i.e., represent the same principal) if they have the same scheme, host, and port.\n\n^ This basically describes what we\u0027re asking for (the minor difference is that we\u0027ll choose default values for scheme \u0026 port for the app\u0027s convenience).\n\n---\n\nAs a general question: does API council prefer java.net.URL or android.net.Uri? Is this context-dependent? Couldn\u0027t find an answer on http://go/android-api-guidelines",
       "parentUuid": "4c83ab82_6c182824",
+      "range": {
+        "startLine": 151,
+        "startChar": 52,
+        "endLine": 151,
+        "endChar": 60
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0874cce4_9ca13b37",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T18:03:26Z",
+      "side": 1,
+      "message": "Makes sense. I general we lean towards android.net.Uri as it is more flexible.",
+      "parentUuid": "8a2a34ec_d8fd58de",
       "range": {
         "startLine": 151,
         "startChar": 52,
@@ -437,6 +509,30 @@
       "side": 1,
       "message": "IIUC both will work, but LIBRARY is a smaller scope? If that\u0027s correct, then all of our @RestrictTo\u0027s should be LIBRARY (we don\u0027t want to expose hidden code to other AndroidX modules). Could you file a ticket against our component to clean this up?\n\n---\n\nFor this particular API, I think we only use this in the subclass. Perhaps we should use Scope.SUBCLASSES instead?",
       "parentUuid": "107a723a_452f30a2",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 53
+      },
+      "revId": "e45a9876b1ea2b56a903a081d4066cd24485919f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3479f00c_4825cec8",
+        "filename": "webkit/src/main/java/androidx/webkit/ProxyController.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-26T18:03:26Z",
+      "side": 1,
+      "message": "Yes library is a smaller scope. You can change it in a follow up CL. Please file a bug for it.",
+      "parentUuid": "c2d4e2e0_2ecf7a78",
       "range": {
         "startLine": 57,
         "startChar": 16,
