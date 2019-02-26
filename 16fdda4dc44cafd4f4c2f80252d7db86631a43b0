@@ -22,6 +22,30 @@
       "revId": "16fdda4dc44cafd4f4c2f80252d7db86631a43b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398adffe_10249187",
+        "filename": "browser/src/androidTest/java/androidx/browser/customtabs/CustomTabsIntentTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-02-26T14:49:31Z",
+      "side": 1,
+      "message": "Fair - fixed!",
+      "parentUuid": "7579748d_4403d4af",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "16fdda4dc44cafd4f4c2f80252d7db86631a43b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
