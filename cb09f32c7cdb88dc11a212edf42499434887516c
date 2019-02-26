@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7de013fe_8a122252",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-26T07:50:08Z",
+      "side": 1,
+      "message": "It doesn\u0027t guarantee that onCustomCommand has been called. For instance, it cannot detect the case that onCurrentMediaItemChanged is called more than we expected.",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 44
+      },
+      "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
