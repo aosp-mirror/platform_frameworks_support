@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0fa150d6_36431d44",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/transform/Transformer.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-02-27T12:59:07Z",
+      "side": 1,
+      "message": "Yes, I think in the future I will refactor ArchiveFile to just something like File to make it more general.",
+      "parentUuid": "28af82d2_8a5b687b",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "51a73dce77260ea3fe58cbefc51593ab7ebcbd13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de4dfa34_4ec43cea",
         "filename": "jetifier/jetifier/processor/src/test/kotlin/com/android/tools/build/jetifier/processor/transform/SingleFileJetificationTest.kt",
         "patchSetId": 10
