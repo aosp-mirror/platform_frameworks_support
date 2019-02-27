@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e6f5a86_f9853b16",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-02-27T10:43:04Z",
+      "side": 1,
+      "message": "Looks like the field mPendingSeek is no longer needed and can be removed.",
+      "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
