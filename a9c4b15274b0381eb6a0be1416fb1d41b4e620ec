@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "5380a081_79afa686",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-02-27T11:08:31Z",
+      "side": 1,
+      "message": "+1 if this is truly meant to be immutable then every member should be immutable, and that should probably also transitively apply to PathHandler (modulo caching optimizations, if there are any).",
+      "parentUuid": "08f80441_0fb46f9b",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 74
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a74b590_da2f8171",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 2
@@ -173,6 +197,29 @@
         "startChar": 23,
         "endLine": 213,
         "endChar": 45
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b1275a_01f378c7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-02-27T11:08:31Z",
+      "side": 1,
+      "message": "mAssetsHandler is @NonNull, so this is not needed. Applies to mResourcesHandler as well, and maybe elsewhere.",
+      "range": {
+        "startLine": 381,
+        "startChar": 12,
+        "endLine": 381,
+        "endChar": 26
       },
       "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
