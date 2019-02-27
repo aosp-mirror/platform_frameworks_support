@@ -22,6 +22,30 @@
       "revId": "863462a41d0708ab9044f826e85250cb3d20ffa8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2414ef_e72d6256",
+        "filename": "transition/src/main/java/androidx/transition/CanvasUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-02-27T00:25:40Z",
+      "side": 1,
+      "message": "I assumed it is better to crash so presubmit would fail on tests if we accidentally use this method from the API version where it is not supported. I thought it is better to discover the mistake as as soon as possible instead of providing a solution where shadows will be correctly drawn on all API versions except one. For sure if this method would be a part of the public api I would prefer to not crash, but for the internal logic the correctness is more important I think. \nIf you don\u0027t agree I would be happy to remove this. Wdyt?",
+      "parentUuid": "5decaa0d_7d96f423",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 80
+      },
+      "revId": "863462a41d0708ab9044f826e85250cb3d20ffa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
