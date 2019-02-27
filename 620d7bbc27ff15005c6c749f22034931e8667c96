@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "12fed19a_6d0c06e0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckResourceApiTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-27T21:45:35Z",
+      "side": 1,
+      "message": "Hmm I\u0027m not sure either. Actually now that you mention it I think you\u0027re probably right to do \"2018\" if it was written in 2018",
+      "parentUuid": "cdac630e_c875ff96",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "620d7bbc27ff15005c6c749f22034931e8667c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ec0e73d_52d57297",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CheckSameVersionLibraryGroupsTask.kt",
         "patchSetId": 4
