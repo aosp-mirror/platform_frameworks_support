@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cdac630e_c875ff96",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckResourceApiTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-27T21:41:35Z",
+      "side": 1,
+      "message": "Wasn\u0027t sure if I should change this to 2019 since the file was written in 2018, but I\u0027ll make the change.",
+      "parentUuid": "955d74ab_79cdaa59",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "620d7bbc27ff15005c6c749f22034931e8667c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ec0e73d_52d57297",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CheckSameVersionLibraryGroupsTask.kt",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2faf4166_b2b6e0af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckSameVersionLibraryGroupsTask.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-27T21:41:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ec0e73d_52d57297",
+      "range": {
+        "startLine": 38,
+        "startChar": 74,
+        "endLine": 38,
+        "endChar": 92
+      },
+      "revId": "620d7bbc27ff15005c6c749f22034931e8667c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "045bd145_4325618b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
         "patchSetId": 4
@@ -62,6 +110,24 @@
       "revId": "620d7bbc27ff15005c6c749f22034931e8667c96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a50ca2e_b4513216",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-27T21:41:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "045bd145_4325618b",
+      "revId": "620d7bbc27ff15005c6c749f22034931e8667c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
