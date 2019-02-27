@@ -22,6 +22,30 @@
       "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5719f6_1fd79e77",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-27T06:28:16Z",
+      "side": 1,
+      "message": "Thank you for pointing this out. I\u0027ll reflect this in another CL (b/126448446) because properly testing sending track info needs a separate test. Removed test code for now.",
+      "parentUuid": "7de013fe_8a122252",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 44
+      },
+      "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
