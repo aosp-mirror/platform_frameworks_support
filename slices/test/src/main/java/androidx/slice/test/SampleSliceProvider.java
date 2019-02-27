@@ -201,8 +201,6 @@ public class SampleSliceProvider extends SliceProvider {
                 return createFoodOptionsSlice(sliceUri);
             case "/cat":
                 return createBigPicSlice(sliceUri);
-            case "/permission":
-                return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
             case "/loading":
                 return createLoadingSlice(sliceUri);
             case "/selection":
