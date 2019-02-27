@@ -173,7 +173,6 @@ import java.util.Map;
     private boolean mPrepared;
     private boolean mNewlyPrepared;
     private boolean mRebuffering;
-    private boolean mPendingSeek;
     private int mVideoWidth;
     private int mVideoHeight;
     private PlaybackParams mPlaybackParams;
@@ -472,7 +471,6 @@ import java.util.Map;
         mPrepared = false;
         mNewlyPrepared = false;
         mRebuffering = false;
-        mPendingSeek = false;
         mHasAudioAttributes = false;
         mAudioSessionId = C.AUDIO_SESSION_ID_UNSET;
         mAuxEffectId = AuxEffectInfo.NO_AUX_EFFECT_ID;
@@ -570,10 +568,10 @@ import java.util.Map;
             mListener.onSeekCompleted();
             return;
         }
-        mPendingSeek = true;
-        if (mPlayer.getPlaybackState() == Player.STATE_READY) {
-            // The player doesn't need to buffer to seek, so handle being ready now.
-            maybeNotifyReadyEvents();
+        if (mPlayer.getPlaybackState() == Player.STATE_READY
+                || mPlayer.getPlaybackState() == Player.STATE_BUFFERING) {
+            // The player doesn't need to buffer to seek, so notify seek completion.
+            mListener.onSeekCompleted();
         }
     }
 
@@ -644,7 +642,6 @@ import java.util.Map;
     private void maybeNotifyReadyEvents() {
         MediaItem mediaItem = mMediaItemQueue.getCurrentMediaItem();
         boolean prepareComplete = !mPrepared;
-        boolean seekComplete = mPendingSeek;
         if (prepareComplete) {
             mPrepared = true;
             mNewlyPrepared = true;
@@ -653,11 +650,6 @@ import java.util.Map;
             // source queue for which the duration is now known, even if this is not the initial
             // preparation.
             mListener.onPrepared(mediaItem);
-        } else if (seekComplete) {
-            // TODO(b/80232248): Suppress notification if this is an initial seek for a non-zero
-            // start position.
-            mPendingSeek = false;
-            mListener.onSeekCompleted();
         } else if (mRebuffering) {
             mRebuffering = false;
             if (mMediaItemQueue.getCurrentMediaItemIsRemote()) {
