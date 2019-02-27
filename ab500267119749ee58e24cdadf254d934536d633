@@ -22,6 +22,30 @@
       "revId": "ab500267119749ee58e24cdadf254d934536d633",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58ba1720_3a0db146",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/archive/ArchiveFile.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-27T13:10:01Z",
+      "side": 1,
+      "message": "Yeah you\u0027re right, I was a little cautious of doing any refactoring since I was not very aware of the reasons behind the design decisions and I did not want to mess anything up and have you keep reviewing this haha. Thanks!",
+      "parentUuid": "1260ec29_b366f73b",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "ab500267119749ee58e24cdadf254d934536d633",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
