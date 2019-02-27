@@ -238,7 +238,7 @@ public class MediaControlView extends ViewGroup {
     private TextView mAdRemainingView;
 
     // Relating to Settings List View
-    private ListView mSettingsListView;
+    ListView mSettingsListView;
     private PopupWindow mSettingsWindow;
     SettingsAdapter mSettingsAdapter;
     SubSettingsAdapter mSubSettingsAdapter;
@@ -1434,6 +1434,11 @@ public class MediaControlView extends ViewGroup {
         return mTransportControlsMap.get(sizeType).findViewById(id);
     }
 
+    @VisibleForTesting
+    void setItemChecked() {
+        mSettingsListView.setItemChecked(1, true);
+    }
+
     /**
      * @return true iff the current media item is from network.
      */
@@ -2241,6 +2246,8 @@ public class MediaControlView extends ViewGroup {
                         }
                         break;
                     case EVENT_UPDATE_SUBTITLE_SELECTED:
+                        Log.v("JSP", "MCV EVENT_UPDATE_SUBTITLE_SELECTED");
+
                         int selectedTrackIndex = args != null
                                 ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
                                 : -1;
@@ -2255,6 +2262,8 @@ public class MediaControlView extends ViewGroup {
                         }
                         break;
                     case EVENT_UPDATE_SUBTITLE_DESELECTED:
+                        Log.v("JSP", "MCV EVENT_UPDATE_SUBTITLE_DESELECTED");
+
                         mSelectedSubtitleTrackIndex = 0;
                         if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
                             mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
