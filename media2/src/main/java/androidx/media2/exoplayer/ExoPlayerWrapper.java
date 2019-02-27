@@ -573,7 +573,8 @@ import java.util.Map;
         mPendingSeek = true;
         if (mPlayer.getPlaybackState() == Player.STATE_READY) {
             // The player doesn't need to buffer to seek, so handle being ready now.
-            maybeNotifyReadyEvents();
+            mPendingSeek = false;
+            mListener.onSeekCompleted();
         }
     }
 
@@ -653,11 +654,6 @@ import java.util.Map;
             // source queue for which the duration is now known, even if this is not the initial
             // preparation.
             mListener.onPrepared(mediaItem);
-        } else if (seekComplete) {
-            // TODO(b/80232248): Suppress notification if this is an initial seek for a non-zero
-            // start position.
-            mPendingSeek = false;
-            mListener.onSeekCompleted();
         } else if (mRebuffering) {
             mRebuffering = false;
             if (mMediaItemQueue.getCurrentMediaItemIsRemote()) {
