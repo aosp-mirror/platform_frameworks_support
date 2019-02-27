@@ -16,6 +16,24 @@
       "revId": "1b01537a1815299cfbfc8de940115f2a95e83a4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ea3ae13_abb295e6",
+        "filename": "savedstate/proguard-rules.pro",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-27T12:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfffb3cb_9df0b6f0",
+      "revId": "1b01537a1815299cfbfc8de940115f2a95e83a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
