@@ -188,6 +188,10 @@ class AndroidXPlugin : Plugin<Project> {
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         buildOnServerTask.dependsOn(jacocoUberJar)
+        val checkSameVersionLibraryGroupsTask = project.tasks.register(
+            CHECK_SAME_VERSION_LIBRARY_GROUPS,
+            CheckSameVersionLibraryGroupsTask::class.java)
+        buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
         project.createClockLockTasks()
 
@@ -325,6 +329,7 @@ class AndroidXPlugin : Plugin<Project> {
         const val BUILD_TEST_APKS = "buildTestApks"
         const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
         const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
+        const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
     }
 }
 
