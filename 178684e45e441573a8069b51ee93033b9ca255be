@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "23a7bd17_3d3748f8",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-02-27T11:47:02Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "3e299ff2_af3061df",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "178684e45e441573a8069b51ee93033b9ca255be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71cba926_ac5eec7c",
         "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "178684e45e441573a8069b51ee93033b9ca255be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a2549f_a520563f",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-02-27T11:47:02Z",
+      "side": 1,
+      "message": "If the assertion in assumeThat fails, the test will not fail but be ignored instead.\n\nI favored this behavior because this test relies on whether or not an animation frame can be found, which depends on whether or not the phone had enough resources to render one frame during the scroll. I don\u0027t want the tests to flake because of churn on a device, and since I expect that an animated frame will be found \u003e99.9% of the time, I rather ignore those few tests where we couldn\u0027t verify the animation instead of failing on them.",
+      "parentUuid": "71cba926_ac5eec7c",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "178684e45e441573a8069b51ee93033b9ca255be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
