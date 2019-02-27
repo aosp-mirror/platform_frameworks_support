@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "b714d659_e0af94d2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T15:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61d2a710_1a359246",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd82fc02_58eac00b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 17
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "755e69e9_00b79f05",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T15:36:05Z",
+      "side": 1,
+      "message": "Good point.  I reverted back to our file creation logic, but kept the logic for having DependencyGraphFileTask take in a list of files",
+      "parentUuid": "cd82fc02_58eac00b",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45417142_74b4eaab",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 17
@@ -67,6 +103,24 @@
       "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff9ce10_a094a294",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T15:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45417142_74b4eaab",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
