@@ -70,6 +70,30 @@
       "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3d0ac57_5919f59f",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-27T09:30:15Z",
+      "side": 1,
+      "message": "Talked offline",
+      "parentUuid": "7e08a515_df188652",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 44
+      },
+      "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
