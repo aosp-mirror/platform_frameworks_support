@@ -35,7 +35,7 @@ import androidx.loader.app.test.DummyLoaderCallbacks;
 import androidx.loader.content.Loader;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -46,7 +46,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class LoaderManagerTest {
 
     private LoaderManager mLoaderManager;
@@ -203,6 +203,38 @@ public class LoaderManagerTest {
         assertTrue("Initial Loader should be reset after its replacement Loader delivers data",
                 initialCallback.mLoader.isReset());
     }
+
+    /**
+     * Ensures that calling restartLoader from onLoadFinished will not reset current loader.
+     * This is especially important for CursorLoader which closes cursor when Loader is reset.
+     * This means that rest of onLoadFinished could access closed cursor.
+     */
+    @Test
+    public void testRestartLoaderWhileDeliveringData() throws Throwable {
+        CountDownLatch initialCountDownLatch = new CountDownLatch(1);
+        final DelayLoaderCallbacks initialCallback = new DelayLoaderCallbacks(mock(Context.class),
+                initialCountDownLatch) {
+            @Override
+            public void onLoadFinished(@NonNull Loader<Boolean> loader, Boolean data) {
+                super.onLoadFinished(loader, data);
+                assertFalse("Assumption is that loader is not reset in onLoadFinished",
+                        loader.isReset());
+                mLoaderManager.restartLoader(45, null,
+                        new DelayLoaderCallbacks(mock(Context.class), new CountDownLatch(1)));
+                assertFalse("Loader should not be reset when restarted in onLoadFinished",
+                        loader.isReset());
+            }
+        };
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mLoaderManager.initLoader(45, null, initialCallback);
+            }
+        });
+        // Wait for the Loader to return data
+        initialCountDownLatch.await(1, TimeUnit.SECONDS);
+    }
+
 
     @Test
     public void testRestartLoaderMultiple() throws Throwable {

@@ -77,16 +77,16 @@ public @interface RestrictTo {
          * com.foo.bar:lib1 and com.foo.baz:lib2 where they share
          * "com.foo.". Library com.bar.qux:lib3 however will not
          * be able to use the restricted api because it only
-         * shares the prefix "foo." and not all the way until the
+         * shares the prefix "com." and not all the way until the
          * last ".".
          */
         LIBRARY_GROUP_PREFIX,
 
         /**
          * Restrict usage to code within the same group ID (based on gradle
-         * group ID). This is an alias for {@link #LIBRARY_GROUP}.
+         * group ID). This is an alias for {@link #LIBRARY_GROUP_PREFIX}.
          *
-         * @deprecated Use {@link #LIBRARY_GROUP} instead
+         * @deprecated Use {@link #LIBRARY_GROUP_PREFIX} instead
          */
         @Deprecated
         GROUP_ID,

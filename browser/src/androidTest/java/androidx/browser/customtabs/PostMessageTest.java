@@ -24,10 +24,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.ServiceTestRule;
 import androidx.testutils.PollingCheck;
@@ -37,8 +38,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 
 /**
  * Tests for a complete loop between a browser side {@link CustomTabsService}
@@ -47,8 +48,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * side actions.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class PostMessageTest {
+    @Rule
+    public final ServiceTestRule mServiceRule;
     @Rule
     public final ActivityTestRule<TestActivity> mActivityTestRule;
     private TestCustomTabsCallback mCallback;
@@ -61,6 +64,7 @@ public class PostMessageTest {
 
     public PostMessageTest() {
         mActivityTestRule = new ActivityTestRule<TestActivity>(TestActivity.class);
+        mServiceRule = new ServiceTestRule();
         mCustomTabsServiceConnected = new AtomicBoolean(false);
     }
 
@@ -73,15 +77,21 @@ public class PostMessageTest {
             @Override
             public void extraCallback(String callbackName, Bundle args) {
                 if (TestCustomTabsService.CALLBACK_BIND_TO_POST_MESSAGE.equals(callbackName)) {
-                    Intent postMessageServiceIntent = new Intent();
-                    postMessageServiceIntent.setClassName(
-                            mContext.getPackageName(), PostMessageService.class.getName());
-                    try {
-                        mContext.bindService(postMessageServiceIntent,
-                                mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
-                    } catch (Exception e) {
-                        fail();
-                    }
+                    // This gets run on the UI thread, where mServiceRule.bindService will not work.
+                    AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Intent postMessageServiceIntent = new Intent();
+                                postMessageServiceIntent.setClassName(mContext.getPackageName(),
+                                        PostMessageService.class.getName());
+                                mServiceRule.bindService(postMessageServiceIntent,
+                                        mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
+                            } catch (TimeoutException e) {
+                                fail();
+                            }
+                        }
+                    });
                 }
             }
         };
@@ -89,8 +99,8 @@ public class PostMessageTest {
         mCustomTabsServiceConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
-                mSession = client.newSession(mCallback);
                 mCustomTabsServiceConnected.set(true);
+                mSession = client.newSession(mCallback);
             }
 
             @Override
@@ -114,9 +124,9 @@ public class PostMessageTest {
         customTabsServiceIntent.setClassName(
                 mContext.getPackageName(), TestCustomTabsService.class.getName());
         try {
-            mContext.bindService(customTabsServiceIntent,
+            mServiceRule.bindService(customTabsServiceIntent,
                     mCustomTabsServiceConnection, Context.BIND_AUTO_CREATE);
-        } catch (Exception e) {
+        } catch (TimeoutException e) {
             fail();
         }
     }

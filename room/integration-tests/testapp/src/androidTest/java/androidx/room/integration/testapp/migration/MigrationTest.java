@@ -39,7 +39,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.hamcrest.MatcherAssert;
@@ -56,7 +56,7 @@ import java.util.List;
  * Test custom database migrations.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class MigrationTest {
     private static final String TEST_DB = "migration-test";
     @Rule
@@ -116,6 +116,7 @@ public class MigrationTest {
         assertThat(entity2s.size(), is(2));
     }
 
+    @SuppressWarnings("deprecation")
     private MigrationDb getLatestDb() {
         MigrationDb db = Room.databaseBuilder(
                 InstrumentationRegistry.getInstrumentation().getTargetContext(),
