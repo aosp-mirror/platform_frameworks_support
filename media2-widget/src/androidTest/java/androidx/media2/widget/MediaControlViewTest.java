@@ -18,12 +18,16 @@ package androidx.media2.widget;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
+import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_COUNT;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
+import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.not;
@@ -37,7 +41,9 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -48,7 +54,9 @@ import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
+import androidx.media2.SessionCommand;
 import androidx.media2.SessionPlayer;
+import androidx.media2.SessionResult;
 import androidx.media2.UriMediaItem;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
@@ -91,6 +99,7 @@ public class MediaControlViewTest {
     private Uri mFileSchemeUri;
     private MediaItem mFileSchemeMediaItem;
     private List<MediaController> mControllers = new ArrayList<>();
+    private int mSubtitleTrackCount;
 
     @Rule
     public ActivityTestRule<MediaControlViewTestActivity> mActivityRule =
@@ -336,6 +345,68 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFile.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testUpdateAndSelectSubtitleTrack() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.testvideo_with_2_subtitle_tracks);
+
+        final int selectedSubtitleTrackIndex = 0;
+        final String subtitleTrackOffText = "Off";
+        final String subtitleTrack1Text = "Track 1";
+        final String subtitleTrack2Text = "Track 2";
+        final MediaItem mediaItem = createTestMediaItem2(uri);
+
+        final CountDownLatch latchForSubtitleSelect = new CountDownLatch(1);
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (TextUtils.equals(command.getCustomCommand(),
+                                MediaControlView.EVENT_UPDATE_TRACK_STATUS)) {
+                            int count = (args != null)
+                                    ? args.getInt(KEY_SUBTITLE_TRACK_COUNT) : 0;
+                            mSubtitleTrackCount = count;
+                        } else if (TextUtils.equals(command.getCustomCommand(),
+                                MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED)) {
+                            int subtitleIndex = args != null ? args.getInt(
+                                    MediaControlView.KEY_SELECTED_SUBTITLE_INDEX) : -1;
+                            assertEquals(selectedSubtitleTrackIndex, subtitleIndex);
+                            latchForSubtitleSelect.countDown();
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem(mediaItem);
+            }
+        });
+        Thread.sleep(WAIT_TIME_MS);
+        onView(withId(R.id.subtitle)).check(matches(isClickable()));
+        onView(withId(R.id.subtitle)).perform(click());
+
+        Thread.sleep(WAIT_TIME_MS);
+        if (mSubtitleTrackCount >= 0) {
+            onView(withText(subtitleTrackOffText)).inRoot(isPlatformPopup())
+                    .check(matches(isCompletelyDisplayed()));
+            latchForSubtitleSelect.countDown();
+        }
+        if (mSubtitleTrackCount >= 1) {
+            onView(withText(subtitleTrack1Text)).inRoot(isPlatformPopup())
+                    .check(matches(isCompletelyDisplayed()));
+            onView(withText(subtitleTrack1Text)).inRoot(isPlatformPopup()).perform(click());
+        }
+        if (mSubtitleTrackCount >= 2) {
+            onView(withText(subtitleTrack2Text)).inRoot(isPlatformPopup())
+                    .check(matches(isCompletelyDisplayed()));
+            onView(withText(subtitleTrack1Text)).inRoot(isPlatformPopup()).perform(click());
+        }
+        assertTrue(latchForSubtitleSelect.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
     @Test
