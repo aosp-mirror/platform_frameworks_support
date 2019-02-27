@@ -29,7 +29,7 @@ open class SupportLibraryExtension(val project: Project) {
     var mavenVersion: Version? by Delegates.observable<Version?>(null) { _, _, new: Version? ->
         project.version = new?.toString()
     }
-    var mavenGroup: String? = null
+    var mavenGroup: LibraryGroup? = null
     var description: String? = null
     var inceptionYear: String? = null
     var url = SUPPORT_URL
