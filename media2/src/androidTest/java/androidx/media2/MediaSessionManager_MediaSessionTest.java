@@ -22,6 +22,7 @@ import android.media.session.MediaSessionManager;
 import androidx.media2.MediaSession.ControllerInfo;
 import androidx.media2.MediaSession.SessionCallback;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
@@ -36,7 +37,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-@Ignore
+@SdkSuppress(minSdkVersion = 21)
 public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     private static final String TAG = "MediaSessionManager_MediaSessionTest";
 
@@ -101,6 +102,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
      * @throws InterruptedException
      */
     @Test
+    @Ignore
     public void testGetSessionTokens_sessionRejected() throws InterruptedException {
         prepareLooper();
         mSession.close();
@@ -129,6 +131,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
+    @Ignore
     public void testGetMediaSessionTokens_sessionClosed() throws InterruptedException {
         prepareLooper();
         mSession.close();
@@ -144,6 +147,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
+    @Ignore
     public void testGetMediaSessionServiceToken() throws InterruptedException {
         prepareLooper();
         boolean foundTestSessionService = false;
@@ -168,6 +172,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
+    @Ignore
     public void testGetAllSessionTokens() throws InterruptedException {
         prepareLooper();
         boolean foundTestSession = false;
@@ -204,6 +209,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
+    @Ignore
     public void testAddOnSessionTokensChangedListener() throws InterruptedException {
 //        prepareLooper();
 //        TokensChangedListener listener = new TokensChangedListener();
@@ -259,6 +265,7 @@ public class MediaSessionManager_MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
+    @Ignore
     public void testRemoveOnSessionTokensChangedListener() throws InterruptedException {
 //        prepareLooper();
 //        TokensChangedListener listener = new TokensChangedListener();

@@ -19,13 +19,16 @@ package androidx.build
 import groovy.lang.Closure
 import org.gradle.api.Project
 import java.util.ArrayList
+import kotlin.properties.Delegates
 
 /**
  * Extension for [SupportAndroidLibraryPlugin] and [SupportJavaLibraryPlugin].
  */
 open class SupportLibraryExtension(val project: Project) {
     var name: String? = null
-    var mavenVersion: Version? = null
+    var mavenVersion: Version? by Delegates.observable<Version?>(null) { _, _, new: Version? ->
+        project.version = new?.toString()
+    }
     var mavenGroup: String? = null
     var description: String? = null
     var inceptionYear: String? = null
@@ -38,7 +41,7 @@ open class SupportLibraryExtension(val project: Project) {
     var compilationTarget: CompilationTarget = CompilationTarget.DEVICE
 
     var useMetalava = true
-    var trackRestrictedAPIs = false
+    var trackRestrictedAPIs = true
 
     /**
      * It disables docs generation and api tracking for tooling modules like annotation processors.

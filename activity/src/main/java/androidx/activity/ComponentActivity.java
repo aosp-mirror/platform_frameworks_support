@@ -18,7 +18,6 @@ package androidx.activity;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -36,9 +35,10 @@ import androidx.lifecycle.ReportFragment;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
+import androidx.savedstate.SavedStateRegistryController;
+import androidx.savedstate.SavedStateRegistryOwner;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -52,7 +52,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ComponentActivity extends androidx.core.app.ComponentActivity implements
         LifecycleOwner,
         ViewModelStoreOwner,
-        BundleSavedStateRegistryOwner {
+        SavedStateRegistryOwner {
 
     static final class NonConfigurationInstances {
         Object custom;
@@ -60,7 +60,8 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     }
 
     private final LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
-    private final BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+    private final SavedStateRegistryController mSavedStateRegistryController =
+            SavedStateRegistryController.create(this);
 
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
@@ -68,6 +69,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final CopyOnWriteArrayList<LifecycleAwareOnBackPressedCallback> mOnBackPressedCallbacks =
             new CopyOnWriteArrayList<>();
+
+    // Cache the ContentView layoutIds for Activities.
+    private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
 
     public ComponentActivity() {
         Lifecycle lifecycle = getLifecycle();
@@ -115,21 +119,25 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      * call {@link #setContentView(int)} for you.
      */
     @Override
-    @SuppressWarnings("RestrictedApi")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSavedStateRegistry.performRestore(savedInstanceState);
+        mSavedStateRegistryController.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
-        ContentView annotation = getClass().getAnnotation(ContentView.class);
-        if (annotation != null) {
-            int layoutId = annotation.value();
-            if (layoutId != 0) {
-                setContentView(layoutId);
+        Class<? extends ComponentActivity> clazz = getClass();
+        if (!sAnnotationIds.containsKey(clazz)) {
+            ContentView annotation = clazz.getAnnotation(ContentView.class);
+            if (annotation != null) {
+                sAnnotationIds.put(clazz, annotation.value());
+            } else {
+                sAnnotationIds.put(clazz, null);
             }
+        }
+        Integer layoutId = sAnnotationIds.get(clazz);
+        if (layoutId != null && layoutId != 0) {
+            setContentView(layoutId);
         }
     }
 
-    @SuppressLint("RestrictedApi")
     @CallSuper
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -138,7 +146,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
             ((LifecycleRegistry) lifecycle).markState(Lifecycle.State.CREATED);
         }
         super.onSaveInstanceState(outState);
-        mSavedStateRegistry.performSave(outState);
+        mSavedStateRegistryController.performSave(outState);
     }
 
     /**
@@ -357,8 +365,8 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     @NonNull
     @Override
-    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
-        return mSavedStateRegistry;
+    public final SavedStateRegistry getSavedStateRegistry() {
+        return mSavedStateRegistryController.getSavedStateRegistry();
     }
 
     private class LifecycleAwareOnBackPressedCallback implements

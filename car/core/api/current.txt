@@ -1,4 +1,4 @@
-// Signature format: 2.0
+// Signature format: 3.0
 package androidx.car.app {
 
   public class CarAlertDialog extends android.app.Dialog {
@@ -82,7 +82,6 @@ package androidx.car.drawer {
   }
 
   public class DrawerItemViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder implements androidx.car.uxrestrictions.OnUxRestrictionsChangedListener {
-    ctor @VisibleForTesting(otherwise=androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE) public DrawerItemViewHolder(android.view.View);
     method public android.widget.TextView? getBodyView();
     method public android.widget.ImageView? getEndIconView();
     method public android.widget.ImageView getIconView();
@@ -248,7 +247,7 @@ package androidx.car.widget {
     method public androidx.car.widget.CarMenuItem.Builder setTitle(CharSequence);
   }
 
-  public static enum CarMenuItem.DisplayBehavior {
+  public enum CarMenuItem.DisplayBehavior {
     enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior ALWAYS;
     enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior IF_ROOM;
     enum_constant public static final androidx.car.widget.CarMenuItem.DisplayBehavior NEVER;
@@ -386,10 +385,8 @@ package androidx.car.widget {
     method public int positionOf(android.view.View?);
     method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void removeOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
-    method public void resetMaxPages();
     method public void scrollToPosition(int);
     method public void setAdapter(androidx.recyclerview.widget.RecyclerView.Adapter<? extends androidx.recyclerview.widget.RecyclerView.ViewHolder>);
-    method public void setDefaultMaxPages(int);
     method public void setDividerColor(@ColorRes int);
     method public void setDividerVisibilityManager(androidx.car.widget.PagedListView.DividerVisibilityManager!);
     method public void setDownButtonIcon(android.graphics.drawable.Drawable!);
@@ -406,7 +403,6 @@ package androidx.car.widget {
     method public void setUpButtonIcon(android.graphics.drawable.Drawable!);
     method public void showAlphaJump();
     method public void snapToPosition(int);
-    field public static final int DEFAULT_MAX_CLICKS = 6; // 0x6
     field public static final int UNLIMITED_PAGES = -1; // 0xffffffff
   }
 
@@ -466,17 +462,6 @@ package androidx.car.widget {
     method public void onPaginate(int);
     field public static final int PAGE_DOWN = 1; // 0x1
     field public static final int PAGE_UP = 0; // 0x0
-  }
-
-  public final class PagedSmoothScroller extends androidx.recyclerview.widget.LinearSmoothScroller {
-    ctor public PagedSmoothScroller(android.content.Context!);
-  }
-
-  public class PagedSnapHelper extends androidx.recyclerview.widget.LinearSnapHelper {
-    ctor public PagedSnapHelper(android.content.Context!);
-    method public void attachToRecyclerView(androidx.recyclerview.widget.RecyclerView?);
-    method public boolean isAtEnd(androidx.recyclerview.widget.RecyclerView.LayoutManager!);
-    method public boolean isAtStart(androidx.recyclerview.widget.RecyclerView.LayoutManager!);
   }
 
   public class RadioButtonListItem extends androidx.car.widget.ListItem<androidx.car.widget.RadioButtonListItem.ViewHolder> {
@@ -569,6 +554,38 @@ package androidx.car.widget {
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
   }
 
+  public class SwitchListItem extends androidx.car.widget.ListItem<androidx.car.widget.SwitchListItem.ViewHolder> {
+    ctor public SwitchListItem(android.content.Context);
+    method public static androidx.car.widget.SwitchListItem.ViewHolder createViewHolder(android.view.View!);
+    method protected final android.content.Context getContext();
+    method public int getViewType();
+    method public void onBind(androidx.car.widget.SwitchListItem.ViewHolder!);
+    method @CallSuper protected void resolveDirtyState();
+    method public void setBody(CharSequence?);
+    method public void setClickable(boolean);
+    method public void setEnabled(boolean);
+    method public void setPrimaryActionEmptyIcon();
+    method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
+    method public void setPrimaryActionNoIcon();
+    method public void setShowSwitchDivider(boolean);
+    method public void setSwitchOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener?);
+    method public void setSwitchState(boolean);
+    method public void setTitle(CharSequence?);
+    field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
+    field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
+    field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
+  }
+
+  public static final class SwitchListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
+    ctor public SwitchListItem.ViewHolder(android.view.View);
+    method public android.widget.TextView getBody();
+    method public android.widget.ImageView getPrimaryIcon();
+    method public android.widget.Switch getSwitch();
+    method public android.view.View getSwitchDivider();
+    method public android.widget.TextView getTitle();
+    method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
+  }
+
   public class TextListItem extends androidx.car.widget.ListItem<androidx.car.widget.TextListItem.ViewHolder> {
     ctor public TextListItem(android.content.Context);
     method public static androidx.car.widget.TextListItem.ViewHolder createViewHolder(android.view.View!);
@@ -590,8 +607,8 @@ package androidx.car.widget {
     method @Deprecated public void setSupplementalIcon(int, boolean, android.view.View.OnClickListener!);
     method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean, android.view.View.OnClickListener!);
     method public void setSupplementalIconOnClickListener(android.view.View.OnClickListener);
-    method public void setSwitch(boolean, boolean, android.widget.CompoundButton.OnCheckedChangeListener!);
-    method public void setSwitchState(boolean);
+    method @Deprecated public void setSwitch(boolean, boolean, android.widget.CompoundButton.OnCheckedChangeListener!);
+    method @Deprecated public void setSwitchState(boolean);
     method public void setTitle(CharSequence!);
     field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
     field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1

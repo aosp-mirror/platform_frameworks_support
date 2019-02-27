@@ -16,13 +16,14 @@
 
 package androidx.preference;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
 
@@ -46,7 +47,6 @@ public abstract class DialogPreference extends Preference {
     private CharSequence mNegativeButtonText;
     private int mDialogLayoutResId;
 
-    @SuppressLint("RestrictedApi")
     public DialogPreference(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -87,7 +87,6 @@ public abstract class DialogPreference extends Preference {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    @SuppressLint("RestrictedApi")
     public DialogPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));
@@ -264,13 +263,15 @@ public abstract class DialogPreference extends Preference {
      */
     public interface TargetFragment {
         /**
-         * Finds a {@link Preference} based on its key.
+         * Finds a {@link Preference} with the given key. Returns {@code null} if no
+         * {@link Preference} could be found with the given key.
          *
-         * @param key The key of the preference to retrieve
+         * @param key The key of the {@link Preference} to retrieve
          * @return The {@link Preference} with the key, or {@code null}
          * @see PreferenceGroup#findPreference(CharSequence)
          */
         @SuppressWarnings("TypeParameterUnusedInFormals")
-        <T extends Preference> T findPreference(CharSequence key);
+        @Nullable
+        <T extends Preference> T findPreference(@NonNull CharSequence key);
     }
 }
