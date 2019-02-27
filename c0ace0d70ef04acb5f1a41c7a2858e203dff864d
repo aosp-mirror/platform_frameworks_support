@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf6440be_6e51eb93",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-27T00:39:34Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61d2a710_1a359246",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-27T00:39:34Z",
+      "side": 1,
+      "message": "Hmm when I test deleting the out/ dir and commenting out line 69 and running `./gradlew dumpDependencies` and `find ../../out -name \"*dependency-graph.json\"`, it doesn\u0027t show me any matches",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd82fc02_58eac00b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-27T00:39:34Z",
+      "side": 1,
+      "message": "The OutputFile annotation causes the task to be considered out-of-date when the file path or contents change from the last run ( https://docs.gradle.org/5.2.1/javadoc/org/gradle/api/tasks/OutputFile.html )\n\nIf the task declares outputs and no inputs, then Gradle assumes that after running the task once that it is still up-to-date later.\n\nI recommend removing the @OutputFile annotation and just letting Gradle rerun this task all the time until we care to declare some inputs.\n\n(A more difficult but more thorough approach would be to also add some sort of input annotation, maybe https://docs.gradle.org/5.2.1/javadoc/org/gradle/api/tasks/Input.html )",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45417142_74b4eaab",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-02-27T00:39:34Z",
+      "side": 1,
+      "message": "(same two comments as above about OutputFile and comment)",
+      "revId": "c0ace0d70ef04acb5f1a41c7a2858e203dff864d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
