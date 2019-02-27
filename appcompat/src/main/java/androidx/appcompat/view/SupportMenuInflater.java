@@ -36,7 +36,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
-import androidx.annotation.LayoutRes;
+import androidx.annotation.MenuRes;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.appcompat.view.menu.MenuItemImpl;
@@ -108,13 +108,13 @@ public class SupportMenuInflater extends MenuInflater {
      * Inflate a menu hierarchy from the specified XML resource. Throws
      * {@link InflateException} if there is an error.
      *
-     * @param menuRes Resource ID for an XML layout resource to load (e.g.,
+     * @param menuRes Resource ID for an XML menu resource to load (e.g.,
      *            <code>R.menu.main_activity</code>)
      * @param menu The Menu to inflate into. The items and submenus will be
      *            added to this Menu.
      */
     @Override
-    public void inflate(@LayoutRes int menuRes, Menu menu) {
+    public void inflate(@MenuRes int menuRes, Menu menu) {
         // If we're not dealing with a SupportMenu instance, let super handle
         if (!(menu instanceof SupportMenu)) {
             super.inflate(menuRes, menu);
