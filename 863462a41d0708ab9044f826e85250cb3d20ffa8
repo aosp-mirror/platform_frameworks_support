@@ -46,6 +46,30 @@
       "revId": "863462a41d0708ab9044f826e85250cb3d20ffa8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14766e25_b663608b",
+        "filename": "transition/src/main/java/androidx/transition/CanvasUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-02-27T19:30:53Z",
+      "side": 1,
+      "message": "Right! This isn\u0027t public, so that makes a lot of sense.",
+      "parentUuid": "bf2414ef_e72d6256",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 80
+      },
+      "revId": "863462a41d0708ab9044f826e85250cb3d20ffa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
