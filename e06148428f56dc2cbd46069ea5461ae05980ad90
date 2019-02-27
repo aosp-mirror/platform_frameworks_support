@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c752499a_3ccd2f2d",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-27T10:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65867c8d_4dad1ed9",
+      "range": {
+        "startLine": 166,
+        "startChar": 25,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0278b00_5b885a39",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 3
@@ -81,6 +105,24 @@
       "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2764bc1b_41125e82",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-27T10:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbc62999_624b9507",
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +170,30 @@
       "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9535e68e_4515d499",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-27T10:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1925110_0bcb231b",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 326,
+        "endChar": 24
+      },
+      "revId": "e06148428f56dc2cbd46069ea5461ae05980ad90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
