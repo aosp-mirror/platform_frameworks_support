@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5decaa0d_7d96f423",
+        "filename": "transition/src/main/java/androidx/transition/CanvasUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-02-27T00:14:27Z",
+      "side": 1,
+      "message": "Wouldn\u0027t you prefer to just do nothing than throw an exception? I\u0027m guessing that developers would prefer that nothing happen here than to have to write version checks.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 80
+      },
+      "revId": "863462a41d0708ab9044f826e85250cb3d20ffa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
