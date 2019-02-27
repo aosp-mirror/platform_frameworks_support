@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2141a988_1ef2f855",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-27T00:21:01Z",
+      "side": 1,
+      "message": "this is a possible solution but I\u0027m not sure it is the right thing to recommend because `!isActive` does not mean the lifecycle is destroyed, it might just mean some sub coroutine call cancelled our coroutine job.\nalso, this check could be `lifecycle.state \u003e\u003d STARTED` (no coroutine) and it would be more clear.\n\ni really like this dispatcher API for the happy paths but for handling errors etc, not sure how i feel about it 😕",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 12
+      },
+      "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
