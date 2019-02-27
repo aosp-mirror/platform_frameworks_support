@@ -202,7 +202,7 @@ public class SampleSliceProvider extends SliceProvider {
             case "/cat":
                 return createBigPicSlice(sliceUri);
             case "/permission":
-                return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
+                return createPermissionSlice(sliceUri, getContext().getPackageName());
             case "/loading":
                 return createLoadingSlice(sliceUri);
             case "/selection":
