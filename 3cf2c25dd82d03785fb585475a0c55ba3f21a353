@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3739243_4c8c4a2f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "Calling your own constructor with null when it\u0027s annotated as @NonNull seems undesirable even for test code. I\u0027d suggest just moving the initialisation in the main constructor that doesn\u0027t depend on the parameter to field initialisers, and having this constructor be empty.\n\nIn general we should have a Context available in tests, I think, though? Is this special case actually required at all?",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d771d8_4ddc65f7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "Suggest \"The default domain/path is\" for all of these as appropriate",
+      "range": {
+        "startLine": 185,
+        "startChar": 11,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975dc213_8dd1b3a5",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "suggest \"using the HTTP scheme in addition to HTTPS. The default is to not allow HTTP.\"",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a551114c_b68518e0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "I\u0027d just remove the parameter here entirely since there\u0027s no reason to ever call this passing false.",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d746919_2421ed4b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "Suggest something like \"Builds and returns the WebViewAssetLoader object.\" Don\u0027t capitalise Object unless you mean java.lang.Object :)",
+      "range": {
+        "startLine": 244,
+        "startChar": 11,
+        "endLine": 244,
+        "endChar": 16
+      },
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "010358a1_eb5c8a80",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "Maybe just add test-only builder methods that set these rather than overloading build and having the different overloads call each other?",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457b36d0_b9f86de3",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-02-27T20:15:07Z",
+      "side": 1,
+      "message": "Generally don\u0027t make anonymous inner classes that are subclasses of actual classes, instead of interfaces; it makes it unclear which behaviour comes from where and which variables are captured vs members.\n\nI\u0027d suggest just defining these as actual named subclasses underneath PathHandler at the top of the file, and adding the asset helper as a constructor parameter.",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
