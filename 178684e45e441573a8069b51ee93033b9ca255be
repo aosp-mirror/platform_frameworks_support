@@ -117,6 +117,30 @@
       "revId": "178684e45e441573a8069b51ee93033b9ca255be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21953a32_62afa776",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/test/AnimationVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-02-27T11:58:01Z",
+      "side": 1,
+      "message": "As chatted offline, let\u0027s change to assert to avoid a risk of the test being improperly configured and us never finding out.",
+      "parentUuid": "20a2549f_a520563f",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "178684e45e441573a8069b51ee93033b9ca255be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
