@@ -20,7 +20,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "deprecation"})
 public final class DeletionDao_Impl implements DeletionDao {
   private final RoomDatabase __db;
 
@@ -96,6 +96,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public void deleteUser(final User user) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user);
@@ -107,6 +108,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public void deleteUsers(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user1);
@@ -119,6 +121,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public void deleteArrayOfUsers(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handleMultiple(users);
@@ -130,6 +133,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public Integer deleteUserAndReturnCountObject(final User user) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -143,6 +147,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteUserAndReturnCount(final User user) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -156,6 +161,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteUserAndReturnCount(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -170,6 +176,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteUserAndReturnCount(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -236,6 +243,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int multiPKey(final MultiPKeyEntity entity) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -249,6 +257,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public void deleteUserAndBook(final User user, final Book book) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user);
@@ -261,6 +270,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteByUid(final int uid) {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
     int _argIndex = 1;
     _stmt.bindLong(_argIndex, uid);
@@ -277,12 +287,12 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public Completable deleteByUidCompletable(final int uid) {
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
-    int _argIndex = 1;
-    _stmt.bindLong(_argIndex, uid);
     return Completable.fromCallable(new Callable<Void>() {
       @Override
       public Void call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
         __db.beginTransaction();
         try {
           _stmt.executeUpdateDelete();
@@ -298,12 +308,12 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public Single<Integer> deleteByUidSingle(final int uid) {
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
-    int _argIndex = 1;
-    _stmt.bindLong(_argIndex, uid);
     return Single.fromCallable(new Callable<Integer>() {
       @Override
       public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
         __db.beginTransaction();
         try {
           final java.lang.Integer _result = _stmt.executeUpdateDelete();
@@ -319,12 +329,12 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public Maybe<Integer> deleteByUidMaybe(final int uid) {
-    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
-    int _argIndex = 1;
-    _stmt.bindLong(_argIndex, uid);
     return Maybe.fromCallable(new Callable<Integer>() {
       @Override
       public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
         __db.beginTransaction();
         try {
           final java.lang.Integer _result = _stmt.executeUpdateDelete();
@@ -340,6 +350,7 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteEverything() {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteEverything.acquire();
     __db.beginTransaction();
     try {
@@ -354,13 +365,14 @@ public final class DeletionDao_Impl implements DeletionDao {
 
   @Override
   public int deleteByUidList(final int... uid) {
+    __db.assertNotSuspendingTransaction();
     StringBuilder _stringBuilder = StringUtil.newStringBuilder();
     _stringBuilder.append("DELETE FROM user where uid IN(");
     final int _inputSize = uid.length;
     StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
     _stringBuilder.append(")");
     final String _sql = _stringBuilder.toString();
-    SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
+    final SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
     int _argIndex = 1;
     for (int _item : uid) {
       _stmt.bindLong(_argIndex, _item);

@@ -34,8 +34,9 @@ dependencies {
     api(project(":room:room-common"))
     api(project(":sqlite:sqlite-framework"))
     api(project(":sqlite:sqlite"))
-    implementation(ARCH_CORE_RUNTIME)
+    implementation(project(":arch:core-runtime"))
     implementation(ANDROIDX_CORE)
+    implementation(ANDROIDX_COLLECTION)
     compileOnly(ARCH_PAGING_COMMON)
     compileOnly(ARCH_LIFECYCLE_LIVEDATA_CORE)
     implementation(ANDROIDX_COLLECTION)
@@ -60,8 +61,8 @@ android.libraryVariants.all { variant ->
     def name = variant.name
     def suffix = name.capitalize()
     project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
+        dependsOn variant.javaCompileProvider.get()
+        from variant.javaCompileProvider.get().destinationDir
         destinationDir new File(project.buildDir, "libJar")
     }
 }

@@ -17,8 +17,9 @@
 package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.os.SystemClock;
 
 import androidx.annotation.IntDef;
@@ -41,17 +42,18 @@ import java.util.List;
  * {@link androidx.media2.MediaLibraryService.MediaLibrarySession} and {@link MediaBrowser}.
  */
 @VersionedParcelize(isCustom = true)
+@SuppressLint("RestrictedApi")
 public class LibraryResult extends CustomVersionedParcelable implements RemoteResult {
     /**
      * @hide
      */
     @IntDef(flag = false, /*prefix = "RESULT_CODE",*/ value = {
             RESULT_SUCCESS,
-            RESULT_ERROR_UNKNOWN_ERROR,
+            RESULT_ERROR_UNKNOWN,
             RESULT_ERROR_INVALID_STATE,
             RESULT_ERROR_BAD_VALUE,
             RESULT_ERROR_PERMISSION_DENIED,
-            RESULT_ERROR_IO_ERROR,
+            RESULT_ERROR_IO,
             RESULT_INFO_SKIPPED,
             RESULT_ERROR_SESSION_DISCONNECTED,
             RESULT_ERROR_NOT_SUPPORTED,
@@ -63,7 +65,7 @@ public class LibraryResult extends CustomVersionedParcelable implements RemoteRe
             RESULT_ERROR_SESSION_SKIP_LIMIT_REACHED,
             RESULT_ERROR_SESSION_SETUP_REQUIRED})
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface ResultCode {}
 
     @ParcelField(1)
@@ -140,11 +142,11 @@ public class LibraryResult extends CustomVersionedParcelable implements RemoteRe
      *
      * @return result code
      * @see #RESULT_SUCCESS
-     * @see #RESULT_ERROR_UNKNOWN_ERROR
+     * @see #RESULT_ERROR_UNKNOWN
      * @see #RESULT_ERROR_INVALID_STATE
      * @see #RESULT_ERROR_BAD_VALUE
      * @see #RESULT_ERROR_PERMISSION_DENIED
-     * @see #RESULT_ERROR_IO_ERROR
+     * @see #RESULT_ERROR_IO
      * @see #RESULT_INFO_SKIPPED
      * @see #RESULT_ERROR_SESSION_DISCONNECTED
      * @see #RESULT_ERROR_NOT_SUPPORTED

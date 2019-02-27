@@ -17,7 +17,7 @@
 package android.support.v4.media.session;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaSessionManager.RemoteUserInfo.LEGACY_CONTROLLER;
 import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_PID;
 import static androidx.media.MediaSessionManager.RemoteUserInfo.UNKNOWN_UID;
@@ -128,7 +128,7 @@ public class MediaSessionCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef(flag=true, value={
             FLAG_HANDLES_MEDIA_BUTTONS,
             FLAG_HANDLES_TRANSPORT_CONTROLS,
@@ -328,6 +328,15 @@ public class MediaSessionCompat {
             "android.support.v4.media.session.action.SET_RATING";
 
     /**
+     * Custom action to invoke setPlaybackSpeed() with extra fields.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
+    public static final String ACTION_SET_PLAYBACK_SPEED =
+            "android.support.v4.media.session.action.SET_PLAYBACK_SPEED";
+
+    /**
      * Argument for use with {@link #ACTION_PREPARE_FROM_MEDIA_ID} indicating media id to play.
      *
      * @hide
@@ -363,6 +372,15 @@ public class MediaSessionCompat {
     @RestrictTo(LIBRARY)
     public static final String ACTION_ARGUMENT_RATING =
             "android.support.v4.media.session.action.ARGUMENT_RATING";
+
+    /**
+     * Argument for use with {@link #ACTION_SET_PLAYBACK_SPEED} indicating the speed to be set.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
+    public static final String ACTION_ARGUMENT_PLAYBACK_SPEED =
+            "android.support.v4.media.session.action.ARGUMENT_PLAYBACK_SPEED";
 
     /**
      * Argument for use with various actions indicating extra bundle.
@@ -404,7 +422,7 @@ public class MediaSessionCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final String KEY_TOKEN = "android.support.v4.media.session.TOKEN";
 
     /**
@@ -417,7 +435,7 @@ public class MediaSessionCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final String KEY_SESSION2_TOKEN =
             "android.support.v4.media.session.SESSION_TOKEN2";
 
@@ -478,14 +496,9 @@ public class MediaSessionCompat {
 
     /**
      * @hide
-     * Creates session for MediaSession.
      */
-    @RestrictTo(LIBRARY_GROUP)
-    public MediaSessionCompat(Context context, String tag, VersionedParcelable session2Token) {
-        this(context, tag, null, null, session2Token);
-    }
-
-    private MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
             PendingIntent mbrIntent, VersionedParcelable session2Token) {
         if (context == null) {
             throw new IllegalArgumentException("context must not be null");
@@ -895,7 +908,7 @@ public class MediaSessionCompat {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public String getCallingPackage() {
         return mImpl.getCallingPackage();
     }
@@ -962,7 +975,7 @@ public class MediaSessionCompat {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static void ensureClassLoader(@Nullable Bundle bundle) {
         if (bundle != null) {
             bundle.setClassLoader(MediaSessionCompat.class.getClassLoader());
@@ -1256,6 +1269,21 @@ public class MediaSessionCompat {
          * @param extras The extras can include information about the media item being rated.
          */
         public void onSetRating(RatingCompat rating, Bundle extras) {
+        }
+
+        /**
+         * Override to handle the playback speed change.
+         * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
+         * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
+         * {@link #setPlaybackState(PlaybackStateCompat)}.
+         *
+         * @param speed the playback speed
+         * @see #setPlaybackState(PlaybackStateCompat)
+         * @see PlaybackStateCompat.Builder#setState(int, long, float)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void onSetPlaybackSpeed(float speed) {
         }
 
         /**
@@ -1579,6 +1607,9 @@ public class MediaSessionCompat {
                 } else if (action.equals(ACTION_SET_RATING)) {
                     RatingCompat rating = extras.getParcelable(ACTION_ARGUMENT_RATING);
                     Callback.this.onSetRating(rating, bundle);
+                } else if (action.equals(ACTION_SET_PLAYBACK_SPEED)) {
+                    float speed = extras.getFloat(ACTION_ARGUMENT_PLAYBACK_SPEED, 1.0f);
+                    Callback.this.onSetPlaybackSpeed(speed);
                 } else {
                     Callback.this.onCustomAction(action, extras);
                 }
@@ -1701,7 +1732,7 @@ public class MediaSessionCompat {
          * @return A compat Token for use with {@link MediaControllerCompat}.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public static Token fromToken(Object token, IMediaSession extraBinder) {
             if (token != null && android.os.Build.VERSION.SDK_INT >= 21) {
                 if (!(token instanceof MediaSession.Token)) {
@@ -1770,7 +1801,7 @@ public class MediaSessionCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public IMediaSession getExtraBinder() {
             return mExtraBinder;
         }
@@ -1778,7 +1809,7 @@ public class MediaSessionCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public void setExtraBinder(IMediaSession extraBinder) {
             mExtraBinder = extraBinder;
         }
@@ -1786,7 +1817,7 @@ public class MediaSessionCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public VersionedParcelable getSession2Token() {
             return mSession2Token;
         }
@@ -1794,7 +1825,7 @@ public class MediaSessionCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public void setSession2Token(VersionedParcelable session2Token) {
             mSession2Token = session2Token;
         }
@@ -1802,7 +1833,7 @@ public class MediaSessionCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Bundle toBundle() {
             Bundle bundle = new Bundle();
             bundle.putParcelable(KEY_TOKEN, this);
@@ -1822,7 +1853,7 @@ public class MediaSessionCompat {
          * @return A compat Token for use with {@link MediaControllerCompat}.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public static Token fromBundle(Bundle tokenBundle) {
             if (tokenBundle == null) {
                 return null;
@@ -2947,6 +2978,11 @@ public class MediaSessionCompat {
             }
 
             @Override
+            public void setPlaybackSpeed(float speed) throws RemoteException {
+                postToHandler(MessageHandler.MSG_SET_PLAYBACK_SPEED, speed);
+            }
+
+            @Override
             public void setCaptioningEnabled(boolean enabled) throws RemoteException {
                 postToHandler(MessageHandler.MSG_SET_CAPTIONING_ENABLED, enabled);
             }
@@ -3095,6 +3131,7 @@ public class MediaSessionCompat {
         }
 
         class MessageHandler extends Handler {
+            // Next ID: 33
             private static final int MSG_COMMAND = 1;
             private static final int MSG_ADJUST_VOLUME = 2;
             private static final int MSG_PREPARE = 3;
@@ -3115,6 +3152,7 @@ public class MediaSessionCompat {
             private static final int MSG_SEEK_TO = 18;
             private static final int MSG_RATE = 19;
             private static final int MSG_RATE_EXTRA = 31;
+            private static final int MSG_SET_PLAYBACK_SPEED = 32;
             private static final int MSG_CUSTOM_ACTION = 20;
             private static final int MSG_MEDIA_BUTTON = 21;
             private static final int MSG_SET_VOLUME = 22;
@@ -3218,6 +3256,9 @@ public class MediaSessionCompat {
                             break;
                         case MSG_RATE_EXTRA:
                             cb.onSetRating((RatingCompat) msg.obj, extras);
+                            break;
+                        case MSG_SET_PLAYBACK_SPEED:
+                            cb.onSetPlaybackSpeed((Float) msg.obj);
                             break;
                         case MSG_CUSTOM_ACTION:
                             cb.onCustomAction((String) msg.obj, extras);
@@ -3906,6 +3947,12 @@ public class MediaSessionCompat {
 
             @Override
             public void rateWithExtras(RatingCompat rating, Bundle extras) throws RemoteException {
+                // Will not be called.
+                throw new AssertionError();
+            }
+
+            @Override
+            public void setPlaybackSpeed(float speed) throws RemoteException {
                 // Will not be called.
                 throw new AssertionError();
             }

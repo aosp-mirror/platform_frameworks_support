@@ -16,10 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -202,7 +200,6 @@ public class Preference implements Comparable<Preference> {
      *                     theme. Can be 0 to not look for defaults.
      * @see #Preference(Context, android.util.AttributeSet)
      */
-    @SuppressLint("RestrictedApi")
     public Preference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
@@ -310,7 +307,6 @@ public class Preference implements Comparable<Preference> {
      * @param attrs   The attributes of the XML tag that is inflating the preference
      * @see #Preference(Context, AttributeSet, int)
      */
-    @SuppressLint("RestrictedApi")
     public Preference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceStyle,
                 android.R.attr.preferenceStyle));
@@ -572,12 +568,10 @@ public class Preference implements Comparable<Preference> {
         holder.setDividerAllowedAbove(mAllowDividerAbove);
         holder.setDividerAllowedBelow(mAllowDividerBelow);
 
-        if (isCopyingEnabled()) {
-            if (mOnCopyListener == null) {
-                mOnCopyListener = new OnPreferenceCopyListener(this);
-            }
-            holder.itemView.setOnCreateContextMenuListener(mOnCopyListener);
+        if (isCopyingEnabled() && mOnCopyListener == null) {
+            mOnCopyListener = new OnPreferenceCopyListener(this);
         }
+        holder.itemView.setOnCreateContextMenuListener(isCopyingEnabled() ? mOnCopyListener : null);
     }
 
     /**
@@ -715,6 +709,7 @@ public class Preference implements Comparable<Preference> {
      * @see #setSummary(CharSequence)
      * @see #setSummaryProvider(SummaryProvider)
      */
+    @SuppressWarnings("unchecked")
     public CharSequence getSummary() {
         if (getSummaryProvider() != null) {
             return getSummaryProvider().provideSummary(this);
@@ -1145,9 +1140,10 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
+     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void performClick(View view) {
         performClick();
     }
@@ -1155,9 +1151,10 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called when a click should be performed.
      *
+     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void performClick() {
 
         if (!isEnabled()) {
@@ -1299,9 +1296,11 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called from {@link PreferenceGroup} to pass in an ID for reuse.
      *
+     * Used by Settings.
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void onAttachedToHierarchy(PreferenceManager preferenceManager, long id) {
         mId = id;
         mHasId = true;
@@ -1353,21 +1352,15 @@ public class Preference implements Comparable<Preference> {
     /**
      * Returns true if {@link #onDetached()} was called. Used for handling the case when a
      * preference was removed, modified, and re-added to a {@link PreferenceGroup}.
-     *
-     * @hide
      */
-    @RestrictTo(LIBRARY)
-    public final boolean wasDetached() {
+    final boolean wasDetached() {
         return mWasDetached;
     }
 
     /**
      * Clears the {@link #wasDetached()} status.
-     *
-     * @hide
      */
-    @RestrictTo(LIBRARY)
-    public final void clearWasDetached() {
+    final void clearWasDetached() {
         mWasDetached = false;
     }
 
@@ -1394,17 +1387,19 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
-     * Finds a preference in this hierarchy (the whole thing, even above/below your
-     * {@link PreferenceScreen} screen break) with the given key.
+     * Finds a preference in the entire hierarchy (above or below this preference) with the given
+     * key. Returns {@code null} if no preference could be found with the given key.
      *
-     * <p>This only functions after we have been attached to a hierarchy.
+     * <p>This only works after this preference has been attached to a hierarchy.
      *
-     * @param key The key of the preference to find
-     * @return The preference that uses the given key
+     * @param key The key of the preference to retrieve
+     * @return The preference with the key, or {@code null}
+     * @see PreferenceGroup#findPreference(CharSequence)
      */
     @SuppressWarnings("TypeParameterUnusedInFormals")
-    protected <T extends Preference> T findPreferenceInHierarchy(String key) {
-        if (TextUtils.isEmpty(key) || mPreferenceManager == null) {
+    @Nullable
+    protected <T extends Preference> T findPreferenceInHierarchy(@NonNull String key) {
+        if (mPreferenceManager == null) {
             return null;
         }
 

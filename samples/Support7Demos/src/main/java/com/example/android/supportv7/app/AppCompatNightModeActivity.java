@@ -37,6 +37,10 @@ public class AppCompatNightModeActivity extends AppCompatActivity {
         setContentView(R.layout.appcompat_night_mode);
     }
 
+    public void setModeNightFollowSystem(View view) {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    }
+
     public void setModeNightNo(View view) {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
@@ -45,7 +49,11 @@ public class AppCompatNightModeActivity extends AppCompatActivity {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
-    public void setModeNightAuto(View view) {
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+    public void setModeNightAutoTime(View view) {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+    }
+
+    public void setModeNightAutoBattery(View view) {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
     }
 }

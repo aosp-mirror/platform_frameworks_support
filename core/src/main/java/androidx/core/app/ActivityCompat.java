@@ -135,7 +135,7 @@ public class ActivityCompat extends ContextCompat {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public interface RequestPermissionsRequestCodeValidator {
         void validateRequestPermissionsRequestCode(int requestCode);
     }
@@ -164,7 +164,7 @@ public class ActivityCompat extends ContextCompat {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static PermissionCompatDelegate getPermissionCompatDelegate() {
         return sDelegate;
     }
@@ -563,6 +563,25 @@ public class ActivityCompat extends ContextCompat {
     public static DragAndDropPermissionsCompat requestDragAndDropPermissions(Activity activity,
             DragEvent dragEvent) {
         return DragAndDropPermissionsCompat.request(activity, dragEvent);
+    }
+
+    /**
+     * Cause the given Activity to be recreated with a new instance. This version of the method
+     * allows a consistent behavior across API levels, emulating what happens on Android Pie (and
+     * newer) when running on older platforms.
+     *
+     * @param activity The activity to recreate
+     */
+    public static void recreate(@NonNull Activity activity) {
+        // On Android P and later we can safely rely on the platform recreate()
+        if (Build.VERSION.SDK_INT >= 28) {
+            activity.recreate();
+        } else {
+            if (!ActivityRecreator.recreate(activity)) {
+                // If ActivityRecreator did not start a recreation, we'll just invoke the platform
+                activity.recreate();
+            }
+        }
     }
 
     @RequiresApi(21)

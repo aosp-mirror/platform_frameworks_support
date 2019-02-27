@@ -103,6 +103,10 @@ class JavaNavWriterTest {
                         Argument(
                                 "parcelable",
                                 ObjectType("android.content.pm.ActivityInfo")
+                        ),
+                        Argument(
+                                "innerData",
+                                ObjectType("android.content.pm.ActivityInfo\$WindowLayout")
                         ))), false)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Next")
@@ -166,6 +170,7 @@ class JavaNavWriterTest {
                 Argument("optional", IntType, IntValue("-1")),
                 Argument("reference", ReferenceType, ReferenceValue(ResReference("a.b", "drawable",
                         "background"))),
+                Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                 Argument("floatArg", FloatType, FloatValue("1")),
                 Argument("floatArrayArg", FloatArrayType),
                 Argument("objectArrayArg", ObjectArrayType(

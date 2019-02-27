@@ -555,13 +555,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_success_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 TestWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -569,7 +567,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
@@ -577,13 +575,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_failure_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 FailureWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -591,7 +587,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
@@ -686,6 +682,29 @@ public class WorkerWrapperTest extends DatabaseTest {
         WorkerWrapper workerWrapper = createBuilder(periodicWorkId).build();
         FutureListener listener = createAndAddFutureListener(workerWrapper);
         workerWrapper.run();
+        // Should get rescheduled
+        assertThat(listener.mResult, is(true));
+    }
+
+    @Test
+    @SmallTest
+    public void testPeriodic_firstRun_flexApplied_noDedupe() {
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
+                TestWorker.class,
+                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+                TimeUnit.MILLISECONDS,
+                PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
+                TimeUnit.MILLISECONDS)
+                .build();
+
+        final String periodicWorkId = periodicWork.getStringId();
+        final WorkSpec workSpec = periodicWork.getWorkSpec();
+        workSpec.periodStartTime = 0;
+        insertWork(periodicWork);
+        WorkerWrapper workerWrapper = createBuilder(periodicWorkId).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        // Should not get rescheduled
         assertThat(listener.mResult, is(false));
     }
 
@@ -1053,6 +1072,19 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testWorkerThatReturnsNullResult() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(ReturnNullResultWorker.class).build();
+        insertWork(work);
+        WorkerWrapper workerWrapper = createBuilder(work.getStringId()).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        assertThat(listener.mResult, is(false));
+        assertThat(mWorkSpecDao.getState(work.getStringId()), is(FAILED));
+    }
+
+    @Test
+    @SmallTest
+    public void testWorkerThatThrowsAnException() {
+        OneTimeWorkRequest work =
+                new OneTimeWorkRequest.Builder(ExceptionWorker.class).build();
         insertWork(work);
         WorkerWrapper workerWrapper = createBuilder(work.getStringId()).build();
         FutureListener listener = createAndAddFutureListener(workerWrapper);
