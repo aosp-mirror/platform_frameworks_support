@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "64579648_1b89421d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68c86962_c970fae4",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20357370_dc76d5ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01478c1b_82102906",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e6612a7_576fa049",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6ba7399e_b7eb088d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e6612a7_576fa049",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b9b5fac_0ecf036a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70523693_4d7bd021",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9b5fac_0ecf036a",
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -158,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "a8b6ad54_05e65d6f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "I think it\u0027s now immutable?\n\nI\u0027m not sure what do you mean by \"modulo caching optimizations\"?",
+      "parentUuid": "5380a081_79afa686",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 74
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a74b590_da2f8171",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 2
@@ -181,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "6b418d2a_621b4c46",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a74b590_da2f8171",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 33
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b121776b_ba8549ff",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 2
@@ -192,6 +330,30 @@
       "writtenOn": "2019-02-27T05:24:23Z",
       "side": 1,
       "message": "Can we keep assets \u0026 resources on the same domain? I think it makes sense to keep these on separate paths though.",
+      "range": {
+        "startLine": 213,
+        "startChar": 23,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd103574_bcfae9b3",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "I think this would make the API simpler and more intuitive.",
+      "parentUuid": "b121776b_ba8549ff",
       "range": {
         "startLine": 213,
         "startChar": 23,
@@ -224,6 +386,30 @@
       "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6374e5c_d93765f6",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-27T14:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8b1275a_01f378c7",
+      "range": {
+        "startLine": 381,
+        "startChar": 12,
+        "endLine": 381,
+        "endChar": 26
+      },
+      "revId": "a9c4b15274b0381eb6a0be1416fb1d41b4e620ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
