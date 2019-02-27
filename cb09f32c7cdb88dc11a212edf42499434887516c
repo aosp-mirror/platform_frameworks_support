@@ -46,6 +46,30 @@
       "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e08a515_df188652",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-27T07:08:56Z",
+      "side": 1,
+      "message": "Okay, if it is really hard. But it would be great if we have proper test code within the same CL. (I think the best way to verify the change is providing corresponding test cases... even though I often missed it as well, as you know. :P)",
+      "parentUuid": "cf5719f6_1fd79e77",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 44
+      },
+      "revId": "cb09f32c7cdb88dc11a212edf42499434887516c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
