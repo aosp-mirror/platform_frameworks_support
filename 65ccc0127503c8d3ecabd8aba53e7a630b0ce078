@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "251ca17c_b9668313",
+        "filename": "lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModelProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-27T17:50:00Z",
+      "side": 1,
+      "message": ":/",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 56
+      },
+      "revId": "65ccc0127503c8d3ecabd8aba53e7a630b0ce078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
