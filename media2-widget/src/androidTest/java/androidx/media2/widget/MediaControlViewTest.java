@@ -18,16 +18,21 @@ package androidx.media2.widget;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
+import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_COUNT;
+import static androidx.media2.widget.MediaControlView.KEY_VIDEO_TRACK_COUNT;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -37,6 +42,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,7 +54,9 @@ import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
+import androidx.media2.SessionCommand;
 import androidx.media2.SessionPlayer;
+import androidx.media2.SessionResult;
 import androidx.media2.UriMediaItem;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
@@ -336,6 +344,66 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFile.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testUpdateAndSelectSubtitleTrack() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.testvideo_with_2_subtitle_tracks);
+
+        final int initialVideoTrackCount = 1;
+        final int initialSubtitleTrackCount = 0;
+        final int updatedVideoTrackCount = 1;
+        final int updatedSubtitleTrackCount = 1;
+        final int selectedSubtitleTrackIndex = 0;
+        final String subtitleTrackText = "Track 1";
+        final MediaItem mediaItem = createTestMediaItem2(uri);
+
+        final CountDownLatch latchForTrackUpdate = new CountDownLatch(2);
+        final CountDownLatch latchForSubtitleSelect = new CountDownLatch(1);
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (command.getCustomCommand()
+                                == MediaControlView.EVENT_UPDATE_TRACK_STATUS) {
+                            int videoTrackCount =
+                                    (args != null) ? args.getInt(KEY_VIDEO_TRACK_COUNT) : 0;
+                            int subtitleTrackCount =
+                                    (args != null) ? args.getInt(KEY_SUBTITLE_TRACK_COUNT) : 0;
+
+                            if (latchForTrackUpdate.getCount() == 2) {
+                                assertEquals(initialVideoTrackCount, videoTrackCount);
+                                assertEquals(initialSubtitleTrackCount, subtitleTrackCount);
+                            } else {
+                                assertEquals(updatedVideoTrackCount, videoTrackCount);
+                                assertEquals(updatedSubtitleTrackCount, subtitleTrackCount);
+                            }
+                            latchForTrackUpdate.countDown();
+                        } else if (command.getCustomCommand()
+                                == MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED) {
+                            int subtitleIndex = args != null ? args.getInt(
+                                    MediaControlView.KEY_SELECTED_SUBTITLE_INDEX) : -1;
+
+                            assertEquals(selectedSubtitleTrackIndex, subtitleIndex);
+                            latchForSubtitleSelect.countDown();
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem(mediaItem);
+            }
+        });
+        assertTrue(latchForTrackUpdate.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        onView(withId(R.id.subtitle)).perform(click());
+        assertFalse(latchForSubtitleSelect.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        onView(withText(subtitleTrackText)).inRoot(isPlatformPopup()).perform(click());
+        assertTrue(latchForSubtitleSelect.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
     @Test
