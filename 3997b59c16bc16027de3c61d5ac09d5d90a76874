@@ -258,6 +258,29 @@
       "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07760d7a_923e324d",
+        "filename": "media2/src/main/java/androidx/media2/MediaSessionImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-27T04:34:05Z",
+      "side": 1,
+      "message": "Since queryIntentServices may return null or empty list when there is no matching services, let\u0027s not throw an exception when the \u0027resolvedInfos\u0027 is null.\n\nhttps://developer.android.com/reference/android/content/pm/PackageManager#queryIntentServices(android.content.Intent,%20int)",
+      "range": {
+        "startLine": 1242,
+        "startChar": 12,
+        "endLine": 1242,
+        "endChar": 32
+      },
+      "revId": "3997b59c16bc16027de3c61d5ac09d5d90a76874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
