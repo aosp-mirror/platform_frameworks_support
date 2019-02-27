@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ed5174bb_4b5c68a7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T20:59:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d937e9b6_49009267",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "083f2287_bcaaa544",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 8
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "49060bd7_b6b4013c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T20:59:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6402770e_977b5689",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19d8548f_2f53a6cb",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 8
@@ -163,6 +211,30 @@
       "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe3da9a_b91791d3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T20:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19d8548f_2f53a6cb",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -268,6 +340,30 @@
       "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476a1b44_ac577e4b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T20:59:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "500723d1_4292df20",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 45
+      },
+      "revId": "224a5d02ba749135639ddf1a8422abdee7ebfba3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

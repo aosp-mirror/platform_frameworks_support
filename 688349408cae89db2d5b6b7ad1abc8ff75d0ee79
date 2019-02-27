@@ -390,6 +390,30 @@
     },
     {
       "key": {
+        "uuid": "b708a34a_1bcd69bf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-02-27T20:59:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc1929eb_58065bb0",
+      "range": {
+        "startLine": 96,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 69
+      },
+      "revId": "688349408cae89db2d5b6b7ad1abc8ff75d0ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ae9968b_6af96f7e",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 12
