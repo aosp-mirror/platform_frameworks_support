@@ -29,7 +29,7 @@ import androidx.savedstate.SavedStateRegistryOwner;
  * implement {@link #create(String, Class, SavedStateHandle)} to actually instantiate
  * {@code ViewModels}.
  */
-public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
+public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.KeyedFactory {
     static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
 
     private final SavedStateRegistry mSavedStateRegistry;
