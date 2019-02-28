@@ -330,7 +330,7 @@ public abstract class RowPresenter extends Presenter {
             RowContainerView containerView = new RowContainerView(parent.getContext());
             if (mHeaderPresenter != null) {
                 vh.mHeaderViewHolder = (RowHeaderPresenter.ViewHolder)
-                        mHeaderPresenter.onCreateViewHolder((ViewGroup) vh.view);
+                        mHeaderPresenter.onCreateViewHolder(containerView);
             }
             result = new ContainerViewHolder(containerView, vh);
         } else {
