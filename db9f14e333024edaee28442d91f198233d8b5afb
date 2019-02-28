@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e7f8fc49_2a699a80",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-28T06:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d14f118a_a4b0ec26",
+      "revId": "db9f14e333024edaee28442d91f198233d8b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f80a2ba6_4015105e",
         "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "db9f14e333024edaee28442d91f198233d8b5afb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba29ca92_bb02d3d8",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-02-28T06:40:00Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "f80a2ba6_4015105e",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 56
+      },
+      "revId": "db9f14e333024edaee28442d91f198233d8b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
