@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f088b7de_6e948e2e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-28T19:39:46Z",
+      "side": 1,
+      "message": "Use register instead of create for task configuration avoidance, here and below.",
+      "range": {
+        "startLine": 418,
+        "startChar": 25,
+        "endLine": 418,
+        "endChar": 31
+      },
+      "revId": "18294193099e1eb3360390b35627657a379eab43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ad8d8c_ca1a5455",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-28T19:39:46Z",
+      "side": 1,
+      "message": "Nice!",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "18294193099e1eb3360390b35627657a379eab43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2b3afec_5123260d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-02-28T19:39:46Z",
+      "side": 1,
+      "message": "Maybe use org.gradle.api.artifacts.ProjectDependency instead? Since DefaultProjectDependency has internal in the import, and they might remove it in the future just like with the jarjar story and we have to do this anyways. Same for the ExternalModuleDependency.",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "18294193099e1eb3360390b35627657a379eab43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
