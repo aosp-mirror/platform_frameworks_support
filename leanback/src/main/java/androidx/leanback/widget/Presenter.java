@@ -16,6 +16,8 @@ package androidx.leanback.widget;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
@@ -35,6 +37,11 @@ import java.util.Map;
  * binding to avoid expensive calls to {@link View#findViewById(int)}.
  * </p>
  *
+ * <p>
+ * Presenter could use optional {@link #setBinderSelector} which is used to pick a
+ * {@link PresenterBinder} to bind ViewHolder to objects. If {@link #getBinderSelector()} is null,
+ * {@link Presenter#onBindViewHolder} will be used.
+ * </p>
  * <p>
  * A trivial Presenter that takes a string and renders it into a {@link
  * android.widget.TextView TextView}:
@@ -116,6 +123,7 @@ public abstract class Presenter implements FacetProvider {
         }
     }
 
+    private @Nullable PresenterBinderSelector mBinderSelector = null;
     private Map<Class, Object> mFacets;
 
     /**
@@ -124,12 +132,14 @@ public abstract class Presenter implements FacetProvider {
     public abstract ViewHolder onCreateViewHolder(ViewGroup parent);
 
     /**
-     * Binds a {@link View} to an item.
+     * Binds a {@link View} to an item. If {@link #getBinderSelector()} is returning non null,
+     * that {@link PresenterBinder#onBindViewHolder} may be used instead.
      */
     public abstract void onBindViewHolder(ViewHolder viewHolder, Object item);
 
     /**
-     * Binds a {@link View} to an item with a list of payloads.
+     * Binds a {@link View} to an item with a list of payloads. If {@link #getBinderSelector()}
+     * is returning non null, that {@link PresenterBinder#onBindViewHolder} may be used instead.
      * @param viewHolder  The ViewHolder which should be updated to represent the contents of the
      *                    item at the given position in the data set.
      * @param item        The item which should be bound to view holder.
@@ -146,6 +156,63 @@ public abstract class Presenter implements FacetProvider {
      * cleared here.
      */
     public abstract void onUnbindViewHolder(ViewHolder viewHolder);
+
+    /**
+     * {@link PresenterBinderSelector} that is used to select a {@link PresenterBinder} to bind
+     * ViewHolders. When null, {@link Presenter#onBindViewHolder} will be used to bind ViewHolders.
+     *
+     * @return Optional {@link PresenterBinderSelector}.
+     */
+    public final @Nullable PresenterBinderSelector getBinderSelector() {
+        return mBinderSelector;
+    }
+
+    /**
+     * Sets or clear {@link PresenterBinderSelector} that is used to select a
+     * {@link PresenterBinder} to bind ViewHolders. When null, {@link Presenter#onBindViewHolder}
+     * will be used to bind ViewHolders.
+     * @@oaram binderSelector The {@link PresenterBinderSelector} or null to clear.
+     */
+    public final void setBinderSelector(@Nullable PresenterBinderSelector binderSelector) {
+        mBinderSelector = binderSelector;
+    }
+
+    /**
+     * Use either {@link #getBinderSelector()} or {@link #onBindViewHolder} to bind ViewHolders.
+     * @param viewHolder  The ViewHolder which should be updated to represent the contents of the
+     *                    item at the given position in the data set.
+     * @param item        The item which should be bound to view holder.
+     */
+    public final void performBindViewHolder(@NonNull ViewHolder viewHolder, @NonNull Object item) {
+        if (mBinderSelector != null) {
+            PresenterBinder binder = mBinderSelector.getPresenterBinder(item);
+            if (binder != null) {
+                binder.onBindViewHolder(this, viewHolder, item);
+                return;
+            }
+        }
+        onBindViewHolder(viewHolder, item);
+    }
+
+    /**
+     * Use either {@link #getBinderSelector()} or {@link #onBindViewHolder} to bind ViewHolders.
+     * @param viewHolder  The ViewHolder which should be updated to represent the contents of the
+     *                    item at the given position in the data set.
+     * @param item        The item which should be bound to view holder.
+     * @param payloads    A non-null list of merged payloads. Can be empty list if requires full
+     *                    update.
+     */
+    public final void performBindViewHolder(@NonNull ViewHolder viewHolder, @NonNull Object item,
+            @NonNull List<Object> payloads) {
+        if (mBinderSelector != null) {
+            PresenterBinder binder = mBinderSelector.getPresenterBinder(item);
+            if (binder != null) {
+                binder.onBindViewHolder(this, viewHolder, item, payloads);
+                return;
+            }
+        }
+        onBindViewHolder(viewHolder, item, payloads);
+    }
 
     /**
      * Called when a view created by this presenter has been attached to a window.
