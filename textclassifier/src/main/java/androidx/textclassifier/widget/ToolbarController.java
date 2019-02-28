@@ -88,6 +88,7 @@ public final class ToolbarController {
         if (controller == null) {
             sInstance = new WeakReference<>(new ToolbarController(textView));
         } else if (controller.mTextView != textView) {
+            Log.v(LOG_TAG, "New textView. Dismissing previous toolbar.");
             dismissImmediately(controller.mToolbar);
             sInstance = new WeakReference<>(new ToolbarController(textView));
         }
@@ -125,15 +126,17 @@ public final class ToolbarController {
             return;
         }
 
+        Log.v(LOG_TAG, "About to show new toolbar state. Dismissing old state");
         dismissImmediately(mToolbar);
-        setListeners(mTextView, start, end, mToolbar);
         final SupportMenu menu = createMenu(mTextView, mHighlight, actions);
-        if (hasValidTextView(mTextView) && menu.hasVisibleItems()) {
+        if (canShowToolbar(mTextView, true) && menu.hasVisibleItems()) {
+            setListeners(mTextView, start, end, mToolbar);
             setHighlight(mTextView, mHighlight, start, end, mToolbar);
             updateRectCoordinates(mContentRect, mTextView, start, end);
             mToolbar.setContentRect(mContentRect);
             mToolbar.setMenu(menu);
             mToolbar.show();
+            Log.v(LOG_TAG, "Showing toolbar");
         }
     }
 
@@ -149,8 +152,15 @@ public final class ToolbarController {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static boolean hasValidTextView(TextView textView) {
-        return textView.isAttachedToWindow();
+    static boolean canShowToolbar(TextView textView, boolean assumeWindowFocus) {
+        final boolean viewFocus = textView.hasFocus();
+        final boolean viewAttached = textView.isAttachedToWindow();
+        final boolean canShowToolbar = assumeWindowFocus && viewFocus && viewAttached;
+        Log.v(LOG_TAG,
+                String.format("canShowToolbar=%b. "
+                        + "Reason: windowFocus=%b, viewFocus=%b, viewAttached=%b",
+                        canShowToolbar, assumeWindowFocus, viewFocus, viewAttached));
+        return canShowToolbar;
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -196,7 +206,7 @@ public final class ToolbarController {
             textView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (hasValidTextView(textView)
+                    if (canShowToolbar(textView, true)
                             && originalText.equals(textView.getText().toString())
                             && toolbar.isShowing()) {
                         ((Spannable) text).setSpan(highlight, start, end, 0);
@@ -360,7 +370,7 @@ public final class ToolbarController {
         @Override
         public boolean onPreDraw() {
             final long now = System.currentTimeMillis();
-            if (!maybeDismissToolbar(true)
+            if (!maybeDismissToolbar(true, "onPreDraw")
                     && mToolbar.isShowing()
                     && now - mLastUpdateTimeMs >= THROTTLE_DELAY_MS) {
                 updateRectCoordinates(mTempRect, mTextView, mStart, mEnd);
@@ -377,28 +387,29 @@ public final class ToolbarController {
 
         @Override
         public void onWindowFocusChanged(boolean hasFocus) {
-            maybeDismissToolbar(hasFocus);
+            maybeDismissToolbar(hasFocus, "onWindowFocusChanged");
         }
 
         @Override
         public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-            maybeDismissToolbar(true);
+            maybeDismissToolbar(true, "onGlobalFocusChanged");
         }
 
         @Override
         public void onWindowAttached() {
-            maybeDismissToolbar(true);
+            maybeDismissToolbar(true, "onWindowAttached");
         }
 
         @Override
         public void onWindowDetached() {
-            maybeDismissToolbar(true);
+            maybeDismissToolbar(true, "onWindowDetached");
         }
 
-        private boolean maybeDismissToolbar(boolean assumeWindowFocus) {
-            if (assumeWindowFocus && mTextView.hasFocus() && hasValidTextView(mTextView)) {
+        private boolean maybeDismissToolbar(boolean assumeWindowFocus, String caller) {
+            if (canShowToolbar(mTextView, assumeWindowFocus)) {
                 return false;
             }
+            Log.v(LOG_TAG, "TextViewListener." + caller + ": Dismissing toolbar.");
             dismissImmediately(mToolbar);
             return true;
         }
@@ -435,6 +446,9 @@ public final class ToolbarController {
                 // custom callback is set.
                 if (mOriginalCallback == null
                         || mOriginalCallback.onCreateActionMode(actionMode, menu)) {
+                    Log.v(LOG_TAG,
+                            "ActionModeCallback: Dismissing toolbar. hasCallback="
+                                    + (mOriginalCallback != null));
                     dismissImmediately(mToolbar);
                     return true;
                 }
