@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5d2e643d_ba4dedd2",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-02-28T23:56:46Z",
+      "side": 1,
+      "message": "why nullable?",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a1fe6f7_6c7783e1",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 7
@@ -116,6 +139,57 @@
       "writtenOn": "2019-02-28T21:34:14Z",
       "side": 1,
       "message": "This API surprises me compared to exposing an iterator similar to:\n\nhttps://github.com/Kotlin/kotlin-coroutines-examples/blob/master/examples/suspendingSequence/suspendingSequence.kt#L14\n\nCompare;\n\n```\nfor(value in liveData.asyncIterator) {\n}\n\nliveData.asyncIterator.map { something}\n// etc\n```\n\n(with cleanup handled by CoroutineScope cancellation)\n\n\n// vs nextValueAsync()\n```\nfor(value in liveData.nextValueAsync()) {\n}\n```\n\nIs this for testing or production usage?",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4eb8ede_d4537c9b",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-02-28T23:56:46Z",
+      "side": 1,
+      "message": "a suspend api that returns Deferred is super weird",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8151692_4fed4131",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-02-28T23:56:46Z",
+      "side": 1,
+      "message": "I would expect this to return def.await() and the function to return T instead",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c7e3414_e665663c",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-02-28T23:56:46Z",
+      "side": 1,
+      "message": "same here, Deferred is super weird to return from a suspend fun",
       "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
