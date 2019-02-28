@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7f42bbc_88abfbf7",
+        "filename": "navigation/common/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-28T17:46:01Z",
+      "side": 1,
+      "message": "implementation",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "78e6edd8b4f895a2c1329fef07b24d6b9f99c9ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
