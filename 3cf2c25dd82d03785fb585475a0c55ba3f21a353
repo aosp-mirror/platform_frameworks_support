@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "28f4c992_a16218f0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "I removed this constructor and used MockContext in tests instead.",
+      "parentUuid": "b3739243_4c8c4a2f",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60d771d8_4ddc65f7",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "182279cf_e2e2c1ab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60d771d8_4ddc65f7",
+      "range": {
+        "startLine": 185,
+        "startChar": 11,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "975dc213_8dd1b3a5",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 4
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "12f59e4d_85fd1cae",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975dc213_8dd1b3a5",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a551114c_b68518e0",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 4
@@ -73,6 +133,24 @@
       "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a0c34bd_1a9c887e",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a551114c_b68518e0",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "700182b3_2c5a199c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d746919_2421ed4b",
+      "range": {
+        "startLine": 244,
+        "startChar": 11,
+        "endLine": 244,
+        "endChar": 16
+      },
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "010358a1_eb5c8a80",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 4
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "0cb57ad7_e74030ca",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "010358a1_eb5c8a80",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "457b36d0_b9f86de3",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 4
@@ -130,6 +250,24 @@
       "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f3fc286_142838d1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-02-28T15:44:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this what you meant: I added new classes that extends PathHandler class that takes assetHelper as an additional parameter in the constructor and removed all the inner anonymous classes.",
+      "parentUuid": "457b36d0_b9f86de3",
+      "revId": "3cf2c25dd82d03785fb585475a0c55ba3f21a353",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
