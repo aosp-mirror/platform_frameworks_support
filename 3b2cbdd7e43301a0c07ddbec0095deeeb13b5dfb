@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbe8a0ae_cc43330a",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-28T17:51:25Z",
+      "side": 0,
+      "message": "Aurimas, I assume it\u0027s OK to change this? These APIs may not be subclassed by applications (nor does it make sense for them to call these). This API would only be called by the WebView APK on OMR1+ devices (it would call WebViewClient#onSafeBrowsingHit, which winds up here by inheritance).",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 236
+      },
+      "revId": "3b2cbdd7e43301a0c07ddbec0095deeeb13b5dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
