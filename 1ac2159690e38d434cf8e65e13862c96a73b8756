@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd5f43c6_de7b482d",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-28T19:26:57Z",
+      "side": 1,
+      "message": "sergey: consider https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05da749f_e741c617",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-28T19:26:57Z",
+      "side": 1,
+      "message": "we can remove this one.",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 9
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32acfdc8_95a285b8",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-02-28T19:26:57Z",
+      "side": 1,
+      "message": "sergey: we can play unsafe and immediately remove w/o thread jump since we are the only ones using this MLD and add always happens before remove.",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
