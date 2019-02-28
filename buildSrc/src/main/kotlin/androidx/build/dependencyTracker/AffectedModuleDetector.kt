@@ -67,7 +67,7 @@ abstract class AffectedModuleDetector {
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
         private const val DEPENDENT_PROJECTS_ARG = "androidx.onlyDependent"
-        private const val CHANGED_PROJECTS_ARG = "androidx.onlyDirectlyAffected"
+        private const val CHANGED_PROJECTS_ARG = "androidx.changedProjects"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
@@ -243,8 +243,13 @@ internal class AffectedModuleDetectorImpl constructor(
             )
             return allProjects
         }
+        val alwaysBuild = rootProject.subprojects.filter { project ->
+            ALWAYS_BUILD.any {
+                project.name.contains(it)
+            }
+        }.toSet()
 
-        return when (projectSubset) {
+        return alwaysBuild + when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
                 -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
             ProjectSubset.CHANGED_PROJECTS
@@ -263,5 +268,11 @@ internal class AffectedModuleDetectorImpl constructor(
         return projectGraph.findContainingProject(filePath).also {
             logger?.info("search result for $filePath resulted in ${it?.path}")
         }
+    }
+
+    companion object {
+        // dummy test to ensure no failure due to "no instrumentation. See b/112645580
+        // and b/126377106
+        private val ALWAYS_BUILD = setOf("dumb-test")
     }
 }
