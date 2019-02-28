@@ -199,6 +199,13 @@ public class MediaRouteActionProvider extends ActionProvider {
 
     /**
      * Enables dynamic group feature.
+     * With this enabled, a different set of {@link MediaRouteChooserDialog} and
+     * {@link MediaRouteControllerDialog} is shown when the button is clicked.
+     * If a {@link androidx.mediarouter.media.MediaRouteProvider media route provider}
+     * supports dynamic group, the users can use that feature with the dialogs.
+     *
+     * @see MediaRouteButton#enableDynamicGroup()
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
      */
     public void enableDynamicGroup() {
         mUseDynamicGroup = true;
@@ -208,8 +215,9 @@ public class MediaRouteActionProvider extends ActionProvider {
     }
 
     /**
-     * Sets weather {@link MediaRouteButton} is visible when no routes are available.
+     * Sets whether {@link MediaRouteButton} is visible when no routes are available.
      * When true, the button is visible even if there are no routes to connect.
+     * The default is false.
      *
      * @param alwaysVisible true to show MediaRouteButton always.
      *
