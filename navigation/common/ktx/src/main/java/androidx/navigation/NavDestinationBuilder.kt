@@ -16,7 +16,8 @@
 
 package androidx.navigation
 
-import androidx.annotation.IdRes
+import android.support.annotation.IdRes
+import java.lang.IllegalStateException
 
 @DslMarker
 annotation class NavDestinationDsl

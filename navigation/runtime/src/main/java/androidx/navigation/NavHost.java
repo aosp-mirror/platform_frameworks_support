@@ -17,9 +17,8 @@
 package androidx.navigation;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
-
-import androidx.annotation.NonNull;
 
 /**
  * A host is a single context or container for navigation via a {@link NavController}.

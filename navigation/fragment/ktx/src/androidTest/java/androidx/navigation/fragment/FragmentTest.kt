@@ -17,8 +17,8 @@
 package androidx.navigation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.ktx.test.R
 import androidx.test.annotation.UiThreadTest

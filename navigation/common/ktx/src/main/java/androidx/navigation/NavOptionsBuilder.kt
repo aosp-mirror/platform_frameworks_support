@@ -16,9 +16,9 @@
 
 package androidx.navigation
 
-import androidx.annotation.AnimRes
-import androidx.annotation.AnimatorRes
-import androidx.annotation.IdRes
+import android.support.annotation.AnimRes
+import android.support.annotation.AnimatorRes
+import android.support.annotation.IdRes
 
 @DslMarker
 annotation class NavOptionsDsl
