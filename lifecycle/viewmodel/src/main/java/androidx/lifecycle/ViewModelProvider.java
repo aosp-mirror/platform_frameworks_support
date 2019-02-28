@@ -51,26 +51,8 @@ public class ViewModelProvider {
         <T extends ViewModel> T create(@NonNull Class<T> modelClass);
     }
 
-    /**
-     * Implementations of {@code Factory} interface are responsible to instantiate ViewModels.
-     * <p>
-     * This is more advanced version of {@link Factory} that receives a key specified for requested
-     * {@link ViewModel}.
-     */
-    public interface KeyedFactory {
-        /**
-         * Creates a new instance of the given {@code Class}.
-         *
-         * @param key a key associated with the requested ViewModel
-         * @param modelClass a {@code Class} whose instance is requested
-         * @param <T>        The type parameter for the ViewModel.
-         * @return a newly created ViewModel
-         */
-        @NonNull
-        <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass);
-    }
 
-    private final KeyedFactory mFactory;
+    private final Factory mFactory;
     private final ViewModelStore mViewModelStore;
 
     /**
@@ -95,31 +77,6 @@ public class ViewModelProvider {
      *                new {@code ViewModels}
      */
     public ViewModelProvider(@NonNull ViewModelStore store, @NonNull Factory factory) {
-        this(store, new FactoryWrapper(factory));
-    }
-
-    /**
-`     * Creates {@code ViewModelProvider}, which will create {@code ViewModels} via the given
-     * {@code Factory} and retain them in a store of the given {@code ViewModelStoreOwner}.
-     *
-     * @param owner   a {@code ViewModelStoreOwner} whose {@link ViewModelStore} will be used to
-     *                retain {@code ViewModels}
-     * @param factory a {@code KeyedFactory} which will be used to instantiate
-     *                new {@code ViewModels}
-     */
-    public ViewModelProvider(@NonNull ViewModelStoreOwner owner, @NonNull KeyedFactory factory) {
-        this(owner.getViewModelStore(), factory);
-    }
-
-    /**
-     * Creates {@code ViewModelProvider}, which will create {@code ViewModels} via the given
-     * {@code Factory} and retain them in the given {@code store}.
-     *
-     * @param store   {@code ViewModelStore} where ViewModels will be stored.
-     * @param factory factory a {@code Factory} which will be used to instantiate
-     *                new {@code ViewModels}
-     */
-    public ViewModelProvider(@NonNull ViewModelStore store, @NonNull KeyedFactory factory) {
         mFactory = factory;
         mViewModelStore = store;
     }
@@ -175,8 +132,10 @@ public class ViewModelProvider {
                 // TODO: log a warning.
             }
         }
-
-        viewModel = mFactory.create(key, modelClass);
+        if (mFactory instanceof HasKeySideChannelHack) {
+            ((HasKeySideChannelHack) mFactory).keyForNextCreateCall(key);
+        }
+        viewModel = mFactory.create(modelClass);
         mViewModelStore.put(key, viewModel);
         //noinspection unchecked
         return (T) viewModel;
@@ -256,16 +215,9 @@ public class ViewModelProvider {
         }
     }
 
-    private static class FactoryWrapper implements KeyedFactory {
-        private final Factory mFactory;
-
-        FactoryWrapper(Factory factory) {
-            mFactory = factory;
-        }
-
-        @Override
-        public <T extends ViewModel> T create(String key, Class<T> modelClass) {
-            return mFactory.create(modelClass);
-        }
+    // we can't provide normal Factory.create(String, Class<>), because we live in java 7
+    // once we have default methods in interfaces, we'll add this new method in Factory interface
+    abstract static class HasKeySideChannelHack {
+        abstract void keyForNextCreateCall(@NonNull String key);
     }
 }

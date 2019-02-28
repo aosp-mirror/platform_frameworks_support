@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider.HasKeySideChannelHack;
 import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.SavedStateRegistryOwner;
 
@@ -29,12 +30,14 @@ import androidx.savedstate.SavedStateRegistryOwner;
  * implement {@link #create(String, Class, SavedStateHandle)} to actually instantiate
  * {@code ViewModels}.
  */
-public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
+public abstract class AbstractSavedStateVMFactory extends HasKeySideChannelHack
+        implements ViewModelProvider.Factory {
     static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
 
     private final SavedStateRegistry mSavedStateRegistry;
     private final Lifecycle mLifecycle;
     private final Bundle mDefaultArgs;
+    private String mNextKey;
 
     /**
      * Constructs this factory.
@@ -53,9 +56,22 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         mDefaultArgs = defaultArgs;
     }
 
+    @Override
+    void keyForNextCreateCall(@NonNull String key) {
+        mNextKey = key;
+    }
+
     @NonNull
     @Override
-    public final <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass) {
+    public final <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+        String key;
+        if (mNextKey != null) {
+            key = mNextKey;
+            mNextKey = null;
+        } else {
+            // fallback somehow.
+            key = modelClass.getName();
+        }
         Bundle restoredState = mSavedStateRegistry.consumeRestoredStateForKey(key);
         SavedStateHandle handle = SavedStateHandle.createHandle(restoredState, mDefaultArgs);
         SavedStateHandleController controller = new SavedStateHandleController(key, handle);
