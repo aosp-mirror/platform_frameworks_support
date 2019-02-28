@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77e8239f_1658a8c9",
+        "filename": "settings.gradle",
+        "patchSetId": 19
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-02-28T01:03:57Z",
+      "side": 1,
+      "message": "Android Studio now complains that it can\u0027t find docs-runner in the project, uploaded https://android-review.googlesource.com/914057 to unblock developers.",
+      "range": {
+        "startLine": 271,
+        "startChar": 4,
+        "endLine": 272,
+        "endChar": 49
+      },
+      "revId": "98f1b244e88d670e2d7b9407a93c788c58c59e0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
