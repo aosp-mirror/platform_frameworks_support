@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da55cc9d_0ce0da88",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-28T17:39:35Z",
+      "side": 1,
+      "message": "It seems kind of strange to subclass this and not do anything inside.\n\nMaybe just use ApplicationProvider instead? http://cs/aosp-androidx/webkit/src/androidTest/java/androidx/webkit/WebViewCompatTest.java?l\u003d142\u0026rcl\u003d4d7787e10d8a8637250f4e8f2b43ae1b3ccb2555",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "05851ccc57983a92087148879329a8ce857618e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5cfabe1_098dc789",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-28T17:39:35Z",
+      "side": 1,
+      "message": "* either \"@NonNull final\" or \"final @NonNull\" (choose one for consistency)\n* this doesn\u0027t need to be final\n* if you want to keep this final, make resourceHandler final too for consistency?",
+      "range": {
+        "startLine": 299,
+        "startChar": 61,
+        "endLine": 299,
+        "endChar": 66
+      },
+      "revId": "05851ccc57983a92087148879329a8ce857618e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
