@@ -38,6 +38,7 @@ android {
 
 dependencies {
     api(project(":navigation:navigation-common"))
+    implementation(project(":collection"))
     api(KOTLIN_STDLIB)
     testImplementation(JUNIT)
     testImplementation(TEST_EXT_JUNIT)

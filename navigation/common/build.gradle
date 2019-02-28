@@ -32,6 +32,7 @@ android {
 
 dependencies {
     api(NAV_SUPPORT_COMPAT)
+    implementation(project(":collection"))
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
