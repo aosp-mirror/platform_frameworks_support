@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6f991ee_0b2187a7",
+        "filename": "lifecycle/viewmodel-savedstate/src/main/java/androidx/lifecycle/AbstractSavedStateVMFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-02-28T16:28:04Z",
+      "side": 1,
+      "message": "It is bad for sure. However, this method should be called from ViewModelProvider that does right thing. \n\nIf anyone calls it manually for some strange reason (I can\u0027t see why to do that), then we\u0027re fine unless they use same viewmodel class with different keys.",
+      "revId": "26108cb3d3484f64803b6f3d3f2f0e032f60d1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
