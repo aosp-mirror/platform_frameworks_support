@@ -50,7 +50,7 @@ public class WebViewFeature {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @StringDef(value = {
             VISUAL_STATE_CALLBACK,
             OFF_SCREEN_PRERASTER,
@@ -385,7 +385,7 @@ public class WebViewFeature {
      * TODO(laisminchillo): unhide this when we're ready to expose this
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
 
     /**

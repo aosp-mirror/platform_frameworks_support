@@ -47,7 +47,7 @@ public abstract class WebViewRenderer {
      * This class cannot be created by applications.
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public WebViewRenderer() {
     }
 }

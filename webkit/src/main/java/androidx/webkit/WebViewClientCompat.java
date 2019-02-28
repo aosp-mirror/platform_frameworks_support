@@ -56,7 +56,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
     };
 
     /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @IntDef(value = {
             WebViewClient.SAFE_BROWSING_THREAT_UNKNOWN,
             WebViewClient.SAFE_BROWSING_THREAT_MALWARE,
@@ -73,7 +73,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      * @hide
      */
     @Override
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public final String[] getSupportedFeatures() {
         return sSupportedFeatures;
     }
@@ -120,7 +120,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Override
     @RequiresApi(21)
     public final void onReceivedError(@NonNull WebView view, @NonNull WebResourceRequest request,
@@ -202,7 +202,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Override
     public final void onSafeBrowsingHit(@NonNull WebView view, @NonNull WebResourceRequest request,
             @SafeBrowsingThreat int threatType,
