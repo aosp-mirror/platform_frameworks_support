@@ -382,7 +382,7 @@ public class ItemBridgeAdapter extends RecyclerView.Adapter implements FacetProv
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.mItem = mAdapter.get(position);
 
-        viewHolder.mPresenter.onBindViewHolder(viewHolder.mHolder, viewHolder.mItem);
+        viewHolder.mPresenter.performBindViewHolder(viewHolder.mHolder, viewHolder.mItem);
 
         onBind(viewHolder);
         if (mAdapterListener != null) {
@@ -397,7 +397,7 @@ public class ItemBridgeAdapter extends RecyclerView.Adapter implements FacetProv
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.mItem = mAdapter.get(position);
 
-        viewHolder.mPresenter.onBindViewHolder(viewHolder.mHolder, viewHolder.mItem, payloads);
+        viewHolder.mPresenter.performBindViewHolder(viewHolder.mHolder, viewHolder.mItem, payloads);
 
         onBind(viewHolder);
         if (mAdapterListener != null) {
