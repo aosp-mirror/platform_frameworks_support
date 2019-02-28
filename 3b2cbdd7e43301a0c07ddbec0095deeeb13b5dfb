@@ -70,6 +70,30 @@
       "revId": "3b2cbdd7e43301a0c07ddbec0095deeeb13b5dfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a88cc114_7290a09f",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-02-28T18:34:24Z",
+      "side": 0,
+      "message": "Well if this is public API, then remove @RestrictTo",
+      "parentUuid": "32766df4_db0f6678",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 236
+      },
+      "revId": "3b2cbdd7e43301a0c07ddbec0095deeeb13b5dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
