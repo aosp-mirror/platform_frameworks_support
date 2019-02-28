@@ -54,7 +54,7 @@ public class CarUxRestrictionsHelper {
         }
         mListener = listener;
         mCar = Car.createCar(context, mServiceConnection);
-    };
+    }
 
     /**
      * Starts monitoring any changes in {@link CarUxRestrictions}.
@@ -101,6 +101,26 @@ public class CarUxRestrictionsHelper {
             // Do nothing.
             Log.w(TAG, "stop(); cannot disconnect from Car.");
         }
+    }
+
+    /**
+     * Get the current UX restrictions {@link CarUxRestrictions} in place.
+     *
+     * @return current UX restrictions that is in effect or {@code null} if the current UX
+     * restrictions cannot be obtained.
+     */
+    @Nullable
+    public CarUxRestrictions getCurrentCarUxRestrictions() {
+        try {
+            if (mCarUxRestrictionsManager != null) {
+                return new CarUxRestrictions(
+                        mCarUxRestrictionsManager.getCurrentCarUxRestrictions());
+            }
+        } catch (CarNotConnectedException e) {
+            // Do nothing.
+            Log.w(TAG, "getCurrentCarUxRestrictions(); cannot get current UX restrictions.");
+        }
+        return null;
     }
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
