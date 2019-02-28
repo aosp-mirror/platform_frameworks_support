@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d14f118a_a4b0ec26",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-28T04:51:54Z",
+      "side": 1,
+      "message": "Can we change these into media_session_service_notification_ic_*?",
+      "revId": "db9f14e333024edaee28442d91f198233d8b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f80a2ba6_4015105e",
+        "filename": "media2/src/main/java/androidx/media2/MediaNotificationHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-02-28T04:51:54Z",
+      "side": 1,
+      "message": "not consistent with others (prefix \u0027notification\u0027 doesn\u0027t come first)",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 56
+      },
+      "revId": "db9f14e333024edaee28442d91f198233d8b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
