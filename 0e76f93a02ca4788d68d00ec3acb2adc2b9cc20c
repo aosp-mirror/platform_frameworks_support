@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec77be15_49102027",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-02-28T19:04:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab8990ba_efdb61ae",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cda1a459_f1acdc16",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c9aca4c9_a8491c21",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-02-28T19:04:07Z",
+      "side": 1,
+      "message": "I\u0027ve added more context to DARK_THEME_ENABLE. I don\u0027t want to say whether the implementation will auto-dark the web contents, because Chrome is undecided on that and we\u0027ll probably want to follow settings. We expect other providers to take a similar position.",
+      "parentUuid": "cda1a459_f1acdc16",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 51
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eaf12645_612bddf9",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-26T16:09:05Z",
       "side": 1,
       "message": "@NonNull",
+      "range": {
+        "startLine": 557,
+        "startChar": 15,
+        "endLine": 557,
+        "endChar": 22
+      },
+      "revId": "0e76f93a02ca4788d68d00ec3acb2adc2b9cc20c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a203139_e48a45d0",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-02-28T19:04:07Z",
+      "side": 1,
+      "message": "Done. Do you want me to add @NonNull to all other builder methods too? Done in the current PS anticipating a yes.",
+      "parentUuid": "eaf12645_612bddf9",
       "range": {
         "startLine": 557,
         "startChar": 15,
