@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
 #!/usr/bin/python
 
 # This script does package renamings on source code (and .xml files and build files, etc), as part of migrating code to Jetpack.
@@ -141,3 +142,5 @@ def main():
 main()
 
 
+=======
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)

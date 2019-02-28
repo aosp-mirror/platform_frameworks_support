@@ -478,14 +478,9 @@ public class MediaSessionCompat {
 
     /**
      * @hide
-     * Creates session for MediaSession.
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public MediaSessionCompat(Context context, String tag, VersionedParcelable session2Token) {
-        this(context, tag, null, null, session2Token);
-    }
-
-    private MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
+    public MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
             PendingIntent mbrIntent, VersionedParcelable session2Token) {
         if (context == null) {
             throw new IllegalArgumentException("context must not be null");
@@ -1259,6 +1254,24 @@ public class MediaSessionCompat {
         }
 
         /**
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
+=======
+         * Override to handle the playback speed change.
+         * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
+         * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
+         * {@link #setPlaybackState(PlaybackStateCompat)}.
+         *
+         * @param speed the playback speed
+         * @see #setPlaybackState(PlaybackStateCompat)
+         * @see PlaybackStateCompat.Builder#setState(int, long, float)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void onSetPlaybackSpeed(float speed) {
+        }
+
+        /**
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)
          * Override to handle requests to enable/disable captioning.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.

@@ -256,6 +256,15 @@ public class MediaRouteButton extends View {
 
     /**
      * Enables dynamic group feature.
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
+=======
+     * With this enabled, a different set of {@link MediaRouteChooserDialog} and
+     * {@link MediaRouteControllerDialog} is shown when the button is clicked.
+     * If a {@link androidx.mediarouter.media.MediaRouteProvider media route provider}
+     * supports dynamic group, the users can use that feature with the dialogs.
+     *
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)
      */
     public void enableDynamicGroup() {
         mUseDynamicGroup = true;

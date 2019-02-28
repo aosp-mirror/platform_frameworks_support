@@ -1,0 +1,10 @@
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
+=======
+// Signature format: 3.0
+package androidx.fragment.app.testing {
+
+
+
+}
+
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)

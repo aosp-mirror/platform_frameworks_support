@@ -22,12 +22,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.support.annotation.NavigationRes;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
+
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -287,7 +288,7 @@ public final class NavInflater {
 
         NavOptions.Builder builder = new NavOptions.Builder();
         builder.setLaunchSingleTop(a.getBoolean(R.styleable.NavAction_launchSingleTop, false));
-        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, 0),
+        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, -1),
                 a.getBoolean(R.styleable.NavAction_popUpToInclusive, false));
         builder.setEnterAnim(a.getResourceId(R.styleable.NavAction_enterAnim, -1));
         builder.setExitAnim(a.getResourceId(R.styleable.NavAction_exitAnim, -1));

@@ -67,7 +67,11 @@ object LibraryVersions {
     val MEDIA2_EXOPLAYER = Version("1.0.0-alpha02")
     val MEDIA2_WIDGET = Version("1.0.0-alpha07")
     val MEDIAROUTER = Version("1.1.0-alpha02")
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
     val NAVIGATION = Version("1.0.0-beta02")
+=======
+    val NAVIGATION = Version("2.0.0-rc02")
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)
     val NAVIGATION_TESTING = Version("1.0.0-alpha08") // Unpublished
     val PAGING = Version("2.2.0-alpha01")
     val PALETTE = Version("1.1.0-alpha01")
@@ -79,7 +83,7 @@ object LibraryVersions {
     val RECYCLERVIEW = Version("1.1.0-alpha03")
     val REMOTECALLBACK = Version("1.0.0-alpha02")
     val ROOM = Version("2.1.0-alpha05")
-    val SAVEDSTATE = Version("1.0.0-alpha01")
+    val SAVEDSTATE = Version("1.0.0-alpha02")
     val SECURITY = Version("1.0.0-alpha01")
     val SHARETARGET = Version("1.0.0-alpha01")
     val SLICE = Version("1.1.0-alpha01")

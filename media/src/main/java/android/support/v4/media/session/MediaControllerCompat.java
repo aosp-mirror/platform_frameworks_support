@@ -1301,6 +1301,18 @@ public final class MediaControllerCompat {
         public abstract void setRating(RatingCompat rating, Bundle extras);
 
         /**
+<<<<<<< HEAD   (ff2f2f Merge "Merge cherrypicks of [910359, 910360] into android-ar)
+=======
+         * Set the playback speed.
+         *
+         * @param speed The playback speed
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void setPlaybackSpeed(float speed) {}
+
+        /**
+>>>>>>> BRANCH (fee1e7 Merge "Add collections dependencies to navigation" into andr)
          * Enables/disables captioning for this session.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.
