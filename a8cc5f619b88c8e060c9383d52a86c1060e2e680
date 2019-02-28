@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7703d1e1_a05c28b6",
+        "filename": "mediarouter/src/main/res/values/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-02-28T00:29:04Z",
+      "side": 1,
+      "message": "It\u0027s commented as \u0027height\u0027 but is used both for height and width.\n\nI think it\u0027s better to change the comment or split this as two variables.",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "a8cc5f619b88c8e060c9383d52a86c1060e2e680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
