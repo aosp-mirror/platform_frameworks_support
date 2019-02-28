@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package androidx.transition;
+package androidx.navigation;
 
-import android.view.View;
-import android.view.ViewGroup;
-
-interface GhostViewImpl {
-
-    void setVisibility(int visibility);
-
-    /**
-     * Reserves a call to {@link ViewGroup#endViewTransition(View)} at the time when the GhostView
-     * starts drawing its real view.
-     */
-    void reserveEndViewTransition(ViewGroup viewGroup, View view);
-
+/**
+ * Dummy file, because android gradle plugin requires not empty sources
+ */
+public class Foo {
 }
