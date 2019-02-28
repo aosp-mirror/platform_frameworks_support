@@ -97,4 +97,23 @@ public class WebSettingsCompatTest {
         assertEquals(WebSettings.MENU_ITEM_PROCESS_TEXT | WebSettings.MENU_ITEM_WEB_SEARCH,
                 WebSettingsCompat.getDisabledActionModeMenuItems(mWebViewOnUiThread.getSettings()));
     }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebSettingsTest#testSuppressedErrorPage. Modifications to this test should
+     * be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
+    @Test
+    public void testSuppressedErrorPage() throws Throwable {
+        WebkitUtils.checkFeature(WebViewFeature.SUPPRESS_ERROR_PAGE);
+
+        WebSettingsCompat.setWillSuppressErrorPage(mWebViewOnUiThread.getSettings(), true);
+        assertTrue(WebSettingsCompat.willSuppressErrorPage(mWebViewOnUiThread.getSettings()));
+
+        //TODO(cricke): Consider testing that error page suppression actually also happens in
+        // Chromium. In other words, recreating testWillSuppressErrorPage in
+        // org.chromium.android_webview.test.AwSettingsTest using only public WebView APIs
+
+    }
+
 }

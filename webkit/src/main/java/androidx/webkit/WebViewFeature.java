@@ -88,6 +88,7 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_TERMINATE,
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
+            SUPPRESS_ERROR_PAGE,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -387,6 +388,19 @@ public class WebViewFeature {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebSettingsCompat#willSuppressErrorPage(WebSettings)} and
+     * {@link WebSettingsCompat#setWillSuppressErrorPage(WebSettings, boolean)}.
+     *
+     * TODO(cricke): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static final String SUPPRESS_ERROR_PAGE = Features.SUPPRESS_ERROR_PAGE;
+
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link
