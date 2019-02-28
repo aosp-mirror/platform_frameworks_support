@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d3c1d6bf_2934ada1",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-28T20:51:21Z",
+      "side": 1,
+      "message": "This feels like a weird hack. With tests written as-is, your prod code must assume Context is nullable, even though the API contract says otherwise. Your tests still effectively violate your API contract (Your MockContext is not technical null, yet will NPE for method calls).\n\nOur other tests requiring a Context just use ApplicationProvider instead, I think it\u0027s clear that we\u0027re not asserting anything interesting related to the Context. I think MockContext is probably fine for a follow-up though (you should change the other files to use that).",
+      "parentUuid": "16ab61cd_5aa4dbc5",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "05851ccc57983a92087148879329a8ce857618e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5cfabe1_098dc789",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 6
