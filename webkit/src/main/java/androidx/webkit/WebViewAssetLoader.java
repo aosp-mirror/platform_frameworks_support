@@ -64,7 +64,7 @@ import java.net.URLConnection;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class WebViewAssetLoader {
     private static final String TAG = "WebViewAssetLoader";
 
