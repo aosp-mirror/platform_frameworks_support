@@ -16,6 +16,24 @@
       "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2117feab_7d3f9600",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-02-28T01:22:47Z",
+      "side": 1,
+      "message": "Thanks, removed. I have these questions to thoroughly understand how handleSeekProcessed() works:\n1) What are the expected behaviors when mPlayer\u0027s state is STATE_IDLE or STATE_ENDED? \n2) Why it calls onSeekCompleted() when current media item is null?\n\nMy guess is it wants to call onSeekCompleted() except when the state is IDLE. What do you think?",
+      "parentUuid": "7e6f5a86_f9853b16",
+      "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
