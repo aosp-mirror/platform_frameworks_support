@@ -2292,6 +2292,11 @@ public final class MediaRouter {
                         + "dynamic group route.");
             }
             if (!mSelectedRoute.getMemberRoutes().contains(route) || !route.isUnselectable()) {
+                Log.w(TAG, "Ignoring attempt to remove not unselectable member route : " + route);
+                return;
+            }
+            if (mSelectedRoute.getMemberRoutes().size() <= 1) {
+                Log.w(TAG, "Ignoring attempt to remove the last member route.");
                 return;
             }
             ((DynamicGroupRouteController) mSelectedRouteController)
@@ -2797,14 +2802,10 @@ public final class MediaRouter {
                     MediaRouteProvider.DynamicGroupRouteController controller =
                             route.getProviderInstance().onCreateDynamicGroupRouteController(
                                     route.mDescriptorId);
-                    // Note: Controller doesn't have a valid route id yet.
-                    // It will be informed with updated provider's route descriptors.
                     controller.setOnDynamicRoutesChangedListener(
                             ContextCompat.getMainExecutor(mApplicationContext),
                             mDynamicRoutesListener);
                     mSelectedRouteController = controller;
-                    // Select the initial member route for now. It is replaced with dynamic group
-                    // route once MRP publishes corresponding route descriptor.
                     mSelectedRoute = route;
                 } else {
                     mSelectedRouteController = route.getProviderInstance().onCreateRouteController(
