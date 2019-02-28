@@ -52,7 +52,7 @@ class WebViewRendererClientAdapter implements WebViewRendererClientBoundaryInter
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Override
     public final String[] getSupportedFeatures() {
         return sSupportedFeatures;
@@ -64,7 +64,7 @@ class WebViewRendererClientAdapter implements WebViewRendererClientBoundaryInter
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Override
     public final void onRendererUnresponsive(
             @NonNull final WebView view,
@@ -89,7 +89,7 @@ class WebViewRendererClientAdapter implements WebViewRendererClientBoundaryInter
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Override
     public final void onRendererResponsive(
             @NonNull final WebView view,
