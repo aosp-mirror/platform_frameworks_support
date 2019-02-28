@@ -46,6 +46,30 @@
       "revId": "3b2cbdd7e43301a0c07ddbec0095deeeb13b5dfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32766df4_db0f6678",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-02-28T18:31:28Z",
+      "side": 0,
+      "message": "I was specifically requested to remove \"@hide\": https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/support/+/4020022\n\nThe @hide [1] got added back (apparently to no effect) by https://android-review.git.corp.google.com/c/platform/frameworks/support/+/900913\n\n[1] http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/WebViewClientCompat.java?l\u003d218\u0026rcl\u003d4d7787e10d8a8637250f4e8f2b43ae1b3ccb2555",
+      "parentUuid": "c655dd70_153616be",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 236
+      },
+      "revId": "3b2cbdd7e43301a0c07ddbec0095deeeb13b5dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
