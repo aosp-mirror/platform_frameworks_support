@@ -1607,6 +1607,13 @@ package androidx.leanback.widget {
     method public android.view.View! onFocusSearch(android.view.View!, int);
   }
 
+  public final class ClassPresenterBinderSelector<PresenterT extends androidx.leanback.widget.Presenter, VH extends androidx.leanback.widget.Presenter.ViewHolder> extends androidx.leanback.widget.PresenterBinderSelector<PresenterT,VH> {
+    ctor public ClassPresenterBinderSelector();
+    method public <ItemT> androidx.leanback.widget.ClassPresenterBinderSelector addClassPresenterBinder(Class<ItemT>, androidx.leanback.widget.PresenterBinder<PresenterT,VH,ItemT>);
+    method public androidx.leanback.widget.ClassPresenterBinderSelector addClassPresenterBinderSelector(Class<?>, androidx.leanback.widget.PresenterBinderSelector<PresenterT,VH>);
+    method public androidx.leanback.widget.PresenterBinder<PresenterT,VH,?>? getPresenterBinder(Object);
+  }
+
   public final class ClassPresenterSelector extends androidx.leanback.widget.PresenterSelector {
     ctor public ClassPresenterSelector();
     method public androidx.leanback.widget.ClassPresenterSelector! addClassPresenter(Class<?>!, androidx.leanback.widget.Presenter!);
@@ -2281,6 +2288,11 @@ package androidx.leanback.widget {
     method public int getSelectedPosition();
   }
 
+  public class ListRowPresenterBinder<ListRowPresenterT extends androidx.leanback.widget.ListRowPresenter, ListRowVH extends androidx.leanback.widget.ListRowPresenter.ViewHolder, ListRowT extends androidx.leanback.widget.ListRow> extends androidx.leanback.widget.RowPresenterBinder<ListRowPresenterT,ListRowVH,ListRowT> {
+    ctor public ListRowPresenterBinder();
+    method @CallSuper public void onBindRowViewHolder(ListRowPresenterT, ListRowVH, ListRowT);
+  }
+
   public final class ListRowView extends android.widget.LinearLayout {
     ctor public ListRowView(android.content.Context!);
     ctor public ListRowView(android.content.Context!, android.util.AttributeSet!);
@@ -2672,6 +2684,7 @@ package androidx.leanback.widget {
   public abstract class Presenter implements androidx.leanback.widget.FacetProvider {
     ctor public Presenter();
     method protected static void cancelAnimationsRecursive(android.view.View!);
+    method public final androidx.leanback.widget.PresenterBinderSelector? getBinderSelector();
     method public final Object! getFacet(Class<?>!);
     method public abstract void onBindViewHolder(androidx.leanback.widget.Presenter.ViewHolder!, Object!);
     method public void onBindViewHolder(androidx.leanback.widget.Presenter.ViewHolder!, Object!, java.util.List<java.lang.Object>!);
@@ -2679,6 +2692,9 @@ package androidx.leanback.widget {
     method public abstract void onUnbindViewHolder(androidx.leanback.widget.Presenter.ViewHolder!);
     method public void onViewAttachedToWindow(androidx.leanback.widget.Presenter.ViewHolder!);
     method public void onViewDetachedFromWindow(androidx.leanback.widget.Presenter.ViewHolder!);
+    method public final void performBindViewHolder(androidx.leanback.widget.Presenter.ViewHolder, Object);
+    method public final void performBindViewHolder(androidx.leanback.widget.Presenter.ViewHolder, Object, java.util.List<java.lang.Object>);
+    method public final void setBinderSelector(androidx.leanback.widget.PresenterBinderSelector?);
     method public final void setFacet(Class<?>!, Object!);
     method public void setOnClickListener(androidx.leanback.widget.Presenter.ViewHolder!, android.view.View.OnClickListener!);
   }
@@ -2693,6 +2709,17 @@ package androidx.leanback.widget {
   public abstract static class Presenter.ViewHolderTask {
     ctor public Presenter.ViewHolderTask();
     method public void run(androidx.leanback.widget.Presenter.ViewHolder!);
+  }
+
+  public abstract class PresenterBinder<PresenterT extends androidx.leanback.widget.Presenter, VH extends androidx.leanback.widget.Presenter.ViewHolder, ItemT> {
+    ctor public PresenterBinder();
+    method public abstract void onBindViewHolder(PresenterT, VH, ItemT);
+    method public void onBindViewHolder(PresenterT, VH, ItemT, java.util.List<java.lang.Object>);
+  }
+
+  public abstract class PresenterBinderSelector<PresenterT extends androidx.leanback.widget.Presenter, VH extends androidx.leanback.widget.Presenter.ViewHolder> {
+    ctor public PresenterBinderSelector();
+    method public abstract androidx.leanback.widget.PresenterBinder<PresenterT,VH,?>? getPresenterBinder(Object);
   }
 
   public abstract class PresenterSelector {
@@ -2824,6 +2851,12 @@ package androidx.leanback.widget {
     method public void setOnKeyListener(android.view.View.OnKeyListener!);
     method public final void syncActivatedStatus(android.view.View!);
     field protected final androidx.leanback.graphics.ColorOverlayDimmer! mColorDimmer;
+  }
+
+  public abstract class RowPresenterBinder<RowPresenterT extends androidx.leanback.widget.RowPresenter, RowVH extends androidx.leanback.widget.RowPresenter.ViewHolder, RowT extends androidx.leanback.widget.Row> extends androidx.leanback.widget.PresenterBinder<RowPresenterT,androidx.leanback.widget.Presenter.ViewHolder,RowT> {
+    ctor public RowPresenterBinder();
+    method @CallSuper public void onBindRowViewHolder(RowPresenterT, RowVH, RowT);
+    method public final void onBindViewHolder(RowPresenterT, androidx.leanback.widget.Presenter.ViewHolder, RowT);
   }
 
   public class SearchBar extends android.widget.RelativeLayout {
