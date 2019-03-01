@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09bc2d33_1a2b191c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T01:07:23Z",
+      "side": 1,
+      "message": "Can you explain why we are not using CharSequence then?",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 85
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873b44e4_6f570779",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T01:07:23Z",
+      "side": 1,
+      "message": "I assume these are not meant to be used outside of car library? Create a bug to clean these up to make them @RestrictTo(LIBRARY)",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ba5a05_8d87b288",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T01:07:23Z",
+      "side": 1,
+      "message": "Builders should be final",
+      "range": {
+        "startLine": 70,
+        "startChar": 24,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cd873a9_76f89144",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T01:07:23Z",
+      "side": 1,
+      "message": "Builder methods should return @NonNull Builder (add annotations)",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
