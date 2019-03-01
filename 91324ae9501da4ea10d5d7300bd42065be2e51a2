@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aef156aa_8629ab32",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 4467,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-01T12:44:18Z",
+      "side": 1,
+      "message": "remove \u0027,\u0027",
+      "range": {
+        "startLine": 4467,
+        "startChar": 35,
+        "endLine": 4467,
+        "endChar": 36
+      },
+      "revId": "91324ae9501da4ea10d5d7300bd42065be2e51a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
