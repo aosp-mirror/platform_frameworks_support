@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e2da3540_3c2503b4",
+        "filename": "leanback/src/androidTest/java/androidx/leanback/widget/PresenterBinderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-03-01T23:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24d99e03_f568b91d",
+      "revId": "0b925352153fa2e8ea35a6ebe1f3fd1f62dca49a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6860e68_ef6d8a6b",
         "filename": "leanback/src/main/java/androidx/leanback/widget/ClassPresenterBinderSelector.java",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "0b925352153fa2e8ea35a6ebe1f3fd1f62dca49a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3a44e43_f82e423d",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/ClassPresenterBinderSelector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-03-01T23:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6860e68_ef6d8a6b",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 4
+      },
+      "revId": "0b925352153fa2e8ea35a6ebe1f3fd1f62dca49a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
