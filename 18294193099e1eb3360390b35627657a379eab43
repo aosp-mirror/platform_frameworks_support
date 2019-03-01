@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5158f4b5_19e48b81",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-01T15:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f088b7de_6e948e2e",
+      "range": {
+        "startLine": 418,
+        "startChar": 25,
+        "endLine": 418,
+        "endChar": 31
+      },
+      "revId": "18294193099e1eb3360390b35627657a379eab43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47ad8d8c_ca1a5455",
         "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
         "patchSetId": 19
@@ -68,6 +92,30 @@
       "revId": "18294193099e1eb3360390b35627657a379eab43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53771079_0f419cf0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ListDependencyVersionsTask.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-01T15:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2b3afec_5123260d",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "18294193099e1eb3360390b35627657a379eab43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
