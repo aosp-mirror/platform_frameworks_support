@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4ff8416_4f7640d8",
+        "filename": "browser/api/restricted_current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T17:52:13Z",
+      "side": 1,
+      "message": "This seems bizarre to have an empty package. Please file a bug about it to \"Android \u003e Android OS \u0026 Apps \u003e Build \u003e Metalava\"",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "f7d3d91791333fe47a2b45e2e515bc682daf2b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
