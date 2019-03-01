@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "2ddd0b2e_19676693",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/CoroutineLiveDataSwitchMapTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-01T22:38:36Z",
+      "side": 1,
+      "message": "Ah, I see the goal is to return the LiveData. That\u0027s a really compelling use case that I can see using all the time.\n\nWorking through the implications of this invocation:\n\n1. When already in a suspend function, the idiomatic `withContext|async|launch` style invocation breaks structured concurrency. E.g.\n\n```\nsusupend fun foo() {\n    ld.switchMap(Dispatchers.Default) { // parent scope is discarded }\n}\n```\n\n2. It\u0027s a bit awkward to invoke, enough that I\u0027d probably put an extension on ViewModel in real code to do the right thing:\n\n```\nfun \u003cT\u003e ViewModel.switchMapFrom(ld: LiveData\u003cT\u003e, context: CoroutineContext \u003d EmptyCoroutineContext, block: (LiveDataScope\u003cT\u003e) -\u003e Unit) {\n    val newContext \u003d viewModelScope.coroutineContext + context\n    ld.switchMap(newContext, block) \n}\n```\n\nContinuing down that line of thought, what do you think about this invocation?\n\n```\nclass ViewModel {\n   val user \u003d TransformationsAsync.switchMap(userId) { // default correct, stays on main }\n   val heavilyProcessedList \u003d TransformationsAsync.switchMap(databaseList, Dispatchers.Default) { // still respects viewModelScope, but now on Dispatchers.Default }}\n}\n\nclass Repository {\n   // TransformationsAsync is an extension of ViewModel, so not available here)\n\n   suspend fun foo() \u003d roomQuery().switchMap { // on dispatcher of `foo` caller }\n   suspend fun bar() \u003d roomQuery().switchMap(Dispatchers.Default) { // scope respected, Dispatchers.Default }\n```\n\nAPI definitely needs some more thought, but the idea to evaluate is making structured concurrency the default even in the presence of the scope management by `switchMap`",
+      "parentUuid": "554d20ab_1e9e50b0",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a3b15_4d057dd9",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
