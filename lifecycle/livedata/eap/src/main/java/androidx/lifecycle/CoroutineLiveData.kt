@@ -16,6 +16,7 @@
 
 package androidx.lifecycle
 
+import androidx.annotation.MainThread
 import androidx.arch.core.executor.ArchTaskExecutor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.IllegalArgumentException
+import java.util.ArrayDeque
 import kotlin.coroutines.CoroutineContext
 import kotlin.experimental.ExperimentalTypeInference
 
@@ -87,4 +90,93 @@ fun <T, R> LiveData<T>.switchMap(
         }
     }
     return mediatorLiveData
+}
+
+fun <T, R> LiveData<T>.map(
+    coroutineContext: CoroutineContext,
+    bufferSize: Int = Int.MAX_VALUE,
+    block: suspend (T) -> (R)
+): LiveData<R> {
+    if (bufferSize < 0) {
+        throw IllegalArgumentException("Buffer size must be at least 0. Buffer Size: $bufferSize")
+    }
+    val mediator = MediatorLiveData<R>()
+    val liveDataScope = LiveDataScopeImpl(mediator, coroutineContext)
+    val mapRunner = MapRunner(
+        bufferSize = bufferSize,
+        coroutineContext = coroutineContext,
+        block = block,
+        liveDataScope = liveDataScope
+    )
+    mediator.addSource(this) {
+        if (!mapRunner.submit(it)) {
+            mediator.removeSource(this@map)
+        }
+    }
+    // eager removal even if no values are added
+    mapRunner.supervisorJob.invokeOnCompletion {
+        mediator.removeSource(this)
+    }
+    return mediator
+}
+
+class MapRunner<T, R>(
+    private val bufferSize: Int = 0,
+    coroutineContext: CoroutineContext,
+    private val block: suspend (T) -> R,
+    private val liveDataScope: LiveDataScope<R>
+) {
+    // we could use an actor or a channel but both are experimental and Actors are likely to
+    // change significantly https://github.com/Kotlin/kotlinx.coroutines/issues/87
+    val supervisorJob = SupervisorJob(coroutineContext[Job])
+    private val blockScope = CoroutineScope(coroutineContext + supervisorJob)
+    private val scopedMainContext = coroutineContext + Dispatchers.Main
+
+    // main dispatcher
+    private val queue = ArrayDeque<T>()
+
+    // main dispatcher
+    private var running = false
+
+    @MainThread
+    fun submit(item: T) : Boolean {
+        if (!supervisorJob.isActive) {
+            return false
+        }
+        // this is intentionally bufferSize + 1
+        while (queue.size > bufferSize) queue.pop()
+        queue.offer(item)
+        maybeLaunch()
+        return true
+    }
+
+    @MainThread
+    private fun maybeLaunch() {
+        if (!running) {
+            running = true
+            val job = blockScope.launch {
+                consume()
+            }
+            job.invokeOnCompletion {
+                // if it failed but developer caught the exception via an exception handler,
+                // we should continue execution
+                running = false
+                ArchTaskExecutor.getMainThreadExecutor().execute {
+                    maybeLaunch()
+                }
+            }
+        }
+    }
+
+    private suspend fun next(): T? = withContext(scopedMainContext) {
+        queue.poll()
+    }
+
+    private suspend fun consume() {
+        var input = next()
+        while (input != null) {
+            liveDataScope.yield(block(input))
+            input = next()
+        }
+    }
 }
