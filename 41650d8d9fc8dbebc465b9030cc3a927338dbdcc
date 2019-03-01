@@ -16,6 +16,24 @@
       "revId": "41650d8d9fc8dbebc465b9030cc3a927338dbdcc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce49b97d_bb51c9cb",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-01T19:01:01Z",
+      "side": 1,
+      "message": "Studio takes any key that matches android.studio.display.\u003cbenchmark\u003e, and prints out:\n\n    benchmark: the string\n\nEach benchmark wants to print its own line of the form:\n\n    benchmark:   204,731,530 ns nameOfTest\n\nBecause we only have instrumentation results for benchmark runs, I\u0027m just injecting the warnings into the first string we output, which has the test name at the end.\n\nThe way I apply the warning to each test is the prefix, so you\u0027ll see something like:\n\n    benchmark:   204,731,530 ns DEBUGGABLE_ENG-BUILD_serialization",
+      "parentUuid": "514336cc_2ed0c1b2",
+      "revId": "41650d8d9fc8dbebc465b9030cc3a927338dbdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
