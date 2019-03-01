@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5152758b_1e33458f",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-01T21:38:08Z",
+      "side": 1,
+      "message": "Don\u0027t change these, delete them instead since we already have the androidx annotations defined below. \n\nWhat we really need to do is change the default annotation to be used to be androidx, we can do this in the ArgumentsGenerationTask.kt, JaveNavWriter.kt and KotlinNavWriter.kt (look at field useAndroidX). More specifically we can get rid of that property because if someone is using navigation 2.0 they must be using all of androidx libraries, so it is safe to use the androidx annotation instead of relying on the property use android.useAndroidX which is read in SafeArgsPlugin.kt. You should also be able to cleanup the Annotations abstract class and just rely go back hardcoding the class name.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 88
+      },
+      "revId": "eaddae03570546fd6c3e7acebfefcc3ea8c9f505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
