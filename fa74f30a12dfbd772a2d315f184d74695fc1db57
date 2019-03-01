@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85d4b7ff_08bd37bd",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-01T01:31:29Z",
+      "side": 1,
+      "message": "You don\u0027t need this to be checked exception, devs should not try catch this. Remove this from the method signature, but leave throw new Ill.. as is.",
+      "range": {
+        "startLine": 579,
+        "startChar": 16,
+        "endLine": 579,
+        "endChar": 47
+      },
+      "revId": "fa74f30a12dfbd772a2d315f184d74695fc1db57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
