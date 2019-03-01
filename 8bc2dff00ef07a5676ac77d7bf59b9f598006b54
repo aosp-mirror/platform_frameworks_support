@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "312e1b07_21af25ef",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-01T16:58:42Z",
+      "side": 1,
+      "message": "Javadoc should have a \"This method should only be called if\" stanza linking it to the feature.\n\n+ntfschr - could we somehow generate this from the @RequiresFeature annotation? The current situation seems a bit boilerplate-y.",
+      "range": {
+        "startLine": 227,
+        "startChar": 7,
+        "endLine": 227,
+        "endChar": 11
+      },
+      "revId": "8bc2dff00ef07a5676ac77d7bf59b9f598006b54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
