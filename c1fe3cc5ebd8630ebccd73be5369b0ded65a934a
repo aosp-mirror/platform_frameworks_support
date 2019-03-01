@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1b9cb66_aba25a07",
+        "filename": "media2/src/androidTest/java/androidx/media2/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-03-01T13:19:24Z",
+      "side": 1,
+      "message": "Might be missing something, but it looks like this method is now mutually recursive with waitForCountedSignals(int)?",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 58
+      },
+      "revId": "c1fe3cc5ebd8630ebccd73be5369b0ded65a934a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
