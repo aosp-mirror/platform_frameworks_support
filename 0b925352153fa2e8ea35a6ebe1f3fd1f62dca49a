@@ -16,6 +16,29 @@
       "revId": "0b925352153fa2e8ea35a6ebe1f3fd1f62dca49a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6860e68_ef6d8a6b",
+        "filename": "leanback/src/main/java/androidx/leanback/widget/ClassPresenterBinderSelector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1150119
+      },
+      "writtenOn": "2019-03-01T23:05:56Z",
+      "side": 1,
+      "message": "removed?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 4
+      },
+      "revId": "0b925352153fa2e8ea35a6ebe1f3fd1f62dca49a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
