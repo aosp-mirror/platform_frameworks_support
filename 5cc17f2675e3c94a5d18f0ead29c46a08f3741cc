@@ -34,6 +34,24 @@
       "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c6c3b86_99777bf4",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-03-01T13:11:54Z",
+      "side": 1,
+      "message": "handleSeekProcessed is called when ExoPlayer has inspected the seek position and decided how to handle it, but this may occur some time before we are actually ready to play from the seek destination. So the purpose of this method is to identify the case where ExoPlayer does not need to do any work to handle the seek (i.e., it\u0027s in STATE_READY not STATE_BUFFERING after processing the seek request; for example, when seeking to time 0 when the player position is already 0).\n\nHaving looked at this again I realized that therefore we do need mPendingSeek so that we can identify the transition from buffering to ready in maybeNotifyReadyEvents. Sorry for missing this before. I will have a look at the referenced bug now.\n\n1) If we\u0027re in STATE_IDLE we need to acknowledge the seek immediately (although I\u0027m not certain it\u0027s valid to seek MediaPlayer before preparing it so this may never happen -- if it does we need to acknowledge it so we don\u0027t block the command queue). I reckon the bug probably relates to STATE_ENDED.\n2) I think not having a media item will correspond to being in the idle state.",
+      "parentUuid": "2117feab_7d3f9600",
+      "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
