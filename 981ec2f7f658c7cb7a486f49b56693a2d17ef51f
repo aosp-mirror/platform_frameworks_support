@@ -81,6 +81,24 @@
       "revId": "981ec2f7f658c7cb7a486f49b56693a2d17ef51f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b19e886b_14003860",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-03-01T19:03:38Z",
+      "side": 1,
+      "message": "I think it would be enough to describe what you just mentioned in the Javadoc. \n\nJust make sure: we should never return \"null\" unless there is a problem, correct? I just want to make sure that \"null\" doesn\u0027t have two different meanings.",
+      "parentUuid": "c71ed0da_ec538b30",
+      "revId": "981ec2f7f658c7cb7a486f49b56693a2d17ef51f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
