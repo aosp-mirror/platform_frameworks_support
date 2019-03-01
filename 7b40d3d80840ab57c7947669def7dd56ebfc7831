@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89869497_7257577e",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6124,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-03-01T02:46:04Z",
+      "side": 1,
+      "message": "I just realized that different items can have different AppDelegates, the ItemDelegate may need to maintain a map of items to appDelegates......",
+      "revId": "7b40d3d80840ab57c7947669def7dd56ebfc7831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f93a6051_f109ca0a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6201,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-03-01T02:46:04Z",
+      "side": 1,
+      "message": "This still results in the same bug we had before... You should just have to set the item delegate, and let it handle calling out to the appdelegate",
+      "revId": "7b40d3d80840ab57c7947669def7dd56ebfc7831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
