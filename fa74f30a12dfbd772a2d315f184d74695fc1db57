@@ -22,6 +22,30 @@
       "revId": "fa74f30a12dfbd772a2d315f184d74695fc1db57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b3965f_2f825e18",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-03-01T11:44:18Z",
+      "side": 1,
+      "message": "Done. I like that line of reasoning about whether something should be caught or not, thanks.",
+      "parentUuid": "85d4b7ff_08bd37bd",
+      "range": {
+        "startLine": 579,
+        "startChar": 16,
+        "endLine": 579,
+        "endChar": 47
+      },
+      "revId": "fa74f30a12dfbd772a2d315f184d74695fc1db57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
