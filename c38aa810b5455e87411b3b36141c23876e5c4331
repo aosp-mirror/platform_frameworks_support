@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da4f2d1_b872c68a",
+        "filename": "room/testing/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-01T01:01:14Z",
+      "side": 0,
+      "message": "Looks like this is not so simple apparently, if I pin the stable version then the RestrictApi changes (aosp/900913) are somewhat reverted and causes this lint to complain about api usage. (see https://android-build.googleplex.com/builds/pending/P7860814/androidx/latest/view/logs/build.log)\n\nThe problem is tip-of-tree core-runtime is unreleased. Blocking me on releasing room 2.1.0-alpha05 without releasing the alpha versions of annotation, core-runtime, etc.\n\nI\u0027m not sure the steps I need to take now to release the next alpha version of Room. Any advice here alanv@ ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "c38aa810b5455e87411b3b36141c23876e5c4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
