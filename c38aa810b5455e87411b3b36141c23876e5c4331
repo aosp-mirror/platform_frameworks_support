@@ -46,6 +46,30 @@
       "revId": "c38aa810b5455e87411b3b36141c23876e5c4331",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc377639_4cd3cca2",
+        "filename": "room/testing/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-01T17:47:02Z",
+      "side": 0,
+      "message": "It does, ArchTaskExecutor is in core-runtime.",
+      "parentUuid": "a91090f7_8c32be68",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "c38aa810b5455e87411b3b36141c23876e5c4331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
