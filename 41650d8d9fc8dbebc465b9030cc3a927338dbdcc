@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "514336cc_2ed0c1b2",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-03-01T18:55:36Z",
+      "side": 1,
+      "message": "this warning only happens once, which is good, but it\u0027s then tagged on a particular key, which seems odd?\n\nIt\u0027ll look like only 1 test was warned, when really it\u0027s the entire run that\u0027s warned.",
+      "revId": "41650d8d9fc8dbebc465b9030cc3a927338dbdcc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
