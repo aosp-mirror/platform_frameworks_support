@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7091943_5b0724b4",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "I cannot use it because it has a private constructor. the impl of it,SequenceBuilderIterator, is also private. :/",
+      "parentUuid": "cd5f43c6_de7b482d",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d2e643d_ba4dedd2",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-28T23:56:46Z",
       "side": 1,
       "message": "why nullable?",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56440a44_a40e7a39",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "ugh, i used to clear it but don\u0027t need anymore. reverted to non-null.",
+      "parentUuid": "5d2e643d_ba4dedd2",
       "range": {
         "startLine": 36,
         "startChar": 34,
@@ -128,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "554d20ab_1e9e50b0",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/CoroutineLiveDataSwitchMapTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "to do that, we would need to make `switchMap` a suspend function. but then you cannot use it as follows:\n\n\n    class ViewModel {\n        val user  \u003d userId.switchMap(viewModelScope.coroutineContext ) {\n              yield(db.load(it))\n        }\n    }",
+      "parentUuid": "dd4bbceb_8f1811fb",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a3b15_4d057dd9",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
@@ -139,6 +205,24 @@
       "writtenOn": "2019-02-28T21:34:14Z",
       "side": 1,
       "message": "This API surprises me compared to exposing an iterator similar to:\n\nhttps://github.com/Kotlin/kotlin-coroutines-examples/blob/master/examples/suspendingSequence/suspendingSequence.kt#L14\n\nCompare;\n\n```\nfor(value in liveData.asyncIterator) {\n}\n\nliveData.asyncIterator.map { something}\n// etc\n```\n\n(with cleanup handled by CoroutineScope cancellation)\n\n\n// vs nextValueAsync()\n```\nfor(value in liveData.nextValueAsync()) {\n}\n```\n\nIs this for testing or production usage?",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eec3334_407b7869",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "just for testing for now. \n\nCould be a public API as i think it is useful  but not the intend right now.\nThe key here is to skip existing value (since live data may already have an existing value).",
+      "parentUuid": "1e4a3b15_4d057dd9",
       "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -162,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "e65f8458_aa7c548f",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "it returns deferred because i want to control the time where it started observing. It is suspend becacuse it must start observing before returning.",
+      "parentUuid": "c4eb8ede_d4537c9b",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8151692_4fed4131",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
@@ -173,6 +275,24 @@
       "writtenOn": "2019-02-28T23:56:46Z",
       "side": 1,
       "message": "I would expect this to return def.await() and the function to return T instead",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94586e4a_9fc7dce0",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "it cannot because i want it to return after starting to observe.\n\nuse case looks like this:\n\nval items \u003d liveData.collect(2)\nliveData.value \u003d 1\nliveData.value \u003d 2\nassertThat(items.await()).hasItems(1,2)\n\nIf it returns before observing, value 1 might be overwritten by value 2.\nif it await, then i cannot set the value.",
+      "parentUuid": "b8151692_4fed4131",
       "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -193,6 +313,24 @@
       "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ddf88f_2b3c1ebb",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-01T22:14:29Z",
+      "side": 1,
+      "message": "see explanation above.",
+      "parentUuid": "4c7e3414_e665663c",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
