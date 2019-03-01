@@ -489,16 +489,16 @@ public class BiometricPrompt implements BiometricConstants {
             // Create the UI
             if (mFingerprintDialogFragment == null) {
                 mFingerprintDialogFragment = FingerprintDialogFragment.newInstance();
-                mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
             }
+            mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
             mFingerprintDialogFragment.setBundle(bundle);
             mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
 
             // Create the connection to FingerprintManager
             if (mFingerprintHelperFragment == null) {
                 mFingerprintHelperFragment = FingerprintHelperFragment.newInstance();
-                mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
             }
+            mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
             mFingerprintHelperFragment.setHandler(mFingerprintDialogFragment.getHandler());
             mFingerprintHelperFragment.setCryptoObject(crypto);
 
