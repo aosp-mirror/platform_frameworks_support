@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66cc901e_1ea21f94",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-01T18:18:34Z",
+      "side": 1,
+      "message": "can you add a comment about it returning null when car is not connected?",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 57
+      },
+      "revId": "981ec2f7f658c7cb7a486f49b56693a2d17ef51f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
