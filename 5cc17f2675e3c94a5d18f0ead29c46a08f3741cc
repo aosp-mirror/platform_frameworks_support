@@ -52,6 +52,24 @@
       "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ae9a10_00eb31ba",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-03-01T14:40:25Z",
+      "side": 1,
+      "message": "Please have a look at aosp/916816. I think this will ensure we send onBufferingEnded when rebuffering ends.",
+      "parentUuid": "2c6c3b86_99777bf4",
+      "revId": "5cc17f2675e3c94a5d18f0ead29c46a08f3741cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
