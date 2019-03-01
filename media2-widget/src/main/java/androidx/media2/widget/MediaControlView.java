@@ -1103,7 +1103,7 @@ public class MediaControlView extends ViewGroup {
             if (mIsStopped && mDuration != 0) {
                 // If the media is currently stopped, rewinding will start the media from the
                 // beginning. Instead, seek to 10 seconds before the end of the media.
-                seekTo(mDuration - REWIND_TIME_MS, true);
+                seekTo(Math.max(0, mDuration - REWIND_TIME_MS), true);
                 updateForStoppedState(false);
             } else {
                 seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
