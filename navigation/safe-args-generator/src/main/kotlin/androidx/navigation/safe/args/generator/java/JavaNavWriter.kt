@@ -54,7 +54,7 @@ const val S = "\$S"
 const val BEGIN_STMT = "\$["
 const val END_STMT = "\$]"
 
-class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCodeFile> {
+class JavaNavWriter(private val useAndroidX: Boolean = true) : NavWriter<JavaCodeFile> {
 
     override fun generateDirectionsCodeFile(
         destination: Destination,
@@ -79,7 +79,7 @@ class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCo
 
         val getters = actionTypes
             .map { (action, actionType) ->
-                val annotations = Annotations.getInstance(useAndroidX)
+                val annotations = Annotations.getInstance(true)
                 val methodName = action.id.javaIdentifier.toCamelCaseAsVar()
                 if (action.args.isEmpty()) {
                     MethodSpec.methodBuilder(methodName)
@@ -143,7 +143,7 @@ class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCo
     }
 
     internal fun generateDirectionsTypeSpec(action: Action): TypeSpec {
-        val annotations = Annotations.getInstance(useAndroidX)
+        val annotations = Annotations.getInstance(true)
         val specs = ClassWithArgsSpecs(action.args, annotations, privateConstructor = true)
         val className = ClassName.get("", action.id.javaIdentifier.toCamelCase())
 
@@ -187,7 +187,7 @@ class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCo
     override fun generateArgsCodeFile(
         destination: Destination
     ): JavaCodeFile {
-        val annotations = Annotations.getInstance(useAndroidX)
+        val annotations = Annotations.getInstance(true)
         val destName = destination.name
             ?: throw IllegalStateException("Destination with arguments must have name")
         val className = ClassName.get(destName.packageName(), "${destName.simpleName()}Args")
