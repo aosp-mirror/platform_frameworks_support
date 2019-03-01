@@ -67,6 +67,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.os.TraceCompat;
 import androidx.core.util.Preconditions;
+import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.NestedScrollingChild2;
@@ -6115,6 +6116,17 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         return null;
                     }
                     holder = mAdapter.createViewHolder(RecyclerView.this, type);
+                    RecyclerViewAccessibilityDelegate.ItemDelegate itemDelegate =
+                            (RecyclerViewAccessibilityDelegate.ItemDelegate)
+                                    mAccessibilityDelegate.getItemDelegate();
+                    AccessibilityDelegateCompat currentDelegate =
+                            ViewCompat.getAccessibilityDelegate(holder.itemView);
+                    AccessibilityDelegateCompat appDelegate = currentDelegate != null
+                            ? currentDelegate
+                            : itemDelegate;
+                    itemDelegate.setAppAccessibilityDelegate(holder.itemView, appDelegate);
+                    ViewCompat.setAccessibilityDelegate(holder.itemView, appDelegate);
+
                     if (ALLOW_THREAD_GAP_WORK) {
                         // only bother finding nested RV if prefetching
                         RecyclerView innerView = findNestedRecyclerView(holder.itemView);
@@ -6185,11 +6197,13 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     ViewCompat.setImportantForAccessibility(itemView,
                             ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
-                if (!ViewCompat.hasAccessibilityDelegate(itemView)) {
-                    holder.addFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
-                    ViewCompat.setAccessibilityDelegate(itemView,
-                            mAccessibilityDelegate.getItemDelegate());
-                }
+                RecyclerViewAccessibilityDelegate.ItemDelegate itemDelegate =
+                        (RecyclerViewAccessibilityDelegate.ItemDelegate)
+                                mAccessibilityDelegate.getItemDelegate();
+                AccessibilityDelegateCompat appDelegate =
+                        itemDelegate.getAppAccessibilityDelegate(holder.itemView);
+                ViewCompat.setAccessibilityDelegate(holder.itemView, appDelegate);
+
             }
         }
 
@@ -6398,10 +6412,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          */
         void addViewHolderToRecycledViewPool(@NonNull ViewHolder holder, boolean dispatchRecycled) {
             clearNestedRecyclerViewIfNotNested(holder);
-            if (holder.hasAnyOfTheFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE)) {
-                holder.setFlags(0, ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
-                ViewCompat.setAccessibilityDelegate(holder.itemView, null);
-            }
+            RecyclerViewAccessibilityDelegate.ItemDelegate itemDelegate =
+                    (RecyclerViewAccessibilityDelegate.ItemDelegate)
+                            mAccessibilityDelegate.getItemDelegate();
+            AccessibilityDelegateCompat appDelegate =
+                    ViewCompat.getAccessibilityDelegate(holder.itemView);
+            itemDelegate.setAppAccessibilityDelegate(holder.itemView, appDelegate);
             if (dispatchRecycled) {
                 dispatchViewRecycled(holder);
             }
@@ -10918,12 +10934,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * already there.
          */
         static final int FLAG_BOUNCED_FROM_HIDDEN_LIST = 1 << 13;
-
-        /**
-         * Flags that RecyclerView assigned {@link RecyclerViewAccessibilityDelegate
-         * #getItemDelegate()} in onBindView when app does not provide a delegate.
-         */
-        static final int FLAG_SET_A11Y_ITEM_DELEGATE = 1 << 14;
 
         int mFlags;
 

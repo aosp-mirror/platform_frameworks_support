@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
+import java.util.HashMap;
+
 /**
  * The AccessibilityDelegate used by RecyclerView.
  * <p>
@@ -94,6 +96,7 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
      */
     public static class ItemDelegate extends AccessibilityDelegateCompat {
         final RecyclerViewAccessibilityDelegate mRecyclerViewDelegate;
+        private HashMap<View, AccessibilityDelegateCompat> mAppDelegateMap = new HashMap<>();
 
         /**
          * Creates an item delegate for the given {@code RecyclerViewAccessibilityDelegate}.
@@ -107,24 +110,45 @@ public class RecyclerViewAccessibilityDelegate extends AccessibilityDelegateComp
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            if (!mRecyclerViewDelegate.shouldIgnore()
-                    && mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
-                mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
-                        .onInitializeAccessibilityNodeInfoForItem(host, info);
+            AccessibilityDelegateCompat mAppDelegate = mAppDelegateMap.get(host);
+            if (mAppDelegate != null && mAppDelegate != this) {
+                mAppDelegate.onInitializeAccessibilityNodeInfo(host, info);
+            } else {
+                if (!mRecyclerViewDelegate.shouldIgnore()) {
+                    if (mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
+                        mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
+                                .onInitializeAccessibilityNodeInfoForItem(host, info);
+                    }
+                }
             }
         }
 
         @Override
         public boolean performAccessibilityAction(View host, int action, Bundle args) {
-            if (super.performAccessibilityAction(host, action, args)) {
-                return true;
-            }
-            if (!mRecyclerViewDelegate.shouldIgnore()
-                    && mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
-                return mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
-                        .performAccessibilityActionForItem(host, action, args);
+            AccessibilityDelegateCompat mAppDelegate = mAppDelegateMap.get(host);
+            if (mAppDelegate != null && mAppDelegate != this) {
+                mAppDelegate.performAccessibilityAction(host, action, args);
+            } else {
+                if (super.performAccessibilityAction(host, action, args)) {
+                    return true;
+                }
+                if (!mRecyclerViewDelegate.shouldIgnore()
+                        && mRecyclerViewDelegate.mRecyclerView.getLayoutManager() != null) {
+                    return mRecyclerViewDelegate.mRecyclerView.getLayoutManager()
+                            .performAccessibilityActionForItem(host, action, args);
+                }
             }
             return false;
+        }
+
+        /** Sets the app delegate **/
+        public void setAppAccessibilityDelegate(View view, AccessibilityDelegateCompat delegate) {
+            mAppDelegateMap.put(view, delegate);
+        }
+
+        /** Returns the app delegate **/
+        public AccessibilityDelegateCompat getAppAccessibilityDelegate(View view) {
+            return mAppDelegateMap.get(view);
         }
     }
 }
