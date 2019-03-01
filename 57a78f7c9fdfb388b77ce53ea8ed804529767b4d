@@ -16,6 +16,24 @@
       "revId": "57a78f7c9fdfb388b77ce53ea8ed804529767b4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad0e3f4_708a165b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-01T20:53:54Z",
+      "side": 1,
+      "message": "If we pin to 1.0.0 we break build because Room\u0027s codebase was already refactored to use the new RestricTo annotation (https://android-review.googlesource.com/c/platform/frameworks/support/+/900913/). The system is a little broken, if dependencies start to do development under the hood we are forced to coordinate release, but if we do versioning pinning then they have to apply their changes once they release (slowing things maybe?)\n\nThat is why I\u0027m asking Alan for advise here or like, how was the new RestricTo change suppose to affect other projects.",
+      "parentUuid": "5d0c1846_534f2e70",
+      "revId": "57a78f7c9fdfb388b77ce53ea8ed804529767b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
