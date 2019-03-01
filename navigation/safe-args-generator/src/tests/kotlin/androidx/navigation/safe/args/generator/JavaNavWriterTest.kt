@@ -67,10 +67,10 @@ class JavaNavWriterTest {
     private fun assertCompilesWithoutError(javaFileObject: JavaFileObject) {
         JavaSourcesSubject.assertThat(
                 loadSourceFileObject("a.b.R", "a/b"),
-                JavaFileObjects.forSourceString("android.support.annotation.NonNull",
-                        "package android.support.annotation; public @interface NonNull {}"),
-                JavaFileObjects.forSourceString("android.support.annotation.Nullable",
-                        "package android.support.annotation; public @interface Nullable {}"),
+                JavaFileObjects.forSourceString("androidx.annotation.NonNull",
+                        "package androidx.annotation; public @interface NonNull {}"),
+                JavaFileObjects.forSourceString("androidx.annotation.Nullable",
+                        "package androidx.annotation; public @interface Nullable {}"),
                 javaFileObject
         ).compilesWithoutError()
     }
@@ -80,10 +80,10 @@ class JavaNavWriterTest {
 
     private fun compileFiles(vararg javaFileObject: JavaFileObject) = javac()
             .compile(loadSourceFileObject("a.b.R", "a/b"),
-                    JavaFileObjects.forSourceString("android.support.annotation.NonNull",
-                            "package android.support.annotation; public @interface NonNull {}"),
-                    JavaFileObjects.forSourceString("android.support.annotation.Nullable",
-                            "package android.support.annotation; public @interface Nullable {}"),
+                    JavaFileObjects.forSourceString("androidx.annotation.NonNull",
+                            "package androidx.annotation; public @interface NonNull {}"),
+                    JavaFileObjects.forSourceString("androidx.annotation.Nullable",
+                            "package androidx.annotation; public @interface Nullable {}"),
                     *javaFileObject)
 
     @Test

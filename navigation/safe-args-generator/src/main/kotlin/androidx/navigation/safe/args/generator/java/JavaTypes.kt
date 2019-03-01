@@ -65,8 +65,8 @@ internal abstract class Annotations {
     abstract val NONNULL_CLASSNAME: ClassName
 
     private object AndroidAnnotations : Annotations() {
-        override val NULLABLE_CLASSNAME = ClassName.get("android.support.annotation", "Nullable")
-        override val NONNULL_CLASSNAME = ClassName.get("android.support.annotation", "NonNull")
+        override val NULLABLE_CLASSNAME = ClassName.get("androidx.annotation", "Nullable")
+        override val NONNULL_CLASSNAME = ClassName.get("androidx.annotation", "NonNull")
     }
 
     private object AndroidXAnnotations : Annotations() {
