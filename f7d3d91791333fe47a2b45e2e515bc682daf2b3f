@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "621061ba_0c264629",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-03-01T18:45:24Z",
+      "side": 1,
+      "message": "These names are a bit confusing - how about COLOR_SCHEME_SYSTEM, COLOR_SCHEME_LIGHT, COLOR_SCHEME_DARK ?\n\nSeems a bit more clear-cut what to use \u0026 when, and also matches the proposed CSS media query for this.",
+      "revId": "f7d3d91791333fe47a2b45e2e515bc682daf2b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "179d59ba_f9850c56",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 8
