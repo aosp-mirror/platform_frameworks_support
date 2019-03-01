@@ -99,6 +99,24 @@
       "revId": "981ec2f7f658c7cb7a486f49b56693a2d17ef51f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca6eac3_823362ff",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-01T19:21:45Z",
+      "side": 1,
+      "message": "null will only indicate uxr manager is not available. \n\nuxr service creates default value in construction. and it gets directly propagated here",
+      "parentUuid": "b19e886b_14003860",
+      "revId": "981ec2f7f658c7cb7a486f49b56693a2d17ef51f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
