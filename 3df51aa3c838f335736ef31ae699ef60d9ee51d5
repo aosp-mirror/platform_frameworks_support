@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d16d937_8fe980ea",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaNavWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-01T23:01:35Z",
+      "side": 1,
+      "message": "Ah, I think the problem is the JavaNavWritter test is passing false in useAndroidX. Look at the callers of generateDirectionsCodeFile() and you\u0027ll see they pass false. Change those to true, but keep these to use the variable.",
+      "range": {
+        "startLine": 82,
+        "startChar": 58,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "3df51aa3c838f335736ef31ae699ef60d9ee51d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
