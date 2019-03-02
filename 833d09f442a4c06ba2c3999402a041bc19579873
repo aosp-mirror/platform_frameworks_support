@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f5859dc_0d9541a6",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/PrimaryNavFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-02T00:45:17Z",
+      "side": 1,
+      "message": "You don\u0027t need a BooleanArray here, just use something like:\n\n{\n  var popped \u003d false\n  activityRule.runOnUiThread { popped \u003d fm.popBackStackImmediate() }\n  return popped\n}",
+      "range": {
+        "startLine": 202,
+        "startChar": 59,
+        "endLine": 205,
+        "endChar": 5
+      },
+      "revId": "833d09f442a4c06ba2c3999402a041bc19579873",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
