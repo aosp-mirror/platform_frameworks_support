@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "300f1d50_dc5545fc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-03-02T00:54:54Z",
+      "side": 1,
+      "message": "RichText would be able to string together characters and images, whereas CharSequence are only characters. Will update the doc for clarity",
+      "parentUuid": "09bc2d33_1a2b191c",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 85
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "873b44e4_6f570779",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e45814af_c538a1dd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-03-02T00:54:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "873b44e4_6f570779",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e312810d_bef6169f",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-03-02T00:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ba5a05_8d87b288",
+      "range": {
+        "startLine": 70,
+        "startChar": 24,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cd873a9_76f89144",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c43da5_62ef6d14",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-03-02T00:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cd873a9_76f89144",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "3b24a5afb4bd55ebfeeca70813c196376a24d7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
