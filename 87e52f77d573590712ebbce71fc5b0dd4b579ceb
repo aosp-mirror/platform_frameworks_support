@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed7bb12e_55381cb1",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewClientCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-03T01:02:17Z",
+      "side": 1,
+      "message": "I moved the javadoc adjacent to the method definition, since we saw the \"//\" comment block in between broke \"@hide\" (not directly relevant anymore, but it seems plausible this might break other tooling in the future).",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 7
+      },
+      "revId": "87e52f77d573590712ebbce71fc5b0dd4b579ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
