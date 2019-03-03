@@ -129,11 +129,15 @@ open class ListProjectDependencyVersionsTask : DefaultTask() {
      * Iterates through each configuration of the project and builds the set of all dependencies.
      * Then adds each dependency to the Artifact class as a project or prebuilt dependency.  Finally,
      * writes these dependencies to a json file as a json object.
+     *
+     * Only does so if "publish = true" for this project
      */
     @TaskAction
     fun dumpDependencies() {
-        val resolvedArtifact = resolveAndCollectDependencies()
-        writeJsonToFile(resolvedArtifact)
+        if (project.extensions.getByType(SupportLibraryExtension::class.java).publish) {
+            val resolvedArtifact = resolveAndCollectDependencies()
+            writeJsonToFile(resolvedArtifact)
+        }
     }
 }
 
