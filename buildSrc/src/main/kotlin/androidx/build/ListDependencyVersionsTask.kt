@@ -22,6 +22,7 @@ import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.tasks.TaskAction
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import org.gradle.kotlin.dsl.extra
 import java.io.File
 import java.lang.StringBuilder
 
@@ -39,6 +40,8 @@ open class ListProjectDependencyVersionsTask : DefaultTask() {
 
     // Output Dependency Graph File
     var outputDepFile = File(getProjectDependencyGraphFileName())
+
+    var published = project.extra.has("publish")
 
     data class ArtifactDependency(
         val artifactId: String,
@@ -129,11 +132,15 @@ open class ListProjectDependencyVersionsTask : DefaultTask() {
      * Iterates through each configuration of the project and builds the set of all dependencies.
      * Then adds each dependency to the Artifact class as a project or prebuilt dependency.  Finally,
      * writes these dependencies to a json file as a json object.
+     *
+     * Only does so if "publish = true" for this project
      */
     @TaskAction
     fun dumpDependencies() {
-        val resolvedArtifact = resolveAndCollectDependencies()
-        writeJsonToFile(resolvedArtifact)
+        if (published) {
+            val resolvedArtifact = resolveAndCollectDependencies()
+            writeJsonToFile(resolvedArtifact)
+        }
     }
 }
 

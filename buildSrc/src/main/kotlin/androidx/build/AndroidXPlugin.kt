@@ -340,7 +340,8 @@ class AndroidXPlugin : Plugin<Project> {
             subprojects { project ->
                 project.tasks.all { dumpDepTask ->
                     if ("dumpDependencies" == dumpDepTask.name &&
-                        dumpDepTask is ListProjectDependencyVersionsTask) {
+                        dumpDepTask is ListProjectDependencyVersionsTask &&
+                        dumpDepTask.published) {
                         depGraphTask.dependsOn(dumpDepTask)
                         depGraphTask.projectDepDumpFiles.add(dumpDepTask.outputDepFile)
                     }
