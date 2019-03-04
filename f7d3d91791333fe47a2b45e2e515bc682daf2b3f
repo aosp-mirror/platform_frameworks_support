@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "ca3c9e95_26f2f527",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-03-04T11:41:22Z",
+      "side": 1,
+      "message": "I like this, thanks! Applied here:\n  https://android-review.googlesource.com/c/platform/frameworks/support/+/916179",
+      "parentUuid": "621061ba_0c264629",
+      "revId": "f7d3d91791333fe47a2b45e2e515bc682daf2b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "179d59ba_f9850c56",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 8
@@ -86,6 +104,30 @@
       "revId": "f7d3d91791333fe47a2b45e2e515bc682daf2b3f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6c76ea_50b6cd9b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1055548
+      },
+      "writtenOn": "2019-03-04T11:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "179d59ba_f9850c56",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 100
+      },
+      "revId": "f7d3d91791333fe47a2b45e2e515bc682daf2b3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
