@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a684480_f01b283f",
+        "filename": "webkit/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "Make all of these @NonNull return type",
+      "range": {
+        "startLine": 113,
+        "startChar": 3,
+        "endLine": 117,
+        "endChar": 94
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c6f78dc_ecebd287",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "The meaning of \"virtual\" isn\u0027t clear. Can we change this? Maybe just say \"host under an HTTP(S) URL\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 63,
+        "endLine": 35,
+        "endChar": 72
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72c6fdf_caa5384d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "suggestion: This class is expected to be used within shouldInterceptRequest, which is not invoked on the application\u0027s main thread. Although instances are themselves thread-safe (and may be safely constructed on the application\u0027s main thread), exercise caution when accessing private data or the view system.",
+      "range": {
+        "startLine": 41,
+        "startChar": 14,
+        "endLine": 41,
+        "endChar": 45
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7772b7e5_d628093c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "Grammar isn\u0027t quite right. Either put a colon (\"this: \") or parenthetical (\"this ({@code...})\")",
+      "range": {
+        "startLine": 46,
+        "startChar": 66,
+        "endLine": 46,
+        "endChar": 71
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d129218_b4795cbd",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "Needs to be final",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 25
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8de3fd9_660f9a7b",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "\u003cp\u003e",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e85daa_fb7ce44c",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "suggestion: A custom prefix path can be used in conjunction with a custom domain, to avoid conflicts with real paths which may be hosted at that domain.\n\n(same suggestion applies for below)",
+      "range": {
+        "startLine": 248,
+        "startChar": 24,
+        "endLine": 248,
+        "endChar": 39
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f48b63cb_5d383e82",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "grammar suggestion: \"return a\"",
+      "range": {
+        "startLine": 283,
+        "startChar": 21,
+        "endLine": 283,
+        "endChar": 28
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe87315_37a5dbf4",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to read right, maybe delete \"coming?\"",
+      "range": {
+        "startLine": 368,
+        "startChar": 30,
+        "endLine": 368,
+        "endChar": 36
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e415089_b877d376",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 384,
+        "startChar": 54,
+        "endLine": 384,
+        "endChar": 72
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9087dc5_a30a2dab",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "Why can\u0027t we merge these into 1 case? It\u0027s not clear from the javadoc, and this *feels* like we\u0027re leaking implementation details into the API.\n\nIf there\u0027s a good reason, it\u0027s probably worth adding to the doc.",
+      "range": {
+        "startLine": 391,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 99
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc545741_93293c43",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-04T19:57:07Z",
+      "side": 1,
+      "message": "This says it\u0027s nullable, but docs don\u0027t mention what happens if it is, or why an app would pass null to it.\n\nCan this be NonNull?",
+      "range": {
+        "startLine": 404,
+        "startChar": 54,
+        "endLine": 404,
+        "endChar": 74
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
