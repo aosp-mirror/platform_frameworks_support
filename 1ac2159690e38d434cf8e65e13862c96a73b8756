@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "10e9dab3_806257f0",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/CoroutineLiveDataSwitchMapTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T01:14:53Z",
+      "side": 1,
+      "message": "at this point, we do not have a use case for creating a LiveData on a background thread.\nif room query returns LiveData, it can be called on the main thread and most use cases, initializing a VM, already happens on the main thread (not in a suspension).\n\nWe do not really want people to create chain of switchMap calls actually (this is not memory cheap), we want them to just run them in a coroutine and calculate the value (which is why the block is suspend, they can do anything async for 1 shot ops)\n\nWe can look into it if there are legit use cases where a LiveData instance needs to be computed on a background thread and we might provide `yield\u003cLiveData\u003cT\u003e\u003e` for those. \nwdyt?",
+      "parentUuid": "2ddd0b2e_19676693",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a3b15_4d057dd9",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
