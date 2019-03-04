@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "416c096c_5f753588",
+        "filename": "navigation/safe-args-gradle-plugin/src/test/kotlin/androidx/navigation/safeargs/gradle/BasePluginTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-04T17:45:21Z",
+      "side": 1,
+      "message": "No need to load it if its always empty right?",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "8f2ce8473cd47e89cb0b844f4b99fd930d7a57d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abd6645_89ce8454",
+        "filename": "navigation/safe-args-gradle-plugin/src/test/kotlin/androidx/navigation/safeargs/gradle/BasePluginTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-04T17:45:21Z",
+      "side": 1,
+      "message": "stores() flushes the output but doesn\u0027t close it. I would refactor this code so that you can utilize `use`.\n\nSomething like:\n```\nval propertiesFile \u003d File(projectRoot(), \"gradle.properties\")\npropertiesFile.writer().use {\n    val props \u003d Properties()\n    props.setProperty(\"android.useAndroidX\", \"true\")\n    props.store(it, null)\n}\n```",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 42
+      },
+      "revId": "8f2ce8473cd47e89cb0b844f4b99fd930d7a57d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
