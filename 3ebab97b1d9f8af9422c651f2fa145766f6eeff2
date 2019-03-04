@@ -16,6 +16,24 @@
       "revId": "3ebab97b1d9f8af9422c651f2fa145766f6eeff2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9269e330_507cb6e5",
+        "filename": "core/src/main/java/androidx/core/view/AccessibilityDelegateCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-03-04T22:21:17Z",
+      "side": 1,
+      "message": "It doesn\u0027t. I just realized it doesn\u0027t make sense to have the null check come after..",
+      "parentUuid": "aeac11a5_28111de8",
+      "revId": "3ebab97b1d9f8af9422c651f2fa145766f6eeff2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
