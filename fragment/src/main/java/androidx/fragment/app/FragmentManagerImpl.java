@@ -762,6 +762,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                     .getClassLoader());
                             f.mSavedViewState = f.mSavedFragmentState.getSparseParcelableArray(
                                     FragmentManagerImpl.VIEW_STATE_TAG);
+                            f.mIsViewStateSaved = true;
                             Fragment target = getFragment(f.mSavedFragmentState,
                                     FragmentManagerImpl.TARGET_STATE_TAG);
                             f.mTargetWho = target != null ? target.mWho : null;
@@ -917,6 +918,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         dispatchOnFragmentResumed(f, false);
                         f.mSavedFragmentState = null;
                         f.mSavedViewState = null;
+                        f.mIsViewStateSaved = false;
                     }
             }
         } else if (f.mState > newState) {
@@ -941,8 +943,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         if (f.mView != null) {
                             // Need to save the current view state if not
                             // done already.
-                            if (mHost.onShouldSaveFragmentState(f) && f.mSavedViewState == null) {
-                                saveFragmentViewState(f);
+                            if (mHost.onShouldSaveFragmentState(f) && !f.mIsViewStateSaved) {
+                                f.performSaveViewState();
                             }
                         }
                         f.performDestroyView();
@@ -2248,22 +2250,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return mNonConfig.getSnapshot();
     }
 
-    void saveFragmentViewState(Fragment f) {
-        if (f.mInnerView == null) {
-            return;
-        }
-        if (mStateArray == null) {
-            mStateArray = new SparseArray<Parcelable>();
-        } else {
-            mStateArray.clear();
-        }
-        f.mInnerView.saveHierarchyState(mStateArray);
-        if (mStateArray.size() > 0) {
-            f.mSavedViewState = mStateArray;
-            mStateArray = null;
-        }
-    }
-
     Bundle saveFragmentBasicState(Fragment f) {
         Bundle result = null;
 
@@ -2278,7 +2264,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
 
         if (f.mView != null) {
-            saveFragmentViewState(f);
+            f.performSaveViewState();
         }
         if (f.mSavedViewState != null) {
             if (result == null) {
@@ -2442,6 +2428,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
             fs.mInstance = f;
             f.mSavedViewState = null;
+            f.mIsViewStateSaved = false;
             f.mBackStackNesting = 0;
             f.mInLayout = false;
             f.mAdded = false;
@@ -2451,6 +2438,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 fs.mSavedFragmentState.setClassLoader(mHost.getContext().getClassLoader());
                 f.mSavedViewState = fs.mSavedFragmentState.getSparseParcelableArray(
                         FragmentManagerImpl.VIEW_STATE_TAG);
+                f.mIsViewStateSaved = true;
                 f.mSavedFragmentState = fs.mSavedFragmentState;
             }
         }
