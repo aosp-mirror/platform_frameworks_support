@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06869a1d_88b8303b",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T22:49:51Z",
+      "side": 1,
+      "message": "ugh took me 2 min to figure out what you are doing here.",
+      "range": {
+        "startLine": 122,
+        "startChar": 11,
+        "endLine": 122,
+        "endChar": 25
+      },
+      "revId": "bb0b3510ed6468845ff3c04d253849a2523a8df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb12277d_24056183",
+        "filename": "paging/common/src/main/java/androidx/paging/Pager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T22:49:51Z",
+      "side": 1,
+      "message": "?",
+      "revId": "bb0b3510ed6468845ff3c04d253849a2523a8df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
