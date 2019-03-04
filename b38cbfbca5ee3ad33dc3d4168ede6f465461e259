@@ -22,6 +22,30 @@
       "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe26243_57d14759",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T18:55:25Z",
+      "side": 1,
+      "message": "I talked with Tor, he mentioned that it will be easy to provide a lint check.\nSo i think that can more or less fix this concern.\n\n@Roman, do you think if there should be a more generic link check which flags catching Cancellation exception implicitly inside coroutines ? \n\nFor this use case, This is the rule i\u0027m thinking about:\n\nLook for catch statements inside the whenStarted\u0027s argument block. If they catch any cancelation exception, look for `if(lifecycle.currentState \u003e\u003d STARTED)` or `isActive` checks for UI/navigation access.\nSame for finally blocks.",
+      "parentUuid": "2141a988_1ef2f855",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 12
+      },
+      "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
