@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34d228f_8b99b444",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-04T18:18:18Z",
+      "side": 1,
+      "message": "nit: s/android.util.Log.VERBOSE/Log.VERBOSE/",
+      "range": {
+        "startLine": 338,
+        "startChar": 36,
+        "endLine": 338,
+        "endChar": 60
+      },
+      "revId": "68f6f0fd665d6661316a6817d2869073c971ebc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
