@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee0cd011_659414c7",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-04T14:32:46Z",
+      "side": 1,
+      "message": "nit: Should we guard all these by using isLoggable?",
+      "revId": "d3a2b132f2d5fa47529acd7511987807bbdc1ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53d7508_f56db994",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/widget/ToolbarController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-04T14:32:46Z",
+      "side": 1,
+      "message": "nit: some docs around assumeWindowFocus?",
+      "range": {
+        "startLine": 155,
+        "startChar": 53,
+        "endLine": 155,
+        "endChar": 78
+      },
+      "revId": "d3a2b132f2d5fa47529acd7511987807bbdc1ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
