@@ -44,19 +44,19 @@ android {
 dependencies {
     // @aar and { transitive = true } are needed as a workaround for
     // https://github.com/gradle/gradle/issues/3170
-    api("android.arch.lifecycle:extensions:1.1.0@aar") { transitive = true }
+    api("androidx.lifecycle:lifecycle-extensions:2.0.0@aar") { transitive = true }
     api(GUAVA_LISTENABLE_FUTURE)
-    implementation("android.arch.persistence.room:runtime:1.1.1@aar") { transitive = true }
-    annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
-    androidTestImplementation("android.arch.core:core-testing:1.1.0")
-    androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
+    implementation("androidx.room:room-runtime:2.0.0@aar") { transitive = true }
+    annotationProcessor(ARCH_ROOM_COMPILER)
+    androidTestImplementation(ARCH_CORE_TESTING)
+    androidTestImplementation(ARCH_ROOM_TESTING)
+    implementation(SUPPORT_COLLECTIONS)
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
-
     testImplementation(JUNIT)
 }
 

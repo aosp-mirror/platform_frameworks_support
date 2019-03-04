@@ -77,6 +77,7 @@ const val SUPPORT_ANNOTATIONS = "androidx.annotation:annotation:$SUPPORT_VERSION
 const val SUPPORT_APPCOMPAT = "androidx.appcompat:appcompat:$SUPPORT_VERSION"
 const val SUPPORT_CORE_UTILS = "androidx.legacy:legacy-support-core-utils:$SUPPORT_VERSION"
 const val SUPPORT_DESIGN = "com.google.android.material:material:1.0.0@aar"
+const val SUPPORT_COLLECTIONS = "androidx.collection:collection:$SUPPORT_VERSION"
 const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
@@ -106,5 +107,6 @@ const val ARCH_PAGING_RUNTIME = "androidx.paging:paging-runtime:2.0.0"
 const val ARCH_ROOM_RUNTIME = "androidx.room:room-runtime:2.0.0"
 const val ARCH_ROOM_COMPILER = "androidx.room:room-compiler:2.0.0"
 const val ARCH_ROOM_RXJAVA = "androidx.room:room-rxjava2:2.0.0"
+const val ARCH_ROOM_TESTING = "androidx.room:room-testing:2.0.0"
 
 const val ROBOLECTRIC = "org.robolectric:robolectric:4.1"

@@ -16,15 +16,15 @@
 
 package androidx.work.impl;
 
-import android.arch.core.util.Function;
-import android.arch.lifecycle.LiveData;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.LiveData;
 import androidx.work.Configuration;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
@@ -81,8 +81,6 @@ public class WorkManagerImpl extends WorkManager {
     private Preferences mPreferences;
     private boolean mForceStopRunnableCompleted;
     private BroadcastReceiver.PendingResult mRescheduleReceiverResult;
-    // TODO remove after moving to X: b/74477406
-    private final WorkManagerLiveDataTracker mLiveDataTracker = new WorkManagerLiveDataTracker();
 
     private static WorkManagerImpl sDelegatedInstance = null;
     private static WorkManagerImpl sDefaultInstance = null;
@@ -441,7 +439,7 @@ public class WorkManagerImpl extends WorkManager {
                     }
                 },
                 mWorkTaskExecutor);
-        return mLiveDataTracker.track(deduped);
+        return deduped;
     }
 
     @Override
@@ -460,7 +458,7 @@ public class WorkManagerImpl extends WorkManager {
                 inputLiveData,
                 WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
-        return mLiveDataTracker.track(deduped);
+        return deduped;
     }
 
     @Override
@@ -480,7 +478,7 @@ public class WorkManagerImpl extends WorkManager {
                 inputLiveData,
                 WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
-        return mLiveDataTracker.track(deduped);
+        return deduped;
     }
 
     @Override
@@ -500,7 +498,7 @@ public class WorkManagerImpl extends WorkManager {
                 inputLiveData,
                 WorkSpec.WORK_INFO_MAPPER,
                 mWorkTaskExecutor);
-        return mLiveDataTracker.track(deduped);
+        return deduped;
     }
 
     /**
