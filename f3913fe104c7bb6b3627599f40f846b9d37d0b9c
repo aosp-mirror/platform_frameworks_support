@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb084ec7_0daa9428",
+        "filename": "exifinterface/api/1.1.0-alpha01.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3a819cc_0fd30059",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d952e2a8_dc72e596",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cc345d7_225dea5f",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3827,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d952e2a8_dc72e596",
+      "range": {
+        "startLine": 3827,
+        "startChar": 43,
+        "endLine": 3827,
+        "endChar": 51
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2e17d8f2_29c4be61",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4455,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "5103add4_2ae5e255",
+      "range": {
+        "startLine": 4455,
+        "startChar": 32,
+        "endLine": 4455,
+        "endChar": 38
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b74dd2a3_bf065939",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a1987c_5dbb9c56",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4456,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b74dd2a3_bf065939",
+      "range": {
+        "startLine": 4456,
+        "startChar": 15,
+        "endLine": 4456,
+        "endChar": 16
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "dc011868_52f7b9f9",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b0ebfb_48ded529",
+      "range": {
+        "startLine": 4610,
+        "startChar": 11,
+        "endLine": 4610,
+        "endChar": 20
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d047de75_a09bae1a",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4610,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9bba394_82a58714",
+      "range": {
+        "startLine": 4610,
+        "startChar": 62,
+        "endLine": 4610,
+        "endChar": 65
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0592cfe_752f2d0e",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 4
@@ -183,6 +327,54 @@
       "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03a4817_ac4d419f",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4631,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0592cfe_752f2d0e",
+      "range": {
+        "startLine": 4631,
+        "startChar": 62,
+        "endLine": 4631,
+        "endChar": 65
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e294055e_ad493309",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4631,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-04T06:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bbde690_69c35e69",
+      "range": {
+        "startLine": 4631,
+        "startChar": 12,
+        "endLine": 4631,
+        "endChar": 20
+      },
+      "revId": "f3913fe104c7bb6b3627599f40f846b9d37d0b9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
