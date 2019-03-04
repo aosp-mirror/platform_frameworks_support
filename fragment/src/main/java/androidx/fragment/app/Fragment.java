@@ -106,6 +106,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // When instantiated from saved state, this is the saved state.
     Bundle mSavedFragmentState;
     SparseArray<Parcelable> mSavedViewState;
+    // Whether fragment view state has been saved
+    boolean mIsViewStateSaved;
+
     // If the userVisibleHint is changed before the state is set,
     // it is stored here
     @Nullable Boolean mSavedUserVisibleHint;
@@ -510,11 +513,46 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
     }
 
-    final void restoreViewState(Bundle savedInstanceState) {
-        if (mSavedViewState != null) {
-            mInnerView.restoreHierarchyState(mSavedViewState);
-            mSavedViewState = null;
+    final void performSaveViewState() {
+        mSavedViewState = onSaveViewState();
+        mIsViewStateSaved = true;
+    }
+
+    /**
+     * Called to ask the fragment to save its current {@link View} hierarchy state.
+     *
+     * This can be called anytime between {@link #onViewStateRestored(Bundle)} and {@link
+     * #onDestroyView()}.
+     *
+     * The default implementation calls {@link
+     * View#saveHierarchyState(SparseArray<Parcelable>)} with an empty array
+     * and returns the result. Fragments may override this to customize the handling of
+     * view hierarchy state. Implementations are free to return null if they wish to
+     * store the state themselves, but should also preserve it in {@link
+     * #onSaveInstanceState(Bundle)} and fetch it in {@link #onCreate(Bundle)}.
+     *
+     * @return Saved view state to pass to {@link
+     * #onRestoreViewState(SparseArray<Parcelable>)}.
+     *
+     * @see #onRestoreViewState(SparseArray<Parcelable>)
+     **/
+    @Nullable
+    protected SparseArray<Parcelable> onSaveViewState() {
+        if (mInnerView == null) {
+            return null;
         }
+        SparseArray<Parcelable> savedViewState = mSavedViewState;
+        if (savedViewState == null) {
+            mSavedViewState = new SparseArray<Parcelable>();
+        } else {
+            savedViewState.clear();
+        }
+        mInnerView.saveHierarchyState(savedViewState);
+        return savedViewState;
+    }
+
+    final void performRestoreViewState(Bundle savedInstanceState) {
+        onRestoreViewState(mSavedViewState);
         mCalled = false;
         onViewStateRestored(savedInstanceState);
         if (!mCalled) {
@@ -523,6 +561,27 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         if (mView != null) {
             mViewLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
+        }
+    }
+
+    /**
+     * Called to ask the fragment to restore its current {@link View} hierarchy state.
+     *
+     * This will be called between {@link #onViewCreated(View, Bundle)} and {@link
+     * #onViewStateRestored(Bundle)}.
+     *
+     * The default implementation calls {@link
+     * View#restoreHierarchyState(SparseArray<Parcelable>)} with the given view state.
+     * Fragments may override this to customize the handling of view hierarchy state.
+     *
+     * @param savedViewState Return value of last call to {@link #onSaveViewState()}.
+     *
+     * @see #onSaveViewState()
+     *
+     **/
+    protected void onRestoreViewState(@Nullable SparseArray<Parcelable> savedViewState) {
+        if (mInnerView != null && savedViewState != null) {
+            mInnerView.restoreHierarchyState(savedViewState);
         }
     }
 
