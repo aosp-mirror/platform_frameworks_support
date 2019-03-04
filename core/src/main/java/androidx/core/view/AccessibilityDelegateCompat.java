@@ -395,4 +395,14 @@ public class AccessibilityDelegateCompat {
                 view.getTag(R.id.tag_accessibility_actions);
         return actions == null ? Collections.<AccessibilityActionCompat>emptyList() : actions;
     }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public boolean isDefaultOrEmptyAccessibilityDelegateCompat() {
+        return mOriginalDelegate == null
+                || (this.getClass().equals(AccessibilityDelegateCompat.class)
+                && mOriginalDelegate.getClass().equals(AccessibilityDelegate.class));
+    }
 }
