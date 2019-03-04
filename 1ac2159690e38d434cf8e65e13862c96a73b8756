@@ -266,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "a7f3e2a8_98a81964",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/CoroutineLiveDataSwitchMapTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T22:05:06Z",
+      "side": 1,
+      "message": "offline discussion notes:\n\n* add yield(LiveData\u003cT\u003e)\n* remove context param, rename it to something else that automatically launhes in a Scope that uses DispatchersMain. (launchMap, switchMapLaunch, namingIsHardMap, asyncTaskMap :) )\n* (yigit) maybe let the specify dispatcher anyways?",
+      "parentUuid": "eef70660_13515153",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a3b15_4d057dd9",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
