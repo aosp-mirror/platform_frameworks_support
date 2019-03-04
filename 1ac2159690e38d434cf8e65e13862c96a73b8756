@@ -248,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "eef70660_13515153",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/CoroutineLiveDataSwitchMapTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-04T21:00:03Z",
+      "side": 1,
+      "message": "Might be better to talk offline but as far as I can see, all options you\u0027ve mentioned will just work fine w/ this.\n\nlike this is perfect:\n\n    class ViewModel {\n        val liveData \u003d someSource(\"query\").switchMap(liveDataScope.coroutineContext) { \n             UseCase.suspendingTransform(it)\n        }\n    }\n\n`UseCase.suspendingTransform` is already scoped to `liveDataScope.coroutineContext` (i think you\u0027ve meant viewmodelScope.coroutineContext).\n\nAll the examples you\u0027ve menteioned about recyclerview is all perform on `lists`, not `LiveData\u003cList\u003e` so they can all be implemented using this switchMap.",
+      "parentUuid": "6da1bb1a_dea0e6ad",
+      "revId": "1ac2159690e38d434cf8e65e13862c96a73b8756",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a3b15_4d057dd9",
         "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
         "patchSetId": 7
