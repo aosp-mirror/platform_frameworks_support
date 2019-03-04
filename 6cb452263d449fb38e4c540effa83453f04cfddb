@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4a85d5b_e2b66d86",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/ObserveForeverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 0,
+      "message": "Why is this deleted?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "6cb452263d449fb38e4c540effa83453f04cfddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "729588ac_282b219e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 0,
+      "message": "Remove this in a separate CL.  This CL needs to be just the refactor.",
+      "range": {
+        "startLine": 85,
+        "startChar": 68,
+        "endLine": 85,
+        "endChar": 94
+      },
+      "revId": "6cb452263d449fb38e4c540effa83453f04cfddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf466bf_4472df5c",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerLiveDataTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 0,
+      "message": "Remove later.",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "6cb452263d449fb38e4c540effa83453f04cfddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22aeb391_d7f5d586",
+        "filename": "work/workmanager/src/test/java/androidx/work/impl/WorkManagerLiveDataTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 0,
+      "message": "Same.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "6cb452263d449fb38e4c540effa83453f04cfddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

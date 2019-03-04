@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bdec6c9_e7c30ef6",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 1,
+      "message": "Why is this API?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c850ad9_64dd7e97",
+        "filename": "work/workmanager/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 1,
+      "message": "I was under the impression we wouldn\u0027t need this.  What causes us to pull this in?",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7378e93_dc6b658b",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-04T23:41:20Z",
+      "side": 1,
+      "message": "Why is this being changed?",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
