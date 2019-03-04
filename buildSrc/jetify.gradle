@@ -23,6 +23,7 @@ def archivesToDejetify = [
     "m2repository/androidx/activity/**",
     "m2repository/androidx/annotation/**",
     "m2repository/androidx/appcompat/**",
+    "m2repository/androidx/arch/core/**",
     "m2repository/androidx/asynclayoutinflater/**",
     "m2repository/androidx/biometric/**",
     "m2repository/androidx/browser/**",
