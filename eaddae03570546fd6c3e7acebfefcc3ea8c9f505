@@ -22,6 +22,30 @@
       "revId": "eaddae03570546fd6c3e7acebfefcc3ea8c9f505",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8a0698_d9220bf2",
+        "filename": "navigation/safe-args-generator/src/main/kotlin/androidx/navigation/safe/args/generator/java/JavaTypes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-04T19:16:02Z",
+      "side": 1,
+      "message": "I did the minimal changes for now and we will clean it up in a later CL like we discussed.",
+      "parentUuid": "5152758b_1e33458f",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 88
+      },
+      "revId": "eaddae03570546fd6c3e7acebfefcc3ea8c9f505",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
