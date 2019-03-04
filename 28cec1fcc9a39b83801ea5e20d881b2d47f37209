@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6a170fa_45c00289",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6191,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-03-04T23:03:55Z",
+      "side": 1,
+      "message": "Maybe we don\u0027t need to add any hidden API to AccessibilityDelegateCompat and just replace this line with: delegate.getClass().equals(AccessibilityDelegateCompat.class. The arbtration between mOriginalDelegate shouldn\u0027t matter here. But I may be wrong.",
+      "range": {
+        "startLine": 6191,
+        "startChar": 40,
+        "endLine": 6191,
+        "endChar": 94
+      },
+      "revId": "28cec1fcc9a39b83801ea5e20d881b2d47f37209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
