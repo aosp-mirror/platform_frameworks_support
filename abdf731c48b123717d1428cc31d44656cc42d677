@@ -543,6 +543,30 @@
     },
     {
       "key": {
+        "uuid": "b959c703_2df12f9d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-05T15:02:11Z",
+      "side": 1,
+      "message": "Hmmm, I\u0027m afraid, I don\u0027t get what you mean.\n\n\u003e I don\u0027t think this is correct though... I thought we actually did treat these cases separately. We only return a null WebResourceResponse if the sub-path doesn\u0027t match [1]. If it does match (but there\u0027s no actual resource), we return a WebResourceResponse with a null input stream [2].\n\nThis is true, this is what we currently do (we discussed that with toby when you were in London) and I think this paragraph (which I deleted in the later patch) describes correctly what you say.\n\n\u003e [1] http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java?l\u003d398\u0026rcl\u003d18634e313305b527768f2b2874ac9cfd3631dc6d\n\u003e [2] http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/internal/AssetHelper.java?l\u003d124\u0026rcl\u003d18634e313305b527768f2b2874ac9cfd3631dc6d\n\nIf you think this is an implementation detail, then I think the sentence after the @return annotation describes the behaviour in general without mentioning the null InputStream (which is still correct, we return an actual WebResourceResponse object that wraps a null InputStream).\n\nIf you think there is a better, clearer or more concise rephrasing, please let me know and I\u0027ll be happy to use it.",
+      "parentUuid": "257947a3_b6d185b0",
+      "range": {
+        "startLine": 391,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 99
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc545741_93293c43",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 9
