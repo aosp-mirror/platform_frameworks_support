@@ -519,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "257947a3_b6d185b0",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-05T01:07:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct though... I thought we actually did treat these cases separately. We only return a null WebResourceResponse if the sub-path doesn\u0027t match [1]. If it does match (but there\u0027s no actual resource), we return a WebResourceResponse with a null input stream [2].\n\n[1] http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java?l\u003d398\u0026rcl\u003d18634e313305b527768f2b2874ac9cfd3631dc6d\n[2] http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/internal/AssetHelper.java?l\u003d124\u0026rcl\u003d18634e313305b527768f2b2874ac9cfd3631dc6d",
+      "parentUuid": "af0af558_0d1696f0",
+      "range": {
+        "startLine": 391,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 99
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc545741_93293c43",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 9
