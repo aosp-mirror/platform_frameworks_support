@@ -567,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "75410653_89991352",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-05T17:39:48Z",
+      "side": 1,
+      "message": "I\u0027ve miscommunicated.\n\nI do not think this is an implementation detail. As the docs were written, it sounded like an implementation detail (from the perspective of an outsider), since the motivation was not clear. I think you should add the paragraph back in, and then explain why this behavior was chosen (why is it better than changing the behavior to return null in this case?).\n\nWithout explicitly stating this, an app may easily misunderstand \"matches a registered url\" to mean \"matches a resource via the registered URL-prefix\" instead of \"matches a registered URL-prefix, but not necessarily a resource on disk\"",
+      "parentUuid": "b959c703_2df12f9d",
+      "range": {
+        "startLine": 391,
+        "startChar": 6,
+        "endLine": 394,
+        "endChar": 99
+      },
+      "revId": "abdf731c48b123717d1428cc31d44656cc42d677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc545741_93293c43",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 9
