@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4d7a68c_c716d627",
+        "filename": "lifecycle/common/eap/src/main/java/androidx/lifecycle/LifecycleOwner.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-05T21:54:36Z",
+      "side": 1,
+      "message": "Documentation suggestion: Add a usage sample here.",
+      "revId": "5af11ba37525fc1e847f02a2a6443d0715c92303",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
