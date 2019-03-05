@@ -35,14 +35,14 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation(CONSTRAINT_LAYOUT)
     implementation project(':work:work-runtime-ktx')
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-    implementation "com.android.support:recyclerview-v7:27.1.1"
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    implementation "com.android.support:design:27.1.1"
+    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0@aar") { transitive = true }
+    implementation("androidx.room:room-runtime:2.0.0@aar") { transitive = true }
+    annotationProcessor(ARCH_ROOM_COMPILER)
+    implementation(ANDROIDX_RECYCLERVIEW)
+    implementation(SUPPORT_APPCOMPAT)
+    implementation(SUPPORT_DESIGN) { transitive = true }
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])
