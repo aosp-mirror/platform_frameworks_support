@@ -22,6 +22,30 @@
       "revId": "28cec1fcc9a39b83801ea5e20d881b2d47f37209",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb6da1e_3e4ee9fc",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6191,
+      "author": {
+        "id": 1410358
+      },
+      "writtenOn": "2019-03-05T18:20:11Z",
+      "side": 1,
+      "message": "I\u0027ll do this. I thought the delegate would get overwritten but that\u0027s not the case. Thanks for discussing it through with me!",
+      "parentUuid": "e6a170fa_45c00289",
+      "range": {
+        "startLine": 6191,
+        "startChar": 40,
+        "endLine": 6191,
+        "endChar": 94
+      },
+      "revId": "28cec1fcc9a39b83801ea5e20d881b2d47f37209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
