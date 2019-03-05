@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Chris Banes <chrisbanes@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: kirillg <kirillg@google.com>
+Submitted-at: Tue, 05 Mar 2019 22:41:42 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/919693
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
