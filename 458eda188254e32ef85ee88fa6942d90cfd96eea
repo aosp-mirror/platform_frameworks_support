@@ -140,6 +140,30 @@
       "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7527c0a_a28ab0ef",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-05T00:41:11Z",
+      "side": 1,
+      "message": "This should be identical behavior to 1.0.  Let me follow up with someone.",
+      "parentUuid": "0df5c7bb_4c0c6e5e",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
