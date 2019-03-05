@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bca7255d_9d79210f",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-05T07:26:04Z",
+      "side": 1,
+      "message": "It is called once when the media is first prepared (PlayerCallback#onPlayerStateChanged) and again when the subtitle track is found (PlayerCallback#onInfo).\n\nMediaPlayer updates the tracks, VideoView receives them in PlayerCallback and sends to MediaControlView",
+      "parentUuid": "06943e35_a15dbd4f",
+      "range": {
+        "startLine": 371,
+        "startChar": 52,
+        "endLine": 371,
+        "endChar": 77
+      },
+      "revId": "c5e3b38cd5f30e720d5bbd13d6c3b3f5b28b8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0141ce9_233db1cc",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c5e3b38cd5f30e720d5bbd13d6c3b3f5b28b8196",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2986bc15_3d3c63c3",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-05T07:26:04Z",
+      "side": 1,
+      "message": "The previous call will not count down the latch, so it should be okay, but changed the \"assertFalse(latchForSubtitle....\" to \"Thread.sleep(WAIT_TIME_MS) for better readability.",
+      "parentUuid": "f0141ce9_233db1cc",
+      "range": {
+        "startLine": 406,
+        "startChar": 19,
+        "endLine": 406,
+        "endChar": 41
+      },
+      "revId": "c5e3b38cd5f30e720d5bbd13d6c3b3f5b28b8196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
