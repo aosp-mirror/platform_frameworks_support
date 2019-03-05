@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a883b0eb_1a3a019c",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-05T20:05:32Z",
+      "side": 1,
+      "message": "It looks fine, but that\u0027s probably because it\u0027s nested well enough. It\u0027s more a general concern about the structure of the code.",
+      "parentUuid": "76c2710f_8e90a1ae",
+      "range": {
+        "startLine": 401,
+        "startChar": 11,
+        "endLine": 401,
+        "endChar": 91
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "172bd7ad_84a58e49",
         "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
         "patchSetId": 5
