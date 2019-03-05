@@ -22,6 +22,30 @@
       "revId": "9d3db78d753254e0f74f24480b2e6f4e6a380a06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b23e7a_f729f9a4",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/ActionBarContainer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-03-05T22:22:24Z",
+      "side": 1,
+      "message": "You mean in View.java? If you look at View.setBackgroundDrawable (link in the bug), this is the same logic here - call invalidate() followed by invalidateOutline(). The only difference here is guarding the later by build version.",
+      "parentUuid": "3d35648e_ab642e8c",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "9d3db78d753254e0f74f24480b2e6f4e6a380a06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
