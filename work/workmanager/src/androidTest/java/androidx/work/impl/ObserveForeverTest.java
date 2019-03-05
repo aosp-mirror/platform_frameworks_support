@@ -20,9 +20,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -37,6 +36,7 @@ import androidx.work.worker.TestWorker;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,11 +47,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * TODO remove after moving to AndroidX.
+ * TODO remove after moving to Room 2.1.x.
  * see: b/74477406 for details.
+ *
+ * This test suite is being @Ignored because observeForever() can no longer be called on a
+ * background thread after the move to 2.x.
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
+@Ignore
 public class ObserveForeverTest {
     private WorkManagerImpl mWorkManagerImpl;
     private final OneTimeWorkRequest mWork = new OneTimeWorkRequest.Builder(TestWorker.class)
