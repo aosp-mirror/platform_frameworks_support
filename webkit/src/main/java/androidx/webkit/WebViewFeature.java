@@ -386,7 +386,7 @@ public class WebViewFeature {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
+    public static final String PROXY_OVERRIDE = "PROXY_OVERRIDE";
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

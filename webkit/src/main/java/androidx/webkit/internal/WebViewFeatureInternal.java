@@ -302,13 +302,28 @@ public enum WebViewFeatureInternal {
      * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
      * {@link ProxyController#clearProxyOverride(Runnable)}.
      */
-    PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE),
+    PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE, Features.PROXY_OVERRIDE),
 
     ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;
-    private final String mFeatureValue;
+    private final String mPublicFeatureValue;
+    private final String mInternalFeatureValue;
     private final int mOsVersion;
+
+    /**
+     * Creates a WebViewFeatureInternal that does not correspond to a framework API, with different
+     * public and internal values.
+     *
+     * <p>Features constructed with this constructor can be later converted to use the
+     * other constructor if framework support is added.
+     *
+     * @param publicFeatureValue   The public facing feature string denoting this feature
+     * @param internalFeatureValue The internal feature string denoting this feature
+     */
+    WebViewFeatureInternal(String publicFeatureValue, String internalFeatureValue) {
+        this(publicFeatureValue, internalFeatureValue, NOT_SUPPORTED_BY_FRAMEWORK);
+    }
 
     /**
      * Creates a WebViewFeatureInternal that does not correspond to a framework API.
@@ -319,7 +334,24 @@ public enum WebViewFeatureInternal {
      * @param featureValue The feature string denoting this feature
      */
     WebViewFeatureInternal(String featureValue) {
-        this(featureValue, NOT_SUPPORTED_BY_FRAMEWORK);
+        this(featureValue, featureValue, NOT_SUPPORTED_BY_FRAMEWORK);
+    }
+
+    /**
+     * Creates a WebViewFeatureInternal that is implemented in the framework, with different public
+     * and internal values.
+     *
+     * @param publicFeatureValue   The public facing feature string denoting this feature
+     * @param internalFeatureValue The internal feature string denoting this feature
+     * @param osVersion            The Android SDK level after which this feature is implemented
+     *                             in the framework.
+     */
+    WebViewFeatureInternal(String publicFeatureValue, String internalFeatureValue, int osVersion) {
+        assert !publicFeatureValue.endsWith(Features.DEV_SUFFIX);
+        assert !internalFeatureValue.endsWith(Features.DEV_SUFFIX);
+        mPublicFeatureValue = publicFeatureValue;
+        mInternalFeatureValue = internalFeatureValue;
+        mOsVersion = osVersion;
     }
 
     /**
@@ -330,9 +362,7 @@ public enum WebViewFeatureInternal {
      *                     framework.
      */
     WebViewFeatureInternal(String featureValue, int osVersion) {
-        assert !featureValue.endsWith(Features.DEV_SUFFIX);
-        mFeatureValue = featureValue;
-        mOsVersion = osVersion;
+        this(featureValue, featureValue, osVersion);
     }
 
     /**
@@ -340,7 +370,7 @@ public enum WebViewFeatureInternal {
      */
     public static WebViewFeatureInternal getFeature(String feature) {
         for (WebViewFeatureInternal internalFeature : WebViewFeatureInternal.values()) {
-            if (internalFeature.mFeatureValue.equals(feature)) return internalFeature;
+            if (internalFeature.mPublicFeatureValue.equals(feature)) return internalFeature;
         }
         throw new RuntimeException("Unknown feature " + feature);
     }
@@ -361,7 +391,7 @@ public enum WebViewFeatureInternal {
      */
     public boolean isSupportedByWebView() {
         return BoundaryInterfaceReflectionUtil.containsFeature(
-                LAZY_HOLDER.WEBVIEW_APK_FEATURES, mFeatureValue);
+                LAZY_HOLDER.WEBVIEW_APK_FEATURES, mInternalFeatureValue);
     }
 
     private static class LAZY_HOLDER {
