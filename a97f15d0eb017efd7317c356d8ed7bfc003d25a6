@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "631811fa_d004428f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-05T19:01:43Z",
+      "side": 1,
+      "message": "What is the difference between and asset and resource in this context? Can you expand the javadoc.",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da917968_b3f5393d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-05T19:01:43Z",
+      "side": 1,
+      "message": "Should be or will be? In what cases will it be invoked?",
+      "range": {
+        "startLine": 135,
+        "startChar": 11,
+        "endLine": 135,
+        "endChar": 50
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a63418d_cf22837d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-05T19:01:43Z",
+      "side": 1,
+      "message": "URL",
+      "range": {
+        "startLine": 402,
+        "startChar": 83,
+        "endLine": 402,
+        "endChar": 86
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228e1e04_584297f2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-05T19:01:43Z",
+      "side": 1,
+      "message": "Add an example what this prefix might might look like.",
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
