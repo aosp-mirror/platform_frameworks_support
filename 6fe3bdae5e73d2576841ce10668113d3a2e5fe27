@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07e22e31_70ef3f34",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-05T09:18:31Z",
+      "side": 1,
+      "message": "It would be better not to much depend on the internal implementation details, since it could differ with respect to different MediaPlayer implementations.\n\nIn MediaControlView\u0027s point, what we want to test might be:\n1) The subtitle button should be activated (clickable) at some point.\n2) When CC button is clicked, the list of subtitle should be visible.\n3) The expected list should be the same as onCustomCommand() sent. (maybe count, or text)\n4) Select subtitle track and check if it\u0027s really selected (like what you did at L386-393)",
+      "revId": "6fe3bdae5e73d2576841ce10668113d3a2e5fe27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
