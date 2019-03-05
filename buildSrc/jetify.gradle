@@ -44,6 +44,7 @@ def archivesToDejetify = [
     "m2repository/androidx/heifwriter/**",
     "m2repository/androidx/interpolator/**",
     "m2repository/androidx/leanback/**",
+    "m2repository/androidx/arch/**",
     "m2repository/androidx/legacy/**",
     "m2repository/androidx/loader/**",
     "m2repository/androidx/localbroadcastmanager/**",
