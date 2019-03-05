@@ -139,6 +139,30 @@
       "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d9a942_dcc04ae3",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-05T19:59:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1572c1a3_b4eddcf7",
+      "range": {
+        "startLine": 903,
+        "startChar": 8,
+        "endLine": 903,
+        "endChar": 29
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
