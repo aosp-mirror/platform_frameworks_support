@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "394cae05_e2495c5e",
+        "filename": "work/integration-tests/testapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-03-05T00:29:40Z",
+      "side": 1,
+      "message": "Inadvertently made this `api`. Should be implementation. Reverted.",
+      "parentUuid": "0bdec6c9_e7c30ef6",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c850ad9_64dd7e97",
         "filename": "work/workmanager/build.gradle",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e5bc9590_eb7df0a5",
+        "filename": "work/workmanager/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-03-05T00:29:40Z",
+      "side": 1,
+      "message": "We don\u0027t actually need it.",
+      "parentUuid": "5c850ad9_64dd7e97",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7378e93_dc6b658b",
         "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df5c7bb_4c0c6e5e",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-03-05T00:29:40Z",
+      "side": 1,
+      "message": "We don\u0027t need a spy here. Also the code generation changed in 2.x where we cannot spy as all Room Dao_Impl\u0027s are now marked final.",
+      "parentUuid": "c7378e93_dc6b658b",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
