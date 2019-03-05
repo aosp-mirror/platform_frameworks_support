@@ -164,6 +164,30 @@
       "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcce6d20_933ce5e2",
+        "filename": "work/workmanager/src/androidTest/java/androidx/work/impl/WorkerWrapperTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-05T00:55:44Z",
+      "side": 1,
+      "message": "Looks like this was a change to Room 2.0 that wasn\u0027t in Room 1.1. :-(  Fine to do this.",
+      "parentUuid": "b7527c0a_a28ab0ef",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "458eda188254e32ef85ee88fa6942d90cfd96eea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
