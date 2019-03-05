@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b38d028_beb56760",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/ListContent.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-05T19:27:11Z",
+      "side": 0,
+      "message": "Restore.",
+      "revId": "d28eeee69399104147c8074df5056ec534d70473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
