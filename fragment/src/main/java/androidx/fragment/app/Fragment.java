@@ -16,7 +16,7 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
@@ -66,8 +66,8 @@ import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
 import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
+import androidx.savedstate.SavedStateRegistryController;
+import androidx.savedstate.SavedStateRegistryOwner;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -91,7 +91,7 @@ import java.util.UUID;
  *
  */
 public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener, LifecycleOwner,
-        ViewModelStoreOwner, BundleSavedStateRegistryOwner {
+        ViewModelStoreOwner, SavedStateRegistryOwner {
 
     static final Object USE_DEFAULT_TRANSITION = new Object();
 
@@ -248,7 +248,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
-    BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+    SavedStateRegistryController mSavedStateRegistryController;
 
     // Cache the ContentView layoutIds for Fragments.
     private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
@@ -348,8 +348,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     @NonNull
     @Override
-    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
-        return mSavedStateRegistry;
+    public final SavedStateRegistry getSavedStateRegistry() {
+        return mSavedStateRegistryController.getSavedStateRegistry();
     }
 
     /**
@@ -432,9 +432,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         initLifecycle();
     }
 
-    @SuppressLint("RestrictedApi")
     private void initLifecycle() {
         mLifecycleRegistry = new LifecycleRegistry(this);
+        mSavedStateRegistryController = SavedStateRegistryController.create(this);
         if (Build.VERSION.SDK_INT >= 19) {
             mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
                 @Override
@@ -545,7 +545,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     @Override
-    @SuppressLint({"UnknownNullness", "RestrictedApi"})
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         DebugUtils.buildShortClassTag(this, sb);
@@ -1007,13 +1006,13 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     final public boolean hasOptionsMenu() {
         return mHasMenu;
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     final public boolean isMenuVisible() {
         return mMenuVisible;
     }
@@ -1401,7 +1400,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     @Deprecated
     @NonNull
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public LayoutInflater getLayoutInflater(@Nullable Bundle savedFragmentState) {
         if (mHost == null) {
             throw new IllegalStateException("onGetLayoutInflater() cannot be executed until the "
@@ -1578,7 +1577,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
-        mSavedStateRegistry.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
         if (mChildFragmentManager != null
                 && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
@@ -1854,7 +1852,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     void initState() {
         initLifecycle();
-        mSavedStateRegistry = new BundleSavedStateRegistry();
         mWho = UUID.randomUUID().toString();
         mAdded = false;
         mRemoving = false;
@@ -2522,6 +2519,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         mState = CREATED;
         mCalled = false;
+        mSavedStateRegistryController.performRestore(savedInstanceState);
         onCreate(savedInstanceState);
         mIsCreated = true;
         if (!mCalled) {
@@ -2726,7 +2724,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
-        mSavedStateRegistry.performSave(outState);
+        mSavedStateRegistryController.performSave(outState);
         if (mChildFragmentManager != null) {
             Parcelable p = mChildFragmentManager.saveAllState();
             if (p != null) {

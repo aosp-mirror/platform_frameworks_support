@@ -18,7 +18,6 @@ package androidx.activity;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -36,8 +35,8 @@ import androidx.lifecycle.ReportFragment;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistry;
-import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
+import androidx.savedstate.SavedStateRegistryController;
+import androidx.savedstate.SavedStateRegistryOwner;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,11 +49,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * lower level building blocks are included. Higher level components can then be used as needed
  * without enforcing a deep Activity class hierarchy or strong coupling between components.
  */
-@SuppressLint("RestrictedApi")
 public class ComponentActivity extends androidx.core.app.ComponentActivity implements
         LifecycleOwner,
         ViewModelStoreOwner,
-        BundleSavedStateRegistryOwner {
+        SavedStateRegistryOwner {
 
     static final class NonConfigurationInstances {
         Object custom;
@@ -62,7 +60,8 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     }
 
     private final LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
-    private final BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+    private final SavedStateRegistryController mSavedStateRegistryController =
+            SavedStateRegistryController.create(this);
 
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
@@ -74,7 +73,6 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     // Cache the ContentView layoutIds for Activities.
     private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
 
-    @SuppressLint("RestrictedApi")
     public ComponentActivity() {
         Lifecycle lifecycle = getLifecycle();
         //noinspection ConstantConditions
@@ -121,10 +119,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      * call {@link #setContentView(int)} for you.
      */
     @Override
-    @SuppressWarnings("RestrictedApi")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSavedStateRegistry.performRestore(savedInstanceState);
+        mSavedStateRegistryController.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
         Class<? extends ComponentActivity> clazz = getClass();
         if (!sAnnotationIds.containsKey(clazz)) {
@@ -141,7 +138,6 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         }
     }
 
-    @SuppressLint("RestrictedApi")
     @CallSuper
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -150,7 +146,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
             ((LifecycleRegistry) lifecycle).markState(Lifecycle.State.CREATED);
         }
         super.onSaveInstanceState(outState);
-        mSavedStateRegistry.performSave(outState);
+        mSavedStateRegistryController.performSave(outState);
     }
 
     /**
@@ -369,11 +365,10 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     @NonNull
     @Override
-    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
-        return mSavedStateRegistry;
+    public final SavedStateRegistry getSavedStateRegistry() {
+        return mSavedStateRegistryController.getSavedStateRegistry();
     }
 
-    @SuppressLint("RestrictedApi")
     private class LifecycleAwareOnBackPressedCallback implements
             OnBackPressedCallback,
             GenericLifecycleObserver {

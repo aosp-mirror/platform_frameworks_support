@@ -16,7 +16,7 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -51,7 +51,7 @@ public class DialogFragment extends Fragment
         implements DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({STYLE_NORMAL, STYLE_NO_TITLE, STYLE_NO_FRAME, STYLE_NO_INPUT})
     @Retention(RetentionPolicy.SOURCE)
     private @interface DialogStyle {}
@@ -199,7 +199,7 @@ public class DialogFragment extends Fragment
      * the fragment.
      */
     public void dismiss() {
-        dismissInternal(false);
+        dismissInternal(false, false);
     }
 
     /**
@@ -209,10 +209,10 @@ public class DialogFragment extends Fragment
      * documentation for further details.
      */
     public void dismissAllowingStateLoss() {
-        dismissInternal(true);
+        dismissInternal(true, false);
     }
 
-    void dismissInternal(boolean allowStateLoss) {
+    void dismissInternal(boolean allowStateLoss, boolean fromOnDismiss) {
         if (mDismissed) {
             return;
         }
@@ -224,14 +224,16 @@ public class DialogFragment extends Fragment
             // that the callback happens before onDestroy()
             mDialog.setOnDismissListener(null);
             mDialog.dismiss();
-            // onDismiss() is always called on the main thread, so
-            // we mimic that behavior here. The difference here is that
-            // we don't post the message to ensure that the onDismiss()
-            // callback still happens before onDestroy()
-            if (Looper.myLooper() == mHandler.getLooper()) {
-                onDismiss(mDialog);
-            } else {
-                mHandler.post(mDismissRunnable);
+            if (!fromOnDismiss) {
+                // onDismiss() is always called on the main thread, so
+                // we mimic that behavior here. The difference here is that
+                // we don't post the message to ensure that the onDismiss()
+                // callback still happens before onDestroy()
+                if (Looper.myLooper() == mHandler.getLooper()) {
+                    onDismiss(mDialog);
+                } else {
+                    mHandler.post(mDismissRunnable);
+                }
             }
         }
         mViewDestroyed = true;
@@ -388,7 +390,7 @@ public class DialogFragment extends Fragment
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setupDialog(@NonNull Dialog dialog, int style) {
         switch (style) {
             case STYLE_NO_INPUT:
@@ -440,7 +442,7 @@ public class DialogFragment extends Fragment
             // dispatches this asynchronously so we can receive the call
             // after the activity is paused.  Worst case, when the user comes
             // back to the activity they see the dialog again.
-            dismissInternal(true);
+            dismissInternal(true, true);
         }
     }
 

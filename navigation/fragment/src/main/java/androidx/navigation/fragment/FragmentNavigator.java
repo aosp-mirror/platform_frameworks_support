@@ -19,17 +19,17 @@ package androidx.navigation.fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
@@ -246,8 +246,10 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 // back stack, a simple replace() isn't enough so we
                 // remove it from the back stack and put our replacement
                 // on the back stack in its place
-                mFragmentManager.popBackStack();
-                ft.addToBackStack(generateBackStackName(mBackStack.size() + 1, destId));
+                mFragmentManager.popBackStack(
+                        generateBackStackName(mBackStack.size(), mBackStack.peekLast()),
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                ft.addToBackStack(generateBackStackName(mBackStack.size(), destId));
                 mIsPendingBackStackOperation = true;
             }
             isAdded = false;

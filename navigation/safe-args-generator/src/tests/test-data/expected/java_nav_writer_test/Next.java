@@ -19,8 +19,8 @@ package a.b;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavDirections;
 import java.io.Serializable;
 import java.lang.IllegalArgumentException;
@@ -160,7 +160,7 @@ public static class Next implements NavDirections {
 
     @Override
     public int getActionId() {
-        return a.b.R.id.next;
+        return R.id.next;
     }
 
     @SuppressWarnings("unchecked")
