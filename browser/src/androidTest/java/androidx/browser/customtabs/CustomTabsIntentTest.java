@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -73,5 +74,33 @@ public class CustomTabsIntentTest {
                 color == intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
         intent = new CustomTabsIntent.Builder().setToolbarColor(color).build().intent;
         assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
+    public void testColorScheme() {
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(-1);
+            fail("Underflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(42);
+            fail("Overflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        // None of the valid parameters should throw.
+        final int[] colorSchemeValues = new int[] {
+            CustomTabsIntent.COLOR_SCHEME_SYSTEM,
+            CustomTabsIntent.COLOR_SCHEME_LIGHT,
+            CustomTabsIntent.COLOR_SCHEME_DARK
+        };
+
+        for (int value : colorSchemeValues) {
+            Intent intent =
+                    new CustomTabsIntent.Builder().setColorScheme(value).build().intent;
+            assertEquals(value, intent.getIntExtra(CustomTabsIntent.EXTRA_COLOR_SCHEME, -1));
+        }
     }
 }
