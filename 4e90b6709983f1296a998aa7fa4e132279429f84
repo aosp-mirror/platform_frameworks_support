@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "deae1cbc_cdaba0cc",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-06T15:07:37Z",
+      "side": 1,
+      "message": "Add (and below):\n\nIf a URL matches the registered prefix path, an attempt to load the requested asset will be made. If the the requested asset cannot be returned based upon the local content, no attempt will be made to fall back to a network request.\n\nFor this reason you should not use a prefix path that is also a prefix of any valid URL hosted on the same domain used for this asset loader. All such URLs will resolve only to local content, rendering the network content inaccessible.",
+      "range": {
+        "startLine": 263,
+        "startChar": 71,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "4e90b6709983f1296a998aa7fa4e132279429f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c47015_c9435191",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-06T15:07:37Z",
+      "side": 1,
+      "message": "Based upon documenting above the masking of URLs, just say:\n\nIf it is not possible to resolve the URL to the content of a resource or asset, then no attempt will be made to fall back to a network request, and a 404 error will be generated.\n\n(I don\u0027t think you need to explain the internal details of what returning null vs. returning a WebResourceResponse that wraps a null input stream.",
+      "range": {
+        "startLine": 392,
+        "startChar": 7,
+        "endLine": 398,
+        "endChar": 15
+      },
+      "revId": "4e90b6709983f1296a998aa7fa4e132279429f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e10119d_9bf3169a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-06T15:07:37Z",
+      "side": 1,
+      "message": "Add: The return value of this method should be returned directly.\n\nIt might be good to add a code snippet to illustrate that.",
+      "range": {
+        "startLine": 401,
+        "startChar": 110,
+        "endLine": 401,
+        "endChar": 111
+      },
+      "revId": "4e90b6709983f1296a998aa7fa4e132279429f84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
