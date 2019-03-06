@@ -17,40 +17,31 @@
 package androidx.preference;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.doAnswer;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Parcelable;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test for InitialExpandedChildrenCount in {@link androidx.preference.PreferenceGroup}.
+ * Test for InitialExpandedChildrenCount in {@link PreferenceGroup}.
  */
-@RunWith(AndroidJUnit4.class)
 @SmallTest
+@RunWith(AndroidJUnit4.class)
 public class PreferenceGroupInitialExpandedChildrenCountTest {
 
     private static final int INITIAL_EXPANDED_COUNT = 5;
@@ -67,7 +58,7 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
     @UiThreadTest
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mPreferenceManager = new PreferenceManager(mContext);
         mScreen = mPreferenceManager.createPreferenceScreen(mContext);
         mScreen.setKey(PREFERENCE_KEY);
@@ -105,8 +96,7 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         for (int i = 0; i < INITIAL_EXPANDED_COUNT; i++) {
             assertEquals(mPreferenceList.get(i), preferenceGroupAdapter.getItem(i));
         }
-        assertEquals(CollapsiblePreferenceGroupController.ExpandButton.class,
-                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT).getClass());
+        assertTrue(preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT) instanceof ExpandButton);
     }
 
     /**
@@ -147,8 +137,8 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         for (int i = 0; i <= INITIAL_EXPANDED_COUNT; i++) {
             assertEquals(preferenceList.get(i), preferenceGroupAdapter.getItem(i));
         }
-        assertEquals(CollapsiblePreferenceGroupController.ExpandButton.class,
-                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT + 1).getClass());
+        assertTrue(
+                preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT + 1) instanceof ExpandButton);
     }
 
     /**
@@ -159,7 +149,7 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
     public void createPreferenceGroupAdapter_setExpandButtonSummary() {
         mScreen.setInitialExpandedChildrenCount(INITIAL_EXPANDED_COUNT);
         PreferenceGroupAdapter preferenceGroupAdapter = new PreferenceGroupAdapter(mScreen);
-        // Preference 5 to Preference 9 are collapsed
+        // Preference 5 to preference 9 are collapsed
         CharSequence summary = mPreferenceList.get(INITIAL_EXPANDED_COUNT).getTitle();
         for (int i = INITIAL_EXPANDED_COUNT + 1; i < TOTAL_PREFERENCE; i++) {
             summary = mContext.getString(R.string.summary_collapsed_preference_list,
@@ -179,7 +169,7 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         mPreferenceList.get(INITIAL_EXPANDED_COUNT + 1).setVisible(false);
         mPreferenceList.get(INITIAL_EXPANDED_COUNT + 4).setVisible(false);
         PreferenceGroupAdapter preferenceGroupAdapter = new PreferenceGroupAdapter(mScreen);
-        // Preference 5 to Preference 9 are collapsed, only preferences 5, 7, 8 are visible
+        // Preference 5 to preference 9 are collapsed, only preferences 5, 7, 8 are visible
         CharSequence summary = mPreferenceList.get(INITIAL_EXPANDED_COUNT).getTitle();
         summary = mContext.getString(R.string.summary_collapsed_preference_list,
                 summary, mPreferenceList.get(INITIAL_EXPANDED_COUNT + 2).getTitle());
@@ -226,46 +216,6 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         final Preference expandButton = preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT);
         expandButton.performClick();
         verify(listener).onExpandButtonClick();
-    }
-
-    /**
-     * Verifies that when preference visibility changes, it will sync the preferences only if some
-     * preferences are collapsed.
-     */
-    @Test
-    @UiThreadTest
-    public void onPreferenceVisibilityChange_shouldSyncPreferencesIfCollapsed() {
-        // Execute the handler task immediately
-        final Handler handler = spy(new Handler());
-        doAnswer(new Answer<Void>() {
-            @Override
-            public Void answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                Message message = (Message) args[0];
-                handler.dispatchMessage(message);
-                return null;
-            }
-        }).when(handler).sendMessageDelayed(any(Message.class), anyLong());
-
-        // No limit set, should not sync preference
-        PreferenceGroupAdapter preferenceGroupAdapter =
-                PreferenceGroupAdapter.createInstanceWithCustomHandler(mScreen, handler);
-        preferenceGroupAdapter.onPreferenceVisibilityChange(mPreferenceList.get(3));
-        verify(handler, never()).sendMessageDelayed(any(Message.class), anyLong());
-
-        // Has limit set, should sync preference
-        mScreen.setInitialExpandedChildrenCount(INITIAL_EXPANDED_COUNT);
-        preferenceGroupAdapter =
-                PreferenceGroupAdapter.createInstanceWithCustomHandler(mScreen, handler);
-        preferenceGroupAdapter.onPreferenceVisibilityChange(mPreferenceList.get(3));
-        verify(handler).sendMessageDelayed(any(Message.class), anyLong());
-
-        // Preferences expanded already, should not sync preference
-        final Preference expandButton = preferenceGroupAdapter.getItem(INITIAL_EXPANDED_COUNT);
-        expandButton.performClick();
-        reset(handler);
-        preferenceGroupAdapter.onPreferenceVisibilityChange(mPreferenceList.get(3));
-        verify(handler, never()).sendMessageDelayed(any(Message.class), anyLong());
     }
 
     /**
@@ -387,3 +337,4 @@ public class PreferenceGroupInitialExpandedChildrenCountTest {
         createTestPreferences(category, preferenceList, numPreference);
     }
 }
+

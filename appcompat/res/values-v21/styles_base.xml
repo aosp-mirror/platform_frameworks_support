@@ -77,8 +77,11 @@
         <item name="android:minWidth">56dp</item>
     </style>
 
+    <!-- We use srcCompat on API 21-22 to allow tinting with themed CSLs -->
     <style name="Base.Widget.AppCompat.ActionButton.Overflow"
            parent="android:Widget.Material.ActionButton.Overflow">
+        <item name="android:src">@null</item>
+        <item name="srcCompat">@drawable/abc_ic_menu_overflow_material</item>
     </style>
 
     <!--
@@ -153,7 +156,7 @@
     </style>
 
     <style name="Base.TextAppearance.AppCompat.Widget.PopupMenu.Header" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@string/abc_font_family_title_material</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/abc_text_size_menu_header_material</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
@@ -175,6 +178,8 @@
     <style name="Base.Widget.AppCompat.EditText" parent="android:Widget.Material.EditText">
         <item name="android:background">?attr/editTextBackground</item>
     </style>
+
+    <style name="Base.Widget.AppCompat.TextView" parent="android:Widget.Material.TextView"/>
 
     <style name="Base.Widget.AppCompat.RatingBar" parent="android:Widget.Material.RatingBar" />
 

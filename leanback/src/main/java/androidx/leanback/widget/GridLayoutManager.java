@@ -19,6 +19,7 @@ import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -2262,7 +2263,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             mFlag &= ~PF_FAST_RELAYOUT;
             // layoutInit() has detached all views, so start from scratch
             mFlag = (mFlag & ~PF_IN_LAYOUT_SEARCH_FOCUS)
-                    | (hadFocus ? PF_IN_LAYOUT_SEARCH_FOCUS : 0);
+                    | (scrollToFocus ? PF_IN_LAYOUT_SEARCH_FOCUS : 0);
             int startFromPosition, endPos;
             if (scrollToFocus && (firstVisibleIndex < 0 || mFocusPosition > lastVisibleIndex
                     || mFocusPosition < firstVisibleIndex)) {
@@ -3596,6 +3597,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
+    @SuppressLint("BanParcelableUsage")
     final static class SavedState implements Parcelable {
 
         int index; // index inside adapter of the current view

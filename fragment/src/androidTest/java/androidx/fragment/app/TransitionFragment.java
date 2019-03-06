@@ -28,6 +28,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * A fragment that has transitions that can be tracked.
  */
@@ -57,8 +60,8 @@ public class TransitionFragment extends StrictViewFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         checkGetActivity();
         checkState("onCreateView", CREATED);
         mOnCreateViewCalled = true;
@@ -66,7 +69,7 @@ public class TransitionFragment extends StrictViewFragment {
     }
 
     void waitForTransition() throws InterruptedException {
-        verify(mListener, CtsMockitoUtils.within(300)).onTransitionEnd((Transition) any());
+        verify(mListener, CtsMockitoUtils.within(1000)).onTransitionEnd((Transition) any());
         reset(mListener);
     }
 

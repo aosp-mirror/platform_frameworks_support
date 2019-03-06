@@ -70,8 +70,9 @@ public class MessageView extends SliceChildView {
     }
 
     @Override
-    public void setSliceItem(SliceItem slice, boolean isHeader, int index,
+    public void setSliceItem(SliceContent content, boolean isHeader, int index,
             int rowCount, SliceView.OnSliceActionListener observer) {
+        SliceItem slice = content.getSliceItem();
         setSliceActionListener(observer);
         mRowIndex = index;
         SliceItem source = SliceQuery.findSubtype(slice, FORMAT_IMAGE, SUBTYPE_SOURCE);
@@ -94,7 +95,7 @@ public class MessageView extends SliceChildView {
             if (builder.length() != 0) {
                 builder.append('\n');
             }
-            builder.append(text.getText());
+            builder.append(text.getSanitizedText());
         }
         mDetails.setText(builder.toString());
     }

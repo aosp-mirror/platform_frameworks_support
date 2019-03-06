@@ -15,17 +15,17 @@
  */
 
 plugins {
-    id("SupportAndroidTestAppPlugin")
+    id("AndroidXPlugin")
+    id("com.android.application")
 }
 
 dependencies {
-    implementation(project(":media"))
-    implementation(project(":media-widget"))
+    implementation(project(":media2-widget"))
+    implementation(project(":core"))
 }
 
 android {
     defaultConfig {
-        minSdkVersion = 19
-        targetSdkVersion = 26
+        minSdkVersion 19
     }
 }

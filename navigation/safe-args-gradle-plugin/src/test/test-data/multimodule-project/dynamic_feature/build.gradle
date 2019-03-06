@@ -22,7 +22,12 @@ android {
     buildToolsVersion buildTools
     compileSdkVersion compileSdk
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion minSdk
+    }
+    signingConfigs {
+        debug {
+            storeFile file("$debugKeystoreFile")
+        }
     }
 
     flavorDimensions "mode"
@@ -40,4 +45,5 @@ android {
 
 dependencies {
     implementation project(':app')
+    implementation "$navigationCommonDep"
 }

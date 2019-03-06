@@ -17,7 +17,10 @@
 package androidx.room.verifier
 
 import androidx.room.processor.Context
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
+import androidx.room.vo.FtsEntity
+import androidx.room.vo.FtsOptions
 import androidx.room.vo.Warning
 import columnInfo
 import org.sqlite.JDBC
@@ -34,7 +37,11 @@ import javax.lang.model.element.Element
  * This class is also used to resolve the return types.
  */
 class DatabaseVerifier private constructor(
-        val connection: Connection, val context: Context, val entities: List<Entity>) {
+    val connection: Connection,
+    val context: Context,
+    val entities: List<Entity>,
+    views: List<DatabaseView>
+) {
     companion object {
         private const val CONNECTION_URL = "jdbc:sqlite::memory:"
         /**
@@ -66,10 +73,15 @@ class DatabaseVerifier private constructor(
         /**
          * Tries to create a verifier but returns null if it cannot find the driver.
          */
-        fun create(context: Context, element: Element, entities: List<Entity>): DatabaseVerifier? {
+        fun create(
+            context: Context,
+            element: Element,
+            entities: List<Entity>,
+            views: List<DatabaseView>
+        ): DatabaseVerifier? {
             return try {
                 val connection = JDBC.createConnection(CONNECTION_URL, java.util.Properties())
-                DatabaseVerifier(connection, context, entities)
+                DatabaseVerifier(connection, context, entities, views)
             } catch (ex: Exception) {
                 context.logger.w(Warning.CANNOT_CREATE_VERIFICATION_DATABASE, element,
                         DatabaseVerificaitonErrors.cannotCreateConnection(ex))
@@ -93,10 +105,26 @@ class DatabaseVerifier private constructor(
             }
         }
     }
+
     init {
         entities.forEach { entity ->
             val stmt = connection.createStatement()
-            stmt.executeUpdate(stripLocalizeCollations(entity.createTableQuery))
+            val createTableQuery = if (entity is FtsEntity &&
+                !FtsOptions.defaultTokenizers.contains(entity.ftsOptions.tokenizer)) {
+                // Custom FTS tokenizer used, use create statement without custom tokenizer
+                // since the DB used for verification probably doesn't have the tokenizer.
+                entity.getCreateTableQueryWithoutTokenizer()
+            } else {
+                entity.createTableQuery
+            }
+            stmt.executeUpdate(stripLocalizeCollations(createTableQuery))
+            entity.indices.forEach {
+                stmt.executeUpdate(it.createQuery(entity.tableName))
+            }
+        }
+        views.forEach { view ->
+            val stmt = connection.createStatement()
+            stmt.executeUpdate(stripLocalizeCollations(view.createViewQuery))
         }
     }
 
@@ -110,14 +138,14 @@ class DatabaseVerifier private constructor(
     }
 
     private fun stripLocalizeCollations(sql: String) =
-        COLLATE_LOCALIZED_UNICODE_PATTERN.matcher(sql).replaceAll(" COLLATE NOCASE")
+            COLLATE_LOCALIZED_UNICODE_PATTERN.matcher(sql).replaceAll(" COLLATE NOCASE")
 
     fun closeConnection(context: Context) {
         if (!connection.isClosed) {
             try {
                 connection.close()
             } catch (t: Throwable) {
-                //ignore.
+                // ignore.
                 context.logger.d("failed to close the database connection ${t.message}")
             }
         }

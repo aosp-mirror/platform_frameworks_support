@@ -28,8 +28,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 class FrameworkSQLiteOpenHelper implements SupportSQLiteOpenHelper {
     private final OpenHelper mDelegate;
 
-    FrameworkSQLiteOpenHelper(Context context, String name,
-            Callback callback) {
+    FrameworkSQLiteOpenHelper(Context context, String name, Callback callback) {
         mDelegate = createDelegate(context, name, callback);
     }
 
@@ -81,10 +80,7 @@ class FrameworkSQLiteOpenHelper implements SupportSQLiteOpenHelper {
                     new DatabaseErrorHandler() {
                         @Override
                         public void onCorruption(SQLiteDatabase dbObj) {
-                            FrameworkSQLiteDatabase db = dbRef[0];
-                            if (db != null) {
-                                callback.onCorruption(db);
-                            }
+                            callback.onCorruption(getWrappedDb(dbRef, dbObj));
                         }
                     });
             mCallback = callback;
@@ -114,12 +110,7 @@ class FrameworkSQLiteOpenHelper implements SupportSQLiteOpenHelper {
         }
 
         FrameworkSQLiteDatabase getWrappedDb(SQLiteDatabase sqLiteDatabase) {
-            FrameworkSQLiteDatabase dbRef = mDbRef[0];
-            if (dbRef == null) {
-                dbRef = new FrameworkSQLiteDatabase(sqLiteDatabase);
-                mDbRef[0] = dbRef;
-            }
-            return mDbRef[0];
+            return getWrappedDb(mDbRef, sqLiteDatabase);
         }
 
         @Override
@@ -147,7 +138,7 @@ class FrameworkSQLiteOpenHelper implements SupportSQLiteOpenHelper {
         @Override
         public void onOpen(SQLiteDatabase db) {
             if (!mMigrated) {
-                // if we've migrated, we'll re-open the db so we  should not call the callback.
+                // if we've migrated, we'll re-open the db so we should not call the callback.
                 mCallback.onOpen(getWrappedDb(db));
             }
         }
@@ -156,6 +147,15 @@ class FrameworkSQLiteOpenHelper implements SupportSQLiteOpenHelper {
         public synchronized void close() {
             super.close();
             mDbRef[0] = null;
+        }
+
+        static FrameworkSQLiteDatabase getWrappedDb(FrameworkSQLiteDatabase[] refHolder,
+                SQLiteDatabase sqLiteDatabase) {
+            FrameworkSQLiteDatabase dbRef = refHolder[0];
+            if (dbRef == null || !dbRef.isDelegate(sqLiteDatabase)) {
+                refHolder[0] = new FrameworkSQLiteDatabase(sqLiteDatabase);
+            }
+            return refHolder[0];
         }
     }
 }

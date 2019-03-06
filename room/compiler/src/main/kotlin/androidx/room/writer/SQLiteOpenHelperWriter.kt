@@ -25,7 +25,9 @@ import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.T
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Database
+import androidx.room.vo.DatabaseView
 import androidx.room.vo.Entity
+import androidx.room.vo.FtsEntity
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeSpec
@@ -76,6 +78,8 @@ class SQLiteOpenHelperWriter(val database: Database) {
             addMethod(createDropAllTables())
             addMethod(createOnCreate(scope.fork()))
             addMethod(createOnOpen(scope.fork()))
+            addMethod(createOnPreMigrate())
+            addMethod(createOnPostMigrate())
             addMethods(createValidateMigration(scope.fork()))
         }.build()
     }
@@ -83,8 +87,9 @@ class SQLiteOpenHelperWriter(val database: Database) {
     private fun createValidateMigration(scope: CodeGenScope): List<MethodSpec> {
         val methodSpecs = mutableListOf<MethodSpec>()
         val entities = ArrayDeque(database.entities)
+        val views = ArrayDeque(database.views)
         val dbParam = ParameterSpec.builder(SupportDbTypeNames.DB, "_db").build()
-        while (!entities.isEmpty()) {
+        while (!entities.isEmpty() || !views.isEmpty()) {
             val isPrimaryMethod = methodSpecs.isEmpty()
             val methodName = if (isPrimaryMethod) {
                 "validateMigration"
@@ -102,7 +107,19 @@ class SQLiteOpenHelperWriter(val database: Database) {
                 var statementCount = 0
                 while (!entities.isEmpty() && statementCount < VALIDATE_CHUNK_SIZE) {
                     val methodScope = scope.fork()
-                    val validationWriter = TableInfoValidationWriter(entities.poll())
+                    val entity = entities.poll()
+                    val validationWriter = when (entity) {
+                        is FtsEntity -> FtsTableInfoValidationWriter(entity)
+                        else -> TableInfoValidationWriter(entity)
+                    }
+                    validationWriter.write(dbParam, methodScope)
+                    addCode(methodScope.builder().build())
+                    statementCount += validationWriter.statementCount()
+                }
+                while (!views.isEmpty() && statementCount < VALIDATE_CHUNK_SIZE) {
+                    val methodScope = scope.fork()
+                    val view = views.poll()
+                    val validationWriter = ViewInfoValidationWriter(view)
                     validationWriter.write(dbParam, methodScope)
                     addCode(methodScope.builder().build())
                     statementCount += validationWriter.statementCount()
@@ -165,6 +182,32 @@ class SQLiteOpenHelperWriter(val database: Database) {
             database.entities.forEach {
                 addStatement("_db.execSQL($S)", createDropTableQuery(it))
             }
+            database.views.forEach {
+                addStatement("_db.execSQL($S)", createDropViewQuery(it))
+            }
+        }.build()
+    }
+
+    private fun createOnPreMigrate(): MethodSpec {
+        return MethodSpec.methodBuilder("onPreMigrate").apply {
+            addModifiers(PUBLIC)
+            addAnnotation(Override::class.java)
+            addParameter(SupportDbTypeNames.DB, "_db")
+            addStatement("$T.dropFtsSyncTriggers($L)", RoomTypeNames.DB_UTIL, "_db")
+        }.build()
+    }
+
+    private fun createOnPostMigrate(): MethodSpec {
+        return MethodSpec.methodBuilder("onPostMigrate").apply {
+            addModifiers(PUBLIC)
+            addAnnotation(Override::class.java)
+            addParameter(SupportDbTypeNames.DB, "_db")
+            database.entities.filterIsInstance(FtsEntity::class.java)
+                    .filter { it.ftsOptions.contentEntity != null }
+                    .flatMap { it.contentSyncTriggerCreateQueries }
+                    .forEach { syncTriggerQuery ->
+                        addStatement("_db.execSQL($S)", syncTriggerQuery)
+                    }
         }.build()
     }
 
@@ -182,12 +225,22 @@ class SQLiteOpenHelperWriter(val database: Database) {
     }
 
     @VisibleForTesting
-    fun createQuery(entity: Entity): String {
+    fun createTableQuery(entity: Entity): String {
         return entity.createTableQuery
+    }
+
+    @VisibleForTesting
+    fun createViewQuery(view: DatabaseView): String {
+        return view.createViewQuery
     }
 
     @VisibleForTesting
     fun createDropTableQuery(entity: Entity): String {
         return "DROP TABLE IF EXISTS `${entity.tableName}`"
+    }
+
+    @VisibleForTesting
+    fun createDropViewQuery(view: DatabaseView): String {
+        return "DROP VIEW IF EXISTS `${view.viewName}`"
     }
 }

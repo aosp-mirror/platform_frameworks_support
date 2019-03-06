@@ -51,10 +51,10 @@ import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.SinglePresenterSelector;
 import androidx.leanback.widget.VerticalGridView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -1001,6 +1001,24 @@ public class RowsSupportFragmentTest extends SingleSupportFragmentTestBase {
         assertEquals(2, ((ListRowPresenter.ViewHolder) fragment2.getSelectedRowViewHolder())
                 .getSelectedPosition());
         activity2.finish();
+    }
+
+    @Test
+    public void browseFragmentSelectionAfterStop() {
+        final SingleSupportFragmentTestActivity activity = launchAndWaitActivity(
+                RowsSupportFragmentTest.F_2PageRow3ListRow.class, 2000);
+        final F_2PageRow3ListRow fragment = ((F_2PageRow3ListRow) activity.getTestFragment());
+        // create another activity to cause activity pause
+        launchAndWaitActivity2(1000);
+        // select another row to swap page fragment, this should be postponed after activity stop.
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                fragment.setSelectedPosition(1, true);
+            }
+        });
+        activityTestRule2.finishActivity();
+        activity.finish();
     }
 
     public static class MyPageRow extends PageRow {

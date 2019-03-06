@@ -52,20 +52,23 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
     @GuardedBy("mKeyLock")
     private Key mPreviousKey = null;
 
-    private void initKeys(@Nullable Key previousKey, @Nullable Key nextKey) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void initKeys(@Nullable Key previousKey, @Nullable Key nextKey) {
         synchronized (mKeyLock) {
             mPreviousKey = previousKey;
             mNextKey = nextKey;
         }
     }
 
-    private void setPreviousKey(@Nullable Key previousKey) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void setPreviousKey(@Nullable Key previousKey) {
         synchronized (mKeyLock) {
             mPreviousKey = previousKey;
         }
     }
 
-    private void setNextKey(@Nullable Key nextKey) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void setNextKey(@Nullable Key nextKey) {
         synchronized (mKeyLock) {
             mNextKey = nextKey;
         }
@@ -123,6 +126,7 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          * <p>
          * Returned data must begin directly adjacent to this position.
          */
+        @NonNull
         public final Key key;
 
         /**
@@ -133,7 +137,7 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public final int requestedLoadSize;
 
-        public LoadParams(Key key, int requestedLoadSize) {
+        public LoadParams(@NonNull Key key, int requestedLoadSize) {
             this.key = key;
             this.requestedLoadSize = requestedLoadSize;
         }
@@ -201,6 +205,34 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public abstract void onResult(@NonNull List<Value> data, @Nullable Key previousPageKey,
                 @Nullable Key nextPageKey);
+
+        /**
+         * Called to report a non-retryable error from a DataSource.
+         * <p>
+         * Call this method to report a non-retryable error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
+
+        /**
+         * Called to report a retryable error from a DataSource.
+         * <p>
+         * Call this method to report an error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onRetryableError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onRetryableError if implementing your own load callback");
+        }
     }
 
     /**
@@ -240,6 +272,36 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
          *                        no more pages to load in the current load direction.
          */
         public abstract void onResult(@NonNull List<Value> data, @Nullable Key adjacentPageKey);
+
+        /**
+         * Called to report a non-retryable error from a DataSource.
+         * <p>
+         * Call this method to report a non-retryable error from your PageKeyedDataSource's
+         * {@link #loadBefore(LoadParams, LoadCallback)} and
+         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
+
+        /**
+         * Called to report a retryable error from a DataSource.
+         * <p>
+         * Call this method to report an error from your PageKeyedDataSource's
+         * {@link #loadBefore(LoadParams, LoadCallback)} and
+         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onRetryableError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onRetryableError if implementing your own load callback");
+        }
     }
 
     static class LoadInitialCallbackImpl<Key, Value> extends LoadInitialCallback<Key, Value> {
@@ -281,6 +343,16 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
         }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
+        }
     }
 
     static class LoadCallbackImpl<Key, Value> extends LoadCallback<Key, Value> {
@@ -305,6 +377,16 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
         }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
+        }
     }
 
     @Nullable
@@ -312,6 +394,18 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
     final Key getKey(int position, Value item) {
         // don't attempt to persist keys, since we currently don't pass them to initial load
         return null;
+    }
+
+    @Override
+    boolean supportsPageDropping() {
+        /* To support page dropping when PageKeyed, we'll need to:
+         *    - Stash keys for every page we have loaded (can id by index relative to loadInitial)
+         *    - Drop keys for any page not adjacent to loaded content
+         *    - And either:
+         *        - Allow impl to signal previous page key: onResult(data, nextPageKey, prevPageKey)
+         *        - Re-trigger loadInitial, and break assumption it will only occur once.
+         */
+        return false;
     }
 
     @Override
@@ -337,6 +431,8 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
         if (key != null) {
             loadAfter(new LoadParams<>(key, pageSize),
                     new LoadCallbackImpl<>(this, PageResult.APPEND, mainThreadExecutor, receiver));
+        } else {
+            receiver.onPageResult(PageResult.APPEND, PageResult.<Value>getEmptyResult());
         }
     }
 
@@ -348,6 +444,8 @@ public abstract class PageKeyedDataSource<Key, Value> extends ContiguousDataSour
         if (key != null) {
             loadBefore(new LoadParams<>(key, pageSize),
                     new LoadCallbackImpl<>(this, PageResult.PREPEND, mainThreadExecutor, receiver));
+        } else {
+            receiver.onPageResult(PageResult.PREPEND, PageResult.<Value>getEmptyResult());
         }
     }
 

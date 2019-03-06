@@ -54,7 +54,7 @@ import androidx.media2.MediaPlayer2.MediaPlayer2State;
 import androidx.media2.MediaPlayer2.TrackInfo;
 import androidx.media2.TestUtils.Monitor;
 import androidx.media2.test.R;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
 
 import org.junit.Test;
@@ -69,7 +69,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 @RunWith(Parameterized.class)
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
 public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final String LOG_TAG = "MediaPlayer2StateTest";
 
@@ -81,23 +81,22 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     // Used for testing case that operation is called before setDataSourceDesc().
     private static final int MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE = 400001;
 
-    private static final DataSourceDesc2 sDummyDataSource = new DataSourceDesc2.Builder()
-            .setDataSource(
-                    new MediaDataSource2() {
-                        @Override
-                        public int readAt(long position, byte[] buffer, int offset, int size)
-                                throws IOException {
-                            return -1;
-                        }
+    private static final MediaItem sDummyDataSource = new CallbackMediaItem.Builder(
+            new DataSourceCallback() {
+                @Override
+                public int readAt(long position, byte[] buffer, int offset, int size)
+                        throws IOException {
+                    return -1;
+                }
 
-                        @Override
-                        public long getSize() throws IOException {
-                            return -1;  // Unknown size
-                        }
+                @Override
+                public long getSize() throws IOException {
+                    return -1;  // Unknown size
+                }
 
-                        @Override
-                        public void close() throws IOException {}
-                    })
+                @Override
+                public void close() throws IOException {}
+            })
             .build();
 
     private static final PlayerOperation sCloseOperation = new PlayerOperation() {
@@ -296,7 +295,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sSetDataSourceOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.setDataSource(sDummyDataSource);
+            player.setMediaItem(sDummyDataSource);
         }
 
         @Override
@@ -306,13 +305,13 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
         @Override
         public String toString() {
-            return "setDataSource()";
+            return "setMediaItem()";
         }
     };
     private static final PlayerOperation sSetNextDataSourceOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.setNextDataSource(sDummyDataSource);
+            player.setNextMediaItem(sDummyDataSource);
         }
 
         @Override
@@ -322,13 +321,13 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
         @Override
         public String toString() {
-            return "setNextDataSource()";
+            return "setNextMediaItem()";
         }
     };
     private static final PlayerOperation sSetNextDataSourcesOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.setNextDataSources(Arrays.asList(sDummyDataSource));
+            player.setNextMediaItems(Arrays.asList(sDummyDataSource));
         }
 
         @Override
@@ -338,7 +337,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
         @Override
         public String toString() {
-            return "setNextDataSources()";
+            return "setNextMediaItems()";
         }
     };
     private static final PlayerOperation sLoopCurrentOperation = new PlayerOperation() {
@@ -490,7 +489,10 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sGetMetricsOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.getMetrics();
+            // Validate media metrics from API 21 where PersistableBundle was added.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                player.getMetrics();
+            }
         }
 
         @Override
@@ -506,7 +508,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sSetPlaybackParamsOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.setPlaybackParams(new PlaybackParams2.Builder().setSpeed(1.0f).build());
+            player.setPlaybackParams(new PlaybackParams.Builder().setSpeed(1.0f).build());
         }
 
         @Override
@@ -666,7 +668,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     private static final PlayerOperation sSelectTrackOperation = new PlayerOperation() {
         @Override
         public void doOperation(MediaPlayer2 player) {
-            player.selectTrack(0);
+            player.selectTrack(1);
         }
 
         @Override
@@ -730,7 +732,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     };
 
     private @MediaPlayer2State int mTestState;
-    private PlayerOperation mTestOpertation;
+    private PlayerOperation mTestOperation;
     private boolean mIsValidOperation;
 
     @Parameterized.Parameters(name = "{index}: operation={0} state={1} valid={2}")
@@ -759,7 +761,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
 
                 { sPauseOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, false },
                 { sPauseOperation, PLAYER_STATE_IDLE, false },
-                { sPauseOperation, PLAYER_STATE_PREPARED, false },
+                { sPauseOperation, PLAYER_STATE_PREPARED, true },
                 { sPauseOperation, PLAYER_STATE_PAUSED, true },
                 { sPauseOperation, PLAYER_STATE_PLAYING, true },
                 { sPauseOperation, PLAYER_STATE_ERROR, false },
@@ -811,7 +813,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sSetAudioAttributesOperation, PLAYER_STATE_PREPARED, true },
                 { sSetAudioAttributesOperation, PLAYER_STATE_PAUSED, true },
                 { sSetAudioAttributesOperation, PLAYER_STATE_PLAYING, true },
-                { sSetAudioAttributesOperation, PLAYER_STATE_ERROR, true },
+                { sSetAudioAttributesOperation, PLAYER_STATE_ERROR, false },
 
                 { sSetDataSourceOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sSetDataSourceOperation, PLAYER_STATE_IDLE, false },
@@ -839,28 +841,28 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sLoopCurrentOperation, PLAYER_STATE_PREPARED, true },
                 { sLoopCurrentOperation, PLAYER_STATE_PAUSED, true },
                 { sLoopCurrentOperation, PLAYER_STATE_PLAYING, true },
-                { sLoopCurrentOperation, PLAYER_STATE_ERROR, true },
+                { sLoopCurrentOperation, PLAYER_STATE_ERROR, false },
 
                 { sSetPlayerVolumeOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sSetPlayerVolumeOperation, PLAYER_STATE_IDLE, true },
                 { sSetPlayerVolumeOperation, PLAYER_STATE_PREPARED, true },
                 { sSetPlayerVolumeOperation, PLAYER_STATE_PAUSED, true },
                 { sSetPlayerVolumeOperation, PLAYER_STATE_PLAYING, true },
-                { sSetPlayerVolumeOperation, PLAYER_STATE_ERROR, true },
+                { sSetPlayerVolumeOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetPlayerVolumeOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sGetPlayerVolumeOperation, PLAYER_STATE_IDLE, true },
                 { sGetPlayerVolumeOperation, PLAYER_STATE_PREPARED, true },
                 { sGetPlayerVolumeOperation, PLAYER_STATE_PAUSED, true },
                 { sGetPlayerVolumeOperation, PLAYER_STATE_PLAYING, true },
-                { sGetPlayerVolumeOperation, PLAYER_STATE_ERROR, true },
+                { sGetPlayerVolumeOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetMaxPlayerVolumeOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sGetMaxPlayerVolumeOperation, PLAYER_STATE_IDLE, true },
                 { sGetMaxPlayerVolumeOperation, PLAYER_STATE_PREPARED, true },
                 { sGetMaxPlayerVolumeOperation, PLAYER_STATE_PAUSED, true },
                 { sGetMaxPlayerVolumeOperation, PLAYER_STATE_PLAYING, true },
-                { sGetMaxPlayerVolumeOperation, PLAYER_STATE_ERROR, true },
+                { sGetMaxPlayerVolumeOperation, PLAYER_STATE_ERROR, false },
 
                 { sNotifyWhenCommandLabelReachedOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE,
                         true },
@@ -875,7 +877,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sSetSurfaceOperation, PLAYER_STATE_PREPARED, true },
                 { sSetSurfaceOperation, PLAYER_STATE_PAUSED, true },
                 { sSetSurfaceOperation, PLAYER_STATE_PLAYING, true },
-                { sSetSurfaceOperation, PLAYER_STATE_ERROR, true },
+                { sSetSurfaceOperation, PLAYER_STATE_ERROR, false },
 
                 { sClearPendingCommandsOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sClearPendingCommandsOperation, PLAYER_STATE_IDLE, true },
@@ -889,42 +891,42 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sGetVideoWidthOperation, PLAYER_STATE_PREPARED, true },
                 { sGetVideoWidthOperation, PLAYER_STATE_PAUSED, true },
                 { sGetVideoWidthOperation, PLAYER_STATE_PLAYING, true },
-                { sGetVideoWidthOperation, PLAYER_STATE_ERROR, true },
+                { sGetVideoWidthOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetVideoHeightOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sGetVideoHeightOperation, PLAYER_STATE_IDLE, true },
                 { sGetVideoHeightOperation, PLAYER_STATE_PREPARED, true },
                 { sGetVideoHeightOperation, PLAYER_STATE_PAUSED, true },
                 { sGetVideoHeightOperation, PLAYER_STATE_PLAYING, true },
-                { sGetVideoHeightOperation, PLAYER_STATE_ERROR, true },
+                { sGetVideoHeightOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetMetricsOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sGetMetricsOperation, PLAYER_STATE_IDLE, true },
                 { sGetMetricsOperation, PLAYER_STATE_PREPARED, true },
                 { sGetMetricsOperation, PLAYER_STATE_PAUSED, true },
                 { sGetMetricsOperation, PLAYER_STATE_PLAYING, true },
-                { sGetMetricsOperation, PLAYER_STATE_ERROR, true },
+                { sGetMetricsOperation, PLAYER_STATE_ERROR, false },
 
                 { sSetPlaybackParamsOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sSetPlaybackParamsOperation, PLAYER_STATE_IDLE, true },
                 { sSetPlaybackParamsOperation, PLAYER_STATE_PREPARED, true },
                 { sSetPlaybackParamsOperation, PLAYER_STATE_PAUSED, true },
                 { sSetPlaybackParamsOperation, PLAYER_STATE_PLAYING, true },
-                { sSetPlaybackParamsOperation, PLAYER_STATE_ERROR, true },
+                { sSetPlaybackParamsOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetPlaybackParamsOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, false },
                 { sGetPlaybackParamsOperation, PLAYER_STATE_IDLE, true },
                 { sGetPlaybackParamsOperation, PLAYER_STATE_PREPARED, true },
                 { sGetPlaybackParamsOperation, PLAYER_STATE_PAUSED, true },
                 { sGetPlaybackParamsOperation, PLAYER_STATE_PLAYING, true },
-                { sGetPlaybackParamsOperation, PLAYER_STATE_ERROR, true },
+                { sGetPlaybackParamsOperation, PLAYER_STATE_ERROR, false },
 
-                { sGetTimestampOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
-                { sGetTimestampOperation, PLAYER_STATE_IDLE, true },
+                { sGetTimestampOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, false },
+                { sGetTimestampOperation, PLAYER_STATE_IDLE, false },
                 { sGetTimestampOperation, PLAYER_STATE_PREPARED, true },
                 { sGetTimestampOperation, PLAYER_STATE_PAUSED, true },
                 { sGetTimestampOperation, PLAYER_STATE_PLAYING, true },
-                { sGetTimestampOperation, PLAYER_STATE_ERROR, true },
+                { sGetTimestampOperation, PLAYER_STATE_ERROR, false },
 
                 { sResetOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sResetOperation, PLAYER_STATE_IDLE, true },
@@ -938,28 +940,28 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sSetAudioSessionIdOperation, PLAYER_STATE_PREPARED, true },
                 { sSetAudioSessionIdOperation, PLAYER_STATE_PAUSED, true },
                 { sSetAudioSessionIdOperation, PLAYER_STATE_PLAYING, true },
-                { sSetAudioSessionIdOperation, PLAYER_STATE_ERROR, true },
+                { sSetAudioSessionIdOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetAudioSessionIdOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sGetAudioSessionIdOperation, PLAYER_STATE_IDLE, true },
                 { sGetAudioSessionIdOperation, PLAYER_STATE_PREPARED, true },
                 { sGetAudioSessionIdOperation, PLAYER_STATE_PAUSED, true },
                 { sGetAudioSessionIdOperation, PLAYER_STATE_PLAYING, true },
-                { sGetAudioSessionIdOperation, PLAYER_STATE_ERROR, true },
+                { sGetAudioSessionIdOperation, PLAYER_STATE_ERROR, false },
 
                 { sAttachAuxEffectOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sAttachAuxEffectOperation, PLAYER_STATE_IDLE, true },
                 { sAttachAuxEffectOperation, PLAYER_STATE_PREPARED, true },
                 { sAttachAuxEffectOperation, PLAYER_STATE_PAUSED, true },
                 { sAttachAuxEffectOperation, PLAYER_STATE_PLAYING, true },
-                { sAttachAuxEffectOperation, PLAYER_STATE_ERROR, true },
+                { sAttachAuxEffectOperation, PLAYER_STATE_ERROR, false },
 
                 { sSetAuxEffectSendLevelOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sSetAuxEffectSendLevelOperation, PLAYER_STATE_IDLE, true },
                 { sSetAuxEffectSendLevelOperation, PLAYER_STATE_PREPARED, true },
                 { sSetAuxEffectSendLevelOperation, PLAYER_STATE_PAUSED, true },
                 { sSetAuxEffectSendLevelOperation, PLAYER_STATE_PLAYING, true },
-                { sSetAuxEffectSendLevelOperation, PLAYER_STATE_ERROR, true },
+                { sSetAuxEffectSendLevelOperation, PLAYER_STATE_ERROR, false },
 
                 { sGetTrackInfoOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, false },
                 { sGetTrackInfoOperation, PLAYER_STATE_IDLE, true },
@@ -994,20 +996,20 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 { sSetEventCallbackOperation, PLAYER_STATE_PREPARED, true },
                 { sSetEventCallbackOperation, PLAYER_STATE_PAUSED, true },
                 { sSetEventCallbackOperation, PLAYER_STATE_PLAYING, true },
-                { sSetEventCallbackOperation, PLAYER_STATE_ERROR, true },
+                { sSetEventCallbackOperation, PLAYER_STATE_ERROR, false },
 
                 { sClearEventCallbackOperation, MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE, true },
                 { sClearEventCallbackOperation, PLAYER_STATE_IDLE, true },
                 { sClearEventCallbackOperation, PLAYER_STATE_PREPARED, true },
                 { sClearEventCallbackOperation, PLAYER_STATE_PAUSED, true },
                 { sClearEventCallbackOperation, PLAYER_STATE_PLAYING, true },
-                { sClearEventCallbackOperation, PLAYER_STATE_ERROR, true },
+                { sClearEventCallbackOperation, PLAYER_STATE_ERROR, false },
         });
     }
 
     public MediaPlayer2StateTest(
             PlayerOperation operation, int testState, boolean isValid) {
-        mTestOpertation = operation;
+        mTestOperation = operation;
         mTestState = testState;
         mIsValidOperation = isValid;
     }
@@ -1017,7 +1019,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                    MediaPlayer2 mp, MediaItem item, int what, int status) {
                 if (what == MediaPlayer2.CALL_COMPLETED_PAUSE) {
                     onPauseCalled.signal();
                 } else if (what == MediaPlayer2.CALL_COMPLETED_PREPARE) {
@@ -1028,7 +1030,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             }
 
             @Override
-            public void onError(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+            public void onError(MediaPlayer2 mp, MediaItem item, int what, int extra) {
                 mOnErrorCalled.signal();
             }
         };
@@ -1037,7 +1039,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         }
 
         if (mTestState == PLAYER_STATE_ERROR) {
-            MediaDataSource2 invalidDataSource = new MediaDataSource2() {
+            DataSourceCallback invalidDataSource = new DataSourceCallback() {
                 @Override
                 public int readAt(long position, byte[] buffer, int offset, int size)
                         throws IOException {
@@ -1053,8 +1055,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 public void close() throws IOException {}
             };
             mOnErrorCalled.reset();
-            mPlayer.setDataSource(new DataSourceDesc2.Builder()
-                    .setDataSource(invalidDataSource)
+            mPlayer.setMediaItem(new CallbackMediaItem.Builder(invalidDataSource)
                     .build());
             mPlayer.prepare();
             mOnErrorCalled.waitForSignal(1000);
@@ -1069,9 +1070,9 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         if (!checkLoadResource(R.raw.testvideo_with_2_subtitle_tracks)) {
             fail();
         }
-        if (mTestOpertation == sSkipToNextOperation) {
-            DataSourceDesc2 dsd = createDataSourceDesc(R.raw.testvideo);
-            mPlayer.setNextDataSource(dsd);
+        if (mTestOperation == sSkipToNextOperation) {
+            MediaItem item = createDataSourceDesc(R.raw.testvideo);
+            mPlayer.setNextMediaItem(item);
         }
         assertEquals(PLAYER_STATE_IDLE, mPlayer.getState());
         if (mTestState == PLAYER_STATE_IDLE) {
@@ -1079,9 +1080,12 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         }
 
         mPlayer.prepare();
-        mOnPrepareCalled.waitForSignal(1000);
+        // TODO(b/80232248): The first time one of the tests reads from the resource preparation can
+        // take ~ 1.5 seconds to complete with the pre-P implementation. Later calls take ~ 100 ms.
+        // Find out why the first preparation is slow and reduce this timeout back to one second.
+        mOnPrepareCalled.waitForSignal(2000);
         assertEquals(PLAYER_STATE_PREPARED, mPlayer.getState());
-        if (mTestOpertation == sDeselectTrackOperation) {
+        if (mTestOperation == sDeselectTrackOperation) {
             mPlayer.selectTrack(1);
         }
         if (mTestState == PLAYER_STATE_PREPARED) {
@@ -1105,7 +1109,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     }
 
     @Test
-    @MediumTest
+    @LargeTest
     public void testOperation() throws Exception {
         if (!CHECK_INVALID_STATE && !mIsValidOperation) {
             return;
@@ -1118,7 +1122,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         MediaPlayer2.EventCallback ecb = new MediaPlayer2.EventCallback() {
             @Override
             public void onCallCompleted(
-                    MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int status) {
+                    MediaPlayer2 mp, MediaItem item, int what, int status) {
                 callCompletes.add(new Pair<Integer, Integer>(what, status));
                 callCompleteCalled.signal();
             }
@@ -1143,16 +1147,16 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
         callCompletes.clear();
         callCompleteCalled.reset();
         try {
-            mTestOpertation.doOperation(mPlayer);
+            mTestOperation.doOperation(mPlayer);
         } catch (IllegalStateException e) {
-            if (mTestOpertation.getCallCompleteCode() != null || mIsValidOperation) {
+            if (mTestOperation.getCallCompleteCode() != null || mIsValidOperation) {
                 fail();
             }
         }
-        if (mTestOpertation.getCallCompleteCode() != null) {
+        if (mTestOperation.getCallCompleteCode() != null) {
             // asynchronous operation. Need to check call complete notification.
             callCompleteCalled.waitForSignal();
-            assertEquals(mTestOpertation.getCallCompleteCode(), callCompletes.get(0).first);
+            assertEquals(mTestOperation.getCallCompleteCode(), callCompletes.get(0).first);
             if (mIsValidOperation) {
                 assertEquals(CALL_STATUS_NO_ERROR, (int) callCompletes.get(0).second);
             } else {
@@ -1160,6 +1164,13 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
             }
         } else if (!mIsValidOperation) {
             fail();
+        }
+        if (mTestOperation == sCloseOperation) {
+            // The player has already been closed so prevent a second call to close in tearDown.
+            mPlayer = null;
+        } else {
+            // Clear the resource for resource leak checking in tearDown.
+            mPlayer.reset();
         }
     }
 
