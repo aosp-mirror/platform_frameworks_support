@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d21352e_eede6304",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CheckSameVersionLibraryGroupsTask.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-03-06T21:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed17a237_e462c60b",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "6bb107f02580db88019b78c28e26a6a88fc5bf55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2d0ea6_10ade60e",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
         "patchSetId": 5
