@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2a6dc66b_d275148f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-06T01:00:42Z",
+      "side": 1,
+      "message": "\u003e For more context about application\u0027s assets and resources and how to normally access them please refer to {@link https://developer.android.com/guide/topics/resources/providing-resources}.\n\nis this paragraph good, or do you think I should write in more details?",
+      "parentUuid": "1ecb6b05_f366b2ff",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da917968_b3f5393d",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 10
@@ -69,6 +93,30 @@
       "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4c804d_2f2f70c2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-06T01:00:42Z",
+      "side": 1,
+      "message": "This is an internal class not exposed in the public API.\n\nInvoked is not the best word here. I changed the description, are you okay with it?\n\nThe current way to use is to call match() method, if it returns true then it\u0027s called to open the file. Not the best design for an internal class but it came to this shape after a long way of simplification.",
+      "parentUuid": "da917968_b3f5393d",
+      "range": {
+        "startLine": 135,
+        "startChar": 11,
+        "endLine": 135,
+        "endChar": 50
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4f7587cc_12ef3893",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-06T01:00:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a63418d_cf22837d",
+      "range": {
+        "startLine": 402,
+        "startChar": 83,
+        "endLine": 402,
+        "endChar": 86
+      },
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "228e1e04_584297f2",
         "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
         "patchSetId": 10
@@ -109,6 +181,24 @@
       "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57110ed0_6e1553c7",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-06T01:00:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "228e1e04_584297f2",
+      "revId": "a97f15d0eb017efd7317c356d8ed7bfc003d25a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
