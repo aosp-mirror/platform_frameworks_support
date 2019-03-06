@@ -17,32 +17,36 @@
 package androidx.dynamicanimation.animation
 
 /**
- * Creates [FlingAnimation] for object.
+ * Creates [FlingAnimation] for a property that can be accessed via the provided setter and getter.
  *
- * @param property object's property to be animated.
+ * @param setter The function that mutates the property being animated
+ * @param getter The function that returns the value of the property
  * @return [FlingAnimation]
  */
-inline fun <K> K.flingAnimationOf(property: FloatPropertyCompat<K>): FlingAnimation {
-    return FlingAnimation(this, property)
+fun flingAnimationOfProperty(setter: (Float) -> Unit, getter: () -> Float): FlingAnimation {
+    return FlingAnimation(createFloatValueHolder(setter, getter))
 }
 
 /**
- * Creates [SpringAnimation] for object.
+ * Creates [SpringAnimation] for a property that can be accessed via the provided setter and getter.
  * If finalPosition is not [Float.NaN] then create [SpringAnimation] with
  * [SpringForce.mFinalPosition].
  *
- * @param property object's property to be animated.
+ * @param setter The function that mutates the property being animated
+ * @param getter The function that returns the value of the property
  * @param finalPosition [SpringForce.mFinalPosition] Final position of spring.
  * @return [SpringAnimation]
  */
-inline fun <K> K.springAnimationOf(
-    property: FloatPropertyCompat<K>,
+fun springAnimationOfProperty(
+    setter: (Float) -> Unit,
+    getter: () -> Float,
     finalPosition: Float = Float.NaN
 ): SpringAnimation {
+    val valueHolder = createFloatValueHolder(setter, getter)
     return if (finalPosition.isNaN()) {
-        SpringAnimation(this, property)
+        SpringAnimation(valueHolder)
     } else {
-        SpringAnimation(this, property, finalPosition)
+        SpringAnimation(valueHolder, finalPosition)
     }
 }
 
@@ -64,4 +68,16 @@ inline fun SpringAnimation.withSpringForceProperties(
     }
     spring.func()
     return this
+}
+
+private fun createFloatValueHolder(setter: (Float) -> Unit, getter: () -> Float): FloatValueHolder {
+    return object : FloatValueHolder() {
+        override fun getValue(): Float {
+            return getter.invoke()
+        }
+
+        override fun setValue(value: Float) {
+            setter.invoke(value)
+        }
+    }
 }
