@@ -99,14 +99,14 @@ import java.lang.annotation.Target;
  * Note that the {@code @Relation} annotated field cannot be a constructor parameter, it must be
  * public or have a public setter.
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)
 public @interface Relation {
     /**
-     * The entity to fetch the item from. You don't need to set this if the entity matches the
-     * type argument in the return type.
+     * The entity or view to fetch the item from. You don't need to set this if the entity or view
+     * matches the type argument in the return type.
      *
-     * @return The entity to fetch from. By default, inherited from the return type.
+     * @return The entity or view to fetch from. By default, inherited from the return type.
      */
     Class entity() default Object.class;
 

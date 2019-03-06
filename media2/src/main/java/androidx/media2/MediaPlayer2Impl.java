@@ -15,29 +15,23 @@
  */
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.TargetApi;
-import android.graphics.SurfaceTexture;
+import android.annotation.SuppressLint;
 import android.media.AudioAttributes;
 import android.media.DeniedByServerException;
 import android.media.MediaDataSource;
 import android.media.MediaDrm;
 import android.media.MediaFormat;
 import android.media.MediaPlayer;
-import android.media.MediaTimestamp;
-import android.media.PlaybackParams;
 import android.media.ResourceBusyException;
-import android.media.SubtitleData;
-import android.media.SyncParams;
-import android.media.TimedMetaData;
 import android.media.UnsupportedSchemeException;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.PersistableBundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Surface;
@@ -45,13 +39,15 @@ import android.view.Surface;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
+import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.BaseMediaPlayer.BuffState;
-import androidx.media2.BaseMediaPlayer.PlayerEventCallback;
-import androidx.media2.BaseMediaPlayer.PlayerState;
+import androidx.media2.SessionPlayer.BuffState;
+import androidx.media2.SessionPlayer.PlayerState;
+import androidx.media2.common.TrackInfoImpl;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
@@ -63,13 +59,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executor;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * MediaPlayer2 implementation for platform version P (28).
  * @hide
  */
-@TargetApi(Build.VERSION_CODES.P)
-@RestrictTo(LIBRARY_GROUP)
+@RequiresApi(28)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
+@SuppressLint("RestrictedApi")
 public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     private static final String TAG = "MediaPlayer2Impl";
@@ -80,13 +79,16 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     private static final int SOURCE_STATE_PREPARED = 2;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static final android.media.PlaybackParams DEFAULT_PLAYBACK_PARAMS =
+            new android.media.PlaybackParams().allowDefaults();
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sInfoEventMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static ArrayMap<Integer, Integer> sErrorEventMap;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static ArrayMap<Integer, Integer> sPrepareDrmStatusMap;
+    static ArrayMap<Integer, Integer> sErrorEventExtraMap;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static ArrayMap<Integer, Integer> sStateMap;
+    static ArrayMap<Integer, Integer> sTrackTypeMap;
 
     static {
         sInfoEventMap = new ArrayMap<>();
@@ -107,35 +109,32 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 MediaPlayer.MEDIA_INFO_UNSUPPORTED_SUBTITLE, MEDIA_INFO_UNSUPPORTED_SUBTITLE);
         sInfoEventMap.put(MediaPlayer.MEDIA_INFO_SUBTITLE_TIMED_OUT, MEDIA_INFO_SUBTITLE_TIMED_OUT);
 
-        sErrorEventMap = new ArrayMap<>();
-        sErrorEventMap.put(MediaPlayer.MEDIA_ERROR_UNKNOWN, MEDIA_ERROR_UNKNOWN);
-        sErrorEventMap.put(
-                MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK,
-                MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK);
-        sErrorEventMap.put(MediaPlayer.MEDIA_ERROR_IO, MEDIA_ERROR_IO);
-        sErrorEventMap.put(MediaPlayer.MEDIA_ERROR_MALFORMED, MEDIA_ERROR_MALFORMED);
-        sErrorEventMap.put(MediaPlayer.MEDIA_ERROR_UNSUPPORTED, MEDIA_ERROR_UNSUPPORTED);
-        sErrorEventMap.put(MediaPlayer.MEDIA_ERROR_TIMED_OUT, MEDIA_ERROR_TIMED_OUT);
-
-        sPrepareDrmStatusMap = new ArrayMap<>();
-        sPrepareDrmStatusMap.put(
-                MediaPlayer.PREPARE_DRM_STATUS_SUCCESS, PREPARE_DRM_STATUS_SUCCESS);
-        sPrepareDrmStatusMap.put(
-                MediaPlayer.PREPARE_DRM_STATUS_PROVISIONING_NETWORK_ERROR,
-                PREPARE_DRM_STATUS_PROVISIONING_NETWORK_ERROR);
-        sPrepareDrmStatusMap.put(
-                MediaPlayer.PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR,
-                PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR);
-        sPrepareDrmStatusMap.put(
-                MediaPlayer.PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR,
-                PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR);
+        sErrorEventExtraMap = new ArrayMap<>();
+        sErrorEventExtraMap.put(MediaPlayer.MEDIA_ERROR_IO, MEDIA_ERROR_IO);
+        sErrorEventExtraMap.put(MediaPlayer.MEDIA_ERROR_MALFORMED, MEDIA_ERROR_MALFORMED);
+        sErrorEventExtraMap.put(MediaPlayer.MEDIA_ERROR_UNSUPPORTED, MEDIA_ERROR_UNSUPPORTED);
+        sErrorEventExtraMap.put(MediaPlayer.MEDIA_ERROR_TIMED_OUT, MEDIA_ERROR_TIMED_OUT);
 
         sStateMap = new ArrayMap<>();
-        sStateMap.put(PLAYER_STATE_IDLE, BaseMediaPlayer.PLAYER_STATE_IDLE);
-        sStateMap.put(PLAYER_STATE_PREPARED, BaseMediaPlayer.PLAYER_STATE_PAUSED);
-        sStateMap.put(PLAYER_STATE_PAUSED, BaseMediaPlayer.PLAYER_STATE_PAUSED);
-        sStateMap.put(PLAYER_STATE_PLAYING, BaseMediaPlayer.PLAYER_STATE_PLAYING);
-        sStateMap.put(PLAYER_STATE_ERROR, BaseMediaPlayer.PLAYER_STATE_ERROR);
+        sStateMap.put(PLAYER_STATE_IDLE, SessionPlayer.PLAYER_STATE_IDLE);
+        sStateMap.put(PLAYER_STATE_PREPARED, SessionPlayer.PLAYER_STATE_PAUSED);
+        sStateMap.put(PLAYER_STATE_PAUSED, SessionPlayer.PLAYER_STATE_PAUSED);
+        sStateMap.put(PLAYER_STATE_PLAYING, SessionPlayer.PLAYER_STATE_PLAYING);
+        sStateMap.put(PLAYER_STATE_ERROR, SessionPlayer.PLAYER_STATE_ERROR);
+
+        sTrackTypeMap = new ArrayMap<>();
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN,
+                TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN);
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO,
+                TrackInfo.MEDIA_TRACK_TYPE_VIDEO);
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO,
+                TrackInfo.MEDIA_TRACK_TYPE_AUDIO);
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT,
+                TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN);
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE,
+                TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
+        sTrackTypeMap.put(MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_METADATA,
+                TrackInfo.MEDIA_TRACK_TYPE_METADATA);
     }
 
     MediaPlayerSourceQueue mPlayer;
@@ -146,7 +145,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Object mTaskLock = new Object();
     @GuardedBy("mTaskLock")
-    private final ArrayDeque<Task> mPendingTasks = new ArrayDeque<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final ArrayDeque<Task> mPendingTasks = new ArrayDeque<>();
     @GuardedBy("mTaskLock")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     Task mCurrentTask;
@@ -154,11 +154,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     private final Object mLock = new Object();
     //--- guarded by |mLock| start
     private Pair<Executor, EventCallback> mMp2EventCallbackRecord;
-    private ArrayMap<PlayerEventCallback, Executor> mPlayerEventCallbackMap =
-            new ArrayMap<>();
     private Pair<Executor, DrmEventCallback> mDrmEventCallbackRecord;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    BaseMediaPlayerImpl mBaseMediaPlayerImpl;
     //--- guarded by |mLock| end
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -192,17 +188,10 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         mPlayer = new MediaPlayerSourceQueue();
     }
 
-    /**
-     * Returns a {@link BaseMediaPlayer} implementation which runs based on
-     * this MediaPlayer2 instance.
-     */
     @Override
-    public BaseMediaPlayer getBaseMediaPlayer() {
-        synchronized (mLock) {
-            if (mBaseMediaPlayerImpl == null) {
-                mBaseMediaPlayerImpl = new BaseMediaPlayerImpl();
-            }
-            return mBaseMediaPlayerImpl;
+    public boolean cancel(Object token) {
+        synchronized (mTaskLock) {
+            return mPendingTasks.remove(token);
         }
     }
 
@@ -231,6 +220,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
      */
     @Override
     public void close() {
+        clearEventCallback();
+        clearDrmEventCallback();
         mPlayer.release();
         if (mHandlerThread != null) {
             mHandlerThread.quitSafely();
@@ -238,17 +229,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    /**
-     * Starts or resumes playback. If playback had previously been paused,
-     * playback will continue from where it was paused. If playback had
-     * been stopped, or never started before, playback will start at the
-     * beginning.
-     *
-     * @throws IllegalStateException if it is called in an invalid state
-     */
     @Override
-    public void play() {
-        addTask(new Task(CALL_COMPLETED_PLAY, false) {
+    public Object play() {
+        return addTask(new Task(CALL_COMPLETED_PLAY, false) {
             @Override
             void process() {
                 mPlayer.play();
@@ -256,19 +239,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Prepares the player for playback, asynchronously.
-     *
-     * After setting the datasource and the display surface, you need to either
-     * call prepare(). For streams, you should call prepare(),
-     * which returns immediately, rather than blocking until enough data has been
-     * buffered.
-     *
-     * @throws IllegalStateException if it is called in an invalid state
-     */
     @Override
-    public void prepare() {
-        addTask(new Task(CALL_COMPLETED_PREPARE, true) {
+    public Object prepare() {
+        return addTask(new Task(CALL_COMPLETED_PREPARE, true) {
             @Override
             void process() throws IOException {
                 mPlayer.prepareAsync();
@@ -276,14 +249,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Pauses playback. Call play() to resume.
-     *
-     * @throws IllegalStateException if the internal player engine has not been initialized.
-     */
     @Override
-    public void pause() {
-        addTask(new Task(CALL_COMPLETED_PAUSE, false) {
+    public Object pause() {
+        return addTask(new Task(CALL_COMPLETED_PAUSE, false) {
             @Override
             void process() {
                 mPlayer.pause();
@@ -291,14 +259,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Tries to play next data source if applicable.
-     *
-     * @throws IllegalStateException if it is called in an invalid state
-     */
     @Override
-    public void skipToNext() {
-        addTask(new Task(CALL_COMPLETED_SKIP_TO_NEXT, false) {
+    public Object skipToNext() {
+        return addTask(new Task(CALL_COMPLETED_SKIP_TO_NEXT, false) {
             @Override
             void process() {
                 mPlayer.skipToNext();
@@ -306,53 +269,28 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Gets the current playback position.
-     *
-     * @return the current position in milliseconds
-     */
     @Override
     public long getCurrentPosition() {
         return mPlayer.getCurrentPosition();
     }
 
-    /**
-     * Gets the duration of the file.
-     *
-     * @return the duration in milliseconds, if no duration is available
-     * (for example, if streaming live content), -1 is returned.
-     */
     @Override
     public long getDuration() {
         return mPlayer.getDuration();
     }
 
-    /**
-     * Gets the current buffered media source position received through progressive downloading.
-     * The received buffering percentage indicates how much of the content has been buffered
-     * or played. For example a buffering update of 80 percent when half the content
-     * has already been played indicates that the next 30 percent of the
-     * content to play has been buffered.
-     *
-     * @return the current buffered media source position in milliseconds
-     */
     @Override
     public long getBufferedPosition() {
         // Use cached buffered percent for now.
         return mPlayer.getBufferedPosition();
     }
 
-    /**
-     * Gets the current MediaPlayer2 state.
-     *
-     * @return the current MediaPlayer2 state.
-     */
     @Override
     public @MediaPlayer2State int getState() {
         return mPlayer.getMediaPlayer2State();
     }
 
-    @BaseMediaPlayer.PlayerState int getPlayerState() {
+    @SessionPlayer.PlayerState int getPlayerState() {
         return mPlayer.getPlayerState();
     }
 
@@ -361,21 +299,13 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
      * During buffering, see {@link #getBufferedPosition()} for the quantifying the amount already
      * buffered.
      */
-    @BaseMediaPlayer.BuffState int getBufferingState() {
+    @SessionPlayer.BuffState int getBufferingState() {
         return  mPlayer.getBufferingState();
     }
 
-    /**
-     * Sets the audio attributes for this MediaPlayer2.
-     * See {@link AudioAttributes} for how to build and configure an instance of this class.
-     * You must call this method before {@link #prepare()} in order
-     * for the audio attributes to become effective thereafter.
-     * @param attributes a non-null set of audio attributes
-     * @throws IllegalArgumentException if the attributes are null or invalid.
-     */
     @Override
-    public void setAudioAttributes(@NonNull final AudioAttributesCompat attributes) {
-        addTask(new Task(CALL_COMPLETED_SET_AUDIO_ATTRIBUTES, false) {
+    public Object setAudioAttributes(@NonNull final AudioAttributesCompat attributes) {
+        return addTask(new Task(CALL_COMPLETED_SET_AUDIO_ATTRIBUTES, false) {
             @Override
             void process() {
                 mPlayer.setAudioAttributes(attributes);
@@ -388,86 +318,60 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         return mPlayer.getAudioAttributes();
     }
 
-    /**
-     * Sets the data source as described by a DataSourceDesc2.
-     *
-     * @param dsd the descriptor of data source you want to play
-     * @throws IllegalStateException if it is called in an invalid state
-     * @throws NullPointerException if dsd is null
-     */
     @Override
-    public void setDataSource(@NonNull final DataSourceDesc2 dsd) {
-        addTask(new Task(CALL_COMPLETED_SET_DATA_SOURCE, false) {
+    public Object setMediaItem(@NonNull final MediaItem item) {
+        return addTask(new Task(CALL_COMPLETED_SET_DATA_SOURCE, false) {
             @Override
             void process() {
-                Preconditions.checkNotNull(dsd, "the DataSourceDesc2 cannot be null");
-                // TODO: setDataSource could update exist data source
+                Preconditions.checkArgument(item != null, "the MediaItem cannot be null");
+                // TODO: setMediaItem could update exist media item
                 try {
-                    mPlayer.setFirst(dsd);
+                    mPlayer.setFirst(item);
                 } catch (IOException e) {
-                    Log.e(TAG, "process: setDataSource", e);
+                    Log.e(TAG, "process: setMediaItem", e);
                 }
             }
         });
     }
 
-    /**
-     * Sets a single data source as described by a DataSourceDesc2 which will be played
-     * after current data source is finished.
-     *
-     * @param dsd the descriptor of data source you want to play after current one
-     * @throws IllegalStateException if it is called in an invalid state
-     * @throws NullPointerException if dsd is null
-     */
     @Override
-    public void setNextDataSource(@NonNull final DataSourceDesc2 dsd) {
-        addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCE, false) {
+    public Object setNextMediaItem(@NonNull final MediaItem item) {
+        return addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCE, false) {
             @Override
             void process() {
-                Preconditions.checkNotNull(dsd, "the DataSourceDesc2 cannot be null");
-                handleDataSourceError(mPlayer.setNext(dsd));
+                Preconditions.checkArgument(item != null, "the MediaItem cannot be null");
+                handleDataSourceError(mPlayer.setNext(item));
             }
         });
     }
 
-    /**
-     * Sets a list of data sources to be played sequentially after current data source is done.
-     *
-     * @param dsds the list of data sources you want to play after current one
-     * @throws IllegalStateException if it is called in an invalid state
-     * @throws IllegalArgumentException if dsds is null or empty, or contains null DataSourceDesc2
-     */
     @Override
-    public void setNextDataSources(@NonNull final List<DataSourceDesc2> dsds) {
-        addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCES, false) {
+    public Object setNextMediaItems(@NonNull final List<MediaItem> items) {
+        return addTask(new Task(CALL_COMPLETED_SET_NEXT_DATA_SOURCES, false) {
             @Override
             void process() {
-                if (dsds == null || dsds.size() == 0) {
-                    throw new IllegalArgumentException("data source list cannot be null or empty.");
+                if (items == null || items.size() == 0) {
+                    throw new IllegalArgumentException("media item list cannot be null or empty.");
                 }
-                for (DataSourceDesc2 dsd : dsds) {
-                    if (dsd == null) {
+                for (MediaItem item : items) {
+                    if (item == null) {
                         throw new IllegalArgumentException(
-                                "DataSourceDesc2 in the source list cannot be null.");
+                                "MediaItem in the source list cannot be null.");
                     }
                 }
-                handleDataSourceError(mPlayer.setNextMultiple(dsds));
+                handleDataSourceError(mPlayer.setNextMultiple(items));
             }
         });
     }
 
-    @Override public @NonNull
-    DataSourceDesc2 getCurrentDataSource() {
+    @Override
+    public @Nullable MediaItem getCurrentMediaItem() {
         return mPlayer.getFirst().getDSD();
     }
 
-    /**
-     * Configures the player to loop on the current data source.
-     * @param loop true if the current data source is meant to loop.
-     */
     @Override
-    public void loopCurrent(final boolean loop) {
-        addTask(new Task(CALL_COMPLETED_LOOP_CURRENT, false) {
+    public Object loopCurrent(final boolean loop) {
+        return addTask(new Task(CALL_COMPLETED_LOOP_CURRENT, false) {
             @Override
             void process() {
                 mPlayer.setLooping(loop);
@@ -475,18 +379,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Sets the volume of the audio of the media to play, expressed as a linear multiplier
-     * on the audio samples.
-     * Note that this volume is specific to the player, and is separate from stream volume
-     * used across the platform.<br>
-     * A value of 0.0f indicates muting, a value of 1.0f is the nominal unattenuated and unamplified
-     * gain. See {@link #getMaxPlayerVolume()} for the volume range supported by this player.
-     * @param volume a value between 0.0f and {@link #getMaxPlayerVolume()}.
-     */
     @Override
-    public void setPlayerVolume(final float volume) {
-        addTask(new Task(CALL_COMPLETED_SET_PLAYER_VOLUME, false) {
+    public Object setPlayerVolume(final float volume) {
+        return addTask(new Task(CALL_COMPLETED_SET_PLAYER_VOLUME, false) {
             @Override
             void process() {
                 mPlayer.setVolume(volume);
@@ -494,61 +389,19 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Returns the current volume of this player to this player.
-     * Note that it does not take into account the associated stream volume.
-     * @return the player volume.
-     */
     @Override
     public float getPlayerVolume() {
         return mPlayer.getVolume();
     }
 
-    /**
-     * @return the maximum volume that can be used in {@link #setPlayerVolume(float)}.
-     */
     @Override
     public float getMaxPlayerVolume() {
         return 1.0f;
     }
 
-    /**
-     * Adds a callback to be notified of events for this player.
-     * @param e the {@link Executor} to be used for the events.
-     * @param cb the callback to receive the events.
-     */
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void registerPlayerEventCallback(@NonNull Executor e,
-            @NonNull PlayerEventCallback cb) {
-        if (cb == null) {
-            throw new IllegalArgumentException("Illegal null PlayerEventCallback");
-        }
-        if (e == null) {
-            throw new IllegalArgumentException(
-                    "Illegal null Executor for the PlayerEventCallback");
-        }
-        synchronized (mLock) {
-            mPlayerEventCallbackMap.put(cb, e);
-        }
-    }
-
-    /**
-     * Removes a previously registered callback for player events
-     * @param cb the callback to remove
-     */
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void unregisterPlayerEventCallback(@NonNull PlayerEventCallback cb) {
-        if (cb == null) {
-            throw new IllegalArgumentException("Illegal null PlayerEventCallback");
-        }
-        synchronized (mLock) {
-            mPlayerEventCallbackMap.remove(cb);
-        }
-    }
-
     @Override
-    public void notifyWhenCommandLabelReached(final Object label) {
-        addTask(new Task(CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED, false) {
+    public Object notifyWhenCommandLabelReached(final Object label) {
+        return addTask(new Task(CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED, false) {
             @Override
             void process() {
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
@@ -561,28 +414,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Sets the {@link Surface} to be used as the sink for the video portion of
-     * the media. Setting a Surface will un-set any Surface or SurfaceHolder that
-     * was previously set. A null surface will result in only the audio track
-     * being played.
-     *
-     * If the Surface sends frames to a {@link SurfaceTexture}, the timestamps
-     * returned from {@link SurfaceTexture#getTimestamp()} will have an
-     * unspecified zero point.  These timestamps cannot be directly compared
-     * between different media sources, different instances of the same media
-     * source, or multiple runs of the same program.  The timestamp is normally
-     * monotonically increasing and is unaffected by time-of-day adjustments,
-     * but it is reset when the position is set.
-     *
-     * @param surface The {@link Surface} to be used for the video portion of
-     * the media.
-     * @throws IllegalStateException if the internal player engine has not been
-     * initialized or has been released.
-     */
     @Override
-    public void setSurface(final Surface surface) {
-        addTask(new Task(CALL_COMPLETED_SET_SURFACE, false) {
+    public Object setSurface(final Surface surface) {
+        return addTask(new Task(CALL_COMPLETED_SET_SURFACE, false) {
             @Override
             void process() {
                 mPlayer.setSurface(surface);
@@ -590,9 +424,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Discards all pending commands.
-     */
     @Override
     public void clearPendingCommands() {
         synchronized (mTaskLock) {
@@ -600,18 +431,12 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    private void addTask(Task task) {
+    private Object addTask(Task task) {
         synchronized (mTaskLock) {
-            if (task.mMediaCallType == MediaPlayer2.CALL_COMPLETED_SEEK_TO) {
-                Task previous = mPendingTasks.peekLast();
-                if (previous != null && previous.mMediaCallType == task.mMediaCallType) {
-                    // Skip the unnecessary previous seek command.
-                    previous.mSkip = true;
-                }
-            }
             mPendingTasks.add(task);
             processPendingTask_l();
         }
+        return task;
     }
 
     @GuardedBy("mTaskLock")
@@ -630,77 +455,56 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     static void handleDataSource(MediaPlayerSource src)
             throws IOException {
-        final DataSourceDesc2 dsd = src.getDSD();
-        Preconditions.checkNotNull(dsd, "the DataSourceDesc2 cannot be null");
+        final MediaItem item = src.getDSD();
+        Preconditions.checkArgument(item != null, "the MediaItem cannot be null");
 
         MediaPlayer player = src.getPlayer();
-        switch (dsd.getType()) {
-            case DataSourceDesc2.TYPE_CALLBACK:
-                player.setDataSource(new MediaDataSource() {
-                    MediaDataSource2 mDataSource = dsd.getMediaDataSource2();
-                    @Override
-                    public int readAt(long position, byte[] buffer, int offset, int size)
-                            throws IOException {
-                        return mDataSource.readAt(position, buffer, offset, size);
-                    }
+        if (item instanceof CallbackMediaItem) {
+            player.setDataSource(new MediaDataSource() {
+                DataSourceCallback mDataSource =
+                        ((CallbackMediaItem) item).getDataSourceCallback();
 
-                    @Override
-                    public long getSize() throws IOException {
-                        return mDataSource.getSize();
-                    }
+                @Override
+                public int readAt(long position, byte[] buffer, int offset, int size)
+                        throws IOException {
+                    return mDataSource.readAt(position, buffer, offset, size);
+                }
 
-                    @Override
-                    public void close() throws IOException {
-                        mDataSource.close();
-                    }
-                });
-                break;
+                @Override
+                public long getSize() throws IOException {
+                    return mDataSource.getSize();
+                }
 
-            case DataSourceDesc2.TYPE_FD:
-                player.setDataSource(
-                        dsd.getFileDescriptor(),
-                        dsd.getFileDescriptorOffset(),
-                        dsd.getFileDescriptorLength());
-                break;
-
-            case DataSourceDesc2.TYPE_URI:
-                player.setDataSource(
-                        dsd.getUriContext(),
-                        dsd.getUri(),
-                        dsd.getUriHeaders(),
-                        dsd.getUriCookies());
-                break;
-
-            default:
-                break;
+                @Override
+                public void close() throws IOException {
+                    mDataSource.close();
+                }
+            });
+        } else if (item instanceof FileMediaItem) {
+            FileMediaItem fitem = (FileMediaItem) item;
+            player.setDataSource(
+                    fitem.getParcelFileDescriptor().getFileDescriptor(),
+                    fitem.getFileDescriptorOffset(),
+                    fitem.getFileDescriptorLength());
+            fitem.decreaseRefCount();
+        } else if (item instanceof UriMediaItem) {
+            UriMediaItem uitem = (UriMediaItem) item;
+            player.setDataSource(
+                    uitem.getUriContext(),
+                    uitem.getUri(),
+                    uitem.getUriHeaders(),
+                    uitem.getUriCookies());
+        } else {
+            throw new IllegalArgumentException(
+                    "Unsupported media item description. " + item.toString());
         }
     }
 
-    /**
-     * Returns the width of the video.
-     *
-     * @return the width of the video, or 0 if there is no video,
-     * no display surface was set, or the width has not been determined
-     * yet. The {@code MediaPlayer2EventCallback} can be registered via
-     * {@link #setEventCallback(Executor, EventCallback)} to provide a
-     * notification {@code MediaPlayer2EventCallback.onVideoSizeChanged} when the width
-     * is available.
-     */
     @Override
     public int getVideoWidth() {
         return mPlayer.getVideoWidth();
     }
 
-    /**
-     * Returns the height of the video.
-     *
-     * @return the height of the video, or 0 if there is no video,
-     * no display surface was set, or the height has not been determined
-     * yet. The {@code MediaPlayer2EventCallback} can be registered via
-     * {@link #setEventCallback(Executor, EventCallback)} to provide a
-     * notification {@code MediaPlayer2EventCallback.onVideoSizeChanged} when the height
-     * is available.
-     */
     @Override
     public int getVideoHeight() {
         return mPlayer.getVideoHeight();
@@ -711,76 +515,25 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         return mPlayer.getMetrics();
     }
 
-    /**
-     * Sets playback rate using {@link PlaybackParams2}. The object sets its internal
-     * PlaybackParams2 to the input, except that the object remembers previous speed
-     * when input speed is zero. This allows the object to resume at previous speed
-     * when play() is called. Calling it before the object is prepared does not change
-     * the object state. After the object is prepared, calling it with zero speed is
-     * equivalent to calling pause(). After the object is prepared, calling it with
-     * non-zero speed is equivalent to calling play().
-     *
-     * @param params the playback params.
-     * @throws IllegalStateException if the internal player engine has not been
-     * initialized or has been released.
-     * @throws IllegalArgumentException if params is not supported.
-     */
     @Override
-    public void setPlaybackParams(@NonNull final PlaybackParams2 params) {
-        addTask(new Task(CALL_COMPLETED_SET_PLAYBACK_PARAMS, false) {
+    public Object setPlaybackParams(@NonNull final PlaybackParams params) {
+        return addTask(new Task(CALL_COMPLETED_SET_PLAYBACK_PARAMS, false) {
             @Override
             void process() {
-                setPlaybackParamsInternal(params.getPlaybackParams());
+                mPlayer.setPlaybackParams(params.getPlaybackParams());
             }
         });
     }
 
-    /**
-     * Gets the playback params, containing the current playback rate.
-     *
-     * @return the playback params.
-     * @throws IllegalStateException if the internal player engine has not been
-     * initialized.
-     */
     @Override
     @NonNull
-    public PlaybackParams2 getPlaybackParams() {
-        return new PlaybackParams2.Builder(mPlayer.getPlaybackParams()).build();
+    public PlaybackParams getPlaybackParams() {
+        return new PlaybackParams.Builder(mPlayer.getPlaybackParams()).build();
     }
 
-    /**
-     * Moves the media to specified time position by considering the given mode.
-     * <p>
-     * When seekTo is finished, the user will be notified via OnSeekComplete supplied by the user.
-     * There is at most one active seekTo processed at any time. If there is a to-be-completed
-     * seekTo, new seekTo requests will be queued in such a way that only the last request
-     * is kept. When current seekTo is completed, the queued request will be processed if
-     * that request is different from just-finished seekTo operation, i.e., the requested
-     * position or mode is different.
-     *
-     * @param msec the offset in milliseconds from the start to seek to.
-     * When seeking to the given time position, there is no guarantee that the data source
-     * has a frame located at the position. When this happens, a frame nearby will be rendered.
-     * If msec is negative, time position zero will be used.
-     * If msec is larger than duration, duration will be used.
-     * @param mode the mode indicating where exactly to seek to.
-     * Use {@link #SEEK_PREVIOUS_SYNC} if one wants to seek to a sync frame
-     * that has a timestamp earlier than or the same as msec. Use
-     * {@link #SEEK_NEXT_SYNC} if one wants to seek to a sync frame
-     * that has a timestamp later than or the same as msec. Use
-     * {@link #SEEK_CLOSEST_SYNC} if one wants to seek to a sync frame
-     * that has a timestamp closest to or the same as msec. Use
-     * {@link #SEEK_CLOSEST} if one wants to seek to a frame that may
-     * or may not be a sync frame but is closest to or the same as msec.
-     * {@link #SEEK_CLOSEST} often has larger performance overhead compared
-     * to the other options if there is no sync frame located at msec.
-     * @throws IllegalStateException if the internal player engine has not been
-     * initialized
-     * @throws IllegalArgumentException if the mode is invalid.
-     */
     @Override
-    public void seekTo(final long msec, @SeekMode final int mode) {
-        addTask(new Task(CALL_COMPLETED_SEEK_TO, true) {
+    public Object seekTo(final long msec, @SeekMode final int mode) {
+        return addTask(new Task(CALL_COMPLETED_SEEK_TO, true) {
             @Override
             void process() {
                 mPlayer.seekTo(msec, mode);
@@ -788,59 +541,44 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Get current playback position as a {@link MediaTimestamp2}.
-     * <p>
-     * The MediaTimestamp2 represents how the media time correlates to the system time in
-     * a linear fashion using an anchor and a clock rate. During regular playback, the media
-     * time moves fairly constantly (though the anchor frame may be rebased to a current
-     * system time, the linear correlation stays steady). Therefore, this method does not
-     * need to be called often.
-     * <p>
-     * To help users get current playback position, this method always anchors the timestamp
-     * to the current {@link System#nanoTime system time}, so
-     * {@link MediaTimestamp2#getAnchorMediaTimeUs} can be used as current playback position.
-     *
-     * @return a MediaTimestamp2 object if a timestamp is available, or {@code null} if no timestamp
-     * is available, e.g. because the media player has not been initialized.
-     * @see MediaTimestamp2
-     */
     @Override
     @Nullable
-    public MediaTimestamp2 getTimestamp() {
+    public MediaTimestamp getTimestamp() {
         return mPlayer.getTimestamp();
     }
 
     /**
      * Resets the MediaPlayer2 to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
-     * data source and calling prepare().
+     * media item and calling prepare().
      */
     @Override
     public void reset() {
+        clearPendingCommands();
+
+        // Make sure that the current task finishes.
+        Task currentTask;
+        synchronized (mTaskLock) {
+            currentTask = mCurrentTask;
+        }
+        if (currentTask != null) {
+            synchronized (currentTask) {
+                try {
+                    while (!currentTask.mDone) {
+                        currentTask.wait();
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+        mEndPositionHandler.removeCallbacksAndMessages(null);
+        mTaskHandler.removeCallbacksAndMessages(null);
         mPlayer.reset();
     }
 
-    /**
-     * Sets the audio session ID.
-     *
-     * @param sessionId the audio session ID.
-     * The audio session ID is a system wide unique identifier for the audio stream played by
-     * this MediaPlayer2 instance.
-     * The primary use of the audio session ID  is to associate audio effects to a particular
-     * instance of MediaPlayer2: if an audio session ID is provided when creating an audio effect,
-     * this effect will be applied only to the audio content of media players within the same
-     * audio session and not to the output mix.
-     * When created, a MediaPlayer2 instance automatically generates its own audio session ID.
-     * However, it is possible to force this player to be part of an already existing audio session
-     * by calling this method.
-     * This method must be called before one of the overloaded <code> setDataSource </code> methods.
-     * @throws IllegalStateException if it is called in an invalid state
-     * @throws IllegalArgumentException if the sessionId is invalid.
-     */
     @Override
-    public void setAudioSessionId(final int sessionId) {
-        addTask(new Task(CALL_COMPLETED_SET_AUDIO_SESSION_ID, false) {
+    public Object setAudioSessionId(final int sessionId) {
+        return addTask(new Task(CALL_COMPLETED_SET_AUDIO_SESSION_ID, false) {
             @Override
             void process() {
                 mPlayer.setAudioSessionId(sessionId);
@@ -853,23 +591,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         return mPlayer.getAudioSessionId();
     }
 
-    /**
-     * Attaches an auxiliary effect to the player. A typical auxiliary effect is a reverberation
-     * effect which can be applied on any sound source that directs a certain amount of its
-     * energy to this effect. This amount is defined by setAuxEffectSendLevel().
-     * See {@link #setAuxEffectSendLevel(float)}.
-     * <p>After creating an auxiliary effect (e.g.
-     * {@link android.media.audiofx.EnvironmentalReverb}), retrieve its ID with
-     * {@link android.media.audiofx.AudioEffect#getId()} and use it when calling this method
-     * to attach the player to the effect.
-     * <p>To detach the effect from the player, call this method with a null effect id.
-     * <p>This method must be called after one of the overloaded <code> setDataSource </code>
-     * methods.
-     * @param effectId system wide unique id of the effect to attach
-     */
     @Override
-    public void attachAuxEffect(final int effectId) {
-        addTask(new Task(CALL_COMPLETED_ATTACH_AUX_EFFECT, false) {
+    public Object attachAuxEffect(final int effectId) {
+        return addTask(new Task(CALL_COMPLETED_ATTACH_AUX_EFFECT, false) {
             @Override
             void process() {
                 mPlayer.attachAuxEffect(effectId);
@@ -877,21 +601,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Sets the send level of the player to the attached auxiliary effect.
-     * See {@link #attachAuxEffect(int)}. The level value range is 0 to 1.0.
-     * <p>By default the send level is 0, so even if an effect is attached to the player
-     * this method must be called for the effect to be applied.
-     * <p>Note that the passed level value is a raw scalar. UI controls should be scaled
-     * logarithmically: the gain applied by audio framework ranges from -72dB to 0dB,
-     * so an appropriate conversion from linear UI input x to level is:
-     * x == 0 -> level = 0
-     * 0 < x <= R -> level = 10^(72*(x-R)/20/R)
-     * @param level send level scalar
-     */
     @Override
-    public void setAuxEffectSendLevel(final float level) {
-        addTask(new Task(CALL_COMPLETED_SET_AUX_EFFECT_SEND_LEVEL, false) {
+    public Object setAuxEffectSendLevel(final float level) {
+        return addTask(new Task(CALL_COMPLETED_SET_AUX_EFFECT_SEND_LEVEL, false) {
             @Override
             void process() {
                 mPlayer.setAuxEffectSendLevel(level);
@@ -899,153 +611,31 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Class for MediaPlayer2 to return each audio/video/subtitle track's metadata.
-     *
-     * @see MediaPlayer2#getTrackInfo
-     */
-    public static final class TrackInfoImpl extends TrackInfo {
-        final int mTrackType;
-        final MediaFormat mFormat;
-
-        /**
-         * Gets the track type.
-         * @return TrackType which indicates if the track is video, audio, timed text.
-         */
-        @Override
-        public int getTrackType() {
-            return mTrackType;
-        }
-
-        /**
-         * Gets the language code of the track.
-         * @return a language code in either way of ISO-639-1 or ISO-639-2.
-         * When the language is unknown or could not be determined,
-         * ISO-639-2 language code, "und", is returned.
-         */
-        @Override
-        public String getLanguage() {
-            String language = mFormat.getString(MediaFormat.KEY_LANGUAGE);
-            return language == null ? "und" : language;
-        }
-
-        /**
-         * Gets the {@link MediaFormat} of the track.  If the format is
-         * unknown or could not be determined, null is returned.
-         */
-        @Override
-        public MediaFormat getFormat() {
-            if (mTrackType == MEDIA_TRACK_TYPE_TIMEDTEXT
-                    || mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
-                return mFormat;
-            }
-            return null;
-        }
-
-        TrackInfoImpl(int type, MediaFormat format) {
-            mTrackType = type;
-            mFormat = format;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder out = new StringBuilder(128);
-            out.append(getClass().getName());
-            out.append('{');
-            switch (mTrackType) {
-                case MEDIA_TRACK_TYPE_VIDEO:
-                    out.append("VIDEO");
-                    break;
-                case MEDIA_TRACK_TYPE_AUDIO:
-                    out.append("AUDIO");
-                    break;
-                case MEDIA_TRACK_TYPE_TIMEDTEXT:
-                    out.append("TIMEDTEXT");
-                    break;
-                case MEDIA_TRACK_TYPE_SUBTITLE:
-                    out.append("SUBTITLE");
-                    break;
-                default:
-                    out.append("UNKNOWN");
-                    break;
-            }
-            out.append(", " + mFormat.toString());
-            out.append("}");
-            return out.toString();
-        }
-    };
-
-    /**
-     * Returns a List of track information.
-     *
-     * @return List of track info. The total number of tracks is the array length.
-     * Must be called again if an external timed text source has been added after
-     * addTimedTextSource method is called.
-     * @throws IllegalStateException if it is called in an invalid state.
-     */
     @Override
     public List<TrackInfo> getTrackInfo() {
         MediaPlayer.TrackInfo[] list = mPlayer.getTrackInfo();
         List<TrackInfo> trackList = new ArrayList<>();
         for (MediaPlayer.TrackInfo info : list) {
-            trackList.add(new TrackInfoImpl(info.getTrackType(), info.getFormat()));
+            int trackType = sTrackTypeMap.get(info.getTrackType());
+            MediaFormat format = info.getFormat();
+            if (format != null && TextUtils.equals(
+                    format.getString(MediaFormat.KEY_MIME), MediaFormat.MIMETYPE_TEXT_VTT)) {
+                // Hide WebVTT track. For background, see b/120081663.
+                trackType = TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN;
+            }
+            trackList.add(new TrackInfoImpl(trackType, format));
         }
         return trackList;
     }
 
-    /**
-     * Returns the index of the audio, video, or subtitle track currently selected for playback,
-     * The return value is an index into the array returned by {@link #getTrackInfo()}, and can
-     * be used in calls to {@link #selectTrack(int)} or {@link #deselectTrack(int)}.
-     *
-     * @param trackType should be one of {@link TrackInfo#MEDIA_TRACK_TYPE_VIDEO},
-     * {@link TrackInfo#MEDIA_TRACK_TYPE_AUDIO}, or
-     * {@link TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE}
-     * @return index of the audio, video, or subtitle track currently selected for playback;
-     * a negative integer is returned when there is no selected track for {@code trackType} or
-     * when {@code trackType} is not one of audio, video, or subtitle.
-     * @throws IllegalStateException if called after {@link #close()}
-     *
-     * @see #getTrackInfo()
-     * @see #selectTrack(int)
-     * @see #deselectTrack(int)
-     */
     @Override
     public int getSelectedTrack(int trackType) {
         return mPlayer.getSelectedTrack(trackType);
     }
 
-    /**
-     * Selects a track.
-     * <p>
-     * If a MediaPlayer2 is in invalid state, it throws an IllegalStateException exception.
-     * If a MediaPlayer2 is in <em>Started</em> state, the selected track is presented immediately.
-     * If a MediaPlayer2 is not in Started state, it just marks the track to be played.
-     * </p>
-     * <p>
-     * In any valid state, if it is called multiple times on the same type of track (ie. Video,
-     * Audio, Timed Text), the most recent one will be chosen.
-     * </p>
-     * <p>
-     * The first audio and video tracks are selected by default if available, even though
-     * this method is not called. However, no timed text track will be selected until
-     * this function is called.
-     * </p>
-     * <p>
-     * Currently, only timed text tracks or audio tracks can be selected via this method.
-     * In addition, the support for selecting an audio track at runtime is pretty limited
-     * in that an audio track can only be selected in the <em>Prepared</em> state.
-     * </p>
-     *
-     * @param index the index of the track to be selected. The valid range of the index
-     * is 0..total number of track - 1. The total number of tracks as well as the type of
-     * each individual track can be found by calling {@link #getTrackInfo()} method.
-     * @throws IllegalStateException if called in an invalid state.
-     * @see MediaPlayer2#getTrackInfo
-     */
     @Override
-    public void selectTrack(final int index) {
-        addTask(new Task(CALL_COMPLETED_SELECT_TRACK, false) {
+    public Object selectTrack(final int index) {
+        return addTask(new Task(CALL_COMPLETED_SELECT_TRACK, false) {
             @Override
             void process() {
                 mPlayer.selectTrack(index);
@@ -1053,23 +643,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Deselect a track.
-     * <p>
-     * Currently, the track must be a timed text track and no audio or video tracks can be
-     * deselected. If the timed text track identified by index has not been
-     * selected before, it throws an exception.
-     * </p>
-     *
-     * @param index the index of the track to be deselected. The valid range of the index
-     * is 0..total number of tracks - 1. The total number of tracks as well as the type of
-     * each individual track can be found by calling {@link #getTrackInfo()} method.
-     * @throws IllegalStateException if called in an invalid state.
-     * @see MediaPlayer2#getTrackInfo
-     */
     @Override
-    public void deselectTrack(final int index) {
-        addTask(new Task(CALL_COMPLETED_DESELECT_TRACK, false) {
+    public Object deselectTrack(final int index) {
+        return addTask(new Task(CALL_COMPLETED_DESELECT_TRACK, false) {
             @Override
             void process() {
                 mPlayer.deselectTrack(index);
@@ -1077,13 +653,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
     }
 
-    /**
-     * Register a callback to be invoked when the media source is ready
-     * for playback.
-     *
-     * @param eventCallback the callback that will be run
-     * @param executor the executor through which the callback should be invoked
-     */
     @Override
     public void setEventCallback(@NonNull Executor executor,
             @NonNull EventCallback eventCallback) {
@@ -1099,9 +668,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    /**
-     * Clears the {@link EventCallback}.
-     */
     @Override
     public void clearEventCallback() {
         synchronized (mLock) {
@@ -1111,33 +677,18 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     // Modular DRM begin
 
-    /**
-     * Register a callback to be invoked for configuration of the DRM object before
-     * the session is created.
-     * The callback will be invoked synchronously during the execution
-     * of {@link #prepareDrm(UUID uuid)}.
-     *
-     * @param listener the callback that will be run
-     */
     @Override
     public void setOnDrmConfigHelper(final OnDrmConfigHelper listener) {
         mPlayer.setOnDrmConfigHelper(new MediaPlayer.OnDrmConfigHelper() {
             @Override
             public void onDrmConfig(MediaPlayer mp) {
                 MediaPlayerSource src = mPlayer.getSourceForPlayer(mp);
-                DataSourceDesc2 dsd = src == null ? null : src.getDSD();
-                listener.onDrmConfig(MediaPlayer2Impl.this, dsd);
+                MediaItem item = src == null ? null : src.getDSD();
+                listener.onDrmConfig(MediaPlayer2Impl.this, item);
             }
         });
     }
 
-    /**
-     * Register a callback to be invoked when the media source is ready
-     * for playback.
-     *
-     * @param eventCallback the callback that will be run
-     * @param executor the executor through which the callback should be invoked
-     */
     @Override
     public void setDrmEventCallback(@NonNull Executor executor,
                                     @NonNull DrmEventCallback eventCallback) {
@@ -1153,9 +704,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
     }
 
-    /**
-     * Clears the {@link DrmEventCallback}.
-     */
     @Override
     public void clearDrmEventCallback() {
         synchronized (mLock) {
@@ -1164,11 +712,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * Retrieves the DRM Info associated with the current source
-     *
-     * @throws IllegalStateException if called before prepare()
-     */
     @Override
     public DrmInfo getDrmInfo() {
         MediaPlayer.DrmInfo info = mPlayer.getDrmInfo();
@@ -1176,63 +719,36 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * Prepares the DRM for the current source
-     * <p>
-     * If {@code OnDrmConfigHelper} is registered, it will be called during
-     * preparation to allow configuration of the DRM properties before opening the
-     * DRM session. Note that the callback is called synchronously in the thread that called
-     * {@code prepareDrm}. It should be used only for a series of {@code getDrmPropertyString}
-     * and {@code setDrmPropertyString} calls and refrain from any lengthy operation.
-     * <p>
-     * If the device has not been provisioned before, this call also provisions the device
-     * which involves accessing the provisioning server and can take a variable time to
-     * complete depending on the network connectivity.
-     * If {@code OnDrmPreparedListener} is registered, prepareDrm() runs in non-blocking
-     * mode by launching the provisioning in the background and returning. The listener
-     * will be called when provisioning and preparation has finished. If a
-     * {@code OnDrmPreparedListener} is not registered, prepareDrm() waits till provisioning
-     * and preparation has finished, i.e., runs in blocking mode.
-     * <p>
-     * If {@code OnDrmPreparedListener} is registered, it is called to indicate the DRM
-     * session being ready. The application should not make any assumption about its call
-     * sequence (e.g., before or after prepareDrm returns), or the thread context that will
-     * execute the listener (unless the listener is registered with a handler thread).
-     * <p>
-     *
-     * @param uuid The UUID of the crypto scheme. If not known beforehand, it can be retrieved
-     * from the source through {@code getDrmInfo} or registering a {@code onDrmInfoListener}.
-     * @throws IllegalStateException             if called before prepare(), or the DRM was
-     *                                           prepared already
-     * @throws UnsupportedSchemeException        if the crypto scheme is not supported
-     * @throws ResourceBusyException             if required DRM resources are in use
-     * @throws ProvisioningNetworkErrorException if provisioning is required but failed due to a
-     *                                           network error
-     * @throws ProvisioningServerErrorException  if provisioning is required but failed due to
-     *                                           the request denied by the provisioning server
-     */
     @Override
-    public void prepareDrm(@NonNull UUID uuid)
-            throws UnsupportedSchemeException, ResourceBusyException,
-            ProvisioningNetworkErrorException, ProvisioningServerErrorException {
-        try {
-            mPlayer.prepareDrm(uuid);
-        } catch (MediaPlayer.ProvisioningNetworkErrorException e) {
-            throw new ProvisioningNetworkErrorException(e.getMessage());
-        } catch (MediaPlayer.ProvisioningServerErrorException e) {
-            throw new ProvisioningServerErrorException(e.getMessage());
-        }
+    public Object prepareDrm(@NonNull final UUID uuid) {
+        return addTask(new Task(CALL_COMPLETED_PREPARE_DRM, false) {
+            @Override
+            void process() {
+                int status = PREPARE_DRM_STATUS_SUCCESS;
+                try {
+                    mPlayer.prepareDrm(uuid);
+                } catch (ResourceBusyException e) {
+                    status = PREPARE_DRM_STATUS_RESOURCE_BUSY;
+                } catch (MediaPlayer.ProvisioningServerErrorException e) {
+                    status = PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR;
+                } catch (MediaPlayer.ProvisioningNetworkErrorException e) {
+                    status = PREPARE_DRM_STATUS_PROVISIONING_NETWORK_ERROR;
+                } catch (UnsupportedSchemeException e) {
+                    status = PREPARE_DRM_STATUS_UNSUPPORTED_SCHEME;
+                } catch (Exception e) {
+                    status = PREPARE_DRM_STATUS_PREPARATION_ERROR;
+                }
+                final int prepareDrmStatus = status;
+                notifyDrmEvent(new DrmEventNotifier() {
+                    @Override
+                    public void notify(DrmEventCallback cb) {
+                        cb.onDrmPrepared(MediaPlayer2Impl.this, mDSD, prepareDrmStatus);
+                    }
+                });
+            }
+        });
     }
 
-    /**
-     * Releases the DRM session
-     * <p>
-     * The player has to have an active DRM session and be in stopped, or prepared
-     * state before this call is made.
-     * A {@code reset()} call will release the DRM session implicitly.
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session to release
-     */
     @Override
     public void releaseDrm() throws NoDrmSchemeException {
         try {
@@ -1243,43 +759,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * A key request/response exchange occurs between the app and a license server
-     * to obtain or release keys used to decrypt encrypted content.
-     * <p>
-     * getDrmKeyRequest() is used to obtain an opaque key request byte array that is
-     * delivered to the license server.  The opaque key request byte array is returned
-     * in KeyRequest.data.  The recommended URL to deliver the key request to is
-     * returned in KeyRequest.defaultUrl.
-     * <p>
-     * After the app has received the key request response from the server,
-     * it should deliver to the response to the DRM engine plugin using the method
-     * {@link #provideDrmKeyResponse}.
-     *
-     * @param keySetId is the key-set identifier of the offline keys being released when keyType is
-     * {@link MediaDrm#KEY_TYPE_RELEASE}. It should be set to null for other key requests, when
-     * keyType is {@link MediaDrm#KEY_TYPE_STREAMING} or {@link MediaDrm#KEY_TYPE_OFFLINE}.
-     *
-     * @param initData is the container-specific initialization data when the keyType is
-     * {@link MediaDrm#KEY_TYPE_STREAMING} or {@link MediaDrm#KEY_TYPE_OFFLINE}. Its meaning is
-     * interpreted based on the mime type provided in the mimeType parameter.  It could
-     * contain, for example, the content ID, key ID or other data obtained from the content
-     * metadata that is required in generating the key request.
-     * When the keyType is {@link MediaDrm#KEY_TYPE_RELEASE}, it should be set to null.
-     *
-     * @param mimeType identifies the mime type of the content
-     *
-     * @param keyType specifies the type of the request. The request may be to acquire
-     * keys for streaming, {@link MediaDrm#KEY_TYPE_STREAMING}, or for offline content
-     * {@link MediaDrm#KEY_TYPE_OFFLINE}, or to release previously acquired
-     * keys ({@link MediaDrm#KEY_TYPE_RELEASE}), which are identified by a keySetId.
-     *
-     * @param optionalParameters are included in the key request message to
-     * allow a client application to provide additional message parameters to the server.
-     * This may be {@code null} if no additional parameters are to be sent.
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session
-     */
     @Override
     @NonNull
     public MediaDrm.KeyRequest getDrmKeyRequest(@Nullable byte[] keySetId,
@@ -1294,25 +773,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * A key response is received from the license server by the app, then it is
-     * provided to the DRM engine plugin using provideDrmKeyResponse. When the
-     * response is for an offline key request, a key-set identifier is returned that
-     * can be used to later restore the keys to a new session with the method
-     * {@ link # restoreDrmKeys}.
-     * When the response is for a streaming or release request, null is returned.
-     *
-     * @param keySetId When the response is for a release request, keySetId identifies
-     * the saved key associated with the release request (i.e., the same keySetId
-     * passed to the earlier {@ link #getDrmKeyRequest} call. It MUST be null when the
-     * response is for either streaming or offline key requests.
-     *
-     * @param response the byte array response from the server
-     *
-     * @throws NoDrmSchemeException if there is no active DRM session
-     * @throws DeniedByServerException if the response indicates that the
-     * server rejected the request
-     */
     @Override
     public byte[] provideDrmKeyResponse(@Nullable byte[] keySetId, @NonNull byte[] response)
             throws NoDrmSchemeException, DeniedByServerException {
@@ -1324,12 +784,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * Restore persisted offline keys into a new session.  keySetId identifies the
-     * keys to load, obtained from a prior call to {@link #provideDrmKeyResponse}.
-     *
-     * @param keySetId identifies the saved key set to restore
-     */
     @Override
     public void restoreDrmKeys(@NonNull final byte[] keySetId)
             throws NoDrmSchemeException {
@@ -1341,17 +795,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * Read a DRM engine plugin String property value, given the property name string.
-     * <p>
-     *
-
-     * @param propertyName the property name
-     *
-     * Standard fields names are:
-     * {@link MediaDrm#PROPERTY_VENDOR}, {@link MediaDrm#PROPERTY_VERSION},
-     * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
-     */
     @Override
     @NonNull
     public String getDrmPropertyString(@NonNull String propertyName)
@@ -1364,17 +807,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
 
-    /**
-     * Set a DRM engine plugin String property value.
-     * <p>
-     *
-     * @param propertyName the property name
-     * @param value the property value
-     *
-     * Standard fields names are:
-     * {@link MediaDrm#PROPERTY_VENDOR}, {@link MediaDrm#PROPERTY_VERSION},
-     * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
-     */
     @Override
     public void setDrmPropertyString(@NonNull String propertyName,
                                      @NonNull String value)
@@ -1387,56 +819,23 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void setPlaybackParamsInternal(final PlaybackParams params) {
-        PlaybackParams current = null;
-        try {
-            current = mPlayer.getPlaybackParams();
-        } catch (IllegalStateException e) {
-            // Do nothing.
-        }
-        mPlayer.setPlaybackParams(params);
-        if (current != null && current.getSpeed() != params.getSpeed()) {
-            notifyPlayerEvent(new PlayerEventNotifier() {
-                @Override
-                public void notify(PlayerEventCallback cb) {
-                    cb.onPlaybackSpeedChanged(mBaseMediaPlayerImpl, params.getSpeed());
-                }
-            });
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void notifyMediaPlayer2Event(final Mp2EventNotifier notifier) {
         final Pair<Executor, EventCallback> record;
         synchronized (mLock) {
             record = mMp2EventCallbackRecord;
         }
         if (record != null) {
-            record.first.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(record.second);
-                }
-            });
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void notifyPlayerEvent(final PlayerEventNotifier notifier) {
-        ArrayMap<PlayerEventCallback, Executor> map;
-        synchronized (mLock) {
-            map = new ArrayMap<>(mPlayerEventCallbackMap);
-        }
-        final int callbackCount = map.size();
-        for (int i = 0; i < callbackCount; i++) {
-            final Executor executor = map.valueAt(i);
-            final PlayerEventCallback cb = map.keyAt(i);
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(cb);
-                }
-            });
+            try {
+                record.first.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifier.notify(record.second);
+                    }
+                });
+            } catch (RejectedExecutionException e) {
+                // The given executor is shutting down.
+                Log.w(TAG, "The given executor is shutting down. Ignoring the player event.");
+            }
         }
     }
 
@@ -1447,21 +846,22 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             record = mDrmEventCallbackRecord;
         }
         if (record != null) {
-            record.first.execute(new Runnable() {
-                @Override
-                public void run() {
-                    notifier.notify(record.second);
-                }
-            });
+            try {
+                record.first.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifier.notify(record.second);
+                    }
+                });
+            } catch (RejectedExecutionException e) {
+                // The given executor is shutting down.
+                Log.w(TAG, "The given executor is shutting down. Ignoring the player event.");
+            }
         }
     }
 
     private interface Mp2EventNotifier {
         void notify(EventCallback callback);
-    }
-
-    private interface PlayerEventNotifier {
-        void notify(PlayerEventCallback callback);
     }
 
     private interface DrmEventNotifier {
@@ -1471,17 +871,17 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void setEndPositionTimerIfNeeded(
             final MediaPlayer.OnCompletionListener completionListener,
-            final MediaPlayerSource src, MediaTimestamp timedsd) {
+            final MediaPlayerSource src, android.media.MediaTimestamp timeitem) {
         if (src == mPlayer.getFirst()) {
             mEndPositionHandler.removeCallbacksAndMessages(null);
-            DataSourceDesc2 dsd = src.getDSD();
-            if (dsd.getEndPosition() != DataSourceDesc2.POSITION_UNKNOWN) {
-                if (timedsd.getMediaClockRate() > 0.0f) {
+            MediaItem item = src.getDSD();
+            if (item.getEndPosition() != MediaItem.POSITION_UNKNOWN) {
+                if (timeitem.getMediaClockRate() > 0.0f) {
                     long nowNs = System.nanoTime();
-                    long elapsedTimeUs = (nowNs - timedsd.getAnchorSytemNanoTime()) / 1000;
-                    long nowMediaMs = (timedsd.getAnchorMediaTimeUs() + elapsedTimeUs) / 1000;
-                    long timeLeftMs = (long) ((dsd.getEndPosition() - nowMediaMs)
-                            / timedsd.getMediaClockRate());
+                    long elapsedTimeUs = (nowNs - timeitem.getAnchorSytemNanoTime()) / 1000;
+                    long nowMediaMs = (timeitem.getAnchorMediaTimeUs() + elapsedTimeUs) / 1000;
+                    long timeLeftMs = (long) ((item.getEndPosition() - nowMediaMs)
+                            / timeitem.getMediaClockRate());
                     mEndPositionHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -1498,6 +898,22 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void clearListeners(final MediaPlayerSource src) {
+        MediaPlayer p = src.getPlayer();
+        p.setOnPreparedListener(null);
+        p.setOnVideoSizeChangedListener(null);
+        p.setOnInfoListener(null);
+        p.setOnCompletionListener(null);
+        p.setOnErrorListener(null);
+        p.setOnSeekCompleteListener(null);
+        p.setOnTimedMetaDataAvailableListener(null);
+        p.setOnBufferingUpdateListener(null);
+        p.clearOnMediaTimeDiscontinuityListener();
+        p.clearOnSubtitleDataListener();
+        p.setOnDrmInfoListener(null);
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     void setUpListeners(final MediaPlayerSource src) {
         MediaPlayer p = src.getPlayer();
         final MediaPlayer.OnPreparedListener preparedListener =
@@ -1509,20 +925,14 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                             @Override
                             public void notify(EventCallback callback) {
                                 MediaPlayer2Impl mp2 = MediaPlayer2Impl.this;
-                                DataSourceDesc2 dsd = src.getDSD();
-                                callback.onInfo(mp2, dsd, MEDIA_INFO_PREPARED, 0);
-                            }
-                        });
-                        notifyPlayerEvent(new PlayerEventNotifier() {
-                            @Override
-                            public void notify(PlayerEventCallback cb) {
-                                cb.onMediaPrepared(mBaseMediaPlayerImpl, src.getDSD());
+                                MediaItem item = src.getDSD();
+                                callback.onInfo(mp2, item, MEDIA_INFO_PREPARED, 0);
                             }
                         });
                         synchronized (mTaskLock) {
                             if (mCurrentTask != null
                                     && mCurrentTask.mMediaCallType == CALL_COMPLETED_PREPARE
-                                    && mCurrentTask.mDSD == src.getDSD()
+                                    && ObjectsCompat.equals(mCurrentTask.mDSD, src.getDSD())
                                     && mCurrentTask.mNeedToWaitForEventToComplete) {
                                 mCurrentTask.sendCompleteNotification(CALL_STATUS_NO_ERROR);
                                 mCurrentTask = null;
@@ -1534,11 +944,14 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         p.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                if (src.getDSD().getStartPosition() != 0) {
+                if (src.getPlayer().getDuration() >= 0) {
+                    // Seeks to the start position. We call seek operation even when the start
+                    // position is 0 in order to show the preview.
                     src.getPlayer().seekTo((int) src.getDSD().getStartPosition(),
                             MediaPlayer.SEEK_CLOSEST);
-                    // PREPARED notification will be sent when seek is done.
+                    // In this case, PREPARED notification will be sent when seek is done.
                 } else {
+                    // The content is not seekable. e.g. live contents.
                     preparedListener.onPrepared(mp);
                 }
             }
@@ -1556,27 +969,29 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         });
         p.setOnInfoListener(new MediaPlayer.OnInfoListener() {
             @Override
-            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+            public boolean onInfo(final MediaPlayer mp, final int what, final int extra) {
                 switch (what) {
-                    case MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
-                        notifyMediaPlayer2Event(new Mp2EventNotifier() {
-                            @Override
-                            public void notify(EventCallback cb) {
-                                cb.onInfo(MediaPlayer2Impl.this, src.getDSD(),
-                                        MEDIA_INFO_VIDEO_RENDERING_START, 0);
-                            }
-                        });
-                        break;
                     case MediaPlayer.MEDIA_INFO_BUFFERING_START:
                         mPlayer.setBufferingState(
-                                mp, BaseMediaPlayer.BUFFERING_STATE_BUFFERING_AND_STARVED);
+                                mp, SessionPlayer.BUFFERING_STATE_BUFFERING_AND_STARVED);
                         break;
                     case MediaPlayer.MEDIA_INFO_BUFFERING_END:
                         mPlayer.setBufferingState(
-                                mp, BaseMediaPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
+                                mp, SessionPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                         break;
                 }
-                return false;
+                notifyMediaPlayer2Event(new Mp2EventNotifier() {
+                    @Override
+                    public void notify(EventCallback cb) {
+                        if (what == MediaPlayer.MEDIA_INFO_STARTED_AS_NEXT) {
+                            mPlayer.onStartedAsNext(mp);
+                            return;
+                        }
+                        int w = sInfoEventMap.getOrDefault(what, MEDIA_INFO_UNKNOWN);
+                        cb.onInfo(MediaPlayer2Impl.this, src.getDSD(), w, extra);
+                    }
+                });
+                return true;
             }
         });
         final MediaPlayer.OnCompletionListener completionListener =
@@ -1599,11 +1014,13 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                         processPendingTask_l();
                     }
                 }
+                final int w  = (what == MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                        ? sErrorEventExtraMap.getOrDefault(extra, MEDIA_ERROR_UNKNOWN)
+                        : MEDIA_ERROR_UNKNOWN;
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
                     @Override
                     public void notify(EventCallback cb) {
-                        int w = sErrorEventMap.getOrDefault(what, MEDIA_ERROR_UNKNOWN);
-                        cb.onError(MediaPlayer2Impl.this, src.getDSD(), w, extra);
+                        cb.onError(MediaPlayer2Impl.this, src.getDSD(), w, 0);
                     }
                 });
                 return true;
@@ -1612,8 +1029,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         p.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
             @Override
             public void onSeekComplete(MediaPlayer mp) {
-                if (src.mMp2State == PLAYER_STATE_IDLE
-                        && src.getDSD().getStartPosition() != 0) {
+                if (src.mMp2State == PLAYER_STATE_IDLE) {
                     // This seek request was for handling start position. Notify client that it's
                     // ready to start playback.
                     preparedListener.onPrepared(mp);
@@ -1628,53 +1044,28 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                         processPendingTask_l();
                     }
                 }
-                final long seekPos = getCurrentPosition();
-                notifyPlayerEvent(new PlayerEventNotifier() {
-                    @Override
-                    public void notify(PlayerEventCallback cb) {
-                        // TODO: The actual seeked position might be different from the
-                        // requested position. Clarify which one is expected here.
-                        cb.onSeekCompleted(mBaseMediaPlayerImpl, seekPos);
-                    }
-                });
             }
         });
         p.setOnTimedMetaDataAvailableListener(
                 new MediaPlayer.OnTimedMetaDataAvailableListener() {
                     @Override
-                    public void onTimedMetaDataAvailable(MediaPlayer mp, final TimedMetaData data) {
+                    public void onTimedMetaDataAvailable(MediaPlayer mp, final android.media
+                            .TimedMetaData data) {
                         notifyMediaPlayer2Event(new Mp2EventNotifier() {
                             @Override
                             public void notify(EventCallback cb) {
                                 cb.onTimedMetaDataAvailable(MediaPlayer2Impl.this, src.getDSD(),
-                                        new TimedMetaData2(data));
+                                        new TimedMetaData(data));
                             }
                         });
                     }
                 });
-        p.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-            @Override
-            public boolean onInfo(final MediaPlayer mp, final int what, final int extra) {
-                notifyMediaPlayer2Event(new Mp2EventNotifier() {
-                    @Override
-                    public void notify(EventCallback cb) {
-                        if (what == MediaPlayer.MEDIA_INFO_STARTED_AS_NEXT) {
-                            mPlayer.onStartedAsNext(mp);
-                            return;
-                        }
-                        int w = sInfoEventMap.getOrDefault(what, MEDIA_INFO_UNKNOWN);
-                        cb.onInfo(MediaPlayer2Impl.this, src.getDSD(), w, extra);
-                    }
-                });
-                return true;
-            }
-        });
         p.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
             public void onBufferingUpdate(MediaPlayer mp, final int percent) {
                 if (percent >= 100) {
                     mPlayer.setBufferingState(
-                            mp, BaseMediaPlayer.BUFFERING_STATE_BUFFERING_COMPLETE);
+                            mp, SessionPlayer.BUFFERING_STATE_COMPLETE);
                 }
                 src.mBufferedPercentage.set(percent);
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
@@ -1690,13 +1081,13 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 new MediaPlayer.OnMediaTimeDiscontinuityListener() {
                     @Override
                     public void onMediaTimeDiscontinuity(
-                            MediaPlayer mp, final MediaTimestamp timestamp) {
+                            MediaPlayer mp, final android.media.MediaTimestamp timestamp) {
                         notifyMediaPlayer2Event(new Mp2EventNotifier() {
                             @Override
                             public void notify(EventCallback cb) {
                                 cb.onMediaTimeDiscontinuity(
                                         MediaPlayer2Impl.this, src.getDSD(),
-                                        new MediaTimestamp2(timestamp));
+                                        new MediaTimestamp(timestamp));
                             }
                         });
                         setEndPositionTimerIfNeeded(completionListener, src, timestamp);
@@ -1704,12 +1095,12 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 });
         p.setOnSubtitleDataListener(new MediaPlayer.OnSubtitleDataListener() {
             @Override
-            public  void onSubtitleData(MediaPlayer mp, final SubtitleData data) {
+            public  void onSubtitleData(MediaPlayer mp, final android.media.SubtitleData data) {
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
                     @Override
                     public void notify(EventCallback cb) {
                         cb.onSubtitleData(
-                                MediaPlayer2Impl.this, src.getDSD(), new SubtitleData2(data));
+                                MediaPlayer2Impl.this, src.getDSD(), new SubtitleData(data));
                     }
                 });
             }
@@ -1726,19 +1117,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 });
             }
         });
-        p.setOnDrmPreparedListener(new MediaPlayer.OnDrmPreparedListener() {
-            @Override
-            public void onDrmPrepared(MediaPlayer mp, final int status) {
-                notifyDrmEvent(new DrmEventNotifier() {
-                    @Override
-                    public void notify(DrmEventCallback cb) {
-                        int s = sPrepareDrmStatusMap.getOrDefault(
-                                status, PREPARE_DRM_STATUS_PREPARATION_ERROR);
-                        cb.onDrmPrepared(MediaPlayer2Impl.this, src.getDSD(), s);
-                    }
-                });
-            }
-        });
     }
 
     /**
@@ -1749,7 +1127,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         private UUID[] mSupportedSchemes;
 
         /**
-         * Returns the PSSH info of the data source for each supported DRM scheme.
+         * Returns the PSSH info of the media item for each supported DRM scheme.
          */
         @Override
         public Map<UUID, byte[]> getPssh() {
@@ -1757,7 +1135,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
 
         /**
-         * Returns the intersection of the data source and the device DRM schemes.
+         * Returns the intersection of the media item and the device DRM schemes.
          * It effectively identifies the subset of the source's DRM schemes which
          * are supported by the device too.
          */
@@ -1882,45 +1260,12 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     };  // DrmInfoImpl
 
-    /**
-     * Thrown when a DRM method is called before preparing a DRM scheme through prepareDrm().
-     * Extends MediaDrm.MediaDrmException
-     */
-    public static final class NoDrmSchemeExceptionImpl extends NoDrmSchemeException {
-        public NoDrmSchemeExceptionImpl(String detailMessage) {
-            super(detailMessage);
-        }
-    }
-
-    /**
-     * Thrown when the device requires DRM provisioning but the provisioning attempt has
-     * failed due to a network error (Internet reachability, timeout, etc.).
-     * Extends MediaDrm.MediaDrmException
-     */
-    public static final class ProvisioningNetworkErrorExceptionImpl
-            extends ProvisioningNetworkErrorException {
-        public ProvisioningNetworkErrorExceptionImpl(String detailMessage) {
-            super(detailMessage);
-        }
-    }
-
-    /**
-     * Thrown when the device requires DRM provisioning but the provisioning attempt has
-     * failed due to the provisioning server denying the request.
-     * Extends MediaDrm.MediaDrmException
-     */
-    public static final class ProvisioningServerErrorExceptionImpl
-            extends ProvisioningServerErrorException {
-        public ProvisioningServerErrorExceptionImpl(String detailMessage) {
-            super(detailMessage);
-        }
-    }
-
     private abstract class Task implements Runnable {
         final int mMediaCallType;
         final boolean mNeedToWaitForEventToComplete;
-        DataSourceDesc2 mDSD;
-        boolean mSkip;
+        MediaItem mDSD;
+        @GuardedBy("this")
+        boolean mDone;
 
         Task(int mediaCallType, boolean needToWaitForEventToComplete) {
             mMediaCallType = mediaCallType;
@@ -1932,13 +1277,23 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         @Override
         public void run() {
             int status = CALL_STATUS_NO_ERROR;
-            boolean skip;
-            synchronized (mTaskLock) {
-                skip = mSkip;
+            boolean skip = false;
+            if (mMediaCallType == CALL_COMPLETED_SEEK_TO) {
+                synchronized (mTaskLock) {
+                    Task next = mPendingTasks.peekFirst();
+                    if (next != null && next.mMediaCallType == CALL_COMPLETED_SEEK_TO) {
+                        skip = true;
+                    }
+                }
             }
             if (!skip) {
                 try {
-                    process();
+                    if (mMediaCallType != CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED
+                            && getState() == PLAYER_STATE_ERROR) {
+                        status = CALL_STATUS_INVALID_OPERATION;
+                    } else {
+                        process();
+                    }
                 } catch (IllegalStateException e) {
                     status = CALL_STATUS_INVALID_OPERATION;
                 } catch (IllegalArgumentException e) {
@@ -1954,7 +1309,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 status = CALL_STATUS_SKIPPED;
             }
 
-            mDSD = getCurrentDataSource();
+            mDSD = getCurrentMediaItem();
 
             if (!mNeedToWaitForEventToComplete || status != CALL_STATUS_NO_ERROR || skip) {
 
@@ -1965,12 +1320,17 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     processPendingTask_l();
                 }
             }
+            // reset() might be waiting for this task. Notify that the task is done.
+            synchronized (this) {
+                mDone = true;
+                this.notifyAll();
+            }
         }
 
         void sendCompleteNotification(final int status) {
-            // In {@link #notifyWhenCommandLabelReached} case, a separate callback
-            // {#link #onCommandLabelReached} is already called in {@code process()}.
-            if (mMediaCallType == CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED) {
+            if (mMediaCallType >= SEPARATE_CALL_COMPLETE_CALLBACK_START) {
+                // These methods have a separate call complete callback and it should be already
+                // called within {@link #processs()}.
                 return;
             }
             notifyMediaPlayer2Event(new Mp2EventNotifier() {
@@ -1984,12 +1344,12 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     };
 
     private static class DataSourceError {
-        final DataSourceDesc2 mDSD;
+        final MediaItem mDSD;
         final int mWhat;
 
         final int mExtra;
-        DataSourceError(DataSourceDesc2 dsd, int what, int extra) {
-            mDSD = dsd;
+        DataSourceError(MediaItem item, int what, int extra) {
+            mDSD = item;
             mWhat = what;
             mExtra = extra;
         }
@@ -1998,22 +1358,26 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     private class MediaPlayerSource {
 
-        volatile DataSourceDesc2 mDSD;
+        final MediaItem mDSD;
         MediaPlayer mPlayer;
         final AtomicInteger mBufferedPercentage = new AtomicInteger(0);
         int mSourceState = SOURCE_STATE_INIT;
         @MediaPlayer2State int mMp2State = PLAYER_STATE_IDLE;
-        @BuffState int mBufferingState = BaseMediaPlayer.BUFFERING_STATE_UNKNOWN;
-        @PlayerState int mPlayerState = BaseMediaPlayer.PLAYER_STATE_IDLE;
+        @BuffState int mBufferingState = SessionPlayer.BUFFERING_STATE_UNKNOWN;
+        @PlayerState int mPlayerState = SessionPlayer.PLAYER_STATE_IDLE;
         boolean mPlayPending;
         boolean mSetAsNextPlayer;
+        final Map<Integer, Integer> mSelectedTracks = new ArrayMap<>();
 
-        MediaPlayerSource(final DataSourceDesc2 dsd) {
-            mDSD = dsd;
+        MediaPlayerSource(final MediaItem item) {
+            mDSD = item;
             setUpListeners(this);
+            if (mDSD instanceof FileMediaItem) {
+                ((FileMediaItem) mDSD).increaseRefCount();
+            }
         }
 
-        DataSourceDesc2 getDSD() {
+        MediaItem getDSD() {
             return mDSD;
         }
 
@@ -2023,10 +1387,43 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             }
             return mPlayer;
         }
+
+        void release() {
+            clearListeners(this);
+            mPlayer.release();
+            if (mDSD instanceof FileMediaItem) {
+                ((FileMediaItem) mDSD).decreaseRefCount();
+            }
+        }
+
+        void selectTrack(int index) {
+            final MediaPlayer mp = getPlayer();
+            mp.selectTrack(index);
+            MediaPlayer.TrackInfo[] trackInfos = mp.getTrackInfo();
+            if (index >= 0 && index < trackInfos.length) {
+                mSelectedTracks.put(trackInfos[index].getTrackType(), index);
+            }
+        }
+
+        void deselectTrack(int index) {
+            final MediaPlayer mp = getPlayer();
+            mp.deselectTrack(index);
+            MediaPlayer.TrackInfo[] trackInfos = mp.getTrackInfo();
+            if (index >= 0 && index < trackInfos.length) {
+                int trackType = trackInfos[index].getTrackType();
+                if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE
+                        || trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT) {
+                    mSelectedTracks.remove(trackType);
+                }
+            }
+        }
+
+        int getSelectedTrack(int trackType) {
+            return mSelectedTracks.getOrDefault(trackType, -1);
+        }
     }
 
     private class MediaPlayerSourceQueue {
-
         List<MediaPlayerSource> mQueue = new ArrayList<>();
         Float mVolume = 1.0f;
         Surface mSurface;
@@ -2034,9 +1431,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         Float mAuxEffectSendLevel;
         AudioAttributesCompat mAudioAttributes;
         Integer mAudioSessionId;
-        SyncParams mSyncParams;
-        PlaybackParams mPlaybackParams;
-        PlaybackParams mPlaybackParamsToSetAfterSetDataSource;
+        android.media.PlaybackParams mPlaybackParams = DEFAULT_PLAYBACK_PARAMS;
+        android.media.PlaybackParams mPlaybackParamsToSetWhenStarting;
         boolean mLooping;
 
         MediaPlayerSourceQueue() {
@@ -2051,47 +1447,58 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             return mQueue.get(0);
         }
 
-        synchronized void setFirst(DataSourceDesc2 dsd) throws IOException {
-            if (mQueue.isEmpty()) {
-                mQueue.add(0, new MediaPlayerSource(dsd));
-            } else {
-                mQueue.get(0).mDSD = dsd;
-                setUpListeners(mQueue.get(0));
-            }
-            handleDataSource(mQueue.get(0));
-            if (mPlaybackParamsToSetAfterSetDataSource != null) {
-                getCurrentPlayer().setPlaybackParams(mPlaybackParamsToSetAfterSetDataSource);
-                mPlaybackParams = mPlaybackParamsToSetAfterSetDataSource;
-                mPlaybackParamsToSetAfterSetDataSource = null;
-            }
-        }
-
-        synchronized DataSourceError setNext(DataSourceDesc2 dsd) {
-            if (mQueue.isEmpty() || getFirst().getDSD() == null) {
+        synchronized void setFirst(MediaItem item) throws IOException {
+            if (!mQueue.isEmpty() && getFirst().mMp2State != PLAYER_STATE_IDLE) {
+                if (item instanceof FileMediaItem) {
+                    ((FileMediaItem) item).increaseRefCount();
+                    ((FileMediaItem) item).decreaseRefCount();
+                }
                 throw new IllegalStateException();
             }
-            // Clear next data sources if any.
+            if (mQueue.isEmpty()) {
+                mQueue.add(0, new MediaPlayerSource(item));
+            } else {
+                MediaPlayerSource previous = mQueue.set(0, new MediaPlayerSource(item));
+                previous.release();
+                applyProperties();
+            }
+            handleDataSource(mQueue.get(0));
+        }
+
+        synchronized DataSourceError setNext(MediaItem item) {
+            if (mQueue.isEmpty() || getFirst().getDSD() == null) {
+                if (item instanceof FileMediaItem) {
+                    ((FileMediaItem) item).increaseRefCount();
+                    ((FileMediaItem) item).decreaseRefCount();
+                }
+                throw new IllegalStateException();
+            }
+            // Clear next media items if any.
             while (mQueue.size() >= 2) {
                 MediaPlayerSource src = mQueue.remove(1);
-                src.mPlayer.release();
+                src.release();
             }
-            MediaPlayerSource src = new MediaPlayerSource(dsd);
+            MediaPlayerSource src = new MediaPlayerSource(item);
             mQueue.add(1, src);
             return prepareAt(1);
         }
 
-        synchronized DataSourceError setNextMultiple(List<DataSourceDesc2> descs) {
+        synchronized DataSourceError setNextMultiple(List<MediaItem> descs) {
             if (mQueue.isEmpty() || getFirst().getDSD() == null) {
+                for (MediaItem item: descs) {
+                    ((FileMediaItem) item).increaseRefCount();
+                    ((FileMediaItem) item).decreaseRefCount();
+                }
                 throw new IllegalStateException();
             }
-            // Clear next data sources if any.
+            // Clear next media items if any.
             while (mQueue.size() >= 2) {
                 MediaPlayerSource src = mQueue.remove(1);
-                src.mPlayer.release();
+                src.release();
             }
             List<MediaPlayerSource> sources = new ArrayList<>();
-            for (DataSourceDesc2 dsd: descs) {
-                sources.add(new MediaPlayerSource(dsd));
+            for (MediaItem item: descs) {
+                sources.add(new MediaPlayerSource(item));
             }
             mQueue.addAll(1, sources);
             return prepareAt(1);
@@ -2100,6 +1507,10 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         synchronized void play() {
             final MediaPlayerSource src = mQueue.get(0);
             if (src.mSourceState == SOURCE_STATE_PREPARED) {
+                if (mPlaybackParamsToSetWhenStarting != null) {
+                    src.getPlayer().setPlaybackParams(mPlaybackParamsToSetWhenStarting);
+                    mPlaybackParamsToSetWhenStarting = null;
+                }
                 src.getPlayer().start();
                 setMp2State(src.getPlayer(), PLAYER_STATE_PLAYING);
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
@@ -2114,10 +1525,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             }
         }
 
-        synchronized void prepare() {
-            getCurrentPlayer().prepareAsync();
-        }
-
         synchronized void release() {
             getCurrentPlayer().release();
         }
@@ -2125,13 +1532,18 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         synchronized void prepareAsync() {
             MediaPlayer mp = getCurrentPlayer();
             mp.prepareAsync();
-            setBufferingState(mp, BaseMediaPlayer.BUFFERING_STATE_BUFFERING_AND_STARVED);
+            setBufferingState(mp, SessionPlayer.BUFFERING_STATE_BUFFERING_AND_STARVED);
         }
 
         synchronized void pause() {
-            MediaPlayer mp = getCurrentPlayer();
-            mp.pause();
-            setMp2State(mp, PLAYER_STATE_PAUSED);
+            MediaPlayerSource current = getFirst();
+            if (current.mMp2State == PLAYER_STATE_PREPARED) {
+                // MediaPlayer1 does not allow pause() in the prepared state. To workaround, call
+                // start() here right before calling pause().
+                current.mPlayer.start();
+            }
+            current.mPlayer.pause();
+            setMp2State(current.mPlayer, PLAYER_STATE_PAUSED);
         }
 
         synchronized long getCurrentPosition() {
@@ -2188,7 +1600,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     }
                     src.mSourceState = SOURCE_STATE_PREPARED;
                     setBufferingState(src.getPlayer(),
-                            BaseMediaPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
+                            SessionPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                     if (i == 1) {
                         boolean hasVideo = false;
                         for (MediaPlayer.TrackInfo info : mp.getTrackInfo()) {
@@ -2199,7 +1611,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                             }
                         }
                         // setNextMediaPlayer() does not pass surface to next player. Use it only
-                        // for the audio-only data source.
+                        // for the audio-only media item.
                         if (!hasVideo) {
                             getCurrentPlayer().setNextMediaPlayer(src.mPlayer);
                             src.mSetAsNextPlayer = true;
@@ -2218,8 +1630,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     @Override
                     public void notify(EventCallback cb) {
                         MediaPlayer2Impl mp2 = MediaPlayer2Impl.this;
-                        DataSourceDesc2 dsd = src.getDSD();
-                        cb.onInfo(mp2, dsd, MEDIA_INFO_DATA_SOURCE_REPEAT, 0);
+                        MediaItem item = src.getDSD();
+                        cb.onInfo(mp2, item, MEDIA_INFO_DATA_SOURCE_REPEAT, 0);
                     }
                 });
                 src.mPlayer.seekTo((int) src.getDSD().getStartPosition());
@@ -2232,8 +1644,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     @Override
                     public void notify(EventCallback cb) {
                         MediaPlayer2Impl mp2 = MediaPlayer2Impl.this;
-                        DataSourceDesc2 dsd = src.getDSD();
-                        cb.onInfo(mp2, dsd, MEDIA_INFO_DATA_SOURCE_END, 0);
+                        MediaItem item = src.getDSD();
+                        cb.onInfo(mp2, item, MEDIA_INFO_DATA_SOURCE_END, 0);
                     }
                 });
             } else {
@@ -2243,17 +1655,11 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 if (mQueue.size() == 1) {
                     setMp2State(mp, PLAYER_STATE_PAUSED);
 
-                    final DataSourceDesc2 dsd = mQueue.get(0).getDSD();
-                    notifyPlayerEvent(new PlayerEventNotifier() {
-                        @Override
-                        public void notify(PlayerEventCallback cb) {
-                            cb.onCurrentDataSourceChanged(mBaseMediaPlayerImpl, null);
-                        }
-                    });
+                    final MediaItem item = mQueue.get(0).getDSD();
                     notifyMediaPlayer2Event(new Mp2EventNotifier() {
                         @Override
                         public void notify(EventCallback callback) {
-                            callback.onInfo(MediaPlayer2Impl.this, dsd,
+                            callback.onInfo(MediaPlayer2Impl.this, item,
                                     MEDIA_INFO_DATA_SOURCE_LIST_END, 0);
                         }
                     });
@@ -2292,25 +1698,10 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
 
         synchronized void moveToNext() {
             final MediaPlayerSource src1 = mQueue.remove(0);
-            src1.getPlayer().release();
+            src1.release();
             if (mQueue.isEmpty()) {
                 throw new IllegalStateException("player/source queue emptied");
             }
-            final MediaPlayerSource src2 = mQueue.get(0);
-            if (src1.mPlayerState != src2.mPlayerState) {
-                notifyPlayerEvent(new PlayerEventNotifier() {
-                    @Override
-                    public void notify(PlayerEventCallback cb) {
-                        cb.onPlayerStateChanged(mBaseMediaPlayerImpl, src2.mPlayerState);
-                    }
-                });
-            }
-            notifyPlayerEvent(new PlayerEventNotifier() {
-                @Override
-                public void notify(PlayerEventCallback cb) {
-                    cb.onCurrentDataSourceChanged(mBaseMediaPlayerImpl, src2.mDSD);
-                }
-            });
         }
 
         synchronized DataSourceError playCurrent() {
@@ -2357,23 +1748,20 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             if (mAuxEffectSendLevel != null) {
                 src.getPlayer().setAuxEffectSendLevel(mAuxEffectSendLevel);
             }
-            if (mSyncParams != null) {
-                src.getPlayer().setSyncParams(mSyncParams);
-            }
-            if (mPlaybackParams != null) {
+            if (mPlaybackParams != DEFAULT_PLAYBACK_PARAMS) {
                 src.getPlayer().setPlaybackParams(mPlaybackParams);
             }
         }
 
         synchronized void onError(MediaPlayer mp) {
             setMp2State(mp, PLAYER_STATE_ERROR);
-            setBufferingState(mp, BaseMediaPlayer.BUFFERING_STATE_UNKNOWN);
+            setBufferingState(mp, SessionPlayer.BUFFERING_STATE_UNKNOWN);
         }
 
         synchronized DataSourceError prepareAt(int n) {
             if (n >= Math.min(2, mQueue.size())
                     || mQueue.get(n).mSourceState != SOURCE_STATE_INIT
-                    || (n != 0 && getPlayerState() == BaseMediaPlayer.PLAYER_STATE_IDLE)) {
+                    || (n != 0 && getPlayerState() == SessionPlayer.PLAYER_STATE_IDLE)) {
                 // There is no next source or it's in preparing or prepared state.
                 return null;
             }
@@ -2389,9 +1777,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 src.getPlayer().prepareAsync();
                 return null;
             } catch (Exception e) {
-                DataSourceDesc2 dsd = src.getDSD();
+                MediaItem item = src.getDSD();
                 setMp2State(src.getPlayer(), PLAYER_STATE_ERROR);
-                return new DataSourceError(dsd, MEDIA_ERROR_UNKNOWN, MEDIA_ERROR_UNSUPPORTED);
+                return new DataSourceError(item, MEDIA_ERROR_UNKNOWN, 0);
             }
 
         }
@@ -2402,7 +1790,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             }
             final MediaPlayerSource src = mQueue.get(0);
             moveToNext();
-            if (src.mPlayerState == BaseMediaPlayer.PLAYER_STATE_PLAYING || src.mPlayPending) {
+            if (src.mPlayerState == SessionPlayer.PLAYER_STATE_PLAYING || src.mPlayPending) {
                 playCurrent();
             }
         }
@@ -2411,15 +1799,22 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             mLooping = loop;
         }
 
-        synchronized void setPlaybackParams(PlaybackParams playbackParams) {
-            try {
-                getCurrentPlayer().setPlaybackParams(playbackParams);
-            } catch (IllegalStateException e) {
-                // Keep the value so that it can be set later.
-                mPlaybackParamsToSetAfterSetDataSource = playbackParams;
-                return;
+        synchronized void setPlaybackParams(final android.media.PlaybackParams params) {
+            if (params == null || params.getSpeed() == 0f) {
+                throw new IllegalArgumentException();
             }
-            mPlaybackParams = playbackParams;
+            android.media.PlaybackParams current = getPlaybackParams();
+            MediaPlayerSource firstPlayer = mPlayer.getFirst();
+            if (firstPlayer.mMp2State != PLAYER_STATE_PLAYING) {
+                // MediaPlayer1 may start the playback on setPlaybackParams. Store the value here
+                // so that it can be applied later when starting the playback.
+                mPlaybackParamsToSetWhenStarting = params;
+            } else {
+                firstPlayer.mPlayer.setPlaybackParams(params);
+                mPlaybackParamsToSetWhenStarting = null;
+            }
+
+            mPlaybackParams = params;
         }
 
         synchronized float getVolume() {
@@ -2437,55 +1832,70 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
 
         synchronized int getVideoWidth() {
-            return getCurrentPlayer().getVideoWidth();
+            try {
+                return getCurrentPlayer().getVideoWidth();
+            } catch (IllegalStateException e) {
+                return 0;
+            }
         }
 
         synchronized int getVideoHeight() {
-            return getCurrentPlayer().getVideoHeight();
+            try {
+                return getCurrentPlayer().getVideoHeight();
+            } catch (IllegalStateException e) {
+                return 0;
+            }
         }
 
         synchronized PersistableBundle getMetrics() {
             return getCurrentPlayer().getMetrics();
         }
 
-        synchronized PlaybackParams getPlaybackParams() {
-            return getCurrentPlayer().getPlaybackParams();
-        }
-
-        synchronized void setSyncParams(SyncParams params) {
-            getCurrentPlayer().setSyncParams(params);
-            mSyncParams = params;
-        }
-
-        synchronized SyncParams getSyncParams() {
-            return getCurrentPlayer().getSyncParams();
+        synchronized android.media.PlaybackParams getPlaybackParams() {
+            // PlaybackParams is mutable. Make a copy of mPlaybackParams and return.
+            Parcel parcel = Parcel.obtain();
+            mPlaybackParams.writeToParcel(parcel, 0);
+            parcel.setDataPosition(0);
+            android.media.PlaybackParams ret =
+                    android.media.PlaybackParams.CREATOR.createFromParcel(parcel);
+            parcel.recycle();
+            return ret;
         }
 
         synchronized void seekTo(long msec, int mode) {
+            MediaItem current = getFirst().getDSD();
+            Preconditions.checkArgument(
+                    current.getStartPosition() <= msec && current.getEndPosition() >= msec,
+                    "Requested seek position is out of range : " + msec);
             getCurrentPlayer().seekTo(msec, mode);
         }
 
         synchronized void reset() {
-            MediaPlayerSource src = mQueue.get(0);
-            src.getPlayer().reset();
-            src.mBufferedPercentage.set(0);
             mVolume = 1.0f;
             mSurface = null;
             mAuxEffect = null;
             mAuxEffectSendLevel = null;
             mAudioAttributes = null;
             mAudioSessionId = null;
-            mSyncParams = null;
-            mPlaybackParams = null;
+            mPlaybackParams = DEFAULT_PLAYBACK_PARAMS;
+            mPlaybackParamsToSetWhenStarting = null;
             mLooping = false;
 
-            setMp2State(src.getPlayer(), PLAYER_STATE_IDLE);
-            setBufferingState(src.getPlayer(), BaseMediaPlayer.BUFFERING_STATE_UNKNOWN);
+            MediaPlayerSource first = mQueue.get(0);
+            setMp2State(first.getPlayer(), PLAYER_STATE_IDLE);
+            setBufferingState(first.getPlayer(), SessionPlayer.BUFFERING_STATE_UNKNOWN);
+
+            for (MediaPlayerSource src : mQueue) {
+                src.release();
+            }
+            mQueue.clear();
+            mQueue.add(new MediaPlayerSource(null));
         }
 
-        synchronized MediaTimestamp2 getTimestamp() {
-            MediaTimestamp t = getCurrentPlayer().getTimestamp();
-            return (t == null) ? null : new MediaTimestamp2(t);
+        synchronized MediaTimestamp getTimestamp() {
+            Preconditions.checkState(getFirst().mMp2State != PLAYER_STATE_IDLE);
+            android.media.MediaTimestamp t = getCurrentPlayer().getTimestamp();
+            return (t == null) ? null : new MediaTimestamp(t);
         }
 
         synchronized void setAudioSessionId(int sessionId) {
@@ -2512,15 +1922,18 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         }
 
         synchronized int getSelectedTrack(int trackType) {
-            return getCurrentPlayer().getSelectedTrack(trackType);
+            final MediaPlayerSource currentPlayerSource = mQueue.get(0);
+            return currentPlayerSource.getSelectedTrack(trackType);
         }
 
         synchronized void selectTrack(int index) {
-            getCurrentPlayer().selectTrack(index);
+            final MediaPlayerSource currentPlayerSource = mQueue.get(0);
+            currentPlayerSource.selectTrack(index);
         }
 
         synchronized void deselectTrack(int index) {
-            getCurrentPlayer().deselectTrack(index);
+            final MediaPlayerSource currentPlayerSource = mQueue.get(0);
+            currentPlayerSource.deselectTrack(index);
         }
 
         synchronized MediaPlayer.DrmInfo getDrmInfo() {
@@ -2584,12 +1997,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     return;
                 }
                 src.mPlayerState = playerState;
-                notifyPlayerEvent(new PlayerEventNotifier() {
-                    @Override
-                    public void notify(PlayerEventCallback cb) {
-                        cb.onPlayerStateChanged(mBaseMediaPlayerImpl, playerState);
-                    }
-                });
                 return;
             }
         }
@@ -2603,13 +2010,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                     return;
                 }
                 src.mBufferingState = state;
-                notifyPlayerEvent(new PlayerEventNotifier() {
-                    @Override
-                    public void notify(PlayerEventCallback cb) {
-                        DataSourceDesc2 dsd = src.getDSD();
-                        cb.onBufferingStateChanged(mBaseMediaPlayerImpl, dsd, state);
-                    }
-                });
                 return;
             }
         }
@@ -2633,154 +2033,6 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 }
             }
             return null;
-        }
-    }
-
-    private class BaseMediaPlayerImpl extends BaseMediaPlayer {
-        BaseMediaPlayerImpl() {
-        }
-
-        @Override
-        public void play() {
-            MediaPlayer2Impl.this.play();
-        }
-
-        @Override
-        public void prepare() {
-            MediaPlayer2Impl.this.prepare();
-        }
-
-        @Override
-        public void pause() {
-            MediaPlayer2Impl.this.pause();
-        }
-
-        @Override
-        public void reset() {
-            MediaPlayer2Impl.this.reset();
-        }
-
-        @Override
-        public void skipToNext() {
-            MediaPlayer2Impl.this.skipToNext();
-        }
-
-        @Override
-        public void seekTo(long pos) {
-            MediaPlayer2Impl.this.seekTo(pos);
-        }
-
-        @Override
-        public long getCurrentPosition() {
-            try {
-                return MediaPlayer2Impl.this.getCurrentPosition();
-            } catch (IllegalStateException e) {
-                return BaseMediaPlayer.UNKNOWN_TIME;
-            }
-        }
-
-        @Override
-        public long getDuration() {
-            try {
-                return MediaPlayer2Impl.this.getDuration();
-            } catch (IllegalStateException e) {
-                return BaseMediaPlayer.UNKNOWN_TIME;
-            }
-        }
-
-        @Override
-        public long getBufferedPosition() {
-            try {
-                return MediaPlayer2Impl.this.getBufferedPosition();
-            } catch (IllegalStateException e) {
-                return BaseMediaPlayer.UNKNOWN_TIME;
-            }
-        }
-
-        @Override
-        public int getPlayerState() {
-            return MediaPlayer2Impl.this.getPlayerState();
-        }
-
-        @Override
-        public int getBufferingState() {
-            return MediaPlayer2Impl.this.getBufferingState();
-        }
-
-        @Override
-        public void setAudioAttributes(AudioAttributesCompat attributes) {
-            MediaPlayer2Impl.this.setAudioAttributes(attributes);
-        }
-
-        @Override
-        public AudioAttributesCompat getAudioAttributes() {
-            return MediaPlayer2Impl.this.getAudioAttributes();
-        }
-
-        @Override
-        public void setDataSource(DataSourceDesc2 dsd) {
-            MediaPlayer2Impl.this.setDataSource(dsd);
-        }
-
-        @Override
-        public void setNextDataSource(DataSourceDesc2 dsd) {
-            MediaPlayer2Impl.this.setNextDataSource(dsd);
-        }
-
-        @Override
-        public void setNextDataSources(List<DataSourceDesc2> dsds) {
-            MediaPlayer2Impl.this.setNextDataSources(dsds);
-        }
-
-        @Override
-        public DataSourceDesc2 getCurrentDataSource() {
-            return MediaPlayer2Impl.this.getCurrentDataSource();
-        }
-
-        @Override
-        public void loopCurrent(boolean loop) {
-            MediaPlayer2Impl.this.loopCurrent(loop);
-        }
-
-        @Override
-        public void setPlaybackSpeed(float speed) {
-            MediaPlayer2Impl.this.setPlaybackParams(
-                    new PlaybackParams2.Builder(
-                            getPlaybackParams().getPlaybackParams()).setSpeed(speed).build());
-        }
-
-        @Override
-        public float getPlaybackSpeed() {
-            try {
-                return MediaPlayer2Impl.this.getPlaybackParams().getSpeed();
-            } catch (IllegalStateException e) {
-                return super.getPlaybackSpeed();
-            }
-        }
-
-        @Override
-        public void setPlayerVolume(float volume) {
-            MediaPlayer2Impl.this.setPlayerVolume(volume);
-        }
-
-        @Override
-        public float getPlayerVolume() {
-            return MediaPlayer2Impl.this.getPlayerVolume();
-        }
-
-        @Override
-        public void registerPlayerEventCallback(Executor e, final PlayerEventCallback cb) {
-            MediaPlayer2Impl.this.registerPlayerEventCallback(e, cb);
-        }
-
-        @Override
-        public void unregisterPlayerEventCallback(PlayerEventCallback cb) {
-            MediaPlayer2Impl.this.unregisterPlayerEventCallback(cb);
-        }
-
-        @Override
-        public void close() throws Exception {
-            MediaPlayer2Impl.this.close();
         }
     }
 }

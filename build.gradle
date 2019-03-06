@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import androidx.build.DacOptions
-import androidx.build.PublishDocsRulesKt
+import androidx.build.AndroidXPlugin
+import androidx.build.SdkHelperKt
+import androidx.build.jacoco.Jacoco
 
 def currentJvmVersion = org.gradle.api.JavaVersion.current()
 if (currentJvmVersion.getMajorVersion() != "8") {
@@ -30,13 +31,17 @@ buildscript {
     apply from: 'buildSrc/repos.gradle'
     apply from: 'buildSrc/init.gradle'
     apply from: 'buildSrc/build_dependencies.gradle'
-    init.setSdkInLocalPropertiesFile()
     repos.addMavenRepositories(repositories)
+    SdkHelperKt.setSdkInLocalPropertiesFile(ext.supportRootFolder)
 
     dependencies {
         classpath build_libs.gradle
-        classpath build_libs.jacoco
         classpath build_libs.kotlin.gradle_plugin
+
+        // AGP only declares a compileOnly dependency on Jacoco. This forces an explicit version.
+        classpath Jacoco.CORE_DEPENDENCY
+
+        classpath build_libs.dokka_gradle
     }
 }
 
@@ -46,14 +51,8 @@ init.setupRepoOutAndBuildNumber()
 
 init.configureSubProjects()
 
-def buildTask = init.configureBuildOnServer()
+apply plugin: AndroidXPlugin
 
-init.setupRelease()
-
+// AndroidX needed before jetify since it accesses the createArchive task name directly.
 apply from: 'buildSrc/jetify.gradle'
-
-def allDocs = init.enableDoclavaAndJDiff(this, new DacOptions("androidx", "ANDROIDX_DATA"),
-        [PublishDocsRulesKt.RELEASE_RULE])
-
-buildTask.dependsOn(allDocs)
 

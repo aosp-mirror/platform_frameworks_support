@@ -20,20 +20,22 @@ import static android.app.slice.Slice.EXTRA_RANGE_VALUE;
 import static android.app.slice.Slice.EXTRA_TOGGLE_STATE;
 import static android.app.slice.Slice.HINT_ACTIONS;
 import static android.app.slice.Slice.HINT_ERROR;
-import static android.app.slice.Slice.HINT_HORIZONTAL;
 import static android.app.slice.Slice.HINT_KEYWORDS;
 import static android.app.slice.Slice.HINT_LAST_UPDATED;
+import static android.app.slice.Slice.HINT_LIST_ITEM;
 import static android.app.slice.Slice.HINT_PARTIAL;
 import static android.app.slice.Slice.HINT_PERMISSION_REQUEST;
 import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.HINT_TTL;
 import static android.app.slice.Slice.SUBTYPE_MAX;
 import static android.app.slice.Slice.SUBTYPE_VALUE;
+import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
+import static androidx.slice.core.SliceHints.HINT_CACHED;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_PROGRESS;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_SLIDER;
@@ -52,9 +54,9 @@ import androidx.core.math.MathUtils;
 import androidx.core.util.Pair;
 import androidx.slice.core.SliceAction;
 import androidx.slice.core.SliceActionImpl;
+import androidx.slice.core.SliceHints;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.widget.EventInfo;
-import androidx.slice.widget.GridContent;
 import androidx.slice.widget.ListContent;
 import androidx.slice.widget.RowContent;
 import androidx.slice.widget.SliceView;
@@ -65,7 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility class to parse a Slice and provide access to some information around its contents.
+ * Utility class to parse a {@link Slice} and provide access to information around its contents.
  */
 @RequiresApi(19)
 public class SliceMetadata {
@@ -98,8 +100,8 @@ public class SliceMetadata {
     private long mExpiry;
     private long mLastUpdated;
     private ListContent mListContent;
-    private SliceItem mHeaderItem;
-    private SliceActionImpl mPrimaryAction;
+    private RowContent mHeaderContent;
+    private SliceAction mPrimaryAction;
     private List<SliceAction> mSliceActions;
     private @EventInfo.SliceRowType int mTemplateType;
 
@@ -134,15 +136,24 @@ public class SliceMetadata {
         if (updatedItem != null) {
             mLastUpdated = updatedItem.getLong();
         }
-
-        mListContent = new ListContent(context, slice, null, 0, 0);
-        mHeaderItem = mListContent.getHeaderItem();
+        mListContent = new ListContent(slice);
+        mHeaderContent = mListContent.getHeader();
         mTemplateType = mListContent.getHeaderTemplateType();
+        mPrimaryAction = mListContent.getShortcut(mContext);
         mSliceActions = mListContent.getSliceActions();
-
-        SliceItem action = mListContent.getPrimaryAction();
-        if (action != null) {
-            mPrimaryAction = new SliceActionImpl(action);
+        if (mSliceActions == null && mHeaderContent != null
+                && SliceQuery.hasHints(mHeaderContent.getSliceItem(), HINT_LIST_ITEM)) {
+            // It's not a real header, check it for end items.
+            List<SliceItem> items = mHeaderContent.getEndItems();
+            List<SliceAction> actions = new ArrayList<>();
+            for (int i = 0; i < items.size(); i++) {
+                if (SliceQuery.find(items.get(i), FORMAT_ACTION) != null) {
+                    actions.add(new SliceActionImpl(items.get(i)));
+                }
+            }
+            if (actions.size() > 0) {
+                mSliceActions = actions;
+            }
         }
     }
 
@@ -152,16 +163,8 @@ public class SliceMetadata {
     @Nullable
     public CharSequence getTitle() {
         CharSequence title = null;
-        if (mHeaderItem != null) {
-            if (mHeaderItem.hasHint(HINT_HORIZONTAL)) {
-                GridContent gc = new GridContent(mContext, mHeaderItem);
-                title = gc.getTitle();
-            } else {
-                RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-                if (rc.getTitleItem() != null) {
-                    title = rc.getTitleItem().getText();
-                }
-            }
+        if (mHeaderContent != null && mHeaderContent.getTitleItem() != null) {
+            title = mHeaderContent.getTitleItem().getText();
         }
         if (TextUtils.isEmpty(title) && mPrimaryAction != null) {
             return mPrimaryAction.getTitle();
@@ -175,11 +178,8 @@ public class SliceMetadata {
      */
     @Nullable
     public CharSequence getSubtitle() {
-        if (mHeaderItem != null && !mHeaderItem.hasHint(HINT_HORIZONTAL)) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            if (rc.getSubtitleItem() != null) {
-                return rc.getSubtitleItem().getText();
-            }
+        if (mHeaderContent != null && mHeaderContent.getSubtitleItem() != null) {
+            return mHeaderContent.getSubtitleItem().getText();
         }
         return null;
     }
@@ -189,11 +189,8 @@ public class SliceMetadata {
      */
     @Nullable
     public CharSequence getSummary() {
-        if (mHeaderItem != null && !mHeaderItem.hasHint(HINT_HORIZONTAL)) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            if (rc.getSummaryItem() != null) {
-                return rc.getSummaryItem().getText();
-            }
+        if (mHeaderContent != null && mHeaderContent.getSummaryItem() != null) {
+            return mHeaderContent.getSummaryItem().getText();
         }
         return null;
     }
@@ -226,12 +223,7 @@ public class SliceMetadata {
      * in {@link SliceView#MODE_LARGE}.
      */
     public boolean hasLargeMode() {
-        boolean isHeaderFullGrid = false;
-        if (mHeaderItem != null && mHeaderItem.hasHint(HINT_HORIZONTAL)) {
-            GridContent gc = new GridContent(mContext, mHeaderItem);
-            isHeaderFullGrid = gc.hasImage() && gc.getMaxCellLineCount() > 1;
-        }
-        return mListContent.getRowItems().size() > 1 || isHeaderFullGrid;
+        return mListContent.getRowItems().size() > 1;
     }
 
     /**
@@ -249,9 +241,8 @@ public class SliceMetadata {
                     toggles.add(action);
                 }
             }
-        } else {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            toggles = rc.getToggleItems();
+        } else if (mHeaderContent != null) {
+            toggles.addAll(mHeaderContent.getToggleItems());
         }
         return toggles;
     }
@@ -282,8 +273,7 @@ public class SliceMetadata {
     @Nullable
     public PendingIntent getInputRangeAction() {
         if (mTemplateType == ROW_TYPE_SLIDER) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            SliceItem range = rc.getRange();
+            SliceItem range = mHeaderContent.getRange();
             if (range != null) {
                 return range.getAction();
             }
@@ -299,8 +289,7 @@ public class SliceMetadata {
      */
     public boolean sendInputRangeAction(int newValue) throws PendingIntent.CanceledException {
         if (mTemplateType == ROW_TYPE_SLIDER) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            SliceItem range = rc.getRange();
+            SliceItem range = mHeaderContent.getRange();
             if (range != null) {
                 // Ensure new value is valid
                 Pair<Integer, Integer> validRange = getRange();
@@ -326,8 +315,7 @@ public class SliceMetadata {
     public Pair<Integer, Integer> getRange() {
         if (mTemplateType == ROW_TYPE_SLIDER
                 || mTemplateType == ROW_TYPE_PROGRESS) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            SliceItem range = rc.getRange();
+            SliceItem range = mHeaderContent.getRange();
             SliceItem maxItem = SliceQuery.findSubtype(range, FORMAT_INT, SUBTYPE_MAX);
             SliceItem minItem = SliceQuery.findSubtype(range, FORMAT_INT, SUBTYPE_MIN);
             int max = maxItem != null ? maxItem.getInt() : 100; // default max of range
@@ -347,13 +335,19 @@ public class SliceMetadata {
     public int getRangeValue() {
         if (mTemplateType == ROW_TYPE_SLIDER
                 || mTemplateType == ROW_TYPE_PROGRESS) {
-            RowContent rc = new RowContent(mContext, mHeaderItem, true /* isHeader */);
-            SliceItem range = rc.getRange();
+            SliceItem range = mHeaderContent.getRange();
             SliceItem currentItem = SliceQuery.findSubtype(range, FORMAT_INT, SUBTYPE_VALUE);
             return currentItem != null ? currentItem.getInt() : -1;
         }
         return -1;
 
+    }
+
+    /**
+     * @return whether this slice is a selection (a drop-down list) slice.
+     */
+    public boolean isSelection() {
+        return (mTemplateType == EventInfo.ROW_TYPE_SELECTION);
     }
 
     /**
@@ -444,6 +438,14 @@ public class SliceMetadata {
     }
 
     /**
+     * Indicates whether this slice was created using {@link SliceUtils#parseSlice} or through
+     * normal binding.
+     */
+    public boolean isCachedSlice() {
+        return mSlice.hasHint(HINT_CACHED);
+    }
+
+    /**
      * @return the group of slice actions associated with the provided slice, if they exist.
      * @hide
      */
@@ -464,5 +466,40 @@ public class SliceMetadata {
             return actions;
         }
         return null;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public boolean isExpired() {
+        long now = System.currentTimeMillis();
+        return mExpiry != 0 && mExpiry != SliceHints.INFINITY && now > mExpiry;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public boolean neverExpires() {
+        return mExpiry == SliceHints.INFINITY;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public long getTimeToExpiry() {
+        long now = System.currentTimeMillis();
+        return (mExpiry == 0 || mExpiry == SliceHints.INFINITY || now > mExpiry)
+                ? 0 : mExpiry - now;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public ListContent getListContent() {
+        return mListContent;
     }
 }

@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +25,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 
+/**
+ * @deprecated Use {@link EditTextPreferenceDialogFragmentCompat} instead
+ */
+@Deprecated
 public class EditTextPreferenceDialogFragment extends PreferenceDialogFragment {
 
     private static final String SAVE_STATE_TEXT = "EditTextPreferenceDialogFragment.text";
@@ -33,6 +37,16 @@ public class EditTextPreferenceDialogFragment extends PreferenceDialogFragment {
 
     private CharSequence mText;
 
+    /**
+     * @deprecated Use {@link EditTextPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
+    public EditTextPreferenceDialogFragment() {}
+
+    /**
+     * @deprecated Use {@link EditTextPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
     public static EditTextPreferenceDialogFragment newInstance(String key) {
         final EditTextPreferenceDialogFragment
                 fragment = new EditTextPreferenceDialogFragment();
@@ -80,13 +94,17 @@ public class EditTextPreferenceDialogFragment extends PreferenceDialogFragment {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     @Override
     protected boolean needInputMethod() {
         // We want the input method to show, if possible, when dialog is displayed
         return true;
     }
 
+    /**
+     * @deprecated Use {@link EditTextPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
     @Override
     public void onDialogClosed(boolean positiveResult) {
 

@@ -19,15 +19,18 @@ package androidx.work.impl;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.DatabaseTest;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.worker.InfiniteTestWorker;
 
 import org.junit.Before;
@@ -35,22 +38,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Collections;
-import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
 public class ProcessorTest extends DatabaseTest {
+
+    private Scheduler mMockScheduler;
     private Processor mProcessor;
 
     @Before
     public void setUp() {
-        Context appContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
+        Context appContext = ApplicationProvider.getApplicationContext().getApplicationContext();
         Configuration configuration = new Configuration.Builder().build();
+        mMockScheduler = mock(Scheduler.class);
         mProcessor = new Processor(
                 appContext,
                 configuration,
+                new InstantWorkTaskExecutor(),
                 mDatabase,
-                Collections.singletonList(mock(Scheduler.class)),
-                Executors.newSingleThreadScheduledExecutor()) {
+                Collections.singletonList(mMockScheduler)) {
         };
     }
 
@@ -80,5 +85,12 @@ public class ProcessorTest extends DatabaseTest {
         assertThat(mProcessor.hasWork(), is(false));
         mProcessor.startWork(work.getStringId());
         assertThat(mProcessor.hasWork(), is(true));
+    }
+
+    @Test
+    @SmallTest
+    public void testDontCancelWhenNeedsReschedule() {
+        mProcessor.onExecuted("dummy", true);
+        verify(mMockScheduler, never()).cancel("dummy");
     }
 }

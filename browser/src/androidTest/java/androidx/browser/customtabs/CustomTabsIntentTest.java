@@ -21,15 +21,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 
 import androidx.annotation.ColorRes;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,11 +68,39 @@ public class CustomTabsIntentTest {
     @Test
     public void testToolbarColorIsNotAResource() {
         @ColorRes int colorId = android.R.color.background_dark;
-        int color = InstrumentationRegistry.getContext().getResources().getColor(colorId);
+        int color = ApplicationProvider.getApplicationContext().getResources().getColor(colorId);
         Intent intent = new CustomTabsIntent.Builder().setToolbarColor(colorId).build().intent;
         assertFalse("The color should not be a resource ID",
                 color == intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
         intent = new CustomTabsIntent.Builder().setToolbarColor(color).build().intent;
         assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
+    public void testColorScheme() {
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(-1);
+            fail("Underflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(42);
+            fail("Overflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        // None of the valid parameters should throw.
+        final int[] colorSchemeValues = new int[] {
+            CustomTabsIntent.COLOR_SCHEME_SYSTEM,
+            CustomTabsIntent.COLOR_SCHEME_LIGHT,
+            CustomTabsIntent.COLOR_SCHEME_DARK
+        };
+
+        for (int value : colorSchemeValues) {
+            Intent intent =
+                    new CustomTabsIntent.Builder().setColorScheme(value).build().intent;
+            assertEquals(value, intent.getIntExtra(CustomTabsIntent.EXTRA_COLOR_SCHEME, -1));
+        }
     }
 }

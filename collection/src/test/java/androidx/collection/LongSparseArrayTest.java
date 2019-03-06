@@ -18,6 +18,7 @@ package androidx.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -26,6 +27,177 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class LongSparseArrayTest {
+    @Test
+    public void getOrDefaultPrefersStoredValue() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertEquals("1", map.get(1L, "2"));
+    }
+
+    @Test
+    public void getOrDefaultUsesDefaultWhenAbsent() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        assertEquals("1", map.get(1L, "1"));
+    }
+
+    @Test
+    public void getOrDefaultReturnsNullWhenNullStored() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertNull(map.get(1L, "1"));
+    }
+
+    @Test
+    public void getOrDefaultDoesNotPersistDefault() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.get(1L, "1");
+        assertFalse(map.containsKey(1L));
+    }
+
+    @Test
+    public void putIfAbsentDoesNotOverwriteStoredValue() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        map.putIfAbsent(1L, "2");
+        assertEquals("1", map.get(1L));
+    }
+
+    @Test
+    public void putIfAbsentReturnsStoredValue() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertEquals("1", map.putIfAbsent(1L, "2"));
+    }
+
+    @Test
+    public void putIfAbsentStoresValueWhenAbsent() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.putIfAbsent(1L, "2");
+        assertEquals("2", map.get(1L));
+    }
+
+    @Test
+    public void putIfAbsentReturnsNullWhenAbsent() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        assertNull(map.putIfAbsent(1L, "2"));
+    }
+
+    @Test
+    public void replaceWhenAbsentDoesNotStore() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        assertNull(map.replace(1L, "1"));
+        assertFalse(map.containsKey(1L));
+    }
+
+    @Test
+    public void replaceStoresAndReturnsOldValue() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertEquals("1", map.replace(1L, "2"));
+        assertEquals("2", map.get(1L));
+    }
+
+    @Test
+    public void replaceStoresAndReturnsNullWhenMappedToNull() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertNull(map.replace(1L, "1"));
+        assertEquals("1", map.get(1L));
+    }
+
+    @Test
+    public void replaceValueKeyAbsent() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        assertFalse(map.replace(1L, "1", "2"));
+        assertFalse(map.containsKey(1L));
+    }
+
+    @Test
+    public void replaceValueMismatchDoesNotReplace() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertFalse(map.replace(1L, "2", "3"));
+        assertEquals("1", map.get(1L));
+    }
+
+    @Test
+    public void replaceValueMismatchNullDoesNotReplace() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertFalse(map.replace(1L, null, "2"));
+        assertEquals("1", map.get(1L));
+    }
+
+    @Test
+    public void replaceValueMatchReplaces() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertTrue(map.replace(1L, "1", "2"));
+        assertEquals("2",  map.get(1L));
+    }
+
+    @Test
+    public void replaceNullValueMismatchDoesNotReplace() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertFalse(map.replace(1L, "1", "2"));
+        assertNull(map.get(1L));
+    }
+
+    @Test
+    public void replaceNullValueMatchRemoves() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertTrue(map.replace(1L, null, "1"));
+        assertEquals("1", map.get(1L));
+    }
+
+    @Test
+    public void removeValueKeyAbsent() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        assertFalse(map.remove(1L, "1"));
+    }
+
+    @Test
+    public void removeValueMismatchDoesNotRemove() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertFalse(map.remove(1L, "2"));
+        assertTrue(map.containsKey(1L));
+    }
+
+    @Test
+    public void removeValueMismatchNullDoesNotRemove() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertFalse(map.remove(1L, null));
+        assertTrue(map.containsKey(1L));
+    }
+
+    @Test
+    public void removeValueMatchRemoves() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, "1");
+        assertTrue(map.remove(1L, "1"));
+        assertFalse(map.containsKey(1L));
+    }
+
+    @Test
+    public void removeNullValueMismatchDoesNotRemove() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertFalse(map.remove(1L, "2"));
+        assertTrue(map.containsKey(1L));
+    }
+
+    @Test
+    public void removeNullValueMatchRemoves() {
+        LongSparseArray<String> map = new LongSparseArray<>();
+        map.put(1L, null);
+        assertTrue(map.remove(1L, null));
+        assertFalse(map.containsKey(1L));
+    }
+
     @Test
     public void isEmpty() {
         LongSparseArray<String> LongSparseArray = new LongSparseArray<>();

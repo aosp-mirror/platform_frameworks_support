@@ -26,9 +26,9 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 import android.support.annotation.NonNull;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Constraints;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManagerTest;
@@ -53,7 +53,8 @@ public class ConstraintControllerTest extends WorkManagerTest {
 
     @Before
     public void setUp() {
-        mTestIdleController = new TestDeviceIdleConstraintController(mMockTracker, mCallback);
+        mTestIdleController = new TestDeviceIdleConstraintController(mMockTracker);
+        mTestIdleController.setCallback(mCallback);
     }
 
     private WorkSpec createTestWorkSpec(Constraints constraints) {
@@ -244,9 +245,8 @@ public class ConstraintControllerTest extends WorkManagerTest {
     }
 
     private static class TestDeviceIdleConstraintController extends ConstraintController<Boolean> {
-        TestDeviceIdleConstraintController(ConstraintTracker<Boolean> tracker,
-                OnConstraintUpdatedCallback callback) {
-            super(tracker, callback);
+        TestDeviceIdleConstraintController(ConstraintTracker<Boolean> tracker) {
+            super(tracker);
         }
 
         @Override

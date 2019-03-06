@@ -16,8 +16,9 @@
 
 package android.support.v4.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.media.Rating;
 import android.os.Build;
 import android.os.Parcel;
@@ -38,13 +39,14 @@ import java.lang.annotation.RetentionPolicy;
  * be defined as "unrated"), both of which are defined when the rating instance is constructed
  * through one of the factory methods.
  */
+@SuppressLint("BanParcelableUsage")
 public final class RatingCompat implements Parcelable {
     private final static String TAG = "Rating";
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({RATING_NONE, RATING_HEART, RATING_THUMB_UP_DOWN, RATING_3_STARS, RATING_4_STARS,
             RATING_5_STARS, RATING_PERCENTAGE})
     @Retention(RetentionPolicy.SOURCE)
@@ -53,7 +55,7 @@ public final class RatingCompat implements Parcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({RATING_3_STARS, RATING_4_STARS, RATING_5_STARS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface StarStyle {}

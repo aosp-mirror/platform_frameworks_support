@@ -16,7 +16,7 @@
 
 package androidx.vectordrawable.graphics.drawable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import static java.lang.Math.min;
 
@@ -65,7 +65,7 @@ import java.util.ArrayList;
  * <em>something</em> file.)
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class AnimatorInflaterCompat {
     private static final String TAG = "AnimatorInflater";
     /**
@@ -187,7 +187,7 @@ public class AnimatorInflaterCompat {
                         + " two incompatible pathData");
             }
 
-            if (mNodeArray == null || !PathParser.canMorph(mNodeArray, startPathData)) {
+            if (!PathParser.canMorph(mNodeArray, startPathData)) {
                 mNodeArray = PathParser.deepCopyNodes(startPathData);
             }
 
@@ -541,7 +541,7 @@ public class AnimatorInflaterCompat {
             } else if (name.equals("propertyValuesHolder")) {
                 PropertyValuesHolder[] values = loadValues(context, res, theme, parser,
                         Xml.asAttributeSet(parser));
-                if (values != null && anim != null && (anim instanceof ValueAnimator)) {
+                if (values != null && anim instanceof ValueAnimator) {
                     ((ValueAnimator) anim).setValues(values);
                 }
                 gotValues = true;

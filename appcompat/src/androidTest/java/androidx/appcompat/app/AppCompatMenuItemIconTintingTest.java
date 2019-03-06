@@ -36,9 +36,9 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.MenuItemCompat;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -48,7 +48,7 @@ import org.junit.runner.RunWith;
 /**
  * Test icon tinting in {@link MenuItem}s
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AppCompatMenuItemIconTintingTest {
     private AppCompatMenuItemIconTintingTestActivity mActivity;

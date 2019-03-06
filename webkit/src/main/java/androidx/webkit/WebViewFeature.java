@@ -32,11 +32,13 @@ import androidx.webkit.internal.WebViewFeatureInternal;
 
 import org.chromium.support_lib_boundary.util.Features;
 
+import java.io.OutputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Utility class for checking which WebView Support Library features are supported on the device.
@@ -48,7 +50,7 @@ public class WebViewFeature {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @StringDef(value = {
             VISUAL_STATE_CALLBACK,
             OFF_SCREEN_PRERASTER,
@@ -67,6 +69,7 @@ public class WebViewFeature {
             RECEIVE_HTTP_ERROR,
             SHOULD_OVERRIDE_WITH_REDIRECTS,
             SAFE_BROWSING_HIT,
+            TRACING_CONTROLLER_BASIC_USAGE,
             WEB_RESOURCE_REQUEST_IS_REDIRECT,
             WEB_RESOURCE_ERROR_GET_DESCRIPTION,
             WEB_RESOURCE_ERROR_GET_CODE,
@@ -78,7 +81,13 @@ public class WebViewFeature {
             WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK,
             CREATE_WEB_MESSAGE_CHANNEL,
             POST_WEB_MESSAGE,
-            WEB_MESSAGE_CALLBACK_ON_MESSAGE
+            WEB_MESSAGE_CALLBACK_ON_MESSAGE,
+            GET_WEB_VIEW_CLIENT,
+            GET_WEB_CHROME_CLIENT,
+            GET_WEB_VIEW_RENDERER,
+            WEB_VIEW_RENDERER_TERMINATE,
+            WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
+            PROXY_OVERRIDE,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -226,6 +235,17 @@ public class WebViewFeature {
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
+     * {@link TracingController#getInstance()},
+     * {@link TracingController#isTracing()},
+     * {@link TracingController#start(TracingConfig)},
+     * {@link TracingController#stop(OutputStream, Executor)}.
+     */
+    public static final String TRACING_CONTROLLER_BASIC_USAGE =
+            Features.TRACING_CONTROLLER_BASIC_USAGE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
      * {@link WebResourceRequestCompat#isRedirect(WebResourceRequest)}.
      */
     public static final String WEB_RESOURCE_REQUEST_IS_REDIRECT =
@@ -319,6 +339,54 @@ public class WebViewFeature {
      */
     public static final String WEB_MESSAGE_CALLBACK_ON_MESSAGE =
             Features.WEB_MESSAGE_CALLBACK_ON_MESSAGE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#getWebViewClient(WebView)}
+     */
+    public static final String GET_WEB_VIEW_CLIENT = Features.GET_WEB_VIEW_CLIENT;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#getWebChromeClient(WebView)}
+     */
+    public static final String GET_WEB_CHROME_CLIENT = Features.GET_WEB_CHROME_CLIENT;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#getWebViewRenderer(WebView)}
+     */
+    public static final String GET_WEB_VIEW_RENDERER = Features.GET_WEB_VIEW_RENDERER;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewRenderer#terminate()}
+     */
+    public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebViewCompat#getWebViewRendererClient()},
+     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
+     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
+     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     */
+    public static final String WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE =
+            Features.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)},
+     * {@link ProxyController#setProxyOverride(ProxyConfig, Runnable)},
+     * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
+     * {@link ProxyController#clearProxyOverride(Runnable)}.
+     * TODO(laisminchillo): unhide this when we're ready to expose this
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

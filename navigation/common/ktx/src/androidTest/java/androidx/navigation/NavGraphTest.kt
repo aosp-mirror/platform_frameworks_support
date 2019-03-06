@@ -16,59 +16,63 @@
 
 package androidx.navigation
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
-import androidx.navigation.testing.TestNavigator
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertSame
-import org.junit.Assert.assertTrue
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.mock
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 class NavGraphTest {
-    private val navGraphNavigator = NavGraphNavigator(InstrumentationRegistry.getTargetContext())
-    private val navigator = TestNavigator()
+    private val navGraphNavigator = NavGraphNavigator(mock(NavigatorProvider::class.java))
+    private val navigator = NoOpNavigator()
 
     @Test
     fun plusAssign() {
         val graph = NavGraph(navGraphNavigator)
-        val destination = NavDestination(navigator).apply { id = DESTINATION_ID }
+        val destination = navigator.createDestination().apply { id = DESTINATION_ID }
         graph += destination
-        assertSame("plusAssign destination should be retrieved with get", destination,
-                graph[DESTINATION_ID])
+        assertWithMessage("plusAssign destination should be retrieved with get")
+            .that(graph[DESTINATION_ID])
+            .isSameAs(destination)
     }
 
     @Test
     fun minusAssign() {
         val graph = NavGraph(navGraphNavigator)
-        val destination = NavDestination(navigator).apply { id = DESTINATION_ID }
+        val destination = navigator.createDestination().apply { id = DESTINATION_ID }
         graph += destination
-        assertSame("plusAssign destination should be retrieved with get", destination,
-                graph[DESTINATION_ID])
+        assertWithMessage("plusAssign destination should be retrieved with get")
+            .that(graph[DESTINATION_ID])
+            .isSameAs(destination)
         graph -= destination
-        assertFalse("Destination should be removed after minusAssign",
-                DESTINATION_ID in graph)
+        assertWithMessage("Destination should be removed after minusAssign")
+            .that(DESTINATION_ID in graph)
+            .isFalse()
     }
 
     @Test
     fun plusAssignGraph() {
         val graph = NavGraph(navGraphNavigator)
         val other = NavGraph(navGraphNavigator)
-        other += NavDestination(navigator).apply { id = DESTINATION_ID }
-        other += NavDestination(navigator).apply { id = SECOND_DESTINATION_ID }
+        other += navigator.createDestination().apply { id = DESTINATION_ID }
+        other += navigator.createDestination().apply { id = SECOND_DESTINATION_ID }
         graph += other
-        assertTrue("NavGraph should have destination1 from other",
-                DESTINATION_ID in graph)
-        assertFalse("other nav graph should not have destination1",
-                DESTINATION_ID in other)
+        assertWithMessage("NavGraph should have destination1 from other")
+            .that(DESTINATION_ID in graph)
+            .isTrue()
+        assertWithMessage("other nav graph should not have destination1")
+            .that(DESTINATION_ID in other)
+            .isFalse()
 
-        assertTrue("NavGraph should have destination2 from other",
-                SECOND_DESTINATION_ID in graph)
-        assertFalse("other nav graph should not have destination2",
-                SECOND_DESTINATION_ID in other)
+        assertWithMessage("NavGraph should have destination2 from other")
+            .that(SECOND_DESTINATION_ID in graph)
+            .isTrue()
+        assertWithMessage("other nav graph should not have destination2")
+            .that(SECOND_DESTINATION_ID in other)
+            .isFalse()
     }
 
     @Test(expected = IllegalArgumentException::class)

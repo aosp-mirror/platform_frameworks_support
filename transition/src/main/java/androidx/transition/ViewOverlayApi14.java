@@ -16,7 +16,7 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -76,33 +76,15 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         return null;
     }
 
-    /**
-     * Used internally by View and ViewGroup to handle drawing and invalidation
-     * of the overlay
-     */
-    ViewGroup getOverlayView() {
-        return mOverlayViewGroup;
-    }
-
     @Override
     public void add(@NonNull Drawable drawable) {
         mOverlayViewGroup.add(drawable);
     }
 
     @Override
-    public void clear() {
-        mOverlayViewGroup.clear();
-    }
-
-    @Override
     public void remove(@NonNull Drawable drawable) {
         mOverlayViewGroup.remove(drawable);
     }
-
-    boolean isEmpty() {
-        return mOverlayViewGroup.isEmpty();
-    }
-
 
     /**
      * OverlayViewGroup is a container that View and ViewGroup use to host
@@ -153,6 +135,8 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
          */
         ViewOverlayApi14 mViewOverlay;
 
+        private boolean mDisposed;
+
         OverlayViewGroup(Context context, ViewGroup hostView, View requestingView,
                 ViewOverlayApi14 viewOverlay) {
             super(context);
@@ -171,6 +155,7 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         }
 
         public void add(Drawable drawable) {
+            assertNotDisposed();
             if (mDrawables == null) {
 
                 mDrawables = new ArrayList<>();
@@ -188,6 +173,7 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
                 mDrawables.remove(drawable);
                 invalidate(drawable.getBounds());
                 drawable.setCallback(null);
+                disposeIfEmpty();
             }
         }
 
@@ -197,6 +183,7 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         }
 
         public void add(View child) {
+            assertNotDisposed();
             if (child.getParent() instanceof ViewGroup) {
                 ViewGroup parent = (ViewGroup) child.getParent();
                 if (parent != mHostView && parent.getParent() != null
@@ -220,26 +207,26 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
                     parent.removeView(child);
                 }
             }
-            super.addView(child, getChildCount() - 1);
+            super.addView(child);
         }
 
         public void remove(View view) {
             super.removeView(view);
-            if (isEmpty()) {
+            disposeIfEmpty();
+        }
+
+        private void assertNotDisposed() {
+            if (mDisposed) {
+                throw new IllegalStateException("This overlay was disposed already. "
+                        + "Please use a new one via ViewGroupUtils.getOverlay()");
+            }
+        }
+
+        private void disposeIfEmpty() {
+            if (getChildCount() == 0 && (mDrawables == null || mDrawables.size() == 0)) {
+                mDisposed = true;
                 mHostView.removeView(this);
             }
-        }
-
-        public void clear() {
-            removeAllViews();
-            if (mDrawables != null) {
-                mDrawables.clear();
-            }
-        }
-
-        boolean isEmpty() {
-            return getChildCount() == 0
-                    && (mDrawables == null || mDrawables.size() == 0);
         }
 
         @Override
@@ -287,28 +274,10 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
             offset[1] = hostViewLocation[1] - contentViewLocation[1];
         }
 
-        public void invalidateChildFast(View child, final Rect dirty) {
-            if (mHostView != null) {
-                // Note: This is not a "fast" invalidation. Would be nice to instead invalidate
-                // using DisplayList properties and a dirty rect instead of causing a real
-                // invalidation of the host view
-                int left = child.getLeft();
-                int top = child.getTop();
-                int[] offset = new int[2];
-                getOffset(offset);
-                // TODO: implement transforms
-//                if (!child.getMatrix().isIdentity()) {
-//                    child.transformRect(dirty);
-//                }
-                dirty.offset(left + offset[0], top + offset[1]);
-                mHostView.invalidate(dirty);
-            }
-        }
-
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         protected ViewParent invalidateChildInParentFast(int left, int top, Rect dirty) {
             if (mHostView instanceof ViewGroup && sInvalidateChildInParentFastMethod != null) {
                 try {
@@ -343,14 +312,5 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
             }
             return null;
         }
-
-        static class TouchInterceptor extends View {
-            TouchInterceptor(Context context) {
-                super(context);
-            }
-        }
-    }
-
-    private ViewOverlayApi14() {
     }
 }

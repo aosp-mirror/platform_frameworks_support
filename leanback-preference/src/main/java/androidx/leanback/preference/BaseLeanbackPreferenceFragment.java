@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -32,7 +32,9 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * This fragment provides a preference fragment with leanback-style behavior, suitable for
  * embedding into broader UI elements.
+ * @deprecated Use {@link BaseLeanbackPreferenceFragmentCompat}
  */
+@Deprecated
 public abstract class BaseLeanbackPreferenceFragment extends PreferenceFragment {
 
     @Override
@@ -50,7 +52,7 @@ public abstract class BaseLeanbackPreferenceFragment extends PreferenceFragment 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public Fragment getCallbackFragment() {
         return getParentFragment();
