@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "702402fe_0510116e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-06T18:10:45Z",
+      "side": 1,
+      "message": "Remove the extra i",
+      "revId": "811ce0a02638850530b5d8583e353bdf6c90b164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d953584_bfb5db3d",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 6
+      },
+      "lineNbr": 1773,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-06T18:10:45Z",
+      "side": 1,
+      "message": "This should be 1.0.0-rc02 for now.",
+      "range": {
+        "startLine": 1773,
+        "startChar": 37,
+        "endLine": 1773,
+        "endChar": 42
+      },
+      "revId": "811ce0a02638850530b5d8583e353bdf6c90b164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f29f54a_a3546836",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 6
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-06T18:10:45Z",
+      "side": 1,
+      "message": "This should be 2.0.0-rc02 for now.",
+      "revId": "811ce0a02638850530b5d8583e353bdf6c90b164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
