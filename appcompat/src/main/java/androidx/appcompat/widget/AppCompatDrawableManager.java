@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.appcompat.content.res.AppCompatResources.getColorStateList;
 import static androidx.appcompat.widget.ThemeUtils.getDisabledThemeAttrColor;
 import static androidx.appcompat.widget.ThemeUtils.getThemeAttrColor;
@@ -42,7 +42,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public final class AppCompatDrawableManager {
     private static final String TAG = "AppCompatDrawableManag";
     private static final boolean DEBUG = false;
@@ -50,10 +50,7 @@ public final class AppCompatDrawableManager {
 
     private static AppCompatDrawableManager INSTANCE;
 
-    /**
-     * Returns the singleton instance of this class.
-     */
-    public static synchronized AppCompatDrawableManager get() {
+    public static synchronized void preload() {
         if (INSTANCE == null) {
             INSTANCE = new AppCompatDrawableManager();
             INSTANCE.mResourceManager = ResourceManagerInternal.get();
@@ -390,6 +387,15 @@ public final class AppCompatDrawableManager {
                     return mode;
                 }
             });
+        }
+    }
+
+    /**
+     * Returns the singleton instance of this class.
+     */
+    public static synchronized AppCompatDrawableManager get() {
+        if (INSTANCE == null) {
+            preload();
         }
         return INSTANCE;
     }

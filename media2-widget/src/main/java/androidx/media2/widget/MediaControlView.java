@@ -26,7 +26,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -151,7 +150,8 @@ public class MediaControlView extends ViewGroup {
     // Int for defining the UX state where the views are being animated (shown or hidden).
     private static final int UX_STATE_ANIMATING = 3;
 
-    private static final long DEFAULT_SHOW_CONTROLLER_INTERVAL_MS = 2000;
+    private static final long DISABLE_DELAYED_ANIMATION = -1;
+    private static final long DEFAULT_DELAYED_ANIMATION_INTERVAL_MS = 2000;
     private static final long DEFAULT_PROGRESS_UPDATE_TIME_MS = 1000;
     private static final long REWIND_TIME_MS = 10000;
     private static final long FORWARD_TIME_MS = 30000;
@@ -183,7 +183,7 @@ public class MediaControlView extends ViewGroup {
     int mSizeType = SIZE_TYPE_UNDEFINED;
     int mUxState;
     long mDuration;
-    long mShowControllerIntervalMs;
+    long mDelayedAnimationIntervalMs;
     long mCurrentSeekPosition;
     long mNextSeekPosition;
     boolean mDragging;
@@ -275,7 +275,7 @@ public class MediaControlView extends ViewGroup {
         mController = new Controller();
         inflate(context, R.layout.media_controller, this);
         initControllerView();
-        mShowControllerIntervalMs = DEFAULT_SHOW_CONTROLLER_INTERVAL_MS;
+        mDelayedAnimationIntervalMs = DEFAULT_DELAYED_ANIMATION_INTERVAL_MS;
         mAccessibilityManager = (AccessibilityManager) context.getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
     }
@@ -292,13 +292,20 @@ public class MediaControlView extends ViewGroup {
     }
 
     /**
-     * Registers a callback to be invoked when the fullscreen mode should be changed.
-     * This needs to be implemented in order to display the fullscreen button.
-     * @param l The callback that will be run
+     * Sets a listener to be called when the fullscreen mode should be changed.
+     * A non-null listener needs to be set in order to display the fullscreen button.
+     *
+     * @param listener The listener to be called. A value of <code>null</code> removes any
+     * existing listener and hides the fullscreen button.
      */
-    public void setOnFullScreenListener(@NonNull OnFullScreenListener l) {
-        mOnFullScreenListener = l;
-        mFullScreenButton.setVisibility(View.VISIBLE);
+    public void setOnFullScreenListener(@Nullable OnFullScreenListener listener) {
+        if (listener == null) {
+            mOnFullScreenListener = null;
+            mFullScreenButton.setVisibility(View.GONE);
+        } else {
+            mOnFullScreenListener = listener;
+            mFullScreenButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -324,14 +331,19 @@ public class MediaControlView extends ViewGroup {
 
     @Override
     public CharSequence getAccessibilityClassName() {
-        return MediaControlView.class.getName();
+        // Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage.
+        return "androidx.media2.widget.MediaControlView";
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (mMediaType != MEDIA_TYPE_MUSIC || mSizeType != SIZE_TYPE_FULL) {
-                toggleMediaControlViewVisibility();
+                if (mUxState == UX_STATE_ALL_VISIBLE) {
+                    hideMediaControlView();
+                } else {
+                    showMediaControlView();
+                }
             }
         }
         return true;
@@ -341,7 +353,11 @@ public class MediaControlView extends ViewGroup {
     public boolean onTrackballEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (mMediaType != MEDIA_TYPE_MUSIC || mSizeType != SIZE_TYPE_FULL) {
-                toggleMediaControlViewVisibility();
+                if (mUxState == UX_STATE_ALL_VISIBLE) {
+                    hideMediaControlView();
+                } else {
+                    showMediaControlView();
+                }
             }
         }
         return true;
@@ -450,6 +466,8 @@ public class MediaControlView extends ViewGroup {
                 sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
         mMinimalFullScreenButton.setVisibility(
                 sizeType == SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mCenterView.setVisibility(
+                sizeType != SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
 
         final int childLeft = getPaddingLeft();
         final int childRight = childLeft + width;
@@ -526,8 +544,8 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
-    void setShowControllerInterval(long interval) {
-        mShowControllerIntervalMs = interval;
+    void setDelayedAnimationInterval(long interval) {
+        mDelayedAnimationIntervalMs = interval;
     }
 
     ///////////////////////////////////////////////////
@@ -633,17 +651,18 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float alpha = (float) animation.getAnimatedValue();
-                Drawable thumb = mProgress.getThumb();
-                if (thumb != null) {
-                    thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
-                }
+                int scaleLevel = mSizeType == SIZE_TYPE_MINIMAL ? 0 : MAX_SCALE_LEVEL;
+                mProgress.getThumb().setLevel((int) (scaleLevel * alpha));
 
                 mCenterView.setAlpha(alpha);
                 mMinimalFullScreenView.setAlpha(alpha);
-                if (alpha == 0.0f) {
-                    mCenterView.setVisibility(View.INVISIBLE);
-                    mMinimalFullScreenView.setVisibility(View.INVISIBLE);
-                }
+            }
+        });
+        fadeOutAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCenterView.setVisibility(View.INVISIBLE);
+                mMinimalFullScreenView.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -653,17 +672,20 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float alpha = (float) animation.getAnimatedValue();
-                Drawable thumb = mProgress.getThumb();
-                if (thumb != null) {
-                    thumb.setLevel((int) (MAX_SCALE_LEVEL * alpha));
-                }
+                int scaleLevel = mSizeType == SIZE_TYPE_MINIMAL ? 0 : MAX_SCALE_LEVEL;
+                mProgress.getThumb().setLevel((int) (scaleLevel * alpha));
 
                 mCenterView.setAlpha(alpha);
                 mMinimalFullScreenView.setAlpha(alpha);
-                if (alpha == 0.0f) {
+            }
+        });
+        fadeInAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if (mSizeType != SIZE_TYPE_FULL) {
                     mCenterView.setVisibility(View.VISIBLE);
-                    mMinimalFullScreenView.setVisibility(View.VISIBLE);
                 }
+                mMinimalFullScreenView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -672,34 +694,32 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationY(0, -titleBarHeight, mTitleBar))
                 .with(AnimatorUtil.ofTranslationYTogether(0, bottomBarHeight, bottomBarGroup));
         mHideMainBarsAnimator.setDuration(HIDE_TIME_MS);
-        mHideMainBarsAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mHideMainBarsAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
+            }
+        });
 
         mHideProgressBarAnimator = AnimatorUtil.ofTranslationYTogether(
                 bottomBarHeight, bottomBarHeight + progressBarHeight, bottomBarGroup);
         mHideProgressBarAnimator.setDuration(HIDE_TIME_MS);
-        mHideProgressBarAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mHideProgressBarAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_NONE_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_NONE_VISIBLE;
+            }
+        });
 
         mHideAllBarsAnimator = new AnimatorSet();
         mHideAllBarsAnimator.play(fadeOutAnimator)
@@ -707,7 +727,7 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationYTogether(
                         0, bottomBarHeight + progressBarHeight, bottomBarGroup));
         mHideAllBarsAnimator.setDuration(HIDE_TIME_MS);
-        mHideAllBarsAnimator.getChildAnimations().get(0).addListener(new AnimatorListenerAdapter() {
+        mHideAllBarsAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 mUxState = UX_STATE_ANIMATING;
@@ -724,18 +744,17 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationY(-titleBarHeight, 0, mTitleBar))
                 .with(AnimatorUtil.ofTranslationYTogether(bottomBarHeight, 0, bottomBarGroup));
         mShowMainBarsAnimator.setDuration(SHOW_TIME_MS);
-        mShowMainBarsAnimator.getChildAnimations().get(0).addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mUxState = UX_STATE_ANIMATING;
-                    }
+        mShowMainBarsAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mUxState = UX_STATE_ANIMATING;
+            }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mUxState = UX_STATE_ALL_VISIBLE;
-                    }
-                });
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ALL_VISIBLE;
+            }
+        });
 
         mShowAllBarsAnimator = new AnimatorSet();
         mShowAllBarsAnimator.play(fadeInAnimator)
@@ -743,7 +762,7 @@ public class MediaControlView extends ViewGroup {
                 .with(AnimatorUtil.ofTranslationYTogether(
                         bottomBarHeight + progressBarHeight, 0, bottomBarGroup));
         mShowAllBarsAnimator.setDuration(SHOW_TIME_MS);
-        mShowAllBarsAnimator.getChildAnimations().get(0).addListener(new AnimatorListenerAdapter() {
+        mShowAllBarsAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 mUxState = UX_STATE_ANIMATING;
@@ -808,7 +827,7 @@ public class MediaControlView extends ViewGroup {
             boolean isShowing = getVisibility() == View.VISIBLE;
             if (!mDragging && isShowing && mController.isPlaying()) {
                 long pos = setProgress();
-                postDelayed(mUpdateProgress,
+                postDelayedRunnable(mUpdateProgress,
                         DEFAULT_PROGRESS_UPDATE_TIME_MS - (pos % DEFAULT_PROGRESS_UPDATE_TIME_MS));
             }
         }
@@ -909,25 +928,28 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
-    private void toggleMediaControlViewVisibility() {
-        if (shouldNotHideBars() || mShowControllerIntervalMs == 0
-                || mUxState == UX_STATE_ANIMATING) {
+    private void showMediaControlView() {
+        if (mUxState == UX_STATE_ANIMATING) {
             return;
         }
         removeCallbacks(mHideMainBars);
         removeCallbacks(mHideProgressBar);
 
-        switch (mUxState) {
-            case UX_STATE_NONE_VISIBLE:
-                post(mShowAllBars);
-                break;
-            case UX_STATE_ONLY_PROGRESS_VISIBLE:
-                post(mShowMainBars);
-                break;
-            case UX_STATE_ALL_VISIBLE:
-                post(mHideAllBars);
-                break;
+        if (mUxState == UX_STATE_NONE_VISIBLE) {
+            post(mShowAllBars);
+        } else if (mUxState == UX_STATE_ONLY_PROGRESS_VISIBLE) {
+            post(mShowMainBars);
         }
+    }
+
+    private void hideMediaControlView() {
+        if (shouldNotHideBars() || mUxState == UX_STATE_ANIMATING) {
+            return;
+        }
+        removeCallbacks(mHideMainBars);
+        removeCallbacks(mHideProgressBar);
+
+        post(mHideAllBars);
     }
 
     private final Runnable mShowAllBars = new Runnable() {
@@ -935,7 +957,7 @@ public class MediaControlView extends ViewGroup {
         public void run() {
             mShowAllBarsAnimator.start();
             if (mController.isPlaying()) {
-                postDelayed(mHideMainBars, mShowControllerIntervalMs);
+                postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
             }
         }
     };
@@ -944,7 +966,7 @@ public class MediaControlView extends ViewGroup {
         @Override
         public void run() {
             mShowMainBarsAnimator.start();
-            postDelayed(mHideMainBars, mShowControllerIntervalMs);
+            postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
         }
     };
 
@@ -965,7 +987,7 @@ public class MediaControlView extends ViewGroup {
                 return;
             }
             mHideMainBarsAnimator.start();
-            postDelayed(mHideProgressBar, mShowControllerIntervalMs);
+            postDelayedRunnable(mHideProgressBar, mDelayedAnimationIntervalMs);
         }
     };
 
@@ -1077,14 +1099,14 @@ public class MediaControlView extends ViewGroup {
             resetHideCallbacks();
             removeCallbacks(mUpdateProgress);
 
-            long latestSeekPosition = getLatestSeekPosition();
-            if (mIsStopped && mDuration != 0) {
-                // If the media is currently stopped, rewinding will start the media from the
-                // beginning. Instead, seek to 10 seconds before the end of the media.
-                seekTo(mDuration - REWIND_TIME_MS, true);
-                updateForStoppedState(false);
-            } else {
-                seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
+            // If the media is currently stopped, rewinding will start the media from the
+            // beginning. Instead, seek to 10 seconds before the end of the media.
+            boolean stoppedWithDuration = mIsStopped && mDuration != 0;
+            long currentPosition = stoppedWithDuration ? mDuration : getLatestSeekPosition();
+            long seekPosition = Math.max(currentPosition - REWIND_TIME_MS, 0);
+            seekTo(seekPosition, /* shouldSeekNow= */ true);
+            if (stoppedWithDuration) {
+                updateForStoppedState(/* isStopped= */ false);
             }
         }
     };
@@ -1256,7 +1278,7 @@ public class MediaControlView extends ViewGroup {
                 @Override
                 public void onDismiss() {
                     if (mNeedToHideBars) {
-                        postDelayed(mHideMainBars, mShowControllerIntervalMs);
+                        postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
                     }
                 }
             };
@@ -1334,12 +1356,11 @@ public class MediaControlView extends ViewGroup {
             case SIZE_TYPE_FULL:
             case SIZE_TYPE_EMBEDDED:
                 // Relating to Progress Bar
-                mProgress.setThumb(mResources.getDrawable(R.drawable.custom_progress_thumb));
-                mProgress.setThumbOffset(0);
+                mProgress.getThumb().setLevel(MAX_SCALE_LEVEL);
                 break;
             case SIZE_TYPE_MINIMAL:
                 // Relating to Progress Bar
-                mProgress.setThumb(null);
+                mProgress.getThumb().setLevel(0);
                 break;
         }
 
@@ -1389,7 +1410,7 @@ public class MediaControlView extends ViewGroup {
 
         mSettingsIconIdsList = new ArrayList<Integer>();
         mSettingsIconIdsList.add(R.drawable.ic_audiotrack);
-        mSettingsIconIdsList.add(R.drawable.ic_play_circle_filled);
+        mSettingsIconIdsList.add(R.drawable.ic_speed);
 
         mAudioTrackList = new ArrayList<String>();
         mAudioTrackList.add(
@@ -1476,7 +1497,7 @@ public class MediaControlView extends ViewGroup {
     void resetHideCallbacks() {
         removeCallbacks(mHideMainBars);
         removeCallbacks(mHideProgressBar);
-        postDelayed(mHideMainBars, mShowControllerIntervalMs);
+        postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
     }
 
     void updateAllowedCommands(SessionCommandGroup commands) {
@@ -1638,6 +1659,12 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
+    void postDelayedRunnable(Runnable runnable, long interval) {
+        if (interval != DISABLE_DELAYED_ANIMATION) {
+            postDelayed(runnable, interval);
+        }
+    }
+
     private class SettingsAdapter extends BaseAdapter {
         private List<Integer> mIconIds;
         private List<String> mMainTexts;
@@ -1683,12 +1710,7 @@ public class MediaControlView extends ViewGroup {
 
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
-            View row;
-            if (mSizeType == SIZE_TYPE_FULL) {
-                row = inflateLayout(getContext(), R.layout.full_settings_list_item);
-            } else {
-                row = inflateLayout(getContext(), R.layout.embedded_settings_list_item);
-            }
+            View row = inflateLayout(getContext(), R.layout.settings_list_item);
             TextView mainTextView = (TextView) row.findViewById(R.id.main_text);
             TextView subTextView = (TextView) row.findViewById(R.id.sub_text);
             ImageView iconView = (ImageView) row.findViewById(R.id.icon);
@@ -1758,12 +1780,7 @@ public class MediaControlView extends ViewGroup {
 
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
-            View row;
-            if (mSizeType == SIZE_TYPE_FULL) {
-                row = inflateLayout(getContext(), R.layout.full_sub_settings_list_item);
-            } else {
-                row = inflateLayout(getContext(), R.layout.embedded_sub_settings_list_item);
-            }
+            View row = inflateLayout(getContext(), R.layout.sub_settings_list_item);
             TextView textView = (TextView) row.findViewById(R.id.text);
             ImageView checkView = (ImageView) row.findViewById(R.id.check);
 
@@ -2049,7 +2066,7 @@ public class MediaControlView extends ViewGroup {
                     removeCallbacks(mUpdateProgress);
                     removeCallbacks(mHideMainBars);
                     post(mUpdateProgress);
-                    postDelayed(mHideMainBars, mShowControllerIntervalMs);
+                    postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
                 }
             }
 

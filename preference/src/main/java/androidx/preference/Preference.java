@@ -16,10 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -202,7 +200,6 @@ public class Preference implements Comparable<Preference> {
      *                     theme. Can be 0 to not look for defaults.
      * @see #Preference(Context, android.util.AttributeSet)
      */
-    @SuppressLint("RestrictedApi")
     public Preference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
@@ -310,7 +307,6 @@ public class Preference implements Comparable<Preference> {
      * @param attrs   The attributes of the XML tag that is inflating the preference
      * @see #Preference(Context, AttributeSet, int)
      */
-    @SuppressLint("RestrictedApi")
     public Preference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceStyle,
                 android.R.attr.preferenceStyle));
@@ -1144,9 +1140,10 @@ public class Preference implements Comparable<Preference> {
     }
 
     /**
+     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void performClick(View view) {
         performClick();
     }
@@ -1154,9 +1151,10 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called when a click should be performed.
      *
+     * Used by Settings.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void performClick() {
 
         if (!isEnabled()) {
@@ -1298,9 +1296,11 @@ public class Preference implements Comparable<Preference> {
     /**
      * Called from {@link PreferenceGroup} to pass in an ID for reuse.
      *
+     * Used by Settings.
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void onAttachedToHierarchy(PreferenceManager preferenceManager, long id) {
         mId = id;
         mHasId = true;
@@ -1352,21 +1352,15 @@ public class Preference implements Comparable<Preference> {
     /**
      * Returns true if {@link #onDetached()} was called. Used for handling the case when a
      * preference was removed, modified, and re-added to a {@link PreferenceGroup}.
-     *
-     * @hide
      */
-    @RestrictTo(LIBRARY)
-    public final boolean wasDetached() {
+    final boolean wasDetached() {
         return mWasDetached;
     }
 
     /**
      * Clears the {@link #wasDetached()} status.
-     *
-     * @hide
      */
-    @RestrictTo(LIBRARY)
-    public final void clearWasDetached() {
+    final void clearWasDetached() {
         mWasDetached = false;
     }
 

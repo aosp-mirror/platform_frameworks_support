@@ -78,9 +78,9 @@ class NavInflaterTest {
         val result = graph.matchDeepLink(expectedUri)
         assertThat(result)
             .isNotNull()
-        assertThat(result?.first)
+        assertThat(result?.destination)
             .isNotNull()
-        assertThat(result?.first?.id).isEqualTo(R.id.second_test)
+        assertThat(result?.destination?.id).isEqualTo(R.id.second_test)
     }
 
     @Test
@@ -168,6 +168,8 @@ class NavInflaterTest {
             .isEqualTo(NavType.ReferenceType to R.bool.test_bool_arg)
         assertThat(defaultArguments["test_reference_color"]?.run { type to defaultValue })
             .isEqualTo(NavType.ReferenceType to R.color.test_color_arg)
+        assertThat(defaultArguments["test_reference_zero_default"]?.run { type to defaultValue })
+            .isEqualTo(NavType.ReferenceType to 0)
     }
 
     @Test
