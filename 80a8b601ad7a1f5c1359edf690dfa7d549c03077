@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38bc2c2d_f1e8b3ab",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2019-03-06T23:58:35Z",
+      "side": 1,
+      "message": "nit: probably wrap this in a helper method",
+      "range": {
+        "startLine": 604,
+        "startChar": 7,
+        "endLine": 608,
+        "endChar": 9
+      },
+      "revId": "80a8b601ad7a1f5c1359edf690dfa7d549c03077",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9012f829_ad8dc68c",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1060398
+      },
+      "writtenOn": "2019-03-06T23:58:35Z",
+      "side": 1,
+      "message": "should this be 100?",
+      "range": {
+        "startLine": 927,
+        "startChar": 25,
+        "endLine": 927,
+        "endChar": 26
+      },
+      "revId": "80a8b601ad7a1f5c1359edf690dfa7d549c03077",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
