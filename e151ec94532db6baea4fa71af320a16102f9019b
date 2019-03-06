@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6281954d_a071076c",
+        "filename": "samples/SupportMediaDemos/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-06T06:18:23Z",
+      "side": 0,
+      "message": "Please leave this for supporting media button while playing the video",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "e151ec94532db6baea4fa71af320a16102f9019b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
