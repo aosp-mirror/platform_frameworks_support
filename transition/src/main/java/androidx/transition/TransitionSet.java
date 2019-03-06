@@ -16,7 +16,7 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
@@ -173,8 +173,7 @@ public class TransitionSet extends Transition {
      */
     @NonNull
     public TransitionSet addTransition(@NonNull Transition transition) {
-        mTransitions.add(transition);
-        transition.mParent = this;
+        addTransitionInternal(transition);
         if (mDuration >= 0) {
             transition.setDuration(mDuration);
         }
@@ -191,6 +190,11 @@ public class TransitionSet extends Transition {
             transition.setEpicenterCallback(getEpicenterCallback());
         }
         return this;
+    }
+
+    private void addTransitionInternal(@NonNull Transition transition) {
+        mTransitions.add(transition);
+        transition.mParent = this;
     }
 
     /**
@@ -211,6 +215,7 @@ public class TransitionSet extends Transition {
      * @see #addTransition(Transition)
      * @see #getTransitionCount()
      */
+    @Nullable
     public Transition getTransitionAt(int index) {
         if (index < 0 || index >= mTransitions.size()) {
             return null;
@@ -229,7 +234,7 @@ public class TransitionSet extends Transition {
     @Override
     public TransitionSet setDuration(long duration) {
         super.setDuration(duration);
-        if (mDuration >= 0) {
+        if (mDuration >= 0 && mTransitions != null) {
             int numTransitions = mTransitions.size();
             for (int i = 0; i < numTransitions; ++i) {
                 mTransitions.get(i).setDuration(duration);
@@ -381,8 +386,10 @@ public class TransitionSet extends Transition {
     public void setPathMotion(PathMotion pathMotion) {
         super.setPathMotion(pathMotion);
         mChangeFlags |= FLAG_CHANGE_PATH_MOTION;
-        for (int i = 0; i < mTransitions.size(); i++) {
-            mTransitions.get(i).setPathMotion(pathMotion);
+        if (mTransitions != null) {
+            for (int i = 0; i < mTransitions.size(); i++) {
+                mTransitions.get(i).setPathMotion(pathMotion);
+            }
         }
     }
 
@@ -448,7 +455,7 @@ public class TransitionSet extends Transition {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     protected void createAnimators(ViewGroup sceneRoot, TransitionValuesMaps startValues,
             TransitionValuesMaps endValues, ArrayList<TransitionValues> startValuesList,
@@ -475,7 +482,7 @@ public class TransitionSet extends Transition {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     protected void runAnimators() {
         if (mTransitions.isEmpty()) {
@@ -543,7 +550,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void pause(View sceneRoot) {
         super.pause(sceneRoot);
@@ -554,7 +561,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void resume(View sceneRoot) {
         super.resume(sceneRoot);
@@ -565,7 +572,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     protected void cancel() {
         super.cancel();
@@ -576,7 +583,7 @@ public class TransitionSet extends Transition {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     void forceToEnd(ViewGroup sceneRoot) {
         super.forceToEnd(sceneRoot);
@@ -640,7 +647,7 @@ public class TransitionSet extends Transition {
         clone.mTransitions = new ArrayList<>();
         int numTransitions = mTransitions.size();
         for (int i = 0; i < numTransitions; ++i) {
-            clone.addTransition(mTransitions.get(i).clone());
+            clone.addTransitionInternal(mTransitions.get(i).clone());
         }
         return clone;
     }

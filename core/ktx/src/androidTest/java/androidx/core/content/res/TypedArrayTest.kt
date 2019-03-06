@@ -17,18 +17,20 @@
 package androidx.core.content.res
 
 import android.graphics.Color
-import androidx.test.InstrumentationRegistry
+import androidx.core.getAttributeSet
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SdkSuppress
 import androidx.core.ktx.test.R
+import androidx.test.filters.SmallTest
 import androidx.testutils.assertThrows
-import androidx.core.getAttributeSet
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@SmallTest
 class TypedArrayTest {
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
 
     @Test fun boolean() {
         val attrs = context.getAttributeSet(R.layout.typed_array)
@@ -205,6 +207,7 @@ class TypedArrayTest {
         }.hasMessageThat().isEqualTo("Attribute not defined in set.")
     }
 
+    @SdkSuppress(minSdkVersion = 21) // No easy way to verify pre-21.
     @Test fun useRecyclesArray() {
         val attrs = context.getAttributeSet(R.layout.typed_array)
         val array = context.obtainStyledAttributes(attrs, R.styleable.TypedArrayTypes)

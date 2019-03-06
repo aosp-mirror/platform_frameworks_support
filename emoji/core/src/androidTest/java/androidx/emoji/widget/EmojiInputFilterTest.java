@@ -35,14 +35,14 @@ import android.text.SpannableString;
 import android.widget.TextView;
 
 import androidx.emoji.text.EmojiCompat;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class EmojiInputFilterTest {
 

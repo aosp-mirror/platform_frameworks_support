@@ -17,7 +17,8 @@
 import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportAndroidTestAppPlugin")
+    id("AndroidXPlugin")
+    id("com.android.application")
 }
 
 android {
@@ -43,6 +44,8 @@ dependencies {
     annotationProcessor(project(":lifecycle:lifecycle-compiler"))
 
     androidTestAnnotationProcessor(project(":lifecycle:lifecycle-compiler"))
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
@@ -53,5 +56,3 @@ dependencies {
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])
-
-uploadArchives.enabled = false

@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-
-import androidx.build.DiffAndDocs
-import androidx.build.Release
-import androidx.build.PublishDocsRulesKt
+import androidx.build.BuildServerConfigurationKt
+import androidx.build.dependencyTracker.AffectedModuleDetector
 import androidx.build.gmaven.GMavenVersionChecker
-import androidx.build.license.CheckExternalDependencyLicensesTask
 import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
-import org.gradle.api.logging.configuration.ShowStacktrace
-
-import javax.tools.ToolProvider
 
 def supportRoot = ext.supportRootFolder
 if (supportRoot == null) {
@@ -34,120 +28,19 @@ if (supportRoot == null) {
 def init = new Properties()
 ext.init = init
 rootProject.ext.versionChecker = new GMavenVersionChecker(rootProject.logger)
-ext.runningInBuildServer = System.env.DIST_DIR != null && System.env.OUT_DIR != null
-
 apply from: "${supportRoot}/buildSrc/dependencies.gradle"
-apply from: "${supportRoot}/buildSrc/build_dependencies.gradle"
-apply from: "${supportRoot}/buildSrc/unbundled_check.gradle"
-
-
-def enableDoclavaAndJDiff(p, dacOptions, rules = []) {
-    p.configurations {
-        doclava
-        jdiff
-    }
-
-    p.dependencies {
-        doclava build_libs.doclava
-        // tools.jar required for com.sun.javadoc
-        doclava files(((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs())
-        jdiff build_libs.jdiff
-        jdiff build_libs.xml_parser_apis
-        jdiff build_libs.xerces_impl
-    }
-
-    return DiffAndDocs.configureDiffAndDocs(rootProject, supportRootFolder,
-            dacOptions, rules)
-}
-
-def getFullSdkPath() {
-    if (isUnbundledBuild(ext.supportRootFolder)) {
-        Properties properties = new Properties()
-        File propertiesFile = new File('local.properties')
-        if (propertiesFile.exists()) {
-            propertiesFile.withInputStream {
-                properties.load(it)
-            }
-        }
-        File location = findSdkLocation(properties, supportRootFolder)
-        return location.getAbsolutePath()
-    } else {
-        final String osName = System.getProperty("os.name").toLowerCase();
-        final boolean isMacOsX =
-                osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx");
-        final String platform = isMacOsX ? 'darwin' : 'linux'
-        return "${repos.prebuiltsRoot}/fullsdk-${platform}"
-    }
-}
-
-/**
- * Adapted from com.android.build.gradle.internal.SdkHandler
- */
-public static File findSdkLocation(Properties properties, File rootDir) {
-    String sdkDirProp = properties.getProperty("sdk.dir");
-    if (sdkDirProp != null) {
-        File sdk = new File(sdkDirProp);
-        if (!sdk.isAbsolute()) {
-            sdk = new File(rootDir, sdkDirProp);
-        }
-        return sdk
-    }
-
-    sdkDirProp = properties.getProperty("android.dir");
-    if (sdkDirProp != null) {
-        return new File(rootDir, sdkDirProp);
-    }
-
-    String envVar = System.getenv("ANDROID_HOME");
-    if (envVar != null) {
-        return new File(envVar);
-    }
-
-    String property = System.getProperty("android.home");
-    if (property != null) {
-        return new File(property);
-    }
-    return null;
-}
-
-def setSdkInLocalPropertiesFile() {
-    final File fullSdkPath = file(getFullSdkPath())
-    if (fullSdkPath.exists()) {
-        project.ext.fullSdkPath = fullSdkPath
-        File props = file("local.properties")
-        props.write "sdk.dir=${fullSdkPath.getAbsolutePath()}"
-        ext.usingFullSdk = true
-    } else {
-        throw Exception("You are using non ub-supportlib-* checkout. You need to check out "
-                + "ub-supportlib-* to work on support library. See go/supportlib for details.")
-    }
-}
 
 def setupRepoOutAndBuildNumber() {
-    // common support repo folder which works well for prebuilts.
-    ext.supportRepoOut = ''
-    ext.buildNumber = "0"
     /*
-     * With the build server you are given two env variables.
      * The OUT_DIR is a temporary directory you can use to put things during the build.
-     * The DIST_DIR is where you want to save things from the build.
-     *
-     * The build server will copy the contents of DIST_DIR to somewhere and make it available.
      */
-    if (ext.runningInBuildServer) {
+    if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
         buildDir = new File(System.env.OUT_DIR + '/gradle/frameworks/support/build')
                 .getCanonicalFile()
-        project.ext.distDir = new File(System.env.DIST_DIR).getCanonicalFile()
-
-        // the build server does not pass the build number so we infer it from the last folder of
-        // the dist path.
-        ext.buildNumber = project.ext.distDir.getName()
-
         // the build server should always print out full stack traces for any failures.
         gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
     } else {
         buildDir = file("${ext.supportRootFolder}/../../out/host/gradle/frameworks/support/build")
-        project.ext.distDir = new File("${ext.supportRootFolder}/../../out/dist")
     }
     subprojects {
         // Change buildDir first so that all plugins pick up the new value.
@@ -155,90 +48,23 @@ def setupRepoOutAndBuildNumber() {
     }
     ext.supportRepoOut = new File(buildDir, 'support_repo')
     ext.supportRepoOut.mkdirs()
-    ext.testApkDistOut = ext.distDir
-    ext.testResultsDistDir = new File(distDir, "host-test-reports")
     ext.docsDir = new File(buildDir, 'javadoc')
-}
-
-def configureBuildOnServer() {
-    def buildOnServerTask = rootProject.tasks.create("buildOnServer")
-    rootProject.tasks.whenTaskAdded { task ->
-        if (Release.FULL_ARCHIVE_TASK_NAME.equals(task.name)
-                || task.name.startsWith(Release.DIFF_TASK_PREFIX)
-                || "distDocs".equals(task.name)
-                || "dejetifyArchive".equals(task.name)
-                || "runErrorProne".equals(task.name)
-                || CheckExternalDependencyLicensesTask.ROOT_TASK_NAME.equals(task.name)) {
-            buildOnServerTask.dependsOn task
-        }
-    }
-    def docsProject = rootProject.findProject(":docs-fake")
-    subprojects {
-        if (docsProject == project) {
-            return
-        }
-        project.tasks.whenTaskAdded { task ->
-            if ("assembleErrorProne".equals(task.name)
-                    || "assembleAndroidTest".equals(task.name)
-                    || "assembleDebug".equals(task.name)
-                    || "lintDebug".equals(task.name)) {
-                buildOnServerTask.dependsOn task
-            }
-        }
-    }
-    buildOnServerTask.dependsOn createJacocoAntUberJarTask()
-    return buildOnServerTask
-}
-
-def createJacocoAntUberJarTask() {
-    def myJacoco = project.configurations.create('myJacoco')
-    project.dependencies.add('myJacoco', build_libs.jacoco_ant)
-
-    return project.tasks.create(
-            name: "JacocoAntUberJar",
-            type: Jar) {
-        inputs.files myJacoco
-        from {
-            myJacoco
-                    .resolvedConfiguration
-                    .resolvedArtifacts.collect{ zipTree(it.getFile()) }} {
-            // exclude all the signatures the jar might have
-            exclude "META-INF/*.SF"
-            exclude "META-INF/*.DSA"
-            exclude "META-INF/*.RSA"
-        }
-        destinationDir file(project.distDir)
-        archiveName "jacocoant.jar"
-    }
 }
 
 def configureSubProjects() {
     subprojects {
         repos.addMavenRepositories(repositories)
-
-        // Only modify Android projects.
-        if (project.name.equals('noto-emoji-compat')) {
-            // disable tests and return
-            project.tasks.whenTaskAdded { task ->
-                if (task instanceof org.gradle.api.tasks.testing.Test) {
-                    task.enabled = false
-                }
-            }
-            return
-        }
-
+    }
+    setupSubprojectsForBuildServer()
+}
+def setupSubprojectsForBuildServer() {
+    subprojects {
         project.plugins.whenPluginAdded { plugin ->
             def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin"
                     .equals(plugin.class.name)
             def isAndroidApp = "com.android.build.gradle.AppPlugin".equals(plugin.class.name)
 
             if (isAndroidLibrary || isAndroidApp) {
-                // Enable code coverage for debug builds only if we are not running inside the IDE,
-                // since enabling coverage reports breaks the method parameter resolution in the IDE
-                // debugger.
-                project.android.buildTypes.debug.testCoverageEnabled =
-                        !project.hasProperty('android.injected.invoked.from.ide')
-
                 // Copy the class files in a jar to be later used to generate code coverage report
                 project.android.testVariants.all { v ->
                     // check if the variant has any source files
@@ -248,15 +74,15 @@ def configureSubProjects() {
                         def jarifyTask = project.tasks.create(
                                 name: "package${v.name.capitalize()}ClassFilesForCoverageReport",
                                 type: Jar) {
-                            from v.testedVariant.javaCompile.destinationDir
+                            from v.testedVariant.javaCompileProvider.get().destinationDir
                             exclude "**/R.class"
                             exclude "**/R\$*.class"
                             exclude "**/BuildConfig.class"
-                            destinationDir file(project.distDir)
+                            destinationDir BuildServerConfigurationKt.getDistributionDirectory(rootProject)
                             archiveName "${project.name}-${v.baseName}-allclasses.jar"
                         }
 
-                        jarifyTask.dependsOn v.getJavaCompiler()
+                        jarifyTask.dependsOn v.getJavaCompileProvider()
                         v.assemble.dependsOn jarifyTask
                     }
                 }
@@ -266,9 +92,13 @@ def configureSubProjects() {
         // Copy instrumentation test APKs and app APKs into the dist dir
         // For test apks, they are uploaded only if we have java test sources.
         // For regular app apks, they are uploaded only if they have java sources.
-        project.tasks.whenTaskAdded { task ->
+        project.tasks.configureEach { task ->
             if (task.name.startsWith("packageDebug")) {
+                // run this task only if we should run it
                 def testApk = task.name.contains("AndroidTest")
+                if (testApk) {
+                    AffectedModuleDetector.configureTaskGuard(task)
+                }
                 task.doLast {
                     def source = testApk ? project.android.sourceSets.androidTest
                             : project.android.sourceSets.main
@@ -289,11 +119,12 @@ def configureSubProjects() {
                         copy {
                             from(task.outputDirectory)
                             include '*.apk'
-                            into(rootProject.ext.testApkDistOut)
+                            into(BuildServerConfigurationKt.getDistributionDirectory(rootProject))
                             rename { String fileName ->
-                                // Exclude media-compat-test-* modules from existing support library
-                                // presubmit tests.
-                                if (fileName.contains("media-compat-test")) {
+                                // Exclude media-compat-test-* and media2-test-* modules from
+                                // existing support library presubmit tests.
+                                if (fileName.contains("media-compat-test")
+                                        || fileName.contains("media2-test")) {
                                     fileName.replace("-debug-androidTest", "")
                                 } else {
                                     // multiple modules may have the same name so prefix the name with
@@ -310,56 +141,26 @@ def configureSubProjects() {
         }
 
         // copy host side test results to DIST
-        project.tasks.whenTaskAdded { task ->
-            if (task instanceof org.gradle.api.tasks.testing.Test) {
-                def junitReport = task.reports.junitXml
-                if (junitReport.enabled) {
-                    def zipTask = project.tasks.create(name : "zipResultsOf${task.name.capitalize()}", type : Zip) {
-                        destinationDir(testResultsDistDir)
-                        // first one is always :, drop it.
-                        archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
-                    }
-                    if (project.rootProject.ext.runningInBuildServer) {
-                        task.ignoreFailures = true
-                    }
-                    task.finalizedBy zipTask
-                    task.doFirst {
-                        zipTask.from(junitReport.destination)
-                    }
+        project.tasks.withType(Test) { task ->
+            def junitReport = task.reports.junitXml
+            if (junitReport.enabled) {
+                def zipTask = project.tasks.create(
+                        name: "zipResultsOf${task.name.capitalize()}", type: Zip) {
+                    destinationDir(BuildServerConfigurationKt.getHostTestResultDirectory(project))
+                    // first one is always :, drop it.
+                    archiveName("${project.getPath().split(":").join("_").substring(1)}.zip")
                 }
-            }
-        }
-
-        project.afterEvaluate { p ->
-            // remove dependency on the test so that we still get coverage even if some tests fail
-            p.tasks.findAll { it instanceof JacocoReportTask }.each { task ->
-                def toBeRemoved = new ArrayList()
-                def dependencyList = task.taskDependencies.values
-                dependencyList.each { dep ->
-                    if (dep instanceof String) {
-                        def t = tasks.findByName(dep)
-                        if (t instanceof DeviceProviderInstrumentTestTask) {
-                            toBeRemoved.add(dep)
-                            task.mustRunAfter(t)
-                        }
-                    }
+                if (BuildServerConfigurationKt.isRunningOnBuildServer()) {
+                    task.ignoreFailures = true
                 }
-                toBeRemoved.each { dep ->
-                    dependencyList.remove(dep)
+                task.finalizedBy zipTask
+                task.doFirst {
+                    zipTask.from(junitReport.destination)
                 }
             }
         }
     }
 }
 
-def setupRelease() {
-    // needed for jetify since it accesses the task name directly
-    Release.createGlobalArchiveTask(rootProject)
-}
-
-ext.init.enableDoclavaAndJDiff = this.&enableDoclavaAndJDiff
-ext.init.setSdkInLocalPropertiesFile = this.&setSdkInLocalPropertiesFile
 ext.init.setupRepoOutAndBuildNumber = this.&setupRepoOutAndBuildNumber
-ext.init.setupRelease = this.&setupRelease
 ext.init.configureSubProjects = this.&configureSubProjects
-ext.init.configureBuildOnServer = this.&configureBuildOnServer

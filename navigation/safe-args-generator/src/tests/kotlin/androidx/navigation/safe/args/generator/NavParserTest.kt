@@ -19,6 +19,7 @@ package androidx.navigation.safe.args.generator
 import androidx.navigation.safe.args.generator.models.Action
 import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.IncludedDestination
 import androidx.navigation.safe.args.generator.models.ResReference
 import com.squareup.javapoet.ClassName
 import org.hamcrest.CoreMatchers.`is`
@@ -33,7 +34,7 @@ import org.junit.runners.JUnit4
 class NavParserTest {
 
     @Test
-    fun test() {
+    fun testNaiveGraph() {
         val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
         val navGraph = NavParser.parseNavigationFile(testData("naive_test.xml"),
             "a.b", "foo.app", Context())
@@ -46,15 +47,38 @@ class NavParserTest {
                         Argument("myarg2", StringType),
                         Argument("randomArgument", StringType),
                         Argument("intArgument", IntType, IntValue("261")),
+                        Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                         Argument(
                                 "activityInfo",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo"))
+                                ObjectType("android.content.pm.ActivityInfo")
                         ),
                         Argument(
                                 "activityInfoNull",
-                                ParcelableType(ClassName.get("android.content.pm", "ActivityInfo")),
+                                ObjectType("android.content.pm.ActivityInfo"),
                                 NullValue,
                                 true
+                        ),
+                        Argument("intArrayArg", IntArrayType),
+                        Argument("stringArrayArg", StringArrayType),
+                        Argument("objectArrayArg", ObjectArrayType(
+                            "android.content.pm.ActivityInfo")),
+                        Argument(
+                            "enumArg",
+                            ObjectType("java.nio.file.AccessMode"),
+                            EnumValue(ObjectType("java.nio.file.AccessMode"), "READ"),
+                            false
+                        ),
+                        Argument(
+                            "objectRelativeArg",
+                            ObjectType("a.b.pkg.ClassName")
+                        ),
+                        Argument(
+                            "objectRelativeArg2",
+                            ObjectType("a.b.ClassName")
+                        ),
+                        Argument(
+                            "objectRelativeArg3",
+                            ObjectType("a.b.OuterClass\$InnerClass")
                         )
                 ))))
 
@@ -66,6 +90,69 @@ class NavParserTest {
         val expectedGraph = Destination(null, null, "navigation", emptyList(), emptyList(),
                 listOf(expectedFirst, expectedNext))
         assertThat(navGraph, `is`(expectedGraph))
+    }
+
+    @Test
+    fun testNestedGraph() {
+        val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
+        val navGraph = NavParser.parseNavigationFile(testData("nested_login_test.xml"),
+                "a.b", "foo.app", Context())
+
+        val expectedMainFragment = Destination(
+                id = id("main_fragment"),
+                name = ClassName.get("foo.app", "MainFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = listOf(Action(id("start_login"), id("login"))))
+
+        val expectedNestedFragment1 = Destination(
+                id = id("login_fragment"),
+                name = ClassName.get("foo.app.account", "LoginFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = listOf(Action(id("register"), id("register_fragment"))))
+
+        val expectedNestedFragment2 = Destination(
+                id = id("register_fragment"),
+                name = ClassName.get("foo.app.account", "RegisterFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = emptyList())
+
+        val expectedNestedGraph = Destination(
+                id = id("login"),
+                name = ClassName.get("a.b", "Login"),
+                type = "navigation",
+                args = emptyList(),
+                actions = listOf(Action(id("action_done"), null)),
+                nested = listOf(expectedNestedFragment1, expectedNestedFragment2))
+
+        val expectedGraph = Destination(null, null, "navigation", emptyList(), emptyList(),
+                listOf(expectedMainFragment, expectedNestedGraph))
+
+        assertThat(navGraph, `is`(expectedGraph))
+    }
+
+    @Test
+    fun testNestedIncludedGraph() {
+        val id: (String) -> ResReference = { id -> ResReference("a.b", "id", id) }
+        val nestedIncludeNavGraph = NavParser.parseNavigationFile(
+                testData("nested_include_login_test.xml"), "a.b", "foo.app", Context())
+
+        val expectedMainFragment = Destination(
+                id = id("main_fragment"),
+                name = ClassName.get("foo.app", "MainFragment"),
+                type = "fragment",
+                args = emptyList(),
+                actions = listOf(Action(id("start_login"), id("login"))))
+
+        val expectedIncluded = IncludedDestination(ResReference("a.b", "navigation",
+                "to_include_login_test"))
+
+        val expectedGraph = Destination(null, null, "navigation", emptyList(), emptyList(),
+                listOf(expectedMainFragment), listOf(expectedIncluded))
+
+        assertThat(nestedIncludeNavGraph, `is`(expectedGraph))
     }
 
     @Test
@@ -114,6 +201,9 @@ class NavParserTest {
         val referenceArg = { pName: String, type: String, value: String ->
             Argument("foo", ReferenceType, ReferenceValue(ResReference(pName, type, value)))
         }
+        val resolvedReferenceArg = { pName: String, argType: NavType, type: String, value: String ->
+            Argument("foo", argType, ReferenceValue(ResReference(pName, type, value)))
+        }
 
         assertThat(infer("spb"), `is`(stringArg("spb")))
         assertThat(infer("10"), `is`(intArg("10")))
@@ -131,6 +221,17 @@ class NavParserTest {
         assertThat(infer("false"), `is`(boolArg("false")))
         assertThat(infer("123L"), `is`(longArg("123L")))
         assertThat(infer("1234123412341234L"), `is`(longArg("1234123412341234L")))
+
+        assertThat(infer("@integer/test_integer_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "integer", "test_integer_arg")))
+        assertThat(infer("@dimen/test_dimen_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "dimen", "test_dimen_arg")))
+        assertThat(infer("@style/AppTheme"),
+            `is`(resolvedReferenceArg("a.b", ReferenceType, "style", "AppTheme")))
+        assertThat(infer("@string/test_string_arg"),
+            `is`(resolvedReferenceArg("a.b", StringType, "string", "test_string_arg")))
+        assertThat(infer("@color/test_color_arg"),
+            `is`(resolvedReferenceArg("a.b", IntType, "color", "test_color_arg")))
     }
 
     @Test

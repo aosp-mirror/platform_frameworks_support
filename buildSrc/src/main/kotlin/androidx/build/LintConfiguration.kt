@@ -16,9 +16,26 @@
 
 package androidx.build
 
+import androidx.build.gradle.getByType
 import com.android.build.gradle.internal.dsl.LintOptions
 import org.gradle.api.Project
 import java.io.File
+
+fun Project.configureNonAndroidProjectForLint(extension: SupportLibraryExtension) {
+    apply(mapOf("plugin" to "com.android.lint"))
+
+    // Create fake variant tasks since that is what is invoked on CI and by developers.
+    val lintTask = tasks.named("lint")
+    tasks.register("lintDebug") {
+        it.dependsOn(lintTask)
+    }
+    tasks.register("lintRelease") {
+        it.dependsOn(lintTask)
+    }
+
+    val lintOptions = extensions.getByType<LintOptions>()
+    project.configureLint(lintOptions, extension)
+}
 
 fun Project.configureLint(lintOptions: LintOptions, extension: SupportLibraryExtension) {
     // Lint is configured entirely in afterEvaluate so that individual projects cannot easily
@@ -44,16 +61,25 @@ fun Project.configureLint(lintOptions: LintOptions, extension: SupportLibraryExt
             isNoLines = false
             isQuiet = true
 
-            fatal("NewApi")
-            fatal("ObsoleteSdkInt")
             fatal("VisibleForTests")
-            fatal("NoHardKeywords")
-            fatal("SyntheticAccessor")
 
-            if (extension.mavenVersion?.isFinalApi() == true) {
-                fatal("MissingTranslation")
-            } else {
-                disable("MissingTranslation")
+            if (extension.compilationTarget != CompilationTarget.HOST) {
+                fatal("NewApi")
+                fatal("ObsoleteSdkInt")
+                fatal("NoHardKeywords")
+                fatal("UnusedResources")
+
+                // Only override if not set explicitly.
+                // Some Kotlin projects may wish to disable this.
+                if (lintOptions.severityOverrides["SyntheticAccessor"] == null) {
+                    fatal("SyntheticAccessor")
+                }
+
+                if (extension.mavenVersion?.isFinalApi() == true) {
+                    fatal("MissingTranslation")
+                } else {
+                    disable("MissingTranslation")
+                }
             }
 
             // Set baseline file for all legacy lint warnings.

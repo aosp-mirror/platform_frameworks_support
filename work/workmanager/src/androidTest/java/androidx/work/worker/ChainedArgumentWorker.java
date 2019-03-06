@@ -16,24 +16,28 @@
 
 package androidx.work.worker;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import androidx.work.Data;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
- * Created by sumir on 11/22/17.
+ * A worker that passes its inputs as outputs.
  */
-
 public class ChainedArgumentWorker extends Worker {
 
     public static final String ARGUMENT_KEY = "key";
     public static final String ARGUMENT_VALUE = "value";
 
+    public ChainedArgumentWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     @Override
     public @NonNull Result doWork() {
-        setOutputData(getChainedArguments());
-        return Result.SUCCESS;
+        return Result.success(getChainedArguments());
     }
 
     public static Data getChainedArguments() {

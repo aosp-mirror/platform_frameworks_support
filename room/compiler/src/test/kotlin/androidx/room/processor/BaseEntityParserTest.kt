@@ -34,6 +34,7 @@ abstract class BaseEntityParserTest {
             package foo.bar;
             import androidx.room.*;
             import androidx.annotation.NonNull;
+            import java.util.*;
             @Entity%s
             public class MyEntity %s {
             """
@@ -80,7 +81,7 @@ abstract class BaseEntityParserTest {
                                     .getElementsAnnotatedWith(
                                             androidx.room.Entity::class.java)
                                     .first { it.toString() == "foo.bar.MyEntity" }
-                            val parser = EntityProcessor(invocation.context,
+                            val parser = TableEntityProcessor(invocation.context,
                                     MoreElements.asType(entity))
                             val parsedQuery = parser.process()
                             handler(parsedQuery, invocation)

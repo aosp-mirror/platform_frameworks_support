@@ -23,6 +23,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.RestrictTo;
 
 import androidx.work.Logger;
+import androidx.work.impl.utils.WakeLocks;
 
 /**
  * Service invoked by {@link android.app.AlarmManager} to run work tasks.
@@ -33,7 +34,7 @@ import androidx.work.Logger;
 public class SystemAlarmService extends LifecycleService
         implements SystemAlarmDispatcher.CommandsCompletedListener {
 
-    private static final String TAG = "SystemAlarmService";
+    private static final String TAG = Logger.tagWithPrefix("SystemAlarmService");
 
     private SystemAlarmDispatcher mDispatcher;
 
@@ -56,13 +57,18 @@ public class SystemAlarmService extends LifecycleService
         if (intent != null) {
             mDispatcher.add(intent, startId);
         }
-        return Service.START_STICKY;
+        // If the service were to crash, we want all unacknowledged Intents to get redelivered.
+        return Service.START_REDELIVER_INTENT;
     }
 
     @MainThread
     @Override
     public void onAllCommandsCompleted() {
-        Logger.debug(TAG, "All commands completed in dispatcher");
+        Logger.get().debug(TAG, "All commands completed in dispatcher");
+        // Check to see if we hold any more wake locks.
+        WakeLocks.checkWakeLocks();
+        // No need to pass in startId; stopSelf() translates to stopSelf(-1) which is a hard stop
+        // of all startCommands. This is the behavior we want.
         stopSelf();
     }
 }

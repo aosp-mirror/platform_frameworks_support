@@ -16,6 +16,7 @@
 
 package androidx.paging;
 
+
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -177,11 +178,11 @@ public final class LivePagedListBuilder<Key, Value> {
                         }
                     };
 
+            @SuppressWarnings("unchecked") // for casting getLastKey to Key
             @Override
             protected PagedList<Value> compute() {
                 @Nullable Key initializeKey = initialLoadKey;
                 if (mList != null) {
-                    //noinspection unchecked
                     initializeKey = (Key) mList.getLastKey();
                 }
 

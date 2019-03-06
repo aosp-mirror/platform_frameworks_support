@@ -359,9 +359,26 @@ public class SimpleArrayMap<K, V> {
      * or null if there is no such key.
      */
     @Nullable
+    @SuppressWarnings("NullAway") // See inline comment.
     public V get(Object key) {
+        // We pass null as the default to a function which isn't explicitly annotated as nullable.
+        // Not marking the function as nullable should allow us to eventually propagate the generic
+        // parameter's nullability to the caller. If we were to mark it as nullable now, we would
+        // also be forced to mark the return type of that method as nullable which harms the case
+        // where you are passing in a non-null default value.
+        return getOrDefault(key, null);
+    }
+
+    /**
+     * Retrieve a value from the array, or {@code defaultValue} if there is no mapping for the key.
+     * @param key The key of the value to retrieve.
+     * @param defaultValue The default mapping of the key
+     * @return Returns the value associated with the given key,
+     * or {@code defaultValue} if there is no mapping for the key.
+     */
+    public V getOrDefault(Object key, V defaultValue) {
         final int index = indexOfKey(key);
-        return index >= 0 ? (V)mArray[(index<<1)+1] : null;
+        return index >= 0 ? (V) mArray[(index << 1) + 1] : defaultValue;
     }
 
     /**
@@ -494,6 +511,23 @@ public class SimpleArrayMap<K, V> {
     }
 
     /**
+     * Add a new value to the array map only if the key does not already have a value or it is
+     * mapped to {@code null}.
+     * @param key The key under which to store the value.
+     * @param value The value to store for the given key.
+     * @return Returns the value that was stored for the given key, or null if there
+     * was no such key.
+     */
+    @Nullable
+    public V putIfAbsent(K key, V value) {
+        V mapValue = get(key);
+        if (mapValue == null) {
+            mapValue = put(key, value);
+        }
+        return mapValue;
+    }
+
+    /**
      * Remove an existing key from the array map.
      * @param key The key of the mapping to remove.
      * @return Returns the value that was stored under the key, or null if there
@@ -507,6 +541,24 @@ public class SimpleArrayMap<K, V> {
         }
 
         return null;
+    }
+
+    /**
+     * Remove an existing key from the array map only if it is currently mapped to {@code value}.
+     * @param key The key of the mapping to remove.
+     * @param value The value expected to be mapped to the key.
+     * @return Returns true if the mapping was removed.
+     */
+    public boolean remove(Object key, Object value) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            V mapValue = valueAt(index);
+            if (value == mapValue || (value != null && value.equals(mapValue))) {
+                removeAt(index);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -572,6 +624,41 @@ public class SimpleArrayMap<K, V> {
         }
         mSize = nsize;
         return (V)old;
+    }
+
+    /**
+     * Replace the mapping for {@code key} only if it is already mapped to a value.
+     * @param key The key of the mapping to replace.
+     * @param value The value to store for the given key.
+     * @return Returns the previous mapped value or null.
+     */
+    @Nullable
+    public V replace(K key, V value) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            return setValueAt(index, value);
+        }
+        return null;
+    }
+
+    /**
+     * Replace the mapping for {@code key} only if it is already mapped to a value.
+     *
+     * @param key The key of the mapping to replace.
+     * @param oldValue The value expected to be mapped to the key.
+     * @param newValue The value to store for the given key.
+     * @return Returns true if the value was replaced.
+     */
+    public boolean replace(K key, V oldValue, V newValue) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            V mapValue = valueAt(index);
+            if (mapValue == oldValue || (oldValue != null && oldValue.equals(mapValue))) {
+                setValueAt(index, newValue);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

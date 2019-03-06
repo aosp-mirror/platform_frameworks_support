@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view.menu;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,7 @@ import androidx.core.view.ActionProvider;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ActionMenuItem implements SupportMenuItem {
 
     private final int mId;
@@ -315,6 +315,16 @@ public class ActionMenuItem implements SupportMenuItem {
     @Override
     public void setShowAsAction(int show) {
         // Do nothing. ActionMenuItems always show as action buttons.
+    }
+
+    @Override
+    public boolean requiresActionButton() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresOverflow() {
+        return false;
     }
 
     @Override

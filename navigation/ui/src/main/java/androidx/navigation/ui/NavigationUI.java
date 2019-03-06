@@ -16,39 +16,39 @@
 
 package androidx.navigation.ui;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavOptions;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationView;
+
+import java.lang.ref.WeakReference;
+import java.util.Set;
+
 /**
  * Class which hooks up elements typically in the 'chrome' of your application such as global
  * navigation patterns like a navigation drawer or bottom nav bar with your {@link NavController}.
  */
-public class NavigationUI {
+public final class NavigationUI {
 
     // No instances. Static utilities only.
     private NavigationUI() {
@@ -61,6 +61,10 @@ public class NavigationUI {
      * <p>Importantly, it assumes the {@link MenuItem#getItemId() menu item id} matches a valid
      * {@link NavDestination#getAction(int) action id} or
      * {@link NavDestination#getId() destination id} to be navigated to.</p>
+     * <p>
+     * By default, the back stack will be popped back to the navigation graph's start destination.
+     * Menu items that have <code>android:menuCategory="secondary"</code> will not pop the back
+     * stack.
      *
      * @param item The selected MenuItem.
      * @param navController The NavController that hosts the destination.
@@ -69,19 +73,13 @@ public class NavigationUI {
      */
     public static boolean onNavDestinationSelected(@NonNull MenuItem item,
             @NonNull NavController navController) {
-        return onNavDestinationSelected(item, navController, false);
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static boolean onNavDestinationSelected(@NonNull MenuItem item,
-            @NonNull NavController navController, boolean popUp) {
         NavOptions.Builder builder = new NavOptions.Builder()
                 .setLaunchSingleTop(true)
                 .setEnterAnim(R.anim.nav_default_enter_anim)
                 .setExitAnim(R.anim.nav_default_exit_anim)
                 .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
                 .setPopExitAnim(R.anim.nav_default_pop_exit_anim);
-        if (popUp) {
+        if ((item.getOrder() & Menu.CATEGORY_SECONDARY) == 0) {
             builder.setPopUpTo(findStartDestination(navController.getGraph()).getId(), false);
         }
         NavOptions options = builder.build();
@@ -100,19 +98,50 @@ public class NavigationUI {
      * <p>If you do not have a {@link DrawerLayout}, you should call
      * {@link NavController#navigateUp()} directly.
      *
+     * @param navController The NavController that hosts your content.
      * @param drawerLayout The DrawerLayout that should be opened if you are on the topmost level
      *                     of the app.
-     * @param navController The NavController that hosts your content.
      * @return True if the {@link NavController} was able to navigate up.
      */
-    public static boolean navigateUp(@Nullable DrawerLayout drawerLayout,
-            @NonNull NavController navController) {
-        if (drawerLayout != null && navController.getCurrentDestination()
-                == findStartDestination(navController.getGraph())) {
+    public static boolean navigateUp(@NonNull NavController navController,
+            @Nullable DrawerLayout drawerLayout) {
+        return navigateUp(navController, new AppBarConfiguration.Builder(navController.getGraph())
+                .setDrawerLayout(drawerLayout)
+                .build());
+    }
+
+    /**
+     * Handles the Up button by delegating its behavior to the given NavController. This is
+     * an alternative to using {@link NavController#navigateUp()} directly when the given
+     * {@link AppBarConfiguration} needs to be considered when determining what should happen
+     * when the Up button is pressed.
+     * <p>
+     * In cases where no Up action is available, the
+     * {@link AppBarConfiguration#getFallbackOnNavigateUpListener()} will be called to provide
+     * additional control.
+     *
+     * @param navController The NavController that hosts your content.
+     * @param configuration Additional configuration options for determining what should happen
+     *                      when the Up button is pressed.
+     * @return True if the {@link NavController} was able to navigate up.
+     */
+    public static boolean navigateUp(@NonNull NavController navController,
+            @NonNull AppBarConfiguration configuration) {
+        DrawerLayout drawerLayout = configuration.getDrawerLayout();
+        NavDestination currentDestination = navController.getCurrentDestination();
+        Set<Integer> topLevelDestinations = configuration.getTopLevelDestinations();
+        if (drawerLayout != null && currentDestination != null
+                && matchDestinations(currentDestination, topLevelDestinations)) {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         } else {
-            return navController.navigateUp();
+            if (navController.navigateUp()) {
+                return true;
+            } else if (configuration.getFallbackOnNavigateUpListener() != null) {
+                return configuration.getFallbackOnNavigateUpListener().onNavigateUp();
+            } else {
+                return false;
+            }
         }
     }
 
@@ -123,17 +152,21 @@ public class NavigationUI {
      * <p>By calling this method, the title in the action bar will automatically be updated when
      * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
      *
-     * <p>The action bar will also display the Up button when you are on a non-root destination.
-     * Call {@link #navigateUp(DrawerLayout, NavController)} to handle the Up button.
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On all other destinations, the ActionBar will show the Up button.
+     * Call {@link NavController#navigateUp()} to handle the Up button.
      *
      * @param activity The activity hosting the action bar that should be kept in sync with changes
      *                 to the NavController.
      * @param navController The NavController that supplies the secondary menu. Navigation actions
- *                      on this NavController will be reflected in the title of the action bar.
+     *                      on this NavController will be reflected in the title of the action bar.
+     * @see #setupActionBarWithNavController(AppCompatActivity, NavController, AppBarConfiguration)
      */
     public static void setupActionBarWithNavController(@NonNull AppCompatActivity activity,
             @NonNull NavController navController) {
-        setupActionBarWithNavController(activity, navController, null);
+        setupActionBarWithNavController(activity, navController,
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .build());
     }
 
     /**
@@ -143,20 +176,49 @@ public class NavigationUI {
      * <p>By calling this method, the title in the action bar will automatically be updated when
      * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
      *
-     * <p>The action bar will also display the Up button when you are on a non-root destination and
-     * the drawer icon when on the root destination, automatically animating between them.
-     * Call {@link #navigateUp(DrawerLayout, NavController)} to handle the Up button.
-     *  @param activity The activity hosting the action bar that should be kept in sync with changes
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On the start destination of your navigation graph, the ActionBar will show
+     * the drawer icon if the given DrawerLayout is non null. On all other destinations,
+     * the ActionBar will show the Up button.
+     * Call {@link #navigateUp(NavController, DrawerLayout)} to handle the Up button.
+     * @param activity The activity hosting the action bar that should be kept in sync with changes
      *                 to the NavController.
      * @param navController The NavController whose navigation actions will be reflected
      *                      in the title of the action bar.
      * @param drawerLayout The DrawerLayout that should be toggled from the home button
+     * @see #setupActionBarWithNavController(AppCompatActivity, NavController, AppBarConfiguration)
      */
     public static void setupActionBarWithNavController(@NonNull AppCompatActivity activity,
             @NonNull NavController navController,
             @Nullable DrawerLayout drawerLayout) {
-        navController.addOnNavigatedListener(
-                new ActionBarOnNavigatedListener(activity, drawerLayout));
+        setupActionBarWithNavController(activity, navController,
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .setDrawerLayout(drawerLayout)
+                        .build());
+    }
+
+    /**
+     * Sets up the ActionBar returned by {@link AppCompatActivity#getSupportActionBar()} for use
+     * with a {@link NavController}.
+     *
+     * <p>By calling this method, the title in the action bar will automatically be updated when
+     * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
+     *
+     * <p>The {@link AppBarConfiguration} you provide controls how the Navigation button is
+     * displayed.
+     * Call {@link #navigateUp(NavController, AppBarConfiguration)} to handle the Up button.
+     *  @param activity The activity hosting the action bar that should be kept in sync with changes
+     *                 to the NavController.
+     * @param navController The NavController whose navigation actions will be reflected
+     *                      in the title of the action bar.
+     * @param configuration Additional configuration options for customizing the behavior of the
+     *                      ActionBar
+     */
+    public static void setupActionBarWithNavController(@NonNull AppCompatActivity activity,
+            @NonNull NavController navController,
+            @NonNull AppBarConfiguration configuration) {
+        navController.addOnDestinationChangedListener(
+                new ActionBarOnDestinationChangedListener(activity, configuration));
     }
 
     /**
@@ -165,17 +227,20 @@ public class NavigationUI {
      * <p>By calling this method, the title in the Toolbar will automatically be updated when
      * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
      *
-     * <p>The Toolbar will also display the Up button when you are on a non-root destination. This
-     * method will call {@link NavController#navigateUp()} when the navigation icon
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On all other destinations, the Toolbar will show the Up button. This
+     * method will call {@link NavController#navigateUp()} when the Navigation button
      * is clicked.
      *
      * @param toolbar The Toolbar that should be kept in sync with changes to the NavController.
      * @param navController The NavController that supplies the secondary menu. Navigation actions
      *                      on this NavController will be reflected in the title of the Toolbar.
+     * @see #setupWithNavController(Toolbar, NavController, AppBarConfiguration)
      */
     public static void setupWithNavController(@NonNull Toolbar toolbar,
             @NonNull NavController navController) {
-        setupWithNavController(toolbar, navController, null);
+        setupWithNavController(toolbar, navController,
+                new AppBarConfiguration.Builder(navController.getGraph()).build());
     }
 
     /**
@@ -184,25 +249,53 @@ public class NavigationUI {
      * <p>By calling this method, the title in the Toolbar will automatically be updated when
      * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
      *
-     * <p>The Toolbar will also display the Up button when you are on a non-root destination and
-     * the drawer icon when on the root destination, automatically animating between them. This
-     * method will call {@link #navigateUp(DrawerLayout, NavController)} when the navigation icon
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On the start destination of your navigation graph, the Toolbar will show
+     * the drawer icon if the given DrawerLayout is non null. On all other destinations,
+     * the Toolbar will show the Up button. This method will call
+     * {@link #navigateUp(NavController, DrawerLayout)} when the Navigation button is clicked.
+     *
+     * @param toolbar The Toolbar that should be kept in sync with changes to the NavController.
+     * @param navController The NavController whose navigation actions will be reflected
+     *                      in the title of the Toolbar.
+     * @param drawerLayout The DrawerLayout that should be toggled from the Navigation button
+     * @see #setupWithNavController(Toolbar, NavController, AppBarConfiguration)
+     */
+    public static void setupWithNavController(@NonNull Toolbar toolbar,
+            @NonNull final NavController navController,
+            @Nullable final DrawerLayout drawerLayout) {
+        setupWithNavController(toolbar, navController,
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .setDrawerLayout(drawerLayout)
+                        .build());
+    }
+
+    /**
+     * Sets up a {@link Toolbar} for use with a {@link NavController}.
+     *
+     * <p>By calling this method, the title in the Toolbar will automatically be updated when
+     * the destination changes (assuming there is a valid {@link NavDestination#getLabel label}).
+     *
+     * <p>The {@link AppBarConfiguration} you provide controls how the Navigation button is
+     * displayed and what action is triggered when the Navigation button is tapped. This method
+     * will call {@link #navigateUp(NavController, AppBarConfiguration)} when the Navigation button
      * is clicked.
      *
      * @param toolbar The Toolbar that should be kept in sync with changes to the NavController.
      * @param navController The NavController whose navigation actions will be reflected
      *                      in the title of the Toolbar.
-     * @param drawerLayout The DrawerLayout that should be toggled from the home button
+     * @param configuration Additional configuration options for customizing the behavior of the
+     *                      Toolbar
      */
     public static void setupWithNavController(@NonNull Toolbar toolbar,
             @NonNull final NavController navController,
-            @Nullable final DrawerLayout drawerLayout) {
-        navController.addOnNavigatedListener(
-                new ToolbarOnNavigatedListener(toolbar, drawerLayout));
+            @NonNull final AppBarConfiguration configuration) {
+        navController.addOnDestinationChangedListener(
+                new ToolbarOnDestinationChangedListener(toolbar, configuration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateUp(drawerLayout, navController);
+                navigateUp(navController, configuration);
             }
         });
     }
@@ -215,8 +308,9 @@ public class NavigationUI {
      * updated when the destination changes (assuming there is a valid
      * {@link NavDestination#getLabel label}).
      *
-     * <p>The Toolbar will also display the Up button when you are on a non-root destination. This
-     * method will call {@link NavController#navigateUp()} when the navigation icon
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On all other destinations, the Toolbar will show the Up button. This
+     * method will call {@link NavController#navigateUp()} when the Navigation button
      * is clicked.
      *
      * @param collapsingToolbarLayout The CollapsingToolbarLayout that should be kept in sync with
@@ -229,7 +323,8 @@ public class NavigationUI {
             @NonNull CollapsingToolbarLayout collapsingToolbarLayout,
             @NonNull Toolbar toolbar,
             @NonNull NavController navController) {
-        setupWithNavController(collapsingToolbarLayout, toolbar, navController, null);
+        setupWithNavController(collapsingToolbarLayout, toolbar, navController,
+                new AppBarConfiguration.Builder(navController.getGraph()).build());
     }
 
     /**
@@ -240,9 +335,41 @@ public class NavigationUI {
      * updated when the destination changes (assuming there is a valid
      * {@link NavDestination#getLabel label}).
      *
-     * <p>The Toolbar will also display the Up button when you are on a non-root destination and
-     * the drawer icon when on the root destination, automatically animating between them. This
-     * method will call {@link #navigateUp(DrawerLayout, NavController)} when the navigation icon
+     * <p>The start destination of your navigation graph is considered the only top level
+     * destination. On the start destination of your navigation graph, the Toolbar will show
+     * the drawer icon if the given DrawerLayout is non null. On all other destinations,
+     * the Toolbar will show the Up button. This method will call
+     * {@link #navigateUp(NavController, DrawerLayout)} when the Navigation button is clicked.
+     *
+     * @param collapsingToolbarLayout The CollapsingToolbarLayout that should be kept in sync with
+     *                                changes to the NavController.
+     * @param toolbar The Toolbar that should be kept in sync with changes to the NavController.
+     * @param navController The NavController whose navigation actions will be reflected
+     *                      in the title of the Toolbar.
+     * @param drawerLayout The DrawerLayout that should be toggled from the Navigation button
+     */
+    public static void setupWithNavController(
+            @NonNull CollapsingToolbarLayout collapsingToolbarLayout,
+            @NonNull Toolbar toolbar,
+            @NonNull final NavController navController,
+            @Nullable final DrawerLayout drawerLayout) {
+        setupWithNavController(collapsingToolbarLayout, toolbar, navController,
+                new AppBarConfiguration.Builder(navController.getGraph())
+                        .setDrawerLayout(drawerLayout)
+                        .build());
+    }
+
+    /**
+     * Sets up a {@link CollapsingToolbarLayout} and {@link Toolbar} for use with a
+     * {@link NavController}.
+     *
+     * <p>By calling this method, the title in the CollapsingToolbarLayout will automatically be
+     * updated when the destination changes (assuming there is a valid
+     * {@link NavDestination#getLabel label}).
+     *
+     * <p>The {@link AppBarConfiguration} you provide controls how the Navigation button is
+     * displayed and what action is triggered when the Navigation button is tapped. This method
+     * will call {@link #navigateUp(NavController, AppBarConfiguration)} when the Navigation button
      * is clicked.
      *
      * @param collapsingToolbarLayout The CollapsingToolbarLayout that should be kept in sync with
@@ -250,19 +377,21 @@ public class NavigationUI {
      * @param toolbar The Toolbar that should be kept in sync with changes to the NavController.
      * @param navController The NavController whose navigation actions will be reflected
      *                      in the title of the Toolbar.
-     * @param drawerLayout The DrawerLayout that should be toggled from the home button
+     * @param configuration Additional configuration options for customizing the behavior of the
+     *                      Toolbar
      */
     public static void setupWithNavController(
             @NonNull CollapsingToolbarLayout collapsingToolbarLayout,
             @NonNull Toolbar toolbar,
             @NonNull final NavController navController,
-            @Nullable final DrawerLayout drawerLayout) {
-        navController.addOnNavigatedListener(new CollapsingToolbarOnNavigatedListener(
-                collapsingToolbarLayout, toolbar, drawerLayout));
+            @NonNull final AppBarConfiguration configuration) {
+        navController.addOnDestinationChangedListener(
+                new CollapsingToolbarOnDestinationChangedListener(
+                        collapsingToolbarLayout, toolbar, configuration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateUp(drawerLayout, navController);
+                navigateUp(navController, configuration);
             }
         });
     }
@@ -272,6 +401,13 @@ public class NavigationUI {
      * {@link #onNavDestinationSelected(MenuItem, NavController)} when a menu item is selected.
      * The selected item in the NavigationView will automatically be updated when the destination
      * changes.
+     * <p>
+     * If the {@link NavigationView} is directly contained with a {@link DrawerLayout},
+     * the drawer will be closed when a menu item is selected.
+     * <p>
+     * Similarly, if the {@link NavigationView} has a {@link BottomSheetBehavior} associated with
+     * it (as is the case when using a {@link com.google.android.material.bottomsheet.BottomSheetDialog}),
+     * the bottom sheet will be hidden when a menu item is selected.
      *
      * @param navigationView The NavigationView that should be kept in sync with changes to the
      *                       NavController.
@@ -285,27 +421,63 @@ public class NavigationUI {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        boolean handled = onNavDestinationSelected(item, navController, true);
+                        boolean handled = onNavDestinationSelected(item, navController);
                         if (handled) {
                             ViewParent parent = navigationView.getParent();
                             if (parent instanceof DrawerLayout) {
                                 ((DrawerLayout) parent).closeDrawer(navigationView);
+                            } else {
+                                BottomSheetBehavior bottomSheetBehavior =
+                                        findBottomSheetBehavior(navigationView);
+                                if (bottomSheetBehavior != null) {
+                                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                                }
                             }
                         }
                         return handled;
                     }
                 });
-        navController.addOnNavigatedListener(new NavController.OnNavigatedListener() {
-            @Override
-            public void onNavigated(@NonNull NavController controller,
-                    @NonNull NavDestination destination) {
-                Menu menu = navigationView.getMenu();
-                for (int h = 0, size = menu.size(); h < size; h++) {
-                    MenuItem item = menu.getItem(h);
-                    item.setChecked(matchDestination(destination, item.getItemId()));
-                }
+        final WeakReference<NavigationView> weakReference = new WeakReference<>(navigationView);
+        navController.addOnDestinationChangedListener(
+                new NavController.OnDestinationChangedListener() {
+                    @Override
+                    public void onDestinationChanged(@NonNull NavController controller,
+                            @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                        NavigationView view = weakReference.get();
+                        if (view == null) {
+                            navController.removeOnDestinationChangedListener(this);
+                            return;
+                        }
+                        Menu menu = view.getMenu();
+                        for (int h = 0, size = menu.size(); h < size; h++) {
+                            MenuItem item = menu.getItem(h);
+                            item.setChecked(matchDestination(destination, item.getItemId()));
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Walks up the view hierarchy, trying to determine if the given View is contained within
+     * a bottom sheet.
+     */
+    @SuppressWarnings("WeakerAccess")
+    static BottomSheetBehavior findBottomSheetBehavior(@NonNull View view) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (!(params instanceof CoordinatorLayout.LayoutParams)) {
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                return findBottomSheetBehavior((View) parent);
             }
-        });
+            return null;
+        }
+        CoordinatorLayout.Behavior behavior = ((CoordinatorLayout.LayoutParams) params)
+                .getBehavior();
+        if (!(behavior instanceof BottomSheetBehavior)) {
+            // We hit a CoordinatorLayout, but the View doesn't have the BottomSheetBehavior
+            return null;
+        }
+        return (BottomSheetBehavior) behavior;
     }
 
     /**
@@ -327,22 +499,30 @@ public class NavigationUI {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        return onNavDestinationSelected(item, navController, true);
+                        return onNavDestinationSelected(item, navController);
                     }
                 });
-        navController.addOnNavigatedListener(new NavController.OnNavigatedListener() {
-            @Override
-            public void onNavigated(@NonNull NavController controller,
-                    @NonNull NavDestination destination) {
-                Menu menu = bottomNavigationView.getMenu();
-                for (int h = 0, size = menu.size(); h < size; h++) {
-                    MenuItem item = menu.getItem(h);
-                    if (matchDestination(destination, item.getItemId())) {
-                        item.setChecked(true);
+        final WeakReference<BottomNavigationView> weakReference =
+                new WeakReference<>(bottomNavigationView);
+        navController.addOnDestinationChangedListener(
+                new NavController.OnDestinationChangedListener() {
+                    @Override
+                    public void onDestinationChanged(@NonNull NavController controller,
+                            @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                        BottomNavigationView view = weakReference.get();
+                        if (view == null) {
+                            navController.removeOnDestinationChangedListener(this);
+                            return;
+                        }
+                        Menu menu = view.getMenu();
+                        for (int h = 0, size = menu.size(); h < size; h++) {
+                            MenuItem item = menu.getItem(h);
+                            if (matchDestination(destination, item.getItemId())) {
+                                item.setChecked(true);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     /**
@@ -361,6 +541,24 @@ public class NavigationUI {
     }
 
     /**
+     * Determines whether the given <code>destinationIds</code> match the NavDestination. This
+     * handles both the default case (the destination's id is in the given ids) and the nested
+     * case where the given ids is a parent/grandparent/etc of the destination.
+     */
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static boolean matchDestinations(@NonNull NavDestination destination,
+            @NonNull Set<Integer> destinationIds) {
+        NavDestination currentDestination = destination;
+        do {
+            if (destinationIds.contains(currentDestination.getId())) {
+                return true;
+            }
+            currentDestination = currentDestination.getParent();
+        } while (currentDestination != null);
+        return false;
+    }
+
+    /**
      * Finds the actual start destination of the graph, handling cases where the graph's starting
      * destination is itself a NavGraph.
      */
@@ -372,153 +570,5 @@ public class NavigationUI {
             startDestination = parent.findNode(parent.getStartDestination());
         }
         return startDestination;
-    }
-
-    /**
-     * The OnNavigatedListener specifically for keeping the ActionBar updated. This handles both
-     * updating the title and updating the Up Indicator, transitioning between the drawer icon and
-     * up arrow as needed.
-     */
-    private static class ActionBarOnNavigatedListener extends AbstractAppBarOnNavigatedListener {
-        private final AppCompatActivity mActivity;
-
-        ActionBarOnNavigatedListener(
-                @NonNull AppCompatActivity activity, @Nullable DrawerLayout drawerLayout) {
-            super(activity.getDrawerToggleDelegate().getActionBarThemedContext(), drawerLayout);
-            mActivity = activity;
-        }
-
-        @Override
-        protected void setTitle(CharSequence title) {
-            ActionBar actionBar = mActivity.getSupportActionBar();
-            actionBar.setTitle(title);
-        }
-
-        @Override
-        protected void setNavigationIcon(Drawable icon) {
-            ActionBar actionBar = mActivity.getSupportActionBar();
-            if (icon == null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
-            } else {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                ActionBarDrawerToggle.Delegate delegate = mActivity.getDrawerToggleDelegate();
-                delegate.setActionBarUpIndicator(icon, 0);
-            }
-        }
-    }
-
-    /**
-     * The OnNavigatedListener specifically for keeping a Toolbar updated. This handles both
-     * updating the title and updating the Up Indicator, transitioning between the drawer icon and
-     * up arrow as needed.
-     */
-    private static class ToolbarOnNavigatedListener extends AbstractAppBarOnNavigatedListener {
-        private final Toolbar mToolbar;
-
-        ToolbarOnNavigatedListener(
-                @NonNull Toolbar toolbar, @Nullable DrawerLayout drawerLayout) {
-            super(toolbar.getContext(), drawerLayout);
-            mToolbar = toolbar;
-        }
-
-        @Override
-        protected void setTitle(CharSequence title) {
-            mToolbar.setTitle(title);
-        }
-
-        @Override
-        protected void setNavigationIcon(Drawable icon) {
-            mToolbar.setNavigationIcon(icon);
-        }
-    }
-
-    /**
-     * The OnNavigatedListener specifically for keeping a CollapsingToolbarLayout+Toolbar updated.
-     * This handles both updating the title and updating the Up Indicator, transitioning between
-     * the drawer icon and up arrow as needed.
-     */
-    private static class CollapsingToolbarOnNavigatedListener
-            extends AbstractAppBarOnNavigatedListener {
-        private final CollapsingToolbarLayout mCollapsingToolbarLayout;
-        private final Toolbar mToolbar;
-
-        CollapsingToolbarOnNavigatedListener(
-                @NonNull CollapsingToolbarLayout collapsingToolbarLayout,
-                @NonNull Toolbar toolbar, @Nullable DrawerLayout drawerLayout) {
-            super(collapsingToolbarLayout.getContext(), drawerLayout);
-            mCollapsingToolbarLayout = collapsingToolbarLayout;
-            mToolbar = toolbar;
-        }
-
-        @Override
-        protected void setTitle(CharSequence title) {
-            mCollapsingToolbarLayout.setTitle(title);
-        }
-
-        @Override
-        protected void setNavigationIcon(Drawable icon) {
-            mToolbar.setNavigationIcon(icon);
-        }
-    }
-
-    /**
-     * The abstract OnNavigatedListener for keeping any type of app bar updated. This handles both
-     * updating the title and updating the Up Indicator, transitioning between the drawer icon and
-     * up arrow as needed.
-     */
-    private abstract static class AbstractAppBarOnNavigatedListener
-            implements NavController.OnNavigatedListener {
-        private final Context mContext;
-        @Nullable
-        private final DrawerLayout mDrawerLayout;
-        private DrawerArrowDrawable mArrowDrawable;
-        private ValueAnimator mAnimator;
-
-        AbstractAppBarOnNavigatedListener(@NonNull Context context,
-                @Nullable DrawerLayout drawerLayout) {
-            mContext = context;
-            mDrawerLayout = drawerLayout;
-        }
-
-        protected abstract void setTitle(CharSequence title);
-
-        protected abstract void setNavigationIcon(Drawable icon);
-
-        @Override
-        public void onNavigated(@NonNull NavController controller,
-                @NonNull NavDestination destination) {
-            CharSequence title = destination.getLabel();
-            if (!TextUtils.isEmpty(title)) {
-                setTitle(title);
-            }
-            boolean isStartDestination = findStartDestination(controller.getGraph()) == destination;
-            if (mDrawerLayout == null && isStartDestination) {
-                setNavigationIcon(null);
-            } else {
-                setActionBarUpIndicator(mDrawerLayout != null && isStartDestination);
-            }
-        }
-
-        void setActionBarUpIndicator(boolean showAsDrawerIndicator) {
-            boolean animate = true;
-            if (mArrowDrawable == null) {
-                mArrowDrawable = new DrawerArrowDrawable(mContext);
-                // We're setting the initial state, so skip the animation
-                animate = false;
-            }
-            setNavigationIcon(mArrowDrawable);
-            float endValue = showAsDrawerIndicator ? 0f : 1f;
-            if (animate) {
-                float startValue = mArrowDrawable.getProgress();
-                if (mAnimator != null) {
-                    mAnimator.cancel();
-                }
-                mAnimator = ObjectAnimator.ofFloat(mArrowDrawable, "progress",
-                        startValue, endValue);
-                mAnimator.start();
-            } else {
-                mArrowDrawable.setProgress(endValue);
-            }
-        }
     }
 }

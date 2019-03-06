@@ -9,9 +9,11 @@ plugins {
 dependencies {
     api(project(":annotation"))
     api(project(":core"))
-    api(project(":interpolator"))
+    api("androidx.interpolator:interpolator:1.0.0")
 
     androidTestImplementation(JUNIT)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -26,7 +28,7 @@ dependencies {
 supportLibrary {
     name = "Android Support Library Custom View"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.SWIPE_REFRESH_LAYOUT
     mavenGroup = LibraryGroups.SWIPEREFRESHLAYOUT
     inceptionYear = "2018"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
