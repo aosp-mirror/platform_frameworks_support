@@ -31,7 +31,7 @@ import androidx.room.vo.RelationCollector
 import com.squareup.javapoet.TypeName
 
 /**
- * Handles writing a field into statement or reading it form statement.
+ * Handles writing a field into statement or reading it from statement.
  */
 class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
     val field = fieldWithIndex.field
@@ -65,9 +65,10 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
          * fields.
          */
         private fun createNodeTree(
-                rootVar: String,
-                fieldsWithIndices: List<FieldWithIndex>,
-                scope: CodeGenScope): Node {
+            rootVar: String,
+            fieldsWithIndices: List<FieldWithIndex>,
+            scope: CodeGenScope
+        ): Node {
             val allParents = getAllParents(fieldsWithIndices.map { it.field })
             val rootNode = Node(rootVar, null)
             rootNode.directFields = fieldsWithIndices.filter { it.field.parent == null }
@@ -90,10 +91,10 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
         }
 
         fun bindToStatement(
-                ownerVar: String,
-                stmtParamVar: String,
-                fieldsWithIndices: List<FieldWithIndex>,
-                scope: CodeGenScope
+            ownerVar: String,
+            stmtParamVar: String,
+            fieldsWithIndices: List<FieldWithIndex>,
+            scope: CodeGenScope
         ) {
             fun visitNode(node: Node) {
                 fun bindWithDescendants() {
@@ -138,11 +139,13 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
          * columns.
          */
         private fun construct(
-                outVar: String,
-                constructor: Constructor?,
-                typeName: TypeName,
-                localVariableNames: Map<String, FieldWithIndex>,
-                localEmbeddeds: List<Node>, scope: CodeGenScope
+            outVar: String,
+            constructor: Constructor?,
+            typeName: TypeName,
+            localVariableNames: Map<String, FieldWithIndex>,
+            localEmbeddeds: List<Node>,
+            localRelations: Map<String, Field>,
+            scope: CodeGenScope
         ) {
             if (constructor == null) {
                 // best hope code generation
@@ -153,31 +156,31 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
             }
             val variableNames = constructor.params.map { param ->
                 when (param) {
-                    is Constructor.FieldParam -> localVariableNames.entries.firstOrNull {
+                    is Constructor.Param.FieldParam -> localVariableNames.entries.firstOrNull {
                         it.value.field === param.field
                     }?.key
-                    is Constructor.EmbeddedParam -> localEmbeddeds.firstOrNull {
-                        it.fieldParent === param.embedded
+                    is Constructor.Param.EmbeddedParam -> localEmbeddeds.firstOrNull {
+                        it.fieldParent == param.embedded
                     }?.varName
-                    else -> null
+                    is Constructor.Param.RelationParam -> localRelations.entries.firstOrNull {
+                        it.value === param.relation.field
+                    }?.key
                 }
             }
             val args = variableNames.joinToString(",") { it ?: "null" }
-            scope.builder().apply {
-                addStatement("$L = new $T($L)", outVar, typeName, args)
-            }
+            constructor.writeConstructor(outVar, args, scope.builder())
         }
 
         /**
          * Reads the row into the given variable. It does not declare it but constructs it.
          */
         fun readFromCursor(
-                outVar: String,
-                outPojo: Pojo,
-                cursorVar: String,
-                fieldsWithIndices: List<FieldWithIndex>,
-                scope: CodeGenScope,
-                relationCollectors: List<RelationCollector>
+            outVar: String,
+            outPojo: Pojo,
+            cursorVar: String,
+            fieldsWithIndices: List<FieldWithIndex>,
+            scope: CodeGenScope,
+            relationCollectors: List<RelationCollector>
         ) {
             fun visitNode(node: Node) {
                 val fieldParent = node.fieldParent
@@ -188,14 +191,25 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                     }.associateBy { fwi ->
                         FieldReadWriteWriter(fwi).readIntoTmpVar(cursorVar, scope)
                     }
-                    // read decomposed fields
+                    // read decomposed fields (e.g. embedded)
                     node.subNodes.forEach(::visitNode)
+                    // read relationship fields
+                    val relationFields = relationCollectors.filter { (relation) ->
+                        relation.field.parent === fieldParent
+                    }.associate {
+                        it.writeReadCollectionIntoTmpVar(
+                                cursorVarName = cursorVar,
+                                fieldsWithIndices = fieldsWithIndices,
+                                scope = scope)
+                    }
+
                     // construct the object
                     if (fieldParent != null) {
                         construct(outVar = node.varName,
                                 constructor = fieldParent.pojo.constructor,
                                 typeName = fieldParent.field.typeName,
                                 localEmbeddeds = node.subNodes,
+                                localRelations = relationFields,
                                 localVariableNames = constructorFields,
                                 scope = scope)
                     } else {
@@ -203,6 +217,7 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                                 constructor = outPojo.constructor,
                                 typeName = outPojo.typeName,
                                 localEmbeddeds = node.subNodes,
+                                localRelations = relationFields,
                                 localVariableNames = constructorFields,
                                 scope = scope)
                     }
@@ -215,17 +230,7 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                                 cursorVar = cursorVar,
                                 scope = scope)
                     }
-                    // assign relationship fields which will be read later
-                    relationCollectors.filter { (relation) ->
-                        relation.field.parent === fieldParent
-                    }.forEach {
-                        it.writeReadParentKeyCode(
-                                cursorVarName = cursorVar,
-                                itemVar = node.varName,
-                                fieldsWithIndices = fieldsWithIndices,
-                                scope = scope)
-                    }
-                    // assign sub modes to fields if they were not part of the constructor.
+                    // assign sub nodes to fields if they were not part of the constructor.
                     node.subNodes.mapNotNull {
                         val setter = it.fieldParent?.setter
                         if (setter != null && setter.callType != CallType.CONSTRUCTOR) {
@@ -235,6 +240,15 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
                         }
                     }.forEach { (varName, setter) ->
                         setter.writeSet(
+                                ownerVar = node.varName,
+                                inVar = varName,
+                                builder = scope.builder())
+                    }
+                    // assign relation fields that were not part of the constructor
+                    relationFields.filterNot { (_, field) ->
+                        field.setter.callType == CallType.CONSTRUCTOR
+                    }.forEach { (varName, field) ->
+                        field.setter.writeSet(
                                 ownerVar = node.varName,
                                 inVar = varName,
                                 builder = scope.builder())
@@ -359,10 +373,10 @@ class FieldReadWriteWriter(fieldWithIndex: FieldWithIndex) {
      * On demand node which is created based on the fields that were passed into this class.
      */
     private class Node(
-            // root for me
-            val varName: String,
-            // set if I'm a FieldParent
-            val fieldParent: EmbeddedField?
+        // root for me
+        val varName: String,
+        // set if I'm a FieldParent
+        val fieldParent: EmbeddedField?
     ) {
         // whom do i belong
         var parentNode: Node? = null

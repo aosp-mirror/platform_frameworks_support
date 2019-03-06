@@ -17,7 +17,6 @@
 package androidx.webkit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
 
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
@@ -25,8 +24,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -140,12 +139,17 @@ public class ServiceWorkerClientCompatTest {
         }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.ServiceWorkerClientTest#testServiceWorkerClientInterceptCallback.
+     * Modifications to this test should be reflected in that test as necessary. See
+     * http://go/modifying-webview-cts.
+     */
     // Test correct invocation of shouldInterceptRequest for Service Workers.
     @Test
     public void testServiceWorkerClientInterceptCallback() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_BASIC_USAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
 
         final InterceptServiceWorkerClient mInterceptServiceWorkerClient =
                 new InterceptServiceWorkerClient();

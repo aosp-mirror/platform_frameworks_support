@@ -22,11 +22,8 @@ import android.graphics.Bitmap
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
-import android.view.ViewTreeObserver
-import android.view.accessibility.AccessibilityEvent
 import androidx.annotation.Px
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.core.graphics.applyCanvas
 
 /**
@@ -79,34 +76,8 @@ inline fun View.doOnLayout(crossinline action: (view: View) -> Unit) {
  *
  * The action will only be invoked once prior to the next draw and then removed.
  */
-inline fun View.doOnPreDraw(crossinline action: (view: View) -> Unit) {
-    val vto = viewTreeObserver
-    vto.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-        override fun onPreDraw(): Boolean {
-            action(this@doOnPreDraw)
-            when {
-                vto.isAlive -> vto.removeOnPreDrawListener(this)
-                else -> viewTreeObserver.removeOnPreDrawListener(this)
-            }
-            return true
-        }
-    })
-}
-
-/**
- * Sends [AccessibilityEvent] of type [AccessibilityEvent.TYPE_ANNOUNCEMENT].
- *
- * @see View.announceForAccessibility
- */
-@RequiresApi(16)
-@Deprecated(
-    "General usage of this functionality is discouraged",
-    ReplaceWith("this.announceForAccessibility(this.resources.getString(resource))"),
-    DeprecationLevel.ERROR
-)
-inline fun View.announceForAccessibility(@StringRes resource: Int) {
-    val announcement = resources.getString(resource)
-    announceForAccessibility(announcement)
+inline fun View.doOnPreDraw(crossinline action: (view: View) -> Unit): OneShotPreDrawListener {
+    return OneShotPreDrawListener.add(this) { action(this) }
 }
 
 /**
@@ -188,27 +159,6 @@ inline fun View.postOnAnimationDelayed(
     postOnAnimationDelayed(runnable, delayInMillis)
     return runnable
 }
-
-/**
- * Return a [Bitmap] representation of this [View].
- *
- * The resulting bitmap will be the same width and height as this view's current layout
- * dimensions. This does not take into account any transformations such as scale or translation.
- *
- * Note, this will use the software rendering pipeline to draw the view to the bitmap. This may
- * result with different drawing to what is rendered on a hardware accelerated canvas (such as
- * the device screen).
- *
- * If this view has not been laid out this method will throw a [IllegalStateException].
- *
- * @param config Bitmap config of the desired bitmap. Defaults to [Bitmap.Config.ARGB_8888].
- */
-@Deprecated(
-    "Renamed to drawToBitmap()",
-    ReplaceWith("this.drawToBitmap(config)"),
-    DeprecationLevel.ERROR
-)
-inline fun View.toBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888) = drawToBitmap(config)
 
 /**
  * Return a [Bitmap] representation of this [View].

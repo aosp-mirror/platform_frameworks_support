@@ -37,13 +37,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.Observer;
 import androidx.slice.Slice;
 import androidx.slice.SliceItem;
 import androidx.slice.SliceMetadata;
 import androidx.slice.core.SliceAction;
 import androidx.slice.core.SliceActionImpl;
-import androidx.slice.core.SliceHints;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
 
@@ -56,34 +56,40 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A view for displaying a {@link Slice} which is a piece of app content and actions. SliceView is
- * able to present slice content in a templated format outside of the associated app. The way this
- * content is displayed depends on the structure of the slice, the hints associated with the
- * content, and the mode that SliceView is configured for. The modes that SliceView supports are:
+ * A view for displaying {@link Slice}s.
+ * <p>
+ * A slice is a piece of app content and actions that can be surfaced outside of the app it
+ * originates from. SliceView is able to interpret the structure and contents of a slice and display
+ * it. This structure is defined by the app providing the slice when the slice is constructed with a
+ * {@link androidx.slice.builders.TemplateSliceBuilder}.
+ * </p>
+ * <p>
+ * SliceView is able to display slices in a couple of different modes via {@see #setMode}.
  * <ul>
- * <li><b>Shortcut</b>: A shortcut is presented as an icon and a text label representing the main
- * content or action associated with the slice.</li>
- * <li><b>Small</b>: The small format has a restricted height and can present a single
- * {@link SliceItem} or a limited collection of items.</li>
- * <li><b>Large</b>: The large format displays multiple small templates in a list, if scrolling is
- * not enabled (see {@link #setScrollable(boolean)}) the view will show as many items as it can
- * comfortably fit.</li>
+ * <li><b>Small</b>: The small format has a restricted height and display top-level information
+ * and actions from the slice.</li>
+ * <li><b>Large</b>: The large format displays as much of the slice as it can based on the space
+ * provided for SliceView, if the slice overflows the space SliceView will scroll the content if
+ * scrolling has been enabled on SliceView, {@see #setScrollable}.</li>
+ * <li><b>Shortcut</b>: A shortcut shows minimal information and is presented as a tappable icon
+ * representing the main content or action associated with the slice.</li>
  * </ul>
+ * </p>
  * <p>
- * When constructing a slice, the contents of it can be annotated with hints, these provide the OS
- * with some information on how the content should be displayed. For example, text annotated with
- * {@link android.app.slice.Slice#HINT_TITLE} would be placed in the title position of a template.
- * A slice annotated with {@link android.app.slice.Slice#HINT_LIST} would present the child items
- * of that slice in a list.
- * <p>
- * Example usage:
- *
+ * Slices can contain dynamic content that may update due to user interaction or a change in the
+ * data being displayed in the slice. SliceView can be configured to listen for these updates easily
+ * using {@link SliceLiveData}. Example usage:
  * <pre class="prettyprint">
  * SliceView v = new SliceView(getContext());
  * v.setMode(desiredMode);
  * LiveData<Slice> liveData = SliceLiveData.fromUri(sliceUri);
  * liveData.observe(lifecycleOwner, v);
  * </pre>
+ * </p>
+ * <p>
+ * SliceView supports various style options, see {@link R.styleable#SliceView SliceView Attributes}.
+ *
+ * @see Slice
  * @see SliceLiveData
  */
 @RequiresApi(19)
@@ -116,17 +122,17 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     public @interface SliceMode {}
 
     /**
-     * Mode indicating this slice should be presented in small template format.
+     * Mode indicating this slice should be presented in small format, only top-level information
+     * and actions from the slice are shown.
      */
     public static final int MODE_SMALL       = 1;
     /**
-     * Mode indicating this slice should be presented in large template format.
+     * Mode indicating this slice should be presented in large format, as much or all of the slice
+     * contents are shown.
      */
     public static final int MODE_LARGE       = 2;
     /**
-     * Mode indicating this slice should be presented as an icon. A shortcut requires an intent,
-     * icon, and label. This can be indicated by using {@link android.app.slice.Slice#HINT_TITLE}
-     * on an action in a slice.
+     * Mode indicating this slice should be presented as a tappable icon.
      */
     public static final int MODE_SHORTCUT    = 3;
 
@@ -135,27 +141,35 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      */
     private static final int REFRESH_LAST_UPDATED_IN_MILLIS = 60000;
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     ListContent mListContent;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     SliceChildView mCurrentView;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     View.OnLongClickListener mLongClickListener;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     Handler mHandler;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    SliceMetadata mSliceMetadata;
 
-    private int mMode = MODE_LARGE;
     private Slice mCurrentSlice;
     private SliceMetrics mCurrentSliceMetrics;
     private List<SliceAction> mActions;
     private ActionRow mActionRow;
 
     private boolean mShowActions = false;
-    private boolean mIsScrollable = true;
     private boolean mShowLastUpdated = true;
     private boolean mCurrentSliceLoggedVisible = false;
+    private boolean mShowTitleItems = false;
+    private boolean mShowHeaderDivider = false;
+    private boolean mShowActionDividers = false;
 
     private int mShortcutSize;
     private int mMinTemplateHeight;
     private int mLargeHeight;
     private int mActionRowHeight;
 
+    private SliceViewPolicy mViewPolicy;
     private SliceStyle mSliceStyle;
     private int mThemeTintColor = -1;
 
@@ -197,9 +211,9 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         mLargeHeight = getResources().getDimensionPixelSize(R.dimen.abc_slice_large_height);
         mActionRowHeight = getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_action_row_height);
-
-        mCurrentView = new LargeTemplateView(getContext());
-        mCurrentView.setMode(getMode());
+        mViewPolicy = new SliceViewPolicy();
+        mCurrentView = new TemplateView(getContext());
+        mCurrentView.setPolicy(mViewPolicy);
         addView(mCurrentView, getChildLp(mCurrentView));
         applyConfigurations();
 
@@ -220,6 +234,11 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         super.setOnClickListener(this);
     }
 
+    @VisibleForTesting
+    void setSliceViewPolicy(SliceViewPolicy policy) {
+        mViewPolicy = policy;
+    }
+
     /**
      * Indicates whether this view reacts to click events or not.
      * @hide
@@ -227,7 +246,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public boolean isSliceViewClickable() {
         return mOnClickListener != null
-                || (mListContent != null && mListContent.getPrimaryAction() != null);
+                || (mListContent != null && mListContent.getShortcut(getContext()) != null);
     }
 
     /**
@@ -241,19 +260,21 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (mListContent != null && mListContent.getPrimaryAction() != null) {
+        if (mListContent != null && mListContent.getShortcut(getContext()) != null) {
             try {
-                SliceActionImpl sa = new SliceActionImpl(mListContent.getPrimaryAction());
-                boolean loading = sa.getActionItem().fireActionInternal(getContext(), null);
+                SliceActionImpl sa = (SliceActionImpl) mListContent.getShortcut(getContext());
+                SliceItem actionItem = sa.getActionItem();
+                boolean loading = actionItem != null
+                        && actionItem.fireActionInternal(getContext(), null);
                 if (loading) {
                     mCurrentView.setActionLoading(sa.getSliceItem());
                 }
-                if (mSliceObserver != null && mClickInfo != null && mClickInfo.length > 1) {
+                if (actionItem != null && mSliceObserver != null && mClickInfo != null
+                        && mClickInfo.length > 1) {
                     EventInfo eventInfo = new EventInfo(getMode(),
                             EventInfo.ACTION_TYPE_CONTENT, mClickInfo[0], mClickInfo[1]);
-                    SliceItem sliceItem = mListContent.getPrimaryAction();
-                    mSliceObserver.onSliceAction(eventInfo, sliceItem);
-                    logSliceMetricsOnTouch(sliceItem, eventInfo);
+                    mSliceObserver.onSliceAction(eventInfo, sa.getSliceItem());
+                    logSliceMetricsOnTouch(sa.getSliceItem(), eventInfo);
                 }
             } catch (PendingIntent.CanceledException e) {
                 Log.e(TAG, "PendingIntent for slice cannot be sent", e);
@@ -276,20 +297,14 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean ret = super.onInterceptTouchEvent(ev);
-        if (mLongClickListener != null) {
-            return handleTouchForLongpress(ev);
-        }
-        return ret;
+        return (mLongClickListener != null && handleTouchForLongpress(ev))
+                || super.onInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        boolean ret = super.onTouchEvent(ev);
-        if (mLongClickListener != null) {
-            return handleTouchForLongpress(ev);
-        }
-        return ret;
+        return (mLongClickListener != null && handleTouchForLongpress(ev))
+                || super.onTouchEvent(ev);
     }
 
     private boolean handleTouchForLongpress(MotionEvent ev) {
@@ -302,7 +317,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 mPressing = true;
                 mInLongpress = false;
                 mHandler.postDelayed(mLongpressCheck, ViewConfiguration.getLongPressTimeout());
-                break;
+                return false;
 
             case MotionEvent.ACTION_MOVE:
                 final int deltaX = (int) ev.getRawX() - mDownX;
@@ -312,16 +327,21 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     mPressing = false;
                     mHandler.removeCallbacks(mLongpressCheck);
                 }
-                break;
+                // If a long press has already happened, consume further movement.
+                return mInLongpress;
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+                boolean wasInLongpress = mInLongpress;
                 mPressing = false;
                 mInLongpress = false;
                 mHandler.removeCallbacks(mLongpressCheck);
-                break;
+                // If a long press just happened, consume up event to avoid a duplicate short click.
+                return wasInLongpress;
+
+            default:
+                return false;
         }
-        return mInLongpress;
     }
 
     private int getHeightForMode(int maxHeight) {
@@ -332,24 +352,23 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         if (mode == MODE_SHORTCUT) {
             return mShortcutSize;
         }
-        if (maxHeight > 0 && maxHeight <= mMinTemplateHeight) {
-            maxHeight = mMinTemplateHeight;
-            mListContent.setMaxSmallHeight(mMinTemplateHeight);
-            mCurrentView.setMaxSmallHeight(mMinTemplateHeight);
+        if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
+            if (maxHeight <= mMinTemplateHeight) {
+                maxHeight = mMinTemplateHeight;
+            }
+            mViewPolicy.setMaxSmallHeight(maxHeight);
         } else {
-            mListContent.setMaxSmallHeight(0);
-            mCurrentView.setMaxSmallHeight(0);
+            mViewPolicy.setMaxSmallHeight(0);
         }
-        return mode == MODE_LARGE
-                ? mListContent.getLargeHeight(maxHeight, mIsScrollable)
-                : mListContent.getSmallHeight();
+        mViewPolicy.setMaxHeight(maxHeight);
+        return mListContent.getHeight(mSliceStyle, mViewPolicy);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int childWidth = MeasureSpec.getSize(widthMeasureSpec);
-        if (MODE_SHORTCUT == mMode) {
+        if (MODE_SHORTCUT == getMode()) {
             // TODO: consider scaling the shortcut to fit if too small
             childWidth = mShortcutSize;
             width = mShortcutSize + getPaddingLeft() + getPaddingRight();
@@ -384,7 +403,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 // TODO: consider scaling the shortcut to fit if too small
                 height = mShortcutSize;
             } else if (height <= mMinTemplateHeight) {
-                height = sliceHeight;
+                height = mMinTemplateHeight;
             }
         }
 
@@ -433,10 +452,13 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         initSliceMetrics(slice);
         boolean isUpdate = slice != null && mCurrentSlice != null
                 && slice.getUri().equals(mCurrentSlice.getUri());
+        SliceMetadata oldSliceData = mSliceMetadata;
+        mCurrentSlice = slice;
+        mSliceMetadata = mCurrentSlice != null ? SliceMetadata.from(getContext(), mCurrentSlice)
+                : null;
         if (isUpdate) {
             // If its an update check the loading state
-            SliceMetadata oldSliceData = SliceMetadata.from(getContext(), mCurrentSlice);
-            SliceMetadata newSliceData = SliceMetadata.from(getContext(), slice);
+            SliceMetadata newSliceData = mSliceMetadata;
             if (oldSliceData.getLoadingState() == SliceMetadata.LOADED_ALL
                     && newSliceData.getLoadingState() == SliceMetadata.LOADED_NONE) {
                 // If it's the same slice going from "loaded all" to "loaded none"... let's
@@ -446,30 +468,36 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         } else {
             mCurrentView.resetView();
         }
-        mCurrentSlice = slice;
-        mListContent =
-                new ListContent(getContext(), mCurrentSlice, mSliceStyle);
-        if (!mListContent.isValid()) {
+        mListContent = mSliceMetadata != null ? mSliceMetadata.getListContent() : null;
+        if (mShowTitleItems) {
+            showTitleItems(true);
+        }
+        if (mShowHeaderDivider) {
+            showHeaderDivider(true);
+        }
+        if (mShowActionDividers) {
+            showActionDividers(true);
+        }
+        if (mListContent == null || !mListContent.isValid()) {
             mActions = null;
             mCurrentView.resetView();
             updateActions();
             return;
         }
-        mActions = mListContent.getSliceActions();
         // New slice means we shouldn't have any actions loading
         mCurrentView.setLoadingActions(null);
 
         // Check if the slice content is expired and show when it was last updated
-        SliceMetadata sliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
-        long lastUpdated = sliceMetadata.getLastUpdatedTime();
-        mCurrentView.setLastUpdated(lastUpdated);
-        mCurrentView.setShowLastUpdated(mShowLastUpdated && isExpired());
+        mActions = mSliceMetadata.getSliceActions();
+        mCurrentView.setLastUpdated(mSliceMetadata.getLastUpdatedTime());
+        mCurrentView.setShowLastUpdated(mShowLastUpdated && mSliceMetadata.isExpired());
+        mCurrentView.setAllowTwoLines(mSliceMetadata.isPermissionSlice());
 
         // Tint color can come with the slice, so may need to update it
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
@@ -483,26 +511,6 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
         // Automatically refresh the last updated label when the slice TTL isn't infinity.
         refreshLastUpdatedLabel(true /* visible */);
-    }
-
-    private boolean isNeverExpired() {
-        SliceMetadata sliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
-        long expiry = sliceMetadata.getExpiry();
-        return expiry == SliceHints.INFINITY;
-    }
-
-    boolean isExpired() {
-        SliceMetadata sliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
-        long expiry = sliceMetadata.getExpiry();
-        long now = System.currentTimeMillis();
-        return expiry != 0 && expiry != SliceHints.INFINITY && now > expiry;
-    }
-
-    private long getTimeToExpiry() {
-        SliceMetadata sliceMetadata = SliceMetadata.from(getContext(), mCurrentSlice);
-        long expiry = sliceMetadata.getExpiry();
-        long now = System.currentTimeMillis();
-        return (expiry == 0 || expiry == SliceHints.INFINITY ||  now > expiry) ? 0 : expiry - now;
     }
 
     /**
@@ -521,6 +529,10 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      */
     @Nullable
     public List<SliceAction> getSliceActions() {
+        if (mActions != null && mActions.isEmpty()) {
+            // They're empty because presenter set null slice actions, return null to be consistent.
+            return null;
+        }
         return mActions;
     }
 
@@ -536,10 +548,10 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      */
     public void setSliceActions(@Nullable List<SliceAction> newActions) {
         // Check that these actions are part of available set
-        if (mCurrentSlice == null) {
+        if (mCurrentSlice == null || mSliceMetadata == null) {
             throw new IllegalStateException("Trying to set actions on a view without a slice");
         }
-        List<SliceAction> availableActions = mListContent.getSliceActions();
+        List<SliceAction> availableActions = mSliceMetadata.getSliceActions();
         if (availableActions != null && newActions != null) {
             for (int i = 0; i < newActions.size(); i++) {
                 if (!availableActions.contains(newActions.get(i))) {
@@ -548,7 +560,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 }
             }
         }
-        mActions = newActions;
+        mActions = newActions == null ? new ArrayList<SliceAction>() : newActions;
         updateActions();
     }
 
@@ -563,36 +575,25 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * Set whether this view should allow scrollable content when presenting in {@link #MODE_LARGE}.
      */
     public void setScrollable(boolean isScrollable) {
-        if (isScrollable != mIsScrollable) {
-            mIsScrollable = isScrollable;
-            if (mCurrentView instanceof LargeTemplateView) {
-                ((LargeTemplateView) mCurrentView).setScrollable(mIsScrollable);
-            }
+        if (isScrollable != mViewPolicy.isScrollable()) {
+            mViewPolicy.setScrollable(isScrollable);
         }
     }
 
     /**
-     * Whether this view should allow scrollable content when presenting in {@link #MODE_LARGE}.
+     * Whether this view allow scrollable content when presenting in {@link #MODE_LARGE}.
      */
     public boolean isScrollable() {
-        return mIsScrollable;
+        return mViewPolicy.isScrollable();
     }
 
     /**
-     * Sets the listener to notify when an interaction events occur on the view.
+     * Sets the listener to notify when an interaction event occurs on the view.
      * @see EventInfo
      */
     public void setOnSliceActionListener(@Nullable OnSliceActionListener observer) {
         mSliceObserver = observer;
         mCurrentView.setSliceActionListener(mSliceObserver);
-    }
-
-    /**
-     * @deprecated TO BE REMOVED; use {@link #setAccentColor(int)} instead.
-     */
-    @Deprecated
-    public void setTint(int tintColor) {
-        setAccentColor(tintColor);
     }
 
     /**
@@ -616,7 +617,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         if (animate) {
             Log.e(TAG, "Animation not supported yet");
         }
-        if (mMode == mode) {
+        if (mViewPolicy.getMode() == mode) {
             return;
         }
         if (mode != MODE_SMALL && mode != MODE_LARGE && mode != MODE_SHORTCUT) {
@@ -624,7 +625,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                     + " please use one of MODE_SHORTCUT, MODE_SMALL, MODE_LARGE");
             mode = MODE_LARGE;
         }
-        mMode = mode;
+        mViewPolicy.setMode(mode);
         updateViewConfig();
     }
 
@@ -632,7 +633,38 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
      * @return the mode this view is presenting in.
      */
     public @SliceMode int getMode() {
-        return mMode;
+        return mViewPolicy.getMode();
+    }
+
+    /**
+     * Whether this view should show title items on the first row of the slice.
+     * Title items appear at the start of the row.
+     */
+    public void showTitleItems(boolean enabled) {
+        mShowTitleItems = enabled;
+        if (mListContent != null) {
+            mListContent.showTitleItems(enabled);
+        }
+    }
+
+    /**
+     * Whether this view should show the header divider.
+     */
+    public void showHeaderDivider(boolean enabled) {
+        mShowHeaderDivider = enabled;
+        if (mListContent != null) {
+            mListContent.showHeaderDivider(enabled);
+        }
+    }
+
+    /**
+     * Whether this view should show action dividers for rows.
+     */
+    public void showActionDividers(boolean enabled) {
+        mShowActionDividers = enabled;
+        if (mListContent != null) {
+            mListContent.showActionDividers(enabled);
+        }
     }
 
     /**
@@ -673,16 +705,14 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             newView = true;
         } else if (mode != MODE_SHORTCUT && isCurrentViewShortcut) {
             removeView(mCurrentView);
-            mCurrentView = new LargeTemplateView(getContext());
+            mCurrentView = new TemplateView(getContext());
             addView(mCurrentView, getChildLp(mCurrentView));
             newView = true;
         }
 
-        // Set the mode
-        mCurrentView.setMode(mode);
-
         // If the view changes we should apply any configurations to it
         if (newView) {
+            mCurrentView.setPolicy(mViewPolicy);
             mCurrentView.setInsets(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
                     getPaddingBottom());
             applyConfigurations();
@@ -696,21 +726,18 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
 
     private void applyConfigurations() {
         mCurrentView.setSliceActionListener(mSliceObserver);
-        if (mCurrentView instanceof LargeTemplateView) {
-            ((LargeTemplateView) mCurrentView).setScrollable(mIsScrollable);
-        }
         mCurrentView.setStyle(mSliceStyle);
         mCurrentView.setTint(getTintColor());
 
-        if (mListContent != null && mListContent.getLayoutDirItem() != null) {
-            mCurrentView.setLayoutDirection(mListContent.getLayoutDirItem().getInt());
+        if (mListContent != null && mListContent.getLayoutDir() != -1) {
+            mCurrentView.setLayoutDirection(mListContent.getLayoutDir());
         } else {
             mCurrentView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
     }
 
     private void updateActions() {
-        if (mActions == null || mActions.isEmpty()) {
+        if (mActions == null) {
             // No actions, hide the row, clear out the view
             mActionRow.setVisibility(View.GONE);
             mCurrentView.setSliceActions(null);
@@ -719,7 +746,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         // Sort actions based on priority and set them in action rows.
         List<SliceAction> sortedActions = new ArrayList<>(mActions);
         Collections.sort(sortedActions, SLICE_ACTION_PRIORITY_COMPARATOR);
-        if (mShowActions && mMode != MODE_SHORTCUT && mActions.size() >= 2) {
+        if (mShowActions && getMode() != MODE_SHORTCUT && mActions.size() >= 2) {
             // Show in action row if available
             mActionRow.setActions(sortedActions, getTintColor());
             mActionRow.setVisibility(View.VISIBLE);
@@ -844,17 +871,17 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
             if (item.getSlice() != null && item.getSlice().getUri() != null) {
                 mCurrentSliceMetrics.logTouch(
                         info.actionType,
-                        mListContent.getPrimaryAction().getSlice().getUri());
+                        item.getSlice().getUri());
             }
         }
     }
 
     private void refreshLastUpdatedLabel(boolean visibility) {
-        if (mShowLastUpdated && !isNeverExpired()) {
+        if (mShowLastUpdated && mSliceMetadata != null && !mSliceMetadata.neverExpires()) {
             if (visibility) {
-                mHandler.postDelayed(mRefreshLastUpdated, isExpired()
+                mHandler.postDelayed(mRefreshLastUpdated, mSliceMetadata.isExpired()
                         ? REFRESH_LAST_UPDATED_IN_MILLIS
-                        : getTimeToExpiry() + REFRESH_LAST_UPDATED_IN_MILLIS);
+                        : mSliceMetadata.getTimeToExpiry() + REFRESH_LAST_UPDATED_IN_MILLIS);
             } else {
                 mHandler.removeCallbacks(mRefreshLastUpdated);
             }
@@ -864,7 +891,7 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
     Runnable mRefreshLastUpdated = new Runnable() {
         @Override
         public void run() {
-            if (isExpired()) {
+            if (mSliceMetadata != null && mSliceMetadata.isExpired()) {
                 mCurrentView.setShowLastUpdated(true);
                 mCurrentView.setSliceContent(mListContent);
             }

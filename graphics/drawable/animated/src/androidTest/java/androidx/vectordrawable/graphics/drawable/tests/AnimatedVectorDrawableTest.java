@@ -16,8 +16,7 @@
 
 package androidx.vectordrawable.graphics.drawable.tests;
 
-import static androidx.vectordrawable.graphics.drawable.tests.DrawableUtils
-        .saveVectorDrawableIntoPNG;
+import static androidx.vectordrawable.graphics.drawable.tests.DrawableUtils.saveVectorDrawableIntoPNG;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -41,11 +40,11 @@ import android.widget.ImageButton;
 
 import androidx.annotation.DrawableRes;
 import androidx.core.view.ViewCompat;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat.AnimationCallback;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import androidx.vectordrawable.test.R;
@@ -62,7 +61,7 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AnimatedVectorDrawableTest {
     @Rule public final ActivityTestRule<DrawableStubActivity> mActivityTestRule;
@@ -81,9 +80,7 @@ public class AnimatedVectorDrawableTest {
 
     private Context mContext;
     private Resources mResources;
-    private AnimatedVectorDrawableCompat mAnimatedVectorDrawable;
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
+
     private static final boolean DBG_DUMP_PNG = false;
 
     // States to check for animation callback tests.
@@ -112,14 +109,9 @@ public class AnimatedVectorDrawableTest {
 
     @Before
     public void setup() throws Exception {
-        mBitmap = Bitmap.createBitmap(IMAGE_WIDTH, IMAGE_HEIGHT, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
         mContext = mActivityTestRule.getActivity();
         mResources = mContext.getResources();
-
-        mAnimatedVectorDrawable = AnimatedVectorDrawableCompat.create(mContext, DRAWABLE_RES_ID);
     }
-
 
     @Test
     public void testInflate() throws Exception {
@@ -137,17 +129,22 @@ public class AnimatedVectorDrawableTest {
             throw new XmlPullParserException("No start tag found");
         }
 
-        mAnimatedVectorDrawable.inflate(mResources, parser, attrs);
-        mAnimatedVectorDrawable.setBounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
-        mBitmap.eraseColor(0);
-        mAnimatedVectorDrawable.draw(mCanvas);
-        int sunColor = mBitmap.getPixel(IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2);
-        int earthColor = mBitmap.getPixel(IMAGE_WIDTH * 3 / 4 + 2, IMAGE_HEIGHT / 2);
+        Bitmap bitmap = Bitmap.createBitmap(IMAGE_WIDTH, IMAGE_HEIGHT, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        AnimatedVectorDrawableCompat animatedVectorDrawable =
+                AnimatedVectorDrawableCompat.create(mContext, DRAWABLE_RES_ID);
+        animatedVectorDrawable.inflate(mResources, parser, attrs);
+        animatedVectorDrawable.setBounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+        bitmap.eraseColor(0);
+        animatedVectorDrawable.draw(canvas);
+        int sunColor = bitmap.getPixel(IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2);
+        int earthColor = bitmap.getPixel(IMAGE_WIDTH * 3 / 4 + 2, IMAGE_HEIGHT / 2);
         assertTrue(sunColor == 0xFFFF8000);
         assertTrue(earthColor == 0xFF5656EA);
 
         if (DBG_DUMP_PNG) {
-            saveVectorDrawableIntoPNG(mResources, mBitmap, DRAWABLE_RES_ID, null);
+            saveVectorDrawableIntoPNG(mResources, bitmap, DRAWABLE_RES_ID, null);
         }
     }
 
@@ -279,12 +276,14 @@ public class AnimatedVectorDrawableTest {
 
     @Test
     public void testGetConstantState() {
-        ConstantState constantState = mAnimatedVectorDrawable.getConstantState();
+        AnimatedVectorDrawableCompat animatedVectorDrawableCompat =
+                AnimatedVectorDrawableCompat.create(mContext, DRAWABLE_RES_ID);
+        ConstantState constantState = animatedVectorDrawableCompat.getConstantState();
         if (constantState != null) {
             assertEquals(0, constantState.getChangingConfigurations());
 
-            mAnimatedVectorDrawable.setChangingConfigurations(1);
-            constantState = mAnimatedVectorDrawable.getConstantState();
+            animatedVectorDrawableCompat.setChangingConfigurations(1);
+            constantState = animatedVectorDrawableCompat.getConstantState();
             assertNotNull(constantState);
             assertEquals(1, constantState.getChangingConfigurations());
         }

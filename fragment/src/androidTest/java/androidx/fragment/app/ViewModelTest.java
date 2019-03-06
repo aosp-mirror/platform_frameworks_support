@@ -32,11 +32,11 @@ import androidx.fragment.app.test.ViewModelActivity.ViewModelFragment;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,23 +56,9 @@ public class ViewModelTest {
 
     @Test(expected = IllegalStateException.class)
     @UiThreadTest
-    public void testNotAttachedActivity() {
-        // This is similar to calling getViewModelStore in Activity's constructor
-        new FragmentActivity().getViewModelStore();
-    }
-
-    @Test(expected = IllegalStateException.class)
-    @UiThreadTest
     public void testNotAttachedFragment() {
         // This is similar to calling getViewModelStore in Fragment's constructor
         new Fragment().getViewModelStore();
-    }
-
-    @Test
-    public void testSameViewModelStorePrePostOnCreate() {
-        ViewModelActivity activity = mActivityRule.getActivity();
-        assertThat("Pre-onCreate() ViewModelStore should equal the post-onCreate() ViewModelStore",
-                activity.preOnCreateViewModelStore, is(activity.postOnCreateViewModelStore));
     }
 
     @Test
@@ -162,38 +148,6 @@ public class ViewModelTest {
                 assertThat(fragment2.fragmentModel, is(fragment2Model[0]));
             }
         });
-    }
-
-    @Test
-    public void testActivityOnCleared() throws Throwable {
-        final ViewModelActivity activity = mActivityRule.getActivity();
-        final CountDownLatch latch = new CountDownLatch(1);
-        final LifecycleObserver observer = new LifecycleObserver() {
-            @SuppressWarnings("unused")
-            @OnLifecycleEvent(ON_DESTROY)
-            void onDestroy() {
-                activity.getWindow().getDecorView().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            assertThat(activity.activityModel.mCleared, is(true));
-                            assertThat(activity.defaultActivityModel.mCleared, is(true));
-                        } finally {
-                            latch.countDown();
-                        }
-                    }
-                });
-            }
-        };
-
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.getLifecycle().addObserver(observer);
-            }
-        });
-        activity.finish();
-        assertThat(latch.await(TIMEOUT, TimeUnit.SECONDS), is(true));
     }
 
     @Test

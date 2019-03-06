@@ -18,14 +18,15 @@ package androidx.work.impl.utils;
 
 import static androidx.work.ExistingWorkPolicy.APPEND;
 import static androidx.work.ExistingWorkPolicy.KEEP;
-import static androidx.work.State.BLOCKED;
-import static androidx.work.State.CANCELLED;
-import static androidx.work.State.ENQUEUED;
-import static androidx.work.State.FAILED;
-import static androidx.work.State.RUNNING;
-import static androidx.work.State.SUCCEEDED;
+import static androidx.work.WorkInfo.State.BLOCKED;
+import static androidx.work.WorkInfo.State.CANCELLED;
+import static androidx.work.WorkInfo.State.ENQUEUED;
+import static androidx.work.WorkInfo.State.FAILED;
+import static androidx.work.WorkInfo.State.RUNNING;
+import static androidx.work.WorkInfo.State.SUCCEEDED;
 import static androidx.work.impl.workers.ConstraintTrackingWorker.ARGUMENT_CLASS_NAME;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
@@ -36,12 +37,15 @@ import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
-import androidx.work.State;
+import androidx.work.Operation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
+import androidx.work.impl.OperationImpl;
 import androidx.work.impl.Schedulers;
 import androidx.work.impl.WorkContinuationImpl;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.background.systemalarm.RescheduleReceiver;
 import androidx.work.impl.model.Dependency;
 import androidx.work.impl.model.DependencyDao;
 import androidx.work.impl.model.WorkName;
@@ -62,24 +66,42 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class EnqueueRunnable implements Runnable {
 
-    private static final String TAG = "EnqueueRunnable";
+    private static final String TAG = Logger.tagWithPrefix("EnqueueRunnable");
 
     private final WorkContinuationImpl mWorkContinuation;
+    private final OperationImpl mOperation;
 
     public EnqueueRunnable(@NonNull WorkContinuationImpl workContinuation) {
         mWorkContinuation = workContinuation;
+        mOperation = new OperationImpl();
     }
 
     @Override
     public void run() {
-        if (mWorkContinuation.hasCycles()) {
-            throw new IllegalStateException(
-                    String.format("WorkContinuation has cycles (%s)", mWorkContinuation));
+        try {
+            if (mWorkContinuation.hasCycles()) {
+                throw new IllegalStateException(
+                        String.format("WorkContinuation has cycles (%s)", mWorkContinuation));
+            }
+            boolean needsScheduling = addToDatabase();
+            if (needsScheduling) {
+                // Enable RescheduleReceiver, only when there are Worker's that need scheduling.
+                final Context context =
+                        mWorkContinuation.getWorkManagerImpl().getApplicationContext();
+                PackageManagerHelper.setComponentEnabled(context, RescheduleReceiver.class, true);
+                scheduleWorkInBackground();
+            }
+            mOperation.setState(Operation.SUCCESS);
+        } catch (Throwable exception) {
+            mOperation.setState(new Operation.State.FAILURE(exception));
         }
-        boolean needsScheduling = addToDatabase();
-        if (needsScheduling) {
-            scheduleWorkInBackground();
-        }
+    }
+
+    /**
+     * @return The {@link Operation} that encapsulates the state of the {@link EnqueueRunnable}.
+     */
+    public Operation getOperation() {
+        return mOperation;
     }
 
     /**
@@ -122,7 +144,7 @@ public class EnqueueRunnable implements Runnable {
                 if (!parent.isEnqueued()) {
                     needsScheduling |= processContinuation(parent);
                 } else {
-                    Logger.warning(TAG, String.format("Already enqueued work ids (%s).",
+                    Logger.get().warning(TAG, String.format("Already enqueued work ids (%s).",
                             TextUtils.join(", ", parent.getIds())));
                 }
             }
@@ -157,6 +179,8 @@ public class EnqueueRunnable implements Runnable {
             String name,
             ExistingWorkPolicy existingWorkPolicy) {
 
+        boolean needsScheduling = false;
+
         long currentTimeMillis = System.currentTimeMillis();
         WorkDatabase workDatabase = workManagerImpl.getWorkDatabase();
 
@@ -172,12 +196,12 @@ public class EnqueueRunnable implements Runnable {
             for (String id : prerequisiteIds) {
                 WorkSpec prerequisiteWorkSpec = workDatabase.workSpecDao().getWorkSpec(id);
                 if (prerequisiteWorkSpec == null) {
-                    Logger.error(TAG,
+                    Logger.get().error(TAG,
                             String.format("Prerequisite %s doesn't exist; not enqueuing", id));
                     return false;
                 }
 
-                State prerequisiteState = prerequisiteWorkSpec.state;
+                WorkInfo.State prerequisiteState = prerequisiteWorkSpec.state;
                 hasCompletedAllPrerequisites &= (prerequisiteState == SUCCEEDED);
                 if (prerequisiteState == FAILED) {
                     hasFailedPrerequisites = true;
@@ -227,7 +251,16 @@ public class EnqueueRunnable implements Runnable {
                     }
 
                     // Cancel all of these workers.
-                    CancelWorkRunnable.forName(name, workManagerImpl).run();
+                    // Don't allow rescheduling in CancelWorkRunnable because it will happen inside
+                    // the current transaction.  We want it to happen separately to avoid race
+                    // conditions (see ag/4502245, which tries to avoid work trying to run before
+                    // it's actually been committed to the database).
+                    CancelWorkRunnable.forName(name, workManagerImpl, false).run();
+                    // Because we cancelled some work but didn't allow rescheduling inside
+                    // CancelWorkRunnable, we need to make sure we do schedule work at the end of
+                    // this runnable.
+                    needsScheduling = true;
+
                     // And delete all the database records.
                     WorkSpecDao workSpecDao = workDatabase.workSpecDao();
                     for (WorkSpec.IdAndState idAndState : existingWorkSpecIdAndStates) {
@@ -237,7 +270,6 @@ public class EnqueueRunnable implements Runnable {
             }
         }
 
-        boolean needsScheduling = false;
         for (WorkRequest work : workList) {
             WorkSpec workSpec = work.getWorkSpec();
 
@@ -250,9 +282,14 @@ public class EnqueueRunnable implements Runnable {
                     workSpec.state = BLOCKED;
                 }
             } else {
-                // Set scheduled times only for work without prerequisites. Dependent work
-                // will set their scheduled times when they are unblocked.
-                workSpec.periodStartTime = currentTimeMillis;
+                // Set scheduled times only for work without prerequisites and that are
+                // not periodic. Dependent work will set their scheduled times when they are
+                // unblocked.
+                if (!workSpec.isPeriodic()) {
+                    workSpec.periodStartTime = currentTimeMillis;
+                } else {
+                    workSpec.periodStartTime = 0L;
+                }
             }
 
             if (Build.VERSION.SDK_INT >= 23 && Build.VERSION.SDK_INT <= 25) {

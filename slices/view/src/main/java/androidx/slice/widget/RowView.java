@@ -32,8 +32,10 @@ import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_BUTTON;
+import static androidx.slice.widget.EventInfo.ACTION_TYPE_SLIDER;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_TOGGLE;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_LIST;
+import static androidx.slice.widget.EventInfo.ROW_TYPE_SLIDER;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_TOGGLE;
 import static androidx.slice.widget.SliceView.MODE_SMALL;
 
@@ -79,7 +81,7 @@ import java.util.Set;
 
 /**
  * Row item is in small template format and can be used to construct list items for use
- * with {@link LargeTemplateView}.
+ * with {@link TemplateView}.
  *
  * @hide
  */
@@ -106,7 +108,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private TextView mPrimaryText;
     private TextView mSecondaryText;
     private TextView mLastUpdatedText;
-    private View mDivider;
+    private View mBottomDivider;
+    private View mActionDivider;
     private ArrayMap<SliceActionImpl, SliceActionView> mToggles = new ArrayMap<>();
     private ArrayMap<SliceActionImpl, SliceActionView> mActions = new ArrayMap<>();
     private LinearLayout mEndContainer;
@@ -125,7 +128,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private SliceItem mStartItem;
     private boolean mIsHeader;
     private List<SliceAction> mHeaderActions;
-    private boolean mIsSingleItem;
+    // Indicates whether header rows can have 2 lines of subtitle text
+    private boolean mAllowTwoLines;
 
     // Indicates if there's a slider in this row that is currently being interacted with.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -152,7 +156,6 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private int mIdealRangeHeight;
     // How big mRangeBar wants to be.
     private int mMeasuredRangeHeight;
-    private int mMaxSmallHeight;
 
     public RowView(Context context) {
         super(context);
@@ -168,13 +171,65 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mPrimaryText = (TextView) findViewById(android.R.id.title);
         mSecondaryText = (TextView) findViewById(android.R.id.summary);
         mLastUpdatedText = (TextView) findViewById(R.id.last_updated);
-        mDivider = findViewById(R.id.divider);
+        mBottomDivider = findViewById(R.id.bottom_divider);
+        mActionDivider = findViewById(R.id.action_divider);
         mActionSpinner = findViewById(R.id.action_sent_indicator);
         SliceViewUtil.tintIndeterminateProgressBar(getContext(), mActionSpinner);
         mEndContainer = (LinearLayout) findViewById(android.R.id.widget_frame);
 
         mIdealRangeHeight = context.getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_row_range_height);
+    }
+
+    @Override
+    public void setStyle(SliceStyle styles) {
+        super.setStyle(styles);
+        applyRowStyle();
+    }
+
+    private void applyRowStyle() {
+        if (mSliceStyle == null || mSliceStyle.getRowStyle() == null) {
+            return;
+        }
+
+        final RowStyle rowStyle = mSliceStyle.getRowStyle();
+        setViewPaddingEnd(mStartContainer, rowStyle.getTitleItemEndPadding());
+        setViewSidePaddings(mContent,
+                rowStyle.getContentStartPadding(), rowStyle.getContentEndPadding());
+        setViewSidePaddings(mEndContainer,
+                rowStyle.getEndItemStartPadding(), rowStyle.getEndItemEndPadding());
+        setViewSideMargins(mBottomDivider,
+                rowStyle.getBottomDividerStartPadding(), rowStyle.getBottomDividerEndPadding());
+        setViewHeight(mActionDivider, rowStyle.getActionDividerHeight());
+    }
+
+    private void setViewPaddingEnd(View v, int end) {
+        if (v != null && end >= 0) {
+            v.setPaddingRelative(v.getPaddingStart(), v.getPaddingTop(), end, v.getPaddingBottom());
+        }
+    }
+
+    private void setViewSidePaddings(View v, int start, int end) {
+        if (v != null && start >= 0 && end >= 0) {
+            v.setPaddingRelative(start, v.getPaddingTop(), end, v.getPaddingBottom());
+        }
+    }
+
+    private void setViewSideMargins(View v, int start, int end) {
+        if (v != null && start >= 0 && end >= 0) {
+            final MarginLayoutParams params = (MarginLayoutParams) v.getLayoutParams();
+            params.setMarginStart(start);
+            params.setMarginEnd(end);
+            mBottomDivider.setLayoutParams(params);
+        }
+    }
+
+    private void setViewHeight(View v, int height) {
+        if (v != null && height >= 0) {
+            final ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = height;
+            v.setLayoutParams(params);
+        }
     }
 
     @Override
@@ -187,42 +242,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     }
 
     /**
-     * Set whether this is the only row in the view, in which case our height is different.
-     */
-    public void setSingleItem(boolean isSingleItem) {
-        mIsSingleItem = isSingleItem;
-    }
-
-    @Override
-    public void setMaxSmallHeight(int maxSmallHeight) {
-        mMaxSmallHeight = maxSmallHeight;
-        if (mRowContent != null) {
-            populateViews(true);
-        }
-    }
-
-    @Override
-    public int getSmallHeight() {
-        // RowView is in small format when it is the header of a list and displays at max height.
-        return mRowContent != null && mRowContent.isValid()
-                ? mRowContent.getSmallHeight(mMaxSmallHeight) : 0;
-    }
-
-    @Override
-    public int getActualHeight() {
-        if (mIsSingleItem) {
-            return getSmallHeight();
-        }
-        return mRowContent != null && mRowContent.isValid()
-                ? mRowContent.getActualHeight(mMaxSmallHeight) : 0;
-    }
-    /**
      * @return height row content (i.e. title, subtitle) without the height of the range element.
      */
     private int getRowContentHeight() {
-        int rowHeight = (getMode() == MODE_SMALL || mIsSingleItem)
-                ? getSmallHeight()
-                : getActualHeight();
+        int rowHeight = mRowContent.getHeight(mSliceStyle, mViewPolicy);
         if (mRangeBar != null) {
             rowHeight -= mIdealRangeHeight;
         }
@@ -238,6 +261,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
+    /**
+     * @param actions if the actions are null then there are no header actions for this row.
+     * If the actions are an empty list, then something has explicitly set that no header
+     * actions should appear.
+     */
     @Override
     public void setSliceActions(List<SliceAction> actions) {
         mHeaderActions = actions;
@@ -255,14 +283,27 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     }
 
     @Override
+    public void setAllowTwoLines(boolean allowTwoLines) {
+        mAllowTwoLines = allowTwoLines;
+        if (mRowContent != null) {
+            populateViews(true);
+        }
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int totalHeight = getMode() == MODE_SMALL ? getSmallHeight() : getActualHeight();
+        int totalHeight = mRowContent != null
+                ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
+        int childWidth = 0;
+
         int rowHeight = getRowContentHeight();
         if (rowHeight != 0) {
             // Might be gone if we have range / progress but nothing else
             mRootView.setVisibility(View.VISIBLE);
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
             measureChild(mRootView, widthMeasureSpec, heightMeasureSpec);
+
+            childWidth = mRootView.getMeasuredWidth();
         } else {
             mRootView.setVisibility(View.GONE);
         }
@@ -276,10 +317,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             // Remember the measured height later for onLayout, since super.onMeasure will overwrite
             // it.
             mMeasuredRangeHeight = mRangeBar.getMeasuredHeight();
+            childWidth = Math.max(childWidth, mRangeBar.getMeasuredWidth());
         }
 
-        int totalHeightSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, totalHeightSpec);
+        childWidth = Math.max(childWidth, getSuggestedMinimumWidth());
+        setMeasuredDimension(resolveSizeAndState(childWidth, widthMeasureSpec, 0), totalHeight);
     }
 
     @Override
@@ -301,23 +343,24 @@ public class RowView extends SliceChildView implements View.OnClickListener {
      * This is called when RowView is being used as a component in a large template.
      */
     @Override
-    public void setSliceItem(SliceItem slice, boolean isHeader, int index,
+    public void setSliceItem(SliceContent content, boolean isHeader, int index,
             int rowCount, SliceView.OnSliceActionListener observer) {
         setSliceActionListener(observer);
 
         boolean isUpdate = false;
-        if (slice != null && mRowContent != null && mRowContent.isValid()) {
+        if (content != null && mRowContent != null && mRowContent.isValid()) {
             // Might be same slice
             SliceStructure prevSs = mRowContent != null
-                    ? new SliceStructure(mRowContent.getSlice()) : null;
-            boolean sameSliceId = mRowContent.getSlice().getSlice().getUri().equals(
-                    slice.getSlice().getUri());
-            boolean sameStructure = new SliceStructure(slice.getSlice()).equals(prevSs);
+                    ? new SliceStructure(mRowContent.getSliceItem()) : null;
+            SliceStructure newSs = new SliceStructure(content.getSliceItem().getSlice());
+            boolean sameStructure = prevSs != null && prevSs.equals(newSs);
+            boolean sameSliceId = prevSs != null
+                    && prevSs.getUri() != null && prevSs.getUri().equals(newSs.getUri());
             isUpdate = sameSliceId && sameStructure;
         }
         mShowActionSpinner = false;
         mIsHeader = isHeader;
-        mRowContent = new RowContent(getContext(), slice, mIsHeader);
+        mRowContent = (RowContent) content;
         mRowIndex = index;
         populateViews(isUpdate);
     }
@@ -328,8 +371,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             resetViewState();
         }
 
-        if (mRowContent.getLayoutDirItem() != null) {
-            setLayoutDirection(mRowContent.getLayoutDirItem().getInt());
+        if (mRowContent.getLayoutDir() != -1) {
+            setLayoutDirection(mRowContent.getLayoutDir());
         }
         if (mRowContent.isDefaultSeeMore()) {
             showSeeMore();
@@ -340,7 +383,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             mContent.setContentDescription(contentDescr);
         }
         mStartItem = mRowContent.getStartItem();
-        boolean showStart = mStartItem != null && mRowIndex > 0;
+        boolean showStart = mStartItem != null && (mRowIndex > 0 || mRowContent.hasTitleItems());
         if (showStart) {
             showStart = addItem(mStartItem, mTintColor, true /* isStart */);
         }
@@ -348,7 +391,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
         final SliceItem titleItem = mRowContent.getTitleItem();
         if (titleItem != null) {
-            mPrimaryText.setText(titleItem.getText());
+            mPrimaryText.setText(titleItem.getSanitizedText());
         }
         if (mSliceStyle != null) {
             mPrimaryText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIsHeader
@@ -358,7 +401,9 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mPrimaryText.setVisibility(titleItem != null ? View.VISIBLE : View.GONE);
 
-        addSubtitle();
+        addSubtitle(titleItem != null /* hasTitle */);
+
+        mBottomDivider.setVisibility(mRowContent.hasBottomDivider() ? View.VISIBLE : View.GONE);
 
         SliceItem primaryAction = mRowContent.getPrimaryAction();
         if (primaryAction != null && primaryAction != mStartItem) {
@@ -398,18 +443,21 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
         // If we're here we can can show end items; check for top level actions first
         List endItems = mRowContent.getEndItems();
-        if (mHeaderActions != null && mHeaderActions.size() > 0) {
+        if (mHeaderActions != null) {
             // Use these if we have them instead
             endItems = mHeaderActions;
         }
-        // Add start item to end of row for the top row if end items are empty.
-        if (mRowIndex == 0 && mStartItem != null && endItems.isEmpty()) {
+        // Add start item to end of row for the top row if end items are empty and presenter
+        // doesn't show title items.
+        if (mRowIndex == 0 && mStartItem != null && endItems.isEmpty()
+                && !mRowContent.hasTitleItems()) {
             endItems.add(mStartItem);
         }
 
         // If we're here we might be able to show end items
         int endItemCount = 0;
         boolean firstItemIsADefaultToggle = false;
+        boolean singleActionAtTheEnd = false;
         SliceItem endAction = null;
         for (int i = 0; i < endItems.size(); i++) {
             final SliceItem endItem = (endItems.get(i) instanceof SliceItem)
@@ -424,14 +472,18 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                     if (endItemCount == 1) {
                         firstItemIsADefaultToggle = !mToggles.isEmpty()
                                 && SliceQuery.find(endItem.getSlice(), FORMAT_IMAGE) == null;
+                        singleActionAtTheEnd = endItems.size() == 1
+                                && SliceQuery.find(endItem, FORMAT_ACTION) != null;
                     }
                 }
             }
         }
         mEndContainer.setVisibility(endItemCount > 0 ? VISIBLE : GONE);
 
-        // If there is a row action and the first end item is a default toggle, show the divider.
-        mDivider.setVisibility(mRowAction != null && firstItemIsADefaultToggle
+        // If there is a row action and the first end item is a default toggle, or action divider
+        // is set by presenter and a single action is at the end of the row, show the divider.
+        mActionDivider.setVisibility(mRowAction != null && (firstItemIsADefaultToggle
+                || (mRowContent.hasActionDivider() && singleActionAtTheEnd))
                 ? View.VISIBLE : View.GONE);
         boolean hasStartAction = mStartItem != null
                 && SliceQuery.find(mStartItem, FORMAT_ACTION) != null;
@@ -461,11 +513,12 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     public void setLastUpdated(long lastUpdated) {
         super.setLastUpdated(lastUpdated);
         if (mRowContent != null) {
-            addSubtitle();
+            addSubtitle(mRowContent.getTitleItem() != null
+                    && TextUtils.isEmpty(mRowContent.getTitleItem().getSanitizedText()));
         }
     }
 
-    private void addSubtitle() {
+    private void addSubtitle(boolean hasTitle) {
         if (mRowContent == null) {
             return;
         }
@@ -480,7 +533,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                         getResources().getString(R.string.abc_slice_updated, relativeTime);
             }
         }
-        CharSequence subtitle = subtitleItem != null ? subtitleItem.getText() : null;
+        CharSequence subtitle = subtitleItem != null ? subtitleItem.getSanitizedText() : null;
         boolean subtitleExists = !TextUtils.isEmpty(subtitle)
                         || (subtitleItem != null && subtitleItem.hasHint(HINT_PARTIAL));
         if (subtitleExists) {
@@ -511,6 +564,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mLastUpdatedText.setVisibility(TextUtils.isEmpty(subtitleTimeString) ? GONE : VISIBLE);
         mSecondaryText.setVisibility(subtitleExists ? VISIBLE : GONE);
+
+        // If this is non-header or something that can have 2 lines in the header (e.g. permission
+        // slice) then allow 2 lines if there's only a subtitle and now timestring.
+        boolean canHaveMultiLines = mRowIndex > 0 || mAllowTwoLines;
+        int maxLines = canHaveMultiLines && !hasTitle && subtitleExists
+                && TextUtils.isEmpty(subtitleTimeString)
+                ? 2 : 1;
+        mSecondaryText.setSingleLine(maxLines == 1);
+        mSecondaryText.setMaxLines(maxLines);
 
         // TODO: Consider refactoring layout structure to avoid this
         // Need to request a layout to update the weights for these views when RV recycles them
@@ -625,6 +687,12 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 mRangeItem.fireAction(getContext(),
                         new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                                 .putExtra(EXTRA_RANGE_VALUE, mRangeValue));
+                if (mObserver != null) {
+                    EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SLIDER, ROW_TYPE_SLIDER,
+                            mRowIndex);
+                    info.state = mRangeValue;
+                    mObserver.onSliceAction(info, mRangeItem);
+                }
             } catch (CanceledException e) {
                 Log.e(TAG, "PendingIntent for slice cannot be sent", e);
             }
@@ -727,16 +795,16 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                     if (mObserver != null) {
                         EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_SEE_MORE,
                                 EventInfo.ROW_TYPE_LIST, mRowIndex);
-                        mObserver.onSliceAction(info, mRowContent.getSlice());
+                        mObserver.onSliceAction(info, mRowContent.getSliceItem());
                     }
                     mShowActionSpinner =
-                            mRowContent.getSlice().fireActionInternal(getContext(), null);
+                            mRowContent.getSliceItem().fireActionInternal(getContext(), null);
                     if (mShowActionSpinner) {
                         if (mLoadingListener != null) {
-                            mLoadingListener.onSliceActionLoading(mRowContent.getSlice(),
+                            mLoadingListener.onSliceActionLoading(mRowContent.getSliceItem(),
                                     mRowIndex);
                         }
-                        mLoadingActions.add(mRowContent.getSlice());
+                        mLoadingActions.add(mRowContent.getSliceItem());
                         b.setVisibility(GONE);
                     }
                     updateActionSpinner();
@@ -750,7 +818,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mSeeMoreView = b;
         mRootView.addView(mSeeMoreView);
-        if (mLoadingActions.contains(mRowContent.getSlice())) {
+        if (mLoadingActions.contains(mRowContent.getSliceItem())) {
             mShowActionSpinner = true;
             b.setVisibility(GONE);
             updateActionSpinner();
@@ -788,7 +856,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         } else {
             if (mRowIndex == 0) {
                 // Header clicks are a little weird and SliceView needs to know about them to
-                // maintain loading state; this is hooked up in LargeSliceAdapter -- it will call
+                // maintain loading state; this is hooked up in SliceAdapter -- it will call
                 // through to SliceView parent which has the info to perform the click.
                 performClick();
             } else {
@@ -838,7 +906,8 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mActions.clear();
         mRowAction = null;
         mStartItem = null;
-        mDivider.setVisibility(GONE);
+        mBottomDivider.setVisibility(GONE);
+        mActionDivider.setVisibility(GONE);
         if (mSeeMoreView != null) {
             mRootView.removeView(mSeeMoreView);
             mSeeMoreView = null;

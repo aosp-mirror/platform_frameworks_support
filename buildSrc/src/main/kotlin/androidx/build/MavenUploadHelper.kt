@@ -19,31 +19,38 @@ package androidx.build
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.maven.MavenDeployer
 import org.gradle.api.tasks.Upload
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.withGroovyBuilder
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 
-fun apply(project: Project, extension: SupportLibraryExtension) {
-    project.afterEvaluate {
+fun Project.configureMavenArtifactUpload(extension: SupportLibraryExtension) {
+    afterEvaluate {
         if (extension.publish) {
-            if (extension.mavenGroup == null) {
-                throw Exception("You must specify mavenGroup for ${project.name}  project")
+            val mavenGroup = extension.mavenGroup
+            if (mavenGroup == null) {
+                throw Exception("You must specify mavenGroup for $name project")
             }
             if (extension.mavenVersion == null) {
-                throw Exception("You must specify mavenVersion for ${project.name}  project")
+                throw Exception("You must specify mavenVersion for $name project")
             }
-            project.group = extension.mavenGroup!!
-            project.version = extension.mavenVersion.toString()
+            val strippedGroupId = mavenGroup.substringAfterLast(".")
+            if (mavenGroup.startsWith("androidx") && !name.startsWith(strippedGroupId)) {
+                throw Exception("Your artifactId must start with $strippedGroupId")
+            }
+            group = mavenGroup
         }
     }
 
-    project.apply(mapOf("plugin" to "maven"))
+    apply(mapOf("plugin" to "maven"))
 
     // Set uploadArchives options.
-    val uploadTask = project.tasks.getByName("uploadArchives") as Upload
+    val uploadTask = tasks.getByName("uploadArchives") as Upload
 
-    val repo = project.uri(project.rootProject.property("supportRepoOut") as File)
+    val repo = uri(rootProject.property("supportRepoOut") as File)
             ?: throw Exception("supportRepoOut not set")
 
     uploadTask.repositories {
@@ -54,11 +61,9 @@ fun apply(project: Project, extension: SupportLibraryExtension) {
         }
     }
 
-    project.afterEvaluate {
+    afterEvaluate {
         if (extension.publish) {
             uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
-                mavenDeployer.isUniqueVersion = true
-
                 mavenDeployer.getPom().project {
                     it.withGroovyBuilder {
                         "name"(extension.name)
@@ -97,12 +102,21 @@ fun apply(project: Project, extension: SupportLibraryExtension) {
                 // TODO(aurimas): remove this when Gradle bug is fixed.
                 // https://github.com/gradle/gradle/issues/3170
                 uploadTask.doFirst {
-                    val allDeps = HashSet<ProjectDependency>()
-                    collectDependenciesForConfiguration(allDeps, project, "api")
-                    collectDependenciesForConfiguration(allDeps, project, "implementation")
-                    collectDependenciesForConfiguration(allDeps, project, "compile")
+                    val allDeps = HashSet<Dependency>()
+                    collectDependenciesForConfiguration(allDeps, this, "api")
+                    collectDependenciesForConfiguration(allDeps, this, "implementation")
+                    collectDependenciesForConfiguration(allDeps, this, "compile")
 
                     mavenDeployer.getPom().whenConfigured {
+                        it.dependencies.removeAll { dep ->
+                            if (dep == null) {
+                                return@removeAll false
+                            }
+
+                            val getScopeMethod =
+                                    dep::class.java.getDeclaredMethod("getScope")
+                            getScopeMethod.invoke(dep) as String == "test"
+                        }
                         it.dependencies.forEach { dep ->
                             if (dep == null) {
                                 return@forEach
@@ -126,7 +140,7 @@ fun apply(project: Project, extension: SupportLibraryExtension) {
             }
 
             // Register it as part of release so that we create a Zip file for it
-            Release.register(project, extension)
+            Release.register(this, extension)
         } else {
             uploadTask.enabled = false
         }
@@ -134,26 +148,39 @@ fun apply(project: Project, extension: SupportLibraryExtension) {
 }
 
 private fun collectDependenciesForConfiguration(
-    projectDependencies: MutableSet<ProjectDependency>,
+    androidxDependencies: MutableSet<Dependency>,
     project: Project,
     name: String
 ) {
     val config = project.configurations.findByName(name)
     if (config != null) {
-        config.dependencies.withType(ProjectDependency::class.java).forEach {
-            dep -> projectDependencies.add(dep)
+        config.dependencies.forEach { dep ->
+            if (dep.group?.startsWith("androidx.") ?: false) {
+                androidxDependencies.add(dep)
+            }
         }
     }
 }
 
-private fun isAndroidProject(
+private fun Project.isAndroidProject(
     groupId: String,
     artifactId: String,
-    deps: Set<ProjectDependency>
+    deps: Set<Dependency>
 ): Boolean {
     for (dep in deps) {
-        if (dep.group == groupId && dep.name == artifactId) {
-            return dep.getDependencyProject().plugins.hasPlugin(LibraryPlugin::class.java)
+        if (dep is ProjectDependency) {
+            if (dep.group == groupId && dep.name == artifactId) {
+                return dep.getDependencyProject().plugins.hasPlugin(LibraryPlugin::class.java)
+            }
+        }
+    }
+    var projectModules = project.rootProject.extra.get("projects")
+            as ConcurrentHashMap<String, String>
+    if (projectModules.containsKey("$groupId:$artifactId")) {
+        val localProjectVersion = project.findProject(
+                projectModules.get("$groupId:$artifactId"))
+        if (localProjectVersion != null) {
+            return localProjectVersion.plugins.hasPlugin(LibraryPlugin::class.java)
         }
     }
     return false

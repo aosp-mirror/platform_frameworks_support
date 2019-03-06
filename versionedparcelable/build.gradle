@@ -24,8 +24,11 @@ plugins {
 }
 
 dependencies {
-    implementation project(":annotation")
+    implementation(project(":annotation"))
+    implementation("androidx.collection:collection:1.0.0")
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
@@ -41,11 +44,10 @@ android {
 supportLibrary {
     name = "VersionedParcelable and friends"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.VERSIONED_PARCELABLE
     mavenGroup = LibraryGroups.VERSIONEDPARCELABLE
     inceptionYear = "2018"
     description = "Provides a stable but relatively compact binary serialization format that can be passed across processes or persisted safely."
-    minSdkVersion = 14
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

@@ -34,16 +34,26 @@ android {
 dependencies {
     api(project(":lifecycle:lifecycle-viewmodel"))
     api(KOTLIN_STDLIB)
+    api(KOTLIN_COROUTINES)
 
     testImplementation(JUNIT)
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
+    testImplementation(TRUTH)
+
+    androidTestImplementation(TRUTH)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
+    androidTestImplementation(TEST_RUNNER)
 }
 
 supportLibrary {
     name = "Android Lifecycle ViewModel Kotlin Extensions"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_VIEWMODEL
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
     description = "Kotlin extensions for 'viewmodel' artifact"
+    useMetalava = true
 }

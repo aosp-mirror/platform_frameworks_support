@@ -31,6 +31,7 @@ import static android.app.slice.SliceProvider.SLICE_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.PendingIntent.CanceledException;
@@ -39,13 +40,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.core.test.R;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,14 +60,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceTest {
 
     public static boolean sFlag = false;
 
     private static final Uri BASE_URI = Uri.parse("content://androidx.slice.core.test/");
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
 
     @Test
     public void testProcess() {
@@ -113,6 +117,41 @@ public class SliceTest {
         assertEquals("Expected text", item.getText().toString());
     }
 
+    // TODO: Add testAllowedSpan also.
+
+    @Test
+    public void testProhibitedSpan() {
+        Uri uri = BASE_URI.buildUpon().appendPath("prohibited_span").build();
+        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        assertEquals(uri, s.getUri());
+        assertEquals(1, s.getItems().size());
+
+        SliceItem item = s.getItems().get(0);
+        assertEquals(FORMAT_TEXT, item.getFormat());
+
+        String expectedText = "Expected text";
+        // TODO: Figure out why pre-P platforms are getting newlines here.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            expectedText += "\n\n";
+        }
+        assertEquals(expectedText, item.getText().toString());
+
+        assertTrue(item.getText() instanceof Spanned);
+        Spanned spannedText = (Spanned) item.getText();
+        Object[] spans = spannedText.getSpans(0, spannedText.length(), Object.class);
+        // TODO: Figure out why pre-P platforms aren't getting the span at all.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            assertEquals(1, spans.length);
+            assertTrue(spans[0] instanceof AbsoluteSizeSpan);
+        }
+
+        assertTrue(item.getSanitizedText() instanceof Spanned);
+        Spanned sanitizedSpannedText = (Spanned) item.getSanitizedText();
+        Object[] sanitizedSpans = sanitizedSpannedText.getSpans(
+                0, sanitizedSpannedText.length(), Object.class);
+        assertEquals(0, sanitizedSpans.length);
+    }
+
     @Test
     public void testIcon() {
         Uri uri = BASE_URI.buildUpon().appendPath("icon").build();
@@ -124,6 +163,27 @@ public class SliceTest {
         assertEquals(FORMAT_IMAGE, item.getFormat());
         assertEquivalent(IconCompat.createWithResource(mContext, R.drawable.size_48x48),
                 item.getIcon());
+    }
+
+    @Test
+    public void testNullIcon() {
+        Uri uri = BASE_URI.buildUpon().appendPath("icon_null").build();
+        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        assertNull(s);
+    }
+
+    @Test
+    public void testForceZeroIcon() {
+        Uri uri = BASE_URI.buildUpon().appendPath("icon_zero").build();
+        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        assertTrue(s.getItems().isEmpty());
+    }
+
+    @Test
+    public void testInvalidResIdIcon() {
+        Uri uri = BASE_URI.buildUpon().appendPath("icon_invalid").build();
+        Slice s = Slice.bindSlice(mContext, uri, Collections.<SliceSpec>emptySet());
+        assertNull(s);
     }
 
     private void assertEquivalent(IconCompat first, IconCompat second) {

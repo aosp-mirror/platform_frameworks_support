@@ -19,24 +19,30 @@ package androidx.webkit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
 import android.os.Looper;
 import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
-import androidx.test.InstrumentationRegistry;
+import androidx.concurrent.futures.ResolvableFuture;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,45 +52,52 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewCompatTest {
     WebViewOnUiThread mWebViewOnUiThread;
 
-    private static final long TEST_TIMEOUT = 20000L;
-
     @Before
     public void setUp() {
         mWebViewOnUiThread = new androidx.webkit.WebViewOnUiThread();
     }
 
+    @After
+    public void tearDown() {
+        if (mWebViewOnUiThread != null) {
+            mWebViewOnUiThread.cleanUp();
+        }
+    }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testVisualStateCallbackCalled. Modifications to this test
+     * should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testVisualStateCallbackCalled() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.VISUAL_STATE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
 
-        final CountDownLatch callbackLatch = new CountDownLatch(1);
         final long kRequest = 100;
 
         mWebViewOnUiThread.loadUrl("about:blank");
 
+        final ResolvableFuture<Long> visualStateFuture = ResolvableFuture.create();
         mWebViewOnUiThread.postVisualStateCallbackCompat(kRequest,
                 new WebViewCompat.VisualStateCallback() {
                         public void onComplete(long requestId) {
-                            assertEquals(kRequest, requestId);
-                            callbackLatch.countDown();
+                            visualStateFuture.set(requestId);
                         }
                 });
 
-        assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        assertEquals(kRequest, (long) WebkitUtils.waitForFuture(visualStateFuture));
     }
 
     @Test
     public void testCheckThread() {
         // Skip this test if VisualStateCallback is not supported.
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.VISUAL_STATE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
         try {
             WebViewCompat.postVisualStateCallback(mWebViewOnUiThread.getWebViewOnCurrentThread(), 5,
                     new WebViewCompat.VisualStateCallback() {
@@ -115,108 +128,138 @@ public class WebViewCompatTest {
         }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testStartSafeBrowsingUseApplicationContext. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testStartSafeBrowsingUseApplicationContext() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.START_SAFE_BROWSING));
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
         final MockContext ctx =
-                new MockContext(InstrumentationRegistry.getTargetContext().getApplicationContext());
-        final CountDownLatch resultLatch = new CountDownLatch(1);
+                new MockContext(
+                        ApplicationProvider.getApplicationContext().getApplicationContext());
+        final ResolvableFuture<Boolean> startSafeBrowsingFuture = ResolvableFuture.create();
         WebViewCompat.startSafeBrowsing(ctx, new ValueCallback<Boolean>() {
             @Override
             public void onReceiveValue(Boolean value) {
-                assertTrue(ctx.wasGetApplicationContextCalled());
-                resultLatch.countDown();
+                startSafeBrowsingFuture.set(ctx.wasGetApplicationContextCalled());
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        assertTrue(WebkitUtils.waitForFuture(startSafeBrowsingFuture));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testStartSafeBrowsingWithNullCallbackDoesntCrash.
+     * Modifications to this test should be reflected in that test as necessary. See
+     * http://go/modifying-webview-cts.
+     */
     @Test
     public void testStartSafeBrowsingWithNullCallbackDoesntCrash() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.START_SAFE_BROWSING));
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
-        WebViewCompat.startSafeBrowsing(InstrumentationRegistry.getTargetContext(), null);
+        WebViewCompat.startSafeBrowsing(ApplicationProvider.getApplicationContext(), null);
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testStartSafeBrowsingInvokesCallback. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testStartSafeBrowsingInvokesCallback() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.START_SAFE_BROWSING));
+        WebkitUtils.checkFeature(WebViewFeature.START_SAFE_BROWSING);
 
-        final CountDownLatch resultLatch = new CountDownLatch(1);
+        final ResolvableFuture<Boolean> startSafeBrowsingFuture = ResolvableFuture.create();
         WebViewCompat.startSafeBrowsing(
-                InstrumentationRegistry.getTargetContext().getApplicationContext(),
+                ApplicationProvider.getApplicationContext().getApplicationContext(),
                 new ValueCallback<Boolean>() {
                     @Override
                     public void onReceiveValue(Boolean value) {
-                        assertTrue(Looper.getMainLooper().isCurrentThread());
-                        resultLatch.countDown();
+                        startSafeBrowsingFuture.set(Looper.getMainLooper().isCurrentThread());
                     }
                 });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        assertTrue(WebkitUtils.waitForFuture(startSafeBrowsingFuture));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testSetSafeBrowsingWhitelistWithMalformedList. Modifications
+     * to this test should be reflected in that test as necessary. See
+     * http://go/modifying-webview-cts.
+     */
     @Test
     public void testSetSafeBrowsingWhitelistWithMalformedList() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_WHITELIST));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
 
         List<String> whitelist = new ArrayList<>();
         // Protocols are not supported in the whitelist
         whitelist.add("http://google.com");
-        final CountDownLatch resultLatch = new CountDownLatch(1);
+        final ResolvableFuture<Boolean> safeBrowsingWhitelistFuture = ResolvableFuture.create();
         WebViewCompat.setSafeBrowsingWhitelist(whitelist, new ValueCallback<Boolean>() {
             @Override
             public void onReceiveValue(Boolean success) {
-                assertFalse(success);
-                resultLatch.countDown();
+                safeBrowsingWhitelistFuture.set(success);
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        assertFalse(WebkitUtils.waitForFuture(safeBrowsingWhitelistFuture));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testSetSafeBrowsingWhitelistWithValidList. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
+    @FlakyTest(bugId = 111690396)
     @Test
     public void testSetSafeBrowsingWhitelistWithValidList() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_WHITELIST));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_WHITELIST);
         // This test relies on the onSafeBrowsingHit callback to verify correctness.
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_HIT));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
 
         List<String> whitelist = new ArrayList<>();
         whitelist.add("safe-browsing");
-        final CountDownLatch resultLatch = new CountDownLatch(1);
+        final ResolvableFuture<Boolean> safeBrowsingWhitelistFuture = ResolvableFuture.create();
         WebViewCompat.setSafeBrowsingWhitelist(whitelist, new ValueCallback<Boolean>() {
             @Override
             public void onReceiveValue(Boolean success) {
-                assertTrue(success);
-                resultLatch.countDown();
+                safeBrowsingWhitelistFuture.set(success);
             }
         });
-        assertTrue(resultLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        assertTrue(WebkitUtils.waitForFuture(safeBrowsingWhitelistFuture));
 
-        final CountDownLatch resultLatch2 = new CountDownLatch(1);
+        final ResolvableFuture<Void> pageFinishedFuture = ResolvableFuture.create();
         mWebViewOnUiThread.setWebViewClient(new WebViewClientCompat() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                resultLatch2.countDown();
+                pageFinishedFuture.set(null);
             }
 
             @Override
             public void onSafeBrowsingHit(@NonNull WebView view,
                     @NonNull WebResourceRequest request, int threatType,
                     @NonNull SafeBrowsingResponseCompat callback) {
-                Assert.fail("Should not invoke onSafeBrowsingHit");
+                pageFinishedFuture.setException(new IllegalStateException(
+                        "Should not invoke onSafeBrowsingHit"));
             }
         });
 
         mWebViewOnUiThread.loadUrl("chrome://safe-browsing/match?type=malware");
 
         // Wait until page load has completed
-        assertTrue(resultLatch2.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        WebkitUtils.waitForFuture(pageFinishedFuture);
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testGetSafeBrowsingPrivacyPolicyUrl. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testGetSafeBrowsingPrivacyPolicyUrl() throws Exception {
-        assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_PRIVACY_POLICY_URL);
 
         assertNotNull(WebViewCompat.getSafeBrowsingPrivacyPolicyUrl());
         try {
@@ -224,6 +267,59 @@ public class WebViewCompatTest {
         } catch (MalformedURLException e) {
             Assert.fail("The privacy policy URL should be a well-formed URL");
         }
+    }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testGetWebViewClient. Modifications to this test should be
+     * reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
+    @Test
+    public void testGetWebViewClient() throws Exception {
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_VIEW_CLIENT);
+
+        // Create a new WebView because WebViewOnUiThread sets a WebViewClient during
+        // construction.
+        WebView webView = WebViewOnUiThread.createWebView();
+
+        // getWebViewClient should return a default WebViewClient if it hasn't been set yet
+        WebViewClient client = WebViewOnUiThread.getWebViewClient(webView);
+        assertNotNull(client);
+        assertTrue(client instanceof WebViewClient);
+
+        // getWebViewClient should return the client after it has been set
+        WebViewClient client2 = new WebViewClient();
+        assertNotSame(client, client2);
+        WebViewOnUiThread.setWebViewClient(webView, client2);
+        assertSame(client2, WebViewOnUiThread.getWebViewClient(webView));
+
+        WebViewOnUiThread.destroy(webView);
+    }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewTest#testGetWebChromeClient. Modifications to this test should be
+     * reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
+    @Test
+    public void testGetWebChromeClient() throws Exception {
+        WebkitUtils.checkFeature(WebViewFeature.GET_WEB_CHROME_CLIENT);
+
+        // Create a new WebView because WebViewOnUiThread sets a WebChromeClient during
+        // construction.
+        WebView webView = WebViewOnUiThread.createWebView();
+
+        // getWebChromeClient should return null if the client hasn't been set yet
+        WebChromeClient client = WebViewOnUiThread.getWebChromeClient(webView);
+        assertNull(client);
+
+        // getWebChromeClient should return the client after it has been set
+        WebChromeClient client2 = new WebChromeClient();
+        assertNotSame(client, client2);
+        WebViewOnUiThread.setWebChromeClient(webView, client2);
+        assertSame(client2, WebViewOnUiThread.getWebChromeClient(webView));
+
+        WebViewOnUiThread.destroy(webView);
     }
 
     /**
@@ -236,11 +332,11 @@ public class WebViewCompatTest {
     public void testGetCurrentWebViewPackage() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             assertNull(WebViewCompat.getCurrentWebViewPackage(
-                    InstrumentationRegistry.getTargetContext()));
+                    ApplicationProvider.getApplicationContext()));
         } else {
             assertNotNull(
                     WebViewCompat.getCurrentWebViewPackage(
-                            InstrumentationRegistry.getTargetContext()));
+                            ApplicationProvider.getApplicationContext()));
         }
     }
 }

@@ -23,6 +23,12 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
+}
+
 dependencies {
     api(project(":lifecycle:lifecycle-runtime"))
 
@@ -33,7 +39,7 @@ dependencies {
 supportLibrary {
     name = "Android Lifecycle Process"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_EXT
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
     description = "Android Lifecycle Process"

@@ -16,11 +16,12 @@
 
 package androidx.core.view
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.filters.SdkSuppress
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.filters.SdkSuppress
+import androidx.test.filters.SmallTest
 import androidx.testutils.assertThrows
 import androidx.testutils.fail
 import com.google.common.truth.Truth.assertThat
@@ -30,8 +31,9 @@ import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@SmallTest
 class ViewGroupTest {
-    private val context = InstrumentationRegistry.getContext()
+    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
     private val viewGroup = LinearLayout(context)
 
     @Test fun get() {

@@ -16,19 +16,27 @@
 
 package androidx.mediarouter.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.util.ObjectsCompat;
 import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Media route providers are used to publish additional media routes for
@@ -47,6 +55,12 @@ import androidx.mediarouter.media.MediaRouter.ControlRequestCallback;
  * as volume changes or {@link MediaControlIntent media control intents}
  * by implementing {@link #onCreateRouteController} to return a {@link RouteController}
  * for a particular route.
+ * </p><p>
+ * A media route provider can support
+ * {@link MediaRouteProviderDescriptor#supportsDynamicGroupRoute dynamic group} that
+ * allows the user to add or remove a route from the selected route dynamically.
+ * To control dynamic group, {@link DynamicGroupRouteController} returned by
+ * {@link #onCreateDynamicGroupRouteController} is used instead of {@link RouteController}.
  * </p><p>
  * A media route provider may be used privately within the scope of a single
  * application process by calling {@link MediaRouter#addProvider MediaRouter.addProvider}
@@ -275,7 +289,7 @@ public abstract class MediaRouteProvider {
      * cannot be controlled using the route controller interface.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     public RouteController onCreateRouteController(@NonNull String routeId,
             @NonNull String routeGroupId) {
@@ -286,6 +300,26 @@ public abstract class MediaRouteProvider {
             throw new IllegalArgumentException("routeGroupId cannot be null");
         }
         return onCreateRouteController(routeId);
+    }
+
+    /**
+     * Creates a {@link DynamicGroupRouteController}.
+     * <p>
+     * It will be called from an app or {@link MediaRouter} when a single route or a single static
+     * group is selected.
+     * </p>
+     *
+     * @param initialMemberRouteId initially selected route's id.
+     * @return {@link DynamicGroupRouteController}. Returns null if there is no such route or
+     * if the route cannot be controlled using the {@link DynamicGroupRouteController} interface.
+     */
+    @Nullable
+    public DynamicGroupRouteController onCreateDynamicGroupRouteController(
+            @NonNull String initialMemberRouteId) {
+        if (initialMemberRouteId == null) {
+            throw new IllegalArgumentException("initialMemberRouteId cannot be null.");
+        }
+        return null;
     }
 
     /**
@@ -385,7 +419,8 @@ public abstract class MediaRouteProvider {
         /**
          * Requests to set the volume of the route.
          *
-         * @param volume The new volume value between 0 and {@link MediaRouteDescriptor#getVolumeMax}.
+         * @param volume The new volume value between 0 and
+         * {@link MediaRouteDescriptor#getVolumeMax}.
          */
         public void onSetVolume(int volume) {
         }
@@ -417,11 +452,313 @@ public abstract class MediaRouteProvider {
     }
 
     /**
+     * Provides control over a dynamic group route.
+     * A dynamic group route is a group of routes such that a route can be added or removed
+     * from the group by the user dynamically.
+     */
+    public abstract static class DynamicGroupRouteController extends RouteController {
+        /**
+         * Gets the title of the groupable routes section which will be shown to the user.
+         * It is provided by {@link MediaRouteProvider}.
+         * e.g. "Add a device."
+         */
+        @Nullable
+        public String getGroupableSelectionTitle() {
+            return null;
+        }
+
+        /**
+         * Gets the title of the transferable routes section which will be shown to the user.
+         * It is provided by {@link MediaRouteProvider}.
+         * {@link MediaRouteProvider}.
+         * e.g. "Play on group."
+         */
+        @Nullable
+        public String getTransferableSectionTitle() {
+            return null;
+        }
+
+        /**
+         * Called when a user selects a new set of routes s/he wants the session to be played.
+         */
+        public abstract void onUpdateMemberRoutes(@Nullable List<String> routeIds);
+
+        /**
+         * Called when a user adds a route into the casting session.
+         */
+        public abstract void onAddMemberRoute(@NonNull String routeId);
+
+        /**
+         * Called when a user removes a route from casting session.
+         */
+        public abstract void onRemoveMemberRoute(String routeId);
+
+        /**
+         * Called by {@link MediaRouter} to set the listener.
+         */
+        public abstract void setOnDynamicRoutesChangedListener(
+                @NonNull Executor executor,
+                @NonNull OnDynamicRoutesChangedListener listener);
+
+        /**
+         * Used to notify media router each route's property changes regarding this
+         * {@link DynamicGroupRouteController} instance.
+         * <p> Here are some examples when this notification is called :
+         * <ul>
+         *     <li> a route is newly turned on and it can be grouped with this dynamic group route.
+         *     </li>
+         *     <li> a route is selecting as a member of this dynamic group route.</li>
+         *     <li> a route is selected as a member of this dynamic group route.</li>
+         *     <li> a route is unselecting.</li>
+         *     <li> a route is unselected.</li>
+         *     <li> a route is turned off.</li>
+         * </ul>
+         * </p>
+         */
+        public interface OnDynamicRoutesChangedListener {
+            /**
+             * The provider should call this method when routes' properties change.
+             * (e.g. when a route becomes ungroupable)
+             *
+             * @param controller the {@link DynamicGroupRouteController} which keeps this listener.
+             * @param routes the collection of routes contains selected routes
+             *               (can be unselectable or not)
+             *               and unselected routes (can be groupable or transferable or not).
+             */
+            void onRoutesChanged(
+                    DynamicGroupRouteController controller,
+                    Collection<DynamicRouteDescriptor> routes);
+        }
+
+        /**
+         * Contains a route, its selection state and its capabilities.
+         * This is used in {@link OnDynamicRoutesChangedListener}.
+         */
+        public static final class DynamicRouteDescriptor {
+            static final String KEY_MEDIA_ROUTE_DESCRIPTOR = "mrDescriptor";
+            static final String KEY_SELECTION_STATE = "selectionState";
+            static final String KEY_IS_UNSELECTABLE = "isUnselectable";
+            static final String KEY_IS_GROUPABLE = "isGroupable";
+            static final String KEY_IS_TRANSFERABLE = "isTransferable";
+
+            /**
+             * @hide
+             */
+            @RestrictTo(LIBRARY_GROUP_PREFIX)
+            @IntDef({
+                    UNSELECTING,
+                    UNSELECTED,
+                    SELECTING,
+                    SELECTED
+            })
+            @Retention(RetentionPolicy.SOURCE)
+            public @interface SelectionState {}
+            /**
+             * After a user unselects a route, it might take some time for a provider to complete
+             * the operation. This state is used in this between time. MediaRouter can either
+             * block the UI or show the route as unchecked.
+             */
+            public static final int UNSELECTING = 0;
+
+            /**
+             * The route is unselected.
+             * <p>
+             * Unselect operation is done by the route provider.
+             * </p>
+             */
+            public static final int UNSELECTED = 1;
+
+            /**
+             * After a user selects a route, it might take some time for a provider to complete
+             * the operation. This state is used in this between time. MediaRouter can either
+             * block the UI or show the route as checked.
+             */
+            public static final int SELECTING = 2;
+
+            /**
+             * The route is selected.
+             * <p>
+             * Select operation is done by the route provider.
+             * </p>
+             */
+            public static final int SELECTED = 3;
+
+            final MediaRouteDescriptor mMediaRouteDescriptor;
+            @SelectionState
+            final int mSelectionState;
+            final boolean mIsUnselectable;
+            final boolean mIsGroupable;
+            final boolean mIsTransferable;
+            Bundle mBundle;
+
+            DynamicRouteDescriptor(
+                    MediaRouteDescriptor mediaRouteDescriptor, @SelectionState int selectionState,
+                    boolean isUnselectable, boolean isGroupable, boolean isTransferable) {
+                mMediaRouteDescriptor = mediaRouteDescriptor;
+                mSelectionState = selectionState;
+                mIsUnselectable = isUnselectable;
+                mIsGroupable = isGroupable;
+                mIsTransferable = isTransferable;
+            }
+
+            /**
+             * Gets this route's {@link MediaRouteDescriptor}. i.e. which route this info is for.
+             */
+            @NonNull
+            public MediaRouteDescriptor getRouteDescriptor() {
+                return mMediaRouteDescriptor;
+            }
+
+            /**
+             * Gets the selection state.
+             */
+            public @SelectionState int getSelectionState() {
+                return mSelectionState;
+            }
+
+            /**
+             * Returns true if the route can be unselected.
+             * <p>
+             * For example, a static group has an old build which doesn't support dynamic group.
+             * All its members can't be removed.
+             * </p>
+             * <p>
+             * Only applicable to selected/selecting routes.
+             * </p>
+             */
+            public boolean isUnselectable() {
+                return mIsUnselectable;
+            }
+
+            /**
+             * Returns true if the route can be grouped into the dynamic group route.
+             * <p>
+             * Only applicable to unselected/unselecting routes.
+             * Note that {@link #isGroupable()} and {@link #isTransferable()} are NOT mutually
+             * exclusive.
+             * </p>
+             */
+            public boolean isGroupable() {
+                return mIsGroupable;
+            }
+
+            /**
+             * Returns true if the current dynamic group route can be transferred to this route.
+             * <p>
+             * Only applicable to unselected/unselecting routes.
+             * Note that {@link #isGroupable()} and {@link #isTransferable()} are NOT mutually
+             * exclusive.
+             * </p>
+             */
+            public boolean isTransferable() {
+                return mIsTransferable;
+            }
+
+            Bundle toBundle() {
+                if (mBundle == null) {
+                    mBundle = new Bundle();
+                    mBundle.putBundle(KEY_MEDIA_ROUTE_DESCRIPTOR, mMediaRouteDescriptor.asBundle());
+                    mBundle.putInt(KEY_SELECTION_STATE, mSelectionState);
+                    mBundle.putBoolean(KEY_IS_UNSELECTABLE, mIsUnselectable);
+                    mBundle.putBoolean(KEY_IS_GROUPABLE, mIsGroupable);
+                    mBundle.putBoolean(KEY_IS_TRANSFERABLE, mIsTransferable);
+                }
+                return mBundle;
+            }
+
+            static DynamicRouteDescriptor fromBundle(Bundle bundle) {
+                if (bundle == null) {
+                    return null;
+                }
+                MediaRouteDescriptor descriptor = MediaRouteDescriptor.fromBundle(
+                        bundle.getBundle(KEY_MEDIA_ROUTE_DESCRIPTOR));
+                int selectionState = bundle.getInt(KEY_SELECTION_STATE, UNSELECTED);
+                boolean isUnselectable = bundle.getBoolean(KEY_IS_UNSELECTABLE, false);
+                boolean isGroupable = bundle.getBoolean(KEY_IS_GROUPABLE, false);
+                boolean isTransferable = bundle.getBoolean(KEY_IS_TRANSFERABLE, false);
+                return new DynamicRouteDescriptor(descriptor, selectionState, isUnselectable,
+                        isGroupable, isTransferable);
+            }
+
+            /**
+             * Builder for {@link DynamicRouteDescriptor}
+             */
+            public static final class  Builder {
+                private final MediaRouteDescriptor mRouteDescriptor;
+                private @SelectionState int mSelectionState = UNSELECTED;
+                private boolean mIsUnselectable = false;
+                private boolean mIsGroupable = false;
+                private boolean mIsTransferable = false;
+
+                /**
+                 * A constructor with {@link MediaRouteDescriptor}.
+                 */
+                public Builder(MediaRouteDescriptor descriptor) {
+                    mRouteDescriptor = descriptor;
+                }
+
+                /**
+                 * Copies the properties from the given {@link DynamicRouteDescriptor}
+                 */
+                public Builder(DynamicRouteDescriptor dynamicRouteDescriptor) {
+                    mRouteDescriptor = dynamicRouteDescriptor.getRouteDescriptor();
+                    mSelectionState = dynamicRouteDescriptor.getSelectionState();
+                    mIsUnselectable = dynamicRouteDescriptor.isUnselectable();
+                    mIsGroupable = dynamicRouteDescriptor.isGroupable();
+                    mIsTransferable = dynamicRouteDescriptor.isTransferable();
+                }
+
+                /**
+                 * Sets the selection state of this route within the associated dynamic group route.
+                 */
+                public Builder setSelectionState(@SelectionState int state) {
+                    mSelectionState = state;
+                    return this;
+                }
+
+                /**
+                 * Sets if this route can be unselected.
+                 */
+                public Builder setIsUnselectable(boolean value) {
+                    mIsUnselectable = value;
+                    return this;
+                }
+
+                /**
+                 * Sets if this route can be a selected as a member of the associated dynamic
+                 * group route.
+                 */
+                public Builder setIsGroupable(boolean value) {
+                    mIsGroupable = value;
+                    return this;
+                }
+
+                /**
+                 * Sets if the associated dynamic group route can be transferred to this route.
+                 */
+                public Builder setIsTransferable(boolean value) {
+                    mIsTransferable = value;
+                    return this;
+                }
+
+                /**
+                 * Builds the {@link DynamicRouteDescriptor}.
+                 */
+                public DynamicRouteDescriptor build() {
+                    return new DynamicRouteDescriptor(
+                            mRouteDescriptor, mSelectionState, mIsUnselectable, mIsGroupable,
+                            mIsTransferable);
+                }
+            }
+        }
+    }
+
+    /**
      * Callback which is invoked when route information becomes available or changes.
      */
     public static abstract class Callback {
         /**
-         * Called when information about a route provider and its routes changes.
+         * Called when information about a route provider and its routes change.
          *
          * @param provider The media route provider that changed, never null.
          * @param descriptor The new media route provider descriptor, or null if none.

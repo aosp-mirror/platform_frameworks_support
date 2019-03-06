@@ -19,6 +19,7 @@ package androidx.work.impl.background.systemjob;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -36,41 +37,43 @@ import android.os.Build;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.State;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManagerTest;
 import androidx.work.WorkRequest;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+import androidx.work.impl.Processor;
+import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpecDao;
-import androidx.work.impl.utils.taskexecutor.InstantTaskExecutorRule;
+import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.worker.InfiniteTestWorker;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobServiceTest extends WorkManagerTest {
 
-    @Rule
-    public InstantTaskExecutorRule mRule = new InstantTaskExecutorRule();
-
     private WorkManagerImpl mWorkManagerImpl;
+    private Processor mProcessor;
     private WorkDatabase mDatabase;
     private SystemJobService mSystemJobServiceSpy;
+    private Scheduler mScheduler;
 
     @Before
     public void setUp() {
@@ -96,15 +99,26 @@ public class SystemJobServiceTest extends WorkManagerTest {
             }
         });
 
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
+        mDatabase = WorkDatabase.create(context, true);
+        InstantWorkTaskExecutor taskExecutor = new InstantWorkTaskExecutor();
         Configuration configuration = new Configuration.Builder()
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .build();
-        mWorkManagerImpl = new WorkManagerImpl(context, configuration);
+        mScheduler = mock(Scheduler.class);
+        List<Scheduler> schedulers = Collections.singletonList(mScheduler);
+        mProcessor = new Processor(
+                context,
+                configuration,
+                taskExecutor,
+                mDatabase,
+                schedulers);
+
+        mWorkManagerImpl = new WorkManagerImpl(
+                context, configuration, taskExecutor, mDatabase, schedulers, mProcessor);
         WorkManagerImpl.setDelegate(mWorkManagerImpl);
-        mDatabase = mWorkManagerImpl.getWorkDatabase();
         mSystemJobServiceSpy = spy(new SystemJobService());
-        doNothing().when(mSystemJobServiceSpy).onExecuted(anyString(), anyBoolean(), anyBoolean());
+        doNothing().when(mSystemJobServiceSpy).onExecuted(anyString(), anyBoolean());
         mSystemJobServiceSpy.onCreate();
     }
 
@@ -138,16 +152,16 @@ public class SystemJobServiceTest extends WorkManagerTest {
         Thread.sleep(5000L);
 
         WorkSpecDao workSpecDao = mDatabase.workSpecDao();
-        assertThat(workSpecDao.getState(work.getStringId()), is(State.RUNNING));
+        assertThat(workSpecDao.getState(work.getStringId()), is(WorkInfo.State.RUNNING));
 
         mSystemJobServiceSpy.onStopJob(mockParams);
         // TODO(rahulrav): Figure out why this test is flaky.
         Thread.sleep(5000L);
-        assertThat(workSpecDao.getState(work.getStringId()), is(State.ENQUEUED));
+        assertThat(workSpecDao.getState(work.getStringId()), is(WorkInfo.State.ENQUEUED));
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testOnStopJob_ReschedulesWhenNotCancelled() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
         if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
@@ -163,7 +177,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testOnStopJob_DoesNotRescheduleWhenCancelled() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
         if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
@@ -180,7 +194,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testStartJob_ReturnsFalseWithDuplicateJob() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
         if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
@@ -229,8 +243,9 @@ public class SystemJobServiceTest extends WorkManagerTest {
 
         assertThat(ContentUriTriggerLoggingWorker.sTimesUpdated, is(1));
         assertThat(ContentUriTriggerLoggingWorker.sTriggeredContentAuthorities,
-                is(testContentAuthorities));
-        assertThat(ContentUriTriggerLoggingWorker.sTriggeredContentUris, is(testContentUris));
+                containsInAnyOrder(testContentAuthorities));
+        assertThat(ContentUriTriggerLoggingWorker.sTriggeredContentUris,
+                containsInAnyOrder(testContentUris));
     }
 
     @Test
@@ -271,8 +286,13 @@ public class SystemJobServiceTest extends WorkManagerTest {
     public static class ContentUriTriggerLoggingWorker extends Worker {
 
         static int sTimesUpdated = 0;
-        static String[] sTriggeredContentAuthorities;
-        static Uri[] sTriggeredContentUris;
+        static List<String> sTriggeredContentAuthorities;
+        static List<Uri> sTriggeredContentUris;
+
+        public ContentUriTriggerLoggingWorker(@NonNull Context context,
+                @NonNull WorkerParameters workerParams) {
+            super(context, workerParams);
+        }
 
         @Override
         public @NonNull Result doWork() {
@@ -281,7 +301,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
                 sTriggeredContentAuthorities = getTriggeredContentAuthorities();
                 sTriggeredContentUris = getTriggeredContentUris();
             }
-            return Result.SUCCESS;
+            return Result.success();
         }
     }
 
@@ -290,13 +310,18 @@ public class SystemJobServiceTest extends WorkManagerTest {
         static int sTimesUpdated = 0;
         static Network sNetwork;
 
+        public NetworkLoggingWorker(@NonNull Context context,
+                @NonNull WorkerParameters workerParams) {
+            super(context, workerParams);
+        }
+
         @Override
         public @NonNull Result doWork() {
             synchronized (NetworkLoggingWorker.class) {
                 ++sTimesUpdated;
                 sNetwork = getNetwork();
             }
-            return Result.SUCCESS;
+            return Result.success();
         }
     }
 }
