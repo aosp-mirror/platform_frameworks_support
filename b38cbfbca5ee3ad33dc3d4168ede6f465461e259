@@ -70,6 +70,30 @@
       "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc27f846_d964b0e7",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1445442
+      },
+      "writtenOn": "2019-03-06T09:48:00Z",
+      "side": 1,
+      "message": "Exception handling with coroutines is a tricky business and we do plan additional inspections. See this one, for example: https://youtrack.jetbrains.com/issue/KT-30294 However, the problem we are running in this particular case seems to be very Android-specific. Notice, that it is not related to catch(e: CancellationException). It also bites on try { ... } finally { ... } and I do expect that people would want to write this kind of code to reset their views at the end of their asynchronous action. The Android-specific issue is that you can only touch UI in certain states, so there has to be an Android-specific lint that in your `finally { ... }` block you can touch UI only if you have checked for lifecycle state.",
+      "parentUuid": "407dd103_fcf2ade6",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 12
+      },
+      "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
