@@ -39,11 +39,11 @@ import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.testutils.PollingCheck;
 
 import org.junit.Before;
@@ -168,7 +168,8 @@ public class SearchView_CursorTest {
         verify(mockQueryTextListener, times(1)).onQueryTextChange("Di");
     }
 
-    @Test
+    // Temporarily disabled due to b/111852321
+    // @Test
     public void testSuggestionSelection() throws Throwable {
         final SearchView.OnSuggestionListener mockSuggestionListener =
                 spy(new MySuggestionListener());

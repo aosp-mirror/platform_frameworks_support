@@ -74,9 +74,22 @@ public class DatabaseConfiguration {
     public final Executor queryExecutor;
 
     /**
+     * If true, table invalidation in an instance of {@link RoomDatabase} is broadcast and
+     * synchronized with other instances of the same {@link RoomDatabase} file, including those
+     * in a separate process.
+     */
+    public final boolean multiInstanceInvalidation;
+
+    /**
      * If true, Room should crash if a migration is missing.
      */
     public final boolean requireMigration;
+
+    /**
+     * If true, Room should perform a destructive migration when downgrading without an available
+     * migration.
+     */
+    public final boolean allowDestructiveMigrationOnDowngrade;
 
     /**
      * The collection of schema versions from which migrations aren't required.
@@ -96,12 +109,14 @@ public class DatabaseConfiguration {
      * @param queryExecutor The Executor used to execute asynchronous queries.
      * @param requireMigration True if Room should require a valid migration if version changes,
      *                        instead of recreating the tables.
+     * @param allowDestructiveMigrationOnDowngrade True if Room should recreate tables if no
+     *                                             migration is supplied during a downgrade.
      * @param migrationNotRequiredFrom The collection of schema versions from which migrations
      *                                 aren't required.
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public DatabaseConfiguration(@NonNull Context context, @Nullable String name,
             @NonNull SupportSQLiteOpenHelper.Factory sqliteOpenHelperFactory,
             @NonNull RoomDatabase.MigrationContainer migrationContainer,
@@ -109,7 +124,9 @@ public class DatabaseConfiguration {
             boolean allowMainThreadQueries,
             RoomDatabase.JournalMode journalMode,
             @NonNull Executor queryExecutor,
+            boolean multiInstanceInvalidation,
             boolean requireMigration,
+            boolean allowDestructiveMigrationOnDowngrade,
             @Nullable Set<Integer> migrationNotRequiredFrom) {
         this.sqliteOpenHelperFactory = sqliteOpenHelperFactory;
         this.context = context;
@@ -119,7 +136,9 @@ public class DatabaseConfiguration {
         this.allowMainThreadQueries = allowMainThreadQueries;
         this.journalMode = journalMode;
         this.queryExecutor = queryExecutor;
+        this.multiInstanceInvalidation = multiInstanceInvalidation;
         this.requireMigration = requireMigration;
+        this.allowDestructiveMigrationOnDowngrade = allowDestructiveMigrationOnDowngrade;
         this.mMigrationNotRequiredFrom = migrationNotRequiredFrom;
     }
 
@@ -128,13 +147,34 @@ public class DatabaseConfiguration {
      *
      * @param version  The schema version.
      * @return True if a valid migration is required, false otherwise.
+     *
+     * @deprecated Use {@link #isMigrationRequired(int, int)} which takes
+     * {@link #allowDestructiveMigrationOnDowngrade} into account.
      */
     public boolean isMigrationRequiredFrom(int version) {
-        // Migrations are required from this version if we generally require migrations AND EITHER
-        // there are no exceptions OR the supplied version is not one of the exceptions.
+        return isMigrationRequired(version, version + 1);
+    }
+
+    /**
+     * Returns whether a migration is required between two versions.
+     *
+     * @param fromVersion The old schema version.
+     * @param toVersion   The new schema version.
+     * @return True if a valid migration is required, false otherwise.
+     */
+    public boolean isMigrationRequired(int fromVersion, int toVersion) {
+        // Migrations are not required if its a downgrade AND destructive migration during downgrade
+        // has been allowed.
+        final boolean isDowngrade = fromVersion > toVersion;
+        if (isDowngrade && allowDestructiveMigrationOnDowngrade) {
+            return false;
+        }
+
+        // Migrations are required between the two versions if we generally require migrations
+        // AND EITHER there are no exceptions OR the supplied fromVersion is not one of the
+        // exceptions.
         return requireMigration
                 && (mMigrationNotRequiredFrom == null
-                || !mMigrationNotRequiredFrom.contains(version));
-
+                || !mMigrationNotRequiredFrom.contains(fromVersion));
     }
 }

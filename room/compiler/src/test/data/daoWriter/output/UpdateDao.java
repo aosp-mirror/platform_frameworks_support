@@ -4,14 +4,21 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.SharedSQLiteStatement;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Void;
 import java.util.List;
+import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "deprecation"})
 public final class UpdateDao_Impl implements UpdateDao {
   private final RoomDatabase __db;
 
@@ -110,7 +117,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void updateUser(User user) {
+  public void updateUser(final User user) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user);
@@ -121,7 +129,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void updateUsers(User user1, List<User> others) {
+  public void updateUsers(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user1);
@@ -133,7 +142,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void updateArrayOfUsers(User[] users) {
+  public void updateArrayOfUsers(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handleMultiple(users);
@@ -144,7 +154,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public int updateUserAndReturnCount(User user) {
+  public int updateUserAndReturnCount(final User user) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -157,7 +168,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public int updateUserAndReturnCount(User user1, List<User> others) {
+  public int updateUserAndReturnCount(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -171,7 +183,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public int updateUserAndReturnCount(User[] users) {
+  public int updateUserAndReturnCount(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -184,7 +197,75 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public int multiPKey(MultiPKeyEntity entity) {
+  public Integer updateUserAndReturnCountObject(final User user) {
+    __db.assertNotSuspendingTransaction();
+    int _total = 0;
+    __db.beginTransaction();
+    try {
+      _total +=__updateAdapterOfUser.handle(user);
+      __db.setTransactionSuccessful();
+      return _total;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public Completable updateUserAndReturnCountCompletable(final User user) {
+    return Completable.fromCallable(new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __updateAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return null;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public Single<Integer> updateUserAndReturnCountSingle(final User user) {
+    return Single.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        int _total = 0;
+        __db.beginTransaction();
+        try {
+          _total +=__updateAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return _total;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public Maybe<Integer> updateUserAndReturnCountMaybe(final User user) {
+    return Maybe.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        int _total = 0;
+        __db.beginTransaction();
+        try {
+          _total +=__updateAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return _total;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public int multiPKey(final MultiPKeyEntity entity) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -197,7 +278,8 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void updateUserAndBook(User user, Book book) {
+  public void updateUserAndBook(final User user, final Book book) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user);
@@ -209,7 +291,7 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void updateAndAge(User user) {
+  public void updateAndAge(final User user) {
     __db.beginTransaction();
     try {
       UpdateDao.super.updateAndAge(user);
@@ -220,16 +302,17 @@ public final class UpdateDao_Impl implements UpdateDao {
   }
 
   @Override
-  public void ageUserByUid(String uid) {
+  public void ageUserByUid(final String uid) {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserByUid.acquire();
+    int _argIndex = 1;
+    if (uid == null) {
+      _stmt.bindNull(_argIndex);
+    } else {
+      _stmt.bindString(_argIndex, uid);
+    }
     __db.beginTransaction();
     try {
-      int _argIndex = 1;
-      if (uid == null) {
-        _stmt.bindNull(_argIndex);
-      } else {
-        _stmt.bindString(_argIndex, uid);
-      }
       _stmt.executeUpdateDelete();
       __db.setTransactionSuccessful();
     } finally {
@@ -240,6 +323,7 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void ageUserAll() {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
     __db.beginTransaction();
     try {
@@ -249,5 +333,62 @@ public final class UpdateDao_Impl implements UpdateDao {
       __db.endTransaction();
       __preparedStmtOfAgeUserAll.release(_stmt);
     }
+  }
+
+  @Override
+  public Completable ageUserAllCompletable() {
+    return Completable.fromCallable(new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
+        __db.beginTransaction();
+        try {
+          _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return null;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfAgeUserAll.release(_stmt);
+        }
+      }
+    });
+  }
+
+  @Override
+  public Single<Integer> ageUserAllSingle() {
+    return Single.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
+        __db.beginTransaction();
+        try {
+          final java.lang.Integer _result = _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return _result;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfAgeUserAll.release(_stmt);
+        }
+      }
+    });
+  }
+
+  @Override
+  public Maybe<Integer> ageUserAllMaybe() {
+    return Maybe.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
+        __db.beginTransaction();
+        try {
+          final java.lang.Integer _result = _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return _result;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfAgeUserAll.release(_stmt);
+        }
+      }
+    });
   }
 }

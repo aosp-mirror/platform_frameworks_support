@@ -21,13 +21,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 class TiledPagedList<T> extends PagedList<T>
         implements PagedStorage.Callback {
-    private final PositionalDataSource<T> mDataSource;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final PositionalDataSource<T> mDataSource;
 
-    private PageResult.Receiver<T> mReceiver = new PageResult.Receiver<T>() {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    PageResult.Receiver<T> mReceiver = new PageResult.Receiver<T>() {
         // Creation thread for initial synchronous load, otherwise main thread
         // Safe to access main thread only state - no other thread has reference during construction
         @AnyThread
@@ -48,12 +51,18 @@ class TiledPagedList<T> extends PagedList<T>
                 throw new IllegalArgumentException("unexpected resultType" + type);
             }
 
+            List<T> page = pageResult.page;
             if (mStorage.getPageCount() == 0) {
                 mStorage.initAndSplit(
-                        pageResult.leadingNulls, pageResult.page, pageResult.trailingNulls,
+                        pageResult.leadingNulls, page, pageResult.trailingNulls,
                         pageResult.positionOffset, mConfig.pageSize, TiledPagedList.this);
             } else {
-                mStorage.insertPage(pageResult.positionOffset, pageResult.page,
+                mStorage.tryInsertPageAndTrim(
+                        pageResult.positionOffset,
+                        page,
+                        mLastLoad,
+                        mConfig.maxSize,
+                        mRequiredRemainder,
                         TiledPagedList.this);
             }
 
@@ -69,6 +78,11 @@ class TiledPagedList<T> extends PagedList<T>
                                         && (pageResult.positionOffset + mConfig.pageSize >= size)));
                 deferBoundaryCallbacks(deferEmpty, deferBegin, deferEnd);
             }
+        }
+
+        @Override
+        public void onPageError(int type, @NonNull Throwable error, boolean retryable) {
+            throw new IllegalStateException("Tiled error handling not yet implemented");
         }
     };
 
@@ -90,10 +104,10 @@ class TiledPagedList<T> extends PagedList<T>
             detach();
         } else {
             final int firstLoadSize =
-                    (Math.max(Math.round(mConfig.initialLoadSizeHint / pageSize), 2)) * pageSize;
+                    (Math.max(mConfig.initialLoadSizeHint / pageSize, 2)) * pageSize;
 
             final int idealStart = position - firstLoadSize / 2;
-            final int roundedPageStart = Math.max(0, Math.round(idealStart / pageSize) * pageSize);
+            final int roundedPageStart = Math.max(0, idealStart / pageSize * pageSize);
 
             mDataSource.dispatchLoadInitial(true, roundedPageStart, firstLoadSize,
                     pageSize, mMainThreadExecutor, mReceiver);
@@ -172,6 +186,16 @@ class TiledPagedList<T> extends PagedList<T>
     }
 
     @Override
+    public void onEmptyPrepend() {
+        throw new IllegalStateException("Contiguous callback on TiledPagedList");
+    }
+
+    @Override
+    public void onEmptyAppend() {
+        throw new IllegalStateException("Contiguous callback on TiledPagedList");
+    }
+
+    @Override
     public void onPagePlaceholderInserted(final int pageIndex) {
         // placeholder means initialize a load
         mBackgroundThreadExecutor.execute(new Runnable() {
@@ -197,5 +221,15 @@ class TiledPagedList<T> extends PagedList<T>
     @Override
     public void onPageInserted(int start, int count) {
         notifyChanged(start, count);
+    }
+
+    @Override
+    public void onPagesRemoved(int startOfDrops, int count) {
+        notifyRemoved(startOfDrops, count);
+    }
+
+    @Override
+    public void onPagesSwappedToPlaceholder(int startOfDrops, int count) {
+        notifyChanged(startOfDrops, count);
     }
 }

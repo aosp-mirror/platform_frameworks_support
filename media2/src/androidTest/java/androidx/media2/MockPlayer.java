@@ -16,24 +16,26 @@
 
 package androidx.media2;
 
-import androidx.annotation.NonNull;
-import androidx.collection.ArrayMap;
+import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 
 /**
- * A mock implementation of {@link BaseMediaPlayer} for testing.
+ * A mock implementation of {@link SessionPlayer} for testing.
  */
-public class MockPlayer extends BaseMediaPlayer {
+public class MockPlayer extends SessionPlayer {
+    private static final int ITEM_NONE = -1;
+
     public final CountDownLatch mCountDownLatch;
     public final boolean mChangePlayerStateWithTransportControl;
 
     public boolean mPlayCalled;
     public boolean mPauseCalled;
-    public boolean mResetCalled;
     public boolean mPrepareCalled;
     public boolean mSeekToCalled;
     public boolean mSetPlaybackSpeedCalled;
@@ -44,9 +46,27 @@ public class MockPlayer extends BaseMediaPlayer {
     public @PlayerState int mLastPlayerState;
     public @BuffState int mLastBufferingState;
     public long mDuration;
-    public float mVolume;
 
-    public ArrayMap<PlayerEventCallback, Executor> mCallbacks = new ArrayMap<>();
+    public List<MediaItem> mPlaylist;
+    public MediaMetadata mMetadata;
+    public MediaItem mCurrentMediaItem;
+    public MediaItem mItem;
+    public int mIndex = -1;
+    public int mPrevMediaItemIndex;
+    public int mNextMediaItemIndex;
+    public @RepeatMode int mRepeatMode = -1;
+    public @ShuffleMode int mShuffleMode = -1;
+
+    public boolean mSetPlaylistCalled;
+    public boolean mUpdatePlaylistMetadataCalled;
+    public boolean mAddPlaylistItemCalled;
+    public boolean mRemovePlaylistItemCalled;
+    public boolean mReplacePlaylistItemCalled;
+    public boolean mSkipToPlaylistItemCalled;
+    public boolean mSkipToPreviousItemCalled;
+    public boolean mSkipToNextItemCalled;
+    public boolean mSetRepeatModeCalled;
+    public boolean mSetShuffleModeCalled;
 
     private AudioAttributesCompat mAudioAttributes;
 
@@ -60,9 +80,8 @@ public class MockPlayer extends BaseMediaPlayer {
 
     private MockPlayer(int count, boolean changePlayerStateWithTransportControl) {
         mCountDownLatch = (count > 0) ? new CountDownLatch(count) : null;
-        mVolume = getMaxPlayerVolume();
         mChangePlayerStateWithTransportControl = changePlayerStateWithTransportControl;
-        // This prevents MS2#play() from triggering BaseMediaPlayer#prepare().
+        // This prevents MS2#play() from triggering SessionPlayer#prepare().
         mLastPlayerState = PLAYER_STATE_PAUSED;
 
         // Sets default audio attributes to prevent setVolume() from being called with the play().
@@ -76,61 +95,49 @@ public class MockPlayer extends BaseMediaPlayer {
     }
 
     @Override
-    public void reset() {
-        mResetCalled = true;
-        if (mCountDownLatch != null) {
-            mCountDownLatch.countDown();
-        }
-        if (mChangePlayerStateWithTransportControl) {
-            notifyPlaybackState(PLAYER_STATE_IDLE);
-        }
-    }
-
-    @Override
-    public void play() {
+    public ListenableFuture<PlayerResult> play() {
         mPlayCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
         }
         if (mChangePlayerStateWithTransportControl) {
-            notifyPlaybackState(PLAYER_STATE_PLAYING);
+            notifyPlayerStateChanged(PLAYER_STATE_PLAYING);
         }
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public void pause() {
+    public ListenableFuture<PlayerResult> pause() {
         mPauseCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
         }
         if (mChangePlayerStateWithTransportControl) {
-            notifyPlaybackState(PLAYER_STATE_PAUSED);
+            notifyPlayerStateChanged(PLAYER_STATE_PAUSED);
         }
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public void prepare() {
+    public ListenableFuture<PlayerResult> prepare() {
         mPrepareCalled = true;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
         }
         if (mChangePlayerStateWithTransportControl) {
-            notifyPlaybackState(PLAYER_STATE_PAUSED);
+            notifyPlayerStateChanged(PLAYER_STATE_PAUSED);
         }
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public void seekTo(long pos) {
+    public ListenableFuture<PlayerResult> seekTo(long pos) {
         mSeekToCalled = true;
         mSeekPosition = pos;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
         }
-    }
-
-    @Override
-    public void skipToNext() {
-        // No-op. This skipToNext() means 'skip to next item in the setNextDataSources()'
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
@@ -163,26 +170,13 @@ public class MockPlayer extends BaseMediaPlayer {
         return mDuration;
     }
 
-    @Override
-    public void registerPlayerEventCallback(@NonNull Executor executor,
-            @NonNull PlayerEventCallback callback) {
-        if (callback == null || executor == null) {
-            throw new IllegalArgumentException("callback=" + callback + " executor=" + executor);
-        }
-        mCallbacks.put(callback, executor);
-    }
-
-    @Override
-    public void unregisterPlayerEventCallback(@NonNull PlayerEventCallback callback) {
-        mCallbacks.remove(callback);
-    }
-
-    public void notifyPlaybackState(final int state) {
+    public void notifyPlayerStateChanged(final int state) {
         mLastPlayerState = state;
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
+
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
                     callback.onPlayerStateChanged(MockPlayer.this, state);
@@ -191,51 +185,38 @@ public class MockPlayer extends BaseMediaPlayer {
         }
     }
 
-    public void notifyCurrentDataSourceChanged(final DataSourceDesc2 dsd) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
+    public void notifyCurrentMediaItemChanged(final MediaItem item) {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onCurrentDataSourceChanged(MockPlayer.this, dsd);
+                    callback.onCurrentMediaItemChanged(MockPlayer.this, item);
                 }
             });
         }
     }
 
-    public void notifyMediaPrepared(final DataSourceDesc2 dsd) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onMediaPrepared(MockPlayer.this, dsd);
-                }
-            });
-        }
-    }
-
-    public void notifyBufferingStateChanged(final DataSourceDesc2 dsd,
+    public void notifyBufferingStateChanged(final MediaItem item,
             final @BuffState int buffState) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onBufferingStateChanged(MockPlayer.this, dsd, buffState);
+                    callback.onBufferingStateChanged(MockPlayer.this, item, buffState);
                 }
             });
         }
     }
 
     public void notifyPlaybackSpeedChanged(final float speed) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
                     callback.onPlaybackSpeedChanged(MockPlayer.this, speed);
@@ -245,10 +226,10 @@ public class MockPlayer extends BaseMediaPlayer {
     }
 
     public void notifySeekCompleted(final long position) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            executor.execute(new Runnable() {
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
                 @Override
                 public void run() {
                     callback.onSeekCompleted(MockPlayer.this, position);
@@ -257,18 +238,10 @@ public class MockPlayer extends BaseMediaPlayer {
         }
     }
 
-    public void notifyError(int what) {
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            final PlayerEventCallback callback = mCallbacks.keyAt(i);
-            final Executor executor = mCallbacks.valueAt(i);
-            // TODO: Uncomment or remove
-            //executor.execute(() -> callback.onError(null, what, 0));
-        }
-    }
-
     @Override
-    public void setAudioAttributes(AudioAttributesCompat attributes) {
+    public ListenableFuture<PlayerResult> setAudioAttributes(AudioAttributesCompat attributes) {
         mAudioAttributes = attributes;
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
@@ -277,55 +250,214 @@ public class MockPlayer extends BaseMediaPlayer {
     }
 
     @Override
-    public void setDataSource(@NonNull DataSourceDesc2 dsd) {
-        // TODO: Implement this
-    }
-
-    @Override
-    public void setNextDataSource(@NonNull DataSourceDesc2 dsd) {
-        // TODO: Implement this
-    }
-
-    @Override
-    public void setNextDataSources(@NonNull List<DataSourceDesc2> dsds) {
-        // TODO: Implement this
-    }
-
-    @Override
-    public DataSourceDesc2 getCurrentDataSource() {
-        // TODO: Implement this
-        return null;
-    }
-
-    @Override
-    public void loopCurrent(boolean loop) {
-        // TODO: implement this
-    }
-
-    @Override
-    public void setPlaybackSpeed(float speed) {
+    public ListenableFuture<PlayerResult> setPlaybackSpeed(float speed) {
         mSetPlaybackSpeedCalled = true;
         mPlaybackSpeed = speed;
         if (mCountDownLatch != null) {
             mCountDownLatch.countDown();
         }
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // Playlist APIs
+    /////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public List<MediaItem> getPlaylist() {
+        return mPlaylist;
     }
 
     @Override
-    public float getMaxPlayerVolume() {
-        return 1.0f;
+    public ListenableFuture<PlayerResult> setMediaItem(MediaItem item) {
+        mItem = item;
+        mCurrentMediaItem = item;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 
     @Override
-    public void setPlayerVolume(float volume) {
-        mVolume = volume;
-        if (mCountDownLatch != null) {
-            mCountDownLatch.countDown();
+    public ListenableFuture<PlayerResult> setPlaylist(
+            List<MediaItem> list, MediaMetadata metadata) {
+        mSetPlaylistCalled = true;
+        mPlaylist = list;
+        mMetadata = metadata;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public MediaMetadata getPlaylistMetadata() {
+        return mMetadata;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> updatePlaylistMetadata(MediaMetadata metadata) {
+        mUpdatePlaylistMetadataCalled = true;
+        mMetadata = metadata;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public MediaItem getCurrentMediaItem() {
+        return mCurrentMediaItem;
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        if (mPlaylist == null) {
+            return ITEM_NONE;
+        }
+        return mPlaylist.indexOf(mCurrentMediaItem);
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return mPrevMediaItemIndex;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return mNextMediaItemIndex;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item) {
+        // TODO: check for invalid index
+        mAddPlaylistItemCalled = true;
+        mIndex = index;
+        mItem = item;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> removePlaylistItem(int index) {
+        // TODO: check for invalid index
+        mRemovePlaylistItemCalled = true;
+        mIndex = index;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem item) {
+        // TODO: check for invalid index
+        mReplacePlaylistItemCalled = true;
+        mIndex = index;
+        mItem = item;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> skipToPlaylistItem(int index) {
+        // TODO: check for invalid index
+        mSkipToPlaylistItemCalled = true;
+        mIndex = index;
+        if (mPlaylist != null && index >= 0 && index < mPlaylist.size()) {
+            mItem = mPlaylist.get(index);
+            mCurrentMediaItem = mItem;
+        }
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> skipToPreviousPlaylistItem() {
+        mSkipToPreviousItemCalled = true;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> skipToNextPlaylistItem() {
+        mSkipToNextItemCalled = true;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public int getRepeatMode() {
+        return mRepeatMode;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> setRepeatMode(int repeatMode) {
+        mSetRepeatModeCalled = true;
+        mRepeatMode = repeatMode;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    @Override
+    public int getShuffleMode() {
+        return mShuffleMode;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> setShuffleMode(int shuffleMode) {
+        mSetShuffleModeCalled = true;
+        mShuffleMode = shuffleMode;
+        mCountDownLatch.countDown();
+        return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    public void notifyShuffleModeChanged() {
+        final int shuffleMode = mShuffleMode;
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onShuffleModeChanged(MockPlayer.this, shuffleMode);
+                }
+            });
         }
     }
 
-    @Override
-    public float getPlayerVolume() {
-        return mVolume;
+    public void notifyRepeatModeChanged() {
+        final int repeatMode = mRepeatMode;
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onRepeatModeChanged(MockPlayer.this, repeatMode);
+                }
+            });
+        }
+    }
+
+    public void notifyPlaylistChanged() {
+        final List<MediaItem> list = mPlaylist;
+        final MediaMetadata metadata = mMetadata;
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaylistChanged(MockPlayer.this, list, metadata);
+                }
+            });
+        }
+    }
+
+    public void notifyPlaylistMetadataChanged() {
+        final MediaMetadata metadata = mMetadata;
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onPlaylistMetadataChanged(MockPlayer.this, metadata);
+                }
+            });
+        }
     }
 }

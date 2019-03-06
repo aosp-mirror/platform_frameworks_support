@@ -22,11 +22,16 @@ import androidx.room.RoomDatabase;
 /**
  * Sample database of customers.
  */
-@Database(entities = {Customer.class},
+@Database(entities = {Customer.class, Product.class},
         version = 1, exportSchema = false)
 public abstract class SampleDatabase extends RoomDatabase {
     /**
      * @return customer dao.
      */
     public abstract CustomerDao getCustomerDao();
+
+    /**
+     * @return product dao.
+     */
+    public abstract ProductDao getProductDao();
 }

@@ -16,13 +16,16 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.core.view.OneShotPreDrawListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 
@@ -34,7 +37,8 @@ import java.util.Map;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
+@SuppressLint("UnknownNullness")
 public abstract class FragmentTransitionImpl {
 
     /**
@@ -208,7 +212,7 @@ public abstract class FragmentTransitionImpl {
      * Finds all views that have transition names in the hierarchy under the given view and
      * stores them in {@code namedViews} map with the name as the key.
      */
-    void findNamedViews(Map<String, View> namedViews, View view) {
+    void findNamedViews(Map<String, View> namedViews, @NonNull View view) {
         if (view.getVisibility() == View.VISIBLE) {
             String transitionName = ViewCompat.getTransitionName(view);
             if (transitionName != null) {

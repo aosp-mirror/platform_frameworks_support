@@ -18,6 +18,8 @@ package androidx.work.impl.utils;
 
 import android.support.annotation.RestrictTo;
 
+import androidx.work.Operation;
+import androidx.work.impl.OperationImpl;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpecDao;
@@ -32,16 +34,31 @@ import androidx.work.impl.model.WorkSpecDao;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class PruneWorkRunnable implements Runnable {
 
-    private WorkManagerImpl mWorkManagerImpl;
+    private final WorkManagerImpl mWorkManagerImpl;
+    private final OperationImpl mOperation;
 
     public PruneWorkRunnable(WorkManagerImpl workManagerImpl) {
         mWorkManagerImpl = workManagerImpl;
+        mOperation = new OperationImpl();
     }
+
+    /**
+     * @return The {@link Operation} that encapsulates the state of the {@link PruneWorkRunnable}.
+     */
+    public Operation getOperation() {
+        return mOperation;
+    }
+
 
     @Override
     public void run() {
-        WorkDatabase workDatabase = mWorkManagerImpl.getWorkDatabase();
-        WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-        workSpecDao.pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast();
+        try {
+            WorkDatabase workDatabase = mWorkManagerImpl.getWorkDatabase();
+            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+            workSpecDao.pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast();
+            mOperation.setState(Operation.SUCCESS);
+        } catch (Throwable exception) {
+            mOperation.setState(new Operation.State.FAILURE(exception));
+        }
     }
 }

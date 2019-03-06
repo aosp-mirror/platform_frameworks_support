@@ -19,13 +19,14 @@
 
 package androidx.leanback.widget;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.util.Property;
 
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 public class ParallaxFloatEffectTest {
 
     Parallax<Parallax.FloatProperty> mSource;
@@ -44,7 +45,7 @@ public class ParallaxFloatEffectTest {
     @Mock ParallaxTarget mTarget;
 
     static void assertFloatEquals(float expected, float actual) {
-        org.junit.Assert.assertEquals((double) expected, (double) actual, 0.0001d);
+        assertEquals((double) expected, (double) actual, 0.0001d);
     }
 
     @Before

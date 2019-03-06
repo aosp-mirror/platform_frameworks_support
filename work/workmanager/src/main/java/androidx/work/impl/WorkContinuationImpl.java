@@ -17,23 +17,24 @@
 package androidx.work.impl;
 
 import android.arch.lifecycle.LiveData;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
-import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 
 import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.Logger;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.SynchronousWorkContinuation;
+import androidx.work.Operation;
 import androidx.work.WorkContinuation;
+import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
-import androidx.work.WorkStatus;
 import androidx.work.impl.utils.EnqueueRunnable;
+import androidx.work.impl.utils.StatusRunnable;
 import androidx.work.impl.workers.CombineContinuationsWorker;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,10 +48,9 @@ import java.util.Set;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class WorkContinuationImpl extends WorkContinuation
-        implements SynchronousWorkContinuation {
+public class WorkContinuationImpl extends WorkContinuation {
 
-    private static final String TAG = "WorkContinuationImpl";
+    private static final String TAG = Logger.tagWithPrefix("WorkContinuationImpl");
 
     private final WorkManagerImpl mWorkManagerImpl;
     private final String mName;
@@ -59,7 +59,9 @@ public class WorkContinuationImpl extends WorkContinuation
     private final List<String> mIds;
     private final List<String> mAllIds;
     private final List<WorkContinuationImpl> mParents;
+
     private boolean mEnqueued;
+    private Operation mOperation;
 
     @NonNull
     public WorkManagerImpl getWorkManagerImpl() {
@@ -159,64 +161,43 @@ public class WorkContinuationImpl extends WorkContinuation
     }
 
     @Override
-    public @NonNull LiveData<List<WorkStatus>> getStatuses() {
-        return mWorkManagerImpl.getStatusesById(mAllIds);
+    public @NonNull LiveData<List<WorkInfo>> getWorkInfosLiveData() {
+        return mWorkManagerImpl.getWorkInfosById(mAllIds);
+    }
+
+    @NonNull
+    @Override
+    public ListenableFuture<List<WorkInfo>> getWorkInfos() {
+        StatusRunnable<List<WorkInfo>> runnable =
+                StatusRunnable.forStringIds(mWorkManagerImpl, mAllIds);
+
+        mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
+        return runnable.getFuture();
     }
 
     @Override
-    public @NonNull List<WorkStatus> getStatusesSync() {
-        if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-            throw new IllegalStateException("Cannot getStatusesSync on main thread!");
-        }
-        return mWorkManagerImpl.getStatusesByIdSync(mAllIds);
-    }
-
-    @Override
-    public void enqueue() {
+    public @NonNull Operation enqueue() {
         // Only enqueue if not already enqueued.
         if (!mEnqueued) {
             // The runnable walks the hierarchy of the continuations
             // and marks them enqueued using the markEnqueued() method, parent first.
-            mWorkManagerImpl.getTaskExecutor()
-                    .executeOnBackgroundThread(new EnqueueRunnable(this));
+            EnqueueRunnable runnable = new EnqueueRunnable(this);
+            mWorkManagerImpl.getWorkTaskExecutor().executeOnBackgroundThread(runnable);
+            mOperation = runnable.getOperation();
         } else {
-            Logger.warning(TAG,
+            Logger.get().warning(TAG,
                     String.format("Already enqueued work ids (%s)", TextUtils.join(", ", mIds)));
         }
-    }
-
-    @Override
-    @WorkerThread
-    public void enqueueSync() {
-        if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-            throw new IllegalStateException("Cannot enqueueSync on main thread!");
-        }
-
-        if (!mEnqueued) {
-            // The runnable walks the hierarchy of the continuations
-            // and marks them enqueued using the markEnqueued() method, parent first.
-            new EnqueueRunnable(this).run();
-        } else {
-            Logger.warning(TAG,
-                    String.format("Already enqueued work ids (%s)", TextUtils.join(", ", mIds)));
-        }
-    }
-
-    @Override
-    public @NonNull SynchronousWorkContinuation synchronous() {
-        return this;
+        return mOperation;
     }
 
     @Override
     protected @NonNull WorkContinuation combineInternal(
-            @Nullable OneTimeWorkRequest work,
             @NonNull List<WorkContinuation> continuations) {
-
-        if (work == null) {
-            work = new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
-                    .setInputMerger(ArrayCreatingInputMerger.class)
-                    .build();
-        }
+        OneTimeWorkRequest combinedWork =
+                new OneTimeWorkRequest.Builder(CombineContinuationsWorker.class)
+                        .setInputMerger(ArrayCreatingInputMerger.class)
+                        .build();
 
         List<WorkContinuationImpl> parents = new ArrayList<>(continuations.size());
         for (WorkContinuation continuation : continuations) {
@@ -226,7 +207,7 @@ public class WorkContinuationImpl extends WorkContinuation
         return new WorkContinuationImpl(mWorkManagerImpl,
                 null,
                 ExistingWorkPolicy.KEEP,
-                Collections.singletonList(work),
+                Collections.singletonList(combinedWork),
                 parents);
     }
 
