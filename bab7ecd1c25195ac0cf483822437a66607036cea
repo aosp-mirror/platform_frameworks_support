@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddc284ce_efc1e997",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3901,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-06T06:02:44Z",
+      "side": 1,
+      "message": "Use NullPointerException instead.\n\nBe sure that upload CL in framework as well.",
+      "range": {
+        "startLine": 3901,
+        "startChar": 22,
+        "endLine": 3901,
+        "endChar": 46
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
