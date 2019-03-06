@@ -449,8 +449,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         boolean playedSuccessfully = false;
         for (int i = 0; i < STREAM_RETRIES; i++) {
             try {
-                mPlayer.setMediaItem(new UriMediaItem.Builder(
-                        mContext, uri, headers, cookies).build());
+                mPlayer.setMediaItem(new UriMediaItem.Builder(uri, headers, cookies).build());
                 playLoadedVideo(width, height, playTime);
                 playedSuccessfully = true;
                 break;
