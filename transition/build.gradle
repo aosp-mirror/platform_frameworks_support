@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.0.0")
+    api(project(":annotation"))
     api(project(":core"))
     implementation(project(":collection"))
     compileOnly project(':fragment')
@@ -40,4 +40,5 @@ supportLibrary {
     inceptionYear = "2016"
     description = "Android Transition Support Library"
     failOnDeprecationWarnings = false
+    trackRestrictedAPIs = false
 }

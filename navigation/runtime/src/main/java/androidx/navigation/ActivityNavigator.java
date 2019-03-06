@@ -24,13 +24,14 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,7 +78,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
             return;
         }
         int popEnterAnim = intent.getIntExtra(EXTRA_POP_ENTER_ANIM, -1);
-        int popExitAnim = intent.getIntExtra(EXTRA_POP_ENTER_ANIM, -1);
+        int popExitAnim = intent.getIntExtra(EXTRA_POP_EXIT_ANIM, -1);
         if (popEnterAnim != -1 || popExitAnim != -1) {
             popEnterAnim = popEnterAnim != -1 ? popEnterAnim : 0;
             popExitAnim = popExitAnim != -1 ? popExitAnim : 0;

@@ -145,8 +145,8 @@ includeProject(":room:integration-tests:room-testapp-kotlin", "room/integration-
 includeProject(":room:room-benchmark", "room/benchmark")
 includeProject(":room:room-common", "room/common")
 includeProject(":room:room-compiler", "room/compiler")
-includeProject(":room:room-coroutines", "room/coroutines")
 includeProject(":room:room-guava", "room/guava")
+includeProject(":room:room-ktx", "room/ktx")
 includeProject(":room:room-migration", "room/migration")
 includeProject(":room:room-runtime", "room/runtime")
 includeProject(":room:room-rxjava2", "room/rxjava2")
@@ -155,8 +155,8 @@ includeProject(":remotecallback-processor", "remotecallback/processor")
 includeProject(":remotecallback", "remotecallback")
 includeProject(":versionedparcelable-annotation", "versionedparcelable/annotation")
 includeProject(":versionedparcelable", "versionedparcelable")
-includeProject(":savedstate:savedstate-common", "savedstate/common")
-includeProject(":savedstate:savedstate-bundle", "savedstate/bundle")
+includeProject(":savedstate", "savedstate")
+includeProject(":security:security-crypto", "security/crypto")
 includeProject(":sharetarget", "sharetarget")
 includeProject(":sharetarget:integration-tests:testapp", "sharetarget/integration-tests/testapp")
 includeProject(":slice-core", "slices/core")
@@ -178,6 +178,7 @@ includeProject(":vectordrawable", "graphics/drawable/static")
 includeProject(":vectordrawable-animated", "graphics/drawable/animated")
 includeProject(":viewpager", "viewpager")
 includeProject(":viewpager2", "viewpager2")
+includeProject(":viewpager2:integration-tests:testapp", "viewpager2/integration-tests/testapp")
 includeProject(":wear", "wear")
 includeProject(":webkit", "webkit")
 includeProject(":webkit:integration-tests:testapp", "webkit/integration-tests/testapp")
@@ -226,7 +227,6 @@ includeProject(":support-v4-demos", new File(samplesRoot, "Support4Demos"))
 includeProject(":support-v7-demos", new File(samplesRoot, "Support7Demos"))
 includeProject(":support-v13-demos", new File(samplesRoot, "Support13Demos"))
 includeProject(":support-wear-demos", new File(samplesRoot, "SupportWearDemos"))
-includeProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
 
 /////////////////////////////
 //
@@ -269,7 +269,7 @@ includeProject(":webview-support-interfaces", new File(externalRoot, "webview_su
 // we need real android project to generate R.java, aidl etc files that mentioned in sources
 if (!startParameter.projectProperties.containsKey('android.injected.invoked.from.ide')) {
     // we don't need it in ide, so we don't configure it there
-    includeProject(":docs-fake", "docs-fake")
+    includeProject(":docs-runner", "docs-runner")
 }
 
 // dumb test project that has a test for each size to ensure that at least one test is run
