@@ -34,9 +34,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteQuery;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,9 +49,11 @@ public class CustomDatabaseTest {
 
     @Test
     public void invalidationTrackerAfterClose() {
+        final String databaseName = "custom.db";
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        context.deleteDatabase(databaseName);
         RoomDatabase.Builder<SampleDatabase> builder =
-                Room.databaseBuilder(context, SampleDatabase.class, "db")
+                Room.databaseBuilder(context, SampleDatabase.class, databaseName)
                         .openHelperFactory(new RethrowExceptionFactory());
         Customer customer = new Customer();
         for (int i = 0; i < 100; i++) {

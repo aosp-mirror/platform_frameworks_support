@@ -19,6 +19,8 @@
     <style name="Theme.MediaRouter" parent="ThemeOverlay.AppCompat.Dark">
         <item name="windowNoTitle">true</item>
         <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.MediaRouteButton</item>
+        <item name="mediaRouteHeaderTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.Header</item>
+        <item name="mediaRouteBodyTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.Body</item>
 
         <item name="mediaRouteCloseDrawable">@drawable/mr_dialog_close_dark</item>
         <item name="mediaRoutePlayDrawable">@drawable/mr_media_play_dark</item>
@@ -29,6 +31,7 @@
         <item name="mediaRouteTvIconDrawable">@drawable/ic_vol_type_tv_dark</item>
         <item name="mediaRouteSpeakerIconDrawable">@drawable/ic_vol_type_speaker_dark</item>
         <item name="mediaRouteSpeakerGroupIconDrawable">@drawable/ic_vol_type_speaker_group_dark</item>
+        <item name="mediaRouteDividerColor">@color/mr_cast_route_divider_dark</item>
 
         <item name="mediaRouteControlPanelThemeOverlay">@null</item>
     </style>
@@ -40,6 +43,8 @@
     <style name="Theme.MediaRouter.Light" parent="ThemeOverlay.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.Light.MediaRouteButton</item>
+        <item name="mediaRouteHeaderTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.Header.Light</item>
+        <item name="mediaRouteBodyTextAppearance">@style/TextAppearance.MediaRouter.Dynamic.Body.Light</item>
 
         <item name="mediaRouteCloseDrawable">@drawable/mr_dialog_close_light</item>
         <item name="mediaRoutePlayDrawable">@drawable/mr_media_play_light</item>
@@ -50,6 +55,7 @@
         <item name="mediaRouteTvIconDrawable">@drawable/ic_vol_type_tv_light</item>
         <item name="mediaRouteSpeakerIconDrawable">@drawable/ic_vol_type_speaker_light</item>
         <item name="mediaRouteSpeakerGroupIconDrawable">@drawable/ic_vol_type_speaker_group_light</item>
+        <item name="mediaRouteDividerColor">@color/mr_cast_route_divider_light</item>
 
         <item name="mediaRouteControlPanelThemeOverlay">@null</item>
     </style>
@@ -63,13 +69,14 @@
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_dark</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_dark</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_dark</item>
-
+        <item name="mediaRouteDividerColor">@color/mr_cast_route_divider_dark</item>
     </style>
+
     <style name="ThemeOverlay.MediaRouter.Light" parent="ThemeOverlay.AppCompat.Light">
         <item name="mediaRoutePlayDrawable">@drawable/mr_media_play_light</item>
         <item name="mediaRoutePauseDrawable">@drawable/mr_media_pause_light</item>
         <item name="mediaRouteStopDrawable">@drawable/mr_media_stop_light</item>
         <item name="mediaRouteAudioTrackDrawable">@drawable/mr_vol_type_audiotrack_light</item>
+        <item name="mediaRouteDividerColor">@color/mr_cast_route_divider_light</item>
     </style>
-
 </resources>

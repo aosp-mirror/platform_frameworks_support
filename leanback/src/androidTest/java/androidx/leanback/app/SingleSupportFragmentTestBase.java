@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
@@ -36,6 +36,10 @@ public class SingleSupportFragmentTestBase {
     @Rule
     public ActivityTestRule<SingleSupportFragmentTestActivity> activityTestRule =
             new ActivityTestRule<>(SingleSupportFragmentTestActivity.class, false, false);
+
+    @Rule
+    public ActivityTestRule<TestActivity> activityTestRule2 =
+            new ActivityTestRule<>(TestActivity.class, false, false);
 
     public void sendKeys(int ...keys) {
         for (int i = 0; i < keys.length; i++) {
@@ -86,6 +90,12 @@ public class SingleSupportFragmentTestBase {
 
     public SingleSupportFragmentTestActivity launchAndWaitActivity(Class fragmentClass, long waitTimeMs) {
         return launchAndWaitActivity(fragmentClass.getName(), null, waitTimeMs);
+    }
+
+    public TestActivity launchAndWaitActivity2(long waitTimeMs) {
+        TestActivity activity = activityTestRule2.launchActivity(new Intent());
+        SystemClock.sleep(waitTimeMs);
+        return activity;
     }
 
     public SingleSupportFragmentTestActivity launchAndWaitActivity(Class fragmentClass, Options options,

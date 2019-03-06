@@ -17,15 +17,22 @@
 package foo.bar;
 import androidx.room.*;
 import java.util.List;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Dao
 abstract interface DeletionDao {
+
     @Delete
     void deleteUser(User user);
     @Delete
     void deleteUsers(User user1, List<User> others);
     @Delete
     void deleteArrayOfUsers(User[] users);
+
+    @Delete
+    Integer deleteUserAndReturnCountObject(User user);
 
     @Delete
     int deleteUserAndReturnCount(User user);
@@ -35,10 +42,26 @@ abstract interface DeletionDao {
     int deleteUserAndReturnCount(User[] users);
 
     @Delete
+    Completable deleteUserCompletable(User user);
+    @Delete
+    Single<Integer> deleteUserSingle(User user);
+    @Delete
+    Maybe<Integer> deleteUserMaybe(User user);
+
+    @Delete
     int multiPKey(MultiPKeyEntity entity);
 
     @Query("DELETE FROM user where uid = :uid")
     int deleteByUid(int uid);
+
+    @Query("DELETE FROM user where uid = :uid")
+    Completable deleteByUidCompletable(int uid);
+
+    @Query("DELETE FROM user where uid = :uid")
+    Single<Integer> deleteByUidSingle(int uid);
+
+    @Query("DELETE FROM user where uid = :uid")
+    Maybe<Integer> deleteByUidMaybe(int uid);
 
     @Query("DELETE FROM user where uid IN(:uid)")
     int deleteByUidList(int... uid);

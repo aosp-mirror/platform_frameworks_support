@@ -18,6 +18,7 @@ package androidx.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -26,6 +27,177 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class SparseArrayCompatTest {
+    @Test
+    public void getOrDefaultPrefersStoredValue() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertEquals("1", map.get(1, "2"));
+    }
+
+    @Test
+    public void getOrDefaultUsesDefaultWhenAbsent() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        assertEquals("1", map.get(1, "1"));
+    }
+
+    @Test
+    public void getOrDefaultReturnsNullWhenNullStored() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertNull(map.get(1, "1"));
+    }
+
+    @Test
+    public void getOrDefaultDoesNotPersistDefault() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.get(1, "1");
+        assertFalse(map.containsKey(1));
+    }
+
+    @Test
+    public void putIfAbsentDoesNotOverwriteStoredValue() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        map.putIfAbsent(1, "2");
+        assertEquals("1", map.get(1));
+    }
+
+    @Test
+    public void putIfAbsentReturnsStoredValue() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertEquals("1", map.putIfAbsent(1, "2"));
+    }
+
+    @Test
+    public void putIfAbsentStoresValueWhenAbsent() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.putIfAbsent(1, "2");
+        assertEquals("2", map.get(1));
+    }
+
+    @Test
+    public void putIfAbsentReturnsNullWhenAbsent() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        assertNull(map.putIfAbsent(1, "2"));
+    }
+
+    @Test
+    public void replaceWhenAbsentDoesNotStore() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        assertNull(map.replace(1, "1"));
+        assertFalse(map.containsKey(1));
+    }
+
+    @Test
+    public void replaceStoresAndReturnsOldValue() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertEquals("1", map.replace(1, "2"));
+        assertEquals("2", map.get(1));
+    }
+
+    @Test
+    public void replaceStoresAndReturnsNullWhenMappedToNull() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertNull(map.replace(1, "1"));
+        assertEquals("1", map.get(1));
+    }
+
+    @Test
+    public void replaceValueKeyAbsent() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        assertFalse(map.replace(1, "1", "2"));
+        assertFalse(map.containsKey(1));
+    }
+
+    @Test
+    public void replaceValueMismatchDoesNotReplace() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertFalse(map.replace(1, "2", "3"));
+        assertEquals("1", map.get(1));
+    }
+
+    @Test
+    public void replaceValueMismatchNullDoesNotReplace() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertFalse(map.replace(1, null, "2"));
+        assertEquals("1", map.get(1));
+    }
+
+    @Test
+    public void replaceValueMatchReplaces() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertTrue(map.replace(1, "1", "2"));
+        assertEquals("2",  map.get(1));
+    }
+
+    @Test
+    public void replaceNullValueMismatchDoesNotReplace() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertFalse(map.replace(1, "1", "2"));
+        assertNull(map.get(1));
+    }
+
+    @Test
+    public void replaceNullValueMatchRemoves() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertTrue(map.replace(1, null, "1"));
+        assertEquals("1", map.get(1));
+    }
+
+    @Test
+    public void removeValueKeyAbsent() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        assertFalse(map.remove(1, "1"));
+    }
+
+    @Test
+    public void removeValueMismatchDoesNotRemove() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertFalse(map.remove(1, "2"));
+        assertTrue(map.containsKey(1));
+    }
+
+    @Test
+    public void removeValueMismatchNullDoesNotRemove() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertFalse(map.remove(1, null));
+        assertTrue(map.containsKey(1));
+    }
+
+    @Test
+    public void removeValueMatchRemoves() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, "1");
+        assertTrue(map.remove(1, "1"));
+        assertFalse(map.containsKey(1));
+    }
+
+    @Test
+    public void removeNullValueMismatchDoesNotRemove() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertFalse(map.remove(1, "2"));
+        assertTrue(map.containsKey(1));
+    }
+
+    @Test
+    public void removeNullValueMatchRemoves() {
+        SparseArrayCompat<String> map = new SparseArrayCompat<>();
+        map.put(1, null);
+        assertTrue(map.remove(1, null));
+        assertFalse(map.containsKey(1));
+    }
+
     @Test
     public void isEmpty() throws Exception {
         SparseArrayCompat<String> sparseArrayCompat = new SparseArrayCompat<>();

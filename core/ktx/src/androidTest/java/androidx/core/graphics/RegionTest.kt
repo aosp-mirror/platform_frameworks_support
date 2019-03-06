@@ -19,6 +19,7 @@ package androidx.core.graphics
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.Region
+import androidx.test.filters.SmallTest
 import androidx.testutils.assertThrows
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -26,6 +27,7 @@ import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@SmallTest
 class RegionTest {
     @Test fun containsPoint() {
         assertFalse(Point(1, 1) in Region())
@@ -47,14 +49,14 @@ class RegionTest {
     }
 
     @Test fun unionAsAndRect() {
-        val r = Region(0, 0, 2, 2) and Rect(4, 4, 6, 6)
+        val r = Region(0, 0, 2, 2) or Rect(4, 4, 6, 6)
         assertFalse(Point(3, 3) in r)
         assertTrue(Point(1, 1) in r)
         assertTrue(Point(5, 5) in r)
     }
 
     @Test fun unionAsAndRegion() {
-        val r = Region(0, 0, 2, 2) and Region(4, 4, 6, 6)
+        val r = Region(0, 0, 2, 2) or Region(4, 4, 6, 6)
         assertFalse(Point(3, 3) in r)
         assertTrue(Point(1, 1) in r)
         assertTrue(Point(5, 5) in r)
@@ -94,14 +96,14 @@ class RegionTest {
         assertTrue(Point(5, 5) in i)
     }
 
-    @Test fun orRect() {
-        val r = Region(0, 0, 4, 4) or Rect(2, 2, 6, 6)
+    @Test fun intersectionRect() {
+        val r = Region(0, 0, 4, 4) and Rect(2, 2, 6, 6)
         assertFalse(Point(1, 1) in r)
         assertTrue(Point(3, 3) in r)
     }
 
-    @Test fun orRegion() {
-        val r = Region(0, 0, 4, 4) or Region(2, 2, 6, 6)
+    @Test fun intersectionRegion() {
+        val r = Region(0, 0, 4, 4) and Region(2, 2, 6, 6)
         assertFalse(Point(1, 1) in r)
         assertTrue(Point(3, 3) in r)
     }

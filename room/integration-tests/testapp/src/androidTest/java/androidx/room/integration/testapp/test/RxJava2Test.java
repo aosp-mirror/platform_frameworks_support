@@ -19,15 +19,26 @@ package androidx.room.integration.testapp.test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import android.content.Context;
+import android.os.Build;
+
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.arch.core.executor.TaskExecutor;
 import androidx.room.EmptyResultSetException;
+import androidx.room.Room;
+import androidx.room.integration.testapp.FtsTestDatabase;
+import androidx.room.integration.testapp.dao.MailDao;
+import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.User;
 import androidx.room.integration.testapp.vo.UserAndAllPets;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+
+import com.google.common.collect.Lists;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -519,6 +530,7 @@ public class RxJava2Test extends TestDatabaseTest {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Flowable() throws InterruptedException {
         // When subscribing to the emissions of the user
@@ -542,6 +554,7 @@ public class RxJava2Test extends TestDatabaseTest {
         userTestSubscriber.assertValueCount(1);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Observable() throws InterruptedException {
         // When subscribing to the emissions of the user
@@ -563,5 +576,40 @@ public class RxJava2Test extends TestDatabaseTest {
         }
         drain();
         userTestSubscriber.assertValueCount(1);
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
+    public void withFtsTable_Flowable() throws InterruptedException {
+        final Context context = ApplicationProvider.getApplicationContext();
+        final FtsTestDatabase db = Room.inMemoryDatabaseBuilder(context, FtsTestDatabase.class)
+                .build();
+        final MailDao mailDao = db.getMailDao();
+        final TestSubscriber<List<Mail>> subscriber = new TestSubscriber<>();
+
+        mailDao.getFlowableMail().subscribe(subscriber);
+        drain();
+        subscriber.assertSubscribed();
+        subscriber.assertValue(Collections.emptyList());
+
+        Mail mail0 = TestUtil.createMail(1, "subject0", "body0");
+        mailDao.insert(mail0);
+        drain();
+        subscriber.assertValueAt(1, new Predicate<List<Mail>>() {
+            @Override
+            public boolean test(List<Mail> mailList) throws Exception {
+                return mailList.equals(Lists.newArrayList(mail0));
+            }
+        });
+
+        Mail mail1 = TestUtil.createMail(2, "subject1", "body1");
+        mailDao.insert(mail1);
+        drain();
+        subscriber.assertValueAt(2, new Predicate<List<Mail>>() {
+            @Override
+            public boolean test(List<Mail> mailList) throws Exception {
+                return mailList.equals(Lists.newArrayList(mail0, mail1));
+            }
+        });
     }
 }

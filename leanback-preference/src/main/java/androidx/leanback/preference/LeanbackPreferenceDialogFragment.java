@@ -22,6 +22,10 @@ import android.os.Bundle;
 
 import androidx.preference.DialogPreference;
 
+/**
+ * @deprecated Use {@link LeanbackPreferenceDialogFragmentCompat}
+ */
+@Deprecated
 public class LeanbackPreferenceDialogFragment extends Fragment {
 
     public static final String ARG_KEY = "key";

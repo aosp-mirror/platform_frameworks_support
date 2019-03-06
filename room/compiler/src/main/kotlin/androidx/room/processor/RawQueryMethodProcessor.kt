@@ -20,49 +20,46 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.ext.hasAnnotation
-import androidx.room.ext.toListOfClassTypes
+import androidx.room.ext.isEntityElement
+import androidx.room.ext.toAnnotationBox
 import androidx.room.ext.typeName
 import androidx.room.parser.SqlParser
 import androidx.room.processor.ProcessorErrors.RAW_QUERY_STRING_PARAMETER_REMOVED
 import androidx.room.vo.RawQueryMethod
-import com.google.auto.common.AnnotationMirrors
-import com.google.auto.common.MoreElements
+import asTypeElement
 import com.google.auto.common.MoreTypes
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
+import javax.lang.model.element.VariableElement
 import javax.lang.model.type.DeclaredType
 
 class RawQueryMethodProcessor(
-        baseContext: Context,
-        val containing: DeclaredType,
-        val executableElement: ExecutableElement) {
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
-    fun process(): RawQueryMethod {
-        val types = context.processingEnv.typeUtils
-        val asMember = types.asMemberOf(containing, executableElement)
-        val executableType = MoreTypes.asExecutable(asMember)
 
-        val annotation = MoreElements.getAnnotationMirror(executableElement,
-                RawQuery::class.java).orNull()
-        context.checker.check(annotation != null, executableElement,
+    fun process(): RawQueryMethod {
+        val delegate = MethodProcessorDelegate.createFor(context, containing, executableElement)
+        val returnType = delegate.extractReturnType()
+
+        context.checker.check(executableElement.hasAnnotation(RawQuery::class), executableElement,
                 ProcessorErrors.MISSING_RAWQUERY_ANNOTATION)
 
-        val returnTypeName = TypeName.get(executableType.returnType)
+        val returnTypeName = returnType.typeName()
         context.checker.notUnbound(returnTypeName, executableElement,
                 ProcessorErrors.CANNOT_USE_UNBOUND_GENERICS_IN_QUERY_METHODS)
         val observedTableNames = processObservedTables()
         val query = SqlParser.rawQueryForTables(observedTableNames)
         // build the query but don't calculate result info since we just guessed it.
-        val resultBinder = context.typeAdapterStore
-                .findQueryResultBinder(executableType.returnType, query)
-
-        val runtimeQueryParam = findRuntimeQueryParameter()
+        val resultBinder = delegate.findResultBinder(returnType, query)
+        val runtimeQueryParam = findRuntimeQueryParameter(delegate.extractParams())
         val inTransaction = executableElement.hasAnnotation(Transaction::class)
         val rawQueryMethod = RawQueryMethod(
                 element = executableElement,
                 name = executableElement.simpleName.toString(),
                 observedTableNames = observedTableNames,
-                returnType = executableType.returnType,
+                returnType = returnType,
                 runtimeQueryParam = runtimeQueryParam,
                 inTransaction = inTransaction,
                 queryResultBinder = resultBinder
@@ -73,26 +70,21 @@ class RawQueryMethodProcessor(
     }
 
     private fun processObservedTables(): Set<String> {
-        val annotation = MoreElements
-                .getAnnotationMirror(executableElement,
-                        androidx.room.RawQuery::class.java)
-                .orNull() ?: return emptySet()
-        val entityList = AnnotationMirrors.getAnnotationValue(annotation, "observedEntities")
-        return entityList
-                .toListOfClassTypes()
-                .map {
-                    MoreTypes.asTypeElement(it)
+        val annotation = executableElement.toAnnotationBox(RawQuery::class)
+        return annotation?.getAsTypeMirrorList("observedEntities")
+                ?.map {
+                    it.asTypeElement()
                 }
-                .flatMap {
-                    if (it.hasAnnotation(androidx.room.Entity::class)) {
+                ?.flatMap {
+                    if (it.isEntityElement()) {
                         val entity = EntityProcessor(
-                                baseContext = context,
+                                context = context,
                                 element = it
                         ).process()
                         arrayListOf(entity.tableName)
                     } else {
-                        val pojo = PojoProcessor(
-                                baseContext = context,
+                        val pojo = PojoProcessor.createFor(
+                                context = context,
                                 element = it,
                                 bindingScope = FieldProcessor.BindingScope.READ_FROM_CURSOR,
                                 parent = null
@@ -105,23 +97,25 @@ class RawQueryMethodProcessor(
                         }
                         tableNames
                     }
-                }.toSet()
+                }?.toSet() ?: emptySet()
     }
 
-    private fun findRuntimeQueryParameter(): RawQueryMethod.RuntimeQueryParameter? {
+    private fun findRuntimeQueryParameter(
+        extractParams: List<VariableElement>
+    ): RawQueryMethod.RuntimeQueryParameter? {
         val types = context.processingEnv.typeUtils
-        if (executableElement.parameters.size == 1 && !executableElement.isVarArgs) {
+        if (extractParams.size == 1 && !executableElement.isVarArgs) {
             val param = MoreTypes.asMemberOf(
                     types,
                     containing,
-                    executableElement.parameters[0])
+                    extractParams[0])
             val elementUtils = context.processingEnv.elementUtils
             val supportQueryType = elementUtils
                     .getTypeElement(SupportDbTypeNames.QUERY.toString()).asType()
             val isSupportSql = types.isAssignable(param, supportQueryType)
             if (isSupportSql) {
                 return RawQueryMethod.RuntimeQueryParameter(
-                        paramName = executableElement.parameters[0].simpleName.toString(),
+                        paramName = extractParams[0].simpleName.toString(),
                         type = supportQueryType.typeName())
             }
             val stringType = elementUtils.getTypeElement("java.lang.String").asType()

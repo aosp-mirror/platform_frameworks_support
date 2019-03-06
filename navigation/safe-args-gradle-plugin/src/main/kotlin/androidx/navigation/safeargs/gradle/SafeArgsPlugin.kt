@@ -25,14 +25,20 @@ import groovy.util.XmlSlurper
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.provider.ProviderFactory
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import java.io.File
+import javax.inject.Inject
 
 private const val PLUGIN_DIRNAME = "navigation-args"
 internal const val GENERATED_PATH = "generated/source/$PLUGIN_DIRNAME"
-internal const val INTERMEDIATES_PATH = "intermediates/$PLUGIN_DIRNAME"
+internal const val INCREMENTAL_PATH = "intermediates/incremental"
 
-@Suppress("unused")
-class SafeArgsPlugin : Plugin<Project> {
+abstract class SafeArgsPlugin protected constructor(
+    val providerFactory: ProviderFactory
+) : Plugin<Project> {
+
+    abstract val generateKotlin: Boolean
 
     private fun forEachVariant(extension: BaseExtension, action: (BaseVariant) -> Unit) {
         when {
@@ -51,38 +57,84 @@ class SafeArgsPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val extension = project.extensions.findByType(BaseExtension::class.java)
                 ?: throw GradleException("safeargs plugin must be used with android plugin")
+        val isKotlinProject =
+            project.extensions.findByType(KotlinProjectExtension::class.java) != null
+        if (!isKotlinProject && generateKotlin) {
+            throw GradleException(
+                "androidx.navigation.safeargs.kotlin plugin must be used with kotlin plugin")
+        }
         forEachVariant(extension) { variant ->
-            val task = project.tasks.create("generateSafeArgs${variant.name.capitalize()}",
-                    ArgumentsGenerationTask::class.java) { task ->
+            val task = project.tasks.create(
+                "generateSafeArgs${variant.name.capitalize()}",
+                ArgumentsGenerationTask::class.java
+            ) { task ->
+                setApplicationId(task, variant)
                 task.rFilePackage = variant.rFilePackage()
-                task.applicationId = variant.applicationId
                 task.navigationFiles = navigationFiles(variant)
                 task.outputDir = File(project.buildDir, "$GENERATED_PATH/${variant.dirName}")
-                task.incrementalFolder = File(project.buildDir,
-                        "$INTERMEDIATES_PATH/${variant.dirName}")
-                task.useAndroidX = (project.findProperty("android.useAndroidX") == "true")
-                task.variantName = variant.name
+                task.incrementalFolder = File(project.buildDir, "$INCREMENTAL_PATH/${task.name}")
+                task.useAndroidX = (project.findProperty("android.useAndroidX") == "true").also {
+                    if (!it) {
+                        throw GradleException(
+                            "androidx.navigation.safeargs can only be used with an androidx project"
+                        )
+                    }
+                }
+                task.generateKotlin = generateKotlin
             }
+            task.applicationIdResource?.let { task.dependsOn(it) }
             variant.registerJavaGeneratingTask(task, task.outputDir)
         }
     }
+
+    /**
+     * Sets the android project application id into the task.
+     */
+    private fun setApplicationId(task: ArgumentsGenerationTask, variant: BaseVariant) {
+        val appIdTextResource = variant.applicationIdTextResource
+        if (appIdTextResource != null) {
+            task.applicationIdResource = appIdTextResource
+        } else {
+            // getApplicationIdTextResource() returned null, fallback to getApplicationId()
+            task.applicationId = variant.applicationId
+        }
+    }
+
+    private fun BaseVariant.rFilePackage() = providerFactory.provider {
+        val mainSourceSet = sourceSets.find { it.name == "main" }
+        val sourceSet = mainSourceSet ?: sourceSets[0]
+        val manifest = sourceSet.manifestFile
+        val parsed = XmlSlurper(false, false).parse(manifest)
+        parsed.getProperty("@package").toString()
+    }
+
+    private fun navigationFiles(variant: BaseVariant) = providerFactory.provider {
+        variant.sourceSets
+            .flatMap { it.resDirectories }
+            .mapNotNull {
+                File(it, "navigation").let { navFolder ->
+                    if (navFolder.exists() && navFolder.isDirectory) navFolder else null
+                }
+            }
+            .flatMap { navFolder -> navFolder.listFiles().asIterable() }
+            .filter { file -> file.isFile }
+            .groupBy { file -> file.name }
+            .map { entry -> entry.value.last() }
+    }
 }
 
-private fun navigationFiles(variant: BaseVariant) = variant.sourceSets
-        .flatMap { it.resDirectories }
-        .mapNotNull {
-            File(it, "navigation").let { navFolder ->
-                if (navFolder.exists() && navFolder.isDirectory) navFolder else null
-            }
-        }
-        .flatMap { navFolder -> navFolder.listFiles().asIterable() }
-        .groupBy { file -> file.name }
-        .map { entry -> entry.value.last() }
+@Suppress("unused")
+class SafeArgsJavaPlugin @Inject constructor(
+    providerFactory: ProviderFactory
+) : SafeArgsPlugin(providerFactory) {
 
-private fun BaseVariant.rFilePackage(): String {
-    val mainSourceSet = sourceSets.find { it.name == "main" }
-    val sourceSet = mainSourceSet ?: sourceSets[0]
-    val manifest = sourceSet.manifestFile
-    val parsed = XmlSlurper(false, false).parse(manifest)
-    return parsed.getProperty("@package").toString()
+    override val generateKotlin = false
+}
+
+@Suppress("unused")
+class SafeArgsKotlinPlugin @Inject constructor(
+    providerFactory: ProviderFactory
+) : SafeArgsPlugin(providerFactory) {
+
+    override val generateKotlin = true
 }

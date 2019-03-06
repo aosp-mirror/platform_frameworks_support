@@ -16,6 +16,7 @@
 
 package androidx.room.testing;
 
+import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,12 +29,16 @@ import androidx.room.RoomDatabase;
 import androidx.room.RoomOpenHelper;
 import androidx.room.migration.Migration;
 import androidx.room.migration.bundle.DatabaseBundle;
+import androidx.room.migration.bundle.DatabaseViewBundle;
 import androidx.room.migration.bundle.EntityBundle;
 import androidx.room.migration.bundle.FieldBundle;
 import androidx.room.migration.bundle.ForeignKeyBundle;
+import androidx.room.migration.bundle.FtsEntityBundle;
 import androidx.room.migration.bundle.IndexBundle;
 import androidx.room.migration.bundle.SchemaBundle;
+import androidx.room.util.FtsTableInfo;
 import androidx.room.util.TableInfo;
+import androidx.room.util.ViewInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
@@ -130,6 +135,7 @@ public class MigrationTestHelper extends TestWatcher {
      * @return A database connection which has the schema in the requested version.
      * @throws IOException If it cannot find the schema description in the assets folder.
      */
+    @SuppressLint("RestrictedApi")
     @SuppressWarnings("SameParameterValue")
     public SupportSQLiteDatabase createDatabase(String name, int version) throws IOException {
         File dbPath = mInstrumentation.getTargetContext().getDatabasePath(name);
@@ -144,10 +150,18 @@ public class MigrationTestHelper extends TestWatcher {
         SchemaBundle schemaBundle = loadSchema(version);
         RoomDatabase.MigrationContainer container = new RoomDatabase.MigrationContainer();
         DatabaseConfiguration configuration = new DatabaseConfiguration(
-                mInstrumentation.getTargetContext(), name, mOpenFactory, container, null, true,
+                mInstrumentation.getTargetContext(),
+                name,
+                mOpenFactory,
+                container,
+                null,
+                true,
                 RoomDatabase.JournalMode.TRUNCATE,
                 ArchTaskExecutor.getIOThreadExecutor(),
-                true, Collections.<Integer>emptySet());
+                false,
+                true,
+                false,
+                Collections.<Integer>emptySet());
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new CreatingDelegate(schemaBundle.getDatabase()),
                 schemaBundle.getDatabase().getIdentityHash(),
@@ -180,6 +194,7 @@ public class MigrationTestHelper extends TestWatcher {
      * @throws IOException           If it cannot find the schema for {@code toVersion}.
      * @throws IllegalStateException If the schema validation fails.
      */
+    @SuppressLint("RestrictedApi")
     public SupportSQLiteDatabase runMigrationsAndValidate(String name, int version,
             boolean validateDroppedTables, Migration... migrations) throws IOException {
         File dbPath = mInstrumentation.getTargetContext().getDatabasePath(name);
@@ -200,7 +215,9 @@ public class MigrationTestHelper extends TestWatcher {
                 true,
                 RoomDatabase.JournalMode.TRUNCATE,
                 ArchTaskExecutor.getIOThreadExecutor(),
+                false,
                 true,
+                false,
                 Collections.<Integer>emptySet());
         RoomOpenHelper roomOpenHelper = new RoomOpenHelper(configuration,
                 new MigratingDelegate(schemaBundle.getDatabase(), validateDroppedTables),
@@ -308,6 +325,17 @@ public class MigrationTestHelper extends TestWatcher {
                 toForeignKeys(entityBundle.getForeignKeys()), toIndices(entityBundle.getIndices()));
     }
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static FtsTableInfo toFtsTableInfo(FtsEntityBundle ftsEntityBundle) {
+        return new FtsTableInfo(ftsEntityBundle.getTableName(), toColumnNamesSet(ftsEntityBundle),
+                ftsEntityBundle.getCreateSql());
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static ViewInfo toViewInfo(DatabaseViewBundle viewBundle) {
+        return new ViewInfo(viewBundle.getViewName(), viewBundle.createView());
+    }
+
     private static Set<TableInfo.Index> toIndices(List<IndexBundle> indices) {
         if (indices == null) {
             return Collections.emptySet();
@@ -330,6 +358,14 @@ public class MigrationTestHelper extends TestWatcher {
             result.add(new TableInfo.ForeignKey(bundle.getTable(),
                     bundle.getOnDelete(), bundle.getOnUpdate(),
                     bundle.getColumns(), bundle.getReferencedColumns()));
+        }
+        return result;
+    }
+
+    private static Set<String> toColumnNamesSet(EntityBundle entity) {
+        Set<String> result = new HashSet<>();
+        for (FieldBundle field : entity.getFields()) {
+            result.add(field.getColumnName());
         }
         return result;
     }
@@ -378,15 +414,39 @@ public class MigrationTestHelper extends TestWatcher {
         protected void validateMigration(SupportSQLiteDatabase db) {
             final Map<String, EntityBundle> tables = mDatabaseBundle.getEntitiesByTableName();
             for (EntityBundle entity : tables.values()) {
-                final TableInfo expected = toTableInfo(entity);
-                final TableInfo found = TableInfo.read(db, entity.getTableName());
+                if (entity instanceof FtsEntityBundle) {
+                    final FtsTableInfo expected = toFtsTableInfo((FtsEntityBundle) entity);
+                    final FtsTableInfo found = FtsTableInfo.read(db, entity.getTableName());
+                    if (!expected.equals(found)) {
+                        throw new IllegalStateException(
+                                "Migration failed.\nExpected:" + expected + "\nFound:" + found);
+                    }
+                } else {
+                    final TableInfo expected = toTableInfo(entity);
+                    final TableInfo found = TableInfo.read(db, entity.getTableName());
+                    if (!expected.equals(found)) {
+                        throw new IllegalStateException(
+                                "Migration failed.\nExpected:" + expected + " \nfound:" + found);
+                    }
+                }
+            }
+            for (DatabaseViewBundle view : mDatabaseBundle.getViews()) {
+                final ViewInfo expected = toViewInfo(view);
+                final ViewInfo found = ViewInfo.read(db, view.getViewName());
                 if (!expected.equals(found)) {
                     throw new IllegalStateException(
-                            "Migration failed. expected:" + expected + " , found:" + found);
+                                "Migration failed.\nExpected:" + expected + " \nfound:" + found);
                 }
             }
             if (mVerifyDroppedTables) {
                 // now ensure tables that should be removed are removed.
+                Set<String> expectedTables = new HashSet<>();
+                for (EntityBundle entity : tables.values()) {
+                    expectedTables.add(entity.getTableName());
+                    if (entity instanceof FtsEntityBundle) {
+                        expectedTables.addAll(((FtsEntityBundle) entity).getShadowTableNames());
+                    }
+                }
                 Cursor cursor = db.query("SELECT name FROM sqlite_master WHERE type='table'"
                                 + " AND name NOT IN(?, ?, ?)",
                         new String[]{Room.MASTER_TABLE_NAME, "android_metadata",
@@ -395,7 +455,7 @@ public class MigrationTestHelper extends TestWatcher {
                 try {
                     while (cursor.moveToNext()) {
                         final String tableName = cursor.getString(0);
-                        if (!tables.containsKey(tableName)) {
+                        if (!expectedTables.contains(tableName)) {
                             throw new IllegalStateException("Migration failed. Unexpected table "
                                     + tableName);
                         }

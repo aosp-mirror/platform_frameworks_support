@@ -42,10 +42,16 @@ import java.util.List;
 
 public class WorkConstraintsTracker implements ConstraintController.OnConstraintUpdatedCallback {
 
-    private static final String TAG = "WorkConstraintsTracker";
+    private static final String TAG = Logger.tagWithPrefix("WorkConstraintsTracker");
 
     @Nullable private final WorkConstraintsCallback mCallback;
     private final ConstraintController[] mConstraintControllers;
+
+    // We need to keep hold a lock here for the cases where there is 1 WCT tracking a list of
+    // WorkSpecs. Changes in constraints are notified on the main thread. Enqueues / Cancellations
+    // occur on the task executor thread pool. So there is a chance of
+    // ConcurrentModificationExceptions.
+    private final Object mLock;
 
     /**
      * @param context  The application {@link Context}
@@ -57,14 +63,15 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
         Context appContext = context.getApplicationContext();
         mCallback = callback;
         mConstraintControllers = new ConstraintController[] {
-                new BatteryChargingController(appContext, this),
-                new BatteryNotLowController(appContext, this),
-                new StorageNotLowController(appContext, this),
-                new NetworkConnectedController(appContext, this),
-                new NetworkUnmeteredController(appContext, this),
-                new NetworkNotRoamingController(appContext, this),
-                new NetworkMeteredController(appContext, this)
+                new BatteryChargingController(appContext),
+                new BatteryNotLowController(appContext),
+                new StorageNotLowController(appContext),
+                new NetworkConnectedController(appContext),
+                new NetworkUnmeteredController(appContext),
+                new NetworkNotRoamingController(appContext),
+                new NetworkMeteredController(appContext)
         };
+        mLock = new Object();
     }
 
     @VisibleForTesting
@@ -74,6 +81,7 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
 
         mCallback = callback;
         mConstraintControllers = controllers;
+        mLock = new Object();
     }
 
     /**
@@ -82,8 +90,18 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
      * @param workSpecs A list of {@link WorkSpec}s to monitor constraints for
      */
     public void replace(@NonNull List<WorkSpec> workSpecs) {
-        for (ConstraintController controller : mConstraintControllers) {
-            controller.replace(workSpecs);
+        synchronized (mLock) {
+            for (ConstraintController controller : mConstraintControllers) {
+                controller.setCallback(null);
+            }
+
+            for (ConstraintController controller : mConstraintControllers) {
+                controller.replace(workSpecs);
+            }
+
+            for (ConstraintController controller : mConstraintControllers) {
+                controller.setCallback(this);
+            }
         }
     }
 
@@ -91,8 +109,10 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
      * Resets and clears all tracked {@link WorkSpec}s.
      */
     public void reset() {
-        for (ConstraintController controller : mConstraintControllers) {
-            controller.reset();
+        synchronized (mLock) {
+            for (ConstraintController controller : mConstraintControllers) {
+                controller.reset();
+            }
         }
     }
 
@@ -104,34 +124,40 @@ public class WorkConstraintsTracker implements ConstraintController.OnConstraint
      * met.
      */
     public boolean areAllConstraintsMet(@NonNull String workSpecId) {
-        for (ConstraintController constraintController : mConstraintControllers) {
-            if (constraintController.isWorkSpecConstrained(workSpecId)) {
-                Logger.debug(TAG, String.format("Work %s constrained by %s", workSpecId,
-                        constraintController.getClass().getSimpleName()));
-                return false;
+        synchronized (mLock) {
+            for (ConstraintController constraintController : mConstraintControllers) {
+                if (constraintController.isWorkSpecConstrained(workSpecId)) {
+                    Logger.get().debug(TAG, String.format("Work %s constrained by %s", workSpecId,
+                            constraintController.getClass().getSimpleName()));
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
     }
 
     @Override
     public void onConstraintMet(@NonNull List<String> workSpecIds) {
-        List<String> unconstrainedWorkSpecIds = new ArrayList<>();
-        for (String workSpecId : workSpecIds) {
-            if (areAllConstraintsMet(workSpecId)) {
-                Logger.debug(TAG, String.format("Constraints met for %s", workSpecId));
-                unconstrainedWorkSpecIds.add(workSpecId);
+        synchronized (mLock) {
+            List<String> unconstrainedWorkSpecIds = new ArrayList<>();
+            for (String workSpecId : workSpecIds) {
+                if (areAllConstraintsMet(workSpecId)) {
+                    Logger.get().debug(TAG, String.format("Constraints met for %s", workSpecId));
+                    unconstrainedWorkSpecIds.add(workSpecId);
+                }
             }
-        }
-        if (mCallback != null) {
-            mCallback.onAllConstraintsMet(unconstrainedWorkSpecIds);
+            if (mCallback != null) {
+                mCallback.onAllConstraintsMet(unconstrainedWorkSpecIds);
+            }
         }
     }
 
     @Override
     public void onConstraintNotMet(@NonNull List<String> workSpecIds) {
-        if (mCallback != null) {
-            mCallback.onAllConstraintsNotMet(workSpecIds);
+        synchronized (mLock) {
+            if (mCallback != null) {
+                mCallback.onAllConstraintsNotMet(workSpecIds);
+            }
         }
     }
 }

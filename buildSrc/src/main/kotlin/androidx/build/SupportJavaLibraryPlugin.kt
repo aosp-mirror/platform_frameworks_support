@@ -16,12 +16,12 @@
 
 package androidx.build
 
-import androidx.build.license.CheckExternalDependencyLicensesTask
-import org.gradle.api.JavaVersion
+import androidx.build.dokka.Dokka
+import androidx.build.metalava.Metalava
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginConvention
-import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.extra
 
 /**
  * Support java library specific plugin that sets common configurations needed for
@@ -30,31 +30,30 @@ import org.gradle.api.tasks.bundling.Jar
 class SupportJavaLibraryPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
+        project.apply<AndroidXPlugin>()
+
         val supportLibraryExtension = project.extensions.create("supportLibrary",
                 SupportLibraryExtension::class.java, project)
-        apply(project, supportLibraryExtension)
+        project.configureMavenArtifactUpload(supportLibraryExtension)
 
         project.apply(mapOf("plugin" to "java"))
         project.afterEvaluate {
-            val convention = project.convention.getPlugin(JavaPluginConvention::class.java)
-            if (supportLibraryExtension.java8Library) {
-                convention.sourceCompatibility = JavaVersion.VERSION_1_8
-                convention.targetCompatibility = JavaVersion.VERSION_1_8
-            } else {
-                convention.sourceCompatibility = JavaVersion.VERSION_1_7
-                convention.targetCompatibility = JavaVersion.VERSION_1_7
+            // workaround for b/120487939
+            project.configurations.all {
+                it.resolutionStrategy.preferProjectModules()
             }
-            DiffAndDocs.registerJavaProject(project, supportLibraryExtension)
-
-            project.tasks.withType(Jar::class.java) { jarTask ->
-                jarTask.setReproducibleFileOrder(true)
-                jarTask.setPreserveFileTimestamps(false)
+            if (supportLibraryExtension.publish) {
+                project.extra.set("publish", true)
+                project.addToProjectMap(supportLibraryExtension.mavenGroup)
+            }
+            Dokka.registerJavaProject(project, supportLibraryExtension)
+            if (supportLibraryExtension.useMetalava) {
+                Metalava.registerJavaProject(project, supportLibraryExtension)
+            } else {
+                DiffAndDocs.get(project).registerJavaProject(project, supportLibraryExtension)
             }
         }
 
-        project.configureErrorProneForJava()
-
-        setUpSourceJarTaskForJavaProject(project)
-        CheckExternalDependencyLicensesTask.configure(project)
+        project.configureNonAndroidProjectForLint(supportLibraryExtension)
     }
 }

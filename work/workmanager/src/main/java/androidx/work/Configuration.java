@@ -18,18 +18,28 @@ package androidx.work;
 
 import static androidx.work.impl.Scheduler.MAX_SCHEDULER_LIMIT;
 
+import android.content.Context;
 import android.os.Build;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+import android.util.Log;
 
+import androidx.work.impl.Scheduler;
 import androidx.work.impl.utils.IdGenerator;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * Configuration for {@link WorkManager}.
+ * The Configuration object used to customize {@link WorkManager} upon initialization.
+ * Configuration contains various parameters used to setup WorkManager.  For example, it is possible
+ * to customize the {@link Executor} used by {@link Worker}s here.
+ * <p>
+ * To set a custom Configuration for WorkManager, see
+ * {@link WorkManager#initialize(Context, Configuration)}.
  */
+
 public final class Configuration {
 
     /**
@@ -39,7 +49,8 @@ public final class Configuration {
     public static final int MIN_SCHEDULER_LIMIT = 20;
 
     private final @NonNull Executor mExecutor;
-    private final boolean mVerboseLoggingEnabled;
+    private final @NonNull WorkerFactory mWorkerFactory;
+    private final int mLoggingLevel;
     private final int mMinJobSchedulerId;
     private final int mMaxJobSchedulerId;
     private final int mMaxSchedulerLimit;
@@ -50,61 +61,74 @@ public final class Configuration {
         } else {
             mExecutor = builder.mExecutor;
         }
-        mVerboseLoggingEnabled = builder.mVerboseLoggingEnabled;
+
+        if (builder.mWorkerFactory == null) {
+            mWorkerFactory = WorkerFactory.getDefaultWorkerFactory();
+        } else {
+            mWorkerFactory = builder.mWorkerFactory;
+        }
+
+        mLoggingLevel = builder.mLoggingLevel;
         mMinJobSchedulerId = builder.mMinJobSchedulerId;
         mMaxJobSchedulerId = builder.mMaxJobSchedulerId;
         mMaxSchedulerLimit = builder.mMaxSchedulerLimit;
     }
 
     /**
-     * @return The {@link Executor} used by {@link WorkManager} to execute {@link Worker}s.
+     * @return The {@link Executor} used by {@link WorkManager} to execute {@link Worker}s
      */
     public @NonNull Executor getExecutor() {
         return mExecutor;
     }
 
     /**
-     * @return {@code true} if verbose logging is enabled.
-     * @hide
+     * @return The {@link WorkerFactory} used by {@link WorkManager} to create
+     *         {@link ListenableWorker}s
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public boolean isVerboseLoggingEnabled() {
-        return mVerboseLoggingEnabled;
+    public @NonNull WorkerFactory getWorkerFactory() {
+        return mWorkerFactory;
     }
 
     /**
-     * @return The first valid id (inclusive) used by {@link WorkManager} when
-     * creating new instances of {@link android.app.job.JobInfo}s.
-     *
-     * If the current {@code jobId} goes beyond the bounds of the defined range of
-     * ({@link Configuration.Builder#getMinJobSchedulerID()},
-     *  {@link Configuration.Builder#getMaxJobSchedulerID()}), it is reset to
-     *  ({@link Configuration.Builder#getMinJobSchedulerID()}).
+     * @return The minimum logging level.
+     * @hide
      */
-    public int getMinJobSchedulerID() {
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public int getMinimumLoggingLevel() {
+        return mLoggingLevel;
+    }
+
+    /**
+     * @return The first valid id (inclusive) used by {@link WorkManager} when creating new
+     *         instances of {@link android.app.job.JobInfo}s.  If the current {@code jobId} goes
+     *         beyond the bounds of the defined range of
+     *         ({@link Configuration.Builder#getMinJobSchedulerId()},
+     *         {@link Configuration.Builder#getMaxJobSchedulerId()}), it is reset to
+     *         ({@link Configuration.Builder#getMinJobSchedulerId()}).
+     */
+    public int getMinJobSchedulerId() {
         return mMinJobSchedulerId;
     }
 
     /**
      * @return The last valid id (inclusive) used by {@link WorkManager} when
-     * creating new instances of {@link android.app.job.JobInfo}s.
-     *
-     * If the current {@code jobId} goes beyond the bounds of the defined range of
-     * ({@link Configuration.Builder#getMinJobSchedulerID()},
-     *  {@link Configuration.Builder#getMaxJobSchedulerID()}), it is reset to
-     *  ({@link Configuration.Builder#getMinJobSchedulerID()}).
+     *         creating new instances of {@link android.app.job.JobInfo}s.  If the current
+     *         {@code jobId} goes beyond the bounds of the defined range of
+     *         ({@link Configuration.Builder#getMinJobSchedulerId()},
+     *         {@link Configuration.Builder#getMaxJobSchedulerId()}), it is reset to
+     *         ({@link Configuration.Builder#getMinJobSchedulerId()}).
      */
-    public int getMaxJobSchedulerID() {
+    public int getMaxJobSchedulerId() {
         return mMaxJobSchedulerId;
     }
 
     /**
      * @return The maximum number of system requests which can be enqueued by {@link WorkManager}
-     * when using {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}.
-     *
+     *         when using {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @IntRange(from = Configuration.MIN_SCHEDULER_LIMIT, to = Scheduler.MAX_SCHEDULER_LIMIT)
     public int getMaxSchedulerLimit() {
         // We double schedule jobs in SDK 23. So use half the number of max slots specified.
         if (Build.VERSION.SDK_INT == 23) {
@@ -121,20 +145,32 @@ public final class Configuration {
     }
 
     /**
-     * A Builder for {@link Configuration}.
+     * A Builder for {@link Configuration}s.
      */
     public static final class Builder {
 
+        Executor mExecutor;
+        WorkerFactory mWorkerFactory;
+        int mLoggingLevel = Log.INFO;
         int mMinJobSchedulerId = IdGenerator.INITIAL_ID;
         int mMaxJobSchedulerId = Integer.MAX_VALUE;
         int mMaxSchedulerLimit = MIN_SCHEDULER_LIMIT;
-        boolean mVerboseLoggingEnabled;
-        Executor mExecutor;
+
+        /**
+         * Specifies a custom {@link WorkerFactory} for WorkManager.
+         *
+         * @param workerFactory A {@link WorkerFactory} for creating {@link ListenableWorker}s
+         * @return This {@link Builder} instance
+         */
+        public @NonNull Builder setWorkerFactory(@NonNull WorkerFactory workerFactory) {
+            mWorkerFactory = workerFactory;
+            return this;
+        }
 
         /**
          * Specifies a custom {@link Executor} for WorkManager.
          *
-         * @param executor An {@link Executor} for processing work
+         * @param executor An {@link Executor} for running {@link Worker}s
          * @return This {@link Builder} instance
          */
         public @NonNull Builder setExecutor(@NonNull Executor executor) {
@@ -144,12 +180,19 @@ public final class Configuration {
 
         /**
          * Specifies the range of {@link android.app.job.JobInfo} IDs that can be used by
-         * {@link WorkManager}. {@link WorkManager} needs a range of at least {@code 1000} IDs.
+         * {@link WorkManager}.  WorkManager needs a range of at least {@code 1000} IDs.
+         * <p>
+         * JobScheduler uses integers as identifiers for jobs, and WorkManager delegates to
+         * JobScheduler on certain API levels.  In order to not clash job codes used in the rest of
+         * your app, you can use this method to tell WorkManager the valid range of job IDs that it
+         * can use.
+         * <p>
+         * The default values are {@code 0} and {@code Integer#MAX_VALUE}.
          *
-         * @param minJobSchedulerId The first valid {@link android.app.job.JobInfo} ID inclusive.
-         * @param maxJobSchedulerId The last valid {@link android.app.job.JobInfo} ID inclusive.
+         * @param minJobSchedulerId The first valid {@link android.app.job.JobInfo} ID (inclusive).
+         * @param maxJobSchedulerId The last valid {@link android.app.job.JobInfo} ID (inclusive).
          * @return This {@link Builder} instance
-         * @throws IllegalArgumentException when the size of the range is < 1000
+         * @throws IllegalArgumentException when the size of the range is less than 1000
          */
         public @NonNull Builder setJobSchedulerJobIdRange(
                 int minJobSchedulerId,
@@ -167,18 +210,18 @@ public final class Configuration {
         /**
          * Specifies the maximum number of system requests made by {@link WorkManager}
          * when using {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}.
-         * When the application exceeds this limit {@link WorkManager} maintains an internal queue
-         * of {@link WorkRequest}s, and enqueues when slots become free.
-         *
+         * When the application exceeds this limit, {@link WorkManager} maintains an internal queue
+         * of {@link WorkRequest}s, and schedules them when slots become free.
+         * <p>
          * {@link WorkManager} requires a minimum of {@link Configuration#MIN_SCHEDULER_LIMIT}
-         * slots. The total number of slots also cannot exceed {@code 100} which is
-         * the {@link android.app.job.JobScheduler} limit.
+         * slots; this is also the default value. The total number of slots also cannot exceed
+         * {@code 50}.
          *
          * @param maxSchedulerLimit The total number of jobs which can be enqueued by
-         *                                {@link WorkManager} when using
-         *                                {@link android.app.job.JobScheduler}.
+         *                          {@link WorkManager} when using
+         *                          {@link android.app.job.JobScheduler}.
          * @return This {@link Builder} instance
-         * @throws IllegalArgumentException when the number of jobs <
+         * @throws IllegalArgumentException if {@code maxSchedulerLimit} is less than
          *                                  {@link Configuration#MIN_SCHEDULER_LIMIT}
          */
         public @NonNull Builder setMaxSchedulerLimit(int maxSchedulerLimit) {
@@ -192,26 +235,17 @@ public final class Configuration {
         }
 
         /**
-         * Specifies a custom {@link Executor} for WorkManager.
+         * Specifies the minimum logging level, corresponding to the constants found in
+         * {@link android.util.Log}.  For example, specifying {@link android.util.Log#VERBOSE} will
+         * log everything, whereas specifying {@link android.util.Log#ERROR} will only log errors
+         * and assertions.The default value is {@link android.util.Log#INFO}.
          *
-         * @param executor An {@link Executor} for processing work
-         * @return This {@link Builder} instance
-         * @deprecated Use the {@link Configuration.Builder#setExecutor(Executor)} method instead
-         */
-        @Deprecated
-        public @NonNull Builder withExecutor(@NonNull Executor executor) {
-            mExecutor = executor;
-            return this;
-        }
-
-        /**
-         * Specifies whether to enable verbose WorkManager logging in logcat.
-         *
-         * @param verboseLoggingEnabled {@code true} to enable verbose logging
+         * @param loggingLevel The minimum logging level, corresponding to the constants found in
+         *                     {@link android.util.Log}
          * @return This {@link Builder} instance
          */
-        public @NonNull Builder setVerboseLoggingEnabled(boolean verboseLoggingEnabled) {
-            mVerboseLoggingEnabled = verboseLoggingEnabled;
+        public @NonNull Builder setMinimumLoggingLevel(int loggingLevel) {
+            mLoggingLevel = loggingLevel;
             return this;
         }
 

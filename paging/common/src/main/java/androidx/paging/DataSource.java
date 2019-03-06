@@ -17,6 +17,7 @@
 package androidx.paging;
 
 import androidx.annotation.AnyThread;
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
@@ -89,7 +90,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * return {@code null} items in lists that it loads. This is so that users of the PagedList
  * can differentiate unloaded placeholder items from content that has been paged in.
  *
- * @param <Key> Input used to trigger initial load from the DataSource. Often an Integer position.
+ * @param <Key> Unique identifier for item loaded from DataSource. Often an integer to represent
+ *             position in data set. Note - this is distinct from e.g. Room's {@code @PrimaryKey}.
  * @param <Value> Value type loaded by the DataSource.
  */
 @SuppressWarnings("unused") // suppress warning to remove Key/Value, needed for subclass type safety
@@ -129,6 +131,7 @@ public abstract class DataSource<Key, Value> {
          *
          * @return the new DataSource.
          */
+        @NonNull
         public abstract DataSource<Key, Value> create();
 
         /**
@@ -270,11 +273,13 @@ public abstract class DataSource<Key, Value> {
         @PageResult.ResultType
         final int mResultType;
         private final DataSource mDataSource;
-        private final PageResult.Receiver<T> mReceiver;
+        final PageResult.Receiver<T> mReceiver;
 
         // mSignalLock protects mPostExecutor, and mHasSignalled
         private final Object mSignalLock = new Object();
         private Executor mPostExecutor = null;
+
+        @GuardedBy("mSignalLock")
         private boolean mHasSignalled = false;
 
         LoadCallbackHelper(@NonNull DataSource dataSource, @PageResult.ResultType int resultType,
@@ -296,6 +301,7 @@ public abstract class DataSource<Key, Value> {
          *
          * @return true if DataSource was invalid, and invalid result dispatched
          */
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         boolean dispatchInvalidResultIfInvalid() {
             if (mDataSource.isInvalid()) {
                 dispatchResultToReceiver(PageResult.<T>getInvalidResult());
@@ -304,12 +310,21 @@ public abstract class DataSource<Key, Value> {
             return false;
         }
 
-        void dispatchResultToReceiver(final @NonNull PageResult<T> result) {
+        void dispatchResultToReceiver(@NonNull PageResult<T> result) {
+            dispatchToReceiver(result, null, false);
+        }
+
+        void dispatchErrorToReceiver(@NonNull Throwable error, boolean retryable) {
+            dispatchToReceiver(null, error, retryable);
+        }
+
+        private void dispatchToReceiver(final @Nullable PageResult<T> result,
+                final @Nullable Throwable error, final boolean retryable) {
             Executor executor;
             synchronized (mSignalLock) {
                 if (mHasSignalled) {
                     throw new IllegalStateException(
-                            "callback.onResult already called, cannot call again.");
+                            "callback.onResult/onError already called, cannot call again.");
                 }
                 mHasSignalled = true;
                 executor = mPostExecutor;
@@ -319,11 +334,21 @@ public abstract class DataSource<Key, Value> {
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        mReceiver.onPageResult(mResultType, result);
+                        dispatchOnCurrentThread(result, error, retryable);
                     }
                 });
             } else {
+                dispatchOnCurrentThread(result, error, retryable);
+            }
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        void dispatchOnCurrentThread(@Nullable PageResult<T> result,
+                @Nullable Throwable error, boolean retryable) {
+            if (result != null) {
                 mReceiver.onPageResult(mResultType, result);
+            } else {
+                mReceiver.onPageError(mResultType, error, retryable);
             }
         }
     }

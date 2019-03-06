@@ -16,8 +16,8 @@
 
 package androidx.navigation.fragment
 
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavDestinationBuilder
 import androidx.navigation.NavDestinationDsl
 import androidx.navigation.NavGraphBuilder
@@ -33,26 +33,26 @@ inline fun <reified F : Fragment> NavGraphBuilder.fragment(@IdRes id: Int) = fra
  * Construct a new [FragmentNavigator.Destination]
  */
 inline fun <reified F : Fragment> NavGraphBuilder.fragment(
-        @IdRes id: Int,
-        block: FragmentNavigatorDestinationBuilder.() -> Unit
+    @IdRes id: Int,
+    builder: FragmentNavigatorDestinationBuilder.() -> Unit
 ) = destination(FragmentNavigatorDestinationBuilder(
         provider[FragmentNavigator::class],
         id,
         F::class
-).apply(block))
+).apply(builder))
 
 /**
  * DSL for constructing a new [FragmentNavigator.Destination]
  */
 @NavDestinationDsl
 class FragmentNavigatorDestinationBuilder(
-        navigator: FragmentNavigator,
-        @IdRes id: Int,
-        private val fragmentClass: KClass<out Fragment>
+    navigator: FragmentNavigator,
+    @IdRes id: Int,
+    private val fragmentClass: KClass<out Fragment>
 ) : NavDestinationBuilder<FragmentNavigator.Destination>(navigator, id) {
 
     override fun build(): FragmentNavigator.Destination =
             super.build().also { destination ->
-                destination.fragmentClass = fragmentClass.java
+                destination.className = fragmentClass.java.name
             }
 }

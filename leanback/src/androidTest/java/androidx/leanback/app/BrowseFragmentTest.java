@@ -22,9 +22,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
 
 import android.app.Fragment;
 import android.app.Instrumentation;
@@ -49,10 +46,10 @@ import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -112,6 +109,22 @@ public class BrowseFragmentTest {
         });
     }
 
+    void waitForShowingHeaders() {
+        PollingCheck.waitFor(WAIT_TRANSIITON_TIMEOUT, new PollingCheck.PollingCheckCondition() {
+            public boolean canProceed() {
+                return mActivity.getBrowseTestFragment().isShowingHeaders();
+            }
+        });
+    }
+
+    void waitForHidingHeaders() {
+        PollingCheck.waitFor(WAIT_TRANSIITON_TIMEOUT, new PollingCheck.PollingCheckCondition() {
+            public boolean canProceed() {
+                return !mActivity.getBrowseTestFragment().isShowingHeaders();
+            }
+        });
+    }
+
     @Test
     public void testTouchMode() throws Throwable {
         Intent intent = new Intent();
@@ -125,10 +138,12 @@ public class BrowseFragmentTest {
                 .getBrowseTestFragment().getRowsFragment().getRowViewHolder(0);
         View card = rowVh.getGridView().getChildAt(0);
         tapView(card);
+        waitForHidingHeaders();
         waitForHeaderTransitionFinished();
         assertTrue(card.hasFocus());
         assertTrue(card.isInTouchMode());
         sendKeys(KeyEvent.KEYCODE_BACK);
+        waitForShowingHeaders();
         waitForHeaderTransitionFinished();
         assertTrue((mActivity.getBrowseTestFragment().getHeadersFragment()
                 .getVerticalGridView().getChildAt(0)).hasFocus());
@@ -146,6 +161,7 @@ public class BrowseFragmentTest {
 
         assertNotNull(mActivity.getBrowseTestFragment().getMainFragment());
         sendKeys(KeyEvent.KEYCODE_DPAD_RIGHT);
+        waitForHidingHeaders();
         waitForHeaderTransitionFinished();
         sendKeys(KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_BACK);
     }
@@ -266,8 +282,14 @@ public class BrowseFragmentTest {
             }
         });
 
-        verify(itemTask, timeout(5000).times(1)).run(any(Presenter.ViewHolder.class));
-
+        PollingCheck.waitFor(5000, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return mActivity.getBrowseTestFragment().getSelectedPosition() != 0
+                        && mActivity.getBrowseTestFragment().getGridView().getScrollState()
+                                == RecyclerView.SCROLL_STATE_IDLE;
+            }
+        });
         activityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {

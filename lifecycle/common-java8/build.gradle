@@ -23,9 +23,12 @@ plugins {
     id("SupportJavaLibraryPlugin")
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 dependencies {
     compile(project(":lifecycle:lifecycle-common"))
-    compile(SUPPORT_ANNOTATIONS)
+    compile(project(":annotation"))
 
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
@@ -34,10 +37,9 @@ dependencies {
 supportLibrary {
     name = "Android Lifecycle-Common for Java 8 Language"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_EXT
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2017"
     description = "Android Lifecycle-Common for Java 8 Language"
     url = SupportLibraryExtension.ARCHITECTURE_URL
-    java8Library = true
 }

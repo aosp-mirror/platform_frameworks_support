@@ -152,10 +152,8 @@ public class ChangeImageTransform extends Transition {
         int drawableWidth = drawable.getIntrinsicWidth();
         int drawableHeight = drawable.getIntrinsicHeight();
 
-        ImageViewUtils.startAnimateTransform(imageView);
-
         ObjectAnimator animator;
-        if (drawableWidth == 0 || drawableHeight == 0) {
+        if (drawableWidth <= 0 || drawableHeight <= 0) {
             animator = createNullAnimator(imageView);
         } else {
             if (startMatrix == null) {
@@ -168,14 +166,13 @@ public class ChangeImageTransform extends Transition {
             animator = createMatrixAnimator(imageView, startMatrix, endMatrix);
         }
 
-        ImageViewUtils.reserveEndAnimateTransform(imageView, animator);
-
         return animator;
     }
 
-    private ObjectAnimator createNullAnimator(ImageView imageView) {
+    @NonNull
+    private ObjectAnimator createNullAnimator(@NonNull ImageView imageView) {
         return ObjectAnimator.ofObject(imageView, ANIMATED_TRANSFORM_PROPERTY,
-                NULL_MATRIX_EVALUATOR, null, null);
+                NULL_MATRIX_EVALUATOR, MatrixUtils.IDENTITY_MATRIX, MatrixUtils.IDENTITY_MATRIX);
     }
 
     private ObjectAnimator createMatrixAnimator(final ImageView imageView, Matrix startMatrix,
@@ -184,15 +181,18 @@ public class ChangeImageTransform extends Transition {
                 new TransitionUtils.MatrixEvaluator(), startMatrix, endMatrix);
     }
 
-    private static Matrix copyImageMatrix(ImageView view) {
-        switch (view.getScaleType()) {
-            case FIT_XY:
-                return fitXYMatrix(view);
-            case CENTER_CROP:
-                return centerCropMatrix(view);
-            default:
-                return new Matrix(view.getImageMatrix());
+    @NonNull
+    private static Matrix copyImageMatrix(@NonNull ImageView view) {
+        final Drawable image = view.getDrawable();
+        if (image.getIntrinsicWidth() > 0 && image.getIntrinsicHeight() > 0) {
+            switch (view.getScaleType()) {
+                case FIT_XY:
+                    return fitXYMatrix(view);
+                case CENTER_CROP:
+                    return centerCropMatrix(view);
+            }
         }
+        return new Matrix(view.getImageMatrix());
     }
 
     /**

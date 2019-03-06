@@ -25,17 +25,17 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Test for expandable preferences in various contexts..
+ * Test for expandable preferences in various contexts.
  */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
@@ -50,7 +50,7 @@ public class ExpandablePreferenceTest {
     @Before
     @UiThreadTest
     public void setUp() {
-        mContext = InstrumentationRegistry.getTargetContext();
+        mContext = ApplicationProvider.getApplicationContext();
         PreferenceManager preferenceManager = new PreferenceManager(mContext);
         mScreen = preferenceManager.createPreferenceScreen(mContext);
 
@@ -174,7 +174,7 @@ public class ExpandablePreferenceTest {
         assertEquals(title, preferenceGroupAdapter.getItem(2).getSummary());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     @UiThreadTest
     public void nestedExpandablePreferences_notAllowed_shouldThrowAnException() {
         PreferenceCategory category = new PreferenceCategory(mContext);

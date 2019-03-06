@@ -16,6 +16,8 @@
 
 package androidx.appcompat.view.menu;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,15 +26,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
+import androidx.annotation.RestrictTo;
 import androidx.core.internal.view.SupportMenu;
 
 /**
  * Wraps a support {@link SupportMenu} as a framework {@link android.view.Menu}
+ * @hide
  */
-class MenuWrapperICS extends BaseMenuWrapper<SupportMenu> implements Menu {
+@RestrictTo(LIBRARY_GROUP_PREFIX)
+public class MenuWrapperICS extends BaseMenuWrapper implements Menu {
+    private final SupportMenu mWrappedObject;
 
-    MenuWrapperICS(Context context, SupportMenu object) {
-        super(context, object);
+    public MenuWrapperICS(Context context, SupportMenu object) {
+        super(context);
+        if (object == null) {
+            throw new IllegalArgumentException("Wrapped Object can not be null.");
+        }
+        mWrappedObject = object;
     }
 
     @Override
