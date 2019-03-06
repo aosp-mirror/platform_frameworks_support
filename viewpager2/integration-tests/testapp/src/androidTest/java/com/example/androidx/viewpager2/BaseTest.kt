@@ -25,16 +25,24 @@ import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.viewpager2.widget.ViewPager2
+import com.example.androidx.viewpager2.test.ViewPagerIdleWatcher
 import com.example.androidx.viewpager2.test.onCurrentPage
 import com.example.androidx.viewpager2.test.onViewPager
 import com.example.androidx.viewpager2.test.swipeNext
 import com.example.androidx.viewpager2.test.swipePrevious
-import com.example.androidx.viewpager2.test.ViewPagerIdleWatcher
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 
+/**
+ * Base class for all tests. Contains common functionality, like finding the [ViewPager2] under
+ * test, swiping back and forth on it and waiting for it to become idle.
+ *
+ * @see ViewPagerBaseTest
+ * @see MutableCollectionBaseTest
+ * @see TabLayoutTest
+ */
 abstract class BaseTest<T : FragmentActivity>(clazz: Class<T>) {
     @Rule
     @JvmField
@@ -44,11 +52,12 @@ abstract class BaseTest<T : FragmentActivity>(clazz: Class<T>) {
     abstract val layoutId: Int
 
     lateinit var idleWatcher: ViewPagerIdleWatcher
+    lateinit var viewPager: ViewPager2
 
     @Before
     open fun setUp() {
-        val viewPager = activityTestRule.activity.findViewById<ViewPager2>(layoutId)
-        idleWatcher = ViewPagerIdleWatcher.registerViewPagerIdlingResource(viewPager)
+        viewPager = activityTestRule.activity.findViewById(layoutId)
+        idleWatcher = ViewPagerIdleWatcher(viewPager)
     }
 
     @After
@@ -56,16 +65,14 @@ abstract class BaseTest<T : FragmentActivity>(clazz: Class<T>) {
         idleWatcher.unregister()
     }
 
-    fun swipeToNextPage(action: (() -> Unit)? = null) {
+    fun swipeToNextPage() {
         onViewPager().perform(swipeNext())
-        if (action != null) action()
         idleWatcher.waitForIdle()
         onIdle()
     }
 
-    fun swipeToPreviousPage(action: (() -> Unit)? = null) {
+    fun swipeToPreviousPage() {
         onViewPager().perform(swipePrevious())
-        if (action != null) action()
         idleWatcher.waitForIdle()
         onIdle()
     }
