@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5b855013_013b9146",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2960,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-06T06:04:55Z",
+      "side": 1,
+      "message": "Let\u0027s put this at L2955",
+      "range": {
+        "startLine": 2960,
+        "startChar": 8,
+        "endLine": 2960,
+        "endChar": 59
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddc284ce_efc1e997",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 6
@@ -18,6 +41,75 @@
         "startChar": 22,
         "endLine": 3901,
         "endChar": 46
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d22f6e2_250e0302",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4794,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-06T06:04:55Z",
+      "side": 1,
+      "message": "Q) Why this explanation is changed? For me, the previous doc sounds more direct.",
+      "range": {
+        "startLine": 4794,
+        "startChar": 15,
+        "endLine": 4794,
+        "endChar": 78
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "187cfdc3_090b6173",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4805,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-06T06:04:55Z",
+      "side": 1,
+      "message": "Is this a class? If so, please use {@link } than {@code}\n\nditto for above getDataTime() ( {@code DateTime} )",
+      "range": {
+        "startLine": 4805,
+        "startChar": 29,
+        "endLine": 4805,
+        "endChar": 46
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972387df_d7259a84",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4821,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-06T06:04:55Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4816,
+        "startChar": 4,
+        "endLine": 4821,
+        "endChar": 7
       },
       "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
