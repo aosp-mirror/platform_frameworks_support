@@ -16,7 +16,7 @@
 
 package androidx.versionedparcelable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.os.IBinder;
 import android.os.IInterface;
@@ -38,7 +38,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public @interface VersionedParcelize {
     /**
      * Whether or not to allow this VersionedParcelable to be used with
@@ -57,7 +57,7 @@ public @interface VersionedParcelize {
      * {@link VersionedParcel#writeStrongBinder(IBinder, int)}, or
      * {@link VersionedParcel#writeStrongInterface(IInterface, int)} is made, then a runtime
      * exception
-     * is thrown. If the flag is false, then the object will simply be skipped and initalized
+     * is thrown. If the flag is true, then the object will simply be skipped and initalized
      * to its default value upon deserialization.
      * <p>
      * If {@link #allowSerialization()} is false, this flag has no effect.
@@ -81,4 +81,11 @@ public @interface VersionedParcelize {
      * migration.
      */
     String jetifyAs() default "";
+
+    /**
+     * Specifies a class to use to get objects for instantiation rather than creating them
+     * directly. The class must have an accessible empty constructor, and a get() method that
+     * returns an instance of the class this annotation is on.
+     */
+    Class factory() default void.class;
 }

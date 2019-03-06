@@ -19,20 +19,18 @@ package androidx.webkit;
 import android.content.Context;
 import android.os.Build;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
-import androidx.webkit.internal.WebViewGlueCommunicator;
+import androidx.test.platform.app.InstrumentationRegistry;
 
-import org.chromium.support_lib_boundary.util.Features;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,13 +44,12 @@ import java.util.regex.Pattern;
 @RunWith(AndroidJUnit4.class)
 public class WebViewApkTest {
     /**
-     * Represents a WebView version. Is comparable.
+     * Represents a WebView version. Is comparable. This supports version numbers following the
+     * scheme outlined at https://www.chromium.org/developers/version-numbers.
      */
     private static class WebViewVersion implements Comparable<WebViewVersion> {
         private static final Pattern CHROMIUM_VERSION_REGEX =
                 Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$");
-        private static final Pattern OLD_CHROMIUM_VERSION_REGEX =
-                Pattern.compile("^(3[789]|4[01]) \\(.*\\)$");
 
         private int[] mComponents;
 
@@ -62,8 +59,6 @@ public class WebViewApkTest {
                 mComponents = new int[] { Integer.parseInt(m.group(1)),
                     Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)),
                     Integer.parseInt(m.group(4)) };
-            } else if ((m = OLD_CHROMIUM_VERSION_REGEX.matcher(versionString)).matches()) {
-                mComponents = new int[] { Integer.parseInt(m.group(1)), 0, 0, 0 };
             } else {
                 throw new IllegalArgumentException("Invalid WebView version string: '"
                         + versionString + "'");
@@ -90,59 +85,28 @@ public class WebViewApkTest {
             }
             return 0;
         }
+
+        @Override
+        public String toString() {
+            return this.mComponents[0] + "." + this.mComponents[1] + "."
+                    + this.mComponents[2] + "." + this.mComponents[3];
+        }
     }
 
-    @Test
-    public void testApkSupportsExpectedFeatures() {
-        Context context = InstrumentationRegistry.getTargetContext();
-        final WebViewVersion apkVersion =
-                new WebViewVersion(WebViewCompat.getCurrentWebViewPackage(context).versionName);
-
-        // For simplicity, we require this test to run on at least the first WebView canary
-        // supporting the bulk of WebView features (there's nothing interesting to test before the
-        // first M67).
-        Assume.assumeTrue(apkVersion.compareTo(new WebViewVersion("67.0.3396.0")) >= 0);
-
-        // Add/remove Features for each WebView version.
-        final HashSet<String> expectedFeatures = new HashSet<>();
-
-        expectedFeatures.add(Features.SERVICE_WORKER_BASIC_USAGE);
-        expectedFeatures.add(Features.WEB_RESOURCE_ERROR_GET_CODE);
-        expectedFeatures.add(Features.SHOULD_OVERRIDE_WITH_REDIRECTS);
-        expectedFeatures.add(Features.SAFE_BROWSING_RESPONSE_SHOW_INTERSTITIAL);
-        expectedFeatures.add(Features.VISUAL_STATE_CALLBACK);
-        expectedFeatures.add(Features.SAFE_BROWSING_PRIVACY_POLICY_URL);
-        expectedFeatures.add(Features.SAFE_BROWSING_HIT);
-        expectedFeatures.add(Features.OFF_SCREEN_PRERASTER);
-        expectedFeatures.add(Features.WEB_RESOURCE_REQUEST_IS_REDIRECT);
-        expectedFeatures.add(Features.SAFE_BROWSING_WHITELIST);
-        expectedFeatures.add(Features.SERVICE_WORKER_FILE_ACCESS);
-        expectedFeatures.add(Features.SERVICE_WORKER_CONTENT_ACCESS);
-        expectedFeatures.add(Features.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY);
-        expectedFeatures.add(Features.SERVICE_WORKER_BLOCK_NETWORK_LOADS);
-        expectedFeatures.add(Features.SERVICE_WORKER_CACHE_MODE);
-        expectedFeatures.add(Features.SAFE_BROWSING_ENABLE);
-        expectedFeatures.add(Features.RECEIVE_HTTP_ERROR);
-        expectedFeatures.add(Features.SAFE_BROWSING_RESPONSE_PROCEED);
-        expectedFeatures.add(Features.DISABLED_ACTION_MODE_MENU_ITEMS);
-        expectedFeatures.add(Features.RECEIVE_WEB_RESOURCE_ERROR);
-        expectedFeatures.add(Features.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
-        expectedFeatures.add(Features.START_SAFE_BROWSING);
-        expectedFeatures.add(Features.WEB_RESOURCE_ERROR_GET_DESCRIPTION);
-
-        if (apkVersion.compareTo(new WebViewVersion("68.0.3432.0")) >= 0) {
-            expectedFeatures.add(Features.WEB_MESSAGE_PORT_POST_MESSAGE);
-            expectedFeatures.add(Features.WEB_MESSAGE_PORT_CLOSE);
-            expectedFeatures.add(Features.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK);
-            expectedFeatures.add(Features.CREATE_WEB_MESSAGE_CHANNEL);
-            expectedFeatures.add(Features.POST_WEB_MESSAGE);
-            expectedFeatures.add(Features.WEB_MESSAGE_CALLBACK_ON_MESSAGE);
+    private WebViewVersion getInstalledWebViewVersionFromPackage() {
+        Context context = ApplicationProvider.getApplicationContext();
+        // Before M42, we used the major version number, followed by other text wrapped in
+        // parentheses.
+        final Pattern oldVersionNameFormat =
+                Pattern.compile("^(37|38|39|40|41) \\(.*\\)$");
+        String installedVersionName = WebViewCompat.getCurrentWebViewPackage(context).versionName;
+        Matcher m = oldVersionNameFormat.matcher(installedVersionName);
+        if (m.matches()) {
+            // There's no way to get the full version number, so just assume 0s for the later
+            // numbers.
+            installedVersionName = "" + m.group(1) + ".0.0.0";
         }
-
-        final HashSet<String> apkFeatures = new HashSet<>(
-                Arrays.asList(WebViewGlueCommunicator.getFactory().getWebViewFeatures()));
-
-        Assert.assertEquals(expectedFeatures, apkFeatures);
+        return new WebViewVersion(installedVersionName);
     }
 
     /**
@@ -155,12 +119,16 @@ public class WebViewApkTest {
     @Test
     public void testWebViewVersionMatchesInstrumentationArgs() {
         // WebView version: e.g. 46.0.2490.14, or 67.0.3396.17.
-        String expectedWebViewVersion =
+        String expectedWebViewVersionString =
                 InstrumentationRegistry.getArguments().getString("webview-version");
-        Assume.assumeNotNull(expectedWebViewVersion);
-        String actualWebViewVersion =
-                WebViewCompat.getCurrentWebViewPackage(
-                        InstrumentationRegistry.getTargetContext()).versionName;
+        // Use assumeTrue instead of using assumeNotNull so that we can provide a more descriptive
+        // message.
+        Assume.assumeTrue("Did not receive a WebView version as an instrumentation argument",
+                expectedWebViewVersionString != null);
+        // Convert to a WebViewVersion as a sanity check to ensure these are well-formed
+        // Chromium-style version strings.
+        WebViewVersion expectedWebViewVersion = new WebViewVersion(expectedWebViewVersionString);
+        WebViewVersion actualWebViewVersion = getInstalledWebViewVersionFromPackage();
         Assert.assertEquals(expectedWebViewVersion, actualWebViewVersion);
     }
 }

@@ -24,14 +24,23 @@ plugins {
     id("kotlin-android")
 }
 
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
+}
+
 dependencies {
-    api(project(":arch:core-runtime"))
     api(project(":paging:paging-common"))
+
+    api(project(":arch:core-runtime"))
 
     api(RX_JAVA)
     androidTestImplementation(JUNIT)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(KOTLIN_STDLIB)
@@ -45,5 +54,4 @@ supportLibrary {
     inceptionYear = "2018"
     description = "Android Paging RXJava2"
     url = SupportLibraryExtension.ARCHITECTURE_URL
-    failOnUncheckedWarnings = false
 }

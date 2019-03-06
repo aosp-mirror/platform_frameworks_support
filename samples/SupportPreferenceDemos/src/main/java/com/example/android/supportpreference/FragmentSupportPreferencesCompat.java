@@ -23,9 +23,10 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
+import com.example.androidx.preference.R;
+
 /**
- * Demonstration of PreferenceFragment, showing a single fragment in an
- * activity.
+ * TODO(b/112588100): Remove after documentation is updated to point to new samples
  */
 public class FragmentSupportPreferencesCompat extends AppCompatActivity
         implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {

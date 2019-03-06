@@ -22,13 +22,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.support.annotation.NavigationRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
+
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -38,25 +38,7 @@ import java.io.IOException;
 /**
  * Class which translates a navigation XML file into a {@link NavGraph}
  */
-public class NavInflater {
-    /**
-     * Metadata key for defining an app's default navigation graph.
-     *
-     * <p>Applications may declare a graph resource in their manifest instead of declaring
-     * or passing this data to each host or controller:</p>
-     *
-     * <pre class="prettyprint">
-     *     <meta-data android:name="android.nav.graph" android:resource="@xml/my_nav_graph" />
-     * </pre>
-     *
-     * <p>A graph resource declared in this manner can be inflated into a controller by calling
-     * {@link NavController#setMetadataGraph()} or directly via {@link #inflateMetadataGraph()}.
-     * Navigation host implementations should do this automatically
-     * if no navigation resource is otherwise supplied during host configuration.</p>
-     */
-    @SuppressWarnings("WeakerAccess")
-    public static final String METADATA_KEY_GRAPH = "android.nav.graph";
-
+public final class NavInflater {
     private static final String TAG_ARGUMENT = "argument";
     private static final String TAG_DEEP_LINK = "deepLink";
     private static final String TAG_ACTION = "action";
@@ -73,29 +55,6 @@ public class NavInflater {
         mNavigatorProvider = navigatorProvider;
     }
 
-    /**
-     * Inflates {@link NavGraph navigation graph} as specified in the application manifest.
-     *
-     * <p>Applications may declare a graph resource in their manifest instead of declaring
-     * or passing this data to each host or controller:</p>
-     *
-     * <pre class="prettyprint">
-     *     <meta-data android:name="android.nav.graph" android:resource="@xml/my_nav_graph" />
-     * </pre>
-     *
-     * @see #METADATA_KEY_GRAPH
-     */
-    @Nullable
-    public NavGraph inflateMetadataGraph() {
-        final Bundle metaData = mContext.getApplicationInfo().metaData;
-        if (metaData != null) {
-            final int resid = metaData.getInt(METADATA_KEY_GRAPH);
-            if (resid != 0) {
-                return inflate(resid);
-            }
-        }
-        return null;
-    }
     /**
      * Inflate a NavGraph from the given XML resource id.
      *
@@ -119,7 +78,7 @@ public class NavInflater {
             }
 
             String rootElement = parser.getName();
-            NavDestination destination = inflate(res, parser, attrs);
+            NavDestination destination = inflate(res, parser, attrs, graphResId);
             if (!(destination instanceof NavGraph)) {
                 throw new IllegalArgumentException("Root element <" + rootElement + ">"
                         + " did not inflate into a NavGraph");
@@ -136,7 +95,8 @@ public class NavInflater {
 
     @NonNull
     private NavDestination inflate(@NonNull Resources res, @NonNull XmlResourceParser parser,
-            @NonNull AttributeSet attrs) throws XmlPullParserException, IOException {
+            @NonNull AttributeSet attrs, int graphResId)
+            throws XmlPullParserException, IOException {
         Navigator navigator = mNavigatorProvider.getNavigator(parser.getName());
         final NavDestination dest = navigator.createDestination();
 
@@ -158,78 +118,126 @@ public class NavInflater {
 
             final String name = parser.getName();
             if (TAG_ARGUMENT.equals(name)) {
-                inflateArgument(res, dest, attrs);
+                inflateArgumentForDestination(res, dest, attrs, graphResId);
             } else if (TAG_DEEP_LINK.equals(name)) {
                 inflateDeepLink(res, dest, attrs);
             } else if (TAG_ACTION.equals(name)) {
-                inflateAction(res, dest, attrs);
+                inflateAction(res, dest, attrs, parser, graphResId);
             } else if (TAG_INCLUDE.equals(name) && dest instanceof NavGraph) {
                 final TypedArray a = res.obtainAttributes(attrs, R.styleable.NavInclude);
                 final int id = a.getResourceId(R.styleable.NavInclude_graph, 0);
                 ((NavGraph) dest).addDestination(inflate(id));
                 a.recycle();
             } else if (dest instanceof NavGraph) {
-                ((NavGraph) dest).addDestination(inflate(res, parser, attrs));
+                ((NavGraph) dest).addDestination(inflate(res, parser, attrs, graphResId));
             }
         }
 
         return dest;
     }
 
-    private void inflateArgument(@NonNull Resources res, @NonNull NavDestination dest,
-            @NonNull AttributeSet attrs) throws XmlPullParserException {
+    private void inflateArgumentForDestination(@NonNull Resources res, @NonNull NavDestination dest,
+            @NonNull AttributeSet attrs, int graphResId) throws XmlPullParserException {
         final TypedArray a = res.obtainAttributes(attrs, R.styleable.NavArgument);
         String name = a.getString(R.styleable.NavArgument_android_name);
+        if (name == null) {
+            throw new XmlPullParserException("Arguments must have a name");
+        }
+        NavArgument argument = inflateArgument(a, res, graphResId);
+        dest.addArgument(name, argument);
+        a.recycle();
+    }
+
+    private void inflateArgumentForBundle(@NonNull Resources res, @NonNull Bundle bundle,
+            @NonNull AttributeSet attrs, int graphResId) throws XmlPullParserException {
+        final TypedArray a = res.obtainAttributes(attrs, R.styleable.NavArgument);
+        String name = a.getString(R.styleable.NavArgument_android_name);
+        if (name == null) {
+            throw new XmlPullParserException("Arguments must have a name");
+        }
+        NavArgument argument = inflateArgument(a, res, graphResId);
+        if (argument.isDefaultValuePresent()) {
+            argument.putDefaultValue(name, bundle);
+        }
+        a.recycle();
+    }
+
+    @SuppressWarnings("unchecked")
+    @NonNull
+    private NavArgument inflateArgument(@NonNull TypedArray a, @NonNull Resources res,
+            int graphResId) throws XmlPullParserException {
+        NavArgument.Builder argumentBuilder = new NavArgument.Builder();
+        argumentBuilder.setIsNullable(a.getBoolean(R.styleable.NavArgument_nullable, false));
 
         TypedValue value = sTmpValue.get();
         if (value == null) {
             value = new TypedValue();
             sTmpValue.set(value);
         }
-        String argType = a.getString(R.styleable.NavArgument_type);
+
+        Object defaultValue = null;
+        NavType navType = null;
+        String argType = a.getString(R.styleable.NavArgument_argType);
+        if (argType != null) {
+            navType = NavType.fromArgType(argType, res.getResourcePackageName(graphResId));
+        }
+
         if (a.getValue(R.styleable.NavArgument_android_defaultValue, value)) {
-            if ("string".equals(argType)) {
-                dest.getDefaultArguments()
-                        .putString(name, a.getString(R.styleable.NavArgument_android_defaultValue));
+            if (navType == NavType.ReferenceType) {
+                if (value.resourceId != 0) {
+                    defaultValue = value.resourceId;
+                } else if (value.type == TypedValue.TYPE_FIRST_INT && value.data == 0) {
+                    // Support "0" as a default value for reference types
+                    defaultValue = 0;
+                } else {
+                    throw new XmlPullParserException(
+                            "unsupported value '" + value.string
+                                    + "' for " + navType.getName()
+                                    + ". Must be a reference to a resource.");
+                }
+            } else if (value.resourceId != 0) {
+                if (navType == null) {
+                    navType = NavType.ReferenceType;
+                    defaultValue = value.resourceId;
+                } else {
+                    throw new XmlPullParserException(
+                            "unsupported value '" + value.string
+                                    + "' for " + navType.getName()
+                                    + ". You must use a \"" + NavType.ReferenceType.getName()
+                                    + "\" type to reference other resources.");
+                }
+            } else if (navType == NavType.StringType) {
+                defaultValue = a.getString(R.styleable.NavArgument_android_defaultValue);
             } else {
                 switch (value.type) {
                     case TypedValue.TYPE_STRING:
                         String stringValue = value.string.toString();
-                        if (argType == null) {
-                            Long longValue = parseLongValue(stringValue);
-                            if (longValue != null) {
-                                dest.getDefaultArguments().putLong(name, longValue);
-                                break;
-                            }
-                        } else if ("long".equals(argType)) {
-                            Long longValue = parseLongValue(stringValue);
-                            if (longValue != null) {
-                                dest.getDefaultArguments().putLong(name, longValue);
-                                break;
-                            }
-                            throw new XmlPullParserException(
-                                    "unsupported long value " + value.string);
+                        if (navType == null) {
+                            navType = NavType.inferFromValue(stringValue);
                         }
-                        dest.getDefaultArguments().putString(name, stringValue);
+                        defaultValue = navType.parseValue(stringValue);
                         break;
                     case TypedValue.TYPE_DIMENSION:
-                        dest.getDefaultArguments().putInt(name,
-                                (int) value.getDimension(res.getDisplayMetrics()));
+                        navType = checkNavType(value, navType, NavType.IntType,
+                                argType, "dimension");
+                        defaultValue = (int) value.getDimension(res.getDisplayMetrics());
                         break;
                     case TypedValue.TYPE_FLOAT:
-                        dest.getDefaultArguments().putFloat(name, value.getFloat());
+                        navType = checkNavType(value, navType, NavType.FloatType,
+                                argType, "float");
+                        defaultValue = value.getFloat();
                         break;
-                    case TypedValue.TYPE_REFERENCE:
-                        dest.getDefaultArguments().putInt(name, value.data);
+                    case TypedValue.TYPE_INT_BOOLEAN:
+                        navType = checkNavType(value, navType, NavType.BoolType,
+                                argType, "boolean");
+                        defaultValue = value.data != 0;
                         break;
                     default:
                         if (value.type >= TypedValue.TYPE_FIRST_INT
                                 && value.type <= TypedValue.TYPE_LAST_INT) {
-                            if (value.type == TypedValue.TYPE_INT_BOOLEAN) {
-                                dest.getDefaultArguments().putBoolean(name, value.data != 0);
-                            } else {
-                                dest.getDefaultArguments().putInt(name, value.data);
-                            }
+                            navType = checkNavType(value, navType, NavType.IntType,
+                                    argType, "integer");
+                            defaultValue = value.data;
                         } else {
                             throw new XmlPullParserException(
                                     "unsupported argument type " + value.type);
@@ -237,23 +245,24 @@ public class NavInflater {
                 }
             }
         }
-        a.recycle();
+
+        if (defaultValue != null) {
+            argumentBuilder.setDefaultValue(defaultValue);
+        }
+        if (navType != null) {
+            argumentBuilder.setType(navType);
+        }
+        return argumentBuilder.build();
     }
 
-    private @Nullable Long parseLongValue(String value) {
-        if (!value.endsWith("L")) {
-            return null;
+    private static NavType checkNavType(TypedValue value, NavType navType,
+            NavType expectedNavType, String argType, String foundType)
+            throws XmlPullParserException {
+        if (navType != null && navType != expectedNavType) {
+            throw new XmlPullParserException(
+                    "Type is " + argType + " but found " + foundType + ": " + value.data);
         }
-        try {
-            value = value.substring(0, value.length() - 1);
-            if (value.startsWith("0x")) {
-                return Long.parseLong(value.substring(2), 16);
-            } else {
-                return Long.parseLong(value);
-            }
-        } catch (NumberFormatException ex) {
-            return null;
-        }
+        return navType != null ? navType : expectedNavType;
     }
 
     private void inflateDeepLink(@NonNull Resources res, @NonNull NavDestination dest,
@@ -269,9 +278,9 @@ public class NavInflater {
         a.recycle();
     }
 
-    @SuppressWarnings("deprecation")
     private void inflateAction(@NonNull Resources res, @NonNull NavDestination dest,
-            @NonNull AttributeSet attrs) {
+            @NonNull AttributeSet attrs, XmlResourceParser parser, int graphResId)
+            throws IOException, XmlPullParserException {
         final TypedArray a = res.obtainAttributes(attrs, R.styleable.NavAction);
         final int id = a.getResourceId(R.styleable.NavAction_android_id, 0);
         final int destId = a.getResourceId(R.styleable.NavAction_destination, 0);
@@ -279,9 +288,7 @@ public class NavInflater {
 
         NavOptions.Builder builder = new NavOptions.Builder();
         builder.setLaunchSingleTop(a.getBoolean(R.styleable.NavAction_launchSingleTop, false));
-        builder.setLaunchDocument(a.getBoolean(R.styleable.NavAction_launchDocument, false));
-        builder.setClearTask(a.getBoolean(R.styleable.NavAction_clearTask, false));
-        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, 0),
+        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, -1),
                 a.getBoolean(R.styleable.NavAction_popUpToInclusive, false));
         builder.setEnterAnim(a.getResourceId(R.styleable.NavAction_enterAnim, -1));
         builder.setExitAnim(a.getResourceId(R.styleable.NavAction_exitAnim, -1));
@@ -289,6 +296,28 @@ public class NavInflater {
         builder.setPopExitAnim(a.getResourceId(R.styleable.NavAction_popExitAnim, -1));
         action.setNavOptions(builder.build());
 
+        Bundle args = new Bundle();
+        final int innerDepth = parser.getDepth() + 1;
+        int type;
+        int depth;
+        while ((type = parser.next()) != XmlPullParser.END_DOCUMENT
+                && ((depth = parser.getDepth()) >= innerDepth
+                || type != XmlPullParser.END_TAG)) {
+            if (type != XmlPullParser.START_TAG) {
+                continue;
+            }
+
+            if (depth > innerDepth) {
+                continue;
+            }
+            final String name = parser.getName();
+            if (TAG_ARGUMENT.equals(name)) {
+                inflateArgumentForBundle(res, args, attrs, graphResId);
+            }
+        }
+        if (!args.isEmpty()) {
+            action.setDefaultArguments(args);
+        }
         dest.putAction(id, action);
         a.recycle();
     }

@@ -21,6 +21,7 @@ import androidx.room.ext.RoomTypeNames
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
 import androidx.room.vo.Dao
+import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.Warning
 import com.google.auto.common.MoreElements
 import com.google.auto.common.MoreTypes
@@ -29,7 +30,7 @@ import com.google.testing.compile.CompileTester
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourcesSubjectFactory
 import compileLibrarySource
-import createVerifierFromEntities
+import createVerifierFromEntitiesAndViews
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -229,7 +230,8 @@ class DaoProcessorTest(val enableVerification: Boolean) {
                 """
         ) { dao, _ ->
             assertThat(dao.queryMethods.size, `is`(1))
-            assertThat(dao.queryMethods.first().inTransaction, `is`(false))
+            assertThat(dao.queryMethods.filterIsInstance<ReadQueryMethod>().first().inTransaction,
+                `is`(false))
         }.compilesWithoutError()
                 .withWarningContaining(ProcessorErrors.TRANSACTION_MISSING_ON_RELATION)
     }
@@ -254,7 +256,8 @@ class DaoProcessorTest(val enableVerification: Boolean) {
                 """
         ) { dao, _ ->
             assertThat(dao.queryMethods.size, `is`(1))
-            assertThat(dao.queryMethods.first().inTransaction, `is`(false))
+            assertThat(dao.queryMethods.filterIsInstance<ReadQueryMethod>().first().inTransaction,
+                `is`(false))
         }.compilesWithoutError()
                 .withWarningCount(0)
     }
@@ -280,7 +283,8 @@ class DaoProcessorTest(val enableVerification: Boolean) {
         ) { dao, _ ->
             // test sanity
             assertThat(dao.queryMethods.size, `is`(1))
-            assertThat(dao.queryMethods.first().inTransaction, `is`(true))
+            assertThat(dao.queryMethods.filterIsInstance<ReadQueryMethod>().first().inTransaction,
+                `is`(true))
         }.compilesWithoutError()
                 .withWarningCount(0)
     }
@@ -310,7 +314,7 @@ class DaoProcessorTest(val enableVerification: Boolean) {
                                             androidx.room.Dao::class.java)
                                     .first()
                             val dbVerifier = if (enableVerification) {
-                                createVerifierFromEntities(invocation)
+                                createVerifierFromEntitiesAndViews(invocation)
                             } else {
                                 null
                             }

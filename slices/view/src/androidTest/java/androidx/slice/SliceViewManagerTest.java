@@ -40,10 +40,10 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.slice.render.SliceRenderActivity;
 import androidx.slice.widget.SliceLiveData;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,11 +55,11 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceViewManagerTest {
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
     private SliceProvider mSliceProvider;
     private SliceViewManager mViewManager;
     private SliceManager mManager;
@@ -69,6 +69,17 @@ public class SliceViewManagerTest {
         TestSliceProvider.sSliceProviderReceiver = mSliceProvider = mock(SliceProvider.class);
         mManager = SliceManager.getInstance(mContext);
         mViewManager = SliceViewManager.getInstance(mContext);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPinInvalidUri() {
+        Uri uri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_CONTENT)
+                .authority("doesnotexist")
+                .build();
+        mViewManager.pinSlice(uri);
+        List<Uri> uris = mManager.getPinnedSlices();
+        assertEquals(0, uris.size());
     }
 
     @Test

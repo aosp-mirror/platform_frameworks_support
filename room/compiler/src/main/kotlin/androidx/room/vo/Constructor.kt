@@ -16,38 +16,59 @@
 
 package androidx.room.vo
 
+import androidx.room.ext.L
+import androidx.room.ext.T
+import androidx.room.ext.typeName
+import com.squareup.javapoet.CodeBlock
+import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 
 /**
  * For each Entity / Pojo we process has a constructor. It might be the empty constructor or a
- * constructor with fields.
+ * constructor with fields. It can also be a static factory method, such as in the case of an
+ * AutoValue Pojo.
  */
 data class Constructor(val element: ExecutableElement, val params: List<Param>) {
 
     fun hasField(field: Field): Boolean {
         return params.any {
             when (it) {
-                is FieldParam -> it.field === field
-                is EmbeddedParam -> it.embedded.field === field
-                else -> false
+                is Param.FieldParam -> it.field === field
+                is Param.EmbeddedParam -> it.embedded.field === field
+                is Param.RelationParam -> it.relation.field === field
             }
         }
     }
 
-    class FieldParam(val field: Field) : Param(ParamType.FIELD) {
-        override fun log(): String = field.getPath()
+    fun writeConstructor(outVar: String, args: String, builder: CodeBlock.Builder) {
+        when (element.kind) {
+            ElementKind.CONSTRUCTOR -> {
+                builder.addStatement("$L = new $T($L)", outVar,
+                        element.enclosingElement.asType().typeName(), args)
+            }
+            ElementKind.METHOD -> {
+                builder.addStatement("$L = $T.$L($L)", outVar,
+                        element.enclosingElement.asType().typeName(),
+                        element.simpleName.toString(), args)
+            }
+            else -> throw IllegalStateException("Invalid constructor kind ${element.kind}")
+        }
     }
 
-    class EmbeddedParam(val embedded: EmbeddedField) : Param(ParamType.EMBEDDED) {
-        override fun log(): String = embedded.field.getPath()
-    }
+    sealed class Param {
 
-    abstract class Param(val type: ParamType) {
         abstract fun log(): String
-    }
 
-    enum class ParamType {
-        FIELD,
-        EMBEDDED
+        class FieldParam(val field: Field) : Param() {
+            override fun log(): String = field.getPath()
+        }
+
+        class EmbeddedParam(val embedded: EmbeddedField) : Param() {
+            override fun log(): String = embedded.field.getPath()
+        }
+
+        class RelationParam(val relation: Relation) : Param() {
+            override fun log(): String = relation.field.getPath()
+        }
     }
 }

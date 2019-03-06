@@ -22,6 +22,7 @@ import androidx.navigation.safe.args.generator.ext.toCamelCase
 import androidx.navigation.safe.args.generator.models.Action
 import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.IncludedDestination
 import androidx.navigation.safe.args.generator.models.ResReference
 import java.io.File
 import java.io.FileReader
@@ -29,13 +30,16 @@ import java.io.FileReader
 private const val TAG_NAVIGATION = "navigation"
 private const val TAG_ACTION = "action"
 private const val TAG_ARGUMENT = "argument"
+private const val TAG_INCLUDE = "include"
 
 private const val ATTRIBUTE_ID = "id"
 private const val ATTRIBUTE_DESTINATION = "destination"
 private const val ATTRIBUTE_DEFAULT_VALUE = "defaultValue"
 private const val ATTRIBUTE_NAME = "name"
-private const val ATTRIBUTE_TYPE = "type"
+private const val ATTRIBUTE_TYPE = "argType"
+private const val ATTRIBUTE_TYPE_DEPRECATED = "type"
 private const val ATTRIBUTE_NULLABLE = "nullable"
+private const val ATTRIBUTE_GRAPH = "graph"
 
 const val VALUE_NULL = "@null"
 private const val VALUE_TRUE = "true"
@@ -74,15 +78,17 @@ internal class NavParser(
         val args = mutableListOf<Argument>()
         val actions = mutableListOf<Action>()
         val nested = mutableListOf<Destination>()
+        val included = mutableListOf<IncludedDestination>()
         parser.traverseInnerStartTags {
             when {
                 parser.name() == TAG_ACTION -> actions.add(parseAction())
                 parser.name() == TAG_ARGUMENT -> args.add(parseArgument())
+                parser.name() == TAG_INCLUDE -> included.add(parseIncludeDestination())
                 type == TAG_NAVIGATION -> nested.add(parseDestination())
             }
         }
 
-        actions.groupBy { it.id.name.toCamelCase() }.forEach { (sanitizedName, actions) ->
+        actions.groupBy { it.id.javaIdentifier.toCamelCase() }.forEach { (sanitizedName, actions) ->
             if (actions.size > 1) {
                 context.logger.error(sameSanitizedNameActions(sanitizedName, actions), position)
             }
@@ -101,7 +107,25 @@ internal class NavParser(
             return context.createStubDestination()
         }
 
-        return Destination(id, className, type, args, actions, nested)
+        return Destination(id, className, type, args, actions, nested, included)
+    }
+
+    private fun parseIncludeDestination(): IncludedDestination {
+        val xmlPosition = parser.xmlPosition()
+
+        val graphValue = parser.attrValue(NAMESPACE_RES_AUTO, ATTRIBUTE_GRAPH)
+        if (graphValue == null) {
+            context.logger.error(NavParserErrors.MISSING_GRAPH_ATTR, xmlPosition)
+            return context.createStubIncludedDestination()
+        }
+
+        val graphRef = parseReference(graphValue, rFilePackage)
+        if (graphRef == null || graphRef.resType != "navigation") {
+            context.logger.error(NavParserErrors.invalidNavReference(graphValue), xmlPosition)
+            return context.createStubIncludedDestination()
+        }
+
+        return IncludedDestination(graphRef)
     }
 
     private fun parseArgument(): Argument {
@@ -115,15 +139,18 @@ internal class NavParser(
 
         if (name == null) return context.createStubArg()
 
+        if (parser.attrValue(NAMESPACE_RES_AUTO, ATTRIBUTE_TYPE_DEPRECATED) != null) {
+            context.logger.error(NavParserErrors.deprecatedTypeAttrUsed(name), xmlPosition)
+            return context.createStubArg()
+        }
+
         if (typeString == null && defaultValue != null) {
             return inferArgument(name, defaultValue, rFilePackage)
         }
 
-        val type = NavType.from(typeString)
+        val type = NavType.from(typeString, rFilePackage)
         if (nullable && !type.allowsNullable()) {
-            NavParserErrors.typeIsNotNullable(typeString).also { errorMsg ->
-                context.logger.error(errorMsg, xmlPosition)
-            }
+            context.logger.error(NavParserErrors.typeIsNotNullable(typeString), xmlPosition)
             return context.createStubArg()
         }
 
@@ -136,8 +163,18 @@ internal class NavParser(
             LongType -> parseLongValue(defaultValue)
             FloatType -> parseFloatValue(defaultValue)
             BoolType -> parseBoolean(defaultValue)
-            ReferenceType -> parseReference(defaultValue, rFilePackage)?.let {
-                ReferenceValue(it)
+            ReferenceType -> {
+                when (defaultValue) {
+                    VALUE_NULL -> {
+                        context.logger.error(NavParserErrors.nullDefaultValueReference(name),
+                            xmlPosition)
+                        return context.createStubArg()
+                    }
+                    "0" -> IntValue("0")
+                    else -> parseReference(defaultValue, rFilePackage)?.let {
+                        ReferenceValue(it)
+                    }
+                }
             }
             StringType -> {
                 if (defaultValue == VALUE_NULL) {
@@ -146,16 +183,26 @@ internal class NavParser(
                     StringValue(defaultValue)
                 }
             }
-            is ParcelableType -> {
+            IntArrayType, LongArrayType, FloatArrayType, StringArrayType,
+            BoolArrayType, ReferenceArrayType, is ObjectArrayType -> {
                 if (defaultValue == VALUE_NULL) {
                     NullValue
                 } else {
-                    NavParserErrors.defaultValueParcelable(typeString).also { errorMsg ->
-                        context.logger.error(errorMsg, xmlPosition)
-                    }
+                    context.logger.error(
+                            NavParserErrors.defaultValueObjectType(typeString),
+                            xmlPosition
+                    )
                     return context.createStubArg()
                 }
             }
+            is ObjectType -> {
+                if (defaultValue == VALUE_NULL) {
+                    NullValue
+                } else {
+                    EnumValue(type, defaultValue)
+                }
+            }
+            else -> throw IllegalStateException("Unknown type: $type")
         }
 
         if (defaultTypedValue == null) {
@@ -168,9 +215,7 @@ internal class NavParser(
         }
 
         if (!nullable && defaultTypedValue == NullValue) {
-            NavParserErrors.defaultNullButNotNullable(name).also { errorMsg ->
-                context.logger.error(errorMsg, xmlPosition)
-            }
+            context.logger.error(NavParserErrors.defaultNullButNotNullable(name), xmlPosition)
             return context.createStubArg()
         }
 
@@ -220,7 +265,13 @@ internal class NavParser(
 internal fun inferArgument(name: String, defaultValue: String, rFilePackage: String): Argument {
     val reference = parseReference(defaultValue, rFilePackage)
     if (reference != null) {
-        return Argument(name, ReferenceType, ReferenceValue(reference))
+        val type = when (reference.resType) {
+            "color", "dimen", "integer" -> IntType
+            "bool" -> BoolType
+            "string" -> StringType
+            else -> ReferenceType
+        }
+        return Argument(name, type, ReferenceValue(reference))
     }
     val longValue = parseLongValue(defaultValue)
     if (longValue != null) {

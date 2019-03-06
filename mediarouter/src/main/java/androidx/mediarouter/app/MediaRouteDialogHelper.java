@@ -55,6 +55,29 @@ final class MediaRouteDialogHelper {
         return ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
+    public static int getDialogWidthForDynamicGroup(Context context) {
+        boolean isTablet = context.getResources().getBoolean(R.bool.is_tablet);
+        if (!isTablet) {
+            return ViewGroup.LayoutParams.MATCH_PARENT;
+        } else {
+            return getDialogWidth(context);
+        }
+    }
+
+    /**
+     * Returns appropriate height for dialogs supporting dynamic group.
+     */
+    public static int getDialogHeight(Context context) {
+        boolean isTablet = context.getResources().getBoolean(R.bool.is_tablet);
+
+        // Returns parameter MATCH_PARENT since dialogs supporting dynamic group have to be
+        // full-screen for handset devices.
+        if (!isTablet) {
+            return ViewGroup.LayoutParams.MATCH_PARENT;
+        }
+        return ViewGroup.LayoutParams.WRAP_CONTENT;
+    }
+
     /**
      * Compares two lists regardless of order.
      *

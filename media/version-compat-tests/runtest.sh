@@ -25,8 +25,6 @@
 
 CLIENT_MODULE_NAME_BASE="support-media-compat-test-client"
 SERVICE_MODULE_NAME_BASE="support-media-compat-test-service"
-MEDIA_COMPAT_CLIENT_TEST_JAVA_PACKAGE="android.support.mediacompat.client"
-MEDIA_COMPAT_SERVICE_TEST_JAVA_PACKAGE="android.support.mediacompat.service"
 CLIENT_VERSION=""
 SERVICE_VERSION=""
 OPTION_TEST_TARGET=""
@@ -50,15 +48,15 @@ function runTest() {
   local CLIENT_MODULE_NAME="$CLIENT_MODULE_NAME_BASE$([ "$CLIENT_VERSION" = "tot" ] || echo "-previous")"
   local SERVICE_MODULE_NAME="$SERVICE_MODULE_NAME_BASE$([ "$SERVICE_VERSION" = "tot" ] || echo "-previous")"
 
-  # Build test apks
+  echo "Building the test apks"
   ./gradlew $CLIENT_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
   ./gradlew $SERVICE_MODULE_NAME:assembleDebugAndroidTest || { echo "Build failed. Aborting."; exit 1; }
 
-  # Install the apks
-  adb install -r -d "../../out/dist/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
-  adb install -r -d "../../out/dist/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+  echo "Installing the test apks"
+  adb install -r "../../out/dist/$CLIENT_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
+  adb install -r "../../out/dist/$SERVICE_MODULE_NAME.apk" || { echo "Apk installation failed. Aborting."; exit 1; }
 
-  # Run the tests
+  echo "Running the tests"
   local test_command="adb shell am instrument -w -e debug false -e client_version $CLIENT_VERSION -e service_version $SERVICE_VERSION"
   local client_test_runner="android.support.mediacompat.client.test/androidx.test.runner.AndroidJUnitRunner"
   local service_test_runner="android.support.mediacompat.service.test/androidx.test.runner.AndroidJUnitRunner"
@@ -70,15 +68,8 @@ function runTest() {
   elif [[ $OPTION_TEST_TARGET == *"service"* ]]; then
     ${test_command} $OPTION_TEST_TARGET ${service_test_runner}
   else
-    # Since there is no MediaSession2 APIs in previous support library, don't run the test.
-    # Instead, only run mediacompat tests.
-    if [[ $CLIENT_VERSION != "tot" || $SERVICE_VERSION != "tot" ]]; then
-      ${test_command} "-e package $MEDIA_COMPAT_CLIENT_TEST_JAVA_PACKAGE" ${client_test_runner}
-      ${test_command} "-e package $MEDIA_COMPAT_SERVICE_TEST_JAVA_PACKAGE" ${service_test_runner}
-    else
-      ${test_command} ${client_test_runner}
-      ${test_command} ${service_test_runner}
-    fi
+    ${test_command} ${client_test_runner}
+    ${test_command} ${service_test_runner}
   fi
 
   echo ">>>>>>>>>>>>>>>>>>>>>>>> Test Ended: Client-$CLIENT_VERSION & Service-$SERVICE_VERSION <<<<<<<<<<<<<<<<<<<<<<<<<<"

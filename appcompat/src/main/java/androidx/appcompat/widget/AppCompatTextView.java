@@ -16,17 +16,20 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -34,12 +37,15 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.appcompat.R;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.TypefaceCompat;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.TintableBackgroundView;
 import androidx.core.widget.AutoSizeableTextView;
 import androidx.core.widget.TextViewCompat;
+import androidx.core.widget.TintableCompoundDrawablesView;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -48,18 +54,21 @@ import java.util.concurrent.Future;
  * A {@link TextView} which supports compatible features on older versions of the platform,
  * including:
  * <ul>
- *     <li>Allows dynamic tint of its background via the background tint methods in
- *     {@link androidx.core.view.ViewCompat}.</li>
- *     <li>Allows setting of the background tint using {@link R.attr#backgroundTint} and
- *     {@link R.attr#backgroundTintMode}.</li>
- *     <li>Supports auto-sizing via {@link androidx.core.widget.TextViewCompat} by allowing
- *     to instruct a {@link TextView} to let the size of the text expand or contract automatically
- *     to fill its layout based on the TextView's characteristics and boundaries. The
- *     style attributes associated with auto-sizing are {@link R.attr#autoSizeTextType},
- *     {@link R.attr#autoSizeMinTextSize}, {@link R.attr#autoSizeMaxTextSize},
- *     {@link R.attr#autoSizeStepGranularity} and {@link R.attr#autoSizePresetSizes}, all of
- *     which work back to
- *     {@link android.os.Build.VERSION_CODES#ICE_CREAM_SANDWICH Ice Cream Sandwich}.</li>
+ * <li>Allows dynamic tint of its background via the background tint methods in
+ * {@link androidx.core.view.ViewCompat}.</li>
+ * <li>Allows setting of the background tint using
+ * {@link androidx.appcompat.R.attr#backgroundTint} and
+ * {@link androidx.appcompat.R.attr#backgroundTintMode}.</li>
+ * <li>Supports auto-sizing via {@link androidx.core.widget.TextViewCompat} by allowing to instruct
+ * a {@link TextView} to let the size of the text expand or contract automatically to fill its
+ * layout based on the TextView's characteristics and boundaries. The style attributes associated
+ * with auto-sizing are
+ * {@link androidx.appcompat.R.attr#autoSizeTextType},
+ * {@link androidx.appcompat.R.attr#autoSizeMinTextSize},
+ * {@link androidx.appcompat.R.attr#autoSizeMaxTextSize},
+ * {@link androidx.appcompat.R.attr#autoSizeStepGranularity} and
+ * {@link androidx.appcompat.R.attr#autoSizePresetSizes}, all of which work back to
+ * {@link VERSION_CODES#ICE_CREAM_SANDWICH Ice Cream Sandwich}.</li>
  * </ul>
  *
  * <p>This will automatically be used when you use {@link TextView} in your layouts
@@ -68,12 +77,14 @@ import java.util.concurrent.Future;
  * You should only need to manually use this class when writing custom views.</p>
  */
 public class AppCompatTextView extends TextView implements TintableBackgroundView,
-        AutoSizeableTextView {
+        TintableCompoundDrawablesView, AutoSizeableTextView {
 
     private final AppCompatBackgroundHelper mBackgroundTintHelper;
     private final AppCompatTextHelper mTextHelper;
+    private final AppCompatTextClassifierHelper mTextClassifierHelper;
 
-    private @Nullable Future<PrecomputedTextCompat> mPrecomputedTextFuture;
+    @Nullable
+    private Future<PrecomputedTextCompat> mPrecomputedTextFuture;
 
     public AppCompatTextView(Context context) {
         this(context, null);
@@ -92,6 +103,8 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
         mTextHelper = new AppCompatTextHelper(this);
         mTextHelper.loadFromAttributes(attrs, defStyleAttr);
         mTextHelper.applyCompoundDrawablesTints();
+
+        mTextClassifierHelper = new AppCompatTextClassifierHelper(this);
     }
 
     @Override
@@ -116,7 +129,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
         if (mBackgroundTintHelper != null) {
@@ -130,7 +143,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     @Nullable
     public ColorStateList getSupportBackgroundTintList() {
@@ -144,7 +157,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
         if (mBackgroundTintHelper != null) {
@@ -158,7 +171,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     @Nullable
     public PorterDuff.Mode getSupportBackgroundTintMode() {
@@ -215,11 +228,11 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     /**
      * This should be accessed via
      * {@link androidx.core.widget.TextViewCompat#setAutoSizeTextTypeWithDefaults(
-     *        TextView, int)}
+     *TextView, int)}
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setAutoSizeTextTypeWithDefaults(
             @TextViewCompat.AutoSizeTextType int autoSizeTextType) {
@@ -235,11 +248,11 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     /**
      * This should be accessed via
      * {@link androidx.core.widget.TextViewCompat#setAutoSizeTextTypeUniformWithConfiguration(
-     *        TextView, int, int, int, int)}
+     *TextView, int, int, int, int)}
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setAutoSizeTextTypeUniformWithConfiguration(
             int autoSizeMinTextSize,
@@ -260,11 +273,11 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     /**
      * This should be accessed via
      * {@link androidx.core.widget.TextViewCompat#setAutoSizeTextTypeUniformWithPresetSizes(
-     *        TextView, int[], int)}
+     *TextView, int[], int)}
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit)
             throws IllegalArgumentException {
@@ -283,7 +296,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     @TextViewCompat.AutoSizeTextType
     public int getAutoSizeTextType() {
@@ -305,7 +318,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public int getAutoSizeStepGranularity() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -324,7 +337,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public int getAutoSizeMinTextSize() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -343,7 +356,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public int getAutoSizeMaxTextSize() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -362,7 +375,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public int[] getAutoSizeTextAvailableSizes() {
         if (PLATFORM_SUPPORTS_AUTOSIZE) {
@@ -433,7 +446,8 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      * @return a current {@link PrecomputedTextCompat.Params}
      * @see PrecomputedTextCompat
      */
-    public @NonNull PrecomputedTextCompat.Params getTextMetricsParamsCompat() {
+    @NonNull
+    public PrecomputedTextCompat.Params getTextMetricsParamsCompat() {
         return TextViewCompat.getTextMetricsParams(this);
     }
 
@@ -441,6 +455,7 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      * Apply the text layout parameter.
      *
      * Update the TextView parameters to be compatible with {@link PrecomputedTextCompat.Params}.
+     *
      * @see PrecomputedTextCompat
      */
     public void setTextMetricsParamsCompat(@NonNull PrecomputedTextCompat.Params params) {
@@ -479,6 +494,36 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
     }
 
     /**
+     * Sets the {@link TextClassifier} for this TextView.
+     */
+    @Override
+    @RequiresApi(api = 26)
+    public void setTextClassifier(@Nullable TextClassifier textClassifier) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P || mTextClassifierHelper == null) {
+            super.setTextClassifier(textClassifier);
+            return;
+        }
+        mTextClassifierHelper.setTextClassifier(textClassifier);
+    }
+
+    /**
+     * Returns the {@link TextClassifier} used by this TextView.
+     * If no TextClassifier has been set, this TextView uses the default set by the
+     * {@link android.view.textclassifier.TextClassificationManager}.
+     */
+    @Override
+    @NonNull
+    @RequiresApi(api = 26)
+    public TextClassifier getTextClassifier() {
+        // The null check is necessary because getTextClassifier is called when we are invoking
+        // the super class's constructor.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P || mTextClassifierHelper == null) {
+            return super.getTextClassifier();
+        }
+        return mTextClassifierHelper.getTextClassifier();
+    }
+
+    /**
      * Set the precomputed text future.
      *
      * This method sets future of the precomputed text instead of immediately applying text to the
@@ -490,9 +535,11 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
      * @param future a future for the precomputed text
      * @see PrecomputedTextCompat#getTextFuture
      */
-    public void setTextFuture(@NonNull Future<PrecomputedTextCompat> future) {
+    public void setTextFuture(@Nullable Future<PrecomputedTextCompat> future) {
         mPrecomputedTextFuture = future;
-        requestLayout();
+        if (future != null) {
+            requestLayout();
+        }
     }
 
     @Override
@@ -501,4 +548,160 @@ public class AppCompatTextView extends TextView implements TintableBackgroundVie
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    @Override
+    public void setCompoundDrawables(@Nullable Drawable left, @Nullable Drawable top,
+            @Nullable Drawable right, @Nullable Drawable bottom) {
+        super.setCompoundDrawables(left, top, right, bottom);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void setCompoundDrawablesRelative(@Nullable Drawable start, @Nullable Drawable top,
+            @Nullable Drawable end, @Nullable Drawable bottom) {
+        super.setCompoundDrawablesRelative(start, top, end, bottom);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    @Override
+    public void setCompoundDrawablesWithIntrinsicBounds(@Nullable Drawable left,
+            @Nullable Drawable top, @Nullable Drawable right, @Nullable Drawable bottom) {
+        super.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    @Override
+    public void setCompoundDrawablesWithIntrinsicBounds(int left, int top, int right, int bottom) {
+        final Context context = getContext();
+        setCompoundDrawablesWithIntrinsicBounds(
+                left != 0 ? AppCompatResources.getDrawable(context, left) : null,
+                top != 0 ? AppCompatResources.getDrawable(context, top) : null,
+                right != 0 ? AppCompatResources.getDrawable(context, right) : null,
+                bottom != 0 ? AppCompatResources.getDrawable(context, bottom) : null);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void setCompoundDrawablesRelativeWithIntrinsicBounds(@Nullable Drawable start,
+            @Nullable Drawable top, @Nullable Drawable end, @Nullable Drawable bottom) {
+        super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void setCompoundDrawablesRelativeWithIntrinsicBounds(
+            int start, int top, int end, int bottom) {
+        final Context context = getContext();
+        setCompoundDrawablesRelativeWithIntrinsicBounds(
+                start != 0 ? AppCompatResources.getDrawable(context, start) : null,
+                top != 0 ? AppCompatResources.getDrawable(context, top) : null,
+                end != 0 ? AppCompatResources.getDrawable(context, end) : null,
+                bottom != 0 ? AppCompatResources.getDrawable(context, bottom) : null);
+        if (mTextHelper != null) {
+            mTextHelper.onSetCompoundDrawables();
+        }
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.widget.TextViewCompat#getCompoundDrawableTintList(TextView)}
+     *
+     * @return the tint applied to the compound drawables
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTint
+     * @see #setSupportCompoundDrawablesTintList(ColorStateList)
+     *
+     * @hide
+     */
+    @Nullable
+    @Override
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public ColorStateList getSupportCompoundDrawablesTintList() {
+        return mTextHelper.getCompoundDrawableTintList();
+    }
+
+    /**
+     * This should be accessed via {@link
+     * androidx.core.widget.TextViewCompat#setCompoundDrawableTintList(TextView, ColorStateList)}
+     *
+     * Applies a tint to the compound drawables. Does not modify the current tint mode, which is
+     * {@link PorterDuff.Mode#SRC_IN} by default.
+     * <p>
+     * Subsequent calls to {@link #setCompoundDrawables(Drawable, Drawable, Drawable, Drawable)} and
+     * related methods will automatically mutate the drawables and apply the specified tint and tint
+     * mode using {@link Drawable#setTintList(ColorStateList)}.
+     *
+     * @param tintList the tint to apply, may be {@code null} to clear tint
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTint
+     * @see #getSupportCompoundDrawablesTintList()
+     *
+     * @hide
+     */
+    @Override
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public void setSupportCompoundDrawablesTintList(@Nullable ColorStateList tintList) {
+        mTextHelper.setCompoundDrawableTintList(tintList);
+        mTextHelper.applyCompoundDrawablesTints();
+    }
+
+    /**
+     * This should be accessed via
+     * {@link androidx.core.widget.TextViewCompat#getCompoundDrawableTintMode(TextView)}
+     *
+     * Returns the blending mode used to apply the tint to the compound drawables, if specified.
+     *
+     * @return the blending mode used to apply the tint to the compound drawables
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTintMode
+     * @see #setSupportCompoundDrawablesTintMode(PorterDuff.Mode)
+     *
+     * @hide
+     */
+    @Nullable
+    @Override
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public PorterDuff.Mode getSupportCompoundDrawablesTintMode() {
+        return mTextHelper.getCompoundDrawableTintMode();
+    }
+
+    /**
+     * This should be accessed via {@link
+     * androidx.core.widget.TextViewCompat#setCompoundDrawableTintMode(TextView, PorterDuff.Mode)}
+     *
+     * Specifies the blending mode used to apply the tint specified by
+     * {@link #setSupportCompoundDrawablesTintList(ColorStateList)} to the compound drawables. The
+     * default mode is {@link PorterDuff.Mode#SRC_IN}.
+     *
+     * @param tintMode the blending mode used to apply the tint, may be {@code null} to clear tint
+     * @attr ref androidx.appcompat.R.styleable#AppCompatTextView_drawableTintMode
+     * @see #setSupportCompoundDrawablesTintList(ColorStateList)
+     *
+     * @hide
+     */
+    @Override
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public void setSupportCompoundDrawablesTintMode(@Nullable PorterDuff.Mode tintMode) {
+        mTextHelper.setCompoundDrawableTintMode(tintMode);
+        mTextHelper.applyCompoundDrawablesTints();
+    }
+
+    @Override
+    public void setTypeface(@Nullable Typeface tf, int style) {
+        Typeface finalTypeface = null;
+        if (tf != null && style > 0) {
+            finalTypeface = TypefaceCompat.create(getContext(), tf, style);
+        }
+
+        super.setTypeface(finalTypeface != null ? finalTypeface : tf, style);
+    }
 }
