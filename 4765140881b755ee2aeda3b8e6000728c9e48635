@@ -22,6 +22,30 @@
       "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90af889e_aa98758c",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-06T15:37:53Z",
+      "side": 1,
+      "message": "If core moves to beta, then yes.  Otherwise, it should be pinned back to 1.0.X and corresponding lint errors will need to be suppressed.",
+      "parentUuid": "5e6a950e_65005428",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
