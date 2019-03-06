@@ -13,7 +13,7 @@
  */
 package androidx.leanback.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -128,13 +128,13 @@ import java.util.List;
  * <i>Note: Currently GuidedStepSupportFragments grouped in this way must all be defined programmatically,
  * rather than in XML. This restriction may be removed in the future.</i>
  *
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedStepTheme
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedStepBackground
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionContentWidthWeight
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionContentWidthWeightTwoPanels
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsBackground
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsBackgroundDark
- * @attr ref androidx.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsElevation
+ * {@link androidx.leanback.R.attr#guidedStepTheme}
+ * {@link androidx.leanback.R.attr#guidedStepBackground}
+ * {@link androidx.leanback.R.attr#guidedActionContentWidthWeight}
+ * {@link androidx.leanback.R.attr#guidedActionContentWidthWeightTwoPanels}
+ * {@link androidx.leanback.R.attr#guidedActionsBackground}
+ * {@link androidx.leanback.R.attr#guidedActionsBackgroundDark}
+ * {@link androidx.leanback.R.attr#guidedActionsElevation}
  * @see GuidanceStylist
  * @see GuidanceStylist.Guidance
  * @see GuidedAction
@@ -226,14 +226,14 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * Animation to slide the contents from the side (left/right).
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int SLIDE_FROM_SIDE = 0;
 
     /**
      * Animation to slide the contents from the bottom.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int SLIDE_FROM_BOTTOM = 1;
 
     private static final String TAG = "GuidedStepF";
@@ -242,7 +242,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static class DummyFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -266,9 +266,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     private int entranceTransitionType = SLIDE_FROM_SIDE;
 
     public GuidedStepSupportFragment() {
-        mGuidanceStylist = onCreateGuidanceStylist();
-        mActionsStylist = onCreateActionsStylist();
-        mButtonActionsStylist = onCreateButtonActionsStylist();
         onProvideFragmentTransitions();
     }
 
@@ -1014,6 +1011,12 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (DEBUG) Log.v(TAG, "onCreate");
+
+        // Initialize stylists
+        mGuidanceStylist = onCreateGuidanceStylist();
+        mActionsStylist = onCreateActionsStylist();
+        mButtonActionsStylist = onCreateButtonActionsStylist();
+
         // Set correct transition from saved arguments.
         onProvideFragmentTransitions();
 
@@ -1340,7 +1343,7 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
      * For now clients(subclasses) can call this method inside the constructor.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setEntranceTransitionType(int transitionType) {
       this.entranceTransitionType = transitionType;
     }
@@ -1390,15 +1393,6 @@ public class GuidedStepSupportFragment extends Fragment implements GuidedActionA
         } else {
             return inflater.cloneInContext(mThemeWrapper);
         }
-    }
-
-    private int getFirstCheckedAction() {
-        for (int i = 0, size = mActions.size(); i < size; i++) {
-            if (mActions.get(i).isChecked()) {
-                return i;
-            }
-        }
-        return 0;
     }
 
     void runImeAnimations(boolean entering) {

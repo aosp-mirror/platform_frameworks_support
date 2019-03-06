@@ -16,11 +16,14 @@
 
 package androidx.media2;
 
-import static androidx.media2.MediaMetadata2.METADATA_KEY_DISPLAY_TITLE;
-import static androidx.media2.MediaMetadata2.METADATA_KEY_TITLE;
-import static androidx.media2.SessionCommand2.COMMAND_CODE_CUSTOM;
+import static androidx.media2.MediaMetadata.METADATA_KEY_DISPLAY_TITLE;
+import static androidx.media2.MediaMetadata.METADATA_KEY_TITLE;
+import static androidx.media2.MediaUtils.TRANSACTION_SIZE_LIMIT_IN_BYTES;
+import static androidx.media2.SessionCommand.COMMAND_CODE_CUSTOM;
+import static androidx.media2.SessionCommand.COMMAND_VERSION_CURRENT;
+import static androidx.media2.SessionResult.RESULT_SUCCESS;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -31,27 +34,29 @@ import android.os.ResultReceiver;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.RatingCompat;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.MediaSessionCompat.QueueItem;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
-import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.collection.ArrayMap;
+import androidx.core.util.ObjectsCompat;
 import androidx.media.MediaSessionManager;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
-import androidx.media2.MediaController2.PlaybackInfo;
-import androidx.media2.MediaSession2.CommandButton;
-import androidx.media2.MediaSession2.ControllerCb;
-import androidx.media2.MediaSession2.ControllerInfo;
+import androidx.media2.MediaController.PlaybackInfo;
+import androidx.media2.MediaLibraryService.LibraryParams;
+import androidx.media2.MediaSession.CommandButton;
+import androidx.media2.MediaSession.ControllerCb;
+import androidx.media2.MediaSession.ControllerInfo;
+import androidx.media2.MediaSession.MediaSessionImpl;
+import androidx.media2.SessionCommand.CommandCode;
+import androidx.media2.SessionPlayer.PlayerResult;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@TargetApi(Build.VERSION_CODES.KITKAT)
 // Getting the commands from MediaControllerCompat'
 class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
@@ -59,45 +64,40 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static final SparseArray<SessionCommand2> sCommandsForOnCommandRequest =
+    static final SparseArray<SessionCommand> sCommandsForOnCommandRequest =
             new SparseArray<>();
 
     static {
-        SessionCommandGroup2 group = new SessionCommandGroup2.Builder()
-                .addAllPlaybackCommands()
-                .addAllPlaylistCommands()
-                .addAllVolumeCommands()
+        @SuppressLint("RestrictedApi")
+        SessionCommandGroup group = new SessionCommandGroup.Builder()
+                .addAllPlayerCommands(COMMAND_VERSION_CURRENT)
+                .addAllVolumeCommands(COMMAND_VERSION_CURRENT)
                 .build();
-        Set<SessionCommand2> commands = group.getCommands();
-        for (SessionCommand2 command : commands) {
+        Set<SessionCommand> commands = group.getCommands();
+        for (SessionCommand command : commands) {
             sCommandsForOnCommandRequest.append(command.getCommandCode(), command);
         }
     }
 
+    final ConnectedControllersManager<RemoteUserInfo> mConnectedControllersManager;
+
     final Object mLock = new Object();
 
-    final MediaSession2.SupportLibraryImpl mSession;
+    final MediaSessionImpl mSessionImpl;
     final MediaSessionManager mSessionManager;
     final Context mContext;
     final ControllerInfo mControllerInfoForAll;
 
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final ArrayMap<RemoteUserInfo, ControllerInfo> mControllers = new ArrayMap<>();
-    @GuardedBy("mLock")
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final ArrayMap<ControllerInfo, SessionCommandGroup2> mAllowedCommandGroupMap =
-            new ArrayMap<>();
-
-    MediaSessionLegacyStub(MediaSession2.SupportLibraryImpl session) {
-        mSession = session;
-        mContext = mSession.getContext();
+    MediaSessionLegacyStub(MediaSessionImpl session) {
+        mSessionImpl = session;
+        mContext = mSessionImpl.getContext();
         mSessionManager = MediaSessionManager.getSessionManager(mContext);
         mControllerInfoForAll = new ControllerInfo(
                 new RemoteUserInfo(
                         RemoteUserInfo.LEGACY_CONTROLLER, Process.myPid(), Process.myUid()),
                 false /* trusted */,
                 new ControllerLegacyCbForAll());
+        mConnectedControllersManager = new ConnectedControllersManager<>(session);
     }
 
     @Override
@@ -105,36 +105,41 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (commandName == null) {
             return;
         }
-        final SessionCommand2 command = new SessionCommand2(commandName, null);
-        onSessionCommand(command, new SessionRunnable() {
+        final SessionCommand command = new SessionCommand(commandName, null);
+        dispatchSessionTask(command, new SessionTask() {
             @Override
             public void run(final ControllerInfo controller) throws RemoteException {
-                mSession.getCallback().onCustomCommand(
-                        mSession.getInstance(), controller, command, args, cb);
+                SessionResult result = mSessionImpl.getCallback().onCustomCommand(
+                        mSessionImpl.getInstance(), controller, command, args);
+                if (cb != null) {
+                    cb.send(result.getResultCode(), result.getCustomCommandResult());
+                }
             }
         });
     }
 
     @Override
     public void onPrepare() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PREPARE, new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_PREPARE, new SessionTask() {
             @Override
             public void run(ControllerInfo controller) throws RemoteException {
-                mSession.getInstance().prepare();
+                mSessionImpl.prepare();
             }
         });
     }
 
     @Override
     public void onPrepareFromMediaId(final String mediaId, final Bundle extras) {
-        if (mediaId == null) {
-            return;
-        }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPrepareFromMediaId(mSession.getInstance(),
+                        if (TextUtils.isEmpty(mediaId)) {
+                            Log.w(TAG, "onPrepareFromMediaId(): Ignoring empty mediaId from "
+                                    + controller);
+                            return;
+                        }
+                        mSessionImpl.getCallback().onPrepareFromMediaId(mSessionImpl.getInstance(),
                                 controller, mediaId, extras);
                     }
                 });
@@ -142,14 +147,16 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onPrepareFromSearch(final String query, final Bundle extras) {
-        if (query == null) {
-            return;
-        }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPrepareFromSearch(mSession.getInstance(),
+                        if (TextUtils.isEmpty(query)) {
+                            Log.w(TAG, "onPrepareFromSearch(): Ignoring empty query from "
+                                    + controller);
+                            return;
+                        }
+                        mSessionImpl.getCallback().onPrepareFromSearch(mSessionImpl.getInstance(),
                                 controller, query, extras);
                     }
                 });
@@ -160,11 +167,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (uri == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PREPARE_FROM_URI,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PREPARE_FROM_URI,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPrepareFromUri(mSession.getInstance(),
+                        mSessionImpl.getCallback().onPrepareFromUri(mSessionImpl.getInstance(),
                                 controller, uri, extras);
                     }
                 });
@@ -172,24 +179,26 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onPlay() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PLAY, new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_PLAY, new SessionTask() {
             @Override
             public void run(ControllerInfo controller) throws RemoteException {
-                mSession.getInstance().play();
+                mSessionImpl.play();
             }
         });
     }
 
     @Override
     public void onPlayFromMediaId(final String mediaId, final Bundle extras) {
-        if (mediaId == null) {
-            return;
-        }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPlayFromMediaId(mSession.getInstance(),
+                        if (TextUtils.isEmpty(mediaId)) {
+                            Log.w(TAG, "onPlayFromMediaId(): Ignoring empty mediaId from "
+                                    + controller);
+                            return;
+                        }
+                        mSessionImpl.getCallback().onPlayFromMediaId(mSessionImpl.getInstance(),
                                 controller, mediaId, extras);
                     }
                 });
@@ -197,14 +206,16 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onPlayFromSearch(final String query, final Bundle extras) {
-        if (query == null) {
-            return;
-        }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PLAY_FROM_SEARCH,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPlayFromSearch(mSession.getInstance(),
+                        if (TextUtils.isEmpty(query)) {
+                            Log.w(TAG, "onPlayFromSearch(): Ignoring empty query from "
+                                    + controller);
+                            return;
+                        }
+                        mSessionImpl.getCallback().onPlayFromSearch(mSessionImpl.getInstance(),
                                 controller, query, extras);
                     }
                 });
@@ -215,11 +226,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (uri == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_PLAY_FROM_URI,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_PLAY_FROM_URI,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onPlayFromUri(mSession.getInstance(),
+                        mSessionImpl.getCallback().onPlayFromUri(mSessionImpl.getInstance(),
                                 controller, uri, extras);
                     }
                 });
@@ -227,144 +238,112 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onPause() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE, new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_PAUSE, new SessionTask() {
             @Override
             public void run(ControllerInfo controller) throws RemoteException {
-                mSession.getInstance().pause();
+                mSessionImpl.pause();
             }
         });
     }
 
     @Override
     public void onStop() {
-        // Here, we don't call BaseMediaPlayer#reset() since it may result removing
+        // Here, we don't call SessionPlayer#reset() since it may result removing
         // all callbacks from the player. Instead, we pause and seek to zero.
         // Here, we check both permissions: Pause / SeekTo.
-        if (mSession.isClosed()) {
-            return;
-        }
-
-        RemoteUserInfo remoteUserInfo = mSession.getSessionCompat().getCurrentControllerInfo();
-        final ControllerInfo controller;
-        synchronized (mLock) {
-            if (remoteUserInfo == null) {
-                controller = null;
-            } else if (mControllers.containsKey(remoteUserInfo)) {
-                controller = mControllers.get(remoteUserInfo);
-            } else {
-                controller = new ControllerInfo(
-                        remoteUserInfo,
-                        mSessionManager.isTrustedForMediaControl(remoteUserInfo),
-                        new ControllerLegacyCb(remoteUserInfo));
-                connect(controller);
-            }
-        }
-
-        final SessionCommand2 pauseCommand =
-                new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_PAUSE);
-        final SessionCommand2 seekToCommand =
-                new SessionCommand2(SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO);
-
-        mSession.getCallbackExecutor().execute(new Runnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_PAUSE, new SessionTask() {
             @Override
-            public void run() {
-                synchronized (mLock) {
-                    if (controller != null && !mControllers.containsValue(controller)) {
-                        return;
-                    }
-                }
-                MediaSession2.SessionCallback callback = mSession.getCallback();
-                MediaSession2 instance = mSession.getInstance();
-
-                boolean accepted = callback.onCommandRequest(instance, controller, pauseCommand)
-                        && callback.onCommandRequest(instance, controller, seekToCommand);
-
-                if (!accepted) {
-                    // Don't run rejected command.
-                    if (DEBUG) {
-                        Log.d(TAG, "Command (Stop) from " + controller + " was rejected by "
-                                + mSession);
-                    }
-                    return;
-                }
-                mSession.getInstance().pause();
-                mSession.getInstance().seekTo(0);
+            public void run(ControllerInfo controller) throws RemoteException {
+                handleTaskOnExecutor(controller, null,
+                        SessionCommand.COMMAND_CODE_PLAYER_SEEK_TO, new SessionTask() {
+                            @Override
+                            public void run(ControllerInfo controller) throws RemoteException {
+                                mSessionImpl.pause();
+                                mSessionImpl.seekTo(0);
+                            }
+                        });
             }
         });
     }
 
     @Override
     public void onSeekTo(final long pos) {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYBACK_SEEK_TO, new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SEEK_TO, new SessionTask() {
             @Override
             public void run(ControllerInfo controller) throws RemoteException {
-                mSession.getInstance().seekTo(pos);
+                mSessionImpl.seekTo(pos);
             }
         });
     }
 
     @Override
     public void onSkipToNext() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_NEXT_ITEM,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getInstance().skipToNextItem();
+                        mSessionImpl.skipToNextItem();
                     }
                 });
     }
 
     @Override
     public void onSkipToPrevious() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PREV_ITEM,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getInstance().skipToPreviousItem();
+                        mSessionImpl.skipToPreviousItem();
                     }
                 });
     }
 
     @Override
-    public void onSkipToQueueItem(final long id) {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_SKIP_TO_PLAYLIST_ITEM,
-                new SessionRunnable() {
+    public void onSetPlaybackSpeed(final float speed) {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SET_SPEED, new SessionTask() {
+            @Override
+            public void run(ControllerInfo controller) throws RemoteException {
+                mSessionImpl.setPlaybackSpeed(speed);
+            }
+        });
+    }
+
+    @Override
+    public void onSkipToQueueItem(final long queueId) {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        List<MediaItem2> playlist = mSession.getPlaylistAgent().getPlaylist();
+                        List<MediaItem> playlist = mSessionImpl.getPlayer().getPlaylist();
                         if (playlist == null) {
                             return;
                         }
-                        for (int i = 0; i < playlist.size(); i++) {
-                            MediaItem2 item = playlist.get(i);
-                            if (item != null && item.getUuid().getMostSignificantBits() == id) {
-                                mSession.getInstance().skipToPlaylistItem(item);
-                                break;
-                            }
-                        }
+                        // Use queueId as an index as we've published {@link QueueItem} as so.
+                        // see: {@link MediaUtils#convertToQueueItemList}.
+                        mSessionImpl.skipToPlaylistItem((int) queueId);
                     }
                 });
     }
 
     @Override
     public void onFastForward() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_FAST_FORWARD,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_FAST_FORWARD,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onFastForward(
-                                mSession.getInstance(), controller);
+                        mSessionImpl.getCallback().onFastForward(
+                                mSessionImpl.getInstance(), controller);
                     }
                 });
     }
 
     @Override
     public void onRewind() {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_REWIND,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_REWIND,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getCallback().onRewind(mSession.getInstance(), controller);
+                        mSessionImpl.getCallback().onRewind(mSessionImpl.getInstance(), controller);
                     }
                 });
     }
@@ -375,21 +354,23 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public void onSetRating(final RatingCompat rating, Bundle extras) {
         if (rating == null) {
             return;
         }
         // extras is ignored.
-        onSessionCommand(SessionCommand2.COMMAND_CODE_SESSION_SET_RATING,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_SESSION_SET_RATING,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        MediaItem2 currentItem = mSession.getCurrentMediaItem();
+                        MediaItem currentItem = mSessionImpl.getCurrentMediaItem();
                         if (currentItem == null) {
                             return;
                         }
-                        mSession.getCallback().onSetRating(mSession.getInstance(), controller,
-                                currentItem.getMediaId(), MediaUtils2.convertToRating2(rating));
+                        mSessionImpl.getCallback().onSetRating(mSessionImpl.getInstance(),
+                                controller, currentItem.getMediaId(),
+                                MediaUtils.convertToRating(rating));
                     }
                 });
     }
@@ -406,40 +387,29 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     @Override
     public void onSetRepeatMode(final int repeatMode) {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_SET_REPEAT_MODE,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SET_REPEAT_MODE,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getInstance().setRepeatMode(repeatMode);
+                        mSessionImpl.setRepeatMode(repeatMode);
                     }
                 });
     }
 
     @Override
     public void onSetShuffleMode(final int shuffleMode) {
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_SET_SHUFFLE_MODE,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getInstance().setShuffleMode(shuffleMode);
+                        mSessionImpl.setShuffleMode(shuffleMode);
                     }
                 });
     }
 
     @Override
     public void onAddQueueItem(final MediaDescriptionCompat description) {
-        if (description == null) {
-            return;
-        }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_ADD_ITEM,
-                new SessionRunnable() {
-                    @Override
-                    public void run(ControllerInfo controller) throws RemoteException {
-                        // Add the item at the end of the playlist.
-                        mSession.getInstance().addPlaylistItem(Integer.MAX_VALUE,
-                                MediaUtils2.convertToMediaItem2(description));
-                    }
-                });
+        onAddQueueItem(description, Integer.MAX_VALUE);
     }
 
     @Override
@@ -447,33 +417,42 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         if (description == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_ADD_ITEM,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        mSession.getInstance().addPlaylistItem(index,
-                                MediaUtils2.convertToMediaItem2(description));
+                        String mediaId = description.getMediaId();
+                        if (TextUtils.isEmpty(mediaId)) {
+                            Log.w(TAG, "onAddQueueItem(): Media ID shouldn't be empty");
+                            return;
+                        }
+                        MediaItem newItem = mSessionImpl.getCallback().onCreateMediaItem(
+                                mSessionImpl.getInstance(), controller, mediaId);
+                        mSessionImpl.addPlaylistItem(index, newItem);
                     }
                 });
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public void onRemoveQueueItem(final MediaDescriptionCompat description) {
         if (description == null) {
             return;
         }
-        onSessionCommand(SessionCommand2.COMMAND_CODE_PLAYLIST_REMOVE_ITEM,
-                new SessionRunnable() {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
+                new SessionTask() {
                     @Override
                     public void run(ControllerInfo controller) throws RemoteException {
-                        // Note: Here we cannot simply call
-                        // removePlaylistItem(MediaUtils2.convertToMediaItem2(description)),
-                        // because the result of the method will have different UUID.
-                        List<MediaItem2> playlist = mSession.getInstance().getPlaylist();
+                        String mediaId = description.getMediaId();
+                        if (TextUtils.isEmpty(mediaId)) {
+                            Log.w(TAG, "onRemoveQueueItem(): Media ID shouldn't be null");
+                            return;
+                        }
+                        List<MediaItem> playlist = mSessionImpl.getPlaylist();
                         for (int i = 0; i < playlist.size(); i++) {
-                            MediaItem2 item = playlist.get(i);
-                            if (TextUtils.equals(item.getMediaId(), description.getMediaId())) {
-                                mSession.getInstance().removePlaylistItem(item);
+                            MediaItem item = playlist.get(i);
+                            if (TextUtils.equals(item.getMediaId(), mediaId)) {
+                                mSessionImpl.removePlaylistItem(i);
                                 return;
                             }
                         }
@@ -481,152 +460,129 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
                 });
     }
 
-    List<ControllerInfo> getConnectedControllers() {
-        ArrayList<ControllerInfo> controllers = new ArrayList<>();
-        synchronized (mLock) {
-            for (int i = 0; i < mControllers.size(); i++) {
-                controllers.add(mControllers.valueAt(i));
-            }
-        }
-        return controllers;
+    @Override
+    public void onRemoveQueueItemAt(final int index) {
+        dispatchSessionTask(SessionCommand.COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM,
+                new SessionTask() {
+                    @Override
+                    public void run(ControllerInfo controller) throws RemoteException {
+                        if (index < 0) {
+                            Log.w(TAG, "onRemoveQueueItem(): index shouldn't be negative");
+                            return;
+                        }
+                        mSessionImpl.removePlaylistItem(index);
+                    }
+                });
     }
 
     ControllerInfo getControllersForAll() {
         return mControllerInfoForAll;
     }
 
-    void setAllowedCommands(ControllerInfo controller, final SessionCommandGroup2 commands) {
-        synchronized (mLock) {
-            mAllowedCommandGroupMap.put(controller, commands);
-        }
+    ConnectedControllersManager getConnectedControllersManager() {
+        return mConnectedControllersManager;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean isAllowedCommand(ControllerInfo controller, SessionCommand2 command) {
-        SessionCommandGroup2 allowedCommands;
-        synchronized (mLock) {
-            allowedCommands = mAllowedCommandGroupMap.get(controller);
-        }
-        return allowedCommands != null && allowedCommands.hasCommand(command);
+    private void dispatchSessionTask(@CommandCode final int commandCode,
+            @NonNull final SessionTask task) {
+        dispatchSessionTaskInternal(null, commandCode, task);
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean isAllowedCommand(ControllerInfo controller, int commandCode) {
-        SessionCommandGroup2 allowedCommands;
-        synchronized (mLock) {
-            allowedCommands = mAllowedCommandGroupMap.get(controller);
-        }
-        return allowedCommands != null && allowedCommands.hasCommand(commandCode);
+    private void dispatchSessionTask(@NonNull final SessionCommand sessionCommand,
+            @NonNull final SessionTask task) {
+        dispatchSessionTaskInternal(sessionCommand, COMMAND_CODE_CUSTOM, task);
     }
 
-    private void onSessionCommand(final int commandCode, @NonNull final SessionRunnable runnable) {
-        onSessionCommandInternal(null, commandCode, runnable);
-    }
-
-    private void onSessionCommand(@NonNull final SessionCommand2 sessionCommand,
-            @NonNull final SessionRunnable runnable) {
-        onSessionCommandInternal(sessionCommand, COMMAND_CODE_CUSTOM, runnable);
-    }
-
-    private void onSessionCommandInternal(@Nullable final SessionCommand2 sessionCommand,
-            final int commandCode, @NonNull final SessionRunnable runnable) {
-        if (mSession.isClosed()) {
+    private void dispatchSessionTaskInternal(@Nullable final SessionCommand sessionCommand,
+            @CommandCode final int commandCode, @NonNull final SessionTask task) {
+        if (mSessionImpl.isClosed()) {
             return;
         }
-        RemoteUserInfo remoteUserInfo = mSession.getSessionCompat().getCurrentControllerInfo();
-        final ControllerInfo controller;
-        synchronized (mLock) {
-            if (remoteUserInfo == null) {
-                // TODO: Fix here to allow MediaControllerCompat to send commands on API 21~27.
-                // In API 21~27, getCurrentControllerInfo() always returns null.
-                // Due to this, on those API versions no MediaControllerCompat can send command
-                // to the session.
-                controller = null;
-            } else if (mControllers.containsKey(remoteUserInfo)) {
-                controller = mControllers.get(remoteUserInfo);
-            } else {
-                controller = new ControllerInfo(
-                        remoteUserInfo,
-                        mSessionManager.isTrustedForMediaControl(remoteUserInfo),
-                        new ControllerLegacyCb(remoteUserInfo));
-                connect(controller);
-            }
+        final RemoteUserInfo remoteUserInfo =
+                mSessionImpl.getSessionCompat().getCurrentControllerInfo();
+        if (remoteUserInfo == null) {
+            Log.d(TAG, "RemoteUserInfo is null, ignoring command=" + sessionCommand
+                    + ", commandCode=" + commandCode);
+            return;
         }
-
-        mSession.getCallbackExecutor().execute(new Runnable() {
+        mSessionImpl.getCallbackExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                synchronized (mLock) {
-                    if (controller != null && !mControllers.containsValue(controller)) {
-                        return;
-                    }
+                if (mSessionImpl.isClosed()) {
+                    return;
+                }
+                final ControllerInfo controller;
+                ControllerInfo ctrl = mConnectedControllersManager.getController(remoteUserInfo);
+                if (ctrl != null) {
+                    controller = ctrl;
+                } else {
+                    controller = new ControllerInfo(
+                            remoteUserInfo,
+                            mSessionManager.isTrustedForMediaControl(remoteUserInfo),
+                            new ControllerLegacyCb(remoteUserInfo));
                 }
 
-                SessionCommand2 command;
-                if (sessionCommand != null) {
-                    if (!isAllowedCommand(controller, sessionCommand)) {
-                        return;
-                    }
-                    command = sCommandsForOnCommandRequest.get(sessionCommand.getCommandCode());
-                } else {
-                    if (!isAllowedCommand(controller, commandCode)) {
-                        return;
-                    }
-                    command = sCommandsForOnCommandRequest.get(commandCode);
-                }
-                if (command != null) {
-                    boolean accepted = mSession.getCallback().onCommandRequest(
-                            mSession.getInstance(), controller, command);
-                    if (!accepted) {
-                        // Don't run rejected command.
-                        if (DEBUG) {
-                            Log.d(TAG, "Command (" + command + ") from "
-                                    + controller + " was rejected by " + mSession);
+                if (!mConnectedControllersManager.isConnected(controller)) {
+                    SessionCommandGroup allowedCommands = mSessionImpl.getCallback().onConnect(
+                            mSessionImpl.getInstance(), controller);
+                    if (allowedCommands == null) {
+                        try {
+                            controller.getControllerCb().onDisconnected(0);
+                        } catch (RemoteException ex) {
+                            // Controller may have died prematurely.
                         }
                         return;
                     }
+                    mConnectedControllersManager.addController(
+                            controller.getRemoteUserInfo(), controller, allowedCommands);
                 }
-                try {
-                    runnable.run(controller);
-                } catch (RemoteException e) {
-                    // Currently it's TransactionTooLargeException or DeadSystemException.
-                    // We'd better to leave log for those cases because
-                    //   - TransactionTooLargeException means that we may need to fix our code.
-                    //     (e.g. add pagination or special way to deliver Bitmap)
-                    //   - DeadSystemException means that errors around it can be ignored.
-                    Log.w(TAG, "Exception in " + controller.toString(), e);
-                }
+                handleTaskOnExecutor(controller, sessionCommand, commandCode, task);
             }
         });
     }
 
-    private void connect(final ControllerInfo controller) {
-        mSession.getCallbackExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mSession.isClosed()) {
-                    return;
-                }
-                SessionCommandGroup2 allowedCommands = mSession.getCallback().onConnect(
-                        mSession.getInstance(), controller);
-                if (allowedCommands == null) {
-                    try {
-                        controller.getControllerCb().onDisconnected();
-                    } catch (RemoteException ex) {
-                        // Controller may have died prematurely.
-                    }
-                    return;
-                }
-                synchronized (mLock) {
-                    mControllers.put(controller.getRemoteUserInfo(), controller);
-                    mAllowedCommandGroupMap.put(controller, allowedCommands);
-                }
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void handleTaskOnExecutor(@NonNull final ControllerInfo controller,
+            @Nullable final SessionCommand sessionCommand, @CommandCode final int commandCode,
+            @NonNull final SessionTask task) {
+        SessionCommand command;
+        if (sessionCommand != null) {
+            if (!mConnectedControllersManager.isAllowedCommand(controller, sessionCommand)) {
+                return;
             }
-        });
+            command = sCommandsForOnCommandRequest.get(sessionCommand.getCommandCode());
+        } else {
+            if (!mConnectedControllersManager.isAllowedCommand(controller, commandCode)) {
+                return;
+            }
+            command = sCommandsForOnCommandRequest.get(commandCode);
+        }
+        if (command != null) {
+            int resultCode = mSessionImpl.getCallback().onCommandRequest(
+                    mSessionImpl.getInstance(), controller, command);
+            if (resultCode != RESULT_SUCCESS) {
+                // Don't run rejected command.
+                if (DEBUG) {
+                    Log.d(TAG, "Command (" + command + ") from "
+                            + controller + " was rejected by " + mSessionImpl);
+                }
+                return;
+            }
+        }
+        try {
+            task.run(controller);
+        } catch (RemoteException e) {
+            // Currently it's TransactionTooLargeException or DeadSystemException.
+            // We'd better to leave log for those cases because
+            //   - TransactionTooLargeException means that we may need to fix our code.
+            //     (e.g. add pagination or special way to deliver Bitmap)
+            //   - DeadSystemException means that errors around it can be ignored.
+            Log.w(TAG, "Exception in " + controller, e);
+        }
     }
 
     @FunctionalInterface
-    private interface SessionRunnable {
+    private interface SessionTask {
         void run(ControllerInfo controller) throws RemoteException;
     }
 
@@ -639,211 +595,248 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onCustomLayoutChanged(List<CommandButton> layout) throws RemoteException {
+        void onPlayerResult(int seq, PlayerResult result) throws RemoteException {
             // no-op.
         }
 
         @Override
-        void onPlaybackInfoChanged(PlaybackInfo info) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
+        void onSessionResult(int seq, SessionResult result) throws RemoteException {
+            // no-op.
         }
 
         @Override
-        void onAllowedCommandsChanged(SessionCommandGroup2 commands) throws RemoteException {
+        void onLibraryResult(int seq, LibraryResult result) throws RemoteException {
             // no-op
         }
 
         @Override
-        void onCustomCommand(SessionCommand2 command, Bundle args, ResultReceiver receiver)
+        void setCustomLayout(int seq, List<CommandButton> layout) throws RemoteException {
+            // no-op.
+        }
+
+        @Override
+        void onPlaybackInfoChanged(int seq, PlaybackInfo info) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onAllowedCommandsChanged(int seq, SessionCommandGroup commands)
                 throws RemoteException {
             // no-op
         }
 
         @Override
-        void onPlayerStateChanged(long eventTimeMs, long positionMs, int playerState)
-                throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onPlaybackSpeedChanged(long eventTimeMs, long positionMs, float speed)
-                throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
-                throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onSeekCompleted(long eventTimeMs, long positionMs, long position)
-                throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onError(int errorCode, Bundle extras) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
-                throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onPlaylistMetadataChanged(MediaMetadata2 metadata) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onShuffleModeChanged(int shuffleMode) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onRepeatModeChanged(int repeatMode) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
-        }
-
-        @Override
-        void onRoutesInfoChanged(List<Bundle> routes) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetLibraryRootDone(Bundle rootHints, String rootMediaId, Bundle rootExtra)
+        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // no-op
         }
 
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
+        void onPlayerStateChanged(int seq, long eventTimeMs, long positionMs, int playerState)
+                throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onPlaybackSpeedChanged(int seq, long eventTimeMs, long positionMs, float speed)
+                throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onBufferingStateChanged(int seq, MediaItem item, int bufferingState,
+                long bufferedPositionMs, long eventTimeMs, long positionMs) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onSeekCompleted(int seq, long eventTimeMs, long positionMs, long position)
+                throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onCurrentMediaItemChanged(int seq, MediaItem item, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onPlaylistChanged(int seq, List<MediaItem> playlist, MediaMetadata metadata,
+                int currentIdx, int previousIdx, int nextIdx) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onPlaylistMetadataChanged(int seq, MediaMetadata metadata) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onShuffleModeChanged(int seq, int shuffleMode, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onRepeatModeChanged(int seq, int repeatMode, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onPlaybackCompleted(int seq) throws RemoteException {
+            throw new AssertionError("This shouldn't be called.");
+        }
+
+        @Override
+        void onChildrenChanged(int seq, String parentId, int itemCount, LibraryParams params)
+                throws RemoteException {
+            // no-op
+        }
+        @Override
+        void onSearchResultChanged(int seq, String query, int itemCount, LibraryParams params)
                 throws RemoteException {
             // no-op
         }
 
         @Override
-        void onGetChildrenDone(String parentId, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
+        void onDisconnected(int seq) throws RemoteException {
             // no-op
         }
 
         @Override
-        void onGetItemDone(String mediaId, MediaItem2 result) throws RemoteException {
-            // no-op
+        public int hashCode() {
+            return ObjectsCompat.hash(mRemoteUserInfo);
         }
 
         @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
-                throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetSearchResultDone(String query, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onDisconnected() throws RemoteException {
-            // no-op
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || obj.getClass() != ControllerLegacyCb.class) {
+                return false;
+            }
+            ControllerLegacyCb other = (ControllerLegacyCb) obj;
+            return ObjectsCompat.equals(mRemoteUserInfo, other.mRemoteUserInfo);
         }
     }
 
+    // TODO: Find a way to notify error through PlaybackStateCompat
     final class ControllerLegacyCbForAll extends ControllerCb {
         ControllerLegacyCbForAll() {
         }
 
         @Override
-        void onCustomLayoutChanged(List<CommandButton> layout) throws RemoteException {
+        void onPlayerResult(int seq, PlayerResult result) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onSessionResult(int seq, SessionResult result) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onLibraryResult(int seq, LibraryResult result) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void setCustomLayout(int seq, List<CommandButton> layout) throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
         @Override
-        void onPlaybackInfoChanged(PlaybackInfo info) throws RemoteException {
+        void onPlaybackInfoChanged(int seq, PlaybackInfo info) throws RemoteException {
             // no-op. Calling MediaSessionCompat#setPlaybackToLocal/Remote
-            // is already done in updatePlayer().
+            // is already done in updatePlayerConnector().
         }
 
         @Override
-        void onAllowedCommandsChanged(SessionCommandGroup2 commands) throws RemoteException {
+        void onAllowedCommandsChanged(int seq, SessionCommandGroup commands)
+                throws RemoteException {
             throw new AssertionError("This shouldn't be called.");
         }
 
         @Override
-        void onCustomCommand(SessionCommand2 command, Bundle args, ResultReceiver receiver)
+        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // no-op
         }
 
         @Override
-        void onPlayerStateChanged(long eventTimeMs, long positionMs, int playerState)
+        void onPlayerStateChanged(int seq, long eventTimeMs, long positionMs, int playerState)
                 throws RemoteException {
             // Note: This method does not use any of the given arguments.
-            mSession.getSessionCompat().setPlaybackState(mSession.createPlaybackStateCompat());
+            mSessionImpl.getSessionCompat().setPlaybackState(
+                    mSessionImpl.createPlaybackStateCompat());
         }
 
         @Override
-        void onPlaybackSpeedChanged(long eventTimeMs, long positionMs, float speed)
+        void onPlaybackSpeedChanged(int seq, long eventTimeMs, long positionMs, float speed)
                 throws RemoteException {
             // Note: This method does not use any of the given arguments.
-            mSession.getSessionCompat().setPlaybackState(mSession.createPlaybackStateCompat());
+            mSessionImpl.getSessionCompat().setPlaybackState(
+                    mSessionImpl.createPlaybackStateCompat());
         }
 
         @Override
-        void onBufferingStateChanged(MediaItem2 item, int bufferingState, long bufferedPositionMs)
+        void onBufferingStateChanged(int seq, MediaItem item, int bufferingState,
+                long bufferedPositionMs, long eventTimeMs, long positionMs) throws RemoteException {
+            // Note: This method does not use any of the given arguments.
+            mSessionImpl.getSessionCompat().setPlaybackState(
+                    mSessionImpl.createPlaybackStateCompat());
+        }
+
+        @Override
+        void onSeekCompleted(int seq, long eventTimeMs, long positionMs, long position)
                 throws RemoteException {
             // Note: This method does not use any of the given arguments.
-            mSession.getSessionCompat().setPlaybackState(mSession.createPlaybackStateCompat());
+            mSessionImpl.getSessionCompat().setPlaybackState(
+                    mSessionImpl.createPlaybackStateCompat());
         }
 
         @Override
-        void onSeekCompleted(long eventTimeMs, long positionMs, long position)
-                throws RemoteException {
-            // Note: This method does not use any of the given arguments.
-            mSession.getSessionCompat().setPlaybackState(mSession.createPlaybackStateCompat());
+        void onCurrentMediaItemChanged(int seq, MediaItem item, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            mSessionImpl.getSessionCompat().setMetadata(item == null ? null
+                    : MediaUtils.convertToMediaMetadataCompat(item.getMetadata()));
         }
 
         @Override
-        void onError(int errorCode, Bundle extras) throws RemoteException {
-            PlaybackStateCompat stateWithoutError = mSession.createPlaybackStateCompat();
-            // We don't set the state here as PlaybackStateCompat#STATE_ERROR, since
-            // MediaSession2#notifyError() does not affect the player state.
-            // This prevents MediaControllerCompat from remaining long time in error state.
-            PlaybackStateCompat stateWithError = new PlaybackStateCompat.Builder(stateWithoutError)
-                    .setErrorMessage(errorCode, "")
-                    .setExtras(extras)
-                    .build();
-            mSession.getSessionCompat().setPlaybackState(stateWithError);
+        void onPlaylistChanged(int seq, List<MediaItem> playlist, MediaMetadata metadata,
+                int currentIdx, int previousIdx, int nextIdx) throws RemoteException {
+            if (Build.VERSION.SDK_INT < 21) {
+                if (playlist == null) {
+                    mSessionImpl.getSessionCompat().setQueue(null);
+                } else {
+                    // In order to avoid TransactionTooLargeException for below API 21, we need to
+                    // cut the list so that it doesn't exceed the binder transaction limit.
+                    List<QueueItem> queueItemList = MediaUtils.convertToQueueItemList(playlist);
+                    List<QueueItem> truncatedList = MediaUtils.truncateListBySize(
+                            queueItemList, TRANSACTION_SIZE_LIMIT_IN_BYTES);
+                    if (truncatedList.size() != playlist.size()) {
+                        Log.i(TAG, "Sending " + truncatedList.size() + " items out of "
+                                + playlist.size());
+                    }
+                    mSessionImpl.getSessionCompat().setQueue(truncatedList);
+                }
+
+            } else {
+                // Framework MediaSession#setQueue() uses ParceledListSlice,
+                // which means we can safely send long lists.
+                mSessionImpl.getSessionCompat().setQueue(
+                        MediaUtils.convertToQueueItemList(playlist));
+            }
+            onPlaylistMetadataChanged(seq, metadata);
         }
 
         @Override
-        void onCurrentMediaItemChanged(MediaItem2 item) throws RemoteException {
-            mSession.getSessionCompat().setMetadata(item == null ? null
-                    : MediaUtils2.convertToMediaMetadataCompat(item.getMetadata()));
-        }
-
-        @Override
-        void onPlaylistChanged(List<MediaItem2> playlist, MediaMetadata2 metadata)
-                throws RemoteException {
-            mSession.getSessionCompat().setQueue(MediaUtils2.convertToQueueItemList(playlist));
-            onPlaylistMetadataChanged(metadata);
-        }
-
-        @Override
-        void onPlaylistMetadataChanged(MediaMetadata2 metadata) throws RemoteException {
+        void onPlaylistMetadataChanged(int seq, MediaMetadata metadata) throws RemoteException {
             // Since there is no 'queue metadata', only set title of the queue.
-            CharSequence oldTitle = mSession.getSessionCompat().getController().getQueueTitle();
+            CharSequence oldTitle = mSessionImpl.getSessionCompat().getController().getQueueTitle();
             CharSequence newTitle = null;
 
             if (metadata != null) {
@@ -854,62 +847,47 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
             }
 
             if (!TextUtils.equals(oldTitle, newTitle)) {
-                mSession.getSessionCompat().setQueueTitle(newTitle);
+                mSessionImpl.getSessionCompat().setQueueTitle(newTitle);
             }
         }
 
         @Override
-        void onShuffleModeChanged(int shuffleMode) throws RemoteException {
-            mSession.getSessionCompat().setShuffleMode(shuffleMode);
+        void onShuffleModeChanged(int seq, int shuffleMode, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            mSessionImpl.getSessionCompat().setShuffleMode(shuffleMode);
         }
 
         @Override
-        void onRepeatModeChanged(int repeatMode) throws RemoteException {
-            mSession.getSessionCompat().setRepeatMode(repeatMode);
+        void onRepeatModeChanged(int seq, int repeatMode, int currentIdx, int previousIdx,
+                int nextIdx) throws RemoteException {
+            mSessionImpl.getSessionCompat().setRepeatMode(repeatMode);
         }
 
         @Override
-        void onRoutesInfoChanged(List<Bundle> routes) throws RemoteException {
-            throw new AssertionError("This shouldn't be called.");
+        void onPlaybackCompleted(int seq) throws RemoteException {
+            PlaybackStateCompat state = mSessionImpl.createPlaybackStateCompat();
+            if (state.getState() != PlaybackStateCompat.STATE_PAUSED) {
+                state = new PlaybackStateCompat.Builder(state)
+                        .setState(PlaybackStateCompat.STATE_PAUSED, state.getPosition(),
+                                state.getPlaybackSpeed())
+                        .build();
+            }
+            mSessionImpl.getSessionCompat().setPlaybackState(state);
         }
 
         @Override
-        void onGetLibraryRootDone(Bundle rootHints, String rootMediaId, Bundle rootExtra)
+        void onChildrenChanged(int seq, String parentId, int itemCount, LibraryParams params)
+                throws RemoteException {
+            // no-op
+        }
+        @Override
+        void onSearchResultChanged(int seq, String query, int itemCount, LibraryParams params)
                 throws RemoteException {
             // no-op
         }
 
         @Override
-        void onChildrenChanged(String parentId, int itemCount, Bundle extras)
-                throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetChildrenDone(String parentId, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetItemDone(String mediaId, MediaItem2 result) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onSearchResultChanged(String query, int itemCount, Bundle extras)
-                throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onGetSearchResultDone(String query, int page, int pageSize, List<MediaItem2> result,
-                Bundle extras) throws RemoteException {
-            // no-op
-        }
-
-        @Override
-        void onDisconnected() throws RemoteException {
+        void onDisconnected(int seq) throws RemoteException {
             // no-op. Calling MediaSessionCompat#release() is already done in close().
         }
     }

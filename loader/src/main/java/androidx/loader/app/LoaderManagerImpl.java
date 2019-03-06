@@ -24,7 +24,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
-import androidx.core.util.DebugUtils;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -38,7 +37,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
 
 class LoaderManagerImpl extends LoaderManager {
-    static final String TAG = "LoaderManager";
+    private static final String TAG = "LoaderManager";
     static boolean DEBUG = false;
 
     /**
@@ -194,6 +193,7 @@ class LoaderManagerImpl extends LoaderManager {
             }
         }
 
+        @NonNull
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder(64);
@@ -202,7 +202,10 @@ class LoaderManagerImpl extends LoaderManager {
             sb.append(" #");
             sb.append(mId);
             sb.append(" : ");
-            DebugUtils.buildShortClassTag(mLoader, sb);
+            Class cls = mLoader.getClass();
+            sb.append(cls.getSimpleName());
+            sb.append("{");
+            sb.append(Integer.toHexString(System.identityHashCode(cls)));
             sb.append("}}");
             return sb.toString();
         }
@@ -247,8 +250,8 @@ class LoaderManagerImpl extends LoaderManager {
                 Log.v(TAG, "  onLoadFinished in " + mLoader + ": "
                         + mLoader.dataToString(data));
             }
-            mCallback.onLoadFinished(mLoader, data);
             mDeliveredData = true;
+            mCallback.onLoadFinished(mLoader, data);
         }
 
         boolean hasDeliveredData() {
@@ -263,6 +266,7 @@ class LoaderManagerImpl extends LoaderManager {
             }
         }
 
+        @NonNull
         @Override
         public String toString() {
             return mCallback.toString();
@@ -381,6 +385,7 @@ class LoaderManagerImpl extends LoaderManager {
         try {
             mLoaderViewModel.startCreatingLoader();
             Loader<D> loader = callback.onCreateLoader(id, args);
+            //noinspection ConstantConditions
             if (loader == null) {
                 throw new IllegalArgumentException("Object returned from onCreateLoader "
                         + "must not be null");
@@ -481,13 +486,17 @@ class LoaderManagerImpl extends LoaderManager {
         mLoaderViewModel.markForRedelivery();
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         sb.append("LoaderManager{");
         sb.append(Integer.toHexString(System.identityHashCode(this)));
         sb.append(" in ");
-        DebugUtils.buildShortClassTag(mLifecycleOwner, sb);
+        Class cls = mLifecycleOwner.getClass();
+        sb.append(cls.getSimpleName());
+        sb.append("{");
+        sb.append(Integer.toHexString(System.identityHashCode(cls)));
         sb.append("}}");
         return sb.toString();
     }

@@ -16,7 +16,7 @@
 
 package androidx.exifinterface.media;
 
-import static androidx.test.InstrumentationRegistry.getContext;
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,14 +26,17 @@ import static org.junit.Assert.fail;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.Build;
 import android.os.Environment;
+import android.system.Os;
+import android.system.OsConstants;
 import android.util.Log;
 import android.util.Pair;
 
 import androidx.exifinterface.test.R;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,6 +47,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,6 +75,7 @@ public class ExifInterfaceTest {
     private static final String[] IMAGE_FILENAMES = new String[] {
             EXIF_BYTE_ORDER_II_JPEG, EXIF_BYTE_ORDER_MM_JPEG, LG_G4_ISO_800_DNG};
 
+    private static final int USER_READ_WRITE = 0600;
     private static final String TEST_TEMP_FILE_NAME = "testImage";
     private static final double DELTA = 1e-8;
     // We translate double to rational in a 1/10000 precision.
@@ -310,7 +315,8 @@ public class ExifInterfaceTest {
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
             try {
-                inputStream = getContext().getResources().openRawResource(IMAGE_RESOURCES[i]);
+                inputStream = getApplicationContext()
+                        .getResources().openRawResource(IMAGE_RESOURCES[i]);
                 outputStream = new FileOutputStream(outputPath);
                 copy(inputStream, outputStream);
             } finally {
@@ -558,7 +564,7 @@ public class ExifInterfaceTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testRotation() throws IOException {
         File imageFile = new File(
                 Environment.getExternalStorageDirectory(), EXIF_BYTE_ORDER_II_JPEG);
@@ -774,8 +780,14 @@ public class ExifInterfaceTest {
         File imageFile = new File(Environment.getExternalStorageDirectory(), fileName);
         String verboseTag = imageFile.getName();
 
+        // Creates via file.
+        ExifInterface exifInterface = new ExifInterface(imageFile);
+        assertNotNull(exifInterface);
+        compareWithExpectedValue(exifInterface, expectedValue, verboseTag);
+
+
         // Creates via path.
-        ExifInterface exifInterface = new ExifInterface(imageFile.getAbsolutePath());
+        exifInterface = new ExifInterface(imageFile.getAbsolutePath());
         assertNotNull(exifInterface);
         compareWithExpectedValue(exifInterface, expectedValue, verboseTag);
 
@@ -787,6 +799,21 @@ public class ExifInterfaceTest {
             compareWithExpectedValue(exifInterface, expectedValue, verboseTag);
         } finally {
             closeQuietly(in);
+        }
+
+        // Creates via FileDescriptor.
+        if (Build.VERSION.SDK_INT >= 21) {
+            FileDescriptor fd = null;
+            try {
+                fd = Os.open(imageFile.getAbsolutePath(), OsConstants.O_RDONLY,
+                        OsConstants.S_IRWXU);
+                exifInterface = new ExifInterface(fd);
+                compareWithExpectedValue(exifInterface, expectedValue, verboseTag);
+            } catch (Exception e) {
+                throw new IOException("Failed to open file descriptor", e);
+            } finally {
+                closeQuietly(fd);
+            }
         }
     }
 
@@ -816,7 +843,7 @@ public class ExifInterfaceTest {
     private void testExifInterfaceForJpeg(String fileName, int typedArrayResourceId)
             throws IOException {
         ExpectedValue expectedValue = new ExpectedValue(
-                getContext().getResources().obtainTypedArray(typedArrayResourceId));
+                getApplicationContext().getResources().obtainTypedArray(typedArrayResourceId));
 
         // Test for reading from external data storage.
         testExifInterfaceCommon(fileName, expectedValue);
@@ -828,7 +855,7 @@ public class ExifInterfaceTest {
     private void testExifInterfaceForRaw(String fileName, int typedArrayResourceId)
             throws IOException {
         ExpectedValue expectedValue = new ExpectedValue(
-                getContext().getResources().obtainTypedArray(typedArrayResourceId));
+                getApplicationContext().getResources().obtainTypedArray(typedArrayResourceId));
 
         // Test for reading from external data storage.
         testExifInterfaceCommon(fileName, expectedValue);
@@ -866,6 +893,17 @@ public class ExifInterfaceTest {
         if (closeable != null) {
             try {
                 closeable.close();
+            } catch (RuntimeException rethrown) {
+                throw rethrown;
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    private void closeQuietly(FileDescriptor fd) {
+        if (fd != null) {
+            try {
+                Os.close(fd);
             } catch (RuntimeException rethrown) {
                 throw rethrown;
             } catch (Exception ignored) {

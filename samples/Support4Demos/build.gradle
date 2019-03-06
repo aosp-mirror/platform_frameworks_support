@@ -1,7 +1,15 @@
 plugins {
-    id("SupportAndroidTestAppPlugin")
+    id("AndroidXPlugin")
+    id("com.android.application")
 }
 
 dependencies {
-    implementation(project(":legacy-support-v4"))
+    implementation(project(":core"))
+    implementation(project(":cursoradapter"))
+    implementation(project(":localbroadcastmanager"))
+    implementation(project(":slidingpanelayout"))
+    implementation(project(":swiperefreshlayout"))
+    implementation(project(":legacy-support-core-utils"))
+    implementation(project(":fragment"))
+    implementation(project(":media"))
 }

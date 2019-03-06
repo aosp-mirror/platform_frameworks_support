@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:textAppearance="@style/TextAppearance.Car.Title2" />
+                android:textAppearance="@style/TextAppearance.Car.Body1" />
         </LinearLayout>
 
         <androidx.car.widget.PagedListView
@@ -79,10 +79,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/car_app_bar_height"
             android:layout_gravity="top|start"
+            android:theme="?attr/drawerListTheme"
             app:dividerStartMargin="@dimen/car_keyline_1"
             app:dividerEndMargin="@dimen/car_keyline_1"
-            app:gutter="start"
-            style="?attr/drawerListStyle" />
+            app:gutter="start" />
 
         <ProgressBar
             android:id="@id/custom_drawer_progress"

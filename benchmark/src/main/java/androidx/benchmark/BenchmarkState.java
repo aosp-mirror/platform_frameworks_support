@@ -16,17 +16,16 @@
 
 package androidx.benchmark;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
-import androidx.test.InstrumentationRegistry;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -48,8 +47,11 @@ import java.util.concurrent.TimeUnit;
  * }
  */
 public final class BenchmarkState {
+    private static final String TAG = "Benchmark";
+    private static final String CSV_TAG = "BenchmarkCsv";
+    private static final String STUDIO_OUTPUT_KEY_PREFIX = "android.studio.display.";
+    private static final String STUDIO_OUTPUT_KEY_ID = "benchmark";
 
-    private static final String TAG = "BenchmarkState";
     private static final boolean ENABLE_PROFILING = false;
 
     private static final int NOT_STARTED = 0;  // The benchmark has not started yet.
@@ -57,18 +59,28 @@ public final class BenchmarkState {
     private static final int RUNNING = 2;  // The benchmark is running.
     private static final int FINISHED = 3;  // The benchmark has stopped.
 
-    private int mState = NOT_STARTED;  // Current benchmark state.
-
-    private static final long WARMUP_DURATION_NS = ms2ns(250); // warm-up for at least 250ms
-    private static final int WARMUP_MIN_ITERATIONS = 16; // minimum iterations to warm-up for
-
-    // TODO: Tune these values.
-    private static final long TARGET_TEST_DURATION_NS = ms2ns(500); // target testing for 500 ms
+    // values determined empirically
+    private static final long TARGET_TEST_DURATION_NS = TimeUnit.MILLISECONDS.toNanos(500);
     private static final int MAX_TEST_ITERATIONS = 1000000;
     private static final int MIN_TEST_ITERATIONS = 10;
     private static final int REPEAT_COUNT = 5;
 
-    private long mStartTimeNs = 0;  // Previously captured System.nanoTime().
+    static {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Benchmark");
+        for (int i = 0; i < REPEAT_COUNT; i++) {
+            sb.append(", Result ").append(i);
+        }
+
+        Log.i(CSV_TAG, sb.toString());
+    }
+
+    private int mState = NOT_STARTED;  // Current benchmark state.
+
+    private WarmupManager mWarmupManager = new WarmupManager();
+
+    private long mStartTimeNs = 0; // System.nanoTime() at start of last warmup iter / test repeat.
+
     private boolean mPaused;
     private long mPausedTimeNs = 0; // The System.nanoTime() when the pauseTiming() is called.
     private long mPausedDurationNs = 0;  // The duration of paused state in nano sec.
@@ -84,10 +96,6 @@ public final class BenchmarkState {
 
     // Individual duration in nano seconds.
     private ArrayList<Long> mResults = new ArrayList<>();
-
-    private static long ms2ns(long ms) {
-        return TimeUnit.MILLISECONDS.toNanos(ms);
-    }
 
     /**
      * Stops the benchmark timer.
@@ -124,16 +132,19 @@ public final class BenchmarkState {
         mState = WARMUP;
     }
 
-    private void beginBenchmark(long warmupDuration, int iterations) {
+    private void beginBenchmark() {
         if (ENABLE_PROFILING && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // TODO: support data dir for old platforms
-            File f = new File(InstrumentationRegistry.getContext().getDataDir(), "benchprof");
+            File f = new File(
+                    InstrumentationRegistry.getInstrumentation().getContext().getDataDir(),
+                    "benchprof");
             Log.d(TAG, "Tracing to: " + f.getAbsolutePath());
             Debug.startMethodTracingSampling(f.getAbsolutePath(), 16 * 1024 * 1024, 100);
         }
-        mMaxIterations = (int) (TARGET_TEST_DURATION_NS / (warmupDuration / iterations));
+        final int idealIterations =
+                (int) (TARGET_TEST_DURATION_NS / mWarmupManager.getEstimatedIterationTime());
         mMaxIterations = Math.min(MAX_TEST_ITERATIONS,
-                Math.max(mMaxIterations, MIN_TEST_ITERATIONS));
+                Math.max(idealIterations, MIN_TEST_ITERATIONS));
         mPausedDurationNs = 0;
         mIteration = 0;
         mRepeatCount = 0;
@@ -173,9 +184,11 @@ public final class BenchmarkState {
                 mIteration++;
                 // Only check nanoTime on every iteration in WARMUP since we
                 // don't yet have a target iteration count.
-                final long duration = System.nanoTime() - mStartTimeNs;
-                if (mIteration >= WARMUP_MIN_ITERATIONS && duration >= WARMUP_DURATION_NS) {
-                    beginBenchmark(duration, mIteration);
+                final long time = System.nanoTime();
+                final long lastDuration = time - mStartTimeNs;
+                mStartTimeNs = time;
+                if (mWarmupManager.onNextIteration(lastDuration)) {
+                    beginBenchmark();
                 }
                 return true;
             case RUNNING:
@@ -226,14 +239,18 @@ public final class BenchmarkState {
         return (long) getStats().getStandardDeviation();
     }
 
+    private long count() {
+        return mMaxIterations;
+    }
+
     private String summaryLine() {
         StringBuilder sb = new StringBuilder();
         sb.append("Summary: ");
         sb.append("median=").append(median()).append("ns, ");
         sb.append("mean=").append(mean()).append("ns, ");
         sb.append("min=").append(min()).append("ns, ");
-        sb.append("sigma=").append(standardDeviation()).append(", ");
-        sb.append("iteration=").append(mResults.size()).append(", ");
+        sb.append("stddev=").append(standardDeviation()).append(", ");
+        sb.append("count=").append(count()).append(", ");
         // print out the first few iterations' number for double checking.
         int sampleNumber = Math.min(mResults.size(), 16);
         for (int i = 0; i < sampleNumber; i++) {
@@ -242,21 +259,68 @@ public final class BenchmarkState {
         return sb.toString();
     }
 
+    @NonNull
+    private String ideSummaryLineWrapped(@NonNull String key) {
+        StringBuilder result = null;
+
+        String warningString = WarningState.acquireWarningStringForLogging();
+        if (warningString != null) {
+            for (String s : warningString.split("\n")) {
+                if (result == null) {
+                    if (s.isEmpty()) {
+                        continue;
+                    }
+                    result = new StringBuilder(s).append("\n");
+                } else {
+                    result.append(STUDIO_OUTPUT_KEY_ID).append(": ").append(s).append("\n");
+                }
+            }
+            if (result != null) {
+                result.append(STUDIO_OUTPUT_KEY_ID).append(": ").append(ideSummaryLine(key));
+                return result.toString();
+            }
+        }
+
+        return ideSummaryLine(key);
+    }
+
+    @NonNull
+    String ideSummaryLine(@NonNull String key) {
+        // NOTE: this summary line will use default locale to determine separators. As
+        // this line is only meant for human eyes, we don't worry about consistency here.
+        return String.format(
+                // 13 is used for alignment here, because it's enough that 9.99sec will still
+                // align with any other output, without moving data too far to the right
+                "%13s ns %s",
+                NumberFormat.getNumberInstance().format(min()),
+                key);
+    }
+
+    private String csvLine() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mResults.size(); i++) {
+            sb.append(", ").append(mResults.get(i));
+        }
+        return sb.toString();
+    }
+
     /**
-     * Submit status report bundle as a RESULT_OK to the passed Instrumentation
+     * Acquires a status report bundle
      *
-     * @param instrumentation Instrumentation used to signal result.
      * @param key Run identifier, prepended to bundle properties.
      */
-    @SuppressWarnings("WeakerAccess")
-    public void sendFullStatusReport(@NonNull Instrumentation instrumentation,
-            @NonNull String key) {
+    Bundle getFullStatusReport(@NonNull String key) {
+        key = WarningState.WARNING_PREFIX + key;
         Log.i(TAG, key + summaryLine());
+        Log.i(CSV_TAG, key + csvLine());
         Bundle status = new Bundle();
         status.putLong(key + "_median", median());
         status.putLong(key + "_mean", mean());
         status.putLong(key + "_min", min());
         status.putLong(key + "_standardDeviation", standardDeviation());
-        instrumentation.sendStatus(Activity.RESULT_OK, status);
+        status.putLong(key + "_count", count());
+        status.putString(STUDIO_OUTPUT_KEY_PREFIX + STUDIO_OUTPUT_KEY_ID,
+                ideSummaryLineWrapped(key));
+        return status;
     }
 }

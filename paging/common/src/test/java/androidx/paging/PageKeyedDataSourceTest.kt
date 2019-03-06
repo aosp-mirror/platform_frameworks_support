@@ -17,6 +17,7 @@
 package androidx.paging
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
@@ -25,6 +26,7 @@ import org.junit.runners.JUnit4
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.verifyZeroInteractions
 
 @RunWith(JUnit4::class)
 class PageKeyedDataSourceTest {
@@ -37,24 +39,48 @@ class PageKeyedDataSourceTest {
 
     internal class ItemDataSource(val data: Map<String, Page> = PAGE_MAP)
             : PageKeyedDataSource<String, Item>() {
+        private var error = false
 
         private fun getPage(key: String): Page = data[key]!!
 
         override fun loadInitial(
-                params: LoadInitialParams<String>,
-                callback: LoadInitialCallback<String, Item>) {
+            params: LoadInitialParams<String>,
+            callback: LoadInitialCallback<String, Item>
+        ) {
+            if (error) {
+                callback.onRetryableError(EXCEPTION)
+                error = false
+                return
+            }
+
             val page = getPage(INIT_KEY)
             callback.onResult(page.data, page.prev, page.next)
         }
 
         override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, Item>) {
+            if (error) {
+                callback.onRetryableError(EXCEPTION)
+                error = false
+                return
+            }
+
             val page = getPage(params.key)
             callback.onResult(page.data, page.prev)
         }
 
         override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, Item>) {
+            if (error) {
+                callback.onRetryableError(EXCEPTION)
+                error = false
+                return
+            }
+
             val page = getPage(params.key)
             callback.onResult(page.data, page.next)
+        }
+
+        fun enqueueError() {
+            error = true
         }
     }
 
@@ -80,13 +106,16 @@ class PageKeyedDataSourceTest {
         assertEquals(ITEM_LIST, pagedList)
     }
 
-    private fun performLoadInitial(invalidateDataSource: Boolean = false,
-            callbackInvoker:
-                    (callback: PageKeyedDataSource.LoadInitialCallback<String, String>) -> Unit) {
+    private fun performLoadInitial(
+        invalidateDataSource: Boolean = false,
+        callbackInvoker:
+                (callback: PageKeyedDataSource.LoadInitialCallback<String, String>) -> Unit
+    ) {
         val dataSource = object : PageKeyedDataSource<String, String>() {
             override fun loadInitial(
-                    params: LoadInitialParams<String>,
-                    callback: LoadInitialCallback<String, String>) {
+                params: LoadInitialParams<String>,
+                callback: LoadInitialCallback<String, String>
+            ) {
                 if (invalidateDataSource) {
                     // invalidate data source so it's invalid when onResult() called
                     invalidate()
@@ -95,14 +124,16 @@ class PageKeyedDataSourceTest {
             }
 
             override fun loadBefore(
-                    params: LoadParams<String>,
-                    callback: LoadCallback<String, String>) {
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
                 fail("loadBefore not expected")
             }
 
             override fun loadAfter(
-                    params: LoadParams<String>,
-                    callback: LoadCallback<String, String>) {
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
                 fail("loadAfter not expected")
             }
         }
@@ -125,7 +156,7 @@ class PageKeyedDataSourceTest {
     @Test
     fun loadInitialCallbackNotPageSizeMultiple() = performLoadInitial {
         // Keyed LoadInitialCallback *can* accept result that's not a multiple of page size
-        val elevenLetterList = List(11) { "" + 'a' + it }
+        val elevenLetterList = List(11) { index -> "" + ('a' + index) }
         it.onResult(elevenLetterList, 0, 12, null, null)
     }
 
@@ -159,6 +190,116 @@ class PageKeyedDataSourceTest {
         it.onResult(emptyList(), 0, 1, null, null)
     }
 
+    @Test
+    fun pageDroppingNotSupported() {
+        assertFalse(ItemDataSource().supportsPageDropping())
+    }
+
+    @Test
+    fun testBoundaryCallback() {
+        val dataSource = object : PageKeyedDataSource<String, String>() {
+            override fun loadInitial(
+                params: LoadInitialParams<String>,
+                callback: LoadInitialCallback<String, String>
+            ) {
+                callback.onResult(listOf("B"), "a", "c")
+            }
+
+            override fun loadBefore(
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
+                assertEquals("a", params.key)
+                callback.onResult(listOf("A"), null)
+            }
+
+            override fun loadAfter(
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
+                assertEquals("c", params.key)
+                callback.onResult(listOf("C"), null)
+            }
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        val boundaryCallback =
+                mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<String>
+        val executor = TestExecutor()
+        val pagedList = ContiguousPagedList<String, String>(
+                dataSource,
+                executor,
+                executor,
+                boundaryCallback,
+                PagedList.Config.Builder()
+                        .setPageSize(10)
+                        .build(),
+                "",
+                ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+        pagedList.loadAround(0)
+
+        verifyZeroInteractions(boundaryCallback)
+
+        executor.executeAll()
+
+        // verify boundary callbacks are triggered
+        verify(boundaryCallback).onItemAtFrontLoaded("A")
+        verify(boundaryCallback).onItemAtEndLoaded("C")
+        verifyNoMoreInteractions(boundaryCallback)
+    }
+
+    @Test
+    fun testBoundaryCallbackJustInitial() {
+        val dataSource = object : PageKeyedDataSource<String, String>() {
+            override fun loadInitial(
+                params: LoadInitialParams<String>,
+                callback: LoadInitialCallback<String, String>
+            ) {
+                // just the one load, but boundary callbacks should still be triggered
+                callback.onResult(listOf("B"), null, null)
+            }
+
+            override fun loadBefore(
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
+                fail("loadBefore not expected")
+            }
+
+            override fun loadAfter(
+                params: LoadParams<String>,
+                callback: LoadCallback<String, String>
+            ) {
+                fail("loadBefore not expected")
+            }
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        val boundaryCallback =
+                mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<String>
+        val executor = TestExecutor()
+        val pagedList = ContiguousPagedList<String, String>(
+                dataSource,
+                executor,
+                executor,
+                boundaryCallback,
+                PagedList.Config.Builder()
+                        .setPageSize(10)
+                        .build(),
+                "",
+                ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+        pagedList.loadAround(0)
+
+        verifyZeroInteractions(boundaryCallback)
+
+        executor.executeAll()
+
+        // verify boundary callbacks are triggered
+        verify(boundaryCallback).onItemAtFrontLoaded("B")
+        verify(boundaryCallback).onItemAtEndLoaded("B")
+        verifyNoMoreInteractions(boundaryCallback)
+    }
+
     private abstract class WrapperDataSource<K, A, B>(private val source: PageKeyedDataSource<K, A>)
             : PageKeyedDataSource<K, B>() {
         override fun addInvalidatedCallback(onInvalidatedCallback: InvalidatedCallback) {
@@ -177,17 +318,32 @@ class PageKeyedDataSourceTest {
             return source.isInvalid
         }
 
-        override fun loadInitial(params: LoadInitialParams<K>,
-                callback: LoadInitialCallback<K, B>) {
+        override fun loadInitial(
+            params: LoadInitialParams<K>,
+            callback: LoadInitialCallback<K, B>
+        ) {
             source.loadInitial(params, object : LoadInitialCallback<K, A>() {
-                override fun onResult(data: List<A>, position: Int, totalCount: Int,
-                        previousPageKey: K?, nextPageKey: K?) {
+                override fun onResult(
+                    data: List<A>,
+                    position: Int,
+                    totalCount: Int,
+                    previousPageKey: K?,
+                    nextPageKey: K?
+                ) {
                     callback.onResult(convert(data), position, totalCount,
                             previousPageKey, nextPageKey)
                 }
 
                 override fun onResult(data: MutableList<A>, previousPageKey: K?, nextPageKey: K?) {
                     callback.onResult(convert(data), previousPageKey, nextPageKey)
+                }
+
+                override fun onError(error: Throwable) {
+                    callback.onError(error)
+                }
+
+                override fun onRetryableError(error: Throwable) {
+                    callback.onRetryableError(error)
                 }
             })
         }
@@ -197,6 +353,14 @@ class PageKeyedDataSourceTest {
                 override fun onResult(data: List<A>, adjacentPageKey: K?) {
                     callback.onResult(convert(data), adjacentPageKey)
                 }
+
+                override fun onError(error: Throwable) {
+                    callback.onError(error)
+                }
+
+                override fun onRetryableError(error: Throwable) {
+                    callback.onRetryableError(error)
+                }
             })
         }
 
@@ -204,6 +368,14 @@ class PageKeyedDataSourceTest {
             source.loadAfter(params, object : LoadCallback<K, A>() {
                 override fun onResult(data: List<A>, adjacentPageKey: K?) {
                     callback.onResult(convert(data), adjacentPageKey)
+                }
+
+                override fun onError(error: Throwable) {
+                    callback.onError(error)
+                }
+
+                override fun onRetryableError(error: Throwable) {
+                    callback.onRetryableError(error)
                 }
             })
         }
@@ -218,8 +390,9 @@ class PageKeyedDataSourceTest {
         }
     }
 
-    private fun verifyWrappedDataSource(createWrapper:
-            (PageKeyedDataSource<String, Item>) -> PageKeyedDataSource<String, String>) {
+    private fun verifyWrappedDataSource(
+        createWrapper: (PageKeyedDataSource<String, Item>) -> PageKeyedDataSource<String, String>
+    ) {
         // verify that it's possible to wrap a PageKeyedDataSource, and add info to its data
         val orig = ItemDataSource(data = PAGE_MAP)
         val wrapper = createWrapper(orig)
@@ -229,27 +402,38 @@ class PageKeyedDataSourceTest {
         val loadInitialCallback = mock(PageKeyedDataSource.LoadInitialCallback::class.java)
                 as PageKeyedDataSource.LoadInitialCallback<String, String>
 
-        wrapper.loadInitial(PageKeyedDataSource.LoadInitialParams<String>(4, true),
-                loadInitialCallback)
-        val expectedInitial = PAGE_MAP.get(INIT_KEY)!!
+        val initParams = PageKeyedDataSource.LoadInitialParams<String>(4, true)
+        wrapper.loadInitial(initParams, loadInitialCallback)
+        val expectedInitial = PAGE_MAP[INIT_KEY]!!
         verify(loadInitialCallback).onResult(expectedInitial.data.map { it.toString() },
                 expectedInitial.prev, expectedInitial.next)
         verifyNoMoreInteractions(loadInitialCallback)
 
         @Suppress("UNCHECKED_CAST")
-        val loadCallback = mock(PageKeyedDataSource.LoadCallback::class.java)
-                as PageKeyedDataSource.LoadCallback<String, String>
         // load after
+        var loadCallback = mock(PageKeyedDataSource.LoadCallback::class.java)
+                as PageKeyedDataSource.LoadCallback<String, String>
         wrapper.loadAfter(PageKeyedDataSource.LoadParams(expectedInitial.next!!, 4), loadCallback)
-        val expectedAfter = PAGE_MAP.get(expectedInitial.next)!!
-        verify(loadCallback).onResult(expectedAfter.data.map { it.toString() },
-                expectedAfter.next)
+        val expectedAfter = PAGE_MAP[expectedInitial.next]!!
+        verify(loadCallback).onResult(expectedAfter.data.map { it.toString() }, expectedAfter.next)
+        // load after - error
+        orig.enqueueError()
+        wrapper.loadAfter(PageKeyedDataSource.LoadParams(expectedInitial.next, 4), loadCallback)
+        verify(loadCallback).onRetryableError(EXCEPTION)
         verifyNoMoreInteractions(loadCallback)
 
         // load before
+        @Suppress("UNCHECKED_CAST")
+        loadCallback = mock(PageKeyedDataSource.LoadCallback::class.java)
+                as PageKeyedDataSource.LoadCallback<String, String>
         wrapper.loadBefore(PageKeyedDataSource.LoadParams(expectedAfter.prev!!, 4), loadCallback)
         verify(loadCallback).onResult(expectedInitial.data.map { it.toString() },
                 expectedInitial.prev)
+        verifyNoMoreInteractions(loadCallback)
+        // load before - error
+        orig.enqueueError()
+        wrapper.loadBefore(PageKeyedDataSource.LoadParams(expectedAfter.prev, 4), loadCallback)
+        verify(loadCallback).onRetryableError(EXCEPTION)
         verifyNoMoreInteractions(loadCallback)
 
         // verify invalidation
@@ -263,13 +447,13 @@ class PageKeyedDataSourceTest {
     }
 
     @Test
-    fun testListConverterWrappedDataSource() = verifyWrappedDataSource {
-        it.mapByPage { it.map { it.toString() } }
+    fun testListConverterWrappedDataSource() = verifyWrappedDataSource { dataSource ->
+        dataSource.mapByPage { page -> page.map { it.toString() } }
     }
 
     @Test
-    fun testItemConverterWrappedDataSource() = verifyWrappedDataSource {
-        it.map { it.toString() }
+    fun testItemConverterWrappedDataSource() = verifyWrappedDataSource { dataSource ->
+        dataSource.map { it.toString() }
     }
 
     @Test
@@ -295,6 +479,7 @@ class PageKeyedDataSourceTest {
         private val INIT_KEY: String = "key 2"
         private val PAGE_MAP: Map<String, Page>
         private val ITEM_LIST: List<Item>
+        private val EXCEPTION = Exception()
 
         init {
             val map = HashMap<String, Page>()
@@ -307,7 +492,7 @@ class PageKeyedDataSourceTest {
                 val key = "key $i"
                 val prev = if (i > 1) ("key " + (i - 1)) else null
                 val next = if (i < pageCount) ("key " + (i + 1)) else null
-                map.put(key, Page(prev, data, next))
+                map[key] = Page(prev, data, next)
             }
             PAGE_MAP = map
             ITEM_LIST = list

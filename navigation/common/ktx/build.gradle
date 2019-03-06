@@ -30,17 +30,29 @@ android {
             testCoverageEnabled = false // Breaks Kotlin compiler.
         }
     }
+
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
 }
 
 dependencies {
     api(project(":navigation:navigation-common"))
+    implementation(NAV_SUPPORT_COLLECTIONS)
+
     api(KOTLIN_STDLIB)
-    testImplementation(project(":navigation:navigation-testing"))
     testImplementation(JUNIT)
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
-    androidTestImplementation(project(":navigation:navigation-testing"))
+    testImplementation(TRUTH)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
+    androidTestImplementation(TRUTH)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
 }
 
 supportLibrary {
@@ -51,4 +63,6 @@ supportLibrary {
     inceptionYear = "2018"
     description = "Android Navigation-Common-Ktx"
     url = SupportLibraryExtension.ARCHITECTURE_URL
+    // TODO useMetalava = true
+    // A bug in type parameter bound resolution causes metalava to always fail on validating the API
 }

@@ -16,7 +16,7 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
@@ -58,7 +58,7 @@ public class Slide extends Visibility {
     private int mSlideEdge = Gravity.BOTTOM;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({Gravity.LEFT, Gravity.TOP, Gravity.RIGHT, Gravity.BOTTOM, Gravity.START, Gravity.END})
     public @interface GravityFlag {
@@ -158,7 +158,7 @@ public class Slide extends Visibility {
     /**
      * Constructor using the provided slide edge direction.
      */
-    public Slide(int slideEdge) {
+    public Slide(@GravityFlag int slideEdge) {
         setSlideEdge(slideEdge);
     }
 
@@ -254,7 +254,7 @@ public class Slide extends Visibility {
         float startY = mSlideCalculator.getGoneY(sceneRoot, view);
         return TranslationAnimationCreator
                 .createAnimation(view, endValues, position[0], position[1],
-                        startX, startY, endX, endY, sDecelerate);
+                        startX, startY, endX, endY, sDecelerate, this);
     }
 
     @Override
@@ -270,7 +270,7 @@ public class Slide extends Visibility {
         float endY = mSlideCalculator.getGoneY(sceneRoot, view);
         return TranslationAnimationCreator
                 .createAnimation(view, startValues, position[0], position[1],
-                        startX, startY, endX, endY, sAccelerate);
+                        startX, startY, endX, endY, sAccelerate, this);
     }
 
 }

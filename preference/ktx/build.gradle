@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-import static androidx.build.dependencies.DependenciesKt.*
+
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension
+
+import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
     id("SupportAndroidLibraryPlugin")
     id("org.jetbrains.kotlin.android")
+}
+
+android {
+    buildTypes {
+        debug {
+            testCoverageEnabled = false // Breaks Kotlin compiler.
+        }
+    }
 }
 
 dependencies {
@@ -29,6 +38,8 @@ dependencies {
     api(KOTLIN_STDLIB)
 
     androidTestImplementation(JUNIT)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(TRUTH)
@@ -38,8 +49,9 @@ dependencies {
 supportLibrary {
     name = "Android Preferences KTX"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.PREFERENCE
     mavenGroup = LibraryGroups.PREFERENCE
     inceptionYear = "2018"
     description = "Kotlin extensions for preferences"
+    useMetalava = true
 }

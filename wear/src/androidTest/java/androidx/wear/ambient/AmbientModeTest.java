@@ -19,9 +19,9 @@ package androidx.wear.ambient;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import androidx.test.filters.MediumTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.wear.widget.util.WakeLockRule;
 
 import com.google.android.wearable.compat.WearableActivityController;
@@ -30,7 +30,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class AmbientModeTest {
     @Rule

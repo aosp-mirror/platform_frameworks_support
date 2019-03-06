@@ -16,17 +16,15 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -36,13 +34,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.collection.SparseArrayCompat;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.ComponentActivity;
 import androidx.core.app.SharedElementCallback;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -66,7 +65,6 @@ import java.util.Collection;
  * </ul>
  */
 public class FragmentActivity extends ComponentActivity implements
-        ViewModelStoreOwner,
         ActivityCompat.OnRequestPermissionsResultCallback,
         ActivityCompat.RequestPermissionsRequestCodeValidator {
     private static final String TAG = "FragmentActivity";
@@ -77,25 +75,7 @@ public class FragmentActivity extends ComponentActivity implements
     static final String REQUEST_FRAGMENT_WHO_TAG = "android:support:request_fragment_who";
     static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS = 0xffff - 1;
 
-    static final int MSG_RESUME_PENDING = 2;
-
-    final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_RESUME_PENDING:
-                    onResumeFragments();
-                    mFragments.execPendingActions();
-                    break;
-                default:
-                    super.handleMessage(msg);
-            }
-        }
-
-    };
     final FragmentController mFragments = FragmentController.createController(new HostCallbacks());
-
-    private ViewModelStore mViewModelStore;
 
     boolean mCreated;
     boolean mResumed;
@@ -127,10 +107,20 @@ public class FragmentActivity extends ComponentActivity implements
     // for startActivityForResult calls where a result has not yet been delivered.
     SparseArrayCompat<String> mPendingFragmentActivityResults;
 
-    static final class NonConfigurationInstances {
-        Object custom;
-        ViewModelStore viewModelStore;
-        FragmentManagerNonConfig fragments;
+    public FragmentActivity() {
+        super();
+        // Route onBackPressed() callbacks to the FragmentManager
+        addOnBackPressedCallback(new OnBackPressedCallback() {
+            @Override
+            public boolean handleOnBackPressed() {
+                FragmentManager fragmentManager = mFragments.getSupportFragmentManager();
+                if (fragmentManager.isStateSaved()) {
+                    // Cannot pop after state is saved
+                    return false;
+                }
+                return fragmentManager.popBackStackImmediate();
+            }
+        });
     }
 
     // ------------------------------------------------------------------------
@@ -161,7 +151,6 @@ public class FragmentActivity extends ComponentActivity implements
             }
             return;
         }
-
         ActivityCompat.PermissionCompatDelegate delegate =
                 ActivityCompat.getPermissionCompatDelegate();
         if (delegate != null && delegate.onActivityResult(this, requestCode, resultCode, data)) {
@@ -170,26 +159,6 @@ public class FragmentActivity extends ComponentActivity implements
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    /**
-     * Take care of popping the fragment back stack or finishing the activity
-     * as appropriate.
-     */
-    @Override
-    public void onBackPressed() {
-        FragmentManager fragmentManager = mFragments.getSupportFragmentManager();
-        final boolean isStateSaved = fragmentManager.isStateSaved();
-        if (isStateSaved && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
-            // Older versions will throw an exception from the framework
-            // FragmentManager.popBackStackImmediate(), so we'll just
-            // return here. The Activity is likely already on its way out
-            // since the fragmentManager has already been saved.
-            return;
-        }
-        if (isStateSaved || !fragmentManager.popBackStackImmediate()) {
-            super.onBackPressed();
-        }
     }
 
     /**
@@ -213,7 +182,7 @@ public class FragmentActivity extends ComponentActivity implements
      *
      * @param callback Used to manipulate shared element transitions on the launched Activity.
      */
-    public void setEnterSharedElementCallback(SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(@Nullable SharedElementCallback callback) {
         ActivityCompat.setEnterSharedElementCallback(this, callback);
     }
 
@@ -226,7 +195,7 @@ public class FragmentActivity extends ComponentActivity implements
      *
      * @param listener Used to manipulate shared element transitions on the launching Activity.
      */
-    public void setExitSharedElementCallback(SharedElementCallback listener) {
+    public void setExitSharedElementCallback(@Nullable SharedElementCallback listener) {
         ActivityCompat.setExitSharedElementCallback(this, listener);
     }
 
@@ -280,48 +249,18 @@ public class FragmentActivity extends ComponentActivity implements
      * Dispatch configuration change to all fragments.
      */
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mFragments.noteStateNotSaved();
         mFragments.dispatchConfigurationChanged(newConfig);
     }
 
     /**
-     * Returns the {@link ViewModelStore} associated with this activity
-     *
-     * @return a {@code ViewModelStore}
-     * @throws IllegalStateException if called before the Activity is attached to the Application
-     * instance i.e., before onCreate()
+     * Returns the context to be used for inflating any fragment view hierarchies.
      */
     @NonNull
-    @Override
-    public ViewModelStore getViewModelStore() {
-        if (getApplication() == null) {
-            throw new IllegalStateException("Your activity is not yet attached to the "
-                    + "Application instance. You can't request ViewModel before onCreate call.");
-        }
-        if (mViewModelStore == null) {
-            NonConfigurationInstances nc =
-                    (NonConfigurationInstances) getLastNonConfigurationInstance();
-            if (nc != null) {
-                // Restore the ViewModelStore from NonConfigurationInstances
-                mViewModelStore = nc.viewModelStore;
-            }
-            if (mViewModelStore == null) {
-                mViewModelStore = new ViewModelStore();
-            }
-        }
-        return mViewModelStore;
-    }
-
-    /**
-     * Returns the Lifecycle of the provider.
-     *
-     * @return The lifecycle of the provider.
-     */
-    @Override
-    public Lifecycle getLifecycle() {
-        return super.getLifecycle();
+    public Context getThemedContext() {
+        return this;
     }
 
     /**
@@ -334,14 +273,9 @@ public class FragmentActivity extends ComponentActivity implements
 
         super.onCreate(savedInstanceState);
 
-        NonConfigurationInstances nc =
-                (NonConfigurationInstances) getLastNonConfigurationInstance();
-        if (nc != null && nc.viewModelStore != null && mViewModelStore == null) {
-            mViewModelStore = nc.viewModelStore;
-        }
         if (savedInstanceState != null) {
             Parcelable p = savedInstanceState.getParcelable(FRAGMENTS_TAG);
-            mFragments.restoreAllState(p, nc != null ? nc.fragments : null);
+            mFragments.restoreSaveState(p);
 
             // Check if there are any pending onActivityResult calls to descendent Fragments.
             if (savedInstanceState.containsKey(NEXT_CANDIDATE_REQUEST_INDEX_TAG)) {
@@ -373,7 +307,7 @@ public class FragmentActivity extends ComponentActivity implements
      * Dispatch to Fragment.onCreateOptionsMenu().
      */
     @Override
-    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+    public boolean onCreatePanelMenu(int featureId, @NonNull Menu menu) {
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean show = super.onCreatePanelMenu(featureId, menu);
             show |= mFragments.dispatchCreateOptionsMenu(menu, getMenuInflater());
@@ -383,7 +317,9 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+    @Nullable
+    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context,
+            @NonNull AttributeSet attrs) {
         final View v = dispatchFragmentsOnCreateView(parent, name, context, attrs);
         if (v == null) {
             return super.onCreateView(parent, name, context, attrs);
@@ -392,7 +328,9 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
+    @Nullable
+    public View onCreateView(@NonNull String name, @NonNull Context context,
+            @NonNull AttributeSet attrs) {
         final View v = dispatchFragmentsOnCreateView(null, name, context, attrs);
         if (v == null) {
             return super.onCreateView(name, context, attrs);
@@ -400,8 +338,9 @@ public class FragmentActivity extends ComponentActivity implements
         return v;
     }
 
-    final View dispatchFragmentsOnCreateView(View parent, String name, Context context,
-            AttributeSet attrs) {
+    @Nullable
+    final View dispatchFragmentsOnCreateView(@Nullable View parent, @NonNull String name,
+            @NonNull Context context, @NonNull AttributeSet attrs) {
         return mFragments.onCreateView(parent, name, context, attrs);
     }
 
@@ -411,11 +350,6 @@ public class FragmentActivity extends ComponentActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (mViewModelStore != null && !isChangingConfigurations()) {
-            mViewModelStore.clear();
-        }
-
         mFragments.dispatchDestroy();
     }
 
@@ -432,7 +366,7 @@ public class FragmentActivity extends ComponentActivity implements
      * Dispatch context and options menu to fragments.
      */
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onMenuItemSelected(int featureId, @NonNull MenuItem item) {
         if (super.onMenuItemSelected(featureId, item)) {
             return true;
         }
@@ -453,7 +387,7 @@ public class FragmentActivity extends ComponentActivity implements
      * Call onOptionsMenuClosed() on fragments.
      */
     @Override
-    public void onPanelClosed(int featureId, Menu menu) {
+    public void onPanelClosed(int featureId, @NonNull Menu menu) {
         switch (featureId) {
             case Window.FEATURE_OPTIONS_PANEL:
                 mFragments.dispatchOptionsMenuClosed(menu);
@@ -469,10 +403,6 @@ public class FragmentActivity extends ComponentActivity implements
     protected void onPause() {
         super.onPause();
         mResumed = false;
-        if (mHandler.hasMessages(MSG_RESUME_PENDING)) {
-            mHandler.removeMessages(MSG_RESUME_PENDING);
-            onResumeFragments();
-        }
         mFragments.dispatchPause();
     }
 
@@ -487,7 +417,8 @@ public class FragmentActivity extends ComponentActivity implements
      * because the fragment manager thinks the state is still saved.
      */
     @Override
-    protected void onNewIntent(Intent intent) {
+    @CallSuper
+    protected void onNewIntent(@SuppressLint("UnknownNullness") Intent intent) {
         super.onNewIntent(intent);
         mFragments.noteStateNotSaved();
     }
@@ -503,17 +434,13 @@ public class FragmentActivity extends ComponentActivity implements
     /**
      * Dispatch onResume() to fragments.  Note that for better inter-operation
      * with older versions of the platform, at the point of this call the
-     * fragments attached to the activity are <em>not</em> resumed.  This means
-     * that in some cases the previous state may still be saved, not allowing
-     * fragment transactions that modify the state.  To correctly interact
-     * with fragments in their proper state, you should instead override
-     * {@link #onResumeFragments()}.
+     * fragments attached to the activity are <em>not</em> resumed.
      */
     @Override
     protected void onResume() {
         super.onResume();
-        mHandler.sendEmptyMessage(MSG_RESUME_PENDING);
         mResumed = true;
+        mFragments.noteStateNotSaved();
         mFragments.execPendingActions();
     }
 
@@ -523,9 +450,7 @@ public class FragmentActivity extends ComponentActivity implements
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        mHandler.removeMessages(MSG_RESUME_PENDING);
         onResumeFragments();
-        mFragments.execPendingActions();
     }
 
     /**
@@ -542,8 +467,8 @@ public class FragmentActivity extends ComponentActivity implements
      * Dispatch onPrepareOptionsMenu() to fragments.
      */
     @Override
-    public boolean onPreparePanel(int featureId, View view, Menu menu) {
-        if (featureId == Window.FEATURE_OPTIONS_PANEL && menu != null) {
+    public boolean onPreparePanel(int featureId, @Nullable View view, @NonNull Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean goforit = onPrepareOptionsPanel(view, menu);
             goforit |= mFragments.dispatchPrepareOptionsMenu(menu);
             return goforit;
@@ -553,39 +478,19 @@ public class FragmentActivity extends ComponentActivity implements
 
     /**
      * @hide
+     * @deprecated Override {@link #onPreparePanel(int, View, Menu)}.
      */
-    @RestrictTo(LIBRARY_GROUP)
-    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Deprecated
+    protected boolean onPrepareOptionsPanel(@Nullable View view, @NonNull Menu menu) {
         return super.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, view, menu);
-    }
-
-    /**
-     * Retain all appropriate fragment state.  You can NOT
-     * override this yourself!  Use {@link #onRetainCustomNonConfigurationInstance()}
-     * if you want to retain your own state.
-     */
-    @Override
-    public final Object onRetainNonConfigurationInstance() {
-        Object custom = onRetainCustomNonConfigurationInstance();
-
-        FragmentManagerNonConfig fragments = mFragments.retainNestedNonConfig();
-
-        if (fragments == null && mViewModelStore == null && custom == null) {
-            return null;
-        }
-
-        NonConfigurationInstances nci = new NonConfigurationInstances();
-        nci.custom = custom;
-        nci.viewModelStore = mViewModelStore;
-        nci.fragments = fragments;
-        return nci;
     }
 
     /**
      * Save all appropriate fragment state.
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         markFragmentsCreated();
         Parcelable p = mFragments.saveAllState();
@@ -646,25 +551,6 @@ public class FragmentActivity extends ComponentActivity implements
     // ------------------------------------------------------------------------
 
     /**
-     * Use this instead of {@link #onRetainNonConfigurationInstance()}.
-     * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.
-     */
-    public Object onRetainCustomNonConfigurationInstance() {
-        return null;
-    }
-
-    /**
-     * Return the value previously returned from
-     * {@link #onRetainCustomNonConfigurationInstance()}.
-     */
-    @SuppressWarnings("deprecation")
-    public Object getLastCustomNonConfigurationInstance() {
-        NonConfigurationInstances nc = (NonConfigurationInstances)
-                getLastNonConfigurationInstance();
-        return nc != null ? nc.custom : null;
-    }
-
-    /**
      * Support library version of {@link Activity#invalidateOptionsMenu}.
      *
      * <p>Invalidate the activity's options menu. This will cause relevant presentations
@@ -689,7 +575,8 @@ public class FragmentActivity extends ComponentActivity implements
      * @param args additional arguments to the dump request.
      */
     @Override
-    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void dump(@NonNull String prefix, @Nullable FileDescriptor fd,
+            @NonNull PrintWriter writer, @Nullable String[] args) {
         super.dump(prefix, fd, writer, args);
         writer.print(prefix); writer.print("Local FragmentActivity ");
                 writer.print(Integer.toHexString(System.identityHashCode(this)));
@@ -718,13 +605,14 @@ public class FragmentActivity extends ComponentActivity implements
      * call to <code>onCreate</code>.</p>
      */
     @SuppressWarnings("unused")
-    public void onAttachFragment(Fragment fragment) {
+    public void onAttachFragment(@NonNull Fragment fragment) {
     }
 
     /**
      * Return the FragmentManager for interacting with fragments associated
      * with this activity.
      */
+    @NonNull
     public FragmentManager getSupportFragmentManager() {
         return mFragments.getSupportFragmentManager();
     }
@@ -734,6 +622,7 @@ public class FragmentActivity extends ComponentActivity implements
      * {@link LoaderManager#getInstance(LifecycleOwner) LoaderManager.getInstance(this)}.
      */
     @Deprecated
+    @NonNull
     public LoaderManager getSupportLoaderManager() {
         return LoaderManager.getInstance(this);
     }
@@ -743,7 +632,8 @@ public class FragmentActivity extends ComponentActivity implements
      * This imposes a restriction that requestCode be <= 0xffff.
      */
     @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
+    public void startActivityForResult(@SuppressLint("UnknownNullness") Intent intent,
+            int requestCode) {
         // If this was started from a Fragment we've already checked the upper 16 bits were not in
         // use, and then repurposed them for the Fragment's index.
         if (!mStartedActivityFromFragment) {
@@ -755,8 +645,8 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     @Override
-    public void startActivityForResult(Intent intent, int requestCode,
-            @Nullable Bundle options) {
+    public void startActivityForResult(@SuppressLint("UnknownNullness") Intent intent,
+            int requestCode, @Nullable Bundle options) {
         // If this was started from a Fragment we've already checked the upper 16 bits were not in
         // use, and then repurposed them for the Fragment's index.
         if (!mStartedActivityFromFragment) {
@@ -768,9 +658,9 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     @Override
-    public void startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
-            throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(@SuppressLint("UnknownNullness") IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags) throws IntentSender.SendIntentException {
         // If this was started from a Fragment we've already checked the upper 16 bits were not in
         // use, and then repurposed them for the Fragment's index.
         if (!mStartedIntentSenderFromFragment) {
@@ -783,9 +673,9 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     @Override
-    public void startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-            Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(@SuppressLint("UnknownNullness") IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, @Nullable Bundle options) throws IntentSender.SendIntentException {
         // If this was started from a Fragment we've already checked the upper 16 bits were not in
         // use, and then repurposed them for the Fragment's index.
         if (!mStartedIntentSenderFromFragment) {
@@ -865,16 +755,17 @@ public class FragmentActivity extends ComponentActivity implements
     /**
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
-    public void startActivityFromFragment(Fragment fragment, Intent intent,
-            int requestCode) {
+    public void startActivityFromFragment(@NonNull Fragment fragment,
+            @SuppressLint("UnknownNullness") Intent intent, int requestCode) {
         startActivityFromFragment(fragment, intent, requestCode, null);
     }
 
     /**
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
-    public void startActivityFromFragment(Fragment fragment, Intent intent,
-            int requestCode, @Nullable Bundle options) {
+    public void startActivityFromFragment(@NonNull Fragment fragment,
+            @SuppressLint("UnknownNullness") Intent intent, int requestCode,
+            @Nullable Bundle options) {
         mStartedActivityFromFragment = true;
         try {
             if (requestCode == -1) {
@@ -893,9 +784,10 @@ public class FragmentActivity extends ComponentActivity implements
     /**
      * Called by Fragment.startIntentSenderForResult() to implement its behavior.
      */
-    public void startIntentSenderFromFragment(Fragment fragment, IntentSender intent,
-            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
-            int extraFlags, Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderFromFragment(@NonNull Fragment fragment,
+            @SuppressLint("UnknownNullness") IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            @Nullable Bundle options) throws IntentSender.SendIntentException {
         mStartedIntentSenderFromFragment = true;
         try {
             if (requestCode == -1) {
@@ -914,7 +806,7 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     // Allocates the next available startActivityForResult request index.
-    private int allocateRequestIndex(Fragment fragment) {
+    private int allocateRequestIndex(@NonNull Fragment fragment) {
         // Sanity check that we havn't exhaused the request index space.
         if (mPendingFragmentActivityResults.size() >= MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS) {
             throw new IllegalStateException("Too many pending Fragment activity results.");
@@ -937,7 +829,7 @@ public class FragmentActivity extends ComponentActivity implements
     /**
      * Called by Fragment.requestPermissions() to implement its behavior.
      */
-    void requestPermissionsFromFragment(Fragment fragment, String[] permissions,
+    void requestPermissionsFromFragment(@NonNull Fragment fragment, @NonNull String[] permissions,
             int requestCode) {
         if (requestCode == -1) {
             ActivityCompat.requestPermissions(this, permissions, requestCode);
@@ -954,22 +846,31 @@ public class FragmentActivity extends ComponentActivity implements
         }
     }
 
-    class HostCallbacks extends FragmentHostCallback<FragmentActivity> {
+    class HostCallbacks extends FragmentHostCallback<FragmentActivity>
+            implements ViewModelStoreOwner {
         public HostCallbacks() {
             super(FragmentActivity.this /*fragmentActivity*/);
         }
 
+        @NonNull
         @Override
-        public void onDump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+        public ViewModelStore getViewModelStore() {
+            return FragmentActivity.this.getViewModelStore();
+        }
+
+        @Override
+        public void onDump(@NonNull String prefix, @Nullable FileDescriptor fd,
+                @NonNull PrintWriter writer, @Nullable String[] args) {
             FragmentActivity.this.dump(prefix, fd, writer, args);
         }
 
         @Override
-        public boolean onShouldSaveFragmentState(Fragment fragment) {
+        public boolean onShouldSaveFragmentState(@NonNull Fragment fragment) {
             return !isFinishing();
         }
 
         @Override
+        @NonNull
         public LayoutInflater onGetLayoutInflater() {
             return FragmentActivity.this.getLayoutInflater().cloneInContext(FragmentActivity.this);
         }
@@ -985,19 +886,21 @@ public class FragmentActivity extends ComponentActivity implements
         }
 
         @Override
-        public void onStartActivityFromFragment(Fragment fragment, Intent intent, int requestCode) {
+        public void onStartActivityFromFragment(@NonNull Fragment fragment, Intent intent,
+                int requestCode) {
             FragmentActivity.this.startActivityFromFragment(fragment, intent, requestCode);
         }
 
         @Override
-        public void onStartActivityFromFragment(
-                Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        public void onStartActivityFromFragment(@NonNull Fragment fragment, Intent intent,
+                int requestCode, @Nullable Bundle options) {
             FragmentActivity.this.startActivityFromFragment(fragment, intent, requestCode, options);
         }
 
         @Override
-        public void onStartIntentSenderFromFragment(Fragment fragment, IntentSender intent,
-                int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+        public void onStartIntentSenderFromFragment(
+                @NonNull Fragment fragment, IntentSender intent, int requestCode,
+                @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
                 int extraFlags, Bundle options) throws IntentSender.SendIntentException {
             FragmentActivity.this.startIntentSenderFromFragment(fragment, intent, requestCode,
                     fillInIntent, flagsMask, flagsValues, extraFlags, options);
@@ -1028,7 +931,7 @@ public class FragmentActivity extends ComponentActivity implements
         }
 
         @Override
-        public void onAttachFragment(Fragment fragment) {
+        public void onAttachFragment(@NonNull Fragment fragment) {
             FragmentActivity.this.onAttachFragment(fragment);
         }
 

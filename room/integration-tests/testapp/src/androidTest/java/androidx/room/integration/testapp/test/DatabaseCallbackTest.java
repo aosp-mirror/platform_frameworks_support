@@ -23,8 +23,11 @@ import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -32,14 +35,17 @@ import androidx.room.RoomDatabase;
 import androidx.room.integration.testapp.TestDatabase;
 import androidx.room.integration.testapp.vo.User;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +55,7 @@ public class DatabaseCallbackTest {
     @Test
     @MediumTest
     public void createAndOpen() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         TestDatabaseCallback callback1 = new TestDatabaseCallback();
         TestDatabase db1 = null;
         TestDatabase db2 = null;
@@ -88,7 +94,7 @@ public class DatabaseCallbackTest {
     @Test
     @SmallTest
     public void writeOnCreate() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         TestDatabase db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class)
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
@@ -112,6 +118,70 @@ public class DatabaseCallbackTest {
                 .build();
         List<Integer> ids = db.getUserDao().loadIds();
         assertThat(ids, is(empty()));
+    }
+
+    @Test
+    @SmallTest
+    public void exceptionOnCreate() {
+        Context context = ApplicationProvider.getApplicationContext();
+        TestDatabase db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class)
+                .addCallback(new RoomDatabase.Callback() {
+                    boolean mIsBadInsertDone;
+
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        if (!mIsBadInsertDone) {
+                            mIsBadInsertDone = true;
+                            db.insert("fake_table",
+                                    SQLiteDatabase.CONFLICT_NONE,
+                                    new ContentValues());
+                        }
+                    }
+                })
+                .build();
+
+        try {
+            db.getUserDao().loadIds();
+        } catch (SQLiteException e) {
+            // Simulate user catching DB exceptions.
+        }
+
+        // Should not throw an "IllegalStateException: attempt to re-open an already-closed"
+        List<Integer> ids = db.getUserDao().loadIds();
+        assertThat(ids, is(empty()));
+    }
+
+    @Test
+    @MediumTest
+    public void corruptExceptionOnCreate() throws IOException {
+        Context context = ApplicationProvider.getApplicationContext();
+
+        TestDatabaseCallback callback = new TestDatabaseCallback();
+
+        // Create fake DB files that will cause a SQLiteDatabaseCorruptException: SQLITE_NOTADB.
+        String[] dbFiles = new String[] {"corrupted", "corrupted-shm", "corrupted-wal"};
+        for (String fileName : dbFiles) {
+            File dbFile = context.getDatabasePath(fileName);
+            try (FileWriter fileWriter = new FileWriter(dbFile)) {
+                fileWriter.write(new char[]{'p', 'o', 'i', 's', 'o', 'n'});
+            }
+        }
+
+        TestDatabase db = Room.databaseBuilder(context, TestDatabase.class, "corrupted")
+                .addCallback(callback)
+                .build();
+
+        assertFalse(callback.mCreated);
+        assertFalse(callback.mOpened);
+
+        // Should not throw a SQLiteDatabaseCorruptException, i.e. default onCorruption() was
+        // executed and DB file was re-created.
+        List<Integer> ids = db.getUserDao().loadIds();
+        db.close();
+        assertThat(ids, is(empty()));
+
+        assertTrue(callback.mCreated);
+        assertTrue(callback.mOpened);
     }
 
     public static class TestDatabaseCallback extends RoomDatabase.Callback {

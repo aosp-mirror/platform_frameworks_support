@@ -16,19 +16,26 @@
 
 package androidx.work.worker;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
  * Worker that fails.
  */
 
 public class FailureWorker extends Worker {
+
+    public FailureWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     @Override
     public @NonNull Result doWork() {
         Log.d("FailureWorker", "Returning FAILURE");
-        return Result.FAILURE;
+        return Result.failure();
     }
 }

@@ -16,8 +16,9 @@
 
 package androidx.leanback.system;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -67,23 +68,25 @@ public class Settings {
     private Settings(Context context) {
         if (DEBUG) Log.v(TAG, "generating preferences");
         Customizations customizations = getCustomizations(context);
-        generateSetting(customizations);
+        generateSetting(customizations, context);
     }
 
     /**
      * Returns true if static shadows are recommended.
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean preferStaticShadows() {
         return mPreferStaticShadows;
     }
 
     /**
      * Returns true if view outline is disabled on low power chipset.
+     *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean isOutlineClippingDisabled() {
         return mOutlineClippingDisabled;
     }
@@ -112,7 +115,7 @@ public class Settings {
         throw new IllegalArgumentException("Invalid key");
     }
 
-    private void generateSetting(Customizations customizations) {
+    private void generateSetting(Customizations customizations, Context context) {
         if (ShadowOverlayContainer.supportsDynamicShadow()) {
             mPreferStaticShadows = false;
             if (customizations != null) {
@@ -124,7 +127,9 @@ public class Settings {
         }
 
         if (Build.VERSION.SDK_INT >= 21) {
-            mOutlineClippingDisabled = false;
+            ActivityManager activityManager = (ActivityManager)
+                    context.getSystemService(Context.ACTIVITY_SERVICE);
+            mOutlineClippingDisabled = activityManager.isLowRamDevice();
             if (customizations != null) {
                 mOutlineClippingDisabled = customizations.getBoolean(
                         "leanback_outline_clipping_disabled", mOutlineClippingDisabled);
