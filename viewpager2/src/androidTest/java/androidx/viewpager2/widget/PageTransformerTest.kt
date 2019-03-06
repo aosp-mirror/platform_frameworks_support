@@ -30,7 +30,6 @@ import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import androidx.viewpager2.widget.ViewPager2.PageTransformer
 import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.lessThan
@@ -136,8 +135,12 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
             // then
             callback.apply {
-                assertThat(events.first(), instanceOf(OnPageScrolledEvent::class.java))
-                assertThat(events.last(), instanceOf(TransformPageEvent::class.java))
+                assertThat("First event should be the call to transformPage() caused by " +
+                        "installing the recorder as PageTransformer. ${dumpEvents()}",
+                    events.first(), equalTo(TransformPageEvent(currentPage, 0f) as Event))
+                assertThat("Last event should be a call to transformPage() for the final position" +
+                        " on the targetPage. ${dumpEvents()}",
+                    events.last(), equalTo(TransformPageEvent(targetPage, 0f) as Event))
 
                 val sortOrder = if (targetPage - currentPage > 0) ASC else DESC
                 assertTransformEventsPerScrollEventAreForUniquePages()
@@ -209,7 +212,8 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
         val transformEvents get() = events.mapNotNull { it as? TransformPageEvent }
         val frames get() =
-            events.fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
+            // Drop the first event, it is not part of the events during the scroll
+            events.drop(1).fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
                 if (e is Event.OnPageScrolledEvent) {
                     groups.add(mutableListOf())
                 } else if (e is TransformPageEvent) {
@@ -247,6 +251,10 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
         }
 
         override fun onPageScrollStateChanged(state: Int) {
+        }
+
+        fun dumpEvents(): String {
+            return events.joinToString("\n- ", "\n(${scrollStateGlossary()})\n- ")
         }
     }
 
