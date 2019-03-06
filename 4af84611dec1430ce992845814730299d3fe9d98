@@ -22,6 +22,30 @@
       "revId": "4af84611dec1430ce992845814730299d3fe9d98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc30258c_8cf7a340",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-06T14:49:06Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any documentation about this but by experimenting: returning a null input stream causes a 404 HTTP response to be returned with an empty body.",
+      "parentUuid": "d27b4e66_1ce3be3f",
+      "range": {
+        "startLine": 410,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 41
+      },
+      "revId": "4af84611dec1430ce992845814730299d3fe9d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
